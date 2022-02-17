@@ -36,31 +36,27 @@ now discouraged.
 
 ### Geo indexes
 
-After an upgrade from a version below 3.10 to a version of 3.10 and
-higher, it is recommended to drop and recreate geo indexes. The reason is
-that GeoJSON polygons are interpreted slightly differently (and more
+After an upgrade to 3.10 or higher, consider to drop and recreate geo
+indexes. GeoJSON polygons are interpreted slightly differently (and more
 correctly) in the newer versions.
 
 Legacy geo indexes will continue to work and continue to produce the
-same results as in earlier versions, since they will have the flag
+same results as in earlier versions, since they will have the option
 `legacyPolygons` implicitly set to `true`.
 
 Newly created indexes will have `legacyPolygons` set to `false` by default
 and thus enable the new polygon parsing.
 
-Note that, from ArangoDB 3.10, as per the [GeoJSON
-standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"},
-linear rings are not normalized automatically. The 'interior'
-of a polygon strictly conforms to the GeoJSON standard: it lies to the left
-of the boundary line (in the direction of travel along the boundary
-line on the surface of the earth). This can be the "larger" connected
-component of the surface or the smaller one. Note that this differs
-from the < 3.10 interpretation of GeoJSON polygons (see [GEO_POLYGON old
-documentation](../3.9/indexing-geo.html#polygon)).
-
-This can mean that old polygon GeoJSON data in the database
-is suddenly interpreted in a different way.
-See [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
+Note that linear rings are not normalized automatically from version 3.10 onward,
+following the [GeoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
+The 'interior' of a polygon strictly conforms to the GeoJSON standard:
+it lies to the left of the boundary line (in the direction of travel along the
+boundary line on the surface of the Earth). This can be the "larger" connected
+component of the surface, or the smaller one. Note that this differs from the
+[interpretation of GeoJSON polygons in version 3.9](../3.9/indexing-geo.html#polygon)
+and older. This can mean that old polygon GeoJSON data in the database is
+suddenly interpreted in a different way. See
+[Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
 
 Startup options
 ---------------

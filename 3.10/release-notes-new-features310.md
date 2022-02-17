@@ -38,18 +38,18 @@ This diverges from the previous implementation in two fundamental ways:
    This allows to specify polygons that cover more than half of
    the surface of the Earth and conforms to the GeoJSON standard.
 
-For existing users that do not wish to rebuild their indices and
-continue using the previous behaviour, a flag `legacyPolygons` (see
-[Legacy Polygons](indexing-geo.html#legacy-polygons)) has
-been introduced to guarantee backwards compatibility.
-
-For existing users that wish to take advantage of the new standard behaviour,
-geo indexes need to be dropped and recreated after an
-upgrade. See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
-details and for hints about upgrading to version 3.10 or later.
-
 Additionally, the reported issues that were occasionally producing
 wrong results in geo queries when using geo indexes have been fixed.
+
+For existing users that do not wish to rebuild their geo indexes and
+continue using the previous behavior, an index option `legacyPolygons`
+has been introduced to guarantee backwards compatibility.
+
+For existing users that wish to take advantage of the new standard behavior,
+geo indexes need to be dropped and recreated after an upgrade.
+
+See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
+details and for hints about upgrading to version 3.10 or later.
 
 ### Number of filtered documents in profiling output
 

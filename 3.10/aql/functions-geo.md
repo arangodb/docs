@@ -406,7 +406,7 @@ For details about the rules, see [GeoJSON polygons](../indexing-geo.html#polygon
 - **points** (array): array of (arrays of) longitude/latitude pairs
 - returns **geoJson** (object\|null): a valid GeoJSON Polygon
 
-A validation step is performed using the S2 geometry library, if the
+A validation step is performed using the S2 geometry library. If the
 validation is not successful, an AQL warning is issued and `null` is
 returned.
 
@@ -442,7 +442,7 @@ RETURN GEO_POLYGON([
 `GEO_MULTIPOLYGON(polygons) → geoJson`
 
 Construct a GeoJSON MultiPolygon. Needs at least two Polygons inside.
-See [GEO_POLYGON()](#geo_polygon) and [GeoJSON Multipolygons](../indexing-geo.html#multipolygon) for the rules of Polygon and multipolygon construction.
+See [GEO_POLYGON()](#geo_polygon) and [GeoJSON MultiPolygons](../indexing-geo.html#multipolygon) for the rules of Polygon and MultiPolygon construction.
 
 - **polygons** (array): array of arrays of array of longitude/latitude pairs
 - returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon
