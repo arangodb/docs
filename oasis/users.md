@@ -38,12 +38,12 @@ Members are a list of users that can access an organization.
 
 ### How to add a new member to the organization
 
-1. In the main navigation, click on _People_ in the _Organization_ section.
-2. Optionally click on the _Invites_ tab.
-3. Click the _Invite new member_ button.
+1. In the main navigation, click __People__ in the __Organization__ section.
+2. Optionally click the __Invites__ tab.
+3. Click the __Invite new member__ button.
 4. In the form that appears, enter the email address of the person you want to
    invite.
-5. Press the _Create_ button.
+5. Click the __Create__ button.
 6. An email with an organization invite will now be sent to the specified
    email address.
 7. After accepting the invite the person will be added to the organization
@@ -57,8 +57,8 @@ See [My Account: How to respond to my invites](my-account.html#how-to-respond-to
 
 ### How to remove a member from the organization
 
-1. Click the _People_ link in the main navigation.
-2. Delete a member by pressing the _Trash_ icon in the _Actions_ column.
+1. Click the __People__ link in the main navigation.
+2. Delete a member by pressing the __Trash__ icon in the __Actions__ column.
 3. Confirm the deletion in the dialog that pops up
 
 {% hint 'info' %}
@@ -67,11 +67,11 @@ You cannot delete members who are organization owners.
 
 ### How to make a member an organization owner
 
-1. Click the _People_ link in the main navigation.
-2. You can convert a member to an organization owner by pressing the _Key_ icon
-   in the _Actions_ column.
-3. You can convert a member back to a normal user by pressing the _User_ icon
-   in the _Actions_ column.
+1. Click the __People__ link in the main navigation.
+2. You can convert a member to an organization owner by pressing the __Key__ icon
+   in the __Actions__ column.
+3. You can convert a member back to a normal user by pressing the __User__ icon
+   in the __Actions__ column.
 
 ## Groups
 
@@ -82,29 +82,29 @@ bindings contribute to the respective organization, project or deployment policy
 
 ### How to create a new group
 
-1. Click on _People_ in the main navigation, then on the _Groups_ tab.
-2. Press the _New group_ button.
+1. Click __People__ in the main navigation, then the __Groups__ tab.
+2. Press the __New group__ button.
 3. Enter a name and optionally a description for your new group.
 4. Select the members you want to be part of the group.
-5. Press the _Create_ button.
+5. Press the __Create__ button.
 
 ![Oasis New Group](images/oasis-new-group.png)
 
 ### How to view, edit or remove a group
 
-1. Click on _People_ in the main navigation, then on the _Groups_ tab.
-2. Click on an icon in the _Actions_ column:
-   - _Eye_: View group
-   - _Pencil_: Edit group
-   - _Trash bin_: Delete group
+1. Click __People__ in the main navigation, then the __Groups__ tab.
+2. Click an icon in the __Actions__ column:
+   - __Eye__: View group
+   - __Pencil__: Edit group
+   - __Trash bin__: Delete group
 
-You can also click on a group name to view it. There are buttons to _Edit_ and
-_Delete_ the currently viewed group.
+You can also click a group name to view it. There are buttons to __Edit__ and
+__Delete__ the currently viewed group.
 
 ![Oasis Group](images/oasis-group.png)
 
 {% hint 'info' %}
-The groups _Organization members_ and _Organization owners_ are virtual groups
+The groups __Organization members__ and __Organization owners__ are virtual groups
 and cannot be changed. They always reflect the current set of organization
 members and owners.
 {% endhint %}
@@ -117,11 +117,11 @@ See [How to add a new member to the organization](#how-to-add-a-new-member-to-th
 
 ### How to view the status of invitations
 
-1. In the main navigation, click on _People_ in the _Organization_ section.
-2. Click on the _Invites_ tab.
-3. The created invites are displayed, grouped by status _Pending_,
-   _Accepted_ and _Rejected_.
-4. You may delete pending invites by clicking on the trash can icon in the
-   _Actions_ column.
+1. In the main navigation, click __People__ in the __Organization__ section.
+2. Click the __Invites__ tab.
+3. The created invites are displayed, grouped by status __Pending__,
+   __Accepted__ and __Rejected__.
+4. You may delete pending invites by clicking the trash can icon in the
+   __Actions__ column.
 
 ![Oasis Organization Invites](images/oasis-org-invites.png)

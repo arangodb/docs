@@ -47,7 +47,7 @@ required for [cloning](#how-to-clone-deployments-using-backups).
 
 ## How to restore backups
 
-To restore a database from a backup, highlight the desired backup and click on the restore icon.
+To restore a database from a backup, highlight the desired backup and click the restore icon.
 
 {% hint 'warning' %}
 All current data will be lost when restoring.

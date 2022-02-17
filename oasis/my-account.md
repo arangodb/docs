@@ -7,13 +7,13 @@ redirect_from:
 ---
 # My Account
 
-You can access information related to your account via the _User Toolbar_.
+You can access information related to your account via the __User Toolbar__.
 The toolbar is in the top right corner in the Oasis dashboard and
 accessible from every view. There are three elements:
 
-- _Bell icon_: Notifications ([Invites](#invites))
-- _Question mark icon_: Help
-- _User icon_: My Account
+- __Bell icon__: Notifications ([Invites](#invites))
+- __Question mark icon__: Help
+- __User icon__: My Account
 
 ![Oasis My Account](images/oasis-my-account.png)
 
@@ -21,17 +21,17 @@ accessible from every view. There are three elements:
 
 ### How to view my account
 
-1. Hover or click the user icon of the _User Toolbar_ in the top right corner.
-2. Click on _Overview_ in the _My account_ section.
-3. The _Overview_ displays your name, email address, company and when the
+1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+2. Click __Overview__ in the __My account__ section.
+3. The __Overview__ displays your name, email address, company and when the
    account was created.
 
 ### How to edit the profile of my account
 
-1. Hover or click the user icon in the _User Toolbar_ in the top right corner.
-2. Click on _Overview_ in the _My account_ section.
-3. Click the _Edit_ button.
-4. Change your personal information and click on _Save_.
+1. Hover or click the user icon in the __User Toolbar__ in the top right corner.
+2. Click __Overview__ in the __My account__ section.
+3. Click the __Edit__ button.
+4. Change your personal information and __Save__.
 
 ![Oasis My Account Info](images/oasis-my-account-info.png)
 
@@ -39,19 +39,19 @@ accessible from every view. There are three elements:
 
 ### How to view my organizations
 
-1. Hover or click the user icon of the _User Toolbar_ in the top right corner.
-2. Click on _My organizations_ in the _My account_ section.
+1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+2. Click __My organizations__ in the __My account__ section.
 3. Your organizations are listed in a table.
-   Click on the organization name or the eye icon in the _Actions_ column to
+   Click the organization name or the eye icon in the __Actions__ column to
    jump to the organization overview.
 
 ### How to create a new organization
 
-1. Hover or click the user icon of the _User Toolbar_ in the top right corner.
-2. Click on _My organizations_ in the _My account_ section.
-3. Click on the _New organization_ button.
+1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+2. Click __My organizations__ in the __My account__ section.
+3. Click the __New organization__ button.
 4. Enter a name and and a description for the new organization and click the
-   _Create_ button.
+   __Create__ button.
 
 {% hint 'info' %}
 The free to try tier is limited to a single organization.
@@ -65,10 +65,10 @@ This operation cannot be undone and **all deployment data will be lost**.
 Please proceed with caution.
 {% endhint %}
 
-1. Hover or click the user icon of the _User Toolbar_ in the top right corner.
-2. Click on _My organizations_ in the _My account_ section.
-3. Click on the trash can icon in the _Actions_ column.
-4. Enter `Delete!` to confirm and click on _Yes_.
+1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+2. Click __My organizations__ in the __My account__ section.
+3. Click the trash can icon in the __Actions__ column.
+4. Enter `Delete!` to confirm and click __Yes__.
 
 {% hint 'info' %}
 If you are no longer a member of any organization, then a new organization is
@@ -126,23 +126,23 @@ authentication.
 
 ### How to view my API keys
 
-1. Hover or click the user icon of the _User Toolbar_ in the top right corner.
-2. Click on _My API keys_ in the _My account_ section.
-3. Information about the API keys are listed in the _My API keys_ section.
+1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+2. Click __My API keys__ in the __My account__ section.
+3. Information about the API keys are listed in the __My API keys__ section.
 
 ![Oasis My API keys](images/oasis-my-api-keys.png)
 
 ### How to create a new API key
 
-1. Hover or click the user icon of the _User Toolbar_ in the top right corner.
-2. Click on _My API keys_ in the _My account_ section.
-3. Click the _New API key_ button.
+1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+2. Click __My API keys__ in the __My account__ section.
+3. Click the __New API key__ button.
 4. Optionally limit the API key to a specific organization.
 5. Optionally specify after how many hours the API key should expire into the
-   _Time to live_ field.
+   __Time to live__ field.
 6. Optionally limit the API key to read-only APIs
-7. Click on the _Create_ button.
-8. Copy the API key ID and Secret, then click the _Close_ button.
+7. Click the __Create__ button.
+8. Copy the API key ID and Secret, then click the __Close__ button.
 
 {% hint 'security' %}
 The secret is only shown once at creation time.
@@ -155,12 +155,12 @@ You have to store it in a safe place.
 
 ### How to revoke or delete an API key
 
-1. Hover or click the user icon of the _User Toolbar_ in the top right corner.
-2. Click on _My API keys_ in the _My account_ section.
-3. Click on an icon in the _Actions_ column:
-   - _Counter-clockwise arrow icon_: Revoke API key
-   - _Trash can icon_: Delete API key
-4. Click the _Yes_ button to confirm.
+1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+2. Click __My API keys__ in the __My account__ section.
+3. Click an icon in the __Actions__ column:
+   - __Counter-clockwise arrow icon__: Revoke API key
+   - __Trash can icon__: Delete API key
+4. Click the __Yes__ button to confirm.
 
 {% comment %}
 TODO: Copy to clipboard button

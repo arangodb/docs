@@ -34,12 +34,12 @@ used for multiple accounts.
 ## How to create a new account
 
 1. Go to [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
-2. Click the _Start Free_ button or click the _Sign Up_ link in the top
+2. Click the __Start Free__ button or click the __Sign Up__ link in the top
    right corner.
 
    ![Oasis Homepage](images/oasis-homepage.png)
 
-3. Review the terms & conditions and privacy policy and click _I accept_.
+3. Review the terms & conditions and privacy policy and click __I accept__.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
      - For GitHub or Google please follow on-screen instructions.
@@ -48,10 +48,10 @@ used for multiple accounts.
 
      ![Oasis Sign up](images/oasis-signup.png){:style="max-height: 50vh"}
 
-   Click the _Sign up_ button. You will receive a verification email. In that
-   mail, click the _Verify my email address_ link or button.
-   It will open a page in ArangoDB Oasis that says _Welcome back!_
-5. Click the _Log in_ button to continue and login.
+   Click the __Sign up__ button. You will receive a verification email. In that
+   mail, click the __Verify my email address__ link or button.
+   It will open a page in ArangoDB Oasis that says __Welcome back!__
+5. Click the __Log in__ button to continue and login.
 6. If you signed up with an email address of a public email service provider (e.g. Hotmail),
    a form appears asking for your mobile phone number. Enter the country code
    and the number of the mobile phone you want to use for this account.
@@ -60,7 +60,7 @@ used for multiple accounts.
    code will be sent via SMS to the mobile number you entered. Enter the
    verification code.
 8. A form will appear asking for your name. Enter your first, last and company
-   name, and then press the _Save_ button.
+   name, and then press the __Save__ button.
 9. An organization with a default project will now be prepared for you.
    Once that is completed, you will be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
@@ -68,7 +68,7 @@ used for multiple accounts.
 ## Get a deployment up and running
 
 1. The first card in the Oasis Dashboard has a dropdown menu to select a cloud
-   provider and region. Pick one, click on _Create deployment_ and accept the
+   provider and region. Pick one, click __Create deployment__ and accept the
    terms and conditions.
 
    ![Oasis Dashboard](images/oasis-dashboard.png)
@@ -81,27 +81,27 @@ used for multiple accounts.
    ![Oasis Deployments Bootstrapping](images/oasis-deployments-bootstrapping.png)
 
    It takes a couple of minutes before the deployment can be used. The status
-   will change from _Bootstrapping_ to _OK_ eventually and you will also
+   will change from __Bootstrapping__ to __OK__ eventually and you will also
    receive an email when it is ready.
 
    ![Oasis Deployment Ready Email](images/oasis-deployment-ready-email.png){:style="max-height: 50vh"}
 
-3. Click on the name or the _View_ button of the deployment card (or the
-   _Open deployment details_ link in the email) to get to the deployment
+3. Click the name or the _View_ button of the deployment card (or the
+   __Open deployment details__ link in the email) to get to the deployment
    details.
 
    ![Oasis Deployment Ready](images/oasis-deployment-ready.png)
 
 4. You can copy the ArangoDB password for the root user by clicking the second
-   button below the label _ROOT PASSWORD_. Then click on the _Open endpoint_
+   button below the label __ROOT PASSWORD__. Then click the __Open endpoint__
    button to bring up the ArangoDB web interface. Enter the credentials
    (user `root` and its password) and log in.
 
 5. You can install example datasets and follow the accompanying guides to get
    started with ArangoDB and its query language. In the Oasis dashboard, click
-   on the _Examples_ tab of the deployment. Click on _Install_ of one of the
+   the __Examples__ tab of the deployment. Click __Install__ for one of the
    examples to let Oasis create a separate database and import the dataset.
-   Click on _Guide_ for instructions on how to access and run queries against
+   Click __Guide__ for instructions on how to access and run queries against
    this data.
 
    ![Oasis Deployment Examples](images/oasis-deployment-examples.png)
