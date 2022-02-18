@@ -28,24 +28,24 @@ The 3.10 release of ArangoDB conforms to the standards specified in
 and [GeoJSON Mode](indexing-geo.html#geojson-mode).
 This diverges from the previous implementation in two fundamental ways:
 
-1. The syntax of GeoJSON objects is interpreted such that lines on the
+1. The syntax of GeoJSON objects is interpreted so that lines on the
    sphere are geodesics (pieces of great circles). This is in
    particular true for boundaries of polygons. No special treatment
    of longitude-latitude-rectangles is done any more.
 
-2. Linear rings in polygons are no longer automatically normalized such
-   that the "smaller" of the two connected components is the interior.
-   This allows to specify polygons that cover more than half of
+2. Linear rings in polygons are no longer automatically normalized so
+   that the "smaller" of the two connected components are the interior.
+   This allows specifying polygons that cover more than half of
    the surface of the Earth and conforms to the GeoJSON standard.
 
-Additionally, the reported issues that were occasionally producing
-wrong results in geo queries when using geo indexes have been fixed.
+Additionally, the reported issues, which occasionally produced
+wrong results in geo queries when using geo indexes, have been fixed.
 
-For existing users that do not wish to rebuild their geo indexes and
-continue using the previous behavior, an index option `legacyPolygons`
+For existing users who do not wish to rebuild their geo indexes and
+continue using the previous behavior, the `legacyPolygons` index option 
 has been introduced to guarantee backwards compatibility.
 
-For existing users that wish to take advantage of the new standard behavior,
+For existing users who wish to take advantage of the new standard behavior,
 geo indexes need to be dropped and recreated after an upgrade.
 
 See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
