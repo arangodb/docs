@@ -102,4 +102,4 @@ module.exports = {
 **Note**: If your scripts are sharing a lot of code with each other or
 the rest of the service this can result in some overhead as the shared code
 will be included in each output file. A possible solution would be to
-extract the shared code into a separe bundle.
+extract the shared code into a separate bundle.
