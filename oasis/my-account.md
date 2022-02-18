@@ -21,14 +21,14 @@ accessible from every view. There are three elements:
 
 ### How to view my account
 
-1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+1. Hover over or click the user icon of the __User Toolbar__ in the top right corner.
 2. Click __Overview__ in the __My account__ section.
 3. The __Overview__ displays your name, email address, company and when the
    account was created.
 
 ### How to edit the profile of my account
 
-1. Hover or click the user icon in the __User Toolbar__ in the top right corner.
+1. Hover over or click the user icon in the __User Toolbar__ in the top right corner.
 2. Click __Overview__ in the __My account__ section.
 3. Click the __Edit__ button.
 4. Change your personal information and __Save__.
@@ -39,7 +39,7 @@ accessible from every view. There are three elements:
 
 ### How to view my organizations
 
-1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+1. Hover over or click the user icon of the __User Toolbar__ in the top right corner.
 2. Click __My organizations__ in the __My account__ section.
 3. Your organizations are listed in a table.
    Click the organization name or the eye icon in the __Actions__ column to
@@ -47,7 +47,7 @@ accessible from every view. There are three elements:
 
 ### How to create a new organization
 
-1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+1. Hover over or click the user icon of the __User Toolbar__ in the top right corner.
 2. Click __My organizations__ in the __My account__ section.
 3. Click the __New organization__ button.
 4. Enter a name and and a description for the new organization and click the
@@ -65,7 +65,7 @@ This operation cannot be undone and **all deployment data will be lost**.
 Please proceed with caution.
 {% endhint %}
 
-1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+1. Hover over or click the user icon of the __User Toolbar__ in the top right corner.
 2. Click __My organizations__ in the __My account__ section.
 3. Click the trash can icon in the __Actions__ column.
 4. Enter `Delete!` to confirm and click __Yes__.
@@ -93,7 +93,7 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
 1. The bell icon in the top right corner will display a badge with the number
    of pending notifications.
 2. Click the icon to get to the the _Invites_ tab of the _My account_ view.
-   You can also hover the user icon and click on _My organization invites_
+   You can also hover over the user icon and click on _My organization invites_
    to get there.
 3. On this page you can accept or reject pending invitation, as well as see
    past invites that you accepted or rejected.
@@ -126,7 +126,7 @@ authentication.
 
 ### How to view my API keys
 
-1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+1. Hover over or click the user icon of the __User Toolbar__ in the top right corner.
 2. Click __My API keys__ in the __My account__ section.
 3. Information about the API keys are listed in the __My API keys__ section.
 
@@ -134,7 +134,7 @@ authentication.
 
 ### How to create a new API key
 
-1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+1. Hover over or click the user icon of the __User Toolbar__ in the top right corner.
 2. Click __My API keys__ in the __My account__ section.
 3. Click the __New API key__ button.
 4. Optionally limit the API key to a specific organization.
@@ -155,7 +155,7 @@ You have to store it in a safe place.
 
 ### How to revoke or delete an API key
 
-1. Hover or click the user icon of the __User Toolbar__ in the top right corner.
+1. Hover over or click the user icon of the __User Toolbar__ in the top right corner.
 2. Click __My API keys__ in the __My account__ section.
 3. Click an icon in the __Actions__ column:
    - __Counter-clockwise arrow icon__: Revoke API key
