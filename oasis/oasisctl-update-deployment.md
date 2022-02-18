@@ -28,6 +28,7 @@ oasisctl update deployment [flags]
   -d, --deployment-id string                 Identifier of the deployment
       --description string                   Description of the deployment
       --disable-foxx-authentication          Disable authentication of requests to Foxx application.
+      --disk-performance-id string           Set the disk performance to use for this deployment.
   -h, --help                                 help for deployment
   -i, --ipallowlist-id string                Identifier of the IP allowlist to use for the deployment
       --max-node-disk-size int32             Set maximum disk size for nodes for autoscaler (GB)
