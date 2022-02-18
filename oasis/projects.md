@@ -51,7 +51,7 @@ This operation is **irreversible**.
 {% endhint %}
 
 1. Click __Overview__ in the __Projects__ section of the main navigation.
-2. Click a __recycle bin__ icon in the __Actions__ column.
+2. Click the __recycle bin__ icon in the __Actions__ column.
 3. Enter `Delete!` to confirm and click __Yes__.
 
 Alternatively, you can also delete a project via the project page:
