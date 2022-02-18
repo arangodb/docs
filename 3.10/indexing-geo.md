@@ -286,8 +286,7 @@ FOR x IN geo_collection
   RETURN x
 ```
 
-The first parameter of `GEO_INTERSECTS()` will usually be a polygon. Other types
-are usually not practical, although they should work.
+The first parameter of `GEO_INTERSECTS()` will usually be a polygon.
 
 The second parameter must contain the document field on that the index
 was created.
@@ -322,15 +321,15 @@ Supported geometry object types are:
 Note the following technical detail about GeoJSON: The
 [GeoJSON standard, Section 3.1.1 Position](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1){:target="_blank"}
 prescribes that lines are **cartesian lines in cylindrical coordinates**
-(longitude/latitude). However, this definition is awkward in practice,
+(longitude/latitude). However, this definition is inconvenient in practice,
 since such lines are not geodesic on the surface of the Earth.
 Furthermore, the best available algorithms for geospatial computations on Earth
 typically use geodesic lines as the boundaries of polygons on Earth.
 
 Therefore, ArangoDB uses the **syntax of the GeoJSON** standard,
-but then interpret lines (and boundaries of polygons) as
+but then interprets lines (and boundaries of polygons) as
 **geodesic lines (pieces of great circles) on Earth**. This is a
-violation of the GeoJSON standard, but one which is sensible in practice.
+violation of the GeoJSON standard, but serving a practical purpose.
 
 Note in particular that this can sometimes lead to unexpected results.
 Consider the following polygon (remember that GeoJSON has
