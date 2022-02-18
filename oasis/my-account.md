@@ -112,7 +112,7 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
 
 1. Once invited, you will receive an email asking to join your
    ArangoDB Oasis organization, as well as a notification in the Oasis dashboard.
-2. Click the __View my organization invites__ link in the email, or hover the
+2. Click the __View my organization invites__ link in the email, or hover over the
    user icon in the top right corner of the dashboard and click
    __My organization invites__.
    ![Oasis Organization Invite Notification](images/oasis-org-invite-notification.png)
