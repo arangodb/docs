@@ -18,12 +18,12 @@ Make sure that you have already [signed up for Oasis](https://cloud.arangodb.com
 ## Creating an API key
 
 1. Go to [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"} and login.
-2. Click on the user icon in the top-right of the dashboard.
-3. Select _My API keys_
-4. Click _New API key_
-5. Click on _Create_ to select the default settings.
-6. You'll now see a dialog showing the _API key ID_ and
-   the _API key Secret_. This is the only time you will see
+2. Click the user icon in the top-right of the dashboard.
+3. Select __My API keys__
+4. Click __New API key__
+5. Click __Create__ to select the default settings.
+6. You'll now see a dialog showing the __API key ID__ and
+   the __API key Secret__. This is the only time you will see
    the secret, so make sure to store it in a safe place.
 
 ## Create an access token with your API key

@@ -25,8 +25,8 @@ automatically created for you. What is still missing is a deployment.
 
 ## Take the tour
 
-In the top right corner you find the _User toolbar_. Click the icon with the
-question mark to bring up the help menu and choose _Start tour_. This guided
+In the top right corner you find the __User toolbar__. Click the icon with the
+question mark to bring up the help menu and choose __Start tour__. This guided
 tour walks you through the creation of a deployment and shows you how to load
 example datasets and manage projects and deployments.
 
