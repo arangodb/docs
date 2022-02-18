@@ -9,9 +9,8 @@ redirect_from:
 
 You can access information related to your account via the __User Toolbar__.
 The toolbar is in the top right corner in the Oasis dashboard and
-accessible from every view. There are three elements:
+accessible from every view. There are two elements:
 
-- __Bell icon__: Notifications ([Invites](#invites))
 - __Question mark icon__: Help
 - __User icon__: My Account
 
@@ -88,33 +87,39 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
 
 ### How to respond to my invites
 
-#### I am already member of an organization
-
-1. The bell icon in the top right corner will display a badge with the number
-   of pending notifications.
-2. Click the icon to get to the the _Invites_ tab of the _My account_ view.
-   You can also hover over the user icon and click on _My organization invites_
-   to get there.
-3. On this page you can accept or reject pending invitation, as well as see
-   past invites that you accepted or rejected.
-
 #### I am not a member of an organization yet
 
-1. Once invited, you will receive an email with a link asking to join your
+1. Once invited, you will receive an email asking to join your
    ArangoDB Oasis organization.
-2. After the confirmation link is clicked, you will be asked to log in or to
-   create a new account.
-3. To sign up for a new account, click the _Sign up for free_ button or the
-   _Sign up_ link in the header navigation.
+   ![Oasis Organization Invite Email](images/oasis-org-invite-email.png)
+2. Click the __View my organization invite__ link in the email. You will be
+   asked to log in or to create a new account.
+3. To sign up for a new account, click the __Start Free__ button or the
+   __Sign up__ link in the header navigation.
+   ![Oasis Homepage](images/oasis-homepage.png)
 4. After successfully signing up, you will receive a verification email.
-5. Clicking the confirmation link takes you back to the ArangoDB Oasis site.
+5. Click the __Verify my email address__ link in the email. It takes you back
+   to the ArangoDB Oasis site.
+   ![Oasis Organization Invite Email Verify](images/oasis-org-invite-email-verify.png)
 6. After successfully logging in, you can accept or reject the invite to
    join your organization.
+   ![Oasis Organization Invite](images/oasis-org-invite.png)
 7. After accepting the invite, you become a member of your organization and
    will be granted access to the organization and its related projects and
    deployments.
 
-![Oasis Organization Invite Email](images/oasis-org-invite-email.png)
+#### I am already a member of an organization
+
+1. Once invited, you will receive an email asking to join your
+   ArangoDB Oasis organization, as well as a notification in the Oasis dashboard.
+2. Click the __View my organization invites__ link in the email, or hover over the
+   user icon in the top right corner of the dashboard and click
+   __My organization invites__.
+   ![Oasis Organization Invite Notification](images/oasis-org-invite-notification.png)
+3. On the __Invites__ tab of the __My account__ view, you can accept or reject
+   pending invitations, as well as see past invitations that you accepted or
+   rejected. Click the button with a checkmark icon to join the organization.
+   ![Oasis Organization Invites Accept](images/oasis-org-invites-accept.png)
 
 ## API Keys
 
