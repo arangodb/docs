@@ -49,7 +49,7 @@ All documents, that do not have the attribute path or have a non-conforming
 value in it, are excluded from the index.
 
 A geo index is implicitly sparse, and there is no way to control its
-sparseness.
+sparsity.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
@@ -88,7 +88,7 @@ All documents, which do not have the attribute path(s) or have a non-conforming
 value in it, are excluded from the index.
 
 A geo index is implicitly sparse, and there is no way to control its
-sparseness.
+sparsity.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
@@ -622,7 +622,7 @@ All documents, which do not have the attribute path or have a non-conforming
 value in it, are excluded from the index.
 
 A geo index is implicitly sparse, and there is no way to control its
-sparseness.
+sparsity.
 
 The index does not provide a `unique` option because of its limited usability.
 It would prevent identical coordinates from being inserted only, but even a
