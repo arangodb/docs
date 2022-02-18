@@ -189,7 +189,7 @@ To take out a _Coordinator_ stop the
 _Coordinator_'s instance by issuing `kill -SIGTERM <pid>`.
 
 Ca. 15 seconds later the cluster UI on any other _Coordinator_ will mark
-the _Coordinator_ in question as failed. Almost simultaneously, a trash bin
+the _Coordinator_ in question as failed. Almost simultaneously, a recycle bin
 icon will appear to the right of the name of the _Coordinator_. Clicking
 that icon will remove the _Coordinator_ from the Coordinator registry.
 
@@ -218,7 +218,7 @@ issued to any _Coordinator_ of the cluster:
 
 `curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"server":"DBServer004"}'`
 
-After the _DB-Server_ has been cleaned out, you will find a trash bin
+After the _DB-Server_ has been cleaned out, you will find a recycle bin
 icon to the right of the name of the _DB-Server_ on any _Coordinators_'
 UI. Clicking on it will remove the _DB-Server_ in question from the
 cluster.

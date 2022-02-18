@@ -67,7 +67,7 @@ Please proceed with caution.
 
 1. Hover over or click the user icon of the __User Toolbar__ in the top right corner.
 2. Click __My organizations__ in the __My account__ section.
-3. Click the trash can icon in the __Actions__ column.
+3. Click the __recycle bin__ icon in the __Actions__ column.
 4. Enter `Delete!` to confirm and click __Yes__.
 
 {% hint 'info' %}
@@ -159,7 +159,7 @@ You have to store it in a safe place.
 2. Click __My API keys__ in the __My account__ section.
 3. Click an icon in the __Actions__ column:
    - __Counter-clockwise arrow icon__: Revoke API key
-   - __Trash can icon__: Delete API key
+   - __Recycle bin icon__: Delete API key
 4. Click the __Yes__ button to confirm.
 
 {% comment %}

@@ -58,7 +58,7 @@ See [My Account: How to respond to my invites](my-account.html#how-to-respond-to
 ### How to remove a member from the organization
 
 1. Click the __People__ link in the main navigation.
-2. Delete a member by pressing the __Trash__ icon in the __Actions__ column.
+2. Delete a member by pressing the __recycle bin__ icon in the __Actions__ column.
 3. Confirm the deletion in the dialog that pops up
 
 {% hint 'info' %}
@@ -96,7 +96,7 @@ bindings contribute to the respective organization, project or deployment policy
 2. Click an icon in the __Actions__ column:
    - __Eye__: View group
    - __Pencil__: Edit group
-   - __Trash bin__: Delete group
+   - __Recycle bin__: Delete group
 
 You can also click a group name to view it. There are buttons to __Edit__ and
 __Delete__ the currently viewed group.
@@ -121,7 +121,7 @@ See [How to add a new member to the organization](#how-to-add-a-new-member-to-th
 2. Click the __Invites__ tab.
 3. The created invites are displayed, grouped by status __Pending__,
    __Accepted__ and __Rejected__.
-4. You may delete pending invites by clicking the trash can icon in the
+4. You may delete pending invites by clicking the __recycle bin__ icon in the
    __Actions__ column.
 
 ![Oasis Organization Invites](images/oasis-org-invites.png)
