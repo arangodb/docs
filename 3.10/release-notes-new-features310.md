@@ -21,6 +21,36 @@ UI
 AQL
 ---
 
+### GeoJSON changes
+
+The 3.10 release of ArangoDB conforms to the standards specified in 
+[GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}
+and [GeoJSON Mode](indexing-geo.html#geojson-mode).
+This diverges from the previous implementation in two fundamental ways:
+
+1. The syntax of GeoJSON objects is interpreted so that lines on the
+   sphere are geodesics (pieces of great circles). This is in
+   particular true for boundaries of polygons. No special treatment
+   of longitude-latitude-rectangles is done any more.
+
+2. Linear rings in polygons are no longer automatically normalized so
+   that the "smaller" of the two connected components are the interior.
+   This allows specifying polygons that cover more than half of
+   the surface of the Earth and conforms to the GeoJSON standard.
+
+Additionally, the reported issues, which occasionally produced
+wrong results in geo queries when using geo indexes, have been fixed.
+
+For existing users who do not wish to rebuild their geo indexes and
+continue using the previous behavior, the `legacyPolygons` index option 
+has been introduced to guarantee backwards compatibility.
+
+For existing users who wish to take advantage of the new standard behavior,
+geo indexes need to be dropped and recreated after an upgrade.
+
+See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
+details and for hints about upgrading to version 3.10 or later.
+
 ### Number of filtered documents in profiling output
 
 The AQL query profiling output now shows the number of filtered inputs for each execution node

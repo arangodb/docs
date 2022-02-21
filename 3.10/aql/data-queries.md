@@ -338,5 +338,5 @@ the RocksDB engine.
 In a cluster, AQL data-modification queries are currently not executed transactionally.
 Additionally, *update*, *replace*, *upsert* and *remove* AQL queries currently 
 require the *_key* attribute to be specified for all documents that should be 
-modified or removed, even if a shared key attribute other than *_key* was chosen 
-for the collection. This restriction may be overcome in a future release of ArangoDB.
+modified or removed, even if a shard key attribute other than *_key* was chosen 
+for the collection.
