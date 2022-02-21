@@ -25,6 +25,16 @@ For the metrics APIs at `/_admin/metrics` and `/_admin/metrics/v2`, unnecessary 
 
 ### Endpoints augmented
 
+APIs that return data from ArangoDB's write-ahead log (WAL) may now return
+collection truncate markers in the cluster, too. Previously such truncate
+markers were only issued in single server and active failover mode, but not
+in cluster. Client applications that tail ArangoDB's WAL are thus supposed
+to handle WAL markers of type `2004`.
+
+The following HTTP APIs are affected:
+* `/_api/wal/tail`
+* `/_api/replication/logger-follow`
+
 #### Cursor API
 
 The cursor API can now return two additional statistics values in its `stats` subattribute:
