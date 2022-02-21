@@ -210,7 +210,7 @@ globally unique id to identify this view. The field _data_ contains the view def
     "consolidate": {
       "segmentThreshold": 300,
       "threshold": 0.8500000238418579,
-      "type": "bytes_accum"
+      "type": "tier"
     },
     "deleted": false,
     "globallyUniqueId": "hD15F8FE99859/322",
@@ -257,7 +257,7 @@ globally unique id to identify this view. The *data* attribute contain the updat
     "consolidate": {
       "segmentThreshold": 300,
       "threshold": 0.8500000238418579,
-      "type": "bytes_accum"
+      "type": "tier"
     },
     "deleted": false,
     "globallyUniqueId": "hD15F8FE99859/457",
