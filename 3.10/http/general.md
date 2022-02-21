@@ -346,8 +346,7 @@ HTTP layer:
 - client requests using an HTTP version signature different than `HTTP/1.0` or
   `HTTP/1.1` will get an **HTTP 505** (HTTP Version Not Supported) error in return.
 - ArangoDB will reject client requests with a negative value in the
-  `Content-Length` request header by closing the connection, not with
-  **HTTP 411** (Length Required).
+  `Content-Length` request header by closing the connection.
 - ArangoDB doesn't support POST with `Transfer-Encoding: chunked` which forbids
   the `Content-Length` header above.
 - the maximum URL length accepted by ArangoDB is 16K. Incoming requests with
@@ -362,7 +361,7 @@ HTTP layer:
   body of the request, ArangoDB will wait for about 90 seconds for the client to
   complete its request. If the client does not send the remaining body data
   within this time, ArangoDB will close the connection. Clients should avoid
-  sending such malformed requests as this will block one tcp connection,
+  sending such malformed requests as this will block one TCP connection,
   and may lead to a temporary file descriptor leak.
 - when clients send a body or a `Content-Length` value bigger than the maximum
   allowed value (1 GB), ArangoDB will respond with **HTTP 413** (Payload Too Large).
