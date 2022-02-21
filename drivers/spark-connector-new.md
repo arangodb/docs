@@ -1,10 +1,10 @@
 ---
 layout: default
-description: ArangoDB Spark Datasource allows batch reading and writing Spark DataFrame data
+description: ArangoDB Datasource for Apache Spark allows batch reading and writing Spark DataFrame data
 ---
-# ArangoDB Spark Datasource
+# ArangoDB Datasource for Apache Spark
 
-ArangoDB Spark Datasource allows batch reading and writing Spark DataFrame data from and to ArangoDB, by implementing the Spark Data Source V2 API.
+ArangoDB Datasource for Apache Spark allows batch reading and writing Spark DataFrame data from and to ArangoDB, by implementing the Spark Data Source V2 API.
 
 Reading tasks are parallelized according to the number of shards of the related ArangoDB collection, and the writing ones - depending on the source DataFrame partitions. The network traffic is load balanced across the available DB Coordinators.
 
@@ -28,7 +28,7 @@ In the following sections the `${sparkVersion}` and `${scalaVersion}` placeholde
 
 ## Setup
 
-To import ArangoDB Spark Datasource in a maven project:
+To import ArangoDB Datasource for Apache Spark in a maven project:
 
 ```xml
   <dependencies>
@@ -337,5 +337,5 @@ df.write
 
 ## Demo
 
-Check out our [demo](https://github.com/arangodb/arangodb-spark-datasource/tree/main/demo) to learn more about the new ArangoDB Spark Datasource.
+Check out our [demo](https://github.com/arangodb/arangodb-spark-datasource/tree/main/demo) to learn more about ArangoDB Datasource for Apache Spark.
 
