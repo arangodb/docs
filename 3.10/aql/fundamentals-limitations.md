@@ -19,6 +19,11 @@ The following hard-coded limitations exist for AQL queries:
 - Expressions in AQL queries cannot have a nesting of more than _500_ levels.
   As an example, the expression `1 + 2 + 3 + 4` is 3 levels deep
   (because it is interpreted and executed as `1 + (2 + (3 + 4))`).
+- When reading any data from JSON or VelocyPack input or when serializing
+  any data to JSON or VelocyPack, there is a maximum recursion depth for 
+  nested arrays and objects, which is slightly below 200. Arrays or Objects
+  with higher nesting than this will cause `Too deep nesting in Array/Object`
+  exceptions.
 
 Please note that even queries that are still below these limits may not
 yield good performance, especially when they have to put together data from lots

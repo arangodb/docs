@@ -86,6 +86,17 @@ of the previous versions by setting the `--rocksdb.cache-index-and-filter-blocks
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
 
+Maximum Array / Object nesting
+------------------------------
+
+When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
+VelocyPack, there is a maximum recursion depth for nested arrays and objects, which is slightly 
+below 200. Arrays or Objects with higher nesting than this will cause `Too deep nesting in Array/Object`
+exceptions. 
+The limit is also enforced when converting any server data to JavaScript in Foxx, or
+when sending JavaScript input data from Foxx to a server API.
+This maximum recursion depth is hard-coded in arangod and all client tools.
+
 Client tools
 ------------
 
