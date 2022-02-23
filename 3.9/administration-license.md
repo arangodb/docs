@@ -12,7 +12,7 @@ There is also an [HTTP API](http/license.html).
 ## Initial Installation
 
 The first installation of any ArangoDB Enterprise Edition instance can be
-immediately used for testing without restrictions for one hour.
+immediately used for testing without restrictions for three hours.
 
 In the email with the download link you will find a fully featured but
 time-wise limited license that allows you to continue testing for two weeks.
@@ -32,6 +32,26 @@ quotes as shown above.
 ```
 
 Your license has now been applied.
+
+## License renewals
+
+Later renewals and changes to the license are performed in the
+same way as the initial installation using the `arangosh` command above.
+The difference to the initial installation is that there will be no new
+grace period. An existing license merely expires. It is thus important
+that one renews the license ahead of time.
+
+Warnings will start reminding the user from one week prior to
+expiry in the UI, in arangosh and in the log files. Please refer to the
+monitoring section below for sustained awareness of the license status.
+
+Accidental application of an inferior license to the currently applied,
+i.e. with earlier expiry, is only possible by overriding
+this safety mechanism as follows:
+
+```js
+127.0.0.1:8529@_system> db._setLicense("<license-string>", {"force": true});
+```
 
 ## Checking Your License
 

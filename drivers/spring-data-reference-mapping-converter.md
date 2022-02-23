@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Converter
+title: Spring Data ArangoDB - Converter
 ---
 # Converter
 

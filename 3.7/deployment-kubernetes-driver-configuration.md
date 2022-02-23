@@ -14,7 +14,7 @@ The exact methods to configure a driver are specific to that driver.
 The endpoint(s) (or URLs) to communicate with is the most important
 parameter your need to configure in your driver.
 
-Finding the right endpoints depend on wether your client application is running in
+Finding the right endpoints depend on whether your client application is running in
 the same Kubernetes cluster as the ArangoDB deployment or not.
 
 ### Client application in same Kubernetes cluster

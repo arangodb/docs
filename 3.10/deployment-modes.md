@@ -6,7 +6,6 @@ Deploying Options by ArangoDB _Deployment Mode_
 ===============================================
 
 - [Single instance](deployment-single-instance.html)
-- [Leader/Follower](deployment-leader-follower.html)
 - [Active Failover](deployment-active-failover.html)
 - [Cluster](deployment-cluster.html)
 - [Multiple Datacenters](deployment-dc2-dc.html) 

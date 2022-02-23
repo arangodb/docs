@@ -196,3 +196,14 @@ be avoided.
 It can also be advantageous to decrease `maxProjections` to _avoid_ using
 projections if the cost of projections is higher than doing copies of the
 full documents. This can be the case for very small documents.
+
+### `lookahead`
+
+The multi-dimensional index type `zkd` supports an optional index hint for
+tweaking performance:
+
+```js
+FOR … IN … OPTIONS { lookahead: 32 }
+```
+
+See [Multi-dimensional indexes](../indexing-multi-dim.html#lookahead-index-hint).

@@ -98,26 +98,6 @@
     "section" : "",
     "type" : "uint64"
   },
-  "concurrency" : {
-    "category" : "option",
-    "default" : 32,
-    "deprecatedIn" : null,
-    "description" : "number of parallel threads and connections",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "",
-    "type" : "uint64"
-  },
   "config" : {
     "category" : "option",
     "default" : "",
@@ -189,6 +169,28 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "string"
+  },
+  "custom-query-bindvars" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "bind parameters to be used in the 'custom-query' testcase.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -916,6 +918,29 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.structured-param" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "toggle usage of log category parameter in structured log messages",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string..."
+  },
   "log.thread" : {
     "category" : "option",
     "default" : false,
@@ -1409,6 +1434,28 @@
     "section" : "",
     "type" : "string",
     "values" : "Possible values: \"aqlinsert\", \"collection\", \"crud\", \"crud-append\", \"crud-write-read\", \"custom-query\", \"document\", \"edge\", \"import-document\", \"persistent-index\", \"version\""
+  },
+  "threads" : {
+    "category" : "option",
+    "default" : 32,
+    "deprecatedIn" : null,
+    "description" : "number of parallel threads and connections",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint64"
   },
   "version" : {
     "category" : "command",

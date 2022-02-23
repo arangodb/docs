@@ -25,6 +25,7 @@ oasisctl update ipallowlist [flags]
       --name string                 Name of the CA certificate
   -o, --organization-id string      Identifier of the organization
   -p, --project-id string           Identifier of the project
+      --remote-inspection-allowed   If set, remote connectivity checks by the Oasis platform are allowed
       --remove-cidr-range strings   List of CIDR ranges to remove from the IP allowlist
 ```
 

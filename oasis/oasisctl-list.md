@@ -41,6 +41,7 @@ oasisctl list [flags]
 * [oasisctl list cacertificates](oasisctl-list-cacertificates.html)	 - List all CA certificates of the given project
 * [oasisctl list cpusizes](oasisctl-list-cpusizes.html)	 - List CPU sizes
 * [oasisctl list deployments](oasisctl-list-deployments.html)	 - List all deployments of the given project
+* [oasisctl list diskperformances](oasisctl-list-diskperformances.html)	 - List disk performances
 * [oasisctl list effective](oasisctl-list-effective.html)	 - List effective information
 * [oasisctl list example](oasisctl-list-example.html)	 - List example ...
 * [oasisctl list examples](oasisctl-list-examples.html)	 - List all example datasets

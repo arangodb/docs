@@ -154,9 +154,6 @@ noteworthy however and intended to be used by the user:
     can load example graphs (creates collections, populates them with documents
     and creates named graphs)
 
-- [**@arangodb/replication**](administration-leader-follower.html)
-  is used for setting up and synchronizing data for _Leader/Follower_ replication.
-
 - [**@arangodb/request**](appendix-java-script-modules-request.html)
   provides the functionality for making synchronous HTTP/HTTPS requests.
 
@@ -168,6 +165,10 @@ noteworthy however and intended to be used by the user:
 
 Bundled NPM Modules
 -------------------
+
+{% hint 'info' %}
+The following bundled NPM modules have been deprecated in 3.9 and will be removed in a future version of ArangoDB. If you want to use NPM modules in your Foxx service, please refer to the [Foxx guide](foxx-guides-bundled-node-modules.html).
+{% endhint %}
 
 The following [NPM modules](https://www.npmjs.com){:target="_blank"}
 are preinstalled:

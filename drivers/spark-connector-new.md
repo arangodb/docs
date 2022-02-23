@@ -1,10 +1,10 @@
 ---
 layout: default
-description: ArangoDB Spark Datasource allows batch reading and writing Spark DataFrame data
+description: ArangoDB Datasource for Apache Spark allows batch reading and writing Spark DataFrame data
 ---
-# ArangoDB Spark Datasource
+# ArangoDB Datasource for Apache Spark
 
-ArangoDB Spark Datasource allows batch reading and writing Spark DataFrame data from and to ArangoDB, by implementing the Spark Data Source V2 API.
+ArangoDB Datasource for Apache Spark allows batch reading and writing Spark DataFrame data from and to ArangoDB, by implementing the Spark Data Source V2 API.
 
 Reading tasks are parallelized according to the number of shards of the related ArangoDB collection, and the writing ones - depending on the source DataFrame partitions. The network traffic is load balanced across the available DB Coordinators.
 
@@ -28,7 +28,7 @@ In the following sections the `${sparkVersion}` and `${scalaVersion}` placeholde
 
 ## Setup
 
-To import ArangoDB Spark Datasource in a maven project:
+To import ArangoDB Datasource for Apache Spark in a maven project:
 
 ```xml
   <dependencies>
@@ -90,7 +90,7 @@ The connector can read data from:
 - a collection
 - an AQL cursor (query specified by the user)
 
-When reading data from a **collection**, the reading job is split into many Spark tasks, one for each shard in the ArangoDB source collection. The resulting Spark DataFrame has the same number of partitions as the number of shards in the ArangoDB collection, each one containing the data of the respective collection shard. The reading tasks are load balanced across all the available ArangoDB Coordinators and each task will hit only one DB-Server - the one holding the related shard. The data is read through an AQL query supplying the related shard id in the `shardIds` option, so that it will be executed locally in the DB-Server holding the shard and will return only data from that shard.
+When reading data from a **collection**, the reading job is split into many Spark tasks, one for each shard in the ArangoDB source collection. The resulting Spark DataFrame has the same number of partitions as the number of shards in the ArangoDB collection, each one containing data from the respective collection shard. The reading tasks consist of AQL queries that are load balanced across all the available ArangoDB Coordinators. Each query is related to only one shard, therefore it will be executed locally in the DB-Server holding the related shard.
 
 When reading data from an **AQL cursor**, the reading job cannot be partitioned or parallelized, so it will be less scalable. This mode can be used for reading data coming from different tables, i.e. resulting from an AQL traversal query.
 
@@ -337,5 +337,5 @@ df.write
 
 ## Demo
 
-Check out our [demo](https://github.com/arangodb/arangodb-spark-datasource/tree/main/demo) to learn more about the new ArangoDB Spark Datasource.
+Check out our [demo](https://github.com/arangodb/arangodb-spark-datasource/tree/main/demo) to learn more about ArangoDB Datasource for Apache Spark.
 

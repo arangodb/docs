@@ -568,8 +568,9 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   will appear when an *EnumerationCollectionNode* or
   an *IndexNode* that would have extracted an entire document was modified to
   return only a projection of each document. Projections are limited to at most
-  5 different document attributes. This optimizer rule is specific for the
-  RocksDB storage engine.
+  5 different document attributes by default. The maximum number of projected
+  attributes can optionally be adjusted by setting the `maxProjections` hint
+  for an AQL *FOR* operation since ArangoDB 3.9.1.
 
 - `remove-collect-variables`:
   will appear if an *INTO* clause was removed from a *COLLECT* statement
@@ -787,10 +788,9 @@ in the optimizer pipeline.
 If a query iterates over a collection (for filtering or counting) but does not need
 the actual document values later, the optimizer can apply a "scan-only" optimization 
 for *EnumerateCollectionNode*s and *IndexNode*s. In this case, it will not build up
-a result with the document data at all, which may reduce work significantly especially
-with the RocksDB storage engine. In case the document data is actually not needed
-later on, it may be sensible to remove it from query strings so the optimizer can
-apply the optimization.
+a result with the document data at all, which may reduce work significantly.
+In case the document data are actually not needed later on, it may be sensible to remove 
+it from query strings so the optimizer can apply the optimization.
 
 If the optimization is applied, it will show up as "scan only" in an AQL
 query's execution plan for an *EnumerateCollectionNode* or an *IndexNode*.
@@ -798,16 +798,16 @@ query's execution plan for an *EnumerateCollectionNode* or an *IndexNode*.
 Additionally, the optimizer can apply an "index-only" optimization for AQL queries that 
 can satisfy the retrieval of all required document attributes directly from an index.
 
-This optimization will be triggered for the RocksDB engine if an index is used
+This optimization will be triggered if an index is used
 that covers all required attributes of the document used later on in the query.
 If applied, it will save retrieving the actual document data (which would require
-an extra lookup in RocksDB), but will instead build the document data solely 
+an extra lookup by the storage engine), but will instead build the document data solely 
 from the index values found. It will only be applied when using up to 5 attributes
 from the document, and only if the rest of the document data is not used later
 on in the query.
 
-The optimization is currently available for the RocksDB engine for the index types
-primary, edge, persistent (and its aliases hash and skiplist).
+The optimization is currently available for the index types primary, edge, persistent 
+(and its aliases hash and skiplist).
 
 If the optimization is applied, it will show up as "index only" in an AQL
 query's execution plan for an *IndexNode*.

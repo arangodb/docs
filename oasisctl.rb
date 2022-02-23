@@ -13,7 +13,7 @@
 # 1. Remove the generated files from the docs target folder
 #    (oasisctl-*.md but not oasisctl-getting-started.md and oasisctl.md!)
 #
-# 2. Create a temporary folder (oasisctl defaults to ./docs)
+# 2. Create a temporary folder (oasisctl defaults to --output-dir ./docs)
 #
 # 3. Generate the documentation
 #    > oasisctl generate-docs --link-file-ext .html --replace-underscore-with -
@@ -35,6 +35,7 @@ TITLE_CASE = {
     'auditlog' => 'Audit Log',
     'cacertificate' => 'CA Certificate',
     'cacertificates' => 'CA Certificates',
+    'diskperformances' => 'Disk Performances',
     'ipallowlist' => 'IP Allowlist',
     'ipallowlists' => 'IP Allowlists',
     'tandc' => 'Terms & Conditions',

@@ -1,6 +1,5 @@
 ---
 layout: default
-description: Spring Data ArangoDB
 ---
 
 # Spring Data ArangoDB - Getting Started

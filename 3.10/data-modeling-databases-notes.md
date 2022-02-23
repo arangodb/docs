@@ -7,14 +7,7 @@ Notes about Databases
 
 Please keep in mind that each database contains its own system collections,
 which need to be set up when a database is created. This will make the creation
-of a database take a while. 
-
-Replication is either configured on a
-[per-database level](administration-leader-follower-database-setup.html)
-or on [server level](administration-leader-follower-server-level-setup.html).
-In a per-database setup, any replication logging or applying for a new database
-must be configured explicitly after a new database has been created, whereas all
-databases are automatically replicated in case of the server-level setup using the global replication applier.
+of a database take a while.
 
 Foxx applications
 are also available only in the context of the database they have been installed 

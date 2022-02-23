@@ -23,5 +23,13 @@ These *ACID* properties provide the following guarantees:
   transaction durability is configurable in ArangoDB, as is the durability
   on collection level. 
 
-See [Cluster Limitations](transactions-limitations.html#in-clusters) regarding
-transactional behavior of multi-document transactions in cluster deployments.
+The descriptions in this section only provide a general overview. The actual transactional
+guarantees depend on the deployment mode and usage pattern.
+
+Also see:
+- [Operation Atomicity](data-modeling-operational-factors.html#operation-atomicity) for more details on atomicity guarantees
+- [Transactional Isolation](data-modeling-operational-factors.html#transactional-isolation) for more details on isolation guarantees in the single server
+  and OneShard database case
+- [Cluster Transaction Limitations](transactions-limitations.html#in-clusters)
+  for more details on the transactional behavior of multi-document transactions in
+  cluster deployments

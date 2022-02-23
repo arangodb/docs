@@ -369,13 +369,20 @@ The geo index stores two-dimensional coordinates. It can be created on either tw
 separate document attributes (latitude and longitude) or a single array attribute that
 contains both latitude and longitude. Latitude and longitude must be numeric values.
 
+Furthermore, a geo index can also index standard
+[GeoJSON objects](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
+GeoJSON uses the JSON syntax to describe geometric objects on the surface
+of the Earth. It supports points, lines, and polygons.
+See [Geo-Spatial Indexes](./indexing-geo.html).
+
 The geo index provides operations to find documents with coordinates nearest to a given 
 comparison coordinate, and to find documents with coordinates that are within a specifiable
 radius around a comparison coordinate.
 
 The geo index is used via dedicated functions in AQL
-and it is implicitly applied when a SORT or FILTER is used with
-the distance function. It will not be used for other types of queries
+and it is implicitly applied when a `SORT` or `FILTER` is used with
+the `GEO_DISTANCE()` function, or if `FILTER` conditions with `GEO_CONTAINS()`
+or `GEO_INTERSECTS()` are used. It will not be used for other types of queries
 or conditions.
 
 
@@ -403,6 +410,19 @@ minimum length will be included in the index.
 The fulltext index is used via dedicated functions in AQL, but will
 not be enabled for other types of queries or conditions.
 
+
+
+Indexes and non-ASCII texts
+---------------------------
+Before strings are put into an index, they are
+[normalized by using ICU](http://www.unicode.org/reports/tr15/). There are several characters
+in the Unicode space, which have a similar meaning. In order to have all variants of them
+in a result set when querying, the strings are normalized for the index.
+This slightly changes the behaviour of `FILTER` statements with `==` -
+comparisons when ran on non-indexed document attributes. While the index may still be useful
+by fetching a little more results than you want to actually work with, you may want to have an 
+additional `FILTER MD5(doc.attr) == MD5(@comparisonstring)` to make sure that in the end the result
+only contains the actual values you need. 
 
 Indexing attributes and sub-attributes
 --------------------------------------

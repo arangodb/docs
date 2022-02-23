@@ -1,0 +1,20 @@
+@Q:
+  RETURN DOCUMENT( persons, [ <span class="hljs-string">&quot;alice&quot;</span>, <span class="hljs-string">&quot;bob&quot;</span> ] )
+
+@R
+[
+  [
+    {
+      <span class="hljs-string">&quot;_key&quot;</span>: <span class="hljs-string">&quot;alice&quot;</span>,
+      <span class="hljs-string">&quot;_id&quot;</span>: <span class="hljs-string">&quot;persons/alice&quot;</span>,
+      <span class="hljs-string">&quot;_rev&quot;</span>: <span class="hljs-string">&quot;_drhJoH----&quot;</span>,
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Alice&quot;</span>
+    },
+    {
+      <span class="hljs-string">&quot;_key&quot;</span>: <span class="hljs-string">&quot;bob&quot;</span>,
+      <span class="hljs-string">&quot;_id&quot;</span>: <span class="hljs-string">&quot;persons/bob&quot;</span>,
+      <span class="hljs-string">&quot;_rev&quot;</span>: <span class="hljs-string">&quot;_drhJoHC---&quot;</span>,
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Bob&quot;</span>
+    }
+  ]
+]

@@ -1,11 +1,11 @@
 ---
 layout: default
 description: This guide explains which access control concepts are available in Oasis and how to use them.
-title: Access control in ArangoDB Oasis
+title: Security and access control in ArangoDB Oasis
 ---
-# Access control in ArangoDB Oasis
+# Security and access control in ArangoDB Oasis
 
-Oasis has a structured set of resources that are subject to
+Oasis has a structured set of resources that are subject to security and
 access control:
 
 - Organizations
@@ -13,27 +13,36 @@ access control:
 - Deployments
 
 For each of these resources you can perform various operations.
-For example, you can *create* a project in an organization. This requires the
-respective **permission**, which can be granted to organization members via a
-**role** such as the pre-defined *Project Administrator*.
+For example, you can create a project in an organization and create a deployment inside a project.
+
+## Locked resources
+
+In ArangoDB Oasis, you can lock the resources to prevent accidental deletion. When a resource is locked,
+it cannot be deleted and must be unlocked first.
+
+The hierarchial structure of the resources (organization-project-deployment) is used in the locking functionality: if a child resource is locked
+(for example, a deployment), you cannot delete the parent project without unlocking that deployment first.
+
+{% hint 'info' %}
+If you lock a backup policy of a deployment or an IP allowlist, CA certificate, and IAM provider of a project, it is still possible to delete
+the corresponding parent resource without unlocking those properties first.
+{% endhint %}
+
+ 
+## Policy
+
+Various actions in ArangoDB Oasis require different permissions, which can be granted to users via
+**roles**.
 
 The association of a member with a role is called a **role binding**.
 All role bindings of a resource comprise a **policy**.
 
-Roles can be bound on an organization, project and deployment level (listed in the high to low level order). The lower
-levels *inherit* permissions from their parents.
-
-## Policy
-
-To give a user (or a group of users) access to resources of Oasis, you assign
-a role to that user (or group). This is done in a **policy**.
-
-A policy is a set of bindings of roles to users or groups for a specific
-resource. This means that there is a unique policy per resource (an organization, a project or a deployment).
+Roles can be bound on an organization, project and deployment level (listed in the high to low level order, with lower
+levels inheriting permissions from their parents). This means that there is a unique policy per resource (an organization, a project or a deployment).
 
 For example, an organization has exactly one policy,
 which binds roles to members of the organization. These bindings are used to
-give the users permissions to perform operations on this organization.
+give the users permissions to perform operations in this organization.
 
 ### How to view, edit or remove role bindings of a policy
 
@@ -99,6 +108,43 @@ The roles below are described following this pattern:
 - `Permission`
 {% endhint %}
 
+**Audit Log Admin** (`auditlog-admin`):
+- `audit.auditlog.list`
+- `audit.auditlog.get`
+- `audit.auditlog.create`
+- `audit.auditlog.delete`
+- `audit.auditlog.set-default`
+- `audit.auditlog.test-https-post-destination`
+- `audit.auditlog.update`
+
+**Audit Log Archive Admin** (`auditlog-archive-admin`):
+- `audit.auditlogarchive.list`
+- `audit.auditlogarchive.get`
+- `audit.auditlogarchive.delete`
+
+**Audit Log Archive Viewer** (`auditlog-archive-viewer`):
+- `audit.auditlogarchive.list`
+- `audit.auditlogarchive.get`
+
+**Audit Log Attachment Admin** (`auditlog-attachment-admin`):
+- `audit.auditlogattachment.get`
+- `audit.auditlogattachment.create`
+- `audit.auditlogattachment.delete`
+
+**Audit Log Attachment Viewer** (`auditlog-attachment-viewer`):
+- `audit.auditlogattachment.get`
+
+**Audit Log Event Admin** (`auditlog-event-admin`):
+- `audit.auditlogevents.get`
+- `audit.auditlogevent.delete`
+
+**Audit Log Event Viewer** (`auditlog-event-viewer`):
+- `audit.auditlogevents.get`
+
+**Audit Log Viewer** (`auditlog-viewer`):
+- `audit.auditlog.list`
+- `audit.auditlog.get`
+
 **Backup Administrator** (`backup-admin`):
 - `backup.backup.create`
 - `backup.backup.delete`
@@ -130,6 +176,7 @@ The roles below are described following this pattern:
 - `billing.config.get`
 - `billing.config.set`
 - `billing.invoice.get`
+- `billing.invoice.get-preliminary`
 - `billing.invoice.get-statistics`
 - `billing.invoice.list`
 - `billing.organization.get`
@@ -145,6 +192,7 @@ The roles below are described following this pattern:
 **Billing Viewer** (`billing-viewer`):
 - `billing.config.get`
 - `billing.invoice.get`
+- `billing.invoice.get-preliminary`
 - `billing.invoice.get-statistics`
 - `billing.invoice.list`
 - `billing.organization.get`
@@ -170,9 +218,11 @@ The roles below are described following this pattern:
 - `data.deployment.create`
 - `data.deployment.create-test-database`
 - `data.deployment.delete`
-- `data.deployment.resume`
 - `data.deployment.get`
 - `data.deployment.list`
+- `data.deployment.resume`
+- `data.deployment.rebalance-shards`
+- `data.deployment.rotate-server`
 - `data.deployment.update`
 - `data.deploymentfeatures.get`
 - `data.deploymentprice.calculate`
@@ -180,6 +230,9 @@ The roles below are described following this pattern:
 - `data.nodesize.list`
 - `data.presets.list`
 - `monitoring.logs.get`
+- `notification.deployment-notification.list`
+- `notification.deployment-notification.mark-as-read`
+- `notification.deployment-notification.mark-as-unread`
 
 **Deployment Content Administrator** (`deployment-content-admin`):
 - `data.cpusize.list`
@@ -188,19 +241,32 @@ The roles below are described following this pattern:
 - `data.deployment.list`
 - `data.deploymentcredentials.get`
 - `data.deploymentfeatures.get`
+- `data.deploymentprice.calculate`
 - `data.limits.get`
 - `data.nodesize.list`
 - `data.presets.list`
 - `monitoring.logs.get`
+
+**Deployment Content Viewer** (`deployment-content-viewer`):
+- `data.deployment.get`
+- `data.deployment.list`
+- `data.deploymentcredentials.get`
+- `data.limits.get`
+- `data.presets.list`
 
 **Deployment Viewer** (`deployment-viewer`):
 - `data.cpusize.list`
 - `data.deployment.get`
 - `data.deployment.list`
 - `data.deploymentfeatures.get`
+- `data.deploymentprice.calculate`
+- `data.diskperformance.list`
 - `data.limits.get`
 - `data.nodesize.list`
 - `data.presets.list`
+- `notification.deployment-notification.list`
+- `notification.deployment-notification.mark-as-read`
+- `notification.deployment-notification.mark-as-unread`
 
 **Example Datasets Viewer** (`exampledataset-viewer`):
 - `example.exampledataset.list`
@@ -240,23 +306,25 @@ The roles below are described following this pattern:
 - `security.iamprovider.get`
 - `security.iamprovider.list`
 
-**IP allowlist Administrator** (`ipallowlist-admin`):
-- `security.ipallowlist.create`
-- `security.ipallowlist.delete`
-- `security.ipallowlist.get`
-- `security.ipallowlist.list`
-- `security.ipallowlist.update`
+**IP allowlist Administrator** (`ipwhitelist-admin`):
 - `security.ipallowlist.create`
 - `security.ipallowlist.delete`
 - `security.ipallowlist.get`
 - `security.ipallowlist.list`
 - `security.ipallowlist.update`
 
-**IP allowlist Viewer** (`ipallowlist-viewer`):
+**IP allowlist Viewer** (`ipwhitelist-viewer`):
 - `security.ipallowlist.get`
 - `security.ipallowlist.list`
-- `security.ipallowlist.get`
-- `security.ipallowlist.list`
+
+**Metrics Administrator** (`metrics-admin`):
+- `metrics.endpoint.get`
+- `metrics.token.create`
+- `metrics.token.delete`
+- `metrics.token.get`
+- `metrics.token.list`
+- `metrics.token.revoke`
+- `metrics.token.update`
 
 **Organization Administrator** (`organization-admin`):
 - `billing.organization.get`
@@ -281,6 +349,22 @@ The roles below are described following this pattern:
 
 **Policy Viewer** (`policy-viewer`):
 - `iam.policy.get`
+
+**Prepaid Deployment Viewer** (`prepaid-deployment-viewer`):
+- `prepaid.prepaiddeployment.get`
+- `prepaid.prepaiddeployment.list`
+
+**Private Endpoint Service Administrator** (`privateendpointservice-admin`):
+- `network.privateendpointservice.create`
+- `network.privateendpointservice.get`
+- `network.privateendpointservice.get-feature`
+- `network.privateendpointservice.get-by-deployment-id`
+- `network.privateendpointservice.update`
+
+**Private Endpoint Service Viewer** (`privateendpointservice-viewer`):
+- `network.privateendpointservice.get`
+- `network.privateendpointservice.get-feature`
+- `network.privateendpointservice.get-by-deployment-id`
 
 **Project Administrator** (`project-admin`):
 - `resourcemanager.project.create`
@@ -339,11 +423,16 @@ Permissions are solely defined by the Oasis API.
 
 | API               | Kind                         | Verbs
 |:------------------|:-----------------------------|:-------------------------------------------
+| `audit`           | `auditlogarchive`            | `delete`, `get`, `list`
+| `audit`           | `auditlogattachment`         | `create`, `delete`, `get`
+| `audit`           | `auditlogevents`             | `get`
+| `audit`           | `auditlogevent`              | `delete`
+| `audit`           | `auditlog`                   | `create`, `delete`, `get`, `list`, `set-default`, `test-https-post-destination`, `update`
 | `backup`          | `backuppolicy`               | `create`, `delete`, `get`, `list`, `update`
 | `backup`          | `backup`                     | `create`, `delete`, `download`, `get`, `list`, `restore`, `update`
 | `backup`          | `feature`                    | `get`
 | `billing`         | `config`                     | `get`, `set`
-| `billing`         | `invoice`                    | `get`, `get-statistics`, `list`
+| `billing`         | `invoice`                    | `get`, `get-preliminary`, `get-statistics`, `list`
 | `billing`         | `organization`               | `get`
 | `billing`         | `paymentmethod`              | `create`, `delete`, `get`, `get-default`, `list`, `set-default`, `update`
 | `billing`         | `paymentprovider`            | `list`
@@ -352,7 +441,8 @@ Permissions are solely defined by the Oasis API.
 | `data`            | `deploymentcredentials`      | `get`
 | `data`            | `deploymentfeatures`         | `get`
 | `data`            | `deploymentprice`            | `calculate`
-| `data`            | `deployment`                 | `create`, `create-test-database`, `delete`, `get`, `list`, `restore-backup`, `resume`, `update`
+| `data`            | `deployment`                 | `create`, `create-test-database`, `delete`, `get`, `list`, `rebalance-shards`, `restore-backup`, `resume`, `rotate-server`, `update`
+| `data`            | `diskperformance`            | `list`
 | `data`            | `limits`                     | `get`
 | `data`            | `nodesize`                   | `list`
 | `data`            | `presets`                    | `list`
@@ -361,7 +451,12 @@ Permissions are solely defined by the Oasis API.
 | `iam`             | `group`                      | `create`, `delete`, `get`, `list`, `update`
 | `iam`             | `policy`                     | `get`, `update`
 | `iam`             | `role`                       | `create`, `delete`, `get`, `list`, `update`
+| `metrics`         | `endpoint`                   | `get`
+| `metrics`         | `token`                      | `create`, `delete`, `get`, `list`, `revoke`, `update`
 | `monitoring`      | `logs`                       | `get`
+| `network`         | `privateendpointservice`     | `create`, `get`, `get-by-deployment-id`, `get-feature`, `update`
+| `notification`    | `deployment-notification`    | `list`, `mark-as-read`, `mark-as-unread`
+| `prepaid`         | `prepaiddeployment`          | `get`, `list`
 | `replication`     | `deployment`                 | `clone-from-backup`
 | `resourcemanager` | `organization-invite`        | `create`, `delete`, `get`, `list`, `update`
 | `resourcemanager` | `organization`               | `delete`, `get`, `update`
