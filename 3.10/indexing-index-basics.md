@@ -34,7 +34,6 @@ For potentially long running index creation operations the _RocksDB_ storage-eng
 creating indexes in "background". The collection remains (mostly) available during the index creation, 
 see the section [Creating Indexes in Background](#creating-indexes-in-background) for more information.
 
-
 ArangoDB provides the following index types:
 
 Primary Index
@@ -94,84 +93,87 @@ user-defined indexes.
 
 An edge index cannot be dropped or changed.
 
-<!-- TODO: Remove, possibly reuse some of the information for persistent index
-A hash index can be used to quickly find documents with specific attribute values.
-The hash index is unsorted, so it supports equality lookups but no range queries or sorting.
+Vertex-centric indexes
+----------------------
 
-A hash index can be created on one or multiple document attributes. A hash index will 
-only be used by a query if all index attributes are present in the search condition,
-and if all attributes are compared using the equality (`==`) operator. Hash indexes are 
-used from within AQL and several query functions, e.g. `byExample`, `firstExample` etc.
+As mentioned above, the most important indexes for graphs are the edge
+indexes, indexing the `_from` and `_to` attributes of edge collections.
+They provide very quick access to all edges originating in or arriving
+at a given vertex, which allows to quickly find all neighbors of a vertex
+in a graph.
 
-Hash indexes can optionally be declared unique, then disallowing saving the same
-value(s) in the indexed attribute(s). Hash indexes can optionally be sparse.
+In many cases one would like to run more specific queries, for example
+finding amongst the edges originating from a given vertex only those
+with a timestamp greater than or equal to some date and time. Exactly this
+is achieved with "vertex-centric indexes". In a sense these are localized
+indexes for an edge collection, which sit at every single vertex.
 
-The different types of hash indexes have the following characteristics:
+Technically, they are implemented in ArangoDB as indexes, which sort the 
+complete edge collection first by `_from` and then by other attributes
+for _OUTBOUND_ traversals, or first by `_to` and then by other attributes
+for _INBOUND_ traversals. For traversals in _ANY_ direction two indexes
+are needed, one with `_from` and the other with `_to` as first indexed field.
 
-- **unique hash index**: all documents in the collection must have different values for 
-  the attributes covered by the unique index. Trying to insert a document with the same 
-  key value as an already existing document will lead to a unique constraint 
-  violation. 
+If we for example have a persistent index on the attributes `_from` and 
+`timestamp` of an edge collection, we can answer the above question
+very quickly with a single range lookup in the index.
 
-  This type of index is not sparse. Documents that do not contain the index attributes or 
-  that have a value of `null` in the index attribute(s) will still be indexed. 
-  A key value of `null` may only occur once in the index, so this type of index cannot 
-  be used for optional attributes.
+You can create sorted persistent indexes that index the special edge attributes
+`_from` or `_to` and additionally other attributes. These are used
+in graph traversals, when appropriate `FILTER` statements are found
+by the optimizer.
 
-  The unique option can also be used to ensure that
-  [no duplicate edges](indexing-hash.html#ensure-uniqueness-of-relations-in-edge-collections) are
-  created, by adding a combined index for the fields `_from` and `_to` to an edge collection.
+For example, to create a vertex-centric index of the above type, you 
+would simply do
 
-- **unique, sparse hash index**: all documents in the collection must have different 
-  values for the attributes covered by the unique index. Documents in which at least one
-  of the index attributes is not set or has a value of `null` are not included in the 
-  index. This type of index can be used to ensure that there are no duplicate keys in
-  the collection for documents which have the indexed attributes set. As the index will
-  exclude documents for which the indexed attributes are `null` or not set, it can be
-  used for optional attributes.
+```js
+db.edges.ensureIndex({"type":"persistent", "fields": ["_from", "timestamp"]});
+```
 
-- **non-unique hash index**: all documents in the collection will be indexed. This type
-  of index is not sparse. Documents that do not contain the index attributes or that have 
-  a value of `null` in the index attribute(s) will still be indexed. Duplicate key values 
-  can occur and do not lead to unique constraint violations.
- 
-- **non-unique, sparse hash index**: only those documents will be indexed that have all
-  the indexed attributes set to a value other than `null`. It can be used for optional
-  attributes.
+in arangosh. Then, queries like
 
-The amortized complexity of lookup, insert, update, and removal operations in unique hash 
-indexes is O(1). 
+```js
+FOR v, e, p IN 1..1 OUTBOUND "V/1" edges
+  FILTER e.timestamp >= "2018-07-09"
+  RETURN p
+```
 
-Non-unique hash indexes have an amortized complexity of O(1) for insert, update, and
-removal operations. That means non-unique hash indexes can be used on attributes with 
-low cardinality. 
+will be considerably faster in case there are many edges originating
+from vertex `"V/1"` but only few with a recent time stamp. Note that the
+optimizer may prefer the default edge index over vertex-centric indexes
+based on the costs it estimates, even if a vertex-centric index might
+in fact be faster. Vertex-centric indexes are more likely to be chosen
+for highly connected graphs and with RocksDB storage engine.
 
-If a hash index is created on an attribute that is missing in all or many of the documents,
-the behavior is as follows:
+Persistent Index
+----------------
 
-- if the index is sparse, the documents missing the attribute will not be indexed and not
-  use index memory. These documents will not influence the update or removal performance
-  for the index.
+The persistent index is a sorted index with persistence. The index entries are written to
+disk when documents are stored or updated. That means the index entries do not need to be
+rebuilt from the collection data when the server is restarted or the indexed collection
+is initially loaded.
 
-- if the index is non-sparse, the documents missing the attribute will be contained in the
-  index with a key value of `null`. 
+The persistent index type can be used for secondary indexes. That means the
+persistent index cannot be made the only index for a collection, because there
+will always be the primary index for the collection in addition, and potentially
+more indexes (such as the edge index for an edge collection).
 
-Hash indexes support [indexing array values](#indexing-array-values) if the index
-attribute name is extended with a `[*]`.
+The index implementation is using the RocksDB engine, and it provides logarithmic
+complexity for insert, update, and remove operations. A persistent index does not
+store pointers into the primary index, but instead it stores a document's primary
+key. To retrieve a document via a persistent index with an index value lookup,
+there will therefore be an additional O(1) lookup into the primary index to fetch
+the actual document.
 
+You can create a persistent index on one or multiple document attributes.
+It is a sorted index structure. It can be used to quickly find
+documents with specific attribute values (point lookups / equality comparisons),
+for range queries, and for returning documents from the index in sorted order,
+but only if either all index attributes are provided in a query, or if a leftmost
+prefix of the index attributes is specified.
 
-
-A skiplist is a sorted index structure. It can be used to quickly find documents 
-with specific attribute values, for range queries and for returning documents from
-the index in sorted order. Skiplists will be used from within AQL and several query 
-functions, e.g. `byExample`, `firstExample` etc.
-
-Skiplist indexes will be used for lookups, range queries and sorting only if either all
-index attributes are provided in a query, or if a leftmost prefix of the index attributes
-is specified.
-
-For example, if a skiplist index is created on attributes `value1` and `value2`, the 
-following filter conditions can use the index (note: the `<=` and `>=` operators are 
+For example, if a persistent index is created on attributes `value1` and `value2`, the
+following filter conditions can use the index (note: the `<=` and `>=` operators are
 intentionally omitted here for the sake of brevity):
 
 ```js
@@ -185,15 +187,15 @@ FILTER doc.value1 == ... && doc.value2 > ...
 FILTER doc.value1 == ... && doc.value2 > ... && doc.value2 < ...
 ```
 
-In order to use a skiplist index for sorting, the index attributes must be specified in
+In order to use a persistent index for sorting, the index attributes must be specified in
 the `SORT` clause of the query in the same order as they appear in the index definition.
-Skiplist indexes are always created in ascending order, but they can be used to access
+Persistent indexes are always created in ascending order, but they can be used to access
 the indexed elements in both ascending or descending order. However, for a combined index
 (an index on multiple attributes) this requires that the sort orders in a single query
-as specified in the `SORT` clause must be either all ascending (optionally omitted 
-as ascending is the default) or all descending. 
+as specified in the `SORT` clause must be either all ascending (optionally omitted
+as ascending is the default) or all descending.
 
-For example, if the skiplist index is created on attributes `value1` and `value2` 
+For example, if a persistent index is created on attributes `value1` and `value2`
 (in this order), then the following sorts clauses can use the index for sorting:
 
 - `SORT value1 ASC, value2 ASC` (and its equivalent `SORT value1, value2`)
@@ -212,94 +214,54 @@ sort step:
 Note: the latter two sort clauses cannot use the index because the sort clause does not
 refer to a leftmost prefix of the index attributes.
 
-Skiplists can optionally be declared unique, disallowing saving the same value in the indexed 
-attribute. They can be sparse or non-sparse.
+Persistent indexes support [indexing array values](#indexing-array-values) if
+the index attribute name is extended with a `[*]`.
 
-The different types of skiplist indexes have the following characteristics:
+Persistent indexes can optionally be declared unique, disallowing saving the
+same value in the indexed attribute. They can be sparse or non-sparse.
 
-- **unique skiplist index**: all documents in the collection must have different values for 
-  the attributes covered by the unique index. Trying to insert a document with the same 
-  key value as an already existing document will lead to a unique constraint 
-  violation. 
+The different types of persistent indexes have the following characteristics:
 
-  This type of index is not sparse. Documents that do not contain the index attributes or 
-  that have a value of `null` in the index attribute(s) will still be indexed. 
-  A key value of `null` may only occur once in the index, so this type of index cannot 
+- **unique persistent index**: all documents in the collection must have different values for
+  the attributes covered by the unique index. Trying to insert a document with the same
+  key value as an already existing document will lead to a unique constraint
+  violation.
+
+  This type of index is not sparse. Documents that do not contain the index attributes or
+  that have a value of `null` in the index attribute(s) will still be indexed.
+  A key value of `null` may only occur once in the index, so this type of index cannot
   be used for optional attributes.
 
-- **unique, sparse skiplist index**: all documents in the collection must have different 
+  The unique option can also be used to ensure that
+  [no duplicate edges](#ensure-uniqueness-of-relations-in-edge-collections) are
+  created, by adding a combined index for the fields `_from` and `_to` to an edge collection.
+
+- **unique, sparse persistent index**: all documents in the collection must have different
   values for the attributes covered by the unique index. Documents in which at least one
-  of the index attributes is not set or has a value of `null` are not included in the 
+  of the index attributes is not set or has a value of `null` are not included in the
   index. This type of index can be used to ensure that there are no duplicate keys in
-  the collection for documents which have the indexed attributes set. As the index will
+  the collection for documents that have the indexed attributes set. As the index will
   exclude documents for which the indexed attributes are `null` or not set, it can be
   used for optional attributes.
 
-- **non-unique skiplist index**: all documents in the collection will be indexed. This type
-  of index is not sparse. Documents that do not contain the index attributes or that have 
-  a value of `null` in the index attribute(s) will still be indexed. Duplicate key values 
+- **non-unique persistent index**: all documents in the collection will be indexed. This type
+  of index is not sparse. Documents that do not contain the index attributes or that have
+  a value of `null` in the index attribute(s) will still be indexed. Duplicate key values
   can occur and do not lead to unique constraint violations.
- 
-- **non-unique, sparse skiplist index**: only those documents will be indexed that have all
+
+- **non-unique, sparse persistent index**: only those documents will be indexed that have all
   the indexed attributes set to a value other than `null`. It can be used for optional
   attributes.
 
-The operational amortized complexity for skiplist indexes is logarithmically correlated
-with the number of documents in the index.
+If a persistent index is created on an attribute that is missing in all or many
+of the documents, the behavior is as follows:
 
-Skiplist indexes support [indexing array values](#indexing-array-values) if the index
-attribute name is extended with a `[*]``.
+- if the index is sparse, the documents missing the attribute will not be indexed.
+  These documents will not influence the update or removal performance
+  for the index.
 
--->
-
-Persistent Index
-----------------
-
-The persistent index is a sorted index with persistence. The index entries are written to
-disk when documents are stored or updated. That means the index entries do not need to be
-rebuilt from the collection data when the server is restarted or the indexed collection
-is initially loaded. Thus using persistent indexes may reduce collection loading times.
-
-The persistent index type can be used for secondary indexes at the moment. That means the
-persistent index currently cannot be made the only index for a collection, because there
-will always be the in-memory primary index for the collection in addition, and potentially
-more indexes (such as the edges index for an edge collection).
-
-The index implementation is using the RocksDB engine, and it provides logarithmic complexity
-for insert, update, and remove operations. As the persistent index is not an in-memory
-index, it does not store pointers into the primary index as all the in-memory indexes do,
-but instead it stores a document's primary key. To retrieve a document via a persistent
-index via an index value lookup, there will therefore be an additional O(1) lookup into 
-the primary index to fetch the actual document.
-
-As the persistent index is sorted, it can be used for point lookups, range queries and sorting
-operations, but only if either all index attributes are provided in a query, or if a leftmost 
-prefix of the index attributes is specified.
-
-<!-- TODO
-
-Ensure uniqueness of relations in edge collections
---------------------------------------------------
-It is possible to create secondary indexes using the edge attributes `_from`
-and `_to`, starting with ArangoDB 3.0. A combined index over both fields together
-with the unique option enabled can be used to prevent duplicate relations from
-being created.
-For example, a document collection *verts* might contain vertices with the document
-handles `verts/A`, `verts/B` and `verts/C`. Relations between these documents can
-be stored in an edge collection *edges* for instance. Now, you may want to make sure
-that the vertex `verts/A` is never linked to `verts/B` by an edge more than once.
-This can be achieved by adding a unique, non-sparse persistent index for the fields `_from`
-and `_to`:
-    db.edges.ensureIndex({ type: "persistent", fields: [ "_from", "_to" ], unique: true });
-Creating an edge `{ _from: "verts/A", _to: "verts/B" }` in *edges* will be accepted,
-but only once. Another attempt to store an edge with the relation **A** → **B** will
-be rejected by the server with a *unique constraint violated* error. This includes
-updates to the `_from` and `_to` fields.
-Note that adding a relation **B** → **A** is still possible, so is **A** → **A**
-and **B** → **B**, because they are all different relations in a directed graph.
-Each one can only occur once however.
-
--->
+- if the index is non-sparse, the documents missing the attribute will be
+  contained in the index with a key value of `null`.
 
 TTL (time-to-live) Index
 ------------------------
@@ -358,7 +320,6 @@ the document will not be stored in the TTL index and thus will not become a cand
 for expiration and removal. Providing either a non-numeric value or even no value for 
 the index attribute is a supported way of keeping documents from being expired and removed.
 
-
 Geo Index
 ---------
 
@@ -385,7 +346,6 @@ the `GEO_DISTANCE()` function, or if `FILTER` conditions with `GEO_CONTAINS()`
 or `GEO_INTERSECTS()` are used. It will not be used for other types of queries
 or conditions.
 
-
 Fulltext Index
 --------------
 
@@ -410,19 +370,22 @@ minimum length will be included in the index.
 The fulltext index is used via dedicated functions in AQL, but will
 not be enabled for other types of queries or conditions.
 
-
-
 Indexes and non-ASCII texts
 ---------------------------
-Before strings are put into an index, they are
-[normalized by using ICU](http://www.unicode.org/reports/tr15/). There are several characters
-in the Unicode space, which have a similar meaning. In order to have all variants of them
-in a result set when querying, the strings are normalized for the index.
-This slightly changes the behaviour of `FILTER` statements with `==` -
-comparisons when ran on non-indexed document attributes. While the index may still be useful
-by fetching a little more results than you want to actually work with, you may want to have an 
-additional `FILTER MD5(doc.attr) == MD5(@comparisonstring)` to make sure that in the end the result
-only contains the actual values you need. 
+
+Before strings are inserted into an index, they are
+[normalized by using ICU](http://www.unicode.org/reports/tr15/){:target="_blank"}.
+
+There are several characters in the Unicode space, that have a similar meaning.
+In order to have all their variants in a result set when querying, the strings
+are normalized for the index. This slightly changes the behavior of `FILTER`
+statements with equality comparisons (`==`) when ran on non-indexed document
+attributes.
+
+While the index may still be useful by fetching a little more results than
+you want to actually work with, you may want to have an additional
+`FILTER MD5(doc.attr) == MD5(@comparisonstring)` to make sure that the result
+only contains the actual values you need in the end.
 
 Indexing attributes and sub-attributes
 --------------------------------------
@@ -599,59 +562,31 @@ only if the query filters on the indexed attribute using the `IN` operator. The 
 comparison operators (`==`, `!=`, `>`, `>=`, `<`, `<=`, `ANY`, `ALL`, `NONE`)
 cannot use array indexes currently.
 
-Vertex centric indexes
-----------------------
+Ensure uniqueness of relations in edge collections
+--------------------------------------------------
 
-As mentioned above, the most important indexes for graphs are the edge
-indexes, indexing the `_from` and `_to` attributes of edge collections.
-They provide very quick access to all edges originating in or arriving
-at a given vertex, which allows to quickly find all neighbors of a vertex
-in a graph.
+You can create a combined index over the edge attributes `_from` and `_to`
+with the unique option enabled to prevent duplicate relations from being created.
 
-In many cases one would like to run more specific queries, for example
-finding amongst the edges originating from a given vertex only those
-with a timestamp greater than or equal to some date and time. Exactly this
-is achieved with "vertex centric indexes". In a sense these are localized
-indexes for an edge collection, which sit at every single vertex.
-
-Technically, they are implemented in ArangoDB as indexes, which sort the 
-complete edge collection first by `_from` and then by other attributes
-for _OUTBOUND_ traversals, or first by `_to` and then by other attributes
-for _INBOUND_ traversals. For traversals in _ANY_ direction two indexes
-are needed, one with `_from` and the other with `_to` as first indexed field.
-
-If we for example have a persistent index on the attributes `_from` and 
-`timestamp` of an edge collection, we can answer the above question
-very quickly with a single range lookup in the index.
-
-Since ArangoDB 3.0 one can create sorted indexes (type
-"persistent") that index the special edge attributes `_from` or `_to`
-and additionally other attributes. Since ArangoDB 3.1, these are used
-in graph traversals, when appropriate `FILTER` statements are found
-by the optimizer.
-
-For example, to create a vertex centric index of the above type, you 
-would simply do
+For example, a document collection *verts* might contain vertices with the document
+handles `verts/A`, `verts/B` and `verts/C`. Relations between these documents can
+be stored in an edge collection *edges* for instance. Now, you may want to make sure
+that the vertex `verts/A` is never linked to `verts/B` by an edge more than once.
+This can be achieved by adding a unique, non-sparse persistent index for the
+fields `_from` and `_to`:
 
 ```js
-db.edges.ensureIndex({"type":"persistent", "fields": ["_from", "timestamp"]});
+db.edges.ensureIndex({ type: "persistent", fields: [ "_from", "_to" ], unique: true });
 ```
 
-in arangosh. Then, queries like
+Creating an edge `{ _from: "verts/A", _to: "verts/B" }` in *edges* will be accepted,
+but only once. Another attempt to store an edge with the relation **A** → **B** will
+be rejected by the server with a *unique constraint violated* error. This includes
+updates to the `_from` and `_to` fields.
 
-```js
-FOR v, e, p IN 1..1 OUTBOUND "V/1" edges
-  FILTER e.timestamp >= "2018-07-09"
-  RETURN p
-```
-
-will be considerably faster in case there are many edges originating
-from vertex `"V/1"` but only few with a recent time stamp. Note that the
-optimizer may prefer the default edge index over vertex centric indexes
-based on the costs it estimates, even if a vertex centric index might
-in fact be faster. Vertex centric indexes are more likely to be chosen
-for highly connected graphs and with RocksDB storage engine.
-
+Note that adding a relation **B** → **A** is still possible, so is **A** → **A**
+and **B** → **B**, because they are all different relations in a directed graph.
+Each one can only occur once however.
 
 Creating Indexes in Background
 ------------------------------
