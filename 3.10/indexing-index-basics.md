@@ -151,19 +151,13 @@ Persistent Index
 The persistent index is a sorted index with persistence. The index entries are written to
 disk when documents are stored or updated. That means the index entries do not need to be
 rebuilt from the collection data when the server is restarted or the indexed collection
-is initially loaded.
+is initially loaded. The index implementation uses the RocksDB engine, and it provides
+logarithmic complexity for insert, update, and remove operations.
 
 The persistent index type can be used for secondary indexes. That means the
 persistent index cannot be made the only index for a collection, because there
 will always be the primary index for the collection in addition, and potentially
 more indexes (such as the edge index for an edge collection).
-
-The index implementation is using the RocksDB engine, and it provides logarithmic
-complexity for insert, update, and remove operations. A persistent index does not
-store pointers into the primary index, but instead it stores a document's primary
-key. To retrieve a document via a persistent index with an index value lookup,
-there will therefore be an additional O(1) lookup into the primary index to fetch
-the actual document.
 
 You can create a persistent index on one or multiple document attributes.
 It is a sorted index structure. It can be used to quickly find
