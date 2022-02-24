@@ -373,7 +373,7 @@ Furthermore, a geo index can also index standard
 [GeoJSON objects](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
 GeoJSON uses the JSON syntax to describe geometric objects on the surface
 of the Earth. It supports points, lines, and polygons.
-See [Geo-Spatial Indexes](./indexing-geo.html).
+See [Geo-Spatial Indexes](indexing-geo.html).
 
 The geo index provides operations to find documents with coordinates nearest to a given 
 comparison coordinate, and to find documents with coordinates that are within a specifiable
