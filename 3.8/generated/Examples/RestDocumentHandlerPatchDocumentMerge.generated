@@ -4,14 +4,14 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">130</span>
-etag: <span class="hljs-string">&quot;_dwJu8bW--_&quot;</span>
+etag: <span class="hljs-string">&quot;_dwvB1A2--_&quot;</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67564&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67564&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwJu8bW--_&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwvB1A2--_&quot;</span>, 
   <span class="hljs-string">&quot;inhabitants&quot;</span> : { 
     <span class="hljs-string">&quot;china&quot;</span> : <span class="hljs-number">1366980000</span>, 
     <span class="hljs-string">&quot;india&quot;</span> : <span class="hljs-number">1263590000</span>, 
@@ -33,14 +33,14 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">171</span>
-etag: <span class="hljs-string">&quot;_dwJu8be---&quot;</span>
+etag: <span class="hljs-string">&quot;_dwvB1B----&quot;</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67564&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67564&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwJu8be---&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwvB1B----&quot;</span>, 
   <span class="hljs-string">&quot;inhabitants&quot;</span> : { 
     <span class="hljs-string">&quot;china&quot;</span> : <span class="hljs-number">1366980000</span>, 
     <span class="hljs-string">&quot;india&quot;</span> : <span class="hljs-number">1263590000</span>, 
@@ -61,7 +61,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
-etag: <span class="hljs-string">&quot;_dwJu8bm---&quot;</span>
+etag: <span class="hljs-string">&quot;_dwvB1BC---&quot;</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67564</span>
 server: ArangoDB
 x-content-type-options: nosniff
@@ -69,8 +69,8 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67564&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67564&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwJu8bm---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_dwJu8be---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwvB1BC---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_dwvB1B----&quot;</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/67564</span>
 
@@ -78,14 +78,14 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">97</span>
-etag: <span class="hljs-string">&quot;_dwJu8bm---&quot;</span>
+etag: <span class="hljs-string">&quot;_dwvB1BC---&quot;</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67564&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67564&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwJu8bm---&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwvB1BC---&quot;</span>, 
   <span class="hljs-string">&quot;inhabitants&quot;</span> : { 
     <span class="hljs-string">&quot;pakistan&quot;</span> : <span class="hljs-number">188346000</span> 
   } 
