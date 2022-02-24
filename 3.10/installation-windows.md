@@ -8,17 +8,19 @@ redirect_from:
 Installing ArangoDB on Windows
 ==============================
 
-Introduction
-------------
+You can install ArangoDB on Windows (64-bit) using different methods:
 
-There are two possible methods to install ArangoDB on 64-bit Windows systems:
+- Automated, using an _NSIS_ Installer
+  - [attended](#installing-using-the-installer) (GUI)
+  - [unattended](#unattended-installation-using-the-installer) (command-line, using NSIS silent mode)
+- Manually, using a [ZIP archive](#installing-using-the-zip-archive)
 
-1. Automated, using an _NSIS_ Installer
-   - attended (GUI)
-   - unattended (command-line, using NSIS silent mode)
-2. Manual, using a ZIP archive (XCopy installation)
+Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
+page of the ArangoDB web site.
 
-Both installation methods have their own pros and cons.
+You may verify the download by comparing the SHA256 hash listed on the website
+to the hash of the file. For example, you can you run `openssl sha256 <filename>`
+or `certutil -hashfile <filename> sha256` in a terminal.
 
 {% hint 'info' %}
 For production environments we highly recommend using Linux.
@@ -27,9 +29,9 @@ For production environments we highly recommend using Linux.
 Installing using the Installer
 ------------------------------
 
-The default installation directory is *C:\Program Files\ArangoDB-3.x.x*. During the
+The default installation directory is `C:\Program Files\ArangoDB-3.x.x`. During the
 installation process you may change this. In the following description we will assume
-that ArangoDB has been installed in the location *&lt;ROOTDIR&gt;*.
+that ArangoDB has been installed in the location `<ROOTDIR>`.
 
 You have to be careful when choosing an installation directory. You need either
 write permission to this directory or you need to modify the configuration file
@@ -137,13 +139,13 @@ http://127.0.0.1:8529/
 ### Advanced Starting
 
 If you want to provide your own start scripts, you can set the environment
-variable *ARANGODB_CONFIG_PATH*. This variable should point to a directory
+variable `ARANGODB_CONFIG_PATH`. This variable should point to a directory
 containing the configuration files.
 
 ### Using the Client
 
 To connect to an already running ArangoDB server instance, there is a shell
-*arangosh.exe* located in *&lt;ROOTDIR&gt;\bin*. This starts a shell which can be
+`arangosh.exe` located in `<ROOTDIR>\usr\bin`. This starts a shell that can be
 used – amongst other things – to administer and query a local or remote
 ArangoDB server.
 
@@ -151,8 +153,8 @@ Note that *arangosh.exe* does NOT start a separate server, it only starts the
 shell. To use it you must have a server running somewhere, e.g. by using
 the *arangod.exe* executable.
 
-*arangosh.exe* uses configuration from the file *arangosh.conf* located in
-*&lt;ROOTDIR&gt;\etc\arangodb\*. Please adjust this to your needs if you want to
+*arangosh.exe* uses configuration from the file `arangosh.conf` located in
+`<ROOTDIR>\etc\arangodb\`. Please adjust this to your needs if you want to
 use different connection settings etc.
 
 ### Uninstalling
@@ -201,8 +203,8 @@ be specified like `/OPTIONNAME=value`.
    - `0` - Database files will remain on the system
    - `1` - Database files ArangoDB created during its lifetime will be removed too.
 
-Installing using the ZIP archive (XCopy installation)
------------------------------------------------------
+Installing using the ZIP archive
+--------------------------------
 
 Not all users prefer the guided _Installer_ to install ArangoDB. In order to have a
 [portable application](http://en.wikipedia.org/wiki/Portable_application){:target="_blank"}, or easily

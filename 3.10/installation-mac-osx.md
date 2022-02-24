@@ -1,15 +1,16 @@
 ---
 layout: default
-description: ArangoDB under macOS can be installed via Homebrew, DMG Package or tar.gz Archive
+description: You can install ArangoDB on macOS via Homebrew, DMG Package or tar.gz Archive
+title: Installing ArangoDB on macOS
 ---
 Installing ArangoDB on macOS
 ============================
 
-ArangoDB under macOS can be installed via:
+You can install ArangoDB on macOS in different ways:
 
-1. [Homebrew](#homebrew)
-2. [_DMG_ Package](#package-installation)
-3. [_tar.gz_ Archive](#installing-using-the-archive) (starting from v3.4.0)
+- [Homebrew](#homebrew)
+- [_DMG_ Package](#package-installation)
+- [_tar.gz_ Archive](#installing-using-the-archive)
 
 Homebrew
 --------
@@ -96,9 +97,14 @@ also need to update Homebrew executing the command `brew update`.
 Package Installation
 --------------------
 
-We provide a command-line app called *ArangoDB-CLI*.
-Visit the official [Download](https://www.arangodb.com/download){:target="_blank"} page of the
-ArangoDB website and download the *DMG* Package for macOS.
+ArangoDB provide a command-line app called *ArangoDB-CLI*.
+
+Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
+page of the ArangoDB website and download the *DMG* Package for macOS.
+
+You may verify the download by comparing the SHA256 hash listed on the website
+to the hash of the file. For example, you can you run `openssl sha256 <filename>`
+or `shasum -a 256 <filename>` in a terminal.
 
 You can install the application in your application folder.
 
@@ -129,9 +135,11 @@ the port used.
 Installing using the archive
 ----------------------------
 
-Starting from v3.4.0 a _tar.gz_ package is also available for macOS.
+1. Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
+   page of the ArangoDB website and download the _tar.gz_ archive for macOS.
 
-Visit the official [Download](https://www.arangodb.com/download){:target="_blank"} page of the ArangoDB
-website and download the _tar.gz_ archive for macOS.
+2. You may verify the download by comparing the SHA256 hash listed on the website
+   to the hash of the file. For example, you can you run `openssl sha256 <filename>`
+   or `shasum -a 256 <filename>` in a terminal.
 
-To install, just extract the archive.
+3. Extract the archive by double-clicking the file.

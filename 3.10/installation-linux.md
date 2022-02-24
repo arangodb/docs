@@ -1,38 +1,53 @@
 ---
 layout: default
-description: To install ArangoDB on Linux visit the Download page of the ArangoDB and download the correct package for your Linux distribution. Follow the instructions to use your favorite package.
-title: Installing ArangoDB on Linux 
+description: Download an installation or tar package, or use a package manager
+title: Installing ArangoDB on Linux
 ---
 Installing ArangoDB on Linux
 ============================
 
-To install ArangoDB on Linux:
+You can install ArangoDB on most common Linux distributions. The basic
+installation steps are:
 
-1. Visit the official [Download](https://www.arangodb.com/download){:target="_blank"} page of the
-   ArangoDB web site and download the correct package for your Linux distribution.
-   You can find binary packages for the most common distributions there. Linux Mint: 
-   please use the corresponding Ubuntu or Debian packages. 
-2. Follow the installation instructions on the _Download_ page to use your
-   favorite package manager for the major distributions. After setting up the ArangoDB
-   repository you can easily install ArangoDB using _yum_, _aptitude_, _urpmi_ or _zypper_.
+1. Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
+   page of the ArangoDB web site.
 
-{% hint 'info' %}
-In addition to installation packages (distribution dependent) a `tar.gz` archive
-is available starting from version 3.4.0.
-{% endhint %}
+2. Click the logo of the distribution that matches your operating system.
+   If you use Linux Mint, click Ubuntu or Debian.
 
-After installation, you may start ArangoDB in several ways. The exact start-up command
-depends on your Linux distribution, as well as on the type of ArangoDB deployment you
-are interested in (_Single Server_, _Active Failover_, _Cluster_, _DC2DC_).
+3. You can choose between different installation methods and packages:
+   - distribution-dependent installation packages (`.rpm`, `.deb`)
+   - tar packages (`tar.gz` archives)
+   - installation via a package manager
 
-Please refer to the [_Deployment_](deployment.html) chapter for details.
+4. Installation and tar packages: You may verify the integrity of a download
+   by comparing the SHA256 hash listed on the website with the hash of the file.
+   For example, you can you run `openssl sha256 <filename>` or
+   `sha256sum <filename>` in a terminal.
+
+   Package manager: Package managers verify downloaded packages automatically.
+
+5. Installation packages: Run the `.rpm` or `.deb` file and follow the on-screen
+   instructions.
+
+   Tar packages: Unpack the archive, for example by running `tar -xzf <filename>`.
+
+   Package manager: Follow the installation instructions on the _Download_ page.
+   You may also use another package manager. After setting up the ArangoDB
+   repository, you can easily install ArangoDB using _yum_, _aptitude_, _urpmi_,
+   or _zypper_.
+
+6. You can start ArangoDB in several ways. The exact start-up command depends on
+   your Linux distribution, as well as on the type of ArangoDB deployment you
+   are interested in (_Single Server_, _Active Failover_, _Cluster_, _DC2DC_).
+   Please refer to the [Deployment](deployment.html) chapter for details.
 
 Securing your Installation
 --------------------------
 
 ### Debian / Ubuntu
 
-Debian based packages will ask for a password during installation. 
+Debian based packages will ask for a password during installation.
 
 #### Securing Unattended Installations on Debian
 
