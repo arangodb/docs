@@ -1,11 +1,11 @@
 ---
 layout: default
-description: ArangoDB features a Google S2 based geospatial indexsince version 3
+description: ArangoDB features a Google S2-based geospatial index 
 ---
 Geo-Spatial Indexes
 ===================
 
-ArangoDB features a [Google S2](http://s2geometry.io/){:target="_blank"} based geospatial index
+ArangoDB features a [Google S2](http://s2geometry.io/){:target="_blank"}-based geospatial index
 since version 3.4.0, which supersedes the previous geo index implementation.
 Indexing is supported for a subset of the [**GeoJSON**](#geojson) geometry types
 as well as simple latitude/longitude pairs.
@@ -19,7 +19,7 @@ You can also perform
 Using a Geo-Spatial Index
 -------------------------
 
-The geospatial index supports containment and intersection
+The geospatial index supports distance, containment, and intersection
 queries for various geometric 2D shapes. You should mainly be using AQL queries
 to perform these types of operations. The index can operate in **two different
 modes**, depending on if you want to use the GeoJSON data-format or not. The modes
@@ -523,7 +523,6 @@ Here is an example with no holes:
 ```
 
 Here is an example with a hole:
-
 
 ```json
 {
