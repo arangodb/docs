@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Template
+title: Spring Data ArangoDB - Template
 ---
 # Template
 

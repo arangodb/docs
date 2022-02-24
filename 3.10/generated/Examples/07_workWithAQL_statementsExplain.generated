@@ -28,6 +28,7 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">&quot;outVariable&quot;</span> : { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;user&quot;</span>, 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">&quot;projections&quot;</span> : [ ], 
@@ -52,6 +53,7 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">&quot;inVariable&quot;</span> : { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;user&quot;</span>, 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">true</span> 
@@ -68,6 +70,7 @@ arangosh&gt; stmt.explain();
       { 
         <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;user&quot;</span>, 
+        <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
       } 
     ], 

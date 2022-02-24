@@ -120,3 +120,14 @@ instead of using a fallback index or not using an index at all.
 ```js
 FOR … IN … OPTIONS { indexHint: … , forceIndexHint: true }
 ```
+
+### `lookahead`
+
+The multi-dimensional index type `zkd` supports an optional index hint for
+tweaking performance:
+
+```js
+FOR … IN … OPTIONS { lookahead: 32 }
+```
+
+See [Multi-dimensional indexes](../indexing-multi-dim.html#lookahead-index-hint).

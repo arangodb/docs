@@ -21,18 +21,17 @@ Users can define additional indexes on one or multiple document attributes.
 Several different index types are provided by ArangoDB. These indexes have
 different usage scenarios:
 
-- **Persistent index**: a persistent index is persisted on disk and does thus not
-  need to be rebuilt in memory when the server is restarted or the indexed
-  collection is reloaded. Therefore, they don't influence the loading time of
-  collections.
+- **Persistent index**: a persistent index is a general purpose index type
+  that can be used for equality lookups, lookups based on a leftmost prefix 
+  of the index attributes, range queries and for sorting.
 
-  The operations in a persistent index have logarithmic complexity, but operations
-  have may have a higher constant factor than operations of in-memory indexes
-  because the persistent index may need to make extra roundtrips to the primary
-  index to fetch the actual documents.
+  The operations in a persistent index have logarithmic complexity.
 
-  A persistent index can be used for equality lookups, lookups based on a
-  leftmost prefix of the index attributes, range queries and for sorting.
+  Since ArangoDB 3.10, persistent indexes allow storing additional attributes in 
+  the index that can be used to cover more queries (`storedValues` index attribute). 
+  These additional attributes cannot be used for lookups/filtering or sorting, 
+  but they can be used for projections. The additional attributes in `storedValues`
+  are also not checked for uniqueness in unique indexes.
 
 - **TTL index**: the TTL index provided by ArangoDB can be used for automatically
   removing expired documents from a collection.
@@ -127,6 +126,12 @@ different usage scenarios:
   optimization can be triggered when a collection with geo index is enumerated
   and a SORT or FILTER statement is used in conjunction with the distance
   function.
+
+  Furthermore, a geo index can also index standard
+  [GeoJSON objects](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
+  GeoJSON uses the JSON syntax to describe geometric objects on the surface
+  of the Earth. It supports points, lines, and polygons.
+  See [Geo-Spatial Indexes](./indexing-geo.html).
 
 - **fulltext index**: a fulltext index can be used to index all words contained in
   a specific attribute of all documents in a collection. Only words with a 

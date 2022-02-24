@@ -66,15 +66,6 @@
           href: http://arangodb.github.io/spring-data/
         - text: Template
           href: spring-data-reference-template.html
-          children:
-            - text: Queries
-              href: spring-data-reference-template-queries.html
-            - text: Document Manipulation
-              href: spring-data-reference-template-document-manipulation.html
-            - text: Multiple Document Manipulation
-              href: spring-data-reference-template-multi-document-manipulation.html
-            - text: Collection Manipulation
-              href: spring-data-reference-template-collection-manipulation.html
         - text: Repositories
           href: spring-data-reference-repositories.html
           children:
@@ -82,21 +73,11 @@
               href: spring-data-reference-repositories-queries.html
               children:
                 - text: Derived queries
-                  href: >-
-                    spring-data-reference-repositories-queries-derived-queries.html
+                  href: spring-data-reference-repositories-queries-derived-queries.html
                 - text: Query methods
-                  href: >-
-                    spring-data-reference-repositories-queries-query-methods.html
+                  href: spring-data-reference-repositories-queries-query-methods.html
                 - text: Named queries
-                  href: >-
-                    spring-data-reference-repositories-queries-named-queries.html
-            - text: Document Manipulation
-              href: spring-data-reference-repositories-document-manipulation.html
-            - text: Multiple Document Manipulation
-              href: >-
-                spring-data-reference-repositories-multi-document-manipulation.html
-            - text: Query by example
-              href: spring-data-reference-repositories-query-by-example.html
+                  href: spring-data-reference-repositories-queries-named-queries.html
         - text: Mapping
           href: spring-data-reference-mapping.html
           children:
@@ -123,7 +104,7 @@
           href: spring-data-migration-migrating-1-x-3-0.html
         - text: Migrating 2.x to 3.0
           href: spring-data-migration-migrating-2-x-3-0.html
-- text: ArangoDB Spark Datasource
+- text: ArangoDB Datasource for Apache Spark
   href: spark-connector-new.html
 - text: ArangoDB Spark Connector
   href: spark-connector.html

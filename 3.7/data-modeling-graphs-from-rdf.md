@@ -77,7 +77,7 @@ There can be issues that arise with this simple approach, and we discuss them th
 potential for mapping the data. 
 
 ![arthurGraphViewer](images/arthurGraphViewer.png)
- Generate this graph for yourself by running the [notebook](https://colab.research.google.com/github/cw00dw0rd/intro-to-knowledge-graphs/blob/master/Hacktoberfest_template.ipynb){:target="_blank"}.
+ Generate this graph for yourself by running the [notebook](https://colab.research.google.com/github/arangodb/interactive_tutorials/blob/master/notebooks/RDF_Import_Example.ipynb){:target="_blank"}.
 
 Considerations
 --------------

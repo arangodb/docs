@@ -201,6 +201,29 @@ cache's capacity, the data block will not be inserted. If the flag is not set,
 a data block may still get inserted into the cache. It is evicted later, but the
 cache may temporarily grow beyond its capacity limit. 
 
+The default value for `--rocksdb.enforce-block-cache-size-limit` was `false`
+before ArangoDB 3.10, but was changed to `true` from ArangoDB 3.10 onwards.
+
+To improve stability of memory usage and prevent exceeding the block cache capacity
+limit (as configurable via `--rocksdb.block-cache-size`), it is recommended to set
+this option to `true`.
+
+`--rocksdb.cache-index-and-filter-blocks`
+
+Setting this option to `true` makes RocksDB track all loaded index and filter blocks 
+in the block cache, so they are accounted against RocksDB's block cache memory limit. 
+Setting the option to `false` will lead to the memory usage for index and filter blocks
+being unaccounted for.
+
+The default value of `--rocksdb.cache-index-and-filter-blocks` was `false` in 
+ArangoDB versions before 3.10, and was changed to `true` from ArangoDB 3.10 onwards.
+
+To improve stability of memory usage and avoid untracked memory allocations by
+RocksDB, it is recommended to set this option to `true`. Please note that tracking
+index and filter blocks will leave less room for other data in the block cache, so
+in case servers have unused RAM capacity available, it may be useful to increase the
+overall size of the block cache.
+
 `--rocksdb.block-cache-shard-bits`
 
 The number of bits used to shard the block cache to allow concurrent operations.

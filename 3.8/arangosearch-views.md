@@ -271,6 +271,12 @@ is used by these writers (in terms of "writers pool") one can use
     - `"tier"`: Consolidate based on segment byte size and live document count
       as dictated by the customization attributes.
 
+{% hint 'warning' %}
+The "bytes_accum" policy type is deprecated and remains in ArangoSearch for backwards
+compatibility with the older versions. Please make sure to always use the "tier" policy
+instead.
+{% endhint %}
+
   `consolidationPolicy` properties for `"bytes_accum"` type:
 
   - **threshold** (_optional_; type: `float`; default: `0.1`)

@@ -16,6 +16,8 @@ Logs
 {% docublock get_admin_log %}
 {% docublock get_admin_log_level %}
 {% docublock put_admin_log_level %}
+{% docublock get_admin_log_structured %}
+{% docublock put_admin_log_structured %}
 
 Statistics
 ----------
