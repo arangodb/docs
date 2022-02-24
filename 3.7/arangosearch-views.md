@@ -272,8 +272,9 @@ is used by these writers (in terms of "writers pool") one can use
       as dictated by the customization attributes.
 
 {% hint 'warning' %}
-"bytes_accum" policy type is deprecated and remains in ArangoSearch for backwards
-compatibility with older versions. Please always use "tier" policy.
+The "bytes_accum" policy type is deprecated and remains in ArangoSearch for backwards
+compatibility with the older versions. Please make sure to always use the "tier" policy
+instead.
 {% endhint %}
 
   `consolidationPolicy` properties for `"bytes_accum"` type:
