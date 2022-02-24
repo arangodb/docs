@@ -447,10 +447,6 @@ See [GEO_POLYGON()](#geo_polygon) and [GeoJSON MultiPolygons](../indexing-geo.ht
 - **polygons** (array): array of arrays of array of longitude/latitude pairs
 - returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon
 
-A validation step is performed using the S2 geometry library, if the
-validation is not successful, an AQL warning is issued and `null` is
-returned.
-
 MultiPolygon comprised of a simple Polygon and a Polygon with hole:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
