@@ -3,7 +3,7 @@
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">422</span>
+content-length: <span class="hljs-number">462</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -15,7 +15,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;edges/6&quot;</span>, 
       <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;vertices/2&quot;</span>, 
       <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;vertices/1&quot;</span>, 
-      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_drhKZtO---&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwzC4uu--_&quot;</span>, 
       <span class="hljs-string">&quot;$label&quot;</span> : <span class="hljs-string">&quot;v2 -&gt; v1&quot;</span> 
     }, 
     { 
@@ -23,7 +23,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;edges/7&quot;</span>, 
       <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;vertices/4&quot;</span>, 
       <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;vertices/1&quot;</span>, 
-      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_drhKZtO--_&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dwzC4uy---&quot;</span>, 
       <span class="hljs-string">&quot;$label&quot;</span> : <span class="hljs-string">&quot;v4 -&gt; v1&quot;</span> 
     } 
   ], 
@@ -34,9 +34,11 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;cursorsCreated&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;cursorsRearmed&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.000454770983196795</span>, 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00038172677159309387</span>, 
     <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">0</span> 
   } 
 }
