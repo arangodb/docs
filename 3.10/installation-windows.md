@@ -168,11 +168,15 @@ the *&lt;ROOTDIR&gt;* directory manually.
 Unattended installation using the installer
 -------------------------------------------
 
-The NSIS based installer requires user interaction by default, but it also
+The NSIS-based installer requires user interaction by default, but it also
 offers a [Silent Mode](https://nsis.sourceforge.io/Docs/Chapter4.html#silent){:target="_blank"}
 which allows you to run it non-interactively from the command-line:
 
-    cmd> ArangoDB3-3.x.x_win64.exe /S …
+    ArangoDB3-3.x.x_win64.exe /S ...
+
+You can run the uninstaller in Silent Mode:
+
+    Uninstall.exe /S ...
 
 All choices available in the GUI can be passed as arguments. The options can
 be specified like `/OPTIONNAME=value`.
@@ -181,27 +185,38 @@ be specified like `/OPTIONNAME=value`.
 
 *For Installation*:
 
- - `/PASSWORD` - Set the database password. Newer versions will also try to evaluate a PASSWORD environment variable
- 
- - `/INSTDIR` - Installation directory. A directory where you have access to.
- - `/DATABASEDIR` - Database directory. A directory where you have access to and the databases should be created.
- - `/APPDIR` - Foxx Services directory. A directory where you have access to.
- - `/INSTALL_SCOPE_ALL`:
-    - `1` - AllUsers +Service - launch the arangodb service via the Windows Services, install it for all users
-    - `0` - SingleUser - install it into the home of this user, don'launch a service. Eventually create a desktop Icon so the user can do this.
- - `/DESKTOPICON`
-   - `0`: Do not create any shortcuts
-   - `1`: Create shortcuts on the desktop for arangosh and the web interface
- - `/PATH`
-   - `0` - don't alter the PATH environment at all
-   - `1`:
-     - `INSTALL_SCOPE_ALL` = 1 add it to the path for all users
-     - `INSTALL_SCOPE_ALL` = 0 add it to the path of the currently logged in users
+- `/PASSWORD` - Set the password for the `root` user. If this option is not set
+  but a persistent environment variable `PASSWORD` is, then its value will be
+  used as password.
+- `/INSTDIR` - Installation directory. A directory that you have access to.
+- `/DATABASEDIR` - Database directory. A directory that you have access to
+  and the databases should be created in.
+- `/APPDIR` - Foxx Services directory. A directory that you have access to.
+- `/INSTALL_SCOPE_ALL`:
+  - `1` - Install for all users, as well as install a Windows service called
+    `arangodb` and launch it.
+  - `0` - Install for the current user only. Does not start the server
+    automatically, but creates a shortcut on the desktop to start it.
+- `/DESKTOPICON`
+  - `0` - Do not create any shortcuts
+  - `1` - Create shortcuts on the desktop for arangosh and the web interface
+- `/UPGRADE`
+  - `1` - Automatically upgrade existing ArangoDB databases
+  - `0` - No upgrade of databases
+- `/BACKUP_ON_UPGRADE`
+  - `1` - Keep a backup of the databases if `/UPGRADE=1` is set
+  - `0` - No backup
+- `/PATH`
+  - `0` - Do not add ArangoDB to the PATH environment variable
+  - `1`:
+    - With `/INSTALL_SCOPE_ALL=1`: add it to the path for all users
+    - With `/INSTALL_SCOPE_ALL=0`: add it to the path of the currently logged in users
 
 *For Uninstallation*:
- - `PURGE_DB`
-   - `0` - Database files will remain on the system
-   - `1` - Database files ArangoDB created during its lifetime will be removed too.
+
+- `/PURGE_DB`
+  - `0` - Database files will remain on the system
+  - `1` - Database files ArangoDB created during its lifetime will be removed, too.
 
 Installing using the ZIP archive
 --------------------------------
