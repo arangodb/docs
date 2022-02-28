@@ -137,7 +137,7 @@ FOR u IN users
 RETURN DISTINCT
 ---------------
 
-Since ArangoDB 2.7, `RETURN` can optionally be followed by the `DISTINCT` keyword.
+`RETURN` can optionally be followed by the `DISTINCT` keyword.
 The `DISTINCT` keyword will ensure uniqueness of the values returned by the
 `RETURN` statement:
 

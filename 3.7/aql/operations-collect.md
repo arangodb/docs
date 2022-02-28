@@ -262,7 +262,7 @@ assignment:
 COLLECT variants
 ----------------
 
-Since ArangoDB 2.6, there are two variants of `COLLECT` that the optimizer can
+There are two variants of `COLLECT` that the optimizer can
 choose from: the *sorted* variant and the *hash* variant. The *hash* variant only becomes a
 candidate for `COLLECT` statements that do not use an `INTO` clause.
 

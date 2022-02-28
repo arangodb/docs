@@ -47,7 +47,8 @@ aranGoDriver | Go | [github.com/TobiEiss/aranGoDriver](https://github.com/TobiEi
 arangolite | Go | [github.com/solher/arangolite](https://github.com/solher/arangolite){:target="_blank"}
 pyArango | Python | [github.com/ArangoDB-Community/pyArango](https://github.com/ArangoDB-Community/pyArango){:target="_blank"}
 python-arango | Python | [github.com/Joowani/python-arango](https://github.com/Joowani/python-arango){:target="_blank"}
-aioarangodb | Python | [github.com/bloodbare/aioarangodb](https://github.com/bloodbare/aioarangodb){:target="_blank"}
+aioarango | Python | [github.com/mirrorrim/aioarango](https://github.com/mirrorrim/aioarango){:target="_blank"}
+aioarangodb | Python | [github.com/getflaps/aioarangodb](https://github.com/getflaps/aioarangodb){:target="_blank"}
 Proteus | Scala | [github.com/CharlesAHunt/proteus](https://github.com/CharlesAHunt/proteus){:target="_blank"}
 avokka | Scala | [github.com/avokka/avokka](https://github.com/avokka/avokka){:target="_blank"}
 arangodb-scala-driver | Scala | [github.com/acme-software/arangodb-scala-driver](https://github.com/acme-software/arangodb-scala-driver){:target="_blank"}

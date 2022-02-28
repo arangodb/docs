@@ -47,6 +47,7 @@ Other Topics
 ------------
 
 - [Configuration](administration-configuration.html)
+- [License Management](administration-license.html)
 - [Backup & Restore](backup-restore.html)
 - [Import & Export](administration-import-export.html)
 - [User Management](administration-managing-users.html)

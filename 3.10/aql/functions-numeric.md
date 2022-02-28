@@ -151,6 +151,8 @@ COS(RADIANS(45)) // 0.7071067811865476
 COSINE_SIMILARITY()
 -------------------
 
+<small>Introduced in: v3.9.0</small>
+
 `COSINE_SIMILARITY(x, y) → num`
 
 Return the [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity){:target="_blank"}
@@ -378,6 +380,8 @@ LOG10(0) // null
 L1_DISTANCE()
 -------------
 
+<small>Introduced in: v3.9.0</small>
+
 `L1_DISTANCE(x, y) → num`
 
 Return the [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry){:target="_blank"}
@@ -402,6 +406,8 @@ L1_DISTANCE([1.5], [3]) // 1.5
 
 L2_DISTANCE()
 -------------
+
+<small>Introduced in: v3.9.0</small>
 
 `L2_DISTANCE(x,y) → num`
 

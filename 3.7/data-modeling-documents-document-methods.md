@@ -574,8 +574,6 @@ Insert / Save
 
 <!-- arangod/V8Server/v8-vocbase.cpp -->
 
-Note: since ArangoDB 2.2, _insert_ is an alias for _save_.
-
 `collection.insert(data)`<br>
 `collection.save(data)`
 

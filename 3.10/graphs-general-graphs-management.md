@@ -698,18 +698,17 @@ Manipulating Edges
 
 ### Save a new Edge
 
-Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionName
+Creates an edge from vertex `data._from` to vertex `data._to` in collection
+`edgeCollectionName`.
 
-`graph.edgeCollectionName.save(from, to, data, options)`
+`graph.edgeCollectionName.save(data, options)`
 
-- `from` (string):
-  *_id* attribute of the source vertex
-- `to` (string):
-  *_id* attribute of the target vertex
-- `data` (object, _optional_):
-  JSON data of the edge
+- `data` (object):
+  JSON data of the edge. Needs to include a `_from` attribute with the document
+  identifier of the source vertex and a `_to` attribute with the document
+  identifier of the target vertex.
 - `options` (object, _optional_):
-  See [collection documentation](graphs-edges.html)
+  See [`collection.save()` options](data-modeling-documents-document-methods.html#insert--save)
 
 **Examples**
 
@@ -718,7 +717,10 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
-      graph.relation.save("male/bob", "female/alice", {type: "married", _key: "bobAndAlice"});
+    | graph.relation.save({
+    |   _from: "male/bob",
+    |   _to: "female/alice",
+        _key: "bobAndAlice", type: "married" });
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionSave1
