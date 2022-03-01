@@ -26,21 +26,25 @@ official release of a new version.
 {% endhint %}
 
 If you are using [_homebrew_](http://brew.sh/){:target="_blank"},
-then you can install the latest released stable version of ArangoDB using *brew* as follows:
+then you can install the latest released stable version of ArangoDB using `brew`
+ as follows:
 
 ```
 brew install arangodb
 ```
 
 This will install the current stable version of ArangoDB and all
-dependencies within your Homebrew tree. Note that the server will be
-installed as:
+dependencies within your Homebrew tree. The integrity of the homebrew formula
+is automatically verified by a checksum.
+
+
+The server binary will be installed at:
 
 ```
 /usr/local/Cellar/arangodb/<VERSION>/sbin/arangod
 ```
 
-`<VERSION>` is a placeholder for the actual version number, e.g. `3.5.0`.
+`<VERSION>` is a placeholder for the actual version number, e.g. `3.9.0`.
 
 You can start the server by running the command:
 
@@ -86,8 +90,7 @@ also need to update Homebrew executing the command `brew update`.
 
 ### Known issues
 
-- The ArangoDB Starter is not included in v3.3.x, but shipped with all 3.4.x versions.
-- The Commandline argument parsing does not accept blanks in filenames; the CLI version below does.
+- The command-line argument parsing does not accept blanks in filenames; the CLI version below does.
 - If you need to change server endpoint while starting _homebrew_ version, you can edit arangod.conf 
   file and uncomment line with endpoint needed, e.g.:
       
@@ -104,7 +107,9 @@ page of the ArangoDB website and download the *DMG* Package for macOS.
 
 You may verify the download by comparing the SHA256 hash listed on the website
 to the hash of the file. For example, you can you run `openssl sha256 <filename>`
-or `shasum -a 256 <filename>` in a terminal.
+or `shasum -a 256 <filename>` in a terminal. You may also run
+`codesign --verify --verbose <filename>` to validate the notarization of an
+executable.
 
 You can install the application in your application folder.
 

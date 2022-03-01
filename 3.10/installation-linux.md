@@ -27,8 +27,9 @@ installation steps are:
 
    Package manager: Package managers verify downloaded packages automatically.
 
-5. Installation packages: Run the `.rpm` or `.deb` file and follow the on-screen
-   instructions.
+5. Installation packages: Run `sudo rpm -i <filename>.rpm` or
+   `sudo apt install <filename>.deb` respectively in a terminal and follow the
+   on-screen instructions.
 
    Tar packages: Unpack the archive, for example by running `tar -xzf <filename>`.
 
@@ -47,7 +48,8 @@ Securing your Installation
 
 ### Debian / Ubuntu
 
-Debian based packages will ask for a password during installation.
+Debian-based packages will ask you to set a password for the `root` user during
+installation.
 
 #### Securing Unattended Installations on Debian
 
@@ -63,9 +65,10 @@ The commands above should be executed prior to the installation.
 
 ### Red-Hat / CentOS
 
-Red-Hat based packages will set a random password during installation. The generated
-random password is printed during the installation. Please write it down somewhere,
-or change it to a password of your choice by executing:
+Red-Hat-based packages will set a random password for the `root` user during
+installation. The generated random password is printed during the installation.
+Please write it down somewhere, or change it to a password of your choice by
+executing:
 
 ```
 ARANGODB_DEFAULT_ROOT_PASSWORD=NEWPASSWORD arango-secure-installation
@@ -75,9 +78,10 @@ The command should be executed after the installation.
 
 ### Other Distributions
 
-For other distributions run `arango-secure-installation` to set a _root_ password.
+For other distributions run `arango-secure-installation` to set the password
+for the `root` user.
 
 {% hint 'danger' %}
-Please be aware that running `arango-secure-installation` on your ArangoDB Server will remove
-all current database users but root.
+Please be aware that running `arango-secure-installation` on your ArangoDB
+server will remove all current database users but root.
 {% endhint %}

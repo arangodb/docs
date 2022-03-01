@@ -10,9 +10,9 @@ Installing ArangoDB on Windows
 
 You can install ArangoDB on Windows (64-bit) using different methods:
 
-- Automated, using an _NSIS_ Installer
+- Automated, using an installation wizard ("installer")
   - [attended](#installing-using-the-installer) (GUI)
-  - [unattended](#unattended-installation-using-the-installer) (command-line, using NSIS silent mode)
+  - [unattended](#unattended-installation-using-the-installer) (command-line)
 - Manually, using a [ZIP archive](#installing-using-the-zip-archive)
 
 Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
@@ -107,30 +107,24 @@ installation) or user's path (single user installation).
 
 Select if you want the installer to create Desktop Icons that let you:
 
-- access the web inteface
-- start the commandline client (arangosh)
+- access the web interface
+- start the command-line client (arangosh)
 - start the database server (single user installation only)
 
 ### Starting
 
-If you installed ArangoDB for multiple users (as a service) it is automatically
-started. Otherwise you need to use the link that was created on you Desktop if
-you chose to let the installer create desktop icons or
+If you installed ArangoDB for multiple users (as a service), it is automatically
+started. Otherwise you need to use the shortcut that was created on your desktop
+(depending on the installer settings) or by running the executable `arangod.exe`
+located in `<ROOTDIR>\usr\bin`. It will use the configuration file `arangod.conf`
+located in `<ROOTDIR>\etc\arangodb3`, which you can adjust to your needs.
 
-the executable *arangod.exe* located in
-*&lt;ROOTDIR&gt;\bin*. This will use the configuration file *arangod.conf*
-located in *&lt;ROOTDIR&gt;\etc\arangodb*, which you can adjust to your needs
-and use the data directory *&lt;ROOTDIR&gt;\var\lib\arangodb*. This is the place
-where all your data (databases and collections) will be stored by default.
+Please check the output of the `arangod.exe` executable before continuing.
+If the server started successfully, you should see a line
+`ArangoDB is ready for business. Have fun!` at the end of its output.
 
-Please check the output of the *arangod.exe* executable before going on. If the
-server started successfully, you should see a line `ArangoDB is ready for
-business. Have fun!` at the end of its output.
-
-We now wish to check that the installation is working correctly and to do this
-we will be using the administration web interface. Execute *arangod.exe* if you
-have not already done so, then open up your web browser and point it to the
-page:
+You can access the administration web interface by pointing your web browser to
+the following address:
 
 ```
 http://127.0.0.1:8529/
@@ -149,21 +143,21 @@ To connect to an already running ArangoDB server instance, there is a shell
 used – amongst other things – to administer and query a local or remote
 ArangoDB server.
 
-Note that *arangosh.exe* does NOT start a separate server, it only starts the
+Note that `arangosh.exe` does NOT start a separate server, it only starts the
 shell. To use it you must have a server running somewhere, e.g. by using
-the *arangod.exe* executable.
+the `arangod.exe` executable.
 
-*arangosh.exe* uses configuration from the file `arangosh.conf` located in
-`<ROOTDIR>\etc\arangodb\`. Please adjust this to your needs if you want to
+`arangosh.exe` uses configuration from the file `arangosh.conf` located in
+`<ROOTDIR>\etc\arangodb3\`. Please adjust this to your needs if you want to
 use different connection settings etc.
 
 ### Uninstalling
 
 To uninstall the Arango server application you can use the windows control panel
 (as you would normally uninstall an application). Note however, that any data
-files created by the Arango server will remain as well as the *&lt;ROOTDIR&gt;*
+files created by the ArangoDB server will remain as well as the `<ROOTDIR>`
 directory. To complete the uninstallation process, remove the data files and
-the *&lt;ROOTDIR&gt;* directory manually.
+the `<ROOTDIR>` directory manually.
 
 Unattended installation using the installer
 -------------------------------------------
