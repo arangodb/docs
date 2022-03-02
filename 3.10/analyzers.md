@@ -1331,6 +1331,7 @@ which supports the following languages:
 Language     | Code
 -------------|-----
 Arabic     * | `ar`
+Armenian  ** | `hy`
 Basque     * | `eu`
 Catalan    * | `ca`
 Danish     * | `da`
@@ -1358,3 +1359,5 @@ Tamil      * | `ta`
 Turkish    * | `tr`
 
 \* <small>Introduced in: v3.7.0</small>
+
+\** <small>Introduced in: v3.10.0</small>
