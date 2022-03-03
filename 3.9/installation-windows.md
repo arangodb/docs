@@ -1,63 +1,57 @@
 ---
 layout: default
-description: This is a walkthrough to install ArangoDB on Windows. You will find two possible methods to do so, automatically or manually. 
+description: This overview will step you through on how to install ArangoDB version 3.9.0 or later.
 title: Installing ArangoDB on Windows
 redirect_from:
   - cookbook/administration-nsissilent-mode.html # 3.5 -> 3.5
 ---
-Installing ArangoDB on Windows
-==============================
 
-Introduction
-------------
+# Installing  ArangoDB Community Edition on Windows
 
-There are two possible methods to install ArangoDB on 64-bit Windows systems:
+>Please note that  [**ArangoDB Oasis**](https://cloud.arangodb.com/home) is our hosted ArangoDB service option in the cloud which requires no installation on your machine and we offer a free 14–day trial to get you started.
 
-1. Automated, using an _NSIS_ Installer
-   - attended (GUI)
-   - unattended (command-line, using NSIS silent mode)
-2. Manual, using a ZIP archive (XCopy installation)
+## Overview
 
-Both installation methods have their own pros and cons.
+This overview will step you through on how to install ArangoDB version 3.9.0 or later.
 
-{% hint 'info' %}
-For production environments we highly recommend using Linux.
-{% endhint %}
+There are three ways to install ArangoDB version 3.9.0 on Windows:
 
-Installing using the Installer
-------------------------------
+ 1. Using an installation wizard
+ 2. Using Command-line 
+ 3. Using a ZIP package
 
-The default installation directory is *C:\Program Files\ArangoDB-3.x.x*. During the
-installation process you may change this. In the following description we will assume
-that ArangoDB has been installed in the location *&lt;ROOTDIR&gt;*.
+###  Install ArangoDB with installation wizard 
 
-You have to be careful when choosing an installation directory. You need either
-write permission to this directory or you need to modify the configuration file
-for the server process. In the latter case the database directory and the Foxx
-directory have to be writable by the user.
+>Download the ArangoDB installer for the Community Version 3.9.0 at our [*Download Center*](https://www.arangodb.com/download-major/ )
+>>Click on the **Windows** logo 
 
-### Single- and Multiuser Installation
+There are two options for downloads **Server** and **Client Tools**. **Server** is for a standard set up that uses an insalllation wizard and the **Client Tools** contains Arangosh and Arangodump.
 
-There are two main modes for the installer of ArangoDB.
-The installer lets you select:
+Use **Client Tools**  if you are already running ArangoDB on a different machine and want to connect to that server from a client machine.
 
-- multi user installation (default; admin privileges required)
-  Will install ArangoDB as service.
-- single user installation
-  Allow to install ArangoDB as normal user.
-  Requires manual starting of the database server.
+As an alternative, there is a **Zip** package containing the server, and client tools which can be unpacked in any location.
 
-### Installation Options
+ 1. To begin installation:
+	 - Click **Server  3.9.0**, and a download will begin 
+ 2. Run the Arango DB installation wizard 
+ 	 - Check your `downloads` folder, the default location of the `ArangoDB.exe` will be the `downloads` folder on your machine 
+	 - Double-click the `ArangoDB.exe` file  
+ 4. Follow the steps in  ArangoDB the Installation Wizard:
+	 - Click **Next**, and read and agree terms and conditions 
+	 -  If you Tick  **All Users** . This will install ArangoDB as a service 
+	 -  When you tick **For the current user** ArangoDB installs as a ***single user***. And it will require a restart of the database server	
+	 - Leave the tick boxes as they are if you are happy for ArangoDB to install with its default settings
+	 - Click **Next**, a window will appear where you can create a new password 
+	 - Enter a new password, and click **Next**. The ***default username*** is ***root***, so make a note of that while you creating a new password 
+	 - Click **Next** and decide if you would like to make a shortcut for ArangoDB on your desktop
+	 - Click **Install**
+	 - Click **Finish** and a window on your default browser will open 
+	 - Enter the password you created and leave ***root*** as the default username.
+	 - Click **Login**
+	 - Select ``DB:_system`` as the default
+	 
+This will start your instance of ArangoDB.
 
-The checkboxes allow you to chose weather you want to:
-
-- chose custom install paths
-- do an automatic upgrade
-- keep an backup of your data
-- add executables to path
-- create a desktop icon
-
-or not.
 
 #### Custom Install Paths
 
