@@ -267,8 +267,8 @@ RangeDelete operations in RocksDB. Using RangeDeletes is fast and reduces
 the algorithmic complexity of the truncate operation to O(1), compared to
 O(n) for when this option is turned off (with n being the number of
 documents in the collection/shard).
-Previous versions of ArangoDB used RangeDeletes only on single server, but
-never in cluster. 
+Previous versions of ArangoDB used RangeDeletes only on a single server, but
+never in a cluster. 
 
 The default value for this startup option is `true`, and the option should
 only be changed in case of emergency. This option is only honored in the
