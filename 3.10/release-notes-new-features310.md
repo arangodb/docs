@@ -173,12 +173,12 @@ It is possible to opt out of these changes and get back the memory and performan
 of previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
-The new startup option `--rocksdb.use-range-delete-in-wal` controls whether the collection 
-truncate operation in the cluster can use RangeDelete operations in RocksDB. Using RangeDeletes
-s fast and reduces the algorithmic complexity of the truncate operation to O(1), compared to
-O(n) for when this option is turned off (with n being the number of documents in the 
+The new `--rocksdb.use-range-delete-in-wal` startup option controls whether the collection 
+truncate operation in a cluster can use RangeDelete operations in RocksDB. Using RangeDeletes
+is fast and reduces the algorithmic complexity of the truncate operation to O(1), compared to
+O(n) when this option is turned off (with n being the number of documents in the 
 collection/shard).
-Previous versions of ArangoDB used RangeDeletes only on single server, but never in cluster. 
+Previous versions of ArangoDB used RangeDeletes only on a single server, but never in a cluster. 
 
 The default value for this startup option is `true`, and the option should only be changed in
 case of emergency. This option is only honored in the cluster. Single server and active failover
