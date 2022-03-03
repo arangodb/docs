@@ -47,7 +47,7 @@ aranGO | Go | [github.com/diegogub/aranGO](https://github.com/diegogub/aranGO){:
 aranGoDriver | Go | [github.com/TobiEiss/aranGoDriver](https://github.com/TobiEiss/aranGoDriver){:target="_blank"}
 arangolite | Go | [github.com/solher/arangolite](https://github.com/solher/arangolite){:target="_blank"}
 pyArango | Python | [github.com/ArangoDB-Community/pyArango](https://github.com/ArangoDB-Community/pyArango){:target="_blank"}
-python-arango | Python | [github.com/Joowani/python-arango](https://github.com/Joowani/python-arango){:target="_blank"}
+python-arango | Python | [github.com/ArangoDB-Community/python-arango](https://github.com/ArangoDB-Community/python-arango){:target="_blank"}
 aioarango | Python | [github.com/mirrorrim/aioarango](https://github.com/mirrorrim/aioarango){:target="_blank"}
 aioarangodb | Python | [github.com/getflaps/aioarangodb](https://github.com/getflaps/aioarangodb){:target="_blank"}
 Proteus | Scala | [github.com/CharlesAHunt/proteus](https://github.com/CharlesAHunt/proteus){:target="_blank"}
