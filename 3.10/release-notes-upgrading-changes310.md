@@ -91,7 +91,7 @@ Maximum Array / Object nesting
 
 When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
 VelocyPack, there is a maximum recursion depth for nested arrays and objects, which is slightly 
-below 200. Arrays or Objects with higher nesting than this will cause `Too deep nesting in Array/Object`
+below 200. Arrays or objects with higher nesting than this will cause `Too deep nesting in Array/Object`
 exceptions. 
 The limit is also enforced when converting any server data to JavaScript in Foxx, or
 when sending JavaScript input data from Foxx to a server API.
