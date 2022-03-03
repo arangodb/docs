@@ -21,7 +21,7 @@ The following hard-coded limitations exist for AQL queries:
   (because it is interpreted and executed as `1 + (2 + (3 + 4))`).
 - When reading any data from JSON or VelocyPack input or when serializing
   any data to JSON or VelocyPack, there is a maximum recursion depth for 
-  nested arrays and objects, which is slightly below 200. Arrays or Objects
+  nested arrays and objects, which is slightly below 200. Arrays or objects
   with higher nesting than this will cause `Too deep nesting in Array/Object`
   exceptions.
 
