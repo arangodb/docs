@@ -46,7 +46,7 @@ the same Jackson packages.
 </dependencyManagement>
 ```
 
-`jackson-dataformat-velocypack` is compatible with Jackson 2.10, 2.11, 2.12 and 2.13.
+`jackson-dataformat-velocypack` is compatible with Jackson 2.10, 2.11, 2.12, and 2.13.
 
 ## Configure
 
