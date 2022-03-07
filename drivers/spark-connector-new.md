@@ -335,6 +335,7 @@ df.write
 - Dates and timestamps fields are interpreted to be in a UTC time zone.
 - In Spark 2.4, for corrupted records in batch reading, partial results are not supported. All fields other than the field configured by `columnNameOfCorruptRecord` are set to `null` (SPARK-26303).
 - In read jobs using `stream=true` (default), possible AQL warnings are only logged at the end of each read task (BTS-671).
+- When writing to collections sharded by fields other than `_key`, the records to be saved must not contain the `_key` field.
 
 ## Demo
 
