@@ -3,9 +3,9 @@ layout: default
 ---
 # ArangoDB Spark Connector
 
-**NOTE:** this library has been deprecated in favor of the new [ArangoDB Datasource for Apache Spark](spark-connector-new.html).
-
----
+{% hint 'info' %}
+This library has been deprecated in favor of the new [ArangoDB Datasource for Apache Spark](spark-connector-new.html).
+{% endhint %}
 
 - [Getting Started](spark-connector-getting-started.html)
 - [Reference](spark-connector-reference.html)
