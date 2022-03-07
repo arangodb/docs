@@ -4,6 +4,10 @@ description: Setting up the Spark Connector
 ---
 # ArangoDB Spark Connector - Getting Started
 
+**NOTE:** this library has been deprecated in favor of the new [ArangoDB Datasource for Apache Spark](spark-connector-new.html).
+
+---
+
 ## Maven
 
 ### Spark 3.X + 2.4.1 and above

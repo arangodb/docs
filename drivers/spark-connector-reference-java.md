@@ -4,6 +4,10 @@ description: Save data from rdd into ArangoDB
 ---
 # ArangoDB Spark Connector - Java Reference
 
+**NOTE:** this library has been deprecated in favor of the new [ArangoDB Datasource for Apache Spark](spark-connector-new.html).
+
+---
+
 ## ArangoSpark.save
 
 ```
