@@ -6,95 +6,95 @@ redirect_from:
   - cookbook/administration-nsissilent-mode.html # 3.5 -> 3.5
 ---
 
-# Installing  ArangoDB Community Edition on Windows
 
-Please note that  [**ArangoDB Oasis**](https://cloud.arangodb.com/home) is our hosted ArangoDB service option in the cloud which requires no installation on your machine and we offer a free 14–day trial to get you started.
+# Installing ArangoDB Community Edition on Windows
 
-
+Please note that [**ArangoDB Oasis**](https://cloud.arangodb.com/home) is our hosted ArangoDB service option in the cloud which requires no installation on your machine and we offer a free 14–day trial to get you started.
 
 There are three ways to install ArangoDB on Windows:
 
- 1. Using an installation wizard.
+1. Using an installation wizard.
+2. Using command line.
+3. Using a ZIP package.
 
- 2. Using command line.
+## Using the Installation Wizard
 
- 3. Using a ZIP package.
+***To download the wizard**
 
-    
-
-There are two options for downloads **Server** which contains both the ArangoDB server and the client tools and **Client Tools** which contains only the client tools.
-
-When you install **server** you will have both ArangoDB Server and the client tools on your server.
-
-**Client tools**, you will access to *arangosh* and *arangodump*. **Client Tools**  can be installed on a remote system rather than on the server. You can install the **client tools** on any system that has network access to the server.
-
-###  Download the Installation Wizard 
+We provide a single package that contains the server and the client tools. For a standard server setup, download the server package called **Server 3.9.0**. And if you would like to install the client tools to a different machine then download the **Client Tools** package.
 
 1. Go to our **[Download Centre](https://www.arangodb.com/download-major/ )** and a click on the **Windows** logo.
-
-2. Scroll down, Click **Server  3.9.0**, and a download will being.
-
+2. Scroll down, Click **Server 3.9.0**, and a download will being.
 3. Check your **downloads** folder, the default location will be the **downloads** folder on your machine.
 
-### Installing ArangoDB
+***Installing ArangoDB***
 
-- Double-click the **ArangoDB.exe** file to run the Arango DB installation wizard.
-- A welcome window will appear, click **Next** to continue. 
-- Read and agree terms and conditions and click **Next**. 
-- Choose how you would like ArangoDB to be installed.
-  - Ticking the **all users** , will install ArangoDB as a service and it wlill start to run automatically after installation.
-  - Ticking for the **current user** you will need to manually start the ArangoDB after the installation is completed.
-- Leave the other tick boxes options as they are if you are happy for ArangoDB to install with its default settings.
- - A window will appear where you can create a new password, and click **Next**.
- - The ***default username*** is ***root***, so make a note of that when you create a password. Enter a new password, and click **Next**. 
- - Decide if you would like to make a shortcut for ArangoDB on your desktop, and click **Next**. 
- - Click **Install**.
- - Click **Finish** and a window on your default browser will open to the web interface.
- 
-### Installing ArangoDB with command line 
+1. Double-click the **ArangoDB.exe** file to run the Arango DB installation wizard.
+2. A **user control** dialog box will appear and will ask permission for the application to makes changes to your device, click **Yes**.
+3. A set-up window will appear, click **Next** to continue.
+4. Read and agree terms and conditions and click **Next**.
+5. Choose how you would like ArangoDB to be installed.
+- Selecting the **all users** tick box, will install ArangoDB as a service and it will start to run automatically after installation.
+- Selecting for the **current user** tick box will require you to manually start the ArangoDB server after the installation is completed.
+6. Leave the tick boxes selected if you are want ArangoDB to install with its default settings.
+7. A dialog box will appear where you can create a new password,enter a new password and click **Next**.
+8. Decide if you would like to make a shortcut for ArangoDB on your desktop, and click **Next**.
+10. Click **Install**.
+11. Wait for the installation.
+12. Leave the **Launch ArangoDB** tick box selected and click **Finish** 
+13. The ArangoDB server will launch on your default browser will open the web interface.
+12. Enter the password you created and leave **root** as the default username.
+13. Click **Login**.
+14. Select **DB:_system** as the default.
 
-- Open **Command Prompt**. Make sure that Command Prompt is pointing at the location where the **ArangoDB.exe** is located. You might need to move the file depending on how your windows directory is set up. 
-- Enter ``ArangoDB3-3.9.0_win64.exe/S`` to enter silent mode. 
+## Installing ArangoDB with command line
+Using command line in silent mode will enable you to run the installation without interacting with an installation wizard.
+
+*** To install with command line ***
+
+1. Open **Command Prompt**. Make sure that Command Prompt is pointing at the location where the **ArangoDB.exe** is located. You might need to move the file depending on how your windows directory is set up.
+2. Enter ``ArangoDB3-3.9.0_win64.exe/S`` to enter silent mode.
 
 {% hint 'warning' %}
-The file name of the **.exe** will changes depending on the version of ArangoDB you are installing 
+
+The file name of the **.exe** will change depending on the version of ArangoDB you are installing
+
 {% endhint %}
 
-You can set your preferred options listed below by entering `/PASSWORD=your new password`
+*** Setting up your preferences ***
 
-- `/PASSWORD` - Create a new password. 
-- `/INSTDIR` - The directory that you want to install ArangoDB to and which you have access to.
-- `/DATABASEDIR` - Database directory. A directory where you have access to and the database will be created.
-- `/APPDIR` - Foxx Services directory. A directory that you have access to.
-- `/INSTALL_SCOPE_ALL`:
-  - `1` - All Users + Service - Launches the ArangoDB service via the Windows Services and installs it for all users.
-  - `0` - Single User - Install ArangoDBon the machine of one user, don't try to launch the service. A desktop icon will be created.
-- `/DESKTOPICON`:
-  - `0`: Do not create any shortcuts.
-  - `1`: Create shortcuts on the desktop for *arangosh* and the web interface.
-- `/PATH`
-  - `0` - don’t alter the PATH environment at all.
-  - `1`:
-    - `INSTALL_SCOPE_ALL` = 1 add it to the path for all users.
-    - `INSTALL_SCOPE_ALL` = 0 add it to the path of the currently logged in users.
-    
-### Installing ArangoDB using a ZIP package
+You can set your preferred options listed below by entering `/PASSWORD=your new password`, for example. Below is the list of the other settings options that can be set up using command line:
 
-If you prefer to have a portable application or would like to have different versions of ArangoDB on the same machine you can use the **ZIP package**.
+|Name|Description|
+|--|--|
+|`/PASSWORD`|creates a new password.|
+|`/INSTDIR`|the directory that you want to install ArangoDB to and which you have access to.|
+|`/DATABASEDIR`|the directory that you have access to and where the database should be created.|
+|`/APPDIR`|Foxx Services directory.A directory that you have access to.|
+|`/INSTALL_SCOPE_ALL`|Option `1`, launches the ArangoDB service via Windows Services, and installs it for all users. Option `0` installs ArangoDB on machine of your chosen user. It will also create a desktop icon and the user will be able to launch the service.|
+|`/DESKTOPICON`|Option `0`, will not create any shortcuts on the desktop. Option `1`, will create a shortcut on the desktop for *arangosh* and the web interface.|
+|`/Path`|Option `0` will not alter the PATH environment. Option `1` `INSTALL_SCOPE_ALL` = 1 add it to the path for all users.`INSTALL_SCOPE_ALL`= 0 add it to the path of the currently logged in users.|
 
-#### Extract the files 
+## Installing ArangoDB using a ZIP package
 
-- Click on the **Zip package** and a download will begin.
-- Open your **downloads** folder.
-- Right-click on the file and select **extract all.**
-- This will open a new dialogue box, select where you would like your files to be extracted to.
+If you prefer to have a portable application or would like to have different versions of ArangoDB on the same machine you can use the **ZIP Package**.
 
-#### Edit the configuration
+***Extract the files***
 
-This is an optional step you can add when the configuration does not suit your needs. Edit `etc\arangodb3\arangod.conf` to change or add configuration options.
+1. Click on the **Zip package** and a download will begin.
 
-#### Start the Server 
+2. Open your **downloads** folder.
 
-After the installation is completed, you may start ArangoDB in several ways.
+3. Right-click on the file and select **extract all**.
 
-The start-up command depends on the type of ArangoDB deployment you are interested in (*Single Instance*, *Active Failover* or *Cluster*).
+4. Right-clicking will open a new dialogue box, select where you would like your files to be extracted to.
+
+***Edit the configuration***
+
+This is an optional step, when the configuration does not suit your needs. Edit `etc\arangodb3\arangod.conf` to change or add configuration options.
+
+***Start the Server***
+
+After the installation is completed, you can start ArangoDB in several ways.
+
+The  start-up command depends on the type of ArangoDB deployment you are interested in using. We offer a *Single Instance*, *Active Failover* or *Cluster*.
