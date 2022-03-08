@@ -30,11 +30,11 @@ When you install **server** you will have both ArangoDB Server and the client to
 
 ###  Download the Installation Wizard 
 
-- Go to our **[Download Centre](https://www.arangodb.com/download-major/ )** and a click on the **Windows** logo.
+1. Go to our **[Download Centre](https://www.arangodb.com/download-major/ )** and a click on the **Windows** logo.
 
-- Scroll down, Click **Server  3.9.0**, and a download will being.
+2. Scroll down, Click **Server  3.9.0**, and a download will being.
 
-- Check your **downloads** folder, the default location will be the **downloads** folder on your machine.
+3. Check your **downloads** folder, the default location will be the **downloads** folder on your machine.
 
 ### Installing ArangoDB
 
