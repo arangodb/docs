@@ -125,9 +125,9 @@ FOR … IN … OPTIONS { indexHint: … , forceIndexHint: true }
 
 <small>Introduced in: v3.9.1</small>
 
-In some rare cases it can be advantageous to not do an index lookup or scan, 
+In some rare cases it can be beneficial to not do an index lookup or scan, 
 but to do a full collection scan.
-An index lookup can be more expensive than a full collection scan in case
+An index lookup can be more expensive than a full collection scan if
 the index lookup produces many (or even all documents) and the query cannot 
 be satisfied from the index data alone.
 
@@ -143,14 +143,14 @@ FOR doc IN collection
 In this case, the optimizer will likely pick the index on `value`, because
 it will cover the query's FILTER condition. To return the value for the
 `other` attribute, the query must additionally look up the documents for
-each index value that passes the FILTER condition. In case the number of
+each index value that passes the FILTER condition. If the number of
 index entries is large (close or equal to the number of documents in the
-collection), then using an index can cause work work than just scanning
+collection), then using an index can cause more work than just scanning
 over all documents in the collection.
 
 The optimizer will likely prefer index scans over full collection scans,
 even if an index scan turns out to be slower in the end. Since ArangoDB
-3.9.1, the optimizer can be forced to not use an index for any given FOR
+3.9.1, you can force the optimizer to not use an index for any given FOR
 loop by using the `disableIndex` hint and setting it to `true`:
 
 ```js
@@ -180,7 +180,7 @@ The default value for `maxProjections` is `5`, which is compatible with the
 previously hard-coded default value.
 
 For example, using a `maxProjections` hint of 7, the following query will
-extract the 7 attributes as projections from the original document:
+extract 7 attributes as projections from the original document:
 
 ```js
 FOR doc IN collection OPTIONS { maxProjections: 7 } 
@@ -188,13 +188,13 @@ FOR doc IN collection OPTIONS { maxProjections: 7 }
 ```
 
 Normally it is not necessary to adjust the value of `maxProjections`, but
-there are a few edge cases where it can make sense:
+there are a few corner cases where it can make sense:
 
-It can be advantageous to increase `maxProjections` when extracting many small 
+- It can be beneficial to increase `maxProjections` when extracting many small 
 attributes from very large documents, and a full copy of the documents should
 be avoided. 
-It can also be advantageous to decrease `maxProjections` to _avoid_ using
-projections if the cost of projections is higher than doing copies of the
+- It can be beneficial to decrease `maxProjections` to _avoid_ using
+projections, if the cost of projections is higher than doing copies of the
 full documents. This can be the case for very small documents.
 
 ### `lookahead`
