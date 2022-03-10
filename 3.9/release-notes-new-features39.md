@@ -372,7 +372,7 @@ FOR doc IN collection OPTIONS { disableIndex: true }
   RETURN doc.other
 ```
 
-See the [`FOR` Operation Options](operations-for.html#disableindex) for details.
+See the [`FOR` Operation Options](aql/operations-for.html#disableindex) for details.
 
 ### `maxProjections` hint
 
@@ -392,7 +392,7 @@ FOR doc IN collection OPTIONS { maxProjections: 7 }
   RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
 ```
 
-See the [`FOR` Operation Options](operations-for.html#maxprojections) for details.
+See the [`FOR` Operation Options](aql/operations-for.html#maxprojections) for details.
 
 ### RocksDB block cache control
 
