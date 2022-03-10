@@ -118,16 +118,16 @@ move shards operations that can be made when the **Rebalance Shards** button is
 clicked in the Web UI. For backwards compatibility purposes, the default value
 is `10`. If the value is `0`, the tab containing the button is not clickable.
 
-### Timeout for web interface sessions
+### Timeout for JWT sessions
 
-The timeout value for web interface sessions is now configurable via the
-startup option `--server.session-timeout`. The value for the option can
-be specified in seconds.
+The lifetime for tokens that can be obtained from the `POST /_open/auth`
+endpoint is now configurable via the `--server.session-timeout` startup option.
 
-The default timeout value for web interface sessions is **one hour** in
-ArangoDB 3.9. Previous versions of ArangoDB had a longer, hard-coded timeout.
+The value for the option can be specified in seconds. The default timeout is
+**one hour**. Previous versions of ArangoDB had a longer, hard-coded timeout.
 
-The session will be renewed automatically as long as you regularly interact with
+The web interface uses JWT for authentication. However,
+the session will be renewed automatically as long as you regularly interact with
 the Web UI in your browser. You will not get logged out while actively using it.
 
 ### Disallowed usage of collection names in AQL expressions
