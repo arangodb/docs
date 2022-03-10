@@ -246,7 +246,7 @@ requests:
 Authorization: bearer eyJhbGciOiJIUzI1NiI..x6EfI
 ```
 
-Please note that the JWT will expire after **1 hour** by default and needs to be
+Please note that the JWT will expire after **one hour** by default and needs to be
 updated. You can configure the token lifetime via the `--server.session-timeout`
 startup option.
 
