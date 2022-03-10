@@ -153,6 +153,11 @@ the upper disk size limit already.
 
 At this point your ArangoDB deployment is available for you to use — **Have fun!**
 
+{% hint 'security' %}
+Do not use the root username/password for everyday operations. It is recommended
+to use them only to create other user accounts with appropriate permissions.
+{% endhint %}
+
 {% hint 'info' %}
 Each deployment is accessible on two ports:
 
