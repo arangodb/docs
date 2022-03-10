@@ -219,7 +219,7 @@ The different types of persistent indexes have the following characteristics:
   be used for optional attributes.
 
   The unique option can also be used to ensure that
-  [no duplicate edges](#ensure-uniqueness-of-relations-in-edge-collections) are
+  [no duplicate edges](#ensuring-uniqueness-of-relations-in-edge-collections) are
   created, by adding a combined index for the fields `_from` and `_to` to an edge collection.
 
 - **unique, sparse persistent index**: all documents in the collection must have different
@@ -238,16 +238,6 @@ The different types of persistent indexes have the following characteristics:
 - **non-unique, sparse persistent index**: only those documents will be indexed that have all
   the indexed attributes set to a value other than `null`. It can be used for optional
   attributes.
-
-If a persistent index is created on an attribute that is missing in all or many
-of the documents, the behavior is as follows:
-
-- if the index is sparse, the documents missing the attribute will not be indexed.
-  These documents will not influence the update or removal performance
-  for the index.
-
-- if the index is non-sparse, the documents missing the attribute will be
-  contained in the index with a key value of `null`.
 
 TTL (time-to-live) Index
 ------------------------
@@ -554,18 +544,18 @@ Ensuring uniqueness of relations in edge collections
 You can create a combined index over the edge attributes `_from` and `_to`
 with the unique option enabled to prevent duplicate relations from being created.
 
-For example, a document collection *verts* might contain vertices with the document
-handles `verts/A`, `verts/B` and `verts/C`. Relations between these documents can
-be stored in an edge collection *edges* for instance. Now, you may want to make sure
-that the vertex `verts/A` is never linked to `verts/B` by an edge more than once.
+For example, a document collection *users* might contain vertices with the document
+handles `user/A`, `user/B` and `user/C`. Relations between these documents can
+be stored in an edge collection *knows*, for instance. You may want to make sure
+that the vertex `user/A` is never linked to `user/B` by an edge more than once.
 This can be achieved by adding a unique, non-sparse persistent index for the
 fields `_from` and `_to`:
 
 ```js
-db.edges.ensureIndex({ type: "persistent", fields: [ "_from", "_to" ], unique: true });
+db.knows.ensureIndex({ type: "persistent", fields: [ "_from", "_to" ], unique: true });
 ```
 
-Creating an edge `{ _from: "verts/A", _to: "verts/B" }` in *edges* will be accepted,
+Creating an edge `{ _from: "user/A", _to: "user/B" }` in *knows* will be accepted,
 but only once. Another attempt to store an edge with the relation **A** → **B** will
 be rejected by the server with a *unique constraint violated* error. This includes
 updates to the `_from` and `_to` fields.
@@ -632,4 +622,3 @@ become unsustainable if this list grows to tens of millions of entries.
 
 Building an index is always a write heavy operation (internally), it is always a good idea to build indexes
 during times with less load.
-
