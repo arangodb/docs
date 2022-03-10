@@ -202,8 +202,8 @@ the browser's built-in dialog.
 
 ### Authentication via JWT
 
-ArangoDB uses a standard JWT based authentication method.
-To authenticate via JWT you must first obtain a JWT token with a signature
+ArangoDB uses a standard JWT-based authentication method.
+To authenticate via JWT, you must first obtain a JWT token with a signature
 generated via HMAC with SHA-256. The secret may either be set using
 `--server.jwt-secret` or will be randomly generated upon server startup.
 
@@ -212,7 +212,7 @@ For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){
 #### User JWT-Token
 
 To authenticate with a specific user you need to supply a JWT token containing
-the _preferred_username_ field with the username.
+the `preferred_username` field with the username.
 You can either let ArangoDB generate this token for you via an API call
 or you can generate it yourself (only if you know the JWT secret).
 
@@ -223,7 +223,7 @@ username and password. To do so send a POST request to:
 /_open/auth
 ```
 
-… containing *username* and *password* JSON-encoded like so:
+… containing `username` and `password` JSON-encoded like so:
 
 ```json
 {
@@ -246,8 +246,12 @@ requests:
 Authorization: bearer eyJhbGciOiJIUzI1NiI..x6EfI
 ```
 
-Please note that the JWT will expire after 1 month and needs to be updated.
-We encode the expiration date of the JWT token in the `exp` field in Unix time.
+Please note that the JWT will expire after **1 hour** by default and needs to be
+updated. You can configure the token lifetime via the `--server.session-timeout`
+startup option.
+
+You can find the expiration date of the JWT token in the `exp` field, encoded as
+Unix timestamp in seconds.
 Please note that all JWT tokens must contain the `iss` field with string value
 `arangodb`. As an example the decoded JWT body would look like this:
 
