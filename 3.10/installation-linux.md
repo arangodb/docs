@@ -25,15 +25,15 @@ installation steps are:
    For example, you can you run `openssl sha256 <filename>` or
    `sha256sum <filename>` in a terminal.
 
-   Package manager: Package managers verify downloaded packages automatically.
+   Package manager: package managers verify downloaded packages automatically.
 
-5. Installation packages: Run `sudo rpm -i <filename>.rpm` or
+5. Installation packages: run `sudo rpm -i <filename>.rpm` or
    `sudo apt install <filename>.deb` respectively in a terminal and follow the
    on-screen instructions.
 
-   Tar packages: Unpack the archive, for example by running `tar -xzf <filename>`.
+   Tar packages: unpack the archive, for example by running `tar -xzf <filename>`.
 
-   Package manager: Follow the installation instructions on the _Download_ page.
+   Package manager: follow the installation instructions on the _Download_ page.
    You may also use another package manager. After setting up the ArangoDB
    repository, you can easily install ArangoDB using _yum_, _aptitude_, _urpmi_,
    or _zypper_.
