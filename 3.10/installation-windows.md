@@ -12,7 +12,7 @@ You can install ArangoDB on Windows (64-bit) using different methods:
 
 - Automated, using an installation wizard ("installer")
   - [attended](#installing-using-the-installer) (GUI)
-  - [unattended](#unattended-installation-using-the-installer) (command-line)
+  - [unattended](#unattended-installation-using-the-installer) (command line)
 - Manually, using a [ZIP archive](#installing-using-the-zip-archive)
 
 Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
@@ -164,7 +164,7 @@ Unattended installation using the installer
 
 The NSIS-based installer requires user interaction by default, but it also
 offers a [Silent Mode](https://nsis.sourceforge.io/Docs/Chapter4.html#silent){:target="_blank"}
-which allows you to run it non-interactively from the command-line:
+which allows you to run it non-interactively from the command line:
 
     ArangoDB3-3.x.x_win64.exe /S ...
 
