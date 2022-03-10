@@ -789,7 +789,7 @@ If a query iterates over a collection (for filtering or counting) but does not n
 the actual document values later, the optimizer can apply a "scan-only" optimization 
 for *EnumerateCollectionNode*s and *IndexNode*s. In this case, it will not build up
 a result with the document data at all, which may reduce work significantly.
-In case the document data are actually not needed later on, it may be sensible to remove 
+In case the document data is actually not needed later on, it may be sensible to remove 
 it from query strings so the optimizer can apply the optimization.
 
 If the optimization is applied, it will show up as "scan only" in an AQL
@@ -806,7 +806,7 @@ from the index values found. It will only be applied when using up to 5 attribut
 from the document, and only if the rest of the document data is not used later
 on in the query.
 
-The optimization is currently available for the index types primary, edge, persistent 
+The optimization is currently available for the following index types: primary, edge, and persistent
 (and its aliases hash and skiplist).
 
 If the optimization is applied, it will show up as "index only" in an AQL
