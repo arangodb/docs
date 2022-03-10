@@ -127,7 +127,7 @@ For example, to create a vertex-centric index of the above type, you
 would simply do
 
 ```js
-db.edges.ensureIndex({"type":"persistent", "fields": ["_from", "timestamp"]});
+db.edges.ensureIndex({"type": "persistent", "fields": ["_from", "timestamp"]});
 ```
 
 in arangosh. Then, queries like
@@ -139,25 +139,17 @@ FOR v, e, p IN 1..1 OUTBOUND "V/1" edges
 ```
 
 will be considerably faster in case there are many edges originating
-from vertex `"V/1"` but only few with a recent time stamp. Note that the
+from vertex `"V/1"` but only few with a recent timestamp. Note that the
 optimizer may prefer the default edge index over vertex-centric indexes
 based on the costs it estimates, even if a vertex-centric index might
 in fact be faster. Vertex-centric indexes are more likely to be chosen
-for highly connected graphs and with RocksDB storage engine.
+for highly connected graphs.
 
 Persistent Index
 ----------------
 
-The persistent index is a sorted index with persistence. The index entries are written to
-disk when documents are stored or updated. That means the index entries do not need to be
-rebuilt from the collection data when the server is restarted or the indexed collection
-is initially loaded. The index implementation uses the RocksDB engine, and it provides
-logarithmic complexity for insert, update, and remove operations.
-
-The persistent index type can be used for secondary indexes. That means the
-persistent index cannot be made the only index for a collection, because there
-will always be the primary index for the collection in addition, and potentially
-more indexes (such as the edge index for an edge collection).
+The persistent index is a sorted index with logarithmic complexity for insert,
+update, and remove operations.
 
 You can create a persistent index on one or multiple document attributes.
 It is a sorted index structure. It can be used to quickly find
@@ -556,8 +548,8 @@ only if the query filters on the indexed attribute using the `IN` operator. The 
 comparison operators (`==`, `!=`, `>`, `>=`, `<`, `<=`, `ANY`, `ALL`, `NONE`)
 cannot use array indexes currently.
 
-Ensure uniqueness of relations in edge collections
---------------------------------------------------
+Ensuring uniqueness of relations in edge collections
+----------------------------------------------------
 
 You can create a combined index over the edge attributes `_from` and `_to`
 with the unique option enabled to prevent duplicate relations from being created.
@@ -578,7 +570,7 @@ but only once. Another attempt to store an edge with the relation **A** → **B*
 be rejected by the server with a *unique constraint violated* error. This includes
 updates to the `_from` and `_to` fields.
 
-Note that adding a relation **B** → **A** is still possible, so is **A** → **A**
+Note that adding a relation **B** → **A** is still possible, so are **A** → **A**
 and **B** → **B**, because they are all different relations in a directed graph.
 Each one can only occur once however.
 
