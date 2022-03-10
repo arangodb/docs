@@ -543,9 +543,9 @@ attributes:
   (default is 1048576 = 1Mb) Maximum is 33554432U (32Mb)
 - `returnType` (string): data type of the returned tokens. If the indicated
   type does not match the actual type then an implicit type conversion is
-  applied (see [TO_STRING()](./aql/functions-type-cast.html#to_string),
-  [TO_NUMBER()](./aql/functions-type-cast.html#to_number),
-  [TO_BOOL()](./aql/functions-type-cast.html#to_bool))
+  applied (see [TO_STRING()](aql/functions-type-cast.html#to_string),
+  [TO_NUMBER()](aql/functions-type-cast.html#to_number),
+  [TO_BOOL()](aql/functions-type-cast.html#to_bool))
   - `"string"` (default): convert emitted tokens to strings
   - `"number"`: convert emitted tokens to numbers
   - `"bool"`: convert emitted tokens to booleans

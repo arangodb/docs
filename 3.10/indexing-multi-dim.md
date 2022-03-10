@@ -141,11 +141,12 @@ performance negatively if documents are fetched unnecessarily.
 You can specify the `lookahead` value using the `OPTIONS` keyword:
 
 ```js
-FOR app IN appointments OPTIONS {lookahead: 32}
-  FILTER @to <= app.to
-  FILTER app.from <= @from
-  RETURN app
+FOR app IN appointments OPTIONS { lookahead: 32 }
+    FILTER @to <= app.to
+    FILTER app.from <= @from
+    RETURN app
 ```
+
 ## Limitations
 
 Currently there are a few limitations:

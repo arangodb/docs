@@ -307,8 +307,6 @@ For example:
 - If a system has 8 cores, then max(2,8) = 8, i.e. 8 threads will be used.
 - If it has 1 core, then max(2,1) = 2, i.e. 2 threads will be used.
 
-
-
 _arangodump_ versions prior to v3.8.0 distribute dump jobs for individual
 collections to concurrent worker threads, which is optimal for dumping many
 collections of approximately the same size, but does not help for dumping few

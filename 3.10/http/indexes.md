@@ -58,7 +58,7 @@ Documents which are expired are eventually removed by a background thread.
 
 {% hint 'warning' %}
 The fulltext index type is deprecated from version 3.10 onwards.
-It's recommended to use [ArangoSearch](../arangosearch.html) for advanced full-text search capabilities.
+It is recommended to use [ArangoSearch](../arangosearch.html) for advanced full-text search capabilities.
 {% endhint %}
 
 A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be set on one attribute only, and will index all words contained in documents that have a textual value in this attribute. Only words with a (specifiable) minimum length are indexed. Word tokenization is done using the word boundary analysis provided by libicu, which is taking into account the selected language provided at server start. Words are indexed in their lower-cased form. The index supports complete match queries (full words) and prefix queries.

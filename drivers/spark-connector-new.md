@@ -35,7 +35,7 @@ To import ArangoDB Datasource for Apache Spark in a maven project:
     <dependency>
       <groupId>com.arangodb</groupId>
       <artifactId>arangodb-spark-datasource-${sparkVersion}_${scalaVersion}</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
     </dependency>
   </dependencies>
 ```
@@ -43,7 +43,7 @@ To import ArangoDB Datasource for Apache Spark in a maven project:
 To use in an external Spark cluster, submit your application with the following parameter:
 
 ```shell
-    --packages="com.arangodb:arangodb-spark-datasource-${sparkVersion}_${scalaVersion}:1.0.0"
+    --packages="com.arangodb:arangodb-spark-datasource-${sparkVersion}_${scalaVersion}:1.1.0"
 ```
 
 
@@ -55,6 +55,7 @@ To use in an external Spark cluster, submit your application with the following 
 - `acquireHostList`: acquire the list of all known hosts in the cluster (`true` or `false`), `false` by default
 - `protocol`: communication protocol (`vst` or `http`), `http` by default
 - `contentType`: content type for driver communication (`json` or `vpack`), `json` by default
+- `timeout`: driver connect and request timeout in ms, `60000` by default
 - `ssl.enabled`: ssl secured driver connection (`true` or `false`), `false` by default
 - `ssl.cert.value`: Base64 encoded certificate
 - `ssl.cert.type`: certificate type, `X.509` by default
@@ -330,10 +331,12 @@ df.write
 
 ## Current limitations
 
-- For `content-type=vpack`, implicit deserialization casts don't work well, i.e. reading a document having a field with a numeric value whereas the related read schema requires a string value for such a field.
+- For `contentType=vpack`, implicit deserialization casts don't work well, i.e. reading a document having a field with a numeric value whereas the related read schema requires a string value for such a field.
 - Dates and timestamps fields are interpreted to be in a UTC time zone.
 - In Spark 2.4, for corrupted records in batch reading, partial results are not supported. All fields other than the field configured by `columnNameOfCorruptRecord` are set to `null` (SPARK-26303).
 - In read jobs using `stream=true` (default), possible AQL warnings are only logged at the end of each read task (BTS-671).
+- Spark SQL `DecimalType` fields are not supported in write jobs when using `contentType=json`.
+- Spark SQL `DecimalType` values are written to the database as strings.
 
 ## Demo
 

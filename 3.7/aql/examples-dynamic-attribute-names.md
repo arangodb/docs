@@ -25,10 +25,9 @@ This solution works in cases where the number of dynamic attributes to return
 is known in advance, and only the attribute names need to be calculated using
 an expression.
 
-ArangoDB 2.5 and higher allow using expressions instead of fixed attribute
-names in object literals. Using expressions as attribute names requires
-enclosing the expression in extra `[` and `]` to disambiguate them from
-regular, unquoted attribute names.
+Using expressions as attribute names instead of fixed attribute names in object
+literals requires enclosing the expression in extra `[` and `]` to disambiguate
+them from regular, unquoted attribute names.
 
 Let us create a result that returns the original document data contained in
 a dynamically named attribute. We will be using the expression `doc.type`

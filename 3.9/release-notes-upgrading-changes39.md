@@ -113,14 +113,10 @@ can be processed in parallel by multiple threads.
 
 ### Rebalance shards
 
-The `--cluster.max-number-of-move-shards` option limits the maximum number of 
-move shards operations that can be made when the **Rebalance Shards** button is 
-clicked in the web UI. For backwards compatibility purposes, the default value is 10. 
-If the value is 0, the tab containing the button  
-is not clickable.
-In previous versions, this button only appeared for the `_system` database, 
-but now it appears in user created databases as well when the user has a write permission
-to the database.
+The new `--cluster.max-number-of-move-shards` option limits the maximum number of
+move shards operations that can be made when the **Rebalance Shards** button is
+clicked in the Web UI. For backwards compatibility purposes, the default value
+is `10`. If the value is `0`, the tab containing the button is not clickable.
 
 ### Timeout for web interface sessions
 

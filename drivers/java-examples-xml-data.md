@@ -205,12 +205,3 @@ while (cursor.hasNext()) {
     System.out.println("XML value: " + xml);
 }
 ```
-
-Other resources
----------------
-
-More documentation about the ArangoDB Java driver is available:
-
-- [Tutorial: Java in ten minutes](https://www.arangodb.com/tutorials/tutorial-sync-java-driver/){:target="_blank"}
-- [Java driver at Github](https://github.com/arangodb/arangodb-java-driver){:target="_blank"}
-- [Example source code](https://github.com/arangodb/arangodb-java-driver/tree/master/src/test/java/com/arangodb/example){:target="_blank"}

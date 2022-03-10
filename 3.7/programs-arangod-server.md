@@ -204,8 +204,21 @@ Note that `auto` defaults to `rocksdb`.
 `--server.jwt-secret-keyfile <file-with-secret>`
 
 ArangoDB will use JSON Web Tokens to authenticate requests. Using this option
-let's you specify a JWT secret stored in a file. The secret must be at most
+lets you specify a JWT secret stored in a file. The secret must be at most
 64 bytes long.
+
+{% hint 'warning' %}
+Avoid whitespace characters in the secret because they may get trimmed,
+leading to authentication problems:
+- Character Tabulation (`\t`, U+0009)
+- End of Line (`\n`, U+000A)
+- Line Tabulation (`\v`, U+000B)
+- Form Feed (`\f`, U+000C)
+- Carriage Return (`\r`, U+000D)
+- Space (U+0020)
+- Next Line (U+0085)
+- No-Nreak Space (U+00A0)
+{% endhint %}
 
 In single server setups ArangoDB will generate a secret if none was specified.
 

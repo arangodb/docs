@@ -79,7 +79,7 @@ messages were not queued but written in a blocking fashion.
 
 ## Write log level
 
-<small>Introduced in: v3.10.0</small>
+<small>Introduced in: v3.9.0</small>
 
 `--audit.write-log-level`
 

@@ -64,13 +64,15 @@ See:
 UI
 --
 
-### Rebalance shards
+### Rebalance Shards for all databases in Web UI
 
-The rebalance shards section displays a button for rebalancing shards. A new DB-Server will not have any shards. With the rebalance functionality, 
-the cluster will start to rebalance shards including empty DB-Servers. You can specify the maximum number of shards that can be 
-moved in each operation by using the `--cluster.max-number-of-move-shards` flag in arangod (the default value is 10).
-When the button is clicked, the number of scheduled move shards operations is shown, or it is displayed that 
-no move operations have been scheduled if they are not necessary.
+The rebalance shards section displays a button for rebalancing shards.
+In previous versions, this button only appeared for the `_system` database,
+but now it appears in user-created databases as well if the user has the write
+permission for the database.
+
+There is also a new startup option to limit the
+[Maximum number of move shards](#maximum-number-of-move-shards).
 
 ### Analyzers in Web Interface
 
@@ -414,12 +416,13 @@ can only be created for index values which are IEEE 754 doubles.
 Server options
 --------------
 
-### Rebalance shards
+### Maximum number of move shards
 
-The `--cluster.max-number-of-move-shards` startup option limits the maximum number 
-of move shards operations which can be made when the **Rebalance Shards** button is 
-clicked in the web UI. For backwards compatibility purposes, the default value is 10. 
-If the value is 0, then the tab containing this button will be inactive and the button cannot be clicked.
+The `--cluster.max-number-of-move-shards` startup option limits the maximum
+number of move shards operations that can be made when the **Rebalance Shards**
+button is clicked in the Web UI. For backwards compatibility purposes, the
+default value is `10`. If the value is `0`, then the tab containing this button
+will be inactive and the button cannot be clicked.
 
 ### Extended naming convention for databases
 

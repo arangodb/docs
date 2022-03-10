@@ -45,14 +45,42 @@ FOR doc IN doc // e.g. documents returned by a traversal
 `GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
 
 Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
-fully contains `geoJsonB` (Every point in B is also in A). The object `geoJsonA` has to be of type 
-`Polygon` or `MultiPolygon`, other types are not supported because containment is ill defined. 
-This function can be **optimized** by a S2 based [geospatial index](../indexing-geo.html).
+fully contains `geoJsonB` (every point in B is also in A). The object `geoJsonA`
+has to be of type _Polygon_ or _MultiPolygon_. For other types containment is
+not well-defined because of numerical stability problems.
 
 - **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
 - **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
-- returns **bool** (bool): true when every point in B is also contained in A, false otherwise
+- returns **bool** (bool): true if every point in B is also contained in A, false otherwise
 
+{% hint 'info' %}
+ArangoDB follows and exposes the same behavior as the underlying
+S2 geometry library. As stated in the S2 documentation:
+
+> Point containment is defined such that if the sphere is subdivided
+> into faces (loops), every point is contained by exactly one face.
+> This implies that linear rings do not necessarily contain their vertices.
+
+As a consequence, a linear ring or polygon does not necessarily contain its
+boundary edges!
+{% endhint %}
+
+You can optimize queries that contain a `FILTER` expression of the following
+form with an S2-based [geospatial index](../indexing-geo.html):
+
+```js
+FOR doc IN coll
+  FILTER GEO_CONTAINS(geoJson, doc.geo)
+  ...
+```
+
+In this example, you would create the index for the collection `coll`, on the
+attribute `geo`. You need to set the `geoJson` index option to `true`.
+The `geoJson` variable needs to evaluate to a valid GeoJSON object. Also note
+the argument order: the stored document attribute `doc.geo` is passed as the
+second argument. Passing it as the first argument, like
+`FILTER GEO_CONTAINS(doc.geo, geoJson)` to test whether `doc.geo` contains
+`geoJson`, cannot utilize the index.
 
 ### GEO_DISTANCE()
 
@@ -80,6 +108,34 @@ FOR doc IN collectionName
   LET distance = GEO_DISTANCE(doc.geometry, polygon) // calculates the distance
   RETURN distance
 ```
+
+You can optimize queries that contain a `FILTER` expression of the following
+form with an S2-based [geospatial index](../indexing-geo.html):
+
+```js
+FOR doc IN coll
+  FILTER GEO_DISTANCE(geoJson, doc.geo) <= limit
+  ...
+```
+
+In this example, you would create the index for the collection `coll`, on the
+attribute `geo`. You need to set the `geoJson` index option to `true`.
+`geoJson` needs to evaluate to a valid GeoJSON object. `limit` must be a
+distance in meters; it cannot be an expression. An upper bound with `<`,
+a lower bound with `>` or `>=`, or both, are equally supported.
+
+You can also optimize queries that use a `SORT` condition of the following form
+with a geospatial index:
+
+```js
+  SORT GEO_DISTANCE(geoJson, doc.geo)
+```
+
+The index covers returning matches from closest to furthest away, or vice versa.
+You may combine such a `SORT` with a `FILTER` expression that utilizes the
+geospatial index, too, via the [`GEO_DISTANCE()`](#geo_distance),
+[`GEO_CONTAINS()`](#geo_contains), and [`GEO_INTERSECTS()`](#geo_intersects)
+functions.
 
 ### GEO_AREA()
 
@@ -145,11 +201,27 @@ RETURN GEO_EQUALS(polygonA, polygonB) // false
 
 Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
 intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa).
-This function can be **optimized** by a S2 based [geospatial index](../indexing-geo.html).
 
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object.
 - returns **bool** (bool): true if B intersects A, false otherwise
+
+You can optimize queries that contain a `FILTER` expression of the following
+form with an S2-based [geospatial index](../indexing-geo.html):
+
+```js
+FOR doc IN coll
+  FILTER GEO_INTERSECTS(geoJson, doc.geo)
+  ...
+```
+
+In this example, you would create the index for the collection `coll`, on the
+attribute `geo`. You need to set the `geoJson` index option to `true`.
+`geoJson` needs to evaluate to a valid GeoJSON object. Also note
+the argument order: the stored document attribute `doc.geo` is passed as the
+second argument. Passing it as the first argument, like
+`FILTER GEO_INTERSECTS(doc.geo, geoJson)` to test whether `doc.geo` intersects
+`geoJson`, cannot utilize the index.
 
 ### GEO_IN_RANGE()
 
@@ -324,13 +396,19 @@ RETURN GEO_POINT(1.0, 2.0)
 
 `GEO_POLYGON(points) → geoJson`
 
-Construct a GeoJSON Polygon. Needs at least one array representing a loop.
-Each loop consists of an array with at least three longitude/latitude pairs. The
-first loop must be the outermost, while any subsequent loops will be interpreted
-as holes.
+Construct a GeoJSON Polygon. Needs at least one array representing
+a linear ring. Each linear ring consists of an array with at least four
+longitude/latitude pairs. The first linear ring must be the outermost, while
+any subsequent linear ring will be interpreted as holes.
+
+For details about the rules, see [GeoJSON polygons](../indexing-geo.html#polygon).
 
 - **points** (array): array of (arrays of) longitude/latitude pairs
 - returns **geoJson** (object\|null): a valid GeoJSON Polygon
+
+A validation step is performed using the S2 geometry library. If the
+validation is not successful, an AQL warning is issued and `null` is
+returned.
 
 Simple Polygon:
 
@@ -352,7 +430,7 @@ Advanced Polygon with a hole inside:
 @EXAMPLE_AQL{aqlGeoPolygon_2}
 RETURN GEO_POLYGON([
     [[35, 10], [45, 45], [15, 40], [10, 20], [35, 10]],
-    [[20, 30], [35, 35], [30, 20], [20, 30]]
+    [[20, 30], [30, 20], [35, 35], [20, 30]]
 ])
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoPolygon_2
@@ -364,7 +442,7 @@ RETURN GEO_POLYGON([
 `GEO_MULTIPOLYGON(polygons) → geoJson`
 
 Construct a GeoJSON MultiPolygon. Needs at least two Polygons inside.
-See [GEO_POLYGON()](#geo_polygon) for the rules of Polygon construction.
+See [GEO_POLYGON()](#geo_polygon) and [GeoJSON MultiPolygons](../indexing-geo.html#multipolygon) for the rules of Polygon and MultiPolygon construction.
 
 - **polygons** (array): array of arrays of array of longitude/latitude pairs
 - returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon

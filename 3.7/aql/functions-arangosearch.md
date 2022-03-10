@@ -275,6 +275,14 @@ FOR doc IN viewName
 Match documents where the attribute at **path** is greater than (or equal to)
 **low** and less than (or equal to) **high**.
 
+You can use `IN_RANGE()` for searching more efficiently compared to an equivalent
+expression that combines two comparisons with a logical conjunction:
+
+- `IN_RANGE(path, low, high, true, true)` instead of `low <= value AND value <= high`
+- `IN_RANGE(path, low, high, true, false)` instead of `low <= value AND value < high`
+- `IN_RANGE(path, low, high, false, true)` instead of `low < value AND value <= high`
+- `IN_RANGE(path, low, high, false, false)` instead of `low < value AND value < high`
+
 *low* and *high* can be numbers or strings (technically also `null`, `true`
 and `false`), but the data type must be the same for both.
 

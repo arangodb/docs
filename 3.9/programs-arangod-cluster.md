@@ -189,8 +189,12 @@ values on all Coordinators.
 
 `--cluster.max-number-of-move-shards <integer>`
 
-Limits the maximum number of move shards operations which can be made when the **Rebalance Shards** button is clicked in the web UI. For backwards compatibility purposes, the default value is 10. If the value is 0, the tab containing this button will be inactive and the button cannot be clicked.
-For more information, refer to [Rebalance Shards](programs-web-interface-cluster.html#rebalance-shards). 
+Limits the maximum number of move shards operations that can be made when the
+**Rebalance Shards** button is clicked in the Web UI. For backwards compatibility
+purposes, the default value is `10`. If the value is `0`, the tab containing
+this button will be inactive and the button cannot be clicked.
+For more information, refer to
+[Rebalance Shards](programs-web-interface-cluster.html#rebalance-shards).
 
 **Maximum number of shards**
 

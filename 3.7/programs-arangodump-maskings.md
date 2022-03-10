@@ -162,7 +162,7 @@ path per masking, but an unlimited amount of maskings per collection.
 }
 ```
 
-Note that the top-level **system attributes** like `_key`, `_from` are
+Top-level **system attributes** (`_key`, `_id`, `_rev`, `_from`, `_to`) are
 never masked.
 
 To mask a top-level attribute value, the path is simply the attribute
@@ -218,15 +218,16 @@ is not a leaf attribute.
 If the attribute value is an **array** then the masking is applied to
 **all array elements individually**.
 
-If you have an attribute key that contains a dot or a top-level attribute
-with a single asterisk as full name (`"*": ...`) then you need to quote the
-name in ticks or backticks to escape it. For example:
+The special path `*` matches **all** leaf nodes of a document.
 
-    "path": "´name.with.dots´"
+If you have an attribute key that contains a dot (like `{ "name.with.dots": … }`)
+or a top-level attribute with a single asterisk as full name (`{ "*": … }`)
+then you need to quote the name in ticks or backticks to escape it:
 
-or
-
-    "path": "`name.with.dots`"
+- `"path": "´name.with.dots´"`
+- `` "path": "`name.with.dots`" ``
+- `"path": "´*´"`
+- `` "path": "`*`" ``
 
 **Example**
 
