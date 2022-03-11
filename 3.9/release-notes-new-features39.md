@@ -362,7 +362,7 @@ with error `1524` ("too much nesting or too many objects") during setup.
 
 <small>Introduced in: v3.9.1</small>
 
-In some rare cases, an AQL query can execute faster if it ignores indexes.
+In some rare cases, an AQL query can be executed faster if it ignores indexes.
 You can force the optimizer not use an index for any given `FOR`
 loop by setting the new `disableIndex` hint to `true`:
 
@@ -378,14 +378,14 @@ See the [`FOR` Operation Options](aql/operations-for.html#disableindex) for deta
 
 <small>Introduced in: v3.9.1</small>
 
-If an AQL query accesses 5 or less attributes of a collection in a `FOR` loop,
-then the query optimizer changes the strategy for retrieving the data from the
+If an AQL query accesses 5 or fewer attributes of a collection in a `FOR` loop,
+the query optimizer changes the strategy for retrieving the data from the
 storage engine. Instead of extracting full documents, only subsets of the
 documents are fetched.
 
 Such projections are typically faster as long as there are not too many of them
 but it depends on the number of attributes and their size. The new `maxProjections`
-hint lets you raise or lower the threshold to fine-tune your queries.
+hint lets you adjust the threshold to fine-tune your queries.
 
 ```js
 FOR doc IN collection OPTIONS { maxProjections: 7 }
@@ -409,83 +409,7 @@ data which would lead to the eviction of the hot data from the block cache.
 ### AQL function to return a shard ID for a document
 
 A new [AQL function](aql/functions-miscellaneous.html#shard_id) is available which allows you to 
-obtain the responsible shard for any document in a collection by specifying its shard keys. 
-
-### "disableIndex" hint
-
-<small>Introduced in: v3.9.1</small>
-
-In some rare cases it can be advantageous to not do an index lookup or scan, 
-but to do a full collection scan in an AQL query.
-An index lookup can be more expensive than a full collection scan in case
-the index lookup produces many (or even all documents) and the query cannot 
-be satisfied from the index data alone.
-
-Consider the following query and an index on the `value` attribute being
-present:
-
-```js
-FOR doc IN collection 
-  FILTER doc.value <= 99 
-  RETURN doc.other
-```
-
-In this case, the optimizer will likely pick the index on `value`, because
-it will cover the query's FILTER condition. To return the value for the
-`other` attribute, the query must additionally look up the documents for
-each index value that passes the FILTER condition. In case the number of
-index entries is large (close or equal to the number of documents in the
-collection), then using an index can cause work work than just scanning
-over all documents in the collection.
-
-The optimizer will likely prefer index scans over full collection scans,
-even if an index scan turns out to be slower in the end. Since ArangoDB
-3.9.1, the optimizer can be forced to not use an index for any given FOR
-loop by using the `disableIndex` hint and setting it to `true`:
-
-```js
-FOR doc IN collection OPTIONS { disableIndex: true } 
-  FILTER doc.value <= 99 
-  RETURN doc.other
-```
-
-Using `disableIndex: false` has no effect on geo indexes or fulltext 
-indexes.
-
-Note that setting `disableIndex: true` plus `indexHint` is ambiguous. In
-this case the optimizer will always prefer the `disableIndex` hint.
-
-### "maxProjections" hint
-
-<small>Introduced in: v3.9.1</small>
-
-By default, the query optimizer will consider up to 5 document attributes
-per FOR loop to be used as projections. If more than 5 attributes of a
-collection are accessed in a FOR loop, the optimizer will prefer to 
-extract the full document and not use projections.
-
-The threshold value of 5 attributes is arbitrary and can be adjusted 
-since ArangoDB 3.9.1 by using the `maxProjections` hint.
-The default value for `maxProjections` is `5`, which is compatible with the
-previously hard-coded default value.
-
-For example, using a `maxProjections` hint of 7, the following query will
-extract the 7 attributes as projections from the original document:
-
-```js
-FOR doc IN collection OPTIONS { maxProjections: 7 } 
-  RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
-```
-
-Normally it is not necessary to adjust the value of `maxProjections`, but
-there are a few edge cases where it can make sense:
-
-It can be advantageous to increase `maxProjections` when extracting many small 
-attributes from very large documents, and a full copy of the documents should
-be avoided. 
-It can also be advantageous to decrease `maxProjections` to _avoid_ using
-projections if the cost of projections is higher than doing copies of the
-full documents. This can be the case for very small documents.
+obtain the responsible shard for any document in a collection by specifying its shard keys.
 
 Multi-dimensional Indexes (experimental)
 ----------------------------------------
