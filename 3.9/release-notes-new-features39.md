@@ -360,6 +360,42 @@ The following limits have been introduced:
 AQL queries that violate these limits will fail to run, and instead abort 
 with error `1524` ("too much nesting or too many objects") during setup.
 
+### `disableIndex` hint
+
+<small>Introduced in: v3.9.1</small>
+
+In some rare cases, an AQL query can be executed faster if it ignores indexes.
+You can force the optimizer not use an index for any given `FOR`
+loop by setting the new `disableIndex` hint to `true`:
+
+```js
+FOR doc IN collection OPTIONS { disableIndex: true }
+  FILTER doc.value <= 99
+  RETURN doc.other
+```
+
+See the [`FOR` Operation Options](aql/operations-for.html#disableindex) for details.
+
+### `maxProjections` hint
+
+<small>Introduced in: v3.9.1</small>
+
+If an AQL query accesses 5 or fewer attributes of a collection in a `FOR` loop,
+the query optimizer changes the strategy for retrieving the data from the
+storage engine. Instead of extracting full documents, only subsets of the
+documents are fetched.
+
+Such projections are typically faster as long as there are not too many of them
+but it depends on the number of attributes and their size. The new `maxProjections`
+hint lets you adjust the threshold to fine-tune your queries.
+
+```js
+FOR doc IN collection OPTIONS { maxProjections: 7 }
+  RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
+```
+
+See the [`FOR` Operation Options](aql/operations-for.html#maxprojections) for details.
+
 ### RocksDB block cache control
 
 The new query option `fillBlockCache` can be used to control the population
@@ -375,7 +411,7 @@ data which would lead to the eviction of the hot data from the block cache.
 ### AQL function to return a shard ID for a document
 
 A new [AQL function](aql/functions-miscellaneous.html#shard_id) is available which allows you to 
-obtain the responsible shard for any document in a collection by specifying its shard keys. 
+obtain the responsible shard for any document in a collection by specifying its shard keys.
 
 Multi-dimensional Indexes (experimental)
 ----------------------------------------
