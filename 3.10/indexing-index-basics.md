@@ -99,7 +99,7 @@ Vertex-centric indexes
 As mentioned above, the most important indexes for graphs are the edge
 indexes, indexing the `_from` and `_to` attributes of edge collections.
 They provide very quick access to all edges originating in or arriving
-at a given vertex, which allows to quickly find all neighbors of a vertex
+at a given vertex, which allows you to quickly find all neighbors of a vertex
 in a graph.
 
 In many cases one would like to run more specific queries, for example
@@ -155,7 +155,7 @@ You can create a persistent index on one or multiple document attributes.
 It is a sorted index structure. It can be used to quickly find
 documents with specific attribute values (point lookups / equality comparisons),
 for range queries, and for returning documents from the index in sorted order,
-but only if either all index attributes are provided in a query, or if a leftmost
+but only if either all index attributes is provided in a query, or if a leftmost
 prefix of the index attributes is specified.
 
 For example, if a persistent index is created on attributes `value1` and `value2`, the
