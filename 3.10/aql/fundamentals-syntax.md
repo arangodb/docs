@@ -175,7 +175,8 @@ based on the context:
   [SEARCH](operations-search.html) operation
 - `TO` –
   [Shortest Path](graphs-shortest-path.html) /
-  [k Shortest Paths](graphs-kshortest-paths.html) graph traversal
+  [k Shortest Paths](graphs-kshortest-paths.html) /
+  [k Paths](graphs-k-paths.html) graph traversal
 
 Last but not least, there are special variables which are available in certain
 contexts. Unlike keywords, they are **case-sensitive**:
