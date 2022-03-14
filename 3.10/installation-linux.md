@@ -25,7 +25,11 @@ installation steps are:
    For example, you can you run `openssl sha256 <filename>` or
    `sha256sum <filename>` in a terminal.
 
-   Package manager: package managers verify downloaded packages automatically.
+   Package manager: package managers generally validate downloaded packages
+   automatically. For more information, see
+   [SecureApt](https://wiki.debian.org/SecureApt){:target="_blank"} (Debian packages) and
+   [Secure distribution of RPM packages](https://www.redhat.com/en/blog/secure-distribution-rpm-packages){:target="_blank"}
+   for instance.
 
 5. Installation packages: run `sudo rpm -i <filename>.rpm` or
    `sudo apt install <filename>.deb` respectively in a terminal and follow the
