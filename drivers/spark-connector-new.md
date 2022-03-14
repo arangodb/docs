@@ -55,7 +55,7 @@ To use in an external Spark cluster, submit your application with the following 
 - `acquireHostList`: acquire the list of all known hosts in the cluster (`true` or `false`), `false` by default
 - `protocol`: communication protocol (`vst` or `http`), `http` by default
 - `contentType`: content type for driver communication (`json` or `vpack`), `json` by default
-- `timeout`: driver connect and request timeout in ms, `60000` by default
+- `timeout`: driver connect and request timeout in ms, `300000` by default
 - `ssl.enabled`: ssl secured driver connection (`true` or `false`), `false` by default
 - `ssl.cert.value`: Base64 encoded certificate
 - `ssl.cert.type`: certificate type, `X.509` by default
