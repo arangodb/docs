@@ -1,38 +1,59 @@
 ---
 layout: default
-description: To install ArangoDB on Linux visit the Download page of the ArangoDB and download the correct package for your Linux distribution. Follow the instructions to use your favorite package.
-title: Installing ArangoDB on Linux 
+description: Download an installation or tar package, or use a package manager
+title: Installing ArangoDB on Linux
 ---
 Installing ArangoDB on Linux
 ============================
 
-To install ArangoDB on Linux:
+You can install ArangoDB on most common Linux distributions. The basic
+installation steps are:
 
-1. Visit the official [Download](https://www.arangodb.com/download){:target="_blank"} page of the
-   ArangoDB web site and download the correct package for your Linux distribution.
-   You can find binary packages for the most common distributions there. Linux Mint: 
-   please use the corresponding Ubuntu or Debian packages. 
-2. Follow the installation instructions on the _Download_ page to use your
-   favorite package manager for the major distributions. After setting up the ArangoDB
-   repository you can easily install ArangoDB using _yum_, _aptitude_, _urpmi_ or _zypper_.
+1. Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
+   page of the ArangoDB web site.
 
-{% hint 'info' %}
-In addition to installation packages (distribution dependent) a `tar.gz` archive
-is available starting from version 3.4.0.
-{% endhint %}
+2. Click the logo of the distribution that matches your operating system.
+   If you use Linux Mint, click Ubuntu or Debian.
 
-After installation, you may start ArangoDB in several ways. The exact start-up command
-depends on your Linux distribution, as well as on the type of ArangoDB deployment you
-are interested in (_Single Server_, _Active Failover_, _Cluster_, _DC2DC_).
+3. You can choose between different installation methods and packages:
+   - distribution-dependent installation packages (`.rpm`, `.deb`)
+   - tar packages (`tar.gz` archives)
+   - installation via a package manager
 
-Please refer to the [_Deployment_](deployment.html) chapter for details.
+4. Installation and tar packages: You may verify the integrity of a download
+   by comparing the SHA256 hash listed on the website with the hash of the file.
+   For example, you can you run `openssl sha256 <filename>` or
+   `sha256sum <filename>` in a terminal.
+
+   Package manager: package managers generally validate downloaded packages
+   automatically. For more information, see
+   [SecureApt](https://wiki.debian.org/SecureApt){:target="_blank"} (Debian packages) and
+   [Secure distribution of RPM packages](https://www.redhat.com/en/blog/secure-distribution-rpm-packages){:target="_blank"}
+   for instance.
+
+5. Installation packages: run `sudo rpm -i <filename>.rpm` or
+   `sudo apt install <filename>.deb` respectively in a terminal and follow the
+   on-screen instructions.
+
+   Tar packages: unpack the archive, for example by running `tar -xzf <filename>`.
+
+   Package manager: follow the installation instructions on the _Download_ page.
+   You may also use another package manager. After setting up the ArangoDB
+   repository, you can easily install ArangoDB using _yum_, _aptitude_, _urpmi_,
+   or _zypper_.
+
+6. You can start ArangoDB in several ways. The exact start-up command depends on
+   your Linux distribution, as well as on the type of ArangoDB deployment you
+   are interested in (_Single Server_, _Active Failover_, _Cluster_, _DC2DC_).
+   Please refer to the [Deployment](deployment.html) chapter for details.
 
 Securing your Installation
 --------------------------
 
 ### Debian / Ubuntu
 
-Debian based packages will ask for a password during installation. 
+Debian-based packages will ask you to set a password for the `root` user during
+installation.
 
 #### Securing Unattended Installations on Debian
 
@@ -48,9 +69,10 @@ The commands above should be executed prior to the installation.
 
 ### Red-Hat / CentOS
 
-Red-Hat based packages will set a random password during installation. The generated
-random password is printed during the installation. Please write it down somewhere,
-or change it to a password of your choice by executing:
+Red-Hat-based packages will set a random password for the `root` user during
+installation. The generated random password is printed during the installation.
+Please write it down somewhere, or change it to a password of your choice by
+executing:
 
 ```
 ARANGODB_DEFAULT_ROOT_PASSWORD=NEWPASSWORD arango-secure-installation
@@ -60,9 +82,10 @@ The command should be executed after the installation.
 
 ### Other Distributions
 
-For other distributions run `arango-secure-installation` to set a _root_ password.
+For other distributions run `arango-secure-installation` to set the password
+for the `root` user.
 
 {% hint 'danger' %}
-Please be aware that running `arango-secure-installation` on your ArangoDB Server will remove
-all current database users but root.
+Please be aware that running `arango-secure-installation` on your ArangoDB
+server will remove all current database users but root.
 {% endhint %}
