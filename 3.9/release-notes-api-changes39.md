@@ -225,6 +225,10 @@ For example, sending the JSON object to this API
 
 will set all log topics to log level "debug".
 
+The HTTP REST API endpoint `POST /_open/auth` now returns JWTs with a shorter
+lifetime of one hour by default. You can adjust the lifetime with the
+`--server.session-timeout` startup option.
+
 ### Endpoints moved
 
 #### Cluster API redirects
