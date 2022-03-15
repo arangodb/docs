@@ -29,8 +29,9 @@ For production environments we highly recommend using Linux.
 Installing using the Installer
 ------------------------------
 
-The default installation directory is `C:\Program Files\ArangoDB-3.x.x`. During the
-installation process you may change this. In the following description we will assume
+The default installation directory is `%PROGRAMFILES%\ArangoDB-3.x.x`
+(multi-user) or `%LOCALAPPDATA%\ArangoDB-3.x.x\` (single-user). You may change
+it during the installation process. In the following description, we will assume
 that ArangoDB has been installed in the location `<ROOTDIR>`.
 
 You have to be careful when choosing an installation directory. You need either
@@ -38,14 +39,14 @@ write permission to this directory or you need to modify the configuration file
 for the server process. In the latter case the database directory and the Foxx
 directory have to be writable by the user.
 
-### Single- and Multiuser Installation
+### Single- and Multi-User Installation
 
 There are two main modes for the installer of ArangoDB.
 The installer lets you select:
 
-- multi user installation (default; admin privileges required)
+- multi-user installation (default; admin privileges required)
   Will install ArangoDB as service.
-- single user installation
+- single-user installation
   Allow to install ArangoDB as normal user.
   Requires manual starting of the database server.
 
@@ -68,12 +69,12 @@ the default paths for the installation in subsequent steps.
 
 The default installation paths are:
 
-Multi User Default:
+Multi-User Default:
 - Installation: `%PROGRAMFILES%\ArangoDB-3.x.x`
 - DataBase:     `%PROGRAMDATA%\ArangoDB`
 - Foxx Service: `%PROGRAMDATA%\ArangoDB-apps`
 
-Single User Default:
+Single-User Default:
 - Installation: `%LOCALAPPDATA%\ArangoDB-3.x.x\`
 - DataBase:     `%LOCALAPPDATA%\ArangoDB\`
 - Foxx Service: `%LOCALAPPDATA%\ArangoDB-apps\`
@@ -100,8 +101,8 @@ a time stamp.
 
 #### Add to Path
 
-Select this to add the binary directory to your system's path (multi user
-installation) or user's path (single user installation).
+Select this to add the binary directory to your system's path (multi-user
+installation) or user's path (single-user installation).
 
 #### Desktop Icon
 
@@ -109,7 +110,7 @@ Select if you want the installer to create Desktop Icons that let you:
 
 - access the web interface
 - start the command-line client (arangosh)
-- start the database server (single user installation only)
+- start the database server (single-user installation only)
 
 ### Starting
 
