@@ -42,13 +42,27 @@ parameter pid-file is given, then the server will report an error and exit.
 
 `--default-language default-language`
 
-The default language ist used for sorting and comparing strings. The language
+The default language is used for sorting and comparing strings. The language
 value is a two-letter language code (ISO-639) or it is composed by a two-letter
 language code with and a two letter country code (ISO-3166). Valid languages are
 "de", "en", "en_US" or "en_UK".
 
 The default default-language is set to be the system locale on that platform.
 
+## ICU Language
+
+`--icu-language icu-language`
+
+The ICU language is also used for sorting and comparing strings. But in this case language 
+is used without any changes in ICU settings. Using this option it is possible to get absolutely correct sorting and comparing order. The language value is a two-letter language code (ISO-639) or it is composed by a two-letter
+language code with and a two letter country code (ISO-3166). Valid languages are
+"de", "en", "en_US" or "en_UK".
+
+If there are defined `--default-language` and `--icu-language` it will leads to server crash at start.
+
+For example, for Sweden language(sv) the correct sort order for letters is `"a","A","b","B","z","Z","å","Ä","ö","Ö"`.
+It is possible to get such correct order if `--icu-language sv` will be set. In case of using `--default-language sv`
+the sort order is `"A","a","B","b","Z","z","å","Ä","Ö","ö"`.
 ## Supervisor
 
 `--supervisor`
