@@ -185,8 +185,16 @@ but the index attributes in `storedValues` are not checked for their uniqueness.
 
 Persistent indexes now support in-memory caching of index entries, which can be
 used when doing point lookups on the index.
-The caching is turned off by default, by can be enabled when creating a persistent
-index with the `cacheEnabled` flag.
+The caching is turned off by default, but can be enabled when creating a persistent
+index with the `cacheEnabled` flag, for example:
+
+```js
+db.<collection>.ensureIndex({ 
+  type: "persistent", 
+  fields: ["value"], 
+  cacheEnabled: true
+});
+```
   
 The in-memory cache for an index will be initially empty, even if the index contains
 data. The cache will be populated lazily upon querying data from the index when 
@@ -197,18 +205,31 @@ get invalidated.
 As the cache is hash-based and unsorted, it cannot be used for full or partial range
 scans, for sorting, or for lookups that do not include all index attributes.
 
-As filling the caches upon cache misses during lookups and upon writing to the 
-collection can mean extra overhead, it is recommended to use an in-memory cache 
+Filling the caches upon cache misses during lookups and upon writing to the 
+collection can mean extra overhead, so it is recommended to use an in-memory cache 
 only for collections that are accessed mostly for reading via equality lookups, 
 and that are not often written to.
+
+For AQL queries that will use indexes with an enabled in-memory cache and that are
+known to not benefit from using using the cache, it is possible to turn off the
+usage of the cache for individual queries, or query parts. This can be achieved
+using the `useCache` hint that can be provided to an AQL FOR loop, e.g.
+
+```js
+FOR doc IN collection OPTIONS { useCache: false }
+  FILTER doc.value == @lookup
+  ...
+```
+Using the `useCache` option will have no effect for indexes that do not have a
+cache enabled, or for queries that are not eligible to use caches.
+
+The number of index cache hits and misses is also reported when profiling queries. 
+This can be used to assess the effectiveness of the cache for particular queries.
 
 The maximum combined memory usage of all in-memory caches can be controlled via 
 the existing `--cache.size` startup option, which now not only controls the maximum
 memory usage for all edge caches, but additionally also the memory usage for all
 caches for persistent indexes.
-
-The number of index cache hits and misses is also reported when profiling queries. 
-This can be used to assess the effectiveness of the cache for particular queries.
 
 Server options
 --------------

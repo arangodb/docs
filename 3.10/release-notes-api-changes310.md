@@ -37,13 +37,22 @@ The following HTTP APIs are affected:
 
 #### Cursor API
 
-The cursor API can now return two additional statistics values in its `stats` subattribute:
+The cursor API can now return additional statistics values in its `stats` subattribute:
 
 * *cursorsCreated*: the total number of cursor objects created during query execution. Cursor
   objects are created for index lookups.
 * *cursorsRearmed*: the total number of times an existing cursor object was repurposed. 
   Repurposing an existing cursor object is normally more efficient compared to destroying an 
   existing cursor object and creating a new one from scratch.
+* *cacheHits*: the total number of index entries read from in-memory caches for indexes
+  of type edge or persistent. This value will only be non-zero when reading from indexes
+  that have an in-memory cache enabled, and when the query allows using the in-memory
+  cache (i.e. using equality lookups on all index attributes).
+* *cacheMisses*: the total number of cache read attempts for index entries that could not
+  be served from in-memory caches for indexes of type edge or persistent. This value will 
+  only be non-zero when reading from indexes that have an in-memory cache enabled, the 
+  query allows using the in-memory cache (i.e. using equality lookups on all index attributes)
+  and the looked up values are not present in the cache.
 
 These attributes are optional and only useful for detailed performance analyses.
 
@@ -64,6 +73,29 @@ will now also return the `storedValues` attribute for indexes that have their
 The extra index information is also returned by inventory-like APIs that return
 the full set of collections with their indexes.
 
+
+The index creation API at POST `/_api/index` now accepts an optional `cacheEnabled`
+attribute to enable an in-memory cache for index values for indexes of type
+persistent.
+If `cacheEnabled` is set to `true`, the index is created with the cache. Otherwise
+the index is created with the cache. Caching is turned off by default.
+
+When using caching, equality lookups on all index attributes can be served from the
+in-memory cache, which can speed up reading from the index if data is present in 
+the cache already.
+The in-memory cache for an index will be initially empty, even if the index contains
+data. The cache will be populated lazily upon querying data from the index when 
+using equality lookups for all index attributes. Cache entries get invalidated when
+modifying data in the underlying collection. Only the affected index entries will
+get invalidated.
+
+As the cache is hash-based and unsorted, it cannot be used for full or partial range
+scans, for sorting, or for lookups that do not include all index attributes.
+
+Filling the caches upon cache misses during lookups and upon writing to the 
+collection can mean extra overhead, so it is recommended to use an in-memory cache 
+only for collections that are accessed mostly for reading via equality lookups, 
+and that are not often written to.
 
 ### Endpoints moved
 

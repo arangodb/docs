@@ -16,6 +16,15 @@ defined by setting the `storedValues` attribute of the index. Non-existing attri
 stored as **null** values inside `storedValues`. The maximum number of attributes in 
 `storedValues` is 32.
 
+For example, to create a persistent index on the attributes `value1` and `value2` the 
+following command would work:
+
+`collection.ensureIndex({ type: "persistent", fields: [ "value1", "value2" ] })`
+
+To store additional attributes in the index, the `storedValues` attribute can be set:
+
+`collection.ensureIndex({ type: "persistent", fields: [ "value1", "value2" ], storedValues: ["name"] })`
+
 If the index is declared unique, then no two documents are allowed to have the same 
 set of attribute values. Creating a new document or updating a document will fail if the 
 uniqueness is violated. Only the index attributes in the `fields` are checked for uniqueness,
@@ -25,11 +34,16 @@ If the index is declared sparse, a document will be excluded from the index and 
 uniqueness checks will be performed if any index attribute value is not set or has a value 
 of `null`. 
 
-It is not possible to create multiple persistent indexes with the same `fields` attributes
-and uniqueness but different `storedValues` attributes. That means the value of 
-`storedValues` is not considered in index creation calls when checking if a persistent
-index is already present or needs to be created.
+Since ArangoDB 3.10, an in-memory hash cache can optionally be put in front of persistent
+indexes. By default, persistent indexes will not have the in-memory cache. It can be
+enabled for an index upon index creation by setting the `cacheEnabled` flag.
 
+`collection.ensureIndex({ type: "persistent", fields: [ "name" ], cacheEnabled: true })`
+
+It is not possible to create multiple persistent indexes with the same `fields` attributes
+and uniqueness but different `storedValues` or `cacheEnabled` attributes. The values of 
+`storedValues` and `cacheEnabled` is not considered in index creation calls when checking 
+if a persistent index is already present or a new one needs to be created.
 
 Accessing Persistent Indexes from the Shell
 -------------------------------------------
