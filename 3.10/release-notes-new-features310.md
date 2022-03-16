@@ -78,18 +78,50 @@ different execution nodes:
 Execution plan:
  Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode       1       1          0       0.00008   * ROOT
- 14   IndexNode           1     700        300       0.00574     - FOR doc1 IN collection   /* persistent index scan, projections: `value1`, `value2` */    FILTER (doc1.`value2` not in [ 1, 4, 7 ])   /* early pruning */
- 13   IndexNode          61   60000      10000       0.15168       - FOR doc2 IN collection   /* persistent index scan */    FILTER (doc2.`value2` != 5)   /* early pruning */
- 12   ReturnNode         61   60000          0       0.00168         - RETURN doc2
+ 14   IndexNode           1     700        300       0.00694     - FOR doc1 IN collection   /* persistent index scan, projections: `value1`, `value2` */    FILTER (doc1.`value2` not in [ 1, 4, 7 ])   /* early pruning */
+ 13   IndexNode          61   60000      10000       0.11745       - FOR doc2 IN collection   /* persistent index scan */    FILTER (doc2.`value2` != 5)   /* early pruning */
+ 12   ReturnNode         61   60000          0       0.00212         - RETURN doc2
 
 Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Selectivity   Fields         Ranges
- 14   idx_1723322976405815296   persistent   collection   false    false        99.99 %   [ `value1` ]   (doc1.`value1` < 1000)
- 13   idx_1723322875560067072   persistent   collection   false    false         0.01 %   [ `value2` ]   (doc1.`value1` == doc2.`value2`)
+ 14   idx_1727463382256189440   persistent   collection   false    false        99.99 %   [ `value1` ]   (doc1.`value1` < 1000)
+ 13   idx_1727463477736374272   persistent   collection   false    false         0.01 %   [ `value2` ]   (doc1.`value1` == doc2.`value2`)
 
 Query Statistics:
- Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Peak Mem [b]   Exec Time [s]
-           0            0           0        71000      10300          98304         0.16231
+ Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
+           0            0           0        71000               0 / 0      10300          98304         0.13026
+```
+
+### Number of cache hits / cache misses in profiling output
+
+When profiling an AQL query via `db._profileQuery(...)` command or via the web UI, the 
+query profile output will now contain the number of index entries read from
+in-memory caches (usable for edge and persistent indexes) plus the number of cache misses.
+
+In the following example query, there are in-memory caches present for both indexes used in
+the query. However, only the innermost index node #13 can use the cache, because the outer
+FOR loop does not use an equality lookup.
+
+```
+Query String (270 chars, cacheable: false):
+ FOR doc1 IN collection FILTER doc1.value1 < 1000 FILTER doc1.value2 NOT IN [1, 4, 7]  
+ FOR doc2 IN collection FILTER doc1.value1 == doc2.value2 FILTER doc2.value2 != 5 RETURN doc2
+
+Execution plan:
+ Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
+  1   SingletonNode       1       1          0       0.00008   * ROOT
+ 14   IndexNode           1     700        300       0.00630     - FOR doc1 IN collection   /* persistent index scan, projections: `value1`, `value2` */    FILTER (doc1.`value2` not in [ 1, 4, 7 ])   /* early pruning */
+ 13   IndexNode          61   60000      10000       0.14254       - FOR doc2 IN collection   /* persistent index scan */    FILTER (doc2.`value2` != 5)   /* early pruning */
+ 12   ReturnNode         61   60000          0       0.00168         - RETURN doc2
+
+Indexes used:
+ By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields         Ranges
+ 14   idx_1727463613020504064   persistent   collection   false    false    true        99.99 %   [ `value1` ]   (doc1.`value1` < 1000)
+ 13   idx_1727463601873092608   persistent   collection   false    false    true         0.01 %   [ `value2` ]   (doc1.`value1` == doc2.`value2`)
+
+Query Statistics:
+ Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
+           0            0           0        71000            689 / 11      10300          98304         0.15389
 ```
 
 ### Lookahead for Multi-Dimensional Indexes
@@ -105,6 +137,8 @@ See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
 Indexes
 -------
+
+### Storing additional values in indexes
 
 Persistent indexes now allow storing additional attributes in the index that
 can be used to satisfy projections of the document.
@@ -146,6 +180,35 @@ and uniqueness but different `storedValues` attributes. That means the value of
 index is already present or needs to be created.
 In unique indexes, only the index attributes in `fields` are checked for uniqueness,
 but the index attributes in `storedValues` are not checked for their uniqueness.
+
+### Enabling caching for index values
+
+Persistent indexes now support in-memory caching of index entries, which can be
+used when doing point lookups on the index.
+The caching is turned off by default, by can be enabled when creating a persistent
+index with the `cacheEnabled` flag.
+  
+The in-memory cache for an index will be initially empty, even if the index contains
+data. The cache will be populated lazily upon querying data from the index when 
+using equality lookups for all index attributes. Cache entries get invalidated when
+modifying data in the underlying collection. Only the affected index entries will
+get invalidated.
+
+As the cache is hash-based and unsorted, it cannot be used for full or partial range
+scans, for sorting, or for lookups that do not include all index attributes.
+
+As filling the caches upon cache misses during lookups and upon writing to the 
+collection can mean extra overhead, it is recommended to use an in-memory cache 
+only for collections that are accessed mostly for reading via equality lookups, 
+and that are not often written to.
+
+The maximum combined memory usage of all in-memory caches can be controlled via 
+the existing `--cache.size` startup option, which now not only controls the maximum
+memory usage for all edge caches, but additionally also the memory usage for all
+caches for persistent indexes.
+
+The number of index cache hits and misses is also reported when profiling queries. 
+This can be used to assess the effectiveness of the cache for particular queries.
 
 Server options
 --------------
@@ -192,6 +255,21 @@ For collections containing a low number of documents, the O(n) truncate method m
 Miscellaneous changes
 ---------------------
 
+### Additional metrics for caching subsystem
+
+The caching subsystem now provides the following 3 additional metrics:
+- `rocksdb_cache_active_tables`: total number of active hash tables used for
+  caching index values. There should be 1 table per shard per index for which
+  the in-memory cache is enabled. The number also includes temporary tables
+  that are built when migrating existing tables to larger equivalents.
+- `rocksdb_cache_unused_memory`: total amount of memory used for inactive
+  hash tables used for caching index values. Some inactive tables can be kept
+  around after use, so they can be recycled quickly. The overall amount of
+  inactive tables is limited, so not much memory will be used here.
+- `rocksdb_cache_unused_tables`: total number of inactive hash tables used
+  for caching index values. Some inactive tables are kept around after use, 
+  so they can be recycled quickly. The overall amount of inactive tables is
+  limited, so not much memory will be used here.
 
 
 Client tools
