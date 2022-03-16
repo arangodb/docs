@@ -18,7 +18,7 @@ Some of these limitations may be removed in later versions of ArangoDB:
 - The entire cluster is replicated. It is not possible to exclude specific
   databases or collections from replication.
 
-- In any DC2DC setup the minor version of the target cluster must be at least
-  as big as the minor version of the source cluster. That is, for example, you
-  cannot sync from a 3.9.1 cluster to a 3.8.7 cluster. You can sync
-  between different patch versions within the same minor version.
+- In any DC2DC setup, the minor version of the target cluster must be equal to 
+  or greater than the minor version of the source cluster. For example, you
+  cannot sync from a 3.9.1 cluster to a 3.8.7 cluster. Syncing
+  between different patch versions of the same minor version is possible.
