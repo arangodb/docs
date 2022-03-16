@@ -246,12 +246,14 @@ Use the `overwriteMode` write configuration parameter to specify the documents o
 
 The data of each partition is saved in batches using the ArangoDB API for [inserting multiple documents]
 (../http/document-working-with-documents.html#create-multiple-documents).
-This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator) if the configured `overwriteMode` allows idempotent requests, namely: 
-- `replace`
-- `ignore`
-- `update` with `keep.null=true`
+This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator) if the provided configuration allows idempotent requests, namely: 
+- the schema of the dataframe has a not nullable field `_key`, and
+- `overwriteMode` is set to one of the following values:
+  - `replace`
+  - `ignore`
+  - `update` with `keep.null=true`
 
-These configurations of `overwriteMode` are also compatible with speculative execution of tasks.
+These configurations are also compatible with speculative execution of tasks.
 
 A failing batch-saving request is retried once for every Coordinator. After that, if still failing, the write task for the related partition is aborted. According to the Spark configuration, the task can be retried and rescheduled on a different executor, if the `overwriteMode` allows idempotent requests (as described above).
 
