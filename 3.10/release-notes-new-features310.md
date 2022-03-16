@@ -194,6 +194,13 @@ Miscellaneous changes
 
 
 
+
+API changes
+---------------------
+
+Added a new GET request with route `/_api/query/rules` that returns the available optimizer rules for AQL queries. 
+
+
 Client tools
 ------------
 
