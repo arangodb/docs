@@ -247,7 +247,7 @@ Use the `overwriteMode` write configuration parameter to specify the documents o
 The data of each partition is saved in batches using the ArangoDB API for [inserting multiple documents]
 (../http/document-working-with-documents.html#create-multiple-documents).
 This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator) if the provided configuration allows idempotent requests, namely: 
-- the schema of the dataframe has a not nullable field `_key`, and
+- the schema of the dataframe has a **not nullable** field `_key`, and
 - `overwriteMode` is set to one of the following values:
   - `replace`
   - `ignore`
