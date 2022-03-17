@@ -174,6 +174,11 @@ a self-signed certificate is recommended.
 
 ## How to enable the root user password rotation
 
+Password rotation refers to changing passwords regularly, a security best practice
+to reduce the vulnerability to password-based attacks and exploits by limiting
+for how long passwords are valid. ArangoDB Oasis can automatically change the
+`root` user password of an ArangoDB deployment periodically to improve security.
+
 1. Navigate to the __Deployment__ for which you want to enable an automatic
    password rotation for the root user.
 2. On the __Overview__ tab, click the button with the __gear__ icon next to the
