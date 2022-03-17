@@ -55,7 +55,7 @@ details and for hints about upgrading to version 3.10 or later.
 ### Number of filtered documents in profiling output
 
 The AQL query profiling output now shows the number of filtered inputs for each execution node
-seperately, so that it is more visible how often filter conditions are invoked and how effective
+separately, so that it is more visible how often filter conditions are invoked and how effective
 they are. Previously the number of filtered inputs was only available as a total value in the
 profiling output, and it wasn't clear which execution node caused which amount of filtering.
 
@@ -125,10 +125,10 @@ but only for projections.
 For example consider the following index definition:
 
 ```js
-db.<collection>.ensureIndex({ 
-  type: "persistent", 
-  fields: ["value1"], 
-  storedValues: ["value2"] 
+db.<collection>.ensureIndex({
+  type: "persistent",
+  fields: ["value1"],
+  storedValues: ["value2"]
 });
 ```
 

@@ -76,7 +76,7 @@ HAS( { name: null }, "name" ) // true
 ```
 
 Note that the function checks if the specified attribute exists. This is different
-from similar ways to test for the existance of an attribute, in case the attribute
+from similar ways to test for the existence of an attribute, in case the attribute
 has a falsy value or is not present (implicitly *null* on object access):
 
 ```js
@@ -149,6 +149,8 @@ To do the opposite, see [UNSET()](#unset).
 ```js
 KEEP(doc, "firstname", "name", "likes")
 ```
+
+---
 
 `KEEP(document, attributeNameArray) → doc`
 
@@ -313,6 +315,8 @@ MERGE(
 // { "users": { "name": "Tom" } }
 ```
 
+---
+
 `MERGE(docArray) → mergedDocument`
 
 *MERGE* works with a single array parameter, too. This variant allows combining the
@@ -438,6 +442,8 @@ To do the opposite, see [KEEP()](#keep).
 UNSET( doc, "_id", "_key", "foo", "bar" )
 ```
 
+---
+
 `UNSET(document, attributeNameArray) → doc`
 
 - **document** (object): a document / object
@@ -457,6 +463,8 @@ UNSET_RECURSIVE()
 Recursively remove the attributes *attributeName1* to *attributeNameN* from
 *document* and its sub-documents. All other attributes will be preserved.
 
+To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
+
 - **document** (object): a document / object
 - **attributeNames** (string, *repeatable*): an arbitrary number of attribute
   names as multiple arguments (at least 1)
@@ -466,6 +474,8 @@ Recursively remove the attributes *attributeName1* to *attributeNameN* from
 ```js
 UNSET_RECURSIVE( doc, "_id", "_key", "foo", "bar" )
 ```
+
+---
 
 `UNSET_RECURSIVE(document, attributeNameArray) → doc`
 
