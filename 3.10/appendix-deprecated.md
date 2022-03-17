@@ -227,3 +227,19 @@ replace the old features with:
   - `arangodb::GRAPH_BETWEENNESS`
   - `arangodb::GRAPH_RADIUS`
   - `arangodb::GRAPH_DIAMETER`
+
+- **Specialized index creation methods in JavaScript API**:
+  The following JavaScript methods for creating indexes from the ArangoShell
+  (_arangosh_) or from within Foxx are deprecated:
+  - `collection.ensureHashIndex(...)`
+  - `collection.ensureUniqueConstraint(...)`
+  - `collection.ensureSkiplist(...)`
+  - `collection.ensureUniqueSkiplist(...)`
+  - `collection.ensureFulltextIndex(...)`
+  - `collection.ensureGeoIndex(...)`
+  - `collection.ensureGeoConstraint(...)`
+
+  Instead of using these methods, you should use the generic
+  `collection.ensureIndex(...)` method, which provides a superset of all the
+  deprecated methods. Also see
+  [Creating an index](indexing-working-with-indexes.html#creating-an-index).
