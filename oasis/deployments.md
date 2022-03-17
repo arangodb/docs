@@ -176,9 +176,9 @@ a self-signed certificate is recommended.
 
 1. Navigate to the __Deployment__ for which you want to enable an automatic
    password rotation for the root user.
-2. On the __Overview__ tab, click the button with the __cog__ icon next to the
+2. On the __Overview__ tab, click the button with the __gear__ icon next to the
    __ROOT PASSWORD__.
-3. __Password Settings__ dialog, turn the password rotation on and click the
+3. In the __Password Settings__ dialog, turn the password rotation on and click the
    __Confirm__ button.
 
    ![Oasis Deployment Password Rotation](images/oasis-deployment-password-rotation.png)
