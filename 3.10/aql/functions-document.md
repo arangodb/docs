@@ -124,31 +124,31 @@ FILTER doc.name == null     // can utilize non-sparse indexes
 Check whether the example object has a `name` the attribute key:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlHas1
-    @EXAMPLE_AQL{aqlHas1}
+    @startDocuBlockInline aqlHas_1
+    @EXAMPLE_AQL{aqlHas_1}
     RETURN HAS( { name: "Jane" }, "name" )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlHas1
+    @endDocuBlock aqlHas_1
     {% endaqlexample %}
 
 Check whether the example object has an `age` attribute key:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlHas2
-    @EXAMPLE_AQL{aqlHas2}
+    @startDocuBlockInline aqlHas_2
+    @EXAMPLE_AQL{aqlHas_2}
     RETURN HAS( { name: "Jane" }, "age" )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlHas2
+    @endDocuBlock aqlHas_2
     {% endaqlexample %}
 
 Falsy attribute values like `null` still count as the attribute being present:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlHas3
-    @EXAMPLE_AQL{aqlHas3}
+    @startDocuBlockInline aqlHas_3
+    @EXAMPLE_AQL{aqlHas_3}
     RETURN HAS( { name: null }, "name" )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlHas3
+    @endDocuBlock aqlHas_3
     {% endaqlexample %}
 
 IS_SAME_COLLECTION()
@@ -205,8 +205,8 @@ To do the opposite, see [UNSET()](#unset).
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlKeep1
-    @EXAMPLE_AQL{aqlKeep1}
+    @startDocuBlockInline aqlKeep_1
+    @EXAMPLE_AQL{aqlKeep_1}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
     RETURN [
       KEEP(doc, "foo"),
@@ -215,7 +215,7 @@ To do the opposite, see [UNSET()](#unset).
       KEEP(doc, "foo", "baz")
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlKeep1
+    @endDocuBlock aqlKeep_1
     {% endaqlexample %}
 
 ---
@@ -230,8 +230,8 @@ To do the opposite, see [UNSET()](#unset).
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlKeep2
-    @EXAMPLE_AQL{aqlKeep2}
+    @startDocuBlockInline aqlKeep_2
+    @EXAMPLE_AQL{aqlKeep_2}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
     RETURN [
       KEEP(doc, ["foo"]),
@@ -240,7 +240,7 @@ To do the opposite, see [UNSET()](#unset).
       KEEP(doc, ["foo", "baz"])
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlKeep2
+    @endDocuBlock aqlKeep_2
     {% endaqlexample %}
 
 
@@ -263,8 +263,8 @@ To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlKeepRecursive1
-    @EXAMPLE_AQL{aqlKeepRecursive1}
+    @startDocuBlockInline aqlKeepRecursive_1
+    @EXAMPLE_AQL{aqlKeepRecursive_1}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
     RETURN [
       KEEP_RECURSIVE(doc, "foo"),
@@ -275,7 +275,7 @@ To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
       KEEP_RECURSIVE(doc, "foo", "bar", "baz")
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlKeepRecursive1
+    @endDocuBlock aqlKeepRecursive_1
     {% endaqlexample %}
 
 ---
@@ -290,8 +290,8 @@ To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlKeepRecursive2
-    @EXAMPLE_AQL{aqlKeepRecursive2}
+    @startDocuBlockInline aqlKeepRecursive_2
+    @EXAMPLE_AQL{aqlKeepRecursive_2}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
     RETURN [
       KEEP_RECURSIVE(doc, ["foo"]),
@@ -302,7 +302,7 @@ To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
       KEEP_RECURSIVE(doc, ["foo", "bar", "baz"])
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlKeepRecursive2
+    @endDocuBlock aqlKeepRecursive_2
     {% endaqlexample %}
 
 LENGTH()
@@ -377,8 +377,8 @@ FOR doc IN coll
 Check whether all attributes of the example are present in the document:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlMatches1
-    @EXAMPLE_AQL{aqlMatches1}
+    @startDocuBlockInline aqlMatches_1
+    @EXAMPLE_AQL{aqlMatches_1}
     LET doc = {
       name: "jane",
       age: 27,
@@ -386,15 +386,15 @@ Check whether all attributes of the example are present in the document:
     }
     RETURN MATCHES(doc, { age: 27, active: true } )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlMatches1
+    @endDocuBlock aqlMatches_1
     {% endaqlexample %}
 
 Check whether one of the examples matches the document and return the index of
 the matching example:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlMatches2
-    @EXAMPLE_AQL{aqlMatches2}
+    @startDocuBlockInline aqlMatches_2
+    @EXAMPLE_AQL{aqlMatches_2}
     RETURN MATCHES(
       { "test": 1 },
       [
@@ -404,7 +404,7 @@ the matching example:
       ],
     true)
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlMatches2
+    @endDocuBlock aqlMatches_2
     {% endaqlexample %}
 
 MERGE()
@@ -428,28 +428,28 @@ merge sub-attributes, use [MERGE_RECURSIVE()](#merge_recursive) instead.
 Two documents with distinct attribute names can easily be merged into one:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlMerge1
-    @EXAMPLE_AQL{aqlMerge1}
+    @startDocuBlockInline aqlMerge_1
+    @EXAMPLE_AQL{aqlMerge_1}
     RETURN MERGE(
       { "user1": { "name": "Jane" } },
       { "user2": { "name": "Tom" } }
     )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlMerge1
+    @endDocuBlock aqlMerge_1
     {% endaqlexample %}
 
 When merging documents with identical attribute names, the attribute values of the
 latter documents will be used in the end result:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlMerge2
-    @EXAMPLE_AQL{aqlMerge2}
+    @startDocuBlockInline aqlMerge_2
+    @EXAMPLE_AQL{aqlMerge_2}
     RETURN MERGE(
       { "users": { "name": "Jane" } },
       { "users": { "name": "Tom" } }
     )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlMerge2
+    @endDocuBlock aqlMerge_2
     {% endaqlexample %}
 
 ---
@@ -465,8 +465,8 @@ attributes of multiple objects in an array into a single object.
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlMerge3
-    @EXAMPLE_AQL{aqlMerge3}
+    @startDocuBlockInline aqlMerge_3
+    @EXAMPLE_AQL{aqlMerge_3}
     RETURN MERGE(
       [
         { foo: "bar" },
@@ -475,7 +475,7 @@ attributes of multiple objects in an array into a single object.
       ]
     )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlMerge3
+    @endDocuBlock aqlMerge_3
     {% endaqlexample %}
 
 MERGE_RECURSIVE()
@@ -499,14 +499,14 @@ of the documents contained later in the argument list.
 Two documents with distinct attribute names can easily be merged into one:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlMerge3
-    @EXAMPLE_AQL{aqlMerge3}
+    @startDocuBlockInline aqlMergeRecursive
+    @EXAMPLE_AQL{aqlMergeRecursive}
     RETURN MERGE_RECURSIVE(
       { "user-1": { "name": "Jane", "livesIn": { "city": "LA" } } },
       { "user-1": { "age": 42, "livesIn": { "state": "CA" } } }
     )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlMerge3
+    @endDocuBlock aqlMergeRecursive
     {% endaqlexample %}
 
 PARSE_IDENTIFIER()
@@ -530,21 +530,21 @@ This function can be used to easily determine the
 Parse a document identifier string:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlParseIdentifier1
-    @EXAMPLE_AQL{aqlParseIdentifier1}
+    @startDocuBlockInline aqlParseIdentifier_1
+    @EXAMPLE_AQL{aqlParseIdentifier_1}
     RETURN PARSE_IDENTIFIER("_users/my-user")
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlParseIdentifier1
+    @endDocuBlock aqlParseIdentifier_1
     {% endaqlexample %}
 
 Parse the document identifier string of a document (`_id` attribute):
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlParseIdentifier2
-    @EXAMPLE_AQL{aqlParseIdentifier2}
+    @startDocuBlockInline aqlParseIdentifier_2
+    @EXAMPLE_AQL{aqlParseIdentifier_2}
     RETURN PARSE_IDENTIFIER( { "_id": "mycollection/mykey", "value": "some value" } )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlParseIdentifier2
+    @endDocuBlock aqlParseIdentifier_2
     {% endaqlexample %}
 
 TRANSLATE()
@@ -568,43 +568,43 @@ if specified. If no `defaultValue` is specified, `value` will be returned unchan
 Translate a country code to a country name:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlTranslate1
-    @EXAMPLE_AQL{aqlTranslate1}
+    @startDocuBlockInline aqlTranslate_1
+    @EXAMPLE_AQL{aqlTranslate_1}
     RETURN TRANSLATE("FR", { US: "United States", UK: "United Kingdom", FR: "France" } )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlTranslate1
+    @endDocuBlock aqlTranslate_1
     {% endaqlexample %}
 
 The unaltered input value is returned if no match is found in the mapping:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlTranslate2
-    @EXAMPLE_AQL{aqlTranslate2}
+    @startDocuBlockInline aqlTranslate_2
+    @EXAMPLE_AQL{aqlTranslate_2}
     RETURN TRANSLATE(42, { foo: "bar", bar: "baz" } )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlTranslate2
+    @endDocuBlock aqlTranslate_2
     {% endaqlexample %}
 
 If you specify a fallback value and no match is found in the mapping, then the
 fallback value returned instead of the input value:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlTranslate3
-    @EXAMPLE_AQL{aqlTranslate3}
+    @startDocuBlockInline aqlTranslate_3
+    @EXAMPLE_AQL{aqlTranslate_3}
     RETURN TRANSLATE(42, { foo: "bar", bar: "baz" }, "not found!")
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlTranslate3
+    @endDocuBlock aqlTranslate_3
     {% endaqlexample %}
 
 Note that any non-string input value is implicitly cast to a string before the
 lookup:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlTranslate4
-    @EXAMPLE_AQL{aqlTranslate4}
+    @startDocuBlockInline aqlTranslate_4
+    @EXAMPLE_AQL{aqlTranslate_4}
     RETURN TRANSLATE(42, { "42": true } )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlTranslate4
+    @endDocuBlock aqlTranslate_4
     {% endaqlexample %}
 
 UNSET()
@@ -626,8 +626,8 @@ To do the opposite, see [KEEP()](#keep).
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlUnset1
-    @EXAMPLE_AQL{aqlUnset1}
+    @startDocuBlockInline aqlUnset_1
+    @EXAMPLE_AQL{aqlUnset_1}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
     RETURN [
       UNSET(doc, "foo"),
@@ -636,7 +636,7 @@ To do the opposite, see [KEEP()](#keep).
       UNSET(doc, "foo", "baz")
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlUnset1
+    @endDocuBlock aqlUnset_1
     {% endaqlexample %}
 
 ---
@@ -651,8 +651,8 @@ To do the opposite, see [KEEP()](#keep).
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlUnset2
-    @EXAMPLE_AQL{aqlUnset2}
+    @startDocuBlockInline aqlUnset_2
+    @EXAMPLE_AQL{aqlUnset_2}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
     RETURN [
       UNSET(doc, ["foo"]),
@@ -661,7 +661,7 @@ To do the opposite, see [KEEP()](#keep).
       UNSET(doc, ["foo", "baz"])
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlUnset2
+    @endDocuBlock aqlUnset_2
     {% endaqlexample %}
 
 
@@ -684,8 +684,8 @@ To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlUnsetRecursive1
-    @EXAMPLE_AQL{aqlUnsetRecursive1}
+    @startDocuBlockInline aqlUnsetRecursive_1
+    @EXAMPLE_AQL{aqlUnsetRecursive_1}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
     RETURN [
       UNSET_RECURSIVE(doc, "foo"),
@@ -696,7 +696,7 @@ To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
       UNSET_RECURSIVE(doc, "foo", "bar", "baz")
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlUnsetRecursive1
+    @endDocuBlock aqlUnsetRecursive_1
     {% endaqlexample %}
 
 ---
@@ -711,8 +711,8 @@ To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
 **Examples**
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlUnsetRecursive2
-    @EXAMPLE_AQL{aqlUnsetRecursive2}
+    @startDocuBlockInline aqlUnsetRecursive_2
+    @EXAMPLE_AQL{aqlUnsetRecursive_2}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
     RETURN [
       UNSET_RECURSIVE(doc, ["foo"]),
@@ -723,7 +723,7 @@ To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
       UNSET_RECURSIVE(doc, ["foo", "bar", "baz"])
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlUnsetRecursive2
+    @endDocuBlock aqlUnsetRecursive_2
     {% endaqlexample %}
 
 VALUES()
@@ -744,21 +744,21 @@ system attributes.
 Get the attribute values of an object:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlValues1
-    @EXAMPLE_AQL{aqlValues1}
+    @startDocuBlockInline aqlValues_1
+    @EXAMPLE_AQL{aqlValues_1}
     RETURN VALUES( { "_key": "users/jane", "name": "Jane", "age": 35 } )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlValues1
+    @endDocuBlock aqlValues_1
     {% endaqlexample %}
 
 Get the attribute values of an object, omitting system attributes:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlValues2
-    @EXAMPLE_AQL{aqlValues2}
+    @startDocuBlockInline aqlValues_2
+    @EXAMPLE_AQL{aqlValues_2}
     RETURN VALUES( { "_key": "users/jane", "name": "Jane", "age": 35 }, true )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlValues2
+    @endDocuBlock aqlValues_2
     {% endaqlexample %}
 
 ZIP()
