@@ -11,7 +11,7 @@ integrations for ArangoDB 3.10.
 
 ## HTTP RESTful API
 
-Added a GET request for route `/_api/query/rules` that returns the available optimizer rules for AQL queries. This returns an array of objects which display the name of each rule available and its respective flags, wheter set to true or false. 
+Added a GET request for route `/_api/query/rules` that returns the available optimizer rules for AQL queries. This returns an array of objects which contain the name of each rule available and its respective flags. 
 Example of invoking in the shell: 
 `arango.GET("/_api/query/rules")`
 
