@@ -50,11 +50,22 @@ The meaning of the statistics attributes is as follows:
 * *cursorsRearmed*: the total number of times an existing cursor object was repurposed. 
   Repurposing an existing cursor object is normally more efficient compared to destroying an 
   existing cursor object and creating a new one from scratch.
+* *cacheHits*: the total number of index entries read from in-memory caches for indexes
+  of type edge or persistent. This value will only be non-zero when reading from indexes
+  that have an in-memory cache enabled, and when the query allows using the in-memory
+  cache (i.e. using equality lookups on all index attributes).
+* *cacheMisses*: the total number of cache read attempts for index entries that could not
+  be served from in-memory caches for indexes of type edge or persistent. This value will 
+  only be non-zero when reading from indexes that have an in-memory cache enabled, the 
+  query allows using the in-memory cache (i.e. using equality lookups on all index attributes)
+  and the looked up values are not present in the cache.
 * *filtered*: the total number of documents that were removed after executing a filter condition
-  in a `FilterNode`. Note that `IndexNode`s can also filter documents by selecting only
-  the required index range from a collection, and the `filtered` value only indicates how much
-  filtering was done by `FilterNode`s or post-index filter conditions pulled into `IndexNode`s
-  or `EnumerateCollectionNode`s.
+  in a `FilterNode` or another node that post-filters data. 
+  Note that `IndexNode`s can also filter documents by selecting only the required index range 
+  from a collection, and the `filtered` value only indicates how much filtering was done by a
+  post filter in the `IndexNode` itself or following `FilterNode`s. 
+  `EnumerateCollectionNode`s and `TraversalNode`s can also apply filter conditions and can
+  reported the number of filtered documents.
 * *fullCount*: the total number of documents that matched the search condition if the query's
   final top-level `LIMIT` statement were not present.
   This attribute may only be returned if the `fullCount` option was set when starting the 
