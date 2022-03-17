@@ -161,6 +161,39 @@ KEEP(doc, "firstname", "name", "likes")
 KEEP(doc, [ "firstname", "name", "likes" ])
 ```
 
+KEEP_RECURSIVE()
+----------------
+
+`KEEP_RECURSIVE(document, attributeName1, attributeName2, ... attributeNameN) → doc`
+
+Recursively keep the attributes *attributeName1* to *attributeNameN* from
+*document* and its sub-documents. All other attributes will be removed.
+
+To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
+
+- **document** (object): a document / object
+- **attributeNames** (string, *repeatable*): an arbitrary number of attribute
+  names as multiple arguments (at least 1)
+- returns **doc** (object): *document* with only the specified attributes on
+  all levels (top-level as well as nested objects)
+
+```js
+KEEP_RECURSIVE( doc, "_id", "_key", "foo", "bar" )
+```
+
+---
+
+`KEEP_RECURSIVE(document, attributeNameArray) → doc`
+
+- **document** (object): a document / object
+- **attributeNameArray** (array): an array of attribute names as strings
+- returns **doc** (object): *document* with only the specified attributes on
+  all levels (top-level as well as nested objects)
+
+```js
+KEEP_RECURSIVE( doc, [ "_id", "_key", "foo", "bar" ] )
+```
+
 LENGTH()
 --------
 

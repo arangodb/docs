@@ -103,6 +103,14 @@ FOR … IN … OPTIONS { lookahead: 32 }
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
+### New AQL Functions
+
+AQL functions added in 3.10:
+
+- [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
+  a document function to recursively keep attributes from objects/documents,
+  as a counterpart to `UNSET_RECURSIVE()`
+
 Indexes
 -------
 
