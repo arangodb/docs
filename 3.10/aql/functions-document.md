@@ -130,6 +130,7 @@ Check whether the example object has a `name` the attribute key:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlHas_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Check whether the example object has an `age` attribute key:
 
@@ -140,6 +141,7 @@ Check whether the example object has an `age` attribute key:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlHas_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Falsy attribute values like `null` still count as the attribute being present:
 
@@ -150,6 +152,7 @@ Falsy attribute values like `null` still count as the attribute being present:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlHas_3
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 IS_SAME_COLLECTION()
 --------------------
@@ -185,6 +188,7 @@ with the collection name part of the specified document.
     @END_EXAMPLE_AQL
     @endDocuBlock aqlIsSameCollection
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 KEEP()
 ------
@@ -217,6 +221,7 @@ To do the opposite, see [UNSET()](#unset).
     @END_EXAMPLE_AQL
     @endDocuBlock aqlKeep_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ---
 
@@ -242,6 +247,7 @@ To do the opposite, see [UNSET()](#unset).
     @END_EXAMPLE_AQL
     @endDocuBlock aqlKeep_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 
 KEEP_RECURSIVE()
@@ -277,6 +283,7 @@ To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
     @END_EXAMPLE_AQL
     @endDocuBlock aqlKeepRecursive_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ---
 
@@ -304,6 +311,7 @@ To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
     @END_EXAMPLE_AQL
     @endDocuBlock aqlKeepRecursive_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 LENGTH()
 --------
@@ -329,6 +337,7 @@ the [character length](functions-string.html#length) of a string.
     @END_EXAMPLE_AQL
     @endDocuBlock aqlLengthObject
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 MATCHES()
 ---------
@@ -388,6 +397,7 @@ Check whether all attributes of the example are present in the document:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMatches_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Check whether one of the examples matches the document and return the index of
 the matching example:
@@ -406,6 +416,7 @@ the matching example:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMatches_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 MERGE()
 -------
@@ -437,6 +448,7 @@ Two documents with distinct attribute names can easily be merged into one:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMerge_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 When merging documents with identical attribute names, the attribute values of the
 latter documents will be used in the end result:
@@ -451,6 +463,7 @@ latter documents will be used in the end result:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMerge_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ---
 
@@ -477,6 +490,7 @@ attributes of multiple objects in an array into a single object.
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMerge_3
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 MERGE_RECURSIVE()
 -----------------
@@ -508,6 +522,7 @@ Two documents with distinct attribute names can easily be merged into one:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMergeRecursive
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 PARSE_IDENTIFIER()
 ------------------
@@ -536,6 +551,7 @@ Parse a document identifier string:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlParseIdentifier_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Parse the document identifier string of a document (`_id` attribute):
 
@@ -546,6 +562,7 @@ Parse the document identifier string of a document (`_id` attribute):
     @END_EXAMPLE_AQL
     @endDocuBlock aqlParseIdentifier_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 TRANSLATE()
 -----------
@@ -574,6 +591,7 @@ Translate a country code to a country name:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlTranslate_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 The unaltered input value is returned if no match is found in the mapping:
 
@@ -584,6 +602,7 @@ The unaltered input value is returned if no match is found in the mapping:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlTranslate_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 If you specify a fallback value and no match is found in the mapping, then the
 fallback value returned instead of the input value:
@@ -595,6 +614,7 @@ fallback value returned instead of the input value:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlTranslate_3
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Note that any non-string input value is implicitly cast to a string before the
 lookup:
@@ -606,6 +626,7 @@ lookup:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlTranslate_4
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 UNSET()
 -------
@@ -638,6 +659,7 @@ To do the opposite, see [KEEP()](#keep).
     @END_EXAMPLE_AQL
     @endDocuBlock aqlUnset_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ---
 
@@ -663,6 +685,7 @@ To do the opposite, see [KEEP()](#keep).
     @END_EXAMPLE_AQL
     @endDocuBlock aqlUnset_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 
 UNSET_RECURSIVE()
@@ -698,6 +721,7 @@ To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
     @END_EXAMPLE_AQL
     @endDocuBlock aqlUnsetRecursive_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ---
 
@@ -725,6 +749,7 @@ To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
     @END_EXAMPLE_AQL
     @endDocuBlock aqlUnsetRecursive_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 VALUES()
 --------
@@ -750,6 +775,7 @@ Get the attribute values of an object:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlValues_1
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Get the attribute values of an object, omitting system attributes:
 
@@ -760,6 +786,7 @@ Get the attribute values of an object, omitting system attributes:
     @END_EXAMPLE_AQL
     @endDocuBlock aqlValues_2
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ZIP()
 -----
@@ -784,3 +811,4 @@ Return a document object assembled from the separate parameters `keys` and `valu
     @END_EXAMPLE_AQL
     @endDocuBlock aqlZip
     {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
