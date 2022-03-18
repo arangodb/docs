@@ -262,6 +262,12 @@ If a task ultimately fails and is aborted, the entire write job will be aborted 
 - `ErrorIfExists`: the target collection will be dropped.
 - `Ignore`: if the collection did not exist before, it will be dropped; otherwise, nothing will be done.
 
+### Write requirements
+
+When writing to an edge collection (`table.type=edge`), the schema of the Dataframe being written must have:
+- a non nullable string field named `_from`, and
+- a non nullable string field named `_to`
+
 ### Write Limitations
 
 - Batch writes are not performed atomically, so sometimes (i.e. in case of `overwrite.mode: conflict`) several documents in the batch may be written and others may return an exception (i.e. due to a conflicting key). 
