@@ -19,7 +19,8 @@ Some of these limitations may be removed in later versions of ArangoDB:
   databases or collections from replication.
 
 - In any DC2DC setup, the minor version of the target cluster must be equal to
-  or greater than the minor version of the source cluster. Syncing between
-  different patch versions of the same minor version is possible, however.
+  or greater than the minor version of the source cluster. Replication from a higher to a 
+  lower minor version (i.e., from 3.9.x to 3.8.x) is not supported.
+  Syncing between different patch versions of the same minor version is possible, however.
   For example, you cannot sync from a 3.9.1 cluster to a 3.8.7 cluster, but
   you can sync from a 3.9.1 cluster to a 3.9.0 cluster.
