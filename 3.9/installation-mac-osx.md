@@ -1,15 +1,16 @@
 ---
 layout: default
-description: ArangoDB under macOS can be installed via Homebrew, DMG Package or tar.gz Archive
+description: You can install ArangoDB on macOS via Homebrew, DMG Package or tar.gz Archive
+title: Installing ArangoDB on macOS
 ---
 Installing ArangoDB on macOS
 ============================
 
-ArangoDB under macOS can be installed via:
+You can install ArangoDB on macOS in different ways:
 
-1. [Homebrew](#homebrew)
-2. [_DMG_ Package](#package-installation)
-3. [_tar.gz_ Archive](#installing-using-the-archive) (starting from v3.4.0)
+- [Homebrew](#homebrew)
+- [_DMG_ Package](#package-installation)
+- [_tar.gz_ Archive](#installing-using-the-archive)
 
 Homebrew
 --------
@@ -25,21 +26,25 @@ official release of a new version.
 {% endhint %}
 
 If you are using [_homebrew_](http://brew.sh/){:target="_blank"},
-then you can install the latest released stable version of ArangoDB using *brew* as follows:
+then you can install the latest released stable version of ArangoDB using `brew`
+ as follows:
 
 ```
 brew install arangodb
 ```
 
 This will install the current stable version of ArangoDB and all
-dependencies within your Homebrew tree. Note that the server will be
-installed as:
+dependencies within your Homebrew tree. The integrity of the homebrew formula
+is automatically verified by a checksum.
+
+
+The server binary will be installed at:
 
 ```
 /usr/local/Cellar/arangodb/<VERSION>/sbin/arangod
 ```
 
-`<VERSION>` is a placeholder for the actual version number, e.g. `3.5.0`.
+`<VERSION>` is a placeholder for the actual version number, e.g. `3.9.0`.
 
 You can start the server by running the command:
 
@@ -85,8 +90,7 @@ also need to update Homebrew executing the command `brew update`.
 
 ### Known issues
 
-- The ArangoDB Starter is not included in v3.3.x, but shipped with all 3.4.x versions.
-- The Commandline argument parsing does not accept blanks in filenames; the CLI version below does.
+- The command-line argument parsing does not accept blanks in filenames; the CLI version below does.
 - If you need to change server endpoint while starting _homebrew_ version, you can edit arangod.conf 
   file and uncomment line with endpoint needed, e.g.:
       
@@ -96,9 +100,16 @@ also need to update Homebrew executing the command `brew update`.
 Package Installation
 --------------------
 
-We provide a command-line app called *ArangoDB-CLI*.
-Visit the official [Download](https://www.arangodb.com/download){:target="_blank"} page of the
-ArangoDB website and download the *DMG* Package for macOS.
+ArangoDB provide a command-line app called *ArangoDB-CLI*.
+
+Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
+page of the ArangoDB website and download the *DMG* Package for macOS.
+
+You may verify the download by comparing the SHA256 hash listed on the website
+to the hash of the file. For example, you can you run `openssl sha256 <filename>`
+or `shasum -a 256 <filename>` in a terminal. You may also run
+`codesign --verify --verbose <filename>` to validate the notarization of an
+executable.
 
 You can install the application in your application folder.
 
@@ -129,9 +140,11 @@ the port used.
 Installing using the archive
 ----------------------------
 
-Starting from v3.4.0 a _tar.gz_ package is also available for macOS.
+1. Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
+   page of the ArangoDB website and download the _tar.gz_ archive for macOS.
 
-Visit the official [Download](https://www.arangodb.com/download){:target="_blank"} page of the ArangoDB
-website and download the _tar.gz_ archive for macOS.
+2. You may verify the download by comparing the SHA256 hash listed on the website
+   to the hash of the file. For example, you can you run `openssl sha256 <filename>`
+   or `shasum -a 256 <filename>` in a terminal.
 
-To install, just extract the archive.
+3. Extract the archive by double-clicking the file.
