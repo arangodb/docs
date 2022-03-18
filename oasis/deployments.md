@@ -142,6 +142,12 @@ the upper disk size limit already.
 6. Click the copy icon next to the root password. This will copy the deployment
    root password to your clipboard. You can also click the view icon to unmask
    the root password to see it.
+
+   {% hint 'security' %}
+   Do not use the root username/password for everyday operations. It is recommended
+   to use them only to create other user accounts with appropriate permissions.
+   {% endhint %}
+
 7. You will also receive an email that the deployment is available, with a URL
    to open it up.
 8. Click the __Open endpoint__ button or on the endpoint URL property to open
@@ -165,6 +171,24 @@ and automatically accepted by most web browsers. The certificate used on port
 18529 is a self-signed certificate. For securing automated services, the use of
 a self-signed certificate is recommended.
 {% endhint %}
+
+## How to enable the root user password rotation
+
+Password rotation refers to changing passwords regularly - a security best practice
+to reduce the vulnerability to password-based attacks and exploits by limiting
+for how long passwords are valid. ArangoDB Oasis can automatically change the
+`root` user password of an ArangoDB deployment periodically to improve security.
+
+1. Navigate to the __Deployment__ for which you want to enable an automatic
+   password rotation for the root user.
+2. On the __Overview__ tab, click the button with the __gear__ icon next to the
+   __ROOT PASSWORD__.
+3. In the __Password Settings__ dialog, turn the password rotation on and click the
+   __Confirm__ button.
+
+   ![Oasis Deployment Password Rotation](images/oasis-deployment-password-rotation.png)
+4. You can expand the __Root password__ panel to see when the password was
+   rotated last. The rotation takes place every three months.
 
 ## How to create a private network deployment
 
