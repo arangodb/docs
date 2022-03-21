@@ -11,11 +11,6 @@ integrations for ArangoDB 3.10.
 
 ## HTTP RESTful API
 
-Added a GET request for route `/_api/query/rules` that returns the available optimizer rules for AQL queries. This returns an array of objects which contain the name of each rule available and its respective flags. 
-Example of invoking in the shell: 
-`arango.GET("/_api/query/rules")`
-
-
 ### Privilege changes
 
 ### Endpoint return value changes
@@ -27,6 +22,17 @@ For the metrics APIs at `/_admin/metrics` and `/_admin/metrics/v2`, unnecessary 
 
 
 ### Endpoints added
+
+Added an endpoint `GET /_api/query/rules` that returns the available
+optimizer rules for AQL queries. It returns an array of objects that contain
+the name of each available rule and its respective flags.
+
+The JavaScript API was not extended, but you can make a request using a
+low-level method in _arangosh_:
+
+```js
+arango.GET("/_api/query/rules")
+```
 
 ### Endpoints augmented
 
@@ -77,3 +83,5 @@ the full set of collections with their indexes.
 ### Endpoints removed
 
 ## JavaScript API
+
+
