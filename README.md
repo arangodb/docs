@@ -1541,6 +1541,8 @@ Description.
 ```
 
 - `name`: The name of the body parameter.
+- `struct`: A name for this data structure that you can refer to in `subtype` of
+  a `@RESTBODYPARAM`, `@RESTREPLYBODY`, or another `@RESTSTRUCT` element.
 - `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
   (typically `string`, `boolean`, `integer`, `number`), `array`, or `object`
 - `necessity`: either `required` or `optional`
