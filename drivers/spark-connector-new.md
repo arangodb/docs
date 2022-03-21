@@ -204,20 +204,20 @@ Write tasks are load balanced across the available ArangoDB Coordinators. The da
 On writing, `org.apache.spark.sql.SaveMode` is used to specify the expected behavior in case the target collection already exists.
 
 Spark 2.4 implementation supports all save modes with the following semantics:
-- `Append`: the target collection is created if it does not exist.
-- `Overwrite`: the target collection is created if it does not exist, otherwise it is truncated. Use it in combination with the
+- `Append`: the target collection is created, if it does not exist.
+- `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
   `confirmTruncate` write configuration parameter.
-- `ErrorIfExists`: the target collection is created if it does not exist, otherwise an `AnalysisException` is thrown.
-- `Ignore`: the target collection is created if it does not exist, otherwise no write is performed.
+- `ErrorIfExists`: the target collection is created, if it does not exist, otherwise an `AnalysisException` is thrown.
+- `Ignore`: the target collection is created, if it does not exist, otherwise no write is performed.
 
 Spark 3.1 implementation supports:
-- `Append`: the target collection is created if it does not exist.
-- `Overwrite`: the target collection is created if it does not exist, otherwise it is truncated. Use it in combination with the
+- `Append`: the target collection is created, if it does not exist.
+- `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
   `confirmTruncate` write configuration parameter.
 
-In Spark 3.1, save modes `ErrorIfExists` and `Ignore` behave the same as `Append`.
+In Spark 3.1, the `ErrorIfExists` and `Ignore` save modes behave the same as `Append`.
 
-Use the `overwriteMode` write configuration parameter to specify the documents overwrite behavior (in case a document with the same `_key` already exists).
+Use the `overwriteMode` write configuration parameter to specify the document overwrite behavior (if a document with the same `_key` already exists).
 
 ### Write Configuration
 
@@ -234,7 +234,7 @@ Use the `overwriteMode` write configuration parameter to specify the documents o
     further controlled via the `keepNull` and `mergeObjects` parameter. `keepNull` will also be automatically set to
     `true`, so that null values are kept in the saved documents and not used to remove existing document fields (as for
     default ArangoDB upsert behavior).
-  - `conflict` (default for `Append` SaveMode): return a unique constraint violation error so that the insert operation fails
+  - `conflict` (default for the `Append` SaveMode): return a unique constraint violation error so that the insert operation fails
 - `mergeObjects`: in case `overwriteMode` is set to `update`, controls whether objects (not arrays) will be merged.
   - `true` (default): objects will be merged
   - `false`: existing document fields will be overwritten
