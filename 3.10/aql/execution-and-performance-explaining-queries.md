@@ -214,7 +214,7 @@ The command will store all data in a file with a configurable filename:
     @startDocuBlockInline 10_workWithAQL_debugging1
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging1}
     var query = "FOR doc IN mycollection FILTER doc.value > 42 RETURN doc";
-    require("@arangodb/aql/explainer").debugDump("/tmp/query-debug-info", query);
+    require("@arangodb/aql/explainer").debugDump(fs.join(fs.getTempPath(), "query-debug-info"), query);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 10_workWithAQL_debugging1
 {% endarangoshexample %}
@@ -231,7 +231,7 @@ string:
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging2}
     var query = "FOR doc IN @@collection FILTER doc.value > @value RETURN doc";
     var bind = { value: 42, "@collection": "mycollection" };
-    require("@arangodb/aql/explainer").debugDump("/tmp/query-debug-info", query, bind);
+    require("@arangodb/aql/explainer").debugDump(fs.join(fs.getTempPath(), "query-debug-info"), query, bind);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 10_workWithAQL_debugging2
 {% endarangoshexample %}
@@ -252,7 +252,7 @@ queries:
     var query = "FOR doc IN @@collection FILTER doc.value > @value RETURN doc";
     var bind = { value: 42, "@collection": "mycollection" };
     var options = { examples: 10, anonymize: true };
-    require("@arangodb/aql/explainer").debugDump("/tmp/query-debug-info", query, bind, options);
+    require("@arangodb/aql/explainer").debugDump(fs.join(fs.getTempPath(), "query-debug-info"), query, bind, options);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 10_workWithAQL_debugging3
 {% endarangoshexample %}

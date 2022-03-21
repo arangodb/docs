@@ -964,12 +964,13 @@ Create and use a `classification` Analyzer with a stored "cooking" classifier to
 @EXAMPLE_ARANGOSH_RUN{ClassificationAnalyzerModelSetup}
 var fs = require("fs");
 var internal = require("internal");
+var tmpPath = fs.getTempPath();
 try {
-    fs.makeDirectory("/tmp/embeddingsModels");
+    fs.makeDirectory(fs.join(tmpPath, "embeddingsModels"));
 } catch (e) {
 }
 
-var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
+var destModelPath = fs.join(tmpPath, "embeddingsModels", "model_cooking.bin");
 if (!fs.exists(destModelPath)) {
     var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
     try {
@@ -980,8 +981,10 @@ if (!fs.exists(destModelPath)) {
 
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerClassification}
 var analyzers = require("@arangodb/analyzers");
-var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
-var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+var fs = require("fs");
+var tmpPath = fs.getTempPath();
+var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": fs.join(tmpPath, "embeddingsModels", "model_cooking.bin") }, []);
+var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": fs.join(tmpPath, "embeddingsModels", "model_cooking.bin"), "top_k": 2 }, []);
 | db._query(`LET str = 'Which baking dish is best to bake a banana bread ?'
 |   RETURN {
 |     "all": TOKENS(str, 'classifier_single'),
@@ -1021,14 +1024,15 @@ Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline analyzerNearestNeighbors
 @EXAMPLE_ARANGOSH_RUN{NNAnalyzerModelSetup}
-var fs = require("fs");
 var internal = require("internal");
+var fs = require("fs");
+var tmpPath = fs.getTempPath();
 try {
-    fs.makeDirectory("/tmp/embeddingsModels");
+    fs.makeDirectory(fs.join(tmpPath, "embeddingsModels"));
 } catch (e) {
 }
 
-var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
+var destModelPath = fs.join(tmpPath, "embeddingsModels", "model_cooking.bin");
 if (!fs.exists(destModelPath)) {
     var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
     try {
@@ -1039,8 +1043,10 @@ if (!fs.exists(destModelPath)) {
 
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerNearestNeighbors}
 var analyzers = require("@arangodb/analyzers");
-var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
-var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+var fs = require("fs");
+var tmpPath = fs.getTempPath();
+var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": fs.join(tmpPath, "embeddingsModels", "model_cooking.bin") }, []);
+var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": fs.join(tmpPath, "embeddingsModels", "model_cooking.bin"), "top_k": 2 }, []);
 | db._query(`LET str = 'salt and oil'
 |   RETURN {
 |     "all": TOKENS(str, 'nn_single'),
