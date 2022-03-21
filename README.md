@@ -873,12 +873,12 @@ breaking changes.
 
 Non-stable versions can have a suffix. The `devel` version usually ends with
 `-devel`, e.g. `v3.9.0-devel`. Preview releases can also have suffixes like
-`-alpha.1`, `beta.2`, `-rc.3`.
+`-alpha.1`, `-beta.2`, `-rc.3`.
 
 #### Patch releases
 
 When a new patch release is published, the respective version number in
-`_data/versions.yml` needs to be incremented:
+`_data/versions.yml` is incremented by the release automation:
 
 ```diff
 -"3.8": "v3.8.1"
@@ -908,10 +908,28 @@ The `stable` and `devel` versions can be adjusted in the `_config.yml` under the
 +  devel: "3.10"
 ```
 
-Additionally, the version numbers in `_data/versions.yml` may need to be
-adjusted for the release.
+Also update the version number in the `_redirects` file to the latest stable
+version, so that Netlify previews default to this version:
 
-Also update `_redirects` to the latest stable version.
+```diff
+-/              /docs/3.8/
++/              /docs/3.9/
+```
+
+Update the list of files to exclude to let Algolia index the new stable version:
+
+```diff
+ algolia:
+   ...
+   files_to_exclude:
+     - 3.10/**/*
+-    - 3.9/**/*
+-#   - 3.8/**/*  # OUR STABLE VERSION
++#   - 3.9/**/*  # OUR STABLE VERSION
++    - 3.8/**/*
+     - 3.7/**/*
+     - ...
+```
 
 Do not forget to re-generate the examples before publishing.
 
