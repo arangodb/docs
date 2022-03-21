@@ -221,6 +221,9 @@ Write tasks are load balanced across the available ArangoDB Coordinators. The da
 - `keepNull`: in case `overwriteMode` is set to `update`
   - `true` (default): `null` values are saved within the document (by default)
   - `false`: `null` values are used to delete the corresponding existing attributes
+- `retry.maxAttempts`: max attempts for retrying write requests in case they are idempotent, `10` by default
+- `retry.minDelay`: min delay in ms between write requests retries, `0` by default
+- `retry.maxDelay`: max delay in ms between write requests retries, `0` by default
 
 ### SaveMode
 
