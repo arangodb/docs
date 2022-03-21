@@ -199,6 +199,26 @@ df.write
 
 Write tasks are load balanced across the available ArangoDB Coordinators. The data saved into the ArangoDB is sharded according to the related target collection definition and is different from the Spark DataFrame partitioning.
 
+### SaveMode
+
+On writing, `org.apache.spark.sql.SaveMode` is used to specify the expected behavior in case the target collection already exists.
+
+Spark 2.4 implementation supports all save modes with the following semantics:
+- `Append`: the target collection is created, if it does not exist.
+- `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
+  `confirmTruncate` write configuration parameter.
+- `ErrorIfExists`: the target collection is created, if it does not exist, otherwise an `AnalysisException` is thrown.
+- `Ignore`: the target collection is created, if it does not exist, otherwise no write is performed.
+
+Spark 3.1 implementation supports:
+- `Append`: the target collection is created, if it does not exist.
+- `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
+  `confirmTruncate` write configuration parameter.
+
+In Spark 3.1, the `ErrorIfExists` and `Ignore` save modes behave the same as `Append`.
+
+Use the `overwriteMode` write configuration parameter to specify the document overwrite behavior (if a document with the same `_key` already exists).
+
 ### Write Configuration
 
 - `table`: target ArangoDB collection name (required)
@@ -207,14 +227,14 @@ Write tasks are load balanced across the available ArangoDB Coordinators. The da
 - `table.type`: type (`document` or `edge`) of the created collection (in case of the `Append` or `Overwrite` SaveMode), `document` by default
 - `waitForSync`: specifies whether to wait until the documents have been synced to disk (`true` or `false`), `false` by default
 - `confirmTruncate`: confirms to truncate table when using the `Overwrite` SaveMode, `false` by default
-- `overwriteMode`: configures the behavior in case a document with the specified `_key` value already exists
-  - `ignore`: it will not be written
+- `overwriteMode`: configures the behavior in case a document with the specified `_key` value already exists. It is only considered for `Append` SaveMode.
+  - `ignore` (default for SaveMode other than `Append`): it will not be written
   - `replace`: it will be overwritten with the specified document value
   - `update`: it will be patched (partially updated) with the specified document value. The overwrite mode can be 
     further controlled via the `keepNull` and `mergeObjects` parameter. `keepNull` will also be automatically set to
     `true`, so that null values are kept in the saved documents and not used to remove existing document fields (as for
     default ArangoDB upsert behavior).
-  - `conflict` (default): return a unique constraint violation error so that the insert operation fails
+  - `conflict` (default for the `Append` SaveMode): return a unique constraint violation error so that the insert operation fails
 - `mergeObjects`: in case `overwriteMode` is set to `update`, controls whether objects (not arrays) will be merged.
   - `true` (default): objects will be merged
   - `false`: existing document fields will be overwritten
@@ -224,26 +244,6 @@ Write tasks are load balanced across the available ArangoDB Coordinators. The da
 - `retry.maxAttempts`: max attempts for retrying write requests in case they are idempotent, `10` by default
 - `retry.minDelay`: min delay in ms between write requests retries, `0` by default
 - `retry.maxDelay`: max delay in ms between write requests retries, `0` by default
-
-### SaveMode
-
-On writing, `org.apache.spark.sql.SaveMode` is used to specify the expected behavior in case the target collection already exists.  
-
-Spark 2.4 implementation supports all save modes with the following semantics:
-- `Append`: the target collection is created if it does not exist.
-- `Overwrite`: the target collection is created if it does not exist, otherwise it is truncated. Use it in combination with the
-  `confirmTruncate` write configuration parameter.
-- `ErrorIfExists`: the target collection is created if it does not exist, otherwise an `AnalysisException` is thrown.
-- `Ignore`: the target collection is created if it does not exist, otherwise no write is performed.
-
-Spark 3.1 implementation supports:
-- `Append`: the target collection is created if it does not exist.
-- `Overwrite`: the target collection is created if it does not exist, otherwise it is truncated. Use it in combination with the
-  `confirmTruncate` write configuration parameter.
-
-In Spark 3.1, save modes `ErrorIfExists` and `Ignore` behave the same as `Append`.
-
-Use the `overwriteMode` write configuration parameter to specify the documents overwrite behavior (in case a document with the same `_key` already exists).
 
 ### Write Resiliency
 
