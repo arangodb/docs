@@ -27,7 +27,7 @@ different usage scenarios:
   collections.
 
   The operations in a persistent index have logarithmic complexity, but operations
-  have may have a higher constant factor than operations of in-memory indexes
+  may have a higher constant factor than operations of in-memory indexes
   because the persistent index may need to make extra roundtrips to the primary
   index to fetch the actual documents.
 
@@ -55,10 +55,9 @@ different usage scenarios:
   `2019-02-14T17:49:33.000Z` in the human-readable version).
 
   The actual removal of expired documents will not necessarily happen immediately. 
-  Expired documents will eventually removed by a background thread that is periodically
-  going through all TTL indexes and removing the expired documents. The frequency for
-  invoking this background thread can be configured using the `--ttl.frequency`
-  startup option. 
+  Expired documents will eventually be removed by a background thread that is periodically
+  going through all TTL indexes. The frequency for invoking this background thread
+  can be configured using the `--ttl.frequency` startup option. 
 
   There is no guarantee when exactly the removal of expired documents will be carried
   out, so queries may still find and return documents that have already expired. These
