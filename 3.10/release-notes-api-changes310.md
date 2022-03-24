@@ -80,6 +80,11 @@ persistent.
 If `cacheEnabled` is set to `true`, the index is created with the cache. Otherwise
 the index is created with the cache. Caching is turned off by default.
 
+APIs that return information about all indexes such as GET `/_api/index` 
+or GET `/_api/index/<index-id>` can now also return the `cacheEnabled`
+attribute.
+
+
 When using caching, equality lookups on all index attributes can be served from the
 in-memory cache, which can speed up reading from the index if data is present in 
 the cache already.
