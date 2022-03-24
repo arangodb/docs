@@ -873,12 +873,12 @@ breaking changes.
 
 Non-stable versions can have a suffix. The `devel` version usually ends with
 `-devel`, e.g. `v3.9.0-devel`. Preview releases can also have suffixes like
-`-alpha.1`, `beta.2`, `-rc.3`.
+`-alpha.1`, `-beta.2`, `-rc.3`.
 
 #### Patch releases
 
 When a new patch release is published, the respective version number in
-`_data/versions.yml` needs to be incremented:
+`_data/versions.yml` is incremented by the release automation:
 
 ```diff
 -"3.8": "v3.8.1"
@@ -908,10 +908,28 @@ The `stable` and `devel` versions can be adjusted in the `_config.yml` under the
 +  devel: "3.10"
 ```
 
-Additionally, the version numbers in `_data/versions.yml` may need to be
-adjusted for the release.
+Also update the version number in the `_redirects` file to the latest stable
+version, so that Netlify previews default to this version:
 
-Also update `_redirects` to the latest stable version.
+```diff
+-/              /docs/3.8/
++/              /docs/3.9/
+```
+
+Update the list of files to exclude to let Algolia index the new stable version:
+
+```diff
+ algolia:
+   ...
+   files_to_exclude:
+     - 3.10/**/*
+-    - 3.9/**/*
+-#   - 3.8/**/*  # OUR STABLE VERSION
++#   - 3.9/**/*  # OUR STABLE VERSION
++    - 3.8/**/*
+     - 3.7/**/*
+     - ...
+```
 
 Do not forget to re-generate the examples before publishing.
 
@@ -1263,13 +1281,6 @@ DocuBlocks define reusable pieces of content but the DocuBlocks system is mainly
 used for describing the HTTP API by now. It is also used for arangosh and AQL
 examples, using inline DocuBlocks (see above).
 
-The source files for Rest DocuBlocks that describe and demonstrate the HTTP API
-are located in the main repository at `Documentation/DocuBlocks/Rest/`:
-<https://github.com/arangodb/arangodb/tree/devel/Documentation/DocuBlocks/Rest>
-They are written in a proprietary text format that can be converted to
-[Swagger 2.0 definitions](https://swagger.io/specification/v2/) as well as
-rendered by the documentation tooling.
-
 To embed a DocuBlock in the documentation, use the `docublock` tag in a Markdown
 file:
 
@@ -1277,7 +1288,16 @@ file:
 {% docublock name %}
 ```
 
-Complete example of a Rest DocuBlock:
+#### HTTP API DocuBlocks
+
+The source files for DocuBlocks that describe and demonstrate the HTTP API
+are located in the main repository at `Documentation/DocuBlocks/Rest/`:
+<https://github.com/arangodb/arangodb/tree/devel/Documentation/DocuBlocks/Rest>
+They are written in a proprietary text format that can be converted to
+[Swagger 2.0 definitions](https://swagger.io/specification/v2/) as well as
+rendered by the documentation tooling.
+
+A complete example of such a DocuBlock:
 
 ```
 @startDocuBlock post_api_foo
@@ -1346,6 +1366,10 @@ HTTP status code returned if the request failed.
 @endDocuBlock
 ```
 
+---
+
+#### `@startDocuBlock` / `@endDocuBlock`
+
 Every DocuBlock starts with `@startDocuBlock` followed by a name, and ends with
 `@endDocuBlock`.
 
@@ -1363,12 +1387,20 @@ The naming convention is to use `snake_case` and the pattern `method_path`, e.g.
 name is often used as file name, too, but it can deviate. The file extension is
 `.md` as the content is Markdown-formatted text (DocuBlock markup aside).
 
+---
+
+#### `@brief`
+
 The first structural element in a DocuBlock should be `@brief`, followed by a
 summary of what the endpoint does:
 
 ```
 @brief creates a foo
 ```
+
+---
+
+#### `@RESTHEADER`
 
 The next element should be the `@RESTHEADER`:
 
@@ -1387,6 +1419,10 @@ The next element should be the `@RESTHEADER`:
   across all endpoint descriptions. It defaults to a de-spaced `Description`.
   It should not be changed anymore.
 
+---
+
+#### `@HINTS`
+
 There can optionally be a `@HINTS` element with one or more `hint` blocks:
 
 ```
@@ -1397,6 +1433,10 @@ Remarks to highlight.
 ```
 
 - `type`: One of `tip`, `info`, `warning`, `security`, `danger`
+
+---
+
+#### `@RESTURLPARAMETERS` / `@RESTURLPARAM`
 
 If `@RESTHEADER` contains at least one `{placeholder}` for URL parameters, then
 a `@RESTURLPARAMETERS` section with `@RESTURLPARAM` elements for every
@@ -1417,6 +1457,10 @@ Description.
 - `necessity`: needs to be `required`. `optional` is not supported anymore.
   Create a second DocuBlock without the parameter if necessary.
 
+---
+
+#### `@RESTQUERYPARAMETERS` / `@RESTQUERYPARAM`
+
 If an endpoint supports query parameters (like `?param1=aaa&param2=bbb` after
 the URL path), then a `@RESTQUERYPARAMETERS` section with `@RESTQUERYPARAM`
 elements for every query paramter is needed:
@@ -1434,6 +1478,10 @@ Description.
 - `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
   (typically `string` or `boolean`)
 - `necessity`: either `required` or `optional`
+
+---
+
+#### `@RESTBODYPARAM`
 
 To describe the request payload, use `@RESTBODYPARAM` elements. Note that there
 is no `@RESTBODYPARAMETERS` section:
@@ -1487,6 +1535,10 @@ because operating systems typically iterate folder contents in alphabetical
 order, ensuring that it gets processed before other files in the same folder,
 so that the `@RESTSTRUCT` definition is available before it gets referenced.
 
+---
+
+#### `@RESTALLBODYPARAM`
+
 If an endpoint has a schemaless JSON body or plaintext payload, then you can
 use a single `@RESTALLBODYPARAM` element instead of any `@RESTBODYPARAM`s:
 
@@ -1498,6 +1550,10 @@ Description.
 - `name`: A name, unused
 - `type`: `json` / `object` or `string` (plaintext)
 - `necessity`: `required` or `optional`
+
+---
+
+#### `@RESTRETURNCODES` / `@RESTRETURNCODE` / `@RESTREPLYBODY`
 
 To describe the response payload, use a `@RESTRETURNCODES` section with one or
 more `@RESTRETURNCODE` subsections. You should add a subsection for every
@@ -1531,6 +1587,10 @@ Description.
   reference a `@RESTSTRUCT` by name (if `type` is `object` or `array`), or be
   empty.
 
+---
+
+#### `@RESTSTRUCT`
+
 For nested data structures, as well for sharing structural descriptions between
 DocuBlocks, you can use `@RESTSTRUCT`. Such structs can be referenced in
 `@RESTBODYPARAM`, `@RESTREPLYBODY`, and other `@RESTSTRUCT` elements.
@@ -1541,6 +1601,8 @@ Description.
 ```
 
 - `name`: The name of the body parameter.
+- `struct`: A name for this data structure that you can refer to in `subtype` of
+  a `@RESTBODYPARAM`, `@RESTREPLYBODY`, or another `@RESTSTRUCT` element.
 - `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
   (typically `string`, `boolean`, `integer`, `number`), `array`, or `object`
 - `necessity`: either `required` or `optional`
@@ -1554,6 +1616,17 @@ top-level object description (note the empty `name`):
 ```
 @RESTREPLYBODY{,object,required,collection_info}
 ```
+
+Example of a response description with an array at the top-level (note the
+empty `name`):
+
+```
+@RESTREPLYBODY{,array,required,get_api_query_rules}
+```
+
+---
+
+#### `@EXAMPLES`
 
 You can add an arbitrary number of examples to a DocuBlock in an `@EXAMPLES`
 section. An HTTP API example needs to be wrapped by `@EXAMPLE_ARANGOSH_RUN` and
