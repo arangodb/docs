@@ -35,7 +35,7 @@ To import ArangoDB Datasource for Apache Spark in a maven project:
     <dependency>
       <groupId>com.arangodb</groupId>
       <artifactId>arangodb-spark-datasource-${sparkVersion}_${scalaVersion}</artifactId>
-      <version>1.1.0</version>
+      <version>x.y.z</version>
     </dependency>
   </dependencies>
 ```
@@ -43,7 +43,7 @@ To import ArangoDB Datasource for Apache Spark in a maven project:
 To use in an external Spark cluster, submit your application with the following parameter:
 
 ```shell
-    --packages="com.arangodb:arangodb-spark-datasource-${sparkVersion}_${scalaVersion}:1.1.0"
+    --packages="com.arangodb:arangodb-spark-datasource-${sparkVersion}_${scalaVersion}:x.y.z"
 ```
 
 
@@ -55,7 +55,7 @@ To use in an external Spark cluster, submit your application with the following 
 - `acquireHostList`: acquire the list of all known hosts in the cluster (`true` or `false`), `false` by default
 - `protocol`: communication protocol (`vst` or `http`), `http` by default
 - `contentType`: content type for driver communication (`json` or `vpack`), `json` by default
-- `timeout`: driver connect and request timeout in ms, `60000` by default
+- `timeout`: driver connect and request timeout in ms, `300000` by default
 - `ssl.enabled`: ssl secured driver connection (`true` or `false`), `false` by default
 - `ssl.cert.value`: Base64 encoded certificate
 - `ssl.cert.type`: certificate type, `X.509` by default
@@ -199,6 +199,26 @@ df.write
 
 Write tasks are load balanced across the available ArangoDB Coordinators. The data saved into the ArangoDB is sharded according to the related target collection definition and is different from the Spark DataFrame partitioning.
 
+### SaveMode
+
+On writing, `org.apache.spark.sql.SaveMode` is used to specify the expected behavior in case the target collection already exists.
+
+Spark 2.4 implementation supports all save modes with the following semantics:
+- `Append`: the target collection is created, if it does not exist.
+- `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
+  `confirmTruncate` write configuration parameter.
+- `ErrorIfExists`: the target collection is created, if it does not exist, otherwise an `AnalysisException` is thrown.
+- `Ignore`: the target collection is created, if it does not exist, otherwise no write is performed.
+
+Spark 3.1 implementation supports:
+- `Append`: the target collection is created, if it does not exist.
+- `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
+  `confirmTruncate` write configuration parameter.
+
+In Spark 3.1, the `ErrorIfExists` and `Ignore` save modes behave the same as `Append`.
+
+Use the `overwriteMode` write configuration parameter to specify the document overwrite behavior (if a document with the same `_key` already exists).
+
 ### Write Configuration
 
 - `table`: target ArangoDB collection name (required)
@@ -207,53 +227,37 @@ Write tasks are load balanced across the available ArangoDB Coordinators. The da
 - `table.type`: type (`document` or `edge`) of the created collection (in case of the `Append` or `Overwrite` SaveMode), `document` by default
 - `waitForSync`: specifies whether to wait until the documents have been synced to disk (`true` or `false`), `false` by default
 - `confirmTruncate`: confirms to truncate table when using the `Overwrite` SaveMode, `false` by default
-- `overwriteMode`: configures the behavior in case a document with the specified `_key` value already exists
-  - `ignore`: it will not be written
+- `overwriteMode`: configures the behavior in case a document with the specified `_key` value already exists. It is only considered for `Append` SaveMode.
+  - `ignore` (default for SaveMode other than `Append`): it will not be written
   - `replace`: it will be overwritten with the specified document value
   - `update`: it will be patched (partially updated) with the specified document value. The overwrite mode can be 
     further controlled via the `keepNull` and `mergeObjects` parameter. `keepNull` will also be automatically set to
     `true`, so that null values are kept in the saved documents and not used to remove existing document fields (as for
     default ArangoDB upsert behavior).
-  - `conflict` (default): return a unique constraint violation error so that the insert operation fails
+  - `conflict` (default for the `Append` SaveMode): return a unique constraint violation error so that the insert operation fails
 - `mergeObjects`: in case `overwriteMode` is set to `update`, controls whether objects (not arrays) will be merged.
   - `true` (default): objects will be merged
   - `false`: existing document fields will be overwritten
 - `keepNull`: in case `overwriteMode` is set to `update`
   - `true` (default): `null` values are saved within the document (by default)
   - `false`: `null` values are used to delete the corresponding existing attributes
-
-### SaveMode
-
-On writing, `org.apache.spark.sql.SaveMode` is used to specify the expected behavior in case the target collection already exists.  
-
-Spark 2.4 implementation supports all save modes with the following semantics:
-- `Append`: the target collection is created if it does not exist.
-- `Overwrite`: the target collection is created if it does not exist, otherwise it is truncated. Use it in combination with the
-  `confirmTruncate` write configuration parameter.
-- `ErrorIfExists`: the target collection is created if it does not exist, otherwise an `AnalysisException` is thrown.
-- `Ignore`: the target collection is created if it does not exist, otherwise no write is performed.
-
-Spark 3.1 implementation supports:
-- `Append`: the target collection is created if it does not exist.
-- `Overwrite`: the target collection is created if it does not exist, otherwise it is truncated. Use it in combination with the
-  `confirmTruncate` write configuration parameter.
-
-In Spark 3.1, save modes `ErrorIfExists` and `Ignore` behave the same as `Append`.
-
-Use the `overwriteMode` write configuration parameter to specify the documents overwrite behavior (in case a document with the same `_key` already exists).
+- `retry.maxAttempts`: max attempts for retrying write requests in case they are idempotent, `10` by default
+- `retry.minDelay`: min delay in ms between write requests retries, `0` by default
+- `retry.maxDelay`: max delay in ms between write requests retries, `0` by default
 
 ### Write Resiliency
 
-The data of each partition is saved in batches using the ArangoDB API for [inserting multiple documents]
-(../http/document-working-with-documents.html#create-multiple-documents).
-This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator) if the configured `overwriteMode` allows idempotent requests, namely: 
-- `replace`
-- `ignore`
-- `update` with `keep.null=true`
+The data of each partition is saved in batches using the ArangoDB API for [inserting multiple documents](../http/document-working-with-documents.html).
+This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator), if the provided configuration allows idempotent requests, namely: 
+- the schema of the dataframe has a **not nullable** `_key` field and
+- `overwriteMode` is set to one of the following values:
+  - `replace`
+  - `ignore`
+  - `update` with `keep.null=true`
 
-These configurations of `overwriteMode` are also compatible with speculative execution of tasks.
+These configurations are also compatible with speculative execution of tasks.
 
-A failing batch-saving request is retried once for every Coordinator. After that, if still failing, the write task for the related partition is aborted. According to the Spark configuration, the task can be retried and rescheduled on a different executor, if the `overwriteMode` allows idempotent requests (as described above).
+A failing batch-saving request is retried once for every Coordinator. After that, if still failing, the write task for the related partition is aborted. According to the Spark configuration, the task can be retried and rescheduled on a different executor, if the provided write configuration allows idempotent requests (as described above).
 
 If a task ultimately fails and is aborted, the entire write job will be aborted as well. Depending on the `SaveMode` configuration, the following cleanup operations will be performed:
 - `Append`: no cleanup is performed and the underlying data source may require manual cleanup. 
@@ -262,12 +266,18 @@ If a task ultimately fails and is aborted, the entire write job will be aborted 
 - `ErrorIfExists`: the target collection will be dropped.
 - `Ignore`: if the collection did not exist before, it will be dropped; otherwise, nothing will be done.
 
+### Write requirements
+
+When writing to an edge collection (`table.type=edge`), the schema of the Dataframe being written must have:
+- a non nullable string field named `_from`, and
+- a non nullable string field named `_to`
+
 ### Write Limitations
 
 - Batch writes are not performed atomically, so sometimes (i.e. in case of `overwrite.mode: conflict`) several documents in the batch may be written and others may return an exception (i.e. due to a conflicting key). 
 - Writing records with the `_key` attribute is only allowed on collections sharded by `_key`. 
 - In case of the `Append` save mode, failed jobs cannot be rolled back and the underlying data source may require manual cleanup.
-- Speculative execution of tasks would only work for idempotent `overwriteMode` configurations. See [Write Resiliency](#write-resiliency) for more details.
+- Speculative execution of tasks would only work for idempotent write configurations. See [Write Resiliency](#write-resiliency) for more details.
 
 
 ## Supported Spark data types
