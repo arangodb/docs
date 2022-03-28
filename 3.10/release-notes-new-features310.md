@@ -188,11 +188,11 @@ deployments will use RangeDeletes regardless of the value of this option.
 Note that it is not guaranteed that all truncate operations will use a RangeDelete operation. 
 For collections containing a low number of documents, the O(n) truncate method may still be used.
 
-
 Miscellaneous changes
 ---------------------
 
-
+Added the `GET /_api/query/rules` REST API endpoint that returns the available
+optimizer rules for AQL queries.
 
 Client tools
 ------------

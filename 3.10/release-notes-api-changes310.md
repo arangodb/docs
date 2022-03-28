@@ -23,6 +23,17 @@ For the metrics APIs at `/_admin/metrics` and `/_admin/metrics/v2`, unnecessary 
 
 ### Endpoints added
 
+Added the `GET /_api/query/rules` endpoint that returns the available
+optimizer rules for AQL queries. It returns an array of objects that contain
+the name of each available rule and its respective flags.
+
+The JavaScript API was not extended, but you can make a request using a
+low-level method in _arangosh_:
+
+```js
+arango.GET("/_api/query/rules")
+```
+
 ### Endpoints augmented
 
 APIs that return data from ArangoDB's write-ahead log (WAL) may now return
@@ -72,3 +83,5 @@ the full set of collections with their indexes.
 ### Endpoints removed
 
 ## JavaScript API
+
+
