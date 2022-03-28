@@ -208,18 +208,52 @@ To do the opposite, see [UNSET()](#unset).
 
 **Examples**
 
+Keep the top-level `foo` attribute, preserving its nested object:
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlKeep_1
     @EXAMPLE_AQL{aqlKeep_1}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN [
-      KEEP(doc, "foo"),
-      KEEP(doc, "bar"),
-      KEEP(doc, "baz"),
-      KEEP(doc, "foo", "baz")
-    ]
+    RETURN KEEP(doc, "foo")
     @END_EXAMPLE_AQL
     @endDocuBlock aqlKeep_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Keep the top-level `bar` attribute, which the example object does not have,
+resulting in an empty object:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlKeep_2
+    @EXAMPLE_AQL{aqlKeep_2}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN KEEP(doc, "bar")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlKeep_2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Keep the top-level `baz` attribute:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlKeep_3
+    @EXAMPLE_AQL{aqlKeep_3}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN KEEP(doc, "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlKeep_3
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Keep multiple top-level attributes (`foo` and `baz`):
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlKeep_4
+    @EXAMPLE_AQL{aqlKeep_4}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN KEEP(doc, "foo", "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlKeep_4
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -234,28 +268,25 @@ To do the opposite, see [UNSET()](#unset).
 
 **Examples**
 
+Keep multiple top-level attributes (`foo` and `baz`), by passing an array of the
+attribute keys instead of individual arguments:
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlKeep_2
-    @EXAMPLE_AQL{aqlKeep_2}
+    @startDocuBlockInline aqlKeep_5
+    @EXAMPLE_AQL{aqlKeep_5}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN [
-      KEEP(doc, ["foo"]),
-      KEEP(doc, ["bar"]),
-      KEEP(doc, ["baz"]),
-      KEEP(doc, ["foo", "baz"])
-    ]
+    RETURN KEEP(doc, ["foo", "baz"])
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlKeep_2
+    @endDocuBlock aqlKeep_5
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
 
 KEEP_RECURSIVE()
 ----------------
 
 `KEEP_RECURSIVE(document, attributeName1, attributeName2, ... attributeNameN) → doc`
 
-Recursively keep the attributes `attributeName1` to `attributeNameN` from
+Recursively preserve the attributes `attributeName1` to `attributeNameN` from
 `document` and its sub-documents. All other attributes will be removed.
 
 To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
@@ -268,20 +299,80 @@ To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
 
 **Examples**
 
+Recursively preserve `foo` attributes, but not nested attributes that have
+parents with other names:
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlKeepRecursive_1
     @EXAMPLE_AQL{aqlKeepRecursive_1}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN [
-      KEEP_RECURSIVE(doc, "foo"),
-      KEEP_RECURSIVE(doc, "bar"),
-      KEEP_RECURSIVE(doc, "baz"),
-      KEEP_RECURSIVE(doc, "foo", "bar"),
-      KEEP_RECURSIVE(doc, "foo", "baz"),
-      KEEP_RECURSIVE(doc, "foo", "bar", "baz")
-    ]
+    RETURN KEEP_RECURSIVE(doc, "foo")
     @END_EXAMPLE_AQL
     @endDocuBlock aqlKeepRecursive_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively preserve `bar` attributes, but there is none at the top-level, leading
+to an empty object:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlKeepRecursive_2
+    @EXAMPLE_AQL{aqlKeepRecursive_2}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN KEEP_RECURSIVE(doc, "bar")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlKeepRecursive_2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively preserve `baz` attributes, but not nested attributes that have
+parents with other names:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlKeepRecursive_3
+    @EXAMPLE_AQL{aqlKeepRecursive_3}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN KEEP_RECURSIVE(doc, "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlKeepRecursive_3
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively preserve multiple attributes (`foo` and `bar`):
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlKeepRecursive_4
+    @EXAMPLE_AQL{aqlKeepRecursive_4}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN KEEP_RECURSIVE(doc, "foo", "bar")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlKeepRecursive_4
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively preserve multiple attributes (`foo` and `baz`), but not nested
+attributes that have parents with other names:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlKeepRecursive_5
+    @EXAMPLE_AQL{aqlKeepRecursive_5}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN KEEP_RECURSIVE(doc, "foo", "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlKeepRecursive_5
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively preserve multiple attributes (`foo`, `bar`, and `baz`), preserving all
+attributes of the example object:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlKeepRecursive_6
+    @EXAMPLE_AQL{aqlKeepRecursive_6}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN KEEP_RECURSIVE(doc, "foo", "bar", "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlKeepRecursive_6
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -296,20 +387,16 @@ To do the opposite, use [UNSET_RECURSIVE()](#unset_recursive).
 
 **Examples**
 
+Recursively preserve multiple attributes (`foo` and `baz`), by passing an array of the
+attribute keys instead of individual arguments:
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlKeepRecursive_2
-    @EXAMPLE_AQL{aqlKeepRecursive_2}
+    @startDocuBlockInline aqlKeepRecursive_7
+    @EXAMPLE_AQL{aqlKeepRecursive_7}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN [
-      KEEP_RECURSIVE(doc, ["foo"]),
-      KEEP_RECURSIVE(doc, ["bar"]),
-      KEEP_RECURSIVE(doc, ["baz"]),
-      KEEP_RECURSIVE(doc, ["foo", "bar"]),
-      KEEP_RECURSIVE(doc, ["foo", "baz"]),
-      KEEP_RECURSIVE(doc, ["foo", "bar", "baz"])
-    ]
+    RETURN KEEP_RECURSIVE(doc, ["foo", "baz"])
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlKeepRecursive_2
+    @endDocuBlock aqlKeepRecursive_7
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -646,18 +733,52 @@ To do the opposite, see [KEEP()](#keep).
 
 **Examples**
 
+Remove the top-level `foo` attribute, including its nested objects:
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlUnset_1
     @EXAMPLE_AQL{aqlUnset_1}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN [
-      UNSET(doc, "foo"),
-      UNSET(doc, "bar"),
-      UNSET(doc, "baz"),
-      UNSET(doc, "foo", "baz")
-    ]
+    RETURN UNSET(doc, "foo")
     @END_EXAMPLE_AQL
     @endDocuBlock aqlUnset_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Remove the top-level `bar` attribute, which the example object does not have,
+resulting in an empty object:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlUnset_2
+    @EXAMPLE_AQL{aqlUnset_2}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN UNSET(doc, "bar")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlUnset_2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Remove the top-level `baz` attribute:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlUnset_3
+    @EXAMPLE_AQL{aqlUnset_3}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN UNSET(doc, "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlUnset_3
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Remove multiple top-level attributes (`foo` and `baz`):
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlUnset_4
+    @EXAMPLE_AQL{aqlUnset_4}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN UNSET(doc, "foo", "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlUnset_4
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -672,18 +793,16 @@ To do the opposite, see [KEEP()](#keep).
 
 **Examples**
 
+Remove multiple top-level attributes (`foo` and `baz`), by passing an array of the
+attribute keys instead of individual arguments:
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlUnset_2
-    @EXAMPLE_AQL{aqlUnset_2}
+    @startDocuBlockInline aqlUnset_5
+    @EXAMPLE_AQL{aqlUnset_5}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN [
-      UNSET(doc, ["foo"]),
-      UNSET(doc, ["bar"]),
-      UNSET(doc, ["baz"]),
-      UNSET(doc, ["foo", "baz"])
-    ]
+    RETURN UNSET(doc, ["foo", "baz"])
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlUnset_2
+    @endDocuBlock aqlUnset_5
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -706,20 +825,74 @@ To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
 
 **Examples**
 
+Recursively remove `foo` attributes:
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlUnsetRecursive_1
     @EXAMPLE_AQL{aqlUnsetRecursive_1}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN [
-      UNSET_RECURSIVE(doc, "foo"),
-      UNSET_RECURSIVE(doc, "bar"),
-      UNSET_RECURSIVE(doc, "baz"),
-      UNSET_RECURSIVE(doc, "foo", "bar"),
-      UNSET_RECURSIVE(doc, "foo", "baz"),
-      UNSET_RECURSIVE(doc, "foo", "bar", "baz")
-    ]
+    RETURN UNSET_RECURSIVE(doc, "foo")
     @END_EXAMPLE_AQL
     @endDocuBlock aqlUnsetRecursive_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively remove `bar` attributes:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlUnsetRecursive_2
+    @EXAMPLE_AQL{aqlUnsetRecursive_2}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN UNSET_RECURSIVE(doc, "bar")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlUnsetRecursive_2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively remove `baz` attributes:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlUnsetRecursive_3
+    @EXAMPLE_AQL{aqlUnsetRecursive_3}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN UNSET_RECURSIVE(doc, "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlUnsetRecursive_3
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlUnsetRecursive_4
+    @EXAMPLE_AQL{aqlUnsetRecursive_4}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN UNSET_RECURSIVE(doc, "foo", "bar")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlUnsetRecursive_4
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively remove multiple attributes (`foo` and `baz`):
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlUnsetRecursive_5
+    @EXAMPLE_AQL{aqlUnsetRecursive_5}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN UNSET_RECURSIVE(doc, "foo", "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlUnsetRecursive_5
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Recursively remove multiple attributes (`foo`, `bar`, and `baz`), removing all
+attributes of the example object:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlUnsetRecursive_6
+    @EXAMPLE_AQL{aqlUnsetRecursive_6}
+    LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
+    RETURN UNSET_RECURSIVE(doc, "foo", "bar", "baz")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlUnsetRecursive_6
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -734,20 +907,16 @@ To do the opposite, use [KEEP_RECURSIVE()](#keep_recursive).
 
 **Examples**
 
+Recursively remove `baz` attributes, by passing an array of the
+attribute key:
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlUnsetRecursive_2
-    @EXAMPLE_AQL{aqlUnsetRecursive_2}
+    @startDocuBlockInline aqlUnsetRecursive_7
+    @EXAMPLE_AQL{aqlUnsetRecursive_7}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN [
-      UNSET_RECURSIVE(doc, ["foo"]),
-      UNSET_RECURSIVE(doc, ["bar"]),
-      UNSET_RECURSIVE(doc, ["baz"]),
-      UNSET_RECURSIVE(doc, ["foo", "bar"]),
-      UNSET_RECURSIVE(doc, ["foo", "baz"]),
-      UNSET_RECURSIVE(doc, ["foo", "bar", "baz"])
-    ]
+    RETURN UNSET_RECURSIVE(doc, ["baz"])
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlUnsetRecursive_2
+    @endDocuBlock aqlUnsetRecursive_7
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
