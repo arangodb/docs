@@ -59,7 +59,7 @@ Executes a server-side transaction, as specified by *object*.
 Additionally, *object* can have the following optional attributes:
 - *waitForSync*: boolean flag indicating whether the transaction
   is forced to be synchronous. <!-- TODO: obsolete? -->
-- *lockTimeout*: a numeric value that can be used to set a timeout for
+- *lockTimeout*: a numeric value that can be used to set a timeout in seconds for
   waiting on collection locks. If not specified, a default value will be
   used. Setting *lockTimeout* to *0* will make ArangoDB not time
   out waiting for a lock. <!-- TODO: obsolete? -->
