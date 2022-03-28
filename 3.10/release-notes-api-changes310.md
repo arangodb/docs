@@ -23,7 +23,7 @@ For the metrics APIs at `/_admin/metrics` and `/_admin/metrics/v2`, unnecessary 
 
 ### Endpoints added
 
-Added an endpoint `GET /_api/query/rules` that returns the available
+Added the `GET /_api/query/rules` endpoint that returns the available
 optimizer rules for AQL queries. It returns an array of objects that contain
 the name of each available rule and its respective flags.
 
