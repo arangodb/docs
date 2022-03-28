@@ -60,7 +60,8 @@ Additionally, *object* can have the following optional attributes:
 - *waitForSync*: boolean flag indicating whether the transaction
   is forced to be synchronous. <!-- TODO: obsolete? -->
 - *lockTimeout*: a numeric value that can be used to set a timeout in seconds for
-  waiting on collection locks. If not specified, a default value will be
+  waiting on collection locks. This option is only meaningful when using
+  exclusive locks. If not specified, a default value of 900 seconds will be
   used. Setting *lockTimeout* to *0* will make ArangoDB not time
   out waiting for a lock. <!-- TODO: obsolete? -->
 - *params*: optional arguments passed to the function specified in
