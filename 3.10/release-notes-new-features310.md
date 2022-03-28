@@ -191,7 +191,7 @@ For collections containing a low number of documents, the O(n) truncate method m
 Miscellaneous changes
 ---------------------
 
-Added a REST API endpoint `GET /_api/query/rules` that returns the available
+Added the `GET /_api/query/rules` REST API endpoint that returns the available
 optimizer rules for AQL queries.
 
 Client tools
