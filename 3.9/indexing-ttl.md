@@ -116,7 +116,7 @@ from being inserted into the TTL index, so it will neither be expired nor remove
 No error is raised however.
 
 Please note that date string values can be programmatically validated using the AQL function 
-`IS_DATESTRING`.
+`IS_DATESTRING()`.
 
 ### Preventing documents from being removed
 
