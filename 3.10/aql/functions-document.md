@@ -746,7 +746,7 @@ Remove the top-level `foo` attribute, including its nested objects:
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Remove the top-level `bar` attribute, which the example object does not have,
-resulting in an empty object:
+resulting in an unchanged object:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlUnset_2
@@ -770,7 +770,8 @@ Remove the top-level `baz` attribute:
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-Remove multiple top-level attributes (`foo` and `baz`):
+Remove multiple top-level attributes (`foo` and `baz`), resulting in an empty
+object in this example:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlUnset_4
@@ -800,7 +801,7 @@ attribute keys instead of individual arguments:
     @startDocuBlockInline aqlUnset_5
     @EXAMPLE_AQL{aqlUnset_5}
     LET doc = { foo: { bar: { foo: 1, baz: 2 }, baz: 3 }, baz: 4 }
-    RETURN UNSET(doc, ["foo", "baz"])
+    RETURN UNSET(doc, ["foo", "bar"])
     @END_EXAMPLE_AQL
     @endDocuBlock aqlUnset_5
     {% endaqlexample %}
@@ -861,6 +862,8 @@ Recursively remove `baz` attributes:
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+Recursively remove multiple attributes (`foo` and `bar`):
+
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlUnsetRecursive_4
     @EXAMPLE_AQL{aqlUnsetRecursive_4}
@@ -871,7 +874,8 @@ Recursively remove `baz` attributes:
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-Recursively remove multiple attributes (`foo` and `baz`):
+Recursively remove multiple attributes (`foo` and `baz`), removing all
+attributes of the example object:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlUnsetRecursive_5
@@ -907,8 +911,7 @@ attributes of the example object:
 
 **Examples**
 
-Recursively remove `baz` attributes, by passing an array of the
-attribute key:
+Recursively remove `baz` attributes, by passing an array with the attribute key:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlUnsetRecursive_7
@@ -940,7 +943,7 @@ Get the attribute values of an object:
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlValues_1
     @EXAMPLE_AQL{aqlValues_1}
-    RETURN VALUES( { "_key": "users/jane", "name": "Jane", "age": 35 } )
+    RETURN VALUES( { "_id": "users/jane", "name": "Jane", "age": 35 } )
     @END_EXAMPLE_AQL
     @endDocuBlock aqlValues_1
     {% endaqlexample %}
@@ -951,7 +954,7 @@ Get the attribute values of an object, omitting system attributes:
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlValues_2
     @EXAMPLE_AQL{aqlValues_2}
-    RETURN VALUES( { "_key": "users/jane", "name": "Jane", "age": 35 }, true )
+    RETURN VALUES( { "_id": "users/jane", "name": "Jane", "age": 35 }, true )
     @END_EXAMPLE_AQL
     @endDocuBlock aqlValues_2
     {% endaqlexample %}
