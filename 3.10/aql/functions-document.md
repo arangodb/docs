@@ -121,7 +121,7 @@ FILTER doc.name == null     // can utilize non-sparse indexes
 
 **Examples**
 
-Check whether the example object has a `name` the attribute key:
+Check whether the example object has a `name` attribute key:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlHas_1
