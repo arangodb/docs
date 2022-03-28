@@ -95,7 +95,7 @@ expiration dates differently in the client application.
 ### Format of date/time values
 
 The expiration date time values can be specified either as a numeric timestamp, containing
-the number of milliseconds since January 1st 1970 (commonly referred to as Unix timestamp), 
+the number of seconds since January 1st 1970 (commonly referred to as Unix timestamp),
 or as a date/time string in ISO 8601 format `YYYY-MM-DDTHH:MM:SS`, with optional millisecond 
 precision and an optional timezone offset. The timezone offset can be specified as either 
 `Z` (Zulu/UTC time) or as a deviation from UTC time in hours and minutes (i.e. `+HH:MM` or `-HH:MM`).
