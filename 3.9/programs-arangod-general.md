@@ -64,6 +64,10 @@ For example: "de", "en", "en_US", "en_UK", "de_AT@collation=phonebook".
 Please note, that you can use only one of the language options (either `--default-language` or `--icu-language`).
 Setting both of them will result in an error.
 
+For example, for the Swedish language (sv) the correct ICU-based sorting order for letters is `"a","A","b","B","z","Z","å","Ä","ö","Ö"`.
+To get this order, use `--icu-language sv`. In case of using `--default-language sv`, the sorting order will be
+`"A","a","B","b","Z","z","å","Ä","Ö","ö"`.
+
 ## Supervisor
 
 `--supervisor`
