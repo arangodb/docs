@@ -54,10 +54,10 @@ different usage scenarios:
   will expire 600 seconds afterwards, which is at timestamp `1550166573` (or
   `2019-02-14T17:49:33.000Z` in the human-readable version).
 
-  The actual removal of expired documents will not necessarily happen immediately. 
-  Expired documents will eventually be removed by a background thread that is periodically
-  going through all TTL indexes. The frequency for invoking this background thread
-  can be configured using the `--ttl.frequency` startup option. 
+  The actual removal of expired documents will not necessarily happen immediately.
+  Expired documents will eventually be removed by a background thread that is
+  periodically going through all TTL indexes. The frequency for invoking this
+  background thread can be configured using the `--ttl.frequency` startup option.
 
   There is no guarantee when exactly the removal of expired documents will be carried
   out, so queries may still find and return documents that have already expired. These
