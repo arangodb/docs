@@ -1,26 +1,26 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/control_pregel/68851</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/control_pregel/68847</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">396</span>
+content-length: <span class="hljs-number">393</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68851&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68847&quot;</span>, 
   <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
   <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;WCC&quot;</span>, 
-  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2022-03-28T12:22:14Z&quot;</span>, 
-  <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2022-03-28T12:32:14Z&quot;</span>, 
+  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2022-03-29T18:45:05Z&quot;</span>, 
+  <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2022-03-29T18:55:05Z&quot;</span>, 
   <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span>, 
   <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;done&quot;</span>, 
   <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">11</span>, 
-  <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.003111124038696289</span>, 
-  <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.0008060932159423828</span>, 
-  <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.0009438991546630859</span>, 
-  <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.001363992691040039</span>, 
+  <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.002016305923461914</span>, 
+  <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.000457763671875</span>, 
+  <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.0005140304565429688</span>, 
+  <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.0010466575622558594</span>, 
   <span class="hljs-string">&quot;aggregators&quot;</span> : { 
   }, 
   <span class="hljs-string">&quot;sendCount&quot;</span> : <span class="hljs-number">370</span>, 
