@@ -3,7 +3,7 @@
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">1779</span>
+content-length: <span class="hljs-number">1803</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -21,19 +21,19 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;avx&quot;</span> : <span class="hljs-string">&quot;true&quot;</span>, 
     <span class="hljs-string">&quot;avx2&quot;</span> : <span class="hljs-string">&quot;false&quot;</span>, 
     <span class="hljs-string">&quot;boost-version&quot;</span> : <span class="hljs-string">&quot;1.78.0&quot;</span>, 
-    <span class="hljs-string">&quot;build-date&quot;</span> : <span class="hljs-string">&quot;2022-03-29 13:52:02&quot;</span>, 
-    <span class="hljs-string">&quot;build-repository&quot;</span> : <span class="hljs-string">&quot;heads/3.10.0-test-0-g3c215458d11&quot;</span>, 
+    <span class="hljs-string">&quot;build-date&quot;</span> : <span class="hljs-string">&quot;2022-03-28 12:11:27&quot;</span>, 
+    <span class="hljs-string">&quot;build-repository&quot;</span> : <span class="hljs-string">&quot;heads/devel-0-g6bb822ecf83&quot;</span>, 
     <span class="hljs-string">&quot;compiler&quot;</span> : <span class="hljs-string">&quot;gcc [10.2.1 20201203]&quot;</span>, 
     <span class="hljs-string">&quot;cplusplus&quot;</span> : <span class="hljs-string">&quot;201709&quot;</span>, 
     <span class="hljs-string">&quot;curl-version&quot;</span> : <span class="hljs-string">&quot;none&quot;</span>, 
     <span class="hljs-string">&quot;debug&quot;</span> : <span class="hljs-string">&quot;false&quot;</span>, 
     <span class="hljs-string">&quot;endianness&quot;</span> : <span class="hljs-string">&quot;little&quot;</span>, 
-    <span class="hljs-string">&quot;enterprise-build-repository&quot;</span> : <span class="hljs-string">&quot;heads/3.10.0-test-0-g4a2cfb2&quot;</span>, 
+    <span class="hljs-string">&quot;enterprise-build-repository&quot;</span> : <span class="hljs-string">&quot;heads/bug-fix/unittest-prefer-arangosh-from-build-dir-0-gf01d505&quot;</span>, 
     <span class="hljs-string">&quot;enterprise-version&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
     <span class="hljs-string">&quot;failure-tests&quot;</span> : <span class="hljs-string">&quot;false&quot;</span>, 
     <span class="hljs-string">&quot;fd-client-event-handler&quot;</span> : <span class="hljs-string">&quot;poll&quot;</span>, 
     <span class="hljs-string">&quot;fd-setsize&quot;</span> : <span class="hljs-string">&quot;1024&quot;</span>, 
-    <span class="hljs-string">&quot;full-version-string&quot;</span> : <span class="hljs-string">&quot;ArangoDB 3.10.0-devel enterprise [linux] 64bit, using jemalloc, build heads/3.10.0-test-0-g3c215458d11, VPack 0.1.36, RocksDB 6.29.0, ICU 64.2, V8 7.9.317, OpenSSL 1.1.1n  15 Mar 2022&quot;</span>, 
+    <span class="hljs-string">&quot;full-version-string&quot;</span> : <span class="hljs-string">&quot;ArangoDB 3.10.0-devel enterprise [linux] 64bit, using jemalloc, build heads/devel-0-g6bb822ecf83, VPack 0.1.36, RocksDB 6.29.0, ICU 64.2, V8 7.9.317, OpenSSL 1.1.1m  14 Dec 2021&quot;</span>, 
     <span class="hljs-string">&quot;icu-version&quot;</span> : <span class="hljs-string">&quot;64.2&quot;</span>, 
     <span class="hljs-string">&quot;ipo&quot;</span> : <span class="hljs-string">&quot;true&quot;</span>, 
     <span class="hljs-string">&quot;iresearch-version&quot;</span> : <span class="hljs-string">&quot;1.2.0.0&quot;</span>, 
@@ -43,8 +43,8 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;maintainer-mode&quot;</span> : <span class="hljs-string">&quot;false&quot;</span>, 
     <span class="hljs-string">&quot;memory-profiler&quot;</span> : <span class="hljs-string">&quot;false&quot;</span>, 
     <span class="hljs-string">&quot;ndebug&quot;</span> : <span class="hljs-string">&quot;true&quot;</span>, 
-    <span class="hljs-string">&quot;openssl-version-compile-time&quot;</span> : <span class="hljs-string">&quot;OpenSSL 1.1.1n  15 Mar 2022&quot;</span>, 
-    <span class="hljs-string">&quot;openssl-version-run-time&quot;</span> : <span class="hljs-string">&quot;OpenSSL 1.1.1n  15 Mar 2022&quot;</span>, 
+    <span class="hljs-string">&quot;openssl-version-compile-time&quot;</span> : <span class="hljs-string">&quot;OpenSSL 1.1.1m  14 Dec 2021&quot;</span>, 
+    <span class="hljs-string">&quot;openssl-version-run-time&quot;</span> : <span class="hljs-string">&quot;OpenSSL 1.1.1m  14 Dec 2021&quot;</span>, 
     <span class="hljs-string">&quot;optimization-flags&quot;</span> : <span class="hljs-string">&quot;-march=sandybridge -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mno-sse4a -mno-fma -mno-bmi2 -mno-avx2 -mno-xop -mno-fma4 -mno-avx512f -mno-avx512vl -mno-avx512pf -mno-avx512er -mno-avx512cd -mno-avx512dq -mno-avx512bw -mno-avx512ifma -mno-avx512vbmi&quot;</span>, 
     <span class="hljs-string">&quot;pic&quot;</span> : <span class="hljs-string">&quot;2&quot;</span>, 
     <span class="hljs-string">&quot;pie&quot;</span> : <span class="hljs-string">&quot;2&quot;</span>, 
@@ -64,6 +64,6 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;zlib-version&quot;</span> : <span class="hljs-string">&quot;1.2.11&quot;</span>, 
     <span class="hljs-string">&quot;mode&quot;</span> : <span class="hljs-string">&quot;server&quot;</span>, 
     <span class="hljs-string">&quot;role&quot;</span> : <span class="hljs-string">&quot;SINGLE&quot;</span>, 
-    <span class="hljs-string">&quot;host&quot;</span> : <span class="hljs-string">&quot;hw3-linux&quot;</span> 
+    <span class="hljs-string">&quot;host&quot;</span> : <span class="hljs-string">&quot;hw6-linux&quot;</span> 
   } 
 }
