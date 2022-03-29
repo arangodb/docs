@@ -341,8 +341,8 @@ Please note that the numeric date time values for the index attribute has to be
 specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
 timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
 from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
-`DATE_NOW() / 1000` or divide an arbitrary Unix timestamp in milliseconds by 1000 to
-convert it to seconds.
+`DATE_NOW() / 1000` or divide an arbitrary timestamp that is in milliseconds
+by 1000 to convert it to seconds.
 
 Alternatively, the index attribute values can be specified as a date string in format
 `YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
