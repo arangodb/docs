@@ -4478,10 +4478,30 @@
     It shows the total memory size for the entries residing in the block cache,
     in bytes.
 
+- name: rocksdb_cache_active_tables
+  introducedIn: "3.10.0"
+  help: |
+    Global current number of hash tables in ArangoDB cache.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric reflects the current number of active hash tables used by the
+    in-memory cache which sits in front of RocksDB. Active tables are used for
+    caching index entries. There should be one active table per index per shard
+    for each index that has in-memory caching enabled. There can also be
+    additional active tables while an existing hash table is migrated to a
+    larger table.
+
 - name: rocksdb_cache_allocated
   introducedIn: "3.6.1"
   help: |
-    Global current allocation of ArangoDB cache.
+    Global current memory allocation of ArangoDB in-memory caches.
   unit: bytes
   type: gauge
   category: RocksDB
@@ -4492,7 +4512,7 @@
     - single
   description: |
     This metric reflects the current global allocation for the ArangoDB
-    cache which sits in front of RocksDB. For example, the edge cache
+    in-memory cache which sits in front of RocksDB. For example, the edge caches
     counts towards this allocation. All these caches together have a
     global limit which can be controlled with the `--cache.size` startup option.
 
@@ -4553,6 +4573,44 @@
     ArangoDB caches which sit in front of RocksDB. For example, the
     edge cache counts towards this allocation. This global limit can
     be controlled with the `--cache.size` startup option.
+
+- name: rocksdb_cache_unused_memory
+  introducedIn: "3.10.0"
+  help: |
+    Global current memory allocation of inactive/reserve hash tables in ArangoDB cache.
+  unit: bytes
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric reflects the current memory allocation for unused hash tables 
+    used by the in-memory cache which sits in front of RocksDB. Unused tables 
+    can be kept as backups to provide new, readily initialized tables for new 
+    caches. The overall memory usage of unused tables is capped by the system,
+    so it will not grow overly large.
+
+- name: rocksdb_cache_unused_tables
+  introducedIn: "3.10.0"
+  help: |
+    Global current number of inactive/reserve hash tables in ArangoDB cache.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric reflects the current number of unused hash tables used by the
+    in-memory cache which sits in front of RocksDB. Unused tables can be kept as
+    backups to provide new, readily initialized tables for new caches.
+    Unused tables can consume some memory, but the overall memory usage of
+    unused tables is capped.
 
 - name: rocksdb_compaction_pending
   introducedIn: "3.6.1"

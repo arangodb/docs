@@ -76,7 +76,7 @@ HAS( { name: null }, "name" ) // true
 ```
 
 Note that the function checks if the specified attribute exists. This is different
-from similar ways to test for the existance of an attribute, in case the attribute
+from similar ways to test for the existence of an attribute, in case the attribute
 has a falsy value or is not present (implicitly *null* on object access):
 
 ```js

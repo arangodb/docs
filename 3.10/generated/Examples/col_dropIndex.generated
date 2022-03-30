@@ -1,14 +1,15 @@
 arangosh&gt; db.example.ensureIndex({ <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;persistent&quot;</span>, <span class="hljs-attr">fields</span>: [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>] });
 { 
+  <span class="hljs-string">&quot;cacheEnabled&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;deduplicate&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;estimates&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;fields&quot;</span> : [ 
     <span class="hljs-string">&quot;a&quot;</span>, 
     <span class="hljs-string">&quot;b&quot;</span> 
   ], 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;example/71288&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;example/71433&quot;</span>, 
   <span class="hljs-string">&quot;isNewlyCreated&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1726942626522857472&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1728546228268957696&quot;</span>, 
   <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
@@ -30,14 +31,15 @@ arangosh&gt; indexInfo;
     <span class="hljs-string">&quot;unique&quot;</span> : <span class="hljs-literal">true</span> 
   }, 
   { 
+    <span class="hljs-string">&quot;cacheEnabled&quot;</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">&quot;deduplicate&quot;</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">&quot;estimates&quot;</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">&quot;fields&quot;</span> : [ 
       <span class="hljs-string">&quot;a&quot;</span>, 
       <span class="hljs-string">&quot;b&quot;</span> 
     ], 
-    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;example/71288&quot;</span>, 
-    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1726942626522857472&quot;</span>, 
+    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;example/71433&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1728546228268957696&quot;</span>, 
     <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
