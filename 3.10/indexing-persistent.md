@@ -40,7 +40,7 @@ option:
 collection.ensureIndex({ type: "persistent", fields: ["value1", "value2"], storedValues: ["value3"] });
 ```
 
-To turn on in-memory caching of index entries, which can be used when doing point
+To enable in-memory caching of index entries, which can be used when doing point
 lookups on the index, you can set the `cacheEnabled` option:
 
 

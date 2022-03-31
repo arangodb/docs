@@ -148,15 +148,12 @@ Indexes
 
 ### Storing additional values in indexes
 
-Persistent indexes now allow storing additional attributes in the index that
-can be used to satisfy projections of the document.
+Persistent indexes now allow you to store additional attributes in the index
+that can be used to cover more queries without having to look up full documents.
+They cannot be used for index lookups or for sorting, but for projections only.
 
-Additional attributes can be specified in the new `storedValues` array that
-can be used when creating a new persistent index. 
-The additional attributes cannot be used for index lookups or for sorting,
-but only for projections.
-
-For example consider the following index definition:
+You can specify the additional attributes in the new `storedValues` option when
+creating a new persistent index:
 
 ```js
 db.<collection>.ensureIndex({
@@ -166,78 +163,29 @@ db.<collection>.ensureIndex({
 });
 ```
 
-This will index the `value1` attribute in the traditional sense, so the index 
-can be used for looking up by `value1` or for sorting by `value1`. The index also
-supports projections on `value1` as usual.
-
-In addition, due to `storedValues` being used here, the index can now also 
-supply the values for the `value2` attribute for projections without having to
-lookup up the full document.
-
-This allows covering index scans in more cases and helps to avoid making
-extra lookups for the document(s). This can have a great positive effect on 
-index scan performance if the number of scanned index entries is large.
-
-The maximum number of attributes that can be used in `storedValues` is 32. There
-must be no overlap between the attributes in the index' `fields` attribute and
-the index `storedValues` attributes. If there is an overlap, index creation
-will abort with an error message.
-It is not possible to create multiple indexes with the same `fields` attributes
-and uniqueness but different `storedValues` attributes. That means the value of 
-`storedValues` is not considered by calls to `ensureIndex` when checking if an 
-index is already present or needs to be created.
-In unique indexes, only the index attributes in `fields` are checked for uniqueness,
-but the index attributes in `storedValues` are not checked for their uniqueness.
+See [Persistent Indexes](indexing-persistent.html#storing-additional-values-in-indexes).
 
 ### Enabling caching for index values
 
 Persistent indexes now support in-memory caching of index entries, which can be
-used when doing point lookups on the index.
-The caching is turned off by default, but can be enabled when creating a persistent
-index with the `cacheEnabled` flag, for example:
+used when doing point lookups on the index. You can enable the cache with the
+new `cacheEnabled` option when creating a persistent index:
 
 ```js
-db.<collection>.ensureIndex({ 
-  type: "persistent", 
-  fields: ["value"], 
+db.<collection>.ensureIndex({
+  type: "persistent",
+  fields: ["value"],
   cacheEnabled: true
 });
 ```
-  
-The in-memory cache for an index will be initially empty, even if the index contains
-data. The cache will be populated lazily upon querying data from the index when 
-using equality lookups for all index attributes. Cache entries get invalidated when
-modifying data in the underlying collection. Only the affected index entries will
-get invalidated.
+
+This can have a great positive effect on index scan performance if the number of
+scanned index entries is large.
 
 As the cache is hash-based and unsorted, it cannot be used for full or partial range
 scans, for sorting, or for lookups that do not include all index attributes.
 
-Filling the caches upon cache misses during lookups and upon writing to the 
-collection can mean extra overhead, so it is recommended to use an in-memory cache 
-only for collections that are accessed mostly for reading via equality lookups, 
-and that are not often written to.
-
-For AQL queries that will use indexes with an enabled in-memory cache and that are
-known to not benefit from using using the cache, it is possible to turn off the
-usage of the cache for individual queries, or query parts. This can be achieved
-using the `useCache` hint that can be provided to an AQL FOR loop, e.g.
-
-```js
-FOR doc IN collection OPTIONS { useCache: false }
-  FILTER doc.value == @lookup
-  ...
-```
-Using the `useCache` option will have no effect for indexes that do not have a
-cache enabled, or for queries that are not eligible to use caches.
-
-The number of index cache hits and misses is also reported when profiling queries. 
-This can be used to assess the effectiveness of the cache for particular queries.
-
-The maximum combined memory usage of all in-memory caches can be controlled via 
-the existing `--cache.size` startup option, which now not only controls the maximum
-memory usage for all edge caches, but additionally also the memory usage for all
-caches for persistent indexes.
+See [Persistent Indexes](indexing-persistent.html#caching-of-index-values).
 
 Server options
 --------------
@@ -283,6 +231,9 @@ For collections containing a low number of documents, the O(n) truncate method m
 Miscellaneous changes
 ---------------------
 
+Added the `GET /_api/query/rules` REST API endpoint that returns the available
+optimizer rules for AQL queries.
+
 ### Additional metrics for caching subsystem
 
 The caching subsystem now provides the following 3 additional metrics:
@@ -298,9 +249,6 @@ The caching subsystem now provides the following 3 additional metrics:
   for caching index values. Some inactive tables are kept around after use, 
   so they can be recycled quickly. The overall amount of inactive tables is
   limited, so not much memory will be used here.
-
-Added the `GET /_api/query/rules` REST API endpoint that returns the available
-optimizer rules for AQL queries.
 
 Client tools
 ------------
