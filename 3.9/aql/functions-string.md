@@ -917,6 +917,10 @@ SPLIT()
 
 Split the given string *value* into a list of strings, using the *separator*.
 
+To split a document identifier (`_id`) into the collection name and document key
+(`_key`), you should use the more optimized
+[`PARSE_IDENTIFIER()` function](functions-document.html#parse_identifier).
+
 - **value** (string): a string
 - **separator** (string): either a string or a list of strings. If *separator* is
   an empty string, *value* will be split into a list of characters. If no *separator*

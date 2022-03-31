@@ -7,7 +7,7 @@ EOF
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">2956</span>
+content-length: <span class="hljs-number">3009</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -42,6 +42,7 @@ x-content-type-options: nosniff
         <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">&quot;producesResult&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;readOwnWrites&quot;</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">&quot;useCache&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;maxProjections&quot;</span> : <span class="hljs-number">5</span>, 
         <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
         <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
@@ -52,9 +53,9 @@ x-content-type-options: nosniff
         <span class="hljs-string">&quot;indexCoversProjections&quot;</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">&quot;indexes&quot;</span> : [ 
           { 
-            <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;67977&quot;</span>, 
+            <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;67986&quot;</span>, 
             <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1726942618562068480&quot;</span>, 
+            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1728750368672710656&quot;</span>, 
             <span class="hljs-string">&quot;fields&quot;</span> : [ 
               <span class="hljs-string">&quot;id&quot;</span> 
             ], 
@@ -62,7 +63,8 @@ x-content-type-options: nosniff
             <span class="hljs-string">&quot;unique&quot;</span> : <span class="hljs-literal">false</span>, 
             <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
             <span class="hljs-string">&quot;deduplicate&quot;</span> : <span class="hljs-literal">true</span>, 
-            <span class="hljs-string">&quot;estimates&quot;</span> : <span class="hljs-literal">true</span> 
+            <span class="hljs-string">&quot;estimates&quot;</span> : <span class="hljs-literal">true</span>, 
+            <span class="hljs-string">&quot;cacheEnabled&quot;</span> : <span class="hljs-literal">false</span> 
           } 
         ], 
         <span class="hljs-string">&quot;condition&quot;</span> : { 

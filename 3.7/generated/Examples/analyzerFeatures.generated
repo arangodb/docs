@@ -1,7 +1,7 @@
 arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
 arangosh&gt; analyzers.analyzer(<span class="hljs-string">&quot;text_en&quot;</span>).features();
 [ 
-  <span class="hljs-string">&quot;frequency&quot;</span>, 
+  <span class="hljs-string">&quot;position&quot;</span>, 
   <span class="hljs-string">&quot;norm&quot;</span>, 
-  <span class="hljs-string">&quot;position&quot;</span> 
+  <span class="hljs-string">&quot;frequency&quot;</span> 
 ]

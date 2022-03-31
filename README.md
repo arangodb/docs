@@ -1323,6 +1323,11 @@ Dynamic piece of the URL path, signified by curly {braces} in the @RESTHEADER ro
 @RESTQUERYPARAM{creationOption,boolean,optional}
 One-off setting that is not persisted unlike e.g. collection properties.
 
+@RESTHEADERPARAMETERS
+
+@RESTHEADERPARAM{If-Match,string,optional}
+An HTTP header field that you can set.
+
 @RESTBODYPARAM{name,string,required,string}
 Primitive body parameter that is of type string and mandatory.
 
@@ -1477,6 +1482,28 @@ Description.
 - `param`: Name of the query parameter.
 - `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
   (typically `string` or `boolean`)
+- `necessity`: either `required` or `optional`
+
+---
+
+#### `@RESTHEADERPARAMETERS` / `@RESTHEADERPARAM`
+
+If an endpoint supports options that can be set in the HTTP header, then a
+`@RESTHEADERPARAMETERS` section with `@RESTHEADERPARAM` elements for every
+header field is needed:
+
+```
+@RESTHEADERPARAMETERS
+
+@RESTHEADERPARAM{Field,type,necessity}
+Description.
+
+@RESTHEADERPARAM...
+```
+
+- `Field`: Name of the HTTP header field.
+- `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
+  (should always be `string`)
 - `necessity`: either `required` or `optional`
 
 ---

@@ -493,6 +493,16 @@ convention for both datacenters to avoid incompatibilities.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
+### ICU Language
+
+<small>Introduced in: v3.9.1</small>
+
+A new server startup option for setting the language was added. The new
+`--icu-language` option will replace the existing `--default-language` option,
+and only one of the two can be set.
+
+Also see [ArangoDB Server General Options](programs-arangod-general.html#icu-language).
+
 ### Logging
 
 The server now has two flags for retaining or escaping control and Unicode

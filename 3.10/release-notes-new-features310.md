@@ -94,7 +94,7 @@ Query Statistics:
 
 ### Number of cache hits / cache misses in profiling output
 
-When profiling an AQL query via `db._profileQuery(...)` command or via the web UI, the 
+When profiling an AQL query via `db._profileQuery(...)` command or via the web UI, the
 query profile output will now contain the number of index entries read from
 in-memory caches (usable for edge and persistent indexes) plus the number of cache misses.
 
@@ -135,6 +135,14 @@ FOR … IN … OPTIONS { lookahead: 32 }
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
+### New AQL Functions
+
+AQL functions added in 3.10:
+
+- [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
+  a document function to recursively keep attributes from objects/documents,
+  as a counterpart to `UNSET_RECURSIVE()`
+
 Indexes
 -------
 
@@ -151,10 +159,10 @@ but only for projections.
 For example consider the following index definition:
 
 ```js
-db.<collection>.ensureIndex({ 
-  type: "persistent", 
-  fields: ["value1"], 
-  storedValues: ["value2"] 
+db.<collection>.ensureIndex({
+  type: "persistent",
+  fields: ["value1"],
+  storedValues: ["value2"]
 });
 ```
 
@@ -272,7 +280,6 @@ deployments will use RangeDeletes regardless of the value of this option.
 Note that it is not guaranteed that all truncate operations will use a RangeDelete operation. 
 For collections containing a low number of documents, the O(n) truncate method may still be used.
 
-
 Miscellaneous changes
 ---------------------
 
@@ -292,6 +299,8 @@ The caching subsystem now provides the following 3 additional metrics:
   so they can be recycled quickly. The overall amount of inactive tables is
   limited, so not much memory will be used here.
 
+Added the `GET /_api/query/rules` REST API endpoint that returns the available
+optimizer rules for AQL queries.
 
 Client tools
 ------------
@@ -335,3 +344,5 @@ The bundled version of the Boost library has been upgraded from 1.71.0 to 1.78.0
 The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.
 
 The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.2.1-RC.
+
+The bundled version of the zlib library has been upgraded from 1.2.11 to 1.2.12.

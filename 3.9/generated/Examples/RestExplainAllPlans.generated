@@ -10,7 +10,7 @@ EOF
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">1690</span>
+content-length: <span class="hljs-number">1709</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -43,6 +43,7 @@ x-content-type-options: nosniff
           <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">&quot;producesResult&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;readOwnWrites&quot;</span> : <span class="hljs-literal">false</span>, 
+          <span class="hljs-string">&quot;maxProjections&quot;</span> : <span class="hljs-number">5</span>, 
           <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
           <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
           <span class="hljs-string">&quot;satellite&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -52,9 +53,9 @@ x-content-type-options: nosniff
           <span class="hljs-string">&quot;indexCoversProjections&quot;</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">&quot;indexes&quot;</span> : [ 
             { 
-              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;67946&quot;</span>, 
+              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;67950&quot;</span>, 
               <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;hash&quot;</span>, 
-              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1725664860466839552&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1728760070643122176&quot;</span>, 
               <span class="hljs-string">&quot;fields&quot;</span> : [ 
                 <span class="hljs-string">&quot;id&quot;</span> 
               ], 
