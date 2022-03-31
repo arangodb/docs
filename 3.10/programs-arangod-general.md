@@ -40,6 +40,8 @@ parameter pid-file is given, then the server will report an error and exit.
 
 ## Default Language
 
+<small>Deprecated in: v3.10.0</small>
+
 `--default-language language-name`
 
 The default language is used for sorting and comparing strings. The language
