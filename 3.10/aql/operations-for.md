@@ -200,29 +200,29 @@ there are a few corner cases where it can make sense:
 
 <small>Introduced in: v3.10.0</small>
 
-When using an index is used to produce the documents for an AQL FOR loop,
-the `useCache` hint can be used to disable the usage of the in-memory cache
-for the index.
-This is useful for queries that access indexes with enabled in-memory caches,
-but for which it is known that using the cache will have a negative performance
-impact. In this case, the `useCache` hint can be set to `false`. 
+You can disable in-memory caches that you may have enabled for persistent indexes
+on a case by case basis. This is useful for queries that access indexes with
+enabled in-memory caches, but for which it is known that using the cache will
+have a negative performance impact. In this case, you can set the `useCache`
+hint to `false`:
 
 ```js
-FOR doc IN collection OPTIONS { useCache: false } 
+FOR doc IN collection OPTIONS { useCache: false }
   FILTER doc.value == @value
   ...
 ```
 
-When the `useCache` hint is not set, it will implicitly default to `true`.
+You can set the hint individually per `FOR` loop.
+If you do not set the `useCache` hint, it will implicitly default to `true`.
 
-The hint does not have any effect for FOR loops that do not use indexes, or
-for FOR loops that access indexes that do not have in-memory caches enabled.
+The hint does not have any effect on `FOR` loops that do not use indexes, or
+on `FOR` loops that access indexes that do not have in-memory caches enabled.
 It also does not have an affect for queries for which an existing in-memory
-cache cannot be used (i.e. because the query's filter condition does contain
-equality lookups for all index attributes).
+cache cannot be used (i.e. because the query's filter condition does not contain
+equality lookups for all index attributes). It cannot be used for `FOR`
+operations that iterate over Views or perform graph traversals.
 
-The hint can be set individually per FOR loop. It cannot be used for FOR loops
-used for views or traversals.
+Also see [Caching of index values](../indexing-persistent.html#caching-of-index-values).
 
 ### `lookahead`
 

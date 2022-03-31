@@ -27,19 +27,14 @@ different usage scenarios:
 
   The operations in a persistent index have logarithmic complexity.
 
-  Since ArangoDB 3.10, persistent indexes allow storing additional attributes in 
-  the index that can be used to cover more queries (`storedValues` index attribute). 
-  These additional attributes cannot be used for lookups/filtering or sorting, 
-  but they can be used for projections. The additional attributes in `storedValues`
-  are also not checked for uniqueness in unique indexes.
+  Persistent indexes allow you to store additional attributes in the index that
+  can be used to cover more queries (`storedValues` index option).
+  These additional attributes can be used for projections but not for
+  lookups/filtering or sorting.
 
-  Also since ArangoDB 3.10, persistent indexes can optionally have an in-memory
-  hash cache in front of them. The hash cache can be used to speed up index
-  lookups for queries that cover all index attributes using equality lookups
-  (`==`). The hash cache cannot be used for range scans, partial lookups or 
-  sorting. By default, persistent indexes will not have an in-memory cache, so
-  it must be explicitly enabled using the `cacheEnabled` flag when creating an 
-  index.
+  You can optionally let persistent indexes cache equality lookups (`==`) to
+  speed up index lookups for queries that cover all index attributes
+  (`cacheEnabled` index option).
 
 - **TTL index**: the TTL index provided by ArangoDB can be used for automatically
   removing expired documents from a collection.
