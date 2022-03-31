@@ -26,7 +26,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields           Ranges
-  7   idx_1728760017597759488   geo    germanCity   false    true             n/a   [ `geometry` ]   (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
+  7   idx_1728851935955517440   geo    germanCity   false    true             n/a   [ `geometry` ]   (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
 
 Optimization rules applied:
  Id   RuleName
@@ -40,9 +40,9 @@ Optimization rules applied:
 
 Optimization rules with highest execution times:
  RuleName                                    Duration [s]
- geo-index-optimizer                              0.00004
- move-calculations-up                             0.00001
+ geo-index-optimizer                              0.00003
  remove-redundant-calculations                    0.00001
+ move-calculations-up                             0.00001
  reduce-extraction-to-projection                  0.00001
  move-calculations-up-2                           0.00001
 
