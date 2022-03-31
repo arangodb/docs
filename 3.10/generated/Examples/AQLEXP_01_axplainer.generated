@@ -1,5 +1,5 @@
 arangosh&gt; db._create(&quot;test&quot;);
-[ArangoCollection 60425, &quot;test&quot; (type document, status loaded)]
+[ArangoCollection 60429, &quot;test&quot; (type document, status loaded)]
 arangosh&gt; for (i = 0; i &lt; 100; ++i) { db.test.save({ value: i }); }
 arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot;value&quot; ] });
 { 
@@ -9,9 +9,9 @@ arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot
   &quot;fields&quot; : [ 
     &quot;value&quot; 
   ], 
-  &quot;id&quot; : &quot;test/60630&quot;, 
+  &quot;id&quot; : &quot;test/60634&quot;, 
   &quot;isNewlyCreated&quot; : true, 
-  &quot;name&quot; : &quot;idx_1728546166498394112&quot;, 
+  &quot;name&quot; : &quot;idx_1728750315167023104&quot;, 
   &quot;selectivityEstimate&quot; : 1, 
   &quot;sparse&quot; : false, 
   &quot;type&quot; : &quot;persistent&quot;, 
@@ -32,7 +32,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields        Ranges
-  9   idx_1728546166498394112   persistent   test         false    false    false      100.00 %   [ `value` ]   (i.`value` &gt; 97)
+  9   idx_1728750315167023104   persistent   test         false    false    false      100.00 %   [ `value` ]   (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName
@@ -50,10 +50,10 @@ Optimization rules applied:
 
 Optimization rules with highest execution times:
  RuleName                                    Duration [s]
- use-indexes                                      0.00005
- move-calculations-up                             0.00002
+ use-indexes                                      0.00006
  remove-redundant-calculations                    0.00002
- remove-filter-covered-by-index                   0.00001
+ move-calculations-up                             0.00002
+ remove-filter-covered-by-index                   0.00002
  use-index-for-sort                               0.00001
 
 42 rule(s) executed, 1 plan(s) created
