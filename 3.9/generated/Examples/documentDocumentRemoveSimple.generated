@@ -2,20 +2,20 @@ arangosh&gt; a1 = db.example.insert({ <span class="hljs-attr">a</span> : <span c
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/71675&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71675&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d7wgICO---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d8RTQDq---&quot;</span> 
 }
 arangosh&gt; db.example.document(a1);
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71675&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/71675&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d7wgICO---&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d8RTQDq---&quot;</span>, 
   <span class="hljs-string">&quot;a&quot;</span> : <span class="hljs-number">1</span> 
 }
 arangosh&gt; db.example.remove(a1);
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/71675&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71675&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d7wgICO---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d8RTQDq---&quot;</span> 
 }
 arangosh&gt; db.example.document(a1);
 [ArangoError <span class="hljs-number">1202</span>: <span class="hljs-built_in">document</span> not found]

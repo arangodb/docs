@@ -14,7 +14,7 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 81790
+x-arango-async-id: 81786
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
@@ -29,9 +29,9 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;81790&quot;</span> 
+  <span class="hljs-string">&quot;81786&quot;</span> 
 ]
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/81790</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/81786</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
