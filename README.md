@@ -102,17 +102,27 @@ To serve the content from a previous build without watching for changes, use:
 
 ### Docker Container
 
-In the docs directory execute:
+In the docs directory, execute:
 
 `docker run --rm -v $(pwd):/docs -p 4000:4000 arangodb/arangodb-docs`
 
-This will watch file changes within the documentation repo and you will be able
+This will watch for file changes and you will be able
 to see the resulting static site on <http://127.0.0.1:4000/docs/stable/>.
 
-To build the documentation without watch mode or serving the resulting site
+Note that Jekyll's `--incremental` build option is enabled. In addition,
+DocuBlocks are parsed once per invocation and then cached in memory. If you
+encounter stale content, then stop the container and run:
+
+`docker run --rm -v $(pwd):/docs -p 4000:4000 arangodb/arangodb-docs bundler exec jekyll serve -H 0.0.0.0 --trace`
+
+Alternatively, you may stop the container, execute
+`rm -rf .jekyll-cache/ .jekyll-metadata _site/`, and run the Docker command
+again (without additional arguments).
+
+To build the documentation without watch mode or serving the resulting site,
 you can execute:
 
-`docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll build`
+`docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll build --trace`
 
 After that the HTML files in `_site/` are ready to be served by a webserver.
 
