@@ -19,8 +19,8 @@ Execution plan:
 
 Indexes used:
  By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  2   edge   edge   edges        false    false       100.00 %   [ `_from` ]   base OUTBOUND
-  2   edge   edge   edges        false    false       100.00 %   [ `_from` ]   level 0 OUTBOUND
+  2   edge   edge   edges        false    false        71.43 %   [ `_from` ]   base OUTBOUND
+  2   edge   edge   edges        false    false        71.43 %   [ `_from` ]   level 0 OUTBOUND
 
 Traversals on graphs:
  Id  Depth  Vertex collections  Edge collections  Options                                  Filter / Prune Conditions                   
