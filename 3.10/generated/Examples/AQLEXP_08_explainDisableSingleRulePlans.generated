@@ -29,6 +29,7 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: { <span cl
         <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">&quot;producesResult&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;readOwnWrites&quot;</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">&quot;useCache&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;maxProjections&quot;</span> : <span class="hljs-number">5</span>, 
         <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
         <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, 
@@ -39,9 +40,9 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: { <span cl
         <span class="hljs-string">&quot;indexCoversProjections&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;indexes&quot;</span> : [ 
           { 
-            <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60630&quot;</span>, 
+            <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60634&quot;</span>, 
             <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1726942571773558785&quot;</span>, 
+            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1728888926399102976&quot;</span>, 
             <span class="hljs-string">&quot;fields&quot;</span> : [ 
               <span class="hljs-string">&quot;value&quot;</span> 
             ], 
@@ -49,7 +50,8 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: { <span cl
             <span class="hljs-string">&quot;unique&quot;</span> : <span class="hljs-literal">false</span>, 
             <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
             <span class="hljs-string">&quot;deduplicate&quot;</span> : <span class="hljs-literal">true</span>, 
-            <span class="hljs-string">&quot;estimates&quot;</span> : <span class="hljs-literal">true</span> 
+            <span class="hljs-string">&quot;estimates&quot;</span> : <span class="hljs-literal">true</span>, 
+            <span class="hljs-string">&quot;cacheEnabled&quot;</span> : <span class="hljs-literal">false</span> 
           } 
         ], 
         <span class="hljs-string">&quot;condition&quot;</span> : { 
