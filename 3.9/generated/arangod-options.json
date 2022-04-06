@@ -760,7 +760,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341497856,
+    "default" : 33241735168,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -2412,7 +2412,9 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.9.1"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6206,7 +6208,7 @@
       "agent",
       "single"
     ],
-    "default" : 54685914808,
+    "default" : 109442683699,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6319,7 +6321,7 @@
       "agent",
       "single"
     ],
-    "default" : 40508085043,
+    "default" : 81068654592,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7107,7 +7109,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609797427,
+    "default" : 39890082201,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -7771,7 +7773,7 @@
       "agent",
       "single"
     ],
-    "default" : 32,
+    "default" : 64,
     "deprecatedIn" : null,
     "description" : "Maximum number of concurrent background jobs (compactions and flushes)",
     "dynamic" : true,
@@ -8888,7 +8890,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146396569,
+    "default" : 53186776268,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -9508,7 +9510,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 16,
     "deprecatedIn" : null,
     "description" : "number of threads used to handle IO",
     "dynamic" : true,
@@ -9684,7 +9686,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 4,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex)",
     "dynamic" : true,
@@ -9709,7 +9711,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 9,
+    "default" : 17,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -9763,7 +9765,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 64)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 128)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,

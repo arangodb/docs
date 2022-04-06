@@ -14,10 +14,13 @@ valid AQL query.
 Both functionalities do not actually execute the supplied AQL query, but only
 inspect it and return meta information about it.
 
+You can also retrieve a list of all query optimizer rules and their properties.
 
 <!-- js/actions/api-explain.js -->
 {% docublock post_api_explain %}
 {% docublock PostApiQueryProperties %}
+
+{% docublock GetApiQueryRules %}
 
 ### Query tracking
 

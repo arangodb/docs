@@ -760,7 +760,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341497856,
+    "default" : 16341516288,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -1779,7 +1779,9 @@
       "single"
     ],
     "default" : "",
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.10.0"
+    ],
     "description" : "ISO-639 language code",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -2464,7 +2466,9 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.9.1"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6287,7 +6291,7 @@
       "agent",
       "single"
     ],
-    "default" : 54685914808,
+    "default" : 54685974528,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6400,7 +6404,7 @@
       "agent",
       "single"
     ],
-    "default" : 40508085043,
+    "default" : 40508129280,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7188,7 +7192,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609797427,
+    "default" : 19609819545,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -8971,7 +8975,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146396569,
+    "default" : 26146426060,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
