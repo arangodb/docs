@@ -2,18 +2,18 @@ arangosh&gt; db.example.insert({ <span class="hljs-attr">_key</span> : <span cla
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/666&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;666&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d7ylZpG---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d93VGMW---&quot;</span> 
 }
 arangosh&gt; db.example.insert({ <span class="hljs-attr">_key</span> : <span class="hljs-string">&quot;666&quot;</span>, <span class="hljs-attr">Hello</span> : <span class="hljs-string">&quot;Universe&quot;</span> }, {<span class="hljs-attr">overwrite</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">returnOld</span>: <span class="hljs-literal">true</span>});
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/666&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;666&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d7ylZpK---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_d7ylZpG---&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d93VGMa---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_d93VGMW---&quot;</span>, 
   <span class="hljs-string">&quot;old&quot;</span> : { 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;666&quot;</span>, 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/666&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d7ylZpG---&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d93VGMW---&quot;</span>, 
     <span class="hljs-string">&quot;Hello&quot;</span> : <span class="hljs-string">&quot;World&quot;</span> 
   } 
 }
