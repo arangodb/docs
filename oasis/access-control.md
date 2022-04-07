@@ -540,7 +540,7 @@ Using the second option, you can configure a **list of domains**, and only users
 - `oasisctl update organization email domain restrictions -o <your_organization_id> --allowed-domain=<domain_name1> --allowed-domain=<domain_name2>` - allows you to update a list of the allowed domains for a specific organization
 - `oasisctl update organization email domain restrictions -o <your_organization_id> --allowed-domain=` - allows you to reset a list and accept any domains for accessing a specific organization
 
-## Using audit log
+## Using an audit log
 
 To have a better overview of the events happening in your Oasis organization, you can set up an audit log, which will track and log auditing information for you. The audit log is created on the organization level, then you can use the log for projects belonging to that organization.
 
@@ -564,8 +564,8 @@ To have a better overview of the events happening in your Oasis organization, yo
     Enabling the audit log for all events may have a negative impact on performance.
     {% endhint %}
 
-  - **Confirmation** - confirm that logging auditing events increases the price of your deployments.
+   - **Confirmation** - confirm that logging auditing events increases the price of your deployments.
 
-  ![Oasis audit log](images/oasis-audit-log.png)
+   ![Oasis audit log](images/oasis-audit-log.png)
 
 4. Click **Create** to add the audit log. You can now use it in the projects belonging to your organization.
