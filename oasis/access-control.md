@@ -560,8 +560,8 @@ To have a better overview of the events happening in your Oasis organization, yo
 
    - **Excluded topics** - select topics that will not be included in the log. Please note, that some are excluded by default (for example, `audit-document`).
 
-    {% hint 'info' %}
-    Enabling the audit log for all events may have a negative impact on performance.
+    {% hint 'warning' %}
+    Enabling the audit log for all events will have a negative impact on performance.
     {% endhint %}
 
    - **Confirmation** - confirm that logging auditing events increases the price of your deployments.
