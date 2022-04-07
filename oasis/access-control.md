@@ -554,15 +554,15 @@ To have a better overview of the events happening in your Oasis organization, yo
    - **Description** - enter an optional description for your audit log.
    - **Destinations** - specify one or several destinations to which you want to upload the audit log. If you choose **Upload to cloud**, the log will be available on the **Audit logs** tab of your organization. To send the log entries to your custom destination, specify a destination URL with authentication parameters (the **HTTP destination** option).
 
-  {% hint 'info' %}
-  The **Upload to cloud** option is not available for the free-to-try tier.
-  {% endhint %}
+    {% hint 'info' %}
+    The **Upload to cloud** option is not available for the free-to-try tier.
+    {% endhint %}
 
    - **Excluded topics** - select topics that will not be included in the log. Please note, that some are excluded by default (for example, `audit-document`).
 
-  {% hint 'info' %}
-  Enabling the audit log for all events may have a negative impact on performance.
-  {% endhint %}
+    {% hint 'info' %}
+    Enabling the audit log for all events may have a negative impact on performance.
+    {% endhint %}
 
   - **Confirmation** - confirm that logging auditing events increases the price of your deployments.
 
