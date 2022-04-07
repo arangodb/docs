@@ -539,3 +539,33 @@ Using the second option, you can configure a **list of domains**, and only users
 - `oasisctl get organization email domain restrictions -o <your_organization_id>` - allows you to see which domains are in the allowed list for a specific organization
 - `oasisctl update organization email domain restrictions -o <your_organization_id> --allowed-domain=<domain_name1> --allowed-domain=<domain_name2>` - allows you to update a list of the allowed domains for a specific organization
 - `oasisctl update organization email domain restrictions -o <your_organization_id> --allowed-domain=` - allows you to reset a list and accept any domains for accessing a specific organization
+
+## Using an audit log
+
+To have a better overview of the events happening in your Oasis organization, you can set up an audit log, which will track and log auditing information for you. The audit log is created on the organization level, then you can use the log for projects belonging to that organization.
+
+***To create an audit log***
+
+1. In the main navigation menu, click **Access Control** in the **Organization** section.
+2. Open the **Audit logs** tab and click the **New audit log** button.
+3. In the dialog, fill out the following settings:
+   
+   - **Name** - enter a name for your audit log.
+   - **Description** - enter an optional description for your audit log.
+   - **Destinations** - specify one or several destinations to which you want to upload the audit log. If you choose **Upload to cloud**, the log will be available on the **Audit logs** tab of your organization. To send the log entries to your custom destination, specify a destination URL with authentication parameters (the **HTTP destination** option).
+
+    {% hint 'info' %}
+    The **Upload to cloud** option is not available for the free-to-try tier.
+    {% endhint %}
+
+   - **Excluded topics** - select topics that will not be included in the log. Please note, that some are excluded by default (for example, `audit-document`).
+
+    {% hint 'warning' %}
+    Enabling the audit log for all events will have a negative impact on performance.
+    {% endhint %}
+
+   - **Confirmation** - confirm that logging auditing events increases the price of your deployments.
+
+   ![Oasis audit log](images/oasis-audit-log.png)
+
+4. Click **Create** to add the audit log. You can now use it in the projects belonging to your organization.
