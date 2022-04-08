@@ -78,18 +78,50 @@ different execution nodes:
 Execution plan:
  Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode       1       1          0       0.00008   * ROOT
- 14   IndexNode           1     700        300       0.00574     - FOR doc1 IN collection   /* persistent index scan, projections: `value1`, `value2` */    FILTER (doc1.`value2` not in [ 1, 4, 7 ])   /* early pruning */
- 13   IndexNode          61   60000      10000       0.15168       - FOR doc2 IN collection   /* persistent index scan */    FILTER (doc2.`value2` != 5)   /* early pruning */
- 12   ReturnNode         61   60000          0       0.00168         - RETURN doc2
+ 14   IndexNode           1     700        300       0.00694     - FOR doc1 IN collection   /* persistent index scan, projections: `value1`, `value2` */    FILTER (doc1.`value2` not in [ 1, 4, 7 ])   /* early pruning */
+ 13   IndexNode          61   60000      10000       0.11745       - FOR doc2 IN collection   /* persistent index scan */    FILTER (doc2.`value2` != 5)   /* early pruning */
+ 12   ReturnNode         61   60000          0       0.00212         - RETURN doc2
 
 Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Selectivity   Fields         Ranges
- 14   idx_1723322976405815296   persistent   collection   false    false        99.99 %   [ `value1` ]   (doc1.`value1` < 1000)
- 13   idx_1723322875560067072   persistent   collection   false    false         0.01 %   [ `value2` ]   (doc1.`value1` == doc2.`value2`)
+ 14   idx_1727463382256189440   persistent   collection   false    false        99.99 %   [ `value1` ]   (doc1.`value1` < 1000)
+ 13   idx_1727463477736374272   persistent   collection   false    false         0.01 %   [ `value2` ]   (doc1.`value1` == doc2.`value2`)
 
 Query Statistics:
- Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Peak Mem [b]   Exec Time [s]
-           0            0           0        71000      10300          98304         0.16231
+ Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
+           0            0           0        71000               0 / 0      10300          98304         0.13026
+```
+
+### Number of cache hits / cache misses in profiling output
+
+When profiling an AQL query via `db._profileQuery(...)` command or via the web UI, the
+query profile output will now contain the number of index entries read from
+in-memory caches (usable for edge and persistent indexes) plus the number of cache misses.
+
+In the following example query, there are in-memory caches present for both indexes used in
+the query. However, only the innermost index node #13 can use the cache, because the outer
+FOR loop does not use an equality lookup.
+
+```
+Query String (270 chars, cacheable: false):
+ FOR doc1 IN collection FILTER doc1.value1 < 1000 FILTER doc1.value2 NOT IN [1, 4, 7]  
+ FOR doc2 IN collection FILTER doc1.value1 == doc2.value2 FILTER doc2.value2 != 5 RETURN doc2
+
+Execution plan:
+ Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
+  1   SingletonNode       1       1          0       0.00008   * ROOT
+ 14   IndexNode           1     700        300       0.00630     - FOR doc1 IN collection   /* persistent index scan, projections: `value1`, `value2` */    FILTER (doc1.`value2` not in [ 1, 4, 7 ])   /* early pruning */
+ 13   IndexNode          61   60000      10000       0.14254       - FOR doc2 IN collection   /* persistent index scan */    FILTER (doc2.`value2` != 5)   /* early pruning */
+ 12   ReturnNode         61   60000          0       0.00168         - RETURN doc2
+
+Indexes used:
+ By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields         Ranges
+ 14   idx_1727463613020504064   persistent   collection   false    false    true        99.99 %   [ `value1` ]   (doc1.`value1` < 1000)
+ 13   idx_1727463601873092608   persistent   collection   false    false    true         0.01 %   [ `value2` ]   (doc1.`value1` == doc2.`value2`)
+
+Query Statistics:
+ Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
+           0            0           0        71000            689 / 11      10300          98304         0.15389
 ```
 
 ### Lookahead for Multi-Dimensional Indexes
@@ -114,15 +146,14 @@ AQL functions added in 3.10:
 Indexes
 -------
 
-Persistent indexes now allow storing additional attributes in the index that
-can be used to satisfy projections of the document.
+### Storing additional values in indexes
 
-Additional attributes can be specified in the new `storedValues` array that
-can be used when creating a new persistent index. 
-The additional attributes cannot be used for index lookups or for sorting,
-but only for projections.
+Persistent indexes now allow you to store additional attributes in the index
+that can be used to cover more queries without having to look up full documents.
+They cannot be used for index lookups or for sorting, but for projections only.
 
-For example consider the following index definition:
+You can specify the additional attributes in the new `storedValues` option when
+creating a new persistent index:
 
 ```js
 db.<collection>.ensureIndex({
@@ -132,28 +163,29 @@ db.<collection>.ensureIndex({
 });
 ```
 
-This will index the `value1` attribute in the traditional sense, so the index 
-can be used for looking up by `value1` or for sorting by `value1`. The index also
-supports projections on `value1` as usual.
+See [Persistent Indexes](indexing-persistent.html#storing-additional-values-in-indexes).
 
-In addition, due to `storedValues` being used here, the index can now also 
-supply the values for the `value2` attribute for projections without having to
-lookup up the full document.
+### Enabling caching for index values
 
-This allows covering index scans in more cases and helps to avoid making
-extra lookups for the document(s). This can have a great positive effect on 
-index scan performance if the number of scanned index entries is large.
+Persistent indexes now support in-memory caching of index entries, which can be
+used when doing point lookups on the index. You can enable the cache with the
+new `cacheEnabled` option when creating a persistent index:
 
-The maximum number of attributes that can be used in `storedValues` is 32. There
-must be no overlap between the attributes in the index' `fields` attribute and
-the index `storedValues` attributes. If there is an overlap, index creation
-will abort with an error message.
-It is not possible to create multiple indexes with the same `fields` attributes
-and uniqueness but different `storedValues` attributes. That means the value of 
-`storedValues` is not considered by calls to `ensureIndex` when checking if an 
-index is already present or needs to be created.
-In unique indexes, only the index attributes in `fields` are checked for uniqueness,
-but the index attributes in `storedValues` are not checked for their uniqueness.
+```js
+db.<collection>.ensureIndex({
+  type: "persistent",
+  fields: ["value"],
+  cacheEnabled: true
+});
+```
+
+This can have a great positive effect on index scan performance if the number of
+scanned index entries is large.
+
+As the cache is hash-based and unsorted, it cannot be used for full or partial range
+scans, for sorting, or for lookups that do not include all index attributes.
+
+See [Persistent Indexes](indexing-persistent.html#caching-of-index-values).
 
 Server options
 --------------
@@ -201,6 +233,22 @@ Miscellaneous changes
 
 Added the `GET /_api/query/rules` REST API endpoint that returns the available
 optimizer rules for AQL queries.
+
+### Additional metrics for caching subsystem
+
+The caching subsystem now provides the following 3 additional metrics:
+- `rocksdb_cache_active_tables`: total number of active hash tables used for
+  caching index values. There should be 1 table per shard per index for which
+  the in-memory cache is enabled. The number also includes temporary tables
+  that are built when migrating existing tables to larger equivalents.
+- `rocksdb_cache_unused_memory`: total amount of memory used for inactive
+  hash tables used for caching index values. Some inactive tables can be kept
+  around after use, so they can be recycled quickly. The overall amount of
+  inactive tables is limited, so not much memory will be used here.
+- `rocksdb_cache_unused_tables`: total number of inactive hash tables used
+  for caching index values. Some inactive tables are kept around after use, 
+  so they can be recycled quickly. The overall amount of inactive tables is
+  limited, so not much memory will be used here.
 
 Client tools
 ------------

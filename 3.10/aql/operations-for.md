@@ -196,6 +196,34 @@ there are a few corner cases where it can make sense:
   projections, if the cost of projections is higher than doing copies of the
   full documents. This can be the case for very small documents.
 
+### `useCache`
+
+<small>Introduced in: v3.10.0</small>
+
+You can disable in-memory caches that you may have enabled for persistent indexes
+on a case-by-case basis. This is useful for queries that access indexes with
+enabled in-memory caches, but for which it is known that using the cache will
+have a negative performance impact. In this case, you can set the `useCache`
+hint to `false`:
+
+```js
+FOR doc IN collection OPTIONS { useCache: false }
+  FILTER doc.value == @value
+  ...
+```
+
+You can set the hint individually per `FOR` loop.
+If you do not set the `useCache` hint, it will implicitly default to `true`.
+
+The hint does not have any effect on `FOR` loops that do not use indexes, or
+on `FOR` loops that access indexes that do not have in-memory caches enabled.
+It also does not affect queries for which an existing in-memory
+cache cannot be used (i.e. because the query's filter condition does not contain
+equality lookups for all index attributes). It cannot be used for `FOR`
+operations that iterate over Views or perform graph traversals.
+
+Also see [Caching of index values](../indexing-persistent.html#caching-of-index-values).
+
 ### `lookahead`
 
 The multi-dimensional index type `zkd` supports an optional index hint for
