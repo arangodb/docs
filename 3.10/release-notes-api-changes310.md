@@ -89,13 +89,13 @@ These attributes are optional and only useful for detailed performance analyses.
   attribute to enable an in-memory cache for index values for persistent indexes.
 
   If `cacheEnabled` is set to `true`, the index is created with the cache. Otherwise
-  the index is created with the cache. Caching is turned off by default.
+  the index is created without it. Caching is turned off by default.
 
   APIs that return information about all indexes such as GET `/_api/index` 
   or GET `/_api/index/<index-id>` can now also return the `cacheEnabled`
   attribute.
 
-You can not create multiple persistent indexes with the same `fields` attributes
+You cannot create multiple persistent indexes with the same `fields` attributes
 and uniqueness option but different `storedValues` or `cacheEnabled` attributes.
 The values of `storedValues` and `cacheEnabled` are not considered in index
 creation calls when checking if a persistent index is already present or a new
