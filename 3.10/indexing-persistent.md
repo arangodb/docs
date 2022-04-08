@@ -109,14 +109,15 @@ db.<collection>.ensureIndex({
 });
 ```
 
-You can not create multiple persistent indexes with the same `fields` attributes
+You cannot create multiple persistent indexes with the same `fields` attributes
 and uniqueness option but different `cacheEnabled` settings. That means the
 value of `cacheEnabled` is not considered by calls to `ensureIndex()` when
 checking if an index is already present or needs to be created.
 
 The in-memory cache for an index will be initially empty, even if the index
 contains data. The cache will be populated lazily upon querying data from the
-index when using equality lookups for all index attributes. Cache entries get invalidated when modifying data in the underlying collection. Only the affected
+index when using equality lookups for all index attributes. Cache entries get 
+invalidated when modifying data in the underlying collection. Only the affected
 index entries will get invalidated.
 
 As the cache is hash-based and unsorted, it cannot be used for full or partial
@@ -130,7 +131,7 @@ and that are not often written to.
 For AQL queries that will use indexes with an enabled in-memory cache and that are
 known to not benefit from using using the cache, you may turn off the usage of
 the cache for individual query parts. This can be achieved
-using the `useCache` hint that can be provided to an AQL `FOR` loop:
+via the `useCache` hint that can be provided to an AQL `FOR` loop:
 
 ```js
 FOR doc IN collection OPTIONS { useCache: false }
