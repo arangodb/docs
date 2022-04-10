@@ -45,7 +45,7 @@ they test for strict equality or inequality (`0` is different to `"0"`,
 
 Some examples for comparison operations in AQL:
 
-```js
+```aql
      0  ==  null            // false
      1  >   0               // true
   true  !=  null            // true
@@ -73,7 +73,7 @@ means that two reverse solidus characters need to precede a literal percent sign
 or underscore. In arangosh, additional escaping is required, making it four
 backslashes in total preceding the to-be-escaped character.
 
-```js
+```aql
     "abc" LIKE "a%"          // true
     "abc" LIKE "_bc"         // true
 "a_b_foo" LIKE "a\\_b\\_foo" // true
@@ -85,7 +85,7 @@ The `NOT LIKE` operator has the same characteristics as the `LIKE` operator
 but with the result negated. It is thus identical to `NOT (… LIKE …)`. Note
 the parentheses, which are necessary for certain expressions:
 
-```js
+```aql
 FOR doc IN coll
   RETURN NOT doc.attr LIKE "…"
 ```
@@ -111,7 +111,7 @@ of an array operator is an array.
 
 Examples:
 
-```js
+```aql
 [ 1, 2, 3 ]  ALL IN  [ 2, 3, 4 ]  // false
 [ 1, 2, 3 ]  ALL IN  [ 1, 2, 3 ]  // true
 [ 1, 2, 3 ]  NONE IN  [ 3 ]       // false
@@ -171,7 +171,7 @@ The result of the logical operators in AQL is defined as follows:
 
 Some examples for logical operations in AQL:
 
-```js
+```aql
 u.age > 15 && u.address.city != ""
 true || false
 NOT u.isInvalid
@@ -193,7 +193,7 @@ type and is not necessarily a boolean value.
 
 For example, the following logical operations will return boolean values:
 
-```js
+```aql
 25 > 1  &&  42 != 7                        // true
 22 IN [ 23, 42 ]  ||  23 NOT IN [ 22, 7 ]  // true
 25 != 25                                   // false
@@ -201,7 +201,7 @@ For example, the following logical operations will return boolean values:
 
 … whereas the following logical operations will not return boolean values:
 
-```js
+```aql
    1 || 7                                  // 1
 null || "foo"                              // "foo"
 null && true                               // null
@@ -224,7 +224,7 @@ AQL supports the following arithmetic operators:
 
 Unary plus and unary minus are supported as well:
 
-```js
+```aql
 LET x = -5
 LET y = 1
 RETURN [-x, +y]
@@ -271,7 +271,7 @@ aborted, but you may see a warning.
 
 Here are a few examples:
 
-```js
+```aql
    1 + "a"       // 1
    1 + "99"      // 100
    1 + null      // 1
@@ -300,7 +300,7 @@ evaluates to true, and the third operand otherwise.
 The expression gives back `u.userId` if `u.age` is greater than 15 or if
 `u.active` is *true*. Otherwise it returns *null*:
 
-```js
+```aql
 u.age > 15 || u.active == true ? u.userId : null
 ```
 
@@ -313,7 +313,7 @@ condition and the return value should be the same.
 The expression evaluates to `u.value` if `u.value` is truthy, otherwise a
 fixed string is given back:
 
-```js
+```aql
 u.value ? : 'value is null, 0 or not present'
 ```
 

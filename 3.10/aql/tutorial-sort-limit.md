@@ -12,7 +12,7 @@ It may not always be necessary to return all documents, that a `FOR` loop
 would normally return. In those cases, we can limit the amount of documents
 with a `LIMIT()` operation:
 
-```js
+```aql
 FOR c IN Characters
     LIMIT 5
     RETURN c.name
@@ -32,7 +32,7 @@ FOR c IN Characters
 second syntax however, which allows you to skip a certain amount of record
 and return the next *n* documents:
 
-```js
+```aql
 FOR c IN Characters
     LIMIT 2, 5
     RETURN c.name
@@ -59,7 +59,7 @@ here was basically random. To return them in a defined order, we can add a
 `SORT()` operation. It can have a big impact on the result if combined with
 a `LIMIT()`, because the result becomes predictable if you sort first.
 
-```js
+```aql
 FOR c IN Characters
     SORT c.name
     LIMIT 10
@@ -84,7 +84,7 @@ FOR c IN Characters
 See how it sorted by name, then returned the ten alphabetically first coming
 names. We can reverse the sort order with `DESC` like descending:
 
-```js
+```aql
 FOR c IN Characters
     SORT c.name DESC
     LIMIT 10
@@ -116,7 +116,7 @@ Assume we want to sort by surname. Many of the characters share a surname.
 The result order among characters with the same surname is undefined. We can
 first sort by surname, then name to determine the order:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.surname
     SORT c.surname, c.name
@@ -154,7 +154,7 @@ Sort by age
 
 The order can also be determined by a numeric value, such as the age:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.age
     SORT c.age

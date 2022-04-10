@@ -15,7 +15,7 @@ Ensuring uniqueness
 `COLLECT` can be used to make a result set unique. The following query will return each distinct
 `age` attribute value only once:
 
-```js
+```aql
 FOR u IN users
     COLLECT age = u.age
     RETURN age
@@ -25,7 +25,7 @@ This is grouping without tracking the group values, but just the group criterion
 
 Grouping can also be done on multiple levels using `COLLECT`:
 
-```js
+```aql
 FOR u IN users
     COLLECT status = u.status, age = u.age
     RETURN { status, age }
@@ -34,7 +34,7 @@ FOR u IN users
 Alternatively `RETURN DISTINCT` can be used to make a result set unique.
 `RETURN DISTINCT` supports a single criterion only:
 
-```js
+```aql
 FOR u IN users
     RETURN DISTINCT u.age
 ```
@@ -49,7 +49,7 @@ Fetching group values
 To group users by age, and return the names of the users with the highest ages,
 we'll issue a query like this:
 
-```js
+```aql
 FOR u IN users
     FILTER u.active == true
     COLLECT age = u.age INTO usersByAge
@@ -82,14 +82,14 @@ The *usersByAge* variable contains the full documents found, and as we're only
 interested in user names, we'll use the expansion operator `[*]` to extract just the
 *name* attribute of all user documents in each group:
 
-```js
+```aql
 usersByAge[*].u.name
 ```
 
 The `[*]` expansion operator is just a handy short-cut. We could also write
 a subquery:
 
-```js
+```aql
 ( FOR temp IN usersByAge RETURN temp.u.name )
 ```
 
@@ -100,7 +100,7 @@ To group by multiple criteria, we'll use multiple arguments in the `COLLECT` cla
 For example, to group users by *ageGroup* (a derived value we need to calculate first)
 and then by *gender*, we'll do:
 
-```js
+```aql
 FOR u IN users
     FILTER u.active == true
     COLLECT ageGroup = FLOOR(u.age / 5) * 5,
@@ -130,7 +130,7 @@ If the goal is to count the number of values in each group, AQL provides the spe
 *COLLECT WITH COUNT INTO* syntax. This is a simple variant for grouping with an additional
 group length calculation:
 
-```js
+```aql
 FOR u IN users
     FILTER u.active == true
     COLLECT ageGroup = FLOOR(u.age / 5) * 5,
@@ -160,7 +160,7 @@ Aggregation
 Adding further aggregation is also simple in AQL by using an `AGGREGATE` clause
 in the `COLLECT`:
 
-```js
+```aql
 FOR u IN users
     FILTER u.active == true
     COLLECT ageGroup = FLOOR(u.age / 5) * 5,
@@ -222,7 +222,7 @@ The same query as before can be turned into a post-aggregation query as shown be
 that this query will build and pass on all group values for all groups inside the variable
 *g*, and perform the aggregation at the latest possible stage:
 
-```js
+```aql
 FOR u IN users
     FILTER u.active == true
     COLLECT ageGroup = FLOOR(u.age / 5) * 5,
@@ -269,7 +269,7 @@ statement.
 
 For example, to get the 3 *ageGroup*s with the most users in them:
 
-```js
+```aql
 FOR u IN users
     FILTER u.active == true
     COLLECT ageGroup = FLOOR(u.age / 5) * 5 INTO group

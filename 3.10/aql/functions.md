@@ -10,7 +10,7 @@ AQL supports functions to allow more complex computations. Functions can be
 called at any query position where an expression is allowed. The general
 function call syntax is:
 
-```js
+```aql
 FUNCTIONNAME(arguments)
 ```
 
@@ -22,7 +22,7 @@ calls distinguishable from variable names.
 
 Some example function calls:
 
-```js
+```aql
 HAS(user, "name")
 LENGTH(friends)
 COLLECTIONS()

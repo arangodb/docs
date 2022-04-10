@@ -64,7 +64,7 @@ Return the attribute keys of an object in alphabetic order:
 Complex example to count how often every top-level attribute key occurs in the
 documents of a collection (expensive on large collections):
 
-```js
+```aql
 LET attributesPerDocument = (
     FOR doc IN collection RETURN ATTRIBUTES(doc, true)
 )
@@ -98,7 +98,7 @@ Other ways of testing for the existence of an attribute may behave differently
 if the attribute has a falsy value or is not present (implicitly `null` on
 object access):
 
-```js
+```aql
 !!{ name: "" }.name        // false
 HAS( { name: "" }, "name") // true
 
@@ -113,7 +113,7 @@ between explicit and implicit *null* values in your query, you may use an equali
 comparison to test for *null* and create a non-sparse index on the attribute you
 want to test against:
 
-```js
+```aql
 FILTER !HAS(doc, "name")    // can not use indexes
 FILTER IS_NULL(doc, "name") // can not use indexes
 FILTER doc.name == null     // can utilize non-sparse indexes
@@ -453,7 +453,7 @@ skips attributes with a value of `undefined`, turning `{attr: undefined}` into `
 `MATCHES()` can not utilize indexes. You may use plain `FILTER` conditions instead
 to potentially benefit from existing indexes:
 
-```js
+```aql
 FOR doc IN coll
   FILTER (cond1 AND cond2 AND cond3) OR (cond4 AND cond5) ...
 ```

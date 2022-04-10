@@ -45,7 +45,7 @@ AQL supports two types of comments:
   end with an asterisk and a following forward slash. They can span as many
   lines as necessary.
 
-```js
+```aql
 /* this is a comment */ RETURN 1
 /* these */ RETURN /* are */ 1 /* multiple */ + /* comments */ 1
 /* this is
@@ -84,7 +84,7 @@ above operations.
 
 An example AQL query may look like this:
 
-```js
+```aql
 FOR u IN users
   FILTER u.type == "newbie" && u.active == true
   RETURN u.name
@@ -219,7 +219,7 @@ Variable names can be longer, but are discouraged.
 Keywords must not be used as names. If a reserved keyword should be used as
 a name, the name must be enclosed in backticks or forward ticks.
 
-```js
+```aql
 FOR doc IN `filter`
   RETURN doc.`sort`
 ```
@@ -229,14 +229,14 @@ keywords here.
 
 The example can alternatively written as:
 
-```js
+```aql
 FOR f IN ´filter´
   RETURN f.´sort´
 ```
 
 Instead of ticks, you may use the bracket notation for the attribute access:
 
-```js
+```aql
 FOR f IN `filter`
   RETURN f["sort"]
 ```
@@ -247,7 +247,7 @@ conflict with the reserved word.
 Escaping is also required if special characters such as hyphen minus (`-`) are
 contained in a name:
 
-```js
+```aql
 FOR doc IN `my-coll`
   RETURN doc
 ```
@@ -278,7 +278,7 @@ allowed to refer to an unqualified attribute name.
 Please refer to the [Naming Conventions in ArangoDB](../data-modeling-naming-conventions-attribute-names.html)
 for more information about the attribute naming conventions.
 
-```js
+```aql
 FOR u IN users
   FOR f IN friends
     FILTER u.active == true && f.active == true && u.id == f.userId
@@ -296,7 +296,7 @@ variables that are assigned a value must have a name that is unique within the
 context of the query. Variable names must be different from the names of any
 collection name used in the same query.
 
-```js
+```aql
 FOR u IN users
   LET friends = u.friends
   RETURN { "name" : u.name, "friends" : friends }

@@ -31,7 +31,7 @@ run by clicking *Execute*:
 
 ![Insert query in query editor](../images/Query_Insert.png)
 
-```js
+```aql
 INSERT {
     "name": "Ned",
     "surname": "Stark",
@@ -60,7 +60,7 @@ of strings. The entire document is an object.
 
 Let's add a bunch of other characters in a single query:
 
-```js
+```aql
 LET data = [
     { "name": "Robert", "surname": "Baratheon", "alive": false, "traits": ["A","H","C"] },
     { "name": "Jaime", "surname": "Lannister", "alive": true, "age": 36, "traits": ["A","F","B"] },
@@ -119,7 +119,7 @@ literal array definition like `[ {...}, {...}, ... ]`.
 This variable is then used in the `INSERT` statement instead of a literal
 object definition. What it does is basically:
 
-```js
+```aql
 INSERT {
     "name": "Robert",
     "surname": "Baratheon",
@@ -150,7 +150,7 @@ There are a couple of documents in the *Characters* collection by now. We can
 retrieve them all using a `FOR` loop again. This time however, we use it to
 go through all documents in the collection instead of an array:
 
-```js
+```aql
 FOR c IN Characters
     RETURN c
 ```
@@ -187,7 +187,7 @@ attributes starting with an underscore `_` are read-only.
 We can use either the document key or the document ID to retrieve a specific
 document with the help of an AQL function `DOCUMENT()`:
 
-```js
+```aql
 RETURN DOCUMENT("Characters", "2861650")
 // --- or ---
 RETURN DOCUMENT("Characters/2861650")
@@ -214,7 +214,7 @@ Here, `"2861650"` is the key for the *Ned Stark* document, and `"2861653"` for
 
 The `DOCUMENT()` function also allows to fetch multiple documents at once:
 
-```js
+```aql
 RETURN DOCUMENT("Characters", ["2861650", "2861653"])
 // --- or ---
 RETURN DOCUMENT(["Characters/2861650", "Characters/2861653"])
@@ -256,7 +256,7 @@ Update documents
 According to our *Ned Stark* document, he is alive. When we get to know that he
 died, we need to change the `alive` attribute. Let us modify the existing document:
 
-```js
+```aql
 UPDATE "2861650" WITH { alive: false } IN Characters
 ```
 
@@ -265,7 +265,7 @@ specified document with the attributes listed (or adds them if they don't exist)
 but leaves the rest untouched. To replace the entire document content, you may
 use `REPLACE` instead of `UPDATE`:
 
-```js
+```aql
 REPLACE "2861650" WITH {
     name: "Ned",
     surname: "Stark",
@@ -277,7 +277,7 @@ REPLACE "2861650" WITH {
 
 This also works in a loop, to add a new attribute to all documents for instance:
 
-```js
+```aql
 FOR c IN Characters
     UPDATE c WITH { season: 1 } IN Characters
 ```
@@ -287,7 +287,7 @@ The query adds an attribute `season` to the documents' top-level. You can
 inspect the result by re-running the query that returns all documents in
 collection:
 
-```js
+```aql
 FOR c IN Characters
     RETURN c
 ```
@@ -330,13 +330,13 @@ Delete documents
 To fully remove documents from a collection, there is the `REMOVE` operation.
 It works similar to the other modification operations, yet without a `WITH` clause:
 
-```js
+```aql
 REMOVE "2861650" IN Characters
 ```
 
 It can also be used in a loop body to effectively truncate a collection:
 
-```js
+```aql
 FOR c IN Characters
     REMOVE c IN Characters
 ```

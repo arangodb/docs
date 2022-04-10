@@ -54,7 +54,7 @@ change the collection type to **Edge**.
 
 Then run the following query:
 
-```js
+```aql
 LET data = [
     {
         "parent": { "name": "Ned", "surname": "Stark" },
@@ -124,7 +124,7 @@ FOR rel in data
 The character documents don't have user-defined keys. If they had, it would
 allow us to create the edges more easily like:
 
-```js
+```aql
 INSERT { _from: "Characters/robb", _to: "Characters/ned" } INTO ChildOf
 ```
 
@@ -166,7 +166,7 @@ query to find out who the parents are of another character &ndash; or in
 graph terms, we want to start at a vertex and follow the edges to other
 vertices in an [AQL graph traversal](graphs-traversals.html):
 
-```js
+```aql
 FOR v IN 1..1 OUTBOUND "Characters/2901776" ChildOf
     RETURN v.name
 ```
@@ -185,7 +185,7 @@ child we start at. `"Characters/2901776"` is that start vertex. Note that the
 document ID will be different for you, so please adjust it to your document ID
 of e.g. the Bran Stark document:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.name == "Bran"
     RETURN c._id
@@ -198,7 +198,7 @@ FOR c IN Characters
 You may also combine this query with the traversal directly, to easily change
 the start vertex by adjusting the filter condition(s):
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.name == "Bran"
     FOR v IN 1..1 OUTBOUND c ChildOf
@@ -224,7 +224,7 @@ Traverse to the children
 We can also walk from a parent in reverse edge direction (`INBOUND` that is)
 to the children:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.name == "Ned"
     FOR v IN 1..1 INBOUND c ChildOf
@@ -248,7 +248,7 @@ For the Lannister family, we have relations that span from parent to
 grandchild. Let's change the traversal depth to return grandchildren,
 which means to go exactly two steps:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.name == "Tywin"
     FOR v IN 2..2 INBOUND c ChildOf
@@ -290,7 +290,7 @@ To return the parents and grandparents of Joffrey, we can walk edges in
 `OUTBOUND` direction and adjust the traversal depth to go at least 1 step,
 and 2 at most:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.name == "Joffrey"
     FOR v IN 1..2 OUTBOUND c ChildOf

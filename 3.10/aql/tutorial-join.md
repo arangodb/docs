@@ -110,7 +110,7 @@ Resolving traits
 
 Let's start simple by returning only the traits attribute of each character:
 
-```js
+```aql
 FOR c IN Characters
     RETURN c.traits
 ```
@@ -129,7 +129,7 @@ about attribute access.
 We can use the *traits* array together with the `DOCUMENT()` function to use
 the elements as document keys and look them up in the *Traits* collection:
 
-```js
+```aql
 FOR c IN Characters
     RETURN DOCUMENT("Traits", c.traits)
 ```
@@ -210,7 +210,7 @@ for each character.
 This is a bit too much information, so let's only return English labels using
 the [array expansion](advanced-array-operators.html#array-expansion) notation:
 
-```js
+```aql
 FOR c IN Characters
     RETURN DOCUMENT("Traits", c.traits)[*].en
 ```
@@ -240,7 +240,7 @@ Great, we resolved the letters to meaningful traits! But we also need to know
 to which character they belong. Thus, we need to merge both the character
 document and the data from the trait documents:
 
-```js
+```aql
 FOR c IN Characters
     RETURN MERGE(c, { traits: DOCUMENT("Traits", c.traits)[*].en } )
 ```
@@ -297,7 +297,7 @@ multiple collections, with a `FILTER` condition to match up attributes.
 In case of the traits key array, there needs to be a third loop to iterate
 over the keys:
 
-```js
+```aql
 FOR c IN Characters
   RETURN MERGE(c, {
     traits: (

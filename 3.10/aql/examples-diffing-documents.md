@@ -11,7 +11,7 @@ Diffing Two Documents in AQL
 There is no built-in AQL function to compare the attributes of two documents,
 but it is easily possible to build a query that does:
 
-```js
+```aql
 // input document 1
 LET doc1 = {
   "foo": "bar",

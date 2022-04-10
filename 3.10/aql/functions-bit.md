@@ -48,7 +48,7 @@ range 0 to 2<sup>32</sup> - 1 are allowed as input values.
 - **value2** (number): second operand
 - returns **result** (number\|null): and-combined result
 
-```js
+```aql
 BIT_AND([1, 4, 8, 16]) // 0
 BIT_AND([3, 7, 63]) // 3
 BIT_AND([255, 127, null, 63]) // 63
@@ -71,7 +71,7 @@ the array must be numbers, which must not be negative. The maximum supported
 input number value is 31. Input number values outside the allowed range will
 make the function return `null` and produce a warning.
 
-```js
+```aql
 BIT_CONSTRUCT([1, 2, 3]) // 14
 BIT_CONSTRUCT([0, 4, 8]) // 273
 BIT_CONSTRUCT([0, 1, 10, 31]) // 2147484675
@@ -92,7 +92,7 @@ set bits. The positions in the output array are zero-based.
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
 The function will return `null` for any other inputs and produce a warning.
 
-```js
+```aql
 BIT_DECONSTRUCT(14) // [1, 2, 3]
 BIT_DECONSTRUCT(273) // [0, 4, 8]
 BIT_DECONSTRUCT(2147484675) // [0, 1, 10, 31]
@@ -116,7 +116,7 @@ Note that the bitstring must not start with `0b`.
 If the bitstring has an invalid format, this function returns `null` and produces
 a warning.
 
-```js
+```aql
 BIT_FROM_STRING("0111") // 7
 BIT_FROM_STRING("000000000000010") // 2
 BIT_FROM_STRING("11010111011101") // 13789
@@ -140,7 +140,7 @@ The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
 The number of bits must be between 0 and 32. The function will return `null` for
 any other inputs and produce a warning.
 
-```js
+```aql
 BIT_NEGATE(0, 8) // 255
 BIT_NEGATE(0, 10) // 1023
 BIT_NEGATE(3, 4) // 12
@@ -174,7 +174,7 @@ will return the bitwise or value of its two operands. Only numbers in the range
 - **value2** (number): second operand
 - returns **result** (number\|null): or-combined result
 
-```js
+```aql
 BIT_OR([1, 4, 8, 16]) // 29
 BIT_OR([3, 7, 63]) // 63
 BIT_OR([255, 127, null, 63]) // 255
@@ -195,7 +195,7 @@ Counts the number of bits set in the input value.
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
 The function will return `null` for any other inputs and produce a warning.
 
-```js
+```aql
 BIT_POPCOUNT(0) // 0
 BIT_POPCOUNT(255) // 8
 BIT_POPCOUNT(69399252) // 12
@@ -220,7 +220,7 @@ The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
 The number of bits must be between 0 and 32. The function will return `null` for
 any other inputs and produce a warning.
 
-```js
+```aql
 BIT_SHIFT_LEFT(0, 1, 8) // 0
 BIT_SHIFT_LEFT(7, 1, 16) // 14
 BIT_SHIFT_LEFT(2, 10, 16) // 2048
@@ -245,7 +245,7 @@ The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
 The number of bits must be between 0 and 32. The function will return `null` for
 any other inputs and produce a warning.
 
-```js
+```aql
 BIT_SHIFT_RIGHT(0, 1, 8) // 0
 BIT_SHIFT_RIGHT(33, 1, 16) // 16
 BIT_SHIFT_RIGHT(65536, 13, 16) // 8
@@ -267,7 +267,7 @@ The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
 The **index** must be between 0 and 31. The function will return `null` for any
 other inputs and produce a warning.
 
-```js
+```aql
 BIT_TEST(0, 3) // false
 BIT_TEST(255, 0) // true
 BIT_TEST(7, 2) // true
@@ -289,7 +289,7 @@ To convert a bitstring into a number, see [BIT_FROM_STRING()](#bit_from_string).
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
 The function will return `null` for any other inputs and produce a warning.
 
-```js
+```aql
 BIT_TO_STRING(7, 4) // "0111"
 BIT_TO_STRING(255, 8) // "11111111"
 BIT_TO_STRING(60, 8) // "00011110"
@@ -323,7 +323,7 @@ the range 0 to 2<sup>32</sup> - 1 are allowed as input values.
 - **value2** (number): second operand
 - returns **result** (number\|null): xor-combined result
 
-```js
+```aql
 BIT_XOR([1, 4, 8, 16]) // 29
 BIT_XOR([3, 7, 63]) // 59
 BIT_XOR([255, 127, null, 63]) // 191

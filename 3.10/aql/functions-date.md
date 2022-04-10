@@ -61,7 +61,7 @@ function will make the function return `null` and trigger a warning for the quer
 which can optionally be escalated to an error and abort the query. This also
 applies to operations which produce an invalid value.
 
-```js
+```aql
 DATE_HOUR( 2 * 60 * 60 * 1000 ) // 2
 DATE_HOUR("1970-01-01T02:00:00") // 2
 ```
@@ -113,7 +113,7 @@ Zulu time will be used.
 The following calls to *DATE_TIMESTAMP()* are equivalent and will all return
 *1399472349522*:
 
-```js
+```aql
 DATE_TIMESTAMP("2014-05-07T14:19:09.522")
 DATE_TIMESTAMP("2014-05-07T14:19:09.522Z")
 DATE_TIMESTAMP("2014-05-07 14:19:09.522")
@@ -125,7 +125,7 @@ DATE_TIMESTAMP(1399472349522)
 The same is true for calls to *DATE_ISO8601()* that also accepts variable input
 formats:
 
-```js
+```aql
 DATE_ISO8601("2014-05-07T14:19:09.522Z")
 DATE_ISO8601("2014-05-07 14:19:09.522Z")
 DATE_ISO8601(2014, 5, 7, 14, 19, 9, 522)
@@ -186,7 +186,7 @@ Negative values are not allowed, result in *null* and cause a warning.
 Values greater than the upper range bound overflow to the larger components
 (e.g. an hour of 26 is automatically turned into an additional day and two hours):
 
-```js
+```aql
 DATE_TIMESTAMP(2016, 12, -1) // returns null and issues a warning
 DATE_TIMESTAMP(2016, 2, 32) // returns 1456963200000, which is March 3rd, 2016
 DATE_TIMESTAMP(1970, 1, 1, 26) // returns 93600000, which is January 2nd, 1970, at 2 a.m.
@@ -571,7 +571,7 @@ Truncates the given date after *unit* and returns the modified date.
   - f, millisecond, milliseconds
 - returns **isoDate** (string): the truncated ISO 8601 date time string
 
-```js
+```aql
 DATE_TRUNC('2017-02-03', 'month') // 2017-02-01T00:00:00.000Z
 DATE_TRUNC('2017-02-03 04:05:06', 'hours') // 2017-02-03 04:00:00.000Z
 ```
@@ -617,7 +617,7 @@ grouping.
   - f, millisecond, milliseconds
 - returns **isoDate** (string): the rounded ISO 8601 date time string
 
-```js
+```aql
 DATE_ROUND('2000-04-28T11:11:11.111Z', 1, 'day') // 2000-04-28T00:00:00.000Z
 DATE_ROUND('2000-04-10T11:39:29Z', 15, 'minutes') // 2000-04-10T11:30:00.000Z
 ```
@@ -713,7 +713,7 @@ together with `CONCAT()` if possible.
 
 Examples:
 
-```js
+```aql
 DATE_FORMAT(DATE_NOW(), "%q/%yyyy") // quarter and year (e.g. "3/2015")
 DATE_FORMAT(DATE_NOW(), "%dd.%mm.%yyyy %hh:%ii:%ss,%fff") // e.g. "18.09.2015 15:30:49,374"
 DATE_FORMAT("1969", "Summer of '%yy") // "Summer of '69"
@@ -746,7 +746,7 @@ Add *amount* given in *unit* to *date* and return the calculated date.
   - f, millisecond, milliseconds
 - returns **isoDate** (string): the calculated ISO 8601 date time string
 
-```js
+```aql
 DATE_ADD(DATE_NOW(), -1, "day") // yesterday; also see DATE_SUBTRACT()
 DATE_ADD(DATE_NOW(), 3, "months") // in three months
 DATE_ADD(DATE_ADD("2015-04-01", 5, "years"), 1, "month") // May 1st 2020
@@ -778,7 +778,7 @@ The string must be prefixed by a `P`. A separating `T` is only required if
 `H`, `M` and/or `S` are specified. You only need to specify the needed pairs
 of letters and numbers.
 
-```js
+```aql
 DATE_ADD(DATE_NOW(), "P1Y") // add 1 year
 DATE_ADD(DATE_NOW(), "P3M2W") // add 3 months and 2 weeks
 DATE_ADD(DATE_NOW(), "P5DT26H") // add 5 days and 26 hours (=6 days and 2 hours)
@@ -838,7 +838,7 @@ The string must be prefixed by a `P`. A separating `T` is only required if
 `H`, `M` and/or `S` are specified. You only need to specify the needed pairs
 of letters and numbers.
 
-```js
+```aql
 DATE_SUBTRACT(DATE_NOW(), 1, "day") // yesterday
 DATE_SUBTRACT(DATE_TIMESTAMP(DATE_YEAR(DATE_NOW()), 12, 24), 4, "years") // Christmas four years ago
 DATE_SUBTRACT(DATE_ADD("2016-02", "month", 1), 1, "day") // last day of February (29th, because 2016 is a leap year!)
@@ -898,7 +898,7 @@ You can refer to the units as:
 - s, second, seconds
 - f, millisecond, milliseconds
 
-```js
+```aql
 // Compare months and days, true on birthdays if you're born on 4th of April
 DATE_COMPARE("1985-04-04", DATE_NOW(), "months", "days")
 
@@ -918,7 +918,7 @@ compare partial date strings, `DATE_COMPARE()` is basically a convenience
 function for that. However, neither is really required to limit a search to a
 certain day as demonstrated here:
 
-```js
+```aql
 FOR doc IN coll
     FILTER doc.date >= "2015-05-15" AND doc.date < "2015-05-16"
     RETURN doc
@@ -938,7 +938,7 @@ and can only occur if inserted manually (you may want to pass dates through
 Leap days in leap years (29th of February) must be always handled manually,
 if you require so (e.g. birthday checks):
 
-```js
+```aql
 LET today = DATE_NOW()
 LET noLeapYear = NOT DATE_LEAPYEAR(today)
 

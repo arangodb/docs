@@ -28,7 +28,7 @@ Both variants can optionally end with an `OPTIONS { … }` clause.
 be replaced. `document` is the replacement document. When using the first syntax, `document` 
 must also contain the `_key` attribute to identify the document to be replaced. 
 
-```js
+```aql
 FOR u IN users
   REPLACE { _key: u._key, name: CONCAT(u.firstName, u.lastName), status: u.status } IN users
 ```
@@ -36,7 +36,7 @@ FOR u IN users
 The following query is invalid because it does not contain a `_key` attribute and
 thus it is not possible to determine the documents to be replaced:
 
-```js
+```aql
 FOR u IN users
   REPLACE { name: CONCAT(u.firstName, u.lastName, status: u.status) } IN users
 ```
@@ -47,22 +47,22 @@ document, which must contain a `_key` attribute.
 
 The following queries are equivalent:
 
-```js
+```aql
 FOR u IN users
   REPLACE { _key: u._key, name: CONCAT(u.firstName, u.lastName) } IN users
 ```
 
-```js
+```aql
 FOR u IN users
   REPLACE u._key WITH { name: CONCAT(u.firstName, u.lastName) } IN users
 ```
 
-```js
+```aql
 FOR u IN users
   REPLACE { _key: u._key } WITH { name: CONCAT(u.firstName, u.lastName) } IN users
 ```
 
-```js
+```aql
 FOR u IN users
   REPLACE u WITH { name: CONCAT(u.firstName, u.lastName) } IN users
 ```
@@ -74,12 +74,12 @@ will modify a document's revision number with a server-generated value.
 A replace operation may update arbitrary documents which do not need to be identical
 to the ones produced by a preceding `FOR` statement:
 
-```js
+```aql
 FOR i IN 1..1000
   REPLACE CONCAT('test', i) WITH { foobar: true } IN users
 ```
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == false
   REPLACE u WITH { status: 'inactive', name: u.name } IN backup
@@ -93,7 +93,7 @@ Query options
 `ignoreErrors` can be used to suppress query errors that may occur when trying to
 replace non-existing documents or when violating unique key constraints:
 
-```js
+```aql
 FOR i IN 1..1000
   REPLACE { _key: CONCAT('test', i) } WITH { foobar: true } IN users OPTIONS { ignoreErrors: true }
 ```
@@ -103,7 +103,7 @@ FOR i IN 1..1000
 To make sure data are durable when a replace query returns, there is the `waitForSync` 
 query option:
 
-```js
+```aql
 FOR i IN 1..1000
   REPLACE { _key: CONCAT('test', i) } WITH { foobar: true } IN users OPTIONS { waitForSync: true }
 ```
@@ -114,7 +114,7 @@ In order to not accidentally overwrite documents that have been updated since yo
 them, you can use the option `ignoreRevs` to either let ArangoDB compare the `_rev` value and only 
 succeed if they still match, or let ArangoDB ignore them (default):
 
-```js
+```aql
 FOR i IN 1..1000
   REPLACE { _key: CONCAT('test', i), _rev: "1287623" } WITH { foobar: true } IN users OPTIONS { ignoreRevs: false }
 ```
@@ -130,7 +130,7 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this effect on a per query basis:
 
-```js
+```aql
 FOR doc IN collection
   REPLACE doc._key 
   WITH { replaced: true } IN collection 
@@ -160,7 +160,7 @@ Following is an example using a variable named `previous` to return the original
 documents before modification. For each replaced document, the document key will be
 returned:
 
-```js
+```aql
 FOR u IN users
   REPLACE u WITH { value: "test" } 
   IN users
@@ -171,7 +171,7 @@ FOR u IN users
 The following query uses the `NEW` pseudo-value to return the replaced
 documents (without some of their system attributes):
 
-```js
+```aql
 FOR u IN users
   REPLACE u WITH { value: "test" } IN users
   LET replaced = NEW 

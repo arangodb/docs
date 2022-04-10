@@ -43,7 +43,7 @@ This variable contains the group value.
 Here's an example query that find the distinct values in `u.city` and makes
 them available in variable `city`:
 
-```js
+```aql
 FOR u IN users
   COLLECT city = u.city
   RETURN { 
@@ -63,7 +63,7 @@ on the top level, in which case all variables are taken. Furthermore note
 that it is possible that the optimizer moves `LET` statements out of `FOR`
 statements to improve performance. 
 
-```js
+```aql
 FOR u IN users
   COLLECT city = u.city INTO groups
   RETURN { 
@@ -80,7 +80,7 @@ made available in the variable `groups`. This is due to the `INTO` clause.
 `COLLECT` also allows specifying multiple group criteria. Individual group
 criteria can be separated by commas:
 
-```js
+```aql
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups
   RETURN { 
@@ -100,7 +100,7 @@ Discarding obsolete variables
 The third form of `COLLECT` allows rewriting the contents of the *groupsVariable* 
 using an arbitrary *projectionExpression*:
 
-```js
+```aql
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups = u.name
   RETURN { 
@@ -117,7 +117,7 @@ the *groupsVariable* as it would happen without a *projectionExpression*.
 
 The expression following `INTO` can also be used for arbitrary computations:
 
-```js
+```aql
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups = { 
     "name" : u.name, 
@@ -141,7 +141,7 @@ The following example limits the variables that are copied into the *groupsVaria
 to just `name`. The variables `u` and `someCalculation` also present in the scope
 will not be copied into *groupsVariable* because they are not listed in the `KEEP` clause:
 
-```js
+```aql
 FOR u IN users
   LET name = u.name
   LET someCalculation = u.value1 + u.value2
@@ -165,7 +165,7 @@ determine the number of group members efficiently.
 The simplest form just returns the number of items that made it into the
 `COLLECT`:
 
-```js
+```aql
 FOR u IN users
   COLLECT WITH COUNT INTO length
   RETURN length
@@ -173,14 +173,14 @@ FOR u IN users
 
 The above is equivalent to, but less efficient than:
 
-```js
+```aql
 RETURN LENGTH(users)
 ```
 
 The `WITH COUNT` clause can also be used to efficiently count the number
 of items in each group:
 
-```js
+```aql
 FOR u IN users
   COLLECT age = u.age WITH COUNT INTO length
   RETURN { 
@@ -203,7 +203,7 @@ used as described before.
 For other aggregations, it is possible to run aggregate functions on the `COLLECT`
 results:
 
-```js
+```aql
 FOR u IN users
   COLLECT ageGroup = FLOOR(u.age / 5) * 5 INTO g
   RETURN { 
@@ -221,7 +221,7 @@ incrementally during the collect operation, and is therefore often more efficien
 
 With the `AGGREGATE` variant the above query becomes:
 
-```js
+```aql
 FOR u IN users
   COLLECT ageGroup = FLOOR(u.age / 5) * 5 
   AGGREGATE minAge = MIN(u.age), maxAge = MAX(u.age)
@@ -236,7 +236,7 @@ The `AGGREGATE` keyword can only be used after the `COLLECT` keyword. If used, i
 must directly follow the declaration of the grouping keys. If no grouping keys 
 are used, it must follow the `COLLECT` keyword directly:
 
-```js
+```aql
 FOR u IN users
   COLLECT AGGREGATE minAge = MIN(u.age), maxAge = MAX(u.age)
   RETURN {
@@ -274,12 +274,12 @@ assignment:
 In order to make a result set unique, one can either use `COLLECT` or
 `RETURN DISTINCT`.
 
-```js
+```aql
 FOR u IN users
   RETURN DISTINCT u.age
 ```
 
-```js
+```aql
 FOR u IN users
   COLLECT age = u.age
   RETURN age
@@ -308,7 +308,7 @@ the *sorted* and the *hash* variant. The `method` option can be used in a
 `COLLECT` statement to inform the optimizer about the preferred method,
 `"sorted"` or `"hash"`.
 
-```js
+```aql
 COLLECT ... OPTIONS { method: "sorted" }
 ```
 
@@ -343,7 +343,7 @@ If the sort order of the `COLLECT` is irrelevant to the user, adding the extra
 instruction `SORT null` after the `COLLECT` will allow the optimizer to remove
 the sorts altogether:
 
-```js
+```aql
 FOR u IN users
   COLLECT age = u.age
   SORT null  /* note: will be optimized away */
