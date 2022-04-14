@@ -254,6 +254,16 @@ important. Default: false.
 
 If true, skip corrupted records in WAL recovery. Default: false.
 
+`-- rocksdb.transaction-lock-stripes`
+
+<small>Introduced in: v3.9.2</small>
+
+The option control the number of lock stripes to use for RocksDB's transaction
+lock manager. Higher values can be used to reduce potential contention in the
+lock manager. 
+The option defaults to the number of available cores, but will be bumped to a
+value of `16` if the number of cores is lower.
+
 ## Non-Pass-Through Options
 
 ### Write-ahead Log
