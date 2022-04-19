@@ -191,7 +191,7 @@ class DocuBlockBlock < Liquid::Tag
                     end
                     currentStruct = nil
                 when /^@RESTHEADER\s*{([^,]+),\s*([^,\}]+)/
-                    local["header"] = "### #{$2}\n#{local['header']}\n`#{$1}`\n"
+                    local["header"] = "### #{$2}\n#{local['header']}\n`#{$1.sub(/#.*/, '')}`\n"
                     currentStruct = nil
                 when /^@RESTDESCRIPTION/
                     currentObject = local
