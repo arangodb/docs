@@ -73,7 +73,7 @@ Assuming a View definition with an Analyzer whose name and type is `delimiter`:
 `{ "text": "foo|bar|baz" }` in the collection `coll`, the following query would
 return the document:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "bar", "delimiter")
   RETURN doc
@@ -86,7 +86,7 @@ but the View does not even process the indexed fields with the `identity`
 Analyzer. The following query would also return an empty result because of
 the Analyzer mismatch:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH doc.text == "foo|bar|baz"
   //SEARCH ANALYZER(doc.text == "foo|bar|baz", "identity")
@@ -98,7 +98,7 @@ FOR doc IN viewName
 In below query, the search expression is swapped by `ANALYZER()` to set the
 `text_en` Analyzer for both `PHRASE()` functions:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(PHRASE(doc.text, "foo") OR PHRASE(doc.text, "bar"), "text_en")
   RETURN doc
@@ -106,7 +106,7 @@ FOR doc IN viewName
 
 Without the usage of `ANALYZER()`:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH PHRASE(doc.text, "foo", "text_en") OR PHRASE(doc.text, "bar", "text_en")
   RETURN doc
@@ -119,7 +119,7 @@ but in the second call to `PHRASE()` a different Analyzer is set (`identity`)
 which overrules `ANALYZER()`. Therefore, the `text_en` Analyzer is used to find
 the phrase *foo* and the `identity` Analyzer to find *bar*:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(PHRASE(doc.text, "foo") OR PHRASE(doc.text, "bar", "identity"), "text_en")
   RETURN doc
@@ -132,7 +132,7 @@ for the `TOKENS()` function itself. This is because the `TOKENS()` function
 is a regular string function that does not take the Analyzer context into
 account:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text IN TOKENS("foo", "text_en"), "text_en")
   RETURN doc
@@ -152,7 +152,7 @@ value equal to `1.0`.
 
 #### Example: Boosting a search sub-expression
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(BOOST(doc.text == "foo", 2.5) OR doc.text == "bar", "text_en")
   LET score = BM25(doc)
@@ -216,7 +216,7 @@ Match documents where the attribute at **path** is present.
   returned. The function can only be called in a search expression. It throws
   an error if used outside of a [SEARCH operation](operations-search.html).
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH EXISTS(doc.text)
   RETURN doc
@@ -240,7 +240,7 @@ specified data type.
   returned. The function can only be called in a search expression. It throws
   an error if used outside of a [SEARCH operation](operations-search.html).
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH EXISTS(doc.text, "string")
   RETURN doc
@@ -262,7 +262,7 @@ by the specified **analyzer**.
   returned. The function can only be called in a search expression. It throws
   an error if used outside of a [SEARCH operation](operations-search.html).
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH EXISTS(doc.text, "analyzer", "text_en")
   RETURN doc
@@ -316,7 +316,7 @@ match either.
 To match documents with the attribute `value >= 3` and `value <= 5` using the
 default `"identity"` Analyzer you would write the following query:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH IN_RANGE(doc.value, 3, 5, true, true)
   RETURN doc.value
@@ -330,7 +330,7 @@ attribute where at least one of the numbers is in the specified boundaries.
 Using string boundaries and a text Analyzer allows to match documents which
 have at least one token within the specified character range:
 
-```js
+```aql
 FOR doc IN valView
   SEARCH ANALYZER(IN_RANGE(doc.value, "a","f", true, false), "text_en")
   RETURN doc
@@ -361,7 +361,7 @@ that is used outside of `SEARCH` operations.
 Assuming a View with a text Analyzer, you may use it to match documents where
 the attribute contains at least two out of three tokens:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(MIN_MATCH(doc.text == 'quick', doc.text == 'brown', doc.text == 'fox', 2), "text_en")
   RETURN doc.text
@@ -418,7 +418,7 @@ Given a View indexing an attribute `text`, a custom _n_-gram Analyzer `"bigram"`
 `{ "text": "quick red fox" }`, the following query would match it (with a
 threshold of `1.0`):
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH NGRAM_MATCH(doc.text, "quick fox", "bigram")
   RETURN doc.text
@@ -426,7 +426,7 @@ FOR doc IN viewName
 
 The following will also match (note the low threshold value):
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.4, "bigram")
   RETURN doc.text
@@ -434,7 +434,7 @@ FOR doc IN viewName
 
 The following will not match (note the high threshold value):
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.9, "bigram")
   RETURN doc.text
@@ -445,13 +445,13 @@ FOR doc IN viewName
 `NGRAM_MATCH()` can be called with constant arguments, but for such calls the
 *analyzer* argument is mandatory (even for calls inside of a `SEARCH` clause):
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH NGRAM_MATCH("quick fox", "quick blue fox", 0.9, "bigram")
   RETURN doc.text
 ```
 
-```js
+```aql
 RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 ```
 
@@ -531,7 +531,7 @@ Given a View indexing an attribute *text* with the `"text_en"` Analyzer and a
 document `{ "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" }`,
 the following query would match it:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH PHRASE(doc.text, "lorem ipsum", "text_en")
   RETURN doc.text
@@ -540,7 +540,7 @@ FOR doc IN viewName
 However, this search expression does not because the tokens `"ipsum"` and
 `"lorem"` do not appear in this order:
 
-```js
+```aql
 PHRASE(doc.text, "ipsum lorem", "text_en")
 ```
 
@@ -549,7 +549,7 @@ PHRASE(doc.text, "ipsum lorem", "text_en")
 To match `"ipsum"` and `"amet"` with any two tokens in between, you can use the
 following search expression:
 
-```js
+```aql
 PHRASE(doc.text, "ipsum", 2, "amet", "text_en")
 ```
 
@@ -558,7 +558,7 @@ between *ipsum* and *amet*. A *skipTokens* value of `0` means that the tokens
 must be adjacent. Negative values are allowed, but not very useful. These three
 search expressions are equivalent:
 
-```js
+```aql
 PHRASE(doc.text, "lorem ipsum", "text_en")
 PHRASE(doc.text, "lorem", 0, "ipsum", "text_en")
 PHRASE(doc.text, "ipsum", -1, "lorem", "text_en")
@@ -569,41 +569,41 @@ PHRASE(doc.text, "ipsum", -1, "lorem", "text_en")
 The `PHRASE()` function also accepts an array as second argument with
 *phrasePart* and *skipTokens* parameters as elements.
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", "brown", "fox"], "text_en") RETURN doc
 ```
 
 This syntax variation enables the usage of computed expressions:
 
-```js
+```aql
 LET proximityCondition = [ "foo", ROUND(RAND()*10), "bar" ]
 FOR doc IN viewName
   SEARCH PHRASE(doc.text, proximityCondition, "text_en")
   RETURN doc
 ```
 
-```js
+```aql
 LET tokens = TOKENS("quick brown fox", "text_en") // ["quick", "brown", "fox"]
 FOR doc IN myView SEARCH PHRASE(doc.title, tokens, "text_en") RETURN doc
 ```
 
 Above example is equivalent to the more cumbersome and static form:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 0, "brown", 0, "fox", "text_en") RETURN doc
 ```
 
 You can optionally specify the number of skipTokens in the array form before
 every string element:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", 1, "fox", "jumps"], "text_en") RETURN doc
 ```
 
 It is the same as the following:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
@@ -611,13 +611,13 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 
 Empty arrays are skipped:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, [], 1, "jumps", "text_en") RETURN doc
 ```
 
 The query is equivalent to:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 2 "jumps", "text_en") RETURN doc
 ```
 
@@ -628,7 +628,7 @@ Providing only empty arrays is valid, but will yield no results.
 Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` and
 `IN_RANGE`:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title,
   {STARTS_WITH: ["qui"]}, 0,
   {WILDCARD: ["b%o_n"]}, 0,
@@ -645,7 +645,7 @@ be stemmed away is removed from both words manually in the example.
 
 Above example is equivalent to:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title,
 [
   {STARTS_WITH: "qui"}, 0,
@@ -703,7 +703,7 @@ optionally with at least *minMatchCount* of the prefixes.
 To match a document `{ "text": "lorem ipsum..." }` using a prefix and the
 `"identity"` Analyzer you can use it like this:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH STARTS_WITH(doc.text, "lorem ip")
   RETURN doc
@@ -715,7 +715,7 @@ This query will match `{ "text": "lorem ipsum" }` as well as
 `{ "text": [ "lorem", "ipsum" ] }` given a View which indexes the `text`
 attribute and processes it with the `"text_en"` Analyzer:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, "ips"), "text_en")
   RETURN doc.text
@@ -726,7 +726,7 @@ modification to the query. The prefixes were passed to `STARTS_WITH()` as-is,
 but the built-in `text_en` Analyzer used for indexing has stemming enabled.
 So the indexed values are the following:
 
-```js
+```aql
 RETURN TOKENS("IPS (in-plane switching)", "text_en")
 ```
 
@@ -745,7 +745,7 @@ The *s* is removed from *ips*, which leads to the prefix *ips* not matching
 the indexed token *ip*. You may either create a custom text Analyzer with
 stemming disabled to avoid this issue, or apply stemming to the prefixes:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")), "text_en")
   RETURN doc.text
@@ -756,7 +756,7 @@ FOR doc IN viewName
 The `STARTS_WITH()` function accepts an array of prefix alternatives of which
 only one has to match:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, ["something", "ips"]), "text_en")
   RETURN doc.text
@@ -768,7 +768,7 @@ given prefix.
 
 The same query again, but with an explicit `minMatchCount`:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, ["wrong", "ips"], 1), "text_en")
   RETURN doc.text
@@ -777,7 +777,7 @@ FOR doc IN viewName
 The number can be increased to require that at least this many prefixes must
 be present:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, ["lo", "ips", "something"], 2), "text_en")
   RETURN doc.text
@@ -828,7 +828,7 @@ The Levenshtein distance between _quick_ and _quikc_ is `2` because it requires
 two operations to go from one to the other (remove _k_, insert _k_ at a
 different position).
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 2, false) // matches "quick"
   RETURN doc.text
@@ -836,7 +836,7 @@ FOR doc IN viewName
 
 The Damerau-Levenshtein distance is `1` (move _k_ to the end).
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1) // matches "quick"
   RETURN doc.text
@@ -849,7 +849,7 @@ distance is calculated using the search term `kc` (`quikc` with the prefix `qui`
 removed) and the stored value without the prefix (e.g. `ck`). The prefix `qui`
 is constant.
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH LEVENSHTEIN_MATCH(doc.text, "kc", 1, false, 64, "qui") // matches "quick"
   RETURN doc.text
@@ -857,7 +857,7 @@ FOR doc IN viewName
 
 You may compute the prefix and suffix from the input string as follows:
 
-```js
+```aql
 LET input = "quikc"
 LET prefixSize = 3
 LET prefix = LEFT(input, prefixSize)
@@ -875,7 +875,7 @@ _quicksands_, then the Levenshtein distance is 5, with 50% of the
 characters mismatching. If the inputs are _q_ and _qu_, then the distance
 is only 1, although it is also a 50% mismatch.
 
-```js
+```aql
 LET target = "input"
 LET targetLength = LENGTH(target)
 LET maxDistance = (targetLength > 5 ? 2 : (targetLength >= 3 ? 1 : 0))
@@ -928,7 +928,7 @@ case-insensitive matching. This can be controlled with Analyzers instead.
 
 #### Example: Searching with wildcards
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
   RETURN doc.text
@@ -936,7 +936,7 @@ FOR doc IN viewName
 
 `LIKE` can also be used in operator form:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
   RETURN doc.text
@@ -1037,7 +1037,7 @@ first, sort in **descending order** by the score (e.g. `SORT BM25(...) DESC`).
 You may calculate custom scores based on a scoring function using document
 attributes and numeric functions (e.g. `TFIDF(doc) * LOG(doc.value)`):
 
-```js
+```aql
 FOR movie IN imdbView
   SEARCH PHRASE(movie.title, "Star Wars", "text_en")
   SORT BM25(movie) * LOG(movie.runtime + 1) DESC
@@ -1047,7 +1047,7 @@ FOR movie IN imdbView
 Sorting by more than one score is allowed. You may also sort by a mix of
 scores and attributes from multiple Views as well as collections:
 
-```js
+```aql
 FOR a IN viewA
   FOR c IN coll
     FOR b IN viewB
@@ -1079,7 +1079,7 @@ Sorts documents using the
 
 Sorting by relevance with BM25 at default settings:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ...
   SORT BM25(doc) DESC
@@ -1091,7 +1091,7 @@ FOR doc IN viewName
 Sorting by relevance, with double-weighted term frequency and with full text
 length normalization:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ...
   SORT BM25(doc, 2.4, 1) DESC
@@ -1115,7 +1115,7 @@ Sorts documents using the
 
 Sort by relevance using the TF-IDF score:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ...
   SORT TFIDF(doc) DESC
@@ -1126,7 +1126,7 @@ FOR doc IN viewName
 
 Sort by relevance using a normalized TF-IDF score:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ...
   SORT TFIDF(doc, true) DESC
@@ -1138,7 +1138,7 @@ FOR doc IN viewName
 Sort by the value of the `text` attribute in ascending order, then by the TFIDF
 score in descending order where the attribute values are equivalent:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ...
   SORT doc.text, TFIDF(doc) DESC

@@ -53,7 +53,7 @@ example *users* documents:
 With the `[*]` operator it becomes easy to query just the names of the
 friends for each user:
 
-```
+```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[*].name }
 ```
@@ -167,7 +167,7 @@ These inline expressions can follow array expansion and contraction operators
 `[* ...]`, `[** ...]` etc. The keywords `FILTER`, `LIMIT` and `RETURN`
 must occur in this order if they are used in combination, and can only occur once:
 
-`anyArray[* FILTER conditions LIMIT skip,limit RETURN projection]`
+<code><em>anyArray</em>[* FILTER <em>conditions</em> LIMIT <em>skip</em>,<em>limit</em> RETURN <em>projection</em>]</code>
 
 Example with nested numbers and array contraction:
 
