@@ -1550,6 +1550,69 @@
     to be adjusted, or larger operations should be broken up into smaller ones in the
     client application.
 
+- name: arangodb_ioheartbeat_delays_total
+  introducedIn: "3.8.7"
+  help: |
+    Number of delays in the io heartbeat test.
+  unit: number
+  type: counter
+  category: Health
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This counter is increased whenever the io heartbeat encounters a delay
+    of at least 1s when writing a small file to the database directory,
+    reading it and then removing it again.
+    This test is done periodically to ensure that the underlying volume is
+    usable and performs reasonably well. The test can be switched off
+    explicitly with the flag `--database.io-heartbeat=false`, but the
+    default is `true`. Furthermore, every such failure leads to a line in
+    the log at INFO level for the `ENGINES` topic.
+
+- name: arangodb_ioheartbeat_duration
+  introducedIn: "3.8.7"
+  help: |
+    Histogram of execution times of a single IO heartbeat check.
+  unit: us
+  type: histogram
+  category: Health
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This histogram is updated whenever the io heartbeat runs its test in
+    the database directory. It writes a small file, syncs it to durable
+    storage, reads it, and then unlinks the file again. This test is done
+    periodically to ensure that the underlying volume is usable and performs
+    reasonably well. The test can be switched off explicitly with the flag
+    `--database.io-heartbeat=false`, but the default is `true`.
+
+- name: arangodb_ioheartbeat_failures_total
+  introducedIn: "3.8.7"
+  help: |
+    Number of failures in the io heartbeat test.
+  unit: number
+  type: counter
+  category: Health
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This counter is increased whenever the io heartbeat encounters a problem
+    when writing a small file to the database directory, reading it and then
+    removing it again. This test is done
+    periodically to ensure that the underlying volume is usable. The test can
+    be switched off explicitly with the flag `--database.io-heartbeat=false`,
+    but the default is `true`. Furthermore, every such failure leads to a
+    line in the log at INFO level for the `ENGINES` topic.
+
 - name: arangodb_license_expires
   introducedIn: "3.9.1"
   help: |
@@ -5469,7 +5532,7 @@
   unit: number
   type: gauge
   category: RocksDB
-  complexity: high
+  complexity: advanced
   exposedBy:
     - dbserver
     - agent
@@ -5486,7 +5549,7 @@
   unit: number
   type: gauge
   category: RocksDB
-  complexity: high
+  complexity: advanced
   exposedBy:
     - dbserver
     - agent

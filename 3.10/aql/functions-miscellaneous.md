@@ -201,13 +201,13 @@ DECODE_REV( "_YU0HOEG---" )
 
 ### SHARD_ID()
 
-`SHARD_ID(collection, {shardKeys})`
+`SHARD_ID(collection, shardKeys) → shardId`
 
 Return the shard in a collection that contains specified shard keys.
 
 - **collection** (string): a collection name
 - **shardKeys** (object): a set of shard keys and values
-- returns **retVal** (string): the responsible shard for the specified shard keys in
+- returns **shardId** (string): the responsible shard for the specified shard keys in
   the given collection
 
 Any missing shard key in the query is substituted with the `null` value.
@@ -319,6 +319,8 @@ of keys to return all documents that can be found.
   @endDocuBlock FUNCTION_DOCUMENT_6
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+---
 
 `DOCUMENT(id) → doc`
 

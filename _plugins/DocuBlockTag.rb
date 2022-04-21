@@ -33,12 +33,12 @@ class DocuBlockBlock < Liquid::Tag
                 if name == "<object>" and parentKey == "<object>"
                     level = level - 1 # hoist referenced struct
                 elsif name == "<array>" or (name == "<object>" and parentKey == "<array>")
-                    result += "  " * level + "- (#{type}#{necessity}):"
+                    result += "  " * level + "- (#{type}#{necessity}):\n"
                     description["description"].each_line do |line|
                         result += "  " * level + "  " + line
                     end
                 else
-                    result += "  " * level + "- **#{name}** (#{type}#{necessity}):"
+                    result += "  " * level + "- **#{name}** (#{type}#{necessity}):\n"
                     description["description"].each_line do |line|
                         result += "  " * level + "  " + line
                     end
@@ -63,7 +63,7 @@ class DocuBlockBlock < Liquid::Tag
         if block["urlParams"]
             result += "**Path Parameters**\n\n"
             block["urlParams"].each do |key, value|
-                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):"
+                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):\n"
                 value["description"].each_line do |line|
                     result += "    " + line
                 end
@@ -72,7 +72,7 @@ class DocuBlockBlock < Liquid::Tag
         if block["queryParams"]
             result += "**Query Parameters**\n\n"
             block["queryParams"].each do |key, value|
-                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):"
+                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):\n"
                 value["description"].each_line do |line|
                     result += "    " + line
                 end
@@ -81,7 +81,7 @@ class DocuBlockBlock < Liquid::Tag
         if block["headerParams"]
             result += "**Header Parameters**\n\n"
             block["headerParams"].each do |key, value|
-                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):"
+                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):\n"
                 value["description"].each_line do |line|
                     result += "    " + line
                 end
@@ -97,12 +97,12 @@ class DocuBlockBlock < Liquid::Tag
                 if key == "<object>"
                     level = level - 1 # hoist referenced struct
                 elsif key == "<array>"
-                    result += "  " * level + "- (#{type}, *#{value["necessity"]}*):"
+                    result += "  " * level + "- (#{type}, *#{value["necessity"]}*):\n"
                     value["description"].each_line do |line|
                         result += "  " * level + " " + line
                     end
                 else
-                    result += "  " * level + "- **#{key}** (#{type}, *#{value["necessity"]}*):"
+                    result += "  " * level + "- **#{key}** (#{type}, *#{value["necessity"]}*):\n"
                     value["description"].each_line do |line|
                         result += "    " + line
                     end
@@ -127,12 +127,12 @@ class DocuBlockBlock < Liquid::Tag
                         if key == "<object>"
                             level = level - 1 # hoist referenced struct
                         elsif key == "<array>"
-                            result += "  " * level + "- (#{type}):"
+                            result += "  " * level + "- (#{type}):\n"
                             value["description"].each_line do |line|
                                 result += "  " * level + "  " + line
                             end
                         else
-                            result += "  " * level + "- **#{key}** (#{type}):"
+                            result += "  " * level + "- **#{key}** (#{type}):\n"
                             value["description"].each_line do |line|
                                 result += "  " * level + "  " + line
                             end
@@ -191,7 +191,7 @@ class DocuBlockBlock < Liquid::Tag
                     end
                     currentStruct = nil
                 when /^@RESTHEADER\s*{([^,]+),\s*([^,\}]+)/
-                    local["header"] = "### #{$2}\n#{local['header']}\n`#{$1}`\n"
+                    local["header"] = "### #{$2}\n#{local['header']}\n`#{$1.sub(/#.*/, '')}`\n"
                     currentStruct = nil
                 when /^@RESTDESCRIPTION/
                     currentObject = local
