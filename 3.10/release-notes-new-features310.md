@@ -187,6 +187,23 @@ scans, for sorting, or for lookups that do not include all index attributes.
 
 See [Persistent Indexes](indexing-persistent.html#caching-of-index-values).
 
+SmartGraphs (Enterprise Edition)
+--------------------------------
+
+### SmartGraphs and SatelliteGraphs on a single server
+
+Now it is possible to test [SmartGraphs](graphs-smart-graphs.html) and
+[SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to port them to a cluster with multiple
+servers. All existing types of SmartGraphs are eligible to this procedure: [SmartGraphs](graphs-smart-graphs.html)
+themselves, Disjoint SmartGraphs, [Hybrid SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs) and
+[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-disjoint-smartgraphs). One can create a graph
+of any of those types in the usual way, e.g., using `arangosh`, but on a single server, then dump it, start a cluster
+(with multiple servers) and restore the graph in the cluster. The graph and the collections will keep all properties
+that are kept when the graph is already created in a cluster.
+
+This feature is only available in the Enterprise Edition.
+
+
 Server options
 --------------
 
@@ -250,33 +267,41 @@ The caching subsystem now provides the following 3 additional metrics:
   so they can be recycled quickly. The overall amount of inactive tables is
   limited, so not much memory will be used here.
 
+### Replication improvements
+
+For synchronous replication of document operations in the cluster, the follower can now
+return smaller responses to the leader. This change reduces the network traffic between the
+leader and its followers, and can lead to slightly faster turnover in replication.
+
+### Calculation of file hashes
+
+The calculation of SHA256 file hashes for the .sst files created by RocksDB and that are 
+required for hot backups has been moved from a separate background thread into the actual
+RocksDB operations that write out the .sst files.
+The SHA256 hashes are now calculated incrementally while .sst files are being written,
+so that no post-processing of .sst files is necessary anymore. 
+The previous background thread named `Sha256Thread` which was responsible for calculating
+the SHA256 hashes and could sometimes be seen using high amounts of CPU after larger
+write operations has now been fully removed.
+
+
 Client tools
 ------------
 
-
 ### arangobench
 
+_arangobench_ has a new option `--create-collection` that can be used to skip
+setting up a new collection for the to-be-run workload. That way some workloads
+can be run on already existing collections.
 
 ### arangoexport
 
-Added a new option called `--custom-query-bindvars` to arangoexport, so queries given via `--custom-query` can have bind variables in them. 
+_arangoexport_ has got a new option `--custom-query-bindvars`, so queries given via 
+the `--custom-query` option can now use bind variables in them. 
 
 
 Internal changes
 ----------------
-
-### SmartGraphs and SatelliteGraphs on a single server
-
-Now it is possible to test [SmartGraphs](graphs-smart-graphs.html) and
-[SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to port them to a cluster with multiple
-servers. All existing types of SmartGraphs are eligible to this procedure: [SmartGraphs](graphs-smart-graphs.html)
-themselves, Disjoint SmartGraphs, [Hybrid SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs) and
-[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-disjoint-smartgraphs). One can create a graph
-of any of those types in the usual way, e.g., using `arangosh`, but on a single server, then dump it, start a cluster
-(with multiple servers) and restore the graph in the cluster. The graph and the collections will keep all properties
-that are kept when the graph is already created in a cluster.
-
-This feature is only available in the Enterprise Edition.
 
 ### C++20 
 
