@@ -18,11 +18,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "agency",
     "type" : "boolean"
   },
   "agency.compaction-keep-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -35,6 +37,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -46,6 +52,7 @@
     "type" : "uint64"
   },
   "agency.compaction-step-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -58,6 +65,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -92,6 +103,7 @@
     "type" : "string"
   },
   "agency.election-timeout-max" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -104,6 +116,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -115,6 +131,7 @@
     "type" : "double"
   },
   "agency.election-timeout-min" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -127,6 +144,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : false,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -162,6 +183,7 @@
     "type" : "string..."
   },
   "agency.max-append-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -174,6 +196,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -208,6 +234,7 @@
     "type" : "string"
   },
   "agency.pool-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -220,6 +247,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -231,6 +262,7 @@
     "type" : "uint64"
   },
   "agency.size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -243,6 +275,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -272,11 +308,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "agency",
     "type" : "boolean"
   },
   "agency.supervision-frequency" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -289,6 +327,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -300,6 +342,7 @@
     "type" : "double"
   },
   "agency.supervision-grace-period" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -312,6 +355,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -323,6 +370,7 @@
     "type" : "double"
   },
   "agency.supervision-ok-threshold" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "agent"
@@ -335,6 +383,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -364,11 +416,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "agency",
     "type" : "boolean"
   },
   "arangosearch.commit-threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -386,6 +440,10 @@
     "introducedIn" : [
       "v3.7.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -397,6 +455,7 @@
     "type" : "uint32"
   },
   "arangosearch.commit-threads-idle" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -414,6 +473,10 @@
     "introducedIn" : [
       "v3.7.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -425,6 +488,7 @@
     "type" : "uint32"
   },
   "arangosearch.consolidation-threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -442,6 +506,10 @@
     "introducedIn" : [
       "v3.7.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -453,6 +521,7 @@
     "type" : "uint32"
   },
   "arangosearch.consolidation-threads-idle" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -470,6 +539,10 @@
     "introducedIn" : [
       "v3.7.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -481,6 +554,7 @@
     "type" : "uint32"
   },
   "arangosearch.threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -498,6 +572,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -509,6 +587,7 @@
     "type" : "uint32"
   },
   "arangosearch.threads-limit" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -526,6 +605,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -563,6 +646,7 @@
     "type" : "string"
   },
   "audit.max-entry-length" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -581,6 +665,10 @@
       "v3.8.0",
       "v3.7.9"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -642,6 +730,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "audit",
     "type" : "boolean"
@@ -670,6 +759,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "audit",
     "type" : "boolean"
@@ -727,6 +817,7 @@
     "type" : "string"
   },
   "cache.rebalancing-interval" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -742,6 +833,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 500000,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -753,6 +848,7 @@
     "type" : "uint64"
   },
   "cache.size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -768,6 +864,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -874,11 +974,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "cluster",
     "type" : "boolean"
   },
   "cluster.default-replication-factor" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator"
@@ -893,6 +995,10 @@
     "introducedIn" : [
       "v3.6.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -924,11 +1030,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "cluster",
     "type" : "boolean"
   },
   "cluster.index-create-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator"
@@ -941,6 +1049,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -952,6 +1064,7 @@
     "type" : "double"
   },
   "cluster.max-number-of-move-shards" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator"
@@ -966,6 +1079,10 @@
     "introducedIn" : [
       "v3.9.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -977,6 +1094,7 @@
     "type" : "uint32"
   },
   "cluster.max-number-of-shards" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator"
@@ -991,6 +1109,10 @@
     "introducedIn" : [
       "v3.5.1"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1002,6 +1124,7 @@
     "type" : "uint32"
   },
   "cluster.max-replication-factor" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator"
@@ -1016,6 +1139,10 @@
     "introducedIn" : [
       "v3.6.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 10,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1027,6 +1154,7 @@
     "type" : "uint32"
   },
   "cluster.min-replication-factor" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator"
@@ -1041,6 +1169,10 @@
     "introducedIn" : [
       "v3.6.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1147,6 +1279,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "cluster",
     "type" : "boolean"
@@ -1170,11 +1303,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "cluster",
     "type" : "boolean"
   },
   "cluster.synchronous-replication-timeout-factor" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -1190,6 +1325,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1201,6 +1340,7 @@
     "type" : "double"
   },
   "cluster.synchronous-replication-timeout-maximum" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -1218,6 +1358,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1229,6 +1373,7 @@
     "type" : "double"
   },
   "cluster.synchronous-replication-timeout-minimum" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -1244,6 +1389,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1255,6 +1404,7 @@
     "type" : "double"
   },
   "cluster.synchronous-replication-timeout-per-4k" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -1270,6 +1420,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1281,6 +1435,7 @@
     "type" : "double"
   },
   "cluster.system-replication-factor" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator"
@@ -1293,6 +1448,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1331,6 +1490,7 @@
     "values" : "Possible values: \"auto\", \"disable\", \"force\", \"online\""
   },
   "cluster.write-concern" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator"
@@ -1345,6 +1505,10 @@
     "introducedIn" : [
       "v3.6.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1429,6 +1593,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -1454,6 +1619,7 @@
       "linux",
       "macos"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -1480,6 +1646,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
@@ -1559,6 +1726,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
@@ -1585,6 +1753,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
@@ -1611,6 +1780,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
@@ -1636,6 +1806,35 @@
       "macos",
       "windows"
     ],
+    "requiresValue" : false,
+    "section" : "database",
+    "type" : "boolean"
+  },
+  "database.io-heartbeat" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "perform IO heartbeat to test underlying volume",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.7"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
@@ -1740,6 +1939,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
@@ -1766,6 +1966,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
@@ -1822,6 +2023,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -1977,6 +2179,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -2003,6 +2206,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "foxx",
     "type" : "boolean"
@@ -2029,6 +2233,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "foxx",
     "type" : "boolean"
@@ -2055,6 +2260,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "foxx",
     "type" : "boolean"
@@ -2079,11 +2285,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "foxx",
     "type" : "boolean"
   },
   "foxx.queues-poll-interval" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2097,6 +2305,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -2129,6 +2341,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "foxx",
     "type" : "boolean"
@@ -2153,6 +2366,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "frontend",
     "type" : "boolean"
@@ -2202,6 +2416,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "frontend",
     "type" : "boolean"
@@ -2256,6 +2471,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "http",
     "type" : "boolean"
@@ -2284,11 +2500,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "http",
     "type" : "boolean"
   },
   "http.keep-alive-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2304,6 +2522,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -2338,6 +2560,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "http",
     "type" : "boolean"
@@ -2394,6 +2617,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "http",
     "type" : "boolean"
@@ -2447,6 +2671,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -2499,6 +2724,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "javascript",
     "type" : "boolean"
@@ -2525,6 +2751,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "javascript",
     "type" : "boolean"
@@ -2551,6 +2778,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "javascript",
     "type" : "boolean"
@@ -2599,6 +2827,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "javascript",
     "type" : "boolean"
@@ -2623,6 +2852,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "javascript",
     "type" : "boolean"
@@ -2763,6 +2993,7 @@
     "type" : "string..."
   },
   "javascript.gc-frequency" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2776,6 +3007,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -2787,6 +3022,7 @@
     "type" : "double"
   },
   "javascript.gc-interval" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2800,6 +3036,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -2832,6 +3072,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "javascript",
     "type" : "boolean"
@@ -3016,6 +3257,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "javascript",
     "type" : "boolean"
@@ -3042,11 +3284,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "javascript",
     "type" : "boolean"
   },
   "javascript.v8-contexts" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3060,6 +3304,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3071,6 +3319,7 @@
     "type" : "uint64"
   },
   "javascript.v8-contexts-max-age" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3084,6 +3333,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3095,6 +3348,7 @@
     "type" : "double"
   },
   "javascript.v8-contexts-max-invocations" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3108,6 +3362,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3119,6 +3377,7 @@
     "type" : "uint64"
   },
   "javascript.v8-contexts-minimum" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3132,6 +3391,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3143,6 +3406,7 @@
     "type" : "uint64"
   },
   "javascript.v8-max-heap" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3158,6 +3422,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3217,6 +3485,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap",
     "type" : "boolean"
@@ -3243,6 +3512,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap",
     "type" : "boolean"
@@ -3347,6 +3617,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap",
     "type" : "boolean"
@@ -3373,11 +3644,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap",
     "type" : "boolean"
   },
   "ldap.network-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3393,6 +3666,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3404,6 +3681,7 @@
     "type" : "double"
   },
   "ldap.port" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3419,6 +3697,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 65535,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3477,11 +3759,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap",
     "type" : "boolean"
   },
   "ldap.refresh-rate" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3497,6 +3781,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3557,11 +3845,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap",
     "type" : "boolean"
   },
   "ldap.retries" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3577,6 +3867,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3797,6 +4091,7 @@
     "type" : "string"
   },
   "ldap.serialize-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3812,6 +4107,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3844,6 +4143,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap",
     "type" : "boolean"
@@ -3927,6 +4227,7 @@
     "type" : "string"
   },
   "ldap.timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -3942,6 +4243,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3974,6 +4279,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap",
     "type" : "boolean"
@@ -4130,6 +4436,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap2",
     "type" : "boolean"
@@ -4156,6 +4463,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap2",
     "type" : "boolean"
@@ -4260,6 +4568,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap2",
     "type" : "boolean"
@@ -4286,11 +4595,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap2",
     "type" : "boolean"
   },
   "ldap2.network-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -4306,6 +4617,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4317,6 +4632,7 @@
     "type" : "double"
   },
   "ldap2.port" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -4332,6 +4648,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 65535,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4390,11 +4710,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap2",
     "type" : "boolean"
   },
   "ldap2.refresh-rate" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -4410,6 +4732,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4470,11 +4796,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap2",
     "type" : "boolean"
   },
   "ldap2.retries" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -4490,6 +4818,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4710,6 +5042,7 @@
     "type" : "string"
   },
   "ldap2.serialize-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -4725,6 +5058,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4757,6 +5094,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap2",
     "type" : "boolean"
@@ -4840,6 +5178,7 @@
     "type" : "string"
   },
   "ldap2.timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -4855,6 +5194,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4887,6 +5230,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ldap2",
     "type" : "boolean"
@@ -5104,6 +5448,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5132,6 +5477,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5160,6 +5506,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5268,6 +5615,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5294,6 +5642,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5350,6 +5699,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5378,6 +5728,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5433,6 +5784,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5488,11 +5840,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
   },
   "log.max-entry-length" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -5510,6 +5864,10 @@
     "introducedIn" : [
       "v3.7.9"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5571,6 +5929,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5625,6 +5984,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5651,6 +6011,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5677,6 +6038,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5703,6 +6065,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5758,6 +6121,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5784,6 +6148,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5841,6 +6206,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5869,6 +6235,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -5897,11 +6264,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
   },
   "network.idle-connection-ttl" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -5919,6 +6288,10 @@
     "introducedIn" : [
       "v3.6.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5930,6 +6303,7 @@
     "type" : "uint64"
   },
   "network.io-threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -5947,6 +6321,10 @@
     "introducedIn" : [
       "v3.6.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5958,6 +6336,7 @@
     "type" : "uint32"
   },
   "network.max-open-connections" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -5975,6 +6354,10 @@
     "introducedIn" : [
       "v3.6.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5986,6 +6369,7 @@
     "type" : "uint64"
   },
   "network.max-requests-in-flight" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6003,6 +6387,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6068,6 +6456,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "network",
     "type" : "boolean"
@@ -6123,11 +6512,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
   },
   "query.cache-entries" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6143,6 +6534,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6154,6 +6549,7 @@
     "type" : "uint64"
   },
   "query.cache-entries-max-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6169,6 +6565,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6180,6 +6580,7 @@
     "type" : "uint64"
   },
   "query.cache-entry-max-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6195,6 +6596,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6227,6 +6632,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
@@ -6279,11 +6685,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
+    "base" : 67513475072,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6301,6 +6709,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6312,6 +6724,7 @@
     "type" : "uint64"
   },
   "query.max-nodes-per-callstack" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6329,6 +6742,10 @@
     "introducedIn" : [
       "v3.9.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6340,6 +6757,7 @@
     "type" : "uint64"
   },
   "query.max-parallelism" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6357,6 +6775,10 @@
     "introducedIn" : [
       "v3.7.1"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6368,6 +6790,7 @@
     "type" : "uint64"
   },
   "query.max-runtime" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6386,6 +6809,10 @@
       "v3.6.7",
       "v3.7.3"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6397,6 +6824,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
+    "base" : 67513475072,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6412,6 +6840,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6446,11 +6878,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
   },
   "query.optimizer-max-plans" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6466,6 +6900,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6529,6 +6967,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
@@ -6557,11 +6996,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
   },
   "query.registry-ttl" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6577,6 +7018,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6611,11 +7056,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
   },
   "query.slow-streaming-threshold" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6631,6 +7078,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6642,6 +7093,7 @@
     "type" : "double"
   },
   "query.slow-threshold" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6657,6 +7109,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6691,6 +7147,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
@@ -6717,6 +7174,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
@@ -6745,6 +7203,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
@@ -6771,6 +7230,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
@@ -6799,6 +7259,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
@@ -6827,11 +7288,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
   },
   "random.generator" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6847,6 +7310,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6906,6 +7373,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "replication",
     "type" : "boolean"
@@ -6932,6 +7400,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "replication",
     "type" : "boolean"
@@ -6958,11 +7427,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "replication",
     "type" : "boolean"
   },
   "replication.connect-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6981,6 +7452,10 @@
       "v3.4.9",
       "v3.5.4"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6992,6 +7467,7 @@
     "type" : "double"
   },
   "replication.max-parallel-tailing-invocations" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7009,6 +7485,10 @@
     "introducedIn" : [
       "v3.5.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7020,6 +7500,7 @@
     "type" : "uint64"
   },
   "replication.quick-keys-limit" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7037,6 +7518,10 @@
     "introducedIn" : [
       "v3.7.9"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7048,6 +7533,7 @@
     "type" : "uint64"
   },
   "replication.request-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7066,6 +7552,10 @@
       "v3.4.9",
       "v3.5.4"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7100,6 +7590,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "replication",
     "type" : "boolean"
@@ -7128,6 +7619,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7154,11 +7646,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.block-cache-shard-bits" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7174,6 +7668,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : false,
+    "maxValue" : 20,
+    "minInclusive" : true,
+    "minValue" : -1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7185,6 +7683,7 @@
     "type" : "int64"
   },
   "rocksdb.block-cache-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7200,6 +7699,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7234,6 +7737,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7262,11 +7766,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.compaction-read-ahead-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7282,6 +7788,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7312,6 +7822,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7336,11 +7847,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.delayed-write-rate" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7356,6 +7869,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7388,6 +7905,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7416,6 +7934,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7442,6 +7961,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7468,6 +7988,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7496,6 +8017,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7524,6 +8046,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7578,6 +8101,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7658,6 +8182,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -7688,11 +8213,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.intermediate-commit-count" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7708,6 +8235,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7719,6 +8250,7 @@
     "type" : "uint64"
   },
   "rocksdb.intermediate-commit-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7734,6 +8266,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7745,6 +8281,7 @@
     "type" : "uint64"
   },
   "rocksdb.level0-compaction-trigger" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7760,6 +8297,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 9223372036854775807,
+    "minInclusive" : true,
+    "minValue" : -9223372036854775808,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7771,6 +8312,7 @@
     "type" : "int64"
   },
   "rocksdb.level0-slowdown-trigger" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7786,6 +8328,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 9223372036854775807,
+    "minInclusive" : true,
+    "minValue" : -9223372036854775808,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7797,6 +8343,7 @@
     "type" : "int64"
   },
   "rocksdb.level0-stop-trigger" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7812,6 +8359,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 9223372036854775807,
+    "minInclusive" : true,
+    "minValue" : -9223372036854775808,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7846,11 +8397,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.max-background-jobs" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7866,6 +8419,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 2147483647,
+    "minInclusive" : true,
+    "minValue" : -2147483648,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7877,6 +8434,7 @@
     "type" : "int32"
   },
   "rocksdb.max-bytes-for-level-base" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7892,6 +8450,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7903,6 +8465,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-bytes-for-level-multiplier" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7918,6 +8481,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : false,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7929,6 +8496,7 @@
     "type" : "double"
   },
   "rocksdb.max-parallel-compactions" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7946,6 +8514,10 @@
     "introducedIn" : [
       "v3.7.11"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7957,6 +8529,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-subcompactions" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7972,6 +8545,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7983,6 +8560,7 @@
     "type" : "uint32"
   },
   "rocksdb.max-total-wal-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7998,6 +8576,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8009,6 +8591,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-transaction-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8024,6 +8607,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8035,6 +8622,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8050,6 +8638,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8061,6 +8653,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number-definitions" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8078,6 +8671,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8089,6 +8686,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number-documents" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8106,6 +8704,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8117,6 +8719,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number-edge" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8134,6 +8737,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8145,6 +8752,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number-fulltext" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8162,6 +8770,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8173,6 +8785,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number-geo" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8190,6 +8803,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8201,6 +8818,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number-primary" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8218,6 +8836,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8229,6 +8851,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number-replicated-logs" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8246,6 +8869,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8257,6 +8884,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-number-vpack" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8274,6 +8902,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8285,6 +8917,7 @@
     "type" : "uint64"
   },
   "rocksdb.max-write-buffer-size-to-maintain" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8302,6 +8935,10 @@
     "introducedIn" : [
       "v3.7.3"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 9223372036854775807,
+    "minInclusive" : true,
+    "minValue" : -9223372036854775808,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8313,6 +8950,7 @@
     "type" : "int64"
   },
   "rocksdb.min-write-buffer-number-to-merge" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8328,6 +8966,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8339,6 +8981,7 @@
     "type" : "uint64"
   },
   "rocksdb.minimum-disk-free-bytes" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8354,6 +8997,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8365,6 +9012,7 @@
     "type" : "uint64"
   },
   "rocksdb.minimum-disk-free-percent" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8380,6 +9028,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8391,6 +9043,7 @@
     "type" : "double"
   },
   "rocksdb.num-levels" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8406,6 +9059,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 20,
+    "minInclusive" : true,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8417,6 +9074,7 @@
     "type" : "uint64"
   },
   "rocksdb.num-threads-priority-high" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8432,6 +9090,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 64,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8443,6 +9105,7 @@
     "type" : "uint32"
   },
   "rocksdb.num-threads-priority-low" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8458,6 +9121,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 256,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8469,6 +9136,7 @@
     "type" : "uint32"
   },
   "rocksdb.num-uncompressed-levels" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8484,6 +9152,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8516,11 +9188,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.pending-compactions-slowdown-trigger" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8536,6 +9210,10 @@
     "introducedIn" : [
       "v3.8.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8547,6 +9225,7 @@
     "type" : "uint64"
   },
   "rocksdb.pending-compactions-stop-trigger" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8562,6 +9241,10 @@
     "introducedIn" : [
       "v3.8.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8596,6 +9279,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -8624,6 +9308,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -8650,11 +9335,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.sync-delay-threshold" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8671,6 +9358,10 @@
       "v3.6.8",
       "v3.7.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8682,6 +9373,7 @@
     "type" : "uint64"
   },
   "rocksdb.sync-interval" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8695,6 +9387,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8706,6 +9402,7 @@
     "type" : "uint64"
   },
   "rocksdb.table-block-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8721,6 +9418,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8732,6 +9433,7 @@
     "type" : "uint64"
   },
   "rocksdb.target-file-size-base" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8749,6 +9451,10 @@
     "introducedIn" : [
       "v3.7.1"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8760,6 +9466,7 @@
     "type" : "uint64"
   },
   "rocksdb.target-file-size-multiplier" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8777,6 +9484,10 @@
     "introducedIn" : [
       "v3.7.1"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8807,11 +9518,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.throttle-frequency" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8827,6 +9540,10 @@
     "introducedIn" : [
       "v3.8.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8838,6 +9555,7 @@
     "type" : "uint64"
   },
   "rocksdb.throttle-lower-bound-bps" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8853,6 +9571,10 @@
     "introducedIn" : [
       "v3.8.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8864,6 +9586,7 @@
     "type" : "uint64"
   },
   "rocksdb.throttle-max-write-rate" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8879,6 +9602,10 @@
     "introducedIn" : [
       "v3.8.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8890,6 +9617,7 @@
     "type" : "uint64"
   },
   "rocksdb.throttle-scaling-factor" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8905,6 +9633,10 @@
     "introducedIn" : [
       "v3.8.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8916,6 +9648,7 @@
     "type" : "uint64"
   },
   "rocksdb.throttle-slots" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8931,6 +9664,10 @@
     "introducedIn" : [
       "v3.8.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8942,6 +9679,7 @@
     "type" : "uint64"
   },
   "rocksdb.throttle-slow-down-writes-trigger" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -8957,6 +9695,10 @@
     "introducedIn" : [
       "v3.8.5"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8968,6 +9710,7 @@
     "type" : "uint64"
   },
   "rocksdb.total-write-buffer-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -8983,6 +9726,43 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.transaction-lock-stripes" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 32,
+    "deprecatedIn" : null,
+    "description" : "Number of lock stripes to use for transaction locks",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.2"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8994,6 +9774,7 @@
     "type" : "uint64"
   },
   "rocksdb.transaction-lock-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9009,6 +9790,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 9223372036854775807,
+    "minInclusive" : true,
+    "minValue" : -9223372036854775808,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9039,6 +9824,7 @@
     "os" : [
       "linux"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -9063,6 +9849,7 @@
     "os" : [
       "linux"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -9089,6 +9876,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -9115,6 +9903,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
@@ -9140,11 +9929,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.wal-archive-size-limit" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -9158,6 +9949,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9195,6 +9990,7 @@
     "type" : "string"
   },
   "rocksdb.wal-file-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -9208,6 +10004,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9219,6 +10019,7 @@
     "type" : "double"
   },
   "rocksdb.wal-file-timeout-initial" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
@@ -9232,6 +10033,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9264,11 +10069,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
   },
   "rocksdb.write-buffer-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9284,6 +10091,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9316,6 +10127,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -9342,6 +10154,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -9368,11 +10181,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
   },
   "server.authentication-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9388,6 +10203,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9419,11 +10238,13 @@
       "linux",
       "macos"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
   },
   "server.cluster-metrics-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9441,6 +10262,10 @@
     "introducedIn" : [
       "v31.0.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9452,6 +10277,7 @@
     "type" : "uint32"
   },
   "server.descriptors-minimum" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9467,6 +10293,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9528,6 +10358,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -9556,11 +10387,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
   },
   "server.flush-interval" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9576,6 +10409,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9636,11 +10473,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
   },
   "server.io-threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9656,6 +10495,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9769,11 +10612,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
   },
   "server.maintenance-actions-block" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver"
@@ -9786,6 +10631,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 2147483647,
+    "minInclusive" : true,
+    "minValue" : -2147483648,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9797,6 +10646,7 @@
     "type" : "int32"
   },
   "server.maintenance-actions-linger" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver"
@@ -9809,6 +10659,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 2147483647,
+    "minInclusive" : true,
+    "minValue" : -2147483648,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9820,6 +10674,7 @@
     "type" : "int32"
   },
   "server.maintenance-slow-threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver"
@@ -9834,6 +10689,10 @@
     "introducedIn" : [
       "v3.8.3"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9845,6 +10704,7 @@
     "type" : "uint32"
   },
   "server.maintenance-threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver"
@@ -9857,6 +10717,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9868,6 +10732,7 @@
     "type" : "uint32"
   },
   "server.maximal-queue-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9883,6 +10748,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9894,6 +10763,7 @@
     "type" : "uint64"
   },
   "server.maximal-threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9909,6 +10779,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9920,6 +10794,7 @@
     "type" : "uint64"
   },
   "server.minimal-threads" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9935,6 +10810,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9946,6 +10825,7 @@
     "type" : "uint64"
   },
   "server.ongoing-low-priority-multiplier" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9963,6 +10843,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9974,6 +10858,7 @@
     "type" : "double"
   },
   "server.prio1-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -9989,6 +10874,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10000,6 +10889,7 @@
     "type" : "uint64"
   },
   "server.prio2-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10017,6 +10907,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10049,11 +10943,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
   },
   "server.scheduler-queue-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10069,6 +10965,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10080,6 +10980,7 @@
     "type" : "uint64"
   },
   "server.session-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10095,6 +10996,10 @@
     "introducedIn" : [
       "v3.9.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : false,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10127,6 +11032,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -10152,6 +11058,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -10181,6 +11088,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -10268,6 +11176,7 @@
     "type" : "string"
   },
   "server.unavailability-queue-fill-grade" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10286,6 +11195,10 @@
       "v3.6.10",
       "v3.7.6"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10320,6 +11233,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -10429,6 +11343,7 @@
     "type" : "string"
   },
   "ssl.options" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10444,6 +11359,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10476,11 +11395,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ssl",
     "type" : "boolean"
   },
   "ssl.protocol" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10496,6 +11417,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10529,6 +11454,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ssl",
     "type" : "boolean"
@@ -10582,6 +11508,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "ssl",
     "type" : "boolean"
@@ -10608,11 +11535,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
   },
   "tcp.backlog-size" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10628,6 +11557,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10660,6 +11593,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "tcp",
     "type" : "boolean"
@@ -10691,6 +11625,7 @@
     "type" : "string"
   },
   "transaction.streaming-idle-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10706,6 +11641,10 @@
     "introducedIn" : [
       "v3.8.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 120,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10717,6 +11656,7 @@
     "type" : "double"
   },
   "transaction.streaming-lock-timeout" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10735,6 +11675,10 @@
       "v3.6.5",
       "v3.7.1"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10746,6 +11690,7 @@
     "type" : "double"
   },
   "ttl.frequency" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10761,6 +11706,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10772,6 +11721,7 @@
     "type" : "uint64"
   },
   "ttl.max-collection-removes" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10787,6 +11737,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10798,6 +11752,7 @@
     "type" : "uint64"
   },
   "ttl.max-total-removes" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -10813,6 +11768,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 1,
     "obsolete" : false,
     "os" : [
       "linux",
