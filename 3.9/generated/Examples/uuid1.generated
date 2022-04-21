@@ -1,16 +1,10 @@
 @Q:
-  FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> RETURN UUID()
-  <span class="hljs-comment">/* For example:
-  [
-    &quot;28bc5873-68ae-4e0f-89a3-31d717c822de&quot;,
-    &quot;1084d263-71aa-415c-81d6-451de42e18a3&quot;,
-    &quot;7fce640a-f340-4204-bca4-0d2ceebe2699&quot;
-  ]
-  */</span>
+  FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span>
+    RETURN UUID()
 
 @R
 [
-  <span class="hljs-string">&quot;9f1d52f3-f3a6-425b-9cdb-f2fe198ebee9&quot;</span>,
-  <span class="hljs-string">&quot;d4b91829-bb27-4653-92d5-39b9f075066a&quot;</span>,
-  <span class="hljs-string">&quot;57099462-b67c-4363-a17c-7a2dc10d8855&quot;</span>
+  <span class="hljs-string">&quot;3ee4da9c-5640-4b5c-a1a8-f8bdce21c163&quot;</span>,
+  <span class="hljs-string">&quot;b0707e20-5b5c-4555-ab2e-0b7c5f7b1318&quot;</span>,
+  <span class="hljs-string">&quot;65c16004-a715-4a1e-a1c3-bbcaf1c8cccb&quot;</span>
 ]
