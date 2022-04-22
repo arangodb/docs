@@ -1077,6 +1077,13 @@ Sorts documents using the
   - BM15 for *b* = `0` (corresponds to no length normalization)
 - returns **score** (number): computed ranking value
 
+{% hint 'info' %}
+The Analyzers used for indexing document attributes must have the `"frequency"`
+feature enabled. The `BM25()` function will otherwise return a score of 0.
+The Analyzers should have the `"norm"` feature enabled, too, or normalization
+will be disabled, which is not meaningful for BM25.
+{% endhint %}
+
 #### Example: Sorting by default `BM25()` score
 
 Sorting by relevance with BM25 at default settings:
@@ -1112,6 +1119,12 @@ Sorts documents using the
 - **normalize** (bool, _optional_): specifies whether scores should be
   normalized. The default is *false*.
 - returns **score** (number): computed ranking value
+
+{% hint 'info' %}
+The Analyzers used for indexing document attributes must have the `"frequency"`
+feature enabled. The `TFIDF()` function will otherwise return a score of 0.
+It is recommended that the Analyzers have the `"norm"` feature enabled, too.
+{% endhint %}
 
 #### Example: Sorting by default `TFIDF()` score
 

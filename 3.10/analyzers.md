@@ -531,8 +531,8 @@ letters before `c`:
     @startDocuBlockInline analyzerCollation
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerCollation}
       var analyzers = require("@arangodb/analyzers");
-      var en = analyzers.save("collation_en", "collation", { locale: "en.utf-8" }, []);
-      var sv = analyzers.save("collation_sv", "collation", { locale: "sv.utf-8" }, []);
+      var en = analyzers.save("collation_en", "collation", { locale: "en.utf-8" }, ["frequency", "norm", "position"]);
+      var sv = analyzers.save("collation_sv", "collation", { locale: "sv.utf-8" }, ["frequency", "norm", "position"]);
       var test = db._create("test");
     | db.test.save([
     |   { text: "a" },
@@ -844,7 +844,7 @@ with either of the stopwords `and` and `the`:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("stop", "stopwords", {
     |   stopwords: ["616e64","746865"], hex: true
-      }, ["frequency", "norm"]);
+      }, ["frequency", "norm", "position"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))");
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -862,7 +862,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     | var a = analyzers.save("norm_stop", "pipeline", { "pipeline": [
     |   { type: "norm", properties: { locale: "en.utf-8", accent: false, case: "lower" } },
     |   { type: "stopwords", properties: { stopwords: ["and","the"], hex: false } },
-      ]}, ["frequency", "norm"]);
+      ]}, ["frequency", "norm", "position"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -916,9 +916,9 @@ Create different `segmentation` Analyzers to show the behavior of the different
     @startDocuBlockInline analyzerSegmentationBreak
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerSegmentationBreak}
       var analyzers = require("@arangodb/analyzers");
-      var all = analyzers.save("segment_all", "segmentation", { break: "all" }, []);
-      var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, []);
-      var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, []);
+      var all = analyzers.save("segment_all", "segmentation", { break: "all" }, ["frequency", "norm", "position"]);
+      var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, ["frequency", "norm", "position"]);
+      var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, ["frequency", "norm", "position"]);
     | db._query(`LET str = 'Test\twith An_EMAIL-address+123@example.org\n蝴蝶。\u2028бутерброд'
     |   RETURN {
     |     "all": TOKENS(str, 'segment_all'),
@@ -980,8 +980,8 @@ if (!fs.exists(destModelPath)) {
 
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerClassification}
 var analyzers = require("@arangodb/analyzers");
-var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
-var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, ["frequency", "norm", "position"]);
+var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
 | db._query(`LET str = 'Which baking dish is best to bake a banana bread ?'
 |   RETURN {
 |     "all": TOKENS(str, 'classifier_single'),
@@ -1039,8 +1039,8 @@ if (!fs.exists(destModelPath)) {
 
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerNearestNeighbors}
 var analyzers = require("@arangodb/analyzers");
-var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
-var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, ["frequency", "norm", "position"]);
+var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
 | db._query(`LET str = 'salt and oil'
 |   RETURN {
 |     "all": TOKENS(str, 'nn_single'),
@@ -1264,10 +1264,10 @@ result can be used with. For example the *text* type will produce
 
 Currently the following *features* are supported:
 
-- **frequency**: how often a term is seen, required for `PHRASE()`
-- **norm**: the field normalization factor
-- **position**: sequentially increasing term position, required for `PHRASE()`.
-  If present then the *frequency* feature is also required
+- **frequency**: track how often a term occurs. Required for `PHRASE()`, `BM25()`, `TDIDF()`.
+- **norm**: normalize repeated terms to score fairer. Recommended for `BM25()` and `TFIDF()`.
+- **position**: enumerate the tokens for phrase and proximity searches. Required for `PHRASE()`.
+  If present, then the *frequency* feature is also required.
 
 Built-in Analyzers
 ------------------
