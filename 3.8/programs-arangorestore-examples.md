@@ -169,13 +169,39 @@ After that, run the following command:
 
     arangorestore --collection mycopyvalues --server.database mycopy --input-directory "dump"
 
+Enabling revision trees for older dumps
+---------------------------------------
+
+Starting with ArangoDB version 3.8, collections in ArangoDB can use an internal
+format that is based on revision trees. Using that format has advantages over the
+previous format, because changes to the collection on the leader can quickly be 
+detected when trying to get followers shards into sync.
+
+Dumps taken from older versions of ArangoDB, i.e. ArangoDB 3.7 or before, do not
+contain any information about revision trees. 
+
+The *arangorestore* behavior for these collections is as follows:
+* when using ArangoDB versions before 3.8.7, the collections are restored without revision trees.
+* when using ArangoDB versions >= 3.8.7, the collections will use revision trees by default, but
+  it is possible to opt out of this by invoking arangorestore with the option `--enable-revision-trees false`.
+
+The option `--enable-revision-trees` was introduced in ArangoDB 3.8.7.
+When this option is `true` (which is the default value), then *arangorestore* will add the
+necessary attributes for using revision trees when restoring the collections. It will only do so
+if the attributes are not contained in the dump.
+When the option is set to `false`, *arangorestore* will not add the attributes when restoring
+collections.
+
+Regardless of the setting of this option, *arangorestore* will not add the attributes when they
+are already present in the dump. In this case, the attributes may need to be manually modified
+in the dump if their values need to be changed.
+
+
 Restoring in a Cluster
 ----------------------
 
-From v2.1 on, the *arangorestore* tool supports sharding and can be
-used to restore data into a Cluster. Simply point it to one of the
-_Coordinators_ in your Cluster and it will work as usual but on sharded
-collections in the Cluster.
+To restore data into a Cluster, simply point *arangorestore* to one of the
+_Coordinators_ in your Cluster.
 
 If *arangorestore* is asked to restore a collection, it will use the same
 number of shards, replication factor and shard keys as when the collection

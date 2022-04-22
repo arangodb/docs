@@ -590,8 +590,8 @@ New deployments created with ArangoDB 3.8 will automatically benefit from the
 new protocol, and existing deployments will benefit from the new protocol for
 any collections that are created with 3.8 onwards.
 Existing collections created with previous versions of ArangoDB will only benefit 
-from the new protocol if the collections are logically dumped and
-recreated/restored using arangodump and arangorestore.
+from the new protocol if the collections are dumped and recreated/restored using 
+arangodump and arangorestore.
 
 Index selectivity estimates
 ---------------------------
