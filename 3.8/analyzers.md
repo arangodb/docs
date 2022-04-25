@@ -124,6 +124,32 @@ Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
 [`geojson`](#geojson)     |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)   |      –       |    –     |      –        |   –
 
+Analyzer Features
+-----------------
+
+The *features* of an Analyzer determine what term matching capabilities will be
+available and as such are only applicable in the context of ArangoSearch Views.
+
+The valid values for the features are dependant on both the capabilities of
+the underlying *type* and the query filtering and sorting functions that the
+result can be used with. For example the *text* type will produce
+`frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
+`frequency` + `position` to be available.
+
+Currently the following *features* are supported:
+
+- **frequency**: track how often a term occurs.
+  Required for `PHRASE()`, `BM25()`, and `TDIDF()`.
+- **norm**: write the field length normalization factor that is used to score
+  repeated terms fairer. Required for `BM25()` (except BM15) and `TFIDF()`
+  (if called with normalization enabled).
+- **position**: enumerate the tokens for phrase and proximity searches. Required
+  for `PHRASE()`. If present, then the `frequency` feature is also required.
+
+Also see [PHRASE()](aql/functions-arangosearch.html#phrase),
+[BM25()](aql/functions-arangosearch.html#bm25),
+[TFIDF()](aql/functions-arangosearch.html#tfidf).
+
 Analyzer Properties
 -------------------
 
@@ -162,7 +188,6 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `delimiter` (string): the delimiting character(s)
-
 
 **Examples**
 
@@ -782,7 +807,7 @@ with either of the stopwords `and` and `the`:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("stop", "stopwords", {
     |   stopwords: ["616e64","746865"], hex: true
-      }, ["frequency", "norm"]);
+      }, ["frequency", "norm", "position"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))");
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -800,7 +825,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     | var a = analyzers.save("norm_stop", "pipeline", { "pipeline": [
     |   { type: "norm", properties: { locale: "en.utf-8", accent: false, case: "lower" } },
     |   { type: "stopwords", properties: { stopwords: ["and","the"], hex: false } },
-      ]}, ["frequency", "norm"]);
+      ]}, ["frequency", "norm", "position"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -1002,25 +1027,6 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     @endDocuBlock analyzerGeoPointLatLng
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
-Analyzer Features
------------------
-
-The *features* of an Analyzer determine what term matching capabilities will be
-available and as such are only applicable in the context of ArangoSearch Views.
-
-The valid values for the features are dependant on both the capabilities of
-the underlying *type* and the query filtering and sorting functions that the
-result can be used with. For example the *text* type will produce
-`frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
-`frequency` + `position` to be available.
-
-Currently the following *features* are supported:
-
-- **frequency**: how often a term is seen, required for `PHRASE()`
-- **norm**: the field normalization factor
-- **position**: sequentially increasing term position, required for `PHRASE()`.
-  If present then the *frequency* feature is also required
 
 Built-in Analyzers
 ------------------

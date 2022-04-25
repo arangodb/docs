@@ -113,6 +113,32 @@ Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
 [`ngram`](#ngram)         |      No      |    No    |      No       |  Yes
 [`text`](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
 
+Analyzer Features
+-----------------
+
+The *features* of an Analyzer determine what term matching capabilities will be
+available and as such are only applicable in the context of ArangoSearch Views.
+
+The valid values for the features are dependant on both the capabilities of
+the underlying *type* and the query filtering and sorting functions that the
+result can be used with. For example the *text* type will produce
+`frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
+`frequency` + `position` to be available.
+
+Currently the following *features* are supported:
+
+- **frequency**: track how often a term occurs.
+  Required for `PHRASE()`, `BM25()`, and `TDIDF()`.
+- **norm**: write the field length normalization factor that is used to score
+  repeated terms fairer. Required for `BM25()` (except BM15) and `TFIDF()`
+  (if called with normalization enabled).
+- **position**: enumerate the tokens for phrase and proximity searches. Required
+  for `PHRASE()`. If present, then the `frequency` feature is also required.
+
+Also see [PHRASE()](aql/functions-arangosearch.html#phrase),
+[BM25()](aql/functions-arangosearch.html#bm25),
+[TFIDF()](aql/functions-arangosearch.html#tfidf).
+
 Analyzer Properties
 -------------------
 
@@ -151,7 +177,6 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `delimiter` (string): the delimiting character(s)
-
 
 **Examples**
 
@@ -480,25 +505,6 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     @endDocuBlock analyzerTextEdgeNgram
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
-Analyzer Features
------------------
-
-The *features* of an Analyzer determine what term matching capabilities will be
-available and as such are only applicable in the context of ArangoSearch Views.
-
-The valid values for the features are dependant on both the capabilities of
-the underlying *type* and the query filtering and sorting functions that the
-result can be used with. For example the *text* type will produce
-`frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
-`frequency` + `position` to be available.
-
-Currently the following *features* are supported:
-
-- **frequency**: how often a term is seen, required for `PHRASE()`
-- **norm**: the field normalization factor
-- **position**: sequentially increasing term position, required for `PHRASE()`.
-  If present then the *frequency* feature is also required
 
 Built-in Analyzers
 ------------------
