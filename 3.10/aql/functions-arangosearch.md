@@ -1081,7 +1081,8 @@ Sorts documents using the
 The Analyzers used for indexing document attributes must have the `"frequency"`
 feature enabled. The `BM25()` function will otherwise return a score of 0.
 The Analyzers should have the `"norm"` feature enabled, too, or normalization
-will be disabled, which is not meaningful for BM25.
+will be disabled, which is not meaningful for BM25 and BM11. BM15 does not need
+the `"norm"` feature as it has no length normalization.
 {% endhint %}
 
 #### Example: Sorting by default `BM25()` score
@@ -1123,7 +1124,8 @@ Sorts documents using the
 {% hint 'info' %}
 The Analyzers used for indexing document attributes must have the `"frequency"`
 feature enabled. The `TFIDF()` function will otherwise return a score of 0.
-It is recommended that the Analyzers have the `"norm"` feature enabled, too.
+The Analyzers need to have the `"norm"` feature enabled, too, if you want to use
+`TFIDF()` with the `normalize` parameter set to `true`.
 {% endhint %}
 
 #### Example: Sorting by default `TFIDF()` score
