@@ -202,7 +202,7 @@ class DocuBlockBlock < Liquid::Tag
                     currentStruct = nil
                 when /^@EXAMPLES/
                     if local
-                        local['examples'] = "**Examples**\n"
+                        local['examples'] = "\n**Examples**\n"
                         currentObject = local
                         currentKey = "examples"
                     end
