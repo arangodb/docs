@@ -300,8 +300,7 @@ workloads can be run on already existing collections.
 
 _arangoexport_ has a new option `--custom-query-bindvars` that lets you set
 bind variables that you can now use in the `--custom-query` option
-(renamed from `--query`). Note that at signs need to be escaped by doubling them
-(see [Environment variables as parameters](administration-configuration.html#environment-variables-as-parameters)).
+(renamed from `--query`).
 
 ```
 arangoexport \
@@ -309,6 +308,9 @@ arangoexport \
   --custom-query-bindvars '{"@@collection": "users", "attribute": "name"}' \
   ...
 ```
+
+Note that at signs need to be escaped in command-lines by doubling them (see
+[Environment variables as parameters](administration-configuration.html#environment-variables-as-parameters)).
 
 Internal changes
 ----------------
