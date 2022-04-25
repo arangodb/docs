@@ -172,30 +172,32 @@ After that, run the following command:
 Enabling revision trees for older dumps
 ---------------------------------------
 
-Starting with ArangoDB version 3.8, collections in ArangoDB can use an internal
-format that is based on revision trees. Using that format has advantages over the
-previous format, because changes to the collection on the leader can quickly be 
-detected when trying to get followers shards into sync.
+<small>Introduced in: v3.8.7</small>
+
+Collections in ArangoDB 3.8 and later can use an internal format that is based
+on revision trees for replication. Using this format has advantages over the
+previous format, because changes to the collection on the leader can quickly be
+detected when trying to get follower shards in sync.
 
 Dumps taken from older versions of ArangoDB, i.e. ArangoDB 3.7 or before, do not
-contain any information about revision trees. 
+contain any information about revision trees.
+The _arangorestore_ behavior for these collections is as follows:
 
-The *arangorestore* behavior for these collections is as follows:
-* when using ArangoDB versions before 3.8.7, the collections are restored without revision trees.
-* when using ArangoDB versions >= 3.8.7, the collections will use revision trees by default, but
-  it is possible to opt out of this by invoking arangorestore with the option `--enable-revision-trees false`.
+- When using ArangoDB versions before 3.8.7, the collections are
+  restored without revision trees.
+- When using ArangoDB versions 3.8.7 or any later version, the
+  collections will use revision trees by default, but you can opt out of this by
+  invoking arangorestore with the option `--enable-revision-trees false`.
 
-The option `--enable-revision-trees` was introduced in ArangoDB 3.8.7.
-When this option is `true` (which is the default value), then *arangorestore* will add the
-necessary attributes for using revision trees when restoring the collections. It will only do so
-if the attributes are not contained in the dump.
-When the option is set to `false`, *arangorestore* will not add the attributes when restoring
-collections.
+If the `--enable-revision-trees` startup option is `true` (which is the default value),
+then _arangorestore_ will add the necessary attributes for using revision trees
+when restoring the collections. It will only do so if the attributes are not
+contained in the dump. If the option is set to `false`, _arangorestore_ will not
+add the attributes when restoring collections.
 
-Regardless of the setting of this option, *arangorestore* will not add the attributes when they
-are already present in the dump. In this case, the attributes may need to be manually modified
-in the dump if their values need to be changed.
-
+Regardless of the setting of this option, _arangorestore_ will not add the
+attributes when they are already present in the dump. You may modify the
+attributes manually in the dump if you want to change their values.
 
 Restoring in a Cluster
 ----------------------
