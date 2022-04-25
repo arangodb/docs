@@ -85,7 +85,6 @@ It is possible to opt out of these changes and get back the memory and performan
 of the previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
-
 Maximum Array / Object nesting
 ------------------------------
 
@@ -102,20 +101,20 @@ Client tools
 
 ### arangobench
 
-Changed flag name from `--concurrency` to `--threads`.
+Renamed the `--concurrency` startup option to `--threads`.
 
 The following deprecated arangobench testcases have been removed from _arangobench_:
-* `aqltrx`
-* `aqlv8`
-* `counttrx`
-* `deadlocktrx`
-* `multi-collection`
-* `multitrx`
-* `random-shapes`
-* `shapes`
-* `shapes-append`
-* `skiplist`
-* `stream-cursor`
+- `aqltrx`
+- `aqlv8`
+- `counttrx`
+- `deadlocktrx`
+- `multi-collection`
+- `multitrx`
+- `random-shapes`
+- `shapes`
+- `shapes-append`
+- `skiplist`
+- `stream-cursor`
 
 These test cases had been deprecated since ArangoDB 3.9.
 
@@ -124,8 +123,11 @@ scope.
 
 ### arangoexport
 
-To improve naming consistency across different client tools, the existing arangoexport `--query` option
-was renamed to `--custom-query`.
-Using the old option name (`--query`) is still supported and will implicitly use 
-the `--custom-query` option under the hood. Client scripts should eventually be
-updated to use the new option name though. 
+To improve naming consistency across different client tools, the existing
+_arangoexport_ startup options `--query` and `--query-max-runtime` were renamed
+to `--custom-query` and `--custom-query-max-runtime`.
+
+Using the old option names (`--query` and `--query-max-runtime`) is still
+supported and will implicitly use the `--custom-query` and
+`--custom-query-max-runtime` options under the hood. Client scripts should
+eventually be updated to use the new option name, however.
