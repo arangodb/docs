@@ -78,7 +78,7 @@ await adb.Document.PostDocumentAsync(
         Description = "Some item"
     });
 ```
-{% hint 'note' %}
+{% hint 'tip' %}
 The document object must not have any value against a property named `_key`, if you expect ArangoDB to generate the document key for you.
 The default serializer options specify that null values will be ignored, so if your class has a `_key` property, you can leave it as `null` when creating a new document.
 If you change the serializer options so that `IgnoreNullValues` is `false`, then you cannot create a new document using a class that specifies a property named `_key`, because the ArangoDB API will reject the request.
