@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;If-Match: &quot;_d95VaNC--_&quot;&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67844</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;If-Match: &quot;_eCzgz9m--_&quot;&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67844</span> &lt;&lt;EOF
 {"other":"content"}
 EOF
 
@@ -6,7 +6,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">412</span> P
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">152</span>
-etag: <span class="hljs-string">&quot;_d95VaNC---&quot;</span>
+etag: <span class="hljs-string">&quot;_eCzgz9m---&quot;</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -18,5 +18,5 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;conflict, _rev values do not match&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67844&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67844&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_d95VaNC---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eCzgz9m---&quot;</span> 
 }
