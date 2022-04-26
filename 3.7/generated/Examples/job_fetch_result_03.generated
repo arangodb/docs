@@ -5,17 +5,17 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 89499
+x-arango-async-id: 89495
 x-content-type-options: nosniff
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/89499</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/89495</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">61</span>
 server: ArangoDB
-x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">89499</span>
+x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">89495</span>
 x-content-type-options: nosniff
 
 { 
