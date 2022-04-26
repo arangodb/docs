@@ -3,7 +3,7 @@ layout: default
 description: Datacenter to datacenter replication, available in the Enterprise Edition
 title: DC2DC Replication
 ---
-# Datacenter to datacenter Replication
+# Datacenter to Datacenter Replication
 
 {% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
