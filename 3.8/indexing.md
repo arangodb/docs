@@ -18,3 +18,4 @@ There are special sections for
   - [Fulltext Indexes](indexing-fulltext.html)
   - [Geo-spatial Indexes](indexing-geo.html)
   - [Vertex-centric Indexes](indexing-vertex-centric.html)
+- [ArangoSearch](arangosearch.html): How to use ArangoSearch Views, which are inverted indexes
