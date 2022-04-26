@@ -5,7 +5,7 @@ layout: default
 
 ## Serialization
 
-ArangoDB C#/.NET driver allows for alternative serializer implementations to be used by implementing the `IApiClientSerialization` interface or `ApiClientSerialization` abstract class. The abstract class provides an additional property for default serialization options to use as fallback when none are provided by the caller. See the [Serialization Options](net-usage.html#serialization-options) section below.
+ArangoDB C#/.NET driver allows for alternative serializer implementations to be used by implementing the `IApiClientSerialization` interface or `ApiClientSerialization` abstract class. The abstract class provides an additional property for default serialization options to use as fallback when none are provided by the caller. See the [Serialization Options](dotnet-usage.html#serialization-options) section below.
 
 By default, all API clients use the provided `JsonNetApiClientSerialization`, which uses the Json.NET library. To use an alternative serialization implementation, pass an instance of `IApiClientSerialization` when instantiating any API client class or the `ArangoDBClient` class.
 
