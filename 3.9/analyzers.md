@@ -136,7 +136,7 @@ The *features* of an Analyzer determine what term matching capabilities will be
 available and as such are only applicable in the context of ArangoSearch Views.
 
 The valid values for the features are dependant on both the capabilities of
-the underlying *type* and the query filtering and sorting functions that the
+the underlying Analyzer *type* and the query filtering and sorting functions that the
 result can be used with. For example the *text* type will produce
 `frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
 `frequency` + `position` to be available.
@@ -148,12 +148,14 @@ Currently the following *features* are supported:
 - **norm**: write the field length normalization factor that is used to score
   repeated terms fairer. Required for `BM25()` (except BM15) and `TFIDF()`
   (if called with normalization enabled).
-- **position**: enumerate the tokens for phrase and proximity searches. Required
-  for `PHRASE()`. If present, then the `frequency` feature is also required.
+- **position**: enumerate the tokens for position-dependent queries. Required
+  for `PHRASE()` and `NGRAM_MATCH()`.
+  If present, then the `frequency` feature is also required.
 
 Also see [PHRASE()](aql/functions-arangosearch.html#phrase),
 [BM25()](aql/functions-arangosearch.html#bm25),
-[TFIDF()](aql/functions-arangosearch.html#tfidf).
+[TFIDF()](aql/functions-arangosearch.html#tfidf),
+[NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match).
 
 Analyzer Properties
 -------------------

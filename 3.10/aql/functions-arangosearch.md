@@ -388,15 +388,6 @@ The _n_-grams for both attribute and target are produced by the specified
 Analyzer. Increasing the _n_-gram length will increase accuracy, but reduce
 error tolerance. In most cases a size of 2 or 3 will be a good choice.
 
-{% hint 'info' %}
-Use an Analyzer of type `ngram` with `preserveOriginal: false` and `min` equal
-to `max`. Otherwise, the similarity score calculated internally will be lower
-than expected.
-
-The Analyzer must have the `"position"` and `"frequency"` features enabled or
-the `NGRAM_MATCH()` function will not find anything.
-{% endhint %}
-
 Also see the String Functions
 [`NGRAM_POSITIONAL_SIMILARITY()`](functions-string.html#ngram_positional_similarity)
 and [`NGRAM_SIMILARITY()`](functions-string.html#ngram_similarity)
@@ -410,6 +401,15 @@ for calculating _n_-gram similarity that cannot be accelerated by a View index.
 - **analyzer** (string): name of an [Analyzer](../analyzers.html).
 - returns **fulfilled** (bool): `true` if the evaluated _n_-gram similarity value
   is greater or equal than the specified threshold, `false` otherwise
+
+{% hint 'info' %}
+Use an Analyzer of type `ngram` with `preserveOriginal: false` and `min` equal
+to `max`. Otherwise, the similarity score calculated internally will be lower
+than expected.
+
+The Analyzer must have the `"position"` and `"frequency"` features enabled or
+the `NGRAM_MATCH()` function will not find anything.
+{% endhint %}
 
 #### Example: Using a custom bigram Analyzer
 
