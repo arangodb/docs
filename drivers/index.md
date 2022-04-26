@@ -58,8 +58,6 @@ Scarango | Scala | [github.com/outr/scarango](https://github.com/outr/scarango){
 aRango-Driver | R | [gitlab.com/krpack/arango-driver](https://gitlab.com/krpack/arango-driver){:target="_blank"}
 ArangoDB PHP ODM | PHP | [github.com/lucassouzavieira/arangodb-php-odm](https://github.com/lucassouzavieira/arangodb-php-odm){:target="_blank"}
 arangodb-php-client | PHP | [github.com/LaravelFreelancerNL/arangodb-php-client](https://github.com/LaravelFreelancerNL/arangodb-php-client){:target="_blank"}
-arangodb-net-standard | C# / .NET | [github.com/Actify-Inc/arangodb-net-standard](https://github.com/Actify-Inc/arangodb-net-standard){:target="_blank"}
-ArangoDB-NET | C# / .NET | [github.com/yojimbo87/ArangoDB-NET](https://github.com/yojimbo87/ArangoDB-NET){:target="_blank"}
 dotnet-arangodb | C# / .NET | [github.com/coronabytes/dotnet-arangodb](https://github.com/coronabytes/dotnet-arangodb){:target="_blank"}
 arangoclient.net | C# / .NET | [github.com/ra0o0f/arangoclient.net](https://github.com/ra0o0f/arangoclient.net){:target="_blank"}
 dotnet-arangodb | C# / .NET | [github.com/coronabytes/dotnet-arangodb](https://github.com/coronabytes/dotnet-arangodb){:target="_blank"}
