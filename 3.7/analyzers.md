@@ -27,8 +27,22 @@ conditions, similar to queries to web search engines.
 
 Analyzers can be used on their own to tokenize and normalize strings in AQL
 queries with the [`TOKENS()` function](aql/functions-string.html#tokens).
+The following example shows the creation of a custom Analyzer and how it
+transforms an example input:
 
-<!-- TODO: Add arangosh example how to create and test custom Analyzer -->
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerCustomTokens
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerCustomTokens}
+      var analyzers = require("@arangodb/analyzers")
+    | var a = analyzers.save("custom", "text", {
+    |   locale: "en.utf-8",
+    |   stopwords: ["a", "example"]
+      }, ["frequency","norm","position"]);
+      db._query(`RETURN TOKENS("UPPER & lower, a Stemming Example.", "custom")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerCustomTokens
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 How Analyzers process values depends on their type and configuration.
 The configuration is comprised of type-specific properties and list of features.
