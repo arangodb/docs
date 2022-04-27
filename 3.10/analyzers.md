@@ -27,8 +27,22 @@ conditions, similar to queries to web search engines.
 
 Analyzers can be used on their own to tokenize and normalize strings in AQL
 queries with the [`TOKENS()` function](aql/functions-string.html#tokens).
+The following example shows the creation of a custom Analyzer and how it
+transforms an example input:
 
-<!-- TODO: Add arangosh example how to create and test custom Analyzer -->
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerCustomTokens
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerCustomTokens}
+      var analyzers = require("@arangodb/analyzers")
+    | var a = analyzers.save("custom", "text", {
+    |   locale: "en.utf-8",
+    |   stopwords: ["a", "example"]
+      }, ["frequency","norm","position"]);
+      db._query(`RETURN TOKENS("UPPER & lower, a Stemming Example.", "custom")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerCustomTokens
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 How Analyzers process values depends on their type and configuration.
 The configuration is comprised of type-specific properties and list of features.
@@ -132,6 +146,34 @@ Analyzer  /  Feature                      | Tokenization | Stemming | Normalizat
 [`nearest_neighbors`](#nearest_neighbors) |      –       |    –     |      –        |   –
 [`geojson`](#geojson)                     |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)                   |      –       |    –     |      –        |   –
+
+Analyzer Features
+-----------------
+
+The *features* of an Analyzer determine what term matching capabilities will be
+available and as such are only applicable in the context of ArangoSearch Views.
+
+The valid values for the features are dependant on both the capabilities of
+the underlying Analyzer *type* and the query filtering and sorting functions that the
+result can be used with. For example the *text* type will produce
+`frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
+`frequency` + `position` to be available.
+
+Currently the following *features* are supported:
+
+- **frequency**: track how often a term occurs.
+  Required for `PHRASE()`, `BM25()`, and `TDIDF()`.
+- **norm**: write the field length normalization factor that is used to score
+  repeated terms fairer. Required for `BM25()` (except BM15) and `TFIDF()`
+  (if called with normalization enabled).
+- **position**: enumerate the tokens for position-dependent queries. Required
+  for `PHRASE()` and `NGRAM_MATCH()`.
+  If present, then the `frequency` feature is also required.
+
+Also see [PHRASE()](aql/functions-arangosearch.html#phrase),
+[BM25()](aql/functions-arangosearch.html#bm25),
+[TFIDF()](aql/functions-arangosearch.html#tfidf),
+[NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match).
 
 Analyzer Properties
 -------------------
@@ -531,8 +573,8 @@ letters before `c`:
     @startDocuBlockInline analyzerCollation
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerCollation}
       var analyzers = require("@arangodb/analyzers");
-      var en = analyzers.save("collation_en", "collation", { locale: "en.utf-8" }, []);
-      var sv = analyzers.save("collation_sv", "collation", { locale: "sv.utf-8" }, []);
+      var en = analyzers.save("collation_en", "collation", { locale: "en.utf-8" }, ["frequency", "norm", "position"]);
+      var sv = analyzers.save("collation_sv", "collation", { locale: "sv.utf-8" }, ["frequency", "norm", "position"]);
       var test = db._create("test");
     | db.test.save([
     |   { text: "a" },
@@ -844,7 +886,7 @@ with either of the stopwords `and` and `the`:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("stop", "stopwords", {
     |   stopwords: ["616e64","746865"], hex: true
-      }, ["frequency", "norm"]);
+      }, ["frequency", "norm", "position"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))");
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -862,7 +904,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     | var a = analyzers.save("norm_stop", "pipeline", { "pipeline": [
     |   { type: "norm", properties: { locale: "en.utf-8", accent: false, case: "lower" } },
     |   { type: "stopwords", properties: { stopwords: ["and","the"], hex: false } },
-      ]}, ["frequency", "norm"]);
+      ]}, ["frequency", "norm", "position"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -916,9 +958,9 @@ Create different `segmentation` Analyzers to show the behavior of the different
     @startDocuBlockInline analyzerSegmentationBreak
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerSegmentationBreak}
       var analyzers = require("@arangodb/analyzers");
-      var all = analyzers.save("segment_all", "segmentation", { break: "all" }, []);
-      var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, []);
-      var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, []);
+      var all = analyzers.save("segment_all", "segmentation", { break: "all" }, ["frequency", "norm", "position"]);
+      var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, ["frequency", "norm", "position"]);
+      var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, ["frequency", "norm", "position"]);
     | db._query(`LET str = 'Test\twith An_EMAIL-address+123@example.org\n蝴蝶。\u2028бутерброд'
     |   RETURN {
     |     "all": TOKENS(str, 'segment_all'),
@@ -980,8 +1022,8 @@ if (!fs.exists(destModelPath)) {
 
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerClassification}
 var analyzers = require("@arangodb/analyzers");
-var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
-var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, ["frequency", "norm", "position"]);
+var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
 | db._query(`LET str = 'Which baking dish is best to bake a banana bread ?'
 |   RETURN {
 |     "all": TOKENS(str, 'classifier_single'),
@@ -1039,8 +1081,8 @@ if (!fs.exists(destModelPath)) {
 
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerNearestNeighbors}
 var analyzers = require("@arangodb/analyzers");
-var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
-var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, ["frequency", "norm", "position"]);
+var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
 | db._query(`LET str = 'salt and oil'
 |   RETURN {
 |     "all": TOKENS(str, 'nn_single'),
@@ -1250,25 +1292,6 @@ Then query for locations that are within a 3 kilometer radius of a given point:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Analyzer Features
------------------
-
-The *features* of an Analyzer determine what term matching capabilities will be
-available and as such are only applicable in the context of ArangoSearch Views.
-
-The valid values for the features are dependant on both the capabilities of
-the underlying *type* and the query filtering and sorting functions that the
-result can be used with. For example the *text* type will produce
-`frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
-`frequency` + `position` to be available.
-
-Currently the following *features* are supported:
-
-- **frequency**: how often a term is seen, required for `PHRASE()`
-- **norm**: the field normalization factor
-- **position**: sequentially increasing term position, required for `PHRASE()`.
-  If present then the *frequency* feature is also required
-
 Built-in Analyzers
 ------------------
 
@@ -1360,4 +1383,4 @@ Turkish    * | `tr`
 
 \* <small>Introduced in: v3.7.0</small>
 
-\** <small>Introduced in: v3.10.0</small>
+\*\* <small>Introduced in: v3.10.0</small>

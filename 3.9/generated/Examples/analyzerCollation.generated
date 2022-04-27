@@ -1,6 +1,6 @@
 arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> en = analyzers.save(<span class="hljs-string">&quot;collation_en&quot;</span>, <span class="hljs-string">&quot;collation&quot;</span>, { <span class="hljs-attr">locale</span>: <span class="hljs-string">&quot;en.utf-8&quot;</span> }, []);
-arangosh&gt; <span class="hljs-keyword">var</span> sv = analyzers.save(<span class="hljs-string">&quot;collation_sv&quot;</span>, <span class="hljs-string">&quot;collation&quot;</span>, { <span class="hljs-attr">locale</span>: <span class="hljs-string">&quot;sv.utf-8&quot;</span> }, []);
+arangosh&gt; <span class="hljs-keyword">var</span> en = analyzers.save(<span class="hljs-string">&quot;collation_en&quot;</span>, <span class="hljs-string">&quot;collation&quot;</span>, { <span class="hljs-attr">locale</span>: <span class="hljs-string">&quot;en.utf-8&quot;</span> }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+arangosh&gt; <span class="hljs-keyword">var</span> sv = analyzers.save(<span class="hljs-string">&quot;collation_sv&quot;</span>, <span class="hljs-string">&quot;collation&quot;</span>, { <span class="hljs-attr">locale</span>: <span class="hljs-string">&quot;sv.utf-8&quot;</span> }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
 arangosh&gt; <span class="hljs-keyword">var</span> test = db._create(<span class="hljs-string">&quot;test&quot;</span>);
 arangosh&gt; db.test.save([
 ........&gt;   { <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;a&quot;</span> },
@@ -12,22 +12,22 @@ arangosh&gt; db.test.save([
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70715&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70715&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eCzg7Le--A&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eEYLEgK---&quot;</span> 
   }, 
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70716&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70716&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eCzg7Li---&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eEYLEgK--_&quot;</span> 
   }, 
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70717&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70717&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eCzg7Li--_&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eEYLEgK--A&quot;</span> 
   }, 
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70718&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70718&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eCzg7Li--A&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eEYLEgK--B&quot;</span> 
   } 
 ]
 arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span class="hljs-string">&quot;view&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>,
