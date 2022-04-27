@@ -279,6 +279,10 @@ When writing to an edge collection (`table.type=edge`), the schema of the Datafr
 - In case of the `Append` save mode, failed jobs cannot be rolled back and the underlying data source may require manual cleanup.
 - Speculative execution of tasks would only work for idempotent write configurations. See [Write Resiliency](#write-resiliency) for more details.
 
+## Mapping Configuration
+
+Serialization and deserialization of Spark Dataframe Row to and from JSON (or Velocypack) can be customized using the following options:
+- `ignoreNullFields`: whether to ignore null fields during serialization, `false` by default
 
 ## Supported Spark data types
 
