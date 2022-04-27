@@ -282,7 +282,7 @@ When writing to an edge collection (`table.type=edge`), the schema of the Datafr
 ## Mapping Configuration
 
 Serialization and deserialization of Spark Dataframe Row to and from JSON (or Velocypack) can be customized using the following options:
-- `ignoreNullFields`: whether to ignore null fields during serialization, `false` by default
+- `ignoreNullFields`: whether to ignore null fields during serialization, `false` by default (only supported in Spark 3.x)
 
 ## Supported Spark data types
 
