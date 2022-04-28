@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Key Features
+# Features and Capabilities
 
 NoSQL, OLTP, CP
 
