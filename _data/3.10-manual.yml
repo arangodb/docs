@@ -3,28 +3,29 @@
   href: index.html
 - text: Features
   href: features.html
-  - text: Highlights
-    href: highlights.html
+  children:
+    - text: Highlights
+      href: highlights.html
 - text: Tutorials
   href: tutorials.html
   children:
-  - text: Getting Started
-    href: getting-started.html
-    children:
-      - text: Installation
-        href: getting-started-installation.html
-      - text: Authentication
-        href: getting-started-authentication.html
-      - text: Web Interface
-        href: getting-started-web-interface.html
-      - text: 'Databases, Collections and Documents'
-        href: getting-started-databases-collections-documents.html
-      - text: Querying the Database
-        href: getting-started-querying-the-database.html
-      - text: Coming from SQL
-        href: getting-started-coming-from-sql.html
-      - text: Next Steps
-        href: getting-started-next-steps.html
+    - text: Getting Started
+      href: getting-started.html
+      children:
+        - text: Installation
+          href: getting-started-installation.html
+        - text: Authentication
+          href: getting-started-authentication.html
+        - text: Web Interface
+          href: getting-started-web-interface.html
+        - text: 'Databases, Collections and Documents'
+          href: getting-started-databases-collections-documents.html
+        - text: Querying the Database
+          href: getting-started-querying-the-database.html
+        - text: Coming from SQL
+          href: getting-started-coming-from-sql.html
+        - text: Next Steps
+          href: getting-started-next-steps.html
     - text: Reduce Memory Footprint
       href: tutorials-reduce-memory-footprint.html
     - text: ArangoDB Starter
