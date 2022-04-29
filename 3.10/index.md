@@ -12,9 +12,8 @@ redirect_from:
 
 ## What is ArangoDB
 
-ArangoDB is an open-source database management system specializing in storing
-graph structures. Graphs are information networks comprised of nodes and
-relations.
+ArangoDB is an open-source database management system for graphs.
+Graphs are information networks comprised of nodes and relations.
 
     Node ---Relation---> Node
 
@@ -50,7 +49,7 @@ composable query language.
 
     FOR book IN Books
       FILTER book.title == "ArangoDB"
-      FOR person IN 1..2 INBOUND book GRAPH "sales"
+      FOR person IN 1..2 INBOUND book Sales, OUTBOUND People
         RETURN person.name
 
 ArangoDB also comes with an integrated search engine for information retrieval,
@@ -123,7 +122,10 @@ Aside from basic graph traversal, ArangoDB offers graph algorithms to find one
 or multiple shortest paths between two vertices, can return a specified amount
 of paths between two vertices in order of increasing length, and supports
 distributed graph processing based on the Pregel framework.
-## ArangoDB as a Key-Value Database
+
+### ArangoDB as a Key-Value Database
+
+A key-value database is a database system that lets you 
 
 _key, not BLOB
 
@@ -137,15 +139,15 @@ ArangoML
 
 ## How to Use the Documentation
 
-The documentation is organized in five handbooks:
+The documentation is split into five parts:
 
 - This manual describes ArangoDB and its features in detail for you as a user,
-  developer and administrator.
+  developer, administrator, and data scientist.
 - The [AQL handbook](aql/) explains ArangoDB's query language AQL.
-- The [HTTP handbook](http/) describes the internal API of ArangoDB
+- The [HTTP handbook](http/) describes the public REST API of ArangoDB
   that is used to communicate with clients. In general, the HTTP handbook will be
   of interest to driver developers. If you use any of the existing drivers for
-  the language of your choice, you can skip this handbook.
+  the language of your choice, you can skip this part.
 - The [Driver handbook](drivers/) includes the documentation of the
   available official ArangoDB drivers and integrations, and an overview of the community
   drivers.

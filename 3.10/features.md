@@ -15,7 +15,7 @@ restrictions and includes cluster support.
 
 ArangoDB is also available in a commercial version, called the
 **Enterprise Edition**. It includes additional features for performance and
-security, such as for scaling graphs and encrypting on-disk data.
+security, such as for scaling graphs and managing your data safely.
 
 <https://www.arangodb.com/enterprise-server/>
 
