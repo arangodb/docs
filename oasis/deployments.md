@@ -207,7 +207,7 @@ The deployment will not be reachable from the internet anymore, other than via
 the Oasis dashboard to administrate it. To revert to a public deployment, please
 contact support via __Request help__ in the help menu.
 
-1. **View** the deployment you want to change.
+1. Open the deployment you want to change.
 2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
    icon. If you see a pencil icon and no menu opens, then you are either on the
    free-to-try or professional tier, or the selected deployment is not eligible.
@@ -217,7 +217,7 @@ contact support via __Request help__ in the help menu.
    OneShard and Sharded deployments running on Azure.
    {% endhint %}
 
-3. Click **Change to private endpoint** in the menu
+3. Click **Change to private endpoint** in the menu.
    ![Oasis Deployment Private Endpoint Menu](images/oasis-deployment-private-endpoint-menu.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
 5. You need to enter one or more Azure Subscription IDs (GUIDs). They cannot be
