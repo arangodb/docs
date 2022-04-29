@@ -213,8 +213,8 @@ contact support via __Request help__ in the help menu.
    free-to-try or professional tier, or the selected deployment is not eligible.
 
    {% hint 'info' %}
-   The private endpoint option is only available on the enterprise tier, for
-   OneShard and Sharded deployments running on Azure.
+   The private endpoint option is only available on the enterprise tier for
+   deployments running on Azure.
    {% endhint %}
 
 3. Click **Change to private endpoint** in the menu.
