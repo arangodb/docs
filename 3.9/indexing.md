@@ -19,3 +19,4 @@ There are special sections for
   - [Multi-dimensional Indexes](indexing-multi-dim.html)
   - [Geo-spatial Indexes](indexing-geo.html)
   - [Vertex-centric Indexes](indexing-vertex-centric.html)
+- [ArangoSearch](arangosearch.html): How to use ArangoSearch Views, analyzers, and functions.
