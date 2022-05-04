@@ -15,20 +15,18 @@ redirect_from:
 ArangoDB is an open-source database management system for graphs.
 Graphs are information networks comprised of nodes and relations.
 
-    Node ---Relation---> Node
+![Node - Relation - Node](images/data-model-graph-relation-abstract.png)
 
 A social network is a common example of a graph. People are represented by nodes
 and their friendships by relations.
 
-    Mary ---isFriendOf---> John
+![Mary - is friend of - John](images/data-model-graph-relation-concrete.png)
 
 Nodes are also called vertices, and relations are edges that connect vertices.
 A vertex typically represents a specific entity (a person, a book, a sensor
 reading etc.) and an edge defines how one entity relates to another.
 
-    Person ---bought---> Book
-       \
-        --- isFriendOf ---> Other_Person
+![Mary - bought - Book, is friend of - John](images/data-model-graph-relations.png)
 
 This paradigm of storing data feels natural because it closely matches the
 cognitive model of humans. It is an expressive data model that allows you to
@@ -39,18 +37,17 @@ Not everything is a graph use case, however. ArangoDB qualifies as a multi-model
 database system that lets you equally work with (semi-)structured data in the
 form of schema-free JSON objects without connecting these objects to form a graph.
 
-    _______     _______
-    |      |    |      |
-    | Doc1 |    | Doc2 |
-    |______|    |______|
+![Person Mary, Book ArangoDB](images/data-model-document.png)
 
 It is designed from the ground up to support multiple data models with a single,
 composable query language.
 
-    FOR book IN Books
-      FILTER book.title == "ArangoDB"
-      FOR person IN 1..2 INBOUND book Sales, OUTBOUND People
-        RETURN person.name
+```js
+FOR book IN Books
+  FILTER book.title == "ArangoDB"
+  FOR person IN 1..2 INBOUND book Sales, OUTBOUND People
+    RETURN person.name
+```
 
 ArangoDB also comes with an integrated search engine for information retrieval,
 such as full-text search with relevance ranking.
@@ -90,7 +87,7 @@ Each collection is part of a **database**. Databases allow you to isolate sets
 of collections from one another, usually for multi-tenant applications, where
 each of your clients has their own database to work with.
 
-Joins?
+Joins? Indexes?
 
 ### ArangoDB as a Graph Database
 
@@ -135,7 +132,21 @@ Federated search,
 
 ### ArangoDB for Machine Learning
 
-ArangoML
+ArangoDB as the foundation for Graph ML
+
+Scalable
+Designed from ground up to scale Enterprise use cases
+
+Simple Ingestion
+Easy integration in existing data infrastructure + connectors to all leading data processing and data ecosystems
+
+Open Source
+Extensibility, Community, especially large community maintained library
+
+NLP Support
+Built-In Text Processing, Search, and Similarity Ranking
+
+![Machine Learning Architecture of ArangoDB](images/machine-learning-architecture.png)
 
 ## How to Use the Documentation
 
