@@ -200,20 +200,20 @@ Dumps taken from older versions of ArangoDB, i.e. ArangoDB 3.7 or before, do not
 contain any information about revision trees.
 The _arangorestore_ behavior for these collections is as follows:
 
-- When using ArangoDB versions before 3.8.7 and 3.9.2, the collections are
+- In ArangoDB versions before 3.8.7 and 3.9.2, the collections are
   restored without revision trees.
-- When using ArangoDB versions 3.8.7, 3.9.2, or any later version, the
-  collections will use revision trees by default, but you can opt out of this by
-  invoking arangorestore with the option `--enable-revision-trees false`.
+- In ArangoDB versions 3.8.7, 3.9.2 or later, the
+  collections use revision trees by default, but you can opt out of this by
+  invoking arangorestore with the `--enable-revision-trees false` option.
 
 If the `--enable-revision-trees` startup option is `true` (which is the default value),
-then _arangorestore_ will add the necessary attributes for using revision trees
-when restoring the collections. It will only do so if the attributes are not
-contained in the dump. If the option is set to `false`, _arangorestore_ will not
+then _arangorestore_ adds the necessary attributes for using revision trees
+when restoring the collections. It's only done for the attributes which are not
+contained in the dump. If the option is set to `false`, _arangorestore_ does not
 add the attributes when restoring collections.
 
-Regardless of the setting of this option, _arangorestore_ will not add the
-attributes when they are already present in the dump. You may modify the
+Regardless of the setting of this option, _arangorestore_ does not add the
+attributes, when they are already present in the dump. You may modify the
 attributes manually in the dump if you want to change their values.
 
 Restoring in a Cluster
