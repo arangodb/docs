@@ -185,7 +185,7 @@ The _arangorestore_ behavior for these collections is as follows:
 
 - In ArangoDB versions before 3.8.7, the collections are
   restored without revision trees.
-- In ArangoDB versions 3.8.7 or ater, the
+- In ArangoDB versions 3.8.7 or later, the
   collections use revision trees by default, but you can opt out of this by
   invoking arangorestore with the `--enable-revision-trees false` option.
 
