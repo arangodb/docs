@@ -703,7 +703,7 @@
       "agent",
       "single"
     ],
-    "default" : 33241735168,
+    "default" : 16341497856,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -1487,6 +1487,33 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "database",
+    "type" : "boolean"
+  },
+  "database.io-heartbeat" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "perform IO heartbeat to test underlying volume",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.7"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5860,7 +5887,7 @@
       "agent",
       "single"
     ],
-    "default" : 109442683699,
+    "default" : 54685914808,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -5942,7 +5969,7 @@
       "agent",
       "single"
     ],
-    "default" : 81068654592,
+    "default" : 40508085043,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6701,7 +6728,7 @@
       "agent",
       "single"
     ],
-    "default" : 39890082201,
+    "default" : 19609797427,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -7340,7 +7367,7 @@
       "agent",
       "single"
     ],
-    "default" : 64,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "Maximum number of concurrent background jobs (compactions and flushes)",
     "dynamic" : true,
@@ -8388,7 +8415,7 @@
       "agent",
       "single"
     ],
-    "default" : 53186776268,
+    "default" : 26146396569,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -8985,7 +9012,7 @@
       "agent",
       "single"
     ],
-    "default" : 16,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -9156,7 +9183,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 8,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex)",
     "dynamic" : true,
@@ -9180,7 +9207,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 17,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -9232,7 +9259,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 128)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,

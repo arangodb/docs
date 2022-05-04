@@ -10,7 +10,7 @@ arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot
   ], 
   &quot;id&quot; : &quot;test/60630&quot;, 
   &quot;isNewlyCreated&quot; : true, 
-  &quot;name&quot; : &quot;idx_1729361827393961984&quot;, 
+  &quot;name&quot; : &quot;idx_1731377152279969792&quot;, 
   &quot;selectivityEstimate&quot; : 1, 
   &quot;sparse&quot; : false, 
   &quot;type&quot; : &quot;persistent&quot;, 
@@ -31,7 +31,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  9   idx_1729361827393961984   persistent   test         false    false       100.00 %   [ `value` ]   (i.`value` &gt; 97)
+  9   idx_1731377152279969792   persistent   test         false    false       100.00 %   [ `value` ]   (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName
@@ -49,11 +49,11 @@ Optimization rules applied:
 
 Optimization rules with highest execution times:
  RuleName                                    Duration [s]
- use-indexes                                      0.00005
- remove-filter-covered-by-index                   0.00001
+ use-indexes                                      0.00004
  remove-redundant-calculations                    0.00001
  move-calculations-up                             0.00001
- reduce-extraction-to-projection                  0.00001
+ remove-filter-covered-by-index                   0.00001
+ remove-unnecessary-calculations                  0.00001
 
 42 rule(s) executed, 1 plan(s) created
 

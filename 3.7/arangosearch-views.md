@@ -179,8 +179,8 @@ of removing unused segments after release of internal resources.
   to disable use: `0`)
 
   Wait at least this many milliseconds between committing View data store
-  changes and making documents visible to queries (default: 1000, to disable
-  use: 0).
+  changes and making documents visible to queries.
+
   For the case where there are a lot of inserts/updates, a lower value, until
   commit, will cause the index not to account for them and memory usage would
   continue to grow.
@@ -202,23 +202,20 @@ of removing unused segments after release of internal resources.
 - **consolidationIntervalMsec** (_optional_; type: `integer`; default: `1000`;
   to disable use: `0`)
 
-  ArangoSearch waits _at least_ this many milliseconds between committing view
-  data store changes and making documents visible to queries. A lower value
-  will cause the view not to account for them, (until commit), and memory usage
-  would continue to grow for the case where there are a few inserts/updates. A
-  higher value will impact performance and waste disk space for each commit call
-  without any added benefits.
+  Wait at least this many milliseconds between applying `consolidationPolicy` to
+  consolidate View data store and possibly release space on the filesystem.
 
-  > For data retrieval ArangoSearch Views follow the concept of
-  > "eventually-consistent", i.e. eventually all the data in ArangoDB will be
-  > matched by corresponding query expressions. The concept of an ArangoSearch
-  > View "commit" operation is introduced to control the upper-bound on the time
-  > until document addition/removals are actually reflected by corresponding
-  > query expressions. Once a **commit** operation is complete, all documents
-  > added/removed prior to the start of the **commit** operation will be
-  > reflected by queries invoked in subsequent ArangoDB transactions, while
-  > in-progress ArangoDB transactions will still continue to return a
-  > repeatable-read state.
+  For the case where there are a lot of data modification operations, a higher
+  value could potentially have the data store consume more space and file handles.
+  For the case where there are a few data modification operations, a lower value
+  will impact performance due to no segment candidates available for
+  consolidation.
+
+  > For data modification ArangoSearch Views follow the concept of a
+  > "versioned data store". Thus old versions of data may be removed once there
+  > are no longer any users of the old data. The frequency of the cleanup and
+  > compaction operations are governed by `consolidationIntervalMsec` and the
+  > candidates for compaction are selected via `consolidationPolicy`.
 
 ArangoSearch performs operations in its index based on numerous writer
 objects that are mapped to processed segments. In order to control memory that

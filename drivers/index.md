@@ -22,10 +22,11 @@ The status of the drivers below varies from supported to community contributions
 
 Name | Language | Repository | &nbsp;
 :----|:---------|:-----------|:------
-[ArangoDB-Java-Driver](java.html) | Java | [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
+[ArangoDB Java driver](java.html) | Java | [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
 [ArangoJS](js.html) | JavaScript | [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"} | [Changelog](https://github.com/arangodb/arangojs/blob/main/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
-[ArangoDB-PHP](php.html) | PHP | [github.com/arangodb/arangodb-php](https://github.com/arangodb/arangodb-php){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-php/blob/devel/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
-[Go-Driver](go.html) | Go | [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
+[ArangoDB PHP](php.html) | PHP | [github.com/arangodb/arangodb-php](https://github.com/arangodb/arangodb-php){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-php/blob/devel/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
+[Go driver](go.html) | Go | [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
+[C#/.NET driver](dotnet.html) | C# | [github.com/ArangoDB-Community/arangodb-net-standard](https://github.com/ArangoDB-Community/arangodb-net-standard){:target="_blank"} | [Changelog](https://github.com/ArangoDB-Community/arangodb-net-standard/blob/master/ChangeLog.md){:target="_blank" class="no-wrap"}
 
 ## Integrations
 
@@ -57,8 +58,6 @@ Scarango | Scala | [github.com/outr/scarango](https://github.com/outr/scarango){
 aRango-Driver | R | [gitlab.com/krpack/arango-driver](https://gitlab.com/krpack/arango-driver){:target="_blank"}
 ArangoDB PHP ODM | PHP | [github.com/lucassouzavieira/arangodb-php-odm](https://github.com/lucassouzavieira/arangodb-php-odm){:target="_blank"}
 arangodb-php-client | PHP | [github.com/LaravelFreelancerNL/arangodb-php-client](https://github.com/LaravelFreelancerNL/arangodb-php-client){:target="_blank"}
-arangodb-net-standard | C# / .NET | [github.com/Actify-Inc/arangodb-net-standard](https://github.com/Actify-Inc/arangodb-net-standard){:target="_blank"}
-ArangoDB-NET | C# / .NET | [github.com/yojimbo87/ArangoDB-NET](https://github.com/yojimbo87/ArangoDB-NET){:target="_blank"}
 dotnet-arangodb | C# / .NET | [github.com/coronabytes/dotnet-arangodb](https://github.com/coronabytes/dotnet-arangodb){:target="_blank"}
 arangoclient.net | C# / .NET | [github.com/ra0o0f/arangoclient.net](https://github.com/ra0o0f/arangoclient.net){:target="_blank"}
 dotnet-arangodb | C# / .NET | [github.com/coronabytes/dotnet-arangodb](https://github.com/coronabytes/dotnet-arangodb){:target="_blank"}
