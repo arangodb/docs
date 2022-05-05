@@ -72,7 +72,7 @@ the following data types:
   any of the supported data types, including nested objects.
 
 Each record that you store is a JSON object at the top-level, also referred to
-as **document**. Each pair key-value pair is called an **attribute**, comprised
+as **document**. Each key-value pair is called an **attribute**, comprised
 of the attribute name and the attribute value. Attributes can also be called
 properties or fields. You can freely model your data
 using the available data types. Each document is self-contained and can thus
@@ -87,16 +87,16 @@ Each collection is part of a **database**. Databases allow you to isolate sets
 of collections from one another, usually for multi-tenant applications, where
 each of your clients has their own database to work with.
 
-Joins? Indexes?
+<!-- Joins? Indexes? -->
 
 ### ArangoDB as a Graph Database
 
 You can store vertices and edges with as many properties as you need, as both
 are fully-fledged documents (JSON objects). Edges have two special attributes,
 a `_from` and a `_to` attribute, that reference the vertex that the edge comes
-from and points to via their document identifiers.
+from and points to by their document identifiers.
 
-You can organize edges in sets using
+You can organize vertices and edges in sets using
 collections, with vertices in **document collections** and edges in
 **edge collections**. This makes ArangoDB classify as a **Labeled Property Graph**
 store.
@@ -122,29 +122,44 @@ distributed graph processing based on the Pregel framework.
 
 ### ArangoDB as a Key-Value Database
 
-A key-value database is a database system that lets you 
+Key-value stores are the simplest kind of database systems. Each record is
+stored as a block of data under a key that uniquely identifies the record.
+The data is opaque, which means the system doesn't know anything about the
+contained information, it simply stores it and can retrieve it for you via
+the identifiers.
 
-_key, not BLOB
+This paradigm is used at the heart of ArangoDB and allows it to scale well,
+but without the limitations of a pure key-value store. Every document has a
+`_key` attribute, which is either user-provided or automatically generated.
+You can create additional indexes and work with subsets of attributes as
+needed, requiring the system to be aware of the stored data structures.
+
+While ArangoDB can store binary data, it is not designed for
+binary large objects (BLOBs) and works best with small to medium-sized
+JSON objects.
 
 ### ArangoDB as a Search Engine
 
-Federated search, 
+ArangoDB has a natively integrated search engine for a broad range of
+information retrieval needs. It is powered by inverted indexes and can index
+full-text, GeoJSON, as well as arbitrary JSON data. It supports various
+kinds of search patterns (tokens, phrases, wildcard, fuzzy, geo-spatial, etc.)
+and it can rank results by relevance and similarity using popular
+scoring algorithms.
+
+It also features natural language processing (NLP) capabilities and can
+classify or find similar terms using word embedding models.
 
 ### ArangoDB for Machine Learning
 
-ArangoDB as the foundation for Graph ML
+You can use ArangoDB as the foundation for machine learning based on graphs
+at enterprise scale. You can use it as a metadata store for model training
+parameters, run analytical algorithms in the database, or serve operative
+queries using data that you computed.
 
-Scalable
-Designed from ground up to scale Enterprise use cases
-
-Simple Ingestion
-Easy integration in existing data infrastructure + connectors to all leading data processing and data ecosystems
-
-Open Source
-Extensibility, Community, especially large community maintained library
-
-NLP Support
-Built-In Text Processing, Search, and Similarity Ranking
+ArangoDB integrates well into existing data infrastructures and provides
+connectors for popular machine learning frameworks and data processing
+ecosystems.
 
 ![Machine Learning Architecture of ArangoDB](images/machine-learning-architecture.png)
 
