@@ -4,7 +4,9 @@ layout: default
 # Features and Capabilities
 
 ArangoDB is a NoSQL graph database for online transactional processing (OLTP)
-as well as analytical workloads.
+as well as analytical workloads, with a rich ecosystem of projects, integrations,
+and drivers
+{:class="lead"}
 
 ## Editions
 

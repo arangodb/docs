@@ -1,9 +1,14 @@
 ---
 layout: default
-description: Head to arangodb
+redirect_from:
+  - getting-started-installation.html # 3.9 -> 3.10
+  - getting-started-authentication.html # 3.9 -> 3.10 ##### TODO #####
 ---
-Installation
-============
+# Use ArangoDB On-Premise
+
+<!-- TODO: title? distinguish between local and on-premise server deployments? -->
+
+## Installation
 
 Head to [arangodb.com/download](https://www.arangodb.com/download/){:target="_blank"},
 select your operating system and download ArangoDB. You may also follow
@@ -27,11 +32,10 @@ startup parameters, installation in a cluster and so on, see
 [Installation](installation.html) and
 [Deployment](deployment.html).
 
-Securing the installation
--------------------------
+## Securing the Installation
 
-The default installation contains one database *_system* and a user
-named *root*.
+The default installation contains one database `_system` and a user
+named `root`.
 
 Debian based packages and the Windows installer will ask for a
 password during the installation process. Red-Hat based packages will
@@ -49,3 +53,33 @@ The password that is set for the root user during the installation of the Arango
 package has **no effect** in case of deployments done with the _ArangoDB Starter_.
 See [Securing Starter Deployments](security-starter.html) instead.
 {% endhint %}
+
+<!-- NOT ON-PREMISE SPECIFIC!
+Authentication
+==============
+
+ArangoDB allows to restrict access to databases to certain users. All
+users of the system database are considered administrators. During
+installation a default user *root* is created, which has access to
+all databases.
+
+You should create a database for your application together with a
+user that has access rights to this database. See
+[Managing Users](administration-managing-users.html).
+
+Use the *arangosh* to create a new database and user.
+
+```
+arangosh> db._createDatabase("example");
+arangosh> var users = require("@arangodb/users");
+arangosh> users.save("root@example", "password");
+arangosh> users.grantDatabase("root@example", "example");
+```
+
+You can now connect to the new database using the user
+*root@example*.
+
+```
+shell> arangosh --server.username "root@example" --server.database example
+```
+-->

@@ -1,7 +1,11 @@
 ---
 layout: default
 description: Querying the Database
+redirect_from:
+  - getting-started-querying-the-database.html # 3.9 -> 3.10
+  - getting-started-next-steps.html # 3.9 -> 3.10
 ---
+<!-- TODO: title? Overlaps with the AQL Tutorial and the Data Queries page -->
 Querying the Database
 =====================
 
@@ -428,3 +432,19 @@ FOR user IN users
 ```
 
 The query deletes all users whose age is greater than or equal to 30.
+
+## Next Steps
+
+There is a lot more to [discover in AQL](aql/index.html) and much more
+functionality that ArangoDB offers. Continue reading the other chapters and
+experiment with a test database to foster your knowledge.
+
+If you want to write more AQL queries right now, have a look here:
+
+- [Data Queries](aql/data-queries.html): data access and modification queries
+- [High-level operations](aql/operations.html): detailed descriptions
+  of `FOR`, `FILTER` and more operations not shown in this introduction
+- [Functions](aql/functions.html): a reference of all provided functions
+
+Visit the [ArangoDB Training Center](https://www.arangodb.com/learn/){:target="_blank"}
+for courses, tutorials and more.

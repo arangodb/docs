@@ -1,10 +1,25 @@
 ---
 layout: default
-description: arangod serves a frontend also known as Aardvark that allows you to easily manage ArangoDB through a GUI.
-title: ArangoDB Web Interface
+redirect_from:
+  - getting-started-web-interface.html # 3.9 -> 3.10
 ---
-Web Interface
-=============
+# How to Interact With ArangoDB
+
+ArangoDB is a database that serves documents to clients. These documents are
+transported using [JSON](https://en.wikipedia.org/wiki/JSON){:target="_blank"} via a TCP connection,
+using the HTTP protocol. A [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer){:target="_blank"}
+is provided to interact with the database system.
+
+The [web interface](programs-web-interface.html) that comes with
+ArangoDB, called *Aardvark*, provides graphical user interface that is easy to use.
+An [interactive shell](programs-arangosh.html), called *arangosh*, is also
+shipped. In addition, there are so called [drivers](drivers/index.html)
+that make it easy to use the database system in various environments and
+programming languages. All these tools use the HTTP interface of the server and
+remove the necessity to roll own low-level code for basic communication in most
+cases.
+
+## Web Interface
 
 The server itself (_arangod_) speaks HTTP / REST, but you can use the
 graphical web interface to keep it simple. There is also
@@ -45,3 +60,10 @@ You should then be presented the dashboard with server statistics like this:
 
 For a more detailed description of the interface, see [Web Interface](programs-web-interface.html).
 
+## Command-line Interface
+
+<!-- TODO: arangosh -->
+
+## API and Drivers 
+
+<!-- TODO REST/HTTP API and Drivers -->

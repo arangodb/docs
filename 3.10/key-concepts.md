@@ -1,12 +1,16 @@
 ---
 layout: default
-description: Databases are sets of collections
+redirect_from:
+  - getting-started-databases-collections-documents.html # 3.9 -> 3.10
 ---
-Databases, Collections and Documents
-====================================
+# Key Concepts
 
-Databases are sets of collections. Collections store records, which are referred
-to as documents. Collections are the equivalent of tables in RDBMS, and
+<!-- TODO: Overlaps with Data Model & Concepts, weird mix of guide and explanation -->
+
+## Data Model
+
+**Databases** are sets of collections. **Collections** store records, which are referred
+to as **documents**. Collections are the equivalent of tables in RDBMS, and
 documents can be thought of as rows in a table. The difference is that you don't
 define what columns (or rather attributes) there will be in advance. Every
 document in any collection can have arbitrary attribute keys and
@@ -41,3 +45,18 @@ attribute, name it `age` and set it to your age. Click *Save* to persist the
 changes. If you click on *Collection: users* at the top on the right-hand side
 of the ArangoDB logo, the document browser will show the documents in the
 *users* collection and you will see the document you just created in the list.
+
+## Data Retrieval
+
+**Queries** are used to filter documents based on certain criteria, to compute
+new data, as well as to manipulate or delete existing documents. Queries can be
+as simple as a "query by example" or as complex as ["joins"](aql/examples-join.html)
+using many collections or traversing graph structures. They are written in
+the [ArangoDB Query Language](aql/index.html) (AQL).
+
+**Cursors** are used to iterate over the result of queries, so that you get
+easily processable batches instead of one big hunk.
+
+**Indexes** are used to speed up searches. There are various types of indexes,
+such as [persistent indexes](indexing-persistent.html)
+and [geo-spatial indexes](indexing-geo.html).

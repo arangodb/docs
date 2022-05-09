@@ -65,7 +65,7 @@ layout: default
 
 - **Query Optimizer**:
   Cost-based query optimizer that takes index selectivity estimates into account.
-  Explain, batching?, lazy evaluation (stream)?
+  <!-- TODO: Explain, batching?, lazy evaluation (stream)? -->
 
 - **Query Profiling**
   Show detailed runtime information.
@@ -76,20 +76,23 @@ layout: default
   on whether the target document exists already.
 
 - **Graph Relations**:
-  <!-- graph traversal? -->
+  <!-- TODO: does this refer to the data model, graph traversals, or something else? -->
+  Edges can connect vertex and even edge documents.
+  Graphs can be traversed with AQL to retrieve direct and indirect neighbor
+  nodes, using depth-first search, breadth-first search, or in order of
+  increasing edge weights ("Weighted Traversals").
+  Stop condition support for graph traversals (pruning).
 
 - **Relational Joins**
 
 - **Advanced Path-Finding with Multiple Algorithms**:
-  Graph traversal algorithms 
-  neighbors?
-  to get a shortest path, multiple shortest paths ("k Shortest Paths"),
-  to enumerate all paths between two vertices ("k Paths"), and to emit paths
-  in order of increasing edge weights ("Weighted Traversals").
-  Stop condition support for graph traversals (pruning).
+  Graph traversal algorithms
+  to get a shortest path, multiple shortest paths ("k Shortest Paths"), and
+  to enumerate all paths between two vertices ("k Paths")
 
 - **Pregel**:
-  Iterative graph processing for single servers.
+  Iterative graph processing for single servers with pre-built algorithms like
+  PageRank, Connected Components, and Label Propagation.
 
 - **ArangoSearch for Text Search and Ranking**:
   Wildcard and fuzzy search support for full-text search.

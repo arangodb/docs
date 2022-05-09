@@ -17,23 +17,6 @@ drop databases / collections, or how to save, update, replace and remove
 documents. You can do all this using the [web interface](getting-started-web-interface.html)
 as well and may therefore skip these sections as beginner.
 
-Database Interaction
---------------------
-
-ArangoDB is a database that serves documents to clients. These documents are
-transported using [JSON](https://en.wikipedia.org/wiki/JSON){:target="_blank"} via a TCP connection,
-using the HTTP protocol. A [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer){:target="_blank"}
-is provided to interact with the database system.
-
-The [web interface](programs-web-interface.html) that comes with
-ArangoDB, called *Aardvark*, provides graphical user interface that is easy to use.
-An [interactive shell](programs-arangosh.html), called *arangosh*, is also
-shipped. In addition, there are so called [drivers](drivers/index.html)
-that make it easy to use the database system in various environments and
-programming languages. All these tools use the HTTP interface of the server and
-remove the necessity to roll own low-level code for basic communication in most
-cases.
-
 Data model
 ----------
 
@@ -83,19 +66,3 @@ similarly named concept available in most relational database management systems
 (RDBMS). Each view entity usually maps some implementation specific document
 transformation, (possibly identity), onto documents from zero or more
 collections.
-
-Data Retrieval
---------------
-
-**Queries** are used to filter documents based on certain criteria, to compute
-new data, as well as to manipulate or delete existing documents. Queries can be
-as simple as a "query by example" or as complex as ["joins"](aql/examples-join.html)
-using many collections or traversing graph structures. They are written in
-the [ArangoDB Query Language](aql/index.html) (AQL).
-
-**Cursors** are used to iterate over the result of queries, so that you get
-easily processable batches instead of one big hunk.
-
-**Indexes** are used to speed up searches. There are various types of indexes,
-such as [persistent indexes](indexing-persistent.html)
-and [geo-spatial indexes](indexing-geo.html).
