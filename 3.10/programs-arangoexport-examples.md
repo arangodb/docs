@@ -10,7 +10,7 @@ _arangoexport_ can be invoked by executing the following command in a command li
 arangoexport --collection test --output-directory "dump"
 ```
 
-This exports the collections `test` into the directory `dump` as one big JSON array. Every entry
+This exports the `test` collection into the `dump` directory as one big JSON array. Every entry
 in this array is one document from the collection without a specific order. To export more than
 one collection at a time specify multiple `--collection` options.
 
@@ -53,8 +53,8 @@ Export JSON
 arangoexport --type json --collection test
 ```
 
-This exports the collection `test` into the output directory `export` as one JSON array.
-Every array entry is one document from the collection `test`.
+This exports the `test` collection into the `export` output directory as one JSON array.
+Every array entry is one document from the `test` collection.
 
 Export JSONL
 ------------
@@ -63,8 +63,8 @@ Export JSONL
 arangoexport --type jsonl --collection test
 ```
 
-This exports the collection `test` into the output directory `export` as [JSONL](http://jsonlines.org){:target="_blank"}.
-Every line in the export is one document from the collection `test` as JSON.
+This exports the `test` collection into the `export output directory` as [JSONL](http://jsonlines.org){:target="_blank"}.
+Every line in the export is one document from the `test` collection as JSON.
 
 Export CSV
 ----------
@@ -73,7 +73,7 @@ Export CSV
 arangoexport --type csv --collection test --fields _key,_id,_rev
 ```
 
-This exports the collection `test` into the output directory `export` as CSV. The first
+This exports the `test` collection into the `export` output directory as CSV. The first
 line contains the header with all field names. Each line is one document represented as
 CSV and separated with a comma. Objects and arrays are represented as a JSON string.
 
@@ -91,7 +91,7 @@ Export XML
 arangoexport --type xml --collection test
 ```
 
-This exports the collection `test` into the output directory `export` as generic XML.
+This exports the `test` collection into the `export` output directory as generic XML.
 The root element of the generated XML file is named `collection`.
 Each document in the collection is exported in a `doc` XML attribute.
 Each document attribute is exported as a generic `att` element, which has a
@@ -106,19 +106,19 @@ based on [GML](https://en.wikipedia.org/wiki/Graph_Modelling_Language){:target="
 To view the XGMML file you can use for example [Cytoscape](http://cytoscape.org){:target="_blank"}.
 
 {% hint 'warning' %}
-If you export all attributes (`--xgmml-label-only false`) note that attribute
-types have to be the same for all documents. It wont work if you have an
-attribute named rank that is in one document a string and in another document
-an integer.
+Please note, if you export all attributes (`--xgmml-label-only false`), attribute
+types have to be the same for all documents. For example, if you have an
+attribute named `rank`, which is a string in one document and an integer in another,
+it will not work.
 
-Bad
+Incorrect:
 
 ```js
 { "rank": 1 }   // doc1
 { "rank": "2" } // doc2
 ```
 
-Good
+Correct:
 
 ```js
 { "rank": 1 } // doc1
@@ -142,8 +142,8 @@ arangoexport \
   --collection edge
 ```
 
-This exports an unnamed graph with vertex collection `vertex` and edge collection
-`edge` into the XGMML file `mygraph.xgmml`.
+This exports an unnamed graph with the vertex collection named `vertex` and the edge collection
+named `edge` into the `mygraph.xgmml` XGMML file.
 
 **Export based on a named graph**
 
@@ -151,7 +151,7 @@ This exports an unnamed graph with vertex collection `vertex` and edge collectio
 arangoexport --type xgmml --graph-name mygraph
 ```
 
-This exports the named graph mygraph into the XGMML file `mygraph.xgmml`.
+This exports the named graph mygraph into the `mygraph.xgmml` XGMML file.
 
 **Export XGMML without attributes**
 
@@ -159,7 +159,7 @@ This exports the named graph mygraph into the XGMML file `mygraph.xgmml`.
 arangoexport --type xgmml --graph-name mygraph --xgmml-label-only true
 ```
 
-This exports the named graph mygraph into the XGMML file `mygraph.xgmml` without the `<att>` tag in nodes and edges.
+This exports the named graph mygraph into the `mygraph.xgmml` XGMML file without the `<att>` tag in nodes and edges.
 
 **Export XGMML with a specific label**
 
@@ -167,7 +167,7 @@ This exports the named graph mygraph into the XGMML file `mygraph.xgmml` without
 arangoexport --type xgmml --graph-name mygraph --xgmml-label-attribute name
 ```
 
-This exports the named graph mygraph into the XGMML file `mygraph.xgmml` with a
+This exports the named graph mygraph into the `mygraph.xgmml` XGMML file with a
 label from documents attribute `name` instead of the default attribute `label`.
 
 Export via AQL query
