@@ -23,7 +23,6 @@ no installation is required.
 
 **Graph Tutorials**
 
-- [](){:target="_blank"}
 
 **ArangoSearch Tutorials**
 
@@ -32,7 +31,7 @@ no installation is required.
 
 **GraphML and Analytics Tutorials**
 
-- [](){:target="_blank"}
+
 
 **More Tutorials and Source Code**
 
