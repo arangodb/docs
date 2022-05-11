@@ -45,7 +45,7 @@ see [Troubleshooting](troubleshooting.html).
 By default, authentication is enabled. The default user is `root`.
 Depending on the installation method used, the installation process either
 prompted for the root password or the default root password is empty
-(see [Securing the installation](getting-started-installation.html#securing-the-installation)).
+(see Securing the installation - TODO link (getting-started-installation.html#securing-the-installation)).
 
 ![Aardvark Login Form](images/loginView.png)
 
