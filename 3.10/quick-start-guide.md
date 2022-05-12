@@ -23,6 +23,7 @@ no installation is required.
 
 **Graph Tutorials**
 
+- [Property Graph Queries](https://colab.research.google.com/github/joerg84/Graph_Powered_ML_Workshop/blob/master/Graphs_Queries.ipynb){:target="_blank"}
 
 **ArangoSearch Tutorials**
 
@@ -31,9 +32,10 @@ no installation is required.
 
 **GraphML and Analytics Tutorials**
 
-
-
-**More Tutorials and Source Code**
+- [ArangoDB and NetworkX](https://colab.research.google.com/github/arangodb/interactive_tutorials/blob/master/notebooks/ArangoDB_NetworkX_Interface_Introduction.ipynb){:target="_blank"}
+- [Graph Analytics: Collaborative Filtering](https://colab.research.google.com/github/arangodb/interactive_tutorials/blob/master/notebooks/Collaborative_Filtering.ipynb){:target="_blank"}
+- [Graph Analytics: Fraud Detection](https://colab.research.google.com/github/joerg84/Graph_Powered_ML_Workshop/blob/master/Fraud_Detection.ipynb){:target="_blank"}
+- [Graph Neural Networks with PyTorch](https://colab.research.google.com/github/arangodb/interactive_tutorials/blob/master/notebooks/arangoflix/predict_Movie_Rating_GNN.ipynb){:target="_blank"}
 
 You can find all interactive tutorials on GitHub:
 
@@ -47,4 +49,4 @@ that you can focus on building amazing things on top of ArangoDB. See
 [Use ArangoDB in the Cloud](quick-start-in-the-cloud.html) to get started.
 
 You can also install ArangoDB locally or on your own server hardware.
-See [Use ArangoDB On-Premise](quick-start-on-premise.html).
+See [Use ArangoDB On-Premise](quick-start-on-premise.html) for more details.
