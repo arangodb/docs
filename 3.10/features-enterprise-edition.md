@@ -36,7 +36,7 @@ following on top:
   combine the performance of a single server and ACID semantics with a
   fault-tolerant cluster setup.
 
-- **Traversal Parallelization**
+- **Traversal Parallelization**:
   Parallel execution of traversal queries in single server and OneShard
   deployments.
 
