@@ -14,7 +14,7 @@ layout: default
 - **Document Database**:
 
 - **Schema-free**:
-  Flexible data modeling: model your data as combination of key-value pairs,
+  Flexible data modeling - model your data as combination of key-value pairs,
   documents or graphs - perfect for social relations. Optional document
   validation using JSON Schema (draft-4, without remote schema support).
 
@@ -55,7 +55,7 @@ layout: default
 
 ## Querying
 
-- **Declarative Query Language for all Data Models**
+- **Declarative Query Language for all Data Models**:
   Powerful query language (AQL) to retrieve and modify data.
   Graph traversals, full-text searches, geo-spatial queries, and aggregations
   can be composed in a single query.
@@ -67,7 +67,7 @@ layout: default
   Cost-based query optimizer that takes index selectivity estimates into account.
   <!-- TODO: Explain, batching?, lazy evaluation (stream)? -->
 
-- **Query Profiling**
+- **Query Profiling**:
   Show detailed runtime information.
 
 - **Upsert Operations**:
@@ -106,7 +106,7 @@ layout: default
 
 ## Transactions
 
-- **ACID Transactions**
+- **ACID Transactions**:
   Using a single instance of ArangoDB, multi-document / multi-collection
   queries are guaranteed to be fully ACID. In cluster mode, single-document
   operations are also fully ACID. Multi-document / multi-collection queries in
@@ -168,9 +168,7 @@ layout: default
 - **TLS Encryption**:
   Internal and external communication over encrypted network connections.
 
-- **Role-based Access Control**
-
-  ArangoDB supports all basic security requirements. By using ArangoDB's Foxx
+- **Role-based Access Control**: ArangoDB supports all basic security requirements. By using ArangoDB's Foxx
   microservice framework users can achieve very high security standards
   fitting individual needs.
 
@@ -184,12 +182,10 @@ layout: default
 
 - **Cluster-friendly User Interface**
 
-- **Backup and Restore Tools**
-
+- **Backup and Restore Tools**:
   Multi-threaded dump and restore operations.
   Data masking capabilities for attributes containing sensitive data / PII when
   creating backups.
   Consistent cluster backups. <!-- TODO -->
 
-- **Import and Export Tools**
-  CLI utilities to load and export data for multiple formats. <!-- TODO: List formats? -->
+- **Import and Export Tools**: CLI utilities to load and export data for multiple formats. <!-- TODO: List formats? -->
