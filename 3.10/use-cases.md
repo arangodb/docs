@@ -9,8 +9,8 @@ layout: default
 
 You can store vertices and edges with as many properties as you need, as both
 are fully-fledged documents (JSON objects). Edges have two special attributes,
-a `_from` and a `_to` attribute, that reference the vertex that the edge comes
-from and points to by their document identifiers.
+`_from` and `_to`, that reference the source and target vertices of the edge 
+by their document identifiers.
 
 You can organize vertices and edges in sets using
 collections, with vertices in **document collections** and edges in
@@ -38,7 +38,7 @@ distributed graph processing based on the Pregel framework.
 
 ## ArangoDB as a Document Database
 
-ArangoDB lets you store documents in the sense of JSON objects.
+ArangoDB lets you store documents as JSON objects.
 
 ```json
 {
@@ -54,14 +54,14 @@ ArangoDB lets you store documents in the sense of JSON objects.
 
 JSON supports the following data types:
 
-- `null`, to represent the absence of a value, also known as _nil_ or _none_ type.
-- `true` and `false`, the Boolean values, that can be used represent _yes_ and
+- `null` to represent the absence of a value, also known as _nil_ or _none_ type.
+- `true` and `false`, the Boolean values, to represent _yes_ and
   _no_, _on_ and _off_, etc.
-- **numbers**, for storing integer and floating-point values.
-- **strings**, which are character sequences for text, encoded as UTF-8.
-- **arrays**, which are lists that can contain any of the supported data types
+- **numbers** to store integer and floating-point values.
+- **strings** to store character sequences for text, encoded as UTF-8.
+- **arrays** to store lists that can contain any of the supported data types
   as elements, including nested arrays.
-- **objects**, that map keys to values like a dictionary, also known as
+- **objects** to map keys to values like a dictionary, also known as
   associative arrays or hash maps. The keys are strings and the values can be
   any of the supported data types, including nested objects.
 
