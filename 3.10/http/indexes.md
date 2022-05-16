@@ -41,14 +41,6 @@ The edge index is non-unique.
 A persistent index is a sorted index that can be used for finding individual documents or ranges of documents.
 In contrast to the other indexes, the contents of a persistent index are stored on disk and thus do not need to be rebuilt in memory from the documents when the collection is loaded.
 
-### Hash Index
-
-A hash index is now an alias for a persistent index.
-
-### Skiplist Index
-
-A skiplist index is now an alias for a persistent index.
-
 ### TTL (time-to-live) index
 
 The TTL index can be used for automatically removing expired documents from a collection.
