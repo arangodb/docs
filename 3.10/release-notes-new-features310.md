@@ -292,25 +292,43 @@ Client tools
 
 ### arangobench
 
-_arangobench_ has a new option `--create-collection` that can be set to `false`
+_arangobench_ has a new `--create-collection` startup option that can be set to `false`
 to skip setting up a new collection for the to-be-run workload. That way, some
 workloads can be run on already existing collections.
 
 ### arangoexport
 
-_arangoexport_ has a new option `--custom-query-bindvars` that lets you set
+_arangoexport_ has a new `--custom-query-bindvars` startup option that lets you set
 bind variables that you can now use in the `--custom-query` option
-(renamed from `--query`).
+(renamed from `--query`):
 
-```
+```bash
 arangoexport \
-  --custom-query 'FOR doc IN @@@@collection RETURN doc.@@attribute' \
-  --custom-query-bindvars '{"@@collection": "users", "attribute": "name"}' \
+  --custom-query 'FOR book IN @@@@collectionName FILTER book.sold > @@sold RETURN book' \
+  --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
   ...
 ```
 
-Note that at signs need to be escaped in command-lines by doubling them (see
+Note that you need to escape at signs in command-lines by doubling them (see
 [Environment variables as parameters](administration-configuration.html#environment-variables-as-parameters)).
+
+_arangoexport_ now also has a `--custom-query-file` startup option that you can
+use instead of `--custom-query`, to read a query from a file. This allows you to
+store complex queries and no escaping is necessary in the file:
+
+```js
+// example.aql
+FOR book IN @@collectionName
+  FILTER book.sold > @sold
+  RETURN book
+```
+
+```bash
+arangoexport \
+  --custom-query-file example.aql \
+  --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
+  ...
+```
 
 Internal changes
 ----------------
