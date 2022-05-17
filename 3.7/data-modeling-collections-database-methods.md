@@ -122,6 +122,15 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     are stored in hexadecimal human-readable format. This key generator can be used
     in a single-server or cluster to generate "seemingly random" keys. The keys 
     produced by this key generator are not lexicographically sorted.
+    
+    Please note that keys are currently only guaranteed to be truly ascending in single
+    server deployments. The reason is that document keys can be generated not only by the 
+    DB server, but also by coordinators (of which there are normally multiple
+    instances). While each component still generates an ascending sequence
+    of keys, the overall sequence (mixing the results from different components)
+    may not be ascending. ArangoDB 3.10 changes this behavior so that
+    collections with only a single shard can provide truly ascending keys.
+
   - *allowUserKeys*: if set to *true*, then it is allowed to supply
     own key values in the *_key* attribute of a document. If set to
     *false*, then the key generator will solely be responsible for
