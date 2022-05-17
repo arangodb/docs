@@ -611,3 +611,41 @@ receiving Coordinator will also check the header on its own.
 Apart from that, the header will not be included in cluster-internal requests
 executed by the Coordinator, e.g. when the Coordinator issues sub-requests
 to DB-Servers or Agency instances.
+
+Responding to liveliness probes
+-------------------------------
+
+The HTTP REST interface of arangod instances can optionally be started early or late 
+during the startup process, depending on what is preferred. ArangoDB versions
+before 3.10 only allowed starting the interface late, after recovery was finished.
+
+By default, the HTTP REST interface of an instance is opened late during the startup
+sequence, as in all previous versions. With this configuration, an instance will respond 
+with HTTP 503 (Service unavailable) until all REST APIs are available and usable.
+
+Since ArangoDB 3.10, the HTTP REST interface can optionally be opened early in the 
+startup sequence by setting the startup option `--server.early-connections` to `true`. 
+This configuration allows an instance to respond to a limited set of REST APIs 
+during startup, even during recovery. This can be useful because the recovery procedure 
+can take time proportional to the amount of data to recover.
+
+When the `--server.early-connections` option is set to `true`, the instance will be
+able to respond to requests to the following REST APIs early on:
+
+- GET `/_api/version` and `/_admin/version`: these APIs return the server version 
+  number, but can also be used as a lifeliness probe, to check if the instance is
+  responding to incoming HTTP requests.
+- GET `/_admin/status`: this API returns information about the instance's status, now
+  also including recovery progress and information about which server feature is
+  currently starting.
+
+During the early startup phase, all other APIs than the ones listed above will be 
+responded to with an HTTP response code 503, so that callers can see that the instance 
+is not fully ready. In addition the `maintenance` attribute in the response to GET
+`/_admin/status` requests can be checked for general instance readiness.
+
+If authentication is used, then only JWT authentication can be used during the early 
+startup phase. Incoming requests relying on other authentication mechanisms that 
+require access to the database data (e.g. HTTP basic authentication) will also be 
+responded to with HTTP 503 errors, even if correct credentials are used. This is
+because access to the database data is not possible early during the startup.
