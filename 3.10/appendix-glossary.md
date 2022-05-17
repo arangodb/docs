@@ -208,18 +208,6 @@ A persistent index is a sorted index type that can be used to find individual do
 or multiple documents in a given lookup value range. It can also be used for retrieving documents in a
 sorted order.
 
-Hash Index
-----------
-
-A hash index is now an alias for a persistent index.
-
-
-Skiplist Index
---------------
-
-A skiplist index is now an alias for a persistent index.
-
-
 Anonymous Graphs
 ----------------
 

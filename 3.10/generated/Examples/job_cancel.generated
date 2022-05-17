@@ -9,7 +9,7 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 82306
+x-arango-async-id: 82298
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
@@ -24,9 +24,9 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;82306&quot;</span> 
+  <span class="hljs-string">&quot;82298&quot;</span> 
 ]
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/82306/cancel</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/82298/cancel</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
@@ -50,5 +50,5 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;82306&quot;</span> 
+  <span class="hljs-string">&quot;82298&quot;</span> 
 ]
