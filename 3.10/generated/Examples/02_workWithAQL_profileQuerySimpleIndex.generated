@@ -16,7 +16,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type         Collection    Unique   Sparse   Cache   Selectivity   Fields        Ranges
-  <span class="hljs-number">6</span>   idx_1732999854135705601   persistent   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>      <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`value`</span> ]   (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
+  <span class="hljs-number">6</span>   idx_1733012651959648257   persistent   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>      <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`value`</span> ]   (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
 
 Optimization rules applied:
  Id   RuleName
@@ -31,7 +31,7 @@ Query Statistics:
 Query Profile:
  Query Stage           Duration [s]
  initializing               <span class="hljs-number">0.00001</span>
- parsing                    <span class="hljs-number">0.00002</span>
+ parsing                    <span class="hljs-number">0.00003</span>
  optimizing ast             <span class="hljs-number">0.00000</span>
  loading collections        <span class="hljs-number">0.00000</span>
  instantiating plan         <span class="hljs-number">0.00001</span>
