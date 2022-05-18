@@ -196,7 +196,7 @@ keys with "higher" values also represent newer documents. This is true for the
 
 Previously, the generated keys were only guaranteed to be truly ascending in single 
 server deployments. The reason was that document keys could be generated not only by
-the DB server, but also by coordinators (of which there are normally multiple instances). 
+the DB-Server, but also by Coordinators (of which there are normally multiple instances). 
 While each component would still generate an ascending sequence of keys, the overall 
 sequence (mixing the results from different components) was not guaranteed to be 
 ascending. 

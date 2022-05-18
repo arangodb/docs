@@ -109,7 +109,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     
     Please note that keys are currently only guaranteed to be truly ascending in single
     server deployments. The reason is that document keys can be generated not only by the 
-    DB server, but also by coordinators (of which there are normally multiple
+    DB-Server, but also by Coordinators (of which there are normally multiple
     instances). While each component still generates an ascending sequence
     of keys, the overall sequence (mixing the results from different components)
     may not be ascending. ArangoDB 3.10 changes this behavior so that

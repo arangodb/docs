@@ -84,8 +84,8 @@ Considerations
 
 ### Literals
 
-In RDF even literal values are referenced by edge.  Literals may not have
-exident edges (i.e., may not be the subject of a statement). RDF uses the XSD
+In RDF, even literal values are referenced by edges. Literals cannot have
+outgoing edges (i.e., can not be the subject of a statement). RDF uses the XSD
 type system for literals, so the string "Fred" is represented as `"Fred"^^xsd:String` 
 or fully expanded as `"Fred" ^^http://…"`. Literals can also contain language 
 and locale tags, for example, `"cat@en" ^^xsd:String` and `"chat@fr"^^xsd:String`. 
@@ -97,12 +97,12 @@ store or downloading your data using a [SPARQL](https://www.w3.org/TR/rdf-sparql
 query you could handle these properties when 
 exporting. 
 
-### IRI’s
+### Internationalized Resource Identifiers (IRIs)
 
 #### Prefixes
 
 In RDF, it is common to use [namespace prefixes](https://www.w3.org/TR/rdf-concepts/#section-URIspaces){:target="_blank"} 
-with referrents for ease of parsing. This 
+with references for ease of parsing. This 
 can be easily handled with a property graph in a few ways. The easiest approach 
 is to add the statement prefixes to the document. This keeps the prefixes close 
 to the data but results in a lot of duplicated fields. Another approach would be 
@@ -110,8 +110,8 @@ to append the prefix and form the full URI as a property.
 
 #### Identifiers
 
-IRI's (ex: `http://dbpedia.org/resource/`) are used as universal identifiers in 
-RDF but contain contain special characaters, namely `:` and `/`, which make them not 
+IRIs (ex: `http://dbpedia.org/resource/`) are used as universal identifiers in 
+RDF but contain contain special characters, namely `:` and `/`, which make them not 
 suitable for use as an ArangoDB `_key` attribute.  This is the reason the previous 
 example hashes the IRI value. This has a downside of relying on the hashing 
 algorithm and in our case MD5 is one way so it becomes required to store the full 
@@ -121,8 +121,8 @@ IRI string.
 
 Blank nodes are identifiers that have local scope and cannot (must not) be
 referenced externally. Blank nodes are usually used in structures like lists and 
-other situations where it is inconvenient to create IRI's.  They will cause problems
-when reconciling differences between graphs. Hasing these values as well is a way 
+other situations where it is inconvenient to create IRIs. They will cause problems
+when reconciling differences between graphs. Hashing these values as well is a way 
 to work around them but as they are considered temporary identifiers in the RDF 
 world they could pose consistency issues in your RDF graph.
 
@@ -162,7 +162,7 @@ based on the data inserted. Most of this functionality would rely on the Foxx
 queues feature or require manual intervention. 
 
 Using Foxx has its own drawbacks as it requires development efforts, consumes
-resources on the database servers and coordinators, and uses node which isn't an
+resources on the DB-Servers and Coordinators, and uses node which isn't an
 option for all organizations. 
 
 The benefits of Foxx are the flexibility to program the precise needs of an
@@ -180,6 +180,6 @@ to bring the gap between RDF graph and property graph. Our initial internal appr
 to bring RDF data into ArangoDB will be to take advantage of the RDF-star 
 specification. The RDF-star specification allows for nesting attributes in RDF
 statements to more closely mirror the benefits of a property graph. It is still
-in draft form but multiple vendors and libraries have already added suport for it.
+in draft form but multiple vendors and libraries have already added support for it.
 If you haven't already give the specification a look and let us know if you would 
 like to see it in ArangoDB.
