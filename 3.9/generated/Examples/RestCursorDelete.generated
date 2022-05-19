@@ -9,7 +9,7 @@ EOF
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">440</span>
+content-length: <span class="hljs-number">439</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -17,20 +17,20 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;result&quot;</span> : [ 
     { 
-      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67352&quot;</span>, 
-      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67352&quot;</span>, 
-      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eEYK7am--_&quot;</span>, 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67348&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67348&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eK3-b4a--_&quot;</span>, 
       <span class="hljs-string">&quot;hello1&quot;</span> : <span class="hljs-string">&quot;world1&quot;</span> 
     }, 
     { 
-      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67354&quot;</span>, 
-      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67354&quot;</span>, 
-      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eEYK7aq---&quot;</span>, 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67350&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67350&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eK3-b4a--A&quot;</span>, 
       <span class="hljs-string">&quot;hello2&quot;</span> : <span class="hljs-string">&quot;world1&quot;</span> 
     } 
   ], 
   <span class="hljs-string">&quot;hasMore&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;67363&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;67359&quot;</span>, 
   <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">5</span>, 
   <span class="hljs-string">&quot;extra&quot;</span> : { 
     <span class="hljs-string">&quot;warnings&quot;</span> : [ ], 
@@ -41,7 +41,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00020989775657653809</span>, 
+      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00008168800013663713</span>, 
       <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">0</span> 
     } 
   }, 
@@ -49,5 +49,5 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/cursor/67363</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/cursor/67359</span>
 

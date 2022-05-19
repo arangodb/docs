@@ -856,7 +856,7 @@
       "agent",
       "single"
     ],
-    "default" : 33241735168,
+    "default" : 17872714752,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -6724,7 +6724,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 135114424320,
+    "base" : 73638342656,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6732,7 +6732,7 @@
       "agent",
       "single"
     ],
-    "default" : 109442683699,
+    "default" : 59647057551,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6857,7 +6857,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 135114424320,
+    "base" : 73638342656,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6865,7 +6865,7 @@
       "agent",
       "single"
     ],
-    "default" : 81068654592,
+    "default" : 44183005593,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7724,7 +7724,7 @@
       "agent",
       "single"
     ],
-    "default" : 39890082201,
+    "default" : 21447257702,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -8444,7 +8444,7 @@
       "agent",
       "single"
     ],
-    "default" : 64,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "Maximum number of concurrent background jobs (compactions and flushes)",
     "dynamic" : true,
@@ -9751,7 +9751,7 @@
       "agent",
       "single"
     ],
-    "default" : 53186776268,
+    "default" : 28596343603,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -9782,7 +9782,7 @@
       "agent",
       "single"
     ],
-    "default" : 64,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "Number of lock stripes to use for transaction locks",
     "dynamic" : false,
@@ -10425,37 +10425,6 @@
     "section" : "server",
     "type" : "boolean"
   },
-  "server.flush-interval" : {
-    "base" : 1,
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 1000000,
-    "deprecatedIn" : null,
-    "description" : "interval (in microseconds) for flushing data",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "maxInclusive" : true,
-    "maxValue" : 18446744073709551615,
-    "minInclusive" : true,
-    "minValue" : 0,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "server",
-    "type" : "uint64"
-  },
   "server.gid" : {
     "category" : "option",
     "component" : [
@@ -10520,7 +10489,7 @@
       "agent",
       "single"
     ],
-    "default" : 16,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "number of threads used to handle IO",
     "dynamic" : true,
@@ -10712,7 +10681,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 8,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex)",
     "dynamic" : true,
@@ -10742,7 +10711,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 17,
+    "default" : 10,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -10806,7 +10775,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 128)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 72)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,

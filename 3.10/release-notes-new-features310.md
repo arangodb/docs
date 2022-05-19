@@ -187,6 +187,25 @@ scans, for sorting, or for lookups that do not include all index attributes.
 
 See [Persistent Indexes](indexing-persistent.html#caching-of-index-values).
 
+Document keys
+-------------
+
+Some key generators can generate keys in an ascending order, meaning that document
+keys with "higher" values also represent newer documents. This is true for the
+`traditional`, `autoincrement` and `padded` key generators.
+
+Previously, the generated keys were only guaranteed to be truly ascending in single 
+server deployments. The reason was that document keys could be generated not only by
+the DB server, but also by coordinators (of which there are normally multiple instances). 
+While each component would still generate an ascending sequence of keys, the overall 
+sequence (mixing the results from different components) was not guaranteed to be 
+ascending. 
+ArangoDB 3.10 changes this behavior so that collections with only a single 
+shard can provide truly ascending keys. This includes collections in OneShard
+databases as well.
+Document keys are still not guaranteed to be truly ascending for collections with
+more than a single shard.
+
 SmartGraphs (Enterprise Edition)
 --------------------------------
 
@@ -292,25 +311,43 @@ Client tools
 
 ### arangobench
 
-_arangobench_ has a new option `--create-collection` that can be set to `false`
+_arangobench_ has a new `--create-collection` startup option that can be set to `false`
 to skip setting up a new collection for the to-be-run workload. That way, some
 workloads can be run on already existing collections.
 
 ### arangoexport
 
-_arangoexport_ has a new option `--custom-query-bindvars` that lets you set
+_arangoexport_ has a new `--custom-query-bindvars` startup option that lets you set
 bind variables that you can now use in the `--custom-query` option
-(renamed from `--query`).
+(renamed from `--query`):
 
-```
+```bash
 arangoexport \
-  --custom-query 'FOR doc IN @@@@collection RETURN doc.@@attribute' \
-  --custom-query-bindvars '{"@@collection": "users", "attribute": "name"}' \
+  --custom-query 'FOR book IN @@@@collectionName FILTER book.sold > @@sold RETURN book' \
+  --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
   ...
 ```
 
-Note that at signs need to be escaped in command-lines by doubling them (see
+Note that you need to escape at signs in command-lines by doubling them (see
 [Environment variables as parameters](administration-configuration.html#environment-variables-as-parameters)).
+
+_arangoexport_ now also has a `--custom-query-file` startup option that you can
+use instead of `--custom-query`, to read a query from a file. This allows you to
+store complex queries and no escaping is necessary in the file:
+
+```js
+// example.aql
+FOR book IN @@collectionName
+  FILTER book.sold > @sold
+  RETURN book
+```
+
+```bash
+arangoexport \
+  --custom-query-file example.aql \
+  --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
+  ...
+```
 
 Internal changes
 ----------------

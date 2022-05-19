@@ -329,6 +329,29 @@
     "section" : "",
     "type" : "boolean"
   },
+  "enable-revision-trees" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enable revision trees for new collections if the collection attributes 'syncByRevision' and 'usesRevisionsAsDocumentIds' are missing",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.7"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "encryption.key-generator" : {
     "category" : "option",
     "default" : "",
@@ -1548,7 +1571,7 @@
   "threads" : {
     "base" : 1,
     "category" : "option",
-    "default" : 64,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "maximum number of collections to process in parallel",
     "dynamic" : true,
