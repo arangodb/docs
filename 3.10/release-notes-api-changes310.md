@@ -121,7 +121,7 @@ The exact values of these attributes should not be relied on, i.e. client applic
 should not check for any exact values in them. Feature and phase names are subject to
 change between different versions of ArangoDB. 
 The progress attributes can still be used to determine if the instance has made progress
-between two calls: if `phase`, feature` and `recoveryTick` don't change, then there hasn't
+between two calls: if `phase`, `feature` and `recoveryTick` don't change, then there hasn't
 been progress. Note that this is only true if the instance is still in startup. Once the
 instance has fully started and has opened the complete REST interface, the values in the
 `progress` attribute are expected to not change until shutdown.
