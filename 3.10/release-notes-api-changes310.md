@@ -110,7 +110,7 @@ can be used to determine the instance's progress during startup. The new `progre
 attribute will be returned inside the `serverInfo` object with the following subattributes:
 
 - `phase`: name of the lifecycle phase the instance is currently in. Normally one of
-  "in prepare", "in start", "in wait", "in shutdown", "in stop" or "in unprepare".
+  `"in prepare"`, `"in start"`, `"in wait"`, `"in shutdown"`, `"in stop"`, or `"in unprepare"`.
 - `feature`: internal name of the feature that is currently being prepared, started, 
    stopped or unprepared.
 - `recoveryTick`: current recovery sequence number value if the instance is currently in
