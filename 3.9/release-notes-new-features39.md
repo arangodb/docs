@@ -645,13 +645,13 @@ They will eventually be removed in a future version of ArangoDB.
 
 ### Cluster-internal timeouts
 
-The internal timeouts for inactive cluster transactions on DB servers was
+The internal timeouts for inactive cluster transactions on DB-Servers was
 increased from 3 to 5 minutes.
 
-Previously transactions on DB servers could expire quickly, which led to
+Previously transactions on DB-Servers could expire quickly, which led to
 spurious "query ID not found" or "transaction ID not found" errors on DB
 servers for multi-server queries/transactions with unbalanced access patterns
-for the different participating DB servers.
+for the different participating DB-Servers.
 
 Transaction timeouts on Coordinators remain unchanged, so any queries/transactions
 that are abandoned will be aborted there, which will also be propagated to
