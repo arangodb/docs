@@ -85,7 +85,7 @@ Considerations
 ### Literals
 
 In RDF, even literal values are referenced by edges. Literals cannot have
-outgoing edges (i.e., can not be the subject of a statement). RDF uses the XSD
+outgoing edges (i.e., cannot be the subject of a statement). RDF uses the XSD
 type system for literals, so the string "Fred" is represented as `"Fred"^^xsd:String` 
 or fully expanded as `"Fred" ^^http://…"`. Literals can also contain language 
 and locale tags, for example, `"cat@en" ^^xsd:String` and `"chat@fr"^^xsd:String`. 
