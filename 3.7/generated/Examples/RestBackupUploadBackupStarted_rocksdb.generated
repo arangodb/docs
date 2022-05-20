@@ -7,7 +7,7 @@ EOF
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">403</span>
+content-length: <span class="hljs-number">222</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
@@ -15,15 +15,13 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">&quot;result&quot;</span> : { 
-    <span class="hljs-string">&quot;Timestamp&quot;</span> : <span class="hljs-string">&quot;2022-05-18T09:11:53Z&quot;</span>, 
+    <span class="hljs-string">&quot;Timestamp&quot;</span> : <span class="hljs-string">&quot;2022-05-20T12:07:25Z&quot;</span>, 
     <span class="hljs-string">&quot;UploadId&quot;</span> : <span class="hljs-string">&quot;70733&quot;</span>, 
     <span class="hljs-string">&quot;Cancelled&quot;</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">&quot;BackupId&quot;</span> : <span class="hljs-string">&quot;2022-05-18T09.11.53Z_3d670b55-869a-43dc-849f-8349cbcf4ebc&quot;</span>, 
+    <span class="hljs-string">&quot;BackupId&quot;</span> : <span class="hljs-string">&quot;2022-05-20T12.07.25Z_44d03902-d6fc-45a4-b3cf-8c11a25913ec&quot;</span>, 
     <span class="hljs-string">&quot;DBServers&quot;</span> : { 
       <span class="hljs-string">&quot;SNGL&quot;</span> : { 
-        <span class="hljs-string">&quot;Status&quot;</span> : <span class="hljs-string">&quot;FAILED&quot;</span>, 
-        <span class="hljs-string">&quot;Error&quot;</span> : <span class="hljs-number">1</span>, 
-        <span class="hljs-string">&quot;ErrorMessage&quot;</span> : <span class="hljs-string">&quot;Failed to list source directory `/tmp/arangosh_pjbbdg/rocksdb-clusterOrNot/data/backups/2022-05-18T09.11.53Z_3d670b55-869a-43dc-849f-8349cbcf4ebc`: failed&quot;</span> 
+        <span class="hljs-string">&quot;Status&quot;</span> : <span class="hljs-string">&quot;STARTED&quot;</span> 
       } 
     } 
   } 

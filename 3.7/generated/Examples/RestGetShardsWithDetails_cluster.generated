@@ -3,9 +3,9 @@
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 637
+content-length: 627
 location: /_api/collection/testCollection/shards
 server: ArangoDB
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s2010051\":[\"PRMR-a6713ddc-0119-43ca-b773-6ed4dcaab1e1\"],\"s2010052\":[\"PRMR-f7ed8d93-c13e-4a16-b402-1de3881c5520\"],\"s2010053\":[\"PRMR-a6713ddc-0119-43ca-b773-6ed4dcaab1e1\"]},\"writeConcern\":1,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"schema\":null,\"globallyUniqueId\":\"c2010050/\",\"isSmartChild\":false,\"id\":\"2010050\",\"cacheEnabled\":false,\"minReplicationFactor\":1,\"name\":\"testCollection\",\"isDisjoint\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s10051\":[\"PRMR-e29ec55b-0823-4719-97b3-23d61589d120\"],\"s10052\":[\"PRMR-e5904ec8-c964-4f3a-b82f-69ea45b012ce\"],\"s10053\":[\"PRMR-e29ec55b-0823-4719-97b3-23d61589d120\"]},\"writeConcern\":1,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"schema\":null,\"globallyUniqueId\":\"c10050/\",\"isSmartChild\":false,\"id\":\"10050\",\"cacheEnabled\":false,\"minReplicationFactor\":1,\"name\":\"testCollection\",\"isDisjoint\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false}"

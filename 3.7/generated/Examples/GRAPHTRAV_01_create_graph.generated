@@ -5,67 +5,67 @@ arangosh&gt; db.circles.toArray();
   { 
     &quot;_key&quot; : &quot;A&quot;, 
     &quot;_id&quot; : &quot;circles/A&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO---&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QS--C&quot;, 
     &quot;label&quot; : &quot;1&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;B&quot;, 
     &quot;_id&quot; : &quot;circles/B&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--A&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QS--E&quot;, 
     &quot;label&quot; : &quot;2&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;C&quot;, 
     &quot;_id&quot; : &quot;circles/C&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--C&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW---&quot;, 
     &quot;label&quot; : &quot;3&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;D&quot;, 
     &quot;_id&quot; : &quot;circles/D&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--E&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--A&quot;, 
     &quot;label&quot; : &quot;4&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;E&quot;, 
     &quot;_id&quot; : &quot;circles/E&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--G&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--C&quot;, 
     &quot;label&quot; : &quot;5&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;F&quot;, 
     &quot;_id&quot; : &quot;circles/F&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--I&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--E&quot;, 
     &quot;label&quot; : &quot;6&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;G&quot;, 
     &quot;_id&quot; : &quot;circles/G&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--K&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--G&quot;, 
     &quot;label&quot; : &quot;7&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;H&quot;, 
     &quot;_id&quot; : &quot;circles/H&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--M&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--I&quot;, 
     &quot;label&quot; : &quot;8&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;I&quot;, 
     &quot;_id&quot; : &quot;circles/I&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--O&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--K&quot;, 
     &quot;label&quot; : &quot;9&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;J&quot;, 
     &quot;_id&quot; : &quot;circles/J&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--Q&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--M&quot;, 
     &quot;label&quot; : &quot;10&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;K&quot;, 
     &quot;_id&quot; : &quot;circles/K&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTO--S&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--O&quot;, 
     &quot;label&quot; : &quot;11&quot; 
   } 
 ]
@@ -76,7 +76,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67126&quot;, 
     &quot;_from&quot; : &quot;circles/A&quot;, 
     &quot;_to&quot; : &quot;circles/B&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS---&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--Q&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_bar&quot; 
@@ -86,7 +86,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67128&quot;, 
     &quot;_from&quot; : &quot;circles/B&quot;, 
     &quot;_to&quot; : &quot;circles/C&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--A&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-QW--S&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blarg&quot; 
@@ -96,7 +96,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67130&quot;, 
     &quot;_from&quot; : &quot;circles/C&quot;, 
     &quot;_to&quot; : &quot;circles/D&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--C&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-Qa---&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blorg&quot; 
@@ -106,7 +106,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67132&quot;, 
     &quot;_from&quot; : &quot;circles/B&quot;, 
     &quot;_to&quot; : &quot;circles/E&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--E&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-Qa--A&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blub&quot; 
@@ -116,7 +116,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67134&quot;, 
     &quot;_from&quot; : &quot;circles/E&quot;, 
     &quot;_to&quot; : &quot;circles/F&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--G&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-Qa--C&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_schubi&quot; 
@@ -126,7 +126,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67136&quot;, 
     &quot;_from&quot; : &quot;circles/A&quot;, 
     &quot;_to&quot; : &quot;circles/G&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--I&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-Qa--E&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_foo&quot; 
@@ -136,7 +136,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67138&quot;, 
     &quot;_from&quot; : &quot;circles/G&quot;, 
     &quot;_to&quot; : &quot;circles/H&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--K&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-Qa--G&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_blob&quot; 
@@ -146,7 +146,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67140&quot;, 
     &quot;_from&quot; : &quot;circles/H&quot;, 
     &quot;_to&quot; : &quot;circles/I&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--M&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-Qa--I&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_blub&quot; 
@@ -156,7 +156,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67142&quot;, 
     &quot;_from&quot; : &quot;circles/G&quot;, 
     &quot;_to&quot; : &quot;circles/J&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--O&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-Qa--K&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_zip&quot; 
@@ -166,7 +166,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/67144&quot;, 
     &quot;_from&quot; : &quot;circles/J&quot;, 
     &quot;_to&quot; : &quot;circles/K&quot;, 
-    &quot;_rev&quot; : &quot;_eLXtjTS--Q&quot;, 
+    &quot;_rev&quot; : &quot;_eMDb-Qa--M&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_zup&quot; 
