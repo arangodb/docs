@@ -17,11 +17,12 @@ This library works with all the non-EOLed [ArangoDB versions](https://www.arango
 
 ## Supported versions
 
-There are three variants of this library, each one compatible with different Spark and Scala versions:
+There are several variants of this library, each one compatible with different Spark and Scala versions:
 
 - `com.arangodb:arangodb-spark-datasource-2.4_2.11` (Spark 2.4, Scala 2.11)
 - `com.arangodb:arangodb-spark-datasource-2.4_2.12` (Spark 2.4, Scala 2.12)
 - `com.arangodb:arangodb-spark-datasource-3.1_2.12` (Spark 3.1, Scala 2.12)
+- `com.arangodb:arangodb-spark-datasource-3.2_2.12` (Spark 3.2, Scala 2.12)
 
 In the following sections the `${sparkVersion}` and `${scalaVersion}` placeholders refer to the Spark and Scala versions.
 
@@ -210,12 +211,12 @@ Spark 2.4 implementation supports all save modes with the following semantics:
 - `ErrorIfExists`: the target collection is created, if it does not exist, otherwise an `AnalysisException` is thrown.
 - `Ignore`: the target collection is created, if it does not exist, otherwise no write is performed.
 
-Spark 3.1 implementation supports:
+Spark 3 implementations supports:
 - `Append`: the target collection is created, if it does not exist.
 - `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
   `confirmTruncate` write configuration parameter.
 
-In Spark 3.1, the `ErrorIfExists` and `Ignore` save modes behave the same as `Append`.
+In Spark 3 implementations, the `ErrorIfExists` and `Ignore` save modes behave the same as `Append`.
 
 Use the `overwriteMode` write configuration parameter to specify the document overwrite behavior (if a document with the same `_key` already exists).
 
