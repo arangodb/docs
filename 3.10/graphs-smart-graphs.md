@@ -61,7 +61,7 @@ machine have a performance almost equal to a purely local computation. Queries t
 machines still require some network overhead. The more different machines are touched the more network cost will apply.
 However the overall performance is never worse than the same query using a General Graph.
 
-Benefits of Hybrid SmartGraphs
+Hybrid SmartGraphs
 -------------------------------
 
 Hybrid SmartGraphs are capable of using SatelliteCollections within their graph definition. SatelliteCollections are
@@ -70,7 +70,7 @@ SatelliteCollection or between two SatelliteCollections. Thus a larger part of a
 (weighted) graph traversal or a (k-)shortest path(s) query can be executed fully locally on each DB-Server
 (in parallel) whenever data from the SatelliteCollections is involved.
 
-Benefits of Disjoint SmartGraphs
+Disjoint SmartGraphs
 --------------------------------
 
 Disjoint SmartGraphs are a specialized type of SmartGraphs.
@@ -81,7 +81,7 @@ different `smartGraphAttribute` values.
 This ensures that graph traversals, shortest path, and k-shortest-paths queries can be executed locally on a DB-Server,
 achieving an improved performance.
 
-Benefits of Hybrid Disjoint SmartGraphs
+Hybrid Disjoint SmartGraphs
 ---------------------------------------
 
 Hybrid Disjoint SmartGraphs are like Hybrid SmartGraphs but also prohibit edges between vertices _from non-satellite
