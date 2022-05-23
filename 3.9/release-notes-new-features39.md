@@ -32,13 +32,13 @@ local query execution.
 
 Hybrid SmartGraphs can also be disjoint. A Disjoint SmartGraph prohibits edges
 connecting different SmartGraph components. The same rule applies to
-[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-disjoint-smartgraphs).
+[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#hybrid-disjoint-smartgraphs).
 If your graph does not need edges between vertices with different SmartGraph
 attribute values, then you should enable this option. This topology restriction
 allows the query optimizer to improve traversal execution times, because the
 execution can be pushed down to a single DB-Server in many cases.
 
-[Hybrid SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs)
+[Hybrid SmartGraphs](graphs-smart-graphs.html#hybrid-smartgraphs)
 are only available in the Enterprise Edition.
 
 ArangoSearch

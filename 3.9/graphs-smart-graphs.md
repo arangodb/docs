@@ -10,7 +10,19 @@ SmartGraphs
 
 SmartGraphs are specifically targeted at graphs that need scalability and high performance. The way SmartGraphs use the ArangoDB cluster sharding makes it extremely useful for distributing data across multiple servers with no network latency.
 
-In addition to this, SmartGraphs are advantageous to use in a variety of domains and activities such as social networking, transport systems, e-commerce, finance, healthcare, and many more.
+Most graphs have one feature - a value that is stored in every vertex - that divides the entire graph into several smaller subgraphs. These subgraphs have a large amount of edges that only connect vertices in the same subgraph and only have few edges connecting vertices from other subgraphs. If this feature is known, SmartGraphs can make use if it.
+
+Examples for these graphs are:
+
+- **Social Networks**<br>
+  Typically the feature here is the region/country users live in.
+  Every user has more contacts in the same region/country then in other regions/countries.
+
+- **Transport Systems**<br>
+  For transport systems, the common feature is the region/country. You have many local transportation but only few across countries.
+
+- **E-Commerce**<br>
+  In this case, the category of products is a good feature. Often, products of the same category are bought together.
 
 In terms of querying there is no difference between SmartGraphs and
 General Graphs.
@@ -45,7 +57,8 @@ Once you start connecting the nodes to each other, it becomes clear that the gra
 By optimizing the distribution of data, SmartGraphs reduce the number of network hops traversals require. 
 
 SmartGraphs come with a concept of a `smartGraphAttribute` that is used to inform the database how exactly to shard data. When defining this attribute, think of it as a value that is stored in every vertex. For instance, in social network datasets, this attribute can be the ID or the region/country of the users. 
-Sharding with this attribute means that the relevant data is now co-located on servers, whenever possible.
+
+The graph will than be automatically sharded in such a way that all vertices with the same value are stored on the same physical machine, all edges connecting vertices with identical `smartAttribute` values are stored on this machine as well. Sharding with this attribute means that the relevant data is now co-located on servers, whenever possible.
 
 ![SmartGraphs data distribution](images/SmartGraphs_distribution.png)
 
@@ -62,9 +75,11 @@ replicated to each participating DB-Server, (weighted) graph traversals and
 DB-Server. This means a larger part of the query can be executed fully local
 whenever data from the SatelliteCollections is required.
 
+![Hybrid SmartGraphs](images/SmartGraphs_Hybrid.png)
+
 ## Disjoint SmartGraphs
 
-Disjoint SmartGraphs are useful for use cases which have to deal with large hierarchical graphs, when you have clearly separated branches in your graph dataset. Disjoint SmartGraphs enables the automatic sharding of these branches and prohibits edges connecting them.
+Disjoint SmartGraphs are useful for use cases which have to deal with large hierarchical graphs, when you have clearly separated branches in your graph dataset. Disjoint SmartGraphs enable the automatic sharding of these branches and prohibits edges connecting them.
 
 ![Disjoint SmartGraphs](images/SmartGraphs-Disjoint.png)
 

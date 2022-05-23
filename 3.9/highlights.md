@@ -19,7 +19,7 @@ Version 3.9
 
 **Enterprise Edition**
 
-- [**Hybrid (Disjoint) SmartGraphs**](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs):
+- [**Hybrid (Disjoint) SmartGraphs**](graphs-smart-graphs.html#hybrid-smartgraphs):
   SatelliteCollections can be used in (Disjoint) SmartGraphs to enable more
   local execution of graph queries.
 
