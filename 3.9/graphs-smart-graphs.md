@@ -58,7 +58,7 @@ By optimizing the distribution of data, SmartGraphs reduce the number of network
 
 SmartGraphs come with a concept of a `smartGraphAttribute` that is used to inform the database how exactly to shard data. When defining this attribute, think of it as a value that is stored in every vertex. For instance, in social network datasets, this attribute can be the ID or the region/country of the users. 
 
-The graph will than be automatically sharded in such a way that all vertices with the same value are stored on the same physical machine, all edges connecting vertices with identical `smartAttribute` values are stored on this machine as well. Sharding with this attribute means that the relevant data is now co-located on servers, whenever possible.
+The graph will than be automatically sharded in such a way that all vertices with the same value are stored on the same physical machine, all edges connecting vertices with identical `smartGraphAttribute` values are stored on this machine as well. Sharding with this attribute means that the relevant data is now co-located on servers, whenever possible.
 
 ![SmartGraphs data distribution](images/SmartGraphs_distribution.png)
 
