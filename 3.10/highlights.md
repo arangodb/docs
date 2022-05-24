@@ -13,11 +13,6 @@ grouped by version
 
 **All Editions**
 
-- **ArangoSearch**:
-  New [**Classification**](analyzers.html#classification) and
-  [**Nearest Neighbors**](analyzers.html#nearest_neighbors) Analyzers to classify
-  text tokens and to find similar terms using a word embedding model.
-
 - **Indexes**:
   An optional [**In-memory Cache**](indexing-persistent.html#caching-of-index-values)
   for faster lookups and [**Stored Values**](indexing-persistent.html#storing-additional-values-in-indexes)
