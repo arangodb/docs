@@ -223,6 +223,7 @@ Use the `overwriteMode` write configuration parameter to specify the document ov
 
 - `table`: target ArangoDB collection name (required)
 - `batchSize`: writing batch size, `10000` by default
+- `byteBatchSize`: byte batch size threshold, only considered for `contentType=json`, `8388608` by default (8 MB)
 - `table.shards`: number of shards of the created collection (in case of the `Append` or `Overwrite` SaveMode)
 - `table.type`: type (`document` or `edge`) of the created collection (in case of the `Append` or `Overwrite` SaveMode), `document` by default
 - `waitForSync`: specifies whether to wait until the documents have been synced to disk (`true` or `false`), `false` by default
@@ -351,6 +352,7 @@ df.write
 - In read jobs using `stream=true` (default), possible AQL warnings are only logged at the end of each read task (BTS-671).
 - Spark SQL `DecimalType` fields are not supported in write jobs when using `contentType=json`.
 - Spark SQL `DecimalType` values are written to the database as strings.
+- `byteBatchSize` is only considered for `contentType=json` (DE-226)
 
 ## Demo
 
