@@ -212,7 +212,7 @@ Spark 2.4 implementation supports all save modes with the following semantics:
 - `ErrorIfExists`: the target collection is created, if it does not exist, otherwise an `AnalysisException` is thrown.
 - `Ignore`: the target collection is created, if it does not exist, otherwise no write is performed.
 
-Spark 3 implementations supports:
+Spark 3 implementations support:
 - `Append`: the target collection is created, if it does not exist.
 - `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
   `confirmTruncate` write configuration parameter.
