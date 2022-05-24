@@ -2,7 +2,7 @@
 layout: default
 description: >-
   ArangoDB is a scalable graph database system with native support for other
-  data models and a built-in search engine
+  data models and a built-in search engine, for the cloud and on-premise
 title: Introduction to ArangoDB's Technical Documentation and Ecosystem
 redirect_from:
   - cookbook/index.html # 3.5 -> 3.5
@@ -10,7 +10,22 @@ redirect_from:
 ---
 # What is ArangoDB?
 
-ArangoDB is an open-source database management system for graphs.
+ArangoDB is a scalable database management system for graphs, with a broad range
+of features and a rich ecosystem
+{:class="lead"}
+
+![ArangoDB Overview Diagram](images/arangodb-overview-diagram.png)
+
+It supports a variety of data access patterns with a single, composable query
+language thanks to its multi-model approach that combines the analytical power
+of graphs with JSON documents, a key-value store, and a built-in search engine.
+
+ArangoDB is available in an open-source and a commercial [edition](features.html),
+for cloud an on-premise deployments, as well as a fully managed
+[cloud service](oasis/).
+
+## What are Graphs?
+
 Graphs are information networks comprised of nodes and relations.
 
 ![Node - Relation - Node](images/data-model-graph-relation-abstract.png)
@@ -31,9 +46,12 @@ cognitive model of humans. It is an expressive data model that allows you to
 represent many problem domains and solve them with semantic queries and graph
 analytics.
 
-Not everything is a graph use case, however. ArangoDB qualifies as a multi-model
-database system that lets you equally work with (semi-)structured data in the
-form of schema-free JSON objects without connecting these objects to form a graph.
+## Beyond Graphs
+
+Not everything is a graph use case. ArangoDB qualifies as a multi-model
+database system that lets you equally work with structured, semi-structured, and
+unstructured data in the form of schema-free JSON objects, without having to
+connect these objects to form a graph.
 
 ![Person Mary, Book ArangoDB](images/data-model-document.png)
 
