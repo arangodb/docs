@@ -196,7 +196,7 @@ keys with "higher" values also represent newer documents. This is true for the
 
 Previously, the generated keys were only guaranteed to be truly ascending in single 
 server deployments. The reason was that document keys could be generated not only by
-the DB server, but also by coordinators (of which there are normally multiple instances). 
+the DB-Server, but also by Coordinators (of which there are normally multiple instances). 
 While each component would still generate an ascending sequence of keys, the overall 
 sequence (mixing the results from different components) was not guaranteed to be 
 ascending. 
@@ -359,7 +359,7 @@ A compiler with c++-20 support is thus needed to compile ArangoDB from source.
 
 ### Upgraded bundled library versions
 
-The bundled version of the RocksDB library has been upgraded from 6.8.0 to 6.29.0.
+The bundled version of the RocksDB library has been upgraded from 6.8.0 to 7.2.
 
 The bundled version of the Boost library has been upgraded from 1.71.0 to 1.78.0.
 
