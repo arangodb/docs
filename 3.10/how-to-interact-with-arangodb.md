@@ -2,96 +2,68 @@
 layout: default
 redirect_from:
   - getting-started-web-interface.html # 3.9 -> 3.10
+  - getting-started-databases-collections-documents.html # 3.9 -> 3.10
+  - getting-started-querying-the-database.html # 3.9 -> 3.10
+  - getting-started-next-steps.html # 3.9 -> 3.10
+#- Data model?
+#- Types of requests
+#  - low level APIs
+#  - AQL (also indexes?)
+#  - higher-level APIs?
 ---
-- Communication
-  - Web UI
-  - arangosh
-  - REST API
-  - Drivers
-- Data model?
-- Types of requests
-  - low level APIs
-  - AQL (also indexes?)
-  - higher-level APIs?
-
 # How to Interact With ArangoDB
 
-ArangoDB is a database that serves documents to clients. These documents are
-transported using [JSON](https://en.wikipedia.org/wiki/JSON){:target="_blank"} via a TCP connection,
-using the HTTP protocol. A [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer){:target="_blank"}
-is provided to interact with the database system.
+## How to Communicate with the Server
 
-The [web interface](programs-web-interface.html) that comes with
-ArangoDB, called *Aardvark*, provides graphical user interface that is easy to use.
-An [interactive shell](programs-arangosh.html), called *arangosh*, is also
-shipped. In addition, there are so called [drivers](drivers/index.html)
-that make it easy to use the database system in various environments and
-programming languages. All these tools use the HTTP interface of the server and
-remove the necessity to roll own low-level code for basic communication in most
-cases.
+The core component of ArangoDB is the [ArangoDB server](programs-arangod.html)
+that stores data and handles requests. You have different options for talking to
+the server.
 
-## Web Interface
+### Web Interface
 
-The server itself (_arangod_) speaks HTTP / REST, but you can use the
-graphical web interface to keep it simple. There is also
-[arangosh](programs-arangosh.html), a synchronous shell
-for interaction with the server. If you are a developer, you might
-prefer the shell over the GUI. It does not provide features like
-syntax highlighting however.
+The easiest way to get started with ArangoDB is to use the included
+[web interface](programs-web-interface.html). The ArangoDB server serves this
+graphical user interface (GUI) and you can access it by pointing your browser to
+the server's endpoint, which is `http://localhost:8529` by default if you run a
+local server.
+
+The web interface lets you perform all essential actions like creating
+collections, viewing documents, and running queries. You can also view graphs
+and the server logs and metrics, as well as administrate user accounts.
+
+### Command-line Interface (CLI)
+
+If you are a developer, you may feel more comfortable to work in a terminal.
+You can use [arangosh](programs-arangosh.html), an interactive shell that ships
+with ArangoDB, and its [JavaScript API](appendix-references-dbobject.html), to
+interact with the server. You can also use it for automating tasks.
+
+### Drivers and Integrations
 
 When you start using ArangoDB in your project, you will likely use an official
-or community-made driver written in the same language as your project. Drivers
-implement a programming interface that should feel natural for that programming
-language, and do all the talking to the server. Therefore, you can most certainly
-ignore the HTTP API unless you want to write a driver yourself or explicitly
-want to use the raw interface.
+or community-made [driver](drivers/) written in the same language as your project.
+Drivers implement a programming interface that should feel natural for that
+programming language, and do all the talking to the server.
 
-To get familiar with the database system you can even put drivers aside and
-use the web interface (code name *Aardvark*) for basic interaction.
-The web interface will become available shortly after you started `arangod`.
-You can access it in your browser at
-[http://localhost:8529](http://localhost:8529){:target="_blank"} - if not, please
-see [Troubleshooting](troubleshooting.html).
+Integrations combine a third-party technology with ArangoDB and can be seen as
+a translation layer that takes over the low-level communication with the server.
 
-By default, authentication is enabled. The default user is `root`.
-Depending on the installation method used, the installation process either
-prompted for the root password or the default root password is empty
-(see Securing the installation - TODO link (getting-started-installation.html#securing-the-installation)).
+### REST API
 
-![Aardvark Login Form](images/loginView.png)
+Under the hood, all interactions with the server make use of its
+[REST API](https://en.wikipedia.org/wiki/Representational_state_transfer){:target="_blank"},
+an application programming interface (API) based on the HTTP protocol that
+powers the world wide web. This includes the web interface, _arangosh_, as well
+as the drivers and integrations for different programming languages and
+environments. They all provide a convenient way to work with ArangoDB, but you
+may use the low-level REST API directly as needed.
 
-Next you will be asked which database to use. Every server instance comes with
-a `_system` database. Select this database to continue.
-
-![select database](images/selectDBView.png)
-
-You should then be presented the dashboard with server statistics like this:
-
-![Aardvark Dashboard Request Statistics](images/dashboardView.png)
-
-For a more detailed description of the interface, see [Web Interface](programs-web-interface.html).
-
-## Command-line Interface
-
-<!-- TODO: arangosh -->
-
-## API and Drivers 
-
-<!-- TODO REST/HTTP API and Drivers -->
-
-
-
-
----
-layout: default
-redirect_from:
-  - getting-started-databases-collections-documents.html # 3.9 -> 3.10
----
-# Key Concepts
-
-<!-- TODO: Overlaps with Data Model & Concepts, weird mix of guide and explanation -->
+See the [HTTP](http/) documentation to learn more about the API, how requests
+are handled and what endpoints are available.
 
 ## Data Model
+
+<!-- TODO: Overlaps with Data Model & Concepts, weird mix of guide and explanation -->
 
 **Databases** are sets of collections. **Collections** store records, which are referred
 to as **documents**. Collections are the equivalent of tables in RDBMS, and
@@ -102,7 +74,7 @@ values. Documents in a single collection will likely have a similar structure in
 practice however, but the database system itself does not impose it and will
 operate stable and fast no matter how your data looks like.
 
-Read more in the [data-model concepts](data-modeling-concepts.html) chapter.
+Read more in the [Data Model & Concepts](data-modeling-concepts.html) chapter.
 
 For now, you can stick with the default `_system` database and use the web
 interface to create collections and documents. Start by clicking the
@@ -145,17 +117,9 @@ easily processable batches instead of one big hunk.
 such as [persistent indexes](indexing-persistent.html)
 and [geo-spatial indexes](indexing-geo.html).
 
+## Querying the Database
 
----
-layout: default
-description: Querying the Database
-redirect_from:
-  - getting-started-querying-the-database.html # 3.9 -> 3.10
-  - getting-started-next-steps.html # 3.9 -> 3.10
----
 <!-- TODO: title? Overlaps with the AQL Tutorial and the Data Queries page -->
-Querying the Database
-=====================
 
 Time to retrieve our document using AQL, ArangoDB's query language. We can
 directly look up the document we created via the `_id`, but there are also
@@ -583,7 +547,7 @@ The query deletes all users whose age is greater than or equal to 30.
 
 ## Next Steps
 
-There is a lot more to [discover in AQL](aql/index.html) and much more
+There is a lot more to [discover in AQL](aql/) and much more
 functionality that ArangoDB offers. Continue reading the other chapters and
 experiment with a test database to foster your knowledge.
 

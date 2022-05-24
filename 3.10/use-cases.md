@@ -3,19 +3,18 @@ layout: default
 ---
 # ArangoDB Use Cases
 
-![ArangoDB Overview Diagram](images/arangodb-overview-diagram.png)
-
 ## ArangoDB as a Graph Database
 
 You can store vertices and edges with as many properties as you need, as both
-are fully-fledged documents (JSON objects). Edges have two special attributes,
-`_from` and `_to`, that reference the source and target vertices of the edge 
-by their document identifiers.
+are fully-fledged documents (JSON objects).
+
+Edges have two special attributes, `_from` and `_to`, that reference the source
+and target vertices of the edge by their document identifiers.
 
 You can organize vertices and edges in sets using
 collections, with vertices in **document collections** and edges in
-**edge collections**. This makes ArangoDB classify as a **Labeled Property Graph**
-store.
+**edge collections**. This [graph](graphs.html) model makes ArangoDB classify as
+a **Labeled Property Graph** store.
 
 The design with edges stored in edge collections enables true graph scalability,
 while keeping the promise of performant graph queries regardless of the number
@@ -31,10 +30,16 @@ specify whether you want to follow edges in the direction they are defined in
 direction (**any**). This means that you do not need to create an opposing edge
 for every edge that you want to be able to follow in both directions.
 
-Aside from basic graph traversal, ArangoDB offers graph algorithms to find one
+Aside from basic graph traversal, ArangoDB offers
+[graph algorithms](graphs.md#supported-graph-algorithms) to find one
 or multiple shortest paths between two vertices, can return a specified amount
 of paths between two vertices in order of increasing length, and supports
 distributed graph processing based on the Pregel framework.
+
+ArangoDB as a graph database is a great fit for use cases like fraud detection,
+knowledge graphs, recommendation engines, identity and access management,
+network and IT operations, social media management, traffic management, and many
+more.
 
 ## ArangoDB as a Document Database
 
@@ -66,7 +71,8 @@ JSON supports the following data types:
   any of the supported data types, including nested objects.
 
 Each record that you store is a JSON object at the top-level, also referred to
-as **document**. Each key-value pair is called an **attribute**, comprised
+as [**document**](data-modeling-documents-document-address.html).
+Each key-value pair is called an **attribute**, comprised
 of the attribute name and the attribute value. Attributes can also be called
 properties or fields. You can freely model your data
 using the available data types. Each document is self-contained and can thus
@@ -74,14 +80,20 @@ have a unique structure. You do not need to define a schema upfront.
 However, sets of documents will typically have some common attributes. If you
 want to enforce a specific structure, then you can do so with schema validation.
 
-Documents are stored in **collections**, similar to how files are stored in
-folders. You can group related documents together using collections, such as by
+Documents are stored in [**collections**](data-modeling-collections.html),
+similar to how files are stored in folders.
+You can group related documents together using collections, such as by
 entity type (every _book_ document in a `books` collections, for instance).
-Each collection is part of a **database**. Databases allow you to isolate sets
-of collections from one another, usually for multi-tenant applications, where
-each of your clients has their own database to work with.
+Each collection is part of a [**database**](data-modeling-databases.html).
+Databases allow you to isolate sets of collections from one another, usually for
+multi-tenant applications, where each of your clients has their own database to
+work with.
 
-<!-- Joins? Indexes? -->
+<!-- Joins? Indexes? Link for more information? -->
+
+ArangoDB can be used as the backend for heterogeneous content management,
+e-commerce systems, Internet of Things applications, and more generally as a
+persistence layer for a broad range of services 
 
 ## ArangoDB as a Key-Value Database
 
@@ -101,6 +113,9 @@ While ArangoDB can store binary data, it is not designed for
 binary large objects (BLOBs) and works best with small to medium-sized
 JSON objects.
 
+For more information about how ArangoDB persists data, see
+[Storage Engine](architecture-storage-engines.html).
+
 ## ArangoDB as a Search Engine
 
 ArangoDB has a natively integrated search engine for a broad range of
@@ -112,6 +127,8 @@ scoring algorithms.
 
 It also features natural language processing (NLP) capabilities and can
 classify or find similar terms using word embedding models.
+
+For more information about the search engine, see [ArangoSearch](arangosearch.html).
 
 ## ArangoDB for Machine Learning
 

@@ -3,8 +3,8 @@ layout: default
 description: If you worked with a relational database management system (RDBMS) such as MySQL,MariaDB or PostgreSQL, you will be familiar with its query language, a dialect of SQL (Structured Query Language)
 redirect_from:
   - getting-started-coming-from-sql.html # 3.9 -> 3.10
+# TODO: Improve, clarify that this is about the query languages only
 ---
-<!-- TODO: Improve, clarify that this is about the query languages only -->
 Coming from SQL
 ===============
 
