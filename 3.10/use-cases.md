@@ -27,7 +27,7 @@ more.
 - **Customer 360**:
   Gain a complete understanding of your customers by integrating multiple data
   sources and code
--**Identity Management**:
+- **Identity Management**:
   Increase security and compliance by managing data access based on role and
   position
 - **Supply Chain**:

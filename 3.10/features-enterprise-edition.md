@@ -16,7 +16,7 @@ features outlined below. For additional information, see
 
 ## Performance
 
-- **[Pregel in Cluster](graphs-pregel.html#prerequisites)**:
+- [**Pregel in Cluster**](graphs-pregel.html#prerequisites):
   Distributed iterative graph analytics for cluster deployments.
 
 - [**SmartGraphs**](graphs-smart-graphs.html):
@@ -54,19 +54,19 @@ features outlined below. For additional information, see
 - [**Auditing**](security-auditing.html):
   Audit log of all server interactions.
 
-- [**LDAP Authentication**]():
+- [**LDAP Authentication**](programs-arangod-ldap.html):
   ArangoDB user authentication with an LDAP server.
 
 - [**Encryption at Rest**](security-encryption.html):
   Hardware-accelerated on-disk encryption for your data.
 
-- [**Encrypted Backups**]():
+- [**Encrypted Backups**](programs-arangodump-examples.html#encryption):
   Data dumps can be encrypted using a strong 256-bit AES block cipher.
 
 - [**Hot Backups**](backup-restore.html#hot-backups):
   Incremental data backups without downtime for single servers and clusters.
 
-- [**Enhanced Data Masking**]():
+- [**Enhanced Data Masking**](programs-arangodump-maskings.html#masking-functions):
   Extended data masking capabilities for attributes containing sensitive data
   / PII when creating backups.
 
