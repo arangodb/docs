@@ -1,51 +1,71 @@
 ---
 layout: default
+description: >-
+  The open-source version of ArangoDB is available under the permissive
+  Apache 2.0 license and offers an extensive feature set including cluster
+  support for free
 ---
 # Community Edition Features
 
-<https://www.arangodb.com/community-server/>
+{{ page.description }}
+{:class="lead"}
+
+The Community Edition features are outlined below. For additional information,
+see <https://www.arangodb.com/community-server/>{:target="_blank"}.
 
 ## General
 
 - **Graph Database**:
+  Native support for storing and querying graphs comprised of vertices and edges.
   You can model complex domains because edges are documents without any
   restrictions in complexity.
 
 - **Document Database**:
+  A modern document store that allows you to model data intuitively and evolve
+  the data model easily. Documents can be organized in collections, and
+  collections in databases for multi-tenancy.
 
-- **Schema-free**:
-  Flexible data modeling - model your data as combination of key-value pairs,
-  documents or graphs - perfect for social relations. Optional document
-  validation using JSON Schema (draft-4, without remote schema support).
+  <!-- TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...) -->
 
 - **Data Format**:
   JSON, internally stored in a binary format invented by ArangoDB called
   VelocyPack.
 
-- **Data Storage**:
-  RocksDB storage engine with journaling to persist data and indexes on disk,
-  with a hot set in memory.
+- **Schema-free**:
+  Flexible data modeling without having to define a schema upfront.
+  Model your data as combination of key-value pairs,
+  documents, or graphs - perfect for social relations. Optional document
+  validation using JSON Schema (draft-4, without remote schema support).
+
+- [**Data Storage**](architecture-storage-engines.html):
+  RocksDB storage engine to persist data and indexes on disk, with a hot set in
+  memory. It uses journaling (write-ahead logging) and can take advantage of
+  modern storage hardware, like SSDs and large caches.
 
 - **Multi-Platform**:
   Available for Linux, macOS, and Windows. <!-- TODO: Limitations? -->
 
 ## Scalability & High Availability
 
-- **Auto-Sharding**:
+- [**Auto-Sharding**](architecture-deployment-modes-cluster-sharding.html):
   Spread bigger datasets across multiple servers using consistent hashing on
   the default or custom shard keys.
 
-- **Synchronous Replication**:
-  Synchronous replication works on a per-shard basis. One configures for each
-  collection, how many copies of each shard are kept in the cluster.
+- [**Synchronous Replication**](architecture-deployment-modes-cluster-architecture.html#synchronous-replication):
+  Data changes are propagated to other cluster nodes immediately as part of an
+  operation, and only considered successful when the configured number of writes
+  is reached. Synchronous replication works on a per-shard basis. For each
+  collection, you can configure how many copies of each shard are kept in the cluster.
 
-- **Active Failover**:
+- [**Active Failover**](architecture-deployment-modes-active-failover-architecture.html):
   Run a single server with asynchronous replication to one or more passive
   single servers for automatic failover.
 
-- **Automatic Failover Cluster**
+- [**Automatic Failover Cluster**](architecture-deployment-modes-cluster-architecture.html#automatic-failover):
+  If a nodes goes down, another node takes over to avoid any downtime. <!-- TODO: Can we say that? -->
 
-- **Master/Master Conflict Resolution**
+- **Master/Master Conflict Resolution**:
+  <!-- TODO: What does this refer to? How does it work? MVCC? -->
 
 - **Load-Balancer Support**:
   Round-robin load-balancer support for cloud environments.
@@ -55,7 +75,7 @@ layout: default
 
 ## Querying
 
-- **Declarative Query Language for all Data Models**:
+- [**Declarative Query Language for All Data Models**](aql/):
   Powerful query language (AQL) to retrieve and modify data.
   Graph traversals, full-text searches, geo-spatial queries, and aggregations
   can be composed in a single query.
@@ -63,38 +83,44 @@ layout: default
   ranges and time intervals.
   Cluster-distributed aggregation queries.
 
-- **Query Optimizer**:
+- [**Query Optimizer**](aql/execution-and-performance-optimizer.html):
   Cost-based query optimizer that takes index selectivity estimates into account.
   <!-- TODO: Explain, batching?, lazy evaluation (stream)? -->
 
-- **Query Profiling**:
-  Show detailed runtime information.
+- [**Query Profiling**](aql/execution-and-performance-query-profiler.html):
+  Show detailed runtime information for AQL queries.
 
-- **Upsert Operations**:
+- [**Upsert Operations**](aql/examples-upsert-repsert.html):
   Support for insert-or-update (upsert), insert-or-replace (repsert), and
   insert-or-ignore requests, that result in one or the other operation depending
   on whether the target document exists already.
 
 - **Graph Relations**:
+  Edges can connect vertex and even edge documents to express complex m:n
+  relations with any depth, creating graphs and hyper-graphs.
   <!-- TODO: does this refer to the data model, graph traversals, or something else? -->
-  Edges can connect vertex and even edge documents.
-  Graphs can be traversed with AQL to retrieve direct and indirect neighbor
-  nodes, using depth-first search, breadth-first search, or in order of
-  increasing edge weights ("Weighted Traversals").
-  Stop condition support for graph traversals (pruning).
 
-- **Relational Joins**
+- [**Relational Joins**](aql/examples-join.html):
+  Joins similar to those in relational database systems can be leveraged to
+  match up documents from different collections, allowing normalized data models.
 
 - **Advanced Path-Finding with Multiple Algorithms**:
-  Graph traversal algorithms
-  to get a shortest path, multiple shortest paths ("k Shortest Paths"), and
-  to enumerate all paths between two vertices ("k Paths")
+  Graphs can be [traversed](aql/graphs-traversals-explained.html) with AQL to
+  retrieve direct and indirect neighbor nodes using a fixed or variable depth.
+  The [traversal order](aql/graphs-traversals.html) can be
+  depth-first, breadth-first, or in order of increasing edge weights
+  ("Weighted Traversals"). Stop conditions for pruning paths are supported.
+  Traversal algorithms to get a [shortest path](aql/graphs-shortest-path.html)
+  multiple shortest paths ("[k Shortest Paths](aql/graphs-kshortest-paths.html)"),
+  and to enumerate all paths between two vertices
+  ("[k Paths](aql/graphs-k-paths.html)") are available, too.
 
-- **Pregel**:
+- [**Pregel**](graphs-pregel.html):
   Iterative graph processing for single servers with pre-built algorithms like
-  PageRank, Connected Components, and Label Propagation.
+  PageRank, Connected Components, and Label Propagation. Cluster support
+  requires the Enterprise Edition.
 
-- **ArangoSearch for Text Search and Ranking**:
+- [**ArangoSearch for Text Search and Ranking**](arangosearch.html):
   Wildcard and fuzzy search support for full-text search.
   Edge _n_-gram support.
   Flexible data field pre-processing with custom queries and the ability to
@@ -102,90 +128,113 @@ layout: default
   Geo-spatial queries can be combined with full-text search.
   Language-agnostic tokenization of text.
 
-- **GeoJSON Support**
+- [**GeoJSON Support**](indexing-geo.html#geojson):
+  Geographic data encoded in the popular GeoJSON format can be stored and used
+  for geo-spatial queries.
 
 ## Transactions
 
-- **ACID Transactions**:
-  Using a single instance of ArangoDB, multi-document / multi-collection
-  queries are guaranteed to be fully ACID. In cluster mode, single-document
-  operations are also fully ACID. Multi-document / multi-collection queries in
-  a cluster are not ACID, which is equally the case with competing database
-  systems. Note that for non-sharded collections in a cluster, the
-  transactional properties of a single server apply (fully ACID).
+- [**AQL Queries**](aql/data-queries.html#transactional-execution):
+  AQL queries are executed transactionally (with exceptions), either committing
+  or rolling back data modifications automatically.
 
-- **Multi-Document Transactions**
+- [**Stream Transactions**](http/transaction-stream-transaction.html):
+  Transactions with individual begin and commit / abort commands that can span
+  multiple AQL queries and API calls of supported APIs.
+
+- [**JavaScript Transactions**](http/transaction-js-transaction.html):
+  Single-request transactions written in JavaScript that leverage ArangoDB's
+  JavaScript API.
+
+- **Multi-Document Transactions**:
+  Transactions are not limited to single documents, but can involve many
+  documents of a collection.
 
 - **Multi-Collection Transactions**
+  A single transaction can modify the documents of multiple collections.
+  There is an automatic deadlock detection for single servers.
 
-  Automatic deadlock detection for single servers.
-
-- **Stream Transactions**:
-  Multi-document transactions with individual begin and commit / abort commands.
+- **ACID Transactions**:
+  Using single servers, multi-document / multi-collection queries are guaranteed
+  to be fully ACID (atomic, consistent, isolated, durable).
+  Using cluster deployments, single-document operations are fully ACID, too.
+  Multi-document queries in a cluster are not ACID, except for collections with
+  a single shard. Multi-collection queries require the OneShard
+  feature of the Enterprise Edition to be ACID. <!-- TODO: can we put it like this? -->
 
 ## Performance
 
-- **Persistent Indexes**:
+- [**Persistent Indexes**](indexing-index-basics.html#persistent-index):
   Indexes are stored on disk to enable fast server restarts. You can create
   secondary indexes over one or multiple fields, optionally with a uniqueness
   constraint. A "sparse" option to only index non-null values is also available.
   The elements of an array can be indexed individually.
 
-- **Vertex-centric Indexes**:
+- [**Vertex-centric Indexes**](indexing-index-basics.html#vertex-centric-indexes):
   Secondary indexes for more efficient graph traversals with filter conditions.
 
-- **Time-to-live Indexes**:
+- [**Time-to-Live (TTL) Indexes**](indexing-index-basics.html#ttl-time-to-live-index):
   Time-based removal of expired documents.
 
-- **Geo-spatial Indexes**:
+- [**Geo-spatial Indexes**](indexing-index-basics.html#geo-index):
   Accelerated geo-spatial queries for coordinates and GeoJSON objects, based on
   the S2 library. <!-- TODO: list supported queries? Centroid-limitations? -->
   Support for composable, distance-based geo-queries ("geo cursors").
 
-- **Background Indexing**:
+- [**Background Indexing**](indexing-index-basics.html#creating-indexes-in-background):
   Indexes can be created in the background to not block queries in the meantime.
 
-- **Extensive Query Optimization**: <!-- TODO, move to Querying? -->
+- [**Extensive Query Optimization**](aql/execution-and-performance-optimizer.html):
   Late document materialization to only fetch the relevant documents from
   SORT/LIMIT queries. Early pruning of non-matching documents in full
   collection scans. Inlining of certain subqueries to improve execution time.
-
+  <!-- TODO, move to Querying? -->
 
 ## Extensibility
 
-- **Microservice Support with ArangoDB Foxx**:
+- [**Microservice Support with ArangoDB Foxx**](foxx.html):
   Use ArangoDB as an application server and fuse your application and database
   together for maximal throughput.
   With fault-tolerant cluster support.
 
-- **Server-Side Functions**:
+- [**Server-Side Functions**](aql/extending.html):
   You can extend AQL with user-defined functions written in JavaScript.
 
 ## Security
 
-- **Authentication**
+- [**Authentication**](administration-managing-users.html):
+  Built-in user management with password- and token-based authentication.
 
-- **TLS Encryption**:
-  Internal and external communication over encrypted network connections.
-
-- **Role-based Access Control**: ArangoDB supports all basic security requirements. By using ArangoDB's Foxx
+- **Role-based Access Control**:
+  ArangoDB supports all basic security requirements. By using ArangoDB's Foxx
   microservice framework users can achieve very high security standards
   fitting individual needs.
 
+- [**TLS Encryption**](programs-arangod-ssl.html):
+  Internal and external communication over encrypted network connections with
+  TLS (formerly SSL).
+  [TLS key and certificates rotation](release-notes-new-features37.html#tls-key-and-certificate-rotation)
+  is supported.
+
 ## Administration
 
-- **Web-based User Interface**:
+- [**Web-based User Interface**](programs-web-interface.html):
   Graphical UI for your browser to work with ArangoDB. It allows you to
   view, create, and modify databases, collections, documents, graphs, etc.
   You can also run, explain, and profile AQL queries. Includes a graph viewer
   with WebGL support.
 
-- **Cluster-friendly User Interface**
+- **Cluster-friendly User Interface**:
+  View the status of your cluster and its individual nodes, and move and
+  rebalance shards via the web interface.
 
-- **Backup and Restore Tools**:
-  Multi-threaded dump and restore operations.
-  Data masking capabilities for attributes containing sensitive data / PII when
-  creating backups.
+- **[Backup](programs-arangodump.html) and [Restore](programs-arangorestore.html) Tools**:
+  Multi-threaded dumping and restoring of collection settings and data
+  in JSON format. Data masking capabilities for attributes containing sensitive
+  data / PII when creating backups.
   Consistent cluster backups. <!-- TODO -->
 
-- **Import and Export Tools**: CLI utilities to load and export data for multiple formats. <!-- TODO: List formats? -->
+- **[Import](programs-arangoimport.html) and [Export](programs-arangoexport.html) Tools**:
+  CLI utilities to load and export data in multiple text-based formats.
+  You can import from JSON, JSONL, CSV, and TSV files, and export to JSON, JSONL,
+  CSV, TSV, XML, and XGMML files.
