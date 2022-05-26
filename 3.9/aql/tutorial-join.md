@@ -112,7 +112,7 @@ Let's start simple by returning only the traits attribute of each character:
 
 ```js
 FOR c IN Characters
-    RETURN c.traits
+    RETURN { traits: c.traits }
 ```
 
 ```json
