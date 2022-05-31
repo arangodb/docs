@@ -101,7 +101,7 @@ correct sharding already).
 ## Create a Hybrid SmartGraph
 
 In addition to the attributes you would set to create a SmartGraph, there is an
-additional attribute `satellites` you need to set. It needs to be an array of
+additional attribute `satellites` you can optionally set. It needs to be an array of
 one or more collection names. These names can be used in edge definitions
 (relations) and these collections will be created as SatelliteCollections.
 In this example, both vertex collections are created as SatelliteCollections:
