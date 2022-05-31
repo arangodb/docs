@@ -1,6 +1,8 @@
 ---
 layout: default
-description: Before we can insert documents with AQL, we need a place to put them in - acollection
+description: Before we can insert documents with AQL, we need a place to put them in - a collection
+redirect_from:
+  - aql/tutorial-crud.html # 3.9 -> 3.10
 ---
 CRUD
 ====
@@ -17,9 +19,9 @@ Before we can insert documents with AQL, we need a place to put them in – a
 collection. Collections can be managed via the web interface, arangosh or a
 driver. It is not possible to do so with AQL however.
 
-![Add Collection](../images/Collection_Add.png)
+![Add Collection](images/Collection_Add.png)
 
-![Create Characters collection](../images/Characters_Collection_Creation.png)
+![Create Characters collection](images/Characters_Collection_Creation.png)
 
 Click on *COLLECTIONS* in the web interface, then *Add Collection* and type
 `Characters` as name. Confirm with *Save*. The new collection should appear
@@ -29,7 +31,7 @@ Next, click on *QUERIES*. To create the first document for collection with AQL,
 use the following AQL query, which you can paste into the query textbox and
 run by clicking *Execute*:
 
-![Insert query in query editor](../images/Query_Insert.png)
+![Insert query in query editor](images/Query_Insert.png)
 
 ```js
 INSERT {

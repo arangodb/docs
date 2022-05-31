@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Sorting and limiting
+redirect_from:
+  - aql/tutorial-sort-limit.html # 3.9 -> 3.10
 ---
 Sorting and limiting
 ====================

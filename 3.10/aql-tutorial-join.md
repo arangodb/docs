@@ -1,6 +1,8 @@
 ---
 layout: default
 description: The character data we imported has an attribute traits for each character,which is an array of strings
+redirect_from:
+  - aql/tutorial-join.html # 3.9 -> 3.10
 ---
 Joining together
 ================
@@ -67,20 +69,20 @@ trait in another collection, it is as easy as updating a single document.
 
 {%- comment %}What if Trait doc is deleted? DOCUMENT() skips null{% endcomment %}
 
-![Data model comparison](../images/Comparison_DataModels.png)
+![Data model comparison](images/Comparison_DataModels.png)
 
 Importing traits
 ----------------
 
 Below you find the traits data. Follow the pattern shown in
-[Create documents](tutorial-crud.html#create-documents) to import it:
+[Create documents](aql-tutorial-crud.html#create-documents) to import it:
 
 - Create a document collection *Traits*
 - Assign the data to a variable in AQL, `LET data = [ ... ]`
 - Use a `FOR` loop to iterate over each array element of the data
 - `INSERT` the element `INTO Traits`
 
-![Create Traits collection](../images/Traits_Collection_Creation.png)
+![Create Traits collection](images/Traits_Collection_Creation.png)
 
 ```json
 [

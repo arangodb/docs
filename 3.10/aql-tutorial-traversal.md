@@ -2,6 +2,8 @@
 layout: default
 description: This is an AQL tutorial for graph traversals. You can see how relations such as between parents and children can be modeled as graph.
 title: AQL Graph Traversal Tutorial
+redirect_from:
+  - aql/tutorial-traversal.html # 3.9 -> 3.10
 ---
 Traversal
 =========
@@ -37,7 +39,7 @@ Our characters have the following relations between parents and children
 
 Visualized as graph:
 
-![ChildOf graph visualization](../images/ChildOf_Graph.png)
+![ChildOf graph visualization](images/ChildOf_Graph.png)
 
 Creating the edges
 ------------------
@@ -50,7 +52,7 @@ edge collection *ChildOf*.
 First off, create a new collection with the name *ChildOf* and make sure you
 change the collection type to **Edge**.
 
-![Create ChildOf edge collection](../images/ChildOf_Collection_Creation.png)
+![Create ChildOf edge collection](images/ChildOf_Collection_Creation.png)
 
 Then run the following query:
 
@@ -266,7 +268,7 @@ It might be a bit unexpected, that Joffrey is returned twice. However, if you
 look at the graph visualization, you can see that multiple paths lead from
 Joffrey (bottom right) to Tywin:
 
-![ChildOf graph visualization](../images/ChildOf_Graph.png)
+![ChildOf graph visualization](images/ChildOf_Graph.png)
 
 ```
 Tywin <- Jaime <- Joffrey

@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Matching documents
+redirect_from:
+  - aql/tutorial-filter.html # 3.9 -> 3.10
 ---
 Matching documents
 ==================

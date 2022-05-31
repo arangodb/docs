@@ -10,7 +10,7 @@ are stored in ArangoDB.
 
 {% hint 'info' %}
 Want to learn AQL for the first time? Be sure to check out the
-[**Tutorial**](tutorial.html) before you head off to the
+[**Tutorial**](../tutorial.html) before you head off to the
 in-depth documentation!
 {% endhint %}
 
@@ -43,4 +43,4 @@ Nevertheless, AQL should be easy to understand for anyone with an SQL background
 For some example queries, please refer to the chapters
 [Data Queries](data-queries.html),
 [Usual query patterns](examples.html)
-and [Tutorial](tutorial.html).
+and [Tutorial](../tutorial.html).

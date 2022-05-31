@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Geospatial Queries AQL Tutorial
+redirect_from:
+  - aql/tutorial-geospatial.html # 3.9 -> 3.10
 ---
 Geospatial queries
 ==================
@@ -17,7 +19,7 @@ Locations data
 Let us insert some filming locations into a new collection *Locations*,
 which you need to create first, then run below AQL query:
 
-![Create Locations collection](../images/Locations_Collection_Creation.png)
+![Create Locations collection](images/Locations_Collection_Creation.png)
 
 ```js
 LET places = [
@@ -37,7 +39,7 @@ FOR place IN places
 
 Visualization of the coordinates on a map with their labels:
 
-![Locations on map](../images/Locations_Map.png)
+![Locations on map](images/Locations_Map.png)
 
 Geospatial index
 ----------------
@@ -54,9 +56,9 @@ values.
 - Enter `coordinate` into the *Fields* field
 - Click *Create* to confirm
 
-![Create geospatial index on coordinate attribute](../images/Locations_GeoIndex_Creation.png)
+![Create geospatial index on coordinate attribute](images/Locations_GeoIndex_Creation.png)
 
-![Indexes of Locations collection](../images/Locations_Indexes.png)
+![Indexes of Locations collection](images/Locations_Indexes.png)
 
 Find nearby locations
 ---------------------

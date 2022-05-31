@@ -3,8 +3,8 @@ layout: default
 redirect_from:
   - getting-started-web-interface.html # 3.9 -> 3.10
   - getting-started-databases-collections-documents.html # 3.9 -> 3.10
-  - getting-started-querying-the-database.html # 3.9 -> 3.10
-  - getting-started-next-steps.html # 3.9 -> 3.10
+# - getting-started-querying-the-database.html # 3.9 -> 3.10
+# - getting-started-next-steps.html # 3.9 -> 3.10
 #- Data model?
 #- Types of requests
 #  - low level APIs
@@ -117,9 +117,12 @@ easily processable batches instead of one big hunk.
 such as [persistent indexes](indexing-persistent.html)
 and [geo-spatial indexes](indexing-geo.html).
 
+<!-- TODO: title? Overlaps with the AQL Tutorial and the Data Queries page -->
+<!--
+
 ## Querying the Database
 
-<!-- TODO: title? Overlaps with the AQL Tutorial and the Data Queries page -->
+
 
 Time to retrieve our document using AQL, ArangoDB's query language. We can
 directly look up the document we created via the `_id`, but there are also
@@ -560,3 +563,5 @@ If you want to write more AQL queries right now, have a look here:
 
 Visit the [ArangoDB Training Center](https://www.arangodb.com/learn/){:target="_blank"}
 for courses, tutorials and more.
+
+-->
