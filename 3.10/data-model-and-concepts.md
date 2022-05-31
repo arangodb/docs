@@ -1,9 +1,12 @@
 ---
 layout: default
-description: ArangoDB is a database that serves documents to clients
+description: >-
+  ArangoDB stores graphs and documents as JSON objects that can be organized in
+  collections and databases
 title: ArangoDB Data Model & Concepts
 redirect_from:
   - data-modeling-graphs-vertices-edges.html # 3.9 -> 3.10
+  - data-modeling-concepts.html # 3.9 -> 3.10
 ---
 # Data Model & Concepts
 
@@ -27,7 +30,7 @@ ArangoDB lets you store documents as JSON objects.
 {
   "name": "ArangoDB",
   "tags": ["graph", "database", "NoSQL"],
-  "openSource": true,
+  "scalable": true,
   "company": {
     "name": "ArangoDB Inc.",
     "founded": 2015
