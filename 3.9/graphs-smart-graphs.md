@@ -50,7 +50,7 @@ The natural distribution of data for graphs that handle large datasets involves 
 
 _The orange line indicates an example graph traversal. Notice how it touches nodes on every server._
 
-Once you start connecting the nodes to each other, it becomes clear that the graph traversal might need to travel across every server before returning results. This sort of distribution results in many network hops between servers, coordinators, and you.
+Once you start connecting the nodes to each other, it becomes clear that the graph traversal might need to travel across every server before returning results. This sort of distribution results in many network hops between DB-Servers and Coordinators.
 
 ### Smart data distribution
 
