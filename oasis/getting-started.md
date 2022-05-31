@@ -96,6 +96,10 @@ used for multiple accounts.
    button below the label __ROOT PASSWORD__. Then click the __Open endpoint__
    button to bring up the ArangoDB web interface. Enter the credentials
    (user `root` and its password) and log in.
+   
+   {% hint 'info' %}
+   It is highly recommended to create additional users and not use the `root` user for everyday operations.
+   {% endhint %}
 
 5. You can install example datasets and follow the accompanying guides to get
    started with ArangoDB and its query language. In the Oasis dashboard, click
