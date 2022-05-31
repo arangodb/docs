@@ -10,7 +10,7 @@ Geospatial queries
 Geospatial coordinates consisting of a latitude and longitude value
 can be stored either as two separate attributes, or as a single
 attribute in the form of an array with both numeric values.
-ArangoDB can [index such coordinates](../indexing-geo.html)
+ArangoDB can [index such coordinates](indexing-geo.html)
 for fast geospatial queries.
 
 Locations data
@@ -44,7 +44,7 @@ Visualization of the coordinates on a map with their labels:
 Geospatial index
 ----------------
 
-To query based on coordinates, a [geo index](../indexing-geo.html)
+To query based on coordinates, a [geo index](indexing-geo.html)
 is required. It determines which fields contain the latitude and longitude
 values.
 

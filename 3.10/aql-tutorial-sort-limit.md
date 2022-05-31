@@ -186,5 +186,5 @@ A filter is applied to avoid documents without age attribute. The remaining
 documents are sorted by age in ascending order, and the name and age of the
 ten youngest characters are returned.
 
-See the [SORT operation](operations-sort.html) and
-[LIMIT operation](operations-limit.html) documentation for more details.
+See the [AQL `SORT` operation](aql/operations-sort.html) and
+[AQL `LIMIT` operation](aql/operations-limit.html) documentation for more details.

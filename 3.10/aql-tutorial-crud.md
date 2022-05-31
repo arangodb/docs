@@ -47,7 +47,7 @@ The syntax is `INSERT document INTO collectionName`. The document is an object
 like you may know it from JavaScript or JSON, which is comprised of attribute
 key and value pairs. The quotes around the attribute keys are optional in AQL.
 Keys are always character sequences (strings), whereas attribute values can
-have [different types](fundamentals-data-types.html):
+have [different types](aql/fundamentals-data-types.html):
 
 - null
 - boolean (true, false)
@@ -179,7 +179,7 @@ Among them should be *Ned Stark*, similar to this example:
 The document features the four attributes we stored, plus three more added by
 the database system. Each document needs a unique `_key`, which identifies it
 within a collection. The `_id` is a computed property, a concatenation of the
-collection name, a forward slash `/` and the document key. It uniquely identies
+collection name, a forward slash `/` and the document key. It uniquely identifies
 a document within a database. `_rev` is a revision ID managed by the system.
 
 Document keys can be provided by the user upon document creation, or a unique
@@ -249,7 +249,7 @@ RETURN DOCUMENT(["Characters/2861650", "Characters/2861653"])
 ]
 ```
 
-See the [`DOCUMENT()` function](functions-miscellaneous.html#document)
+See the [`DOCUMENT()` function](aql/functions-miscellaneous.html#document)
 documentation for more details.
 
 Update documents

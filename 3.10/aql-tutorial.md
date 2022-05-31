@@ -16,7 +16,7 @@ which makes for an interesting mix of data to work with.
 
 There is no need to import the data before you start. It is provided as part
 of the AQL queries in this tutorial. You can interact with ArangoDB using its
-[web interface](../getting-started-web-interface.html) to manage
+[web interface](getting-started-web-interface.html) to manage
 collections and execute the queries.
 
 Chapters

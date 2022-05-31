@@ -110,7 +110,7 @@ Below you find the traits data. Follow the pattern shown in
 Resolving traits
 ----------------
 
-Let's start simple by returning only the traits attribute of each character:
+Let's start simple by returning only the `traits` attribute of each character:
 
 ```js
 FOR c IN Characters
@@ -125,11 +125,11 @@ FOR c IN Characters
 ]
 ```
 
-Also see the [Fundamentals of Objects / Documents](fundamentals-data-types.html#objects--documents)
+Also see the [Fundamentals of Objects / Documents](aql/fundamentals-data-types.html#objects--documents)
 about attribute access.
 
-We can use the *traits* array together with the `DOCUMENT()` function to use
-the elements as document keys and look them up in the *Traits* collection:
+We can use the `traits` array together with the `DOCUMENT()` function to use
+the elements as document keys and look them up in the `Traits` collection:
 
 ```js
 FOR c IN Characters
@@ -202,7 +202,7 @@ FOR c IN Characters
 ]
 ```
 
-The [DOCUMENT() function](functions-miscellaneous.html#document) can be used
+The [DOCUMENT() function](aql/functions-miscellaneous.html#document) can be used
 to look up a single or multiple documents via document identifiers. In our
 example, we pass the collection name from which we want to fetch documents
 as first argument (`"Traits"`) and an array of document keys (`_key` attribute)
@@ -210,7 +210,7 @@ as second argument. In return we get an array of the full trait documents
 for each character.
 
 This is a bit too much information, so let's only return English labels using
-the [array expansion](advanced-array-operators.html#array-expansion) notation:
+the [array expansion](aql/advanced-array-operators.html#array-expansion) notation:
 
 ```js
 FOR c IN Characters

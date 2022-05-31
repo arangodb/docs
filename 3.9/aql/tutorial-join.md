@@ -8,7 +8,7 @@ Joining together
 References to other documents
 -----------------------------
 
-The character data we imported has an attribute *traits* for each character,
+The character data we imported has an attribute `traits` for each character,
 which is an array of strings. It does not store character features directly
 however:
 
@@ -23,7 +23,7 @@ however:
 ```
 
 It is rather a list of letters without an apparent meaning. The idea here is
-that *traits* is supposed to store documents keys of another collection, which
+that `traits` is supposed to store documents keys of another collection, which
 we can use to resolve the letters to labels such as "strong". The benefit of
 using another collection for the actual traits is, that we can easily query
 for all existing traits later on and store labels in multiple languages for
@@ -75,7 +75,7 @@ Importing traits
 Below you find the traits data. Follow the pattern shown in
 [Create documents](tutorial-crud.html#create-documents) to import it:
 
-- Create a document collection *Traits*
+- Create a document collection `Traits`
 - Assign the data to a variable in AQL, `LET data = [ ... ]`
 - Use a `FOR` loop to iterate over each array element of the data
 - `INSERT` the element `INTO Traits`
@@ -126,8 +126,8 @@ FOR c IN Characters
 Also see the [Fundamentals of Objects / Documents](fundamentals-data-types.html#objects--documents)
 about attribute access.
 
-We can use the *traits* array together with the `DOCUMENT()` function to use
-the elements as document keys and look them up in the *Traits* collection:
+We can use the `traits` array together with the `DOCUMENT()` function to use
+the elements as document keys and look them up in the `Traits` collection:
 
 ```js
 FOR c IN Characters
@@ -282,7 +282,7 @@ FOR c IN Characters
 ```
 
 The `MERGE()` functions merges objects together. Because we used an object
-`{ traits: ... }` which has the same attribute name *traits* as the original
+`{ traits: ... }` which has the same attribute name `traits` as the original
 character attribute, the latter got overwritten by the merge operation.
 
 Join another way
@@ -309,8 +309,8 @@ FOR c IN Characters
   })
 ```
 
-For each character, it loops over its *traits* attribute (e.g. `["D","H","C"]`)
-and for each document reference in this array, it loops over the *Traits*
+For each character, it loops over its `traits` attribute (e.g. `["D","H","C"]`)
+and for each document reference in this array, it loops over the `Traits`
 collections. There is a condition to match the document key with the key
 reference. The inner `FOR` loop and the `FILTER` get transformed to a primary
 index lookup in this case instead of building up a Cartesian product only to

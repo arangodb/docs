@@ -166,7 +166,7 @@ Traverse to the parents
 Now that edges link character documents (vertices), we have a graph we can
 query to find out who the parents are of another character &ndash; or in
 graph terms, we want to start at a vertex and follow the edges to other
-vertices in an [AQL graph traversal](graphs-traversals.html):
+vertices in an [AQL graph traversal](aql/graphs-traversals.html):
 
 ```js
 FOR v IN 1..1 OUTBOUND "Characters/2901776" ChildOf
@@ -177,7 +177,7 @@ This `FOR` loop doesn't iterate over a collection or an array, it walks the
 graph and iterates over the connected vertices it finds, with the vertex
 document assigned to a variable (here: `v`). It can also emit the edges it
 walked as well as the full path from start to end to
-[another two variables](graphs-traversals.html#syntax).
+[another two variables](aql/graphs-traversals.html#syntax).
 
 In above query, the traversal is restricted to a minimum and maximum traversal
 depth of 1 (how many steps to take from the start vertex), and to only follow
@@ -277,7 +277,7 @@ Tywin <- Cersei <- Joffrey
 
 As a quick fix, change the last line of the query to `RETURN DISTINCT v.name`
 to return each value only once. Keep in mind though, that there are
-[traversal options](graphs-traversals.html#syntax) to suppress duplicate
+[traversal options](aql/graphs-traversals.html#syntax) to suppress duplicate
 vertices early on.
 
 Also check out the
