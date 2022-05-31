@@ -85,6 +85,69 @@ It is possible to opt out of these changes and get back the memory and performan
 of the previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
+### Pregel options
+
+Pregel jobs now have configurable minimum, maximum and default parallelism values. These
+can be set by the following startup options:
+
+- `--pregel.min-parallelism`: minimum parallelism usable in Pregel jobs. Defaults to `1`.
+- `--pregel.max-parallelism`: maximum parallelism usable in Pregel jobs. Defaults to the
+  number of available cores.
+- `--pregel.parallelism`: default parallelism to use in Pregel jobs. Defaults to the number
+  of available cores divided by 4. The result will be clamped to a value between 1 and 16.
+
+The default values of these options may be different than parallelism values effectively
+used by previous versions, so it is advised to explicitly set the desired parallelism
+values in ArangoDB 3.10.
+
+Pregel now also stores its temporary data in memory-mapped files on disk by default, whereas 
+in previous versions the default behavior was to buffer it in RAM.
+Storing temporary data in memory-mapped files rather than in RAM has the advantage that
+the RAM usage can be kept lower, which reduces the likelihood of out-of-memory situations.
+However, storing the files on disk requires disk capacity, so that instead of running out
+of RAM it is now possible to run out of disk space.
+
+It is thus advised to set the storage location for Pregel's memory-mapped files explicitly
+in ArangoDB 3.10. The following startup options are available for the configuration of
+memory-mapped files:
+
+- `--pregel.memory-mapped-files`: if set to `true`, Pregel jobs will by
+  default store their temporary data in disk-backed memory-mapped files.
+  If set to `false`, the temporary data of Pregel jobs will be buffered in
+  RAM. The default value is `true`, meaning that memory-mapped files will
+  be used. The option can be overriden for each Pregel job by setting the
+  `useMemoryMaps` option of the job.
+
+- `--pregel.memory-mapped-files-location-type`: location for memory-mapped
+  files written by Pregel. This option is only meaningful if memory-mapped
+  files are actually used. The option can have one of the following values:
+  - `temp-directory`: store memory-mapped files in the temporary directory,
+    as configured via `--temp.path`. If `--temp.path` is not set, the
+    system's temporary directory will be used.
+  - `database-directory`: store memory-mapped files in a separate directory
+    underneath the database directory.
+  - `custom`: use a custom directory location for memory-mapped files. The
+    exact location must be set via the configuration parameter
+    `--pregel.memory-mapped-files-custom-path`.
+
+  The default value for this option is `temp-directory`.
+
+- `--pregel.memory-mapped-files-custom-path`: custom directory location for
+  Pregel's memory-mapped files. This setting can only be used if the option
+  `--pregel.memory-mapped-files-location-type` is set to `custom`.
+
+The default location for Pregel's memory-mapped files is the temporary directory 
+(`temp-directory`), which may not provide enough capacity for larger Pregel jobs.
+It may be more sensible to configure a custom directory for memory-mapped files
+and provide the necessary disk space there (`custom`). Such custom directory can 
+be mounted on ephemeral storage, as the files are only needed temporarily.
+
+There is also the option to use a subdirectory of the database directory
+as the storage location for the memory-mapped files (`database-directory`).
+The database directory often provides a lot of disk space capacity, but when 
+Pregel's temporary files are stored in there too, it has to provide enough capacity 
+to store both the regular database data and the Pregel files.
+
 Maximum Array / Object nesting
 ------------------------------
 

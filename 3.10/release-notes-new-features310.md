@@ -265,6 +265,62 @@ deployments will use RangeDeletes regardless of the value of this option.
 Note that it is not guaranteed that all truncate operations will use a RangeDelete operation. 
 For collections containing a low number of documents, the O(n) truncate method may still be used.
 
+### Pregel configration options
+
+There are now several startup options to configure the parallelism of Pregel jobs:
+
+- `--pregel.min-parallelism`: minimum parallelism usable in Pregel jobs.
+- `--pregel.max-parallelism`: maximum parallelism usable in Pregel jobs.
+- `--pregel.parallelism`: default parallelism to use in Pregel jobs.
+
+These parallelism options can be used by administrators to set concurrency defaults and bounds 
+for Pregel jobs on an instance level. Each individual Pregel job can set its own parallelism 
+value using the job's `parallelism` option, but the job's effective parallelism will be clamped 
+to the bounds defined by `--pregel,min-parallelism` and `--pregel.max-parallelism`. 
+If a job does not set its `parallelism` value, it will default to the parallelism value
+configured via `--pregel.parallelism`.
+
+There are also startup options to configure the usage of memory-mapped files for Pregel 
+temporary data:
+
+- `--pregel.memory-mapped-files`: if set to `true`, Pregel jobs will by
+  default store their temporary data in disk-backed memory-mapped files.
+  If set to `false`, the temporary data of Pregel jobs will be buffered in
+  RAM. The default value is `true`, meaning that memory-mapped files will
+  be used. The option can be overriden for each Pregel job by setting the
+  `useMemoryMaps` option of the job.
+
+- `--pregel.memory-mapped-files-location-type`: location for memory-mapped
+  files written by Pregel. This option is only meaningful if memory-mapped
+  files are actually used. The option can have one of the following values:
+  - `temp-directory`: store memory-mapped files in the temporary directory,
+    as configured via `--temp.path`. If `--temp.path` is not set, the
+    system's temporary directory will be used.
+  - `database-directory`: store memory-mapped files in a separate directory
+    underneath the database directory.
+  - `custom`: use a custom directory location for memory-mapped files. The
+    exact location must be set via the configuration parameter
+    `--pregel.memory-mapped-files-custom-path`.
+
+  The default value for this option is `temp-directory`.
+
+- `--pregel.memory-mapped-files-custom-path`: custom directory location for
+  Pregel's memory-mapped files. This setting can only be used if the option
+  `--pregel.memory-mapped-files-location-type` is set to `custom`.
+
+The default location for Pregel's memory-mapped files is the temporary
+directory (`temp-directory`), which may not provide enough capacity for
+larger Pregel jobs.
+It may be more sensible to configure a custom directory for memory-mapped
+files and provide the necessary disk space there (`custom`). Such custom
+directory can be mounted on ephemeral storage, as the files are only needed
+temporarily.
+There is also the option to use a subdirectory of the database directory
+as the storage location for the memory-mapped files (`database-directory`).
+The database directory often provides a lot of disk space capacity, but
+when it is used for both the regular database data and Pregel's memory-mapped
+files, it has to provide enough capacity to store both.
+
 Miscellaneous changes
 ---------------------
 
