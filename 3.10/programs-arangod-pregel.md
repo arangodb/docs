@@ -9,7 +9,7 @@ Pregel jobs have configurable minimum, maximum and default parallelism values.
 These parallelism options can be used by administrators to set concurrency defaults and bounds 
 for Pregel jobs on an instance level. Each individual Pregel job can set its own parallelism 
 value using the job's `parallelism` option, but the job's effective parallelism will be clamped 
-to the bounds defined by `--pregel,min-parallelism` and `--pregel.max-parallelism`. 
+to the bounds defined by `--pregel.min-parallelism` and `--pregel.max-parallelism`. 
 If a job does not set its `parallelism` value, it will default to the parallelism value
 configured via `--pregel.parallelism`.
 
