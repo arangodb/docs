@@ -490,7 +490,7 @@ Note that the memory-mapped files are removed when a Pregel job completes,
 and they do not need to be persisted across instance restarts. 
 
 Parts of the Pregel temporary results (aggregated messages) may also be
-stored in thehmain memory, and currently the aggregation cannot fall back to
+stored in the main memory, and currently the aggregation cannot fall back to
 memory-mapped files. That means if an algorithm needs to store a lot of
 result messages temporarily, it may consume a lot of the main memory.
 
