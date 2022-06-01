@@ -265,6 +265,29 @@ deployments will use RangeDeletes regardless of the value of this option.
 Note that it is not guaranteed that all truncate operations will use a RangeDelete operation. 
 For collections containing a low number of documents, the O(n) truncate method may still be used.
 
+### Pregel configration options
+
+There are now several startup options to configure the parallelism of Pregel jobs:
+
+- `--pregel.min-parallelism`: minimum parallelism usable in Pregel jobs.
+- `--pregel.max-parallelism`: maximum parallelism usable in Pregel jobs.
+- `--pregel.parallelism`: default parallelism to use in Pregel jobs.
+
+Administrators can use these options to set concurrency defaults and bounds 
+for Pregel jobs on an instance level.
+
+There are also new startup options to configure the usage of memory-mapped files for Pregel 
+temporary data:
+
+- `--pregel.memory-mapped-files`: to specify whether to use memory-mapped files or RAM for
+  storing temporary Pregel data.
+
+- `--pregel.memory-mapped-files-location-type`: to set a location for memory-mapped
+  files written by Pregel. This option is only meaningful, if memory-mapped
+  files are used. 
+
+For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+
 Miscellaneous changes
 ---------------------
 
