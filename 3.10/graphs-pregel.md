@@ -460,43 +460,44 @@ const handle = pregel.start("slpa", "yourgraph", {maxGSS: 100, resultField: "com
 pregel.status(handle);
 ```
 
-Limits
+Limitations
 ------
 
 Depending on configuration, Pregel algorithms in ArangoDB may store temporary 
-vertex and edge data in main memory. For large datasets this is going to cause 
+vertex and edge data in main memory. For large datasets this may cause 
 problems, as servers may run out of memory while loading the data.
 
 To avoid servers from running out of memory while loading the dataset, a Pregel
-job can be started with the attribute `useMemoryMaps` set to `true`. This will
-make the algorithm use memory-mapped files as a backing storage in case of huge
+job can be started with the `useMemoryMaps` attribute set to `true`. This
+makes the algorithm use memory-mapped files as a backing storage in case of huge
 datasets. Falling back to memory-mapped files might make the computation
 disk-bound, but may be the only way to complete the computation at all.
 
-Since ArangoDB 3.10 there is also a startup option 
-[`--pregel.memory-mapped-files`](programs-arangod-pregel.html#pregel-memory-mapped-files-usage)
-to control whether Pregel jobs use memory-mapped files by default, and it is turned 
-on by default. 
+Starting from ArangoDB 3.10, there is also a new startup option 
+[`--pregel.memory-mapped-files`](programs-arangod-pregel.html#pregel-memory-mapped-files-usage), which controls
+whether Pregel jobs use memory-mapped files by default.
+Out of the box, this option is set to `true`.
 In this case the computation can become disk-bound and it requires enough disk space
 capacity to be available to hold the memory-mapped files for the Pregel jobs.
 
-The storage location for Pregel's memory-mapped can also be configured with
-a startup option
-[`--pregel.memory-mapped-files-location-type`](programs-arangod-pregel.html#pregel-memory-mapped-files-storage-location-type).
+You can also configure the storage location for Pregel's memory-mapped files with
+the [`--pregel.memory-mapped-files-location-type`](programs-arangod-pregel.html#pregel-memory-mapped-files-storage-location-type)
+startup option.
+
 The selected storage location should have enough capacity to hold all the 
 memory-mapped files for the Pregel jobs that are running on an instance.
-Note that the memory-mapped files will be removed when a Pregel job completes,
+Note that the memory-mapped files are removed when a Pregel job completes,
 and they do not need to be persisted across instance restarts. 
 
 Parts of the Pregel temporary results (aggregated messages) may also be
-stored in main memory, and currently the aggregation cannot fall back to
+stored in thehmain memory, and currently the aggregation cannot fall back to
 memory-mapped files. That means if an algorithm needs to store a lot of
-result messages temporarily, it may consume a lot of main memory.
+result messages temporarily, it may consume a lot of the main memory.
 
 In general it is also recommended to set the `store` attribute of Pregel jobs
-to `true` to make a job store its value on disk and not just in main memory.
-This way the results are removed from main memory once a Pregel job completes.
+to `true` to make a job store its value on disk and not just in the main memory.
+This way the results are removed from the main memory once a Pregel job completes.
 If the `store` attribute is explicitly set to `false`, result sets of completed
-Pregel runs will not be removed from main memory until the result set is
+Pregel runs are not removed from the main memory until the result set is
 explicitly discarded by a call to the `cancel()` method
 (or a shutdown of the server).
