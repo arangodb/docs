@@ -98,7 +98,7 @@ used for multiple accounts.
    (user `root` and its password) and log in.
    
    {% hint 'info' %}
-   It is highly recommended to create additional users and not use the `root` user for everyday operations.
+   It is highly recommended to create additional users and not use the `root` user for everyday operations. See [Managing Users in the Web Interface](3.9/programs-web-interface-users.html) for more details.
    {% endhint %}
 
 5. You can install example datasets and follow the accompanying guides to get
