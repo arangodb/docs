@@ -1047,6 +1047,8 @@ upgraded to 1.1.8.
 
 The bundled version of libunwind has been upgraded to 1.5.
 
+For ArangoDB 3.8.7, the bundled version of rclone has been upgraded to 1.51.0.
+
 ### Spliced subqueries
 
 The AQL optimizer rule "splice-subqueries" is now mandatory, in the sense that
