@@ -28,6 +28,8 @@ and installation of the Enterprise package. The upgrade can be done in a
 description of the two methods. Refer to the sections below for a detailed
 procedure.
 
+The Enterprise Edition of ArangoDB requires a license to activate the Enterprise Edition features. For more information about setting a license key, see [License Management](../administration-license.html).
+
 Procedure for a _Logical_ Upgrade
 ---------------------------------
 
