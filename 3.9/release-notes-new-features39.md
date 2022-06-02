@@ -828,7 +828,7 @@ version 1.1.8 to version 1.1.9.
 
 The bundled version of the RocksDB library has been upgraded from 6.8 to 6.27.
 
-For ArangoDB 3.9.2, the bundled version of rclone is 1.51.0.
+For ArangoDB 3.9, the bundled version of rclone is 1.51.0.
 
 The minimum architecture requirements have been raised from the Westmere
 architecture to the Sandy Bridge architecture. 256-bit AVX instructions are
