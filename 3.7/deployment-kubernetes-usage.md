@@ -83,7 +83,7 @@ For example (all examples can be found [in the kube-arangodb repository](https:/
 ```bash
 kubectl apply -f examples/simple-cluster.yaml
 ```
-Aditionally, you can specify:
+Additionally, you can specify:
 
 ```bash
 spec:
