@@ -85,7 +85,7 @@ kubectl apply -f examples/simple-cluster.yaml
 ```
 Additionally, you can specify:
 
-```bash
+```yaml
 spec:
   [...]
   image: arangodb/enterprise:3.9.1
