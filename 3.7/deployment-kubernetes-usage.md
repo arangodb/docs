@@ -76,8 +76,8 @@ kubectl create secret generic arango-license-key --from-literal=token-v2="<licen
 
 Once the operator is running, you can create your ArangoDB database deployment
 by creating a `ArangoDeployment` custom resource and deploying it into your
-Kubernetes cluster. 
-   
+Kubernetes cluster.
+
 For example (all examples can be found [in the kube-arangodb repository](https://github.com/arangodb/kube-arangodb/tree/master/examples){:target="_blank"}):
 
 ```bash
