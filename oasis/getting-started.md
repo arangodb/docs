@@ -97,7 +97,7 @@ used for multiple accounts.
    button to bring up the ArangoDB web interface. Enter the credentials
    (user `root` and its password) and log in.
    
-   {% hint 'info' %}
+   {% hint 'security' %}
    It is highly recommended to create additional users and not use the `root` user for everyday operations.
    See [Managing Users in the Web Interface](../programs-web-interface-users.html) for more details.
    {% endhint %}
