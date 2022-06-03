@@ -210,37 +210,15 @@ Server options
 
 ### Responses early during instance startup
 
-The HTTP interface of arangod instances can optionally be started earlier during
-the startup process, so that ping probes from monitoring tools can already be 
-responded to when the instance has not fully started.
+The HTTP interface of _arangod_ instances can now optionally be started earlier
+during the startup process, so that ping probes from monitoring tools can
+already be responded to when the instance has not fully started.
 
-By default, the HTTP interface is opened at the same point during the startup
-sequence as in previous versions, but it can optionally be opened earlier by setting 
-the new startup option `--server.early-connections` to `true`. This will
-open the HTTP interface early in the startup sequence, so that the instance can respond
-to a limited set of REST APIs even during recovery. This can be useful because the 
-recovery procedure can take time proportional to the amount of data to recover.
+You can set the new `--server.early-connections` startup option to `true` to
+let the instance respond to the `/_api/version`, `/_admin/version`, and
+`/_admin/status` REST APIs early.
 
-When the `--server.early-connections` option is set to `true`, the instance will be
-able to respond to requests to the following APIs early on:
-
-- GET `/_api/version` and `/_admin/version`: these APIs return the server version 
-  number, but can also be used as a lifeliness probe, to check if the instance is
-  responding to incoming HTTP requests.
-- GET `/_admin/status`: this API returns information about the instance's status, now
-  also including recovery progress and information about which server feature is
-  currently starting.
-
-During the early startup phase, all other APIs than the ones listed above will be 
-responded to with an HTTP response code 503, so that callers can see that the instance 
-is not fully ready. In addition the `maintenance` attribute in the response to GET
-`/_admin/status` requests can be checked for general instance readiness.
-
-If authentication is used, then only JWT authentication can be used during the early 
-startup phase. Incoming requests relying on other authentication mechanisms that 
-require access to the database data (e.g. HTTP basic authentication) will also be 
-responded to with HTTP 503 errors, even if correct credentials are used. This is
-because access to the database data is not possible early during the startup.
+See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
 
 ### RocksDB startup options
 

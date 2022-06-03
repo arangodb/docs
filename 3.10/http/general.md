@@ -612,40 +612,40 @@ Apart from that, the header will not be included in cluster-internal requests
 executed by the Coordinator, e.g. when the Coordinator issues sub-requests
 to DB-Servers or Agency instances.
 
-Responding to liveliness probes
+Responding to Liveliness Probes
 -------------------------------
 
-You can now optionally start the HTTP REST interface of arangod instances early or late 
-during the startup process. ArangoDB versions before 3.10 only allowed starting the interface
-late, after the recovery was finished.
+<small>Introduced in: v3.10.0</small>
 
-By default, the HTTP REST interface of an instance is opened late during the startup
-sequence, as in all the previous versions. With this configuration, an instance responds 
-with HTTP 503 (Service unavailable) until all REST APIs are available and usable.
+By default, the HTTP REST interface of an _arangod_ instance is opened late
+during the startup sequence. The instance responds with HTTP 503
+(Service unavailable) until all REST APIs are available and usable.
 
-Starting from ArangoDB 3.10, you can open the HTTP REST interface early in the 
-startup sequence by setting the `--server.early-connections` startup option to `true`. 
-This configuration allows an instance to respond to a limited set of REST APIs 
-during the startup, even during the recovery. This can be useful because the recovery procedure 
-can take time proportional to the amount of data to be recovered.
+You can optionally start the HTTP REST interface early in the startup sequence
+by setting the `--server.early-connections` startup option to `true`.
+This configuration allows an instance to respond to a limited set of REST APIs
+during the startup, even during the recovery procedure. This can be useful
+because the recovery procedure can take time proportional to the amount of data
+to be recovered.
 
-When the `--server.early-connections` option is set to `true`, the instance can
-respond to requests to the following REST APIs early on:
+The following APIs can reply early with an HTTP 200 status:
 
-- GET `/_api/version` and `/_admin/version`: these APIs return the server version 
-  number, but can also be used as a liveliness probe, to check if the instance is
-  responding to incoming HTTP requests.
-- GET `/_admin/status`: this API returns information about the instance's status, now
-  also including the recovery progress and information about which server feature is
-  currently starting.
+- `GET /_api/version` and `GET /_admin/version`:
+  These APIs return the server version number, but can also be used as a
+  liveliness probe, to check if the instance is responding to incoming HTTP requests.
+- `GET /_admin/status`:
+  This API returns information about the instance's status, including the recovery
+  progress and information about which server feature is currently starting.
 
 During the early startup phase, all APIs other than the ones listed above are
-responded to with an HTTP response code 503, so that callers can see that the instance 
-is not fully ready. Additionally the `maintenance` attribute in the response to GET
-`/_admin/status` requests can be checked for general instance readiness.
+responded to with an HTTP response code 503, so that callers can see that the
+instance is not fully ready yet. Additionally, the `maintenance` attribute in
+the response to `GET /_admin/status` requests can be checked for general
+instance readiness.
 
-If authentication is used, then only JWT authentication can be used during the early 
-startup phase. Incoming requests relying on other authentication mechanisms that 
-require access to the database data (e.g. HTTP basic authentication) are also 
-responded to with HTTP 503 errors, even if correct credentials are used. This is
-because access to the database data is not possible early during the startup.
+If `--server.authentication` is enabled, then only JWT authentication can be
+used during the early startup phase. Incoming requests relying on other
+authentication mechanisms that require access to the database data
+(e.g. HTTP basic authentication) are also responded to with HTTP 503 errors,
+even if correct credentials are used. This is because access to the database
+data is not possible early during the startup.

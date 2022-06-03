@@ -13,61 +13,58 @@ integrations for ArangoDB 3.10.
 
 ### Behavior changes
 
-The HTTP interface of arangod instances can optionally be started earlier during
-the startup process than in previous versions of ArangoDB. This is useful for
-responding to ping probes from monitoring tools before the instance has fully started.
+The HTTP interface of _arangod_ instances can now optionally be started earlier
+during the startup process, so that ping probes from monitoring tools can
+already be responded to when the instance has not fully started.
 
 By default, the HTTP interface is opened at the same point during the startup
-sequence as in previous versions, but it can optionally be opened earlier by setting 
-the new startup option `--server.early-connections` to `true`. This will
-open the HTTP interface early in the startup sequence, so that the instance can respond
-to a limited set of REST APIs even during recovery. This can be useful because the 
-recovery procedure can take time proportional to the amount of data to recover.
+sequence as in previous versions, but it can optionally be opened earlier by
+setting the new `--server.early-connections` startup option to `true`.
 
-When the `--server.early-connections` option is set to `true`, the instance will be
-able to respond to requests to the following APIs early on:
+The following APIs can reply early with an HTTP 200 status:
 
-- GET `/_api/version` and `/_admin/version`: these APIs return the server version 
-  number, but can also be used as a lifeliness probe, to check if the instance is
-  responding to incoming HTTP requests.
-- GET `/_admin/status`: this API returns information about the instance's status, now
-  also including recovery progress and information about which server feature is
-  currently starting.
+- `GET /_api/version` and `GET /_admin/version`:
+  These APIs return the server version number, but can also be used as a
+  lifeliness probe, to check if the instance is responding to incoming HTTP requests.
+- `GET /_admin/status`:
+  This API returns information about the instance's status, now also including
+  recovery progress and information about which server feature is currently starting.
 
-If the `--server.early-connections` option is set to `true`, these APIs will return
-HTTP 200 responses during the startup. All other APIs than the ones listed above will be 
-responded to with an HTTP response code 503, so that callers can see that the instance
-is not fully ready.
+All other APIs than the ones listed above will be responded to with an HTTP
+response code 503, so that callers can see that the instance is not fully ready yet.
 
-If authentication is used, then only JWT authentication can be used during the early 
-startup phase. Incoming requests relying on other authentication mechanisms that 
-require access to the database data (e.g. HTTP basic authentication) will also be 
-responded to with HTTP 503 errors, even if correct credentials are used. This is
-because access to the database data is not possible early during the startup.
+The `GET /_admin/status` API now also returns startup and recovery information.
+This can be used to determine the instance's progress during startup. The new
+`progress` attribute will be returned inside the `serverInfo` object with the
+following sub-attributes:
 
-The GET `/_admin/status` API now also returns startup and recovery information. This
-can be used to determine the instance's progress during startup. The new `progress`
-attribute will be returned inside the `serverInfo` object with the following subattributes:
+- `phase`:
+  Name of the lifecycle phase the instance is currently in. Normally one of
+  `"in prepare"`, `"in start"`, `"in wait"`, `"in shutdown"`, `"in stop"`,
+  or `"in unprepare"`.
+- `feature`:
+  Internal name of the feature that is currently being prepared, started,
+  stopped or unprepared.
+- `recoveryTick`:
+  Current recovery sequence number value, if the instance is currently recovering.
+  If the instance is already past the recovery, this attribute will contain the
+  last handled recovery sequence number.
 
-- `phase`: name of the lifecycle phase the instance is currently in. Normally one of
-  `"in prepare"`, `"in start"`, `"in wait"`, `"in shutdown"`, `"in stop"`, or `"in unprepare"`.
-- `feature`: internal name of the feature that is currently being prepared, started, 
-   stopped or unprepared.
-- `recoveryTick`: current recovery sequence number value if the instance is currently in
-  recovery. If the instance is already past the recovery, this attribute will contain 
-  the last handled recovery sequence number.
+The exact values of these attributes should not be relied on, i.e. client
+applications should not check for any exact values in them. Feature and phase
+names are subject to change between different versions of ArangoDB.
+The progress attributes can still be used to determine if the instance has made
+progress between two calls: if `phase`, `feature`, and `recoveryTick` don't
+change, then there hasn't been progress. Note that this is only true if the
+instance is still starting up. Once the instance has fully started and has
+opened the complete REST interface, the values in the `progress` attribute are
+expected to not change until shutdown.
 
-The exact values of these attributes should not be relied on, i.e. client applications
-should not check for any exact values in them. Feature and phase names are subject to
-change between different versions of ArangoDB. 
-The progress attributes can still be used to determine if the instance has made progress
-between two calls: if `phase`, `feature` and `recoveryTick` don't change, then there hasn't
-been progress. Note that this is only true if the instance is still in startup. Once the
-instance has fully started and has opened the complete REST interface, the values in the
-`progress` attribute are expected to not change until shutdown.
+Note that the `maintenance` attribute in responses to `GET /_admin/status` can
+still be used to determine if the instance is fully available for arbitrary
+requests.
 
-Note that the `maintenance` attribute in responses to GET `/_admin/status` can still be 
-used to determine if the instance is fully available for arbitrary requests.
+Also see [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
 
 ### Privilege changes
 
