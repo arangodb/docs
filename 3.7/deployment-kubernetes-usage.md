@@ -68,7 +68,7 @@ You can find the latest release of the ArangoDB Kubernetes Operator
 
 ## ArangoDB deployment creation
 
-After deploying the latest ArangoDB Kubernetes operator, use the statement below to deploy your license key as secret:
+After deploying the latest ArangoDB Kubernetes operator, use the command below to deploy your license key as a secret:
 
 ```bash
 kubectl create secret generic arango-license-key --from-literal=token-v2="<license-string>"
