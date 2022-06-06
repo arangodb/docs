@@ -239,7 +239,7 @@ can `truncate` the graph if you just want to get rid of the data.
       var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
       graph._deleteEdgeDefinition("edges");
       graph._removeVertexCollection("vertices");
-      graph_module._drop("myGraph", true); // does not drop any collections
+      graph_module._drop("myGraph", false); // does not drop any collections
       db._drop("edges"); // drop before sharding-defining 'vertices' collection
       db._drop("vertices");
     @END_EXAMPLE_ARANGOSH_OUTPUT
