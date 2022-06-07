@@ -203,7 +203,7 @@ ascending.
 ArangoDB 3.10 changes this behavior so that collections with only a single 
 shard can provide truly ascending keys. This includes collections in OneShard
 databases as well.
-Also, `autoincrement` key generation is now supported on cluster mode for
+Also, `autoincrement` key generation is now supported in cluster mode for
 single-sharded collections.
 Document keys are still not guaranteed to be truly ascending for collections with
 more than a single shard.
