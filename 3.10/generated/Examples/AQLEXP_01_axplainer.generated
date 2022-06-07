@@ -3,6 +3,7 @@ arangosh&gt; db._create(&quot;test&quot;);
 arangosh&gt; for (i = 0; i &lt; 100; ++i) { db.test.save({ value: i }); }
 arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot;value&quot; ] });
 { 
+  &quot;cacheEnabled&quot; : false, 
   &quot;deduplicate&quot; : true, 
   &quot;estimates&quot; : true, 
   &quot;fields&quot; : [ 
@@ -10,7 +11,7 @@ arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot
   ], 
   &quot;id&quot; : &quot;test/60630&quot;, 
   &quot;isNewlyCreated&quot; : true, 
-  &quot;name&quot; : &quot;idx_1725674989100728320&quot;, 
+  &quot;name&quot; : &quot;idx_1733159490144960512&quot;, 
   &quot;selectivityEstimate&quot; : 1, 
   &quot;sparse&quot; : false, 
   &quot;type&quot; : &quot;persistent&quot;, 
@@ -30,8 +31,8 @@ Execution plan:
   8   ReturnNode         100       - RETURN #3
 
 Indexes used:
- By   Name                      Type         Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  9   idx_1725674989100728320   persistent   test         false    false       100.00 %   [ `value` ]   (i.`value` &gt; 97)
+ By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields        Ranges
+  9   idx_1733159490144960512   persistent   test         false    false    false      100.00 %   [ `value` ]   (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName
@@ -47,14 +48,6 @@ Optimization rules applied:
  10   remove-unnecessary-calculations-2
  11   reduce-extraction-to-projection
 
-Optimization rules with highest execution times:
- RuleName                                    Duration [s]
- use-indexes                                      0.00005
- simplify-conditions                              0.00004
- remove-redundant-calculations                    0.00002
- move-calculations-up                             0.00002
- remove-filter-covered-by-index                   0.00002
-
-42 rule(s) executed, 1 plan(s) created
+43 rule(s) executed, 1 plan(s) created
 
 

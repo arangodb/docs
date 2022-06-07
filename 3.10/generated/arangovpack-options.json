@@ -135,6 +135,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -222,6 +223,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -244,6 +246,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -266,6 +269,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -350,6 +354,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -370,6 +375,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -414,6 +420,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -456,11 +463,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
   },
   "log.max-entry-length" : {
+    "base" : 1,
     "category" : "option",
     "default" : 134217728,
     "deprecatedIn" : null,
@@ -472,6 +481,10 @@
     "introducedIn" : [
       "v3.7.9"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -521,6 +534,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -563,6 +577,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -583,6 +598,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -603,6 +619,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -623,6 +640,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -666,6 +684,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -686,6 +705,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -731,6 +751,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -753,6 +774,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -775,6 +797,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -823,6 +846,7 @@
     "values" : "Possible values: \"json\", \"json-pretty\", \"vpack\", \"vpack-hex\""
   },
   "random.generator" : {
+    "base" : 1,
     "category" : "option",
     "default" : 1,
     "deprecatedIn" : null,
@@ -832,6 +856,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",

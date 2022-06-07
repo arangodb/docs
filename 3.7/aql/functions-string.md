@@ -24,6 +24,23 @@ Return the number of characters in *value* (not byte length).
 | false  | 5 |
 | null   | 0 |
 
+- **str** (string): a string. If a number is passed, it will be casted to string first.
+- returns **length** (number): the character length of `str` (not byte length)
+
+**Examples**
+
+```js
+CHAR_LENGTH("foo") // 3
+```
+
+```js
+LET value = {foo: "bar"}
+RETURN {
+  str: JSON_STRINGIFY(value), // "{\"foo\":\"bar\"}"
+  len: CHAR_LENGTH(value)     // 13
+}
+```
+
 CONCAT()
 --------
 
@@ -33,13 +50,18 @@ Concatenate the values passed as *value1* to *valueN*.
 
 - **values** (any, *repeatable*): elements of arbitrary type (at least 1)
 - returns **str** (string): a concatenation of the elements. *null* values
-  are ignored.
+  are ignored. Array and object values are JSON-encoded in their entirety.
+
+**Examples**
 
 ```js
 CONCAT("foo", "bar", "baz") // "foobarbaz"
 CONCAT(1, 2, 3) // "123"
+CONCAT(null, false, 0, true, "") // "false0true"
 CONCAT("foo", [5, 6], {bar: "baz"}) // "foo[5,6]{\"bar\":\"baz\"}"
 ```
+
+---
 
 `CONCAT(anyArray) → str`
 
@@ -47,11 +69,15 @@ If a single array is passed to *CONCAT()*, its members are concatenated.
 
 - **anyArray** (array): array with elements of arbitrary type
 - returns **str** (string): a concatenation of the array elements. *null* values
-  are ignored.
+  are ignored. Array and object values are JSON-encoded in their entirety.
+
+**Examples**
 
 ```js
 CONCAT( [ "foo", "bar", "baz" ] ) // "foobarbaz"
 CONCAT( [1, 2, 3] ) // "123"
+CONCAT( [null, false, 0, true, ""] ) // "false0true"
+CONCAT( ["foo", [5, 6], {bar: "baz"}] ) // "foo[5,6]{\"bar\":\"baz\"}"
 ```
 
 CONCAT_SEPARATOR()
@@ -66,23 +92,38 @@ Concatenate the strings passed as arguments *value1* to *valueN* using the
 - **values** (string\|array, *repeatable*): strings or arrays of strings as multiple
   arguments (at least 1)
 - returns **joinedString** (string): a concatenated string of the elements, using
-  *separator* as separator string. *null* values are ignored. Array value arguments
-  are expanded automatically, and their individual members will be concatenated.
-  Nested arrays will be expanded too, but with their elements separated by commas
-  if they have more than a single element.
+  *separator* as separator string. *null* values are ignored. Array and object
+  values are JSON-encoded in their entirety.
+
+**Examples**
 
 ```js
-CONCAT_SEPARATOR(", ", "foo", "bar", "baz")
-// "foo, bar, baz"
+CONCAT_SEPARATOR(", ", "foo", "bar", "baz")      // "foo, bar, baz"
+CONCAT_SEPARATOR(", ", 1, 2, 3)                  // "1, 2, 3"
+CONCAT_SEPARATOR(", ", null, false, 0, true, "") // "false, 0, true, "
+CONCAT_SEPARATOR(", ", [5, 6], {foo: "bar"})     // "[5,6], {\"foo\":\"bar\"}"
+```
 
-CONCAT_SEPARATOR(", ", [ "foo", "bar", "baz" ])
-// "foo, bar, baz"
+---
 
-CONCAT_SEPARATOR(", ", [ "foo", [ "b", "a", "r" ], "baz" ])
-// [ "foo, b,a,r, baz" ]
+`CONCAT_SEPARATOR(separator, anyArray) → joinedString`
 
-CONCAT_SEPARATOR("-", [1, 2, 3, null], [4, null, 5])
-// "1-2-3-4-5"
+If a single array is passed as second argument to *CONCAT_SEPARATOR()*, its
+members are concatenated.
+
+- **separator** (string): an arbitrary separator string
+- **anyArray** (array): array with elements of arbitrary type
+- returns **joinedString** (string): a concatenated string of the elements, using
+  *separator* as separator string. *null* values are ignored. Array and object
+  values are JSON-encoded in their entirety.
+
+**Examples**
+
+```js
+CONCAT_SEPARATOR(", ", ["foo", "bar", "baz"] )      // "foo, bar, baz"
+CONCAT_SEPARATOR(", ", [1, 2, 3] )                  // "1, 2, 3"
+CONCAT_SEPARATOR(", ", [null, false, 0, true, ""] ) // "false, 0, true, "
+CONCAT_SEPARATOR(", ", [[5, 6], {foo: "bar"}] )     // "[5,6], {\"foo\":\"bar\"}"
 ```
 
 CONTAINS()
@@ -93,6 +134,9 @@ CONTAINS()
 Check whether the string *search* is contained in the string *text*.
 The string matching performed by *CONTAINS* is case-sensitive.
 
+To determine if or at which position a value is included in an array, see the
+[POSITION() array function](functions-array.html#position).
+
 - **text** (string): the haystack
 - **search** (string): the needle
 - **returnIndex** (bool, *optional*): if set to *true*, the character position
@@ -100,17 +144,16 @@ The string matching performed by *CONTAINS* is case-sensitive.
 - returns **match** (bool\|number): by default, *true* is returned if *search*
   is contained in *text*, and *false* otherwise. With *returnIndex* set to *true*,
   the position of the first occurrence of *search* within *text* is returned 
-  (starting at offset 0), or *-1* if *search* is not contained in *text*.
+  (starting at offset 0), or *-1* if it is not contained.
+
+**Examples**
 
 ```js
 CONTAINS("foobarbaz", "bar") // true
 CONTAINS("foobarbaz", "horse") // false
-CONTAINS("foobarbaz", "ba", true) // 3
+CONTAINS("foobarbaz", "bar", true) // 3
 CONTAINS("foobarbaz", "horse", true) // -1
 ```
-
-To determine if or at which position a value is included in an array, see the
-[POSITION() array function](functions-array.html#position).
 
 COUNT()
 -------
@@ -118,30 +161,38 @@ COUNT()
 This is an alias for [LENGTH()](#length).
 
 CRC32()
------
+-------
 
 `CRC32(text) → hash`
 
 Calculate the CRC32 checksum for *text* and return it in a hexadecimal
 string representation. The polynomial used is 0x1EDC6F41. The initial
-value used is 0xFFFFFFFF, and the final xor value is also 0xFFFFFFFF.
+value used is 0xFFFFFFFF, and the final XOR value is also 0xFFFFFFFF.
 
 - **text** (string): a string
 - returns **hash** (string): CRC32 checksum as hex string
+
+**Examples**
 
 ```js
 CRC32("foobar") // "D5F5C7F"
 ```
 
 ENCODE_URI_COMPONENT()
------------
+----------------------
 
-`ENCODE_URI_COMPONENT(value) → encodedURIComponentString`
+`ENCODE_URI_COMPONENT(value) → encodedString`
 
-Return the encoded uri component of *value*.
+Return the URI component-encoded string of *value*.
 
 - **value** (string): a string
-- returns **encodedURIComponentString** (string): an encoded uri component of *value*
+- returns **encodedString** (string): the URI component-encoded *value*
+
+**Examples**
+
+```js
+ENCODE_URI_COMPONENT("fünf %") // "f%C3%BCnf%20%25"
+```
 
 FIND_FIRST()
 ------------
@@ -159,6 +210,8 @@ string *text*. Positions start at 0.
   ending at *end*
 - returns **position** (number): the character position of the match. If *search*
   is not contained in *text*, -1 is returned. If **search** is empty, **start** is returned.
+
+**Examples**
 
 ```js
 FIND_FIRST("foobarbaz", "ba") // 3
@@ -181,8 +234,10 @@ string *text*. Positions start at 0.
 - **end** (number, *optional*): limit the search to a subset of the text,
   ending at *end*
 - returns **position** (number): the character position of the match. If *search*
-  is not contained in *text*, -1 is returned. 
+  is not contained in *text*, -1 is returned.
   If *search* is empty, the string length is returned, or *end* + 1.
+
+**Examples**
 
 ```js
 FIND_LAST("foobarbaz", "ba") // 6
@@ -200,6 +255,8 @@ string representation.
 
 - **text** (string): a string
 - returns **hash** (string): FNV-1A hash as hex string
+
+**Examples**
 
 ```js
 FNV64("foobar") // "85944171F73967E8"
@@ -221,10 +278,12 @@ Converts a numeric IPv4 address value into its string representation.
   address. If the input *numberAddress* is not a valid representation of an
   IPv4 address, the function returns *null* and produces a warning.
 
+**Examples**
+
 ```js
 IPV4_FROM_NUMBER(0) // "0.0.0.0"
 IPV4_FROM_NUMBER(134744072) // "8.8.8.8"
-IPV4_FROM_NUMBER(2130706433) // "127.0.0.1")
+IPV4_FROM_NUMBER(2130706433) // "127.0.0.1"
 IPV4_FROM_NUMBER(3232235521) // "192.168.0.1"
 IPV4_FROM_NUMBER(3232235522) // "192.168.0.2"
 IPV4_FROM_NUMBER(-23) // null (and produces a warning)
@@ -244,6 +303,8 @@ Converts an IPv4 address string into its numeric representation.
   address, as an unsigned integer. If the input *stringAddress* is not a valid
   representation of an IPv4 address, the function returns *null* and produces
   a warning.
+
+**Examples**
 
 ```js
 IPV4_TO_NUMBER("0.0.0.0") // 0
@@ -269,6 +330,8 @@ Check if an arbitrary string is suitable for interpretation as an IPv4 address.
   of decimal numbers with 1 to 3 digits length each, allowing the values 0 to 255.
   The octets must be separated by periods and must not have padding zeroes.
 
+**Examples**
+
 ```js
 IS_IPV4("127.0.0.1") // true
 IS_IPV4("8.8.8.8") // true
@@ -286,15 +349,17 @@ JSON_PARSE()
 Return an AQL value described by the JSON-encoded input string.
 
 - **text** (string): the string to parse as JSON
-- returns **value** (mixed): the value corresponding to the given JSON text. 
+- returns **value** (any): the value corresponding to the given JSON text.
   For input values that are no valid JSON strings, the function will return *null*.
+
+**Examples**
 
 ```js
 JSON_PARSE("123") // 123
-JSON_PARSE("[ true, false, 2 ]") // [ true, false, 2 ]
-JSON_PARSE("\\\"abc\\\"") // "abc"
-JSON_PARSE("{\\\"a\\\": 1}") // { a : 1 }
-JSON_PARSE("abc") // null
+JSON_PARSE("[ true, false, null, -0.5 ]") // [ true, false, null, -0.5 ]
+JSON_PARSE('{"a": 1}') // { a : 1 }
+JSON_PARSE('"abc"') // "abc"
+JSON_PARSE("abc") // null (invalid JSON)
 ```
 
 JSON_STRINGIFY()
@@ -304,15 +369,17 @@ JSON_STRINGIFY()
 
 Return a JSON string representation of the input value.
 
-- **value** (mixed): the value to convert to a JSON string
+- **value** (any): the value to convert to a JSON string
 - returns **text** (string): the JSON string representing *value*.
   For input values that cannot be converted to JSON, the function 
   will return *null*.
 
+**Examples**
+
 ```js
-JSON_STRINGIFY("1") // "1"
+JSON_STRINGIFY(true) // "true"
 JSON_STRINGIFY("abc") // "\"abc\""
-JSON_STRINGIFY("[1, 2, 3]") // "[1,2,3]"
+JSON_STRINGIFY( [1, {'2': .5}] ) // "[1,{\"2\":0.5}]"
 ```
 
 LEFT()
@@ -331,6 +398,8 @@ see [SUBSTRING()](#substring).
 - returns **substring** (string): at most *n* characters of *value*,
   starting on the left-hand side of the string
 
+**Examples**
+
 ```js
 LEFT("foobar", 3) // "foo"
 LEFT("foobar", 10) // "foobar"
@@ -343,17 +412,19 @@ LENGTH()
 
 Determine the character length of a string.
 
+*LENGTH()* can also determine the [number of elements](functions-array.html#length) in an array,
+the [number of attribute keys](functions-document.html#length) of an object / document and
+the [amount of documents](functions-miscellaneous.html#length) in a collection.
+
 - **str** (string): a string. If a number is passed, it will be casted to string first.
 - returns **length** (number): the character length of *str* (not byte length)
+
+**Examples**
 
 ```js
 LENGTH("foobar") // 6
 LENGTH("电脑坏了") // 4
 ```
-
-*LENGTH()* can also determine the [number of elements](functions-array.html#length) in an array,
-the [number of attribute keys](functions-document.html#length) of an object / document and
-the [amount of documents](functions-miscellaneous.html#length) in a collection.
 
 LEVENSHTEIN_DISTANCE()
 ----------------------
@@ -367,6 +438,8 @@ between two strings.
 - **value2** (string): a string
 - returns **distance** (number): calculated Damerau-Levenshtein distance
   between the input strings *value1* and *value2*
+
+**Examples**
 
 ```js
 LEVENSHTEIN_DISTANCE("foobar", "bar") // 3
@@ -415,6 +488,8 @@ is used in the context of a `SEARCH` operation is backed by View indexes.
   case-insensitive. The default is *false*.
 - returns **bool** (bool): *true* if the pattern is contained in *text*,
   and *false* otherwise
+
+**Examples**
 
 ```js
 LIKE("cart", "ca_t")   // true
@@ -469,6 +544,8 @@ To strip both sides, see [TRIM()](#trim).
 - returns **strippedString** (string): *value* without *chars* at the
   left-hand side
 
+**Examples**
+
 ```js
 LTRIM("foo bar") // "foo bar"
 LTRIM("  foo bar  ") // "foo bar  "
@@ -485,6 +562,8 @@ string representation.
 
 - **text** (string): a string
 - returns **hash** (string): MD5 checksum as hex string
+
+**Examples**
 
 ```js
 MD5("foobar") // "3858f62230ac3c915f300c664312c63f"
@@ -513,6 +592,8 @@ not involving Analyzers.
 - **target** (string): target text to be tokenized into _n_-grams
 - **ngramSize** (number): minimum as well as maximum _n_-gram length
 - returns **similarity** (number): value between `0.0` and `1.0`
+
+**Examples**
 
 ```js
 RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
@@ -548,6 +629,8 @@ Analyzers.
 - **ngramSize** (number): minimum as well as maximum _n_-gram length
 - returns **similarity** (number): value between `0.0` and `1.0`
 
+**Examples**
+
 ```js
 RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
 RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
@@ -569,6 +652,8 @@ The algorithm for token generation should be treated as opaque.
 - returns **randomString** (string): a generated token consisting of lowercase
   letters, uppercase letters and numbers
 
+**Examples**
+
 ```js
 RANDOM_TOKEN(8) // "zGl09z42"
 RANDOM_TOKEN(8) // "m9w50Ft9"
@@ -582,61 +667,19 @@ REGEX_MATCHES()
 Return the matches in the given string *text*, using the *regex*.
 
 - **text** (string): the string to search in
-- **regex** (string): a regular expression to use for matching the *text*
-- returns **stringArray** (array): an array of strings containing the matches
+- **regex** (string): a [regular expression](#regular-expression-syntax)
+  to use for matching the *text*
+- **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
+  case-insensitive. The default is *false*.
+- returns **stringArray** (array): an array of strings containing the matches,
+  or *null* and a warning if the expression is invalid
 
-The regular expression may consist of literal characters and the following 
-characters and sequences:
-
-- `.` – the dot matches any single character except line terminators.
-  To include line terminators, use `[\s\S]` instead to simulate `.` with *DOTALL* flag.
-- `\d` – matches a single digit, equivalent to `[0-9]`
-- `\s` – matches a single whitespace character
-- `\S` – matches a single non-whitespace character
-- `\t` – matches a tab character
-- `\r` – matches a carriage return
-- `\n` – matches a line-feed character
-- `[xyz]` – set of characters. Matches any of the enclosed characters
-  (here: *x*, *y* or *z*)
-- `[^xyz]` – negated set of characters. Matches any other character than the
-  enclosed ones (i.e. anything but *x*, *y* or *z* in this case)
-- `[x-z]` – range of characters. Matches any of the characters in the 
-  specified range, e.g. `[0-9A-F]` to match any character in
-  *0123456789ABCDEF*
-- `[^x-z]` – negated range of characters. Matches any other character than the
-  ones specified in the range
-- `(xyz)` – defines and matches a pattern group
-- `(x|y)` – matches either *x* or *y*
-- `^` – matches the beginning of the string (e.g. `^xyz`)
-- <code>$</code> – matches the end of the string (e.g. <code>xyz$</code>)
-
-Note that the characters `.`, `*`, `?`, `[`, `]`, `(`, `)`, `{`, `}`, `^`, 
-and `$` have a special meaning in regular expressions and may need to be 
-escaped using a backslash, which requires escaping itself (`\\`). A literal
-backslash needs to be escaped using another escaped backslash, i.e. `\\\\`.
-In arangosh, the amount of backslashes needs to be doubled.
-
-Characters and sequences may optionally be repeated using the following
-quantifiers:
-
-- `x*` – matches zero or more occurrences of *x*
-- `x+` – matches one or more occurrences of *x*
-- `x?` – matches one or zero occurrences of *x*
-- `x{y}` – matches exactly *y* occurrences of *x*
-- `x{y,z}` – matches between *y* and *z* occurrences of *x*
-- `x{y,}` – matches at least *y* occurrences of *x*
-
-Note that `xyz+` matches *xyzzz*, but if you want to match *xyzxyz* instead,
-you need to define a pattern group by wrapping the sub-expression in parentheses
-and place the quantifier right behind it: `(xyz)+`.
-
-If the regular expression in *regex* is invalid, a warning will be raised
-and the function will return *null*.
+**Examples**
 
 ```js
 REGEX_MATCHES("My-us3r_n4m3", "^[a-z0-9_-]{3,16}$", true) // ["My-us3r_n4m3"]
 REGEX_MATCHES("#4d82h4", "^#?([a-f0-9]{6}|[a-f0-9]{3})$", true) // null
-REGEX_MATCHES("john@doe.com", "^([a-z0-9_\.-]+)@([\da-z-]+)\.([a-z\.]{2,6})$", false) // ["john@doe.com", "john", "doe", "com"]
+REGEX_MATCHES("john@doe.com", "^([a-z0-9_\\.-]+)@([\\da-z-]+)\\.([a-z\\.]{2,6})$", false) // ["john@doe.com", "john", "doe", "com"]
 ```
 
 REGEX_SPLIT()
@@ -644,66 +687,34 @@ REGEX_SPLIT()
 
 `REGEX_SPLIT(text, splitExpression, caseInsensitive, limit) → stringArray`
 
-Split the given string *text* into a list of strings, using the *separator*.
+Split the given string *text* into a list of strings at positions where
+*splitExpression* matches.
 
 - **text** (string): the string to split
-- **splitExpression** (string): a regular expression to use for splitting the *text*
+- **splitExpression** (string): a [regular expression](#regular-expression-syntax)
+  to use for splitting the *text*. You can define a capturing group to keep matches
+- **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
+  case-insensitive. The default is *false*.
 - **limit** (number, *optional*): limit the number of split values in the result.
   If no *limit* is given, the number of splits returned is not bounded.
-- returns **stringArray** (array): an array of strings
+- returns **stringArray** (array): an array of strings, or *null* and a warning
+  if the expression is invalid
 
-The regular expression may consist of literal characters and the following 
-characters and sequences:
-
-- `.` – the dot matches any single character except line terminators.
-  To include line terminators, use `[\s\S]` instead to simulate `.` with *DOTALL* flag.
-- `\d` – matches a single digit, equivalent to `[0-9]`
-- `\s` – matches a single whitespace character
-- `\S` – matches a single non-whitespace character
-- `\t` – matches a tab character
-- `\r` – matches a carriage return
-- `\n` – matches a line-feed character
-- `[xyz]` – set of characters. Matches any of the enclosed characters
-  (here: *x*, *y* or *z*)
-- `[^xyz]` – negated set of characters. Matches any other character than the
-enclosed ones (i.e. anything but *x*, *y* or *z* in this case)
-- `[x-z]` – range of characters. Matches any of the characters in the 
-  specified range, e.g. `[0-9A-F]` to match any character in
-  *0123456789ABCDEF*
-- `[^x-z]` – negated range of characters. Matches any other character than the
-ones specified in the range
-- `(xyz)` – defines and matches a pattern group
-- `(x|y)` – matches either *x* or *y*
-- `^` – matches the beginning of the string (e.g. `^xyz`)
-- <code>$</code> – matches the end of the string (e.g. <code>xyz$</code>)
-
-Note that the characters `.`, `*`, `?`, `[`, `]`, `(`, `)`, `{`, `}`, `^`, 
-and `$` have a special meaning in regular expressions and may need to be 
-escaped using a backslash, which requires escaping itself (`\\`). A literal
-backslash needs to be escaped using another escaped backslash, i.e. `\\\\`.
-In arangosh, the amount of backslashes needs to be doubled.
-
-Characters and sequences may optionally be repeated using the following
-quantifiers:
-
-- `x*` – matches zero or more occurrences of *x*
-- `x+` – matches one or more occurrences of *x*
-- `x?` – matches one or zero occurrences of *x*
-- `x{y}` – matches exactly *y* occurrences of *x*
-- `x{y,z}` – matches between *y* and *z* occurrences of *x*
-- `x{y,}` – matches at least *y* occurrences of *x*
-
-Note that `xyz+` matches *xyzzz*, but if you want to match *xyzxyz* instead,
-you need to define a pattern group by wrapping the sub-expression in parentheses
-and place the quantifier right behind it: `(xyz)+`.
-
-If the regular expression in *splitExpression* is invalid, a warning will be raised
-and the function will return *null*.
+**Examples**
 
 ```js
-REGEX_SPLIT("This is a line.\n This is yet another line\r\n This again is a line.\r Mac line ", "\.?(\n|\r|\r\n)", true, 4) // ["This is a line", "\n", " This is yet another lin", "\r"]
-REGEX_SPLIT("hypertext language, programming", "[\s, ]+") // ["hypertext", "language", "programming"]
-REGEX_SPLIT("ca,bc,a,bca,bca,bc", "a,b", true, 5) // ["c", "c,", "c", "c", "c"]
+REGEX_SPLIT("This is a line.\n This is yet another line\r\n This again is a line.\r Mac line ", "\\.?\r\n|\r|\n")
+/* [
+  "This is a line",
+  " This is yet another line",
+  " This again is a line.",
+  " Mac line "
+] */
+
+REGEX_SPLIT("Capture the article", "(the)") // ["Capture ", "the", " article"]
+REGEX_SPLIT("Don't capture the article", "the") // ["Don't capture ", " article"]
+REGEX_SPLIT("hypertext language, programming", "[\\s, ]+") // ["hypertext", "language", "programming"]
+REGEX_SPLIT("cA,Bc,A,BcA,BcA,Bc", "a,b", true, 3) // ["c", "c,", "c"]
 ```
 
 REGEX_TEST()
@@ -715,63 +726,18 @@ Check whether the pattern *search* is contained in the string *text*,
 using regular expression matching.
 
 - **text** (string): the string to search in
-- **search** (string): a regular expression search pattern
-- returns **bool** (bool): *true* if the pattern is contained in *text*,
-  and *false* otherwise
+- **search** (string): a [regular expression](#regular-expression-syntax)
+  search pattern
 - **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
   case-insensitive. The default is *false*.
+- returns **bool** (bool): *true* if the pattern is contained in *text*,
+  and *false* otherwise, or *null* and a warning if the expression is invalid
 
-The regular expression may consist of literal characters and the following 
-characters and sequences:
-
-- `.` – the dot matches any single character except line terminators.
-  To include line terminators, use `[\s\S]` instead to simulate `.` with *DOTALL* flag.
-- `\d` – matches a single digit, equivalent to `[0-9]`
-- `\s` – matches a single whitespace character
-- `\S` – matches a single non-whitespace character
-- `\t` – matches a tab character
-- `\r` – matches a carriage return
-- `\n` – matches a line-feed character
-- `[xyz]` – set of characters. Matches any of the enclosed characters
-  (here: *x*, *y* or *z*)
-- `[^xyz]` – negated set of characters. Matches any other character than the
-  enclosed ones (i.e. anything but *x*, *y* or *z* in this case)
-- `[x-z]` – range of characters. Matches any of the characters in the 
-  specified range, e.g. `[0-9A-F]` to match any character in
-  *0123456789ABCDEF*
-- `[^x-z]` – negated range of characters. Matches any other character than the
-  ones specified in the range
-- `(xyz)` – defines and matches a pattern group
-- `(x|y)` – matches either *x* or *y*
-- `^` – matches the beginning of the string (e.g. `^xyz`)
-- <code>$</code> – matches the end of the string (e.g. <code>xyz$</code>)
-
-Note that the characters `.`, `*`, `?`, `[`, `]`, `(`, `)`, `{`, `}`, `^`, 
-and `$` have a special meaning in regular expressions and may need to be 
-escaped using a backslash, which requires escaping itself (`\\`). A literal
-backslash needs to be escaped using another escaped backslash, i.e. `\\\\`.
-In arangosh, the amount of backslashes needs to be doubled.
-
-Characters and sequences may optionally be repeated using the following
-quantifiers:
-
-- `x*` – matches zero or more occurrences of *x*
-- `x+` – matches one or more occurrences of *x*
-- `x?` – matches one or zero occurrences of *x*
-- `x{y}` – matches exactly *y* occurrences of *x*
-- `x{y,z}` – matches between *y* and *z* occurrences of *x*
-- `x{y,}` – matches at least *y* occurrences of *x*
-
-Note that `xyz+` matches *xyzzz*, but if you want to match *xyzxyz* instead,
-you need to define a pattern group by wrapping the sub-expression in parentheses
-and place the quantifier right behind it: `(xyz)+`.
- 
-If the regular expression in *search* is invalid, a warning will be raised
-and the function will return *null*.
+**Examples**
 
 ```js
 REGEX_TEST("the quick brown fox", "the.*fox") // true
-REGEX_TEST("the quick brown fox", "^(a|the)\s+(quick|slow).*f.x$") // true
+REGEX_TEST("the quick brown fox", "^(a|the)\\s+(quick|slow).*f.x$") // true
 REGEX_TEST("the\nquick\nbrown\nfox", "^the(\n[a-w]+)+\nfox$") // true
 ```
 
@@ -784,23 +750,21 @@ Replace the pattern *search* with the string *replacement* in the string
 *text*, using regular expression matching.
 
 - **text** (string): the string to search in
-- **search** (string): a regular expression search pattern
+- **search** (string): a [regular expression](#regular-expression-syntax)
+  search pattern
 - **replacement** (string): the string to replace the *search* pattern with
-- returns **string** (string): the string *text* with the *search* regex
-  pattern replaced with the *replacement* string wherever the pattern exists
-  in *text*
 - **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
   case-insensitive. The default is *false*.
+- returns **string** (string): the string *text* with the *search* regex
+  pattern replaced with the *replacement* string wherever the pattern exists
+  in *text*, or *null* and a warning if the expression is invalid
 
-For more details about the rules for characters and sequences refer
-[REGEX_TEST()](#regex_test).
- 
-If the regular expression in *search* is invalid, a warning will be raised
-and the function will return *null*.
+**Examples**
 
 ```js
-REGEX_REPLACE("the quick brown fox", "the.*fox", "jumped over") // jumped over
-REGEX_REPLACE("the quick brown fox", "o", "i") // the quick briwn fix
+REGEX_REPLACE("the quick brown fox", "the.*fox", "jumped over") // "jumped over"
+REGEX_REPLACE("An Avocado", "a", "_") // "An Avoc_do"
+REGEX_REPLACE("An Avocado", "a", "_", true) // "_n _voc_do"
 ```
 
 REVERSE()
@@ -813,6 +777,8 @@ Return the reverse of the string *value*.
 - **value** (string): a string
 - returns **reversedString** (string): a new string with the characters in
   reverse order
+
+**Examples**
 
 ```js
 REVERSE("foobar") // "raboof"
@@ -834,6 +800,8 @@ see [SUBSTRING()](#substring).
 - **length** (number): how many characters to return
 - returns **substring** (string): at most *length* characters of *value*,
   starting on the right-hand side of the string
+
+**Examples**
 
 ```js
 RIGHT("foobar", 3) // "bar"
@@ -857,6 +825,8 @@ To strip both sides, see [TRIM()](#trim).
 - returns **strippedString** (string): *value* without *chars* at the
   right-hand side
 
+**Examples**
+
 ```js
 RTRIM("foo bar") // "foo bar"
 RTRIM("  foo bar  ") // "  foo bar"
@@ -874,6 +844,8 @@ string representation.
 - **text** (string): a string
 - returns **hash** (string): SHA1 checksum as hex string
 
+**Examples**
+
 ```js
 SHA1("foobar") // "8843d7f92416211de9ebb963ff4ce28125932878"
 ```
@@ -889,19 +861,24 @@ string representation.
 - **text** (string): a string
 - returns **hash** (string): SHA512 checksum as hex string
 
+**Examples**
+
 ```js
 SHA512("foobar") // "0a50261ebd1a390fed2bf326f2673c145582a6342d523204973d0219337f81616a8069b012587cf5635f6925f1b56c360230c19b273500ee013e030601bf2425"
 ```
 
 SOUNDEX()
------------
+---------
 
 `SOUNDEX(value) → soundexString`
 
-Return the soundex fingerprint of *value*.
+Return the [Soundex](https://en.wikipedia.org/wiki/Soundex){:target="_blank"}
+fingerprint of *value*.
 
 - **value** (string): a string
-- returns **soundexString** (string): a soundex fingerprint of *value*
+- returns **soundexString** (string): a Soundex fingerprint of *value*
+
+**Examples**
 
 ```js
 SOUNDEX( "example" ) // "E251"
@@ -917,6 +894,10 @@ SPLIT()
 
 Split the given string *value* into a list of strings, using the *separator*.
 
+To split a document identifier (`_id`) into the collection name and document key
+(`_key`), you should use the more optimized
+[`PARSE_IDENTIFIER()` function](functions-document.html#parse_identifier).
+
 - **value** (string): a string
 - **separator** (string): either a string or a list of strings. If *separator* is
   an empty string, *value* will be split into a list of characters. If no *separator*
@@ -924,6 +905,8 @@ Split the given string *value* into a list of strings, using the *separator*.
 - **limit** (number, *optional*): limit the number of split values in the result.
   If no *limit* is given, the number of splits returned is not bounded.
 - returns **strArray** (array): an array of strings
+
+**Examples**
 
 ```js
 SPLIT( "foo-bar-baz", "-" ) // [ "foo", "bar", "baz" ]
@@ -945,10 +928,14 @@ that can utilize View indexes.
 - **prefix** (string): a string to test for at the start of the text
 - returns **startsWith** (bool): whether the text starts with the given prefix
 
+**Examples**
+
 ```js
 RETURN STARTS_WITH("foobar", "foo") // true
 RETURN STARTS_WITH("foobar", "baz") // false
 ```
+
+---
 
 `STARTS_WITH(text, prefixes, minMatchCount) → startsWith`
 
@@ -964,6 +951,8 @@ Check if the given string starts with one of the *prefixes*.
   an attribute can have multiple values at the same time
 - returns **startsWith** (bool): whether the text starts with at least
   *minMatchCount* of the given prefixes
+
+**Examples**
 
 ```js
 RETURN STARTS_WITH("foobar", ["bar", "foo"]) // true
@@ -992,6 +981,8 @@ Replace search values in the string *value*.
 - returns **substitutedString** (string): a new string with matches replaced
   (or removed)
 
+**Examples**
+
 ```js
 SUBSTITUTE( "the quick brown foxx", "quick", "lazy" )
 // "the lazy brown foxx"
@@ -1009,20 +1000,24 @@ SUBSTITUTE( "the quick brown foxx", [ "quick", "foxx" ], "xx" )
 // "the xx brown xx"
 ```
 
+---
+
 `SUBSTITUTE(value, mapping, limit) → substitutedString`
 
 Alternatively, *search* and *replace* can be specified in a combined value.
 
 - **value** (string): a string
 - **mapping** (object): a lookup map with search strings as keys and replacement
-  strings as values. Empty strings and *null* as values remove matches.
-  Please note that no sequence of search strings can be warrantied by this; 
-  Means, if you have overlapping search results, one time the first may win, 
-  another time the second. If you need to ensure the precedence of the sequence
-  choose the array based invocation method.
+  strings as values. Empty strings and `null` as values remove matches.
+  Note that there is no defined order in which the mapping is processed. In case
+  of overlapping searches and substitutions, one time the first entry may win,
+  another time the second. If you need to ensure a specific order then choose
+  the array-based variant of this function
 - **limit** (number, *optional*): cap the number of replacements to this value
 - returns **substitutedString** (string): a new string with matches replaced
   (or removed)
+
+**Examples**
 
 ```js
 SUBSTITUTE("the quick brown foxx", {
@@ -1083,7 +1078,6 @@ To return the leftmost characters, see [LEFT()](#left).
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-
 TOKENS()
 --------
 
@@ -1104,6 +1098,8 @@ A wrapping `ANALYZER()` call in a search expression does not affect the
 - **analyzer** (string): name of an [Analyzer](../analyzers.html).
 - returns **tokenArray** (array): array of strings with zero or more elements,
   each element being a token.
+
+**Examples**
 
 Example query showcasing the `"text_de"` Analyzer (tokenization with stemming,
 case conversion and accent removal for German text):
@@ -1160,19 +1156,19 @@ FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETUR
 TO_BASE64()
 -----------
 
-`TO_BASE64(value) → toBase64String`
+`TO_BASE64(value) → encodedString`
 
 Return the base64 representation of *value*.
 
 - **value** (string): a string
-- returns **toBase64String** (string): a base64 representation of *value*
+- returns **encodedString** (string): a base64 representation of *value*
 
 **Examples**
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline tobase1
   @EXAMPLE_AQL{tobase1}
-    RETURN TO_BASE64("ABC.") // "QUJDLg=="
+    RETURN TO_BASE64("ABC.")
   @END_EXAMPLE_AQL
   @endDocuBlock tobase1
 {% endaqlexample %}
@@ -1181,29 +1177,28 @@ Return the base64 representation of *value*.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline tobase2
   @EXAMPLE_AQL{tobase2}
-    RETURN TO_BASE64("123456") // "MTIzNDU2"
+    RETURN TO_BASE64("123456")
   @END_EXAMPLE_AQL
   @endDocuBlock tobase2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-
 TO_HEX()
------------
+--------
 
 `TO_HEX(value) → toHexString`
 
-Return the hex representation of *value*.
+Return the hexadecimal representation of *value*.
 
 - **value** (string): a string
-- returns **toHexString** (string): a hex representation of *value*
+- returns **toHexString** (string): a hexadecimal representation of *value*
 
 **Examples**
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline tohex1
   @EXAMPLE_AQL{tohex1}
-    RETURN TO_HEX("ABC.") // "4142432e"
+    RETURN TO_HEX("ABC.")
   @END_EXAMPLE_AQL
   @endDocuBlock tohex1
 {% endaqlexample %}
@@ -1212,7 +1207,7 @@ Return the hex representation of *value*.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline tohex2
   @EXAMPLE_AQL{tohex2}
-    RETURN TO_HEX("ü") // "c3bc"
+    RETURN TO_HEX("ü")
   @END_EXAMPLE_AQL
   @endDocuBlock tohex2
 {% endaqlexample %}
@@ -1237,6 +1232,8 @@ however.
   - `1` – start of the string only
   - `2` – end of the string only
 
+---
+
 `TRIM(value, chars) → strippedString`
 
 Return the string *value* with whitespace stripped from the start and end.
@@ -1246,6 +1243,8 @@ Return the string *value* with whitespace stripped from the start and end.
   be removed from the string. It defaults to `\r\n \t` (i.e. `0x0d`, `0x0a`,
   `0x20` and `0x09`).
 - returns **strippedString** (string): *value* without *chars* on both sides
+
+**Examples**
 
 ```js
 TRIM("foo bar") // "foo bar"
@@ -1292,15 +1291,74 @@ Return a universally unique identifier value.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline uuid1
   @EXAMPLE_AQL{uuid1}
-    FOR i IN 1..3 RETURN UUID()
-    /* For example:
-    [
-      "28bc5873-68ae-4e0f-89a3-31d717c822de",
-      "1084d263-71aa-415c-81d6-451de42e18a3",
-      "7fce640a-f340-4204-bca4-0d2ceebe2699"
-    ]
-    */
+    FOR i IN 1..3
+      RETURN UUID()
   @END_EXAMPLE_AQL
   @endDocuBlock uuid1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Regular Expression Syntax
+-------------------------
+
+A regular expression may consist of literal characters and the following 
+characters and sequences:
+
+- `.` – the dot matches any single character except line terminators.
+  To include line terminators, use `[\s\S]` instead to simulate `.` with *DOTALL* flag.
+- `\d` – matches a single digit, equivalent to `[0-9]`
+- `\s` – matches a single whitespace character
+- `\S` – matches a single non-whitespace character
+- `\b` – matches a word boundary. This match is zero-length
+- `\B` – Negation of `\b`. The match is zero-length
+- `[xyz]` – set of characters. Matches any of the enclosed characters
+  (here: *x*, *y*, or *z*)
+- `[^xyz]` – negated set of characters. Matches any other character than the
+  enclosed ones (i.e. anything but *x*, *y*, or *z* in this case)
+- `[x-z]` – range of characters. Matches any of the characters in the 
+  specified range, e.g. `[0-9A-F]` to match any character in
+  *0123456789ABCDEF*
+- `[^x-z]` – negated range of characters. Matches any other character than the
+  ones specified in the range
+- `(xyz)` – defines and matches a pattern group. Also defines a capturing group.
+- `(?:xyz)` – defines and matches a pattern group without capturing the match
+- `(xy|z)` – matches either *xy* or *z*
+- `^` – matches the beginning of the string (e.g. `^xyz`)
+- `$` – matches the end of the string (e.g. `xyz$`)
+
+To literally match one of the characters that have a special meaning in regular
+expressions (`.`, `*`, `?`, `[`, `]`, `(`, `)`, `{`, `}`, `^`, `$`, and `\`)
+you may need to escape the character with a backslash, which typically requires
+escaping itself. The backslash of shorthand character classes like `\d`, `\s`,
+and `\b` counts as literal backslash. The backslash of JSON escape sequences
+like `\t` (tabulation), `\r` (carriage return), and `\n` (line feed) does not,
+however.
+
+{% hint 'info' %}
+Literal backlashes require different amounts of escaping depending on the
+context:
+- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+  escaped to `\\` unless the value is wrapped in double quotes and already
+  escaped properly)
+- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables in arangosh
+- `\\\\` in queries in arangosh
+- Double the amount compared to arangosh in shells that use backslashes for
+escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
+{% endhint %}
+
+Characters and sequences may optionally be repeated using the following
+quantifiers:
+
+- `x?` – matches one or zero occurrences of *x*
+- `x*` – matches zero or more occurrences of *x* (greedy)
+- `x+` – matches one or more occurrences of *x* (greedy)
+- `x*?` – matches zero or more occurrences of *x* (non-greedy)
+- `x+?` – matches one or more occurrences of *x* (non-greedy)
+- `x{y}` – matches exactly *y* occurrences of *x*
+- `x{y,z}` – matches between *y* and *z* occurrences of *x*
+- `x{y,}` – matches at least *y* occurrences of *x*
+
+Note that `xyz+` matches *xyzzz*, but if you want to match *xyzxyz* instead,
+you need to define a pattern group by wrapping the sub-expression in parentheses
+and place the quantifier right behind it, like `(xyz)+`.

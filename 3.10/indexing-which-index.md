@@ -27,11 +27,14 @@ different usage scenarios:
 
   The operations in a persistent index have logarithmic complexity.
 
-  Since ArangoDB 3.10, persistent indexes allow storing additional attributes in 
-  the index that can be used to cover more queries (`storedValues` index attribute). 
-  These additional attributes cannot be used for lookups/filtering or sorting, 
-  but they can be used for projections. The additional attributes in `storedValues`
-  are also not checked for uniqueness in unique indexes.
+  Persistent indexes allow you to store additional attributes in the index that
+  can be used to cover more queries (`storedValues` index option).
+  These additional attributes can be used for projections but not for
+  lookups/filtering or sorting.
+
+  You can optionally let persistent indexes cache equality lookups (`==`) to
+  speed up index lookups for queries that cover all index attributes
+  (`cacheEnabled` index option).
 
 - **TTL index**: the TTL index provided by ArangoDB can be used for automatically
   removing expired documents from a collection.
@@ -53,11 +56,10 @@ different usage scenarios:
   will expire 600 seconds afterwards, which is at timestamp `1550166573` (or
   `2019-02-14T17:49:33.000Z` in the human-readable version).
 
-  The actual removal of expired documents will not necessarily happen immediately. 
-  Expired documents will eventually removed by a background thread that is periodically
-  going through all TTL indexes and removing the expired documents. The frequency for
-  invoking this background thread can be configured using the `--ttl.frequency`
-  startup option. 
+  The actual removal of expired documents will not necessarily happen immediately.
+  Expired documents will eventually be removed by a background thread that is
+  periodically going through all TTL indexes. The frequency for invoking this
+  background thread can be configured using the `--ttl.frequency` startup option.
 
   There is no guarantee when exactly the removal of expired documents will be carried
   out, so queries may still find and return documents that have already expired. These

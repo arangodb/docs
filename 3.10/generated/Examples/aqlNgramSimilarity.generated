@@ -1,0 +1,17 @@
+@Q:
+RETURN [
+  NGRAM_SIMILARITY(<span class="hljs-string">&quot;quick fox&quot;</span>, <span class="hljs-string">&quot;quick foxx&quot;</span>, <span class="hljs-number">2</span>),
+  NGRAM_SIMILARITY(<span class="hljs-string">&quot;quick fox&quot;</span>, <span class="hljs-string">&quot;quick foxx&quot;</span>, <span class="hljs-number">3</span>),
+  NGRAM_SIMILARITY(<span class="hljs-string">&quot;quick fox&quot;</span>, <span class="hljs-string">&quot;quirky fox&quot;</span>, <span class="hljs-number">2</span>),
+  NGRAM_SIMILARITY(<span class="hljs-string">&quot;quick fox&quot;</span>, <span class="hljs-string">&quot;quirky fox&quot;</span>, <span class="hljs-number">3</span>)
+]
+
+@R
+[
+  [
+    <span class="hljs-number">0.8888888955116272</span>,
+    <span class="hljs-number">0.875</span>,
+    <span class="hljs-number">0.5555555820465088</span>,
+    <span class="hljs-number">0.375</span>
+  ]
+]

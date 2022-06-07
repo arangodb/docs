@@ -23,8 +23,8 @@ Execution plan:
   7   ReturnNode           1       - RETURN #8
 
 Indexes used:
- By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  2   edge   edge   edges        false    false       100.00 %   [ `_from` ]   base OUTBOUND
+ By   Name   Type   Collection   Unique   Sparse   Cache   Selectivity   Fields        Ranges
+  2   edge   edge   edges        false    false    false      100.00 %   [ `_from` ]   base OUTBOUND
 
 Functions used:
  Name   Deterministic   Cacheable   Uses V8
@@ -41,13 +41,5 @@ Optimization rules applied:
   3   remove-redundant-path-var
   4   move-calculations-down
 
-Optimization rules with highest execution times:
- RuleName                                    Duration [s]
- optimize-traversals                              0.00002
- move-calculations-up                             0.00002
- move-calculations-down                           0.00001
- remove-redundant-calculations                    0.00001
- remove-redundant-path-var                        0.00001
-
-40 rule(s) executed, 1 plan(s) created
+41 rule(s) executed, 1 plan(s) created
 

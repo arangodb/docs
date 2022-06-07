@@ -17,11 +17,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
   },
   "batch-size" : {
+    "base" : 1,
     "category" : "option",
     "default" : 8388608,
     "deprecatedIn" : null,
@@ -31,6 +33,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -79,6 +85,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -160,6 +167,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -180,6 +188,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -200,11 +209,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
   },
   "default-number-of-shards" : {
+    "base" : 1,
     "category" : "option",
     "default" : 1,
     "deprecatedIn" : [
@@ -217,6 +228,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -228,6 +243,7 @@
     "type" : "uint64"
   },
   "default-replication-factor" : {
+    "base" : 1,
     "category" : "option",
     "default" : 1,
     "deprecatedIn" : [
@@ -240,6 +256,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -309,6 +329,29 @@
     "section" : "",
     "type" : "boolean"
   },
+  "enable-revision-trees" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enable revision trees for new collections if the collection attributes 'syncByRevision' and 'usesRevisionsAsDocumentIds' are missing",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.7"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "encryption.key-generator" : {
     "category" : "option",
     "default" : "",
@@ -367,6 +410,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -387,6 +431,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -407,6 +452,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -427,6 +473,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -447,6 +494,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -467,11 +515,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
   },
   "initial-connect-retries" : {
+    "base" : 1,
     "category" : "option",
     "default" : 3,
     "deprecatedIn" : null,
@@ -484,6 +534,10 @@
       "v3.7.13",
       "v3.8.1"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -554,6 +608,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -576,6 +631,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -598,6 +654,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -682,6 +739,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -702,6 +760,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -746,6 +805,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -788,11 +848,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
   },
   "log.max-entry-length" : {
+    "base" : 1,
     "category" : "option",
     "default" : 134217728,
     "deprecatedIn" : null,
@@ -804,6 +866,10 @@
     "introducedIn" : [
       "v3.7.9"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -853,6 +919,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -895,6 +962,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -915,6 +983,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -935,6 +1004,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -955,6 +1025,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -998,6 +1069,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -1018,6 +1090,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -1063,6 +1136,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -1085,6 +1159,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -1107,6 +1182,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -1151,6 +1227,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -1171,11 +1248,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
   },
   "random.generator" : {
+    "base" : 1,
     "category" : "option",
     "default" : 1,
     "deprecatedIn" : null,
@@ -1185,6 +1264,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1236,6 +1319,7 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -1256,11 +1340,13 @@
       "macos",
       "windows"
     ],
+    "required" : false,
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
   },
   "server.connection-timeout" : {
+    "base" : 1,
     "category" : "option",
     "default" : 5,
     "deprecatedIn" : null,
@@ -1270,6 +1356,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1343,6 +1433,7 @@
     "type" : "string"
   },
   "server.max-packet-size" : {
+    "base" : 1,
     "category" : "option",
     "default" : 1073741824,
     "deprecatedIn" : null,
@@ -1352,6 +1443,10 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1383,6 +1478,7 @@
     "type" : "string"
   },
   "server.request-timeout" : {
+    "base" : 1,
     "category" : "option",
     "default" : 1200,
     "deprecatedIn" : null,
@@ -1392,6 +1488,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1423,6 +1523,7 @@
     "type" : "string"
   },
   "ssl.protocol" : {
+    "base" : 1,
     "category" : "option",
     "default" : 5,
     "deprecatedIn" : null,
@@ -1432,6 +1533,10 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1464,8 +1569,9 @@
     "type" : "string"
   },
   "threads" : {
+    "base" : 1,
     "category" : "option",
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "maximum number of collections to process in parallel",
     "dynamic" : true,
@@ -1475,6 +1581,10 @@
     "introducedIn" : [
       "v3.4.0"
     ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",

@@ -29,6 +29,7 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">&quot;producesResult&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;readOwnWrites&quot;</span> : <span class="hljs-literal">false</span>, 
+          <span class="hljs-string">&quot;maxProjections&quot;</span> : <span class="hljs-number">5</span>, 
           <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
           <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;test&quot;</span>, 
           <span class="hljs-string">&quot;satellite&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -40,7 +41,7 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
             { 
               <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60630&quot;</span>, 
               <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1725664807983513600&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1733157426023104517&quot;</span>, 
               <span class="hljs-string">&quot;fields&quot;</span> : [ 
                 <span class="hljs-string">&quot;value&quot;</span> 
               ], 

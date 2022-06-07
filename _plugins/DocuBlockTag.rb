@@ -1,5 +1,6 @@
 class DocuBlockBlock < Liquid::Tag
-    @@paths = {}
+    @@paths = { }
+    @@swaggerTypes = ["null","boolean","integer","number","string","array","object"]
 
     def initialize(tag_name, input, tokens)
         super
@@ -23,7 +24,38 @@ class DocuBlockBlock < Liquid::Tag
         content
     end
 
-    def get_source(block)
+    def get_struct(struct, blocks, rootBlockName, level, parentKey, omitNecessity=false)
+        result = ""
+        if blocks[struct]
+            blocks[struct].each do |name, description|
+                necessity = omitNecessity ? "" : ", *#{description["necessity"]}*"
+                type = description["items"] ? "#{description["type"]} of #{description["items"]}s" : description["type"]
+                if name == "<object>" and parentKey == "<object>"
+                    level = level - 1 # hoist referenced struct
+                elsif name == "<array>" or (name == "<object>" and parentKey == "<array>")
+                    result += "  " * level + "- (#{type}#{necessity}):\n"
+                    description["description"].each_line do |line|
+                        result += "  " * level + "  " + line
+                    end
+                else
+                    result += "  " * level + "- **#{name}** (#{type}#{necessity}):\n"
+                    description["description"].each_line do |line|
+                        result += "  " * level + "  " + line
+                    end
+                end
+                if description["struct"]
+                    result += get_struct(description["struct"], blocks, rootBlockName, level + 1, name, omitNecessity)
+                end
+            end
+        else
+            unless blocks[:isVersionDeprecated]
+                Jekyll.logger.error "Missing struct '#{struct}', referenced by '#{parentKey}' in DocuBlock '#{rootBlockName}', version #{blocks[:version]}"
+            end
+        end
+        result
+    end
+
+    def get_source(block, blocks, level)
         if block["name"] == "errorCodes"
             return get_error_codes(block["header"])
         end
@@ -31,35 +63,52 @@ class DocuBlockBlock < Liquid::Tag
         if block["urlParams"]
             result += "**Path Parameters**\n\n"
             block["urlParams"].each do |key, value|
-                result += "   * _#{key}_ (#{value["type"]}): #{value["description"]}"
+                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):\n"
+                value["description"].each_line do |line|
+                    result += "    " + line
+                end
             end
         end
         if block["queryParams"]
             result += "**Query Parameters**\n\n"
             block["queryParams"].each do |key, value|
-                result += "   * _#{key}_ (#{value["type"]}): #{value["description"]}"
+                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):\n"
+                value["description"].each_line do |line|
+                    result += "    " + line
+                end
             end
         end
         if block["headerParams"]
             result += "**Header Parameters**\n\n"
             block["headerParams"].each do |key, value|
-                result += "   * _#{key}_ (#{value["type"]}): #{value["description"]}"
+                result += "  - **#{key}** (#{value["type"]}, *#{value["necessity"]}*):\n"
+                value["description"].each_line do |line|
+                    result += "    " + line
+                end
             end
         end
         if block["fullbody"]
-            result += "**Request Body (#{block["fullbody"]["type"]})**\n\n#{block["fullbody"]["description"]}\n\n"
+            result += "**Request Body**\n\n (#{block["fullbody"]["type"]}, *#{block["fullbody"]["necessity"]}*)\n\n#{block["fullbody"]["description"]}\n\n"
         end
         if block["body"]
-            result += "**A JSON object with these properties is required:**\n\n"
+            result += "**Request Body**\n\n"
             block["body"].each do |key, value|
-                result += "   * **#{key}**: #{value["description"]}\n"
-                if value["subdescription"]
-                    value["subdescription"].each do |name, subdescription|
-                        result += "      * **#{name}**: "
-                        subdescription["description"].each_line do |line|
-                            result += "      #{line}"
-                        end
+                type = value["items"] ? "#{value["type"]} of #{value["items"]}s" : value["type"]
+                if key == "<object>"
+                    level = level - 1 # hoist referenced struct
+                elsif key == "<array>"
+                    result += "  " * level + "- (#{type}, *#{value["necessity"]}*):\n"
+                    value["description"].each_line do |line|
+                        result += "  " * level + " " + line
                     end
+                else
+                    result += "  " * level + "- **#{key}** (#{type}, *#{value["necessity"]}*):\n"
+                    value["description"].each_line do |line|
+                        result += "    " + line
+                    end
+                end
+                if value["struct"]
+                    result += get_struct(value["struct"], blocks, block["name"], level + 1, key)
                 end
             end
         end
@@ -67,28 +116,31 @@ class DocuBlockBlock < Liquid::Tag
             result += block["description"]
         end
         if block["returnCodes"].length > 0
-            has_bodies = block["returnCodes"].any? { |returnCode| returnCode["body"] }
-            if !has_bodies
-                result += "**Return codes**\n\n"
-            end
+            result += "**Responses**\n\n"
             block["returnCodes"].each do |returnCode|
                 code = returnCode['code']
                 description = returnCode['description']
+                result += "**HTTP #{code}**: #{description}\n\n"
                 if returnCode["body"]
-                    result += "**HTTP #{code}** #{description}\n\n"
                     returnCode["body"].each do |key, value|
-                        result += "   * **#{key}**: #{value["description"]}\n"
-                        if value["subdescription"]
-                            value["subdescription"].each do |name, subdescription|
-                                result += "      * **#{name}**: "
-                                subdescription["description"].each_line do |line|
-                                    result += "      #{line}"
-                                end
+                        type = value["items"] ? "#{value["type"]} of #{value["items"]}s" : value["type"]
+                        if key == "<object>"
+                            level = level - 1 # hoist referenced struct
+                        elsif key == "<array>"
+                            result += "  " * level + "- (#{type}):\n"
+                            value["description"].each_line do |line|
+                                result += "  " * level + "  " + line
+                            end
+                        else
+                            result += "  " * level + "- **#{key}** (#{type}):\n"
+                            value["description"].each_line do |line|
+                                result += "  " * level + "  " + line
                             end
                         end
+                        if value["struct"]
+                            result += get_struct(value["struct"], blocks, block["name"], level + 1, key, true)
+                        end
                     end
-                else
-                    result += "   * #{code}: #{description}\n"
                 end
             end
         end
@@ -98,18 +150,23 @@ class DocuBlockBlock < Liquid::Tag
         result
     end
 
-    def get_docu_block(path, blockname)
+    def get_docu_block(path, blockname, version, isVersionDeprecated)
         exists = @@paths.has_key?(path)
-        if !exists
+        unless exists
             allComments = path + "/allComments.txt"
-            if !File.file?(allComments)
+            unless File.file?(allComments)
                 print("Couldn't read " + allComments + "\n")
                 return nil
             end
             text = File.read(allComments, :encoding => 'UTF-8')
-            blocks = {}
+            blocks = {
+                :version => version,
+                :isVersionDeprecated => isVersionDeprecated,
+            }
             currentObject = nil
             currentKey = nil
+            currentStruct = nil
+            currentStructKey = nil
             local = nil
             text.each_line do |line|
                 case line
@@ -117,131 +174,214 @@ class DocuBlockBlock < Liquid::Tag
                     local = {"name"=> $2.strip, "returnCodes"=> [], "body": nil, "header" => "", "description"=> "", "examples": nil}
                     currentKey = "header"
                     currentObject = local
+                    currentStruct = nil
                 when /^@endDocuBlock/
                     if local
-                        blocks[local["name"]] = get_source(local)
+                        blocks[local["name"]] = get_source(local, blocks, 1)
                     end
                     local = nil
                     currentKey = nil
                     currentObject = nil
+                    currentStruct = nil
                 when /^@brief\s*(.*)/
                     if local
                         local["header"] += $1
                     else
                         Jekyll.logger.debug "Missing @startDocuBlock #{line}. Ignoring"
                     end
+                    currentStruct = nil
                 when /^@RESTHEADER\s*{([^,]+),\s*([^,\}]+)/
-                    local["header"] = "### #{$2}\n#{local['header']}\n`#{$1}`\n"
+                    local["header"] = "### #{$2}\n#{local['header']}\n`#{$1.sub(/#.*/, '')}`\n"
+                    currentStruct = nil
                 when /^@RESTDESCRIPTION/
                     currentObject = local
                     currentKey = "description"
+                    currentStruct = nil
                 when /^@RESTRETURNCODES/
                     currentObject = local
+                    currentStruct = nil
                 when /^@EXAMPLES/
                     if local
-                        local['examples'] = "**Examples**\n"
+                        local['examples'] = "\n**Examples**\n"
                         currentObject = local
                         currentKey = "examples"
                     end
+                    currentStruct = nil
                 when /^@RESTALLBODYPARAM{([a-z-]+),(\w+),(\w+)}/
                     local["fullbody"] = {
                         "type" => $2,
+                        "necessity" => $3,
                         "description" => ""
                     }
                     currentObject = local["fullbody"]
                     currentKey = "description"
-                when /^@RESTBODYPARAM{([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),?(\s*(([a-zA-Z0-9_-]+)))?}/
-                    if !local["body"]
-                        local["body"] = {
-                        }
+                    currentStruct = nil
+                when /^@RESTBODYPARAM{([a-zA-Z0-9_-]*),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),?(\s*(([a-zA-Z0-9_-]+)))?}/
+                    unless local["body"]
+                        local["body"] = { }
                     end
-                    local["body"][$1] = {
-                        "type" => $2,
-                        "description" => "",
-                        "subdescription" => {},
-                    }
-                    currentObject = local["body"][$1]
-                    currentKey = "description"
-                when /^@RESTSTRUCT{([\]\[\. \*a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)?}/
-                    # hacki hack: so next struct property is assigned to the parent
-                    if currentObject["subdescription"] || currentObject["parent"]
-                        if currentObject["parent"]
-                            currentObject = currentObject["parent"]
+                    key = $1
+                    if key.empty?
+                        case $2
+                        when "array"
+                            key = "<array>"
+                        when "object"
+                            key = "<object>"
+                        else
+                            Jekyll.logger.warn "Body param without name but type '#{$2}'"
                         end
-                        currentObject["subdescription"][$1] = {
-                            "parent" => currentObject,
-                            "description" => "",
-                        }
-                        currentObject = currentObject["subdescription"][$1]
-                        currentKey = "description"
-                    else
-                        Jekyll.logger.debug "Ignoring RESTSTRUCT. No subdescription"
+                        if local["body"][key]
+                            Jekyll.logger.warn "Body param with duplicate pseudo-key '#{key}'"
+                        end
                     end
+                    local["body"][key] = {
+                        "type" => $2,
+                        "necessity" => $3,
+                        "description" => "",
+                    }
+                    if $2 == "array" and @@swaggerTypes.include?($4)
+                        local["body"][key]["items"] = $4
+                    end
+                    if ["array", "object"].include?($2) and $4 != "" and !@@swaggerTypes.include?($4)
+                        Jekyll.logger.debug "[DocuBlock] Body param '#{key}' with struct '#{$4}'"
+                        local["body"][key]["struct"] = $4
+                    end
+                    currentObject = local["body"][key]
+                    currentKey = "description"
+                    currentStruct = nil
+                when /^@RESTSTRUCT{([\]\[\. \*a-zA-Z0-9_-]*),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)?}/
+                    unless blocks[$2]
+                        blocks[$2] = { }
+                    end
+                    key = $1
+                    if key.empty?
+                        case $3
+                        when "array"
+                            key = "<array>"
+                        when "object"
+                            key = "<object>"
+                        else
+                            Jekyll.logger.warn "Struct without name but type '#{$3}'"
+                        end
+                        if blocks[$2][key]
+                            Jekyll.logger.warn "Struct with duplicate pseudo-key '#{key}'"
+                        end
+                    end
+                    blocks[$2][key] = {
+                        "type" => $3,
+                        "necessity" => $4,
+                        "description" => "",
+                    }
+                    if $3 == "array" and @@swaggerTypes.include?($5)
+                        blocks[$2][key]["items"] = $5
+                    end
+                    if ["array", "object"].include?($3) and $5 != "" and !@@swaggerTypes.include?($5)
+                        Jekyll.logger.debug "[DocuBlock] Struct '#{$2}' with sub-struct '#{$5}'"
+                        blocks[$2][key]["struct"] = $5
+                    end
+                    currentStruct = $2
+                    currentStructKey = key
                 when /^@RESTURLPARAMETERS/
                     currentObject = local
+                    currentStruct = nil
                 when /^@RESTURLPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
-                    if !local["urlParams"]
-                        local["urlParams"] = {}
+                    unless local["urlParams"]
+                        local["urlParams"] = { }
                     end
                     local["urlParams"][$1] = {
-                        "type" => $3,
-                        "description" => ""
+                        "type" => $2,
+                        "necessity" => $3,
+                        "description" => "",
                     }
                     currentObject = local["urlParams"][$1]
                     currentKey = "description"
+                    currentStruct = nil
                 when /^@RESTQUERYPARAMETERS/
                     currentObject = local
+                    currentStruct = nil
                 when /^@RESTQUERYPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
-                    if !local["queryParams"]
-                        local["queryParams"] = {}
+                    unless local["queryParams"]
+                        local["queryParams"] = { }
                     end
                     local["queryParams"][$1] = {
-                        "type" => $3,
-                        "description" => ""
+                        "type" => $2,
+                        "necessity" => $3,
+                        "description" => "",
                     }
                     currentObject = local["queryParams"][$1]
                     currentKey = "description"
+                    currentStruct = nil
                 when /^@RESTHEADERPARAMETERS/
                     currentObject = local
+                    currentStruct = nil
                 when /^@RESTHEADERPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
-                    if !local["headerParams"]
-                        local["headerParams"] = {}
+                    unless local["headerParams"]
+                        local["headerParams"] = { }
                     end
                     local["headerParams"][$1] = {
-                        "type" => $3,
-                        "description" => ""
+                        "type" => $2,
+                        "necessity" => $3,
+                        "description" => "",
                     }
                     currentObject = local["headerParams"][$1]
                     currentKey = "description"
+                    currentStruct = nil
                 when /^@HINTS/
+                    currentStruct = nil
                 when /^@RESTRETURNCODE{(\d+)}/
                     currentReturnCode = {
-                        "code"=> $1,
-                        "description"=> ""
+                        "code" => $1,
+                        "description" => "",
                     }
                     currentObject = currentReturnCode
                     currentKey = "description"
                     local["returnCodes"].push(currentReturnCode)
+                    currentStruct = nil
                 when /^@RESTREPLYBODY{([a-zA-Z0-9_-]*),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)?}/
                     if local["returnCodes"].length == 0
                         Jekyll.logger.debug "No returncode found for #{line}"
                     else
                         returnCode = local["returnCodes"][local["returnCodes"].length - 1]
-                        if !returnCode["body"]
-                            returnCode["body"] = {}
+                        unless returnCode["body"]
+                            returnCode["body"] = { }
                         end
-                        returnCode["body"][$1] = {
+                        key = $1
+                        if key.empty?
+                            case $2
+                            when "array"
+                                key = "<array>"
+                            when "object"
+                                key = "<object>"
+                            else
+                                Jekyll.logger.warn "Reply body without name but type '#{$2}'"
+                            end
+                            if returnCode["body"][key]
+                                Jekyll.logger.warn "Reply body with duplicate pseudo-key '#{key}'"
+                            end
+                        end
+                        returnCode["body"][key] = {
+                            "type" => $2,
+                            "necessity" => $3,
                             "description" => "",
-                            "subdescription" => {},
                         }
-                        currentObject = returnCode["body"][$1]
+                        if $2 == "array" and @@swaggerTypes.include?($4)
+                            returnCode["body"][key]["items"] = $4
+                        end
+                        if ["array", "object"].include?($2) and $4 != "" and !@@swaggerTypes.include?($4)
+                            Jekyll.logger.debug "[DocuBlock] Reply body '#{key}' with struct '#{$4}'"
+                            returnCode["body"][key]["struct"] = $4
+                        end
+                        currentObject = returnCode["body"][key]
                         currentKey = "description"
                     end
+                    currentStruct = nil
                 else
                     if line[0] == "@" && !path.start_with?("/docs/2.8")
                         Jekyll.logger.debug "Unhandled @: #{line}"
                     end
-                    if currentObject && currentObject[currentKey]
+                    if currentStruct && currentStructKey
+                        blocks[currentStruct][currentStructKey]["description"] += line
+                    elsif currentObject && currentObject[currentKey]
                         currentObject[currentKey] += line
                     end
                 end
@@ -266,15 +406,17 @@ class DocuBlockBlock < Liquid::Tag
     end
 
     def render(context)
+        version = context["page"]["version"].version()
+        isVersionDeprecated = context["site"]["data"]["deprecations"].include?(version)
         if context["page"]["dir"] =~ /\d\.\d{1,2}\/?$/
-            dir = context["page"]["dir"] + "/"
+            dir = context["page"]["dir"]
         else
-            dir = context["page"]["dir"] + "/../"
+            dir = context["page"]["dir"] + "../"
         end
-        fullpath = Dir.pwd + dir + "generated/"
-        content = get_docu_block(fullpath, @blockname)
-        if !content
-            Jekyll.logger.error "DocuBlock \"#{@blockname}\" in \"#{File.expand_path(fullpath)}\" undefined. Content will be empty."
+        fullpath = File.expand_path(Dir.pwd + dir + "generated/")
+        content = get_docu_block(fullpath, @blockname, version, isVersionDeprecated)
+        unless content
+            Jekyll.logger.error "DocuBlock \"#{@blockname}\" in \"#{fullpath}\" undefined. Content will be empty."
             return ""
         end
         # should match migrate.js more or less :S

@@ -1550,6 +1550,69 @@
     to be adjusted, or larger operations should be broken up into smaller ones in the
     client application.
 
+- name: arangodb_ioheartbeat_delays_total
+  introducedIn: "3.8.7"
+  help: |
+    Number of delays in the io heartbeat test.
+  unit: number
+  type: counter
+  category: Health
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This counter is increased whenever the io heartbeat encounters a delay
+    of at least 1s when writing a small file to the database directory,
+    reading it and then removing it again.
+    This test is done periodically to ensure that the underlying volume is
+    usable and performs reasonably well. The test can be switched off
+    explicitly with the flag `--database.io-heartbeat=false`, but the
+    default is `true`. Furthermore, every such failure leads to a line in
+    the log at INFO level for the `ENGINES` topic.
+
+- name: arangodb_ioheartbeat_duration
+  introducedIn: "3.8.7"
+  help: |
+    Histogram of execution times of a single IO heartbeat check.
+  unit: us
+  type: histogram
+  category: Health
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This histogram is updated whenever the io heartbeat runs its test in
+    the database directory. It writes a small file, syncs it to durable
+    storage, reads it, and then unlinks the file again. This test is done
+    periodically to ensure that the underlying volume is usable and performs
+    reasonably well. The test can be switched off explicitly with the flag
+    `--database.io-heartbeat=false`, but the default is `true`.
+
+- name: arangodb_ioheartbeat_failures_total
+  introducedIn: "3.8.7"
+  help: |
+    Number of failures in the io heartbeat test.
+  unit: number
+  type: counter
+  category: Health
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This counter is increased whenever the io heartbeat encounters a problem
+    when writing a small file to the database directory, reading it and then
+    removing it again. This test is done
+    periodically to ensure that the underlying volume is usable. The test can
+    be switched off explicitly with the flag `--database.io-heartbeat=false`,
+    but the default is `true`. Furthermore, every such failure leads to a
+    line in the log at INFO level for the `ENGINES` topic.
+
 - name: arangodb_license_expires
   introducedIn: "3.9.1"
   help: |
@@ -3988,6 +4051,28 @@
     Normally, this number will always be 0. If it is not, then something
     is wrong, please contact ArangoDB customer support in this case.
 
+- name: arangodb_sync_timeouts_total
+  introducedIn: "3.9.2"
+  help: |
+    Number of times the synchronization of a follower shard synchronization
+    attempt ran into a timeout.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: medium
+  exposedBy:
+    - dbserver
+  description: |
+    Number of times a follower shard synchronization attempt ran into the
+    timeout controlled by the startup option `--cluster.shard-synchronization-attempt-timeout`.
+    Running into this timeout is not an error. The timeout simply restricts
+    individual shard synchronization attempts to a certain maximum runtime.
+    When it happens, the shard synchronization attempt is aborted by the
+    follower, but immediately retried afterwards. This abort-and-retry
+    operation allows the leader DB servers to purge their archived WAL files
+    for the aborted snapshots timely, so that long-running shard synchronization
+    aborts do not lead to overly long WAL file retention periods on leaders.
+
 - name: arangodb_sync_wrong_checksum_total
   renamedFrom: arangodb_sync_wrong_checksum
   introducedIn: "3.8.0"
@@ -4478,10 +4563,30 @@
     It shows the total memory size for the entries residing in the block cache,
     in bytes.
 
+- name: rocksdb_cache_active_tables
+  introducedIn: "3.10.0"
+  help: |
+    Global current number of hash tables in ArangoDB cache.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric reflects the current number of active hash tables used by the
+    in-memory cache which sits in front of RocksDB. Active tables are used for
+    caching index entries. There should be one active table per index per shard
+    for each index that has in-memory caching enabled. There can also be
+    additional active tables while an existing hash table is migrated to a
+    larger table.
+
 - name: rocksdb_cache_allocated
   introducedIn: "3.6.1"
   help: |
-    Global current allocation of ArangoDB cache.
+    Global current memory allocation of ArangoDB in-memory caches.
   unit: bytes
   type: gauge
   category: RocksDB
@@ -4492,7 +4597,7 @@
     - single
   description: |
     This metric reflects the current global allocation for the ArangoDB
-    cache which sits in front of RocksDB. For example, the edge cache
+    in-memory cache which sits in front of RocksDB. For example, the edge caches
     counts towards this allocation. All these caches together have a
     global limit which can be controlled with the `--cache.size` startup option.
 
@@ -4553,6 +4658,44 @@
     ArangoDB caches which sit in front of RocksDB. For example, the
     edge cache counts towards this allocation. This global limit can
     be controlled with the `--cache.size` startup option.
+
+- name: rocksdb_cache_unused_memory
+  introducedIn: "3.10.0"
+  help: |
+    Global current memory allocation of inactive/reserve hash tables in ArangoDB cache.
+  unit: bytes
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric reflects the current memory allocation for unused hash tables 
+    used by the in-memory cache which sits in front of RocksDB. Unused tables 
+    can be kept as backups to provide new, readily initialized tables for new 
+    caches. The overall memory usage of unused tables is capped by the system,
+    so it will not grow overly large.
+
+- name: rocksdb_cache_unused_tables
+  introducedIn: "3.10.0"
+  help: |
+    Global current number of inactive/reserve hash tables in ArangoDB cache.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric reflects the current number of unused hash tables used by the
+    in-memory cache which sits in front of RocksDB. Unused tables can be kept as
+    backups to provide new, readily initialized tables for new caches.
+    Unused tables can consume some memory, but the overall memory usage of
+    unused tables is capped.
 
 - name: rocksdb_compaction_pending
   introducedIn: "3.6.1"
@@ -5411,7 +5554,7 @@
   unit: number
   type: gauge
   category: RocksDB
-  complexity: high
+  complexity: advanced
   exposedBy:
     - dbserver
     - agent
@@ -5428,7 +5571,7 @@
   unit: number
   type: gauge
   category: RocksDB
-  complexity: high
+  complexity: advanced
   exposedBy:
     - dbserver
     - agent

@@ -142,6 +142,12 @@ the upper disk size limit already.
 6. Click the copy icon next to the root password. This will copy the deployment
    root password to your clipboard. You can also click the view icon to unmask
    the root password to see it.
+
+   {% hint 'security' %}
+   Do not use the root username/password for everyday operations. It is recommended
+   to use them only to create other user accounts with appropriate permissions.
+   {% endhint %}
+
 7. You will also receive an email that the deployment is available, with a URL
    to open it up.
 8. Click the __Open endpoint__ button or on the endpoint URL property to open
@@ -166,44 +172,65 @@ and automatically accepted by most web browsers. The certificate used on port
 a self-signed certificate is recommended.
 {% endhint %}
 
-## How to create a private network deployment
+## How to enable the root user password rotation
+
+Password rotation refers to changing passwords regularly - a security best practice
+to reduce the vulnerability to password-based attacks and exploits by limiting
+for how long passwords are valid. ArangoDB Oasis can automatically change the
+`root` user password of an ArangoDB deployment periodically to improve security.
+
+1. Navigate to the __Deployment__ for which you want to enable an automatic
+   password rotation for the root user.
+2. On the __Overview__ tab, click the button with the __gear__ icon next to the
+   __ROOT PASSWORD__.
+3. In the __Password Settings__ dialog, turn the password rotation on and click the
+   __Confirm__ button.
+
+   ![Oasis Deployment Password Rotation](images/oasis-deployment-password-rotation.png)
+4. You can expand the __Root password__ panel to see when the password was
+   rotated last. The rotation takes place every three months.
+
+## How to create a private endpoint deployment
 
 Microsoft Azure offers a feature called
 [Azure Private Link](https://docs.microsoft.com/en-us/azure/private-link){:target="_blank"}
 that allows you to limit communication between different Azure servers and
-services to Microsoft's backbone network without exposure to the public internet.
+services to Microsoft's backbone network without exposure to the internet.
 It can lower network latency and increase security.
 
 If you want to connect an ArangoDB Oasis deployment running on Azure with other
 services you run on Azure using such a tunnel, then
 [create a regular deployment](#how-to-create-a-new-deployment) and change it
-to a private network deployment afterwards.
+to a private endpoint deployment afterwards.
 
-The deployment will not be reachable from the public internet anymore, other than via
+The deployment will not be reachable from the internet anymore, other than via
 the Oasis dashboard to administrate it. To revert to a public deployment, please
 contact support via __Request help__ in the help menu.
 
-1. **View** the deployment you want to change.
+1. Open the deployment you want to change.
 2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
    icon. If you see a pencil icon and no menu opens, then you are either on the
    free-to-try or professional tier, or the selected deployment is not eligible.
-   The private network option is only available on the enterprise tier, for
-   OneShard and Sharded deployments running on Azure.
-3. Click **Change to private network** in the menu
-   ![Oasis Deployment Private Network Menu](images/oasis-deployment-private-network-menu.png)
+
+   {% hint 'info' %}
+   The private endpoint option is only available on the enterprise tier for
+   deployments running on Azure.
+   {% endhint %}
+
+3. Click **Change to private endpoint** in the menu.
+   ![Oasis Deployment Private Endpoint Menu](images/oasis-deployment-private-endpoint-menu.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
 5. You need to enter one or more Azure Subscription IDs (GUIDs). They cannot be
    changed anymore once a connection has been established.
    Proceed by clicking **Next**.
-   ![Oasis Deployment Private Network Setup 2](images/oasis-deployment-private-network-setup2.png)
+   ![Oasis Deployment Private Endpoint Setup 2](images/oasis-deployment-private-endpoint-setup2.png)
 6. You may enter one or more Alternate DNS names. This step is optional.
    Continue with or without Alternate DNS names entered by clicking **Next**.
    They can be changed later.
 7. Click **Confirm Settings** to change the deployment.
-8. Back on the **Overview** tab, scroll down to the **Private Network** section
+8. Back on the **Overview** tab, scroll down to the **Private Endpoint** section
    that is now displayed to see the connection status and to change the
    configuration.
-   ![Oasis Deployment Private Network](images/oasis-deployment-private-network.png)
 9. Oasis will configure a Private Endpoint Service. As soon as the **Azure alias**
    becomes available, you can copy it and then go to your Microsoft Azure portal
    to create Private Endpoints using this alias. The number of established

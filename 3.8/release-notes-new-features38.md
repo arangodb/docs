@@ -590,8 +590,8 @@ New deployments created with ArangoDB 3.8 will automatically benefit from the
 new protocol, and existing deployments will benefit from the new protocol for
 any collections that are created with 3.8 onwards.
 Existing collections created with previous versions of ArangoDB will only benefit 
-from the new protocol if the collections are logically dumped and
-recreated/restored using arangodump and arangorestore.
+from the new protocol if the collections are dumped and recreated/restored using 
+arangodump and arangorestore.
 
 Index selectivity estimates
 ---------------------------
@@ -1046,6 +1046,8 @@ The bundled version of the Snappy compression/decompression library has been
 upgraded to 1.1.8.
 
 The bundled version of libunwind has been upgraded to 1.5.
+
+For ArangoDB 3.8, the bundled version of rclone is 1.51.0.
 
 ### Spliced subqueries
 

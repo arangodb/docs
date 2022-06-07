@@ -35,6 +35,7 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">&quot;producesResult&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;readOwnWrites&quot;</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">&quot;useCache&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;maxProjections&quot;</span> : <span class="hljs-number">5</span>, 
         <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
         <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;_users&quot;</span>, 
@@ -80,7 +81,7 @@ arangosh&gt; stmt.explain();
   }, 
   <span class="hljs-string">&quot;warnings&quot;</span> : [ ], 
   <span class="hljs-string">&quot;stats&quot;</span> : { 
-    <span class="hljs-string">&quot;rulesExecuted&quot;</span> : <span class="hljs-number">40</span>, 
+    <span class="hljs-string">&quot;rulesExecuted&quot;</span> : <span class="hljs-number">41</span>, 
     <span class="hljs-string">&quot;rulesSkipped&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;plansCreated&quot;</span> : <span class="hljs-number">1</span> 
   }, 
