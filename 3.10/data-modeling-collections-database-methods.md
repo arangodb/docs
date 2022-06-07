@@ -94,7 +94,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     The `autoincrement` key generator generates numerical keys in ascending order, 
     the inital offset and the spacing can be configured (**note**: 
     *autoincrement* is currently only supported for non-sharded or 
-    single-shardedcollections). 
+    single-sharded collections). 
     The sequence of generated keys is not guaranteed to be gap-free, because a new key
     will be generated on every document insert attempt, not just for successful
     inserts.
