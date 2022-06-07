@@ -4,10 +4,12 @@ description: License Management of ArangoDB Enterprise Edition
 ---
 # Enterprise Edition License Management
 
-The Enterprise Edition of ArangoDB requires a license to activate the
-Enterprise Edition features. How to set a license key and to retrieve
+The Enterprise Edition of ArangoDB requires a license to run the
+Enterprise Edition. How to set a license key and to retrieve
 information about the current license via the JavaScript API is described below.
-There is also an [HTTP API](http/license.html).
+There is also an [HTTP API](http/license.html). 
+Also check the [ArangoDB Kubernetes Operator](deployment-kubernetes-usage.html)
+for more details on how to set a license key.
 
 ## Initial Installation
 
