@@ -27,8 +27,7 @@ Document Keys
 -------------
 
 In a cluster the *autoincrement* key generator is supported for single-sharded
-collections. Otherwise, for collections with more than one shard, you would 
-have to use the *traditional* or user defined keys.
+collections. It cannot be used for collections with more than one shard.
 
 Indexes
 -------
