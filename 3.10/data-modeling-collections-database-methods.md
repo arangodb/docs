@@ -92,7 +92,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     The `traditional` key generator generates numerical keys in ascending order.
     The sequence of keys is not guaranteed to be gap-free.
     The `autoincrement` key generator generates numerical keys in ascending order, 
-    the inital offset and the spacing can be configured (**note**: 
+    the initial offset and the spacing can be configured (**note**: 
     *autoincrement* is currently only supported for non-sharded or 
     single-sharded collections). 
     The sequence of generated keys is not guaranteed to be gap-free, because a new key
