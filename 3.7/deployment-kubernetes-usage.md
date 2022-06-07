@@ -4,6 +4,8 @@ description: The ArangoDB Kubernetes Operator needs to be installed in your Kube
 ---
 # Using the ArangoDB Kubernetes Operator
 
+{% include hint-ee.md feature="ArangoDB Kubernetes Operator" plural=false %}
+
 ## Installation
 
 The ArangoDB Kubernetes Operator needs to be installed in your Kubernetes
@@ -135,3 +137,4 @@ kubectl delete deployment arango-deployment-replication-operator
 - [Scaling](deployment-kubernetes-scaling.html)
 - [Upgrading](deployment-kubernetes-upgrading.html)
 - [Using the ArangoDB Kubernetes Operator with Helm](deployment-kubernetes-helm.html)
+- [License Management](administration-license.html)
