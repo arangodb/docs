@@ -26,7 +26,8 @@ strictly predefined order, to avoid dead-locks in this way by design.
 Document Keys
 -------------
 
-In a cluster the *autoincrement* key generator is not supported. You
+In a cluster the *autoincrement* key generator is supported for single-sharded
+collections. Otherwise, for collections with more than one shard, you would 
 have to use the *traditional* or user defined keys.
 
 Indexes

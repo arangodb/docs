@@ -205,6 +205,8 @@ shard can provide truly ascending keys. This includes collections in OneShard
 databases as well.
 Document keys are still not guaranteed to be truly ascending for collections with
 more than a single shard.
+Also, `autoincrement` key generation is now supported on cluster mode for
+single-sharded collections.
 
 SmartGraphs (Enterprise Edition)
 --------------------------------
