@@ -4,8 +4,6 @@ description: The ArangoDB Kubernetes Operator needs to be installed in your Kube
 ---
 # Using the ArangoDB Kubernetes Operator
 
-{% include hint-ee.md feature="ArangoDB Kubernetes Operator" plural=false %}
-
 ## Installation
 
 The ArangoDB Kubernetes Operator needs to be installed in your Kubernetes
@@ -70,7 +68,7 @@ in the [kube-arangodb repository](https://github.com/arangodb/kube-arangodb/rele
 
 ## ArangoDB deployment creation
 
-After deploying the latest ArangoDB Kubernetes operator, use the command below to deploy your license key as a secret:
+After deploying the latest ArangoDB Kubernetes operator, use the command below to deploy your [license key](../administration-license.html) as a secret which is required for the Enterprise Edition starting with version 3.9:
 
 ```bash
 kubectl create secret generic arango-license-key --from-literal=token-v2="<license-string>"
@@ -85,7 +83,7 @@ For example (all examples can be found in the [kube-arangodb repository](https:/
 ```bash
 kubectl apply -f examples/simple-cluster.yaml
 ```
-Additionally, you can specify:
+Additionally, you can specify the license key required for the Enterprise Edition starting with version 3.9 as seen below:
 
 ```yaml
 spec:
@@ -137,4 +135,3 @@ kubectl delete deployment arango-deployment-replication-operator
 - [Scaling](deployment-kubernetes-scaling.html)
 - [Upgrading](deployment-kubernetes-upgrading.html)
 - [Using the ArangoDB Kubernetes Operator with Helm](deployment-kubernetes-helm.html)
-- [License Management](../administration-license.html)
