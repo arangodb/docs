@@ -137,4 +137,4 @@ kubectl delete deployment arango-deployment-replication-operator
 - [Scaling](deployment-kubernetes-scaling.html)
 - [Upgrading](deployment-kubernetes-upgrading.html)
 - [Using the ArangoDB Kubernetes Operator with Helm](deployment-kubernetes-helm.html)
-- [License Management](administration-license.html)
+- [License Management](3.9/administration-license.html)
