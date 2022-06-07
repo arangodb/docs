@@ -1374,6 +1374,7 @@ Spanish      | `es`
 Swedish      | `sv`
 Tamil      * | `ta`
 Turkish    * | `tr`
+Yiddish   ** | `yi`
 
 \* <small>Introduced in: v3.7.0</small>
 
