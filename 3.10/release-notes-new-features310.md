@@ -203,10 +203,10 @@ ascending.
 ArangoDB 3.10 changes this behavior so that collections with only a single 
 shard can provide truly ascending keys. This includes collections in OneShard
 databases as well.
-Document keys are still not guaranteed to be truly ascending for collections with
-more than a single shard.
 Also, `autoincrement` key generation is now supported on cluster mode for
 single-sharded collections.
+Document keys are still not guaranteed to be truly ascending for collections with
+more than a single shard.
 
 SmartGraphs (Enterprise Edition)
 --------------------------------
@@ -330,13 +330,6 @@ written, so that no post-processing of .sst files is necessary anymore.
 The previous background thread named `Sha256Thread`, which was responsible for
 calculating the SHA256 hashes and sometimes for high CPU utilization after
 larger write operations, has now been fully removed.
-
-
-API changes
----------------------
-
-Added a new GET request with route `/_api/query/rules` that returns the available optimizer rules for AQL queries. 
-
 
 Client tools
 ------------
