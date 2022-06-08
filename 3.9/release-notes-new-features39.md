@@ -39,7 +39,7 @@ attribute values, then you should enable this option. This topology restriction
 allows the query optimizer to improve traversal execution times, because the
 execution can be pushed down to a single DB-Server in many cases.
 
-[SmartGraphs using SatelliteCollections](graphs-smart-graphs.html#isjoint-smartgraphs-using-satellitecollections)
+[SmartGraphs using SatelliteCollections](graphs-smart-graphs.html#disjoint-smartgraphs-using-satellitecollections)
 are only available in the Enterprise Edition.
 
 ArangoSearch
