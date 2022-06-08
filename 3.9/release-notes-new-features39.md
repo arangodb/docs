@@ -12,8 +12,9 @@ here.
 Hybrid (Disjoint) SmartGraphs (Enterprise Edition)
 --------------------------------------------------
 
-SmartGraphs have been extended with a new option to create Hybrid SmartGraphs.
-Hybrid SmartGraphs are capable of using SatelliteCollections within their graph
+SmartGraphs have been extended with a new option to create SmartGraphs 
+using SatelliteCollections.
+These SmartGraphs are capable of using SatelliteCollections within their graph
 definition and therefore can make use of all the benefits of
 [SatelliteCollections](satellites.html).
 
@@ -27,18 +28,18 @@ data locality and reduce the number of network hops between cluster nodes.
 
 In case you do have collections that are needed in almost every traversal but
 are small enough to be copied over to every participating DB-Server,
-Hybrid SmartGraphs are the perfect fit, as this will increase the amount of
-local query execution.
+SmartGraphs with SatelliteCollections are the perfect fit, as this will increase
+the amount of local query execution.
 
-Hybrid SmartGraphs can also be disjoint. A Disjoint SmartGraph prohibits edges
-connecting different SmartGraph components. The same rule applies to
-[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#hybrid-disjoint-smartgraphs).
+SmartGraphs using SatelliteCollections can also be disjoint. A Disjoint SmartGraph 
+prohibits edges connecting different SmartGraph components. The same rule applies to
+[Disjoint SmartGraphs using SatelliteCollections](graphs-smart-graphs.html#disjoint-smartgraphs-using-satellitecollections).
 If your graph does not need edges between vertices with different SmartGraph
 attribute values, then you should enable this option. This topology restriction
 allows the query optimizer to improve traversal execution times, because the
 execution can be pushed down to a single DB-Server in many cases.
 
-[Hybrid SmartGraphs](graphs-smart-graphs.html#hybrid-smartgraphs)
+[SmartGraphs using SatelliteCollections](graphs-smart-graphs.html#isjoint-smartgraphs-using-satellitecollections)
 are only available in the Enterprise Edition.
 
 ArangoSearch
