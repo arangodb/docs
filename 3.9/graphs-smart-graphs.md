@@ -64,9 +64,9 @@ The graph will than be automatically sharded in such a way that all vertices wit
 
 _The outcome of moving the data like this is that you retain the scalability as well as the performance of graph traversals in ArangoDB._
 
-## Hybrid SmartGraphs
+## SmartGraphs using SatelliteCollections
 
-Hybrid SmartGraphs are capable of using [SatelliteCollections](satellites.html) within their graph
+These SmartGraphs are capable of using [SatelliteCollections](satellites.html) within their graph
 definition. Therefore, edge definitions defined between SmartCollections and
 SatelliteCollections can be created. As SatelliteCollections (and the edge
 collections between SmartGraph collections and SatelliteCollection) are globally
@@ -75,11 +75,13 @@ replicated to each participating DB-Server, (weighted) graph traversals and
 DB-Server. This means a larger part of the query can be executed fully local
 whenever data from the SatelliteCollections is required.
 
-![Hybrid SmartGraphs](images/SmartGraphs_Hybrid.png)
+![SmartGraphs with SatelliteCollections](images/SmartGraphs_Hybrid.png)
 
 ## Disjoint SmartGraphs
 
-Disjoint SmartGraphs are useful for use cases which have to deal with a large forest of graphs, when you have clearly separated subgraphs in your graph dataset. Disjoint SmartGraphs enable the automatic sharding of these subgraphs and prohibits edges connecting them.
+Disjoint SmartGraphs are useful for use cases which have to deal with a large forest of graphs,
+when you have clearly separated subgraphs in your graph dataset.
+Disjoint SmartGraphs enable the automatic sharding of these subgraphs and prohibits edges connecting them.
 
 ![Disjoint SmartGraphs](images/SmartGraphs-Disjoint.png)
 
@@ -87,11 +89,11 @@ _This ensures that graph traversals, shortest path, and k-shortest-paths queries
 can be executed locally on a DB-Server, achieving improved performance for
 these type of queries._
 
-## Hybrid Disjoint SmartGraphs
+## Disjoint SmartGraphs using SatelliteCollections
 
-Hybrid Disjoint SmartGraphs are like Hybrid SmartGraphs but also prohibit
+Disjoint SmartGraphs using SatelliteCollections prohibit
 edges between vertices with different `smartGraphAttribute` values. This
 restriction makes it unnecessary to replicate the edge collections between
 SmartGraph collections and SatelliteCollections to all DB-Servers for local
-execution. They are sharded like the SmartGraph collections instead
+execution. They are sharded like the SmartGraph collections
 (`distributeShardsLike`).

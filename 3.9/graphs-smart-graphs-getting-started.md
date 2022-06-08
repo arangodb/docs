@@ -6,9 +6,24 @@ title: ArangoDB SmartGraphs - Getting Started
 Getting started
 ---------------
 
-First of all, SmartGraphs **cannot use existing collections**. When switching to
-SmartGraph from an existing dataset you have to import the data into a fresh
-SmartGraph. This switch can be easily achieved with
+Before creating a SmartGraph, there are some general considerations and restrictions
+that you need to take into account.
+
+**Criteria and Considerations**
+- All vertices must have the `smartGraphAttribute`
+- The `_key` attribute changes structure and contains sharding information
+- Vertices define the location of the DBServer and edges have to follow
+- Edges may be duplicated whenever they are not co-located on the same machine
+- The `smartGraphAttribute` and the number of shards are immutable
+
+**Restrictions**
+- You cannot use existing collections, as `_key` needs to follow the smart pattern
+- `_from` and `_to` are set by default, as they need to contain the correct sharding information
+- All collections need to be in the same `distributeShardslike` group
+- All collections need to have the smart sharding `'_key': '123:abc'`
+
+When switching to SmartGraph from an existing dataset you have to import the data into a fresh
+SmartGraph, as you **cannot use existing collections**. This switch can be easily achieved with
 [arangodump](programs-arangodump.html) and
 [arangorestore](programs-arangorestore.html).
 The only thing you have to change in this pipeline is that you create the new
@@ -17,7 +32,7 @@ collections with the SmartGraph module before starting `arangorestore`.
 ## Create a SmartGraph
 
 In contrast to General Graphs we have to add more options when creating the
-graph. The two options `smartGraphAttribute` and `numberOfShards` are
+SmartGraph. The two options `smartGraphAttribute` and `numberOfShards` are
 required and cannot be modified later. 
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -98,13 +113,28 @@ correct sharding already).
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-## Create a Hybrid SmartGraph
+## Using SatelliteCollections in SmartGraphs
+When creating a collection, you can decide whether it's a SatelliteCollection
+or not. For example, a vertex collection can be satellite as well. 
+SatelliteCollections don't require sharding as the data will be distributed
+globally on all DB-Servers. The `smartGraphAttribute` is also not required.
 
+### Create a SmartGraph using SatelliteCollections
 In addition to the attributes you would set to create a SmartGraph, there is an
 additional attribute `satellites` you can optionally set. It needs to be an array of
 one or more collection names. These names can be used in edge definitions
 (relations) and these collections will be created as SatelliteCollections.
-In this example, both vertex collections are created as SatelliteCollections:
+However, all vertex collections on one side of the relation have to be of
+the same type - either all satellite or all smart. This is because `_from`
+and `_to` can have different types based on the sharding pattern.
+
+In this example, both vertex collections are created as SatelliteCollections.
+
+{% hint 'info' %}
+When providing a satellite collection that is not used in a relation,
+it will not be created. If you create the collection in a following
+request, only then the option will count.
+{% endhint %}
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline hybridSmartGraphCreateGraphHowTo1_cluster
@@ -119,10 +149,10 @@ In this example, both vertex collections are created as SatelliteCollections:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-## Create a Hybrid Disjoint SmartGraph
+### Create a Disjoint SmartGraph using SatelliteCollections
 
 The option `isDisjoint` needs to be set to `true` in addition to the other
-options for a Hybrid SmartGraph. Only the `shop` vertex collection is created
+options for a SmartGraph using SatelliteCollections. Only the `shop` vertex collection is created
 as a SatelliteCollection in this example:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
