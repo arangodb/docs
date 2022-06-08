@@ -33,13 +33,13 @@ the amount of local query execution.
 
 SmartGraphs using SatelliteCollections can also be disjoint. A Disjoint SmartGraph 
 prohibits edges connecting different SmartGraph components. The same rule applies to
-[Disjoint SmartGraphs using SatelliteCollections](graphs-smart-graphs.html#disjoint-smartgraphs-using-satellitecollections).
+[Disjoint SmartGraphs using SatelliteCollections](graphs-smart-graphs.html).
 If your graph does not need edges between vertices with different SmartGraph
 attribute values, then you should enable this option. This topology restriction
 allows the query optimizer to improve traversal execution times, because the
 execution can be pushed down to a single DB-Server in many cases.
 
-[SmartGraphs using SatelliteCollections](graphs-smart-graphs.html#disjoint-smartgraphs-using-satellitecollections)
+[SmartGraphs using SatelliteCollections](graphs-smart-graphs.html)
 are only available in the Enterprise Edition.
 
 ArangoSearch
