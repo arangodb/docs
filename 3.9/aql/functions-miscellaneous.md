@@ -249,6 +249,12 @@ of keys to return all documents that can be found.
   strings and document keys
 - returns **doc** (document\|array\|null): the content of the found document,
   an array of all found documents or *null* if nothing was found
+  
+{% hint 'info' %}
+Note that it is preferred to use subqueries or the `FOR` function with filters
+over `DOCUMENT()`, since this won't be able to use indices. The `FOR` function
+can then be combined with filters supporting sorting.
+{% endhint %}
 
 **Examples**
 
