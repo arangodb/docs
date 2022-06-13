@@ -207,17 +207,17 @@ identifiers. The collections do not need to be known at query compile time, they
 can be computed at runtime.
 
 {% hint 'info' %}
-It is recommended to use subqueries with the [`FOR` operation](operations-for.html)
+It is recommended to use subqueries with the [**`FOR` operation**](operations-for.html)
 and filters over `DOCUMENT()` whenever the collections are known in advance,
-especially for [joins](examples-join.html), because they perform better, you
+especially for [**joins**](examples-join.html), because they perform better, you
 can add additional filters, and combine it with sorting to get an array of
 documents in a guaranteed order.
 
 Queries that use the `DOCUMENT()` function cannot be
-[cached](execution-and-performance-query-cache.html), each lookup is executed as
+[**cached**](execution-and-performance-query-cache.html), each lookup is executed as
 a single operation, the lookups need to be executed on Coordinators for
-sharded collections in cluster deployments, and only primary indexes can be
-utilized.
+sharded collections in cluster deployments, and only primary indexes and no
+projections can be utilized.
 {% endhint %}
 
 `DOCUMENT(collection, id) → doc`
