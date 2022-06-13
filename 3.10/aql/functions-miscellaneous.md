@@ -199,31 +199,6 @@ DECODE_REV( "_YU0HOEG---" )
 // { "date" : "2019-03-11T16:15:05.314Z", "count" : 0 }
 ```
 
-### SHARD_ID()
-
-`SHARD_ID(collection, shardKeys) → shardId`
-
-Return the shard in a collection that contains specified shard keys.
-
-- **collection** (string): a collection name
-- **shardKeys** (object): a set of shard keys and values
-- returns **shardId** (string): the responsible shard for the specified shard keys in
-  the given collection
-
-Any missing shard key in the query is substituted with the `null` value.
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline shard_id1_cluster
-  @EXAMPLE_AQL{shard_id1_cluster}
-  @DATASET{observationsSampleDataset}
-    RETURN SHARD_ID("observations", { "time": "2021-05-25 07:15:00", "subject": "xh458", "val": 10 })
-  @END_EXAMPLE_AQL
-  @endDocuBlock shard_id1_cluster
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-On deployments other than clusters, the collection name itself is returned.
-
 ### DOCUMENT()
 
 Dynamically look up one or multiple documents from any collections, either using
@@ -418,6 +393,29 @@ It calls [COLLECTION_COUNT()](#collection_count) internally.
 *LENGTH()* can also determine the [number of elements](functions-array.html#length) in an array,
 the [number of attribute keys](functions-document.html#length) of an object / document and
 the [character length](functions-string.html#length) of a string.
+
+### SHARD_ID()
+
+`SHARD_ID(collection, shardKeys) → shardId`
+
+Return the shard in a collection that contains the specified shard keys.
+
+- **collection** (string): a collection name
+- **shardKeys** (object): a set of shard keys and values. Any missing shard key
+  is substituted with the `null` value.
+- returns **shardId** (string): the responsible shard for the specified
+  shard keys in the given collection. On deployments other than clusters,
+  the collection name itself is returned.
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline shard_id1_cluster
+  @EXAMPLE_AQL{shard_id1_cluster}
+  @DATASET{observationsSampleDataset}
+    RETURN SHARD_ID("observations", { "time": "2021-05-25 07:15:00", "subject": "xh458", "val": 10 })
+  @END_EXAMPLE_AQL
+  @endDocuBlock shard_id1_cluster
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Hash functions
 --------------
