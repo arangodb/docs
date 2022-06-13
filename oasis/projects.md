@@ -80,8 +80,8 @@ You can create an allowlist as part of a project.
    - A name or the __eye__ icon in the __Actions__ column to view the allowlist.
    - The __pencil__ icon to edit the allowlist.
      You can also view the allowlist and click the __Edit__ button.
-   - Add single-line comments in the __Example CIDR ranges__ section. 
-     Everything after `\\` or `#` is considered a comment until the end of the line.
+   - Add comments in the __Allowed CIDR ranges (1 per line)__ section. 
+     Everything after `//` or `#` is considered a comment until the end of the line.
    - The __recycle bin__ icon to delete the allowlist.
 
 ## How to manage certificates
