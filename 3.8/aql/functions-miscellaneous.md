@@ -203,12 +203,15 @@ DECODE_REV( "_YU0HOEG---" )
 
 Dynamically look up one or multiple documents from any collections, either using
 a collection name and one or more document keys, or one or more document
-identifiers. The collections do not need to be known at query compile time.
+identifiers. The collections do not need to be known at query compile time, they
+can be computed at runtime.
 
 {% hint 'info' %}
 It is recommended to use subqueries with the [`FOR` operation](operations-for.html)
 and filters over `DOCUMENT()` whenever the collections are known in advance,
-especially for [joins](examples-join.html), because they perform better.
+especially for [joins](examples-join.html), because they perform better, you
+can add additional filters, and combine it with sorting to get an array of
+documents in a guaranteed order.
 
 Queries that use the `DOCUMENT()` function cannot be
 [cached](execution-and-performance-query-cache.html), each lookup is executed as
