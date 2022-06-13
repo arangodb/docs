@@ -71,7 +71,7 @@ it first to be able to delete the project.
 IP allowlists let you limit access to your deployment to certain IP ranges.
 It is optional, but strongly recommended to do so.
 
-You can create an allowlist as part of 
+You can create an allowlist as part of a project.
 
 1. Click a project name in the __Projects__ section of the main navigation.
 2. Click the __Security__ tab.
@@ -80,6 +80,8 @@ You can create an allowlist as part of
    - A name or the __eye__ icon in the __Actions__ column to view the allowlist.
    - The __pencil__ icon to edit the allowlist.
      You can also view the allowlist and click the __Edit__ button.
+   - Add single-line comments in the __Example CIDR ranges__ section. 
+     Everything after `\\` or `#` is considered a comment until the end of the line.
    - The __recycle bin__ icon to delete the allowlist.
 
 ## How to manage certificates
