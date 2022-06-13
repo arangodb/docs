@@ -250,10 +250,10 @@ of keys to return all documents that can be found.
 - returns **doc** (document\|array\|null): the content of the found document,
   an array of all found documents or *null* if nothing was found
   
-{% hint 'info' %}
-Note that it is preferred to use subqueries or the `FOR` function with filters
-over `DOCUMENT()`, since this won't be able to use indices. The `FOR` function
-can then be combined with filters supporting sorting.
+{% hint 'warning' %}
+It is recommended to use subqueries with the [`FOR`](aql/operations-for.html) loop
+using filters over `DOCUMENT()`. The `FOR` loop can then be combined with filters
+supporting sorting to return an array of documents in guaranteed order.
 {% endhint %}
 
 **Examples**
