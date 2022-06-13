@@ -222,39 +222,44 @@ Any missing shard key in the query is substituted with the `null` value.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-On deployments other than clusters, the collection name itself is returned.
-
 ### DOCUMENT()
+
+Dynamically look up one or multiple documents from any collections, either using
+a collection name and one or more document keys, or one or more document
+identifiers. The collections do not need to be known at query compile time.
+
+{% hint 'info' %}
+It is recommended to use subqueries with the [`FOR` operation](operations-for.html)
+and filters over `DOCUMENT()` whenever the collections are known in advance,
+especially for [joins](examples-join.html), because they perform better.
+
+Queries that use the `DOCUMENT()` function cannot be
+[cached](execution-and-performance-query-cache.html), each lookup is executed as
+a single operation, the lookups need to be executed on Coordinators for
+sharded collections in cluster deployments, and only primary indexes can be
+utilized.
+{% endhint %}
 
 `DOCUMENT(collection, id) → doc`
 
-Return the document which is uniquely identified by its *id*. ArangoDB will
-try to find the document using the *_id* value of the document in the specified
-collection. 
+Return the document identified by `id` (document key or identifier) from the
+specified `collection`.
 
-If there is a mismatch between the *collection* passed and the
-collection specified in *id*, then *null* will be returned. Additionally,
-if the *collection* matches the collection value specified in *id* but the
-document cannot be found, *null* will be returned.
+If the document cannot be found, `null` will be returned.
+If there is a mismatch between the `collection` passed and the collection in
+the document identifier, then `null` will be returned, too.
 
-This function also allows *id* to be an array of ids. In this case, the
-function will return an array of all documents that could be found.
-
-It is also possible to specify a document key instead of an id, or an array
-of keys to return all documents that can be found.
+The `id` parameter can also be an array of document keys or identifiers. In this
+case, the function will return an array of all documents that could be found.
+The results are not guaranteed to be in the requested order. Documents that
+could not be found are not indicated in the result (no `null` values) and do
+also not raise warnings.
 
 - **collection** (string): name of a collection
-- **id** (string\|array): a document handle string (consisting of collection
-  name and document key), a document key, or an array of both document handle
-  strings and document keys
-- returns **doc** (document\|array\|null): the content of the found document,
-  an array of all found documents or *null* if nothing was found
-  
-{% hint 'info' %}
-Note that it is preferred to use subqueries or the `FOR` function with filters
-over `DOCUMENT()`, since this won't be able to use indices. The `FOR` function
-can then be combined with filters supporting sorting.
-{% endhint %}
+- **id** (string\|array): a document key, a document identifier, or an array of
+  document keys, identifiers, or both
+- returns **doc** (document\|array\|null): the found document (or `null` if it
+  was not found), or an array of all found documents **in any order**
 
 **Examples**
 
@@ -330,12 +335,11 @@ can then be combined with filters supporting sorting.
 
 `DOCUMENT(id) → doc`
 
-The function can also be used with a single parameter *id* as follows:
+The function can also be used with a single `id` parameter as follows:
 
-- **id** (string\|array): either a document handle string (consisting of
-  collection name and document key) or an array of document handle strings
-- returns **doc** (document\|null): the content of the found document
-  or *null* if nothing was found
+- **id** (string\|array): a document identifier, or an array of identifiers
+- returns **doc** (document\|array\|null): the found document (or `null` if it
+  was not found), or an array of the found documents **in any order**
 
 **Examples**
 
@@ -397,9 +401,6 @@ The function can also be used with a single parameter *id* as follows:
   @endDocuBlock FUNCTION_DOCUMENT_11
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-Please also consider to use
-[`DOCUMENT` in conjunction with `WITH`](operations-with.html)
 
 ### LENGTH()
 
