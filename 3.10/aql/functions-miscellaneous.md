@@ -8,6 +8,26 @@ Miscellaneous functions
 Control flow functions
 ----------------------
 
+### FIRST_DOCUMENT()
+
+`FIRST_DOCUMENT(alternative, ...) → doc`
+
+Return the first alternative that is a document, and *null* if none of the
+alternatives is a document.
+
+- **alternative** (any, *repeatable*): input of arbitrary type
+- returns **doc** (object\|null): document / object or null
+
+### FIRST_LIST()
+
+`FIRST_LIST(alternative, ...) → list`
+
+Return the first alternative that is an array, and *null* if none of the
+alternatives is an array.
+
+- **alternative** (any, *repeatable*): input of arbitrary type
+- returns **list** (array\|null): array / list or null
+
 ### MIN_MATCH()
 
 `MIN_MATCH(expr1, ... exprN, minMatchCount) → fulfilled`
@@ -55,26 +75,6 @@ are *null* themselves. It is also known as `COALESCE()` in SQL.
 - **alternative** (any, *repeatable*): input of arbitrary type
 - returns **value** (any): first non-null parameter, or *null* if all arguments
   are *null*
-
-### FIRST_LIST()
-
-`FIRST_LIST(alternative, ...) → list`
-
-Return the first alternative that is an array, and *null* if none of the
-alternatives is an array.
-
-- **alternative** (any, *repeatable*): input of arbitrary type
-- returns **list** (array\|null): array / list or null
-
-### FIRST_DOCUMENT()
-
-`FIRST_DOCUMENT(alternative, ...) → doc`
-
-Return the first alternative that is a document, and *null* if none of the
-alternatives is a document.
-
-- **alternative** (any, *repeatable*): input of arbitrary type
-- returns **doc** (object\|null): document / object or null
 
 ### Ternary operator
 
