@@ -191,7 +191,7 @@ If a malicious user would set `@what` to a value of `1 || true`, this wouldn't d
 any harm. AQL would treat the contents of `@what` as a single string token, and
 the meaning of the query would remain unchanged. The actually executed query would be:
 
-```
+```aql
 FOR doc IN collection
   FILTER doc.value == "1 || true"
   RETURN doc
@@ -372,7 +372,7 @@ RETURN coll[* LIMIT 1]
 
 ... with the execution plan ...
 
-```
+```aql
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
@@ -390,7 +390,7 @@ FOR doc IN coll
 
 ... with the (better) execution plan:
 
-```
+```aql
 Execution plan:
  Id   NodeType                  Est.   Comment
   1   SingletonNode                1   * ROOT

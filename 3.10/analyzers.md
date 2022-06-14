@@ -860,7 +860,7 @@ attributes:
   removing tokens that contain non-printable characters. To encode UTF-8
   strings to hex strings you can use e.g.
   - AQL:
-    ```js
+    ```aql
     FOR token IN ["and","the"] RETURN TO_HEX(token)
     ```
   - arangosh / Node.js:
@@ -1007,7 +1007,7 @@ The *properties* allowed for this Analyzer are an object with the following attr
 
 Create and use a `classification` Analyzer with a stored "cooking" classifier to classify items.
 
-```
+```js
 arangosh> var analyzers = require("@arangodb/analyzers");
 arangosh> var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
 arangosh> var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
@@ -1019,7 +1019,7 @@ arangosh> db._query(`LET str = 'Which baking dish is best to bake a banana bread
   `);
 ```
 
-```
+```json
 [
   {
     "all" : [
@@ -1061,7 +1061,7 @@ The *properties* allowed for this Analyzer are an object with the following attr
 
 Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier to find similar terms.
 
-```
+```js
 arangosh> var analyzers = require("@arangodb/analyzers");
 arangosh> var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
 arangosh> var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
@@ -1073,7 +1073,7 @@ arangosh> db._query(`LET str = 'salt, oil'
   `);
 ```
 
-```
+```json
 [
   {
     "all" : [
@@ -1089,7 +1089,6 @@ arangosh> db._query(`LET str = 'salt, oil'
   }
 ]
 ```
-
 
 ### `geojson`
 

@@ -106,7 +106,7 @@ different usage scenarios:
 
   then you can create an index over `from, to` utilize it with this query:
 
-  ```js
+  ```aql
   FOR i IN intervals FILTER i.from <= t && t <= i.to RETURN i
   ```
 
@@ -199,7 +199,7 @@ least one of the indexed attributes has a value of `null`. For example, the foll
 query cannot use a sparse index, even if one was created on attribute `attr`:
 <!-- TODO Remove above statement? -->
 
-```js
+```aql
 FOR doc In collection
   FILTER doc.attr == null
   RETURN doc
@@ -213,13 +213,13 @@ will not make use of a sparse index in a query in order to produce correct resul
 For example, the following queries cannot use a sparse index on `attr` because the optimizer
 will not know beforehand whether the values which are compared to `doc.attr` will include `null`:
 
-```js
+```aql
 FOR doc In collection 
   FILTER doc.attr == SOME_FUNCTION(...) 
   RETURN doc
 ```
 
-```js
+```aql
 FOR other IN otherCollection
   FOR doc In collection
     FILTER doc.attr == other.attr

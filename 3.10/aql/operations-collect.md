@@ -369,7 +369,7 @@ require its input to be sorted.
 Which variant of `COLLECT` will actually be used can be figured out by looking
 at the execution plan of a query, specifically the comment of the *CollectNode*:
 
-```js
+```aql
 Execution plan:
  Id   NodeType                  Est.   Comment
   1   SingletonNode                1   * ROOT

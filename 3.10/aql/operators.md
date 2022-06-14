@@ -240,7 +240,7 @@ Also see [Common Errors](common-errors.html).
 
 Some example arithmetic operations:
 
-```
+```aql
 1 + 1
 33 - 99
 12.4 * 4.5
@@ -341,7 +341,7 @@ defined range, with both bounding values included.
 
 *Examples*
 
-```
+```aql
 2010..2013
 ```
 

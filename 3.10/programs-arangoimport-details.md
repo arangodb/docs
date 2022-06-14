@@ -145,7 +145,7 @@ It will show the
 
 *Example*
 
-```js
+```bash
 created:          2
 warnings/errors:  0
 updated/replaced: 0

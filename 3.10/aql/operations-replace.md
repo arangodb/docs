@@ -149,7 +149,7 @@ Both `OLD` and `NEW` will contain all document attributes, even those not specif
 in the replace expression.
 
 
-```
+```aql
 REPLACE document IN collection options RETURN OLD
 REPLACE document IN collection options RETURN NEW
 REPLACE keyExpression WITH document IN collection options RETURN OLD

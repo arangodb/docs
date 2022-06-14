@@ -52,7 +52,7 @@ Token search is covered below. For phrase search see
 
 Search for movies with `dinosaur` or `park` (or both) in their description:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("dinosaur park", "text_en"), "text_en")
   RETURN {
@@ -71,7 +71,7 @@ FOR doc IN imdb
 
 Search for movies with both `dinosaur` and `park` in their description:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(TOKENS("dinosaur park", "text_en") ALL == doc.description , "text_en")
   RETURN {

@@ -98,7 +98,7 @@ character is to be used itself within the string literal, it must be escaped
 using the backslash symbol. A literal backslash also needs to be escaped with
 a backslash.
 
-```
+```aql
 "yikes!"
 "don't know"
 "this is a \"quoted\" word"

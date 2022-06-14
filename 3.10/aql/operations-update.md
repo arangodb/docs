@@ -278,7 +278,7 @@ refers to document revisions after the update.
 Both `OLD` and `NEW` will contain all document attributes, even those not specified 
 in the update expression.
 
-```
+```aql
 UPDATE document IN collection options RETURN OLD
 UPDATE document IN collection options RETURN NEW
 UPDATE keyExpression WITH document IN collection options RETURN OLD

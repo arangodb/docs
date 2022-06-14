@@ -49,7 +49,7 @@ View definition example:
 
 AQL query example:
 
-```js
+```aql
 FOR doc IN viewName
   SORT doc.name
   RETURN doc
@@ -57,7 +57,7 @@ FOR doc IN viewName
 
 Execution plan **without** a sorted index being used:
 
-```
+```aql
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
@@ -69,7 +69,7 @@ Execution plan:
 
 Execution plan with a the primary sort order of the index being utilized:
 
-```
+```aql
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
@@ -141,7 +141,7 @@ In above View definition, the document attribute *categories* is indexed for
 searching, *publishedAt* is used as primary sort order and *title* as well as
 *categories* are stored in the View using the new `storedValues` property.
 
-```js
+```aql
 FOR doc IN articlesView
   SEARCH doc.categories == "recipes"
   SORT doc.publishedAt DESC
@@ -159,7 +159,7 @@ no documents need to be fetched from the storage engine to answer the query.
 This is shown in the execution plan as a comment to the *EnumerateViewNode*:
 `/* view query without materialization */`
 
-```js
+```aql
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
@@ -182,7 +182,7 @@ Optimization rules applied:
 The `SEARCH` operation in AQL accepts an option `conditionOptimization` to
 give you control over the search criteria optimization:
 
-```js
+```aql
 FOR doc IN myView
   SEARCH doc.val > 10 AND doc.val > 5 /* more conditions */
   OPTIONS { conditionOptimization: "none" }
@@ -213,7 +213,7 @@ an approximate result with O(1) complexity. It gives a precise result if the
 (e.g. `SEARCH doc.field == "value"`), the usual eventual consistency
 of Views aside.
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH doc.name == "Carol"
   OPTIONS { countApproximate: "cost" }

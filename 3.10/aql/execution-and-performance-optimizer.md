@@ -338,7 +338,7 @@ Using a cluster, there is a *Site* column if you explain a query.
 Snippets marked with **DBS** are executed on DB-Servers, **COOR** ones are
 executed on the respective Coordinator.
 
-```
+```aql
 Query String (57 chars, cacheable: false):
  FOR doc IN test UPDATE doc WITH { updated: true } IN test
 

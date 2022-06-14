@@ -151,7 +151,7 @@ The removed documents can also be returned by the query. In this case, the
 statements are allowed, too).`REMOVE` introduces the pseudo-value `OLD` to
 refer to the removed documents:
 
-```
+```aql
 REMOVE keyExpression IN collection options RETURN OLD
 ```
 
