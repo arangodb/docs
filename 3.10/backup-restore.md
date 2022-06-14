@@ -333,8 +333,11 @@ not be suited for.
   Hot backups are not automatically replicated between instances. This is
   true for both the Active Failover setup with 2 (or more) single servers
   and for the Datacenter to Datacenter Replication between clusters.
-  Simply take hot backups on all instances. Note that the DC2DC replication
-  needs to be stopped before restoring a Hot Backup.
+  Simply take hot backups on all instances.
+
+  {% hint 'info' %}
+  The DC2DC replication needs to be stopped before restoring a Hot Backup.
+  {% endhint %}
 
 - **Known Issues**
 
