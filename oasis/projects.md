@@ -110,6 +110,19 @@ your local machine. This operation will slightly vary between operating systems.
 
 ![Oasis Certificate Install Instructions](images/oasis-cert-install-instructions.png)
 
+### Certificate Rotation
+
+Every certificate has a self-signed root certificate that is going to expire.
+When certificates that are used in existing deployments are about to expire,
+an automatic rotation of the certificates is triggered. This means that the
+certificate is cloned and all affected deployments then start using
+the cloned certificate. 
+
+Based on the type of certificate used, you may also need to install the new
+certificate on your local machine. To prevent any downtime, it is recommended to
+manually create a new certificate and apply the required changes prior
+to the expiration date. 
+
 ## How to manage role bindings
 
 See:
