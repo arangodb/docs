@@ -6,27 +6,21 @@ title: ArangoDB SmartGraphs - Getting Started
 Getting started
 ---------------
 
-Before creating a SmartGraph, there are some general considerations and restrictions
-that you need to take into account.
+SmartGraphs **cannot use existing collections**. When switching to SmartGraph from an
+existing dataset you have to import the data into a fresh SmartGraph.
 
-**Criteria and Considerations**
-- All vertices must have the `smartGraphAttribute`
-- The `_key` attribute changes structure and contains sharding information
-- Vertices define the location of the DBServer and edges have to follow
-- Edges may be duplicated whenever they are not co-located on the same machine
-- The `smartGraphAttribute` and the number of shards are immutable
+All collections that are being used in SmartGraphs need to be part of the same
+`distributeShardslike` group. The `smartGraphAttribute` and the number of shards are immutable.
+The `smartGraphAttribute` attribute is used to inform the database how to shard data and, as a 
+consequence, all vertices must have this attribute. The `_from` and `_to` attributes that 
+point _from_ one document _to_ another document stored in vertex collections are set by
+default, following the same smart sharding pattern. 
 
-**Restrictions**
-- You cannot use existing collections, as `_key` needs to follow the smart pattern
-- `_from` and `_to` are set by default, as they need to contain the correct sharding information
-- All collections need to be in the same `distributeShardslike` group
-- All collections need to have the smart sharding `'_key': '123:abc'`
-
-When switching to SmartGraph from an existing dataset you have to import the data into a fresh
-SmartGraph, as you **cannot use existing collections**. This switch can be easily achieved with
+A switch to a SmartGraph from an existing dataset can be achieved with
 [arangodump](programs-arangodump.html) and
-[arangorestore](programs-arangorestore.html).
-The only thing you have to change in this pipeline is that you create the new
+[arangorestore](programs-arangorestore.html), but this implies that all collections
+have the correct sharding already.
+In this case, the only thing you have to change in this pipeline is that you create the new
 collections with the SmartGraph module before starting `arangorestore`.
 
 ## Create a SmartGraph
