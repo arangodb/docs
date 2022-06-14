@@ -50,6 +50,15 @@ the maintenance mode:
 Substitute `<endpoint>` with the actual endpoint of the **leader**
 single server instance.
 
+### Datacenter-to-Datacenter Replication Special Limitations
+
+Restoring a Hot Backup requires that no Datacenter-to-Datacenter Replication
+(DC2DC) is active throughout the restoration process.
+
+1. Stop the DC2DC synchronization with `arangosync stop sync ...`
+2. Restore the Hot Backup
+3. Restart the DC2DC synchronization with `arangosync configure sync ...`
+
 Restoring from a different Version
 ----------------------------------
 
