@@ -3,7 +3,7 @@ layout: default
 ---
 # Getting Started
 
-Install the latest release of [ArangoDBNetStandard on Nuget](https://www.nuget.org/packages/ArangoDBNetStandard).
+Install the [ArangoDB C# Driver](dotnet-installation.md).
 
 ## First steps
 
