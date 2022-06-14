@@ -7,9 +7,9 @@ arangosh&gt; db.test.ensureIndex({ <span class="hljs-attr">type</span>: <span cl
     <span class="hljs-string">&quot;attribute&quot;</span>, 
     <span class="hljs-string">&quot;secondAttribute.subAttribute&quot;</span> 
   ], 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;test/71443&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;test/71447&quot;</span>, 
   <span class="hljs-string">&quot;isNewlyCreated&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1733157480581562369&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1735613420493864960&quot;</span>, 
   <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
@@ -35,8 +35,8 @@ arangosh&gt; db.test.getIndexes();
     <span class="hljs-string">&quot;fields&quot;</span> : [ 
       <span class="hljs-string">&quot;attribute&quot;</span> 
     ], 
-    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;test/71435&quot;</span>, 
-    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1733157480580513793&quot;</span>, 
+    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;test/71439&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1735613420490719232&quot;</span>, 
     <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
@@ -48,8 +48,8 @@ arangosh&gt; db.test.getIndexes();
     <span class="hljs-string">&quot;fields&quot;</span> : [ 
       <span class="hljs-string">&quot;uniqueAttribute&quot;</span> 
     ], 
-    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;test/71439&quot;</span>, 
-    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1733157480581562368&quot;</span>, 
+    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;test/71443&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1735613420492816384&quot;</span>, 
     <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
@@ -62,8 +62,8 @@ arangosh&gt; db.test.getIndexes();
       <span class="hljs-string">&quot;attribute&quot;</span>, 
       <span class="hljs-string">&quot;secondAttribute.subAttribute&quot;</span> 
     ], 
-    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;test/71443&quot;</span>, 
-    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1733157480581562369&quot;</span>, 
+    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;test/71447&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1735613420493864960&quot;</span>, 
     <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
