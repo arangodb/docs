@@ -187,6 +187,45 @@ scans, for sorting, or for lookups that do not include all index attributes.
 
 See [Persistent Indexes](indexing-persistent.html#caching-of-index-values).
 
+Document keys
+-------------
+
+Some key generators can generate keys in an ascending order, meaning that document
+keys with "higher" values also represent newer documents. This is true for the
+`traditional`, `autoincrement` and `padded` key generators.
+
+Previously, the generated keys were only guaranteed to be truly ascending in single 
+server deployments. The reason was that document keys could be generated not only by
+the DB-Server, but also by Coordinators (of which there are normally multiple instances). 
+While each component would still generate an ascending sequence of keys, the overall 
+sequence (mixing the results from different components) was not guaranteed to be 
+ascending. 
+ArangoDB 3.10 changes this behavior so that collections with only a single 
+shard can provide truly ascending keys. This includes collections in OneShard
+databases as well.
+Also, `autoincrement` key generation is now supported in cluster mode for
+single-sharded collections.
+Document keys are still not guaranteed to be truly ascending for collections with
+more than a single shard.
+
+SmartGraphs (Enterprise Edition)
+--------------------------------
+
+### SmartGraphs and SatelliteGraphs on a single server
+
+It is now possible to test [SmartGraphs](graphs-smart-graphs.html) and
+[SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to
+port them to a cluster with multiple servers.
+
+You can create SmartGraphs, Disjoint SmartGraphs, Hybrid SmartGraphs,
+Hybrid Disjoint SmartGraphs, as well as SatelliteGraphs in the usual way, using
+`arangosh` for instance, but on a single server, then dump them, start a cluster
+(with multiple servers) and restore the graphs in the cluster. The graphs and
+the collections will keep all properties that are kept when the graph is already
+created in a cluster.
+
+This feature is only available in the Enterprise Edition.
+
 Server options
 --------------
 
@@ -228,6 +267,29 @@ deployments will use RangeDeletes regardless of the value of this option.
 Note that it is not guaranteed that all truncate operations will use a RangeDelete operation. 
 For collections containing a low number of documents, the O(n) truncate method may still be used.
 
+### Pregel configration options
+
+There are now several startup options to configure the parallelism of Pregel jobs:
+
+- `--pregel.min-parallelism`: minimum parallelism usable in Pregel jobs.
+- `--pregel.max-parallelism`: maximum parallelism usable in Pregel jobs.
+- `--pregel.parallelism`: default parallelism to use in Pregel jobs.
+
+Administrators can use these options to set concurrency defaults and bounds 
+for Pregel jobs on an instance level.
+
+There are also new startup options to configure the usage of memory-mapped files for Pregel 
+temporary data:
+
+- `--pregel.memory-mapped-files`: to specify whether to use memory-mapped files or RAM for
+  storing temporary Pregel data.
+
+- `--pregel.memory-mapped-files-location-type`: to set a location for memory-mapped
+  files written by Pregel. This option is only meaningful, if memory-mapped
+  files are used. 
+
+For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+
 Miscellaneous changes
 ---------------------
 
@@ -250,33 +312,70 @@ The caching subsystem now provides the following 3 additional metrics:
   so they can be recycled quickly. The overall amount of inactive tables is
   limited, so not much memory will be used here.
 
+### Replication improvements
+
+For synchronous replication of document operations in the cluster, the follower
+can now return smaller responses to the leader. This change reduces the network
+traffic between the leader and its followers, and can lead to slightly faster
+turnover in replication.
+
+### Calculation of file hashes
+
+The calculation of SHA256 file hashes for the .sst files created by RocksDB and
+that are required for hot backups has been moved from a separate background
+thread into the actual RocksDB operations that write out the .sst files.
+
+The SHA256 hashes are now calculated incrementally while .sst files are being
+written, so that no post-processing of .sst files is necessary anymore.
+The previous background thread named `Sha256Thread`, which was responsible for
+calculating the SHA256 hashes and sometimes for high CPU utilization after
+larger write operations, has now been fully removed.
+
 Client tools
 ------------
 
-
 ### arangobench
 
+_arangobench_ has a new `--create-collection` startup option that can be set to `false`
+to skip setting up a new collection for the to-be-run workload. That way, some
+workloads can be run on already existing collections.
 
 ### arangoexport
 
-Added a new option called `--custom-query-bindvars` to arangoexport, so queries given via `--custom-query` can have bind variables in them. 
+_arangoexport_ has a new `--custom-query-bindvars` startup option that lets you set
+bind variables that you can now use in the `--custom-query` option
+(renamed from `--query`):
 
+```bash
+arangoexport \
+  --custom-query 'FOR book IN @@@@collectionName FILTER book.sold > @@sold RETURN book' \
+  --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
+  ...
+```
+
+Note that you need to escape at signs in command-lines by doubling them (see
+[Environment variables as parameters](administration-configuration.html#environment-variables-as-parameters)).
+
+_arangoexport_ now also has a `--custom-query-file` startup option that you can
+use instead of `--custom-query`, to read a query from a file. This allows you to
+store complex queries and no escaping is necessary in the file:
+
+```js
+// example.aql
+FOR book IN @@collectionName
+  FILTER book.sold > @sold
+  RETURN book
+```
+
+```bash
+arangoexport \
+  --custom-query-file example.aql \
+  --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
+  ...
+```
 
 Internal changes
 ----------------
-
-### SmartGraphs and SatelliteGraphs on a single server
-
-Now it is possible to test [SmartGraphs](graphs-smart-graphs.html) and
-[SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to port them to a cluster with multiple
-servers. All existing types of SmartGraphs are eligible to this procedure: [SmartGraphs](graphs-smart-graphs.html)
-themselves, Disjoint SmartGraphs, [Hybrid SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs) and
-[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-disjoint-smartgraphs). One can create a graph
-of any of those types in the usual way, e.g., using `arangosh`, but on a single server, then dump it, start a cluster
-(with multiple servers) and restore the graph in the cluster. The graph and the collections will keep all properties
-that are kept when the graph is already created in a cluster.
-
-This feature is only available in the Enterprise Edition.
 
 ### C++20 
 
@@ -285,7 +384,7 @@ A compiler with c++-20 support is thus needed to compile ArangoDB from source.
 
 ### Upgraded bundled library versions
 
-The bundled version of the RocksDB library has been upgraded from 6.8.0 to 6.29.0.
+The bundled version of the RocksDB library has been upgraded from 6.8.0 to 7.2.
 
 The bundled version of the Boost library has been upgraded from 1.71.0 to 1.78.0.
 

@@ -12,10 +12,10 @@ layout: default
 Enable or disable the Foxx service propagation on startup
 
 if *true*, all Foxx services in all databases will be synchronized between
-multiple coordinators during the boot sequence. This ensures that all Foxx
-services are up-to-date when a coordinator reports itself as ready.
+multiple Coordinators during the boot sequence. This ensures that all Foxx
+services are up-to-date when a Coordinator reports itself as ready.
 
-In case the option is set to `false` (i.e. no waiting), the coordinator 
+In case the option is set to `false` (i.e. no waiting), the Coordinator 
 will complete the boot sequence faster, and the Foxx services will be 
 propagated lazily. Until the initialization procedure has completed for
 the local Foxx apps, any request to a Foxx app will be responded to with
@@ -23,13 +23,13 @@ an HTTP 500 error and message
 
     waiting for initialization of Foxx services in this database 
 
-This can cause an unavailability window for Foxx services on coordinator
+This can cause an unavailability window for Foxx services on Coordinator
 startup for the initial requests to Foxx apps until the app propagation 
 has completed.
   
 When not using Foxx, this option should be set to *false* to benefit from a 
-faster coordinator startup.
-Deployments relying on Foxx apps being available as soon as a coordinator 
+faster Coordinator startup.
+Deployments relying on Foxx apps being available as soon as a Coordinator 
 is integrated or responding should set this option to *true* (which is 
 the default value).
 

@@ -85,6 +85,38 @@ It is possible to opt out of these changes and get back the memory and performan
 of the previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
+### Pregel options
+
+Pregel jobs now have configurable minimum, maximum and default parallelism values. You can set them
+by the following startup options:
+
+- `--pregel.min-parallelism`: minimum parallelism usable in Pregel jobs. Defaults to `1`.
+- `--pregel.max-parallelism`: maximum parallelism usable in Pregel jobs. Defaults to the
+  number of available cores.
+- `--pregel.parallelism`: default parallelism to use in Pregel jobs. Defaults to the number
+  of available cores divided by 4. The result will be clamped to a value between 1 and 16.
+
+{% hint 'info' %}
+The default values of these options may differ from parallelism values effectively
+used by previous versions, so it is advised to explicitly set the desired parallelism
+values in ArangoDB 3.10.
+{% endhint %}
+
+Pregel now also stores its temporary data in memory-mapped files on disk by default, whereas 
+in previous versions the default behavior was to buffer it to RAM.
+Storing temporary data in memory-mapped files rather than in RAM has the advantage of lowering
+the RAM usage, which reduces the likelihood of out-of-memory situations.
+However, storing the files on disk requires disk capacity, so that instead of running out
+of RAM it is now possible to run out of disk space.
+
+{% hint 'info' %}
+It is advised to set the storage location for Pregel's memory-mapped files explicitly
+in ArangoDB 3.10. The following startup options are available for the configuration of
+memory-mapped files: `--pregel.memory-mapped-files` and `--pregel.memory-mapped-files-location-type`.
+{% endhint %}
+
+For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+
 
 Maximum Array / Object nesting
 ------------------------------
@@ -102,20 +134,20 @@ Client tools
 
 ### arangobench
 
-Changed flag name from `--concurrency` to `--threads`.
+Renamed the `--concurrency` startup option to `--threads`.
 
 The following deprecated arangobench testcases have been removed from _arangobench_:
-* `aqltrx`
-* `aqlv8`
-* `counttrx`
-* `deadlocktrx`
-* `multi-collection`
-* `multitrx`
-* `random-shapes`
-* `shapes`
-* `shapes-append`
-* `skiplist`
-* `stream-cursor`
+- `aqltrx`
+- `aqlv8`
+- `counttrx`
+- `deadlocktrx`
+- `multi-collection`
+- `multitrx`
+- `random-shapes`
+- `shapes`
+- `shapes-append`
+- `skiplist`
+- `stream-cursor`
 
 These test cases had been deprecated since ArangoDB 3.9.
 
@@ -124,8 +156,11 @@ scope.
 
 ### arangoexport
 
-To improve naming consistency across different client tools, the existing arangoexport `--query` option
-was renamed to `--custom-query`.
-Using the old option name (`--query`) is still supported and will implicitly use 
-the `--custom-query` option under the hood. Client scripts should eventually be
-updated to use the new option name though. 
+To improve naming consistency across different client tools, the existing
+_arangoexport_ startup options `--query` and `--query-max-runtime` were renamed
+to `--custom-query` and `--custom-query-max-runtime`.
+
+Using the old option names (`--query` and `--query-max-runtime`) is still
+supported and will implicitly use the `--custom-query` and
+`--custom-query-max-runtime` options under the hood. Client scripts should
+eventually be updated to use the new option name, however.

@@ -71,12 +71,15 @@ it first to be able to delete the project.
 IP allowlists let you limit access to your deployment to certain IP ranges.
 It is optional, but strongly recommended to do so.
 
-You can create an allowlist as part of 
+You can create an allowlist as part of a project.
 
 1. Click a project name in the __Projects__ section of the main navigation.
 2. Click the __Security__ tab.
 3. In the __IP allowlists__ section, click:
    - The __New IP allowlist__ button to create a new allowlist.
+     When creating or editing a list, you can add comments
+     in the __Allowed CIDR ranges (1 per line)__ section. 
+     Everything after `//` or `#` is considered a comment until the end of the line.
    - A name or the __eye__ icon in the __Actions__ column to view the allowlist.
    - The __pencil__ icon to edit the allowlist.
      You can also view the allowlist and click the __Edit__ button.
@@ -109,6 +112,19 @@ your local machine. This operation will slightly vary between operating systems.
 ![Oasis Certificates](images/oasis-cert-page-with-cert-present.png)
 
 ![Oasis Certificate Install Instructions](images/oasis-cert-install-instructions.png)
+
+### Certificate Rotation
+
+Every certificate has a self-signed root certificate that is going to expire.
+When certificates that are used in existing deployments are about to expire,
+an automatic rotation of the certificates is triggered. This means that the
+certificate is cloned and all affected deployments then start using
+the cloned certificate. 
+
+Based on the type of certificate used, you may also need to install the new
+certificate on your local machine. To prevent any downtime, it is recommended to
+manually create a new certificate and apply the required changes prior
+to the expiration date. 
 
 ## How to manage role bindings
 

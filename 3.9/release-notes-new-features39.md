@@ -645,13 +645,13 @@ They will eventually be removed in a future version of ArangoDB.
 
 ### Cluster-internal timeouts
 
-The internal timeouts for inactive cluster transactions on DB servers was
+The internal timeouts for inactive cluster transactions on DB-Servers was
 increased from 3 to 5 minutes.
 
-Previously transactions on DB servers could expire quickly, which led to
+Previously transactions on DB-Servers could expire quickly, which led to
 spurious "query ID not found" or "transaction ID not found" errors on DB
 servers for multi-server queries/transactions with unbalanced access patterns
-for the different participating DB servers.
+for the different participating DB-Servers.
 
 Transaction timeouts on Coordinators remain unchanged, so any queries/transactions
 that are abandoned will be aborted there, which will also be propagated to
@@ -823,10 +823,12 @@ upgraded from g++ 9.3.0 to g++ 10.2.1.
 g++ 10 is also the expected version of g++ when compiling ArangoDB from
 source.
 
-The bundled version of the Snappy compression library was upgraded from
+The bundled version of the Snappy compression library has been upgraded from
 version 1.1.8 to version 1.1.9.
 
 The bundled version of the RocksDB library has been upgraded from 6.8 to 6.27.
+
+For ArangoDB 3.9, the bundled version of rclone is 1.51.0.
 
 The minimum architecture requirements have been raised from the Westmere
 architecture to the Sandy Bridge architecture. 256-bit AVX instructions are

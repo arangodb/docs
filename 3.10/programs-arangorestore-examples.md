@@ -1,6 +1,6 @@
 ---
 layout: default
-description: To restore data from a dump previously created with arangodump,ArangoDB provides the arangorestore tool
+description: To restore data from a dump previously created with arangodump, ArangoDB provides the arangorestore tool
 ---
 # _arangorestore_ Examples
 
@@ -186,13 +186,41 @@ After that, run the following command:
 
     arangorestore --collection mycopyvalues --server.database mycopy --input-directory "dump"
 
+Enabling revision trees for older dumps
+---------------------------------------
+
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+Collections in ArangoDB 3.8 and later can use an internal format that is based
+on revision trees for replication. Using this format has advantages over the
+previous format, because changes to the collection on the leader can quickly be
+detected when trying to get follower shards in sync.
+
+Dumps taken from older versions of ArangoDB, i.e. ArangoDB 3.7 or before, do not
+contain any information about revision trees.
+The _arangorestore_ behavior for these collections is as follows:
+
+- In ArangoDB versions before 3.8.7 and 3.9.2, the collections are
+  restored without revision trees.
+- In ArangoDB versions 3.8.7, 3.9.2 or later, the
+  collections use revision trees by default, but you can opt out of this by
+  invoking arangorestore with the `--enable-revision-trees false` option.
+
+If the `--enable-revision-trees` startup option is `true` (which is the default value),
+then _arangorestore_ adds the necessary attributes for using revision trees
+when restoring the collections. It's only done for the attributes which are not
+contained in the dump. If the option is set to `false`, _arangorestore_ does not
+add the attributes when restoring collections.
+
+Regardless of the setting of this option, _arangorestore_ does not add the
+attributes, when they are already present in the dump. You may modify the
+attributes manually in the dump if you want to change their values.
+
 Restoring in a Cluster
 ----------------------
 
-From v2.1 on, the *arangorestore* tool supports sharding and can be
-used to restore data into a Cluster. Simply point it to one of the
-_Coordinators_ in your Cluster and it will work as usual but on sharded
-collections in the Cluster.
+To restore data into a Cluster, simply point *arangorestore* to one of the
+_Coordinators_ in your Cluster.
 
 If *arangorestore* is asked to restore a collection, it will use the same
 number of shards, replication factor and shard keys as when the collection

@@ -136,7 +136,7 @@ configured otherwise.
 In addition, the value of `--rocksdb.total-write-buffer-size` is limited to 512 MB
 on agent instances for the same reason, unless otherwise configuration.
 
-No limitations apply for DB server instances or single servers.
+No limitations apply for DB-Server instances or single servers.
 
 #### Network
 
