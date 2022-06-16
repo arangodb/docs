@@ -25,7 +25,7 @@ more.
 Uncover illegal activities by discovering difficult-to-detect patterns.
 ArangoDB lets you look beyond individual data points in disparate data sources,
 allowing you to integrate and harmonize data to analyze activities and
-relationships in concert, for a broader view of connection patterns, to detect
+relationships all together, for a broader view of connection patterns, to detect
 complex fraudulent behavior such as fraud rings.
 
 ### Recommendation Engine
@@ -46,7 +46,7 @@ with a graph neural network (GNN).
 
 Reduce downtime by connecting and visualizing network, infrastructure, and code.
 Network devices and how they interconnect can naturally be modeled as a graph.
-Traversal algorithm let you explore the routes between different nodes, with the
+Traversal algorithms let you explore the routes between different nodes, with the
 option to stop at subnet boundaries or to take things like the connection
 bandwidth into account when path-finding.
 

@@ -12,17 +12,23 @@ redirect_from:
 
 This chapter introduces ArangoDB's core concepts and covers
 
-- its data model (or data models respectively),
-- the terminology used throughout the database system and in this
+- the high-level data organization,
+- its data model (or rather multiple data models),
+- important terminology used throughout the database system and in this
   documentation
 
 You will also find usage examples on how to interact with the database system
 using [arangosh](programs-arangosh.html), e.g. how to create and
 drop databases / collections, or how to save, update, replace and remove
 documents. You can do all this using the [web interface](getting-started-web-interface.html)
-as well and may therefore skip these sections as beginner.
+as well and may therefore skip these sections as a beginner.
 
-## Documents
+## How Data is Structured in ArangoDB
+
+The hierarchy that data is organized in is **documents** (data records) in
+**collections**, and collections in **databases**.
+
+### Documents
 
 ArangoDB lets you store documents as JSON objects.
 
@@ -46,85 +52,98 @@ JSON supports the following data types:
 - **numbers** to store integer and floating-point values.
 - **strings** to store character sequences for text, encoded as UTF-8.
 - **arrays** to store lists that can contain any of the supported data types
-  as elements, including nested arrays.
+  as elements, including nested arrays and objects.
 - **objects** to map keys to values like a dictionary, also known as
   associative arrays or hash maps. The keys are strings and the values can be
-  any of the supported data types, including nested objects.
+  any of the supported data types, including arrays and nested objects.
 
 Each record that you store is a JSON object at the top-level, also referred to
 as [**document**](data-modeling-documents-document-address.html).
 Each key-value pair is called an **attribute**, comprised
 of the attribute name and the attribute value. Attributes can also be called
-properties or fields. You can freely model your data
-using the available data types. Each document is self-contained and can thus
-have a unique structure. You do not need to define a schema upfront.
-However, sets of documents will typically have some common attributes. If you
-want to enforce a specific structure, then you can do so with schema validation.
+*properties* or *fields*.
 
-<!-- Joins? Indexes? Link for more information? -->
+You can freely model your data using the available data types. Each document is
+self-contained and can thus have a unique structure. You do not need to define a
+schema upfront. However, sets of documents will typically have some common
+attributes. If you want to enforce a specific structure, then you can do so with
+[schema validation](data-modeling-documents-schema-validation.html).
 
-<!--
-The documents you can store in ArangoDB closely follow the JSON format,
-although they are stored in a binary format called [VelocyPack](https://github.com/arangodb/velocypack#readme){:target="_blank"}.
-A **document** contains zero or more attributes, each of these attributes having
-a value. A value can either be an atomic type, i. e. number, string, boolean
-or null, or a compound type, i.e. an array or embedded document / object.
-Arrays and sub-objects can contain all of these types, which means that
-arbitrarily nested data structures can be represented in a single document.
--->
+Documents are internally stored in a binary format called
+[VelocyPack](https://github.com/arangodb/velocypack#readme){:target="_blank"}.
 
-## Collections
+### Collections
 
 Documents are stored in [**collections**](data-modeling-collections.html),
-similar to how files are stored in folders.
+similar to how files are stored in folders. A collection can hold an arbitrary
+number of documents.
+
 You can group related documents together using collections, such as by
-entity type (every _book_ document in a `books` collections, for instance).
+entity type. For example, you can store _book_ documents in a `books`
+collections. Every book record will have some common attributes like a title,
+author, and publisher. You can later create indexes for some of the often-used
+attributes to speed up queries. This is done at the collection level.
 
-<!--
-Documents are grouped into **collections**. A collection contains zero or more
-documents. If you are familiar with relational database management systems (RDBMS)
-then it is safe to compare collections to tables and documents to rows. The
-difference is that in a traditional RDBMS, you have to define columns before
-you can store records in a table. Such definitions are also known as schemas.
-ArangoDB is by default schema-less, which means that there is no need to define what
-attributes a document can have. Every single document can have a completely
-different structure and still be stored together with other documents in a
-single collection. In practice, there will be common denominators among the
-documents in a collection, but the database system itself doesn't force you to
-limit yourself to a certain data structure. To check for and/or enforce a
-common structure ArangoDB supports optional
-[**schema validation** for documents](data-modeling-documents-schema-validation.html)
-on collection level.
--->
-
-## Databases
+### Databases
 
 Each collection is part of a [**database**](data-modeling-databases.html).
 Databases allow you to isolate sets of collections from one another, usually for
 multi-tenant applications, where each of your clients has their own database to
-work with.
+work with. You cannot run queries across databases.
 
-<!--
-Collections exist inside of **databases**. There can be one or many databases.
-Different databases are usually used for multi-tenant setups, as the data inside
-them (collections, documents etc.) is isolated from one another. The default
-database `_system` is special, because it cannot be removed. Database users
-are managed in this database, and their credentials are valid for all databases
-of a server instance.
--->
+Every server instance has a default database called  `_system`. It is special
+because it cannot be removed and it holds a couple of system collections that
+are used internally by the server. Other than that, you may create your own
+collections in this database like in any other.
 
-## Graphs, Vertices, and Edges
+## Data Models
+
+### Key-Value Model
+
+The key-value data model is a subset of ArangoDB's document data model.
+Every document has a `_key` attribute that identifies a document within a
+collection. This **document key** acts as the primary key to retrieve the data.
+You can set it when creating a document, or let the system generate one
+automatically. It cannot be changed later because the attribute is immutable.
+It is always a string. What you can use as a document key is described in the
+[naming conventions](data-modeling-naming-conventions-document-keys.html).
+
+ArangoDB is ready to store JSON objects and retrieve them via their keys out of
+the box. Every collection has an index on the `_key` attribute (the
+**primary index**), which makes this a fast operation by default.
+
+There is an additional virtual attribute `_id`, called the **document identifier**.
+It uniquely identifies documents within a database. It is a combination of the
+collection name that the document is stored in, a forward slash (`/`), and the
+document key, so `<collection>/<key>`. It uses the primary index under the hood
+and you can thus use it to look up documents equally fast.
+
+### Document Model
+
+You can store data records as JSON objects in ArangoDB, and not only retrieve
+them one by one as they are like in the key-value model, but run queries of all
+kinds that access documents granularly and involve multiple documents and
+collections.
+
+The stored information is not treated like an opaque block of data but you can
+work with documents at the attribute level. You can search by any attributes,
+with or without built-in and user-defined (secondary) indexes, return subsets of
+attributes or even compute new ones on-the-fly, group records and aggregate
+values, and more.
+
+### Graph Model
+
+Graphs are comprised of **vertices** and **edges**. Both are documents in
+ArangoDB. Edges have two special attributes, `_from` and `_to`, that reference
+the source and target vertices by their document identifiers.
 
 You can store vertices and edges with as many properties as you need, as both
 are fully-fledged documents (JSON objects).
 
-Edges have two special attributes, `_from` and `_to`, that reference the source
-and target vertices of the edge by their document identifiers.
-
-You can organize vertices and edges in sets using
-collections, with vertices in **document collections** and edges in
-**edge collections**. This [graph](graphs.html) model makes ArangoDB classify as
-a **Labeled Property Graph** store.
+You can organize vertices and edges in sets using collections, with vertices in
+**document collections** (also referred to as **vertex collections**) and edges
+in **edge collections**. This [graph](graphs.html) model makes ArangoDB classify
+as a **Labeled Property Graph** store.
 
 The design with edges stored in edge collections enables true graph scalability,
 while keeping the promise of performant graph queries regardless of the number
@@ -149,25 +168,23 @@ distributed graph processing based on the Pregel framework.
 <!--
 - [Graphs in data modeling - is the emperor naked?](https://medium.com/@neunhoef/graphs-in-data-modeling-is-the-emperor-naked-2e65e2744413#.x0a5z66ji){:target="_blank"}
 - [Index Free Adjacency or Hybrid Indexes for Graph Databases](https://www.arangodb.com/2016/04/index-free-adjacency-hybrid-indexes-graph-databases/){:target="_blank"}
-
-There are two types of collections: **document collection** (also referred to as
-**vertex collections** in the context of graphs) as well as **edge collections**.
-Edge collections store documents as well, but they include two special attributes,
-`_from` and `_to`, which are used to create relations between documents.
-Usually, two documents (**vertices**) stored in document collections are linked
-by a document (**edge**) stored in an edge collection. This is ArangoDB's graph
-data model. It follows the mathematical concept of a directed, labeled graph,
-except that edges don't just have labels, but are full-blown documents.
 -->
 
-<!--
-## Views
+## Data Retrieval
 
-Similarly **databases** may also contain **view** entities. A
-[View](data-modeling-views.html) in its simplest form can be seen as a read-only
-array or collection of documents. The view concept quite closely matches a
-similarly named concept available in most relational database management systems
-(RDBMS). Each view entity usually maps some implementation specific document
-transformation, (possibly identity), onto documents from zero or more
-collections.
--->
+**Queries** are used to filter documents based on certain criteria, to compute
+or store new data, as well as to manipulate or delete existing documents.
+Queries can be as simple as returning individual records, or as complex as
+traversing graphs or performing [joins](aql/examples-join.html) using many
+collections. Queries are written in the [ArangoDB Query Language](aql/),
+**AQL** for short.
+
+**Cursors** are used to iterate over the result of queries, so that you get
+easily processable batches instead of one big hunk.
+
+**Indexes** are used to speed up queries. There are multiple types of indexes,
+such as [persistent indexes](indexing-persistent.html) and
+[geo-spatial indexes](indexing-geo.html).
+
+**Views** are another type of index, primarily for full-text search. See
+[ArangoSearch](arangosearch.html).

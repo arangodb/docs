@@ -15,19 +15,20 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
 
 ## General
 
-- **Graph Database**:
+- [**Graph Database**](data-model-and-concepts.html#graph-model):
   Native support for storing and querying graphs comprised of vertices and edges.
   You can model complex domains because edges are documents without any
   restrictions in complexity.
 
-- **Document Database**:
+- [**Document Database**](data-model-and-concepts.html#document-model):
   A modern document store that allows you to model data intuitively and evolve
   the data model easily. Documents can be organized in collections, and
   collections in databases for multi-tenancy.
 
+  <!-- TODO: Replace "store" with "database system"? -->
   <!-- TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...) -->
 
-- **Data Format**:
+- [**Data Format**](data-model-and-concepts.html#documents):
   JSON, internally stored in a binary format invented by ArangoDB called
   VelocyPack.
 

@@ -4,6 +4,7 @@ description: The AQL tutorial is an introduction to ArangoDB’s query language.
 title: ArangoDB Query Language (AQL) Tutorial
 redirect_from:
   - aql/tutorial.html # 3.9 -> 3.10
+  - getting-started-querying-the-database.html # 3.9 -> 3.10
 ---
 AQL tutorial
 ============

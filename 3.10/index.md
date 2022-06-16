@@ -35,7 +35,8 @@ and their friendships by relations.
 
 ![Mary - is friend of - John](images/data-model-graph-relation-concrete.png)
 
-Nodes are also called vertices, and relations are edges that connect vertices.
+Nodes are also called vertices (singular: vertex), and relations are edges that
+connect vertices.
 A vertex typically represents a specific entity (a person, a book, a sensor
 reading etc.) and an edge defines how one entity relates to another.
 
@@ -48,17 +49,22 @@ analytics.
 
 ## Beyond Graphs
 
-Not everything is a graph use case. ArangoDB qualifies as a multi-model
-database system that lets you equally work with structured, semi-structured, and
-unstructured data in the form of schema-free JSON objects, without having to
-connect these objects to form a graph.
+Not everything is a graph use case. ArangoDB lets you equally work with
+structured, semi-structured, and unstructured data in the form of schema-free
+JSON objects, without having to connect these objects to form a graph.
 
 ![Person Mary, Book ArangoDB](images/data-model-document.png)
 
-It is designed from the ground up to support multiple data models with a single,
-composable query language.
+<!-- TODO:
+Seems too disconnected, what is the relation?
+Maybe multiple docs, maybe also include folders (collections)?
+-->
 
-```js
+Depending on your needs, you may mix graphs and unconnected data.
+ArangoDB is designed from the ground up to support multiple data models with a
+single, composable query language.
+
+```aql
 FOR book IN Books
   FILTER book.title == "ArangoDB"
   FOR person IN 2..2 INBOUND book Sales, OUTBOUND People
