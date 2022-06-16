@@ -87,7 +87,14 @@ status of your algorithm.
 
 ```js
 var execution = pregel.start("sssp", "demograph", {source: "vertices/V"});
+// this is the first concrete example with a concrete algorithm. It can be quite confusing (at least it was for me) 
+// what this 'source' parameter is when you first read it - it is a parameter needed for the specific algorithm sssp used. 
+// For this example to run, the vertex with document id 'vertices/V' has to exist in the 'demograph' graph.
+// Suggestion: Either have a comment before that (e.g. // start a single source shortest path job) or 
+// (preferred) use the general form as before - pregel.start("<algorithm>", "<yourgraph>", params)
+// because the concrete algorithm is not relevant here
 var status = pregel.status(execution);
+// note: pregel.status() shows the status of all current pregel runs in an array
 ```
 
 The result will tell you the current status of the algorithm execution.
@@ -165,6 +172,13 @@ result set of a PageRank execution:
 FOR v IN PREGEL_RESULT(<handle>)
   FILTER v.result >= 0.01
   RETURN v._key
+// this does not work
+// When the computation is running, this will gives
+// [object ArangoQueryCursor, count: 0, cached: false, hasMore: false]
+// Not sure if this is really helpful.
+// But after the computation is finished, this will give an error. Problem is in PregelFeature.cpp:739: 
+// When the computation finished, cleanupWorker is called which will erase the worker for the <handle>. 
+// PREGEL_RESULT(<handle>) requests this worker, which was already deleted, therefore the error.
 ```
 
 By default, the `PREGEL_RESULT()` AQL function will return the `_key` of each
@@ -178,6 +192,7 @@ return the `_id` values of the vertices as well:
 FOR v IN PREGEL_RESULT(<handle>, true)
   FILTER v.result >= 0.01
   RETURN v._id
+// this does not work, see explanation above
 ```
 
 Algorithm Parameters
