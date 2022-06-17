@@ -294,6 +294,10 @@ that automatically connects to Private Endpoints that are created in those princ
    that is now displayed to see the connection status and change the
    configuration, if needed.
    ![Oasis AWS Private Endpoint Overview](images/oasis-aws-private-endpoint-overview.png)
+   {% hint 'tip' %}
+   To understand more or request help from the Oasis support team, click **Help**
+   at the top right corner of the **Private Endpoint** section.
+   {% endhint %}
 9. Oasis will configure a Private Endpoint Service. As soon as this is available,
    you can use it in the AWS portal to create an interface endpoint to connect
    to your endpoint service. For more details, see
