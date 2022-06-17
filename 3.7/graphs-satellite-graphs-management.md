@@ -208,9 +208,9 @@ can `truncate` the graph if you just want to get rid of the data.
         var graph_module = require("@arangodb/satellite-graph");
         var relation = graph_module._relation("edges", "vertices", "vertices");
         var graph = graph_module._create("myGraph", [relation], []);
-        graph._deleteEdgeDefinition("edges");
-        graph._removeVertexCollection("vertices");
-        graph_module._drop("myGraph", false); // does not drop any collections
+      graph._deleteEdgeDefinition("edges");      // remove edge collection from graph definition
+      graph._removeVertexCollection("vertices"); // remove vertex collection from graph definition
+      graph_module._drop("myGraph", true);       // does not drop any collections because there are none left in the graph definition
         db._drop("edges"); // drop before sharding-defining 'vertices' collection
         db._drop("vertices");
       @END_EXAMPLE_ARANGOSH_OUTPUT
