@@ -92,8 +92,5 @@ these type of queries._
 ## Disjoint SmartGraphs using SatelliteCollections
 
 Disjoint SmartGraphs using SatelliteCollections prohibit
-edges between vertices with different `smartGraphAttribute` values. This
-restriction makes it unnecessary to replicate the edge collections between
-SmartGraph collections and SatelliteCollections to all DB-Servers for local
-execution. They are sharded like the SmartGraph collections
-(`distributeShardsLike`).
+edges between vertices with different `smartGraphAttribute` values.
+All SmartVertices can be connected to SatelliteVertices.

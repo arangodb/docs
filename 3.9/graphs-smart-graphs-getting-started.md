@@ -16,13 +16,6 @@ consequence, all vertices must have this attribute. The `_from` and `_to` attrib
 point _from_ one document _to_ another document stored in vertex collections are set by
 default, following the same smart sharding pattern. 
 
-A switch to a SmartGraph from an existing dataset can be achieved with
-[arangodump](programs-arangodump.html) and
-[arangorestore](programs-arangorestore.html), but this implies that all collections
-have the correct sharding already.
-In this case, the only thing you have to change in this pipeline is that you create the new
-collections with the SmartGraph module before starting `arangorestore`.
-
 ## Create a SmartGraph
 
 In contrast to General Graphs we have to add more options when creating the
