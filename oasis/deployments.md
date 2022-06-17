@@ -287,12 +287,17 @@ that automatically connects to Private Endpoints that are created in those princ
    ![Oasis AWS Private Endpoint Configure Principals](images/oasis-aws-endpoint-configure-principals.png)
 6. You may enter one or more Alternate DNS names. This step is optional, you can 
    add or change them later. Click **Next** to continue.
+   ![Oasis AWS Private Endpoint Alternate DNS](images/oasis-aws-private-endpoint-dns.png)
 7. Confirm that you want to use a Private Endpoint for your deployment by
    clicking **Confirm Settings**.
 8. Back in the **Overview** tab, scroll down to the **Private Endpoint** section
    that is now displayed to see the connection status and change the
    configuration, if needed.
    ![Oasis AWS Private Endpoint Overview](images/oasis-aws-private-endpoint-overview.png)
+9. Oasis will configure a Private Endpoint Service. As soon as this is available,
+   you can use it in the AWS portal to create an interface endpoint to connect
+   to your endpoint service. For more details, see
+   [How to connect to an endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html#share-endpoint-service){:target="_blank"}.
 
 ## How to delete a deployment
 
