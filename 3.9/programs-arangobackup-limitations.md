@@ -43,12 +43,21 @@ When restoring hot backups in Active Failover setups, it is necessary to
 prevent that a non-restored follower becomes leader by temporarily setting
 the maintenance mode:
 
-1. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"on"'`
-2. Restore the Hot Backup
-3. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"off"'`
+1. Run `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"on"'`.
+2. Restore the Hot Backup.
+3. Run `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"off"'`.
 
 Substitute `<endpoint>` with the actual endpoint of the **leader**
 single server instance.
+
+### Datacenter-to-Datacenter Replication Special Limitations
+
+Restoring a Hot Backup requires that no Datacenter-to-Datacenter Replication
+(DC2DC) is active throughout the restoration process.
+
+1. Stop the DC2DC synchronization with `arangosync stop sync ...`.
+2. Restore the Hot Backup.
+3. Restart the DC2DC synchronization with `arangosync configure sync ...`.
 
 Restoring from a different Version
 ----------------------------------
