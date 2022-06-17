@@ -245,11 +245,11 @@ contact support via __Request help__ in the help menu.
 ### Amazon Web Services (AWS)
 
 AWS offers a feature called [AWS PrivateLink](https://aws.amazon.com/privatelink){:target="_blank"}
-that enables you to privately connect your VPC to services, without exposure to
-the internet. You can control the specific API endpoints, sites, and services
-that are reachable from your VPC.
+that enables you to privately connect your Virtual Private Cloud (VPC) to
+services, without exposure to the internet. You can control the specific API
+endpoints, sites, and services that are reachable from your VPC.
 
-Amazon Virtual Private Cloud (VPC) allows you to launch AWS resources into a
+Amazon VPC allows you to launch AWS resources into a
 virtual network that you have defined. It closely resembles a traditional
 network that you would normally operate, with the benefits of using the AWS
 scalable infrastructure. 
