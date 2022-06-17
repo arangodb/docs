@@ -254,17 +254,17 @@ virtual network that you have defined. It closely resembles a traditional
 network that you would normally operate, with the benefits of using the AWS
 scalable infrastructure. 
 
-You can
+In ArangoDB Cloud, you can
 [create a regular deployment](#how-to-create-a-new-deployment) and change it
 to a private endpoint deployment afterwards.
 
-The deployment will not be exposed to public internet anymore, other than via
+The ArangoDB private endpoint deployment will not be exposed to public internet anymore, other than via
 the Oasis dashboard to administrate it. To revert it to a public deployment,
 please contact the support team via __Request help__ in the help menu.
 
-To configure a Private Endpoint, you need to provide the AWS principals related
-to your VPC. The ArangoDB Oasis platform configures a Private Endpoint Service
-that automatically connects to Private Endpoints that are created in those principals. 
+To configure a private endpoint for AWS, you need to provide the AWS principals related
+to your VPC. The ArangoDB Oasis platform configures a private endpoint service
+that automatically connects to private endpoints that are created in those principals. 
 
 1. Open the deployment you want to change.
 2. In the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
@@ -288,7 +288,7 @@ that automatically connects to Private Endpoints that are created in those princ
 6. You may enter one or more Alternate DNS names. This step is optional, you can 
    add or change them later. Click **Next** to continue.
    ![Oasis AWS Private Endpoint Alternate DNS](images/oasis-aws-private-endpoint-dns.png)
-7. Confirm that you want to use a Private Endpoint for your deployment by
+7. Confirm that you want to use a private endpoint for your deployment by
    clicking **Confirm Settings**.
 8. Back in the **Overview** tab, scroll down to the **Private Endpoint** section
    that is now displayed to see the connection status and change the
@@ -298,7 +298,7 @@ that automatically connects to Private Endpoints that are created in those princ
    To learn more or request help from the Oasis support team, click **Help**
    in the top right corner of the **Private Endpoint** section.
    {% endhint %}
-9. Oasis will configure a Private Endpoint Service. As soon as this is available,
+9. Oasis will configure a private endpoint service. As soon as this is available,
    you can use it in the AWS portal to create an interface endpoint to connect
    to your endpoint service. For more details, see
    [How to connect to an endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html#share-endpoint-service){:target="_blank"}.
