@@ -258,7 +258,7 @@ You can
 [create a regular deployment](#how-to-create-a-new-deployment) and change it
 to a private endpoint deployment afterwards.
 
-The deployment will not be reachable from the internet anymore, other than via
+The deployment will not be exposed to public internet anymore, other than via
 the Oasis dashboard to administrate it. To revert it to a public deployment,
 please contact the support team via __Request help__ in the help menu.
 
