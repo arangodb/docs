@@ -120,13 +120,15 @@ Edge-Cache
 ----------
 
 ```
---cache.size 10485760
+--cache.size 0
 ```
 
-This option limits the ArangoDB edge [cache](programs-arangod-cache.html) to 10
-MB. If you do not have a graph use-case and do not use edge collections, it is
-possible to use the minimum without a performance impact. In general, this
-should correspond to the size of the hot-set of edges.
+This option disables the ArangoDB edge [cache](programs-arangod-cache.html).
+In versions before v3.9.2, you can limit the size to a minimum of 10485760 (10 MB).
+
+If you do not have a graph use-case and do not use edge collections, it is
+possible to use a minimal cache size or no edge cache at all without a performance
+impact. In general, this should correspond to the size of the hot-set of edges.
 
 AQL Query Memory Usage
 ----------------------
