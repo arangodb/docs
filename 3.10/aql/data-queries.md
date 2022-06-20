@@ -116,7 +116,7 @@ not specify what to return using a `RETURN` keyword. It is optional in
 modification queries, but mandatory in data access queries. Despite the empty
 result, the above query still creates a new user document.
 
-You may provide a key for the new document; if not provided, ArangoDB will create one for you.
+You may provide a key for the new document; if not provided, ArangoDB creates one for you.
 
 ```js
 INSERT {
