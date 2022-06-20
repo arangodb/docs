@@ -14,3 +14,5 @@ Learn how to:
 4. Work with [AQL Queries and Functions](dotnet-aql.md).
 
 ## Reference
+
+Browse the full reference for [ArangoDBNetStandard](dotnet-reference/dotnet-databases.md).
