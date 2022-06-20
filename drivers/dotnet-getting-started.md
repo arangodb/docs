@@ -15,4 +15,4 @@ Learn how to:
 
 ## Reference
 
-Browse the full reference for [ArangoDBNetStandard](dotnet-reference/dotnet-databases.md).
+Browse the full reference for [ArangoDBNetStandard](dotnet-reference/Home.md).
