@@ -25,6 +25,13 @@ The Homebrew installation is updated a few days after the
 official release of a new version.
 {% endhint %}
 
+{% hint 'info' %}
+The Homebrew installation of ArangoDB is currently not available
+for the Mac M1 chip (Apple silicon). For more information about
+the installation packages supported on macOS, see the 
+[ArangoDB Homebrew Formulae](https://formulae.brew.sh/formula/arangodb){:target="_blank"}.
+{% endhint %}
+
 If you are using [_homebrew_](http://brew.sh/){:target="_blank"},
 then you can install the latest released stable version of ArangoDB using `brew`
  as follows:
