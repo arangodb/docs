@@ -8,8 +8,8 @@ redirect_from:
 Coming from SQL
 ===============
 
-If you worked with a relational database management system (RDBMS) such as MySQL,
-MariaDB or PostgreSQL, you will be familiar with its query language, a dialect
+If you work with a relational database management system (RDBMS) such as MySQL,
+MariaDB or PostgreSQL, you are familiar with its query language, a dialect
 of SQL (Structured Query Language).
 
 ArangoDB's query language is called AQL. There are some similarities between both
@@ -20,12 +20,12 @@ and makes the query language very powerful while remaining easy to read and writ
 
 To get started with AQL, have a look at our detailed
 [comparison of SQL and AQL](https://www.arangodb.com/community-server/sql-aql-comparison/){:target="_blank"}.
-It will also help you to translate SQL queries to AQL when migrating to ArangoDB.
+It can also help you to translate SQL queries to AQL when migrating to ArangoDB.
 
 {% hint 'info' %}
 You may also be interested in the white paper
 [**Switching from Relational Databases to ArangoDB**](https://www.arangodb.com/resources/white-paper/coming-from-relational/){:target="_blank"}
-on our website!
+available on our website.
 {% endhint %}
 
 Basic queries
@@ -33,7 +33,7 @@ Basic queries
 
 **How do select lists translate to AQL queries?**
 
-In traditional SQL you may either fetch all columns of a table row by row, using
+In traditional SQL, you may either fetch all columns of a table row by row, using
 `SELECT * FROM table`, or select a subset of the columns. The list of table
 columns to fetch is commonly called *select list*:
 
@@ -41,7 +41,7 @@ columns to fetch is commonly called *select list*:
 SELECT columnA, columnB, columnZ FROM table
 ```
 
-Since documents aren't two-dimensional, and neither do you want to be limited to
+Since documents aren't two-dimensional, and you do not want to be limited to
 returning two-dimensional lists, the requirements for a query language are higher.
 AQL is thus a little bit more complex than plain SQL at first, but offers much
 more flexibility in the long run. It lets you handle arbitrarily structured
