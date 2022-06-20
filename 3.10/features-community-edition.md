@@ -65,8 +65,8 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
 - [**Automatic Failover Cluster**](architecture-deployment-modes-cluster-architecture.html#automatic-failover):
   If a nodes goes down, another node takes over to avoid any downtime. <!-- TODO: Can we say that? -->
 
-- **Master/Master Conflict Resolution**:
-  <!-- TODO: What does this refer to? How does it work? MVCC? -->
+
+<!-- TODO: - **Master/Master Conflict Resolution**: What does this refer to? How does it work? MVCC? -->
 
 - **Load-Balancer Support**:
   Round-robin load-balancer support for cloud environments.
