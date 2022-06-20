@@ -21,7 +21,7 @@ language thanks to its multi-model approach that combines the analytical power
 of graphs with JSON documents, a key-value store, and a built-in search engine.
 
 ArangoDB is available in an open-source and a commercial [edition](features.html),
-for cloud an on-premise deployments, as well as a fully managed
+you can use it for on-premise deployments, as well as a fully managed
 [cloud service](oasis/).
 
 ## What are Graphs?
@@ -38,7 +38,7 @@ and their friendships by relations.
 Nodes are also called vertices (singular: vertex), and relations are edges that
 connect vertices.
 A vertex typically represents a specific entity (a person, a book, a sensor
-reading etc.) and an edge defines how one entity relates to another.
+reading, etc.) and an edge defines how one entity relates to another.
 
 ![Mary - bought - Book, is friend of - John](images/data-model-graph-relations.png)
 
