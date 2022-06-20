@@ -87,7 +87,7 @@ disruptions are.
 ArangoDB can be used as the backend for heterogeneous content management,
 e-commerce systems, Internet of Things applications, and more generally as a
 persistence layer for a broad range of services that benefit from an agile
-a scalable data store.
+and scalable data store.
 
 ### Content Management
 
