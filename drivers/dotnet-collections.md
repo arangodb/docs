@@ -1,12 +1,50 @@
 ---
 layout: default
 ---
-# Installation
+# Working with Collections
 
-## Nuget
+## Retrieve a list of collections
+To retrieve the list of collections in a database, connect to the database and call GetCollectionsAsync().
 
-Install the latest release of [ArangoDBNetStandard on Nuget](https://www.nuget.org/packages/ArangoDBNetStandard).
+```csharp
+    using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))
+    {
+        using (var db = new ArangoDBClient(transport))
+        {
+            //Retrieve the list of collections
+            var response = await db.Collection.GetCollectionsAsync();
+        }
+    }
+```
 
-## Github
+## Create a collection
+To create a new collection, connect to the database and call PostCollectionAsync()
+```csharp
+    using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))
+    {
+        using (var db = new ArangoDBClient(transport))
+        {
+            //set collection properties
+            var body = new CollectionApi.Models.PostCollectionBody()
+            {
+                Type = CollectionApi.Models.CollectionType.Document,
+                Name = "MyCollection"
+            };
+            //create the new collection
+            var response = await db.Collection.PostCollectionAsync(body, null);
+        }
+    }
+```
 
-Check for the latest release here [ArangoDBNetStandard Github releases](https://github.com/ArangoDB-Community/arangodb-net-standard/releases)
+## Delete a collection
+To delete a collection, connect to the database and call DeleteCollectionAsync(), passing the name of the collection to be deleted as parameter. Be very careful that you specify the correct collection name when you delete collections.
+```csharp
+    using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))
+    {            
+        using (var db = new ArangoDBClient(transport))
+        {
+            //Delete the database newdb1
+            var response = await db.Collection.DeleteCollectionAsync("MyCollection");
+        }
+    }
+```

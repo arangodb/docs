@@ -24,6 +24,22 @@ To connect to a database, create an instance of ArangoDBClient supplying an inst
     }
 ```
 
+## Retrieve a list of all databases
+To retrieve the list of all databases on an ArangoDB server, connect to the _system database and call GetDatabasesAsync().
+
+```csharp
+    //Initiate the transport. The value of dbName must be "_system"
+    using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))
+    {
+        //Initiate ArangoDBClient using the transport
+        using (var db = new ArangoDBClient(transport))
+        {
+            //Retrieve the list of databases
+            var response = await db.Database.GetDatabasesAsync();
+        }
+    }
+```
+
 ## Create a database
 To create a new database, connect to the _system database and call PostDatabaseAsync()
 ```csharp
@@ -53,3 +69,15 @@ To create a new database, connect to the _system database and call PostDatabaseA
     }
 ```
 
+## Delete a database
+To delete an existing database, connect to the _system database and call DeleteDatabaseAsync() passing the name of the database to be deleted as a parameter. The _system database cannot be deleted. Be very careful that you specify the correct database name when you are deleting databases.
+```csharp
+    using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))
+    {            
+        using (var db = new ArangoDBClient(transport))
+        {
+            //Delete the database newdb1
+            var response = await db.Database.DeleteDatabaseAsync("newdb1");
+        }
+    }
+```
