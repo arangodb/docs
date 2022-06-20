@@ -81,7 +81,7 @@ whenever data from the SatelliteCollections is required.
 
 Disjoint SmartGraphs are useful for use cases which have to deal with a large forest of graphs,
 when you have clearly separated subgraphs in your graph dataset.
-Disjoint SmartGraphs enable the automatic sharding of these subgraphs and prohibits edges connecting them.
+Disjoint SmartGraphs enable the automatic sharding of these subgraphs and prohibit edges connecting them.
 
 ![Disjoint SmartGraphs](images/SmartGraphs-Disjoint.png)
 
