@@ -44,7 +44,7 @@ paths by increasing weights.
 The cost of an edge can be read from an attribute which can be specified with
 the `weightAttribute` option.
 
-```js
+```aql
 FOR x, v, p IN 0..10 OUTBOUND "places/York" GRAPH "kShortestPathsGraph"
   OPTIONS {
     order: "weighted",
@@ -90,7 +90,7 @@ paths between a source and a target vertex that match the given path length.
 
 For example, the query:
 
-```js
+```aql
 FOR path IN 2..4 OUTBOUND K_PATHS "v/source" TO "v/target" GRAPH "g"
   RETURN path
 ```
@@ -159,7 +159,7 @@ AQL now also support projections on sub-attributes (e.g. `a.b.c`).
 In previous versions of ArangoDB, projections were only supported on top-level
 attributes. For example, in the query:
 
-```js
+```aql
 FOR doc IN collection
   RETURN doc.a.b
 ```
@@ -175,7 +175,7 @@ it will be used now. Previously, no index could be used for this projection.
 Projections now can also be fed by any attribute in a combined index.
 For example, in the query:
 
-```js
+```aql
 FOR doc IN collection
   RETURN doc.b
 ```
@@ -231,7 +231,7 @@ allowed, although using collection names like this is very likely unintended.
 
 For example, consider the query
 
-```js
+```aql
 FOR doc IN collection RETURN collection
 ```
 
@@ -920,13 +920,13 @@ aliases and deprecated ones.
 
 - [DATE_TIMEZONE()](aql/functions-date.html#date_timezone)
 
-  ```js
+  ```aql
   RETURN DATE_TIMEZONE() // [ "Etc/UTC" ]
   ```
 
 - [DATE_TIMEZONES()](aql/functions-date.html#date_timezones)
 
-  ```js
+  ```aql
   RETURN DATE_TIMEZONES() // [ "Africa/Abidjan", ..., "Europe/Berlin", ..., "Zulu" ]
   ```
 
