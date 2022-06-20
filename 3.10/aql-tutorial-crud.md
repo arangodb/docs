@@ -23,13 +23,13 @@ driver. It is not possible to do so with AQL however.
 
 ![Create Characters collection](images/Characters_Collection_Creation.png)
 
-Click on *COLLECTIONS* in the web interface, then *Add Collection* and type
-`Characters` as name. Confirm with *Save*. The new collection should appear
+Click on **COLLECTIONS** in the web interface, then **Add Collection** and type
+`Characters` as name. Confirm with **Save**. The new collection should appear
 in the list.
 
-Next, click on *QUERIES*. To create the first document for collection with AQL,
+Next, click on **QUERIES**. To create the first document for collection with AQL,
 use the following AQL query, which you can paste into the query textbox and
-run by clicking *Execute*:
+run by clicking **Execute**:
 
 ![Insert query in query editor](images/Query_Insert.png)
 
@@ -140,16 +140,18 @@ INSERT {
 ...
 ```
 
-Note: AQL does not permit multiple `INSERT` operations that target the same
+{% hint 'info' %}
+AQL does not permit multiple `INSERT` operations that target the same
 collection in a single query.
 It is allowed as body of a `FOR` loop however, inserting multiple documents
 like we did with above query.
+{% endhint %}
 
 Read documents
 --------------
 
 There are a couple of documents in the *Characters* collection by now. We can
-retrieve them all using a `FOR` loop again. This time however, we use it to
+retrieve them all using a `FOR` loop again. This time however we use it to
 go through all documents in the collection instead of an array:
 
 ```js
@@ -183,7 +185,7 @@ collection name, a forward slash `/` and the document key. It uniquely identifie
 a document within a database. `_rev` is a revision ID managed by the system.
 
 Document keys can be provided by the user upon document creation, or a unique
-value is assigned automatically. It can not be changed later. All three system
+value is assigned automatically. It cannot be changed later. All three system
 attributes starting with an underscore `_` are read-only.
 
 We can use either the document key or the document ID to retrieve a specific
@@ -209,12 +211,13 @@ RETURN DOCUMENT("Characters/2861650")
   }
 ]
 ```
-
-Note: Document keys will be different for you. Change the queries accordingly.
+{% hint 'info' %}
+Document keys are different for you. Change the queries accordingly.
 Here, `"2861650"` is the key for the *Ned Stark* document, and `"2861653"` for
 *Catelyn Stark*.
+{% endhint %}
 
-The `DOCUMENT()` function also allows to fetch multiple documents at once:
+The `DOCUMENT()` function also allows you to fetch multiple documents at once:
 
 ```js
 RETURN DOCUMENT("Characters", ["2861650", "2861653"])
@@ -277,16 +280,16 @@ REPLACE "2861650" WITH {
 } IN Characters
 ```
 
-This also works in a loop, to add a new attribute to all documents for instance:
+This also works in a loop. For example, the following adds a new attribute to all documents:
 
 ```js
 FOR c IN Characters
     UPDATE c WITH { season: 1 } IN Characters
 ```
 
-A variable is used instead of a literal document key, to update each document.
-The query adds an attribute `season` to the documents' top-level. You can
-inspect the result by re-running the query that returns all documents in
+A variable is used instead of a literal document key to update each document.
+The query adds the `season` attribute  to the documents' top level. You can
+inspect the result by re-running the query that returns all documents in a 
 collection:
 
 ```js
@@ -343,6 +346,8 @@ FOR c IN Characters
     REMOVE c IN Characters
 ```
 
-Note: re-run the [insert queries](#create-documents) at the top with all
+{% hint 'info' %}
+Re-run the [insert queries](#create-documents) at the top with all
 character documents before you continue with the next chapter, to have data
 to work with again.
+{% endhint %}
