@@ -10,14 +10,14 @@ redirect_from:
 ---
 # Data Model & Concepts
 
-This chapter introduces ArangoDB's core concepts and covers
+This chapter introduces ArangoDB's core concepts and covers the following:
 
-- the high-level data organization,
-- its data model (or rather multiple data models),
+- the high-level data organization
+- its data model (or rather multiple data models)
 - important terminology used throughout the database system and in this
   documentation
 
-You will also find usage examples on how to interact with the database system
+You can also find here examples on how to interact with the database system
 using [arangosh](programs-arangosh.html), e.g. how to create and
 drop databases / collections, or how to save, update, replace and remove
 documents. You can do all this using the [web interface](getting-started-web-interface.html)
@@ -58,15 +58,15 @@ JSON supports the following data types:
   any of the supported data types, including arrays and nested objects.
 
 Each record that you store is a JSON object at the top-level, also referred to
-as [**document**](data-modeling-documents-document-address.html).
+as a [**document**](data-modeling-documents-document-address.html).
 Each key-value pair is called an **attribute**, comprised
 of the attribute name and the attribute value. Attributes can also be called
 *properties* or *fields*.
 
 You can freely model your data using the available data types. Each document is
 self-contained and can thus have a unique structure. You do not need to define a
-schema upfront. However, sets of documents will typically have some common
-attributes. If you want to enforce a specific structure, then you can do so with
+schema upfront. However, sets of documents typically have some common
+attributes. If you want to enforce a specific structure, then you can do so with a
 [schema validation](data-modeling-documents-schema-validation.html).
 
 Documents are internally stored in a binary format called
@@ -80,7 +80,7 @@ number of documents.
 
 You can group related documents together using collections, such as by
 entity type. For example, you can store _book_ documents in a `books`
-collections. Every book record will have some common attributes like a title,
+collections. All book records have some common attributes like a title,
 author, and publisher. You can later create indexes for some of the often-used
 attributes to speed up queries. This is done at the collection level.
 
@@ -89,7 +89,7 @@ attributes to speed up queries. This is done at the collection level.
 Each collection is part of a [**database**](data-modeling-databases.html).
 Databases allow you to isolate sets of collections from one another, usually for
 multi-tenant applications, where each of your clients has their own database to
-work with. You cannot run queries across databases.
+work with. You cannot run queries across several databases.
 
 Every server instance has a default database called  `_system`. It is special
 because it cannot be removed and it holds a couple of system collections that
