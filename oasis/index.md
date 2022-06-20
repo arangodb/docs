@@ -32,3 +32,8 @@ The ArangoDB Cloud...
 
 For more information see
 [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}
+
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+For quick start guide, see
+[Use ArangoDB in the Cloud](../quick-start-in-the-cloud.html).
+{% endif -%}

@@ -1,6 +1,8 @@
 ---
 layout: default
 description: The character data we imported has an attribute traits for each character,which is an array of strings
+redirect_from:
+  - aql/tutorial-join.html # 3.9 -> 3.10
 ---
 Joining together
 ================
@@ -25,9 +27,9 @@ however:
 It is rather a list of letters without an apparent meaning. The idea here is
 that *traits* is supposed to store documents keys of another collection, which
 we can use to resolve the letters to labels such as "strong". The benefit of
-using another collection for the actual traits is, that we can easily query
+using another collection for the actual traits is that we can easily query
 for all existing traits later on and store labels in multiple languages for
-instance in a central place. If we would embed traits directly...
+instance in a central place. If we embed traits directly like this:
 
 ```json
 {
@@ -60,27 +62,27 @@ instance in a central place. If we would embed traits directly...
 }
 ```
 
-... it becomes really hard to maintain traits. If you were to rename or
-translate one of them, you would need to find all other character documents
+It becomes really hard to maintain traits. If you need to rename or
+translate one of them, you need to find all other character documents
 with the same trait and perform the changes there too. If we only refer to a
 trait in another collection, it is as easy as updating a single document.
 
 {%- comment %}What if Trait doc is deleted? DOCUMENT() skips null{% endcomment %}
 
-![Data model comparison](../images/Comparison_DataModels.png)
+![Data model comparison](images/Comparison_DataModels.png)
 
 Importing traits
 ----------------
 
 Below you find the traits data. Follow the pattern shown in
-[Create documents](tutorial-crud.html#create-documents) to import it:
+[Create documents](aql-tutorial-crud.html#create-documents) to import it:
 
 - Create a document collection *Traits*
 - Assign the data to a variable in AQL, `LET data = [ ... ]`
 - Use a `FOR` loop to iterate over each array element of the data
 - `INSERT` the element `INTO Traits`
 
-![Create Traits collection](../images/Traits_Collection_Creation.png)
+![Create Traits collection](images/Traits_Collection_Creation.png)
 
 ```json
 [
@@ -108,7 +110,7 @@ Below you find the traits data. Follow the pattern shown in
 Resolving traits
 ----------------
 
-Let's start simple by returning only the traits attribute of each character:
+Let's start by returning only the `traits` attribute of each character:
 
 ```js
 FOR c IN Characters
@@ -117,17 +119,17 @@ FOR c IN Characters
 
 ```json
 [
-    { "traits": ["A","H","C","N","P"] },
-    { "traits": ["D","H","C"] },
+    ["A","H","C","N","P"],
+    ["D","H","C"],
     ...
 ]
 ```
 
-Also see the [Fundamentals of Objects / Documents](fundamentals-data-types.html#objects--documents)
+Also see the [Fundamentals of Objects / Documents](aql/fundamentals-data-types.html#objects--documents)
 about attribute access.
 
-We can use the *traits* array together with the `DOCUMENT()` function to use
-the elements as document keys and look them up in the *Traits* collection:
+We can use the `traits` array together with the `DOCUMENT()` function to use
+the elements as document keys and look them up in the `Traits` collection:
 
 ```js
 FOR c IN Characters
@@ -200,15 +202,15 @@ FOR c IN Characters
 ]
 ```
 
-The [DOCUMENT() function](functions-miscellaneous.html#document) can be used
+The [DOCUMENT() function](aql/functions-miscellaneous.html#document) can be used
 to look up a single or multiple documents via document identifiers. In our
 example, we pass the collection name from which we want to fetch documents
-as first argument (`"Traits"`) and an array of document keys (`_key` attribute)
-as second argument. In return we get an array of the full trait documents
+as the first argument (`"Traits"`) and an array of document keys (`_key` attribute)
+as the second argument. In return we get an array of the full trait documents
 for each character.
 
 This is a bit too much information, so let's only return English labels using
-the [array expansion](advanced-array-operators.html#array-expansion) notation:
+the [array expansion](aql/advanced-array-operators.html#array-expansion) notation:
 
 ```js
 FOR c IN Characters
@@ -238,7 +240,7 @@ Merging characters and traits
 
 Great, we resolved the letters to meaningful traits! But we also need to know
 to which character they belong. Thus, we need to merge both the character
-document and the data from the trait documents:
+document and the data from the traits documents:
 
 ```js
 FOR c IN Characters
@@ -288,9 +290,9 @@ character attribute, the latter got overwritten by the merge operation.
 Join another way
 ----------------
 
-The `DOCUMENT()` function utilizes primary indices to look up documents quickly.
+The `DOCUMENT()` function utilizes primary indexes to look up documents quickly.
 It is limited to find documents via their identifiers however. For a use case
-like in our example it is sufficient to accomplish a simple join.
+like ours it is sufficient to accomplish a simple join.
 
 There is another, more flexible syntax for joins: nested `FOR` loops over
 multiple collections, with a `FILTER` condition to match up attributes.

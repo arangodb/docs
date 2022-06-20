@@ -46,7 +46,7 @@ Data modeling
 Queries
 -------
 
-- [AQL](aql/tutorial.html):
+- [AQL](aql-tutorial.html):
   Introduction to ArangoDB's query language AQL
 
 - [Data Queries](aql/data-queries.html):

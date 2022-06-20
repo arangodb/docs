@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Matching documents
+redirect_from:
+  - aql/tutorial-filter.html # 3.9 -> 3.10
 ---
 Matching documents
 ==================
@@ -88,7 +90,7 @@ You may notice that it returns name and age of 30 characters, most with an
 age of `null`. The reason for this is, that `null` is the fallback value if
 an attribute is requested by the query, but no such attribute exists in the
 document, and the `null` is compares to numbers as lower (see
-[Type and value order](fundamentals-type-value-order.html)). Hence, it
+[AQL Type and value order](aql/fundamentals-type-value-order.html)). Hence, it
 accidentally fulfills the age criterion `c.age < 13` (`null < 13`).
 
 Multiple conditions
@@ -140,4 +142,4 @@ FOR c IN Characters
 ]
 ```
 
-See more details about [Filter operations](operations-filter.html).
+See more details about [AQL `FILTER` operations](aql/operations-filter.html).
