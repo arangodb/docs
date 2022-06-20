@@ -49,18 +49,18 @@ used for multiple accounts.
 
    Click the __Sign up__ button. You will receive a verification email. In that
    mail, click the __Verify my email address__ link or button.
-   It will open a page in ArangoDB Oasis that says __Welcome back!__
+   It opens a page in ArangoDB Oasis that says __Welcome back!__
 5. Click the __Log in__ button to continue and login.
 6. If you signed up with an email address of a public email service provider (e.g. Hotmail),
    a form appears asking for your mobile phone number. Enter the country code
    and the number of the mobile phone you want to use for this account.
    For company email addresses, this step is skipped.
 7. If you had to enter your phone number in the previous step, a verification
-   code will be sent via SMS to the mobile number you entered. Enter the
+   code is sent via SMS to the mobile number you entered. Enter the
    verification code.
-8. A form will appear asking for your name. Enter your first, last and company
+8. Fill out a form with your first and last name, and company
    name, and then press the __Save__ button.
-9. An organization with a default project will now be prepared for you.
+9. An organization with a default project is now prepared for you.
    Once that is completed, you will be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
 
@@ -73,27 +73,27 @@ used for multiple accounts.
    ![Oasis Dashboard](oasis/images/oasis-dashboard.png)
 
    You can also [create a deployment](oasis/deployments.html#how-to-create-a-new-deployment)
-   manually if you want fine-grained configuration options.
-2. The new deployment will show up in the list of deployments for the 
+   manually, if you want fine-grained configuration options.
+2. The new deployment is displayed in the list of deployments for the 
    respective project (here: _Avocado_).
 
    ![Oasis Deployments Bootstrapping](oasis/images/oasis-deployments-bootstrapping.png)
 
    It takes a couple of minutes before the deployment can be used. The status
-   will change from __Bootstrapping__ to __OK__ eventually and you will also
+   is changed from __Bootstrapping__ to __OK__ eventually and you also
    receive an email when it is ready.
 
    ![Oasis Deployment Ready Email](oasis/images/oasis-deployment-ready-email.png){:style="max-height: 50vh"}
 
-3. Click the name or the _View_ button of the deployment card (or the
-   __Open deployment details__ link in the email) to get to the deployment
+3. Click the name or the **View** button of the deployment card (or the
+   __Open deployment details__ link in the email) to view the deployment
    details.
 
    ![Oasis Deployment Ready](oasis/images/oasis-deployment-ready.png)
 
 4. You can copy the ArangoDB password for the root user by clicking the second
    button below the label __ROOT PASSWORD__. Then click the __Open endpoint__
-   button to bring up the ArangoDB web interface. Enter the credentials
+   button to open the ArangoDB web interface. Enter the credentials
    (user `root` and its password) and log in.
 
 5. You can install example datasets and follow the accompanying guides to get
@@ -145,7 +145,7 @@ Alternatively, follow the steps of the linked guides:
 
 ArangoDB Oasis comes with a free-to-try tier that lets you test our ArangoDB
 Cloud for free for 14 days. It includes one project and one deployment.
-After the trial period, your deployments will automatically be deleted.
+After the trial period, your deployments are automatically deleted.
 
 You can convert to the professional service model at any time by adding 
 your billing details and at least one payment method. See:
