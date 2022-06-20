@@ -12,6 +12,12 @@ You can install ArangoDB on macOS in different ways:
 - [_DMG_ Package](#package-installation)
 - [_tar.gz_ Archive](#installing-using-the-archive)
 
+{% hint 'warning' %}
+Currently, the ArangoDB installation on macOS via Homebrew,
+DMG package or tar.gz package cannot run on M1
+hardware (Apple silicon).
+{% endhint %}
+
 Homebrew
 --------
 
@@ -22,12 +28,7 @@ only the Community Edition is available.
 
 {% hint 'warning' %}
 The Homebrew installation is updated a few days after the
-official release of a new version.
-{% endhint %}
-
-{% hint 'info' %}
-The Homebrew installation of ArangoDB is currently not available
-for the Mac M1 chip (Apple silicon). For more information about
+official release of a new version. For more information about
 the installation packages supported on macOS, see the 
 [ArangoDB Homebrew Formulae](https://formulae.brew.sh/formula/arangodb){:target="_blank"}.
 {% endhint %}
