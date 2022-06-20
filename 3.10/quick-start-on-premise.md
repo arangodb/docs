@@ -59,16 +59,16 @@ For a more detailed description of the interface, see [Web Interface](programs-w
 The default installation contains one database `_system` and a user
 named `root`.
 
-Debian based packages and the Windows installer will ask for a
-password during the installation process. Red-Hat based packages will
-set a random password. For all other installation packages you need to
-execute
+Debian-based packages and the Windows installer ask for a
+password during the installation process. Red-Hat based packages
+set a random password. For all other installation packages, you need to
+execute the following:
 
 ```
 shell> arango-secure-installation
 ```
 
-This will ask for a root password and sets this password.
+This commands asks for a root password and sets it.
 
 {% hint 'warning' %}
 The password that is set for the root user during the installation of the ArangoDB
