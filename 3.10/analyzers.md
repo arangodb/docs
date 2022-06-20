@@ -988,9 +988,9 @@ Execution times are not representative of the final product.
 
 An Analyzer capable of classifying tokens in the input text.
 
-It applies a user-provided [fastText](https://fasttext.cc/) word embedding model
-to classify the input text. It is able to classify individual tokens as well as
-entire inputs.
+It applies a user-provided [fastText](https://fasttext.cc/){:target="_blank"}
+word embedding model to classify the input text. It is able to classify
+individual tokens as well as entire inputs.
 
 The *properties* allowed for this Analyzer are an object with the following attributes:
 
@@ -1005,16 +1005,17 @@ The *properties* allowed for this Analyzer are an object with the following attr
 
 **Examples**
 
-Create and use a `classification` Analyzer with a stored "cooking" classifier to classify items.
+Create and use a `classification` Analyzer with a stored "cooking" classifier
+to classify items.
 
 ```js
-arangosh> var analyzers = require("@arangodb/analyzers");
-arangosh> var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
-arangosh> var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
-arangosh> db._query(`LET str = 'Which baking dish is best to bake a banana bread ?'
+var analyzers = require("@arangodb/analyzers");
+var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
+var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
+db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
     RETURN {
-      "all": TOKENS(str, 'classifier_single'),
-      "double": TOKENS(str, 'classifier_double')
+      "all": TOKENS(str, "classifier_single"),
+      "double": TOKENS(str, "classifier_double")
     }
   `);
 ```
@@ -1043,11 +1044,13 @@ The naming and interfaces may change at any time.
 Execution times are not representative of the final product.
 {% endhint %}
 
-An Analyzer capable of finding nearest neighbors of tokens in the input.  
+An Analyzer capable of finding nearest neighbors of tokens in the input.
 
-It applies a user-provided [fastText](https://fasttext.cc/) word embedding model to retrieve nearest neighbor tokens in
-the text. It is able to find neighbors of individual tokens as well as entire input strings. For entire input strings,
-the Analyzer will return nearest neighbors for each token within the input string.
+It applies a user-provided [fastText](https://fasttext.cc/){:target="_blank"}
+word embedding model to retrieve nearest neighbor tokens in the text.
+It is able to find neighbors of individual tokens as well as entire input strings.
+For entire input strings, the Analyzer will return nearest neighbors for each
+token within the input string.
 
 The *properties* allowed for this Analyzer are an object with the following attributes:
 
@@ -1059,16 +1062,17 @@ The *properties* allowed for this Analyzer are an object with the following attr
 
 **Examples**
 
-Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier to find similar terms.
+Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier
+to find similar terms.
 
 ```js
-arangosh> var analyzers = require("@arangodb/analyzers");
-arangosh> var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
-arangosh> var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
-arangosh> db._query(`LET str = 'salt, oil'
+var analyzers = require("@arangodb/analyzers");
+var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
+var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
+db._query(`LET str = "salt, oil"
     RETURN {
-      "all": TOKENS(str, 'nn_single'),
-      "double": TOKENS(str, 'nn_double')
+      "all": TOKENS(str, "nn_single"),
+      "double": TOKENS(str, "nn_double")
     }
   `);
 ```

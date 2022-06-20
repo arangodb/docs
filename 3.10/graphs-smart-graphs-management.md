@@ -230,10 +230,10 @@ sharding for other collections (`edges`).
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-You may drop the complete graph, but remember to drop collections that you
-might have removed from the graph beforehand, as they will not be part of the
-graph definition anymore and thus not be dropped automatically. Alternatively, you
-can `truncate` all collections from the graph if you just want to get rid of the data.
+You may drop the complete graph including the underlying collections by setting
+the second argument in the call to `_drop()` to `true`. This will only drop
+collections that are in the graph definition at that point. Remember to manually
+drop collections that you might have removed from the graph beforehand.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify5_cluster
@@ -241,15 +241,19 @@ can `truncate` all collections from the graph if you just want to get rid of the
       var graph_module = require("@arangodb/smart-graph");
       var relation = graph_module._relation("edges", "vertices", "vertices");
       var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._deleteEdgeDefinition("edges");
-      graph._removeVertexCollection("vertices");
-      graph_module._drop("myGraph", true); // does not drop any collections
+      graph._deleteEdgeDefinition("edges");      // Remove edge collection from graph definition
+      graph._removeVertexCollection("vertices"); // Remove vertex collection from graph definition
+      graph_module._drop("myGraph", true);       // Does not drop any collections because none are left in the graph definition
+      // Manually clean up the collections that were left behind
       db._drop("edges"); // drop before sharding-defining 'vertices' collection
       db._drop("vertices");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify5_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Alternatively, you can `truncate()` all collections of the graph if you just
+want to get rid of the data but keep the collections and graph definition.
 
 ### Remove an edge collection
 

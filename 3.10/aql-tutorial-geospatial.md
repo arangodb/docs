@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Geospatial Queries AQL Tutorial
+redirect_from:
+  - aql/tutorial-geospatial.html # 3.9 -> 3.10
 ---
 Geospatial queries
 ==================
@@ -8,16 +10,16 @@ Geospatial queries
 Geospatial coordinates consisting of a latitude and longitude value
 can be stored either as two separate attributes, or as a single
 attribute in the form of an array with both numeric values.
-ArangoDB can [index such coordinates](../indexing-geo.html)
+ArangoDB can [index such coordinates](indexing-geo.html)
 for fast geospatial queries.
 
 Locations data
 --------------
 
 Let us insert some filming locations into a new collection *Locations*,
-which you need to create first, then run below AQL query:
+which you need to create first, then run the AQL query below:
 
-![Create Locations collection](../images/Locations_Collection_Creation.png)
+![Create Locations collection](images/Locations_Collection_Creation.png)
 
 ```aql
 LET places = [
@@ -37,41 +39,41 @@ FOR place IN places
 
 Visualization of the coordinates on a map with their labels:
 
-![Locations on map](../images/Locations_Map.png)
+![Locations on map](images/Locations_Map.png)
 
 Geospatial index
 ----------------
 
-To query based on coordinates, a [geo index](../indexing-geo.html)
+To query based on coordinates, a [geo index](indexing-geo.html)
 is required. It determines which fields contain the latitude and longitude
 values.
 
-- Go to *COLLECTIONS*
-- Click on the *Locations* collection
-- Switch to the *Indexes* tab at top
-- Click the green button with a plus on the right-hand side
-- Change the type to *Geo Index*
-- Enter `coordinate` into the *Fields* field
-- Click *Create* to confirm
+- Go to **COLLECTIONS**.
+- Click on the **Locations** collection.
+- Switch to the **Indexes** tab at the top.
+- Click the green button with a plus on the right-hand side.
+- Change the type to **Geo Index**.
+- Enter `coordinate` into the **Fields** field.
+- Click **Create** to confirm.
 
-![Create geospatial index on coordinate attribute](../images/Locations_GeoIndex_Creation.png)
+![Create geospatial index on coordinate attribute](images/Locations_GeoIndex_Creation.png)
 
-![Indexes of Locations collection](../images/Locations_Indexes.png)
+![Indexes of Locations collection](images/Locations_Indexes.png)
 
 Find nearby locations
 ---------------------
 
 A `FOR` loop is used again, with a subsequent `SORT` operation based on the
 `DISTANCE()` between a stored coordinate and a coordinate given in a query.
-This pattern is recognized by the query optimizer. A geo index will be used to
-accelerate such queries if one is available.
+This pattern is recognized by the query optimizer. A geo index is used to
+accelerate such queries, if one is available.
 
 The default sorting direction is ascending, so a query finds the coordinates
 closest to the reference point first (lowest distance). `LIMIT` can be used
 to restrict the number of results to at most *n* matches.
 
-In below example, the limit is set to 3. The origin (the reference point) is
-a coordinate somewhere downtown in Dublin, Ireland:
+In the example below, the limit is set to 3. The origin (the reference point) is
+a coordinate somewhere in downtown Dublin, Ireland:
 
 ```aql
 FOR loc IN Locations
@@ -118,7 +120,7 @@ if you want. Or return the whole document with an added distance attribute using
 Find locations within radius
 ----------------------------
 
-`LIMIT` can be swapped out with a `FILTER` that checks the distance, to find
+`LIMIT` can be swapped out with a `FILTER` that checks the distance to find
 locations within a given radius from a reference point. Remember that the unit
 is meters. The example uses a radius of 200,000 meters (200 kilometers):
 

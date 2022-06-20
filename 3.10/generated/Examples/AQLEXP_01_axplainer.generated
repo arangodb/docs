@@ -11,7 +11,7 @@ arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot
   ], 
   &quot;id&quot; : &quot;test/60630&quot;, 
   &quot;isNewlyCreated&quot; : true, 
-  &quot;name&quot; : &quot;idx_1733159490144960512&quot;, 
+  &quot;name&quot; : &quot;idx_1735709542800424965&quot;, 
   &quot;selectivityEstimate&quot; : 1, 
   &quot;sparse&quot; : false, 
   &quot;type&quot; : &quot;persistent&quot;, 
@@ -32,7 +32,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields        Ranges
-  9   idx_1733159490144960512   persistent   test         false    false    false      100.00 %   [ `value` ]   (i.`value` &gt; 97)
+  9   idx_1735709542800424965   persistent   test         false    false    false      100.00 %   [ `value` ]   (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName

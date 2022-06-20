@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Sorting and limiting
+redirect_from:
+  - aql/tutorial-sort-limit.html # 3.9 -> 3.10
 ---
 Sorting and limiting
 ====================
@@ -9,7 +11,7 @@ Cap the result count
 --------------------
 
 It may not always be necessary to return all documents, that a `FOR` loop
-would normally return. In those cases, we can limit the amount of documents
+normally returns. In those cases, we can limit the amount of documents
 with a `LIMIT()` operation:
 
 ```aql
@@ -29,7 +31,7 @@ FOR c IN Characters
 ```
 
 `LIMIT` is followed by a number for the maximum document count. There is a
-second syntax however, which allows you to skip a certain amount of record
+second syntax however, which allows you to skip a certain amount of records
 and return the next *n* documents:
 
 ```aql
@@ -81,8 +83,8 @@ FOR c IN Characters
 ]
 ```
 
-See how it sorted by name, then returned the ten alphabetically first coming
-names. We can reverse the sort order with `DESC` like descending:
+See how it sorted by name, then returned the first ten names in an alphabetical order.
+We can reverse the sort order with `DESC` like descending:
 
 ```aql
 FOR c IN Characters
@@ -180,9 +182,9 @@ FOR c IN Characters
 ]
 ```
 
-A filter is applied to avoid documents without age attribute. The remaining
-documents are sorted by age in ascending order, and the name and age of the
+A filter is applied to avoid documents without an age attribute. The remaining
+documents are sorted by age in the ascending order, and the name and age of the
 ten youngest characters are returned.
 
-See the [SORT operation](operations-sort.html) and
-[LIMIT operation](operations-limit.html) documentation for more details.
+See the [AQL `SORT` operation](aql/operations-sort.html) and
+[AQL `LIMIT` operation](aql/operations-limit.html) documentation for more details.

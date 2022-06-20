@@ -335,6 +335,10 @@ not be suited for.
   and for the Datacenter to Datacenter Replication between clusters.
   Simply take hot backups on all instances.
 
+  {% hint 'info' %}
+  The DC2DC replication needs to be stopped before restoring a Hot Backup.
+  {% endhint %}
+
 - **Known Issues**
 
   See the list of [Known Issues](release-notes-known-issues38.html#hot-backup).
