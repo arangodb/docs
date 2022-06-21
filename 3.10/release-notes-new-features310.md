@@ -135,13 +135,20 @@ FOR … IN … OPTIONS { lookahead: 32 }
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
-### New AQL Functions
+### New and Changed AQL Functions
 
 AQL functions added in 3.10:
 
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
-  a document function to recursively keep attributes from objects/documents,
+  A document function to recursively keep attributes from objects/documents,
   as a counterpart to `UNSET_RECURSIVE()`
+
+AQL functions changed in 3.10:
+
+- [`MERGE_RECURSIVE()`](aql/functions-document.html#merge_recursive):
+  You can now call the function with a single argument instead of at least two.
+  It also accepts an array of objects now, matching the behavior of the
+  `MERGE()` function.
 
 Indexes
 -------
