@@ -66,21 +66,22 @@ product recommendations, drug development, law enforcement, and cybersecurity.
 
 Graph Analytics uses an unsupervised
 learning method based on algorithms that are performing analytical processing
-directly on graphs stored in ArangoDB. This distributed iterative graph
-processing (Pregel) is intended to help you gain analytical insights on
+directly on graphs stored in ArangoDB. This 
+[Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)
+is intended to help you gain analytical insights on
 your data, without having to use external processing systems.
 
 ArangoDB includes the following graph algorithms:
 - **Page Rank**: used for ranking documents in a graph
-Search/Traversal Find a node/edge
+Search/Traversal
 - **Single-Source Shortest Path**: calculates the shortest path length between
- the source and all other vertices. For example, _How to get from a to b_.
+ the source and all other vertices. For example, _How to get from a to b_
 - **Hyperlink-Induced Topic Search (HITS)**: a link analysis algorithm that
- rates Web pages.
+ rates Web pages
 - **Vertex Centrality**: identifies the most important nodes in a graph.
  For example, _Who are the influencers in a social network?_
 - **Community Detection**: identifies distinct subgroups within a
- community structure.
+ community structure
 
 GraphML capabilities of using more data outperform conventional deep learning
 methods and **solve high-computational complexity graph problems**, such as: 
@@ -93,15 +94,11 @@ With GraphML, you can also **predict relationships and structures**, such as:
 - Predict fraudulent behavior, credit risk, purchase of product or services
 - Predict relationships among customers, accounts
 
-GraphML uses a trained statistical model made of two steps - training and inference. // unclear
-
-(Un)-Supervised Machine Learning - Graph Embeddings as basis   // unclear
-
 ArangoDB is using well-known GraphML frameworks like
 [Deep Graph Library](https://www.dgl.ai){:target="_blank"}
 and [PyTorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/){:target="_blank"} 
 and connects to these external machine learning libraries. When coupled to
-ArangoDB, you are essentially integrating them with your graph dataset.      // mention knowledge graphs here?
+ArangoDB, you are essentially integrating them with your graph dataset.
 
 ## Example: ArangoFlix
 
@@ -133,10 +130,3 @@ The ArangoFlix demo uses five different recommendation methods:
 The ArangoFlix website not only offers an example of how the user recommendations might
 look like in real life, but it also provides information on the recommendation method,
 AQL query, a custom graph visualization for each movie, and more.
-
-
-
-
-
-
-
