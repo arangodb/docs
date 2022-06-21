@@ -101,6 +101,7 @@ correct sharding already).
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ## Using SatelliteCollections in SmartGraphs
+
 When creating a collection, you can decide whether it's a SatelliteCollection
 or not. For example, a vertex collection can be satellite as well. 
 SatelliteCollections don't require sharding as the data will be distributed
