@@ -5,7 +5,7 @@ layout: default
 
 Install the [ArangoDB C# Driver](dotnet-installation.md).
 
-## First steps
+## First Steps
 
 Learn how to:
 1. Work with [Databases](dotnet-databases.md).
