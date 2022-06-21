@@ -235,8 +235,7 @@ drop collections that you might have removed from the graph beforehand.
       graph._deleteEdgeDefinition("edges");      // Remove edge collection from graph definition
       graph._removeVertexCollection("vertices"); // Remove vertex collection from graph definition
       graph_module._drop("myGraph", true);       // Does not drop any collections because none are left in the graph definition
-      // Manually clean up the collections that were left behind
-      db._drop("edges"); // drop before sharding-defining 'vertices' collection
+      db._drop("edges"); // Manually clean up the collections that were left behind, drop 'edges' before sharding-defining 'vertices' collection
       db._drop("vertices");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify5_cluster
