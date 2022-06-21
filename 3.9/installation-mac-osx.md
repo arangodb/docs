@@ -13,9 +13,9 @@ You can install ArangoDB on macOS in different ways:
 - [_tar.gz_ Archive](#installing-using-the-archive)
 
 {% hint 'warning' %}
-Currently, the ArangoDB installation on macOS via Homebrew,
-DMG package or tar.gz package cannot run on M1
-hardware (Apple silicon).
+Version 3.9 does not run on Apple's ARM chips (M1 hardware).
+Version 3.8 and older do work via Rosetta 2 emulation, and 3.10
+will have native ARM support.
 {% endhint %}
 
 Homebrew
