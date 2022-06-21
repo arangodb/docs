@@ -94,7 +94,7 @@ Query Statistics:
 
 ### Number of cache hits / cache misses in profiling output
 
-When profiling an AQL query via `db._profileQuery(...)` command or via the web UI, the
+When profiling an AQL query via `db._profileQuery(...)` command or via the web interface, the
 query profile output will now contain the number of index entries read from
 in-memory caches (usable for edge and persistent indexes) plus the number of cache misses.
 

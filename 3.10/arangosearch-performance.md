@@ -102,7 +102,7 @@ directions are not covered by the View index
 (e.g. `SORT doc.date, doc.name DESC`).
 
 Note that the `primarySort` option is immutable: it can not be changed after
-View creation. It is therefore not possible to configure it through the Web UI.
+View creation. It is therefore not possible to configure it through the web interface.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
 The primary sort data is LZ4 compressed by default (`primarySortCompression` is
