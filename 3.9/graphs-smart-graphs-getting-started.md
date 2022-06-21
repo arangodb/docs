@@ -108,6 +108,7 @@ SatelliteCollections don't require sharding as the data will be distributed
 globally on all DB-Servers. The `smartGraphAttribute` is also not required.
 
 ### Create a SmartGraph using SatelliteCollections
+
 In addition to the attributes you would set to create a SmartGraph, there is an
 additional attribute `satellites` you can optionally set. It needs to be an array of
 one or more collection names. These names can be used in edge definitions
