@@ -12,8 +12,3 @@ Learn how to:
 2. Work with [Collections](dotnet-collections.html).
 3. Work with [Documents](dotnet-documents.html).
 4. Work with [AQL Queries and Functions](dotnet-aql.html).
-
-## Reference
-<!-- TODO
-Browse the full reference for [ArangoDBNetStandard](dotnet-reference/Home.md).
--->
