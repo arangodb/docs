@@ -86,8 +86,8 @@ Hybrid Disjoint SmartGraphs
 
 Hybrid Disjoint SmartGraphs are like Hybrid SmartGraphs but also prohibit edges between vertices _from non-satellite
 collections_ with different `smartGraphAttribute` values. Edges between vertices at least one of which is in a satellite
-collection are always possible. Edges having at least one end in a satellite collection are kept on a DB-server only if
-the other end is also on the same DB-server (in particular, if that other end is also in a satellite collection).
+collection are always possible. Edges having at least one end in a satellite collection are kept on a DB-Server only if
+the other end is also on the same DB-Server (in particular, if that other end is also in a satellite collection).
 
 In other words, each disjoint component can only have connections within itself, there is no switching of components in
 any traversals. If a satellite vertex is shared between two components they cannot see each other's edges, so each

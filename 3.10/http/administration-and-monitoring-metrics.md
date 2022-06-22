@@ -120,7 +120,7 @@ future.
 | `arangodb_maintenance_phase1_runtime_msec` | Maintenance Phase 1 runtime histogram (ms) |
 | `arangodb_maintenance_phase2_accum_runtime_msec` | Accumulated runtime of phase two (ms) |
 | `arangodb_maintenance_phase2_runtime_msec` | Maintenance Phase 2 runtime histogram (ms) |
-| `arangodb_network_forwarded_requests` | Number of requests forwarded from one coordinator to another in a load-balancing setup |
+| `arangodb_network_forwarded_requests` | Number of requests forwarded from one Coordinator to another in a load-balancing setup |
 | `arangodb_process_statistics_major_page_faults` | On Windows, this figure contains the total number of page faults. On other system, this figure contains the number of major faults the process has made which have required loading a memory page from disk |
 | `arangodb_process_statistics_minor_page_faults` | The number of minor faults the process has made which have not required loading a memory page from disk. This figure is not reported on Windows |
 | `arangodb_process_statistics_number_of_threads` | Number of threads in the arangod process |

@@ -8,6 +8,26 @@ Miscellaneous functions
 Control flow functions
 ----------------------
 
+### FIRST_DOCUMENT()
+
+`FIRST_DOCUMENT(alternative, ...) → doc`
+
+Return the first alternative that is a document, and *null* if none of the
+alternatives is a document.
+
+- **alternative** (any, *repeatable*): input of arbitrary type
+- returns **doc** (object\|null): document / object or null
+
+### FIRST_LIST()
+
+`FIRST_LIST(alternative, ...)  → list`
+
+Return the first alternative that is an array, and *null* if none of the
+alternatives is an array.
+
+- **alternative** (any, *repeatable*): input of arbitrary type
+- returns **list** (array\|null): array / list or null
+
 ### MIN_MATCH()
 
 `MIN_MATCH(expr1, ... exprN, minMatchCount) → fulfilled`
@@ -55,26 +75,6 @@ are *null* themselves. It is also known as `COALESCE()` in SQL.
 - **alternative** (any, *repeatable*): input of arbitrary type
 - returns **value** (any): first non-null parameter, or *null* if all arguments
   are *null*
-
-### FIRST_LIST()
-
-`FIRST_LIST(alternative, ...)  → list`
-
-Return the first alternative that is an array, and *null* if none of the
-alternatives is an array.
-
-- **alternative** (any, *repeatable*): input of arbitrary type
-- returns **list** (array\|null): array / list or null
-
-### FIRST_DOCUMENT()
-
-`FIRST_DOCUMENT(alternative, ...) → doc`
-
-Return the first alternative that is a document, and *null* if none of the
-alternatives is a document.
-
-- **alternative** (any, *repeatable*): input of arbitrary type
-- returns **doc** (object\|null): document / object or null
 
 ### Ternary operator
 
@@ -199,56 +199,47 @@ DECODE_REV( "_YU0HOEG---" )
 // { "date" : "2019-03-11T16:15:05.314Z", "count" : 0 }
 ```
 
-### SHARD_ID()
-
-`SHARD_ID(collection, shardKeys) → shardId`
-
-Return the shard in a collection that contains specified shard keys.
-
-- **collection** (string): a collection name
-- **shardKeys** (object): a set of shard keys and values
-- returns **shardId** (string): the responsible shard for the specified shard keys in
-  the given collection
-
-Any missing shard key in the query is substituted with the `null` value.
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline shard_id1_cluster
-  @EXAMPLE_AQL{shard_id1_cluster}
-  @DATASET{observationsSampleDataset}
-    RETURN SHARD_ID("observations", { "time": "2021-05-25 07:15:00", "subject": "xh458", "val": 10 })
-  @END_EXAMPLE_AQL
-  @endDocuBlock shard_id1_cluster
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-On deployments other than clusters, the collection name itself is returned.
-
 ### DOCUMENT()
+
+Dynamically look up one or multiple documents from any collections, either using
+a collection name and one or more document keys, or one or more document
+identifiers. The collections do not need to be known at query compile time, they
+can be computed at runtime.
+
+{% hint 'info' %}
+It is recommended to use subqueries with the [**`FOR` operation**](operations-for.html)
+and filters over `DOCUMENT()` whenever the collections are known in advance,
+especially for [**joins**](examples-join.html), because they perform better, you
+can add additional filters, and combine it with sorting to get an array of
+documents in a guaranteed order.
+
+Queries that use the `DOCUMENT()` function cannot be
+[**cached**](execution-and-performance-query-cache.html), each lookup is executed as
+a single operation, the lookups need to be executed on Coordinators for
+sharded collections in cluster deployments, and only primary indexes and no
+projections can be utilized.
+{% endhint %}
 
 `DOCUMENT(collection, id) → doc`
 
-Return the document which is uniquely identified by its *id*. ArangoDB will
-try to find the document using the *_id* value of the document in the specified
-collection. 
+Return the document identified by `id` (document key or identifier) from the
+specified `collection`.
 
-If there is a mismatch between the *collection* passed and the
-collection specified in *id*, then *null* will be returned. Additionally,
-if the *collection* matches the collection value specified in *id* but the
-document cannot be found, *null* will be returned.
+If the document cannot be found, `null` will be returned.
+If there is a mismatch between the `collection` passed and the collection in
+the document identifier, then `null` will be returned, too.
 
-This function also allows *id* to be an array of ids. In this case, the
-function will return an array of all documents that could be found.
-
-It is also possible to specify a document key instead of an id, or an array
-of keys to return all documents that can be found.
+The `id` parameter can also be an array of document keys or identifiers. In this
+case, the function will return an array of all documents that could be found.
+The results are not guaranteed to be in the requested order. Documents that
+could not be found are not indicated in the result (no `null` values) and do
+also not raise warnings.
 
 - **collection** (string): name of a collection
-- **id** (string\|array): a document handle string (consisting of collection
-  name and document key), a document key, or an array of both document handle
-  strings and document keys
-- returns **doc** (document\|array\|null): the content of the found document,
-  an array of all found documents or *null* if nothing was found
+- **id** (string\|array): a document key, a document identifier, or an array of
+  document keys, identifiers, or both
+- returns **doc** (document\|array\|null): the found document (or `null` if it
+  was not found), or an array of all found documents **in any order**
 
 **Examples**
 
@@ -324,12 +315,11 @@ of keys to return all documents that can be found.
 
 `DOCUMENT(id) → doc`
 
-The function can also be used with a single parameter *id* as follows:
+The function can also be used with a single `id` parameter as follows:
 
-- **id** (string\|array): either a document handle string (consisting of
-  collection name and document key) or an array of document handle strings
-- returns **doc** (document\|null): the content of the found document
-  or *null* if nothing was found
+- **id** (string\|array): a document identifier, or an array of identifiers
+- returns **doc** (document\|array\|null): the found document (or `null` if it
+  was not found), or an array of the found documents **in any order**
 
 **Examples**
 
@@ -392,9 +382,6 @@ The function can also be used with a single parameter *id* as follows:
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-Please also consider to use
-[`DOCUMENT` in conjunction with `WITH`](operations-with.html)
-
 ### LENGTH()
 
 `LENGTH(coll) → documentCount`
@@ -409,6 +396,29 @@ It calls [COLLECTION_COUNT()](#collection_count) internally.
 *LENGTH()* can also determine the [number of elements](functions-array.html#length) in an array,
 the [number of attribute keys](functions-document.html#length) of an object / document and
 the [character length](functions-string.html#length) of a string.
+
+### SHARD_ID()
+
+`SHARD_ID(collection, shardKeys) → shardId`
+
+Return the shard in a collection that contains the specified shard keys.
+
+- **collection** (string): a collection name
+- **shardKeys** (object): a set of shard keys and values. Any missing shard key
+  is substituted with the `null` value.
+- returns **shardId** (string): the responsible shard for the specified
+  shard keys in the given collection. On deployments other than clusters,
+  the collection name itself is returned.
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline shard_id1_cluster
+  @EXAMPLE_AQL{shard_id1_cluster}
+  @DATASET{observationsSampleDataset}
+    RETURN SHARD_ID("observations", { "time": "2021-05-25 07:15:00", "subject": "xh458", "val": 10 })
+  @END_EXAMPLE_AQL
+  @endDocuBlock shard_id1_cluster
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Hash functions
 --------------

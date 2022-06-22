@@ -1,7 +1,9 @@
 ---
 layout: default
-description: This is an AQL tutorial for graph traversals. You can see how relations such as between parents and children can be modeled as graph.
+description: This is an AQL tutorial for graph traversals. You can see how relations such as between parents and children can be modeled as a graph.
 title: AQL Graph Traversal Tutorial
+redirect_from:
+  - aql/tutorial-traversal.html # 3.9 -> 3.10
 ---
 Traversal
 =========
@@ -35,9 +37,9 @@ Our characters have the following relations between parents and children
  Joffrey -> Cersei
 ```
 
-Visualized as graph:
+Visualized as a graph:
 
-![ChildOf graph visualization](../images/ChildOf_Graph.png)
+![ChildOf graph visualization](images/ChildOf_Graph.png)
 
 Creating the edges
 ------------------
@@ -50,7 +52,7 @@ edge collection *ChildOf*.
 First off, create a new collection with the name *ChildOf* and make sure you
 change the collection type to **Edge**.
 
-![Create ChildOf edge collection](../images/ChildOf_Collection_Creation.png)
+![Create ChildOf edge collection](images/ChildOf_Collection_Creation.png)
 
 Then run the following query:
 
@@ -133,38 +135,38 @@ good exercise. Breakdown of the query:
 
 - Assign the relations in form of an array of objects with a *parent* and
   a *child* attribute each, both with sub-attributes *name* and *surname*,
-  to a variable `data`
-- For each element in this array, assign a relation to a variable `rel` and
-  execute the subsequent instructions
-- Assign the result of an expression to a variable `parentId`
+  to the `data` variable.
+- For each element in this array, assign a relation to the `rel` variable and
+  execute the subsequent instructions.
+- Assign the result of an expression to the `parentId` variable:
   - Take the first element of a sub-query result (sub-queries are enclosed
-    by parentheses, but here they are also a function call)
+    by parentheses, but here they are also a function call).
     - For each document in the Characters collection, assign the document
-      to a variable `c`
+      to the `c` variable. 
     - Apply two filter conditions: the name in the character document must
       equal the parent name in `rel`, and the surname must also equal the
-      surname give in the relations data
-    - Stop after the first match for efficiency
+      surname give in the relations data.
+    - Stop after the first match for efficiency.
     - Return the ID of the character document (the result of the sub-query
       is an array with one element, `FIRST()` takes this element and assigns
-      it to the `parentId` variable)
-- Assign the result of an expression to a variable `childId`
+      it to the `parentId` variable).
+- Assign the result of an expression to the `childId` variable.
   - A sub-query is used to find the child character document and the ID is
-    returned, in the same way as the parent document ID (see above)
+    returned, in the same way as the parent document ID (see above).
 - If either or both of the sub-queries were unable to find a match, skip the
   current relation, because two IDs for both ends of an edge are required to
-  create one (this is only a precaution)
+  create one (this is only a precaution).
 - Insert a new edge document into the ChildOf collection, with the edge going
   from `childId` to `parentId` and no other attributes
-- Return the new edge document (optional)
+- Return the new edge document (optional).
 
 Traverse to the parents
 -----------------------
 
 Now that edges link character documents (vertices), we have a graph we can
-query to find out who the parents are of another character &ndash; or in
+query to find parents of a character &ndash; or in
 graph terms, we want to start at a vertex and follow the edges to other
-vertices in an [AQL graph traversal](graphs-traversals.html):
+vertices in an [AQL graph traversal](aql/graphs-traversals.html):
 
 ```js
 FOR v IN 1..1 OUTBOUND "Characters/2901776" ChildOf
@@ -175,14 +177,14 @@ This `FOR` loop doesn't iterate over a collection or an array, it walks the
 graph and iterates over the connected vertices it finds, with the vertex
 document assigned to a variable (here: `v`). It can also emit the edges it
 walked as well as the full path from start to end to
-[another two variables](graphs-traversals.html#syntax).
+[another two variables](aql/graphs-traversals.html#syntax).
 
 In above query, the traversal is restricted to a minimum and maximum traversal
 depth of 1 (how many steps to take from the start vertex), and to only follow
 edges in `OUTBOUND` direction. Our edges point from child to parent, and the
 parent is one step away from the child, thus it gives us the parents of the
 child we start at. `"Characters/2901776"` is that start vertex. Note that the
-document ID will be different for you, so please adjust it to your document ID
+document ID is different for you, so please adjust it to your document ID
 of e.g. the Bran Stark document:
 
 ```js
@@ -195,7 +197,7 @@ FOR c IN Characters
 [ "Characters/<YourDocumentkey>" ]
 ```
 
-You may also combine this query with the traversal directly, to easily change
+You may also combine this query with the traversal directly to easily change
 the start vertex by adjusting the filter condition(s):
 
 ```js
@@ -215,13 +217,13 @@ example query returns only the name of each parent to keep the result short:
 ]
 ```
 
-The same result will be returned for Robb, Arya and Sansa as starting point.
-For Jon Snow, it will only be Ned.
+The same result is returned for Robb, Arya and Sansa as a starting point.
+For Jon Snow, it is only Ned.
 
 Traverse to the children
 ------------------------
 
-We can also walk from a parent in reverse edge direction (`INBOUND` that is)
+We can also walk from a parent in the reverse edge direction (`INBOUND`)
 to the children:
 
 ```js
@@ -244,8 +246,8 @@ FOR c IN Characters
 Traverse to the grandchildren
 -----------------------------
 
-For the Lannister family, we have relations that span from parent to
-grandchild. Let's change the traversal depth to return grandchildren,
+For the Lannister family, we have relations that span from a parent to
+a grandchild. Let's change the traversal depth to return grandchildren,
 which means to go exactly two steps:
 
 ```js
@@ -266,7 +268,7 @@ It might be a bit unexpected, that Joffrey is returned twice. However, if you
 look at the graph visualization, you can see that multiple paths lead from
 Joffrey (bottom right) to Tywin:
 
-![ChildOf graph visualization](../images/ChildOf_Graph.png)
+![ChildOf graph visualization](images/ChildOf_Graph.png)
 
 ```
 Tywin <- Jaime <- Joffrey
@@ -275,7 +277,7 @@ Tywin <- Cersei <- Joffrey
 
 As a quick fix, change the last line of the query to `RETURN DISTINCT v.name`
 to return each value only once. Keep in mind though, that there are
-[traversal options](graphs-traversals.html#syntax) to suppress duplicate
+[traversal options](aql/graphs-traversals.html#syntax) to suppress duplicate
 vertices early on.
 
 Also check out the
@@ -286,7 +288,7 @@ and advanced graph queries.
 Traverse with variable depth
 ----------------------------
 
-To return the parents and grandparents of Joffrey, we can walk edges in
+To return the parents and grandparents of Joffrey, we can walk edges in the
 `OUTBOUND` direction and adjust the traversal depth to go at least 1 step,
 and 2 at most:
 

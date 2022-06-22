@@ -1,83 +1,80 @@
 ---
 layout: default
-description: Technical documentation for ArangoDB's core features and ecosystem
-title: Introduction to ArangoDB Documentation
-page-toc:
-  disable: true
+description: >-
+  ArangoDB is a scalable graph database system with native support for other
+  data models and a built-in search engine, for the cloud and on-premise
+title: Introduction to ArangoDB's Technical Documentation and Ecosystem
 redirect_from:
   - cookbook/index.html # 3.5 -> 3.5
   - cookbook/use-cases.html # 3.5 -> 3.5
 ---
-# ArangoDB {{ site.data.versions[page.version.name] }} Documentation
+# What is ArangoDB?
 
-Welcome to the ArangoDB documentation!
+ArangoDB is a scalable database management system for graphs, with a broad range
+of features and a rich ecosystem
+{:class="lead"}
 
-{% hint 'info' %}
-New and eager to try out ArangoDB? Start right away with our beginner's guide:
-[**Getting Started**](getting-started.html)
-{% endhint %}
+![ArangoDB Overview Diagram](images/arangodb-overview-diagram.png)
 
-## Structure
+It supports a variety of data access patterns with a single, composable query
+language thanks to its multi-model approach that combines the analytical power
+of graphs with JSON documents, a key-value store, and a built-in search engine.
 
-The documentation is organized in five handbooks:
+ArangoDB is available in an open-source and a commercial [edition](features.html),
+you can use it for on-premise deployments, as well as a fully managed
+[cloud service](oasis/).
 
-- This manual describes ArangoDB and its features in detail for you as a user,
-  developer and administrator.
-- The [AQL handbook](aql/) explains ArangoDB's query language AQL.
-- The [HTTP handbook](http/) describes the internal API of ArangoDB
-  that is used to communicate with clients. In general, the HTTP handbook will be
-  of interest to driver developers. If you use any of the existing drivers for
-  the language of your choice, you can skip this handbook.
-- The [Driver handbook](drivers/) includes the documentation of the
-  available official ArangoDB drivers and integrations, and an overview of the community
-  drivers.
-- The [ArangoDB Oasis handbook](oasis/) guides you through the user interface
-  of our cloud service to set up organizations, projects and deployments.
+## What are Graphs?
 
-Features are illustrated with interactive usage examples; you can cut'n'paste them
-into [arangosh](programs-arangosh.html) to try them out. The HTTP
-[REST-API](http/) for driver developers is demonstrated with cut'n'paste
-recipes intended to be used with the [cURL](http://curl.haxx.se){:target="_blank"}. Drivers may provide
-their own examples based on these .js based examples to improve understandability
-for their respective users, i.e. for the [java driver](https://github.com/arangodb/arangodb-java-driver#learn-more){:target="_blank"}
-some of the samples are re-implemented.
+Graphs are information networks comprised of nodes and relations.
 
-## Key Features
+![Node - Relation - Node](images/data-model-graph-relation-abstract.png)
 
-ArangoDB is a native multi-model, open-source database with flexible data models for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions. Use ACID transactions if you require them. Scale horizontally and vertically with a few mouse clicks.
+A social network is a common example of a graph. People are represented by nodes
+and their friendships by relations.
 
-Key features include:
+![Mary - is friend of - John](images/data-model-graph-relation-concrete.png)
 
-- Installing ArangoDB on a [**cluster**](deployment.html) is as easy as installing an app on your mobile
-- [**Flexible data modeling**](data-modeling.html): model your data as combination of key-value pairs, documents or graphs - perfect for social relations
-- [**Powerful query language**](aql/) (AQL) to retrieve and modify data 
-- Use ArangoDB as an [**application server**](foxx.html) and fuse your application and database together for maximal throughput
-- [**Transactions**](transactions.html): run queries on multiple documents or collections with optional transactional consistency and isolation
-- [**Replication** and **Sharding**](administration.html): set up the database in an Active Failover configuration or spread bigger datasets across multiple servers
-- Configurable **durability**: let the application decide if it needs more durability or more performance
-- No-nonsense storage: ArangoDB uses all of the power of **modern storage hardware**, like SSD and large caches
-- JavaScript for all: **no language zoo**, you can use one language from your browser to your back-end
-- ArangoDB can be easily deployed as a [**fault-tolerant distributed state machine**](deployment-standalone-agency.html), which can serve as the animal brain of distributed appliances
-- It is **open source** (Apache License 2.0)
+Nodes are also called vertices (singular: vertex), and relations are edges that
+connect vertices.
+A vertex typically represents a specific entity (a person, a book, a sensor
+reading, etc.) and an edge defines how one entity relates to another.
 
-## Community
+![Mary - bought - Book, is friend of - John](images/data-model-graph-relations.png)
 
-If you have questions regarding ArangoDB, Foxx, drivers, or this documentation don't hesitate to contact us on:
+This paradigm of storing data feels natural because it closely matches the
+cognitive model of humans. It is an expressive data model that allows you to
+represent many problem domains and solve them with semantic queries and graph
+analytics.
 
-- [GitHub](https://github.com/arangodb/arangodb/issues){:target="_blank"} for issues
-  and misbehavior or [pull requests](https://www.arangodb.com/community/){:target="_blank"}
-- [Google Groups](https://groups.google.com/forum/?hl=de#!forum/arangodb){:target="_blank"} for discussions about ArangoDB in general or to announce your new Foxx App
-- [StackOverflow](http://stackoverflow.com/questions/tagged/arangodb){:target="_blank"} for questions about AQL, usage scenarios etc.
-- [Slack](http://slack.arangodb.com){:target="_blank"}, our community chat
+## Beyond Graphs
 
-When reporting issues, please describe:
+Not everything is a graph use case. ArangoDB lets you equally work with
+structured, semi-structured, and unstructured data in the form of schema-free
+JSON objects, without having to connect these objects to form a graph.
 
-- the environment you run ArangoDB in
-- the ArangoDB version you use
-- whether you're using Foxx
-- the client you're using
-- which parts of the documentation you're working with (link)
-- what you expect to happen
-- what is actually happening
+![Person Mary, Book ArangoDB](images/data-model-document.png)
 
-We will respond as soon as possible.
+<!-- TODO:
+Seems too disconnected, what is the relation?
+Maybe multiple docs, maybe also include folders (collections)?
+-->
+
+Depending on your needs, you may mix graphs and unconnected data.
+ArangoDB is designed from the ground up to support multiple data models with a
+single, composable query language.
+
+```aql
+FOR book IN Books
+  FILTER book.title == "ArangoDB"
+  FOR person IN 2..2 INBOUND book Sales, OUTBOUND People
+    RETURN person.name
+```
+
+ArangoDB also comes with an integrated search engine for information retrieval,
+such as full-text search with relevance ranking.
+
+ArangoDB is written in C++ for high performance and built to work at scale, in
+the cloud or on-premise.
+
+<!-- deployment options, move from features page, on-prem vs cloud? -->

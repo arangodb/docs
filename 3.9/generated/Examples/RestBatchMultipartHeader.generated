@@ -37,7 +37,7 @@ EOF
 HTTP/1.1 200 OK
 content-type: multipart/form-data
 connection: Keep-Alive
-content-length: 2272
+content-length: 2274
 server: ArangoDB
 x-arango-errors: 1
 x-arango-queue-time-seconds: 0.000000
@@ -56,7 +56,7 @@ Content-Length: 60
 { 
   <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;arango&quot;</span>, 
   <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
-  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.9.2&quot;</span> 
+  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.9.3&quot;</span> 
 }&#x21A9;
 
 --SomeBoundaryValue
@@ -84,14 +84,14 @@ HTTP/1.1 200 OK
 Server: 
 Connection: Close 
 Content-Type: application/json; charset=utf-8
-Content-Length: 423
+Content-Length: 424
 
 { 
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">&quot;waitForSync&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
-  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h5B76ACE290B/66931&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h8F5F675C80EC/66931&quot;</span>, 
   <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;internalValidatorType&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;isSmartChild&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -121,7 +121,7 @@ Server:
 Location: /_db/_system/_api/collection/products/figures
 Connection: Close 
 Content-Type: application/json; charset=utf-8
-Content-Length: 542
+Content-Length: 543
 
 { 
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -131,7 +131,7 @@ Content-Length: 542
   <span class="hljs-string">&quot;syncByRevision&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
   <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">0</span>, 
-  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h5B76ACE290B/66931&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h8F5F675C80EC/66931&quot;</span>, 
   <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;internalValidatorType&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;isSmartChild&quot;</span> : <span class="hljs-literal">false</span>, 

@@ -17,11 +17,13 @@ This library works with all the non-EOLed [ArangoDB versions](https://www.arango
 
 ## Supported versions
 
-There are three variants of this library, each one compatible with different Spark and Scala versions:
+There are several variants of this library, each one compatible with different Spark and Scala versions:
 
 - `com.arangodb:arangodb-spark-datasource-2.4_2.11` (Spark 2.4, Scala 2.11)
 - `com.arangodb:arangodb-spark-datasource-2.4_2.12` (Spark 2.4, Scala 2.12)
 - `com.arangodb:arangodb-spark-datasource-3.1_2.12` (Spark 3.1, Scala 2.12)
+- `com.arangodb:arangodb-spark-datasource-3.2_2.12` (Spark 3.2, Scala 2.12)
+- `com.arangodb:arangodb-spark-datasource-3.2_2.13` (Spark 3.2, Scala 2.13)
 
 In the following sections the `${sparkVersion}` and `${scalaVersion}` placeholders refer to the Spark and Scala versions.
 
@@ -210,12 +212,12 @@ Spark 2.4 implementation supports all save modes with the following semantics:
 - `ErrorIfExists`: the target collection is created, if it does not exist, otherwise an `AnalysisException` is thrown.
 - `Ignore`: the target collection is created, if it does not exist, otherwise no write is performed.
 
-Spark 3.1 implementation supports:
+Spark 3 implementations support:
 - `Append`: the target collection is created, if it does not exist.
 - `Overwrite`: the target collection is created, if it does not exist, otherwise it is truncated. Use it in combination with the
   `confirmTruncate` write configuration parameter.
 
-In Spark 3.1, the `ErrorIfExists` and `Ignore` save modes behave the same as `Append`.
+In Spark 3 implementations, the `ErrorIfExists` and `Ignore` save modes behave the same as `Append`.
 
 Use the `overwriteMode` write configuration parameter to specify the document overwrite behavior (if a document with the same `_key` already exists).
 
@@ -223,6 +225,7 @@ Use the `overwriteMode` write configuration parameter to specify the document ov
 
 - `table`: target ArangoDB collection name (required)
 - `batchSize`: writing batch size, `10000` by default
+- `byteBatchSize`: byte batch size threshold, only considered for `contentType=json`, `8388608` by default (8 MB)
 - `table.shards`: number of shards of the created collection (in case of the `Append` or `Overwrite` SaveMode)
 - `table.type`: type (`document` or `edge`) of the created collection (in case of the `Append` or `Overwrite` SaveMode), `document` by default
 - `waitForSync`: specifies whether to wait until the documents have been synced to disk (`true` or `false`), `false` by default
@@ -248,7 +251,7 @@ Use the `overwriteMode` write configuration parameter to specify the document ov
 ### Write Resiliency
 
 The data of each partition is saved in batches using the ArangoDB API for [inserting multiple documents](../http/document-working-with-documents.html).
-This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator), if the provided configuration allows idempotent requests, namely: 
+This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another Coordinator), if the provided configuration allows idempotent requests, namely: 
 - the schema of the dataframe has a **not nullable** `_key` field and
 - `overwriteMode` is set to one of the following values:
   - `replace`
@@ -351,6 +354,7 @@ df.write
 - In read jobs using `stream=true` (default), possible AQL warnings are only logged at the end of each read task (BTS-671).
 - Spark SQL `DecimalType` fields are not supported in write jobs when using `contentType=json`.
 - Spark SQL `DecimalType` values are written to the database as strings.
+- `byteBatchSize` is only considered for `contentType=json` (DE-226)
 
 ## Demo
 

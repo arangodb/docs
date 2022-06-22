@@ -1174,6 +1174,34 @@
     "section" : "cluster",
     "type" : "boolean"
   },
+  "cluster.shard-synchronization-attempt-timeout" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 1200,
+    "deprecatedIn" : null,
+    "description" : "timeout (in seconds) for every shard synchronization attempt. running into the timeout will not lead to a synchronization failure, but will continue the synchronization shortly after. setting a timeout can help to split the replication of large shards into smaller chunks and release snapshots on the leader earlier",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.9.2"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "double"
+  },
   "cluster.synchronous-replication-timeout-factor" : {
     "category" : "option",
     "component" : [
@@ -1188,7 +1216,7 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
     "os" : [
@@ -1214,7 +1242,7 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
     ],
@@ -1242,7 +1270,7 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
     "os" : [
@@ -9052,6 +9080,31 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.use-range-delete-in-wal" : {
+    "category" : "option",
+    "component" : [
+      "dbserver"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "enable range delete markers in the write-ahead log (WAL). potentially incompatible with older arangosync versions",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.9.3"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",

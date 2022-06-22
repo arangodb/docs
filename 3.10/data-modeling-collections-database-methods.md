@@ -92,8 +92,9 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     The `traditional` key generator generates numerical keys in ascending order.
     The sequence of keys is not guaranteed to be gap-free.
     The `autoincrement` key generator generates numerical keys in ascending order, 
-    the inital offset and the spacing can be configured (**note**: *autoincrement* is currently only 
-    supported for non-sharded collections). 
+    the initial offset and the spacing can be configured (**note**: 
+    *autoincrement* is currently only supported for non-sharded or 
+    single-sharded collections). 
     The sequence of generated keys is not guaranteed to be gap-free, because a new key
     will be generated on every document insert attempt, not just for successful
     inserts.
@@ -111,8 +112,8 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     server deployments and for collections that only have a single shard (that includes
     collections in a OneShard database).
     The reason is that for collections with more than a single shard, document keys
-    are generated on coordinator(s). For collections with a single shard, the document
-    keys are generated on the leader DB server, which has full control over the key
+    are generated on Coordinator(s). For collections with a single shard, the document
+    keys are generated on the leader DB-Server, which has full control over the key
     sequence.
 
   - *allowUserKeys*: if set to *true*, then it is allowed to supply
