@@ -19,9 +19,9 @@ ArangoDB, as the foundation for GraphML, comes with the following key features:
 - **Open Source**: Extensibility and Community
 - **NLP Support**: Built-In Text Processing, Search, and Similarity Ranking
 
-![ArangoDB Architecture](images/ArangoDB-Architecture.png)
+![ArangoDB Machine Learning Architecture](images/machine-learning-architecture.png)
 
-## What is Graph AI?
+## Graph Analytics vs. GraphML
 
 This section classifies the complexity of the queries we can answer to - 
 like running a simple query that shows what is the path that goes from one node
@@ -58,9 +58,14 @@ GraphML can answer questions like
 
 ![Graph ML](images/graph-ml.png)
 
-## Graph Analytics vs. GraphML: Use Cases
+## Use Cases
 
-Graph Analytics consists of an analysys applied on graph-based data and has
+This section contains an overview of different use cases where Graph Analytics
+and GraphML can be applied.
+
+### Graph Analytics
+
+Graph Analytics consists of an analysis applied on graph-based data and has
 applicability in various fields such as marketing, fraud, supply chain,
 product recommendations, drug development, law enforcement, and cybersecurity.
 
@@ -72,16 +77,19 @@ is intended to help you gain analytical insights on
 your data, without having to use external processing systems.
 
 ArangoDB includes the following graph algorithms:
-- **Page Rank**: used for ranking documents in a graph
+- [Page Rank](#page-rank): used for ranking documents in a graph
 Search/Traversal
-- **Single-Source Shortest Path**: calculates the shortest path length between
- the source and all other vertices. For example, _How to get from a to b_
-- **Hyperlink-Induced Topic Search (HITS)**: a link analysis algorithm that
- rates Web pages
-- **Vertex Centrality**: identifies the most important nodes in a graph.
- For example, _Who are the influencers in a social network?_
-- **Community Detection**: identifies distinct subgroups within a
- community structure
+- [Single-Source Shortest Path](#single-source-shortest-path): calculates
+ the shortest path length between the source and all other vertices.
+ For example, _How to get from a to b_
+- [Hyperlink-Induced Topic Search (HITS)](#hyperlink-induced-topic-search-hits): 
+ a link analysis algorithm that rates Web pages
+- [Vertex Centrality](#vertex-centrality): identifies the most important
+ nodes in a graph. For example, _Who are the influencers in a social network?_
+- [Community Detection](#community-detection): identifies distinct subgroups
+ within a community structure
+
+### GraphML
 
 GraphML capabilities of using more data outperform conventional deep learning
 methods and **solve high-computational complexity graph problems**, such as: 
