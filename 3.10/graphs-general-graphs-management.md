@@ -124,9 +124,9 @@ The following edge definition options are supported:
 
 - `satellites` (array):
   An array of collection names that will be used to create [SatelliteCollections](satellites.html)
-  for a Hybrid (Disjoint) SmartGraph (Enterprise Edition only). Each array element
-  must be a string and a valid collection name. The collection type cannot be
-  modified later.
+  for a (Disjoint) SmartGraph using SatelliteCollections (Enterprise Edition only).
+  Each array element must be a string and a valid collection name. The collection
+  type cannot be modified later.
 
 Create a Graph
 --------------

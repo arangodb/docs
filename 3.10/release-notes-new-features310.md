@@ -217,8 +217,9 @@ It is now possible to test [SmartGraphs](graphs-smart-graphs.html) and
 [SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to
 port them to a cluster with multiple servers.
 
-You can create SmartGraphs, Disjoint SmartGraphs, Hybrid SmartGraphs,
-Hybrid Disjoint SmartGraphs, as well as SatelliteGraphs in the usual way, using
+You can create SmartGraphs, Disjoint SmartGraphs, SmartGraphs using 
+SatelliteCollections, Disjoint SmartGraphs using SatelliteCollections, as well
+as SatelliteGraphs in the usual way, using
 `arangosh` for instance, but on a single server, then dump them, start a cluster
 (with multiple servers) and restore the graphs in the cluster. The graphs and
 the collections will keep all properties that are kept when the graph is already

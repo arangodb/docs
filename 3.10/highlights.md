@@ -37,7 +37,7 @@ Also see [What's New in 3.10](release-notes-new-features310.html).
 
 **Enterprise Edition**
 
-- [**Hybrid (Disjoint) SmartGraphs**](graphs-smart-graphs.html):
+- [**(Disjoint) SmartGraphs using SatelliteCollections**](graphs-smart-graphs.html):
   SatelliteCollections can be used in (Disjoint) SmartGraphs to enable more
   local execution of graph queries.
 

@@ -12,17 +12,17 @@ SmartGraphs are specifically targeted at graphs that need scalability and high p
 
 Most graphs have one feature - a value that is stored in every vertex - that divides the entire graph into several smaller subgraphs. These subgraphs have a large amount of edges that only connect vertices in the same subgraph and only have few edges connecting vertices from other subgraphs. If this feature is known, SmartGraphs can make use if it.
 
-Examples for these graphs are:
+Examples for such graphs are:
 
 - **Social Networks**<br>
   Typically the feature here is the region/country users live in.
-  Every user has more contacts in the same region/country then in other regions/countries.
+  Every user has more contacts in the same region/country than in other regions/countries.
 
 - **Transport Systems**<br>
-  For transport systems, the common feature is the region/country. You have many local transportation but only few across countries.
+  For transport systems, the common feature is the region/country. There are many local connections, but only a few go across countries.
 
 - **E-Commerce**<br>
-  In this case, the category of products is a good feature. Often, products of the same category are bought together.
+  In this case, the category of products is a good feature. Products of the same category are often bought together.
 
 In terms of querying there is no difference between SmartGraphs and
 General Graphs.
@@ -69,7 +69,7 @@ _The outcome of moving the data like this is that you retain the scalability as 
 These SmartGraphs are capable of using [SatelliteCollections](satellites.html) within their graph
 definition. Therefore, edge definitions defined between SmartCollections and
 SatelliteCollections can be created. As SatelliteCollections (and the edge
-collections between SmartGraph collections and SatelliteCollection) are globally
+collections between SmartGraph collections and SatelliteCollections) are globally
 replicated to each participating DB-Server, (weighted) graph traversals and
 (k-)shortest path(s) queries can partially be executed locally on each
 DB-Server. This means a larger part of the query can be executed fully local
