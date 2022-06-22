@@ -192,6 +192,11 @@ for how long passwords are valid. ArangoDB Oasis can automatically change the
 
 ## How to create a private endpoint deployment
 
+ArangoDB Oasis deployments running on Microsoft Azure or AWS can be changed
+to private endpoint deployments. Follow the steps outlined below to get started.
+
+### Microsoft Azure
+
 Microsoft Azure offers a feature called
 [Azure Private Link](https://docs.microsoft.com/en-us/azure/private-link){:target="_blank"}
 that allows you to limit communication between different Azure servers and
@@ -236,6 +241,67 @@ contact support via __Request help__ in the help menu.
    to create Private Endpoints using this alias. The number of established
    **Connections** will increase and you can view the connection details by
    clicking it.
+
+### Amazon Web Services (AWS)
+
+AWS offers a feature called [AWS PrivateLink](https://aws.amazon.com/privatelink){:target="_blank"}
+that enables you to privately connect your Virtual Private Cloud (VPC) to
+services, without exposure to the internet. You can control the specific API
+endpoints, sites, and services that are reachable from your VPC.
+
+Amazon VPC allows you to launch AWS resources into a
+virtual network that you have defined. It closely resembles a traditional
+network that you would normally operate, with the benefits of using the AWS
+scalable infrastructure. 
+
+In ArangoDB Cloud, you can
+[create a regular deployment](#how-to-create-a-new-deployment) and change it
+to a private endpoint deployment afterwards.
+
+The ArangoDB private endpoint deployment will not be exposed to public internet anymore, other than via
+the Oasis dashboard to administrate it. To revert it to a public deployment,
+please contact the support team via __Request help__ in the help menu.
+
+To configure a private endpoint for AWS, you need to provide the AWS principals related
+to your VPC. The ArangoDB Oasis platform configures a private endpoint service
+that automatically connects to private endpoints that are created in those principals. 
+
+1. Open the deployment you want to change.
+2. In the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
+   icon. If you see a pencil icon and no menu opens, then you are either on the
+   free-to-try or professional tier, or the selected deployment is not eligible.
+   {% hint 'info' %}
+   The private endpoint option is only available on the enterprise tier for
+   deployments running on AWS.
+   {% endhint %}
+3. Click **Change to private endpoint** in the menu.
+   ![Oasis Deployment AWS Change to Private Endpoint](images/oasis-aws-change-to-private-endpoint.png)
+4. In the configuration wizard, click **Next** to enter your configuration details.
+5. Click **Add Principal** to start configuring the AWS principal(s). 
+   You need to enter a valid account, which is your 12 digit AWS account ID.
+   Adding usernames or role names is optional. You can also
+   skip this step and add them later from the summary view.
+   {% hint 'info' %}
+   Principals cannot be changed anymore once a connection has been established.
+   {% endhint %}
+   ![Oasis AWS Private Endpoint Configure Principals](images/oasis-aws-endpoint-configure-principals.png)
+6. You may enter one or more Alternate DNS names. This step is optional, you can 
+   add or change them later. Click **Next** to continue.
+   ![Oasis AWS Private Endpoint Alternate DNS](images/oasis-aws-private-endpoint-dns.png)
+7. Confirm that you want to use a private endpoint for your deployment by
+   clicking **Confirm Settings**.
+8. Back in the **Overview** tab, scroll down to the **Private Endpoint** section
+   that is now displayed to see the connection status and change the
+   configuration, if needed.
+   ![Oasis AWS Private Endpoint Overview](images/oasis-aws-private-endpoint-overview.png)
+   {% hint 'tip' %}
+   To learn more or request help from the Oasis support team, click **Help**
+   in the top right corner of the **Private Endpoint** section.
+   {% endhint %}
+9. Oasis will configure a private endpoint service. As soon as this is available,
+   you can use it in the AWS portal to create an interface endpoint to connect
+   to your endpoint service. For more details, see
+   [How to connect to an endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html#share-endpoint-service){:target="_blank"}.
 
 ## How to delete a deployment
 

@@ -2636,7 +2636,7 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "if true, return the 'x-arango-queue-time-seconds' response header",
+    "description" : "if true, return the 'x-arango-queue-time-seconds' header in responses",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -6519,6 +6519,179 @@
     "section" : "",
     "type" : "string"
   },
+  "pregel.max-parallelism" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : 36,
+    "deprecatedIn" : null,
+    "description" : "maximum parallelism usable in a Pregel job",
+    "dynamic" : true,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "pregel",
+    "type" : "uint64"
+  },
+  "pregel.memory-mapped-files" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "use memory mapped files for storing Pregel temporary data (as opposed to storing in RAM) if nothing is specifed in a Pregel job",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "pregel",
+    "type" : "boolean"
+  },
+  "pregel.memory-mapped-files-custom-path" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "custom path for Pregel's temporary files (only used if `--pregel.memory-mapped-files-location` is 'custom')",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "pregel",
+    "type" : "string"
+  },
+  "pregel.memory-mapped-files-location-type" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : "temp-directory",
+    "deprecatedIn" : null,
+    "description" : "location for Pregel's temporary files",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "pregel",
+    "type" : "string",
+    "values" : "Possible values: \"custom\", \"database-directory\", \"temp-directory\""
+  },
+  "pregel.min-parallelism" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "minimum parallelism usable in a Pregel job",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "pregel",
+    "type" : "uint64"
+  },
+  "pregel.parallelism" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : 9,
+    "deprecatedIn" : null,
+    "description" : "default parallelism to use in a Pregel job if none is specified",
+    "dynamic" : true,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "pregel",
+    "type" : "uint64"
+  },
   "query.allow-collections-in-expressions" : {
     "category" : "option",
     "component" : [
@@ -7631,7 +7804,6 @@
   "rocksdb.allow-fallocate" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7660,7 +7832,6 @@
   "rocksdb.block-align-data-blocks" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7688,7 +7859,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7719,7 +7889,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7749,7 +7918,6 @@
   "rocksdb.cache-index-and-filter-blocks" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7778,7 +7946,6 @@
   "rocksdb.cache-index-and-filter-blocks-with-high-priority" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7804,11 +7971,38 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.checksum-type" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "xxHash64",
+    "deprecatedIn" : null,
+    "description" : "checksum type to use for table files",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "string",
+    "values" : "Possible values: \"XXH3\", \"crc32c\", \"xxHash\", \"xxHash64\""
+  },
   "rocksdb.compaction-read-ahead-size" : {
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7834,6 +8028,35 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
+  },
+  "rocksdb.compression-type" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "snappy",
+    "deprecatedIn" : null,
+    "description" : "compression algorithm to use within RocksDB",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "string",
+    "values" : "Possible values: \"lz4\", \"lz4hc\", \"none\", \"snappy\""
   },
   "rocksdb.create-sha-files" : {
     "category" : "option",
@@ -7889,7 +8112,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7919,7 +8141,6 @@
   "rocksdb.dynamic-level-bytes" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -7972,10 +8193,37 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.enable-index-compression" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enable index compression",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.enable-pipelined-write" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8002,7 +8250,6 @@
   "rocksdb.enable-statistics" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8196,7 +8443,6 @@
   "rocksdb.enforce-block-cache-size-limit" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8223,7 +8469,6 @@
   "rocksdb.exclusive-writes" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8250,6 +8495,39 @@
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
+  },
+  "rocksdb.format-version" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "table format version to use inside RocksDB",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 4294967295,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint32",
+    "values" : "Possible values: 3, 4, 5"
   },
   "rocksdb.intermediate-commit-count" : {
     "base" : 1,
@@ -8317,7 +8595,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8348,7 +8625,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8379,7 +8655,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8409,7 +8684,6 @@
   "rocksdb.limit-open-files-at-startup" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8439,7 +8713,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8470,7 +8743,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8501,7 +8773,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8565,7 +8836,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8596,7 +8866,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8658,7 +8927,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8953,7 +9221,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -8986,7 +9253,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9079,7 +9345,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9110,7 +9375,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9141,7 +9405,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9172,7 +9435,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9202,7 +9464,6 @@
   "rocksdb.optimize-filters-for-hits" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9231,6 +9492,7 @@
     "category" : "option",
     "component" : [
       "dbserver",
+      "agent",
       "single"
     ],
     "default" : 131072,
@@ -9262,6 +9524,7 @@
     "category" : "option",
     "component" : [
       "dbserver",
+      "agent",
       "single"
     ],
     "default" : 17179869184,
@@ -9291,7 +9554,6 @@
   "rocksdb.pin-l0-filter-and-index-blocks-in-cache" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9320,7 +9582,6 @@
   "rocksdb.pin-top-level-index-and-filter" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9346,10 +9607,37 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.prepopulate-block-cache" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "prepopulate block cache on flushes",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.recycle-log-file-num" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9362,6 +9650,62 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.reserve-table-builder-memory" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "account for table building memory in block cache",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.reserve-table-reader-memory" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "account for table reader memory in block cache",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9438,7 +9782,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9449,7 +9792,7 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
@@ -9469,7 +9812,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9502,7 +9844,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9746,7 +10087,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9777,7 +10117,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9810,7 +10149,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9890,7 +10228,6 @@
   "rocksdb.use-file-logging" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9917,7 +10254,6 @@
   "rocksdb.use-fsync" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -9954,7 +10290,7 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.10.0"
+      "v3.9.3"
     ],
     "obsolete" : false,
     "os" : [
@@ -9999,7 +10335,6 @@
   "rocksdb.wal-directory" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -10083,7 +10418,6 @@
   "rocksdb.wal-recovery-skip-corrupted" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -10111,7 +10445,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -10338,6 +10671,35 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "uint64"
+  },
+  "server.early-connections" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "allow requests to limited APIs early during server startup",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
   },
   "server.endpoint" : {
     "category" : "option",

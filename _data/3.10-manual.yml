@@ -1,25 +1,91 @@
+- subtitle: GETTING STARTED
 - text: Introduction
   href: index.html
-- text: Highlights
-  href: highlights.html
-- subtitle: GETTING FAMILIAR
-- text: Getting Started
-  href: getting-started.html
   children:
-    - text: Installation
-      href: getting-started-installation.html
-    - text: Authentication
-      href: getting-started-authentication.html
-    - text: Web Interface
-      href: getting-started-web-interface.html
-    - text: 'Databases, Collections and Documents'
-      href: getting-started-databases-collections-documents.html
-    - text: Querying the Database
-      href: getting-started-querying-the-database.html
+    - text: Use Cases
+      href: use-cases.html
+- text: Features
+  href: features.html
+  children:
+    - text: Community Edition
+      href: features-community-edition.html
+    - text: Enterprise Edition
+      href: features-enterprise-edition.html
+    - text: Highlights by Version
+      href: highlights.html
+- text: Quick Start Guide
+  href: quick-start-guide.html
+  children:
+    - text: In the Cloud
+      href: quick-start-in-the-cloud.html
+    - text: On-Premise
+      href: quick-start-on-premise.html
+    - text: How to Interact with ArangoDB
+      href: how-to-interact-with-arangodb.html
+    - text: AQL Query Language Tutorial
+      href: aql-tutorial.html
+      children:
+        - text: Basic CRUD
+          href: aql-tutorial-crud.html
+        - text: Matching documents
+          href: aql-tutorial-filter.html
+        - text: Sorting and limiting
+          href: aql-tutorial-sort-limit.html
+        - text: Joining together
+          href: aql-tutorial-join.html
+        - text: Graph traversal
+          href: aql-tutorial-traversal.html
+        - text: Geospatial queries
+          href: aql-tutorial-geospatial.html
     - text: Coming from SQL
-      href: getting-started-coming-from-sql.html
-    - text: Next Steps
-      href: getting-started-next-steps.html
+      href: quick-start-coming-from-sql.html
+- text: Data Model & Concepts
+  href: data-model-and-concepts.html
+  children:
+    - text: Databases
+      href: data-modeling-databases.html
+      children:
+        - text: Working with Databases
+          href: data-modeling-databases-working-with.html
+        - text: Notes about Databases
+          href: data-modeling-databases-notes.html
+    - text: Collections
+      href: data-modeling-collections.html
+      children:
+        - text: Collection Methods
+          href: data-modeling-collections-collection-methods.html
+        - text: Database Methods
+          href: data-modeling-collections-database-methods.html
+    - text: Documents
+      href: data-modeling-documents.html
+      children:
+        - text: Basics and Terminology
+          href: data-modeling-documents-document-address.html
+        - text: Collection Methods
+          href: data-modeling-documents-document-methods.html
+        - text: Database Methods
+          href: data-modeling-documents-database-methods.html
+        - text: Schema Validation
+          href: data-modeling-documents-schema-validation.html
+    - text: Views
+      href: data-modeling-views.html
+      children:
+        - text: Database Methods
+          href: data-modeling-views-database-methods.html
+        - text: View Methods
+          href: data-modeling-views-view-methods.html
+    - text: Naming Conventions
+      href: data-modeling-naming-conventions.html
+      children:
+        - text: Database Names
+          href: data-modeling-naming-conventions-database-names.html
+        - text: Collection and View Names
+          href: data-modeling-naming-conventions-collection-and-view-names.html
+        - text: Document Keys
+          href: data-modeling-naming-conventions-document-keys.html
+        - text: Attribute Names
+          href: data-modeling-naming-conventions-attribute-names.html
+- subtitle: CORE TOPICS
 - text: Tutorials
   href: tutorials.html
   children:
@@ -217,55 +283,6 @@
       children:
         - text: Details
           href: programs-foxx-cli-details.html
-- subtitle: CORE TOPICS
-- text: Data Model & Concepts
-  href: data-modeling-concepts.html
-  children:
-    - text: Databases
-      href: data-modeling-databases.html
-      children:
-        - text: Working with Databases
-          href: data-modeling-databases-working-with.html
-        - text: Notes about Databases
-          href: data-modeling-databases-notes.html
-    - text: Collections
-      href: data-modeling-collections.html
-      children:
-        - text: Collection Methods
-          href: data-modeling-collections-collection-methods.html
-        - text: Database Methods
-          href: data-modeling-collections-database-methods.html
-    - text: Documents
-      href: data-modeling-documents.html
-      children:
-        - text: Basics and Terminology
-          href: data-modeling-documents-document-address.html
-        - text: Collection Methods
-          href: data-modeling-documents-document-methods.html
-        - text: Database Methods
-          href: data-modeling-documents-database-methods.html
-        - text: Schema Validation
-          href: data-modeling-documents-schema-validation.html
-    - text: 'Graphs, Vertices & Edges'
-      href: data-modeling-graphs-vertices-edges.html
-    - text: Views
-      href: data-modeling-views.html
-      children:
-        - text: Database Methods
-          href: data-modeling-views-database-methods.html
-        - text: View Methods
-          href: data-modeling-views-view-methods.html
-    - text: Naming Conventions
-      href: data-modeling-naming-conventions.html
-      children:
-        - text: Database Names
-          href: data-modeling-naming-conventions-database-names.html
-        - text: Collection and View Names
-          href: data-modeling-naming-conventions-collection-and-view-names.html
-        - text: Document Keys
-          href: data-modeling-naming-conventions-document-keys.html
-        - text: Attribute Names
-          href: data-modeling-naming-conventions-attribute-names.html
 - text: Modeling Data
   href: data-modeling.html
   children:
