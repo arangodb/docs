@@ -77,16 +77,16 @@ is intended to help you gain analytical insights on
 your data, without having to use external processing systems.
 
 ArangoDB includes the following graph algorithms:
-- [Page Rank](#page-rank): used for ranking documents in a graph
+- [Page Rank](graphs-pregel.html#page-rank): used for ranking documents in a graph
 Search/Traversal
-- [Single-Source Shortest Path](#single-source-shortest-path): calculates
+- [Single-Source Shortest Path](graphs-pregel.html#single-source-shortest-path): calculates
  the shortest path length between the source and all other vertices.
  For example, _How to get from a to b_
-- [Hyperlink-Induced Topic Search (HITS)](#hyperlink-induced-topic-search-hits): 
+- [Hyperlink-Induced Topic Search (HITS)](graphs-pregel.html#hyperlink-induced-topic-search-hits): 
  a link analysis algorithm that rates Web pages
-- [Vertex Centrality](#vertex-centrality): identifies the most important
+- [Vertex Centrality](graphs-pregel.html#vertex-centrality): identifies the most important
  nodes in a graph. For example, _Who are the influencers in a social network?_
-- [Community Detection](#community-detection): identifies distinct subgroups
+- [Community Detection](graphs-pregel.html#community-detection): identifies distinct subgroups
  within a community structure
 
 ### GraphML
