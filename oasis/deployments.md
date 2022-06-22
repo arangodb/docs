@@ -200,6 +200,10 @@ The private endpoint feature is only available on the enterprise tier for
 deployments running on Microsoft Azure and Amazon Web Services (AWS).
 {% endhint %}
 
+{% hint 'tip' %}
+Private endpoints on Microsoft Azure can be cross region; in AWS they should be located in the same region.
+{% endhint %}
+
 ### Microsoft Azure
 
 Microsoft Azure offers a feature called
