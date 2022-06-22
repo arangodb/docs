@@ -414,18 +414,18 @@ graphs. The algorithm assigns a community, more precisely, a Community ID
 The idea is that each vertex should be in the community that most of
 its neighbors are in. 
 
-The algorithm, first, assigns unique initial Community ID's to the vertices. 
+At first, the algorithm assigns unique initial Community IDs to the vertices. 
 There is no guarantee that a vertex obtains the same initial 
-ID in two different runs of the algorithm even if the graph does not change
+ID in two different runs of the algorithm, even if the graph does not change
 (although, it may often happen). Moreover, there is no guarantee on a particular
-distribution of the initial ID's over the vertices.
+distribution of the initial IDs over the vertices.
 
 Then, in each iteration, a vertex sends its current Community
-ID to all its neighbor vertices. Then each vertex adopts the Community ID it
+ID to all its neighbor vertices. After that each vertex adopts the Community ID it
 received most frequently in the last step. If a vertex obtains more than one
-most frequent ID's, it chooses the least one. Moreover, if no ID arrived more 
+most frequent IDs, it chooses the one with the lowest number. If no ID arrived more 
 than once and the ID of the vertex from the previous step is less than the
-least obtained ID, the old ID is kept. 
+lowest obtained ID number, the old ID is kept. 
 
 The algorithm runs until it converges, which likely never really happens on
 large graphs. Therefore you need to specify a maximum iteration bound.
@@ -433,7 +433,7 @@ The default bound is 500 iterations, which is too large for
 common applications. 
 
 The algorithm should work best on undirected graphs. On directed
-graphs, the resulting partition into communities might change if the number 
+graphs, the resulting partition into communities might change, if the number 
 of performed steps changes. How strong the dependence is
 may be influenced by the density of the graph.
 
