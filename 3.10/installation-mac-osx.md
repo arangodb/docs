@@ -12,9 +12,9 @@ You can install ArangoDB on macOS in different ways:
 - [_DMG_ Package](#package-installation)
 - [_tar.gz_ Archive](#installing-using-the-archive)
 
-{% hint 'info' %}
-Version 3.10 has native ARM support and can run on Apple's
-M1 chips.
+{% hint 'tip' %}
+Starting from version 3.10.0, ArangoDB has native support for the ARM
+architecture and can run on Apple silicon (e.g. M1 chips).
 {% endhint %}
 
 Homebrew
