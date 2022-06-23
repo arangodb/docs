@@ -408,7 +408,6 @@ based on common location, interests, occupation, etc.
 
 #### Label Propagation
 
-
 *Label Propagation* can be used to implement community detection on large
 graphs. The algorithm assigns a community, more precisely, a Community ID 
 (a natural number), to every vertex in the graph. 
