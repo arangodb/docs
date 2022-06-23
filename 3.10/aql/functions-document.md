@@ -629,8 +629,8 @@ Merge a list of two documents with the same top-level attribute, combining the
     @EXAMPLE_AQL{aqlMergeRecursive_2}
     RETURN MERGE_RECURSIVE(
       [
-        { "user-1": { "name": "Jane", "livesIn": { "city": "LA" } } }
-        { "user-1": { "age": 42, "livesIn": { "city": "NY" } } },
+        { "user-1": { "name": "Jane", "livesIn": { "city": "LA" } } },
+        { "user-1": { "age": 42, "livesIn": { "city": "NY" } } }
       ]
     )
     @END_EXAMPLE_AQL
