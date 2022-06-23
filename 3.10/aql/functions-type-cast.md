@@ -38,7 +38,7 @@ boolean value.
 
 It's also possible to use double negation to cast to boolean:
 
-```js
+```aql
 !!1 // true
 !!0 // false
 !!-0.0 // false
@@ -68,20 +68,19 @@ Take an input *value* of any type and convert it into a numeric value.
     result of `TO_NUMBER()` for its sole member. An array with two or more members is
     converted to the number *0*.
   - An object / document is converted to the number *0*.
-  
-    A unary plus will also cast to a number, but `TO_NUMBER()` is the preferred way:
-    ```js
-+'5' // 5
-+[8] // 8
-+[8,9] // 0
-+{} // 0
+  - A unary plus will also cast to a number, but `TO_NUMBER()` is the preferred way:
+    ```aql
+    +'5' // 5
+    +[8] // 8
+    +[8,9] // 0
+    +{} // 0
     ```
-    A unary minus works likewise, except that a numeric value is also negated:
-    ```js
--'5' // -5
--[8] // -8
--[8,9] // 0
--{} // 0
+  - A unary minus works likewise, except that a numeric value is also negated:
+    ```aql
+    -'5' // -5
+    -[8] // -8
+    -[8,9] // 0
+    -{} // 0
     ```
 
 ### TO_STRING()
@@ -99,7 +98,7 @@ Take an input *value* of any type and convert it into a string value.
   - Arrays and objects / documents are converted to string representations,
     which means JSON-encoded strings with no additional whitespace
 
-```js
+```aql
 TO_STRING(null) // ""
 TO_STRING(true) // "true"
 TO_STRING(false) // "false"
@@ -126,7 +125,7 @@ Take an input *value* of any type and convert it into an array value.
   - Objects / documents are converted to an array containing their attribute
     **values** as array elements, just like [VALUES()](functions-document.html#values)
 
-```js
+```aql
 TO_ARRAY(null) // []
 TO_ARRAY(false) // [false]
 TO_ARRAY(true) // [true]

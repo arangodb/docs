@@ -12,9 +12,12 @@ allowed but will be skipped. Using this format, the documents are imported
 line-wise.
 
 Example input data:
-    { "_key": "key1", ... }
-    { "_key": "key2", ... }
-    ...
+
+```js
+{ "_key": "key1", ... }
+{ "_key": "key2", ... }
+...
+```
 
 To use this method, the *type* query parameter should be set to *documents*.
 

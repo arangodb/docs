@@ -49,7 +49,7 @@ module.exports = greeting;
 
 Then require it in the shell in order to register a user-defined function:
 
-```
+```js
 arangosh> var func = require("path/to/file.js");
 arangosh> aqlfunctions.register("HUMAN::GREETING", func, true);
 ```
@@ -134,7 +134,7 @@ In the example above, `%s` is replaced by `this.name` (the AQL function name),
 and both `%d` placeholders by `1` (number of expected arguments). If you call
 the function without an argument, you will see this:
 
-```
+```js
 arangosh> db._query("RETURN MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT()")
 [object ArangoQueryCursor, count: 1, hasMore: false, warning: 1541 - invalid
 number of arguments for function 'MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT()',

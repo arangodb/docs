@@ -161,7 +161,7 @@ The result field names depend on the algorithm in both cases.
 For example, you might want to query only nodes with the highest rank from the
 result set of a PageRank execution:
 
-```js
+```aql
 FOR v IN PREGEL_RESULT(<handle>)
   FILTER v.result >= 0.01
   RETURN v._key
@@ -174,7 +174,7 @@ sufficient to tell vertices from different collections apart. In  this case,
 `PREGEL_RESULT()` can be given a second parameter `withId`, which will make it
 return the `_id` values of the vertices as well:
 
-```js
+```aql
 FOR v IN PREGEL_RESULT(<handle>, true)
   FILTER v.result >= 0.01
   RETURN v._id

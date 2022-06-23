@@ -46,7 +46,7 @@ analyzers.save("norm_en", "norm", { locale: "en.utf-8", accent: false, case: "lo
 Match movie title, ignoring capitalization and using the base characters
 instead of accented characters (full string):
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title == TOKENS("thé mäTRïX", "norm_en")[0], "norm_en")
   RETURN doc.title
@@ -58,7 +58,7 @@ FOR doc IN imdb
 
 Match a title prefix (case-insensitive):
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, "the matr"), "norm_en")
   RETURN doc.title

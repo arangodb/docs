@@ -17,7 +17,7 @@ query that iterates over a range.
 Run the following AQL query e.g. from the _AQL Editor_ in the web interface
 to insert 1,000 documents into the collection:
 
-```js
+```aql
 FOR i IN 1..1000
   INSERT { name: CONCAT("test", i) } IN myCollection
 ```
@@ -33,7 +33,7 @@ a `status` attribute, and fill it with integer values between `1` to `5`
 (inclusive), with equal distribution. A good way to achieve this is to use
 the modulo operator (`%`):
 
-```js
+```aql
 FOR i IN 1..1000
   INSERT {
     name: CONCAT("test", i),
@@ -48,7 +48,7 @@ numbers, and `FLOOR()` to convert the scaled number back to an integer.
 For example, the following query populates the `value` attribute with numbers
 between 100 and 150 (inclusive):
 
-```js
+```aql
 FOR i IN 1..1000
   INSERT {
     name: CONCAT("test", i),
@@ -60,7 +60,7 @@ After the test data has been created, it is often helpful to verify it. The
 `RAND()` function is also a good candidate for retrieving a random sample of
 the documents in the collection. This query will retrieve 10 random documents:
 
-```js
+```aql
 FOR doc IN myCollection
   SORT RAND()
   LIMIT 10
@@ -71,7 +71,7 @@ The `COLLECT` clause is an easy mechanism to run an aggregate analysis on some
 attribute. Let us say we wanted to verify the data distribution inside the
 `status` attribute. In this case we could run:
 
-```js
+```aql
 FOR doc IN myCollection
   COLLECT value = doc.value WITH COUNT INTO count
   RETURN {
@@ -87,7 +87,7 @@ key, the count as attribute value and merge everything into a single result
 object. Note that attribute keys can only be strings, but for our purposes here
 it is acceptable.
 
-```js
+```aql
 RETURN MERGE(
   FOR doc IN myCollection
     COLLECT value = doc.value WITH COUNT INTO count

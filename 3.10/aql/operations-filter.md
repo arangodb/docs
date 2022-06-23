@@ -25,7 +25,7 @@ true, the current element is not skipped and can be further processed.
 See [Operators](operators.html) for a list of comparison operators, logical
 operators etc. that you can use in conditions.
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true && u.age < 39
   RETURN u
@@ -36,7 +36,7 @@ the same block. If multiple `FILTER` statements are used, their results will be
 combined with a logical `AND`, meaning all filter conditions must be true to
 include an element.
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   FILTER u.age < 39
@@ -57,7 +57,7 @@ for a description of the impact of non-existent or null attributes.
 While `FILTER` typically occurs in combination with `FOR`, it can also be used
 at the top level or in subqueries without a surrounding `FOR` loop.
 
-```js
+```aql
 FILTER false
 RETURN ASSERT(false, "never reached")
 ```
@@ -69,7 +69,7 @@ Note that the positions of `FILTER` statements can influence the result of a que
 There are 16 active users in the [test data](examples.html#example-data)
 for instance:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   RETURN u
@@ -77,7 +77,7 @@ FOR u IN users
 
 We can limit the result set to 5 users at most:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   LIMIT 5
@@ -89,7 +89,7 @@ instance. Which ones are returned is undefined, since there is no `SORT` stateme
 to ensure a particular order. If we add a second `FILTER` statement to only return
 women...
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   LIMIT 5
@@ -103,7 +103,7 @@ and not all of them fulfill the gender criterion, even though there are more tha
 5 active female users in the collection. A more deterministic result can be achieved
 by adding a `SORT` block:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   SORT u.age ASC
@@ -116,7 +116,7 @@ This will return the users *Mariah* and *Mary*. If sorted by age in `DESC` order
 then the Sophia, Emma and Madison documents are returned. A `FILTER` after a
 `LIMIT` is not very common however, and you probably want such a query instead:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true AND u.gender == "f"
   SORT u.age ASC

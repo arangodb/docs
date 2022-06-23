@@ -46,7 +46,7 @@ collection.
 Find out all genre values by grouping by the `genre` attribute and count the
 number of occurrences:
 
-```js
+```aql
 FOR doc IN imdb
   COLLECT genre = doc.genre WITH COUNT INTO count
   RETURN { genre, count }
@@ -69,7 +69,7 @@ not need to be indexed for this query.
 To look up a specific genre, the field needs to be indexed. The lookup itself
 utilizes the View index, but the `COLLECT` operation is still a post-operation:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.genre == "Action", "identity")
   COLLECT WITH COUNT INTO count
@@ -87,7 +87,7 @@ can enable that can accurately determine the count from index data faster than
 the standard `COLLECT`. Also see
 [Count Approximation](arangosearch-performance.html#count-approximation).
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.genre == "Action", "identity")
   OPTIONS { countApproximate: "cost" }
@@ -99,7 +99,7 @@ To apply this optimization to the faceted search paradigm over all genres, you
 can run and **cache** the following query that determines all unique genre
 values:
 
-```js
+```aql
 FOR doc IN imdb
   RETURN DISTINCT doc.genre
 ```
@@ -112,7 +112,7 @@ acceptable tradeoff for a faceted search.
 You can then use the genre list to look up each genre and retrieve the count
 while utilizing the count approximation optimization:
 
-```js
+```aql
 LET genres = [ "Action", "Adventure", "Animation", /* ... */ ]
 FOR genre IN genres
   LET count = FIRST(

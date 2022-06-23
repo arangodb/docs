@@ -21,7 +21,7 @@ somewhere else and pass it to your `arangod` cluster instance via
 
 The data directory is configured in `arangod.conf`:
 
-```
+```conf
 [database]
 directory = /var/lib/arangodb3
 ```
@@ -31,7 +31,7 @@ as the standalone instance. If that is not already the case, change the
 `database.directory` entry in `arangod.conf` as seen above to a different
 directory
 
-```
+```conf
 # in arangod.conf:
 [database]
 directory = /var/lib/arangodb3.standalone
@@ -39,7 +39,7 @@ directory = /var/lib/arangodb3.standalone
 
 and create it with the correct permissions:
 
-```
+```bash
 $ mkdir -vp /var/lib/arangodb3.standalone
 $ chown -c arangodb:arangodb /var/lib/arangodb3.standalone
 $ chmod -c 0700 /var/lib/arangodb3.standalone
@@ -51,14 +51,14 @@ The standalone instance must use a different socket, i.e. it cannot use the
 same port on the same network interface than the Cluster. For that, change the
 standalone instance's port in `/etc/arangodb3/arangod.conf`
 
-```
+```conf
 [server]
 endpoint = tcp://127.0.0.1:8529
 ```
 
 to something unused, e.g.
 
-```
+```conf
 [server]
 endpoint = tcp://127.1.2.3:45678
 ```
@@ -76,14 +76,14 @@ In addition, the installation might overwrite your _init_ script otherwise.
 
 If you have previously changed the default _init_ script, move it out of the way
 
-```
+```bash
 $ mv -vi /etc/init.d/arangodb3 /etc/init.d/arangodb3.cluster
 ```
 
 and add it to the _autostart_; how this is done depends on your distribution and
 _init_ system. On older Debian and Ubuntu systems, you can use `update-rc.d`:
 
-```
+```bash
 $ update-rc.d arangodb3.cluster defaults
 ```
 

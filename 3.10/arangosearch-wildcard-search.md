@@ -72,7 +72,7 @@ escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
 Match all titles that starts with `The Matr` using `LIKE()`,
 where `_` stands for a single wildcard character and `%` for an arbitrary amount:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(LIKE(doc.title, "The Matr%"), "identity")
   RETURN doc.title
@@ -88,7 +88,7 @@ FOR doc IN imdb
 
 You can achieve the same with the `STARTS_WITH()` function:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, "The Matr"), "identity")
   RETURN doc.title
@@ -96,7 +96,7 @@ FOR doc IN imdb
 
 Match all titles that contain `Mat` using `LIKE()`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(LIKE(doc.title, "%Mat%"), "identity")
   RETURN doc.title
@@ -118,7 +118,7 @@ FOR doc IN imdb
 
 Match all titles that end with `rix` using `LIKE()`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(LIKE(doc.title, "%rix"), "identity")
   RETURN doc.title
@@ -138,7 +138,7 @@ Match all titles that have an `H` as first letter, followed by two arbitrary
 characters, followed by `ry` and any amount of characters after that. It will
 match titles starting with `Harry` and `Henry`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(LIKE(doc.title, "H__ry%"), "identity")
   RETURN doc.title
@@ -156,7 +156,7 @@ FOR doc IN imdb
 Use a bind parameter as input, but escape the characters with special meaning
 and perform a contains-style search by prepending and appending a percent sign:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(LIKE(doc.title, CONCAT("%", SUBSTITUTE(@term, ["_", "%"], ["\\_", "\\%"]), "%")), "identity")
   RETURN doc.title

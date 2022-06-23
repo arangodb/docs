@@ -709,7 +709,7 @@ can be returned in a horizontal list. This will return each user at most once.
 
 The AQL query for doing so is:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true LIMIT 0, 4
   RETURN {
@@ -764,7 +764,7 @@ list of related users.
 To not only return friend ids but also the names of friends, we could "join" the
 *users* collection once more (something like a "self join"):
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   LIMIT 0, 4
@@ -822,7 +822,7 @@ users collection.
 
 Lets find the lonely people in our database - those without friends.
 
-```js
+```aql
 
 FOR user IN users
   LET friendList = (
@@ -866,7 +866,7 @@ Since we're free of schemata, there is by default no way to tell the format of t
 documents. So, if your documents don't contain an attribute, it defaults to
 null. We can however check our data for accuracy like this:
 
-```js
+```aql
 RETURN LENGTH(FOR u IN users FILTER u.userId == null RETURN 1)
 ```
 
@@ -876,7 +876,7 @@ RETURN LENGTH(FOR u IN users FILTER u.userId == null RETURN 1)
 ]
 ```
 
-```js
+```aql
 RETURN LENGTH(FOR f IN relations FILTER f.friendOf == null RETURN 1)
 ```
 
