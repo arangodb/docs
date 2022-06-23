@@ -423,7 +423,7 @@ distribution of the initial IDs over the vertices.
 Then, in each iteration, a vertex sends its current Community
 ID to all its neighbor vertices. After that each vertex adopts the Community ID it
 received most frequently in the last step. If a vertex obtains more than one
-most frequent IDs, it chooses the one with the lowest number. If no ID arrived more 
+most frequent IDs, it chooses the lowest number (as IDs are numbers). If no ID arrived more 
 than once and the ID of the vertex from the previous step is less than the
 lowest obtained ID number, the old ID is kept. 
 
