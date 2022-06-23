@@ -77,10 +77,10 @@ the application path. The filesystem layout could look like this:
 apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
   _db/                  # sub-directory containing database-specific applications
-    <database-dir>/    # sub-directory for a single database
+    <database-dir>/     # sub-directory for a single database
       <mountpoint>/APP  # sub-directory for a single application
       <mountpoint>/APP  # sub-directory for a single application
-    <database-dir>/    # sub-directory for another database
+    <database-dir>/     # sub-directory for another database
       <mountpoint>/APP  # sub-directory for a single application
 ```
 

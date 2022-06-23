@@ -32,7 +32,7 @@ a `_key` attribute. If no `_key` attribute is provided, ArangoDB will auto-gener
 a value for `_key` value. Inserting a document will also auto-generate a document
 revision number for the document.
 
-```js
+```aql
 FOR i IN 1..100
   INSERT { value: i } INTO numbers
 ```
@@ -40,14 +40,14 @@ FOR i IN 1..100
 An insert operation can also be performed without a `FOR` loop to insert a
 single document:
 
-```js
+```aql
 INSERT { value: 1 } INTO numbers
 ```
 
 When inserting into an [edge collection](../appendix-glossary.html#edge-collection),
 it is mandatory to specify the attributes `_from` and `_to` in document:
 
-```js
+```aql
 FOR u IN users
   FOR p IN products
     FILTER u._key == p.recommendedBy
@@ -65,7 +65,7 @@ be provided in an `INSERT` operation.
 `ignoreErrors` can be used to suppress query errors that may occur when
 violating unique key constraints:
 
-```js
+```aql
 FOR i IN 1..1000
   INSERT {
     _key: CONCAT('test', i),
@@ -79,7 +79,7 @@ FOR i IN 1..1000
 To make sure data are durable when an insert query returns, there is the
 `waitForSync` query option:
 
-```js
+```aql
 FOR i IN 1..1000
   INSERT {
     _key: CONCAT('test', i),
@@ -99,7 +99,7 @@ If you want to replace existing documents with documents having the same key
 there is the `overwrite` query option. This will let you safely replace the
 documents instead of raising a "unique constraint violated error":
 
-```js
+```aql
 FOR i IN 1..1000
   INSERT {
     _key: CONCAT('test', i),
@@ -142,7 +142,7 @@ When using the `update` overwrite mode, the `keepNull` and `mergeObjects`
 options control how the update is done.
 See [UPDATE operation](operations-update.html#query-options).
 
-```js
+```aql
 FOR i IN 1..1000
   INSERT {
     _key: CONCAT('test', i),
@@ -162,7 +162,7 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this effect on a per query basis:
 
-```js
+```aql
 FOR doc IN collection
   INSERT { myval: doc.val + 1 } INTO users 
   OPTIONS { exclusive: true }
@@ -180,14 +180,14 @@ The documents contained in `NEW` will contain all attributes, even those auto-ge
 the database (e.g. `_id`, `_key`, `_rev`).
 
 
-```js
+```aql
 INSERT document INTO collection RETURN NEW
 ```
 
 Following is an example using a variable named `inserted` to return the inserted
 documents. For each inserted document, the document key is returned:
 
-```js
+```aql
 FOR i IN 1..100
   INSERT { value: i }
   INTO users

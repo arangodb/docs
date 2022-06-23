@@ -19,7 +19,7 @@ There are two slightly different syntaxes for traversals in AQL, one for
 
 ### Working with named graphs
 
-```
+```aql
 [WITH vertexCollection1[, vertexCollection2[, ...vertexCollectionN]]]
 FOR vertex[, edge[, path]]
   IN [min[..max]]
@@ -156,7 +156,7 @@ number, then the query is aborted with an error.
 
 ### Working with collection sets
 
-```
+```aql
 [WITH vertexCollection1[, vertexCollection2[, ...vertexCollectionN]]]
 FOR vertex[, edge[, path]]
   IN [min[..max]]
@@ -186,7 +186,7 @@ no relevance but in *edges1* and *edges3* the direction should be taken into acc
 In this case you can use `OUTBOUND` as general traversal direction and `ANY`
 specifically for *edges2* as follows:
 
-```
+```aql
 FOR vertex IN OUTBOUND
   startVertex
   edges1, ANY edges2, edges3

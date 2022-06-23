@@ -860,7 +860,7 @@ attributes:
   removing tokens that contain non-printable characters. To encode UTF-8
   strings to hex strings you can use e.g.
   - AQL:
-    ```js
+    ```aql
     FOR token IN ["and","the"] RETURN TO_HEX(token)
     ```
   - arangosh / Node.js:
@@ -1005,16 +1005,17 @@ The *properties* allowed for this Analyzer are an object with the following attr
 
 **Examples**
 
-Create and use a `classification` Analyzer with a stored "cooking" classifier to classify items.
+Create and use a `classification` Analyzer with a stored "cooking" classifier
+to classify items.
 
 ```js
 var analyzers = require("@arangodb/analyzers");
 var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
 var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
-db._query(`LET str = 'Which baking dish is best to bake a banana bread ?'
+db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
     RETURN {
-      "all": TOKENS(str, 'classifier_single'),
-      "double": TOKENS(str, 'classifier_double')
+      "all": TOKENS(str, "classifier_single"),
+      "double": TOKENS(str, "classifier_double")
     }
   `);
 ```
@@ -1061,16 +1062,17 @@ The *properties* allowed for this Analyzer are an object with the following attr
 
 **Examples**
 
-Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier to find similar terms.
+Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier
+to find similar terms.
 
 ```js
 var analyzers = require("@arangodb/analyzers");
 var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
 var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
-db._query(`LET str = 'salt, oil'
+db._query(`LET str = "salt, oil"
     RETURN {
-      "all": TOKENS(str, 'nn_single'),
-      "double": TOKENS(str, 'nn_double')
+      "all": TOKENS(str, "nn_single"),
+      "double": TOKENS(str, "nn_double")
     }
   `);
 ```

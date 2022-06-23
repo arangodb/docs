@@ -142,7 +142,7 @@ operation. It will be used as a hint for the document lookup that is performed
 as part of the `UPSERT` operation, and can help in cases such as `UPSERT` not
 picking the best index automatically.
 
-```js
+```aql
 UPSERT { a: 1234 }
   INSERT { a: 1234, name: "AB"}
   UPDATE {name: "ABC"} IN myCollection
@@ -162,7 +162,7 @@ Added three decay functions to AQL:
 Decay functions calculate a score with a function that decays depending on the
 distance of a numeric value from a user given origin.
 
-```js
+```aql
 DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
 DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
 DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
@@ -178,7 +178,7 @@ distance (named `L2_DISTANCE`):
 - [L1_DISTANCE()](aql/functions-numeric.html#l1_distance)
 - [L2_DISTANCE()](aql/functions-numeric.html#l2_distance)
 
-```js
+```aql
 COSINE_SIMILARITY([0,1], [1,0]) // 0
 L1_DISTANCE([-1,-1], [2,2]) // 6
 L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606
@@ -197,7 +197,7 @@ first and only produce the remaining paths.
 
 For example, the query
 
-```js
+```aql
 FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
   FILTER v.isRelevant == true
   RETURN p
@@ -210,7 +210,7 @@ This optimization is now part of the existing `optimize-traversals` rule and
 you will see the conditions under `Filter / Prune Conditions` in the query
 explain output (`` FILTER (v.`isRelevant` == true) `` in this example):
 
-```js
+```aql
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
@@ -240,7 +240,7 @@ is returned, but only a specific sub-attribute of the path is used later
 
 For example, the query
 
-```js
+```aql
 FOR v, e, p IN 1..3 OUTBOUND @start GRAPH "myGraph"
   RETURN p.vertices
 ```
@@ -249,7 +249,7 @@ only requires the buildup of the `vertices` sub-attribute of the path result `p`
 but not the buildup of the `edges` sub-attribute. The optimization can be
 observed in the query explain output:
 
-```js
+```aql
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
@@ -284,7 +284,7 @@ Added an option to store the `PRUNE` expression as a variable. Now, the `PRUNE`
 condition can be stored in a variable and be used later in the query without
 having to repeat the `PRUNE` condition:
 
-```js
+```aql
 FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
   PRUNE pruneCondition = v.isRelevant == true
   FILTER pruneCondition
@@ -301,7 +301,7 @@ See [Pruning](aql/graphs-traversals.html#pruning).
 Invalid use of `OPTIONS` in AQL queries will now raise a warning when the query
 is parsed. This is useful to detect misspelled attribute names in `OPTIONS`, e.g.
 
-```js
+```aql
 INSERT ... INTO collection
   OPTIONS { overwrightMode: 'ignore' } /* should have been 'overwriteMode' */
 ```
@@ -309,7 +309,7 @@ INSERT ... INTO collection
 It is also useful to detect the usage of valid `OPTIONS` attribute names that
 are used at a wrong position in the query, e.g.
 
-```js
+```aql
 FOR doc IN collection
   FILTER doc.value == 1234
   INSERT doc INTO other
@@ -368,7 +368,7 @@ In some rare cases, an AQL query can be executed faster if it ignores indexes.
 You can force the optimizer not use an index for any given `FOR`
 loop by setting the new `disableIndex` hint to `true`:
 
-```js
+```aql
 FOR doc IN collection OPTIONS { disableIndex: true }
   FILTER doc.value <= 99
   RETURN doc.other
@@ -389,7 +389,7 @@ Such projections are typically faster as long as there are not too many of them
 but it depends on the number of attributes and their size. The new `maxProjections`
 hint lets you adjust the threshold to fine-tune your queries.
 
-```js
+```aql
 FOR doc IN collection OPTIONS { maxProjections: 7 }
   RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
 ```

@@ -18,7 +18,7 @@ qualified to also include the user-defined namespace. The `::` symbol is used
 as the namespace separator. Users can create a multi-level hierarchy of function
 groups if required:
 
-```js
+```aql
 MYGROUP::MYFUNC()
 MYFUNCTIONS::MATH::RANDOM()
 ```

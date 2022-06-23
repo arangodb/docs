@@ -3,10 +3,10 @@
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 826
+content-length: 841
 location: /_db/_system/_api/collection/testCollection/shards
 server: ArangoDB
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s57\":[\"PRMR-c96dbc18-b255-43e5-9b44-e2158e0decf9\",\"PRMR-7d7ada41-f551-46b6-a907-2a651f89049d\"],\"s58\":[\"PRMR-7d7ada41-f551-46b6-a907-2a651f89049d\",\"PRMR-c96dbc18-b255-43e5-9b44-e2158e0decf9\"],\"s59\":[\"PRMR-c96dbc18-b255-43e5-9b44-e2158e0decf9\",\"PRMR-7d7ada41-f551-46b6-a907-2a651f89049d\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"globallyUniqueId\":\"c56/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"numberOfShards\":3,\"id\":\"56\",\"minReplicationFactor\":1,\"internalValidatorType\":0,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s10056\":[\"PRMR-72186503-d940-4f4f-bffd-ce92a1790cd0\",\"PRMR-b449df9f-db04-4aec-8f0d-a8a4c2da0b9c\"],\"s10057\":[\"PRMR-b449df9f-db04-4aec-8f0d-a8a4c2da0b9c\",\"PRMR-72186503-d940-4f4f-bffd-ce92a1790cd0\"],\"s10058\":[\"PRMR-72186503-d940-4f4f-bffd-ce92a1790cd0\",\"PRMR-b449df9f-db04-4aec-8f0d-a8a4c2da0b9c\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"globallyUniqueId\":\"c10055/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"numberOfShards\":3,\"id\":\"10055\",\"minReplicationFactor\":1,\"internalValidatorType\":0,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"

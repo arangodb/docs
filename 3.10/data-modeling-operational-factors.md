@@ -126,7 +126,7 @@ option together with a modification operation. Either let ArangoDB compare
 the `_rev` value and  only succeed if they still match, or let ArangoDB
 ignore them (default):
 
-```js
+```aql
 FOR i IN 1..1000
   UPDATE { _key: CONCAT('test', i), _rev: "1287623" }
   WITH { foobar: true } IN users
@@ -292,7 +292,7 @@ You may use the _exclusive_ query option for modifying AQL queries, to improve t
 This has the downside that no concurrent writes may occur on the collection, but ArangoDB is able
 to use a special fast-path which should improve the performance by up to 50% for large collections.
 
-```js
+```aql
 FOR doc IN mycollection
   UPDATE doc._key
   WITH { foobar: true } IN mycollection

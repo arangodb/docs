@@ -61,7 +61,7 @@ installation.
 For unattended installations, you can set the password using the
 [debconf helpers](http://www.microhowto.info/howto/perform_an_unattended_installation_of_a_debian_package.html){:target="_blank"}:
 
-```
+```bash
 echo arangodb3 arangodb3/password password NEWPASSWORD | debconf-set-selections
 echo arangodb3 arangodb3/password_again password NEWPASSWORD | debconf-set-selections
 ```
@@ -75,7 +75,7 @@ installation. The generated random password is printed during the installation.
 Please write it down somewhere, or change it to a password of your choice by
 executing:
 
-```
+```bash
 ARANGODB_DEFAULT_ROOT_PASSWORD=NEWPASSWORD arango-secure-installation
 ```
 

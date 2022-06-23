@@ -573,14 +573,14 @@ The ArangoDB deployments need some very minimal access rights. With the
 deployment of the operator, we grant the following rights for the `default`
 service account:
 
-```
+```yaml
 rules:
-- apiGroups:
-  - ""
+  - apiGroups:
+    - ""
   resources:
-  - pods
+    - pods
   verbs:
-  - get
+    - get
 ```
 
 If you are using a different service account, please grant these rights

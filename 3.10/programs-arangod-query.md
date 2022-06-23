@@ -155,7 +155,7 @@ likely unintended.
 
 For example, consider the query
 
-```js
+```aql
 FOR doc IN collection RETURN collection
 ```
 

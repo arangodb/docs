@@ -191,7 +191,7 @@ mistakes that we see quite often:
 
 Bad example:
 
-```js
+```aql
 LET vertices = (
   FOR v IN 1..2 ANY @startVertex GRAPH 'my_graph'
     // <-- add a LIMIT 1 here
@@ -217,7 +217,7 @@ edge in _pruchased_ to zero or more _products_.
 If we want to know all users that have purchased the product _playstation_
 as well as produts of `type` _legwarmer_ we could use this query:
 
-```js
+```aql
 FOR prod IN products
   FILTER prod.type == 'legwarmer'
   FOR v,e,p IN 2..2 OUTBOUND prod purchased
@@ -230,7 +230,7 @@ for each of them. But we could also inverse the traversal by starting of with
 the known _playstation_ product. This way we only need a single traversal
 to achieve the same result:
 
-```js
+```aql
 FOR v,e,p IN 2..2 OUTBOUND 'product/playstation' purchased
   FILTER v.type == 'legwarmer' // <-- last vertex of the path
   RETURN p.vertices[1] // <-- the user

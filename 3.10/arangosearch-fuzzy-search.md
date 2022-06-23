@@ -160,7 +160,7 @@ There are the following AQL string functions to calculate the
 - [NGRAM_SIMILARITY()](aql/functions-string.html#ngram_similarity)
 - [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
 
-```js
+```aql
 RETURN [
   LEVENSHTEIN_DISTANCE("galaxy", "glaaxy"),           // 1 (with transpositions)
   NGRAM_SIMILARITY("avocado", "vocals", 3)            // 0.5 (using trigrams)
@@ -226,7 +226,7 @@ Levenshtein distance equal to or lower than this value will be a match and the
 respective documents will be included in the search result. The query will find
 the token `galaxy` as the edit distance to `galxy` is `1`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(
     LEVENSHTEIN_MATCH(
@@ -293,7 +293,7 @@ not including the original string:
 
 Search for actor names with an _n_-gram similarity of at least 50%.
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH NGRAM_MATCH(
     doc.name,

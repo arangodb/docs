@@ -26,7 +26,7 @@ string value, any array (even an empty array) or any object / document. Addition
 string value (even an empty string) will always be greater than any numeric
 value, a boolean value, *true* or *false*.
 
-```js
+```aql
     null  <  false
     null  <  true
     null  <  0
@@ -98,7 +98,7 @@ If an array element is itself a compound value (an array or an object / document
 comparison algorithm will check the element's sub values recursively. The element's
 sub-elements are compared recursively.
 
-```js
+```aql
 [ ]  <  [ 0 ]
 [ 1 ]  <  [ 2 ]
 [ 1, 2 ]  <  [ 2 ]
@@ -123,7 +123,7 @@ unambiguous comparison result. If an unambiguous comparison result is found, the
 comparison is finished. If there is no unambiguous comparison result, the two
 compared objects / documents are considered equal.
 
-```js
+```aql
 { }  ==  { "a" : null }
 
 { }  <  { "a" : 1 }

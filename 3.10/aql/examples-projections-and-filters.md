@@ -10,7 +10,7 @@ Returning unaltered documents
 
 To return three complete documents from collection *users*, the following query can be used:
 
-```js
+```aql
 FOR u IN users 
   LIMIT 0, 3
   RETURN u
@@ -60,7 +60,7 @@ Projections
 
 To return a projection from the collection *users* use a modified `RETURN` instruction:
 
-```js
+```aql
 FOR u IN users 
   LIMIT 0, 3
   RETURN { 
@@ -101,7 +101,7 @@ To return a filtered projection from collection *users*, you can use the
 `FILTER` keyword. Additionally, a `SORT` clause is used to have the result
 returned in a specific order:
 
-```js
+```aql
 FOR u IN users 
   FILTER u.active == true && u.age >= 30
   SORT u.age DESC

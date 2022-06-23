@@ -133,7 +133,7 @@ known to not benefit from using using the cache, you may turn off the usage of
 the cache for individual query parts. This can be achieved
 via the `useCache` hint that can be provided to an AQL `FOR` loop:
 
-```js
+```aql
 FOR doc IN collection OPTIONS { useCache: false }
   FILTER doc.value == @lookup
   ...
