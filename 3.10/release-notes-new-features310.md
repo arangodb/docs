@@ -9,6 +9,13 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.10. ArangoDB 3.10 also contains several bug fixes that are not listed
 here.
 
+Native ARM Support
+------------------
+
+ArangoDB is now available for the ARM architecture, in addition to the x86-64
+architecture. It can run on Apple silicon (e.g. M1 chips) without emulation.
+It also runs on other ARM chips under Linux and Windows for ARM.
+
 ArangoSearch
 ------------
 

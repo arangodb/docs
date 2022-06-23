@@ -11,8 +11,9 @@ Version 3.10
 
 **All Editions**
 
--
-
+- [Native ARM Support](release-notes-new-features310.html#native-arm-support):
+  Packages for the ARM architecture are now available, including native support
+  for Apple silicon.
 
 **Enterprise Edition**
 
