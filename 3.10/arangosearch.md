@@ -105,7 +105,7 @@ logical and comparison operators, as well as
    get processed by the default `identity` Analyzer, which means that they
    get indexed unaltered.
 7. Click on _QUERIES_ in the main navigation and try the following query:
-   ```js
+   ```aql
    FOR doc IN food_view
      RETURN doc
    ```
@@ -113,7 +113,7 @@ logical and comparison operators, as well as
    (indexed) documents. You should see the documents stored in `food` as result.
 8. Now add a search expression. Unlike with regular collections where you would
    use `FILTER`, a `SEARCH` operation is needed to utilize the View index:
-   ```js
+   ```aql
    FOR doc IN food_view
      SEARCH doc.name == "avocado"
      RETURN doc
@@ -136,7 +136,7 @@ with one of the Analyzers that a field was indexed with as per the View
 definition - and this happened to be the case. We can rewrite the query to be
 more explicit about the Analyzer context:
 
-```js
+```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.name == "avocado", "identity")
   RETURN doc
@@ -160,7 +160,7 @@ variants of the [`EXISTS()` function](aql/functions-arangosearch.html#exists).
 The prerequisite for this is that you change `"storeValues"` in the View
 definition from `"none"` to `"id"`. You can then run a query as shown below:
 
-```js
+```aql
 RETURN LENGTH(
   FOR doc IN food_view
     SEARCH EXISTS(doc.name, "analyzer", "identity")
@@ -237,7 +237,7 @@ English text.
    with the `text_en` Analyzer in addition to the `identity` Analyzer.
 3. Run below query that sets `text_en` as context Analyzer and searches for
    the word `pepper`:
-   ```js
+   ```aql
    FOR doc IN food_view
      SEARCH ANALYZER(doc.name == "pepper", "text_en")
      RETURN doc.name
@@ -245,7 +245,7 @@ English text.
 4. It matches `chili pepper` because the Analyzer tokenized it into `chili` and
    `pepper` and the latter matches the search criterion. Compare that to the
    `identity` Analyzer:
-   ```js
+   ```aql
    FOR doc IN food_view
      SEARCH ANALYZER(doc.name == "pepper", "identity")
      RETURN doc.name
@@ -253,7 +253,7 @@ English text.
    It does not match because `chili pepper` is indexed as a single token that
    does not match the search criterion.
 5. Switch back to the `text_en` Analyzer but with a different search term:
-   ```js
+   ```aql
    FOR doc IN food_view
      SEARCH ANALYZER(doc.name == "PéPPêR", "text_en")
      RETURN doc.name
@@ -263,7 +263,7 @@ English text.
    The problem is that this transformation is applied to the document attribute
    when it gets indexed, but we haven't applied it to the search term.
 6. If we apply the same transformation then we get a match:
-   ```js
+   ```aql
    FOR doc IN food_view
      SEARCH ANALYZER(doc.name == TOKENS("PéPPêR", "text_en")[0], "text_en")
      RETURN doc.name
@@ -282,7 +282,7 @@ expressions.
 ArangoSearch AQL functions take either an expression or a reference of an
 attribute path as first argument.
 
-```js
+```aql
 ANALYZER(<expression>, …)
 STARTS_WITH(doc.attribute, …)
 ```
@@ -291,7 +291,7 @@ If an expression is expected, it means that search conditions can expressed in
 AQL syntax. They are typically function calls to ArangoSearch search functions,
 possibly nested and/or using logical operators for multiple conditions.
 
-```js
+```aql
 ANALYZER(STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom"), "identity")
 ```
 
@@ -304,7 +304,7 @@ which the field was indexed.
 It can be easier and cleaner to use `ANALYZER()` even if you exclusively
 use functions that take an Analyzer argument and leave that argument out:
 
-```js
+```aql
 // Analyzer specified in each function call
 PHRASE(doc.name, "chili pepper", "text_en") OR PHRASE(doc.name, "tomato", "text_en")
 
@@ -323,7 +323,7 @@ Certain expressions do not require any ArangoSearch functions, such as basic
 comparisons. However, the Analyzer used for searching will be `"identity"`
 unless `ANALYZER()` is used to set a different one.
 
-```js
+```aql
 // The "identity" Analyzer will be used by default
 SEARCH doc.name == "avocado"
 
@@ -340,7 +340,7 @@ which attribute you want to test for as an unquoted string literal. For example
 `doc.attr` or `doc.deeply.nested.attr` but not `"doc.attr"`. You can also use
 the bracket notation `doc["attr"]`.
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH STARTS_WITH(doc.deeply.nested["attr"], "avoca")
   RETURN doc
@@ -359,7 +359,7 @@ available.
 Here is an example that sorts results from high to low BM25 score and also
 returns the score:
 
-```js
+```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.type == "vegetable", "identity")
   SORT BM25(doc) DESC
@@ -377,7 +377,7 @@ passed to the [`BM25()` function](aql/functions-arangosearch.html#bm25).
 
 The [`TFIDF()` function](aql/functions-arangosearch.html#tfidf) works the same:
 
-```js
+```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.type == "vegetable", "identity")
   SORT TFIDF(doc) DESC
@@ -464,13 +464,13 @@ following example document:
 The View will automatically index `apple pie`, processed with the `identity` and
 `text_en` Analyzers, and it can then be queried like this:
 
-```js
+```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.value.nested.deep == "apple pie", "identity")
   RETURN doc
 ```
 
-```js
+```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.value.nested.deep IN TOKENS("pie", "text_en"), "text_en")
   RETURN doc
@@ -505,7 +505,7 @@ A View that is configured to index the field `value` including sub-fields
 will index the individual numbers under the path `value.nested.deep`, which
 you can query for like:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH doc.value.nested.deep == 2
   RETURN doc
@@ -515,7 +515,7 @@ This is different to `FILTER` operations, where you would use an
 [array comparison operator](aql/operators.html#array-comparison-operators)
 to find an element in the array:
 
-```js
+```aql
 FOR doc IN collection
   FILTER doc.value.nested.deep ANY == 2
   RETURN doc
@@ -524,14 +524,14 @@ FOR doc IN collection
 You can set `trackListPositions` to `true` if you want to query for a value
 at a specific array index:
 
-```js
+```aql
 SEARCH doc.value.nested.deep[1] == 2
 ```
 
 With `trackListPositions` enabled there will be **no match** for the document
 anymore if the specification of an array index is left out in the expression:
 
-```js
+```aql
 SEARCH doc.value.nested.deep == 2
 ```
 
@@ -545,13 +545,13 @@ For example, given the field `text` is analyzed with `"text_en"` and contains
 the string `"a quick brown fox jumps over the lazy dog"`, the following
 expression will be true:
 
-```js
+```aql
 ANALYZER(doc.text == 'fox', "text_en")
 ```
 
 Note that the `"text_en"` Analyzer stems the words, so this is also true:
 
-```js
+```aql
 ANALYZER(doc.text == 'jump', "text_en")
 ```
 
@@ -565,14 +565,14 @@ any element of the array. For example, given:
 
 … the following will be true:
 
-```js
+```aql
 ANALYZER(doc.text == 'jump', "text_en")
 ```
 
 With `trackListPositions: true` you would need to specify the index of the
 array element `"jumps over the"` to be true:
 
-```js
+```aql
 ANALYZER(doc.text[2] == 'jump', "text_en")
 ```
 

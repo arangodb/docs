@@ -38,7 +38,7 @@ Note that deeper nested objects are ignored. For example, a fulltext index on
 structure:
 
 ```js
-{ translations: { en: { US: "fox" }, de: "Fuchs" }
+{ translations: { en: { US: "fox" }, de: "Fuchs" } }
 ```
 
 If you need to search across multiple fields and/or nested objects, you may write

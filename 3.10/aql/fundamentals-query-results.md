@@ -17,7 +17,7 @@ For example, when returning data from a collection with inhomogeneous documents
 without modification, the result values will as well have an inhomogeneous
 structure. Each result value itself is a document:
 
-```js
+```aql
 FOR u IN users
     RETURN u
 ```
@@ -34,7 +34,7 @@ However, if a fixed set of attributes from the collection is queried, then the
 query result values will have a homogeneous structure. Each result value is
 still a document:
 
-```js
+```aql
 FOR u IN users
     RETURN { "id": u.id, "name": u.name }
 ```
@@ -50,7 +50,7 @@ FOR u IN users
 It is also possible to query just scalar values. In this case, the result set
 is an array of scalars, and each result value is a scalar value:
 
-```js
+```aql
 FOR u IN users
     RETURN u.id
 ```

@@ -13,7 +13,7 @@ ArangoSearch. Conceptually, a View is just another document data source,
 similar to an array or a document/edge collection, over which you can iterate
 using a [FOR operation](operations-for.html) in AQL:
 
-```js
+```aql
 FOR doc IN viewName
   RETURN doc
 ```
@@ -109,7 +109,7 @@ Also see the [`IN_RANGE()` function](functions-arangosearch.html#in_range) for
 an alternative to a combination of `<`, `<=`, `>`, `>=` operators for range
 searches.
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
   // -- or --
@@ -130,7 +130,7 @@ Also see [Known Issues](../release-notes-known-issues310.html#arangosearch).
 [Array comparison operators](operators.html#array-comparison-operators) are
 supported (introduced in v3.6.0):
 
-```js
+```aql
 LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
 FOR doc IN myView SEARCH tokens  ALL IN doc.text RETURN doc // dynamic conjunction
 FOR doc IN myView SEARCH tokens  ANY IN doc.text RETURN doc // dynamic disjunction
@@ -188,7 +188,7 @@ For example, given a collection `myCol` with the following documents:
 
 … a search on `someAttr` yields the following result:
 
-```js
+```aql
 FOR doc IN myView
   SEARCH doc.someAttr == "One"
   RETURN doc
@@ -201,7 +201,7 @@ FOR doc IN myView
 A search on `anotherAttr` yields an empty result because only `someAttr`
 is indexed by the View:
 
-```js
+```aql
 FOR doc IN myView
   SEARCH doc.anotherAttr == "One"
   RETURN doc
@@ -222,7 +222,7 @@ The documents emitted from a View can be sorted by attribute values with the
 standard [SORT() operation](operations-sort.html), using one or multiple
 attributes, in ascending or descending order (or a mix thereof).
 
-```js
+```aql
 FOR doc IN viewName
   SORT doc.text, doc.value DESC
   RETURN doc
@@ -245,7 +245,7 @@ Therefore the ArangoSearch scoring functions can work _only_ on documents
 emitted from a View, as both the corresponding `SEARCH` expression and the View
 itself are consulted in order to sort the results.
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ...
   SORT BM25(doc) DESC
@@ -290,7 +290,7 @@ Given a View with three linked collections `coll1`, `coll2` and `coll3` it is
 possible to return documents from the first two collections only and ignore the
 third using the `collections` option:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH true OPTIONS { collections: ["coll1", "coll2"] }
   RETURN doc

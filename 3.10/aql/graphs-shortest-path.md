@@ -50,7 +50,7 @@ collections (anonymous graph).
 
 ### Working with named graphs
 
-```
+```aql
 FOR vertex[, edge]
   IN OUTBOUND|INBOUND|ANY SHORTEST_PATH
   startVertex TO targetVertex
@@ -88,7 +88,7 @@ number, then the query is aborted with an error.
 
 ### Working with collection sets
 
-```
+```aql
 FOR vertex[, edge]
   IN OUTBOUND|INBOUND|ANY SHORTEST_PATH
   startVertex TO targetVertex
@@ -109,7 +109,7 @@ has no relevance, but in *edges1* and *edges3* the direction should be taken int
 account. In this case you can use `OUTBOUND` as general search direction and `ANY`
 specifically for *edges2* as follows:
 
-```
+```aql
 FOR vertex IN OUTBOUND SHORTEST_PATH
   startVertex TO targetVertex
   edges1, ANY edges2, edges3

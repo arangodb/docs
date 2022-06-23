@@ -27,7 +27,7 @@ Local Tests
 If you only want a local test Cluster, you can run a single _Starter_ with the 
 `--starter.local` argument. It will start a 3 "machine" Cluster on your local PC:
 
-```
+```bash
 arangodb --starter.local --starter.data-dir=./localdata --auth.jwt-secret=/etc/arangodb.secret
 ```
 
@@ -42,7 +42,7 @@ Multiple Machines
 If you want to start a Cluster using the _Starter_, you need to copy the _secret_ file to every machine
 and start the Cluster using the following command:
 
-```
+```bash
 arangodb --server.storage-engine=rocksdb --auth.jwt-secret=/etc/arangodb.secret --starter.data-dir=./data --starter.join A,B,C
 ```
 
@@ -61,7 +61,7 @@ Using the ArangoDB Starter in Docker
 ------------------------------------
 
 The _Starter_ can also be used to launch Clusters based on _Docker_ containers:
-   
+
 ```bash
 export IP=<IP of docker host>
 docker volume create arangodb

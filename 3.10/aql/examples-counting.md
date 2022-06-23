@@ -11,7 +11,7 @@ Amount of documents in a collection
 To return the count of documents that currently exist in a collection,
 you can call the [LENGTH() function](functions-array.html#length):
 
-```
+```aql
 RETURN LENGTH(collection)
 ```
 
@@ -22,7 +22,7 @@ Internally, [COLLECTION_COUNT()](functions-miscellaneous.html#collection_count) 
 In earlier versions with `COLLECT ... WITH COUNT INTO` available (since 2.4),
 you may use the following code instead of *LENGTH()* for better performance:
 
-```
+```aql
 FOR doc IN collection
     COLLECT WITH COUNT INTO length
     RETURN length

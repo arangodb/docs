@@ -18,7 +18,7 @@ conditions for documents to match.
 Equality condition
 ------------------
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.name == "Ned"
     RETURN c
@@ -28,7 +28,7 @@ The filter condition reads like: "the attribute *name* of a character document
 must be equal to the string *Ned*". If the condition applies, character
 document gets returned. This works with any attribute likewise:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.surname == "Stark"
     RETURN c
@@ -41,7 +41,7 @@ Strict equality is one possible condition we can state. There are plenty of
 other conditions we can formulate however. For example, we could ask for all
 adult characters:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.age >= 13
     RETURN c.name
@@ -71,7 +71,7 @@ and age of all characters younger than 13 by changing the operator to
 *less-than* and using the object syntax to define a subset of attributes to
 return:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.age < 13
     RETURN { name: c.name, age: c.age }
@@ -99,7 +99,7 @@ Multiple conditions
 To not let documents pass the filter without an age attribute, we can add a
 second criterion:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.age < 13
     FILTER c.age != null
@@ -115,7 +115,7 @@ FOR c IN Characters
 
 This could equally be written with a boolean `AND` operator as:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.age < 13 AND c.age != null
     RETURN { name: c.name, age: c.age }
@@ -129,7 +129,7 @@ Alternative conditions
 If you want documents to fulfill one or another condition, possibly for
 different attributes as well, use `OR`:
 
-```js
+```aql
 FOR c IN Characters
     FILTER c.name == "Jon" OR c.name == "Joffrey"
     RETURN { name: c.name, surname: c.surname }

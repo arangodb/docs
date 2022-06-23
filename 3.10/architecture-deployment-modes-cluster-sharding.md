@@ -134,7 +134,7 @@ of the update / replace or removal operation, or in case of AQL, that
 you use a document reference or an object for the UPDATE, REPLACE or REMOVE
 operation which includes the shard key attributes:
 
-```js
+```aql
 UPDATE { _key: "123", country: "…" } WITH { … } IN sharded_collection
 ```
 

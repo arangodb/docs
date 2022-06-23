@@ -54,7 +54,7 @@ return the whole document, or just parts of it. Given that *oneDocument* is
 a document (retrieved like `LET oneDocument = DOCUMENT("myusers/3456789")`
 for instance), it can be returned as-is like this:
 
-```js
+```aql
 RETURN oneDocument
 ```
 
@@ -97,7 +97,7 @@ RETURN oneDocument.hobbies
 
 Return the hobbies and the address:
 
-```js
+```aql
 RETURN {
     hobbies: oneDocument.hobbies,
     address: oneDocument.address
@@ -122,7 +122,7 @@ RETURN {
 
 Return the first hobby only:
 
-```js
+```aql
 RETURN oneDocument.hobbies[0].name
 ```
 
@@ -134,7 +134,7 @@ RETURN oneDocument.hobbies[0].name
 
 Return a list of all hobby strings:
 
-```js
+```aql
 RETURN { hobbies: oneDocument.hobbies[*].name }
 ```
 

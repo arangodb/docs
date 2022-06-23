@@ -47,7 +47,7 @@ that can utilize View indexes.
 You can use `MIN_MATCH()` to filter if two out of three conditions evaluate to
 `true` for instance:
 
-```js
+```aql
 LET members = [
   { name: "Carol", age: 41, active: true },
   { name: "Doug", age: 56, active: true },
@@ -59,7 +59,7 @@ FOR doc IN members
 
 An equivalent filter expression without `MIN_MATCH()` would be more cumbersome:
 
-```js
+```aql
   FILTER (LENGTH(doc.name) == 5 AND doc.age >= 50)
     OR (doc.age >= 50 AND doc.active)
     OR (doc.active AND LENGTH(doc.name) == 5)
@@ -102,7 +102,7 @@ is not supposed to be useful for anything else.
 The primary use case for this function is to apply it on all
 documents in a given collection as follows:
 
-```js
+```aql
 FOR doc IN collection
   FILTER !CHECK_DOCUMENT(doc)
   RETURN JSON_STRINGIFY(doc)
@@ -194,7 +194,7 @@ in case of concurrent document operations the exact document storage order
 cannot be derived unambiguously from the revision value. It should thus be
 treated as a rough estimate of when a document was created or last updated.
 
-```js
+```aql
 DECODE_REV( "_YU0HOEG---" )
 // { "date" : "2019-03-11T16:15:05.314Z", "count" : 0 }
 ```
@@ -473,7 +473,7 @@ Both built-in and user-defined functions can be called.
 - **arguments** (array, *optional*): an array with elements of arbitrary type
 - returns **retVal** (any): the return value of the called function
 
-```js
+```aql
 APPLY( "SUBSTRING", [ "this is a test", 0, 7 ] )
 // "this is"
 ```
@@ -493,7 +493,7 @@ Both built-in and user-defined functions can be called.
   multiple arguments, can be omitted
 - returns **retVal** (any): the return value of the called function
 
-```js
+```aql
 CALL( "SUBSTRING", "this is a test", 0, 4 )
 // "this"
 ```
@@ -516,7 +516,7 @@ conditions.
 - **message** (string): message that will be used in exception or warning if expression evaluates to false
 - returns **retVal** (bool): returns true if expression evaluates to true
 
-```js
+```aql
 FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
 FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
 ```
@@ -632,7 +632,7 @@ if lazy evaluation / short circuiting is used for instance.
 - **reason** (string): an error message
 - returns nothing, because the query is aborted
 
-```js
+```aql
 RETURN 1 == 1 ? "okay" : FAIL("error") // "okay"
 RETURN 1 == 1 || FAIL("error") ? true : false // true
 RETURN 1 == 2 && FAIL("error") ? true : false // false
@@ -658,7 +658,7 @@ internal testing.
 - **value** (any): a value of arbitrary type
 - returns **retVal** (any): *value*
 
-```js
+```aql
 // differences in execution plan (explain)
 FOR i IN 1..3 RETURN (1 + 1)       // const assignment
 FOR i IN 1..3 RETURN NOOPT(1 + 1)  // simple expression
@@ -688,7 +688,7 @@ specified collection.
 - **collection** (string): name of a collection
 - returns **schema** (object): schema definition object
 
-```js
+```aql
 RETURN SCHEMA_GET("myColl")
 ```
 
@@ -721,7 +721,7 @@ Wait for a certain amount of time before continuing the query.
 - **seconds** (number): amount of time to wait
 - returns a *null* value
 
-```js
+```aql
 SLEEP(1)    // wait 1 second
 SLEEP(0.02) // wait 20 milliseconds
 ```
@@ -737,7 +737,7 @@ testing.
 - **expression** (any): arbitrary expression
 - returns **retVal** (any): the return value of the *expression*
 
-```js
+```aql
 // differences in execution plan (explain)
 FOR i IN 1..3 RETURN (1 + 1)          // const assignment
 FOR i IN 1..3 RETURN V8(1 + 1)        // simple expression
@@ -752,6 +752,6 @@ of the Coordinator.
 
 - returns **serverVersion** (string): the server version string
 
-```js
+```aql
 RETURN VERSION()        // e.g. "3.4.0" 
 ```

@@ -39,7 +39,7 @@ requested _shard_ (_numberOfShards_) within the Cluster.
 
 Example:
 
-```
+```js
 127.0.0.1:8530@_system> db._create("test", {"replicationFactor": 3})
 ```
 
@@ -100,20 +100,20 @@ key attributes are present in the documents you send, or in case of AQL, that
 you use a document reference or an object for the UPDATE, REPLACE or REMOVE
 operation which includes the shard key attributes:
 
-```js
+```aql
 FOR doc IN sharded_collection
   FILTER doc._key == "123"
   UPDATE doc WITH { … } IN sharded_collection
 ```
 
-```js
+```aql
 UPDATE { _key: "123", country: "…" } WITH { … } IN sharded_collection
 ```
 
 Using a string with just the document key as key expression instead will be
 processed without shard hints and thus perform slower:
 
-```js
+```aql
 UPDATE "123" WITH { … } IN sharded_collection
 ```
 
@@ -277,13 +277,13 @@ do {
 This script has to be executed in the [`arangosh`](programs-arangosh.html)
 by issuing the following command:
 
-```
+```bash
 arangosh --server.username <username> --server.password <password> --javascript.execute <path/to/serverCleanMonitor.js> -- DBServer<number>
 ```
 
 The output should be similar to the one below:
 
-```
+```bash
 arangosh --server.username root --server.password pass --javascript.execute ~./serverCleanMonitor.js -- DBServer0002
 [7836] INFO Checking shard distribution every 10 seconds...
 [7836] INFO Shards to be moved away from node DBServer0002: 9

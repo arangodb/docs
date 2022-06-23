@@ -22,7 +22,7 @@ The general syntax for bind parameters is `@name` where `@` signifies that this
 is a value bind parameter and *name* is the actual parameter name. It can be
 used to substitute values in a query.
 
-```js
+```aql
 RETURN @value
 ```
 
@@ -30,7 +30,7 @@ For collections, there is a slightly different syntax `@@coll` where `@@`
 signifies that it is a collection bind parameter and *coll* is the parameter
 name.
 
-```js
+```aql
 FOR doc IN @@coll
   RETURN doc
 ```
@@ -44,12 +44,12 @@ or the underscore symbol.
 
 They must not be quoted in the query code:
 
-```js
+```aql
 FILTER u.name == "@name" // wrong
 FILTER u.name == @name   // correct
 ```
 
-```js
+```aql
 FOR doc IN "@@collection" // wrong
 FOR doc IN @@collection   // correct
 ```
@@ -57,7 +57,7 @@ FOR doc IN @@collection   // correct
 If you need to do string processing (concatenation, etc.) in the query, you
 need to use [string functions](functions-string.html) to do so:
 
-```js
+```aql
 FOR u IN users
   FILTER u.id == CONCAT('prefix', @id, 'suffix') && u.name == @name
   RETURN u
@@ -74,7 +74,7 @@ there is a pane next to the query editor where the bind parameters can be
 entered. For below query, two input fields will show up to enter values for
 the parameters `id` and `name`.
 
-```js
+```aql
 FOR u IN users
   FILTER u.id == @id && u.name == @name
   RETURN u
@@ -110,7 +110,7 @@ Specific information about parameters binding can also be found in:
 Bind parameters can be used for both, the dot notation as well as the square
 bracket notation for sub-attribute access. They can also be chained:
 
-```js
+```aql
 LET doc = { foo: { bar: "baz" } }
 
 RETURN doc.@attr.@subattr
@@ -132,7 +132,7 @@ specified using the dot notation and a single bind parameter, by passing an
 array of strings as parameter value. The elements of the array represent the
 attribute keys of the path:
 
-```js
+```aql
 LET doc = { a: { b: { c: 1 } } }
 RETURN doc.@attr
 ```
@@ -151,7 +151,7 @@ A special type of bind parameter exists for injecting collection names. This
 type of bind parameter has a name prefixed with an additional `@` symbol, so
 `@@name` in the query.
 
-```js
+```aql
 FOR u IN @@collection
   FILTER u.active == true
   RETURN u

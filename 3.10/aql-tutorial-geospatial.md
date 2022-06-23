@@ -21,7 +21,7 @@ which you need to create first, then run the AQL query below:
 
 ![Create Locations collection](images/Locations_Collection_Creation.png)
 
-```js
+```aql
 LET places = [
     { "name": "Dragonstone", "coordinate": [ 55.167801, -6.815096 ] },
     { "name": "King's Landing", "coordinate": [ 42.639752, 18.110189 ] },
@@ -75,7 +75,7 @@ to restrict the number of results to at most *n* matches.
 In the example below, the limit is set to 3. The origin (the reference point) is
 a coordinate somewhere in downtown Dublin, Ireland:
 
-```js
+```aql
 FOR loc IN Locations
   LET distance = DISTANCE(loc.coordinate[0], loc.coordinate[1], 53.35, -6.25)
   SORT distance
@@ -124,7 +124,7 @@ Find locations within radius
 locations within a given radius from a reference point. Remember that the unit
 is meters. The example uses a radius of 200,000 meters (200 kilometers):
 
-```js
+```aql
 FOR loc IN Locations
   LET distance = DISTANCE(loc.coordinate[0], loc.coordinate[1], 53.35, -6.25)
   SORT distance
