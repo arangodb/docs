@@ -1,9 +1,9 @@
 arangosh&gt; <span class="hljs-keyword">var</span> rel = graph_module._relation(<span class="hljs-string">&quot;isCustomer&quot;</span>, [<span class="hljs-string">&quot;shop&quot;</span>], [<span class="hljs-string">&quot;customer&quot;</span>]); 
 arangosh&gt; graph._extendEdgeDefinitions(rel); 
 arangosh&gt; graph_module._graph(<span class="hljs-string">&quot;myGraph&quot;</span>);
-{[SmartGraph] 
-  <span class="hljs-string">&quot;isCustomer&quot;</span> : [ArangoCollection <span class="hljs-number">10597</span>, <span class="hljs-string">&quot;isCustomer&quot;</span> (type edge, status loaded)], 
-  <span class="hljs-string">&quot;shop&quot;</span> : [ArangoCollection <span class="hljs-number">10563</span>, <span class="hljs-string">&quot;shop&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">&quot;customer&quot;</span> : [ArangoCollection <span class="hljs-number">10574</span>, <span class="hljs-string">&quot;customer&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">&quot;pet&quot;</span> : [ArangoCollection <span class="hljs-number">10585</span>, <span class="hljs-string">&quot;pet&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+{[EnterpriseGraph] 
+  <span class="hljs-string">&quot;isCustomer&quot;</span> : [ArangoCollection <span class="hljs-number">10598</span>, <span class="hljs-string">&quot;isCustomer&quot;</span> (type edge, status loaded)], 
+  <span class="hljs-string">&quot;shop&quot;</span> : [ArangoCollection <span class="hljs-number">10564</span>, <span class="hljs-string">&quot;shop&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;customer&quot;</span> : [ArangoCollection <span class="hljs-number">10575</span>, <span class="hljs-string">&quot;customer&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;pet&quot;</span> : [ArangoCollection <span class="hljs-number">10586</span>, <span class="hljs-string">&quot;pet&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }
