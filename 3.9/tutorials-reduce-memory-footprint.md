@@ -124,7 +124,7 @@ Edge Cache
 ```
 
 This option disables the ArangoDB edge [cache](programs-arangod-cache.html).
-In versions before v3.9.2, you can limit the size to a minimum of `10485760` (10 MB).
+In versions before v3.9.2, you can limit the size to a minimum of `1048576` (1 MB).
 
 If you do not have a graph use case and do not use edge collections, it is
 possible to use no edge cache (or a minimal cache size) without a performance

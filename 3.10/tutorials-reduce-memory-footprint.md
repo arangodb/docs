@@ -124,7 +124,7 @@ Index Caches
 ```
 
 This option disables the in-memory index [caches](programs-arangod-cache.html).
-In versions before v3.9.2, you can limit the size to a minimum of `10485760` (10 MB).
+In versions before v3.9.2, you can limit the size to a minimum of `1048576` (1 MB).
 
 If you do not have a graph use case and do not use edge collections, nor the optional
 hash cache for persistent indexes, it is possible to use no cache (or a minimal cache size)
