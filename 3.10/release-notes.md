@@ -78,20 +78,7 @@ in the _Upgrading_ chapter.
   [3.9](release-notes-upgrading-changes39.html),
   [3.8](release-notes-upgrading-changes38.html),
   [3.7](release-notes-upgrading-changes37.html),
-  [3.6](release-notes-upgrading-changes36.html),
-  [3.5](release-notes-upgrading-changes35.html),
-  [3.4](release-notes-upgrading-changes34.html),
-  [3.3](release-notes-upgrading-changes33.html),
-  [3.2](release-notes-upgrading-changes32.html),
-  [3.1](release-notes-upgrading-changes31.html),
-  [3.0](release-notes-upgrading-changes30.html)
-- Incompatible changes in 2.x:
-  [2.8](release-notes-upgrading-changes28.html),
-  [2.7](release-notes-upgrading-changes27.html),
-  [2.6](release-notes-upgrading-changes26.html),
-  [2.5](release-notes-upgrading-changes25.html),
-  [2.4](release-notes-upgrading-changes24.html),
-  [2.3](release-notes-upgrading-changes23.html)
+  [3.6](release-notes-upgrading-changes36.html)
 
 API Changes
 -----------
