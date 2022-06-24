@@ -50,9 +50,7 @@ until the code has completed.
 
 Limitations
 ---------------------
-
-Because Foxx services use the V8 JavaScript engine, the engine's default memory limit of 512 MB
-is applied.
+Because Foxx services use the V8 JavaScript engine, the engine's default memory limit of 512 MB is applied.
 
 Compatibility caveats
 ---------------------

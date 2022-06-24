@@ -49,8 +49,7 @@ one V8 context to execute the UDFs in it. V8 contexts can be re-used across subs
 queries, but when UDF-invoking queries run in parallel, they will each require a 
 dedicated V8 context.
 
-Because UDFs use the V8 JavaScript engine, the engine's default memory limit of 512 MB
-is applied.
+Because UDFs use the V8 JavaScript engine, the engine's default memory limit of 512 MB is applied.
 
 Using UDFs in clusters may thus result in a higher resource allocation
 in terms of used V8 contexts and server threads. If you run out 
