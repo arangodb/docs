@@ -48,6 +48,12 @@ which in ArangoDB can execute arbitrary code but may have to lock
 entire collections (effectively preventing any data to be written)
 until the code has completed.
 
+Limitations
+---------------------
+
+Because Foxx services use the V8 JavaScript engine, the engine's default memory limit of 512 MB
+is applied.
+
 Compatibility caveats
 ---------------------
 
