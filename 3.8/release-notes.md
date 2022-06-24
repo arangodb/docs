@@ -65,10 +65,6 @@ Additional changelogs for tools not included in the main repository:
 Incompatible changes
 --------------------
 
-For a list of incompatible changes, please refer to one of the following sections.
-Also see [Version Specific Upgrade Information](upgrading-version-specific.html)
-in the _Upgrading_ chapter.
-
 - Incompatible changes in 3.x:
   [3.8](release-notes-upgrading-changes38.html),
   [3.7](release-notes-upgrading-changes37.html),
