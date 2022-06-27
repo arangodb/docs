@@ -15,18 +15,18 @@ enable analytics and machine learning on graph data.
 
 ArangoDB, as the foundation for GraphML, comes with the following key features:
 
-- **Scalable**: Designed to support true scalability with high performance for
-  Enterprise use cases
-- **Simple Ingestion**: Easy integration in existing data infrastructure with
-  connectors to all leading data processing and data ecosystems
-- **Open Source**: Extensibility and Community
-- **NLP Support**: Built-In Text Processing, Search, and Similarity Ranking
+- **Scalable**: designed to support true scalability with high performance for
+  enterprise use cases.
+- **Simple Ingestion**: easy integration in existing data infrastructure with
+  connectors to all leading data processing and data ecosystems.
+- **Open Source**: extensibility and community.
+- **NLP Support**: built-in text processing, search, and similarity ranking.
 
 ![ArangoDB Machine Learning Architecture](images/machine-learning-architecture.png)
 
 ## Graph Analytics vs. GraphML
 
-This section classifies the complexity of the queries we can answer to - 
+This section classifies the complexity of the queries we can answer - 
 like running a simple query that shows what is the path that goes from one node
 to another, or more complex tasks like node classification,
 link prediction, and graph classification.
@@ -54,7 +54,7 @@ Graph analytics can answer questions like _**Who are the most connected persons*
 When applying machine learning on a graph, you can predict connections, get 
 better product recommendations, and also classify vertices, edges, and graphs.
 
-GraphML can answer questions like 
+GraphML can answer questions like:
 - _**Is there a connection between person X and person Y?**_
 - _**Will a customer churn?**_ 
 - _**Is this particular transaction Anomalous?**_
@@ -68,44 +68,43 @@ and GraphML can be applied.
 
 ### Graph Analytics
 
-Graph Analytics consists of an analysis applied on graph-based data and has
-applicability in various fields such as marketing, fraud, supply chain,
+Graph Analytics is applicable in various fields such as marketing, fraud detection, supply chain,
 product recommendations, drug development, law enforcement, and cybersecurity.
 
 Graph Analytics uses an unsupervised
-learning method based on algorithms that are performing analytical processing
-directly on graphs stored in ArangoDB. This 
+learning method based on algorithms that perform analytical processing
+directly on graphs stored in ArangoDB. The
 [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)
-is intended to help you gain analytical insights on
+is intended to help you gain analytical insights in
 your data, without having to use external processing systems.
 
 ArangoDB includes the following graph algorithms:
 - [Page Rank](graphs-pregel.html#page-rank): used for ranking documents in a graph
-  search/traversal
+  search/traversal.
 - [Single-Source Shortest Path](graphs-pregel.html#single-source-shortest-path): calculates
   the shortest path length between the source and all other vertices.
-  For example, _How to get from a to b_
+  For example, _How to get from a to b_?
 - [Hyperlink-Induced Topic Search (HITS)](graphs-pregel.html#hyperlink-induced-topic-search-hits): 
-  a link analysis algorithm that rates Web pages
+  a link analysis algorithm that rates web pages.
 - [Vertex Centrality](graphs-pregel.html#vertex-centrality): identifies the most important
   nodes in a graph. For example, _Who are the influencers in a social network?_
 - [Community Detection](graphs-pregel.html#community-detection): identifies distinct subgroups
-  within a community structure
+  within a community structure.
 
 ### GraphML
 
 GraphML capabilities of using more data outperform conventional deep learning
 methods and **solve high-computational complexity graph problems**, such as: 
-- Drug discovery, repurposing, and predicting adverse effects
-- Personalized product/service recommendation
-- Supply chain and logistics
+- Drug discovery, repurposing, and predicting adverse effects.
+- Personalized product/service recommendation.
+- Supply chain and logistics.
 
 With GraphML, you can also **predict relationships and structures**, such as:
-- Predict molecules for treating diseases (precision medicine)
-- Predict fraudulent behavior, credit risk, purchase of product or services
-- Predict relationships among customers, accounts
+- Predict molecules for treating diseases (precision medicine).
+- Predict fraudulent behavior, credit risk, purchase of product or services.
+- Predict relationships among customers, accounts.
 
-ArangoDB is using well-known GraphML frameworks like
+ArangoDB uses well-known GraphML frameworks like
 [Deep Graph Library](https://www.dgl.ai){:target="_blank"}
 and [PyTorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/){:target="_blank"} 
 and connects to these external machine learning libraries. When coupled to
@@ -139,5 +138,5 @@ The ArangoFlix demo uses five different recommendation methods:
 ![ArangoFlix demo](images/data-science-arangoflix.png)
 
 The ArangoFlix website not only offers an example of how the user recommendations might
-look like in real life, but it also provides information on the recommendation method,
-AQL query, a custom graph visualization for each movie, and more.
+look like in real life, but it also provides information on a recommendation method,
+an AQL query, a custom graph visualization for each movie, and more.
