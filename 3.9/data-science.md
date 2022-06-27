@@ -125,7 +125,7 @@ your running database from the **Examples** tab of your deployment.
 
 {% hint 'tip' %}
 You can try out ArangoDB Oasis free of charge for 14 days.
-Sign up at [cloud ArangoDB](https://cloud.arangodb.com/){:target="_blank"}. 
+Sign up at [cloud.arangodb.com](https://cloud.arangodb.com/){:target="_blank"}. 
 {% endhint %}
 
 The ArangoFlix demo uses five different recommendation methods:
