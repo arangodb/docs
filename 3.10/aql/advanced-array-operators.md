@@ -53,7 +53,7 @@ example *users* documents:
 With the `[*]` operator it becomes easy to query just the names of the
 friends for each user:
 
-```
+```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[*].name }
 ```
@@ -70,7 +70,7 @@ This will produce:
 
 This is a shortcut for the longer, semantically equivalent query:
 
-```js
+```aql
 FOR u IN users
   RETURN { name: u.name, friends: (FOR f IN u.friends RETURN f.name) }
 ```
@@ -90,7 +90,7 @@ so on.
 Let's compare the array expansion operator with an array contraction operator.
 For example, the following query produces an array of friend names per user:
 
-```js
+```aql
 FOR u IN users
   RETURN u.friends[*].name
 ```
@@ -122,7 +122,7 @@ the `[**]` can be used if it has access to a multi-dimensional nested result.
 
 We can extend above query as follows and still create the same nested result:
 
-```js
+```aql
 RETURN (
   FOR u IN users RETURN u.friends[*].name
 )
@@ -130,7 +130,7 @@ RETURN (
 
 By now appending the `[**]` operator at the end of the query...
 
-```js
+```aql
 RETURN (
   FOR u IN users RETURN u.friends[*].name
 )[**]
@@ -167,11 +167,11 @@ These inline expressions can follow array expansion and contraction operators
 `[* ...]`, `[** ...]` etc. The keywords `FILTER`, `LIMIT` and `RETURN`
 must occur in this order if they are used in combination, and can only occur once:
 
-`anyArray[* FILTER conditions LIMIT skip,limit RETURN projection]`
+<code><em>anyArray</em>[* FILTER <em>conditions</em> LIMIT <em>skip</em>,<em>limit</em> RETURN <em>projection</em>]</code>
 
 Example with nested numbers and array contraction:
 
-```js
+```aql
 LET arr = [ [ 1, 2 ], 3, [ 4, 5 ], 6 ]
 RETURN arr[** FILTER CURRENT % 2 == 0]
 ```
@@ -186,7 +186,7 @@ All even numbers are returned in a flat array:
 
 Complex example with multiple conditions, limit and projection:
 
-```js
+```aql
 FOR u IN users
     RETURN {
         name: u.name,
@@ -227,7 +227,7 @@ older than 40 years are returned per user:
 To return only the names of friends that have an *age* value
 higher than the user herself, an inline `FILTER` can be used:
 
-```js
+```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[* FILTER CURRENT.age > u.age].name }
 ```
@@ -242,7 +242,7 @@ The number of elements returned can be restricted with `LIMIT`. It works the sam
 as the [limit operation](operations-limit.html). `LIMIT` must come after `FILTER`
 and before `RETURN`, if they are present.
 
-```js
+```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[* LIMIT 1].name }
 ```
@@ -259,7 +259,7 @@ Above example returns one friend each:
 
 A number of elements can also be skipped and up to *n* returned:
 
-```js
+```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[* LIMIT 1,2].name }
 ```
@@ -280,7 +280,7 @@ per user:
 To return a projection of the current element, use `RETURN`. If a `FILTER` is
 also present, `RETURN` must come later.
 
-```js
+```aql
 FOR u IN users
   RETURN u.friends[* RETURN CONCAT(CURRENT.name, " is a friend of ", u.name)]
 ```

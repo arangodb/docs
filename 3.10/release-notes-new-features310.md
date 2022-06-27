@@ -61,7 +61,7 @@ profiling output, and it wasn't clear which execution node caused which amount o
 
 For example, consider the following query:
 
-```js
+```aql
 FOR doc1 IN collection
   FILTER doc1.value1 < 1000  /* uses index */
   FILTER doc1.value2 NOT IN [1, 4, 7]  /* post filter */
@@ -74,7 +74,7 @@ FOR doc1 IN collection
 The profiling output for this query now shows how often the filters were invoked for the 
 different execution nodes:
 
-```js
+```aql
 Execution plan:
  Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode       1       1          0       0.00008   * ROOT
@@ -102,7 +102,7 @@ In the following example query, there are in-memory caches present for both inde
 the query. However, only the innermost index node #13 can use the cache, because the outer
 FOR loop does not use an equality lookup.
 
-```
+```aql
 Query String (270 chars, cacheable: false):
  FOR doc1 IN collection FILTER doc1.value1 < 1000 FILTER doc1.value2 NOT IN [1, 4, 7]  
  FOR doc2 IN collection FILTER doc1.value1 == doc2.value2 FILTER doc2.value2 != 5 RETURN doc2
@@ -129,19 +129,26 @@ Query Statistics:
 The multi-dimensional index type `zkd` (experimental) now supports an optional
 index hint for tweaking performance:
 
-```js
+```aql
 FOR … IN … OPTIONS { lookahead: 32 }
 ```
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
-### New AQL Functions
+### New and Changed AQL Functions
 
 AQL functions added in 3.10:
 
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
-  a document function to recursively keep attributes from objects/documents,
+  A document function to recursively keep attributes from objects/documents,
   as a counterpart to `UNSET_RECURSIVE()`
+
+AQL functions changed in 3.10:
+
+- [`MERGE_RECURSIVE()`](aql/functions-document.html#merge_recursive):
+  You can now call the function with a single argument instead of at least two.
+  It also accepts an array of objects now, matching the behavior of the
+  `MERGE()` function.
 
 Indexes
 -------
@@ -360,7 +367,7 @@ _arangoexport_ now also has a `--custom-query-file` startup option that you can
 use instead of `--custom-query`, to read a query from a file. This allows you to
 store complex queries and no escaping is necessary in the file:
 
-```js
+```aql
 // example.aql
 FOR book IN @@collectionName
   FILTER book.sold > @sold

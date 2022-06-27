@@ -21,7 +21,7 @@ and `REPLACE` completely replaces the found documents with the specified values.
 We'll start with an `UPDATE` query that rewrites the gender attribute in all
 documents:
 
-```js
+```aql
 FOR u IN users
   UPDATE u WITH { gender: TRANSLATE(u.gender, { m: 'male', f: 'female' }) } IN users
 ```
@@ -30,7 +30,7 @@ To add new attributes to existing documents, we can also use an `UPDATE` query.
 The following query adds an attribute *numberOfLogins* for all users with status
 active:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   UPDATE u WITH { numberOfLogins: 0 } IN users
@@ -38,7 +38,7 @@ FOR u IN users
 
 Existing attributes can also be updated based on their previous value:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   UPDATE u WITH { numberOfLogins: u.numberOfLogins + 1 } IN users
@@ -48,7 +48,7 @@ The above query will only work if there was already a *numberOfLogins* attribute
 present in the document. If it is unsure whether there is a *numberOfLogins*
 attribute in the document, the increase must be made conditional:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   UPDATE u WITH {
@@ -58,7 +58,7 @@ FOR u IN users
 
 Updates of multiple attributes can be combined in a single query:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true
   UPDATE u WITH {
@@ -83,7 +83,7 @@ the documents found in collection users. Documents common to both
 collections will be replaced. All other documents will remain unchanged.
 Documents are compared using their *_key* attributes:
 
-```js
+```aql
 FOR u IN users
   REPLACE u IN backup
 ```
@@ -96,7 +96,7 @@ also be rolled back.
 
 To make the query succeed for such case, use the *ignoreErrors* query option:
 
-```js
+```aql
 FOR u IN users
   REPLACE u IN backup OPTIONS { ignoreErrors: true }
 ```
@@ -108,7 +108,7 @@ Removing documents
 Deleting documents can be achieved with the `REMOVE` operation.
 To remove all users within a certain age range, we can use the following query:
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == true && u.age >= 35 && u.age <= 37
   REMOVE u IN users
@@ -123,7 +123,7 @@ It can also be used to generate copies of existing documents from other collecti
 or to create synthetic documents (e.g. for testing purposes). The following
 query creates 1000 test users in collection users with some attributes set:
 
-```js
+```aql
 FOR i IN 1..1000
   INSERT {
     id: 100000 + i,
@@ -141,7 +141,7 @@ Copying data from one collection into another
 To copy data from one collection into another, an `INSERT` operation can be
 used:
 
-```js
+```aql
 FOR u IN users
   INSERT u IN backup
 ```
@@ -167,7 +167,7 @@ query in case of errors, there is the *ignoreErrors* option.
 To use it, place an *OPTIONS* keyword directly after the data modification
 part of the query, e.g.
 
-```js
+```aql
 FOR u IN users
   REPLACE u IN backup OPTIONS { ignoreErrors: true }
 ```
@@ -208,7 +208,7 @@ database.save({
 
 Heres the Query which keeps the *subList* on *alteredList* to update it later:
 
-```js
+```aql
 FOR document in complexCollection
   LET alteredList = (
     FOR element IN document.subList
@@ -252,7 +252,7 @@ all documents in the collection **regardless whether the values change or not**.
 Therefore we want to only `UPDATE` the documents if we really change their value.
 Hence we employ a second `FOR` to test whether *subList* will be altered or not:
 
-```js
+```aql
 FOR document in complexCollection
   LET willUpdateDocument = (
     FOR element IN docToAlter.subList

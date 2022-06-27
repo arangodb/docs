@@ -116,7 +116,7 @@ authentication = true
 So you see, a command line option `‑‑section.param value` can be easily
 translated to an option in a configuration file:
 
-```js
+```conf
 [section]
 param = value
 ```

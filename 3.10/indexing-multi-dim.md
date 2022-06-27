@@ -44,7 +44,7 @@ Future extensions of the index will allow other types.
 
 Now we can use the index in a query:
 
-```js
+```aql
 FOR p IN points
     FILTER x0 <= p.x && p.x <= x1
     FILTER y0 <= p.y && p.y <= y1
@@ -63,7 +63,7 @@ Furthermore you can use any comparison operator. The index supports `<=` and `>=
 naturally, `==` will be translated to the bound `[c, c]`. Strict comparison
 is translated to their non-strict counterparts and a post-filter is inserted.
 
-```js
+```aql
 FOR p IN points
     FILTER 2 <= p.x && p.x < 9
     FILTER y0 >= 80
@@ -77,11 +77,11 @@ If you build a calendar using ArangoDB you could create a collection for each us
 that contains her appointments. The documents would roughly look as follows:
 
 ```json
-    {
-        "from": 345365,
-        "to": 678934,
-        "what": "Dentist",
-    }
+{
+    "from": 345365,
+    "to": 678934,
+    "what": "Dentist",
+}
 ```
 
 `from`/`to` are the timestamps when an appointment starts/ends. Having an
@@ -100,7 +100,7 @@ f <= from and to <= t
 
 Thus our query would be:
 
-```js
+```aql
 FOR app IN appointments
     FILTER f <= app.from
     FILTER app.to <= t
@@ -119,7 +119,7 @@ a_2 <= b_1 and a_1 <= b_2
 
 Thus our query would be:
 
-```js
+```aql
 FOR app IN appointments
     FILTER f <= app.to
     FILTER app.from <= t
@@ -140,7 +140,7 @@ performance negatively if documents are fetched unnecessarily.
 
 You can specify the `lookahead` value using the `OPTIONS` keyword:
 
-```js
+```aql
 FOR app IN appointments OPTIONS { lookahead: 32 }
     FILTER @to <= app.to
     FILTER app.from <= @from

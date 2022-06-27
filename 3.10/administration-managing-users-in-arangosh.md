@@ -23,7 +23,7 @@ This is again for backward compatibility.
 
 Fire up *arangosh* and require the users module. Use it to create a new user:
 
-```
+```js
 arangosh --server.endpoint tcp://127.0.0.1:8529 ...
 ...
 > const users = require('@arangodb/users');
@@ -37,7 +37,7 @@ Note that running the command like this may store the password literally in
 ArangoShell's history. To avoid that, either disable the history
 (`--console.history false`) or use a dynamically created password, e.g.:
 
-```
+```js
 > passwd = require('internal').genRandomAlphaNumbers(20);
 > users.save('JohnSmith', passwd);
 ```
@@ -49,7 +49,7 @@ While there, you probably want to change the password of the default `root`
 user too. Otherwise one will be able to connect with the default `root` user
 and its empty password. The following commands change the `root` user's password:
 
-```
+```js
 > passwd = require('internal').genRandomAlphaNumbers(20);
 > require('@arangodb/users').update('root', passwd);
 ```
@@ -57,7 +57,7 @@ and its empty password. The following commands change the `root` user's password
 Back to our user account *JohnSmith*. Let us create a new database
 and grant him access to it with `grantDatabase()`:
 
-```
+```js
 > db._createDatabase('testdb');
 > users.grantDatabase('JohnSmith', 'testdb', 'rw');
 ```
@@ -79,7 +79,7 @@ Before we can grant *JohnSmith* access to a collection, we first have to
 connect to the new database and create a collection. Disconnect `arangosh`
 by pressing Ctrl+C twice. Then reconnect, but to the database we created:
 
-```
+```js
 arangosh --server.endpoint tcp://127.0.0.1:8529 --server.database testdb ...
 ...
 > db._create('testcoll');

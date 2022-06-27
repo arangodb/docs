@@ -91,7 +91,7 @@ user that has access rights to this database. See
 
 Use the *arangosh* to create a new database and user.
 
-```
+```js
 arangosh> db._createDatabase("example");
 arangosh> var users = require("@arangodb/users");
 arangosh> users.save("root@example", "password");

@@ -19,7 +19,7 @@ and everything else at info level.
 
 In a configuration file, it is written like this:
 
-```
+```conf
 [log]
 level = startup=trace
 level = queries=trace

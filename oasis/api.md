@@ -12,7 +12,7 @@ up Oasis deployments during continuous integration and infrastructure as code.
 
 The ArangoDB Oasis API…
 
-- is a well specified API that uses
+- is a well-specified API that uses
   [Protocol Buffers](https://developers.google.com/protocol-buffers/){:target="_blank"}
   as interface definition and [gRPC](https://grpc.io/){:target="_blank"} as
   underlying protocol.
@@ -28,8 +28,7 @@ The ArangoDB Oasis API…
 - is also available as a
   [Terraform plugin](https://github.com/arangodb-managed/terraform-provider-oasis/){:target="_blank"}.
   This plugin makes integration of Oasis in infrastructure as code projects
-  very simple. Note that the terraform plugin is still in **prerelease**, so
-  its interface can still change.
+  very simple. To learn more, refer to the [plugin documentation](https://registry.terraform.io/providers/arangodb-managed/oasis/latest/docs){:target="_blank"}.
 
 Also see:
 - [github.com/arangodb-managed/apis](https://github.com/arangodb-managed/apis/){:target="_blank"}

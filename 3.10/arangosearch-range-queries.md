@@ -62,7 +62,7 @@ no Analyzer using an empty array `[]` as shown below.
 
 Match movies with a runtime of exactly `5` minutes:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH doc.runtime == 5
   RETURN {
@@ -84,7 +84,7 @@ Analyzers at all.
 
 Match movies with a runtime of `12`, `24` or `77` minutes:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH doc.runtime IN [12, 24, 77]
   RETURN {
@@ -103,7 +103,7 @@ FOR doc IN imdb
 Match movies with a runtime over `300` minutes and sort them from longest to
 shortest runtime:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH doc.runtime > 300
   SORT doc.runtime DESC
@@ -140,7 +140,7 @@ included or excluded in the range.
 
 Match movies with a runtime of `4` to `6` minutes with the range operator:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH doc.runtime IN 4..6
   RETURN {
@@ -165,7 +165,7 @@ matches `4`, `5` and `6`.
 Match movies with a runtime of `4` to `6` minutes with the `IN_RANGE()`
 function (inclusive on both ends):
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH IN_RANGE(doc.runtime, 4, 6, true, true)
   RETURN {
@@ -192,7 +192,7 @@ Match movies with a runtime of `5` minutes or less, as well as `500` minutes
 or more, but not with a runtime of `0` minutes. Sort the matches by runtime in
 ascending order:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH (doc.runtime <= 5 OR doc.runtime >= 500) AND doc.runtime != 0
   SORT doc.runtime
@@ -257,7 +257,7 @@ Also see [Known Issues](release-notes-known-issues310.html#arangosearch).
 
 Match movies where the name is `>= Wu` and `< Y`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(IN_RANGE(doc.name, "Wu", "Y", true, false), "identity")
   RETURN doc.name

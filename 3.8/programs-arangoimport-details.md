@@ -178,7 +178,7 @@ line to any value of `X` greater than 2 will increase the total
 throughput used.
 
 {% hint 'warning' %}
-Using parellelism with the `--threads X` parameter  
+Using parallelism with the `--threads X` parameter
 together with the `--on-duplicate` parameter set to `ignore`, `update` or `replace` can 
 lead to a race condition, when there are duplicates e.g. multiple identical `_key`
 values. Even ignoring the duplicates will make the result unpredictable, meaning 
