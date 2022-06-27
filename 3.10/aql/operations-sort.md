@@ -23,7 +23,7 @@ Usage
 Example query that is sorting by lastName (in ascending order), then firstName
 (in ascending order), then by id (in descending order):
 
-```js
+```aql
 FOR u IN users
   SORT u.lastName, u.firstName, u.id DESC
   RETURN u
@@ -35,21 +35,21 @@ the keywords `ASC` (ascending) and `DESC` can be used. Multiple sort criteria ca
 separated using commas. In this case the direction is specified for each
 expression separately. For example
 
-```js
+```aql
 SORT doc.lastName, doc.firstName
 ```
 
 will first sort documents by lastName in ascending order and then by
 firstName in ascending order.
 
-```js
+```aql
 SORT doc.lastName DESC, doc.firstName
 ```
 
 will first sort documents by lastName in descending order and then by
 firstName in ascending order.
 
-```js
+```aql
 SORT doc.lastName, doc.firstName DESC
 ```
 
@@ -65,7 +65,7 @@ always **undefined unless an explicit sort order is defined** using `SORT`.
 Constant `SORT` expressions can be used to indicate that no particular
 sort order is desired.
 
-```js
+```aql
 SORT null
 ```
 

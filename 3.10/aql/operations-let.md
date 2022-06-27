@@ -22,7 +22,7 @@ Usage
 
 Variables are immutable in AQL, which means they can not be re-assigned:
 
-```js
+```aql
 LET a = [1, 2, 3]  // initial assignment
 
 a = PUSH(a, 4)     // syntax error, unexpected identifier
@@ -33,7 +33,7 @@ LET b = PUSH(a, 4) // allowed, result: [1, 2, 3, 4]
 `LET` statements are mostly used to declare complex computations and to avoid
 repeated computations of the same value at multiple parts of a query.
 
-```js
+```aql
 FOR u IN users
   LET numRecommendations = LENGTH(u.recommendations)
   RETURN {
@@ -50,7 +50,7 @@ the `RETURN` statement.
 Another use case for `LET` is to declare a complex computation in a subquery,
 making the whole query more readable.
 
-```js
+```aql
 FOR u IN users
   LET friends = (
   FOR f IN friends 

@@ -161,7 +161,7 @@ The result field names depend on the algorithm in both cases.
 For example, you might want to query only nodes with the highest rank from the
 result set of a PageRank execution:
 
-```js
+```aql
 FOR v IN PREGEL_RESULT(<handle>)
   FILTER v.result >= 0.01
   RETURN v._key
@@ -174,7 +174,7 @@ sufficient to tell vertices from different collections apart. In  this case,
 `PREGEL_RESULT()` can be given a second parameter `withId`, which will make it
 return the `_id` values of the vertices as well:
 
-```js
+```aql
 FOR v IN PREGEL_RESULT(<handle>, true)
   FILTER v.result >= 0.01
   RETURN v._id
@@ -409,17 +409,33 @@ based on common location, interests, occupation, etc.
 #### Label Propagation
 
 *Label Propagation* can be used to implement community detection on large
-graphs. The idea is that each vertex should be in the community that most of
-his neighbors are in. We iteratively determine this by first assigning random
-Community ID's. Then each iteration, a vertex will send it's current community
-ID to all its neighbor vertices. Then each vertex adopts the community ID it
-received most frequently during the iteration.
+graphs. The algorithm assigns a community, more precisely, a Community ID 
+(a natural number), to every vertex in the graph. 
+The idea is that each vertex should be in the community that most of
+its neighbors are in. 
+
+At first, the algorithm assigns unique initial Community IDs to the vertices. 
+There is no guarantee that a vertex obtains the same initial 
+ID in two different runs of the algorithm, even if the graph does not change
+(although, it may often happen). Moreover, there is no guarantee on a particular
+distribution of the initial IDs over the vertices.
+
+Then, in each iteration, a vertex sends its current Community
+ID to all its neighbor vertices. After that each vertex adopts the Community ID it
+received most frequently in the last step. If a vertex obtains more than one
+most frequent IDs, it chooses the lowest number (as IDs are numbers). If no ID arrived more 
+than once and the ID of the vertex from the previous step is less than the
+lowest obtained ID number, the old ID is kept. 
 
 The algorithm runs until it converges, which likely never really happens on
-large graphs. Therefore you need to specify a maximum iteration bound which
-suits you. The default bound is 500 iterations, which is likely too large for
-your application. It should work best on undirected graphs, results on directed
-graphs might vary depending on the density of your graph.
+large graphs. Therefore you need to specify a maximum iteration bound.
+The default bound is 500 iterations, which is too large for
+common applications. 
+
+The algorithm should work best on undirected graphs. On directed
+graphs, the resulting partition into communities might change, if the number 
+of performed steps changes. How strong the dependence is
+may be influenced by the density of the graph.
 
 ```js
 const pregel = require("@arangodb/pregel");

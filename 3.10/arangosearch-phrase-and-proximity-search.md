@@ -39,7 +39,7 @@ tokens may occur between defined tokens for word proximity searches.
 Search for movies that have the (normalized and stemmed) tokens `biggest` and
 `blockbust` in their description, in this order:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(PHRASE(doc.description, "BIGGEST Blockbuster"), "text_en")
   RETURN {
@@ -56,7 +56,7 @@ FOR doc IN imdb
 The `text_en` Analyzer set via the context is applied to the search term
 `BIGGEST Blockbuster`, effectively resulting in the query:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH PHRASE(doc.description, ["biggest", "blockbust"], "text_en")
   RETURN {
@@ -68,7 +68,7 @@ FOR doc IN imdb
 The search phrase can be handed in via a bind parameter, but it can also be
 constructed dynamically using a subquery for instance:
 
-```js
+```aql
 LET p = (
   FOR word IN ["tale", "of", "a", "woman"]
     SORT RAND()
@@ -96,7 +96,7 @@ one arbitrary word in between the two words, for instance.
 Match movies that contain the phrase `epic <something> film` in their
 description, where `<something>` can be exactly one arbitrary token:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(PHRASE(doc.description, "epic", 1, "film"), "text_en")
   RETURN {
@@ -121,7 +121,7 @@ performs a proximity search for movies with the phrase
 `family <something> business` or `family <something> <something> business` in
 their description:
 
-```js
+```aql
 LET title = DOCUMENT("imdb_vertices/39967").title // Family Business
 FOR doc IN imdb
   SEARCH ANALYZER(
@@ -151,7 +151,7 @@ of options.
 Match movies where the title has a token that starts with `Härr` (normalized to
 `harr`), followed by six arbitrary tokens and then a token that contains `eni`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(PHRASE(doc.title, {STARTS_WITH: TOKENS("Härr", "text_en")[0]}, 6, {WILDCARD: "%eni%"}), "text_en")
   RETURN doc.title

@@ -116,7 +116,7 @@ and
 
 will match.
 
-```
+```js
 collection.byExample(path1, value1, ...)
 ```
 

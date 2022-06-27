@@ -36,7 +36,7 @@ expression and set the order to descending. Scoring functions expect the
 document emitted by a `FOR … IN` loop that iterates over a View as first
 argument.
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH …
   SORT BM25(doc) DESC
@@ -45,7 +45,7 @@ FOR doc IN viewName
 
 You can also return the ranking score as part of the result.
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH …
   RETURN MERGE(doc, { bm25: BM25(doc), tfidf: TFIDF(doc) })
@@ -80,7 +80,7 @@ inverse document frequency (IDF).
 Search for movies with certain keywords in their description and rank the
 results using the [`BM25()` function](aql/functions-arangosearch.html#bm25):
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("amazing action world alien sci-fi science documental galaxy", "text_en"), "text_en")
   SORT BM25(doc) DESC
@@ -107,7 +107,7 @@ FOR doc IN imdb
 
 Do the same but with the [`TFIDF()` function](aql/functions-arangosearch.html#tfidf):
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("amazing action world alien sci-fi science documental galaxy", "text_en"), "text_en")
   SORT TFIDF(doc) DESC
@@ -168,7 +168,7 @@ boosted parts of the search expression will get higher scores.
 
 Prefer `galaxy` over the other keywords:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("amazing action world alien sci-fi science documental", "text_en")
       OR BOOST(doc.description IN TOKENS("galaxy", "text_en"), 5), "text_en")
@@ -198,7 +198,7 @@ If you are an information retrieval expert and want to fine-tuning the
 weighting schemes at query time, then you can do so. The `BM25()` function
 accepts free coefficients as parameters to turn it into BM15 for instance:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("amazing action world alien sci-fi science documental", "text_en")
       OR BOOST(doc.description IN TOKENS("galaxy", "text_en"), 5), "text_en")
@@ -231,7 +231,7 @@ of the document.
 Match movies with the (normalized) phrase `star war` in the title and calculate
 a custom score based on BM25 and the movie runtime to favor longer movies:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH PHRASE(doc.title, "Star Wars", "text_en")
   LET score = BM25(doc) * LOG(doc.runtime + 1)

@@ -43,7 +43,7 @@ At any point you may check the current state of your license in _arangosh_:
 127.0.0.1:8529@_system> db._getLicense();
 ```
 
-```js
+```json
 {
   "features": {
     "expires": 1632411828
@@ -51,7 +51,7 @@ At any point you may check the current state of your license in _arangosh_:
   "license": "JD4E ... dnDw==",
   "version": 1,
   "status": "good"
-  "hash" : "...."
+  "hash" : "..."
 }
 ```
 

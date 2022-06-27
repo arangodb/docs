@@ -16,7 +16,7 @@ Data Access Queries
 Retrieving data from the database with AQL does always include a **RETURN**
 operation. It can be used to return a static value, such as a string:
 
-```js
+```aql
 RETURN "Hello ArangoDB!"
 ```
 
@@ -26,7 +26,7 @@ returned and contains a single element in that case: `["Hello ArangoDB!"]`
 The function `DOCUMENT()` can be called to retrieve a single document via
 its document handle, for instance:
 
-```js
+```aql
 RETURN DOCUMENT("users/phil")
 ```
 
@@ -35,14 +35,14 @@ documents of a collection. The following query executes the loop body for all
 documents of a collection called *users*. Each document is returned unchanged
 in this example:
 
-```js
+```aql
 FOR doc IN users
     RETURN doc
 ```
 
 Instead of returning the raw `doc`, one can easily create a projection:
 
-```js
+```aql
 FOR doc IN users
     RETURN { user: doc, newAttribute: true }
 ```
@@ -55,7 +55,7 @@ Operations like **FILTER**, **SORT** and **LIMIT** can be added to the loop body
 to narrow and order the result. Instead of above shown call to `DOCUMENT()`,
 one can also retrieve the document that describes user *phil* like so:
 
-```js
+```aql
 FOR doc IN users
     FILTER doc._key == "phil"
     RETURN doc
@@ -67,7 +67,7 @@ more than a single document will match this filter. For other attributes this
 may not be the case. To return a subset of active users (determined by an
 attribute called *status*), sorted by name in ascending order, you can do: 
 
-```js
+```aql
 FOR doc IN users
     FILTER doc.status == "active"
     SORT doc.name
@@ -103,7 +103,7 @@ The operations are detailed in the chapter [High Level Operations](operations.ht
 Let's start with the basics: `INSERT`, `UPDATE` and `REMOVE` operations on single documents.
 Here is an example that insert a document in an existing collection *users*:
 
-```js
+```aql
 INSERT {
     firstName: "Anna",
     name: "Pavlova",
@@ -111,9 +111,14 @@ INSERT {
 } IN users
 ```
 
-You may provide a key for the new document; if not provided, ArangoDB will create one for you.  
+If you run the above query, there will be an empty array as result because we did
+not specify what to return using a `RETURN` keyword. It is optional in
+modification queries, but mandatory in data access queries. Despite the empty
+result, the above query still creates a new user document.
 
-```js
+You may provide a key for the new document; if not provided, ArangoDB creates one for you.
+
+```aql
 INSERT {
     _key: "GilbertoGil",
     firstName: "Gilberto",
@@ -124,7 +129,7 @@ INSERT {
 
 As ArangoDB is schema-free, attributes of the documents may vary: 
 
-```js
+```aql
 INSERT {
     _key: "PhilCarpenter",
     firstName: "Phil",
@@ -134,7 +139,7 @@ INSERT {
 } IN users
 ```
 
-```js
+```aql
 INSERT {
     _key: "NatachaDeclerck",
     firstName: "Natacha",
@@ -145,7 +150,7 @@ INSERT {
 
 Update is quite simple. The following AQL statement will add or change the attributes status and location
 
-```js
+```aql
 UPDATE "PhilCarpenter" WITH {
     status: "active",
     location: "Beijing"
@@ -154,7 +159,7 @@ UPDATE "PhilCarpenter" WITH {
 
 Replace is an alternative to update where all attributes of the document are replaced.
 
-```js
+```aql
 REPLACE {
     _key: "NatachaDeclerck",
     firstName: "Natacha",
@@ -166,13 +171,13 @@ REPLACE {
 
 Removing a document if you know its key is simple as well : 
 
-```js
+```aql
 REMOVE "GilbertoGil" IN users
 ```
 
 or 
 
-```js
+```aql
 REMOVE { _key: "GilbertoGil" } IN users
 ```
 
@@ -185,7 +190,7 @@ iterate over a given list of documents. They can optionally be combined with
 Let's start with an example that modifies existing documents in a collection
 *users* that match some condition:
 
-```js
+```aql
 FOR u IN users
     FILTER u.status == "not active"
     UPDATE u WITH { status: "inactive" } IN users
@@ -195,7 +200,7 @@ FOR u IN users
 Now, let's copy the contents of the collection *users* into the collection
 *backup*:
 
-```js
+```aql
 FOR u IN users
     INSERT u IN backup
 ```
@@ -204,7 +209,7 @@ Subsequently, let's find some documents in collection *users* and remove them
 from collection *backup*.  The link between the documents in both collections is
 established via the documents' keys:
 
-```js
+```aql
 FOR u IN users
     FILTER u.status == "deleted"
     REMOVE u IN backup
@@ -212,7 +217,7 @@ FOR u IN users
 
 The following example will remove all documents from both *users* and *backup*:
 
-```js
+```aql
 LET r1 = (FOR u IN users  REMOVE u IN users)
 LET r2 = (FOR u IN backup REMOVE u IN backup)
 RETURN true
@@ -224,20 +229,20 @@ Data-modification queries can optionally return documents. In order to reference
 the inserted, removed or modified documents in a `RETURN` statement, data-modification 
 statements introduce the `OLD` and/or `NEW` pseudo-values:
 
-```js
+```aql
 FOR i IN 1..100
     INSERT { value: i } IN test 
     RETURN NEW
 ```
 
-```js
+```aql
 FOR u IN users
     FILTER u.status == "deleted"
     REMOVE u IN users 
     RETURN OLD
 ```
 
-```js
+```aql
 FOR u IN users
     FILTER u.status == "not active"
     UPDATE u WITH { status: "inactive" } IN users 
@@ -261,7 +266,7 @@ by queries.
 
 For example, the following query will return only the keys of the inserted documents:
 
-```js
+```aql
 FOR i IN 1..100
     INSERT { value: i } IN test 
     RETURN NEW._key
@@ -272,7 +277,7 @@ FOR i IN 1..100
 For `UPDATE`, `REPLACE` and `UPSERT` statements, both `OLD` and `NEW` can be used
 to return the previous revision of a document together with the updated revision:
 
-```js
+```aql
 FOR u IN users
     FILTER u.status == "not active"
     UPDATE u WITH { status: "inactive" } IN users 
@@ -288,7 +293,7 @@ updated, or a new document was inserted. It does so by checking the `OLD` variab
 after the `UPSERT` and using a `LET` statement to store a temporary string for
 the operation type:
   
-```js
+```aql
 UPSERT { name: "test" }
     INSERT { name: "test" }
     UPDATE { } IN users

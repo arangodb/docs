@@ -24,7 +24,7 @@ the second form with an *offset* value of *0*.
 Usage
 -----
 
-```js
+```aql
 FOR u IN users
   LIMIT 5
   RETURN u
@@ -40,7 +40,7 @@ The *offset* value specifies how many elements from the result shall be
 skipped. It must be 0 or greater. The *count* value specifies how many
 elements should be at most included in the result.
 
-```js
+```aql
 FOR u IN users
   SORT u.firstName, u.lastName, u.id DESC
   LIMIT 2, 5

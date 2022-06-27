@@ -124,8 +124,10 @@ In order to move these from 2.8 to 3.0, Foxx applications should be exported as 
 via the 2.8 web interface.
 
 The zip files can then be uploaded in the "Services" section in the ArangoDB 3.0 web interface.
-Applications may need to be adjusted manually to run in 3.0. Please consult the
-[migration guide for Foxx apps](foxx-migrating2x.html).
+Applications may need to be adjusted manually to run in 3.0.
+{%- assign ver = "3.8" | version: "<" %}{% if ver %}
+Please consult the [migration guide for Foxx apps](foxx-migrating2x.html).
+{%- endif %}
 
 An alternative way of moving Foxx apps into 3.0 is to copy the source directory of a 2.8 Foxx
 application manually into the 3.0 Foxx apps directory for the target database (which is normally

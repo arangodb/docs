@@ -30,7 +30,7 @@ will fail with an error at runtime. It doesn't fail when explaining the query ho
 *FULLTEXT()* is not meant to be used as an argument to `FILTER`,
 but rather to be used as the expression of a `FOR` statement:
 
-```js
+```aql
 FOR oneMail IN FULLTEXT(emails, "body", "banana,-apple")
     RETURN oneMail._id
 ```
