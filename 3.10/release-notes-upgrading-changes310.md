@@ -10,7 +10,7 @@ upgrading to ArangoDB 3.10, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.10:
 
-Foxx / Server console
+Foxx / Server Console
 ---------------------
 
 Previously a call to `db._version(true)` inside a Foxx app or the server console
@@ -34,7 +34,7 @@ The fulltext index type is now deprecated in favor of [ArangoSearch](arangosearc
 Fulltext indexes are still usable in this version of ArangoDB, although their usage is
 now discouraged.
 
-### Geo indexes
+### Geo Indexes
 
 After an upgrade to 3.10 or higher, consider to drop and recreate geo
 indexes. GeoJSON polygons are interpreted slightly differently (and more
@@ -58,10 +58,20 @@ and older. This can mean that old polygon GeoJSON data in the database is
 suddenly interpreted in a different way. See
 [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
 
-Startup options
+Startup Options
 ---------------
 
-### RocksDB options
+### Web Interface Options
+
+The `--frontend.*` startup options were renamed to `--web-interface.*`:
+
+- `--frontend.proxy-request.check` is now `--web-interface.proxy-request.check`
+- `--frontend.trusted-proxy` is now `--web-interface.trusted-proxy`
+- `--frontend.version-check` is now `--web-interface.version-check`
+
+The former startup options are still supported for backward compatibility.
+
+### RocksDB Options
 
 The default value of the  `--rocksdb.cache-index-and-filter-blocks` startup option was changed
 from `false` to `true`. This makes RocksDB track all loaded index and filter blocks in the 
@@ -85,7 +95,7 @@ It is possible to opt out of these changes and get back the memory and performan
 of the previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
-### Pregel options
+### Pregel Options
 
 Pregel jobs now have configurable minimum, maximum and default parallelism values. You can set them
 by the following startup options:
@@ -117,8 +127,7 @@ memory-mapped files: `--pregel.memory-mapped-files` and `--pregel.memory-mapped-
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
 
-
-Maximum Array / Object nesting
+Maximum Array / Object Nesting
 ------------------------------
 
 When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
@@ -129,7 +138,7 @@ The limit is also enforced when converting any server data to JavaScript in Foxx
 when sending JavaScript input data from Foxx to a server API.
 This maximum recursion depth is hard-coded in arangod and all client tools.
 
-Client tools
+Client Tools
 ------------
 
 ### arangobench

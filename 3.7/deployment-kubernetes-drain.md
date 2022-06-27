@@ -452,7 +452,7 @@ is not balanced out. In particular, the new _DB-Server_ is not automatically
 used to store shards. We recommend to
 [re-balance](administration-cluster.html#movingrebalancing-shards) the shard distribution,
 either manually by moving shards or by using the _Rebalance Shards_
-button in the _Shards_ tab under _NODES_ in the web UI. This redistribution can take
+button in the _Shards_ tab under _NODES_ in the web interface. This redistribution can take
 some time again and progress can be monitored in the UI.
 
 After all this has been done, **another round of checks should be done**

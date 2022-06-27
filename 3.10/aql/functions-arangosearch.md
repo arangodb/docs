@@ -903,10 +903,10 @@ using wildcard matching.
 {% hint 'info' %}
 Literal backlashes require different amounts of escaping depending on the
 context:
-- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+- `\` in bind variables (_Table_ view mode) in the web interface (automatically
   escaped to `\\` unless the value is wrapped in double quotes and already
   escaped properly)
-- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables (_JSON_ view mode) and queries in the web interface
 - `\\` in bind variables in arangosh
 - `\\\\` in queries in arangosh
 - Double the amount compared to arangosh in shells that use backslashes for
