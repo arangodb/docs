@@ -2,8 +2,7 @@
 layout: default
 description: Scalable Graph Analytics and GraphML
 ---
-Data Science
-==================
+# Data Science
 
 ArangoDB's Graph Analytics and GraphML capabilities provide various solutions
 in data science and data analytics. Multiple data science personas within the
