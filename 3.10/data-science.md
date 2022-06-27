@@ -1,9 +1,12 @@
 ---
 layout: default
-description: Scalable Graph Analytics and GraphML
+description: >- 
+   ArangoDB applies analytics and machine learning to graph data at scale
 ---
-Data Science
-==================
+# Data Science
+
+{{ page.description }}
+{:class="lead"}
 
 ArangoDB's Graph Analytics and GraphML capabilities provide various solutions
 in data science and data analytics. Multiple data science personas within the
