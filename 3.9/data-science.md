@@ -1,7 +1,7 @@
 ---
 layout: default
 description: >- 
-   ArangoDB applies analytics and machine learning to graph data at scale
+  ArangoDB lets you apply analytics and machine learning to graph data at scale
 ---
 # Data Science
 
