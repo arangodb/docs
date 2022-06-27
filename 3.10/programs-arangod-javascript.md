@@ -117,7 +117,7 @@ harmful for the regular database operation.
 In certain types of ArangoDB instances you can now completely disable the V8
 JavaScript engine. Be aware that this is an **highly experimental** feature and
 it is to be expected that certain functionality (e.g. some API endpoints, the
-WebUI, some AQL functions etc) will be missing or severely broken. Nevertheless
+web interface, some AQL functions etc) will be missing or severely broken. Nevertheless
 you may wish to reduce the footprint of ArangoDB by disabling V8.
 
 This option is expected to **only** work reliably on a _single server_, _DB-Server_,

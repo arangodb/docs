@@ -56,7 +56,7 @@ user-defined relevance boosting and dynamic score calculation.
 
 ![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch.png)
 
-Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
+Views can be managed in the web interface, via an [HTTP API](http/views.html) and
 through a [JavaScript API](data-modeling-views-database-methods.html).
 
 Views can be queried with AQL using the [`SEARCH` operation](aql/operations-search.html).
@@ -72,7 +72,7 @@ logical and comparison operators, as well as
    - `{ "name": "carrot", "type": "vegetable" }`
    - `{ "name": "chili pepper", "type": "vegetable" }`
    - `{ "name": "tomato", "type": ["fruit", "vegetable"] }`
-2. In the Web UI, click on _VIEWS_ in the main navigation.
+2. In the web interface, click on _VIEWS_ in the main navigation.
 3. Click on the _Add View_ button, enter a name (e.g. `food_view`), confirm and
    click on the newly created View.
 4. You can toggle the mode of the View definition editor from _Tree_ to _Code_

@@ -143,4 +143,4 @@ kubectl describe ArangoDeploymentReplication replication-src-to-dst
 ```
 
 As soon as the replication is configured, the `Add collection` button in the `Collections`
-page of the web UI (of the destination cluster) will be grayed out.
+page of the web interface (of the destination cluster) will be grayed out.

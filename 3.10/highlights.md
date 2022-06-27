@@ -13,6 +13,10 @@ grouped by version
 
 **All Editions**
 
+- [Native ARM Support](release-notes-new-features310.html#native-arm-support):
+  Packages for the ARM architecture are now available, including native support
+  for Apple silicon.
+
 - **Indexes**:
   An optional [**In-memory Cache**](indexing-persistent.html#caching-of-index-values)
   for faster lookups and [**Stored Values**](indexing-persistent.html#storing-additional-values-in-indexes)
