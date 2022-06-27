@@ -13,8 +13,16 @@ Native ARM Support
 ------------------
 
 ArangoDB is now available for the ARM architecture, in addition to the x86-64
-architecture. It can run on Apple silicon (e.g. M1 chips) without emulation.
-It also runs on other ARM chips under Linux and Windows for ARM.
+architecture.
+
+It can natively run on Apple silicon (e.g. M1 chips). It was already possible to
+run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
+3.9.x because of its use of AVX instructions, which Rosetta does not emulate.
+3.10.x runs on this hardware again, but now without emulation.
+
+ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
+The minimum requirement is an ARMv8 chip with SIMD support in the form of the
+Neon architecture extension.
 
 ArangoSearch
 ------------
