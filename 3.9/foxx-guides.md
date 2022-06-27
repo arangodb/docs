@@ -33,4 +33,3 @@ Advanced topics
 - [Working with files](foxx-guides-files.html)
 - [Making requests](foxx-guides-making-requests.html)
 - [Access from the browser](foxx-guides-browser.html)
-- [Working with 2.x services](foxx-guides-legacy-mode.html)
