@@ -21,8 +21,7 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 3.10.x runs on this hardware again, but now without emulation.
 
 ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
-The minimum requirement is an ARMv8 chip with Neon (SIMD) support in the form of the
-Neon architecture extension.
+The minimum requirement is an ARMv8 chip with Neon (SIMD).
 
 ArangoSearch
 ------------
