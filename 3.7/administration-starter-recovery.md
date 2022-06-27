@@ -37,5 +37,5 @@ The _Starter_ will now:
 
 The cluster will now recover automatically. It will however have one more _Coordinators_
 and _DB-Servers_ than expected. Exactly one _Coordinator_ and one _DB-Server_ will
-be listed "red" in the web UI of the database. They will have to be removed manually
-using the ArangoDB Web UI.
+be listed "red" in the web interface of the database. They will have to be removed manually
+using the ArangoDB web interface.

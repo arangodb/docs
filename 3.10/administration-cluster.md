@@ -203,7 +203,7 @@ Replacing/Removing a _DB-Server_
 -------------------------------
 
 _DB-Servers_ are where the data of an ArangoDB cluster is stored. They
-do not publish a web UI and are not meant to be accessed by any other
+do not publish a web interface and are not meant to be accessed by any other
 entity than _Coordinators_ to perform client requests or other _DB-Servers_
 to uphold replication and resilience.
 
