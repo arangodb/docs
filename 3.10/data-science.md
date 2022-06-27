@@ -13,9 +13,9 @@ enable analytics and machine learning on graph data.
 ArangoDB, as the foundation for GraphML, comes with the following key features:
 
 - **Scalable**: Designed to support true scalability with high performance for
- Enterprise use cases
+  Enterprise use cases
 - **Simple Ingestion**: Easy integration in existing data infrastructure with
- connectors to all leading data processing and data ecosystems
+  connectors to all leading data processing and data ecosystems
 - **Open Source**: Extensibility and Community
 - **NLP Support**: Built-In Text Processing, Search, and Similarity Ranking
 
