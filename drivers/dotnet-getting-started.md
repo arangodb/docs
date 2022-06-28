@@ -12,3 +12,7 @@ Learn how to:
 2. Work with [Collections](dotnet-collections.html).
 3. Work with [Documents](dotnet-documents.html).
 4. Work with [AQL Queries and Functions](dotnet-aql.html).
+
+## Reference
+
+Browse the full reference for [ArangoDBNetStandard](https://arangodb-community.github.io/arangodb-net-standard/){:target="_blank"}
