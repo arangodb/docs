@@ -75,7 +75,7 @@ globally replicated to each participating DB-Server,
 This means a larger part of the query can be executed fully local
 whenever data from the SatelliteCollections is required.
 
-![SmartGraphs with SatelliteCollections](images/SmartGraphs_Hybrid.png)
+![SmartGraphs with SatelliteCollections](images/SmartGraphs-using-SatelliteCollections.png)
 
 ## Disjoint SmartGraphs
 
