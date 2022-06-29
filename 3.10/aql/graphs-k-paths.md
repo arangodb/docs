@@ -113,7 +113,7 @@ connected graphs it can return a large number of paths.
 
 ### Working with named graphs
 
-```
+```aql
 FOR path
   IN MIN..MAX OUTBOUND|INBOUND|ANY K_PATHS
   startVertex TO targetVertex
@@ -147,7 +147,7 @@ FOR path
 
 ### Working with collection sets
 
-```
+```aql
 FOR path
   IN MIN..MAX OUTBOUND|INBOUND|ANY K_PATHS
   startVertex TO targetVertex
@@ -168,7 +168,7 @@ has no relevance, but in *edges1* and *edges3* the direction should be taken
 into account. In this case you can use `OUTBOUND` as general search direction
 and `ANY` specifically for *edges2* as follows:
 
-```
+```aql
 FOR vertex IN OUTBOUND K_PATHS
   startVertex TO targetVertex
   edges1, ANY edges2, edges3

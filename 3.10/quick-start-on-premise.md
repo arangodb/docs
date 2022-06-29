@@ -40,7 +40,7 @@ Depending on the installation method used, the installation process either
 prompted for the root password or the default root password is empty
 (see [Securing the installation](quick-start-on-premise.html#securing-the-installation)).
 
-![Aardvark Login Form](images/loginView.png)
+![Web Interface Login Form](images/loginView.png)
 
 Next you will be asked which database to use. Every server instance comes with
 a `_system` database. Select this database to continue.
@@ -49,7 +49,7 @@ a `_system` database. Select this database to continue.
 
 You should then be presented the dashboard with server statistics like this:
 
-![Aardvark Dashboard Request Statistics](images/dashboardView.png)
+![Web Interface Dashboard Request Statistics](images/dashboardView.png)
 
 For a more detailed description of the interface, see [Web Interface](programs-web-interface.html).
 -->
@@ -91,7 +91,7 @@ user that has access rights to this database. See
 
 Use the *arangosh* to create a new database and user.
 
-```
+```js
 arangosh> db._createDatabase("example");
 arangosh> var users = require("@arangodb/users");
 arangosh> users.save("root@example", "password");

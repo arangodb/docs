@@ -49,7 +49,7 @@ The following query will look in the *users* collection for a document with a sp
 by one. If it does not exist, a new document will be inserted, consisting of the
 attributes *name*, *logins*, and *dateCreated*:
 
-```js
+```aql
 UPSERT { name: 'superuser' } 
 INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() } 
 UPDATE { logins: OLD.logins + 1 } IN users
@@ -94,7 +94,7 @@ In order to not accidentally update documents that have been written and updated
 you last fetched them you can use the option `ignoreRevs` to either let ArangoDB compare 
 the `_rev` value and only succeed if they still match, or let ArangoDB ignore them (default):
 
-```js
+```aql
 FOR i IN 1..1000
   UPSERT { _key: CONCAT('test', i)}
     INSERT {foobar: false}
@@ -121,7 +121,7 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this effect on a per query basis:
 
-```js
+```aql
 FOR i IN 1..1000
   UPSERT { _key: CONCAT('test', i) }
   INSERT { foobar: false }
@@ -135,7 +135,7 @@ The `indexHint` option will be used as a hint for the document lookup
 performed as part of the `UPSERT` operation, and can help in cases such as
 `UPSERT` not picking the best index automatically.
 
-```js
+```aql
 UPSERT { a: 1234 }
   INSERT { a: 1234, name: "AB" }
   UPDATE { name: "ABC" } IN myCollection
@@ -151,7 +151,7 @@ Makes the index or indices specified in `indexHint` mandatory if enabled. The
 default is `false`. Also see
 [`forceIndexHint` Option of the `FOR` Operation](operations-for.html#forceindexhint).
 
-```js
+```aql
 UPSERT { a: 1234 }
   INSERT { a: 1234, name: "AB" }
   UPDATE { name: "ABC" } IN myCollection
@@ -175,7 +175,7 @@ update/replace.
 This can also be used to check whether the upsert has performed an insert or an update 
 internally:
 
-```js
+```aql
 UPSERT { name: 'superuser' } 
 INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() } 
 UPDATE { logins: OLD.logins + 1 } IN users

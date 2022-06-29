@@ -172,7 +172,7 @@ The request object specifies the following properties:
 
   Indicates whether the request was made using a trusted proxy.
   If the origin server's address was specified in the ArangoDB configuration
-  using `--frontend.trusted-proxy` or the service's `trustProxy` setting is
+  using `--web interface.trusted-proxy` or the service's `trustProxy` setting is
   enabled, this will be `true`, otherwise it will be `false`.
 
 * **url**: `string`

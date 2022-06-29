@@ -9,6 +9,20 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.10. ArangoDB 3.10 also contains several bug fixes that are not listed
 here.
 
+Native ARM Support
+------------------
+
+ArangoDB is now available for the ARM architecture, in addition to the x86-64
+architecture.
+
+It can natively run on Apple silicon (e.g. M1 chips). It was already possible to
+run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
+3.9.x because of its use of AVX instructions, which Rosetta 2 does not emulate.
+3.10.x runs on this hardware again, but now without emulation.
+
+ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
+The minimum requirement is an ARMv8 chip with Neon (SIMD).
+
 ArangoSearch
 ------------
 
@@ -61,7 +75,7 @@ profiling output, and it wasn't clear which execution node caused which amount o
 
 For example, consider the following query:
 
-```js
+```aql
 FOR doc1 IN collection
   FILTER doc1.value1 < 1000  /* uses index */
   FILTER doc1.value2 NOT IN [1, 4, 7]  /* post filter */
@@ -74,7 +88,7 @@ FOR doc1 IN collection
 The profiling output for this query now shows how often the filters were invoked for the 
 different execution nodes:
 
-```js
+```aql
 Execution plan:
  Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode       1       1          0       0.00008   * ROOT
@@ -94,7 +108,7 @@ Query Statistics:
 
 ### Number of cache hits / cache misses in profiling output
 
-When profiling an AQL query via `db._profileQuery(...)` command or via the web UI, the
+When profiling an AQL query via `db._profileQuery(...)` command or via the web interface, the
 query profile output will now contain the number of index entries read from
 in-memory caches (usable for edge and persistent indexes) plus the number of cache misses.
 
@@ -102,7 +116,7 @@ In the following example query, there are in-memory caches present for both inde
 the query. However, only the innermost index node #13 can use the cache, because the outer
 FOR loop does not use an equality lookup.
 
-```
+```aql
 Query String (270 chars, cacheable: false):
  FOR doc1 IN collection FILTER doc1.value1 < 1000 FILTER doc1.value2 NOT IN [1, 4, 7]  
  FOR doc2 IN collection FILTER doc1.value1 == doc2.value2 FILTER doc2.value2 != 5 RETURN doc2
@@ -129,19 +143,26 @@ Query Statistics:
 The multi-dimensional index type `zkd` (experimental) now supports an optional
 index hint for tweaking performance:
 
-```js
+```aql
 FOR … IN … OPTIONS { lookahead: 32 }
 ```
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
-### New AQL Functions
+### New and Changed AQL Functions
 
 AQL functions added in 3.10:
 
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
-  a document function to recursively keep attributes from objects/documents,
+  A document function to recursively keep attributes from objects/documents,
   as a counterpart to `UNSET_RECURSIVE()`
+
+AQL functions changed in 3.10:
+
+- [`MERGE_RECURSIVE()`](aql/functions-document.html#merge_recursive):
+  You can now call the function with a single argument instead of at least two.
+  It also accepts an array of objects now, matching the behavior of the
+  `MERGE()` function.
 
 Indexes
 -------
@@ -229,6 +250,18 @@ This feature is only available in the Enterprise Edition.
 
 Server options
 --------------
+
+### Responses early during instance startup
+
+The HTTP interface of _arangod_ instances can now optionally be started earlier
+during the startup process, so that ping probes from monitoring tools can
+already be responded to when the instance has not fully started.
+
+You can set the new `--server.early-connections` startup option to `true` to
+let the instance respond to the `/_api/version`, `/_admin/version`, and
+`/_admin/status` REST APIs early.
+
+See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
 
 ### RocksDB startup options
 
@@ -361,7 +394,7 @@ _arangoexport_ now also has a `--custom-query-file` startup option that you can
 use instead of `--custom-query`, to read a query from a file. This allows you to
 store complex queries and no escaping is necessary in the file:
 
-```js
+```aql
 // example.aql
 FOR book IN @@collectionName
   FILTER book.sold > @sold
@@ -391,6 +424,6 @@ The bundled version of the Boost library has been upgraded from 1.71.0 to 1.78.0
 
 The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.
 
-The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.2.1-RC.
+The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.3.0.
 
 The bundled version of the zlib library has been upgraded from 1.2.11 to 1.2.12.

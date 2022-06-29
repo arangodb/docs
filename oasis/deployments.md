@@ -192,8 +192,17 @@ for how long passwords are valid. ArangoDB Oasis can automatically change the
 
 ## How to create a private endpoint deployment
 
-ArangoDB Oasis deployments running on Microsoft Azure or AWS can be changed
-to private endpoint deployments. Follow the steps outlined below to get started.
+To isolate your deployments and increase security, you can use the private endpoint feature.
+Follow the steps outlined below to get started.
+
+{% hint 'info' %}
+The private endpoint feature is only available on the enterprise tier for
+deployments running on Microsoft Azure and Amazon Web Services (AWS).
+{% endhint %}
+
+{% hint 'tip' %}
+Private endpoints on Microsoft Azure can be cross region; in AWS they should be located in the same region.
+{% endhint %}
 
 ### Microsoft Azure
 
@@ -216,12 +225,6 @@ contact support via __Request help__ in the help menu.
 2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
    icon. If you see a pencil icon and no menu opens, then you are either on the
    free-to-try or professional tier, or the selected deployment is not eligible.
-
-   {% hint 'info' %}
-   The private endpoint option is only available on the enterprise tier for
-   deployments running on Azure.
-   {% endhint %}
-
 3. Click **Change to private endpoint** in the menu.
    ![Oasis Deployment Private Endpoint Menu](images/oasis-deployment-private-endpoint-menu.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
@@ -270,10 +273,6 @@ that automatically connects to private endpoints that are created in those princ
 2. In the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
    icon. If you see a pencil icon and no menu opens, then you are either on the
    free-to-try or professional tier, or the selected deployment is not eligible.
-   {% hint 'info' %}
-   The private endpoint option is only available on the enterprise tier for
-   deployments running on AWS.
-   {% endhint %}
 3. Click **Change to private endpoint** in the menu.
    ![Oasis Deployment AWS Change to Private Endpoint](images/oasis-aws-change-to-private-endpoint.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.

@@ -838,11 +838,14 @@ removed in future versions of ArangoDB:
   kind of a stop gap. We recommend to switch to RocksDB engine, which persists
   all index types with no difference between skiplist and persistent indexes.
 
-* the legacy mode for Foxx applications from ArangoDB 2.8 or earlier:
+* the legacy mode for Foxx applications from ArangoDB 2.8 or earlier.
 
+  {%- assign ver = "3.8" | version: "<" %}
+  {%- if ver %}
   The legacy mode is described in more detail in the [Foxx manual](foxx-guides-legacy-mode.html).
   To upgrade an existing Foxx application that still uses the legacy mode, please
   follow the steps described in [the manual](foxx-migrating2x.html).
+  {%- endif %}
 
 * the AQL geo functions `NEAR`, `WITHIN`, `WITHIN_RECTANGLE` and `IS_IN_POLYGON`:
 

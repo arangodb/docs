@@ -96,7 +96,7 @@ If the result of the following query is present in the query results cache,
 then either modifying data in collection `users` or in collection `organizations`
 will remove the already computed result from the cache:
 
-```
+```aql
 FOR user IN users
   FOR organization IN organizations
     FILTER user.organization == organization._key
@@ -144,7 +144,7 @@ above.
 
 After the server is started, the cache mode can be changed at runtime as follows:
 
-```
+```js
 require("@arangodb/aql/cache").properties({ mode: "on" }); 
 ```
 
@@ -161,7 +161,7 @@ results in each database's query cache and thus restrict the cache's memory cons
 
 These value can also be adjusted at runtime as follows:
 
-```
+```js
 require("@arangodb/aql/cache").properties({ 
   maxResults: 200,
   maxResultsSize: 8 * 1024 * 1024,
@@ -188,7 +188,7 @@ When the query cache mode is `off`, the executor will not look for the query in 
 
 The `cache` attribute can be set as follows via the `db._createStatement()` function:
 
-```
+```js
 var stmt = db._createStatement({ 
   query: "FOR doc IN users LIMIT 5 RETURN doc",
   cache: true  /* cache attribute set here */
@@ -199,7 +199,7 @@ stmt.execute();
 
 When using the `db._query()` function, the `cache` attribute can be set as follows:
 
-```
+```js
 db._query({ 
   query: "FOR doc IN users LIMIT 5 RETURN doc",
   cache: true  /* cache attribute set here */
@@ -219,7 +219,7 @@ Query results cache inspection
 The contents of the query results cache can be checked at runtime using the cache's
 `toArray()` function:
 
-```
+```js
 require("@arangodb/aql/cache").toArray();
 ```
 
@@ -229,7 +229,7 @@ results cache.
 The query results cache for the current database can be cleared at runtime using the
 cache's `clear` function:
 
-```
+```js
 require("@arangodb/aql/cache").clear();
 ```
 

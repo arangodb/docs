@@ -28,7 +28,7 @@ which is sufficient for most use cases such as location-aware services.
 - **longitude2** (number): the longitude portion of the second coordinate
 - returns **distance** (number): the distance between both coordinates in **meters**
 
-```js
+```aql
 // Distance from Brandenburg Gate (Berlin) to ArangoDB headquarters (Cologne)
 DISTANCE(52.5163, 13.3777, 50.9322, 6.94) // 476918.89688380965 (~477km)
 
@@ -68,7 +68,7 @@ boundary edges!
 You can optimize queries that contain a `FILTER` expression of the following
 form with an S2-based [geospatial index](../indexing-geo.html):
 
-```js
+```aql
 FOR doc IN coll
   FILTER GEO_CONTAINS(geoJson, doc.geo)
   ...
@@ -99,7 +99,7 @@ of each shape. For a list of supported types see the
 - returns **distance** (number): the distance between the centroid points of
   the two objects on the reference ellipsoid
 
-```js
+```aql
 LET polygon = {
   type: "Polygon",
   coordinates: [[[-11.5, 23.5], [-10.5, 26.1], [-11.2, 27.1], [-11.5, 23.5]]]
@@ -112,7 +112,7 @@ FOR doc IN collectionName
 You can optimize queries that contain a `FILTER` expression of the following
 form with an S2-based [geospatial index](../indexing-geo.html):
 
-```js
+```aql
 FOR doc IN coll
   FILTER GEO_DISTANCE(geoJson, doc.geo) <= limit
   ...
@@ -127,7 +127,7 @@ a lower bound with `>` or `>=`, or both, are equally supported.
 You can also optimize queries that use a `SORT` condition of the following form
 with a geospatial index:
 
-```js
+```aql
   SORT GEO_DISTANCE(geoJson, doc.geo)
 ```
 
@@ -152,7 +152,7 @@ see the [geo index page](../indexing-geo.html#geojson).
   Supported are `"sphere"` (default) and `"wgs84"`.
 - returns **area** (number): the area in square meters of the polygon
 
-```js
+```aql
 LET polygon = {
   type: "Polygon",
   coordinates: [[[-11.5, 23.5], [-10.5, 26.1], [-11.2, 27.1], [-11.5, 23.5]]]
@@ -173,7 +173,7 @@ types see the [geo index page](../indexing-geo.html#geojson).
 - **geoJsonB** (object): second GeoJSON object.
 - returns **bool** (bool): true for equality.
 
-```js
+```aql
 LET polygonA = GEO_POLYGON([
   [-11.5, 23.5], [-10.5, 26.1], [-11.2, 27.1], [-11.5, 23.5]
 ])
@@ -183,7 +183,7 @@ LET polygonB = GEO_POLYGON([
 RETURN GEO_EQUALS(polygonA, polygonB) // true
 ```
 
-```js
+```aql
 LET polygonA = GEO_POLYGON([
   [-11.1, 24.0], [-10.5, 26.1], [-11.2, 27.1], [-11.1, 24.0]
 ])
@@ -209,7 +209,7 @@ intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa
 You can optimize queries that contain a `FILTER` expression of the following
 form with an S2-based [geospatial index](../indexing-geo.html):
 
-```js
+```aql
 FOR doc IN coll
   FILTER GEO_INTERSECTS(geoJson, doc.geo)
   ...
@@ -268,7 +268,7 @@ favor of the new `GEO_CONTAINS` AQL function, which works with
   *true* or *false*) if the specified point is exactly on a boundary of the
   polygon.
 
-```js
+```aql
 // will check if the point (lat 4, lon 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], 4, 7 )
 ```
@@ -295,7 +295,7 @@ the same way.
   or *false* if it's not. The result is undefined (can be *true* or *false*) if
   the specified point is exactly on a boundary of the polygon.
 
-```js
+```aql
 // will check if the point (lat 4, lon 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], [ 4, 7 ] )
 
@@ -493,7 +493,7 @@ the query however.
 `NEAR` is a deprecated AQL function from version 3.4.0 on.
 Use [DISTANCE()](#distance) in a query like this instead:
 
-```js
+```aql
 FOR doc IN doc
   SORT DISTANCE(doc.latitude, doc.longitude, paramLatitude, paramLongitude) ASC
   RETURN doc
@@ -531,7 +531,7 @@ contain the distance value in an attribute of that name.
 `WITHIN` is a deprecated AQL function from version 3.4.0 on.
 Use [DISTANCE()](#distance) in a query like this instead:
 
-```js
+```aql
 FOR doc IN doc
   LET d = DISTANCE(doc.latitude, doc.longitude, paramLatitude, paramLongitude)
   FILTER d <= radius
@@ -570,7 +570,7 @@ value in an attribute of that name.
 `WITHIN_RECTANGLE` is a deprecated AQL function from version 3.4.0 on. Use
 [GEO_CONTAINS](#geo_contains) and a GeoJSON polygon instead:
 
-```js
+```aql
 LET rect = {type: "Polygon", coordinates: [[[longitude1, latitude1], ...]]]}
 FOR doc IN doc
   FILTER GEO_CONTAINS(poly, [doc.longitude, doc.latitude])

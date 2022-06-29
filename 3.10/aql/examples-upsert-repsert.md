@@ -50,7 +50,7 @@ replace it (`REPLACE`).
 To recap, the syntaxes of AQL `UPSERT` are, depending on whether you want to
 update replace a document:
 
-```js
+```aql
 UPSERT <search-expression>
 INSERT <insert-expression>
 UPDATE <update-expression>
@@ -59,7 +59,7 @@ IN <collection> OPTIONS <options>
 
 or
 
-```js
+```aql
 UPSERT <search-expression>
 INSERT <insert-expression>
 REPLACE <replace-expression>
@@ -70,7 +70,7 @@ The `OPTIONS` part is optional.
 
 An example `UPSERT` operation looks like this:
 
-```js
+```aql
 UPSERT { page: "index.html" }
 INSERT { page: "index.html", status: "inserted" }
 UPDATE { status: "updated" }
@@ -90,7 +90,7 @@ The `UPSERT` AQL operation is sometimes used in combination with
 date/time-keeping. For example, the following query keeps track of when a
 document was first created, and when it was last updated:
 
-```js
+```aql
 UPSERT { page: "index.html" } 
 INSERT { page: "index.html", created: DATE_NOW() }
 UPDATE { updated: DATE_NOW() }
@@ -104,7 +104,7 @@ to the existing document and its values in the `UPDATE`/`REPLACE` part.
 Following is an example that increments a counter on a document whenever the
 `UPSERT` operation is executed:
 
-```js
+```aql
 UPSERT { page: "index.html" }
 INSERT { page: "index.html", hits: 1 }
 UPDATE { hits: OLD.value + 1 }
@@ -122,7 +122,7 @@ First of all, the `INSERT` part of an `UPSERT` operation should contain all
 attributes that are used in the search expression. Consider the following
 counter-example:
 
-```js
+```aql
 UPSERT { page: "index.html" }
 INSERT { status: "inserted" } /* page attribute missing here! */
 UPDATE { status: "updated" }
@@ -142,7 +142,7 @@ unintentional.
 The problem can easily be avoided by adding the search attributes to the
 `INSERT` part:
 
-```js
+```aql
 UPSERT { page: "index.html" }
 INSERT { page: "index.html", status: "inserted" }
 UPDATE { status: "updated" }
@@ -158,7 +158,7 @@ what is specified in the `REPLACE` part.
 
 That means when using the `REPLACE` operation, the query should look like:
 
-```js
+```aql
 UPSERT { page: "index.html" }
 INSERT { page: "index.html", status: "inserted" }
 REPLACE { page: "index.html", status: "updated" }
@@ -220,7 +220,7 @@ when the operation is executed, and none of the old values need to be referenced
 
 The general syntax of the `INSERT` AQL operation is:
 
-```js
+```aql
 INSERT <insert-expression>
 IN <collection> OPTIONS <options>
 ```
@@ -228,7 +228,7 @@ IN <collection> OPTIONS <options>
 As we will deal with the `overwriteMode` option here, we are focussing on
 `INSERT` operations with this option set, for example:
 
-```js
+```aql
 INSERT { _key: "index.html", status: "created" }
 IN pages OPTIONS { overwriteMode: "ignore" }
 ```
@@ -282,7 +282,7 @@ previous version of the document in case the document is already present.
 This can be achieved by appending a `RETURN OLD` to the `INSERT` operation,
 e.g.
 
-```js
+```aql
 INSERT { _key: "index.html", status: "created" }
 IN pages OPTIONS { overwriteMode: "replace" }
 RETURN OLD
@@ -292,7 +292,7 @@ It is also possible to return the new version of the document (the inserted
 document if no previous document existed, or the updated/replaced version in
 case a document already existed) by using `RETURN NEW`:
 
-```js
+```aql
 INSERT { _key: "index.html", status: "created" }
 IN pages OPTIONS { overwriteMode: "replace" }
 RETURN NEW

@@ -105,7 +105,7 @@ Using the Museum of Modern Arts as reference location, find restaurants within
 a 100 meter radius. Return the matches sorted by distance and include how far
 away they are from the reference point in the result:
 
-```js
+```aql
 LET moma = GEO_POINT(-73.983, 40.764)
 FOR doc IN restaurantsView
   SEARCH ANALYZER(GEO_DISTANCE(doc.location, moma) < 100, "geojson")
@@ -120,7 +120,7 @@ FOR doc IN restaurantsView
 Search for restaurants with `Cafe` in their name within a radius of 1000 meters
 and return the ten closest matches:
 
-```js
+```aql
 LET moma = GEO_POINT(-73.983, 40.764)
 FOR doc IN restaurantsView
   SEARCH ANALYZER(LIKE(doc.name, "%Cafe%"), "identity")
@@ -141,7 +141,7 @@ First off, search for the neighborhood `Upper West Side` in a subquery and
 return its GeoJSON Polygon. Then search for restaurants that are contained
 in this polygon and return them together with the polygon itself:
 
-```js
+```aql
 LET upperWestSide = FIRST(
   FOR doc IN restaurantsView
     SEARCH ANALYZER(doc.name == "Upper West Side", "identity")
@@ -161,7 +161,7 @@ FOR result IN PUSH(
 You do not have to look up the polygon, you can also provide one inline.
 It is also not necessary to return the polygon, you can return the matches only:
 
-```js
+```aql
 LET upperWestSide = {
   "coordinates": [
     [
@@ -259,7 +259,7 @@ FOR doc IN restaurantsView
 Define a GeoJSON polygon that is a rectangle, then search for neighborhoods
 that are fully contained in this area:
 
-```js
+```aql
 LET sides = {
   left: -74,
   top: 40.8,
@@ -296,7 +296,7 @@ Take a look at the lunch break video about the
 Define a GeoJSON polygon that is a rectangle, then search for neighborhoods
 that intersect with this area:
 
-```js
+```aql
 LET sides = {
   left: -74,
   top: 40.8,

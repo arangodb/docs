@@ -2,8 +2,8 @@ arangosh&gt; graph._addVertexCollection(<span class="hljs-string">&quot;shop&quo
 arangosh&gt; graph._addVertexCollection(<span class="hljs-string">&quot;customer&quot;</span>); 
 arangosh&gt; graph._addVertexCollection(<span class="hljs-string">&quot;pet&quot;</span>); 
 arangosh&gt; graph_module._graph(<span class="hljs-string">&quot;myGraph&quot;</span>);
-{[SmartGraph] 
-  <span class="hljs-string">&quot;customer&quot;</span> : [ArangoCollection <span class="hljs-number">10531</span>, <span class="hljs-string">&quot;customer&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">&quot;pet&quot;</span> : [ArangoCollection <span class="hljs-number">10542</span>, <span class="hljs-string">&quot;pet&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">&quot;shop&quot;</span> : [ArangoCollection <span class="hljs-number">10520</span>, <span class="hljs-string">&quot;shop&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+{[EnterpriseGraph] 
+  <span class="hljs-string">&quot;customer&quot;</span> : [ArangoCollection <span class="hljs-number">531</span>, <span class="hljs-string">&quot;customer&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;pet&quot;</span> : [ArangoCollection <span class="hljs-number">542</span>, <span class="hljs-string">&quot;pet&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;shop&quot;</span> : [ArangoCollection <span class="hljs-number">520</span>, <span class="hljs-string">&quot;shop&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }

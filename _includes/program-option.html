@@ -23,7 +23,7 @@ Also see [{{ section[0] | capitalize_section }} details](programs-arangod-{{ sec
 {%- endif -%}
 {{ option[1].description | upcase_first }}
 {%- if option[1].requiresValue != true and option[1].category != "command" -%}
-<br>This option can be specified without value to enable it.
+<br>This option can be specified without a value to enable it.
 {%- endif -%}
 {%- if option[1].category == "command" -%}
 <br>This is a command, no value needs to be specified. The process terminates after executing the command.

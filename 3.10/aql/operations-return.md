@@ -40,7 +40,7 @@ Usage
 To iterate over all documents of a collection called *users* and return the
 full documents, you can write:
 
-```js
+```aql
 FOR u IN users
   RETURN u
 ```
@@ -49,14 +49,14 @@ In each iteration of the for-loop, a document of the *users* collection is
 assigned to a variable *u* and returned unmodified in this example. To return
 only one attribute of each document, you could use a different return expression:
 
-```js
+```aql
 FOR u IN users
   RETURN u.name
 ```
 
 Or to return multiple attributes, an object can be constructed like this:
 
-```js
+```aql
 FOR u IN users
   RETURN { name: u.name, age: u.age }
 ```
@@ -67,7 +67,7 @@ This is important to remember when working with [subqueries](examples-combining-
 [Dynamic attribute names](fundamentals-data-types.html#objects--documents) are
 supported as well:
 
-```js
+```aql
 FOR u IN users
   RETURN { [ u._id ]: u.age }
 ```
@@ -93,7 +93,7 @@ The result contains one object per user with a single key/value pair each.
 This is usually not desired. For a single object, that maps user IDs to ages,
 the individual results need to be merged and returned with another `RETURN`:
 
-```js
+```aql
 RETURN MERGE(
   FOR u IN users
     RETURN { [ u._id ]: u.age }
@@ -116,7 +116,7 @@ times, only one of the key/value pairs with the duplicate name will survive
 dynamic attribute names, use static names instead and return all document
 properties as attribute values:
 
-```js
+```aql
 FOR u IN users
   RETURN { name: u.name, age: u.age }
 ```
@@ -153,7 +153,7 @@ loop preceding it.
 
 Below example returns `["foo", "bar", "baz"]`:
 
-```js
+```aql
 FOR value IN ["foo", "bar", "bar", "baz", "foo"]
   RETURN DISTINCT value
 ```
@@ -172,7 +172,7 @@ array or the subquery.
 For example, the following query will apply `DISTINCT` on its subquery results,
 but not inside the subquery:
 
-```js
+```aql
 FOR what IN 1..2
   RETURN DISTINCT (
     FOR i IN [ 1, 2, 3, 4, 1, 3 ] 
@@ -194,7 +194,7 @@ only be one occurrence of the value `[ 1, 2, 3, 4, 1, 3 ]` left:
 If the goal is to apply the `DISTINCT` inside the subquery, it needs to be moved
 there:
 
-```js
+```aql
 FOR what IN 1..2
   LET sub = (
     FOR i IN [ 1, 2, 3, 4, 1, 3 ] 

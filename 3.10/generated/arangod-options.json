@@ -2379,81 +2379,6 @@
     "section" : "foxx",
     "type" : "boolean"
   },
-  "frontend.proxy-request-check" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "single"
-    ],
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "enable proxy request checking",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "frontend",
-    "type" : "boolean"
-  },
-  "frontend.trusted-proxy" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "single"
-    ],
-    "default" : [
-    ],
-    "deprecatedIn" : null,
-    "description" : "list of proxies to trust (may be IP or network). Make sure --frontend.proxy-request-check is enabled",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "frontend",
-    "type" : "string..."
-  },
-  "frontend.version-check" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "single"
-    ],
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "alert the user if new versions are available",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "frontend",
-    "type" : "boolean"
-  },
   "gid" : {
     "category" : "option",
     "component" : [
@@ -5747,7 +5672,7 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "use in-memory log appender, which can be queried via API and web UI",
+    "description" : "use in-memory log appender, which can be queried via the API and web interface",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -12222,6 +12147,81 @@
     ],
     "requiresValue" : false,
     "section" : "",
+    "type" : "boolean"
+  },
+  "web-interface.proxy-request-check" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enable proxy request checking",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "web-interface",
+    "type" : "boolean"
+  },
+  "web-interface.trusted-proxy" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "list of proxies to trust (may be IP or network). Make sure --web-interface.proxy-request-check is enabled",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "web-interface",
+    "type" : "string..."
+  },
+  "web-interface.version-check" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "alert the user if new versions are available",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "web-interface",
     "type" : "boolean"
   },
   "working-directory" : {

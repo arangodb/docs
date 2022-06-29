@@ -290,7 +290,7 @@ The MMFiles engine is gone since ArangoDB 3.7, and the only remaining
 storage engine since then is RocksDB. For the RocksDB engine, the
 `/_api/export` endpoint internally used a streaming AQL query such as
 
-```js
+```aql
 FOR doc IN @@collection RETURN doc
 ```
 

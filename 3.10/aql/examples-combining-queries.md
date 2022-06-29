@@ -13,7 +13,7 @@ variables and values in its outer scope(s).
 It is required that subqueries be put inside parentheses `(` and `)` to
 explicitly mark their start and end points:
 
-```js
+```aql
 FOR p IN persons
   LET recommendations = ( // subquery start
     FOR r IN recommendations
@@ -33,7 +33,7 @@ Function calls also use parentheses and AQL allows you to omit an extra pair if
 you want to use a subquery as sole argument for a function, e.g.
 `MAX(<subquery>)` instead of `MAX((<subquery>))`:
 
-```js
+```aql
 FOR p IN persons
   COLLECT city = p.city INTO g
   RETURN {
@@ -56,7 +56,7 @@ Subqueries may also include other subqueries.
 Subqueries always return a result **array**, even if there is only
 a single return value:
 
-```js
+```aql
 RETURN ( RETURN 1 )
 ```
 
@@ -67,7 +67,7 @@ RETURN ( RETURN 1 )
 To avoid such a nested data structure, [FIRST()](functions-array.html#first)
 can be used for example:
 
-```js
+```aql
 RETURN FIRST( RETURN 1 )
 ```
 
@@ -78,7 +78,7 @@ RETURN FIRST( RETURN 1 )
 To unwind the result array of a subquery so that each element is returned as
 top-level element in the overall query result, you can use a `FOR` loop:
 
-```js
+```aql
 FOR elem IN (RETURN 1..3) // [1,2,3]
   RETURN elem
 ```
@@ -103,14 +103,14 @@ participate in lazy evaluation of operands, for example in the
 
 Consider the following query:
 
-```js
+```aql
 RETURN RAND() > 0.5 ? (RETURN 1) : 0
 ```
 
 It get transformed into something more like this, with the calculation of the
 subquery happening before the evaluation of the condition:
 
-```js
+```aql
 LET temp1 = (RETURN 1)
 LET temp2 = RAND() > 0.5 ? temp1 : 0
 RETURN temp2
@@ -124,7 +124,7 @@ avoid query errors like
 > Query: AQL: collection or array expected as operand to FOR loop; you provided
 > a value of type 'null' (while executing)
 
-```js
+```aql
 LET maybe = DOCUMENT("coll/does_not_exist")
 LET dependent = maybe ? (
   FOR attr IN ATTRIBUTES(maybe)
@@ -139,7 +139,7 @@ account that `maybe` can be `null`, which cannot be iterated over with `FOR`.
 A possible solution is to fall back to an empty array in the subquery to
 effectively prevent the loop body from being run:
 
-```js
+```aql
 LET maybe = DOCUMENT("coll/does_not_exist")
 LET dependent = maybe ? (
   FOR attr IN NOT_NULL(ATTRIBUTES(maybe || {}), [])
