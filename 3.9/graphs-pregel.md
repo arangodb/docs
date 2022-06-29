@@ -68,7 +68,7 @@ var execution = pregel.start("<algorithm>", "<yourgraph>", params);
 ```
 
 `params` needs to be an object, the valid keys are mentioned in the
-page [Available Algorithms](graph-pregel-algorithms.html).
+page [Available Algorithms](graphs-pregel-algorithms.html).
 
 Alternatively, you might want to specify the vertex and edge collections
 directly. The call syntax of the `start()` method changes in this case.
