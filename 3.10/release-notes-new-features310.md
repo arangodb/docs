@@ -238,8 +238,9 @@ It is now possible to test [SmartGraphs](graphs-smart-graphs.html) and
 [SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to
 port them to a cluster with multiple servers.
 
-You can create SmartGraphs, Disjoint SmartGraphs, Hybrid SmartGraphs,
-Hybrid Disjoint SmartGraphs, as well as SatelliteGraphs in the usual way, using
+You can create SmartGraphs, Disjoint SmartGraphs, SmartGraphs using 
+SatelliteCollections, Disjoint SmartGraphs using SatelliteCollections, as well
+as SatelliteGraphs in the usual way, using
 `arangosh` for instance, but on a single server, then dump them, start a cluster
 (with multiple servers) and restore the graphs in the cluster. The graphs and
 the collections will keep all properties that are kept when the graph is already
@@ -249,6 +250,18 @@ This feature is only available in the Enterprise Edition.
 
 Server options
 --------------
+
+### Responses early during instance startup
+
+The HTTP interface of _arangod_ instances can now optionally be started earlier
+during the startup process, so that ping probes from monitoring tools can
+already be responded to when the instance has not fully started.
+
+You can set the new `--server.early-connections` startup option to `true` to
+let the instance respond to the `/_api/version`, `/_admin/version`, and
+`/_admin/status` REST APIs early.
+
+See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
 
 ### RocksDB startup options
 
@@ -411,6 +424,6 @@ The bundled version of the Boost library has been upgraded from 1.71.0 to 1.78.0
 
 The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.
 
-The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.2.1-RC.
+The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.3.0.
 
 The bundled version of the zlib library has been upgraded from 1.2.11 to 1.2.12.
