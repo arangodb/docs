@@ -8,234 +8,89 @@ SmartGraphs
 
 {% include hint-ee-oasis.md feature="SmartGraphs" plural=true %}
 
-This chapter describes the `smart-graph` module, which enables you to manage
-graphs at scale. It will give a vast performance benefit for all graphs sharded
-in an ArangoDB Cluster. On a single server this feature is pointless, hence it
-is only available in cluster mode.
+SmartGraphs are specifically targeted at graphs that need scalability and high performance. The way SmartGraphs use the ArangoDB cluster sharding makes it extremely useful for distributing data across multiple servers with minimal network latency.
+
+Most graphs have one feature - a value that is stored in every vertex - that divides the entire graph into several smaller subgraphs. These subgraphs have a large amount of edges that only connect vertices in the same subgraph and only have few edges connecting vertices from other subgraphs. If this feature is known, SmartGraphs can make use if it.
+
+Examples for such graphs are:
+
+- **Social Networks**<br>
+  Typically the feature here is the region/country users live in.
+  Every user has more contacts in the same region/country than in other regions/countries.
+
+- **Transport Systems**<br>
+  For transport systems, the common feature is the region/country. There are many local connections, but only a few go across countries.
+
+- **E-Commerce**<br>
+  In this case, the category of products is a good feature. Products of the same category are often bought together.
 
 In terms of querying there is no difference between SmartGraphs and
-General Graphs. The former is a transparent replacement for the latter.
+General Graphs.
 For graph querying please refer to [AQL Graph Operations](aql/graphs.html)
 and [General Graph Functions](graphs-general-graphs-functions.html) sections.
 The optimizer is clever enough to identify whether it is a SmartGraph or not.
-
-The difference is only in the management section: creating and modifying the
-underlying collections of the graph. For a detailed API reference please refer
-to [SmartGraph Management](graphs-smart-graphs-management.html).
 
 Do the hands-on
 [ArangoDB SmartGraphs Tutorial](https://www.arangodb.com/using-smartgraphs-arangodb/){:target="_blank"}
 to learn more.
 
-What makes a graph smart?
--------------------------
+## How SmartGraphs work?
 
-Most graphs have one feature that divides the entire graph into several smaller
-subgraphs. These subgraphs have a large amount of edges that only connect
-vertices in the same subgraph and only have few edges connecting vertices from
-other subgraphs.
+Typically, when you shard your data with ArangoDB the goal is to have an even distribution of data across multiple servers. This approach allows you to scale out your data at a rather high speed in most cases. However, since one of the best features of ArangoDB is fast graph traversals, this sort of distribution can start causing problems if your data grows exponentially.
 
-Examples for these graphs are:
+Instead of traveling across every server before returning data, SmartGraphs use a clever and optimized way of moving data through the cluster so that you retain the scalability as well as the performance of graph traversals in ArangoDB. 
 
-- **Social Networks**<br>
-  Typically the feature here is the region/country users live in.
-  Every user typically has more contacts in the same region/country then she
-  has in other regions/countries
+The examples below illustrate the difference in how data is sharded in the cluster for both scenarios. Let's take a closer look at it.
 
-- **Transport Systems**<br>
-  For those also the feature is the region/country. You have many local
-  transportation but only few across countries.
+### Random data distribution
 
-- **E-Commerce**<br>
-  In this case probably the category of products is a good feature.
-  Often products of the same category are bought together.
+The natural distribution of data for graphs that handle large datasets involves a series of highly interconnected nodes with many edges running between them.
 
-If this feature is known, SmartGraphs can make use if it.
+![Random data distribution](images/SmartGraphs_random_distribution.png)
 
-When creating a SmartGraph you have to define a smartAttribute, which is the
-name of an attribute stored in every vertex. The graph will than be
-automatically sharded in such a way that all vertices with the same value are
-stored on the same physical machine, all edges connecting vertices with
-identical smartAttribute values are stored on this machine as well.
-During query time the query optimizer and the query executor both know for
-every document exactly where it is stored and can thereby minimize network
-overhead. Everything that can be computed locally will be computed locally.
+_The orange line indicates an example graph traversal. Notice how it touches nodes on every server._
 
-Benefits of SmartGraphs
------------------------
+Once you start connecting the nodes to each other, it becomes clear that the graph traversal might need to travel across every server before returning results. This sort of distribution results in many network hops between DB-Servers and Coordinators.
 
-Because of the above described guaranteed sharding, the performance of queries
-that only cover one subgraph have a performance almost equal to an only local
-computation. Queries that cover more than one subgraph require some network
-overhead. The more subgraphs are touched the more network cost will apply.
-However the overall performance is never worse than the same query using a
-General Graph.
+### Smart data distribution
 
-Benefits of Hybrid SmartGraphs
--------------------------------
+By optimizing the distribution of data, SmartGraphs reduce the number of network hops traversals require. 
 
-Hybrid SmartGraphs are capable of using SatelliteCollections within their graph
+SmartGraphs come with a concept of a `smartGraphAttribute` that is used to inform the database how exactly to shard data. When defining this attribute, think of it as a value that is stored in every vertex. For instance, in social network datasets, this attribute can be the ID or the region/country of the users. 
+
+The graph will than be automatically sharded in such a way that all vertices with the same value are stored on the same physical machine, all edges connecting vertices with identical `smartGraphAttribute` values are stored on this machine as well. Sharding with this attribute means that the relevant data is now co-located on servers, whenever possible.
+
+![SmartGraphs data distribution](images/SmartGraphs_distribution.png)
+
+_The outcome of moving the data like this is that you retain the scalability as well as the performance of graph traversals in ArangoDB._
+
+## SmartGraphs using SatelliteCollections
+
+These SmartGraphs are capable of using [SatelliteCollections](satellites.html) within their graph
 definition. Therefore, edge definitions defined between SmartCollections and
 SatelliteCollections can be created. As SatelliteCollections (and the edge
-collections between SmartGraph collections and SatelliteCollection) are globally
+collections between SmartGraph collections and SatelliteCollections) are globally
 replicated to each participating DB-Server, (weighted) graph traversals and
 (k-)shortest path(s) queries can partially be executed locally on each
 DB-Server. This means a larger part of the query can be executed fully local
 whenever data from the SatelliteCollections is required.
 
-Benefits of Disjoint SmartGraphs
---------------------------------
+![SmartGraphs with SatelliteCollections](images/SmartGraphs-using-SatelliteCollections.png)
 
-Disjoint SmartGraphs are a specialized type of SmartGraphs. 
+## Disjoint SmartGraphs
 
-In addition to the guaranteed sharding in SmartGraphs, a Disjoint SmartGraph
-prohibits edges between vertices with different `smartGraphAttribute` values.
+Disjoint SmartGraphs are useful for use cases which have to deal with a large forest of graphs,
+when you have clearly separated subgraphs in your graph dataset.
+Disjoint SmartGraphs enable the automatic sharding of these subgraphs and prohibit edges connecting them.
 
-This ensures that graph traversals, shortest path, and k-shortest-paths queries
+![Disjoint SmartGraphs](images/SmartGraphs-Disjoint.png)
+
+_This ensures that graph traversals, shortest path, and k-shortest-paths queries
 can be executed locally on a DB-Server, achieving improved performance for
-these type of queries.
+these type of queries._
 
-Benefits of Hybrid Disjoint SmartGraphs
----------------------------------------
+## Disjoint SmartGraphs using SatelliteCollections
 
-Hybrid Disjoint SmartGraphs are like Hybrid SmartGraphs but also prohibit
-edges between vertices with different `smartGraphAttribute` values. This
-restriction makes it unnecessary to replicate the edge collections between
-SmartGraph collections and SatelliteCollections to all DB-Servers for local
-execution. They are sharded like the SmartGraph collections instead
-(`distributeShardsLike`).
-
-Getting started
----------------
-
-First of all, SmartGraphs **cannot use existing collections**. When switching to
-SmartGraph from an existing dataset you have to import the data into a fresh
-SmartGraph. This switch can be easily achieved with
-[arangodump](programs-arangodump.html) and
-[arangorestore](programs-arangorestore.html).
-The only thing you have to change in this pipeline is that you create the new
-collections with the SmartGraph module before starting `arangorestore`.
-
-**Create a SmartGraph**
-
-In contrast to General Graphs we have to add more options when creating the
-graph. The two options `smartGraphAttribute` and `numberOfShards` are
-required and cannot be modified later. 
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Create a Disjoint SmartGraph**
-
-In contrast to regular SmartGraphs we have to add one option when creating the
-graph. The boolean option `isDisjoint` is required, needs to be set to `true`
-and cannot be modified later. 
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowToDisjoint1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowToDisjoint1_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9, isDisjoint: true});
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowToDisjoint1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Add vertex collections**
-
-This is analogous to General Graphs. Unlike with General Graphs, the
-**collections must not exist** when creating the SmartGraph. The SmartGraph
-module will create them for you automatically to set up the sharding for all
-these collections correctly. If you create collections via the SmartGraph
-module and remove them from the graph definition, then you may re-add them
-without trouble however, as they will have the correct sharding.
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo2_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo2_cluster}
-     ~var graph_module = require("@arangodb/smart-graph");
-     ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._addVertexCollection("shop");
-      graph._addVertexCollection("customer");
-      graph._addVertexCollection("pet");
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Define relations on the Graph**
-
-Adding edge collections works the same as with General Graphs, but again, the
-collections are created by the SmartGraph module to set up sharding correctly
-so they must not exist when creating the SmartGraph (unless they have the
-correct sharding already).
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3_cluster}
-     ~var graph_module = require("@arangodb/smart-graph");
-     ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-     ~graph._addVertexCollection("shop");
-     ~graph._addVertexCollection("customer");
-     ~graph._addVertexCollection("pet");
-      var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
-      graph._extendEdgeDefinitions(rel);
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo3_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Create a Hybrid SmartGraph**
-
-In addition to the attributes you would set to create a SmartGraph, there is an
-additional attribute `satellites` you need to set. It needs to be an array of
-one or more collection names. These names can be used in edge definitions
-(relations) and these collections will be created as SatelliteCollections.
-In this example, both vertex collections are created as SatelliteCollections:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline hybridSmartGraphCreateGraphHowTo1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{hybridSmartGraphCreateGraphHowTo1_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var rel = graph_module._relation("isCustomer", "shop", "customer")
-      var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock hybridSmartGraphCreateGraphHowTo1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Create a Hybrid Disjoint SmartGraph**
-
-The option `isDisjoint` needs to be set to `true` in addition to the other
-options for a Hybrid SmartGraph. Only the `shop` vertex collection is created
-as a SatelliteCollection in this example:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline hybridSmartGraphCreateGraphHowTo2_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{hybridSmartGraphCreateGraphHowTo2_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var rel = graph_module._relation("isCustomer", "shop", "customer")
-      var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop"], smartGraphAttribute: "region", isDisjoint: true, numberOfShards: 9});
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock hybridSmartGraphCreateGraphHowTo2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+Disjoint SmartGraphs using SatelliteCollections prohibit
+edges between vertices with different `smartGraphAttribute` values.
+All SmartVertices can be connected to SatelliteVertices.
