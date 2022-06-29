@@ -1,8 +1,6 @@
 ---
 layout: default
-description: >- 
-  Pregel algorithms can be used for graph exploration, path finding, analytics
-  queries, and much more. 
+description: Pregel algorithms can be used for graph exploration, path finding, analytics queries, and much more. 
 ---
 # Pregel Algorithms
 
