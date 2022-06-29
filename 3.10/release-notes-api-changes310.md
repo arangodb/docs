@@ -77,7 +77,7 @@ attribute is returned inside the `serverInfo` object with the following subattri
 - `feature`: internal name of the feature that is currently being prepared, started, 
    stopped or unprepared.
 - `recoveryTick`: current recovery sequence number value if the instance is currently in
-  recovery. If the instance is already past the recovery, this attribute will contain 
+  recovery. If the instance is already past the recovery, this attribute contains 
   the last handled recovery sequence number.
 
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
