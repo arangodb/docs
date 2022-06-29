@@ -29,42 +29,8 @@ The following APIs can reply early with an HTTP 200 status:
 - `GET /_admin/status`:
   This API returns information about the instance's status, now also including
   recovery progress and information about which server feature is currently starting.
-
-All other APIs than the ones listed above will be responded to with an HTTP
-response code 503, so that callers can see that the instance is not fully ready yet.
-
-The `GET /_admin/status` API now also returns startup and recovery information.
-This can be used to determine the instance's progress during startup. The new
-`progress` attribute will be returned inside the `serverInfo` object with the
-following sub-attributes:
-
-- `phase`:
-  Name of the lifecycle phase the instance is currently in. Normally one of
-  `"in prepare"`, `"in start"`, `"in wait"`, `"in shutdown"`, `"in stop"`,
-  or `"in unprepare"`.
-- `feature`:
-  Internal name of the feature that is currently being prepared, started,
-  stopped or unprepared.
-- `recoveryTick`:
-  Current recovery sequence number value, if the instance is currently recovering.
-  If the instance is already past the recovery, this attribute will contain the
-  last handled recovery sequence number.
-
-The exact values of these attributes should not be relied on, i.e. client
-applications should not check for any exact values in them. Feature and phase
-names are subject to change between different versions of ArangoDB.
-The progress attributes can still be used to determine if the instance has made
-progress between two calls: if `phase`, `feature`, and `recoveryTick` don't
-change, then there hasn't been progress. Note that this is only true if the
-instance is still starting up. Once the instance has fully started and has
-opened the complete REST interface, the values in the `progress` attribute are
-expected to not change until shutdown.
-
-Note that the `maintenance` attribute in responses to `GET /_admin/status` can
-still be used to determine if the instance is fully available for arbitrary
-requests.
-
-Also see [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
+  
+See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more details.
 
 ### Privilege changes
 
@@ -104,7 +70,7 @@ The following HTTP APIs are affected:
 
 The GET `/_admin/status` API now also returns startup and recovery information. This
 can be used to determine the instance's progress during startup. The new `progress`
-attribute will be returned inside the `serverInfo` object with the following subattributes:
+attribute is returned inside the `serverInfo` object with the following subattributes:
 
 - `phase`: name of the lifecycle phase the instance is currently in. Normally one of
   `"in prepare"`, `"in start"`, `"in wait"`, `"in shutdown"`, `"in stop"`, or `"in unprepare"`.
@@ -114,17 +80,7 @@ attribute will be returned inside the `serverInfo` object with the following sub
   recovery. If the instance is already past the recovery, this attribute will contain 
   the last handled recovery sequence number.
 
-The exact values of these attributes should not be relied on, i.e. client applications
-should not check for any exact values in them. Feature and phase names are subject to
-change between different versions of ArangoDB. 
-The progress attributes can still be used to determine if the instance has made progress
-between two calls: if `phase`, `feature` and `recoveryTick` don't change, then there hasn't
-been progress. Note that this is only true if the instance is still in startup. Once the
-instance has fully started and has opened the complete REST interface, the values in the
-`progress` attribute are expected to not change until shutdown.
-
-Note that the `maintenance` attribute in responses to GET `/_admin/status` can still be 
-used to determine if the instance is fully available for arbitrary requests.
+See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
 
 #### Cursor API
 
