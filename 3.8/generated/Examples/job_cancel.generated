@@ -9,7 +9,7 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 81495
+x-arango-async-id: 81491
 x-content-type-options: nosniff
 
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/pending</span>
@@ -22,9 +22,9 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;81495&quot;</span> 
+  <span class="hljs-string">&quot;81491&quot;</span> 
 ]
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/81495/cancel</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/81491/cancel</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
@@ -46,5 +46,5 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;81495&quot;</span> 
+  <span class="hljs-string">&quot;81491&quot;</span> 
 ]

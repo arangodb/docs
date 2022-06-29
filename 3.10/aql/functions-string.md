@@ -902,10 +902,10 @@ using wildcard matching.
 {% hint 'info' %}
 Literal backlashes require different amounts of escaping depending on the
 context:
-- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+- `\` in bind variables (_Table_ view mode) in the web interface (automatically
   escaped to `\\` unless the value is wrapped in double quotes and already
   escaped properly)
-- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables (_JSON_ view mode) and queries in the web interface
 - `\\` in bind variables in arangosh
 - `\\\\` in queries in arangosh
 - Double the amount compared to arangosh in shells that use backslashes for
@@ -1864,7 +1864,7 @@ case conversion and accent removal for German text):
 To search a View for documents where the `text` attribute contains certain
 words/tokens in any order, you can use the function like this:
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text IN TOKENS("dolor amet lorem", "text_en"), "text_en")
   RETURN doc
@@ -1909,7 +1909,7 @@ In most cases you will want to flatten the resulting array for further usage,
 because nested arrays are not accepted in `SEARCH` statements such as
 `<array> ALL IN doc.<attribute>`:
 
-```js
+```aql
 LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
 LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
 FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
@@ -2123,10 +2123,10 @@ however.
 {% hint 'info' %}
 Literal backlashes require different amounts of escaping depending on the
 context:
-- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+- `\` in bind variables (_Table_ view mode) in the web interface (automatically
   escaped to `\\` unless the value is wrapped in double quotes and already
   escaped properly)
-- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables (_JSON_ view mode) and queries in the web interface
 - `\\` in bind variables in arangosh
 - `\\\\` in queries in arangosh
 - Double the amount compared to arangosh in shells that use backslashes for

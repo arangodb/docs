@@ -117,8 +117,8 @@ FOR c IN Characters
 
 ```json
 [
-    { "traits": ["A","H","C","N","P"] },
-    { "traits": ["D","H","C"] },
+    ["A","H","C","N","P"],
+    ["D","H","C"],
     ...
 ]
 ```

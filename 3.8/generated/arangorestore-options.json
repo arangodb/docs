@@ -294,6 +294,27 @@
     "section" : "",
     "type" : "boolean"
   },
+  "enable-revision-trees" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enable revision trees for new collections if the collection attributes 'syncByRevision' and 'usesRevisionsAsDocumentIds' are missing",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.7"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "encryption.key-generator" : {
     "category" : "option",
     "default" : "",

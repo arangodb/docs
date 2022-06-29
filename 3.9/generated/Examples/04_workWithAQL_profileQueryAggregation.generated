@@ -45,15 +45,15 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Peak Mem [b]   Exec Time [s]
-           0            0          20            0          0          32768         0.00036
+           0            0          20            0          0          32768         0.00034
 
 Query Profile:
  Query Stage           Duration [s]
  initializing               0.00000
  parsing                    0.00004
- optimizing ast             0.00001
+ optimizing ast             0.00000
  loading collections        0.00000
- instantiating plan         0.00002
+ instantiating plan         0.00001
  optimizing plan            0.00021
  executing                  0.00008
  finalizing                 0.00001

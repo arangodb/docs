@@ -33,9 +33,9 @@ Consider the following write operation into a pristine Agency:
 ```
 curl -L http://$SERVER:$PORT/_api/agency/write -d '[[{"a":{"op":"set","new":{"b":{"c":[1,2,3]},"e":12}},"d":{"op":"set","new":false}}]]'
 ```
-```js
-[{results:[1]}]
 
+```json
+[{"results":[1]}]
 ```
 
 And the subsequent read operation 
@@ -43,7 +43,8 @@ And the subsequent read operation
 ```
 curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/"]]'
 ```
-```js
+
+```json
 [
   {
     "a": {
@@ -70,7 +71,8 @@ Let's start with the above initialized key-value store in the following. Let us 
 ```
 curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/a/b"]]'
 ```
-```js
+
+```json
 [
   {
     "a": {
@@ -87,7 +89,8 @@ And
 ```
 curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/a/b/c"]]'
 ```
-```js
+
+```json
 [
   {
     "a": {
@@ -106,7 +109,8 @@ The second outer array brackets in read operations correspond to transactions, m
 ```
 curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/a/e"],["/d","/a/b"]]'
 ```
-```js
+
+```json
 [
   {
     "a": {
@@ -132,7 +136,8 @@ Let's try to fetch a value from the key-value-store, which does not exist:
 ```
 curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/a/b/d"]]'
 ```
-```js
+
+```json
 [
   {
     "a": {
@@ -147,7 +152,8 @@ The result returns the cross section of the requested path and the key-value-sto
 ```
 curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/a/b/d","/d"]]'
 ```
-```js
+
+```json
 [
   {
     "a": {
@@ -163,7 +169,8 @@ And this last read operation should return:
 ```
 curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/a/b/c"],["/a/b/d"],["/a/x/y"],["/y"],["/a/b","/a/x" ]]'
 ```
-```js
+
+```json
 [
   {"a":{"b":{"c":[1,2,3]}}},
   {"a":{"b":{}}},
@@ -181,13 +188,13 @@ The write API must obviously be more versatile and needs a more detailed appreci
 For `P`, the value of a key is an object with attributes `"old"`, `"oldNot"`, `"oldEmpty"` or `"isArray"`. With `"old"` one can specify a JSON value that has to be present for the condition to be fulfilled. With `"oldNot"` one may check for a value to not be equal to the test. While with `"oldEmpty"`, which can take a boolean value, one can specify that the key value needs to be not set `true` or set to an arbitrary value `false`. With `"isArray"` one can specify that the value must be an array. As a shortcut, `"old"` values of scalar or array type may be stored directly in the attribute.
 Examples:
 
-```js
+```json
 { "/a/b/c": { "old": [1,2,3] }}
 ```
 
-is a precondition specifying that the previous value of the key `"/a/b/c"` key must be `[1,2,3]`. If and only if the value of the precondition is not an object we provide a notation, where the keywork `old` may be omitted. Thus, the above check may be shortcut as 
+is a precondition specifying that the previous value of the key `"/a/b/c"` key must be `[1,2,3]`. If and only if the value of the precondition is not an object we provide a notation, where the keyword `old` may be omitted. Thus, the above check may be shortcut as 
 
-```js
+```json
 { "/a/b/c": [1, 2, 3] }
 ```
 
@@ -196,7 +203,8 @@ Consider the Agency in initialized as above let's review the responses from the 
 ```
 curl -L http://$SERVER:$PORT/_api/agency/write -d '[[{"/a/b/c":{"op":"set","new":[1,2,3,4]},"/a/b/pi":{"op":"set","new":"some text"}},{"/a/b/c":{"old":[1,2,3]}}]]'
 ```
-```js
+
+```json
 {
   "results": [19]
 }
@@ -204,7 +212,7 @@ curl -L http://$SERVER:$PORT/_api/agency/write -d '[[{"/a/b/c":{"op":"set","new"
 
 The condition is fulfilled in the first run and would be wrong in a second returning
 
-```js
+```json
 {
   "results": [0]
 }
@@ -212,13 +220,13 @@ The condition is fulfilled in the first run and would be wrong in a second retur
 
 `0` as a result means that the precondition failed and no "real" log number was returned.
 
-```js
+```json
 { "/a/e": { "oldEmpty": false } }
 ```
 
 means that the value of the key `"a/e"` must be set (to something, which can be `null`!). The condition
 
-```js
+```json
 { "/a/e": { "oldEmpty": true } }
 ```
 
@@ -239,32 +247,34 @@ The update value U is an object, the attribute names are again key strings and t
 `"ttl"`, if present, the new value that is being set gets a time to live in seconds, given by a numeric value in this attribute. It is only guaranteed that the actual removal of the value is done according to the system clock, so up to clock skew between servers. The removal is done by an additional write transaction that is automatically generated between the regular writes.
 
 Additional rule: If none of `"new"` and `"op"` is set or the value is not even an object, then this is to be interpreted as if it were
-```js
+
+```json
 { "op": "set", "new": <VALUE> }
 ```
+
 which amounts to setting the value with no precondition.
 
 Examples:
 
-```js
+```json
 { "/a": { "op": "set", "new": 12 } }
 ```
 
 sets the value of the key `"/a"` to `12`. The same could have been achieved by
 
-```js
+```json
 { "/a": 12 }
 ```
 
 or by
 
-```js
+```json
 { "/a": { "new": 12} }
 ```
 
 The operation
 
-```js
+```json
 { "/a/b": { "new": { "c": [1,2,3,4] } } }
 ```
 
@@ -272,36 +282,38 @@ sets the key `"/a/b"` to `{"c": [1,2,3,4]}`. Note that in the above example this
 
 Here are some more examples for full transactions (update/precondition pairs). The transaction
 
-```js
+```json
 [ { "/a/b": { "new": { "c": [1,2,3,4] } } },
   { "/a/b": { "old": { "c": [1,2,3] } } } ]
 ```
 
 sets the key `"/a/b"` to `{"c":[1,2,3,4]}` if and only if it was `{"c":[1,2,3]}` before. Note that this fails if `"/a/b"` had other attributes than `"c"`. The transaction
 
-```js
+```json
 [ { "/x": { "op": "delete" } },
   { "/x": { "old": false } } ]
 ```
 
 clears the value of the key `"/x"` if this old value was false.
 
-```js
+```json
 [ { "/y": { "new": 13 },
   { "/y": { "oldEmpty": true } } }
+]
 ```
 
 sets the value of `"/y"` to `13`, but only, if it was unset before.
 
-```js
+```json
 [ { "/z": { "op": "push", "new": "Max" } } ]
 ```
 
 appends the string `"Max"` to the end of the list stored in the `"z"` attribute, or creates an array `["Max"]` in `"z"` if it was unset or not an array.
 
-```js
+```json
 [ { "/u": { "op": "pop" } } ]
 ```
+
 removes the last entry of the array stored under `"u"`, if the value of `"u"` is not set or not an array.
 
 ### HTTP-headers for write operations
@@ -320,7 +332,7 @@ External services to the Agency may announce themselves or others to be observer
 
 In order to observe any future modification below say `"/a/b/c"`, a observer is announced through posting the below document to the Agency’s write REST handler:
 
-```js
+```json
 [ { "/a/b/c": 
     { "op":  "observe", 
       "url": "http://<host>:<port>/<path>" 
@@ -330,27 +342,28 @@ In order to observe any future modification below say `"/a/b/c"`, a observer is 
 
 The observer is notified of any changes to that target until such time that it removes itself as an observer of that key through
 
-```js
+```json
 [ { "/a/b/c": 
     { "op":  "unobserve", 
-      "url": “http://<host>:<port>/<path>" } } ]
+      "url": "http://<host>:<port>/<path>" } } ]
 ```
 
 Note that the last document removes all observations from entities below `"/a/b/c"`. In particular, issuing
 
-```js
+```json
 [ { "/": "unobserve", "url": "http://<host>:<port>/<path>"} ] 
 ```
 
 will result in the removal of all observations for URL `"http://<host>:<port>/<path>"`.
-The notifying POST requests are submitted immediately with any complete array of changes to the read db of the leader of create, modify and delete events accordingly; The body  
-```js
+The notifying POST requests are submitted immediately with any complete array of changes to the read db of the leader of create, modify and delete events accordingly; The body
+
+```json
 { "term": "5", 
   "index": 167,
   "/": { 
     "/a/b/c" : { "op": "modify", "old": 1, "new": 2 } },
     "/constants/euler" : {"op": "create", "new": 2.718281828459046 },
-    "/constants/pi": { "op": "delete" } } }
+    "/constants/pi": { "op": "delete" } }
 ```
 
 ### Configuration
@@ -365,7 +378,7 @@ number. We use `curl` throughout for the examples, but any client
 library performing HTTP requests should do.
 The output might look somewhat like this
 
-```js
+```json
 {
   "term": 1,
   "leaderId": "f5d11cde-8468-4fd2-8747-b4ef5c7dfa98",

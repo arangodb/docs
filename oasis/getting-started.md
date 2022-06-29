@@ -96,6 +96,11 @@ used for multiple accounts.
    button below the label __ROOT PASSWORD__. Then click the __Open endpoint__
    button to bring up the ArangoDB web interface. Enter the credentials
    (user `root` and its password) and log in.
+   
+   {% hint 'security' %}
+   It is highly recommended to create additional users and not use the `root` user for everyday operations.
+   See [Managing Users in the Web Interface](../programs-web-interface-users.html) for more details.
+   {% endhint %}
 
 5. You can install example datasets and follow the accompanying guides to get
    started with ArangoDB and its query language. In the Oasis dashboard, click
@@ -124,9 +129,12 @@ your billing details and at least one payment method. See:
 ArangoDB Oasis aims to make all features of the ArangoDB Enterprise Edition
 available to you, but there are a few limitations:
 
-1. Encryption (both at rest & network traffic) is always on and cannot be
-   disabled for security reasons.
-2. Foxx services are not allowed to call out to the internet for security
-   reasons. Incoming calls to Foxx services are fully supported.
-3. LDAP authentication & Audit trails are currently unavailable, but will be
-   supported in the near future.
+- Encryption (both at rest & network traffic) is always on and cannot be
+  disabled for security reasons.
+- Foxx services are not allowed to call out to the internet by default for
+  security reasons, but can be enabled on request.
+  Incoming calls to Foxx services are fully supported.
+- LDAP authentication is currently in a testing phase.
+- Datacenter to Datacenter Replication (DC2DC) is not yet available in a
+  managed form.
+

@@ -25,7 +25,7 @@ In AQL, strings must be concatenated using the [CONCAT()](functions-string.html#
 function. Joining them together with the `+` operator is not supported. Especially
 as JavaScript programmer it is easy to walk into this trap:
 
-```js
+```aql
 RETURN "foo" + "bar" // [ 0 ]
 RETURN "foo" + 123   // [ 123 ]
 RETURN "123" + 200   // [ 323 ]
@@ -40,7 +40,7 @@ valid string representation of a number, then it is casted to a number. Thus, ad
 
 To concatenate elements (with implicit casting to string for non-string values), do:
 
-```js
+```aql
 RETURN CONCAT("foo", "bar") // [ "foobar" ]
 RETURN CONCAT("foo", 123)   // [ "foo123" ]
 RETURN CONCAT("123", 200)   // [ "123200" ]
@@ -128,7 +128,7 @@ If an attacker inserted `\` for parameter `value` and
 ` || true REMOVE doc IN collection //` for parameter `type`, then the effective
 query would become:
 
-```js
+```aql
 FOR doc IN collection
   FILTER doc.value == '\' && doc.type == ' || true
   REMOVE doc IN collection //' RETURN doc
@@ -156,7 +156,7 @@ shouldn't be used. They were simply omitted here for the sake of simplicity.
 Bind parameters in AQL queries are special tokens that act as placeholders for
 actual values. Here's an example:
 
-```js
+```aql
 FOR doc IN collection
   FILTER doc.value == @what
   RETURN doc
@@ -191,7 +191,7 @@ If a malicious user would set `@what` to a value of `1 || true`, this wouldn't d
 any harm. AQL would treat the contents of `@what` as a single string token, and
 the meaning of the query would remain unchanged. The actually executed query would be:
 
-```
+```aql
 FOR doc IN collection
   FILTER doc.value == "1 || true"
   RETURN doc
@@ -366,13 +366,13 @@ it is intended. You should also see a warning if you execute such a query:
 
 For example, instead of:
 
-```js
+```aql
 RETURN coll[* LIMIT 1]
 ```
 
 ... with the execution plan ...
 
-```
+```aql
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
@@ -382,7 +382,7 @@ Execution plan:
 
 ... you can use the following equivalent query:
 
-```js
+```aql
 FOR doc IN coll
     LIMIT 1
     RETURN doc
@@ -390,7 +390,7 @@ FOR doc IN coll
 
 ... with the (better) execution plan:
 
-```
+```aql
 Execution plan:
  Id   NodeType                  Est.   Comment
   1   SingletonNode                1   * ROOT
@@ -402,7 +402,7 @@ Execution plan:
 Similarly, make sure you have not confused any variable names with collection
 names by accident:
 
-```js
+```aql
 LET names = ["John", "Mary", ...]
 // supposed to refer to variable "names", not collection "Names"
 FOR name IN Names

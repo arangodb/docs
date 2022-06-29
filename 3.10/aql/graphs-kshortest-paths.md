@@ -91,7 +91,7 @@ graphs it can return a large number of paths, or perform an expensive
 
 ### Working with named graphs
 
-```
+```aql
 FOR path
   IN OUTBOUND|INBOUND|ANY K_SHORTEST_PATHS
   startVertex TO targetVertex
@@ -133,7 +133,7 @@ number, then the query is aborted with an error.
 
 ### Working with collection sets
 
-```
+```aql
 FOR path
   IN OUTBOUND|INBOUND|ANY K_SHORTEST_PATHS
   startVertex TO targetVertex
@@ -155,7 +155,7 @@ has no relevance, but in *edges1* and *edges3* the direction should be taken int
 account. In this case you can use `OUTBOUND` as general search direction and `ANY`
 specifically for *edges2* as follows:
 
-```
+```aql
 FOR vertex IN OUTBOUND K_SHORTEST_PATHS
   startVertex TO targetVertex
   edges1, ANY edges2, edges3

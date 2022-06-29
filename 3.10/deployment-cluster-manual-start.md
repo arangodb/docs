@@ -139,7 +139,7 @@ to every server. The generated _ID_ will be printed out to the log or can be acc
 via the HTTP API by calling `http://server-address/_admin/server/id`.
 
 You have now launched an ArangoDB Cluster and can contact its _Coordinators_ (and
-their corresponding web UI) at the endpoint `tcp://127.0.0.1:7001` and `tcp://127.0.0.1:7002`.
+their corresponding web interface) at the endpoint `tcp://127.0.0.1:7001` and `tcp://127.0.0.1:7002`.
 
 Multiple Machines
 -----------------

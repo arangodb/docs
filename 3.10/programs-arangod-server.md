@@ -380,7 +380,7 @@ The value for the option can be specified in seconds.
 
 The web interface uses JWT for authentication. However,
 the session will be renewed automatically as long as you regularly interact with
-the Web UI in your browser. You will not get logged out while actively using it.
+the web interface in your browser. You will not get logged out while actively using it.
 
 ## Server threads
 

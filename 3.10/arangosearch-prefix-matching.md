@@ -57,7 +57,7 @@ It creates the necessary index data to perform prefix queries with
 
 Match all movie titles that start with `"The Matri"` (case-sensitive):
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, "The Matr"), "identity")
   RETURN doc.title
@@ -74,7 +74,7 @@ FOR doc IN imdb
 Match movie titles that start with either `"The Matr"` or `"Harry Pot"`
 using `OR`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, "The Matr") OR STARTS_WITH(doc.title, "Harry Pot"), "identity")
   RETURN doc.title
@@ -101,7 +101,7 @@ Match movie titles that start with either `"The Matr"` or `"Harry Pot"`
 utilizing the feature of the `STARTS_WITH()` function that allows you to pass
 multiple possible prefixes as array of strings, of which one must match:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, ["The Matr", "Harry Pot"]), "identity")
   RETURN doc.title
@@ -157,7 +157,7 @@ conditions for different tokens can be fulfilled.
 
 Match movie titles that contain three out of five prefixes:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, TOKENS("Sec Cham Har Pot Phoe", "text_en"), 3), "text_en")
   RETURN doc.title
@@ -171,7 +171,7 @@ FOR doc IN imdb
 You can calculate the number of prefixes that need to match dynamically, for
 example to require that all prefixes must match:
 
-```js
+```aql
 LET prefixes = TOKENS("Brot Blu", "text_en")
 FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, prefixes, LENGTH(prefixes)), "text_en")
@@ -246,7 +246,7 @@ db._query(`RETURN TOKENS("Ocean Equilibrium", "edge_ngram")`);
 
 Match movie titles that have a word starting with `"ocea"`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title == "ocea", "edge_ngram")
   RETURN doc.title
@@ -275,7 +275,7 @@ analyzers.save("match_edge_ngram", "text", { locale: "en.utf-8", accent: false, 
 Now we can also match movie titles that start with `"Oceä"`
 (normalized to `"ocea"`):
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title == TOKENS("Oceä", "match_edge_ngram")[0], "edge_ngram")
   RETURN doc.title
@@ -296,7 +296,7 @@ if `preserveOriginal` is enabled. For example, this query does not match
 anything because the longest indexed edge _n_-gram is `"equili"` but the search
 term is nine characters long:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title == TOKENS("Equilibri", "match_edge_ngram")[0], "edge_ngram")
   RETURN doc.title
@@ -306,7 +306,7 @@ Searching for `"Equilibrium"` does match because the full token `"equilibrium"`
 is indexed by our custom Analyzer thanks to `preserveOriginal`. We can take
 advantage of the full token being indexed with the `STARTS_WITH()` function:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, TOKENS("Equilibri", "match_edge_ngram")), "edge_ngram")
   RETURN doc.title

@@ -19,7 +19,7 @@ and everything else at info level.
 
 In a configuration file, it is written like this:
 
-```
+```conf
 [log]
 level = startup=trace
 level = queries=trace
@@ -396,7 +396,7 @@ The default value is `true`.
 Log to memory: `--log.in-memory`
 
 This option can be used to toggle storing log messages in memory, from which
-they can be consumed via the `/_admin/log` HTTP API and via the Web UI.
+they can be consumed via the `/_admin/log` HTTP API and via the web interface.
 By default, this option is turned on, so log messages are consumable via the
 API and UI. Turning this option off will disable that functionality, save a
 tiny bit of memory for the in-memory log buffers and prevent potential log

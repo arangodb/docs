@@ -212,7 +212,7 @@ You can save a query to a file and use it as a custom query with the
 `--custom-query-file` option. It is mutually exclusive with the `--custom-query`
 option:
 
-```js
+```aql
 // example.aql
 FOR book IN @@collectionName
   FILTER book.sold > @sold

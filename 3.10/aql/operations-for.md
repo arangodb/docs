@@ -26,7 +26,7 @@ For Views, there is a special (optional) [`SEARCH` keyword](operations-search.ht
 {% hint 'info' %}
 Views cannot be used as edge collections in traversals:
 
-```js
+```aql
 FOR v IN 1..3 ANY startVertex viewName /* invalid! */
 ```
 {% endhint %}
@@ -41,7 +41,7 @@ required that *expression* returns an array in all cases. The empty array is
 allowed, too. The current array element is made available for further processing 
 in the variable specified by *variableName*.
 
-```js
+```aql
 FOR u IN users
   RETURN u
 ```
@@ -60,7 +60,7 @@ placed in is closed.
 
 Another example that uses a statically declared array of values to iterate over:
 
-```js
+```aql
 FOR year IN [ 2011, 2012, 2013 ]
   RETURN { "year" : year, "isLeapYear" : year % 4 == 0 && (year % 100 != 0 || year % 400 == 0) }
 ```
@@ -69,7 +69,7 @@ Nesting of multiple `FOR` statements is allowed, too. When `FOR` statements are
 nested, a cross product of the array elements returned by the individual `FOR`
 statements will be created.
 
-```js
+```aql
 FOR u IN users
   FOR l IN locations
     RETURN { "user" : u, "location" : l }
@@ -94,11 +94,11 @@ For collections, index hints can be given to the optimizer with the `indexHint`
 option. The value can be a single **index name** or a list of index names in
 order of preference:
 
-```js
+```aql
 FOR … IN … OPTIONS { indexHint: "byName" }
 ```
 
-```js
+```aql
 FOR … IN … OPTIONS { indexHint: ["byName", "byColor"] }
 ```
 
@@ -117,7 +117,7 @@ Index hints are not enforced by default. If `forceIndexHint` is set to `true`,
 then an error is generated if `indexHint` does not contain a usable index,
 instead of using a fallback index or not using an index at all.
 
-```js
+```aql
 FOR … IN … OPTIONS { indexHint: … , forceIndexHint: true }
 ```
 
@@ -134,7 +134,7 @@ be satisfied from the index data alone.
 Consider the following query and an index on the `value` attribute being
 present:
 
-```js
+```aql
 FOR doc IN collection 
   FILTER doc.value <= 99 
   RETURN doc.other
@@ -153,7 +153,7 @@ even if an index scan turns out to be slower in the end.
 You can force the optimizer to not use an index for any given `FOR`
 loop by using the `disableIndex` hint and setting it to `true`:
 
-```js
+```aql
 FOR doc IN collection OPTIONS { disableIndex: true }
   FILTER doc.value <= 99
   RETURN doc.other
@@ -181,7 +181,7 @@ previously hard-coded default value.
 For example, using a `maxProjections` hint of 7, the following query will
 extract 7 attributes as projections from the original document:
 
-```js
+```aql
 FOR doc IN collection OPTIONS { maxProjections: 7 } 
   RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
 ```
@@ -206,7 +206,7 @@ enabled in-memory caches, but for which it is known that using the cache will
 have a negative performance impact. In this case, you can set the `useCache`
 hint to `false`:
 
-```js
+```aql
 FOR doc IN collection OPTIONS { useCache: false }
   FILTER doc.value == @value
   ...
@@ -229,7 +229,7 @@ Also see [Caching of index values](../indexing-persistent.html#caching-of-index-
 The multi-dimensional index type `zkd` supports an optional index hint for
 tweaking performance:
 
-```js
+```aql
 FOR … IN … OPTIONS { lookahead: 32 }
 ```
 

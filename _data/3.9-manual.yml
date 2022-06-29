@@ -283,7 +283,7 @@
     - text: Working with Indexes
       href: indexing-working-with-indexes.html
       children:
-        - text: Persistent
+        - text: Persistent Indexes
           href: indexing-persistent.html
         - text: TTL Indexes
           href: indexing-ttl.html
@@ -368,10 +368,11 @@
           href: graphs-traversals-example-data.html
     - text: Working with Edges
       href: graphs-edges.html
+- text: Data Science
+  href: data-science.html
+  children:
     - text: Pregel
       href: graphs-pregel.html
-    - text: Custom Pregel
-      href: graph-analytics-custom-pregel.html
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html
@@ -454,8 +455,6 @@
           href: foxx-guides-making-requests.html
         - text: Access from the browser
           href: foxx-guides-browser.html
-        - text: Working with 2.x services
-          href: foxx-guides-legacy-mode.html
     - text: Reference
       href: foxx-reference.html
       children:
@@ -508,38 +507,6 @@
               href: foxx-reference-modules-queues.html
     - text: Deployment
       href: foxx-deployment.html
-    - text: Migrating 2.x services
-      href: foxx-migrating2x.html
-      children:
-        - text: Migrating from pre-2.8
-          href: foxx-migrating2x-wayback.html
-        - text: manifest.json
-          href: foxx-migrating2x-manifest.html
-        - text: applicationContext
-          href: foxx-migrating2x-context.html
-        - text: Repositories and Models
-          href: foxx-migrating2x-repositories.html
-        - text: Controllers
-          href: foxx-migrating2x-controllers.html
-          children:
-            - text: Request context
-              href: foxx-migrating2x-controllers-endpoints.html
-            - text: Error handling
-              href: foxx-migrating2x-controllers-errors.html
-            - text: Before/After/Around
-              href: foxx-migrating2x-controllers-middleware.html
-            - text: Request object
-              href: foxx-migrating2x-controllers-request.html
-            - text: Response object
-              href: foxx-migrating2x-controllers-response.html
-            - text: Dependency Injection
-              href: foxx-migrating2x-controllers-io-c.html
-        - text: Sessions
-          href: foxx-migrating2x-sessions.html
-        - text: Auth and OAuth2
-          href: foxx-migrating2x-auth.html
-        - text: Foxx Queries
-          href: foxx-migrating2x-queries.html
 - text: SatelliteCollections
   href: satellites.html
 - text: SmartJoins

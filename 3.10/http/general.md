@@ -601,7 +601,7 @@ There is also a metric `arangodb_scheduler_queue_time_violations_total`
 that is increased whenever a request is dropped because of the requested
 queue time not being satisfiable. Administrators can use this metric to monitor
 overload situations. Although all instance types will expose this metric,
-it will likely always be `0` on DB-Servers and agency instances because the
+it will likely always be `0` on DB-Servers and Agency instances because the
 `x-arango-queue-time-seconds` header is not used in cluster-internal requests.
 
 In a cluster, the `x-arango-queue-time-seconds` request header will be

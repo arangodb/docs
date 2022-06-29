@@ -54,7 +54,6 @@ Supported Graph Algorithms
   - LineRank Vertex Centrality
   - Label Propagation Community Detection
   - Speaker-Listener Label Propagation (SLPA) Community Detection
-  - [Programmable Pregel Algorithms](graph-analytics-custom-pregel.html) (experimental)
 
 Named Graphs
 ------------
