@@ -5,7 +5,7 @@ layout: default
 
 Learn more about the query language in the [AQL documentation](../aql/).
 
-## Run an AQL Query
+## Running an AQL Query
 
 You can run an AQL query using the `PostCursorAsync()` method and create a
 cursor that returns objects from ArangoDB:

@@ -3,9 +3,9 @@ layout: default
 ---
 # Working with Collections
 
-## Retrieve a List of Collections
+## Retrieving a List of Collections
 
-To retrieve the list of collections in a database, connect to the database and
+To retrieve a list of collections in a database, connect to the database and
 call `GetCollectionsAsync()`.
 
 ```csharp
@@ -13,13 +13,13 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
 {
     using (var db = new ArangoDBClient(transport))
     {
-        // Retrieve the list of collections
+        // Retrieve a list of collections
         var response = await db.Collection.GetCollectionsAsync();
     }
 }
 ```
 
-## Create a Collection
+## Creating a Collection
 
 To create a new collection, connect to the database and call `PostCollectionAsync()`.
 
@@ -40,11 +40,11 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
 }
 ```
 
-## Delete a Collection
+## Deleting a Collection
 
 To delete a collection, connect to the database and call `DeleteCollectionAsync()`,
-passing the name of the collection to be deleted as parameter. Be very careful
-that you specify the correct collection name when you delete collections.
+passing the name of the collection to be deleted as a parameter. Make sure to
+specify the correct collection name when you delete collections.
 
 ```csharp
 using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))

@@ -3,7 +3,7 @@ layout: default
 ---
 # Working with Databases
 
-## Connect to a Database
+## Connecting to a Database
 
 To connect to a database, create an instance of `ArangoDBClient` supplying an
 instance of `IApiClientTransport`.
@@ -26,9 +26,9 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
 }
 ```
 
-## Retrieve a List of All Databases
+## Retrieving a List of All Databases
 
-To retrieve the list of all databases on an ArangoDB server, connect to the
+To retrieve a list of all databases on an ArangoDB server, connect to the
 `_system` database and call `GetDatabasesAsync()`.
 
 ```csharp
@@ -44,7 +44,7 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
 }
 ```
 
-## Create a Database
+## Creating a Database
 
 To create a new database, connect to the `_system` database and call
 `PostDatabaseAsync()`.
@@ -76,11 +76,11 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
 }
 ```
 
-## Delete a Database
+## Deleting a Database
 
 To delete an existing database, connect to the `_system` database and call
 `DeleteDatabaseAsync()` passing the name of the database to be deleted as a
-parameter. The `_system` database cannot be deleted. Be careful that you specify
+parameter. The `_system` database cannot be deleted. Make sure to specify
 the correct database name when you are deleting databases.
 
 ```csharp
