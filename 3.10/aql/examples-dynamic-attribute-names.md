@@ -38,7 +38,7 @@ For this we also need attribute name expressions.
 Here is a query showing how to do this. The attribute name expressions all
 required to be enclosed in `[` and `]` in order to make this work:
 
-```js
+```aql
 LET documents = [
   { "_key" : "3231748397810", "gender" : "f", "status" : "active", "type" : "user" },
   { "_key" : "3231754427122", "gender" : "m", "status" : "inactive", "type" : "unknown" }
@@ -95,7 +95,7 @@ values.
 To extract the attribute names and values from the original documents, we can
 use a subquery as follows:
 
-```js
+```aql
 LET documents = [
   { "name": "test"," gender": "f", "status": "active", "type": "user" },
   { "name": "dummy", "gender": "m", "status": "inactive", "type": "unknown", "magicFlag": 23 }
@@ -127,7 +127,7 @@ Instead of directly returning the subquery result, we first capture it in a
 variable, and pass the variable's `name` and `value` components into `ZIP()`
 like this:
 
-```js
+```aql
 LET documents = [
   { "name" : "test"," gender" : "f", "status" : "active", "type" : "user" },
   { "name" : "dummy", "gender" : "m", "status" : "inactive", "type" : "unknown", "magicFlag" : 23 }
@@ -169,7 +169,7 @@ As can be seen, the two results have a different amount of result attributes.
 We can also make the result a bit more dynamic by prefixing each attribute
 with the value of the `name` attribute:
 
-```js
+```aql
 LET documents = [
   { "name": "test"," gender": "f", "status": "active", "type": "user" },
   { "name": "dummy", "gender": "m", "status": "inactive", "type": "unknown", "magicFlag": 23 }

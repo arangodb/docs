@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67554</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67550</span> &lt;&lt;EOF
 { 
   <span class="hljs-string">&quot;hello&quot;</span> : <span class="hljs-string">&quot;world&quot;</span> 
 }
@@ -8,18 +8,18 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
-etag: <span class="hljs-string">&quot;_eFDUTj----&quot;</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67554</span>
+etag: <span class="hljs-string">&quot;_eWWV0b6--_&quot;</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67550</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67554&quot;</span>, 
-  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67554&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eFDUTj----&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eFDUTi6---&quot;</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67550&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67550&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eWWV0b6--_&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eWWV0b6---&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67554</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67550</span> &lt;&lt;EOF
 { 
   <span class="hljs-string">&quot;numbers&quot;</span> : { 
     <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-number">1</span>, 
@@ -34,31 +34,31 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
-etag: <span class="hljs-string">&quot;_eFDUTje---&quot;</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67554</span>
+etag: <span class="hljs-string">&quot;_eWWV0c----&quot;</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67550</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67554&quot;</span>, 
-  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67554&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eFDUTje---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eFDUTj----&quot;</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67550&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67550&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eWWV0c----&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eWWV0b6--_&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/67554</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/67550</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">141</span>
-etag: <span class="hljs-string">&quot;_eFDUTje---&quot;</span>
+etag: <span class="hljs-string">&quot;_eWWV0c----&quot;</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67554&quot;</span>, 
-  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67554&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eFDUTje---&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67550&quot;</span>, 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67550&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eWWV0c----&quot;</span>, 
   <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
   <span class="hljs-string">&quot;hello&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
   <span class="hljs-string">&quot;numbers&quot;</span> : { 
@@ -68,7 +68,7 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;empty&quot;</span> : <span class="hljs-literal">null</span> 
   } 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67554?keepNull=<span class="hljs-literal">false</span></span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67550?keepNull=<span class="hljs-literal">false</span></span> &lt;&lt;EOF
 { 
   <span class="hljs-string">&quot;hello&quot;</span> : <span class="hljs-literal">null</span>, 
   <span class="hljs-string">&quot;numbers&quot;</span> : { 
@@ -81,31 +81,31 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
-etag: <span class="hljs-string">&quot;_eFDUTj6---&quot;</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67554</span>
+etag: <span class="hljs-string">&quot;_eWWV0cG---&quot;</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67550</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67554&quot;</span>, 
-  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67554&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eFDUTj6---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eFDUTje---&quot;</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67550&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67550&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eWWV0cG---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eWWV0c----&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/67554</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/67550</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">134</span>
-etag: <span class="hljs-string">&quot;_eFDUTj6---&quot;</span>
+etag: <span class="hljs-string">&quot;_eWWV0cG---&quot;</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67554&quot;</span>, 
-  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67554&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eFDUTj6---&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67550&quot;</span>, 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67550&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eWWV0cG---&quot;</span>, 
   <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
   <span class="hljs-string">&quot;numbers&quot;</span> : { 
     <span class="hljs-string">&quot;empty&quot;</span> : <span class="hljs-literal">null</span>, 

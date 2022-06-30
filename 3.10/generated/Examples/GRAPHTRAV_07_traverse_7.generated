@@ -15,7 +15,7 @@ Query String (173 chars, cacheable: false):
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
-  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths: edges */ IN 1..3  /* min..maxPathDepth */ OUTBOUND &#x27;circles/A&#x27; /* startnode */  GRAPH &#x27;traversalGraph&#x27;
+  2   TraversalNode        1     - FOR v  /* vertex (projections: `_key`) */, p  /* paths: edges (projections: `_from`, `_to`, `theTruth`) */ IN 1..3  /* min..maxPathDepth */ OUTBOUND &#x27;circles/A&#x27; /* startnode */  GRAPH &#x27;traversalGraph&#x27;
   3   CalculationNode      1       - LET localScopeVar = (RAND() &gt; 0.5)   /* simple expression */
   4   CalculationNode      1       - LET #6 = (p.`edges`[0].`theTruth` != localScopeVar)   /* simple expression */
   5   FilterNode           1       - FILTER #6
@@ -41,5 +41,5 @@ Optimization rules applied:
   3   remove-redundant-path-var
   4   move-calculations-down
 
-40 rule(s) executed, 1 plan(s) created
+41 rule(s) executed, 1 plan(s) created
 

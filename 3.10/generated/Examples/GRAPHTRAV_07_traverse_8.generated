@@ -13,7 +13,7 @@ Query String (129 chars, cacheable: true):
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
-  2   TraversalNode        1     - FOR v  /* vertex */ IN 1..3  /* min..maxPathDepth */ OUTBOUND &#x27;circles/A&#x27; /* startnode */  GRAPH &#x27;traversalGraph&#x27;
+  2   TraversalNode        1     - FOR v  /* vertex (projections: `_key`) */ IN 1..3  /* min..maxPathDepth */ OUTBOUND &#x27;circles/A&#x27; /* startnode */  GRAPH &#x27;traversalGraph&#x27;
   5   CalculationNode      1       - LET #7 = v.`_key`   /* attribute expression */
   6   ReturnNode           1       - RETURN #7
 
@@ -37,5 +37,5 @@ Optimization rules applied:
   7   remove-unnecessary-calculations-2
   8   remove-redundant-path-var
 
-41 rule(s) executed, 1 plan(s) created
+42 rule(s) executed, 1 plan(s) created
 

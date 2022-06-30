@@ -25,7 +25,7 @@ FATAL [7ef60] {config} specified language 'en_US' does not match previously used
 
 The locale can be generated with the following command:
 
-```
+```bash
 sudo locale-gen "en_US.UTF-8"
 ```
 
@@ -67,7 +67,7 @@ ArangoDB. Please consult your operating system's documentation for how to do thi
 
 Execute:
 
-```
+```bash
 sudo bash -c "echo madvise >/sys/kernel/mm/transparent_hugepage/enabled"
 sudo bash -c "echo madvise >/sys/kernel/mm/transparent_hugepage/defrag"
 ```
@@ -89,7 +89,7 @@ The Linux kernel default is 0.
 
 You can set it as follows before executing `arangod`:
 
-```
+```bash
 sudo bash -c "echo 0 >/proc/sys/vm/overcommit_memory"
 ```
 
@@ -129,7 +129,7 @@ value for the number of memory mappings.
 
 To set the value once, use the following command before starting arangod:
 
-```
+```bash
 sudo bash -c "sysctl -w 'vm.max_map_count=2048000'"
 ```
 
@@ -149,7 +149,7 @@ Zone Reclaim
 
 Execute
 
-```
+```bash
 sudo bash -c "echo 0 >/proc/sys/vm/zone_reclaim_mode"
 ```
 
@@ -169,7 +169,7 @@ NUMA
 Multi-processor systems often have non-uniform Access Memory (NUMA). ArangoDB
 should be started with interleave on such system. This can be achieved using
 
-```
+```bash
 numactl --interleave=all arangod ...
 ```
 
@@ -196,7 +196,7 @@ memory pooling.
 
 Execute
 
-```
+```bash
 export GLIBCXX_FORCE_NEW=1
 ```
 

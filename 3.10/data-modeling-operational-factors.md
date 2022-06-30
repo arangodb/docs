@@ -126,7 +126,7 @@ option together with a modification operation. Either let ArangoDB compare
 the `_rev` value and  only succeed if they still match, or let ArangoDB
 ignore them (default):
 
-```js
+```aql
 FOR i IN 1..1000
   UPDATE { _key: CONCAT('test', i), _rev: "1287623" }
   WITH { foobar: true } IN users
@@ -138,7 +138,7 @@ Indexes
 
 Indexes can improve the performance of AQL queries drastically. Queries that
 frequently filter on or one more fields can be made faster by creating an index
-(in arangosh via the _ensureIndex_ command, the Web UI or your specific
+(in arangosh via the _ensureIndex_ command, the web interface or your specific
 client driver). There is already an automatic (and non-deletable) primary index
 in every collection on the `_key` and `_id` fields as well as the edge index
 on `_from` and `_to` (for edge collections).
@@ -292,7 +292,7 @@ You may use the _exclusive_ query option for modifying AQL queries, to improve t
 This has the downside that no concurrent writes may occur on the collection, but ArangoDB is able
 to use a special fast-path which should improve the performance by up to 50% for large collections.
 
-```js
+```aql
 FOR doc IN mycollection
   UPDATE doc._key
   WITH { foobar: true } IN mycollection

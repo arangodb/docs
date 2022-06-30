@@ -9,11 +9,12 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.9. ArangoDB 3.9 also contains several bug fixes that are not listed
 here.
 
-Hybrid (Disjoint) SmartGraphs (Enterprise Edition)
---------------------------------------------------
+(Disjoint) SmartGraphs using SatelliteCollections (Enterprise Edition)
+---------------------------------------------------------------------
 
-SmartGraphs have been extended with a new option to create Hybrid SmartGraphs.
-Hybrid SmartGraphs are capable of using SatelliteCollections within their graph
+SmartGraphs have been extended with a new option to create SmartGraphs 
+using SatelliteCollections.
+These SmartGraphs are capable of using SatelliteCollections within their graph
 definition and therefore can make use of all the benefits of
 [SatelliteCollections](satellites.html).
 
@@ -27,18 +28,18 @@ data locality and reduce the number of network hops between cluster nodes.
 
 In case you do have collections that are needed in almost every traversal but
 are small enough to be copied over to every participating DB-Server,
-Hybrid SmartGraphs are the perfect fit, as this will increase the amount of
-local query execution.
+SmartGraphs with SatelliteCollections are the perfect fit, as this will increase
+the amount of local query execution.
 
-Hybrid SmartGraphs can also be disjoint. A Disjoint SmartGraph prohibits edges
-connecting different SmartGraph components. The same rule applies to
-[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-disjoint-smartgraphs).
+SmartGraphs using SatelliteCollections can also be disjoint. A Disjoint SmartGraph 
+prohibits edges connecting different SmartGraph components. The same rule applies to
+[Disjoint SmartGraphs using SatelliteCollections](graphs-smart-graphs.html).
 If your graph does not need edges between vertices with different SmartGraph
 attribute values, then you should enable this option. This topology restriction
 allows the query optimizer to improve traversal execution times, because the
 execution can be pushed down to a single DB-Server in many cases.
 
-[Hybrid SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs)
+[SmartGraphs using SatelliteCollections](graphs-smart-graphs.html)
 are only available in the Enterprise Edition.
 
 ArangoSearch
@@ -142,7 +143,7 @@ operation. It will be used as a hint for the document lookup that is performed
 as part of the `UPSERT` operation, and can help in cases such as `UPSERT` not
 picking the best index automatically.
 
-```js
+```aql
 UPSERT { a: 1234 }
   INSERT { a: 1234, name: "AB"}
   UPDATE {name: "ABC"} IN myCollection
@@ -162,7 +163,7 @@ Added three decay functions to AQL:
 Decay functions calculate a score with a function that decays depending on the
 distance of a numeric value from a user given origin.
 
-```js
+```aql
 DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
 DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
 DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
@@ -178,7 +179,7 @@ distance (named `L2_DISTANCE`):
 - [L1_DISTANCE()](aql/functions-numeric.html#l1_distance)
 - [L2_DISTANCE()](aql/functions-numeric.html#l2_distance)
 
-```js
+```aql
 COSINE_SIMILARITY([0,1], [1,0]) // 0
 L1_DISTANCE([-1,-1], [2,2]) // 6
 L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606
@@ -197,7 +198,7 @@ first and only produce the remaining paths.
 
 For example, the query
 
-```js
+```aql
 FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
   FILTER v.isRelevant == true
   RETURN p
@@ -210,7 +211,7 @@ This optimization is now part of the existing `optimize-traversals` rule and
 you will see the conditions under `Filter / Prune Conditions` in the query
 explain output (`` FILTER (v.`isRelevant` == true) `` in this example):
 
-```js
+```aql
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
@@ -240,7 +241,7 @@ is returned, but only a specific sub-attribute of the path is used later
 
 For example, the query
 
-```js
+```aql
 FOR v, e, p IN 1..3 OUTBOUND @start GRAPH "myGraph"
   RETURN p.vertices
 ```
@@ -249,7 +250,7 @@ only requires the buildup of the `vertices` sub-attribute of the path result `p`
 but not the buildup of the `edges` sub-attribute. The optimization can be
 observed in the query explain output:
 
-```js
+```aql
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
@@ -284,7 +285,7 @@ Added an option to store the `PRUNE` expression as a variable. Now, the `PRUNE`
 condition can be stored in a variable and be used later in the query without
 having to repeat the `PRUNE` condition:
 
-```js
+```aql
 FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
   PRUNE pruneCondition = v.isRelevant == true
   FILTER pruneCondition
@@ -301,7 +302,7 @@ See [Pruning](aql/graphs-traversals.html#pruning).
 Invalid use of `OPTIONS` in AQL queries will now raise a warning when the query
 is parsed. This is useful to detect misspelled attribute names in `OPTIONS`, e.g.
 
-```js
+```aql
 INSERT ... INTO collection
   OPTIONS { overwrightMode: 'ignore' } /* should have been 'overwriteMode' */
 ```
@@ -309,7 +310,7 @@ INSERT ... INTO collection
 It is also useful to detect the usage of valid `OPTIONS` attribute names that
 are used at a wrong position in the query, e.g.
 
-```js
+```aql
 FOR doc IN collection
   FILTER doc.value == 1234
   INSERT doc INTO other
@@ -368,7 +369,7 @@ In some rare cases, an AQL query can be executed faster if it ignores indexes.
 You can force the optimizer not use an index for any given `FOR`
 loop by setting the new `disableIndex` hint to `true`:
 
-```js
+```aql
 FOR doc IN collection OPTIONS { disableIndex: true }
   FILTER doc.value <= 99
   RETURN doc.other
@@ -389,7 +390,7 @@ Such projections are typically faster as long as there are not too many of them
 but it depends on the number of attributes and their size. The new `maxProjections`
 hint lets you adjust the threshold to fine-tune your queries.
 
-```js
+```aql
 FOR doc IN collection OPTIONS { maxProjections: 7 }
   RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
 ```
@@ -645,13 +646,13 @@ They will eventually be removed in a future version of ArangoDB.
 
 ### Cluster-internal timeouts
 
-The internal timeouts for inactive cluster transactions on DB servers was
+The internal timeouts for inactive cluster transactions on DB-Servers was
 increased from 3 to 5 minutes.
 
-Previously transactions on DB servers could expire quickly, which led to
+Previously transactions on DB-Servers could expire quickly, which led to
 spurious "query ID not found" or "transaction ID not found" errors on DB
 servers for multi-server queries/transactions with unbalanced access patterns
-for the different participating DB servers.
+for the different participating DB-Servers.
 
 Transaction timeouts on Coordinators remain unchanged, so any queries/transactions
 that are abandoned will be aborted there, which will also be propagated to
@@ -823,10 +824,12 @@ upgraded from g++ 9.3.0 to g++ 10.2.1.
 g++ 10 is also the expected version of g++ when compiling ArangoDB from
 source.
 
-The bundled version of the Snappy compression library was upgraded from
+The bundled version of the Snappy compression library has been upgraded from
 version 1.1.8 to version 1.1.9.
 
 The bundled version of the RocksDB library has been upgraded from 6.8 to 6.27.
+
+For ArangoDB 3.9, the bundled version of rclone is 1.51.0.
 
 The minimum architecture requirements have been raised from the Westmere
 architecture to the Sandy Bridge architecture. 256-bit AVX instructions are

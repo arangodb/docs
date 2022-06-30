@@ -116,17 +116,20 @@ Also see:
 - [RocksDB Server Options](programs-arangod-options.html#rocksdb)
 - [Write Buffer Manager](https://github.com/facebook/rocksdb/wiki/Write-Buffer-Manager){:target="_blank"}
 
-Edge-Cache
-----------
+Index Caches
+------------
 
 ```
---cache.size 10485760
+--cache.size 0
 ```
 
-This option limits the ArangoDB edge [cache](programs-arangod-cache.html) to 10
-MB. If you do not have a graph use-case and do not use edge collections, it is
-possible to use the minimum without a performance impact. In general, this
-should correspond to the size of the hot-set of edges.
+This option disables the in-memory index [caches](programs-arangod-cache.html).
+In versions before v3.9.2, you can limit the size to a minimum of `1048576` (1 MB).
+
+If you do not have a graph use case and do not use edge collections, nor the optional
+hash cache for persistent indexes, it is possible to use no cache (or a minimal cache size)
+without a performance impact. In general, this should correspond to the size of the hot-set
+of edges and cached lookups from persistent indexes.
 
 AQL Query Memory Usage
 ----------------------

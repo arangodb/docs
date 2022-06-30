@@ -42,7 +42,7 @@ the entire string is equal (not matching substrings).
 
 Match exact movie title (case-sensitive, full string):
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title == "The Matrix", "identity")
   RETURN doc.title
@@ -56,7 +56,7 @@ It is not necessary to set the Analyzer context with the `ANALYZER()` function
 here, because the default Analyzer is `identity` anyway. The following query
 will return the exact same results:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH doc.title == "The Matrix"
   RETURN doc.title
@@ -82,7 +82,7 @@ strings that you want to match.
 
 Match multiple exact movie titles using `OR`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title == "The Matrix" OR doc.title == "The Matrix Reloaded", "identity")
   RETURN doc.title
@@ -95,7 +95,7 @@ FOR doc IN imdb
 
 Match multiple exact movie titles using `IN`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title IN ["The Matrix", "The Matrix Reloaded"], "identity")
   RETURN doc.title
@@ -109,7 +109,7 @@ FOR doc IN imdb
 By substituting the array of strings with a bind parameter, it becomes possible
 to use the same query for an arbitrary amount of alternative strings to match:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title IN @titles, "identity")
   RETURN doc.title
@@ -147,7 +147,7 @@ fulfill the criterion. This is also works with multiple alternatives using the
 
 Match movies that do not have the title `The Matrix`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title != "The Matrix", "identity")
   RETURN doc.title
@@ -176,7 +176,7 @@ with the effect of returning many `null` values in the result.
 Match movies that neither have the title `The Matrix` nor `The Matrix Reloaded`.
 Post-filter the results to exclude implicit `null`s:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title NOT IN ["The Matrix", "The Matrix Reloaded"], "identity")
   FILTER doc.title != null
@@ -200,7 +200,7 @@ to test whether there is a title field or not. On a single server with this
 particular dataset, the query is roughly five times faster than the previous
 one without `EXISTS()`:
 
-```js
+```aql
 FOR doc IN imdb
   SEARCH ANALYZER(EXISTS(doc.title) AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"], "identity")
   RETURN doc.title

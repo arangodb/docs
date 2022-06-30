@@ -22,10 +22,11 @@ The options are passed as an instance of the `ApiClientSerializationOptions` cla
 
 In addition, the default options can be updated, which affect all subsequent operations that use these options. To set default options, set them on the serializer implementation itself.  For example, if using the supplied `JsonNetApiClientSerialization`:
 
-```
+```csharp
 var serializer = new JsonNetApiClientSerialization();
 serializer.DefaultOptions.IgnoreNullValues = false;
 ```
+
 ## HTTP Request Headers
 
 APIs that support specifying HTTP request headers have an optional method argument to pass in header values.

@@ -214,7 +214,7 @@ SmartGraph attribute values, then you should enable this option. This topology
 restriction allows the query optimizer to improve traversal execution times,
 because in many cases the execution can be pushed down to a single DB-Server.
 
-[Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
+[Disjoint SmartGraphs](graphs-smart-graphs.html)
 are only available in the Enterprise Edition.
 
 AQL

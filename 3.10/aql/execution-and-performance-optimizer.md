@@ -338,7 +338,7 @@ Using a cluster, there is a *Site* column if you explain a query.
 Snippets marked with **DBS** are executed on DB-Servers, **COOR** ones are
 executed on the respective Coordinator.
 
-```
+```aql
 Query String (57 chars, cacheable: false):
  FOR doc IN test UPDATE doc WITH { updated: true } IN test
 
@@ -806,8 +806,8 @@ from the index values found. It will only be applied when using up to 5 attribut
 from the document, and only if the rest of the document data is not used later
 on in the query.
 
-The optimization is currently available for the following index types: primary, edge, and persistent 
-(and its aliases hash and skiplist).
+The optimization is currently available for the following index types: primary,
+edge, and persistent.
 
 If the optimization is applied, it will show up as "index only" in an AQL
 query's execution plan for an *IndexNode*.

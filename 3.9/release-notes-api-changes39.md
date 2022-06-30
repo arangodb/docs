@@ -21,16 +21,18 @@ Enterprise Edition when creating a graph (POST method). If set, it needs to be
 an array of collection names. Each name must be a string and valid as collection
 name. The `satellites` option is ignored in the Community Edition.
 
-Using `satellites` during SmartGraph creation will result in a Hybrid SmartGraph.
-Using `satellites` during Disjoint SmartGraph creation will result in a Hybrid
-Disjoint SmartGraph.
+Using `satellites` during SmartGraph creation will result in a SmartGraph
+with SatelliteCollections.
+Using `satellites` during Disjoint SmartGraph creation will result in a
+Disjoint SmartGraph with SatelliteCollections.
 
-Hybrid (Disjoint) SmartGraphs are capable of having SatelliteCollections in their
+(Disjoint) SmartGraphs using SatelliteCollections are capable of having
+SatelliteCollections in their
 graph definitions. If a collection is named in `satellites` and also used in the
 graph definition itself (e.g. EdgeDefinition), this collection will be created
-as a SatelliteCollection. Hybrid (Disjoint) SmartGraphs are then capable of
-executing all types of graph queries between the regular SmartCollections and
-SatelliteCollections.
+as a SatelliteCollection. (Disjoint) SmartGraphs using SatelliteCollections are
+then capable of executing all types of graph queries between the regular
+SmartCollections and SatelliteCollections.
 
 The following changes affect the behavior of the RESTful graph APIs at
 endpoints starting with path `/_api/gharial/{graph}/edge` and
@@ -288,7 +290,7 @@ The MMFiles engine is gone since ArangoDB 3.7, and the only remaining
 storage engine since then is RocksDB. For the RocksDB engine, the
 `/_api/export` endpoint internally used a streaming AQL query such as
 
-```js
+```aql
 FOR doc IN @@collection RETURN doc
 ```
 

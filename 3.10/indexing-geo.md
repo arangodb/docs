@@ -33,7 +33,7 @@ documents which do not fulfill these requirements.
 
 To create an index in GeoJSON mode execute:
 
-```
+```js
 collection.ensureIndex({ type: "geo", fields: [ "geometry" ], geoJson:true })
 ```
 
@@ -154,7 +154,7 @@ output to check for index usage.
 
 A basic example of a query for results near an origin point:
 
-```js
+```aql
 FOR x IN geo_collection
   FILTER GEO_DISTANCE([@lng, @lat], x.geometry) <= 100000
   RETURN x._key
@@ -162,7 +162,7 @@ FOR x IN geo_collection
 
 or
 
-```js
+```aql
 FOR x IN geo_collection
   FILTER GEO_DISTANCE(@geojson, x.geometry) <= 100000
   RETURN x._key
@@ -186,7 +186,7 @@ can actually provide.
 
 A basic example of a query for the 1000 nearest results to an origin point (ascending sorting):
 
-```js
+```aql
 FOR x IN geo_collection
   SORT GEO_DISTANCE([@lng, @lat], x.geometry) ASC
   LIMIT 1000
@@ -206,7 +206,7 @@ can actually provide.
 
 You may also get results farthest away (distance sorted in descending order):
 
-```js
+```aql
 FOR x IN geo_collection
   SORT GEO_DISTANCE([@lng, @lat], x.geometry) DESC
   LIMIT 1000
@@ -218,7 +218,7 @@ FOR x IN geo_collection
 A query which returns documents at a distance of _1km_ or farther away,
 and up to _100km_ from the origin: 
 
-```js
+```aql
 FOR x IN geo_collection
   FILTER GEO_DISTANCE([@lng, @lat], x.geometry) <= 100000
   FILTER GEO_DISTANCE([@lng, @lat], x.geometry) >= 1000
@@ -249,7 +249,7 @@ resulting in a sequence of findings sorted by distance, but limited to the given
 A query which returns documents whose stored geometry is contained within a
 GeoJSON Polygon.
 
-```
+```aql
 LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35]]])
 FOR x IN geo_collection
   FILTER GEO_CONTAINS(polygon, x.geometry)
@@ -267,7 +267,7 @@ This `FILTER` clause can be combined with a `SORT` clause using `GEO_DISTANCE()`
 Note that containment in the opposite direction is currently not supported by
 geo indexes:
 
-```js
+```aql
 LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35]]])
 FOR x IN geo_collection
   FILTER GEO_CONTAINS(x.geometry, polygon)
@@ -279,7 +279,7 @@ FOR x IN geo_collection
 A query that returns documents with an intersection of their stored
 geometry and a GeoJSON Polygon.
 
-```
+```aql
 LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35]]])
 FOR x IN geo_collection
   FILTER GEO_INTERSECTS(polygon, x.geometry)

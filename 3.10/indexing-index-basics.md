@@ -132,7 +132,7 @@ db.edges.ensureIndex({"type": "persistent", "fields": ["_from", "timestamp"]});
 
 in arangosh. Then, queries like
 
-```js
+```aql
 FOR v, e, p IN 1..1 OUTBOUND "V/1" edges
   FILTER e.timestamp >= "2018-07-09"
   RETURN p
@@ -162,7 +162,7 @@ For example, if a persistent index is created on attributes `value1` and `value2
 following filter conditions can use the index (note: the `<=` and `>=` operators are
 intentionally omitted here for the sake of brevity):
 
-```js
+```aql
 FILTER doc.value1 == ...
 FILTER doc.value1 < ...
 FILTER doc.value1 > ...
@@ -410,7 +410,7 @@ db.posts.insert({ tags: [ "foobar", "baz", "quux" ] });
 This array index can then be used for looking up individual `tags` values from AQL queries via 
 the `IN` operator:
 
-```js
+```aql
 FOR doc IN posts
   FILTER 'foobar' IN doc.tags
   RETURN doc
@@ -420,7 +420,7 @@ It is possible to add the [array expansion operator](aql/advanced-array-operator
 `[*]`, but it is not mandatory. You may use it to indicate that an array index is used,
 it is purely cosmetic however:
 
-```js
+```aql
 FOR doc IN posts
   FILTER 'foobar' IN doc.tags[*]
   RETURN doc
@@ -428,7 +428,7 @@ FOR doc IN posts
 
 The following FILTER conditions will **not use** the array index:
 
-```js
+```aql
 FILTER doc.tags ANY == 'foobar'
 FILTER doc.tags ANY IN 'foobar'
 FILTER doc.tags IN 'foobar'
@@ -447,7 +447,7 @@ db.posts.insert({ tags: [ { name: "foobar" }, { name: "baz" }, { name: "quux" } 
 The following query will then use the array index (this does require the
 [array expansion operator](aql/advanced-array-operators.html#array-expansion)):
 
-```js
+```aql
 FOR doc IN posts
   FILTER 'foobar' IN doc.tags[*].name
   RETURN doc

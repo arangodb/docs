@@ -3,26 +3,33 @@ layout: default
 description: List of top features in Community and Enterprise Edition by release series
 title: ArangoDB Highlights
 ---
-Highlights
-==========
+# Highlights by Version
 
-Version 3.10
-------------
+The most notable features in the Community and Enterprise Edition of ArangoDB,
+grouped by version
+{:class="lead"}
+
+## Version 3.10
 
 **All Editions**
 
--
+- [Native ARM Support](release-notes-new-features310.html#native-arm-support):
+  Packages for the ARM architecture are now available, including native support
+  for Apple silicon.
 
+- **Indexes**:
+  An optional [**In-memory Cache**](indexing-persistent.html#caching-of-index-values)
+  for faster lookups and [**Stored Values**](indexing-persistent.html#storing-additional-values-in-indexes)
+  to let persistent indexes cover additional attributes of projections.
 
 **Enterprise Edition**
 
--
+- 
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
 
 
-Version 3.9
------------
+## Version 3.9
 
 **All Editions**
 
@@ -34,14 +41,13 @@ Version 3.9
 
 **Enterprise Edition**
 
-- [**Hybrid (Disjoint) SmartGraphs**](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs):
+- [**(Disjoint) SmartGraphs using SatelliteCollections**](graphs-smart-graphs.html):
   SatelliteCollections can be used in (Disjoint) SmartGraphs to enable more
   local execution of graph queries.
 
 Also see [What's New in 3.9](release-notes-new-features39.html).
 
-Version 3.8
------------
+## Version 3.8
 
 **All Editions**
 
@@ -75,8 +81,7 @@ Version 3.8
 
 Also see [What's New in 3.8](release-notes-new-features38.html).
 
-Version 3.7
------------
+## Version 3.7
 
 **All Editions**
 
@@ -132,8 +137,7 @@ Version 3.7
 
 Also see [What's New in 3.7](release-notes-new-features37.html).
 
-Version 3.6
------------
+## Version 3.6
 
 **All Editions**
 
@@ -166,8 +170,7 @@ Version 3.6
 
 Also see [What's New in 3.6](release-notes-new-features36.html).
 
-Version 3.5
------------
+## Version 3.5
 
 **All Editions**
 
@@ -224,8 +227,7 @@ Version 3.5
 
 Also see [What's New in 3.5](release-notes-new-features35.html).
 
-Version 3.4
------------
+## Version 3.4
 
 **All Editions**
 
@@ -265,8 +267,7 @@ Version 3.4
 
 Also see [What's New in 3.4](release-notes-new-features34.html).
 
-Version 3.3
------------
+## Version 3.3
 
 **Enterprise Edition**
 
@@ -295,8 +296,7 @@ Version 3.3
 
 Also see [What's New in 3.3](release-notes-new-features33.html).
 
-Version 3.2
------------
+## Version 3.2
 
 **All Editions**
 
@@ -332,8 +332,7 @@ Version 3.2
 
 Also see [What's New in 3.2](release-notes-new-features32.html).
 
-Version 3.1
------------
+## Version 3.1
 
 **All Editions**
 
@@ -360,8 +359,7 @@ Version 3.1
 
 Also see [What's New in 3.1](release-notes-new-features31.html).
 
-Version 3.0
------------
+## Version 3.0
 
 - [**self-organizing cluster**](architecture-deployment-modes-cluster-architecture.html) with
   synchronous replication, master/master setup, shared nothing
@@ -379,5 +377,5 @@ Version 3.0
   microservices
 
 - Significantly improved [**Web Interface**](programs-web-interface.html)
-  
+
 Also see [What's New in 3.0](release-notes-new-features30.html).

@@ -64,7 +64,7 @@ Return the attribute keys of an object in alphabetic order:
 Complex example to count how often every top-level attribute key occurs in the
 documents of a collection (expensive on large collections):
 
-```js
+```aql
 LET attributesPerDocument = (
     FOR doc IN collection RETURN ATTRIBUTES(doc, true)
 )
@@ -98,7 +98,7 @@ Other ways of testing for the existence of an attribute may behave differently
 if the attribute has a falsy value or is not present (implicitly `null` on
 object access):
 
-```js
+```aql
 !!{ name: "" }.name        // false
 HAS( { name: "" }, "name") // true
 
@@ -113,7 +113,7 @@ between explicit and implicit *null* values in your query, you may use an equali
 comparison to test for *null* and create a non-sparse index on the attribute you
 want to test against:
 
-```js
+```aql
 FILTER !HAS(doc, "name")    // can not use indexes
 FILTER IS_NULL(doc, "name") // can not use indexes
 FILTER doc.name == null     // can utilize non-sparse indexes
@@ -453,7 +453,7 @@ skips attributes with a value of `undefined`, turning `{attr: undefined}` into `
 `MATCHES()` can not utilize indexes. You may use plain `FILTER` conditions instead
 to potentially benefit from existing indexes:
 
-```js
+```aql
 FOR doc IN coll
   FILTER (cond1 AND cond2 AND cond3) OR (cond4 AND cond5) ...
 ```
@@ -585,29 +585,56 @@ MERGE_RECURSIVE()
 `MERGE_RECURSIVE(document1, document2, ... documentN) → mergedDocument`
 
 Recursively merge the documents `document1` to `documentN` into a single document.
-If document attribute keys are ambiguous, the merged result will contain the values
+If document attribute keys overlap, the merged result contains the values
 of the documents contained later in the argument list.
 
 - **documents** (object, *repeatable*): an arbitrary number of documents as
-  multiple arguments (at least 2)
+  multiple arguments (at least 1)
 - returns **mergedDocument** (object): a combined document
-
-`MERGE_RECURSIVE()` does not support the single array parameter variant that
-`MERGE()` offers.
 
 **Examples**
 
-Two documents with distinct attribute names can easily be merged into one:
+Merge two documents with the same top-level attribute, combining the `name`,
+`age`, and `livesIn` sub-attributes:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlMergeRecursive
-    @EXAMPLE_AQL{aqlMergeRecursive}
+    @startDocuBlockInline aqlMergeRecursive_1
+    @EXAMPLE_AQL{aqlMergeRecursive_1}
     RETURN MERGE_RECURSIVE(
       { "user-1": { "name": "Jane", "livesIn": { "city": "LA" } } },
       { "user-1": { "age": 42, "livesIn": { "state": "CA" } } }
     )
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlMergeRecursive
+    @endDocuBlock aqlMergeRecursive_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+`MERGE_RECURSIVE(documents) → mergedDocument`
+
+Recursively merge the list of documents into a single document.
+If document attribute keys overlap, the merged result contains the values
+of the documents specified later in the list.
+
+- **documents** (array): an array with an arbitrary number of objects
+- returns **mergedDocument** (object): a combined document
+
+**Examples**
+
+Merge a list of two documents with the same top-level attribute, combining the
+`name` and `age` sub-attributes but overwriting the `city` value in the
+`livesIn` sub-attribute:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlMergeRecursive_2
+    @EXAMPLE_AQL{aqlMergeRecursive_2}
+    RETURN MERGE_RECURSIVE(
+      [
+        { "user-1": { "name": "Jane", "livesIn": { "city": "LA" } } },
+        { "user-1": { "age": 42, "livesIn": { "city": "NY" } } }
+      ]
+    )
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlMergeRecursive_2
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 

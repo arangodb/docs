@@ -1,5 +1,5 @@
 arangosh&gt; db._create(&quot;test&quot;);
-[ArangoCollection 60425, &quot;test&quot; (type document, status loaded)]
+[ArangoCollection 60421, &quot;test&quot; (type document, status loaded)]
 arangosh&gt; for (i = 0; i &lt; 100; ++i) { db.test.save({ value: i }); }
 arangosh&gt; db.test.ensureIndex({ type: &quot;skiplist&quot;, fields: [ &quot;value&quot; ] });
 { 
@@ -8,9 +8,9 @@ arangosh&gt; db.test.ensureIndex({ type: &quot;skiplist&quot;, fields: [ &quot;v
   &quot;fields&quot; : [ 
     &quot;value&quot; 
   ], 
-  &quot;id&quot; : &quot;test/60630&quot;, 
+  &quot;id&quot; : &quot;test/60626&quot;, 
   &quot;isNewlyCreated&quot; : true, 
-  &quot;name&quot; : &quot;idx_1731376053399584768&quot;, 
+  &quot;name&quot; : &quot;idx_1736244802119270404&quot;, 
   &quot;selectivityEstimate&quot; : 1, 
   &quot;sparse&quot; : false, 
   &quot;type&quot; : &quot;skiplist&quot;, 
@@ -31,7 +31,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type       Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  9   idx_1731376053399584768   skiplist   test         false    false       100.00 %   [ `value` ]   (i.`value` &gt; 97)
+  9   idx_1736244802119270404   skiplist   test         false    false       100.00 %   [ `value` ]   (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName
@@ -49,11 +49,11 @@ Optimization rules applied:
 
 Optimization rules with highest execution times:
  RuleName                                    Duration [s]
- use-indexes                                      0.00006
- move-calculations-up                             0.00003
- remove-redundant-calculations                    0.00002
- use-index-for-sort                               0.00002
- remove-filter-covered-by-index                   0.00002
+ use-indexes                                      0.00002
+ remove-redundant-calculations                    0.00001
+ remove-filter-covered-by-index                   0.00001
+ move-calculations-up                             0.00001
+ reduce-extraction-to-projection                  0.00000
 
 43 rule(s) executed, 1 plan(s) created
 

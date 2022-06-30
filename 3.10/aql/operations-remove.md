@@ -31,17 +31,17 @@ document, which must contain a `_key` attribute.
 
 The following queries are thus equivalent:
 
-```js
+```aql
 FOR u IN users
   REMOVE { _key: u._key } IN users
 ```
 
-```js
+```aql
 FOR u IN users
   REMOVE u._key IN users
 ```
 
-```js
+```aql
 FOR u IN users
   REMOVE u IN users
 ```
@@ -49,12 +49,12 @@ FOR u IN users
 A remove operation can remove arbitrary documents, and the documents
 do not need to be identical to the ones produced by a preceding `FOR` statement:
 
-```js
+```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users
 ```
 
-```js
+```aql
 FOR u IN users
   FILTER u.active == false
   REMOVE { _key: u._key } IN backup
@@ -63,11 +63,11 @@ FOR u IN users
 A single document can be removed as well, using a document key string or a
 document with `_key` attribute:
 
-```js
+```aql
 REMOVE 'john' IN users
 ```
 
-```js
+```aql
 LET doc = DOCUMENT('users/john')
 REMOVE doc IN users
 ```
@@ -76,7 +76,7 @@ The restriction of a single remove operation per query and collection
 applies. The following query causes an _access after data-modification_
 error because of the third remove operation:
 
-```js
+```aql
 REMOVE 'john' IN users
 REMOVE 'john' IN backups // OK, different collection
 REMOVE 'mary' IN users   // Error, users collection again
@@ -91,7 +91,7 @@ Query options
 remove non-existing documents. For example, the following query will fail if one
 of the to-be-deleted documents does not exist:
 
-```js
+```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users
 ```
@@ -99,7 +99,7 @@ FOR i IN 1..1000
 By specifying the `ignoreErrors` query option, these errors can be suppressed so 
 the query completes:
 
-```js
+```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users OPTIONS { ignoreErrors: true }
 ```
@@ -109,7 +109,7 @@ FOR i IN 1..1000
 To make sure data has been written to disk when a query returns, there is the `waitForSync` 
 query option:
 
-```js
+```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users OPTIONS { waitForSync: true }
 ```
@@ -120,7 +120,7 @@ In order to not accidentally remove documents that have been updated since you l
 them, you can use the option `ignoreRevs` to either let ArangoDB compare the `_rev` values and 
 only succeed if they still match, or let ArangoDB ignore them (default):
 
-```js
+```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i), _rev: "1287623" } IN users OPTIONS { ignoreRevs: false }
 ```
@@ -136,7 +136,7 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this  effect on a per query basis:
 
-```js
+```aql
 FOR doc IN collection
   REPLACE doc._key
   WITH { replaced: true }
@@ -151,14 +151,14 @@ The removed documents can also be returned by the query. In this case, the
 statements are allowed, too).`REMOVE` introduces the pseudo-value `OLD` to
 refer to the removed documents:
 
-```
+```aql
 REMOVE keyExpression IN collection options RETURN OLD
 ```
 
 Following is an example using a variable named `removed` for capturing the removed
 documents. For each removed document, the document key will be returned.
 
-```js
+```aql
 FOR u IN users
   REMOVE u IN users 
   LET removed = OLD 

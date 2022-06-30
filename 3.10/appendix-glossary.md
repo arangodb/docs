@@ -77,10 +77,10 @@ the application path. The filesystem layout could look like this:
 apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
   _db/                  # sub-directory containing database-specific applications
-    <database-dir>/    # sub-directory for a single database
+    <database-dir>/     # sub-directory for a single database
       <mountpoint>/APP  # sub-directory for a single application
       <mountpoint>/APP  # sub-directory for a single application
-    <database-dir>/    # sub-directory for another database
+    <database-dir>/     # sub-directory for another database
       <mountpoint>/APP  # sub-directory for a single application
 ```
 
@@ -207,18 +207,6 @@ Persistent Index
 A persistent index is a sorted index type that can be used to find individual documents by a lookup value,
 or multiple documents in a given lookup value range. It can also be used for retrieving documents in a
 sorted order.
-
-Hash Index
-----------
-
-A hash index is now an alias for a persistent index.
-
-
-Skiplist Index
---------------
-
-A skiplist index is now an alias for a persistent index.
-
 
 Anonymous Graphs
 ----------------

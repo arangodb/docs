@@ -22,7 +22,7 @@ application code.
  
 Here is an example: 
 
-```js
+```aql
 FOR doc IN @@collection
   FILTER CONTAINS(LOWER(doc.author), @search, false)
   RETURN { "name": doc.name, "descr": doc.description, "author": doc.author }

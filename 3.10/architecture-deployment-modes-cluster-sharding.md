@@ -114,7 +114,7 @@ consider picking multiple shard keys.
 ### Configuring Shards
 
 The number of _shards_ can be configured at collection creation time, e.g. in
-the Web UI or via _arangosh_:
+the web interface or via _arangosh_:
 
 ```js
 db._create("sharded_collection", {"numberOfShards": 4, "shardKeys": ["country"]});
@@ -134,7 +134,7 @@ of the update / replace or removal operation, or in case of AQL, that
 you use a document reference or an object for the UPDATE, REPLACE or REMOVE
 operation which includes the shard key attributes:
 
-```js
+```aql
 UPDATE { _key: "123", country: "…" } WITH { … } IN sharded_collection
 ```
 

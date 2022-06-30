@@ -10,7 +10,8 @@ module OptionsBySectionFilter
         'tcp' => 'TCP',
         'ttl' => 'TTL',
         'vst' => 'VST',
-        'wal' => 'WAL'
+        'wal' => 'WAL',
+        'web-interface' => 'Web Interface'
     }
     def capitalize_section(input)
         name = SECTION_NAMES[input]

@@ -254,7 +254,7 @@ oasisctl get deployment \
 ```
 
 This returns quite a bit more information about the deployment including more
-detailed server information, the endpoint url where you can access the Web UI,
+detailed server information, the endpoint URL where you can access the web interface,
 and optionally the root user password.
 
 ![Get deployment details](images/oasisctl-get-deployment.png)
@@ -393,7 +393,7 @@ oasisctl get deployment \
 
 Once the deployment is ready you will get two new pieces of information, the
 endpoint URL and Bootstrapped-At will indicate the time it became available.
-If you would like to login to the WebUI to verify that your server is in fact
+If you would like to login to the web interface to verify that your server is in fact
 up and running you will need to supply the `--show-root-password` flag along
 with the get command, this flag does not take a value.
 

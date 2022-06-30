@@ -98,7 +98,7 @@ character is to be used itself within the string literal, it must be escaped
 using the backslash symbol. A literal backslash also needs to be escaped with
 a backslash.
 
-```
+```aql
 "yikes!"
 "don't know"
 "this is a \"quoted\" word"
@@ -158,7 +158,7 @@ supported.
 
 A trailing comma after the last element is allowed (introduced in v3.7.0):
 
-```js
+```aql
 [
   1,
   2,
@@ -173,7 +173,7 @@ to access array values starting from the end of the array. This is convenient if
 the length of the array is unknown and access to elements at the end of the array
 is required.
 
-```js
+```aql
 // access 1st array element (elements start at index 0)
 u.friends[0]
 
@@ -212,7 +212,7 @@ whereas the value can be of any type including sub-objects.
 The attribute name is mandatory - there can't be anonymous values in an object.
 It can be specified as a quoted or unquoted string:
 
-```js
+```aql
 { name: … }    // unquoted
 { 'name': … }  // quoted (apostrophe / "single quote mark")
 { "name": … }  // quoted (quotation mark / "double quote mark")
@@ -226,7 +226,7 @@ letter, underscore or dollar sign.
 If a [keyword](fundamentals-syntax.html#keywords) is used as an attribute name
 then the attribute name must be quoted or escaped by ticks or backticks:
 
-```js
+```aql
 { return: … }    // error, return is a keyword!
 { 'return': … }  // quoted
 { "return": … }  // quoted
@@ -236,7 +236,7 @@ then the attribute name must be quoted or escaped by ticks or backticks:
 
 A trailing comma after the last element is allowed (introduced in v3.7.0):
 
-```js
+```aql
 {
   "a": 1,
   "b": 2,
@@ -248,14 +248,14 @@ Attribute names can be computed using dynamic expressions, too.
 To disambiguate regular attribute names from attribute name expressions,
 computed attribute names must be enclosed in square brackets `[ … ]`:
 
-```js
+```aql
 { [ CONCAT("test/", "bar") ] : "someValue" }
 ```
 
 There is also shorthand notation for attributes which is handy for
 returning existing variables easily:
 
-```js
+```aql
 LET name = "Peter"
 LET age = 42
 RETURN { name, age }
@@ -263,7 +263,7 @@ RETURN { name, age }
 
 The above is the shorthand equivalent for the generic form:
 
-```js
+```aql
 LET name = "Peter"
 LET age = 42
 RETURN { name: name, age: age }
@@ -272,7 +272,7 @@ RETURN { name: name, age: age }
 Any valid expression can be used as an attribute value. That also means nested
 objects can be used as attribute values:
 
-```js
+```aql
 { name : "Peter" }
 { "name" : "Vanessa", "age" : 15 }
 { "name" : "John", likes : [ "Swimming", "Skiing" ], "address" : { "street" : "Cucumber lane", "zip" : "94242" } }
@@ -281,21 +281,21 @@ objects can be used as attribute values:
 Individual object attributes can later be accessed by their names using the
 dot `.` accessor:
 
-```js
+```aql
 u.address.city.name
 u.friends[0].name.first
 ```
 
 Attributes can also be accessed using the square bracket `[]` accessor:
 
-```js
+```aql
 u["address"]["city"]["name"]
 u["friends"][0]["name"]["first"]
 ```
 
 In contrast to the dot accessor, the square brackets allow for expressions:
 
-```js
+```aql
 LET attr1 = "friends"
 LET attr2 = "name"
 u[attr1][0][attr2][ CONCAT("fir", "st") ]

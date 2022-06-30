@@ -15,7 +15,7 @@ the _root_ user will be created with an _empty_ password.
 
 In order to the change the password of the _root_ user, you can:
 
-- Open the ArangoDB web UI and change the password from there. [More information](programs-web-interface-users.html).
+- Open the ArangoDB web interface and change the password from there. [More information](programs-web-interface-users.html).
 - Open an ArangoSH shell and use the function _users.replace_. [More information](administration-managing-users-in-arangosh.html#replace).
 
 In case you would like to automate the _root_ password change, you might use the 

@@ -1233,13 +1233,13 @@ A simple sum accumulator could look like this:
 
 You can upgrade a custom vertex accumulator to a global accumulator as follows.
 Before a new superstep begins the global accumulators are distributed to the
-DB-Servers by the coordinator. During the superstep, vertex programs can read from
+DB-Servers by the Coordinator. During the superstep, vertex programs can read from
 those accumulators and send messages to them. Those messages are then
 accumulated per DB-Server in a cleared version of the accumulator,
 i.e. sending a message does call `updateProgram` but the _write accumulator_
 is cleared when the superstep begins.
 
-After the superstep the accumulated values are collected by the coordinator and
+After the superstep the accumulated values are collected by the Coordinator and
 then aggregated. Finally the new value of the global accumulator is available
 in the `onPostStep` program.
 
@@ -1249,14 +1249,14 @@ accumulator as global accumulator.
   new value for the global accumulator. `input-state` is available in this
   context. The default implementation replaces the internal state of the
   accumulator with `input-state`.
-- `getStateProgram` this code is executed when the coordinator serializes the
+- `getStateProgram` this code is executed when the Coordinator serializes the
   value of the global accumulator before distributing it to the DB-Servers.
   The default implementation just copies the internal state.
 - `getStateUpdateProgram` this code is executed when the DB-Server serializes
   the value of the accumulator during the collect phase, sending
   its result back to the Coordinator.
   The default implementation is to call `getStateProgram`.
-- `aggregateStateProgram` this code is executed on the coordinator after it
+- `aggregateStateProgram` this code is executed on the Coordinator after it
   received the _update states_. This code merges the different aggregates.
 
 Coming back to our sum accumulator we would expand it like so:

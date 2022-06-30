@@ -161,7 +161,7 @@ The result field names depend on the algorithm in both cases.
 For example, you might want to query only nodes with the highest rank from the
 result set of a PageRank execution:
 
-```js
+```aql
 FOR v IN PREGEL_RESULT(<handle>)
   FILTER v.result >= 0.01
   RETURN v._key
@@ -174,7 +174,7 @@ sufficient to tell vertices from different collections apart. In  this case,
 `PREGEL_RESULT()` can be given a second parameter `withId`, which will make it
 return the `_id` values of the vertices as well:
 
-```js
+```aql
 FOR v IN PREGEL_RESULT(<handle>, true)
   FILTER v.result >= 0.01
   RETURN v._id
@@ -409,17 +409,33 @@ based on common location, interests, occupation, etc.
 #### Label Propagation
 
 *Label Propagation* can be used to implement community detection on large
-graphs. The idea is that each vertex should be in the community that most of
-his neighbors are in. We iteratively determine this by first assigning random
-Community ID's. Then each iteration, a vertex will send it's current community
-ID to all its neighbor vertices. Then each vertex adopts the community ID it
-received most frequently during the iteration.
+graphs. The algorithm assigns a community, more precisely, a Community ID 
+(a natural number), to every vertex in the graph. 
+The idea is that each vertex should be in the community that most of
+its neighbors are in. 
+
+At first, the algorithm assigns unique initial Community IDs to the vertices. 
+There is no guarantee that a vertex obtains the same initial 
+ID in two different runs of the algorithm, even if the graph does not change
+(although, it may often happen). Moreover, there is no guarantee on a particular
+distribution of the initial IDs over the vertices.
+
+Then, in each iteration, a vertex sends its current Community
+ID to all its neighbor vertices. After that each vertex adopts the Community ID it
+received most frequently in the last step. If a vertex obtains more than one
+most frequent IDs, it chooses the lowest number (as IDs are numbers). If no ID arrived more 
+than once and the ID of the vertex from the previous step is less than the
+lowest obtained ID number, the old ID is kept. 
 
 The algorithm runs until it converges, which likely never really happens on
-large graphs. Therefore you need to specify a maximum iteration bound which
-suits you. The default bound is 500 iterations, which is likely too large for
-your application. It should work best on undirected graphs, results on directed
-graphs might vary depending on the density of your graph.
+large graphs. Therefore you need to specify a maximum iteration bound.
+The default bound is 500 iterations, which is too large for
+common applications. 
+
+The algorithm should work best on undirected graphs. On directed
+graphs, the resulting partition into communities might change, if the number 
+of performed steps changes. How strong the dependence is
+may be influenced by the density of the graph.
 
 ```js
 const pregel = require("@arangodb/pregel");
@@ -460,28 +476,44 @@ const handle = pregel.start("slpa", "yourgraph", {maxGSS: 100, resultField: "com
 pregel.status(handle);
 ```
 
-Limits
+Limitations
 ------
 
-Pregel algorithms in ArangoDB will by default store temporary vertex and edge
-data in main memory. For large datasets this is going to cause problems, as
-servers may run out of memory while loading the data.
+Depending on configuration, Pregel algorithms in ArangoDB may store temporary 
+vertex and edge data in main memory. For large datasets this may cause 
+problems, as servers may run out of memory while loading the data.
 
 To avoid servers from running out of memory while loading the dataset, a Pregel
-job can be started with the attribute `useMemoryMaps` set to `true`. This will
-make the algorithm use memory-mapped files as a backing storage in case of huge
+job can be started with the `useMemoryMaps` attribute set to `true`. This
+makes the algorithm use memory-mapped files as a backing storage in case of huge
 datasets. Falling back to memory-mapped files might make the computation
 disk-bound, but may be the only way to complete the computation at all.
 
+Starting from ArangoDB 3.10, there is also a new startup option 
+[`--pregel.memory-mapped-files`](programs-arangod-pregel.html#pregel-memory-mapped-files-usage), which controls
+whether Pregel jobs use memory-mapped files by default.
+Out of the box, this option is set to `true`.
+In this case the computation can become disk-bound and it requires enough disk space
+capacity to be available to hold the memory-mapped files for the Pregel jobs.
+
+You can also configure the storage location for Pregel's memory-mapped files with
+the [`--pregel.memory-mapped-files-location-type`](programs-arangod-pregel.html#pregel-memory-mapped-files-storage-location-type)
+startup option.
+
+The selected storage location should have enough capacity to hold all the 
+memory-mapped files for the Pregel jobs that are running on an instance.
+Note that the memory-mapped files are removed when a Pregel job completes,
+and they do not need to be persisted across instance restarts. 
+
 Parts of the Pregel temporary results (aggregated messages) may also be
-stored in main memory, and currently the aggregation cannot fall back to
+stored in the main memory, and currently the aggregation cannot fall back to
 memory-mapped files. That means if an algorithm needs to store a lot of
-result messages temporarily, it may consume a lot of main memory.
+result messages temporarily, it may consume a lot of the main memory.
 
 In general it is also recommended to set the `store` attribute of Pregel jobs
-to `true` to make a job store its value on disk and not just in main memory.
-This way the results are removed from main memory once a Pregel job completes.
+to `true` to make a job store its value on disk and not just in the main memory.
+This way the results are removed from the main memory once a Pregel job completes.
 If the `store` attribute is explicitly set to `false`, result sets of completed
-Pregel runs will not be removed from main memory until the result set is
+Pregel runs are not removed from the main memory until the result set is
 explicitly discarded by a call to the `cancel()` method
 (or a shutdown of the server).
