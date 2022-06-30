@@ -251,7 +251,7 @@ Document
 <!-- arangod/V8Server/v8-vocbase.cpp -->
 
 
-`collection.document(object)`
+`collection.document(object [, options])`
 
 The *document* method finds a document given an object *object*
 containing the *_id* or *_key* attribute. The method returns
@@ -271,17 +271,23 @@ cloned/copied into a regular JavaScript object first. This is not necessary
 if the *document* method is called from out of arangosh or from any other
 client.
 
-`collection.document(document-handle)`
+If the second argument *options* is given, it must be an object. If this
+object has the attribute `allowDirtyReads` set to `true`, then the
+coordinator is allowed to read from any shard replica and not only from
+the leader. See [Dirty
+Reads](./http/document-address-and-etag.html#dirty-reads) for details.
+
+`collection.document(document-handle [, options])`
 
 As before. Instead of *object* a *document-handle* can be passed as
 first argument. No revision can be specified in this case.
 
-`collection.document(document-key)`
+`collection.document(document-key [, options])`
 
 As before. Instead of *object* a *document-key* can be passed as
 first argument.
 
-`collection.document(array)`
+`collection.document(array [, options])`
 
 This variant allows to perform the operation on a whole array of arguments.
 The behavior is exactly as if *document* would have been called on all members
@@ -383,7 +389,7 @@ Exists
 
 
 checks whether a document exists
-`collection.exists(object)`
+`collection.exists(object [, options])`
 
 The *exists* method determines whether a document exists given an object
 `object` containing the *_id* or *_key* attribute. If both attributes
@@ -402,17 +408,24 @@ This method will throw an error if used improperly, e.g. when called
 with a non-document handle, a non-document, or when a cross-collection
 request is performed.
 
-`collection.exists(document-handle)`
+If the second argument *options* is given, it must be an object. If this
+object has the attribute `allowDirtyReads` set to `true`, then the
+coordinator is allowed to read from any shard replica and not only from
+the leader. See [Dirty
+
+Reads](./http/document-address-and-etag.html#dirty-reads) for details.
+
+`collection.exists(document-handle [, options])`
 
 As before. Instead of *object* a *document-handle* can be passed as
 first argument.
 
-`collection.exists(document-key)`
+`collection.exists(document-key [, options])`
 
 As before. Instead of *object* a *document-key* can be passed as
 first argument.
 
-`collection.exists(array)`
+`collection.exists(array [, options])`
 
 This variant allows to perform the operation on a whole array of arguments.
 The behavior is exactly as if *exists* would have been called on all

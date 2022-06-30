@@ -163,3 +163,87 @@ unchanged, a *HTTP 412* (precondition failed) error is returned.
 If you want to query, replace, update or delete a document, then you
 can use the *If-Match* header. If the document has changed, then the
 operation is aborted and an *HTTP 412* error is returned.
+
+Dirty Reads
+-----------
+
+Usually, in an ArangoDB cluster, all reads and writes are performed via
+the shard leaders. Shard replicas replicate all operations, but are
+only on hot standby to take over in case of a failure. This is to ensure
+consistency of reads and writes and allows to give a certain amount of
+transactional guarantees.
+
+Sometimes, high throughput is more important than consistency and
+transactional guarantees. Therefore a number of read-only operations
+can be configured to allow for so-called "dirty reads", or "read from
+followers". In this case, coordinators are allowed to read not only from
+shard leaders but also from shard replicas. This has a positive effect,
+because the reads can scale out to all dbservers which have copies of
+the data. Therefore, read throughput is higher. Note however, that you
+still have to go through your coordinators. So to reap the benefits you
+have to have enough coordinators, load balance your client requests
+across all of them, and then allow for dirty reads.
+
+Obviously, there is no free lunch. Therefore, dirty reads have
+disadvantages, too. Namely, they are, well, "dirty". A number of strange
+artifacts can happen when performing dirty reads:
+
+  1. It is possible to see an old, **obsolete revision** of a document. More
+     exactly, it is possible that some document is already updated on the
+     leader, but the update has not yet been replicated to the follower
+     from which we are reading.
+
+  2. It is also possible to see an update to a document which
+     **has already happened on a replica**, but is not yet officially
+     committed on its leader.
+
+Both of these artifacts will be relatively rare, since usually, ArangoDB
+replicates changes from the leader to the followers in a nearly
+synchronous fashion. However, in particular when performing larger
+transactions, intermediate commits may happen on followers, and then
+dirty artifacts are more likely. This is also the case if failures of
+instances in a cluster happen.
+
+In general, when no writes are happening, allowing dirty reads is safe.
+
+Currently, the following APIs support dirty reads:
+
+ - single document reads (`GET /_api/document`)
+ - batch document reads (`PUT /_api/document?onlyRead=true`)
+ - read-only AQL queries (`/_api/cursor`)
+ - edge API (`/_api/edges`)
+ - streaming read-only transactions and their suboperations
+   (`/_api/transaction/begin` etc.)
+
+Note that in as of this writing, the following APIs do not yet support
+dirty reads:
+
+ - the graph API (`/_api/gharial`)
+ - JavaScript transactions (`/_api/transaction`)
+
+The method to ask for reads from followers in the API is to set the HTTP
+header
+
+```
+  x-arango-allow-dirty-read: true
+```
+
+to the value `true`.
+
+This is in line with the older support to read from
+followers in the active failover deployment mode, see
+[Section "Reading from Followers"](../architecture-deployment-modes-active-failover-architecture.html#reading-from-followers).
+
+For single requests you specify this header with the read request. For
+streaming transactions the header has to be set on the request which
+creates a read-only transactions.
+
+Every response to a request which could produce dirty reads, will have
+the HTTP header
+
+```
+  x-arango-potential-dirty-read: true
+```
+
+set to the value `true`.
+
