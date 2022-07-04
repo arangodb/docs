@@ -184,7 +184,7 @@ still have to go through your Coordinators. So to reap the benefits, you
 have to have enough Coordinators, load balance your client requests
 across all of them, and then allow for dirty reads.
 
-You might observe the following data inconsistencies when performing dirty reads:
+You may observe the following data inconsistencies when performing dirty reads:
 
 - It is possible to see an old, **obsolete revision** of a document. More
   exactly, it is possible that some document is already updated on the
@@ -195,16 +195,9 @@ You might observe the following data inconsistencies when performing dirty reads
   **has already happened on a replica**, but is not yet officially
   committed on its leader.
 
-Both of these side effects will be relatively rare because ArangoDB
-replicates changes from the leader to the followers in a nearly
-synchronous fashion. However, in particular when performing larger
-transactions, intermediate commits may happen on followers, and then
-inconsistencies are more likely to occur. This is also the case if cluster
-nodes fail.
-
 When no writes are happening, allowing dirty reads is generally safe.
 
-Currently, the following APIs support dirty reads:
+The following APIs support dirty reads:
 
 - Single document reads (`GET /_api/document`)
 - Batch document reads (`PUT /_api/document?onlyget=true`)
