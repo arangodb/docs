@@ -271,11 +271,11 @@ cloned/copied into a regular JavaScript object first. This is not necessary
 if the *document* method is called from out of arangosh or from any other
 client.
 
-If the second argument *options* is given, it must be an object. If this
+If you pass *options* as the second argument, it must be an object. If this
 object has the attribute `allowDirtyReads` set to `true`, then the
-coordinator is allowed to read from any shard replica and not only from
-the leader. See [Dirty
-Reads](./http/document-address-and-etag.html#dirty-reads) for details.
+Coordinator is allowed to read from any shard replica and not only from
+the leader. See [Dirty Reads](http/document-address-and-etag.html#dirty-reads)
+for details.
 
 `collection.document(document-handle [, options])`
 
@@ -408,12 +408,11 @@ This method will throw an error if used improperly, e.g. when called
 with a non-document handle, a non-document, or when a cross-collection
 request is performed.
 
-If the second argument *options* is given, it must be an object. If this
+If you pass *options* as the second argument, it must be an object. If this
 object has the attribute `allowDirtyReads` set to `true`, then the
-coordinator is allowed to read from any shard replica and not only from
-the leader. See [Dirty
-
-Reads](./http/document-address-and-etag.html#dirty-reads) for details.
+Coordinator is allowed to read from any shard replica and not only from
+the leader. See [Dirty Reads](http/document-address-and-etag.html#dirty-reads)
+for details.
 
 `collection.exists(document-handle [, options])`
 

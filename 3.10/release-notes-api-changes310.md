@@ -86,22 +86,20 @@ See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness
 #### Dirty Reads
 
 A number of read-only APIs now observe the `x-arango-allow-dirty-read`
-header, which was previously only used in active failover deployments.
+header, which was previously only used in Active Failover deployments.
 This header allows reading from followers, or "dirty reads". See
-[Dirty Reads](./http/document-address-and-etag.html#dirty-reads) for
-details.
+[Dirty Reads](http/document-address-and-etag.html#dirty-reads) for details.
 
 The following APIs are affected:
 
- - single document reads (`GET /_api/document`)
- - batch document reads (`PUT /_api/document?onlyRead=true`)
- - read-only AQL queries (`/_api/cursor`)
- - edge API (`/_api/edges`)
- - streaming read-only transactions and their suboperations
-   (`/_api/transaction/begin` etc.)
+- Single document reads (`GET /_api/document`)
+- Batch document reads (`PUT /_api/document?onlyget=true`)
+- Read-only AQL queries (`POST /_api/cursor`)
+- The edge API (`GET /_api/edges`)
+- Read-only Stream Transactions and their sub-operations
+  (`POST /_api/transaction/begin` etc.)
 
-If the header is not given, the behaviour does not change at all.
-
+If the header is not specified, the behavior is the same as before.
 
 #### Cursor API
 
