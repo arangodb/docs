@@ -57,6 +57,7 @@ Executes a server-side transaction, as specified by *object*.
   rolled back and all database operations will be rolled back.
 
 Additionally, *object* can have the following optional attributes:
+- `allowImplicit`: Allow reading from undeclared collections.
 - *waitForSync*: boolean flag indicating whether the transaction
   is forced to be synchronous. <!-- TODO: obsolete? -->
 - *lockTimeout*: a numeric value that can be used to set a timeout in seconds for
