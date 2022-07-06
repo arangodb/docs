@@ -274,7 +274,7 @@ client.
 If you pass *options* as the second argument, it must be an object. If this
 object has the attribute `allowDirtyReads` set to `true`, then the
 Coordinator is allowed to read from any shard replica and not only from
-the leader. See [Dirty Reads](http/document-address-and-etag.html#dirty-reads)
+the leader. See [Read from Followers](http/document-address-and-etag.html#read-from-followers)
 for details.
 
 `collection.document(document-handle [, options])`
@@ -411,7 +411,7 @@ request is performed.
 If you pass *options* as the second argument, it must be an object. If this
 object has the attribute `allowDirtyReads` set to `true`, then the
 Coordinator is allowed to read from any shard replica and not only from
-the leader. See [Dirty Reads](http/document-address-and-etag.html#dirty-reads)
+the leader. See [Read from Followers](http/document-address-and-etag.html#read-from-followers)
 for details.
 
 `collection.exists(document-handle [, options])`

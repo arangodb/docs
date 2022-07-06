@@ -324,8 +324,8 @@ temporary data:
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
 
-Reading from followers
-----------------------
+Read from Followers in Clusters
+-------------------------------
 
 You can now allow for so-called "dirty reads", or "read from followers", for a
 number of read-only operations in cluster deployments. In this case, Coordinators
@@ -333,9 +333,9 @@ are allowed to read not only from shard leaders but also from shard replicas.
 This has a positive effect, because the reads can scale out to all DB-Servers
 that have copies of the data. Therefore, the read throughput is higher.
 
-Performing dirty reads comes at the cost of consistency and transactional
-guarantees. See [Dirty Reads](http/document-address-and-etag.html#dirty-reads)
-for details.
+Reading from followers comes at the cost of consistency and transactional
+guarantees. See [Read from Followers](http/document-address-and-etag.html#read-from-followers)
+for details about dirty reads.
 
 Miscellaneous changes
 ---------------------

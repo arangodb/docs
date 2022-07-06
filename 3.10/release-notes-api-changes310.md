@@ -83,12 +83,13 @@ attribute is returned inside the `serverInfo` object with the following subattri
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
 
 
-#### Dirty Reads
+#### Read from Followers
 
 A number of read-only APIs now observe the `x-arango-allow-dirty-read`
 header, which was previously only used in Active Failover deployments.
 This header allows reading from followers, or "dirty reads". See
-[Dirty Reads](http/document-address-and-etag.html#dirty-reads) for details.
+[Read from Followers](http/document-address-and-etag.html#read-from-followers)
+for details.
 
 The following APIs are affected:
 
