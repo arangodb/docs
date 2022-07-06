@@ -146,21 +146,13 @@ AQL functions added in 3.10:
 Indexes
 -------
 
-### Parallelization for index creation (Enterprise Edition)
+### Parallel index creation (Enterprise Edition)
 
-Assigning non-unique indexes to documents has parallelization now in foreground
-or background mode. The number of threads is hardcoded to 2, and the 
-threshold amount of documents a thread will process before enqueuing the rest
-of the documents in the range of document ids is hardcoded to 100000. 
-The threshold of number of documents to start using 2 threads instead 
-of 1 in non unique index creation is > 120000. As these values are hardcoded 
-for now, the syntax for creating a non-unique index has not changed, like, for
-example:
-```
-db.collectionTest.ensureIndex({ type: "persistent", fields: [ "foo" ], 
-unique: false, name: "foo", sparse: true});
-```
-This internal change is only available for Enterprise Edition.
+In the Enterprise Edition, non-unique indexes can be created with multiple
+threads in parallel. The number of parallel index creation threads is currently 
+set to 2, but future versions of ArangoDB may increase this value.
+Parallel index creation is only triggered for collections with at least 120,000
+documents.
 
 ### Storing additional values in indexes
 
