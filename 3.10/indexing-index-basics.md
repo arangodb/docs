@@ -623,11 +623,9 @@ become unsustainable if this list grows to tens of millions of entries.
 Building an index is always a write heavy operation (internally), it is always a good idea to build indexes
 during times with less load.
 
-For Enterprise Edition, assigning non-unique indexes to documents has 
-parallelization, executing with the load split between up to 2 threads. The 
-number of threads is hardcoded to 2, and the threshold amount of documents 
-a thread will process before enqueuing the rest of the documents in the range 
-of document ids is hardcoded to 100000.
-The threshold of number of documents to start using 2 threads instead
-of 1 in non unique index creation is > 120000.
+In the Enterprise Edition, non-unique indexes can be created with multiple
+threads in parallel. The number of parallel index creation threads is currently 
+set to 2, but future versions of ArangoDB may increase this value.
+Parallel index creation is only triggered for collections with at least 120,000
+documents.
 
