@@ -56,7 +56,13 @@ PageRank is a well known algorithm to rank documents in a graph. The algorithm
 runs until the execution converges. Specify a custom threshold with the
 parameter `threshold`, to run for a fixed number of iterations use the
 `maxGSS` parameter.
+PageRank is a well-known algorithm to rank vertices in a graph: the more important a vertex, the higher rank it gets. It goes back to L. Page and S. Brin's [paper](http://infolab.stanford.edu/pub/papers/google.pdf) and is used to rank pages in in search engines (hence the name). 
 
+The rank of a vertex is a positive real number. The algorithm starts with every vertex having the same rank (one divided by the number of vertices) and sends its rank to its out-neighbors. The computation proceeds in iterations. In each iteration, the new rank is computed according to the formula "(0.15/total number of vertices) + (0.85 * the sum of all incoming ranks)". The value sent to each of the out-neighbors is the new rank divided by the number of those neighbors, thus every out-neighbor gets the same part of the new rank.
+
+The algorithm stops when at least one of the two conditions is satisfied:
+- The maximum number of iterations is reached. This is the same parameter `maxGSS` as for the other algorithms.
+- Every vertex changes its rank in the last iteration by less than a certain threshold. The default threshold is  0.00001, a custom value can be set with the parameter `threshold`.
 ```js
 var pregel = require("@arangodb/pregel");
 pregel.start("pagerank", "graphname", {maxGSS: 100, threshold: 0.00000001, resultField: "rank"})
@@ -77,15 +83,15 @@ pregel.start("pagerank", "graphname", {maxGSS: 20, threshold: 0.00000001, source
 
 ### Single-Source Shortest Path
 
-Calculates the shortest path length between the source and all other vertices.
+Calculates the shortest path length between the given source and all other vertices, called _targets_. The result is written to the specified property of the respective target.
 The distance to the source vertex itself is returned as `0` and a length above
-`9007199254740991` (max safe integer) means that there is no connection between
+`9007199254740991` (max safe integer) means that there is no path from the source to the vertex in the graph.
 a pair of vertices.
 
-The algorithm runs until it converges, the iterations are bound by the
+The algorithm runs until all distances are computed. The number of iterations is bounded by the
 diameter (the longest shortest path) of your graph.
 
-Requires a `source` document ID parameter. The result field needs to be
+An call of the algorithm requires the `source` parameter whose value is the  document ID of the source vertex. The result field needs to be
 specified in `_resultField` (note the underscore).
 
 ```js
@@ -97,30 +103,30 @@ pregel.start("sssp", "graphname", {source: "vertices/1337", _resultField: "dista
 
 There are three algorithms to find connected components in a graph:
 
-1. If your graph is effectively undirected (you have edges in both directions
-   between vertices) then the simple **connected components** algorithm named
+1. If your graph is effectively undirected (for every edge from vertex A to vertex B there is also an edge from B to A)
+   , then the simple **connected components** algorithm named
    `"connectedcomponents"` is suitable.
 
-   It is a very simple and fast algorithm, but only works correctly on
+   It is a very simple and fast algorithm, but it only works correctly on
    undirected graphs. Your results on directed graphs may vary, depending on
    how connected your components are.
-
+In an undirected graph, a _connected component_ is a subgraph
+- where there is a path between every pair of vertices from this component and
+- which is maximal with this property: adding any other vertex would destroy it. In other words, there is no path between any vertex from the component and any vertex not in the component.
 2. To find **weakly connected components** (WCC) you can use the algorithm
    named `"wcc"`. Weakly connected means that there exists a path from every
-   vertex pair in that component.
+   A _weakly connected component_ in a directed graph is a maximal subgraph such that there is a path between each pair of vertices where _we can walk also against the direction of edges._ More formally, it is a connected component (see the definition above) in the _underlying undirected graph_, i.e., in the undirected graph obtained by adding an edge from vertex B to vertex A (if it does not already exist), if there is an edge from vertex A to vertex B.
 
-   This algorithm works on directed graphs but requires a greater amount of
+   This algorithm works on directed graphs but, in general, requires a greater amount of
    traffic between your DB-Servers.
 
 3. To find **strongly connected components** (SCC) you can use the algorithm
-   named `"scc"`. Strongly connected means every vertex is reachable from any
-   other vertex in the same component.
+   named `"scc"`. A _strongly connected component_ is a maximal subgraph where, for every two vertices, there is a path from one of them to the other. It is thus defined as a weakly connected component, but one is not allowed to run against the edge directions.
 
-   The algorithm is more complex than the WCC algorithm and requires more
-   memory, because each vertex needs to store much more state. Consider using
-   WCC if you think your data may be suitable for it.
+    The algorithm is more complex than the WCC algorithm and, in general, requires more
+   memory.
 
-All above algorithms will assign a component ID to each vertex.
+All above algorithms will assign to each vertex a component ID, a number which will be written into the specified `resultField`. All vertices from the same component obtain the same component ID, every two vertices from different components obtain different IDs.
 
 ```js
 var pregel = require("@arangodb/pregel");
@@ -264,10 +270,11 @@ distribution of the initial IDs over the vertices.
 
 Then, in each iteration, a vertex sends its current Community
 ID to all its neighbor vertices. After that each vertex adopts the Community ID it
-received most frequently in the last step. If a vertex obtains more than one
-most frequent IDs, it chooses the lowest number (as IDs are numbers). If no ID arrived more 
-than once and the ID of the vertex from the previous step is less than the
-lowest obtained ID number, the old ID is kept. 
+received most frequently in the last step. 
+
+The details are somewhat subtle. If a vertex obtains only one ID and the ID of the vertex from the previous step, its old ID, is less than the obtained ID, the old ID is kept. (IDs are numbers and thus comparable to each other.) If a vertex obtains more than one ID, its new ID is the lowest ID among the most frequently obtained IDs. (For example, if the obtained IDs are 1, 2, 2, 3, 3, then 2 is the new ID. ) If, however, no ID arrives more than once, the new ID is the minimum of the lowest obtained IDs and the old ID. (For example, if the old ID is 5 and the obtained IDs are 3, 4, 6, then the new ID is 3. If the old ID is 2, it is kept.) 
+
+If a vertex keeps its ID 20 times or more in a row, it does not send its ID. Vertices that did not obtain any IDs do not update their ID and do not send it.
 
 The algorithm runs until it converges, which likely never really happens on
 large graphs. Therefore you need to specify a maximum iteration bound.

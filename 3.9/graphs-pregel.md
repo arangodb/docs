@@ -56,7 +56,7 @@ The Pregel API is accessible through the `@arangodb/pregel` package.
 To start an execution you need to specify the **algorithm** name and a
 named graph (SmartGraph in cluster). Alternatively, you can specify the vertex
 and edge collections. Additionally, you can specify custom parameters which vary
-for each algorithm. The `start()` method always returns a unique ID which
+for each algorithm. The `start()` method always returns a unique ID (a number) which
 can be used to interact with the algorithm and later on.
 
 The below variant of the `start()` method can be used for named graphs:
@@ -94,7 +94,6 @@ var execution = pregel.start("sssp", "demograph", {source: "vertices/V"});
 var status = pregel.status(execution);
 ```
 
-The result tells you the current status of the algorithm execution.
 It tells you the current `state` of the execution, the current
 global superstep, the runtime, the global aggregator values as well as the
 number of send and received messages.
@@ -173,8 +172,8 @@ FOR v IN PREGEL_RESULT(<handle>)
 
 By default, the `PREGEL_RESULT()` AQL function returns the `_key` of each
 vertex plus the result of the computation. In case the computation was done for
-vertices from different vertex collection, just the `_key` values may not be
-sufficient to tell vertices from different collections apart. In this case,
+vertices from different vertex collections, just the `_key` values may not be
+sufficient to distinguish vertices from different collections. In this case,
 `PREGEL_RESULT()` can be given a second parameter `withId`, which will make it
 return the `_id` values of the vertices as well:
 
