@@ -25,8 +25,8 @@ Execution plan:
   6   ReturnNode           3       - RETURN #3
 
 Indexes used:
- By   Name                      Type   Collection   Unique   Sparse   Cache   Selectivity   Fields           Ranges
-  7   idx_1736959837962502147   geo    germanCity   false    true     false           n/a   [ `geometry` ]   (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
+ By   Name                      Type   Collection   Unique   Sparse   Cache   Selectivity   Fields           Stored values   Ranges
+  7   idx_1737715158595141637   geo    germanCity   false    true     false           n/a   [ `geometry` ]   [  ]            (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
 
 Optimization rules applied:
  Id   RuleName

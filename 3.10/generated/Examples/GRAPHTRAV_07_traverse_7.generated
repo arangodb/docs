@@ -23,8 +23,8 @@ Execution plan:
   7   ReturnNode           1       - RETURN #8
 
 Indexes used:
- By   Name   Type   Collection   Unique   Sparse   Cache   Selectivity   Fields        Ranges
-  2   edge   edge   edges        false    false    false      100.00 %   [ `_from` ]   base OUTBOUND
+ By   Name   Type   Collection   Unique   Sparse   Cache   Selectivity   Fields        Stored values   Ranges
+  2   edge   edge   edges        false    false    false      100.00 %   [ `_from` ]   [  ]            base OUTBOUND
 
 Functions used:
  Name   Deterministic   Cacheable   Uses V8
