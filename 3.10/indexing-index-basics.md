@@ -622,3 +622,10 @@ become unsustainable if this list grows to tens of millions of entries.
 
 Building an index is always a write heavy operation (internally), it is always a good idea to build indexes
 during times with less load.
+
+In the Enterprise Edition, non-unique indexes can be created with multiple
+threads in parallel. The number of parallel index creation threads is currently 
+set to 2, but future versions of ArangoDB may increase this value.
+Parallel index creation is only triggered for collections with at least 120,000
+documents.
+
