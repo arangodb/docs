@@ -8,10 +8,8 @@ description: Pregel algorithms can be used for graph exploration, path finding, 
 {:class="lead"}
 
 Pregel algorithms are used in scenarios where you need to do an
-explorative analysis of a graph stored in ArangoDB to get insights about its
-nature, structure, and size - without having to use external processing systems.
-It also allows you to calculate the distance from one node to another, and
-the degree of the distribution of the nodes.
+analysis of a graph stored in ArangoDB to get insights about its
+nature and structure - without having to use external processing systems.
 
 Pregel can solve numerous graph problems and offers solutions that are
 essential building blocks in the cycle of a real world application.
@@ -22,35 +20,9 @@ significantly reduce any downtime.
 In the section below you can find more details about all available 
 Pregel algorithms in ArangoDB.
 
-To determine the importance of a website, you can use:
-- [Page Rank](#page-rank)
-- [Seeded PageRank](#seeded-pagerank)
-
-To calculate the shortest path length between the source and all other vertices,
-for example _How to get from a to b?_, you can use:
-- [Single-Source Shortest Path](#single-source-shortest-path)
-
-To find connected components within a graph, you can use:
-- [Connected Components](#connected-components)
-- [Weakly Connected Components](#connected-components)
-- [Strongly Connected Components](#connected-components)
-
-To rate web pages, you can use:
-- [Hyperlink-Induced Topic Search (HITS)](#hyperlink-induced-topic-search-hits)
-
-To identify the most important nodes in a graph, for example 
-_Who are the influencers in a social network?_, you can use vertex centrality:
-- [Closeness Centrality](#effective-closeness)
-- [Betweenness Centrality (LineRank)](#linerank)
-
-To identify distinct subgroups within a community structure, you can use
-the community detection method:
-- [Label Propagation](#label-propagation)
-- [Speaker-Listener Label Propagation](#speaker-listener-label-propagation)
-
 ## Available Algorithms
 
-### Page Rank
+### PageRank
 
 PageRank is a well known algorithm to rank documents in a graph. The algorithm
 runs until the execution converges. Specify a custom threshold with the
