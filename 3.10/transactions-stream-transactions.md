@@ -1,108 +1,32 @@
 ---
 layout: default
+description: >-
+  Stream Transactions allow you start a transaction, run multiple operations
+  like AQL queries over a short period of time, and then commit or abort the
+  transaction
 ---
 # Stream Transactions
 
+{{ page.description }}
+{:class="lead"}
+
 <small>Introduced in: v3.5.0</small>
 
-*Stream Transactions* allow you to perform a multi-document transaction 
-with individual begin and commit / abort commands. This is similar to
-the way traditional RDBMS do it with *BEGIN*, *COMMIT* and *ROLLBACK* operations.
+Stream Transactions allow you to perform multi-document transaction
+with individual begin and commit / abort commands. This is comparable to the
+*BEGIN*, *COMMIT* and *ROLLBACK* operations found in relational database systems.
 
-To use a Stream Transaction a client first sends the [configuration](#begin-a-transaction)
-of the transaction to the ArangoDB server.
+Stream Transaction work in conjunction with other operations in ArangoDB.
+Supported operations include:
 
-{% hint 'info' %}
-Contrary to [**JavaScript Transactions**](transaction-js-transaction.html),
-the definition of Stream Transaction must only contain the collections that are
-going to be used and (optionally) the various transaction options supported by
-ArangoDB. No `action` attribute is supported.
-{% endhint %}
+- Read and write documents
+- Get the number of documents of collections
+- Truncate collections
+- Run AQL queries
 
-
-
-Supported transactional JavaScript API operations include:
-
-1. Read and write documents
-2. Get the number of documents of a collection
-3. Truncate a collection
-4. Run an AQL query
-
-## JavaScript API
-
-### Create Transaction
-
-`db._createTransaction(options) → trx`
-
-Begin a Stream Transaction.
-
-`options` must have the following attributes:
-
-- `collections`: a sub-object that defines which collections you want to use
-  in the transaction. It can have the following sub-attributes:
-  - `read`: a single collection or a list of collections to use in the
-    transaction in read-only mode.
-  - `write`: a single collection or a list of collections to use in the
-    transaction in write or read mode.
-  - `exclusive`: a single collection or a list of collections to acquire
-    exclusive write access for.
-
-Additionally, `options` can have the following optional attributes:
-
-- `allowImplicit`: Allow reading from undeclared collections.
-- `waitForSync`: An optional boolean flag that, if set, forces the
-  transaction to write all data to disk before returning.
-- `lockTimeout`: A numeric value that can be used to set a timeout in seconds for
-  waiting on collection locks. This option is only meaningful when using
-  `exclusive` locks. If not specified, a default value is used. Setting
-  `lockTimeout` to `0` makes ArangoDB not time out waiting for a lock.
-- `maxTransactionSize`: Transaction size limit in bytes.
-
-The method returns an object that lets you run supported operations as part of
-the transactions, get the status information, and commit or abort the transaction.
-
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline ensureUniquePersistentSingle
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentSingle}
-    ~ db._create("products");
-    ~ db.products.save([ { name: "", price: 25 }, { name: "", price: 7.99 } ])
-      var trx = db._createTransaction({ collections: { write: ["products"] } });
-      trx.query(`FOR p IN products SORT p.price LIMIT 1 RETURN p`);
-    ~ db._drop("products");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock ensureUniquePersistentSingle
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
-
-
-### Commit
-
-### Abort
-
-### Collection
-
-### Query
-
-
-### ID
-
-### Running
-
-### Status
-
-abort()
-collection() -> count(), document(), exists(), insert(), name(), remove(), replace(), save(), truncate(), update()
-commit()
-id()
-query()
-running() -> bool
-status() -> id, status
-
-
-
-Note that a client **always needs to start the transaction first** and it is required to
-explicitly specify the collections used for write accesses. The client is responsible
-for making sure that the transaction is committed or aborted when it is no longer needed.
+You **always need to start the transaction first** and explicitly specify the
+collections used for write accesses upfront. You need to make sure that the
+transaction is committed or aborted when it is no longer needed.
 This avoids taking up resources on the ArangoDB server.
 
 {% hint 'warning' %}
@@ -113,10 +37,10 @@ It is therefore advisable to keep the transactions as short as possible.
 For a more detailed description of how transactions work in ArangoDB please
 refer to [Transactions](../transactions.html).
 
-Also see [Limitations](#limitations).
+You can use Stream Transactions via the [JavaScript API](#javascript-api) and
+the [HTTP API](http/transaction-stream-transaction.html).
 
-Limitations
------------
+## Limitations
 
 ### Timeout and transaction size
 
@@ -154,3 +78,134 @@ errors with code `28` (locked).
 The [Batch API](batch-request.html) cannot be used in combination with
 Stream Transactions for submitting batched requests, because the required
 header `x-arango-trx-id` is not forwarded.
+
+## JavaScript API
+
+### Create Transaction
+
+`db._createTransaction(options) → trx`
+
+Begin a Stream Transaction.
+
+`options` must be an object have the following attributes:
+
+- `collections`: A sub-object that defines which collections you want to use
+  in the transaction. It can have the following sub-attributes:
+  - `read`: A single collection or a list of collections to use in the
+    transaction in read-only mode.
+  - `write`: A single collection or a list of collections to use in the
+    transaction in write or read mode.
+  - `exclusive`: A single collection or a list of collections to acquire
+    exclusive write access for.
+
+Additionally, `options` can have the following optional attributes:
+
+- `allowImplicit`: Allow reading from undeclared collections.
+- `waitForSync`: An optional boolean flag that, if set, forces the
+  transaction to write all data to disk before returning.
+- `lockTimeout`: A numeric value that can be used to set a timeout in seconds for
+  waiting on collection locks. This option is only meaningful when using
+  `exclusive` locks. If not specified, a default value is used. Setting
+  `lockTimeout` to `0` makes ArangoDB not time out waiting for a lock.
+- `maxTransactionSize`: Transaction size limit in bytes.
+
+The method returns an object that lets you run supported operations as part of
+the transactions, get the status information, and commit or abort the transaction.
+
+The following example shows how you can remove a document from a collection and
+create a new document in the same collection using a Stream Transaction:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline jsStreamTransaction_1
+    @EXAMPLE_ARANGOSH_OUTPUT{jsStreamTransaction_1}
+    ~ db._create("tasks");
+    ~ db.tasks.save({ _key: "123", type: "sendEmail", date: "2022-07-07T15:20:00.000Z" });
+      var coll = "tasks";
+      var trx = db._createTransaction({ collections: { write: [coll] } });
+      var task = trx.query(`FOR t IN @@coll SORT t.date DESC LIMIT 1 RETURN t`, {"@coll": coll}).toArray()[0];
+      if (task) {
+        trx.collection(coll).remove(task._key);
+        trx.collection(coll).save({ _key: "124", type: task.type, date: new Date().toISOString() });
+        trx.commit();
+      } else {
+        trx.abort();
+      }
+    ~ db._drop("tasks");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock jsStreamTransaction_1
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### Commit
+
+`trx.commit() → status`
+
+Commit a Stream Transaction and return the [status](#status).
+
+Committing is an idempotent operation. It is not an error to commit a transaction
+more than once.
+
+### Abort
+
+`trx.abort() → status`
+
+Abort a Stream Transaction and return the [status](#status).
+
+Aborting is an idempotent operation. It is not an error to abort a transaction
+more than once.
+
+### Collection
+
+`trx.collection(collection-name) → coll`
+
+Return a collection object for the specified collection, or null if it does not
+exist.
+
+The object lets you access the following methods to perform document and
+collection operations:
+
+- [`count()`](data-modeling-documents-document-methods.html#count)
+- [`document()`](data-modeling-documents-document-methods.html#document)
+- [`exists()`](data-modeling-documents-document-methods.html#exists)
+- [`insert()`](data-modeling-documents-document-methods.html#insert--save)
+- [`name()`](data-modeling-collections-database-methods.html#collection-name)
+- [`remove()`](data-modeling-documents-document-methods.html#remove)
+- [`replace()`](data-modeling-documents-document-methods.html#replace)
+- [`save()`](data-modeling-documents-document-methods.html#insert--save)
+- [`truncate()`](data-modeling-collections-collection-methods.html#truncate)
+- [`update()`](data-modeling-documents-document-methods.html#update)
+
+Compared to the collection object returned by `db._collection()`, only a subset
+of methods is available, and the operations are executed as part of the
+Stream Transactions, but they work the same otherwise.
+
+### Query
+
+`trx.query(aql-query) → cursor`
+
+Run an AQL query as part of a Stream Transaction and return a result cursor.
+The method works analogous to the
+[`db._query()` method](aql/invocation-with-arangosh.html#with-db_query).
+
+### ID
+
+`trx.id() → id`
+
+Get the identifier of the Stream Transaction.
+
+### Running
+
+`trx.running() → bool`
+
+Return a boolean that indicates whether the Stream Transaction is on-going.
+
+### Status
+
+`trx.status() → status`
+
+Return an object with the status information of the Stream Transaction.
+The object has the following attributes:
+
+- `id`: The identifier of the Stream Transaction.
+- `status`: The status of the Stream Transaction.
+  One of `"running"`, `"committed"`, or `"aborted"`.
