@@ -79,7 +79,7 @@ is intended to help you gain analytical insights in
 your data, without having to use external processing systems.
 
 ArangoDB includes the following graph algorithms:
-- [Page Rank](graphs-pregel-algorithms.html#page-rank): used for ranking documents in a graph
+- [Page Rank](graphs-pregel-algorithms.html#pagerank): used for ranking documents in a graph
 search/traversal.
 - [Single-Source Shortest Path](graphs-pregel-algorithms.html#single-source-shortest-path): calculates
  the shortest path length between the source and all other vertices.
