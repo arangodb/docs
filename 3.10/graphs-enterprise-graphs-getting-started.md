@@ -148,7 +148,7 @@ correct sharding already).
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### Create a SmartGraph using SatelliteCollections
+### Create an EnterpriseGraph using SatelliteCollections
 
 When creating a collection, you can decide whether it's a SatelliteCollection
 or not. For example, a vertex collection can be satellite as well. 
@@ -172,14 +172,14 @@ request, only then the option will count.
 {% endhint %}
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline hybridSmartGraphCreateGraphHowTo1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{hybridSmartGraphCreateGraphHowTo1_cluster}
+    @startDocuBlockInline enterpriseGraphCreateGraphHowTo4_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo4_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var rel = graph_module._relation("isCustomer", "shop", "customer")
       var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], isSmart: true, numberOfShards: 9});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock hybridSmartGraphCreateGraphHowTo1_cluster
+    @endDocuBlock enterpriseGraphCreateGraphHowTo4_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
