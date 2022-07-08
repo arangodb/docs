@@ -5,168 +5,168 @@ arangosh&gt; db.circles.toArray();
   { 
     &quot;_key&quot; : &quot;A&quot;, 
     &quot;_id&quot; : &quot;circles/A&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC---&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKS---&quot;, 
     &quot;label&quot; : &quot;1&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;B&quot;, 
     &quot;_id&quot; : &quot;circles/B&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--_&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKS--_&quot;, 
     &quot;label&quot; : &quot;2&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;C&quot;, 
     &quot;_id&quot; : &quot;circles/C&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--A&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKS--A&quot;, 
     &quot;label&quot; : &quot;3&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;D&quot;, 
     &quot;_id&quot; : &quot;circles/D&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--B&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKS--B&quot;, 
     &quot;label&quot; : &quot;4&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;E&quot;, 
     &quot;_id&quot; : &quot;circles/E&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--C&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW---&quot;, 
     &quot;label&quot; : &quot;5&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;F&quot;, 
     &quot;_id&quot; : &quot;circles/F&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--D&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--_&quot;, 
     &quot;label&quot; : &quot;6&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;G&quot;, 
     &quot;_id&quot; : &quot;circles/G&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--E&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--A&quot;, 
     &quot;label&quot; : &quot;7&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;H&quot;, 
     &quot;_id&quot; : &quot;circles/H&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--F&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--B&quot;, 
     &quot;label&quot; : &quot;8&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;I&quot;, 
     &quot;_id&quot; : &quot;circles/I&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--G&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--C&quot;, 
     &quot;label&quot; : &quot;9&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;J&quot;, 
     &quot;_id&quot; : &quot;circles/J&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--H&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--D&quot;, 
     &quot;label&quot; : &quot;10&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;K&quot;, 
     &quot;_id&quot; : &quot;circles/K&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--I&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--E&quot;, 
     &quot;label&quot; : &quot;11&quot; 
   } 
 ]
 arangosh&gt; db.edges.toArray();
 [ 
   { 
-    &quot;_key&quot; : &quot;63202&quot;, 
-    &quot;_id&quot; : &quot;edges/63202&quot;, 
+    &quot;_key&quot; : &quot;63206&quot;, 
+    &quot;_id&quot; : &quot;edges/63206&quot;, 
     &quot;_from&quot; : &quot;circles/A&quot;, 
     &quot;_to&quot; : &quot;circles/B&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnC--J&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--F&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_bar&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63204&quot;, 
-    &quot;_id&quot; : &quot;edges/63204&quot;, 
+    &quot;_key&quot; : &quot;63208&quot;, 
+    &quot;_id&quot; : &quot;edges/63208&quot;, 
     &quot;_from&quot; : &quot;circles/B&quot;, 
     &quot;_to&quot; : &quot;circles/C&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG---&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--G&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blarg&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63206&quot;, 
-    &quot;_id&quot; : &quot;edges/63206&quot;, 
+    &quot;_key&quot; : &quot;63210&quot;, 
+    &quot;_id&quot; : &quot;edges/63210&quot;, 
     &quot;_from&quot; : &quot;circles/C&quot;, 
     &quot;_to&quot; : &quot;circles/D&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG--_&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--H&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blorg&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63208&quot;, 
-    &quot;_id&quot; : &quot;edges/63208&quot;, 
+    &quot;_key&quot; : &quot;63212&quot;, 
+    &quot;_id&quot; : &quot;edges/63212&quot;, 
     &quot;_from&quot; : &quot;circles/B&quot;, 
     &quot;_to&quot; : &quot;circles/E&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG--A&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKW--I&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blub&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63210&quot;, 
-    &quot;_id&quot; : &quot;edges/63210&quot;, 
+    &quot;_key&quot; : &quot;63214&quot;, 
+    &quot;_id&quot; : &quot;edges/63214&quot;, 
     &quot;_from&quot; : &quot;circles/E&quot;, 
     &quot;_to&quot; : &quot;circles/F&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG--B&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKa---&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_schubi&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63212&quot;, 
-    &quot;_id&quot; : &quot;edges/63212&quot;, 
+    &quot;_key&quot; : &quot;63216&quot;, 
+    &quot;_id&quot; : &quot;edges/63216&quot;, 
     &quot;_from&quot; : &quot;circles/A&quot;, 
     &quot;_to&quot; : &quot;circles/G&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG--C&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKa--_&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_foo&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63214&quot;, 
-    &quot;_id&quot; : &quot;edges/63214&quot;, 
+    &quot;_key&quot; : &quot;63218&quot;, 
+    &quot;_id&quot; : &quot;edges/63218&quot;, 
     &quot;_from&quot; : &quot;circles/G&quot;, 
     &quot;_to&quot; : &quot;circles/H&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG--D&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKa--A&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_blob&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63216&quot;, 
-    &quot;_id&quot; : &quot;edges/63216&quot;, 
+    &quot;_key&quot; : &quot;63220&quot;, 
+    &quot;_id&quot; : &quot;edges/63220&quot;, 
     &quot;_from&quot; : &quot;circles/H&quot;, 
     &quot;_to&quot; : &quot;circles/I&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG--E&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKa--B&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_blub&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63218&quot;, 
-    &quot;_id&quot; : &quot;edges/63218&quot;, 
+    &quot;_key&quot; : &quot;63222&quot;, 
+    &quot;_id&quot; : &quot;edges/63222&quot;, 
     &quot;_from&quot; : &quot;circles/G&quot;, 
     &quot;_to&quot; : &quot;circles/J&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG--F&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKa--C&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_zip&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63220&quot;, 
-    &quot;_id&quot; : &quot;edges/63220&quot;, 
+    &quot;_key&quot; : &quot;63224&quot;, 
+    &quot;_id&quot; : &quot;edges/63224&quot;, 
     &quot;_from&quot; : &quot;circles/J&quot;, 
     &quot;_to&quot; : &quot;circles/K&quot;, 
-    &quot;_rev&quot; : &quot;_ebkppnG--G&quot;, 
+    &quot;_rev&quot; : &quot;_eb1poKa--D&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_zup&quot; 
