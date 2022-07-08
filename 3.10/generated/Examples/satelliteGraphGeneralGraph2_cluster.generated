@@ -13,8 +13,8 @@ Execution plan:
   5   ReturnNode                COOR     1         - RETURN #6
 
 Indexes used:
- By   Name   Type   Collection   Unique   Sparse   Cache   Selectivity   Fields        Ranges
-  3   edge   edge   edges        false    false    false      100.00 %   [ `_from` ]   base OUTBOUND
+ By   Name   Type   Collection   Unique   Sparse   Cache   Selectivity   Fields        Stored values   Ranges
+  3   edge   edge   edges        false    false    false      100.00 %   [ `_from` ]   [  ]            base OUTBOUND
 
 Traversals on graphs:
  Id  Depth  Vertex collections  Edge collections  Options                                  Filter / Prune Conditions

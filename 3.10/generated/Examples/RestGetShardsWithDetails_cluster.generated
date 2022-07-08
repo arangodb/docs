@@ -3,10 +3,10 @@
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 826
+content-length: 863
 location: /_db/_system/_api/collection/testCollection/shards
 server: ArangoDB
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s56\":[\"PRMR-73a2eef4-4c99-46f7-9a7d-c408ae4c934a\",\"PRMR-5fec1c54-023e-446c-a0cf-2dcdb4016216\"],\"s57\":[\"PRMR-5fec1c54-023e-446c-a0cf-2dcdb4016216\",\"PRMR-73a2eef4-4c99-46f7-9a7d-c408ae4c934a\"],\"s58\":[\"PRMR-73a2eef4-4c99-46f7-9a7d-c408ae4c934a\",\"PRMR-5fec1c54-023e-446c-a0cf-2dcdb4016216\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"globallyUniqueId\":\"c55/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"numberOfShards\":3,\"id\":\"55\",\"minReplicationFactor\":1,\"internalValidatorType\":0,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s10056\":[\"PRMR-595d41c4-b1e1-44fc-a8f4-d62f0a992782\",\"PRMR-dbd12b6d-4dc9-4e8a-8915-4a28e2ec1d9c\"],\"s10057\":[\"PRMR-dbd12b6d-4dc9-4e8a-8915-4a28e2ec1d9c\",\"PRMR-595d41c4-b1e1-44fc-a8f4-d62f0a992782\"],\"s10058\":[\"PRMR-595d41c4-b1e1-44fc-a8f4-d62f0a992782\",\"PRMR-dbd12b6d-4dc9-4e8a-8915-4a28e2ec1d9c\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"numberOfShards\":3,\"minReplicationFactor\":1,\"id\":\"10055\",\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"computedValues\":null,\"internalValidatorType\":0,\"globallyUniqueId\":\"c10055/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"
