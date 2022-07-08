@@ -89,7 +89,7 @@ interact with the graph and manage the graph data.
 Compared to SmartGraphs, the option `isSmart: true` is required but the
 `smartGraphAttribute` is forbidden. 
 
-% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
