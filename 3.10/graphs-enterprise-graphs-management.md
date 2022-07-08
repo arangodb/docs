@@ -70,7 +70,7 @@ Create a graph without relations. Edge definitions can be added later:
     @startDocuBlockInline enterpriseGraphCreate1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreate1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
-      var graph = graph_module._create("myGraph", [], [], {numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [], [], {isSmart: true, numberOfShards: 9});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -86,7 +86,7 @@ Create a graph using an edge collection `edges` and a single vertex collection
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreate2_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
-      var graph = graph_module._create("myGraph", edgeDefinitions, [], {numberOfShards: 9});
+      var graph = graph_module._create("myGraph", edgeDefinitions, [], {isSmart: true, numberOfShards: 9});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -101,7 +101,7 @@ Create a graph with edge definitions and orphan collections:
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreate3_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
-      var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {numberOfShards: 9});
+      var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {isSmart: true, numberOfShards: 9});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -149,7 +149,7 @@ Create an EnterpriseGraph and list its orphan collections:
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var relation = graph_module._relation("edges", "vertices", "vertices");
-      var graph = graph_module._create("myGraph", [relation], ["other"], {numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [relation], ["other"], {isSmart: true, numberOfShards: 9});
       graph._orphanCollections();
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -164,7 +164,7 @@ Remove the orphan collection from the EnterpriseGraph and drop the collection:
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify2_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], ["other"], {numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [relation], ["other"], {isSmart: true, numberOfShards: 9});
       graph._removeVertexCollection("other", true);
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
@@ -180,7 +180,7 @@ Attempting to remove a non-orphan collection results in an error:
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify3_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], [], {numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [relation], [], {isSmart: true, numberOfShards: 9});
       graph._removeVertexCollection("vertices"); // xpError(ERROR_GRAPH_NOT_IN_ORPHAN_COLLECTION)
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -196,7 +196,7 @@ sharding for other collections (`edges`).
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify4_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var relation = graph_module._relation("edges", "vertices", "vertices");
-      var graph = graph_module._create("myGraph", [relation], [], {numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [relation], [], {isSmart: true, numberOfShards: 9});
       graph._deleteEdgeDefinition("edges");
       graph._removeVertexCollection("vertices");
       db._drop("vertices"); // xpError(ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE)
@@ -218,7 +218,7 @@ drop collections that you might have removed from the graph beforehand.
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify5_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var relation = graph_module._relation("edges", "vertices", "vertices");
-      var graph = graph_module._create("myGraph", [relation], [], {numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [relation], [], {isSmart: true, numberOfShards: 9});
       graph._deleteEdgeDefinition("edges");      // Remove edge collection from graph definition
       graph._removeVertexCollection("vertices"); // Remove vertex collection from graph definition
       graph_module._drop("myGraph", true);       // Does not drop any collections because none are left in the graph definition
@@ -253,7 +253,7 @@ Create an EnterpriseGraph, then delete the edge definition and drop the edge col
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify6_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var relation = graph_module._relation("edges", "vertices", "vertices");
-      var graph = graph_module._create("myGraph", [relation], [], {numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [relation], [], {isSmart: true, numberOfShards: 9});
       graph._deleteEdgeDefinition("edges", true);
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
@@ -270,7 +270,7 @@ any relation (i.e. after the deletion of the edge definition):
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify7_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], [], {numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [relation], [], {isSmart: true, numberOfShards: 9});
       graph._deleteEdgeDefinition("edges");
       graph._removeVertexCollection("vertices");
      ~graph_module._drop("myGraph", true);
@@ -304,7 +304,7 @@ Delete an EnterpriseGraph and drop its collections:
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphRemove1_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], ["other"], {numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [relation], ["other"], {isSmart: true, numberOfShards: 9});
       graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphRemove1_cluster
@@ -323,7 +323,7 @@ collections first.
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphRemove2_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], ["other"], {numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [relation], ["other"], {isSmart: true, numberOfShards: 9});
       graph._removeVertexCollection("other");
       graph_module._drop("myGraph", true); // xpError(ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE)
      ~db._drop("other");

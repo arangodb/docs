@@ -93,7 +93,7 @@ Compared to SmartGraphs, the option `isSmart: true` is required but the
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
-      var graph = graph_module._create("myGraph", [], [], {numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [], [], {isSmart: true, numberOfShards: 9});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -113,7 +113,7 @@ without trouble however, as they will have the correct sharding.
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo2_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
-     ~var graph = graph_module._create("myGraph", [], [], {numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [], [], {isSmart: true, numberOfShards: 9});
       graph._addVertexCollection("shop");
       graph._addVertexCollection("customer");
       graph._addVertexCollection("pet");
@@ -135,7 +135,7 @@ correct sharding already).
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo3_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
-     ~var graph = graph_module._create("myGraph", [], [], {numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [], [], {isSmart: true, numberOfShards: 9});
      ~graph._addVertexCollection("shop");
      ~graph._addVertexCollection("customer");
      ~graph._addVertexCollection("pet");
@@ -176,7 +176,7 @@ request, only then the option will count.
     @EXAMPLE_ARANGOSH_OUTPUT{hybridSmartGraphCreateGraphHowTo1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var rel = graph_module._relation("isCustomer", "shop", "customer")
-      var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], isSmart: true, numberOfShards: 9});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
