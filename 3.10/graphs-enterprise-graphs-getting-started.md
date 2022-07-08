@@ -90,14 +90,14 @@ Compared to SmartGraphs, the option `isSmart: true` is required but the
 `smartGraphAttribute` is forbidden. 
 
 % arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_cluster}
+    @startDocuBlockInline enterpriseGraphCreateGraphHowTo1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
-      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [], [], {numberOfShards: 9});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo1_cluster
+    @endDocuBlock enterpriseGraphCreateGraphHowTo1_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -110,17 +110,17 @@ module and remove them from the graph definition, then you may re-add them
 without trouble however, as they will have the correct sharding.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo2_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo2_cluster}
+    @startDocuBlockInline enterpriseGraphCreateGraphHowTo2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo2_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
-     ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [], [], {numberOfShards: 9});
       graph._addVertexCollection("shop");
       graph._addVertexCollection("customer");
       graph._addVertexCollection("pet");
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo2_cluster
+    @endDocuBlock enterpriseGraphCreateGraphHowTo2_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -132,10 +132,10 @@ so they must not exist when creating the EnterpriseGraph (unless they have the
 correct sharding already).
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3_cluster}
+    @startDocuBlockInline enterpriseGraphCreateGraphHowTo3_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo3_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
-     ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [], [], {numberOfShards: 9});
      ~graph._addVertexCollection("shop");
      ~graph._addVertexCollection("customer");
      ~graph._addVertexCollection("pet");
@@ -144,7 +144,7 @@ correct sharding already).
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo3_cluster
+    @endDocuBlock enterpriseGraphCreateGraphHowTo3_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -176,7 +176,7 @@ request, only then the option will count.
     @EXAMPLE_ARANGOSH_OUTPUT{hybridSmartGraphCreateGraphHowTo1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var rel = graph_module._relation("isCustomer", "shop", "customer")
-      var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], smartGraphAttribute: "region", numberOfShards: 9});
+      var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], numberOfShards: 9});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
