@@ -29,8 +29,6 @@ the *_key* values from edges. The `enterprise-graph` module does not allow
 custom *_key* values on edges. This is necessary for the initial data replication
 when using `arangoimport` because these values are immutable.
 
-Example: to be added
-
 ## Collections in EnterpriseGraphs
 
 In contrast to General Graphs, you **cannot use existing collections**.
@@ -62,27 +60,30 @@ menu and select the **Graphs** tab.
    - Optional: For **Satellite collections**, insert vertex collections
    that are being used in your edge definitions. These collections are
    then created as satellites, and thus replicated to all DB-Servers.
-   - For **Edge definitions**, enter a non-existent name to define
+   - For **Edge definition**, insert a single non-existent name to define
    the relation of the graph. This automatically creates a new edge
    collection, which is displayed in the **Collections** tab of the
    left sidebar menu.
    {% hint 'tip' %}
-   To add multiple edge definitions, press the green plus button.
+   To define multiple relations, press the **Add relation** button.
+   To remove a relation, press the **Remove relation** button.
    {% endhint %}
-   - For **fromCollections**, enter a non-existent collection name
-   that contains the start vertices of the relation. This automatically
-   creates a new vertex collection, which is displayed in the
+   - For **fromCollections**, insert a list of vertex collections
+   that contain the start vertices of the relation.
+   - For **toCollections**, insert a list of vertex collections that
+   contain the end vertices of the relation.
+   {% hint 'tip' %}
+   Insert only non-existent collection names. Collections are automatically
+   created during the graph setup and are displayed in the
    **Collections** tab of the left sidebar menu.
-   - For **toCollections**, enter a non-existent collection name that
-   contains the end vertices of the relation. This automatically
-   creates a new vertex collection, which is displayed in the
-   **Collections** tab of the left sidebar menu.
-   - For **Vertex collections** (orphan collections), insert the name of
-   a vertex collection that is part of the graph but not used in any
-   edge definition.
+   {% endhint %}
+   - For **Orphan collections**, insert a list of vertex collections
+   that are part of the graph but not used in any edge definition.
 5. Click **Create**. 
 6. Open the graph and use the functions of the Graph Viewer to visually
 interact with the graph and manage the graph data.
+
+![Create EnterpriseGraph](images/graphs-create-enterprise-graph-dialog.png)
    
 ## Create an EntepriseGraph using *arangosh*
 
