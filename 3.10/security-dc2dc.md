@@ -10,10 +10,6 @@ title: DC2DC Security
 This section includes information related to the _datacenter to datacenter replication_
 security.
 
-For a general introduction to the _datacenter to datacenter replication_, please
-refer to the [Datacenter to datacenter replication](architecture-deployment-modes-dc2-dc.html)
-chapter.
-
 ## Firewall settings
 
 The components of _ArangoSync_ use (TCP) network connections to communicate with each other.

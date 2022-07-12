@@ -48,7 +48,7 @@ features outlined below. For additional information, see
 
 ## Security
 
-- [**DC2DC**](architecture-deployment-modes-dc2-dc-introduction.html):
+- [**DC2DC**](arangosync.html):
   Datacenter to Datacenter Replication for disaster recovery.
 
 - [**Auditing**](security-auditing.html):
