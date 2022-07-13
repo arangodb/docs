@@ -31,6 +31,7 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: {
           <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">&quot;projections&quot;</span> : [ ], 
+        <span class="hljs-string">&quot;filterProjections&quot;</span> : [ ], 
         <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">&quot;producesResult&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;readOwnWrites&quot;</span> : <span class="hljs-literal">false</span>, 

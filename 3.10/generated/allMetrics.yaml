@@ -2441,6 +2441,45 @@
     Number of times this server started following a replicated log
     since server start.
 
+- name: arangodb_replication2_replicated_state_follower_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of follower replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a follower of.
+
+- name: arangodb_replication2_replicated_state_leader_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of leader replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a leader of.
+
+- name: arangodb_replication2_replicated_state_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a participant of.
+
 - name: arangodb_replication_cluster_inventory_requests_total
   renamedFrom: arangodb_replication_cluster_inventory_requests
   introducedIn: "3.8.0"

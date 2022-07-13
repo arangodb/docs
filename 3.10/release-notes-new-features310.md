@@ -167,6 +167,14 @@ AQL functions changed in 3.10:
 Indexes
 -------
 
+### Parallel index creation (Enterprise Edition)
+
+In the Enterprise Edition, non-unique indexes can be created with multiple
+threads in parallel. The number of parallel index creation threads is currently 
+set to 2, but future versions of ArangoDB may increase this value.
+Parallel index creation is only triggered for collections with at least 120,000
+documents.
+
 ### Storing additional values in indexes
 
 Persistent indexes now allow you to store additional attributes in the index
@@ -323,6 +331,17 @@ temporary data:
   files are used. 
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+
+Read from Followers in Clusters
+-------------------------------
+
+You can now allow for reads from followers for a
+number of read-only operations in cluster deployments. In this case, Coordinators
+are allowed to read not only from shard leaders but also from shard replicas.
+This has a positive effect, because the reads can scale out to all DB-Servers
+that have copies of the data. Therefore, the read throughput is higher.
+
+For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
 
 Miscellaneous changes
 ---------------------

@@ -2,7 +2,7 @@ arangosh&gt; c = db._create(<span class="hljs-string">&quot;users&quot;</span>);
 [ArangoCollection <span class="hljs-number">71798</span>, <span class="hljs-string">&quot;users&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)]
 arangosh&gt; c.properties();
 { 
-  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h923F7AB069E8/71798&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hA2AE8055BEC8/71798&quot;</span>, 
   <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;waitForSync&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;keyOptions&quot;</span> : { 
@@ -12,6 +12,7 @@ arangosh&gt; c.properties();
   }, 
   <span class="hljs-string">&quot;writeConcern&quot;</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">&quot;cacheEnabled&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;computedValues&quot;</span> : <span class="hljs-literal">null</span>, 
   <span class="hljs-string">&quot;syncByRevision&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;schema&quot;</span> : <span class="hljs-literal">null</span> 
 }
