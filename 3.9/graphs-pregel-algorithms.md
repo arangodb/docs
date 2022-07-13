@@ -55,13 +55,12 @@ pregel.start("pagerank", "graphname", {maxGSS: 20, threshold: 0.00000001, source
 
 ### Single-Source Shortest Path
 
-Calculates the shortest path length between the given source and all other vertices, called _targets_. The result is written to the specified property of the respective target.
+Calculates the distances, that is, the lengths of shortest paths from the given source to all other vertices, called _targets_. The result is written to the specified property of the respective target.
 The distance to the source vertex itself is returned as `0` and a length above
 `9007199254740991` (max safe integer) means that there is no path from the source to the vertex in the graph.
-a pair of vertices.
 
 The algorithm runs until all distances are computed. The number of iterations is bounded by the
-diameter (the longest shortest path) of your graph.
+diameter of your graph (the longest distance between two vertices).
 
 An call of the algorithm requires the `source` parameter whose value is the  document ID of the source vertex. The result field needs to be
 specified in `_resultField` (note the underscore).
@@ -235,16 +234,16 @@ The idea is that each vertex should be in the community that most of
 its neighbors are in. 
 
 At first, the algorithm assigns unique initial Community IDs to the vertices. 
-There is no guarantee that a vertex obtains the same initial 
-ID in two different runs of the algorithm, even if the graph does not change
-(although, it may often happen). Moreover, there is no guarantee on a particular
+The assignment is deterministic given the graph and the distribution of vertices on the shards, but there is no guarantee that a vertex obtains the same initial 
+ID in two different runs of the algorithm, even if the graph does not change 
+(because the sharding may change). Moreover, there is no guarantee on a particular
 distribution of the initial IDs over the vertices.
 
 Then, in each iteration, a vertex sends its current Community
 ID to all its neighbor vertices. After that each vertex adopts the Community ID it
 received most frequently in the last step. 
 
-The details are somewhat subtle. If a vertex obtains only one ID and the ID of the vertex from the previous step, its old ID, is less than the obtained ID, the old ID is kept. (IDs are numbers and thus comparable to each other.) If a vertex obtains more than one ID, its new ID is the lowest ID among the most frequently obtained IDs. (For example, if the obtained IDs are 1, 2, 2, 3, 3, then 2 is the new ID. ) If, however, no ID arrives more than once, the new ID is the minimum of the lowest obtained IDs and the old ID. (For example, if the old ID is 5 and the obtained IDs are 3, 4, 6, then the new ID is 3. If the old ID is 2, it is kept.) 
+Note that, in a usual implementation of Label Propagation, if there are multiple most frequently received Community IDs, one is chosen randomly. An advantage of our implementation is that this choice is deterministic. This comes for the price that the choice rules are somewhat involved: If a vertex obtains only one ID and the ID of the vertex from the previous step, its old ID, is less than the obtained ID, the old ID is kept. (IDs are numbers and thus comparable to each other.) If a vertex obtains more than one ID, its new ID is the lowest ID among the most frequently obtained IDs. (For example, if the obtained IDs are 1, 2, 2, 3, 3, then 2 is the new ID. ) If, however, no ID arrives more than once, the new ID is the minimum of the lowest obtained IDs and the old ID. (For example, if the old ID is 5 and the obtained IDs are 3, 4, 6, then the new ID is 3. If the old ID is 2, it is kept.) 
 
 If a vertex keeps its ID 20 times or more in a row, it does not send its ID. Vertices that did not obtain any IDs do not update their ID and do not send it.
 
