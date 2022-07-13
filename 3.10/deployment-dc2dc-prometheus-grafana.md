@@ -85,9 +85,11 @@ scrape_configs:
         replacement:   2
 ```
 
-Note: The above example assumes 2 datacenters, with 2 _sync masters_ & 2 _sync workers_
+{% hint 'info' %}
+The above example assumes 2 datacenters, with 2 _sync masters_ & 2 _sync workers_
 per datacenter. You have to replace all `${...}` variables in the above configuration
 with applicable values from your environment.
+{% endhint %}
 
 ## Recommended deployment environment
 

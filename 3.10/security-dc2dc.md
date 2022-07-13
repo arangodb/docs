@@ -48,8 +48,10 @@ the client side of the connection offers a client certificate (on top of an exis
 The server side of the connection uses the client certificate to authenticate
 the client and (optionally) decides which rights should be assigned to the client.
 
-Note: ArangoSync does allow the use of certificates signed by a well know CA (eg. verisign)
+{% hint 'info' %}
+ArangoSync does allow the use of certificates signed by a well know CA (eg. verisign)
 however it is more convenient (and common) to use your own CA.
+{% endhint %}
 
 ### Formats
 
@@ -147,8 +149,11 @@ arangosync create client-auth ca \
 
 Make sure to protect and store both generated files (`my-client-auth-ca.crt` & `my-client-auth-ca.key`)
 in a safe place.
-<br/>Note: CA certificates have a much longer lifetime than normal certificates.
+
+{% hint 'info' %}
+CA certificates have a much longer lifetime than normal certificates.
 Therefore even more care is needed to store them safely.
+{% endhint %}
 
 ### Renewing certificates
 

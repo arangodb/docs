@@ -21,9 +21,11 @@ using the following HTTPS endpoints:
 
 Both endpoints include help information per metrics.
 
-Note: Both endpoints require authentication. Besides the usual authentication methods
+{% hint 'info' %}
+Both endpoints require authentication. Besides the usual authentication methods
 these endpoints are also accessible using a special bearer token specified using the `--monitoring.token`
 command line option.
+{% endhint %}
 
 The Prometheus output (`/metrics`) looks like this:
 
@@ -79,7 +81,7 @@ The JSON output (`/metrics.json`) looks like this:
 }
 ```
 
-Hint: To get a list of a metrics and their help information, run:
+To get a list of a metrics and their help information, run:
 
 ```bash
 alias jq='docker run --rm -i realguess/jq jq'
