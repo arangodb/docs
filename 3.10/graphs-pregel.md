@@ -99,6 +99,7 @@ The `state` field has one of the following values:
 
 | State          | Description    |
 |:---------------|:---------------|
+| `"loading"`    | The graph is loaded from the database into memory before the execution of the algorithm
 | `"running"`    | Algorithm is executing normally.
 | `"in error"`   | The execution is in an error state. This can be caused by primary DB-Servers being not reachable or being non responsive. The execution might recover later, or switch to "canceled" if it was not able to recover successfully
 | `"recovering"` | The execution is actively recovering, will switch back to "running" if the recovery was successful
