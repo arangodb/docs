@@ -242,6 +242,44 @@ In the ArangoDB Enterprise Edition there is an additional parameter:
   into sync. The default value is 60.0 (seconds). When the max time has been reached
   the query will be stopped.
 
+Additional parameters for spilling data from the query onto disk
+-----------------------------------------------------------------
+
+  There are two additional parameters that would allow for spilling 
+  intermediate data from the query onto disk for descreasing the memory usage.
+  Note: The option of spilling data from RAM onto disk is experimental and off 
+  by default and this parameter currently only has effect for sorting, meaning 
+  for a query that would use the keyword SORT, but without LIMIT.
+  Also, the query results will still be built up entirely in RAM on coordinators
+  and single servers for non-streaming queries. In order to avoid the buildup of
+  the entire query result in RAM, a streaming query should be used.
+
+
+- `spillOverThresholdNumRows`: This parameter allows for input data and 
+  intermediate results to be spilled onto disk for the execution of a query 
+  after the number of rows reaches the value this parameter holds. This is 
+  used for decreasing the memory usage during the query execution. In a query 
+  that iterates over a collection that contains documents, each row would be a 
+  document and, in a query that iterates over temporary values 
+  (i.e. `FOR i IN 1..100`), each row would be one of such temporary values. 
+  This parameter is experimental and is only taken into account if a path for a
+  directory where the temporary data would be stored is provided with the server 
+  startup option 
+  `--temp.intermediate-results-path`. 
+  Default value: 5000000 rows.
+
+
+- `spillOverThresholdNumRows`: This parameter allows for input data and 
+  intermediate results to be spilled onto disk for the execution of a query 
+  after the memory usage reaches the value in bytes this parameter holds. This 
+  is used for decreasing the memory usage during the query execution. This 
+  parameter is experimental and is only taken into account if a path for a 
+  directory where the temporary data would be stored is provided with the 
+  server startup option 
+  `--temp.intermediate-results-path`. 
+  Default value: 128MB.
+
+
 With _createStatement (ArangoStatement)
 ---------------------------------------
 
