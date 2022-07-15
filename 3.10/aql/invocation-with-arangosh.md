@@ -269,7 +269,7 @@ Additional parameters for spilling data from the query onto disk
   Default value: 5000000 rows.
 
 
-- `spillOverThresholdNumRows`: This parameter allows for input data and 
+- `spillOverThresholdMemoryUsage`: This parameter allows for input data and 
   intermediate results to be spilled onto disk for the execution of a query 
   after the memory usage reaches the value in bytes this parameter holds. This 
   is used for decreasing the memory usage during the query execution. This 

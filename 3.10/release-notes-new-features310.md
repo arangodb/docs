@@ -443,7 +443,7 @@ only take effect currently for AQL SORT operation without LIMIT.
 The threshold value mentioned to start spilling data onto disk is either
 the number of rows in the query input or the amount of memory usage in bytes,
 which are set as query options `spillOverThresholdNumRows` and 
-`spillOverThresholdNumRows`.
+`spillOverThresholdMemoryUsage`.
 
 The main parameter that must be provided for this feature to be active is
 
