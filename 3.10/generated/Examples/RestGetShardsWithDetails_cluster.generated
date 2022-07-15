@@ -3,10 +3,10 @@
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 863
+content-length: 848
 location: /_db/_system/_api/collection/testCollection/shards
 server: ArangoDB
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s10056\":[\"PRMR-595d41c4-b1e1-44fc-a8f4-d62f0a992782\",\"PRMR-dbd12b6d-4dc9-4e8a-8915-4a28e2ec1d9c\"],\"s10057\":[\"PRMR-dbd12b6d-4dc9-4e8a-8915-4a28e2ec1d9c\",\"PRMR-595d41c4-b1e1-44fc-a8f4-d62f0a992782\"],\"s10058\":[\"PRMR-595d41c4-b1e1-44fc-a8f4-d62f0a992782\",\"PRMR-dbd12b6d-4dc9-4e8a-8915-4a28e2ec1d9c\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"numberOfShards\":3,\"minReplicationFactor\":1,\"id\":\"10055\",\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"computedValues\":null,\"internalValidatorType\":0,\"globallyUniqueId\":\"c10055/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s56\":[\"PRMR-779380c9-89ef-4c77-a65c-938eaad127ca\",\"PRMR-8a866bc6-9380-461c-8135-37c77519159c\"],\"s57\":[\"PRMR-8a866bc6-9380-461c-8135-37c77519159c\",\"PRMR-779380c9-89ef-4c77-a65c-938eaad127ca\"],\"s58\":[\"PRMR-779380c9-89ef-4c77-a65c-938eaad127ca\",\"PRMR-8a866bc6-9380-461c-8135-37c77519159c\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"numberOfShards\":3,\"minReplicationFactor\":1,\"id\":\"55\",\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"computedValues\":null,\"internalValidatorType\":0,\"globallyUniqueId\":\"c55/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"
