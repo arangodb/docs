@@ -124,9 +124,7 @@ compilations of a broad catalog of information that leads users direct to other
 authoritative webpages.
 
 The algorithm assigns each vertex two scores: The authority score and the
-hub score. The authority score rates how many good hubs point to a particular
-vertex (or webpage), the hub score rates how good (authoritative) the vertices
-pointed to are. Also see
+hub score. The authority score of a vertex rates the total hub score of vertices pointing to that vertex; the hub score rates the total authority score of vertices pointed by it. Also see
 [en.wikipedia.org/wiki/HITS_algorithm](https://en.wikipedia.org/wiki/HITS_algorithm){:target="_blank"}
 
 ArangoDB's version of the algorithm converges after a certain amount of time.
