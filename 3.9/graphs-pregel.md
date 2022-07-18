@@ -64,7 +64,7 @@ The below variant of the `start()` method can be used for named graphs:
 ```js
 var pregel = require("@arangodb/pregel");
 var params = {};
-var execution = pregel.start("<algorithm>", "<yourgraph>", params);
+var execution = pregel.start("<algorithm>", "<graphname>", params);
 ```
 
 `params` needs to be an object, the valid keys are mentioned in the

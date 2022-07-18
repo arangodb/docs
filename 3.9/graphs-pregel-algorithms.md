@@ -141,7 +141,7 @@ The algorithm can be executed like this:
 
 ```js
 var pregel = require("@arangodb/pregel");
-var handle = pregel.start("hits", "yourgraph", {threshold:0.00001, resultField: "score"});
+var handle = pregel.start("hits", "graphname", {threshold:0.00001, resultField: "score"});
 ```
 
 ### Vertex Centrality
@@ -185,7 +185,7 @@ The algorithm can be used like this:
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("effectivecloseness", "yourgraph", {resultField: "closeness"});
+const handle = pregel.start("effectivecloseness", "graphname", {resultField: "closeness"});
 ```
 
 #### LineRank
@@ -213,7 +213,7 @@ be executed distributedly in ArangoDB. The algorithm is from the paper
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("linerank", "yourgraph", {resultField: "linerank"});
+const handle = pregel.start("linerank", "graphname", {resultField: "linerank"});
 ```
 
 ### Community Detection
@@ -259,7 +259,7 @@ may be influenced by the density of the graph.
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("labelpropagation", "yourgraph", {maxGSS: 100, resultField: "community"});
+const handle = pregel.start("labelpropagation", "graphname", {maxGSS: 100, resultField: "community"});
 ```
 
 #### Speaker-Listener Label Propagation
@@ -281,7 +281,7 @@ During the run three steps are executed for each vertex:
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("slpa", "yourgraph", {maxGSS:100, resultField: "community"});
+const handle = pregel.start("slpa", "graphname", {maxGSS:100, resultField: "community"});
 ```
 
 You can also execute SLPA with the `maxCommunities` parameter to limit the
@@ -291,7 +291,7 @@ observed labels.
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("slpa", "yourgraph", {maxGSS: 100, resultField: "community", maxCommunities: 1});
+const handle = pregel.start("slpa", "graphname", {maxGSS: 100, resultField: "community", maxCommunities: 1});
 // check the status periodically for completion
 pregel.status(handle);
 ```
