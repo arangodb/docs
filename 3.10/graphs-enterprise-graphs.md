@@ -23,6 +23,10 @@ Creating and modifying the underlying collections of an EnterpriseGraph are
 also similar to SmartGraphs. For a detailed API reference, please refer
 to [Enterprise Graphs Management](graphs-enterprise-graphs-management.html).
 
+Coming from the Community Edition? 
+See [how to migrate](graphs-enterprise-graphs-getting-started.html#migrating-from-community-edition)
+from a `general-graph` to an `enterprise-graph`.
+
 ## How EnterpriseGraphs work?
 
 The creation and usage of EnterpriseGraphs are similar to [SmartGraphs](graphs-smart-graphs-getting-started.html).

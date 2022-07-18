@@ -23,92 +23,113 @@ When migrating from the Community Edition to the Enterprise Edition, you can
 bring data from existing collections using the command-line tools `arangoexport`
 and `arangoimport`.
 
-`arangoexport` allows you to export collections to formats like JSON or CSV.
-Once you have exported your data to the desired format, you need to exclude
+`arangoexport` allows you to export collections to formats like `JSON`, `JSONL`, or `CSV`.
+For this particular case, it is recommended to export data to `JSONL` format.
+Once the data is exported, you need to exclude
 the *_key* values from edges. The `enterprise-graph` module does not allow
 custom *_key* values on edges. This is necessary for the initial data replication
 when using `arangoimport` because these values are immutable.
 
 ### Migration by Example
 
-For our example migration let us assume you have a general-graph in ArangoDB
-that you want to migrate over to be an EnterpriseGraph to benefit from
-the sharding strategy. In our example the graph has only two collections:
+Let us assume you have a `general-graph` in ArangoDB
+that you want to migrate over to be an `enterprise-graph` to benefit from
+the sharding strategy. In this example, the graph has only two collections:
 `old_vertices` which is a document collection and `old_edges` which is the
 corresponding edge collection.
 
-**Export general-graph data**
-Now we need to export the raw data of those
+**Export `general-graph` data**
+
+The first step is to export the raw data of those
 collections using `arangoexport`:
 
     arangoexport --type jsonl --collection  old_vertices --output-directory docOutput --overwrite true
     arangoexport --type jsonl --collection  old_edges --output-directory docOutput --overwrite true
 
-Note here: We are using the `jsonl` type as it is most flexible and can be
-used with larger datasets. The `json` type is limited in amount of documents,
-as it cannot be parsed line by line. The `csv` and `tsv` formats are also fine,
-but require to define the list of attributes to export. `jsonl` exports data
-as is, and due to it's line based layout can be processed line by line and
+Note that the `JSONL` format type is being used in the migration process
+as it is more flexible and can be used with larger datasets.
+The `JSON` type is limited in amount of documents, as it cannot be parsed line
+by line. The `CSV` and `TSV` formats are also fine,
+but require to define the list of attributes to export. `JSONL` exports data
+as is, and due to its line based layout, can be processed line by line and
 therefore has no artifical restrictions on the data.
-After this step we there are two files in `docOutput` folder, that should look
-like this:
 
-1) `docOutput/old_vertices.jsonl`:
+After this step, two files are generated in the `docOutput` folder, that
+should look like this:
+
+1. `docOutput/old_vertices.jsonl`:
 
     {"_key":"Alice","_id":"old_vertices/Alice","_rev":"_edwXFGm---","attribute1":"value1"}
     {"_key":"Bob","_id":"old_vertices/Bob","_rev":"_edwXFGm--_","attribute1":"value2"}
     {"_key":"Charly","_id":"old_vertices/Charly","_rev":"_edwXFGm--B","attribute1":"value3"}
 
-2) `docOutput/old_edges.jsonl`:
+2. `docOutput/old_edges.jsonl`:
 
     {"_key":"121","_id":"old_edges/121","_from":"old_vertices/Bob","_to":"old_vertices/Charly","_rev":"_edwW20----","attribute2":"value2"}
     {"_key":"122","_id":"old_edges/122","_from":"old_vertices/Charly","_to":"old_vertices/Alice","_rev":"_edwW20G---","attribute2":"value3"}
     {"_key":"120","_id":"old_edges/120","_from":"old_vertices/Alice","_to":"old_vertices/Bob","_rev":"_edwW20C---","attribute2":"value1"}
 
 **Create new Graph**
-Next step: We need to setup an empty EnterpriseGraph and configure it the way
-we want it to look like.
-NOTE: You are free to change numberOfShards, replicationFactor or even collection names
+
+The next step is to setup an empty EnterpriseGraph and configure it 
+according to your preferences.
+
+{% hint 'info' %}
+You are free to change `numberOfShards`, `replicationFactor`, or even collection names
 at this point.
-Please follow the instructions on how to create the graph here **TODO Insert the link to creation**
+{% endhint %}
 
-**Import data keeping collection names**
+Please follow the instructions on how to create an EnterpriseGraph
+[using the Web Interface](#create-an-enterprisegraph-using-the-web-interface)
+or [using *arangosh*](#create-an-enteprisegraph-using-arangosh).
 
-In this variant we follow a 1:1 migration, keeping the original graph intact
-and just change the sharding strategy.
-We now have empty collections in the target ArangoDB cluster, that we have to fill with data.
-All vertices can just be imported without any change:
+**Import data while keeping collection names**
+
+This example describes a 1:1 migration while keeping the original graph intact
+and just changing the sharding strategy.
+
+The empty collections that are now in the target ArangoDB cluster, 
+have to be filled with data.
+All vertices can be imported without any change:
 
     arangoimport --collection old_vertices --file docOutput/old_vertices.jsonl
 
-On the edges EnterpriseGraphs disallow to store the `_key` value, so we need to remove this attribute
-on import:
+On the edges, EnterpriseGraphs disallow to store the `_key` value, so this attribute
+needs to be removed on import:
 
     arangoimport --collection old_edges --file docOutput/old_edges.jsonl --remove-attribute "_key"
 
-And that's it we are done, the graph has been migrated.
+After this step, the graph has been migrated.
 
 **Import data while changing collection names**
 
-In this variant we changed the collection names.
-Let us asume we have renamed `old_vertices` to `vertices`
-For the vertex data this change is not relevant, the `_id` values will adjust themselfes,
-so we can again just import the data, and just target the new collection name:
+This example describes a scenario in which the collections names have changed,
+assuming that you have renamed `old_vertices` to `vertices`.
+For the vertex data this change is not relevant, the `_id` values will adjust automatically,
+so you can import the data again, and just target the new collection name:
 
     arangoimport --collection vertices --file docOutput/old_vertices.jsonl
 
-For the edges we need to apply more changes, as we need to rewire them.
-First thing, we again have to remove the `_key` value as it is disallowed for enterprise graphs.
-Second, we have changed the name of the `_from` collection, so we need to provide a `from-collection-prefix`.
-Third, the same for the `_to` collection. Note here: We can only change all vertices on `_from` resp. `_to`
-side with this mechanism. However we can use different collections on `_from` and `_to`.
-Fourth, in order to make the change of vertex collection actually happy we need to allow "overwrite-collection-prefix"
-if this flag is not set, only values without any given collection will be changed, this is helpful if your data is not
-exported by ArangoDB in the first place. Now that we have everything together let's run it:
+For the edges you need to apply more changes, as they need to be rewired.
+
+First thing, you have to remove the `_key` value as it is disallowed for
+EnterpriseGraphs.
+Second, because you have changed the name of the `_from` collection, you need
+to provide a `from-collection-prefix`. The same is true for the `_to` collection.
+
+Note that you can only change all vertices on `_from` respectively `_to`
+side with this mechanism. However, you can use different collections on `_from` and `_to`.
+
+Next, in order to make the change of vertex collection you need to
+allow `overwrite-collection-prefix`.
+If this flag is not set, only values without any given collection will be changed.
+This is helpful if your data is not exported by ArangoDB in the first place.
+
+Now that you have everything together, run the following command:
 
     arangoimport --collection edges --file docOutput/old_edges.jsonl --remove-attribute "_key" --from-collection-prefix "vertices" --to-collection-prefix "vertices" --overwrite-collection-prefix true
 
-And that's it again, we are done and have migrated our graph and also changed to new collection names.
+After this step, the graph has been migrated and also changed to new collection names.
 
 ## Collections in EnterpriseGraphs
 
