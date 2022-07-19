@@ -28,11 +28,20 @@ every document, or to automatically combine multiple attributes into one,
 possibly with filtering and a conversion to lowercase characters, to then index
 the attribute and use it to perform case-insensitive searches.
 
+## Using Computed Values
+
+Computed values are defined per collection using the `computedFields` property,
+either when creating the collection or by modifying the collection later on.
+If you add or modify computed value definitions at a later point, then they only
+affect subsequent write operations. Existing documents remain in their state.
+
+Computed value definitions are included in dumps, and the attributes they added,
+too, but no expressions are executed when restoring dumps. The collections and
+documents are restored as they are in the dump and no attributes are recalculated.
+
 ## JavaScript API
 
-Computed values are defined per collection, either when creating the collection
-or by modifying the collection later on. The collection property is called
-`computedFields` and accepts an array of objects.
+The `computedFields` collection property accepts an array of objects.
 
 `db._create(<collection-name>, { computedFields: [ { … }, … ] })`
 
@@ -62,9 +71,11 @@ Each object represents a computed value and can have the following attributes:
   Whether the result of the expression shall be stored if it evaluates to `null`.
   This can be used to skip the value computation if any pre-conditions are not met.
 
-If you add, remove, or modify computed value definitions at a later point, they
-are only applied to subsequent write operations and older documents remain in
-their state.
+## HTTP API
+
+See the `computedFields` collection property in the HTTP API documentation for
+[Creating Collections](http/collection-creating.html) and
+[Modifying Collections](http/collection-modifying.html).
 
 ## Computed Value Expressions
 
@@ -116,13 +127,6 @@ Computed value expressions have the following requirements:
   - `WITHIN_RECTANGLE()`
   - `FULLTEXT()`
   - [User-defined functions (UDFs)](aql/extending.html)
-
-<!-- TODO
-When using arangodump to restore data into a collection with computed attributes defined, the restore does not recalculate the computed values, but will restore the documents as they are contained inside the dump.
-
-Values of computed attributes are properly replicated to followers. Followers will receive the documents as they are stored on the leader, including any computed attributes. Followers will not rerun the computed attributes computations themselves.
-
-Non-deterministic computation expressions, such as RETURN RAND() will still work correctly, so that leaders and followers will have the same value for the computed attribute. This is achieved by leaders replicating the document data including the computed attributes values, and the followers not carrying out the computation again.
 
 ## Examples
 
@@ -224,5 +228,3 @@ this:
     @endDocuBlock computedValuesSubattribute
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
-
--->
