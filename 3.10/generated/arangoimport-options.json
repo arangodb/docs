@@ -1141,6 +1141,27 @@
     "section" : "",
     "type" : "boolean"
   },
+  "overwrite-collection-prefix" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "only useful with '--from/--to-collection-prefix', if the value is already prefixed, overwrite the prefix.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "progress" : {
     "category" : "option",
     "default" : true,
