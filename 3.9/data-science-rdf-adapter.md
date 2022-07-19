@@ -1,9 +1,9 @@
 ---
 layout: default
 description: >- 
-  ArangoDB-RDF Adapter allows you to export graphs from ArangoDB into RDF and vice-versa
+  ArangoRDF allows you to export graphs from ArangoDB into RDF and vice-versa
 ---
-# RDF Adapter
+# ArangoRDF
 
 {{ page.description }}
 {:class="lead"}
@@ -31,7 +31,7 @@ Check the resources below to get started:
 
 ## Installation
 
-To install the latest release of the ArangoDB-RDF Adapter,
+To install the latest release of ArangoRDF,
 run the following command:
 
 ```bash
@@ -40,7 +40,7 @@ pip install arango-rdf
 
 ## Quickstart
 
-The following example shows how to get started with ArangoDB-RDF Adapter.
+The following example shows how to get started with ArangoRDF.
 Check also the 
 [interactive tutorial](https://colab.research.google.com/github/ArangoDB-Community/ArangoRDF/blob/main/examples/ArangoRDF.ipynb){:target="_blank"}.
 
