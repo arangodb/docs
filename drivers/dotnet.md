@@ -8,7 +8,7 @@ The official ArangoDB C#/.NET driver. Built using .NET Standard 2.0, the library
 
 The library provides comprehensive coverage of all of the available options for each of ArangoDB's REST API endpoints.
 
-The driver is built using the standard [HttpClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netstandard-2.0) interface for making HTTP requests, along with [Json.NET](https://www.newtonsoft.com/json) for (de)serialisation to/from CLI types.
+The driver is built using the standard [HttpClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netstandard-2.0) interface for making HTTP requests, along with [Json.NET](https://www.newtonsoft.com/json) for (de)serialization to/from CLI types.
 
 In addition the library provides:
 

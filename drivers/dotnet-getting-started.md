@@ -1,117 +1,41 @@
 ---
 layout: default
 ---
+
 # Getting Started
 
-Install the latest release of [ArangoDBNetStandard on Nuget](https://www.nuget.org/packages/ArangoDBNetStandard).
+## Installation
 
-## First steps
+The ArangoDBNetStandard library can be consumed in any .NET project that targets .NET Standard 2.0 or a version of .NET that is compliant with .NET Standard 2.0.
 
-### Create a database
+### Nuget
 
-```csharp
-// You must use the _system database to create databases
-using (var systemDbTransport = HttpApiTransport.UsingBasicAuth(
-    new Uri("http://localhost:8529/"),
-    "_system",
-    "root",
-    "root"))
-{
-    var systemDb = new DatabaseApiClient(systemDbTransport);
-    // Create a new database with one user.
-    await systemDb.PostDatabaseAsync(
-        new PostDatabaseBody
-        {
-            Name = "arangodb-net-standard",
-            Users = new List<DatabaseUser>
-            {
-                new DatabaseUser
-                {
-                    Username = "jlennon",
-                    Passwd = "yoko123"
-                }
-            }
-        });
-}
-```
+To install from Nuget:
 
-Since the system database is only used once to create another separate database, `systemDbTransport` is wrapped in a `using` block.
+1. Open the latest release of
+[ArangoDBNetStandard on Nuget](https://www.nuget.org/packages/ArangoDBNetStandard){:target="_blank"}.
+2. Install the latest version of the Nuget package into your project using [.NET CLI](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-using-the-dotnet-cli){:target="_blank"}, [Visual Studio](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio){:target="_blank"} or [Visual Studio for Mac](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio-mac){:target="_blank"}.
 
-In general, if you connect to the same database a lot, you don't want to dispose `HttpApiTransport` until the end of your application's life.
+### GitHub
 
-### Create a collection
+To install from Github:
 
-```csharp
-// Use your new database with basic auth credentials for the user jlennon.
-var transport = HttpApiTransport.UsingBasicAuth(
-    new Uri("http://localhost:8529"),
-    "arangodb-net-standard",
-    "jlennon",
-    "yoko123");
-var adb = new ArangoDBClient(transport);
-// Create a collection in the database
-await adb.Collection.PostCollectionAsync(
-    new PostCollectionBody
-    {
-        Name = "MyCollection"
-        // A whole heap of other options exist to define key options, 
-        // sharding options, etc
-    });
-```
+1. Open the latest [Github release of ArangoDBNetStandard](https://github.com/ArangoDB-Community/arangodb-net-standard/releases){:target="_blank"}.
+2. Scroll to the **Assets** section.
+3. Download the source files. They are available as either a zip or tar.gz archive file.
+4. Extract the source files from the archive file downloaded in step 3.
+5. Build the **\arangodb-net-standard\ArangoDBNetStandard.csproj** project for release using the .NET CLI or Visual Studio.
+6. In the project that will consume the driver library, add a reference to the build output (the **ArangoDBNetStandard.dll** assembly located in the **\arangodb-net-standard\bin\Release\netstandard2.0** folder).
 
-### Create documents
+## First Steps
 
-```csharp
-// Create document in the collection using anonymous type
-await adb.Document.PostDocumentAsync(
-    "MyCollection",
-    new
-    {
-        MyProperty = "Value"
-    });
-// Create document in the collection using strong type
-await adb.Document.PostDocumentAsync(
-    "MyCollection",
-    new MyClass
-    {
-        ItemNumber = 123456,
-        Description = "Some item"
-    });
-```
-{% hint 'tip' %}
-The document object must not have any value against a property named `_key`, if you expect ArangoDB to generate the document key for you.
-The default serializer options specify that null values will be ignored, so if your class has a `_key` property, you can leave it as `null` when creating a new document.
-If you change the serializer options so that `IgnoreNullValues` is `false`, then you cannot create a new document using a class that specifies a property named `_key`, because the ArangoDB API will reject the request.
-{% endhint %}
+Learn how to:
 
+1. Work with [databases](dotnet-databases.html).
+2. Work with [collections](dotnet-collections.html).
+3. Work with [documents](dotnet-documents.html).
+4. Work with [AQL queries and functions](dotnet-aql.html).
 
-### Run an AQL query
+## Reference
 
-```csharp
-// Run AQL query (create a query cursor)
-var response = await adb.Cursor.PostCursorAsync<MyClassDocument>(
-    @"FOR doc IN MyCollection 
-      FILTER doc.ItemNumber == 123456 
-      RETURN doc");
-MyClassDocument item = response.Result.First();
-```
-
-### Patch a document
-
-```csharp
-// Partially update document
-await adb.Document.PatchDocumentAsync<object, object>(
-    "MyCollection",
-    item._key,
-    new { Description = "More description" });
-```
-
-### Replace a document
-
-```csharp
-// Fully update document
-item.Description = "Some item with some more description";
-await adb.Document.PutDocumentAsync(
-    $"MyCollection/{item._key}",
-    item);
-```
+Browse the full reference for [ArangoDBNetStandard](https://arangodb-community.github.io/arangodb-net-standard/){:target="_blank"}.

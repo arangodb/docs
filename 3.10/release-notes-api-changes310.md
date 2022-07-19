@@ -82,6 +82,26 @@ attribute is returned inside the `serverInfo` object with the following subattri
 
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
 
+
+#### Read from Followers
+
+A number of read-only APIs now observe the `x-arango-allow-dirty-read`
+header, which was previously only used in Active Failover deployments.
+This header allows reading from followers or "dirty reads". See
+[Read from Followers](http/document-address-and-etag.html#read-from-followers)
+for details.
+
+The following APIs are affected:
+
+- Single document reads (`GET /_api/document`)
+- Batch document reads (`PUT /_api/document?onlyget=true`)
+- Read-only AQL queries (`POST /_api/cursor`)
+- The edge API (`GET /_api/edges`)
+- Read-only stream transactions and their sub-operations
+  (`POST /_api/transaction/begin` etc.)
+
+If the header is not specified, the behavior is the same as before.
+
 #### Cursor API
 
 The cursor API can now return additional statistics values in its `stats` subattribute:
