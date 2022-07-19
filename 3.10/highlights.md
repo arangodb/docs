@@ -13,9 +13,13 @@ grouped by version
 
 **All Editions**
 
-- [Native ARM Support](release-notes-new-features310.html#native-arm-support):
+- [**Native ARM Support**](release-notes-new-features310.html#native-arm-support):
   Packages for the ARM architecture are now available, including native support
   for Apple silicon.
+
+- [**Computed Values**](data-modeling-documents-computed-values.html):
+  Persistent document attributes that are generated when documents are created
+  or modified, using an AQL expression.
 
 - **Indexes**:
   An optional [**In-memory Cache**](indexing-persistent.html#caching-of-index-values)
