@@ -79,7 +79,7 @@ FOR i IN 1..1000
 ```js
 FOR u IN users
   FILTER u.active == false
-  UPDATE u WITH { status: 'inactive' } IN backup
+  UPDATE u WITH { status: 'inactive' } IN users
 ```
 
 Using the current value of a document attribute
