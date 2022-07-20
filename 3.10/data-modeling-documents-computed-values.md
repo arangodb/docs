@@ -69,7 +69,12 @@ Each object represents a computed value and can have the following attributes:
 
 - `keepNull` (boolean, _optional_):
   Whether the result of the expression shall be stored if it evaluates to `null`.
-  This can be used to skip the value computation if any pre-conditions are not met.
+  You can set it to `false` and let the expression return `null` to skip the
+  value computation if any pre-conditions are not met. The default is `true`.
+
+- `failOnWarning` (boolean, _optional_):
+  Whether to let the write operation fail if the expression produces a warning.
+  The default is `false`.
 
 ## HTTP API
 
