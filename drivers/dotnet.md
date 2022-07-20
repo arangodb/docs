@@ -15,3 +15,14 @@ In addition the library provides:
 - Support for async/await across every API operation
 - Adherence to common-practice C# naming conventions
 - Consistent approach for each API endpoint
+
+## What's New In [Version 1.1.1](https://github.com/ArangoDB-Community/arangodb-net-standard/releases)
+- Support for [ArangoDB Oasis](https://cloud.arangodb.com/home)
+- Support for additional AQL/Query features.
+- Support for additional Collection API features.
+- Support for Indexes API features.
+- Support for Views API features.
+- Support for Analyzers API features.
+- Support for Bulk Operations API features.
+- Support for some critical Admin API features.
+- Several bug fixes and improvements on previous versions.
