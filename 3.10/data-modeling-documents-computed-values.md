@@ -146,15 +146,15 @@ Add an attribute with the creation timestamp to new documents:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesCreatedAt
     @EXAMPLE_ARANGOSH_OUTPUT{computedValuesCreatedAt}
-      db._create("users", {
-        computedValues: [
-          {
-            name: "createdAt",
-            expression: "RETURN DATE_NOW()",
-            override: true,
-            computeOn: ["insert"]
-          }
-        ]
+    | db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "createdAt",
+    |       expression: "RETURN DATE_NOW()",
+    |       override: true,
+    |       computeOn: ["insert"]
+    |     }
+    |   ]
       });
       db.users.save({ name: "Paula Plant" });
       db.users.toArray();
@@ -171,15 +171,15 @@ set this value instead of using the computed value:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesModifiedAt
     @EXAMPLE_ARANGOSH_OUTPUT{computedValuesModifiedAt}
-      db._create("users", {
-        computedValues: [
-          {
-            name: "modifiedAt",
-            expression: "RETURN ZIP(['date', 'time'], SPLIT(DATE_ISO8601(DATE_NOW()), 'T'))",
-            override: false,
-            computeOn: ["update", "replace"]
-          }
-        ]
+    | db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "modifiedAt",
+    |       expression: "RETURN ZIP(['date', 'time'], SPLIT(DATE_ISO8601(DATE_NOW()), 'T'))",
+    |       override: false,
+    |       computeOn: ["update", "replace"]
+    |     }
+    |   ]
       });
       db.users.save({ _key: "123", name: "Paula Plant" });
       db.users.update("123", { email: "gardener@arangodb.com" });
@@ -198,14 +198,14 @@ new values to implement a case-insensitive search using a persistent array index
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesSubattribute
     @EXAMPLE_ARANGOSH_OUTPUT{computedValuesSubattribute}
-      db._create("users", {
-        computedValues: [
-          {
-            name: "searchTags",
-            expression: "RETURN APPEND(@doc.is[* FILTER CURRENT.public == true RETURN LOWER(CURRENT.name)], @doc.loves[* RETURN LOWER(CURRENT)])",
-            override: true
-          }
-        ]
+    | db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "searchTags",
+    |       expression: "RETURN APPEND(@doc.is[* FILTER CURRENT.public == true RETURN LOWER(CURRENT.name)], @doc.loves[* RETURN LOWER(CURRENT)])",
+    |       override: true
+    |     }
+    |   ]
       });
       db.users.save({ name: "Paula Plant", is: [ { name: "Gardener", public: true }, { name: "female" } ], loves: ["AVOCADOS", "Databases"] });
       db.users.ensureIndex({ type: "persistent", fields: ["searchTags[*]"] });
@@ -226,15 +226,15 @@ preconditions, to skip the computation using `keepNull: false`:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesSubattribute
     @EXAMPLE_ARANGOSH_OUTPUT{computedValuesSubattribute}
-      db._create("users", {
-        computedValues: [
-          {
-            name: "name",
-            expression: "RETURN IS_STRING(@doc.name.first) AND IS_STRING(@doc.name.last) ? MERGE(@doc.name, { 'full': CONCAT_SEPARATOR(' ', @doc.name.first, @doc.name.last) }) : null",
-            override: false,
-            keepNull: false
-          }
-        ]
+    | db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "name",
+    |       expression: "RETURN IS_STRING(@doc.name.first) AND IS_STRING(@doc.name.last) ? MERGE(@doc.name, { 'full': CONCAT_SEPARATOR(' ', @doc.name.first, @doc.name.last) }) : null",
+    |       override: false,
+    |       keepNull: false
+    |     }
+    |   ]
       });
       db.users.save({ name: { first: "James" });
       db.users.save({ name: { first: "Andy", last: "Bennett", full: "Andreas J. Bennett" });
