@@ -29,6 +29,16 @@ Check the resources below to get started:
 - [RDFLib (Python)](https://pypi.org/project/rdflib/){:target="_blank"}
 - [Example for Modeling RDF as ArangoDB Graphs](data-modeling-graphs-from-rdf.html)
 
+## Resources
+
+Watch this
+[lunch & learn session](https://www.arangodb.com/resources/lunch-sessions/graph-beyond-lunch-break-2-11-arangordf/){:target="_blank"} to get an
+introduction on ArangoRDF - an RDF adapter developed with the community
+as a first step at bringing RDF graphs into ArangoDB.
+
+The [ArangoRDF repository](https://github.com/ArangoDB-Community/ArangoRDF){:target="_blank"}
+is available on Github. Check it out!
+
 ## Installation
 
 To install the latest release of ArangoRDF,
@@ -67,10 +77,10 @@ config = {"normalize_literals": False}  # default: False
 adb_rdf.init_rdf_collections(bnode="Blank")
 
 # Start with importing the ontology
-adb_rdf.import_rdf("./examples/data/airport-ontology.owl", format="xml", config=config, save_config=True)
+adb_graph = adb_rdf.import_rdf("./examples/data/airport-ontology.owl", format="xml", config=config, save_config=True)
 
 # Next, let's import the actual graph data
-adb_rdf.import_rdf(f"./examples/data/sfo-aircraft-partial.ttl", format="ttl", config=config, save_config=True)
+adb_graph = adb_rdf.import_rdf(f"./examples/data/sfo-aircraft-partial.ttl", format="ttl", config=config, save_config=True)
 
 
 # RDF Export
@@ -78,7 +88,7 @@ adb_rdf.import_rdf(f"./examples/data/sfo-aircraft-partial.ttl", format="ttl", co
 # Exports ALL collections of the database,
 # currently does not account for default_graph or sub_graph
 # Results may vary, minifying may occur
-adb_rdf.export(f"./examples/data/rdfExport.xml", format="xml")
+rdf_graph = adb_rdf.export_rdf(f"./examples/data/rdfExport.xml", format="xml")
 
 # Drop graph and ALL documents and collections to test import from exported data
 if db.has_graph("default_graph"):
@@ -95,5 +105,5 @@ config = adb_rdf.get_config_by_latest() # gets the last config saved
 # config = adb_rdf.get_config_by_key_value('AnyKeySuppliedInConfig', 'SomeValue')
 
 # Re-import Exported data
-adb_rdf.import_rdf(f"./examples/data/rdfExport.xml", format="xml", config=config)
+adb_graph = adb_rdf.import_rdf(f"./examples/data/rdfExport.xml", format="xml", config=config)
 ```

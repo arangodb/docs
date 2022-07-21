@@ -1,7 +1,7 @@
 ---
 layout: default
 description: >- 
-  ArangoDB-NetworkX Adapter allows you to export graphs from ArangoDB into NetworkX for graph analysis with Python and vice-versa
+  The ArangoDB-NetworkX Adapter allows you to export graphs from ArangoDB into NetworkX for graph analysis with Python and vice-versa
 ---
 # NetworkX Adapter
 
@@ -18,6 +18,17 @@ representation of the subgraph for one of the following reasons:
 
 - An algorithm for your use case is available in NetworkX
 - A library that you want to use for your use case works with NetworkX Graphs as input
+
+## Resources
+
+Watch this
+[lunch & learn session](https://www.arangodb.com/resources/lunch-sessions/graph-beyond-lunch-break-2-9-introducing-the-arangodb-networkx-adapter/){:target="_blank"}
+to see how using this adapter gives you the best of both
+graph worlds - the speed and flexibility of ArangoDB combined with the
+ubiquity of NetworkX.
+
+The [ArangoDB-NetworkX Adapter repository](https://github.com/arangoml/networkx-adapter){:target="_blank"}
+is available on Github. Check it out!
 
 ## Installation
 

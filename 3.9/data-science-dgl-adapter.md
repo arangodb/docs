@@ -1,7 +1,7 @@
 ---
 layout: default
 description: >- 
-  ArangoDB-DGL Adapter exports graphs from ArangoDB into Deep Graph Library (DGL), a Python package for graph neural networks, and vice-versa
+  The ArangoDB-DGL Adapter exports graphs from ArangoDB into Deep Graph Library (DGL), a Python package for graph neural networks, and vice-versa
 ---
 # DGL Adapter
 
@@ -14,6 +14,15 @@ Python package for deep learning on graphs. DGL is framework agnostic, meaning
 that, if a deep graph model is a component of an end-to-end application, the
 rest of the logics can be implemented in any major frameworks, such as PyTorch,
 Apache MXNet or TensorFlow.
+
+## Resources
+
+Check out this
+[lunch & learn session](https://www.arangodb.com/resources/lunch-sessions/graph-beyond-lunch-break-2-8-dgl-adapter/){:target="_blank"}
+to get an introduction and see how to use the DGL adapter.
+
+The [ArangoDB-DGL Adapter repository](https://github.com/arangoml/dgl-adapter){:target="_blank"}
+is also available on Github. 
 
 ## Installation
 
