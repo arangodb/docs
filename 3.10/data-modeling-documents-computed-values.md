@@ -58,7 +58,7 @@ Each object represents a computed value and can have the following attributes:
   An AQL `RETURN` operation with an expression that computes the desired value.
   See [Computed Value Expressions](#computed-value-expressions) for details.
 
-- `overwrite` (boolean, _required_):
+- `override` (boolean, _required_):
   Whether the computed value shall take precedence over a user-provided or
   existing attribute.
 
@@ -94,12 +94,12 @@ system attributes. On inserts, you get the user-provided values (plus the
 system attributes), and on modifications, you get the updated or replaced
 document to work with.
 
-Computed value expressions have the following requirements:
+Computed value expressions have the following properties:
 
-- The expression must start with a `RETURN` statement.
-
-- No `FOR` loops, `LET` statements, and subqueries are allowed in the expression.
-  `FOR` loops can be substituted using the [array expansion operator `[*]`](aql/advanced-array-operators.html#inline-expressions),
+- The expression must start with a `RETURN` operation and cannot contains any
+  other operations. No `FOR` loops, `LET` statements, and subqueries are allowed
+  in the expression. `FOR` loops can be substituted using the
+  [array expansion operator `[*]`](aql/advanced-array-operators.html#inline-expressions),
   for example, with an inline expressions like the following:
 
   `RETURN @doc.values[* FILTER CURRENT > 42 RETURN CURRENT * 2]`
@@ -109,9 +109,15 @@ Computed value expressions have the following requirements:
   be used in the expression (e.g. `DOCUMENT()`, `PREGEL_RESULT()`,
   `COLLECTION_COUNT()`).
 
-- You cannot base a computed value on another. If you reference an attribute
-  that results from another computed value, the value is implicitly `null`,
-  like any access of non-existent attributes.
+- You cannot access the result of another computed value that is generated on
+  the same `computeOn` event.
+  
+  For example, two computed values that are generated on `insert` can not see
+  the result of the other. Referencing the attributes results in an implicit
+  `null` value. Computed values that are generated on `update` or `replace` can
+  see the results of the previous `insert` computations, however. They cannot
+  see the new values of other `update` and `replace` computations, regardless of
+  the order of the computed value definitions in the `computedFields` property.
 
 - You can use AQL functions in the expression but only those that can be
   executed on DB-Servers, regardless of your deployment type. The following
@@ -145,7 +151,7 @@ Add an attribute with the creation timestamp to new documents:
           {
             name: "createdAt",
             expression: "RETURN DATE_NOW()",
-            overwrite: true,
+            override: true,
             computeOn: ["insert"]
           }
         ]
@@ -170,7 +176,7 @@ set this value instead of using the computed value:
           {
             name: "modifiedAt",
             expression: "RETURN ZIP(['date', 'time'], SPLIT(DATE_ISO8601(DATE_NOW()), 'T'))",
-            overwrite: false,
+            override: false,
             computeOn: ["update", "replace"]
           }
         ]
@@ -186,8 +192,8 @@ set this value instead of using the computed value:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Compute an attribute from an array of objects, filtering the list and calculating
-new values:
+Compute an attribute from two arrays, filtering one of the lists, and calculating
+new values to implement a case-insensitive search using a persistent array index:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesSubattribute
@@ -196,13 +202,14 @@ new values:
         computedValues: [
           {
             name: "searchTags",
-            expression: "RETURN APPEND(@doc.labels[* FILTER CURRENT.public RETURN LOWER(CURRENT.name)], @doc.categories[* RETURN LOWER(CURRENT)])",
-            overwrite: true
+            expression: "RETURN APPEND(@doc.is[* FILTER CURRENT.public == true RETURN LOWER(CURRENT.name)], @doc.loves[* RETURN LOWER(CURRENT)])",
+            override: true
           }
         ]
       });
-      db.users.save({ name: "Paula Plant", labels: [ { name: "", public: true }, { name: "" }, { name: "", public: true } ], categories: [""] });
-      db.users.toArray();
+      db.users.save({ name: "Paula Plant", is: [ { name: "Gardener", public: true }, { name: "female" } ], loves: ["AVOCADOS", "Databases"] });
+      db.users.ensureIndex({ type: "persistent", fields: ["searchTags[*]"] });
+      db._query(`FOR u IN users FILTER "avocados" IN u.searchTags RETURN u`).toArray();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock computedValuesSubattribute
@@ -212,7 +219,9 @@ new values:
 Add a computed value as a sub-attribute to documents. This is not possible
 directly because the target attribute needs to be a top-level attribute, but the
 AQL expression can merge a nested object with the top-level attribute to achieve
-this:
+this. The expression checks whether the attributes it wants to calculate a new
+value from exist and are strings. It returns `null` if they do not meet the
+preconditions, to skip the computation using `keepNull: false`:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesSubattribute
@@ -221,11 +230,14 @@ this:
         computedValues: [
           {
             name: "name",
-            expression: "RETURN MERGE(@doc.name, { 'full': CONCAT_SEPARATOR(' ', @doc.name.first, @doc.name.last) })",
-            overwrite: false
+            expression: "RETURN IS_STRING(@doc.name.first) AND IS_STRING(@doc.name.last) ? MERGE(@doc.name, { 'full': CONCAT_SEPARATOR(' ', @doc.name.first, @doc.name.last) }) : null",
+            override: false,
+            keepNull: false
           }
         ]
       });
+      db.users.save({ name: { first: "James" });
+      db.users.save({ name: { first: "Andy", last: "Bennett", full: "Andreas J. Bennett" });
       db.users.save({ name: { first: "Paula", last: "Plant" } });
       db.users.toArray();
     ~ db._drop("users");
