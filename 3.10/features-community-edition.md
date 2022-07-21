@@ -111,8 +111,9 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   The [traversal order](aql/graphs-traversals.html) can be
   depth-first, breadth-first, or in order of increasing edge weights
   ("Weighted Traversals"). Stop conditions for pruning paths are supported.
-  Traversal algorithms to get a [shortest path](aql/graphs-shortest-path.html)
-  multiple shortest paths ("[k Shortest Paths](aql/graphs-kshortest-paths.html)"),
+  Traversal algorithms to get a [shortest path](aql/graphs-shortest-path.html),
+  [all shortest paths](aql/graphs-all-shortest-paths.html), paths in order of
+  increasing length ("[k Shortest Paths](aql/graphs-kshortest-paths.html)"),
   and to enumerate all paths between two vertices
   ("[k Paths](aql/graphs-k-paths.html)") are available, too.
 
