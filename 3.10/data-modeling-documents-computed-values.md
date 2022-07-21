@@ -6,10 +6,10 @@ description: >-
 ---
 # Computed Values
 
+<small>Introduced in: v3.10.0</small>
+
 {{ page.description }}
 {:class="lead"}
-
-<small>Introduced in: v3.10.0</small>
 
 If you want to add default values to new documents, maintain auxiliary
 attributes for search queries, or similar, you can set these attributes manually
@@ -68,9 +68,9 @@ Each object represents a computed value and can have the following attributes:
   The default is `["insert", "update", "replace"]`.
 
 - `keepNull` (boolean, _optional_):
-  Whether the result of the expression shall be stored if it evaluates to `null`.
-  You can set it to `false` and let the expression return `null` to skip the
-  value computation if any pre-conditions are not met. The default is `true`.
+  Whether the target attribute shall be set if the expression evaluates to `null`.
+  You can set the option to `false` to unset the target attribute if the
+  expression returns `null`. The default is `true`.
 
 - `failOnWarning` (boolean, _optional_):
   Whether to let the write operation fail if the expression produces a warning.
@@ -92,7 +92,7 @@ You can access the document data via the `@doc` bind variable. It contains the
 data as it will be stored, including the `_key`, `_id`, and `_rev`
 system attributes. On inserts, you get the user-provided values (plus the
 system attributes), and on modifications, you get the updated or replaced
-document to work with.
+document to work with, including the user-provided values.
 
 Computed value expressions have the following properties:
 
@@ -139,6 +139,10 @@ Computed value expressions have the following properties:
   - `FULLTEXT()`
   - [User-defined functions (UDFs)](aql/extending.html)
 
+Expressions that do not meet the requirements or that are syntactically invalid
+are rejected immediately, when setting or modifying the computed value definitions
+of a collection.
+
 ## Examples
 
 Add an attribute with the creation timestamp to new documents:
@@ -146,7 +150,7 @@ Add an attribute with the creation timestamp to new documents:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesCreatedAt
     @EXAMPLE_ARANGOSH_OUTPUT{computedValuesCreatedAt}
-    | db._create("users", {
+    | var coll = db._create("users", {
     |   computedValues: [
     |     {
     |       name: "createdAt",
@@ -156,7 +160,7 @@ Add an attribute with the creation timestamp to new documents:
     |     }
     |   ]
       });
-      db.users.save({ name: "Paula Plant" });
+      var doc = db.users.save({ name: "Paula Plant" });
       db.users.toArray();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -171,7 +175,7 @@ set this value instead of using the computed value:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesModifiedAt
     @EXAMPLE_ARANGOSH_OUTPUT{computedValuesModifiedAt}
-    | db._create("users", {
+    | var coll = db._create("users", {
     |   computedValues: [
     |     {
     |       name: "modifiedAt",
@@ -181,10 +185,10 @@ set this value instead of using the computed value:
     |     }
     |   ]
       });
-      db.users.save({ _key: "123", name: "Paula Plant" });
-      db.users.update("123", { email: "gardener@arangodb.com" });
+      var doc = db.users.save({ _key: "123", name: "Paula Plant" });
+      doc = db.users.update("123", { email: "gardener@arangodb.com" });
       db.users.toArray();
-      db.users.update("123", { email: "greenhouse@arangodb.com", modifiedAt: { date: "2019-01-01", time: "20:30:00.000Z" } });
+      doc = db.users.update("123", { email: "greenhouse@arangodb.com", modifiedAt: { date: "2019-01-01", time: "20:30:00.000Z" } });
       db.users.toArray();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -196,9 +200,9 @@ Compute an attribute from two arrays, filtering one of the lists, and calculatin
 new values to implement a case-insensitive search using a persistent array index:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline computedValuesSubattribute
-    @EXAMPLE_ARANGOSH_OUTPUT{computedValuesSubattribute}
-    | db._create("users", {
+    @startDocuBlockInline computedValuesCombine
+    @EXAMPLE_ARANGOSH_OUTPUT{computedValuesCombine}
+    | var coll = db._create("users", {
     |   computedValues: [
     |     {
     |       name: "searchTags",
@@ -207,12 +211,41 @@ new values to implement a case-insensitive search using a persistent array index
     |     }
     |   ]
       });
-      db.users.save({ name: "Paula Plant", is: [ { name: "Gardener", public: true }, { name: "female" } ], loves: ["AVOCADOS", "Databases"] });
-      db.users.ensureIndex({ type: "persistent", fields: ["searchTags[*]"] });
+      var doc = db.users.save({ name: "Paula Plant", is: [ { name: "Gardener", public: true }, { name: "female" } ], loves: ["AVOCADOS", "Databases"] });
+      var idx = db.users.ensureIndex({ type: "persistent", fields: ["searchTags[*]"] });
       db._query(`FOR u IN users FILTER "avocados" IN u.searchTags RETURN u`).toArray();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock computedValuesSubattribute
+    @endDocuBlock computedValuesCombine
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Set `keepNull` to `false` and let an expression return `null` to not set or
+unset the target attribute. If you set `override` to `false` at the same time,
+then the target attribute is not actively unset:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline computedValuesKeepNull
+    @EXAMPLE_ARANGOSH_OUTPUT{computedValuesKeepNull}
+    | var coll = db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "fullName",
+    |       expression: "RETURN @doc.firstName != null AND @doc.lastName != null ? CONCAT_SEPARATOR(' ', @doc.firstName, @doc.lastName) : null",
+    |       override: false,
+    |       keepNull: false
+    |     }
+    |   ]
+      });
+    | var docs = db.users.save([
+    |   { firstName: "Paula", lastName: "Plant" },
+    |   { firstName: "James" },
+    |   { lastName: "Barrett", fullName: "Andy J. Barrett" }
+      ]);
+      db.users.toArray();
+    ~ db._drop("users");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock computedValuesKeepNull
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -220,25 +253,25 @@ Add a computed value as a sub-attribute to documents. This is not possible
 directly because the target attribute needs to be a top-level attribute, but the
 AQL expression can merge a nested object with the top-level attribute to achieve
 this. The expression checks whether the attributes it wants to calculate a new
-value from exist and are strings. It returns `null` if they do not meet the
-preconditions, to skip the computation using `keepNull: false`:
+value from exist and are strings. If the preconditions are not met, then it
+returns the original `name` attribute:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline computedValuesSubattribute
     @EXAMPLE_ARANGOSH_OUTPUT{computedValuesSubattribute}
-    | db._create("users", {
+    | var coll = db._create("users", {
     |   computedValues: [
     |     {
     |       name: "name",
-    |       expression: "RETURN IS_STRING(@doc.name.first) AND IS_STRING(@doc.name.last) ? MERGE(@doc.name, { 'full': CONCAT_SEPARATOR(' ', @doc.name.first, @doc.name.last) }) : null",
-    |       override: false,
-    |       keepNull: false
+    |       expression: "RETURN IS_STRING(@doc.name.first) AND IS_STRING(@doc.name.last) ? MERGE(@doc.name, { 'full': CONCAT_SEPARATOR(' ', @doc.name.first, @doc.name.last) }) : @doc.name",
+    |       override: true // must be true to replace the top-level "name" attribute
     |     }
     |   ]
       });
-      db.users.save({ name: { first: "James" });
-      db.users.save({ name: { first: "Andy", last: "Bennett", full: "Andreas J. Bennett" });
-      db.users.save({ name: { first: "Paula", last: "Plant" } });
+    | var docs = db.users.save([
+    |   { name: { first: "James" } },
+    |   { name: { first: "Paula", last: "Plant" } }
+      ]);
       db.users.toArray();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
