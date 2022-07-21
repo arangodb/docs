@@ -69,8 +69,8 @@ Each object represents a computed value and can have the following attributes:
 
 - `keepNull` (boolean, _optional_):
   Whether the target attribute shall be set if the expression evaluates to `null`.
-  You can set the option to `false` to unset the target attribute if the
-  expression returns `null`. The default is `true`.
+  You can set the option to `false` to not set (or unset) the target attribute if
+  the expression returns `null`. The default is `true`.
 
 - `failOnWarning` (boolean, _optional_):
   Whether to let the write operation fail if the expression produces a warning.
