@@ -139,17 +139,19 @@ train connections in Europe and North America.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Suppose we want to query a route from **Carlisle** to **London**, and
-compare the outputs of `SHORTEST_PATH` and `ALL_SHORTEST_PATHS`.
+compare the outputs of `SHORTEST_PATH`, `K_SHORTEST_PATHS` and `ALL_SHORTEST_PATHS`.
 Note that `SHORTEST_PATH` returns any of the shortest paths whereas
-`ALL_SHORTEST_PATHS` returns all of them.
+`ALL_SHORTEST_PATHS` returns all of them. `K_SHORTEST_PATHS` returns the
+shortest paths first but continues with longer paths, until it found all routes
+or reaches the defined limit (the number of paths).
 
-Using `SHORTEST_PATH`:
+Using `SHORTEST_PATH` to get one shortest path:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHASP_01_Carlisle_to_London
     @EXAMPLE_AQL{GRAPHASP_01_Carlisle_to_London}
     @DATASET{kShortestPathsGraph}
-    FOR v, e IN OUTBOUND SHORTEST_PATH 'Carlisle/Aberdeen' TO 'places/London'
+    FOR v, e IN OUTBOUND SHORTEST_PATH 'places/Carlisle' TO 'places/London'
     GRAPH 'kShortestPathsGraph'
       RETURN { place: v.label }
     @END_EXAMPLE_AQL
@@ -157,13 +159,13 @@ Using `SHORTEST_PATH`:
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-Using `ALL_SHORTEST_PATHS`:
+Using `ALL_SHORTEST_PATHS` to get both shortest paths:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHASP_02_Carlisle_to_London
     @EXAMPLE_AQL{GRAPHASP_02_Carlisle_to_London}
     @DATASET{kShortestPathsGraph}
-    FOR p IN OUTBOUND ALL_SHORTEST_PATHS 'Carlisle/Aberdeen' TO 'places/London'
+    FOR p IN OUTBOUND ALL_SHORTEST_PATHS 'places/Carlisle' TO 'places/London'
     GRAPH 'kShortestPathsGraph'
       RETURN { places: p.vertices[*].label }
     @END_EXAMPLE_AQL
@@ -171,20 +173,35 @@ Using `ALL_SHORTEST_PATHS`:
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+Using `K_SHORTEST_PATHS` without a limit to get all paths in order of
+increasing length:
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline GRAPHASP_03_Carlisle_to_London
+    @EXAMPLE_AQL{GRAPHASP_03_Carlisle_to_London}
+    @DATASET{kShortestPathsGraph}
+    FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Carlisle' TO 'places/London'
+    GRAPH 'kShortestPathsGraph'
+      RETURN { places: p.vertices[*].label }
+    @END_EXAMPLE_AQL
+    @endDocuBlock GRAPHASP_03_Carlisle_to_London
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 If we ask for routes that don't exist, we get an empty result
 (from **Carlisle** to **Toronto**):
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline GRAPHASP_03_Carlisle_to_Toronto
-    @EXAMPLE_AQL{GRAPHASP_03_Carlisle_to_Toronto}
+    @startDocuBlockInline GRAPHASP_04_Carlisle_to_Toronto
+    @EXAMPLE_AQL{GRAPHASP_04_Carlisle_to_Toronto}
     @DATASET{kShortestPathsGraph}
-    FOR p IN OUTBOUND ALL_SHORTEST_PATHS 'Carlisle/Aberdeen' TO 'places/Toronto'
+    FOR p IN OUTBOUND ALL_SHORTEST_PATHS 'places/Carlisle' TO 'places/Toronto'
     GRAPH 'kShortestPathsGraph'
       RETURN {
         places: p.vertices[*].label
       }
     @END_EXAMPLE_AQL
-    @endDocuBlock GRAPHASP_03_Carlisle_to_Toronto
+    @endDocuBlock GRAPHASP_04_Carlisle_to_Toronto
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
