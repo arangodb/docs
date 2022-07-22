@@ -14,7 +14,7 @@ fresh EnterpriseGraph.
 
 When creating an EnterpriseGraph, you cannot have different number of shards per
 collection. To preserve the sharding pattern, the `_from` and `_to` attributes
-of the edges cannot be defined or modified. 
+of the edges cannot be modified. 
 You can define any `_key` value on vertices, including existing ones.
 
 ## Migrating from Community Edition
