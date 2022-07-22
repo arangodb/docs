@@ -209,3 +209,8 @@ The object has the following attributes:
 - `id`: The identifier of the Stream Transaction.
 - `status`: The status of the Stream Transaction.
   One of `"running"`, `"committed"`, or `"aborted"`.
+
+## HTTP API
+
+See the [HTTP Interface for Stream Transactions](http/transaction-stream-transaction.html)
+documentation.

@@ -2,10 +2,40 @@
 layout: default
 description: ArangoDB provides support for user-definable  transactions
 ---
-Transactions
-============
+# Transactions
 
-ArangoDB provides support for user-definable transactions.
+## Transaction Types
+
+ArangoDB offers different types of user-definable transactions:
+
+- AQL queries (with exceptions)
+- Stream Transactions
+- JavaScript Transactions
+
+### AQL Queries
+
+<!-- TODO: read own writes (UPSERT?), intermediate commits -->
+
+### Stream Transactions
+
+[Stream Transactions](transaction-stream-transactions.html) allow you to perform a multi-document transaction 
+with individual begin and commit / abort commands. This is similar to
+the way traditional RDBMS do it with *BEGIN*, *COMMIT* and *ROLLBACK* operations.
+
+This the recommended API for larger transactions. However the client is responsible
+for making sure that the transaction is committed or aborted when it is no longer needed,
+to avoid taking up resources.
+
+###  JavaScript Transactions
+
+[JavaScript Transactions](transaction-javascript-transactions.html) allow you to send the server
+a dedicated piece of JavaScript code (i.e. a function), which will be executed transactionally.
+
+At the end of the function, the transaction is automatically committed, and all
+changes done by the transaction will be persisted. No interaction is required by 
+the client beyond the initial start request.
+
+## Transactional Properties
 
 Transactions in ArangoDB are atomic, consistent, isolated, and durable (*ACID*).
 
