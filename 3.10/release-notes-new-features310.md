@@ -53,7 +53,7 @@ having multiple operations performed simultaneously, instead of one after the
 other.
 
 ```aql
-FOR startVertex IN [v/1, v/2, v/3, v/4]
+FOR startVertex IN ["v/1", "v/2", "v/3", "v/4"]
 FOR v,e,p IN 1..3 OUTBOUND startVertex GRAPH "g" OPTIONS {parallelism: 3}
 [...]
 ```
