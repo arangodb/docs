@@ -13,10 +13,10 @@ description: >-
 This type of query finds all paths of shortest length between two given
 documents (*startVertex* and *targetVertex*) in your graph.
 
-Every such path will be returned as a JSON object with three components:
-<!-- TODO: edge weights? -->
-- an array containing the `vertices` on the path
-- an array containing the `edges` on the path
+Every returned path is a JSON object with two attributes:
+
+- An array containing the `vertices` on the path.
+- An array containing the `edges` on the path.
 
 **Example**
 
@@ -53,7 +53,6 @@ FOR path
   IN OUTBOUND|INBOUND|ANY ALL_SHORTEST_PATHS
   startVertex TO targetVertex
   GRAPH graphName
-  [OPTIONS options]
 ```
 
 - `FOR`: emits the variable **path** which contains one path as an object containing 
@@ -68,14 +67,6 @@ FOR path
   documents does not exist, the result is empty as well and there is no warning.
 - `GRAPH` **graphName** (string): the name identifying the named graph. Its vertex and
   edge collections will be looked up.
-- `OPTIONS` **options** (object, *optional*): used to modify the execution of the
-  traversal. Only the following attributes have an effect, all others are ignored:
-  - **weightAttribute** (string): a top-level edge attribute that should be used
-  to read the edge weight. If the attribute does not exist or is not numeric, the
-  *defaultWeight* will be used instead. The attribute value must not be negative.
-  - **defaultWeight** (number): this value will be used as fallback if there is
-  no *weightAttribute* in the edge document, or if it's not a number. The value
-  must not be negative. The default is `1`.
 
 {% hint 'info' %}
 All Shortest Paths traversals do not support negative weights. If a document
@@ -91,7 +82,6 @@ FOR path
   IN OUTBOUND|INBOUND|ANY ALL_SHORTEST_PATHS
   startVertex TO targetVertex
   edgeCollection1, ..., edgeCollectionN
-  [OPTIONS options]
 ```
 
 Instead of `GRAPH graphName` you can specify a list of edge collections.
