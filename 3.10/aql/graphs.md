@@ -28,8 +28,13 @@ make full use of optimizations and therefore best performance is to be expected:
 - [AQL Traversals](graphs-traversals.html) to follow edges connected to a start vertex,
   up to a variable depth. It can be combined with AQL filter conditions.
 
-- [AQL Shortest Path](graphs-shortest-path.html) to find the vertices and edges between two
-  given vertices, with as few hops as possible.
+- [AQL K Paths](graphs-k-paths.html) to find all paths between two given documents.
+
+- [AQL Shortest Path](graphs-shortest-path.html) to find the shortest path between two given documents.
+
+- [AQL K Shortest Paths](graphs-kshortest-paths.html) to find the first k paths in order of length (or weight) between two given documents.
+
+- [AQL All Shortest Paths](graphs-all-shortest-paths.html) to find all shortest paths between two given documents.
 
 These types of queries are only useful if you use edge collections and/or graphs in
 your data model.

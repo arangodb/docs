@@ -98,6 +98,9 @@ Graphs
 - [k Shortest Paths Queries in AQL](https://www.arangodb.com/learn/graphs/k-shortest-paths-queries-in-aql/){:target="_blank"}:
   Query your graph for multiple shortest path alternatives.
 
+- [All Shortest Paths Queries in AQL](https://www.arangodb.com/learn/graphs/all-shortest-paths-queries-in-aql/){:target="_blank"}:
+  Query your graph for all shortest path alternatives.
+
 - [SmartGraphs](https://www.arangodb.com/using-smartgraphs-arangodb/){:target="_blank"}:
   Performance benefit for graphs sharded in an ArangoDB Cluster.
 
