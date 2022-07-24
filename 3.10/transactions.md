@@ -18,7 +18,7 @@ ArangoDB offers different types of user-definable transactions:
 
 ### Stream Transactions
 
-[Stream Transactions](transaction-stream-transactions.html) allow you to perform a multi-document transaction 
+[Stream Transactions](transactions-stream-transactions.html) allow you to perform a multi-document transaction 
 with individual begin and commit / abort commands. This is similar to
 the way traditional RDBMS do it with *BEGIN*, *COMMIT* and *ROLLBACK* operations.
 
@@ -28,7 +28,7 @@ to avoid taking up resources.
 
 ###  JavaScript Transactions
 
-[JavaScript Transactions](transaction-javascript-transactions.html) allow you to send the server
+[JavaScript Transactions](transactions-javascript-transactions.html) allow you to send the server
 a dedicated piece of JavaScript code (i.e. a function), which will be executed transactionally.
 
 At the end of the function, the transaction is automatically committed, and all
