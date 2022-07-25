@@ -126,7 +126,7 @@ create a new document in the same collection using a Stream Transaction:
     | if (task) {
     |   print(task);
     |   trx.collection(coll).remove(task._key);
-    |   var newTask = trx.collection(coll).save({ _key: "124", type: task.type, date: new Date().toISOString() }, returnNew: true).new;
+    |   var newTask = trx.collection(coll).save({ _key: "124", type: task.type, date: new Date().toISOString() }, { returnNew: true }).new;
     |   print(newTask);
     |   trx.commit();
     | } else {
