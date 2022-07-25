@@ -52,24 +52,24 @@ The `JSON` type is limited in amount of documents, as it cannot be parsed line
 by line. The `CSV` and `TSV` formats are also fine,
 but require to define the list of attributes to export. `JSONL` exports data
 as is, and due to its line based layout, can be processed line by line and
-therefore has no artifical restrictions on the data.
+therefore has no artificial restrictions on the data.
 
 After this step, two files are generated in the `docOutput` folder, that
 should look like this:
 
 1. `docOutput/old_vertices.jsonl`:
-```
-    {"_key":"Alice","_id":"old_vertices/Alice","_rev":"_edwXFGm---","attribute1":"value1"}
-    {"_key":"Bob","_id":"old_vertices/Bob","_rev":"_edwXFGm--_","attribute1":"value2"}
-    {"_key":"Charly","_id":"old_vertices/Charly","_rev":"_edwXFGm--B","attribute1":"value3"}
-```    
+   ```
+   {"_key":"Alice","_id":"old_vertices/Alice","_rev":"_edwXFGm---","attribute1":"value1"}
+   {"_key":"Bob","_id":"old_vertices/Bob","_rev":"_edwXFGm--_","attribute1":"value2"}
+   {"_key":"Charly","_id":"old_vertices/Charly","_rev":"_edwXFGm--B","attribute1":"value3"}
+   ```    
 
 2. `docOutput/old_edges.jsonl`:
-```
-    {"_key":"121","_id":"old_edges/121","_from":"old_vertices/Bob","_to":"old_vertices/Charly","_rev":"_edwW20----","attribute2":"value2"}
-    {"_key":"122","_id":"old_edges/122","_from":"old_vertices/Charly","_to":"old_vertices/Alice","_rev":"_edwW20G---","attribute2":"value3"}
-    {"_key":"120","_id":"old_edges/120","_from":"old_vertices/Alice","_to":"old_vertices/Bob","_rev":"_edwW20C---","attribute2":"value1"}
-```
+   ```
+   {"_key":"121","_id":"old_edges/121","_from":"old_vertices/Bob","_to":"old_vertices/Charly","_rev":"_edwW20----","attribute2":"value2"}
+   {"_key":"122","_id":"old_edges/122","_from":"old_vertices/Charly","_to":"old_vertices/Alice","_rev":"_edwW20G---","attribute2":"value3"}
+   {"_key":"120","_id":"old_edges/120","_from":"old_vertices/Alice","_to":"old_vertices/Bob","_rev":"_edwW20C---","attribute2":"value1"}
+   ```
 
 **Create new Graph**
 
@@ -150,42 +150,42 @@ The Web Interface (also called Web UI) allows you to easily create and manage
 EnterpriseGraphs. To get started, follow the steps outlined below.
 
 1. In the main page of the Web Interface, go to the left sidebar 
-menu and select the **Graphs** tab.
+   menu and select the **Graphs** tab.
 2. To add a new graph, click **Add Graph**.
 3. In the **Create Graph** dialog that appears, select the
-**EnterpriseGraph** tab.
+   **EnterpriseGraph** tab.
 4. Fill in all required fields:
    - For **Name**, enter a name for the EnterpriseGraph.
    - For **Shards**, enter the number of shards the graph is using.
    - Optional: For **Replication factor**, enter the total number of
-   desired copies of the data in the cluster.
+     desired copies of the data in the cluster.
    - Optional: For **Write concern**, enter the total number of copies
-   of the data in the cluster required for each write operation.
-   - Optional: For **Satellite collections**, insert vertex collections
-   that are being used in your edge definitions. These collections are
-   then created as satellites, and thus replicated to all DB-Servers.
+     of the data in the cluster required for each write operation.
+   - Optional: For **SatelliteCollections**, insert vertex collections
+     that are being used in your edge definitions. These collections are
+     then created as satellites, and thus replicated to all DB-Servers.
    - For **Edge definition**, insert a single non-existent name to define
-   the relation of the graph. This automatically creates a new edge
-   collection, which is displayed in the **Collections** tab of the
-   left sidebar menu.
-   {% hint 'tip' %}
-   To define multiple relations, press the **Add relation** button.
-   To remove a relation, press the **Remove relation** button.
-   {% endhint %}
+     the relation of the graph. This automatically creates a new edge
+     collection, which is displayed in the **Collections** tab of the
+     left sidebar menu.
+     {% hint 'tip' %}
+     To define multiple relations, press the **Add relation** button.
+     To remove a relation, press the **Remove relation** button.
+     {% endhint %}
    - For **fromCollections**, insert a list of vertex collections
-   that contain the start vertices of the relation.
+     that contain the start vertices of the relation.
    - For **toCollections**, insert a list of vertex collections that
-   contain the end vertices of the relation.
+     contain the end vertices of the relation.
    {% hint 'tip' %}
    Insert only non-existent collection names. Collections are automatically
    created during the graph setup and are displayed in the
    **Collections** tab of the left sidebar menu.
    {% endhint %}
    - For **Orphan collections**, insert a list of vertex collections
-   that are part of the graph but not used in any edge definition.
+     that are part of the graph but not used in any edge definition.
 5. Click **Create**. 
 6. Open the graph and use the functions of the Graph Viewer to visually
-interact with the graph and manage the graph data.
+   interact with the graph and manage the graph data.
 
 ![Create EnterpriseGraph](images/graphs-create-enterprise-graph-dialog.png)
    
@@ -194,7 +194,7 @@ interact with the graph and manage the graph data.
 Compared to SmartGraphs, the option `isSmart: true` is required but the
 `smartGraphAttribute` is forbidden. 
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -203,8 +203,8 @@ Compared to SmartGraphs, the option `isSmart: true` is required but the
      ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreateGraphHowTo1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Add vertex collections
 
@@ -214,7 +214,7 @@ these collections correctly. If you create collections via the EnterpriseGraph
 module and remove them from the graph definition, then you may re-add them
 without trouble however, as they will have the correct sharding.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo2_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
@@ -226,8 +226,8 @@ without trouble however, as they will have the correct sharding.
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreateGraphHowTo2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Define relations on the Graph
 
@@ -236,7 +236,7 @@ collections are created by the EnterpriseGraph module to set up sharding correct
 so they must not exist when creating the EnterpriseGraph (unless they have the
 correct sharding already).
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo3_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
@@ -250,8 +250,8 @@ correct sharding already).
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreateGraphHowTo3_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Create an EnterpriseGraph using SatelliteCollections
 
@@ -276,7 +276,7 @@ it will not be created. If you create the collection in a following
 request, only then the option will count.
 {% endhint %}
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo4_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo4_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -286,5 +286,5 @@ request, only then the option will count.
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreateGraphHowTo4_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}

@@ -66,7 +66,7 @@ be dropped again in the failure case.
 
 Create a graph without relations. Edge definitions can be added later:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreate1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreate1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -75,13 +75,13 @@ Create a graph without relations. Edge definitions can be added later:
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreate1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Create a graph using an edge collection `edges` and a single vertex collection
 `vertices` as relation:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreate2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreate2_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -91,12 +91,12 @@ Create a graph using an edge collection `edges` and a single vertex collection
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreate2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Create a graph with edge definitions and orphan collections:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreate3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreate3_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -106,8 +106,8 @@ Create a graph with edge definitions and orphan collections:
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreate3_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ## Modify a graph definition at runtime
 
@@ -144,7 +144,7 @@ other collections follow its sharding (i.e. they need to be dropped first).
 
 Create an EnterpriseGraph and list its orphan collections:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphModify1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -154,12 +154,12 @@ Create an EnterpriseGraph and list its orphan collections:
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Remove the orphan collection from the EnterpriseGraph and drop the collection:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphModify2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify2_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
@@ -170,12 +170,12 @@ Remove the orphan collection from the EnterpriseGraph and drop the collection:
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Attempting to remove a non-orphan collection results in an error:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphModify3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify3_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
@@ -185,13 +185,13 @@ Attempting to remove a non-orphan collection results in an error:
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify3_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 You cannot drop the initial collection (`vertices`) as long as it defines the
 sharding for other collections (`edges`).
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphModify4_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify4_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -205,15 +205,15 @@ sharding for other collections (`edges`).
      ~db._drop("vertices");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify4_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 You may drop the complete graph including the underlying collections by setting
 the second argument in the call to `_drop()` to `true`. This will only drop
 collections that are in the graph definition at that point. Remember to manually
 drop collections that you might have removed from the graph beforehand.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphModify5_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify5_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -226,8 +226,8 @@ drop collections that you might have removed from the graph beforehand.
       db._drop("vertices");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify5_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Alternatively, you can `truncate()` all collections of the graph if you just
 want to get rid of the data but keep the collections and graph definition.
@@ -248,7 +248,7 @@ Delete an edge definition from the graph:
 
 Create an EnterpriseGraph, then delete the edge definition and drop the edge collection:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphModify6_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify6_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
@@ -259,13 +259,13 @@ Create an EnterpriseGraph, then delete the edge definition and drop the edge col
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify6_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 It is allowed to remove the vertex collection `vertices` if it is not used in
 any relation (i.e. after the deletion of the edge definition):
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphModify7_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphModify7_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
@@ -278,8 +278,8 @@ any relation (i.e. after the deletion of the edge definition):
      ~db._drop("vertices");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify7_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Keep in mind that you cannot drop the `vertices` collection until no other
 collection references it anymore (`distributeShardsLike` collection property).
@@ -299,7 +299,7 @@ Remove a SmartGraph:
 
 Delete an EnterpriseGraph and drop its collections:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphRemove1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphRemove1_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
@@ -308,8 +308,8 @@ Delete an EnterpriseGraph and drop its collections:
       graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphRemove1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Note that removing a Graph with the option to drop the collections fails if
 you removed collections from the Graph but did not drop these collections.
@@ -318,7 +318,7 @@ collections that are part of the Graph. Dropping collections while others
 point to them in this way is not allowed. Make sure to drop the referencing
 collections first.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphRemove2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphRemove2_cluster}
      ~var graph_module = require("@arangodb/enterprise-graph");
@@ -330,5 +330,5 @@ collections first.
      ~db._drop("vertices");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphRemove2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
