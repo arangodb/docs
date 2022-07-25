@@ -71,19 +71,25 @@ A replace will fully replace an existing document, but it will not modify the va
 of internal attributes (such as `_id`, `_key`, `_from` and `_to`). Replacing a document
 will modify a document's revision number with a server-generated value.
 
-A replace operation may update arbitrary documents which do not need to be identical
-to the ones produced by a preceding `FOR` statement:
+A replace operation may update arbitrary documents:
 
 ```js
 FOR i IN 1..1000
   REPLACE CONCAT('test', i) WITH { foobar: true } IN users
 ```
 
+The documents it modifies can be in a different collection than
+the ones produced by a preceding `FOR` operation:
+
 ```js
 FOR u IN users
   FILTER u.active == false
   REPLACE u WITH { status: 'inactive', name: u.name } IN backup
 ```
+
+Note how documents are read from the `users` collection but updated in another
+collection called `backup`. Both collections need to use matching document keys
+for this to work.
 
 Query options
 -------------
