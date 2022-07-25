@@ -1,20 +1,22 @@
 ---
 layout: default
-description: ArangoDB provides support for user-definable  transactions
+description: ArangoDB provides support for user-definable transactions
 ---
 # Transactions
 
 ## Transaction Types
 
-ArangoDB offers different types of user-definable transactions:
+ArangoDB offers different types of transactions:
 
 - AQL queries (with exceptions)
 - Stream Transactions
 - JavaScript Transactions
 
+<!-- TODO
 ### AQL Queries
 
-<!-- TODO: read own writes (UPSERT?), intermediate commits -->
+read own writes (UPSERT?), intermediate commits
+-->
 
 ### Stream Transactions
 
@@ -41,14 +43,14 @@ Transactions in ArangoDB are atomic, consistent, isolated, and durable (*ACID*).
 
 These *ACID* properties provide the following guarantees:
 
-* The *atomicity* principle makes transactions either complete in their
+- The *atomicity* principle makes transactions either complete in their
   entirety or have no effect at all.
-* The *consistency* principle ensures that no constraints or other invariants
+- The *consistency* principle ensures that no constraints or other invariants
   will be violated during or after any transaction. A transaction will never
   corrupt the database.
-* The *isolation* property will hide the modifications of a transaction from
+- The *isolation* property will hide the modifications of a transaction from
   other transactions until the transaction commits. 
-* Finally, the *durability* proposition makes sure that operations from 
+- Finally, the *durability* proposition makes sure that operations from 
   transactions that have committed will be made persistent. The amount of
   transaction durability is configurable in ArangoDB, as is the durability
   on collection level. 
