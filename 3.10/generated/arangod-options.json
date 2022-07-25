@@ -7954,6 +7954,34 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.compaction-style" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "level",
+    "deprecatedIn" : null,
+    "description" : "compaction style which is used to pick the next file(s) to be compacted",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "string",
+    "values" : "Possible values: \"fifo\", \"level\", \"none\", \"universal\""
+  },
   "rocksdb.compression-type" : {
     "category" : "option",
     "component" : [
