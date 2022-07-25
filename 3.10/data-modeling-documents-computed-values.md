@@ -58,7 +58,7 @@ Each object represents a computed value and can have the following attributes:
   An AQL `RETURN` operation with an expression that computes the desired value.
   See [Computed Value Expressions](#computed-value-expressions) for details.
 
-- `override` (boolean, _required_):
+- `overwrite` (boolean, _required_):
   Whether the computed value shall take precedence over a user-provided or
   existing attribute.
 
@@ -155,7 +155,7 @@ Add an attribute with the creation timestamp to new documents:
     |     {
     |       name: "createdAt",
     |       expression: "RETURN DATE_NOW()",
-    |       override: true,
+    |       overwrite: true,
     |       computeOn: ["insert"]
     |     }
     |   ]
@@ -180,7 +180,7 @@ set this value instead of using the computed value:
     |     {
     |       name: "modifiedAt",
     |       expression: "RETURN ZIP(['date', 'time'], SPLIT(DATE_ISO8601(DATE_NOW()), 'T'))",
-    |       override: false,
+    |       overwrite: false,
     |       computeOn: ["update", "replace"]
     |     }
     |   ]
@@ -207,7 +207,7 @@ new values to implement a case-insensitive search using a persistent array index
     |     {
     |       name: "searchTags",
     |       expression: "RETURN APPEND(@doc.is[* FILTER CURRENT.public == true RETURN LOWER(CURRENT.name)], @doc.loves[* RETURN LOWER(CURRENT)])",
-    |       override: true
+    |       overwrite: true
     |     }
     |   ]
       });
@@ -221,7 +221,7 @@ new values to implement a case-insensitive search using a persistent array index
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Set `keepNull` to `false` and let an expression return `null` to not set or
-unset the target attribute. If you set `override` to `false` at the same time,
+unset the target attribute. If you set `overwrite` to `false` at the same time,
 then the target attribute is not actively unset:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -232,7 +232,7 @@ then the target attribute is not actively unset:
     |     {
     |       name: "fullName",
     |       expression: "RETURN @doc.firstName != null AND @doc.lastName != null ? CONCAT_SEPARATOR(' ', @doc.firstName, @doc.lastName) : null",
-    |       override: false,
+    |       overwrite: false,
     |       keepNull: false
     |     }
     |   ]
@@ -264,7 +264,7 @@ returns the original `name` attribute:
     |     {
     |       name: "name",
     |       expression: "RETURN IS_STRING(@doc.name.first) AND IS_STRING(@doc.name.last) ? MERGE(@doc.name, { 'full': CONCAT_SEPARATOR(' ', @doc.name.first, @doc.name.last) }) : @doc.name",
-    |       override: true // must be true to replace the top-level "name" attribute
+    |       overwrite: true // must be true to replace the top-level "name" attribute
     |     }
     |   ]
       });
