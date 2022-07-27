@@ -1063,7 +1063,7 @@ The Analyzer can be used for two different coordinate representations:
   The attributes cannot be at the top level of the document, but must be nested
   like in the example, so that the Analyzer can be defined for the field
   `location` with the Analyzer properties
-  `{ "latitude": ["lat"], "longitude": ["lng"] }`.
+  `{ "latitude": ["lat"], "longitude": ["lon"] }`.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
