@@ -10,21 +10,40 @@
 #
 # Usage:
 #
-# 1. Remove the generated files from the docs target folder
+# 1. Download the latest oasisctl release (oasisctl.zip):
+#    https://github.com/arangodb-managed/oasisctl/releases
+#
+# 2. Unzip the relevant binary for your operating system, e.g.
+#    bin/darwin/arm64/oasisctl for an M1 macOS device or
+#    bin\windows\amd64\oasisctl.exe for an x86-64 Windows device.
+#
+# 3. Remove the old generated files from the docs target folder
 #    (oasisctl-*.md but not oasisctl-getting-started.md and oasisctl.md!)
 #
-# 2. Create a temporary folder (oasisctl defaults to --output-dir ./docs)
+# 4. Create a temporary folder (oasisctl defaults to --output-dir ./docs)
 #
-# 3. Generate the documentation
-#    > oasisctl generate-docs --link-file-ext .html --replace-underscore-with -
+# 5. Generate the documentation by running the following command in a terminal:
 #
-# 4. Run this script
-#    > ruby oasisctl.rb /path/to/generated/docs ./oasis
+#    oasisctl generate-docs --link-file-ext .html --replace-underscore-with -
 #
-# 5. This script prints navigation definition entries to stdout.
-#    Update _data/oasis.yml accordingly.
+# 6. Run this script with Ruby in a terminal, using the previously generated
+#    files as input and the Oasis documentation folder as output:
 #
-# 6. Verify the changes and commit added and removed files
+#    ruby oasisctl.rb /path/to/generated/docs /path/to/3.x/oasis
+#
+# 7. This script prints the navigation definition for the new files to the
+#    terminal. Copy the text, open _data/oasis.yml, and remove everything after
+#    the following block:
+#
+#    - text: Oasisctl
+#      href: oasisctl.html
+#      children:
+#
+#    Then paste the copied text and save the file.
+#
+# 8. Add the updated and new (untracked) files in Git and commit the changes
+#
+# 9. Verify the changes and commit added and removed files
 #
 
 require 'pathname'
