@@ -20,23 +20,22 @@ Every returned path is a JSON object with two attributes:
 
 **Example**
 
-Let us take a look at a simple example to explain how it works.
-This is the graph that we are going to find some shortest path on:
+A visual representation of the example graph:
 
 ![Train Connection Map](../images/train_map.png)
+
 Each ellipse stands for a train station with the name of the city written inside
 of it. They are the vertices of the graph. Arrows represent train connections
 between cities and are the edges of the graph.
 
-Let us assume that we want to go from **Carlisle** to **London** by train.
-
-We expect to see the following two shortest paths:
+Assuming that you want to go from **Carlisle** to **London** by train, the
+expected two shortest paths are:
 
 1. Carlisle – Birmingham – London
 2. Carlisle – York – London
 
 Another path that connects Carlisle and London is
-Carlisle – Glasgow – Edinburgh – York – London but it is has two more stops and
+Carlisle – Glasgow – Edinburgh – York – London, but it is has two more stops and
 is therefore not a path of shortest length.
 
 ## Syntax
@@ -55,8 +54,8 @@ FOR path
   GRAPH graphName
 ```
 
-- `FOR`: emits the variable **path** which contains one path as an object containing 
-   `vertices`, `edges`, and the `weight` of the path.
+- `FOR`: emits the variable **path** which contains one shortest path as an
+  object, with the `vertices` and `edges` of the path.
 - `IN` `OUTBOUND|INBOUND|ANY`: defines in which direction
   edges are followed (outgoing, incoming, or both)
 - `ALL_SHORTEST_PATHS`: the keyword to compute All Shortest Paths
@@ -69,10 +68,7 @@ FOR path
   edge collections will be looked up.
 
 {% hint 'info' %}
-All Shortest Paths traversals do not support negative weights. If a document
-attribute (as specified by `weightAttribute`) with a negative value is
-encountered during traversal, or if `defaultWeight` is set to a negative
-number, then the query is aborted with an error.
+All Shortest Paths traversals do not support edge weights.
 {% endhint %}
 
 ### Working with collection sets
@@ -98,7 +94,7 @@ account. In this case you can use `OUTBOUND` as general search direction and `AN
 specifically for *edges2* as follows:
 
 ```aql
-FOR vertex IN OUTBOUND ALL_SHORTEST_PATHS
+FOR path IN OUTBOUND ALL_SHORTEST_PATHS
   startVertex TO targetVertex
   edges1, ANY edges2, edges3
 ```
@@ -109,8 +105,8 @@ direction for each collection in your path search.
 
 ## Examples
 
-We load an example graph to get a named graph that reflects some possible
-train connections in Europe and North America.
+Load an example graph to get a named graph that reflects some possible
+train connections in Europe and North America:
 
 ![Train Connection Map](../images/train_map.png)
 
@@ -128,7 +124,7 @@ train connections in Europe and North America.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Suppose we want to query a route from **Carlisle** to **London**, and
+Suppose you want to query a route from **Carlisle** to **London**, and
 compare the outputs of `SHORTEST_PATH`, `K_SHORTEST_PATHS` and `ALL_SHORTEST_PATHS`.
 Note that `SHORTEST_PATH` returns any of the shortest paths whereas
 `ALL_SHORTEST_PATHS` returns all of them. `K_SHORTEST_PATHS` returns the
@@ -178,7 +174,7 @@ increasing length:
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-If we ask for routes that don't exist, we get an empty result
+If you ask for routes that don't exist, you get an empty result
 (from **Carlisle** to **Toronto**):
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
