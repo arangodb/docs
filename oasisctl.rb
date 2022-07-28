@@ -22,14 +22,15 @@
 #
 # 4. Create a temporary folder (oasisctl defaults to --output-dir ./docs)
 #
-# 5. Generate the documentation by running the following command in a terminal:
+# 5. Generate the documentation by running the following command in a terminal
+#    (assuming that oasisctl is in the current directory):
 #
-#    oasisctl generate-docs --link-file-ext .html --replace-underscore-with -
+#    ./oasisctl generate-docs --link-file-ext .html --replace-underscore-with - --output-dir temp-folder
 #
 # 6. Run this script with Ruby in a terminal, using the previously generated
 #    files as input and the Oasis documentation folder as output:
 #
-#    ruby oasisctl.rb /path/to/generated/docs /path/to/3.x/oasis
+#    ruby oasisctl.rb /path/to/generated/docs /path/to/oasis
 #
 # 7. This script prints the navigation definition for the new files to the
 #    terminal. Copy the text, open _data/oasis.yml, and remove everything after
@@ -41,9 +42,8 @@
 #
 #    Then paste the copied text and save the file.
 #
-# 8. Add the updated and new (untracked) files in Git and commit the changes
-#
-# 9. Verify the changes and commit added and removed files
+# 8. Add the updated, removed, and new (untracked) files in Git,
+#    commit and verify the changes
 #
 
 require 'pathname'
