@@ -30,7 +30,7 @@ the attribute and use it to perform case-insensitive searches.
 
 ## Using Computed Values
 
-Computed values are defined per collection using the `computedFields` property,
+Computed values are defined per collection using the `computedValues` property,
 either when creating the collection or by modifying the collection later on.
 If you add or modify computed value definitions at a later point, then they only
 affect subsequent write operations. Existing documents remain in their state.
@@ -41,11 +41,11 @@ documents are restored as they are in the dump and no attributes are recalculate
 
 ## JavaScript API
 
-The `computedFields` collection property accepts an array of objects.
+The `computedValues` collection property accepts an array of objects.
 
-`db._create(<collection-name>, { computedFields: [ { … }, … ] })`
+`db._create(<collection-name>, { computedValues: [ { … }, … ] })`
 
-`db.<collection-name>.properties({ computedFields: [ { … }, … ] })`
+`db.<collection-name>.properties({ computedValues: [ { … }, … ] })`
 
 Each object represents a computed value and can have the following attributes:
 
@@ -59,8 +59,9 @@ Each object represents a computed value and can have the following attributes:
   See [Computed Value Expressions](#computed-value-expressions) for details.
 
 - `overwrite` (boolean, _required_):
-  Whether the computed value shall take precedence over a user-provided or
-  existing attribute.
+  Whether the target attribute shall be set if the expression evaluates to `null`.
+  You can set the option to `false` to not set (or unset) the target attribute if
+  the expression returns `null`. The default is `true`.
 
 - `computeOn` (array, _optional_):
   An array of strings to define on which write operations the value shall be
@@ -78,7 +79,7 @@ Each object represents a computed value and can have the following attributes:
 
 ## HTTP API
 
-See the `computedFields` collection property in the HTTP API documentation for
+See the `computedValues` collection property in the HTTP API documentation for
 [Creating Collections](http/collection-creating.html) and
 [Modifying Collections](http/collection-modifying.html).
 
@@ -96,7 +97,7 @@ document to work with, including the user-provided values.
 
 Computed value expressions have the following properties:
 
-- The expression must start with a `RETURN` operation and cannot contains any
+- The expression must start with a `RETURN` operation and cannot contain any
   other operations. No `FOR` loops, `LET` statements, and subqueries are allowed
   in the expression. `FOR` loops can be substituted using the
   [array expansion operator `[*]`](aql/advanced-array-operators.html#inline-expressions),
@@ -117,7 +118,7 @@ Computed value expressions have the following properties:
   `null` value. Computed values that are generated on `update` or `replace` can
   see the results of the previous `insert` computations, however. They cannot
   see the new values of other `update` and `replace` computations, regardless of
-  the order of the computed value definitions in the `computedFields` property.
+  the order of the computed value definitions in the `computedValues` property.
 
 - You can use AQL functions in the expression but only those that can be
   executed on DB-Servers, regardless of your deployment type. The following
