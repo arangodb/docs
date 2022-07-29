@@ -289,7 +289,7 @@ Until then, the not yet upgraded instances will still be running the previous
 version of ArangoDB. When instances are restarted, they will be starting
 with the newly installed version.
 
-In order to avoid that instances will be using the new version upon the
+In order to avoid that instances use the new version upon the
 next restart, it is possible to install the previous version again.
 The steps for that are the same as for installing the new version (see above)
 and making sure that the service for the standalone instance is disabled 
