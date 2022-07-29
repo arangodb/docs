@@ -8,7 +8,7 @@ title: DC2DC Replication Operations & Maintenance
 {% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 ArangoSync is a distributed system with a lot different components.
-As with any such system, it requires some, but not a lot, of operational
+As with any such system, it requires some, but not a lot of operational
 support.
 
 ### What means are available to monitor status
