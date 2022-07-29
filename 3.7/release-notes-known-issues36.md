@@ -1,1 +1,0 @@
-../3.6/release-notes-known-issues36.md

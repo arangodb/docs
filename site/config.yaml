@@ -1,0 +1,26 @@
+baseURL: "http://example.org/"
+languageCode: "en-us"
+title: "ArangoDB Documentation"
+theme: "hugo-theme-relearn"
+
+menu:
+  shortcuts:
+    - name: "<i class='fab fa-fw fa-github'></i> GitHub repo"
+      identifier: "ds"
+      url: "https://github.com/ArangoDB/ArangoDB/issues"
+      weight: 10
+
+
+params:
+  description: "Documentation for ArangoDB"
+  showVisitedLinks: true
+  collapsibleMenu: true
+  disableBreadcrumb: false
+  disableNextPrev: false
+  disableLandingPageButton: true
+  titleSeparator: "::"
+  themeVariant: [ "relearn-light", "relearn-dark", "learn", "neon", "blue", "green", "red" ]
+  disableSeoHiddenPages: true
+  additionalContentLanguage: [ "en" ]
+  custom_css: ["css/*"]
+

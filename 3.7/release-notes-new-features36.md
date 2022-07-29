@@ -1,1 +1,0 @@
-../3.6/release-notes-new-features36.md

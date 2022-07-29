@@ -1,1 +1,0 @@
-../3.8/release-notes-38.md

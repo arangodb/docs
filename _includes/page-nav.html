@@ -1,7 +1,0 @@
-{%- assign previous=page | previous_page -%}
-{%- assign next=page | next_page %}
-<section class="page-nav">
-  {% if previous %}<a href="{{ previous.href }}">&#x276e;&nbsp;&nbsp;{{ previous.text }}</a>{% endif %}
-  {% if next %}<a class="next" href="{{ next.href }}">{{ next.text }}&nbsp;&nbsp;&#x276f;</a>{% endif %}
-  <div style="clear: both"></div>
-</section>

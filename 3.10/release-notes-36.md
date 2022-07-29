@@ -1,1 +1,0 @@
-../3.7/release-notes-36.md

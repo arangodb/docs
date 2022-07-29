@@ -1,7 +1,0 @@
-arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/general-graph&quot;</span>)
-arangosh&gt; <span class="hljs-keyword">var</span> ed1 = graph_module._relation(<span class="hljs-string">&quot;myEC1&quot;</span>, [<span class="hljs-string">&quot;myVC1&quot;</span>], [<span class="hljs-string">&quot;myVC2&quot;</span>]);
-arangosh&gt; <span class="hljs-keyword">var</span> ed2 = graph_module._relation(<span class="hljs-string">&quot;myEC2&quot;</span>, [<span class="hljs-string">&quot;myVC1&quot;</span>], [<span class="hljs-string">&quot;myVC3&quot;</span>]);
-arangosh&gt; <span class="hljs-keyword">var</span> graph = graph_module._create(<span class="hljs-string">&quot;myGraph&quot;</span>, [ed1, ed2]);
-arangosh&gt; graph._deleteEdgeDefinition(<span class="hljs-string">&quot;myEC1&quot;</span>);
-arangosh&gt; db._collection(<span class="hljs-string">&quot;myEC1&quot;</span>);
-[ArangoCollection <span class="hljs-number">77225</span>, <span class="hljs-string">&quot;myEC1&quot;</span> (type edge, status loaded)]
