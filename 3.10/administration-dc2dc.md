@@ -5,7 +5,7 @@ title: Administrating DC2DC Replication
 redirect_from:
   - administration-dc2-dc.html # 3.9 -> 3.10
 ---
-# Datacenter to datacenter replication administration
+# Datacenter-to-Datacenter Replication Administration
 
 {% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
