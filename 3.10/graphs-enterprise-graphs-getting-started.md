@@ -73,7 +73,7 @@ should look like this:
 
 **Create new Graph**
 
-The next step is to setup an empty EnterpriseGraph and configure it 
+The next step is to set up an empty EnterpriseGraph and configure it 
 according to your preferences.
 
 {% hint 'info' %}
@@ -124,7 +124,7 @@ side with this mechanism. However, you can use different collections on `_from` 
 
 Next, in order to make the change of vertex collection you need to
 allow `overwrite-collection-prefix`.
-If this flag is not set, only values without any given collection will be changed.
+If this flag is not set, only values without any given collection are changed.
 This is helpful if your data is not exported by ArangoDB in the first place.
 
 Now that you have everything together, run the following command:
