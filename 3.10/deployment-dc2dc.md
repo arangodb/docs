@@ -12,7 +12,7 @@ _datacenter to datacenter replication_.
 
 ## Deployment steps
 
-## 1. [Cluster](deployment-dc2dc-cluster.html)
+## 1. Cluster
 
 Datacenter to datacenter replication requires an ArangoDB cluster in both data centers,
 configured with the `rocksdb` storage engine.
@@ -33,7 +33,10 @@ transactions or queries, but losing a Coordinator will not lose any
 persisted data. Furthermore, new Coordinators can be added to a cluster
 without much effort.
 
-## 2. [ArangoSync Master](deployment-dc2dc-arango-sync-master.html)
+Please refer to the [Cluster](deployment-dc2dc-cluster.html) section for
+more information.
+
+## 2. ArangoSync Master
 
 The Sync Master is responsible for managing all synchronization, creating tasks and assigning
 those to workers.
@@ -54,7 +57,10 @@ it is recommended to run them on dedicated machines with a lot of CPU power.
 
 Consider these machines to be crucial for your DC2DC setup.
 
-## 3. [ArangoSync Workers](deployment-dc2dc-arango-sync-workers.html)
+Please refer to the [ArangoSync Master](deployment-dc2dc-arango-sync-master.html)
+section for more information.
+
+## 3. ArangoSync Workers
 
 The Sync Worker is responsible for executing synchronization tasks.
 <br/> For optimal performance at least 1 worker instance must be placed on
@@ -73,7 +79,10 @@ This port must be reachable from inside the datacenter (by sync masters).
 The sync workers should be run on all machines that also contain an ArangoDB DB-Server.
 The sync worker can be memory intensive when running lots of databases & collections.
 
-## 4. [Prometheus & Grafana (optional)](deployment-dc2dc-prometheus-grafana.html)
+Please refer to the [ArangoSync Workers](deployment-dc2dc-arango-sync-workers.html)
+for more information.
+
+## 4. Prometheus & Grafana (optional)
 
 ArangoSync provides metrics in a format supported by [Prometheus](https://prometheus.io){:target="_blank"}.
 We also provide a standard set of dashboards for viewing those metrics in [Grafana](https://grafana.org){:target="_blank"}.
@@ -91,3 +100,6 @@ Consider these machines to be easily replaceable, unless you configure
 alerting on _prometheus_, in which case it is recommended to keep a
 close eye on them, such that you do not lose any alerts due to failures
 of Prometheus.
+
+Please refer to the [Prometheus & Grafana](deployment-dc2dc-prometheus-grafana.html)
+section for more informnation.
