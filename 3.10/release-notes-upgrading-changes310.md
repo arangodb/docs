@@ -83,7 +83,7 @@ tools use more specific process exit codes in the following situations:
 
 Note that this change can affect any custom scripts that check for startup
 failures using the specific exit code `1`. These scripts should be adjusted so
-that they check for a non-zero exit code. They can opt in to more specific
+that they check for a non-zero exit code. They can opt into more specific
 error handling using the additional exit codes mentioned above, in order to
 distinguish between different kinds of startup errors.
 
