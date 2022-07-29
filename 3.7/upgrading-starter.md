@@ -204,7 +204,7 @@ If you have connected clusters across multiple datacenter
 (DC2DC deployment), then you need to update each of the clusters.
 
 If the upgrade command fails, please try again. If the upgrade command continues
-to fail, please contact ArangoDB support.
+to fail, please contact the ArangoDB support.
 
 #### Deployment mode `single`
 
