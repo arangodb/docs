@@ -95,8 +95,6 @@
       href: tutorials-reduce-memory-footprint.html
     - text: ArangoDB Starter
       href: tutorials-starter.html
-    - text: Datacenter to Datacenter Replication
-      href: tutorials-dc2-dc.html
     - text: Kubernetes
       href: tutorials-kubernetes.html
       children:
@@ -437,17 +435,6 @@
               href: architecture-deployment-modes-cluster-sharding.html
             - text: Limitations
               href: architecture-deployment-modes-cluster-limitations.html
-        - text: Datacenter to datacenter replication
-          href: architecture-deployment-modes-dc2-dc.html
-          children:
-            - text: Introduction
-              href: architecture-deployment-modes-dc2-dc-introduction.html
-            - text: Applicability
-              href: architecture-deployment-modes-dc2-dc-applicability.html
-            - text: Requirements
-              href: architecture-deployment-modes-dc2-dc-requirements.html
-            - text: Limitations
-              href: architecture-deployment-modes-dc2-dc-limitations.html
     - text: Single Instance vs. Cluster
       href: architecture-single-instance-vs-cluster.html
     - text: Storage Engine
@@ -456,6 +443,30 @@
       href: architecture-replication.html
     - text: Write-ahead log
       href: architecture-write-ahead-log.html
+- text: ArangoSync
+  href: arangosync.html
+  children:
+    - text: Deployment
+      href: deployment-dc2dc.html
+      children:
+        - text: ArangoDB Cluster
+          href: deployment-dc2dc-cluster.html
+        - text: ArangoSync Master
+          href: deployment-dc2dc-arango-sync-master.html
+        - text: ArangoSync Workers
+          href: deployment-dc2dc-arango-sync-workers.html
+        - text: Promotheus & Grafana
+          href: deployment-dc2dc-prometheus-grafana.html      
+    - text: Administration
+      href: administration-dc2dc.html
+    - text: Operations & Maintenance
+      href: operations-maintenance-dc2dc.html
+    - text: Security
+      href: security-dc2dc.html
+    - text: Monitoring
+      href: monitoring-dc2dc.html
+    - text: Troubleshooting
+      href: troubleshooting-dc2dc.html        
 - text: Foxx Microservices
   href: foxx.html
   children:
@@ -609,17 +620,6 @@
               href: deployment-cluster-manual-start.html
             - text: Kubernetes
               href: deployment-cluster-kubernetes.html
-        - text: Multiple Datacenters
-          href: deployment-dc2-dc.html
-          children:
-            - text: Cluster
-              href: deployment-dc2-dc-cluster.html
-            - text: ArangoSync Master
-              href: deployment-dc2-dc-arango-sync-master.html
-            - text: ArangoSync Workers
-              href: deployment-dc2-dc-arango-sync-workers.html
-            - text: Prometheus & Grafana
-              href: deployment-dc2-dc-prometheus-grafana.html
         - text: Standalone Agency
           href: deployment-standalone-agency.html
     - text: By Technology
@@ -759,8 +759,6 @@
       href: administration-active-failover.html
     - text: Cluster
       href: administration-cluster.html
-    - text: Datacenter to datacenter replication
-      href: administration-dc2-dc.html
     - text: ArangoDB Starter Administration
       href: administration-starter.html
       children:
@@ -786,15 +784,11 @@
           href: security-auditing-audit-events.html
     - text: Securing Starter Deployments
       href: security-starter.html
-    - text: Datacenter to datacenter replication
-      href: security-dc2-dc.html
 - text: Monitoring
   href: monitoring.html
   children:
     - text: Log Levels
       href: monitoring-log-levels.html
-    - text: Datacenter to datacenter replication
-      href: monitoring-dc2-dc.html
 - text: Troubleshooting
   href: troubleshooting.html
   children:
@@ -807,8 +801,6 @@
       children:
         - text: Agency Dump
           href: troubleshooting-cluster-agency-dump.html
-    - text: Datacenter to datacenter replication
-      href: troubleshooting-dc2-dc.html
 - divider: true
 - text: Release Notes
   href: release-notes.html
