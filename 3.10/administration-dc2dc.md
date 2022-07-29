@@ -9,8 +9,8 @@ redirect_from:
 
 {% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
-This section includes information related to the administration of the _datacenter
-to datacenter replication_.
+This section includes information related to the synchronization process
+of the _datacenter to datacenter replication_.
 
 ## Starting synchronization
 
@@ -55,7 +55,7 @@ arangosync get status \
   -v
 ```
 
-Note: Invoking this command on the target datacenter will return different results from
+Note that invoking this command on the target datacenter will return different results from
 invoking it on the source datacenter. You need insight in both results to get a "complete picture".
 
 Where the `get status` command gives insight in the status of synchronization, there
