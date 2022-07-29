@@ -283,7 +283,7 @@ upgraded.
 ## Going back to the previous version in case of failure
 
 In case the upgrade cannot be carried out (i.e. the upgrade command continues 
-to fail with an error message) please contact ArangoDB support.
+to fail with an error message) please contact the ArangoDB support.
 
 Until then, the not yet upgraded instances will still be running the previous
 version of ArangoDB. When instances are restarted, they will be starting
