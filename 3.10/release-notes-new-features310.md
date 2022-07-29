@@ -138,6 +138,37 @@ Query Statistics:
            0            0           0        71000            689 / 11      10300          98304         0.15389
 ```
 
+### Index Lookup Optimization
+
+ArangoDB 3.10 features a new optimization for index lookups that can help to
+speed up index accesses with post-filter conditions. The optimization is 
+triggered if an index is used that does not cover all required attributes for
+the query, but the index lookup post-filter conditions only access attributes
+that are part of the index.
+
+For example, if you have a collection with an index on `value1` and `value2`,
+a query like below can only partially utilize the index for the lookup: 
+
+```aql
+FOR doc IN collection
+  FILTER doc.value1 == @value1   /* uses the index */
+  FILTER ABS(doc.value2) != @value2   /* does not use the index */
+  RETURN doc
+```
+
+In this case, previous versions of ArangoDB always fetched the full documents
+from the storage engine for all index entries that matched the index lookup
+conditions. 3.10 will now only fetch the full documents from the storage engine
+for all index entries that matched the index lookup conditions, and that satisfy
+the index lookup post-filter conditions, too.
+
+If the post-filter conditions filter out a lot of documents, this optimization
+can significantly speed up queries that produce large result sets from index
+lookups but filter many of the documents away with post-filter conditions.
+
+See [Filter Projections Optimization](aql/execution-and-performance-optimizer.html#filter-projections-optimizations)
+for details.
+
 ### Lookahead for Multi-Dimensional Indexes
 
 The multi-dimensional index type `zkd` (experimental) now supports an optional
