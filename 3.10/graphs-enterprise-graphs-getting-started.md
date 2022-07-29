@@ -96,7 +96,7 @@ All vertices can be imported without any change:
 
     arangoimport --collection old_vertices --file docOutput/old_vertices.jsonl
 
-On the edges, EnterpriseGraphs disallow to store the `_key` value, so this attribute
+On the edges, EnterpriseGraphs disallow storing the `_key` value, so this attribute
 needs to be removed on import:
 
     arangoimport --collection old_edges --file docOutput/old_edges.jsonl --remove-attribute "_key"
