@@ -2,6 +2,8 @@
 layout: default
 description: How to administrate datacenter to datacenter replication
 title: Administrating DC2DC Replication
+redirect_from:
+  - administration-dc2-dc.html # 3.9 -> 3.10
 ---
 # Datacenter to datacenter replication administration
 
