@@ -20,22 +20,24 @@ read own writes (UPSERT?), intermediate commits
 
 ### Stream Transactions
 
-[Stream Transactions](transactions-stream-transactions.html) allow you to perform a multi-document transaction 
-with individual begin and commit / abort commands. This is similar to
-the way traditional RDBMS do it with *BEGIN*, *COMMIT* and *ROLLBACK* operations.
+[Stream Transactions](transactions-stream-transactions.html) allow you to perform
+multi-document transactions with individual begin and commit / abort commands.
+They work similar to the *BEGIN*, *COMMIT*, and *ROLLBACK* operations in
+relational database systems.
 
-This the recommended API for larger transactions. However the client is responsible
-for making sure that the transaction is committed or aborted when it is no longer needed,
-to avoid taking up resources.
+This API is recommended for larger transactions. However, the client is
+responsible for making sure that transactions are committed or aborted when they
+are no longer needed, to avoid taking up resources.
 
 ###  JavaScript Transactions
 
-[JavaScript Transactions](transactions-javascript-transactions.html) allow you to send the server
-a dedicated piece of JavaScript code (i.e. a function), which will be executed transactionally.
+[JavaScript Transactions](transactions-javascript-transactions.html) allow you
+to send the server a dedicated piece of JavaScript code (i.e. a function), which
+will be executed transactionally.
 
 At the end of the function, the transaction is automatically committed, and all
 changes done by the transaction will be persisted. No interaction is required by 
-the client beyond the initial start request.
+the client beyond the initial request.
 
 ## Transactional Properties
 
@@ -55,8 +57,8 @@ These *ACID* properties provide the following guarantees:
   transaction durability is configurable in ArangoDB, as is the durability
   on collection level. 
 
-The descriptions in this section only provide a general overview. The actual transactional
-guarantees depend on the deployment mode and usage pattern.
+The descriptions in this section only provide a general overview. The actual
+transactional guarantees depend on the deployment mode and usage pattern.
 
 Also see:
 - [Operation Atomicity](data-modeling-operational-factors.html#operation-atomicity) for more details on atomicity guarantees
