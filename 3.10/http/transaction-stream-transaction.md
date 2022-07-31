@@ -5,6 +5,8 @@ description: Stream Transactions allow you to perform a multi-document transacti
 HTTP Interface for Stream Transactions
 ======================================
 
+<small>Introduced in: v3.5.0</small>
+
 For an introduction to this transaction type, see
 [Stream Transactions](../transactions-stream-transactions.html).
 
