@@ -36,6 +36,34 @@ UI
 AQL
 ---
 
+### Parallelism for Sharded Graphs (Enterprise Edition)
+
+The 3.10 release supports traversal parallelism for Sharded Graphs,
+which means that traversals with many start vertices can now run
+in parallel. An almost linear performance improvement has been
+achieved, so the parallel processing of threads leads to faster results.
+
+This feature supports all types of graphs - General Graphs, SmartGraphs,
+EnterpriseGraphs (including Disjoint).
+
+Traversals with many start vertices can now run in parallel.
+A traversal always starts with one single start vertex and then explores
+the vertex neighborhood. When you want to explore the neighborhoods of
+multiple vertices, you now have the option to do multiple operations in parallel.
+
+The example below shows how to use parallelism to allow using up to three
+threads to search for `v/1`, `v/2`, and `v/3` in parallel and independent of one
+another. Note that parallelism increases the memory usage of the query due to
+having multiple operations performed simultaneously, instead of one after the
+other.
+
+```aql
+FOR startVertex IN ["v/1", "v/2", "v/3", "v/4"]
+FOR v,e,p IN 1..3 OUTBOUND startVertex GRAPH "yourShardedGraph" OPTIONS {parallelism: 3}
+[...]
+```
+This feature is only available in the Enterprise Edition.
+
 ### GeoJSON changes
 
 The 3.10 release of ArangoDB conforms to the standards specified in 
@@ -138,6 +166,37 @@ Query Statistics:
            0            0           0        71000            689 / 11      10300          98304         0.15389
 ```
 
+### Index Lookup Optimization
+
+ArangoDB 3.10 features a new optimization for index lookups that can help to
+speed up index accesses with post-filter conditions. The optimization is 
+triggered if an index is used that does not cover all required attributes for
+the query, but the index lookup post-filter conditions only access attributes
+that are part of the index.
+
+For example, if you have a collection with an index on `value1` and `value2`,
+a query like below can only partially utilize the index for the lookup: 
+
+```aql
+FOR doc IN collection
+  FILTER doc.value1 == @value1   /* uses the index */
+  FILTER ABS(doc.value2) != @value2   /* does not use the index */
+  RETURN doc
+```
+
+In this case, previous versions of ArangoDB always fetched the full documents
+from the storage engine for all index entries that matched the index lookup
+conditions. 3.10 will now only fetch the full documents from the storage engine
+for all index entries that matched the index lookup conditions, and that satisfy
+the index lookup post-filter conditions, too.
+
+If the post-filter conditions filter out a lot of documents, this optimization
+can significantly speed up queries that produce large result sets from index
+lookups but filter many of the documents away with post-filter conditions.
+
+See [Filter Projections Optimization](aql/execution-and-performance-optimizer.html#filter-projections-optimizations)
+for details.
+
 ### Lookahead for Multi-Dimensional Indexes
 
 The multi-dimensional index type `zkd` (experimental) now supports an optional
@@ -166,6 +225,14 @@ AQL functions changed in 3.10:
 
 Indexes
 -------
+
+### Parallel index creation (Enterprise Edition)
+
+In the Enterprise Edition, non-unique indexes can be created with multiple
+threads in parallel. The number of parallel index creation threads is currently 
+set to 2, but future versions of ArangoDB may increase this value.
+Parallel index creation is only triggered for collections with at least 120,000
+documents.
 
 ### Storing additional values in indexes
 
@@ -323,6 +390,17 @@ temporary data:
   files are used. 
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+
+Read from Followers in Clusters
+-------------------------------
+
+You can now allow for reads from followers for a
+number of read-only operations in cluster deployments. In this case, Coordinators
+are allowed to read not only from shard leaders but also from shard replicas.
+This has a positive effect, because the reads can scale out to all DB-Servers
+that have copies of the data. Therefore, the read throughput is higher.
+
+For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
 
 Miscellaneous changes
 ---------------------

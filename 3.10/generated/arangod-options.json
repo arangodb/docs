@@ -856,7 +856,7 @@
       "agent",
       "single"
     ],
-    "default" : 17872714752,
+    "default" : 17872713728,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -6138,7 +6138,7 @@
     "requiresValue" : true,
     "section" : "log",
     "type" : "string",
-    "values" : "Possible values: \"local-datestring\", \"timestamp\", \"timestamp-micros\", \"timestamp-millis\", \"uptime\", \"uptime-micros\", \"uptime-millis\", \"utc-datestring\", \"utc-datestring-millis\""
+    "values" : "Possible values: \"local-datestring\", \"timestamp\", \"timestamp-micros\", \"timestamp-millis\", \"uptime\", \"uptime-micros\", \"uptime-millis\", \"utc-datestring\", \"utc-datestring-micros\", \"utc-datestring-millis\""
   },
   "log.use-json-format" : {
     "category" : "option",
@@ -6822,7 +6822,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 73638342656,
+    "base" : 73638338560,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6830,7 +6830,7 @@
       "agent",
       "single"
     ],
-    "default" : 59647057551,
+    "default" : 59647054233,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6955,7 +6955,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 73638342656,
+    "base" : 73638338560,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6963,7 +6963,7 @@
       "agent",
       "single"
     ],
-    "default" : 44183005593,
+    "default" : 44183003136,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7818,7 +7818,7 @@
       "agent",
       "single"
     ],
-    "default" : 21447257702,
+    "default" : 21447256473,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -7953,6 +7953,34 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
+  },
+  "rocksdb.compaction-style" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "level",
+    "deprecatedIn" : null,
+    "description" : "compaction style which is used to pick the next file(s) to be compacted",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "string",
+    "values" : "Possible values: \"fifo\", \"level\", \"none\", \"universal\""
   },
   "rocksdb.compression-type" : {
     "category" : "option",
@@ -10016,7 +10044,7 @@
       "agent",
       "single"
     ],
-    "default" : 28596343603,
+    "default" : 28596341964,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -10551,7 +10579,7 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v31.0.0"
+      "v3.10.0"
     ],
     "maxInclusive" : true,
     "maxValue" : 4294967295,
