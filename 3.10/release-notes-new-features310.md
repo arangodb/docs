@@ -462,47 +462,22 @@ arangoexport \
 Query changes for decreasing memory usage
 -----------------------------------------
 
-With the parameters mentioned below, queries can execute with storing input
-and intermediate results temporarily on disk for decreasing of memory usage
-when it reaches a certain threshold.
-Note: this feature is experimental and off by default. The query results will
-still be built up entirely in RAM on coordinators and single servers for
-non-streaming queries. In order to avoid the buildup of the entire query
-result in RAM, a streaming query should be used. Also, this feature will
-only take effect currently for AQL SORT operation without LIMIT.
+Queries can execute with storing input and intermediate results temporarily
+on disk for decreasing of memory usage when it reaches a certain threshold.
+The parameters are `--temp.intermediate-results-path`, 
+`--temp.-intermediate-results-encryption-hardware-acceleration`, 
+`--temp.intermediate-results-encryption`, 
+`--temp.intermediate-results-spillover-threshold-num-rows` and
+`--temp.intermediate-results-spillover-threshold-memory-usage`.
+Example:
+`arangod --temp.intermediate-results-path "tempDir" 
+--database.directory "myDir"
+--temp.-intermediate-results-encryption-hardware-acceleration true
+--temp.intermediate-results-encryption true 
+--temp.intermediate-results-spillover-threshold-num-rows 50000
+--temp.intermediate-results-spillover-threshold-memory-usage 134217728`
 
-The threshold value mentioned to start spilling data onto disk is either
-the number of rows in the query input or the amount of memory usage in bytes,
-which are set as query options `spillOverThresholdNumRows` and 
-`spillOverThresholdMemoryUsage`.
-
-The main parameter that must be provided for this feature to be active is
-
-`--temp.intermediate-results-path`: specifies a path to a directory that will 
-be used for temporary storage of data. If such path is not provided, the 
-feature of spilling data onto the disk will not be activated.
-Hence, the following parameters would not have effect unless the parameter
-mentioned above is provided with a directory path.
-The directory specified here must not be located underneath the instance's
-database directory.
-
-`--temp.-intermediate-results-encryption-hardware-acceleration`: use Intel 
-intrinsics-based encryption, requiring a CPU with the AES-NI instruction set. 
-If turned off, then OpenSSL is used, which may use hardware-accelarated 
-encryption too. Default: true.
-
-`--temp.intermediate-results-capacity`: maximum capacity, in bytes to use for ephemeral, 
-intermediate results. Default: 0 (unlimited)
-
-`--temp.intermediate-results-encryption`: encrypt ephemeral, intermediate 
-results on disk. Default: false.
-
-`--temp.intermediate-results-spillover-threshold-num-rows`: number of
-result rows from which on a spillover from RAM to disk will happen.
-
-`--temp.intermediate-results-spillover-threshold-memory-usage`: memory
-usage (in bytes) after which a spillover from RAM to disk will happen.
-
+Note: this feature is experimental and off by default. 
 
 
 Internal changes
