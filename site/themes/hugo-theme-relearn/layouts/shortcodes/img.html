@@ -1,0 +1,9 @@
+{{ $image := resources.GetMatch ( .Get "src" ) }}
+<div class="flex-container">
+    <figure>
+        <img src="{{ $image.RelPermalink }}" alt={{ .Get "alt" }}/>
+        <figcaption>
+            <div class="caption">{{ .Get "alt" }}</div>
+        </figcaption>
+    </figure>
+</div>

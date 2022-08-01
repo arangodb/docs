@@ -61,7 +61,8 @@ To delete a role binding, click the **Recycle Bin** icon in the **Actions** colu
 Currently, you cannot edit a role binding, you can only delete it.
 {% endhint %}
 
-![Oasis Project Policy](images/oasis-policy-page.png)
+{{< img src="images/oasis-policy-page.png" alt="Oasis Policy Page" >}}
+
 
 ### How to add a role binding to a policy
 
