@@ -1,0 +1,21 @@
+arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">&quot;users&quot;</span>, {
+........&gt;   computedValues: [
+........&gt;     {
+........&gt;       name: <span class="hljs-string">&quot;createdAt&quot;</span>,
+........&gt;       expression: <span class="hljs-string">&quot;RETURN DATE_NOW()&quot;</span>,
+........&gt;       overwrite: <span class="hljs-literal">true</span>,
+........&gt;       computeOn: [<span class="hljs-string">&quot;insert&quot;</span>]
+........&gt;     }
+........&gt;   ]
+........&gt; });
+arangosh&gt; <span class="hljs-keyword">var</span> doc = db.users.save({ <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Paula Plant&quot;</span> });
+arangosh&gt; db.users.toArray();
+[ 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72050&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72050&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ejlrgWO---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Paula Plant&quot;</span>, 
+    <span class="hljs-string">&quot;createdAt&quot;</span> : <span class="hljs-number">1659366115716</span> 
+  } 
+]
