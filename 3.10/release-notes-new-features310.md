@@ -36,6 +36,34 @@ UI
 AQL
 ---
 
+### Parallelism for Sharded Graphs (Enterprise Edition)
+
+The 3.10 release supports traversal parallelism for Sharded Graphs,
+which means that traversals with many start vertices can now run
+in parallel. An almost linear performance improvement has been
+achieved, so the parallel processing of threads leads to faster results.
+
+This feature supports all types of graphs - General Graphs, SmartGraphs,
+EnterpriseGraphs (including Disjoint).
+
+Traversals with many start vertices can now run in parallel.
+A traversal always starts with one single start vertex and then explores
+the vertex neighborhood. When you want to explore the neighborhoods of
+multiple vertices, you now have the option to do multiple operations in parallel.
+
+The example below shows how to use parallelism to allow using up to three
+threads to search for `v/1`, `v/2`, and `v/3` in parallel and independent of one
+another. Note that parallelism increases the memory usage of the query due to
+having multiple operations performed simultaneously, instead of one after the
+other.
+
+```aql
+FOR startVertex IN ["v/1", "v/2", "v/3", "v/4"]
+FOR v,e,p IN 1..3 OUTBOUND startVertex GRAPH "yourShardedGraph" OPTIONS {parallelism: 3}
+[...]
+```
+This feature is only available in the Enterprise Edition.
+
 ### GeoJSON changes
 
 The 3.10 release of ArangoDB conforms to the standards specified in 
