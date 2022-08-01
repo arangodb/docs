@@ -14,11 +14,11 @@ expires: 0
 pragma: no-cache
 server: ArangoDB
 strict-transport-security: max-age=31536000 ; includeSubDomains
-x-arango-async-id: 82375
+x-arango-async-id: 82379
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/82375</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/82379</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">400</span> Bad Request
 content-type: application/json
@@ -30,7 +30,7 @@ expires: <span class="hljs-number">0</span>
 pragma: no-cache
 server: ArangoDB
 strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
-x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">82375</span>
+x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">82379</span>
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 

@@ -12,9 +12,9 @@ arangosh&gt; <span class="hljs-keyword">var</span> idx = db.users.ensureIndex({ 
 arangosh&gt; db._query(<span class="hljs-string">`FOR u IN users FILTER &quot;avocados&quot; IN u.searchTags RETURN u`</span>).toArray();
 [ 
   { 
-    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72023&quot;</span>, 
-    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72023&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ejlrgV6--_&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72027&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72027&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ejmVM32--_&quot;</span>, 
     <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Paula Plant&quot;</span>, 
     <span class="hljs-string">&quot;is&quot;</span> : [ 
       { 

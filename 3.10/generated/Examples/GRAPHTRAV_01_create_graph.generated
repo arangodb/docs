@@ -5,67 +5,67 @@ arangosh&gt; db.circles.toArray();
   { 
     &quot;_key&quot; : &quot;A&quot;, 
     &quot;_id&quot; : &quot;circles/A&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02W---&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRa---&quot;, 
     &quot;label&quot; : &quot;1&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;B&quot;, 
     &quot;_id&quot; : &quot;circles/B&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02W--_&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRa--_&quot;, 
     &quot;label&quot; : &quot;2&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;C&quot;, 
     &quot;_id&quot; : &quot;circles/C&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02W--A&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRa--A&quot;, 
     &quot;label&quot; : &quot;3&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;D&quot;, 
     &quot;_id&quot; : &quot;circles/D&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a---&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRa--B&quot;, 
     &quot;label&quot; : &quot;4&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;E&quot;, 
     &quot;_id&quot; : &quot;circles/E&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--_&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRa--C&quot;, 
     &quot;label&quot; : &quot;5&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;F&quot;, 
     &quot;_id&quot; : &quot;circles/F&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--A&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRa--D&quot;, 
     &quot;label&quot; : &quot;6&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;G&quot;, 
     &quot;_id&quot; : &quot;circles/G&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--B&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe---&quot;, 
     &quot;label&quot; : &quot;7&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;H&quot;, 
     &quot;_id&quot; : &quot;circles/H&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--C&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--_&quot;, 
     &quot;label&quot; : &quot;8&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;I&quot;, 
     &quot;_id&quot; : &quot;circles/I&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--D&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--A&quot;, 
     &quot;label&quot; : &quot;9&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;J&quot;, 
     &quot;_id&quot; : &quot;circles/J&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--E&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--B&quot;, 
     &quot;label&quot; : &quot;10&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;K&quot;, 
     &quot;_id&quot; : &quot;circles/K&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--F&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--C&quot;, 
     &quot;label&quot; : &quot;11&quot; 
   } 
 ]
@@ -76,7 +76,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63202&quot;, 
     &quot;_from&quot; : &quot;circles/A&quot;, 
     &quot;_to&quot; : &quot;circles/B&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--G&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--D&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_bar&quot; 
@@ -86,7 +86,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63204&quot;, 
     &quot;_from&quot; : &quot;circles/B&quot;, 
     &quot;_to&quot; : &quot;circles/C&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--H&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--E&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blarg&quot; 
@@ -96,7 +96,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63206&quot;, 
     &quot;_from&quot; : &quot;circles/C&quot;, 
     &quot;_to&quot; : &quot;circles/D&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02a--I&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--F&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blorg&quot; 
@@ -106,7 +106,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63208&quot;, 
     &quot;_from&quot; : &quot;circles/B&quot;, 
     &quot;_to&quot; : &quot;circles/E&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02e---&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--G&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blub&quot; 
@@ -116,7 +116,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63210&quot;, 
     &quot;_from&quot; : &quot;circles/E&quot;, 
     &quot;_to&quot; : &quot;circles/F&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02e--_&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRe--H&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_schubi&quot; 
@@ -126,7 +126,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63212&quot;, 
     &quot;_from&quot; : &quot;circles/A&quot;, 
     &quot;_to&quot; : &quot;circles/G&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02e--A&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRi---&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_foo&quot; 
@@ -136,7 +136,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63214&quot;, 
     &quot;_from&quot; : &quot;circles/G&quot;, 
     &quot;_to&quot; : &quot;circles/H&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02e--B&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRi--_&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_blob&quot; 
@@ -146,7 +146,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63216&quot;, 
     &quot;_from&quot; : &quot;circles/H&quot;, 
     &quot;_to&quot; : &quot;circles/I&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02e--C&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRi--A&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_blub&quot; 
@@ -156,7 +156,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63218&quot;, 
     &quot;_from&quot; : &quot;circles/G&quot;, 
     &quot;_to&quot; : &quot;circles/J&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02e--D&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRi--B&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_zip&quot; 
@@ -166,7 +166,7 @@ arangosh&gt; db.edges.toArray();
     &quot;_id&quot; : &quot;edges/63220&quot;, 
     &quot;_from&quot; : &quot;circles/J&quot;, 
     &quot;_to&quot; : &quot;circles/K&quot;, 
-    &quot;_rev&quot; : &quot;_ejlq02e--E&quot;, 
+    &quot;_rev&quot; : &quot;_ejmUaRi--C&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_zup&quot; 
