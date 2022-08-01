@@ -16,6 +16,6 @@ In addition the library provides:
 - Adherence to common-practice C# naming conventions
 - Consistent approach for each API endpoint
 
-## What's New 
+## New Releases 
 
-A new release of the driver (version 1.1.1) is available now. To see the full list of updates and improvements, please refer to the [driver's GitHub page](https://github.com/ArangoDB-Community/arangodb-net-standard/releases/tag/1.1.1).
+A new release of the driver (version 1.1.1) is available now. To see the full list of updates and improvements, please refer to the [driver's GitHub page](https://github.com/ArangoDB-Community/arangodb-net-standard/releases/tag/1.1.1){:target="_blank"}.
