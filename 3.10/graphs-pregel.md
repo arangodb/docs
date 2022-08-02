@@ -156,7 +156,7 @@ or kept in memory only (using `store: false`). If the data is persisted,
 then you can query the documents normally to get access to the results.
 
 If you do not want to store results, then they are only held temporarily,
-until you call the `cancel()` method or its time to live (customizable via 
+until you call the `cancel()` method, or their time to live (customizable via 
 the `ttl` parameter) is exceeded. The in-memory results can be accessed via the 
 `PREGEL_RESULT()` AQL function. If the results are stored in documents, they 
 are not queryable by `PREGEL_RESULT()`.
@@ -209,9 +209,9 @@ There are a number of general parameters which apply to almost all algorithms:
   larger datasets.
 - `shardKeyAttribute` (string): shard key that edge collections are sharded
   after (default: `"vertex"`)
-- `ttl` (number): The time to live (TTL) defines for how long the Pregel run
+- `ttl` (number): The time to live (TTL) defines for how long (in seconds) the Pregel run
   is kept in memory after it finished with states `done`, `error` or 
-  `fatal error` in seconds. Defaults to 600.
+  `fatal error`. Defaults to 600.
 
 Limits
 ------
