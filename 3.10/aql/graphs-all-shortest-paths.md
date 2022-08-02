@@ -36,7 +36,7 @@ expected two shortest paths are:
 
 Another path that connects Carlisle and London is
 Carlisle – Glasgow – Edinburgh – York – London, but it is has two more stops and
-is therefore not a path of shortest length.
+is therefore not a path of the shortest length.
 
 ## Syntax
 
@@ -62,7 +62,7 @@ FOR path
 - **startVertex** `TO` **targetVertex** (both string\|object): the two vertices between
   which the paths will be computed. This can be specified in the form of
   a ID string or in the form of a document with the attribute `_id`. All other
-  values will lead to a warning and an empty result. If one of the specified
+  values result in a warning and an empty result. If one of the specified
   documents does not exist, the result is empty as well and there is no warning.
 - `GRAPH` **graphName** (string): the name identifying the named graph. Its vertex and
   edge collections will be looked up.
@@ -86,11 +86,11 @@ edge collections.
 
 ### Traversing in mixed directions
 
-For All Shortest Paths with a list of edge collections you can optionally specify the
+For All Shortest Paths with a list of edge collections, you can optionally specify the
 direction for some of the edge collections. Say, for example, you have three edge
 collections *edges1*, *edges2* and *edges3*, where in *edges2* the direction
 has no relevance, but in *edges1* and *edges3* the direction should be taken into
-account. In this case you can use `OUTBOUND` as general search direction and `ANY`
+account. In this case you can use `OUTBOUND` as a general search direction and `ANY`
 specifically for *edges2* as follows:
 
 ```aql
@@ -100,7 +100,7 @@ FOR path IN OUTBOUND ALL_SHORTEST_PATHS
 ```
 
 All collections in the list that do not specify their own direction will use the
-direction defined after `IN` (here: `OUTBOUND`). This allows to use a different
+direction defined after `IN` (here: `OUTBOUND`). This allows using a different
 direction for each collection in your path search.
 
 ## Examples
@@ -126,7 +126,7 @@ train connections in Europe and North America:
 
 Suppose you want to query a route from **Carlisle** to **London**, and
 compare the outputs of `SHORTEST_PATH`, `K_SHORTEST_PATHS` and `ALL_SHORTEST_PATHS`.
-Note that `SHORTEST_PATH` returns any of the shortest paths whereas
+Note that `SHORTEST_PATH` returns any of the shortest paths, whereas
 `ALL_SHORTEST_PATHS` returns all of them. `K_SHORTEST_PATHS` returns the
 shortest paths first but continues with longer paths, until it found all routes
 or reaches the defined limit (the number of paths).
