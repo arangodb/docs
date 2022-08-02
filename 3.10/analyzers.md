@@ -980,6 +980,8 @@ Create different `segmentation` Analyzers to show the behavior of the different
 
 <small>Introduced in: v3.10.0</small>
 
+{% include hint-ee.md feature="The `classification analyzer" %}
+
 {% hint 'warning' %}
 This feature is experimental and under active development.
 The naming and interfaces may change at any time.
@@ -1037,6 +1039,8 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 ### `nearest_neighbors`
 
 <small>Introduced in: v3.10.0</small>
+
+{% include hint-ee.md feature="The `nearest_neighbors` analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
