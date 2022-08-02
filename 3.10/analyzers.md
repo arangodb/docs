@@ -980,7 +980,7 @@ Create different `segmentation` Analyzers to show the behavior of the different
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `classification analyzer" %}
+{% include hint-ee.md feature="The `classification` analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
