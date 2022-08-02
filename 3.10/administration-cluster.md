@@ -182,13 +182,13 @@ It aims to achieve, for example, a balanced load, fair shard distribution,
 and resiliency.
 
 Rebalancing might occur, amongst other scenarios, when:
-- There is a change in the number of nodes in the cluster and more (or less)
+- There is a change in the number of nodes in the cluster and more (or fewer)
 resources are available to the cluster.
 - There is a detectable imbalance in the distribution of shards
 (i.e. specific nodes holding high number of shards while others don’t) or in
-the distribution of leaders/followers across the nodes, resulting on
+the distribution of leaders/followers across the nodes, resulting in
 computational imbalance on the nodes.
-- There are changes on the number or size of data collections.
+- There are changes in the number or size of data collections.
 
 A _shard_ can be moved from a _DB-Server_ to another, and the entire shard distribution
 can be rebalanced using the corresponding buttons in the web [UI](programs-web-interface-cluster.html).
