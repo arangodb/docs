@@ -785,17 +785,21 @@ in the optimizer pipeline.
 
 ### Additional optimizations applied
 
+#### Scan-Only Optimization
+
 If a query iterates over a collection (for filtering or counting) but does not need
 the actual document values later, the optimizer can apply a "scan-only" optimization 
-for *EnumerateCollectionNode*s and *IndexNode*s. In this case, it will not build up
+for `EnumerateCollectionNode` and  `IndexNode` node types. In this case, it will not build up
 a result with the document data at all, which may reduce work significantly.
 In case the document data is actually not needed later on, it may be sensible to remove 
 it from query strings so the optimizer can apply the optimization.
 
-If the optimization is applied, it will show up as "scan only" in an AQL
-query's execution plan for an *EnumerateCollectionNode* or an *IndexNode*.
+If the optimization is applied, it will show up as `scan only` in an AQL
+query's execution plan for an `EnumerateCollectionNode` or an `IndexNode`.
 
-Additionally, the optimizer can apply an "index-only" optimization for AQL queries that 
+#### Index-Only Optimization
+
+The optimizer can apply an "index-only" optimization for AQL queries that 
 can satisfy the retrieval of all required document attributes directly from an index.
 
 This optimization will be triggered if an index is used
@@ -809,5 +813,95 @@ on in the query.
 The optimization is currently available for the following index types: primary,
 edge, and persistent.
 
-If the optimization is applied, it will show up as "index only" in an AQL
-query's execution plan for an *IndexNode*.
+If the optimization is applied, it will show up as `index only` in an AQL
+query's execution plan for an `IndexNode`.
+
+#### Filter Projections Optimizations
+
+<small>Introduced: v3.10.0</small>
+
+If an index is used that does not cover all required attributes for the query,
+but if it is followed by filter conditions that only access attributes that are
+part of the index, then an optimization is applied, to only fetch matching
+documents. "Part of the index" here means, that all attributes referred to in
+the post-filter conditions are contained in the `fields` or `storedValues` 
+attributes of the index definition.
+
+For example, the optimization is applied in the following case:
+- There is a persistent index on the attributes `[ "value1", "value2" ]` 
+  (in this order), or there is a persistent index on just `["value1"]` and
+  with a `storedValues` definition of `["value2"]`.
+- There is a filter condition on `value1` that can use the index, and a filter
+  condition on `value2` that cannot use the index (post-filter condition).
+
+Example query:
+
+```aql
+FOR doc IN collection
+  FILTER doc.value1 == @value1   /* uses the index */
+  FILTER ABS(doc.value2) != @value2   /* does not use the index */
+  RETURN doc
+```
+
+This query's execution plan looks as follows:
+
+```aql
+Execution plan:
+ Id   NodeType        Est.   Comment
+  1   SingletonNode      1   * ROOT
+  8   IndexNode          0     - FOR doc IN collection   /* persistent index scan (filter projections: `value2`) */    FILTER (ABS(doc.`value2`) != 2)   /* early pruning */   
+  7   ReturnNode         0       - RETURN doc
+
+Indexes used:
+ By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields                   Ranges
+  8   idx_1737498319258648576   persistent   collection   false    false    false       99.96 %   [ `value1`, `value2` ]   (doc.`value1` == 1)
+```
+
+The first filter condition is transformed to an index lookup, as you can tell
+from the `persistent index scan` comment and the `Indexes used` section that
+shows the range `` doc.`value` == 1 ``. The post-filter condition
+`FILTER ABS(doc.value2) != 2` can be recognized as such by the `early pruning`
+comment that follows it.
+
+The `filter projections` mentioned in the above execution plan is an indicator 
+of the optimization being triggered.
+
+Instead of fetching the full documents from the storage engine for all index
+entries that matched the index lookup condition, only those that also satisfy
+the index lookup post-filter condition are fetched.
+If the post-filter condition filters out a lot of documents, this optimization
+can significantly speed up queries that produce large result sets from index
+lookups but filter many of the documents away with post-filter conditions.
+
+Note that the optimization can also be combined with regular projections, e.g.
+for the following query that returns a specific attribute from the documents
+only:
+
+```aql
+FOR doc IN collection
+  FILTER doc.value1 == @value1   /* uses the index */
+  FILTER ABS(doc.value2) != @value2   /* does not use the index */
+  RETURN doc.value3
+```
+
+That query's execution plan combines projections from the index for the
+post-filter condition (`filter projections`) as well as regular projections
+(`projections`) for the processing parts of the query that follow the
+post-filter condition:
+
+```aql
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  9   IndexNode         5000     - FOR doc IN collection   /* persistent index scan (filter projections: `value2`) (projections: `value3`) */    FILTER (ABS(doc.`value2`) != 2)   /* early pruning */
+  7   CalculationNode   5000       - LET #5 = doc.`value3`   /* attribute expression */   /* collections used: doc : collection */
+  8   ReturnNode        5000       - RETURN #5
+
+Indexes used:
+ By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields                   Ranges
+  9   idx_1737498319258648576   persistent   collection   false    false    false       99.96 %   [ `value1`, `value2` ]   (doc.`value1` == 1)
+```
+
+The optimization is most effective for queries in which many documents would
+be selected by the index lookup condition, but many are filtered out by the 
+post-filter condition.

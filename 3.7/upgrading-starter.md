@@ -51,21 +51,22 @@ The first step is to install the new ArangoDB package.
 
 **Note:** you do not have to stop the _Starter_ processes before upgrading it.
 
-For example, if you want to upgrade to `3.7.13` on Debian or Ubuntu, either call
+For example, if you want to upgrade to `3.9.2` on Debian or Ubuntu, either call
 
 ```bash
-apt install arangodb=3.7.13
+apt install arangodb=3.9.2
 ```
 
 (`apt-get` on older versions) if you have added the ArangoDB repository. Or
 install a specific package using
 
 ```bash
-dpkg -i arangodb3-3.7.13-1_amd64.deb
+dpkg -i arangodb3-3.9.2-1_amd64.deb
 ```
 
 after you have downloaded the corresponding file from
-[www.arangodb.com/download/](https://www.arangodb.com/download/){:target="_blank"}.
+[www.arangodb.com/download/](https://www.arangodb.com/download/){:target="_blank"}
+or have downloaded the new Enterprise Edition executable.
 
 If you are using the `.tar.gz` distribution,
 you can simply extract the new archive in a different
@@ -189,8 +190,11 @@ the following situation:
 
 ### Start the upgrade process of all _arangod_ & _arangosync_ servers
 
-Run the following command for any of the starter endpoints
-(e.g. `http://localhost:8528`) to upgrade the entire cluster:
+Once you have carried out the above steps on all servers of the clusters, the
+actual upgrade procedure can be started.
+
+Run the following command on any of the cluster nodes for any of the starter 
+endpoints (e.g. `http://localhost:8528`) to upgrade the entire cluster:
 
 ```bash
 arangodb upgrade --starter.endpoint=<endpoint-of-a-starter>
@@ -198,6 +202,9 @@ arangodb upgrade --starter.endpoint=<endpoint-of-a-starter>
 
 If you have connected clusters across multiple datacenter
 (DC2DC deployment), then you need to update each of the clusters.
+
+If the upgrade command fails, please try again. If the upgrade command continues
+to fail, please contact the ArangoDB support.
 
 #### Deployment mode `single`
 
@@ -272,3 +279,18 @@ Note that an abort does not stop all upgrade processes immediately.
 If an _arangod_ or _arangosync_ server is being upgraded when the abort
 was issued, this upgrade will be finished. Remaining servers will not be
 upgraded.
+
+## Going back to the previous version in case of failure
+
+In case the upgrade cannot be carried out (i.e. the upgrade command continues 
+to fail with an error message) please contact the ArangoDB support.
+
+Until then, the not yet upgraded instances will still be running the previous
+version of ArangoDB. When instances are restarted, they will be starting
+with the newly installed version.
+
+In order to avoid that instances use the new version upon the
+next restart, it is possible to install the previous version again.
+The steps for that are the same as for installing the new version (see above)
+and making sure that the service for the standalone instance is disabled 
+(also see above).

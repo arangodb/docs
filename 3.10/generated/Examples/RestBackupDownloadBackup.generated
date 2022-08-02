@@ -1,6 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/download</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-07-15T09.09.52Z_6b8f2389-b035-498d-8fc6-eb06d725dc36&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-08-01T15.46.38Z_99f66410-5e85-49ae-a8fb-e329e83e9989&quot;</span>, 
   <span class="hljs-string">&quot;remoteRepository&quot;</span> : <span class="hljs-string">&quot;local://tmp/backups&quot;</span>, 
   <span class="hljs-string">&quot;config&quot;</span> : { 
     <span class="hljs-string">&quot;local&quot;</span> : { 
@@ -12,9 +12,14 @@ EOF
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
 content-length: <span class="hljs-number">58</span>
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
@@ -22,6 +27,6 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">202</span>, 
   <span class="hljs-string">&quot;result&quot;</span> : { 
-    <span class="hljs-string">&quot;downloadId&quot;</span> : <span class="hljs-string">&quot;66892&quot;</span> 
+    <span class="hljs-string">&quot;downloadId&quot;</span> : <span class="hljs-string">&quot;66888&quot;</span> 
   } 
 }

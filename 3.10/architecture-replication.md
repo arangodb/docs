@@ -18,7 +18,7 @@ Asynchronous replication is used:
 
 - between the _Leader_ and the _Follower_ of an ArangoDB
   [_Active Failover_](architecture-deployment-modes-active-failover.html) setup
-- between multiple ArangoDB [Data Centers](architecture-deployment-modes-dc2-dc.html)
+- between multiple ArangoDB [Data Centers](deployment-dc2dc.html)
   (inside the same Data Center replication is synchronous)
 
 Synchronous replication

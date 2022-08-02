@@ -68,19 +68,25 @@ FOR u IN users
   UPDATE u WITH { name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
 
-An update operation may update arbitrary documents which do not need to be identical
-to the ones produced by a preceding `FOR` statement:
+An update operation may update arbitrary documents:
 
 ```aql
 FOR i IN 1..1000
   UPDATE CONCAT('test', i) WITH { foobar: true } IN users
 ```
 
+The documents it modifies can be in a different collection than
+the ones produced by a preceding `FOR` operation:
+
 ```aql
 FOR u IN users
   FILTER u.active == false
   UPDATE u WITH { status: 'inactive' } IN backup
 ```
+
+Note how documents are read from the `users` collection but updated in another
+collection called `backup`. Both collections need to use matching document keys
+for this to work.
 
 Using the current value of a document attribute
 -----------------------------------------------

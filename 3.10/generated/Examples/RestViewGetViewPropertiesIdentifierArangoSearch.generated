@@ -1,10 +1,15 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/view/68997/properties</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/view/69005/properties</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
 content-length: <span class="hljs-number">496</span>
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
@@ -28,10 +33,10 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;commitIntervalMsec&quot;</span> : <span class="hljs-number">1000</span>, 
   <span class="hljs-string">&quot;links&quot;</span> : { 
   }, 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68997&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;69005&quot;</span>, 
   <span class="hljs-string">&quot;storedValues&quot;</span> : [ ], 
   <span class="hljs-string">&quot;cleanupIntervalStep&quot;</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h7FEA00FC9B54/68997&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hEDDB4768A0A2/69005&quot;</span>, 
   <span class="hljs-string">&quot;primarySort&quot;</span> : [ ], 
   <span class="hljs-string">&quot;primarySortCompression&quot;</span> : <span class="hljs-string">&quot;lz4&quot;</span> 
 }
