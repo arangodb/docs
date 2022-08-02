@@ -6,10 +6,10 @@ description: >-
 ---
 # Computed Values
 
+<small>Introduced in: v3.10.0</small>
+
 {{ page.description }}
 {:class="lead"}
-
-<small>Introduced in: v3.10.0</small>
 
 If you want to add default values to new documents, maintain auxiliary
 attributes for search queries, or similar, you can set these attributes manually
@@ -28,15 +28,24 @@ every document, or to automatically combine multiple attributes into one,
 possibly with filtering and a conversion to lowercase characters, to then index
 the attribute and use it to perform case-insensitive searches.
 
+## Using Computed Values
+
+Computed values are defined per collection using the `computedValues` property,
+either when creating the collection or by modifying the collection later on.
+If you add or modify computed value definitions at a later point, then they only
+affect subsequent write operations. Existing documents remain in their state.
+
+Computed value definitions are included in dumps, and the attributes they added,
+too, but no expressions are executed when restoring dumps. The collections and
+documents are restored as they are in the dump and no attributes are recalculated.
+
 ## JavaScript API
 
-Computed values are defined per collection, either when creating the collection
-or by modifying the collection later on. The collection property is called
-`computedFields` and accepts an array of objects.
+The `computedValues` collection property accepts an array of objects.
 
-`db._create(<collection-name>, { computedFields: [ { … }, … ] })`
+`db._create(<collection-name>, { computedValues: [ { … }, … ] })`
 
-`db.<collection-name>.properties({ computedFields: [ { … }, … ] })`
+`db.<collection-name>.properties({ computedValues: [ { … }, … ] })`
 
 Each object represents a computed value and can have the following attributes:
 
@@ -50,8 +59,9 @@ Each object represents a computed value and can have the following attributes:
   See [Computed Value Expressions](#computed-value-expressions) for details.
 
 - `overwrite` (boolean, _required_):
-  Whether the computed value shall take precedence over a user-provided or
-  existing attribute.
+  Whether the target attribute shall be set if the expression evaluates to `null`.
+  You can set the option to `false` to not set (or unset) the target attribute if
+  the expression returns `null`. The default is `true`.
 
 - `computeOn` (array, _optional_):
   An array of strings to define on which write operations the value shall be
@@ -59,12 +69,19 @@ Each object represents a computed value and can have the following attributes:
   The default is `["insert", "update", "replace"]`.
 
 - `keepNull` (boolean, _optional_):
-  Whether the result of the expression shall be stored if it evaluates to `null`.
-  This can be used to skip the value computation if any pre-conditions are not met.
+  Whether the target attribute shall be set if the expression evaluates to `null`.
+  You can set the option to `false` to not set (or unset) the target attribute if
+  the expression returns `null`. The default is `true`.
 
-If you add, remove, or modify computed value definitions at a later point, they
-are only applied to subsequent write operations and older documents remain in
-their state.
+- `failOnWarning` (boolean, _optional_):
+  Whether to let the write operation fail if the expression produces a warning.
+  The default is `false`.
+
+## HTTP API
+
+See the `computedValues` collection property in the HTTP API documentation for
+[Creating Collections](http/collection-creating.html) and
+[Modifying Collections](http/collection-modifying.html).
 
 ## Computed Value Expressions
 
@@ -76,14 +93,14 @@ You can access the document data via the `@doc` bind variable. It contains the
 data as it will be stored, including the `_key`, `_id`, and `_rev`
 system attributes. On inserts, you get the user-provided values (plus the
 system attributes), and on modifications, you get the updated or replaced
-document to work with.
+document to work with, including the user-provided values.
 
-Computed value expressions have the following requirements:
+Computed value expressions have the following properties:
 
-- The expression must start with a `RETURN` statement.
-
-- No `FOR` loops, `LET` statements, and subqueries are allowed in the expression.
-  `FOR` loops can be substituted using the [array expansion operator `[*]`](aql/advanced-array-operators.html#inline-expressions),
+- The expression must start with a `RETURN` operation and cannot contain any
+  other operations. No `FOR` loops, `LET` statements, and subqueries are allowed
+  in the expression. `FOR` loops can be substituted using the
+  [array expansion operator `[*]`](aql/advanced-array-operators.html#inline-expressions),
   for example, with an inline expressions like the following:
 
   `RETURN @doc.values[* FILTER CURRENT > 42 RETURN CURRENT * 2]`
@@ -93,9 +110,15 @@ Computed value expressions have the following requirements:
   be used in the expression (e.g. `DOCUMENT()`, `PREGEL_RESULT()`,
   `COLLECTION_COUNT()`).
 
-- You cannot base a computed value on another. If you reference an attribute
-  that results from another computed value, the value is implicitly `null`,
-  like any access of non-existent attributes.
+- You cannot access the result of another computed value that is generated on
+  the same `computeOn` event.
+  
+  For example, two computed values that are generated on `insert` can not see
+  the result of the other. Referencing the attributes results in an implicit
+  `null` value. Computed values that are generated on `update` or `replace` can
+  see the results of the previous `insert` computations, however. They cannot
+  see the new values of other `update` and `replace` computations, regardless of
+  the order of the computed value definitions in the `computedValues` property.
 
 - You can use AQL functions in the expression but only those that can be
   executed on DB-Servers, regardless of your deployment type. The following
@@ -117,10 +140,142 @@ Computed value expressions have the following requirements:
   - `FULLTEXT()`
   - [User-defined functions (UDFs)](aql/extending.html)
 
-<!-- TODO
-When using arangodump to restore data into a collection with computed attributes defined, the restore does not recalculate the computed values, but will restore the documents as they are contained inside the dump.
+Expressions that do not meet the requirements or that are syntactically invalid
+are rejected immediately, when setting or modifying the computed value definitions
+of a collection.
 
-Values of computed attributes are properly replicated to followers. Followers will receive the documents as they are stored on the leader, including any computed attributes. Followers will not rerun the computed attributes computations themselves.
+## Examples
 
-Non-deterministic computation expressions, such as RETURN RAND() will still work correctly, so that leaders and followers will have the same value for the computed attribute. This is achieved by leaders replicating the document data including the computed attributes values, and the followers not carrying out the computation again.
--->
+Add an attribute with the creation timestamp to new documents:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline computedValuesCreatedAt
+    @EXAMPLE_ARANGOSH_OUTPUT{computedValuesCreatedAt}
+    | var coll = db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "createdAt",
+    |       expression: "RETURN DATE_NOW()",
+    |       overwrite: true,
+    |       computeOn: ["insert"]
+    |     }
+    |   ]
+      });
+      var doc = db.users.save({ name: "Paula Plant" });
+      db.users.toArray();
+    ~ db._drop("users");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock computedValuesCreatedAt
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Add an attribute with the date and time of the last modification, only taking
+update and replace operations into (not inserts), and allowing to manually
+set this value instead of using the computed value:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline computedValuesModifiedAt
+    @EXAMPLE_ARANGOSH_OUTPUT{computedValuesModifiedAt}
+    | var coll = db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "modifiedAt",
+    |       expression: "RETURN ZIP(['date', 'time'], SPLIT(DATE_ISO8601(DATE_NOW()), 'T'))",
+    |       overwrite: false,
+    |       computeOn: ["update", "replace"]
+    |     }
+    |   ]
+      });
+      var doc = db.users.save({ _key: "123", name: "Paula Plant" });
+      doc = db.users.update("123", { email: "gardener@arangodb.com" });
+      db.users.toArray();
+      doc = db.users.update("123", { email: "greenhouse@arangodb.com", modifiedAt: { date: "2019-01-01", time: "20:30:00.000Z" } });
+      db.users.toArray();
+    ~ db._drop("users");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock computedValuesModifiedAt
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Compute an attribute from two arrays, filtering one of the lists, and calculating
+new values to implement a case-insensitive search using a persistent array index:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline computedValuesCombine
+    @EXAMPLE_ARANGOSH_OUTPUT{computedValuesCombine}
+    | var coll = db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "searchTags",
+    |       expression: "RETURN APPEND(@doc.is[* FILTER CURRENT.public == true RETURN LOWER(CURRENT.name)], @doc.loves[* RETURN LOWER(CURRENT)])",
+    |       overwrite: true
+    |     }
+    |   ]
+      });
+      var doc = db.users.save({ name: "Paula Plant", is: [ { name: "Gardener", public: true }, { name: "female" } ], loves: ["AVOCADOS", "Databases"] });
+      var idx = db.users.ensureIndex({ type: "persistent", fields: ["searchTags[*]"] });
+      db._query(`FOR u IN users FILTER "avocados" IN u.searchTags RETURN u`).toArray();
+    ~ db._drop("users");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock computedValuesCombine
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Set `keepNull` to `false` and let an expression return `null` to not set or
+unset the target attribute. If you set `overwrite` to `false` at the same time,
+then the target attribute is not actively unset:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline computedValuesKeepNull
+    @EXAMPLE_ARANGOSH_OUTPUT{computedValuesKeepNull}
+    | var coll = db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "fullName",
+    |       expression: "RETURN @doc.firstName != null AND @doc.lastName != null ? CONCAT_SEPARATOR(' ', @doc.firstName, @doc.lastName) : null",
+    |       overwrite: false,
+    |       keepNull: false
+    |     }
+    |   ]
+      });
+    | var docs = db.users.save([
+    |   { firstName: "Paula", lastName: "Plant" },
+    |   { firstName: "James" },
+    |   { lastName: "Barrett", fullName: "Andy J. Barrett" }
+      ]);
+      db.users.toArray();
+    ~ db._drop("users");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock computedValuesKeepNull
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Add a computed value as a sub-attribute to documents. This is not possible
+directly because the target attribute needs to be a top-level attribute, but the
+AQL expression can merge a nested object with the top-level attribute to achieve
+this. The expression checks whether the attributes it wants to calculate a new
+value from exist and are strings. If the preconditions are not met, then it
+returns the original `name` attribute:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline computedValuesSubattribute
+    @EXAMPLE_ARANGOSH_OUTPUT{computedValuesSubattribute}
+    | var coll = db._create("users", {
+    |   computedValues: [
+    |     {
+    |       name: "name",
+    |       expression: "RETURN IS_STRING(@doc.name.first) AND IS_STRING(@doc.name.last) ? MERGE(@doc.name, { 'full': CONCAT_SEPARATOR(' ', @doc.name.first, @doc.name.last) }) : @doc.name",
+    |       overwrite: true // must be true to replace the top-level "name" attribute
+    |     }
+    |   ]
+      });
+    | var docs = db.users.save([
+    |   { name: { first: "James" } },
+    |   { name: { first: "Paula", last: "Plant" } }
+      ]);
+      db.users.toArray();
+    ~ db._drop("users");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock computedValuesSubattribute
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}

@@ -10,9 +10,14 @@ EOF
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">507</span>
+content-length: <span class="hljs-number">508</span>
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
@@ -21,13 +26,13 @@ x-content-type-options: nosniff
     { 
       <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67407&quot;</span>, 
       <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67407&quot;</span>, 
-      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eeCdmnq--_&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ej55C1q---&quot;</span>, 
       <span class="hljs-string">&quot;hello3&quot;</span> : <span class="hljs-string">&quot;world1&quot;</span> 
     }, 
     { 
       <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67409&quot;</span>, 
       <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67409&quot;</span>, 
-      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eeCdmnq--A&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ej55C1q--_&quot;</span>, 
       <span class="hljs-string">&quot;hello4&quot;</span> : <span class="hljs-string">&quot;world1&quot;</span> 
     } 
   ], 
@@ -47,7 +52,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">&quot;cacheMisses&quot;</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00007421000009344425</span>, 
+      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00023884233087301254</span>, 
       <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">0</span> 
     } 
   }, 
