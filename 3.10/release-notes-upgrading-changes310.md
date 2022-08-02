@@ -61,6 +61,32 @@ suddenly interpreted in a different way. See
 Startup Options
 ---------------
 
+### Handling of Invalid Startup Options
+
+Starting with ArangoDB 3.10, the _arangod_ executable and all other client
+tools use more specific process exit codes in the following situations:
+  
+- An unknown startup option name is used: Previously, the exit code was `1`.
+  Now, the exit code when using an invalid option is `3` (symbolic exit code
+  name `EXIT_INVALID_OPTION_NAME`).
+- An invalid value is used for a startup option (e.g. a number that is
+  outside the allowed range for the option's underlying value type, or a
+  string value is used for a numeric option): Previously, the exit code was
+  `1`. Now, the exit code for these case is `4` (symbolic exit code name
+  `EXIT_INVALID_OPTION_VALUE`).
+- A config file is specified that does not exist: Previously, the exit code
+  was either `1` or `6` (symbolic exit code name `EXIT_CONFIG_NOT_FOUND`).
+  Now, the exit code in this case is always `6` (`EXIT_CONFIG_NOT_FOUND`).
+- A structurally invalid config file is used, e.g. the config file contains
+  a line that cannot be parsed: Previously, the exit code in this situation
+  was `1`. Now, it is always `6` (symbolic exit code name `EXIT_CONFIG_NOT_FOUND`).
+
+Note that this change can affect any custom scripts that check for startup
+failures using the specific exit code `1`. These scripts should be adjusted so
+that they check for a non-zero exit code. They can opt into more specific
+error handling using the additional exit codes mentioned above, in order to
+distinguish between different kinds of startup errors.
+
 ### Web Interface Options
 
 The `--frontend.*` startup options were renamed to `--web-interface.*`:
