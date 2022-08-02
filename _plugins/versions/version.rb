@@ -9,6 +9,8 @@ module JekyllVersions
     def self.from_path(config, path)
       if (v = Pathname.new(path).each_filename.first) =~ REGEX
         Version.new(config, v)
+      else
+        puts "\033[31mVersion method from_path called with invalid path '#{path}'\033[0m"
       end
     end
 
@@ -42,7 +44,15 @@ module JekyllVersions
     end
 
     def <=>(other)
-      Gem::Version.new(version.sub(/^v/, "")) <=> Gem::Version.new(other.version.sub(/^v/, ""))
+      if other
+        Gem::Version.new(version) <=> Gem::Version.new(other.version)
+      else
+        puts "\033[31mVersion method <=> called with falsy other, class '#{other.class}', inspect '#{other.inspect}', version '#{version}'\033[0m"
+        for c in caller_locations
+          puts c
+        end
+        1 # HACK: Does this help as a fallback?
+      end
     end
 
     alias_method :eql?, :==
