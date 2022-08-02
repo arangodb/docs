@@ -368,7 +368,7 @@ deployments will use RangeDeletes regardless of the value of this option.
 Note that it is not guaranteed that all truncate operations will use a RangeDelete operation. 
 For collections containing a low number of documents, the O(n) truncate method may still be used.
 
-### Pregel configration options
+### Pregel configuration options
 
 There are now several startup options to configure the parallelism of Pregel jobs:
 
@@ -401,6 +401,20 @@ This has a positive effect, because the reads can scale out to all DB-Servers
 that have copies of the data. Therefore, the read throughput is higher.
 
 For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
+
+## Improved shard rebalancing
+
+Starting with version 3.10, the shard rebalancing feature introduces an automatic shard rebalancing API. 
+
+You can do any of the following by using the API:
+
+* Get an analysis of the current cluster imbalance.
+* Compute a plan of move shard operations to rebalance the cluster and thus improve balance.
+* Execute the given set of move shard operations.
+* Compute a set of move shard operations to improve balance and execute them immediately. 
+
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+section of the HTTP API reference manual.
 
 Miscellaneous changes
 ---------------------

@@ -44,6 +44,8 @@ For the metrics APIs at `/_admin/metrics` and `/_admin/metrics/v2`, unnecessary 
 
 ### Endpoints added
 
+#### Optimizer rules for AQL queries
+
 Added the `GET /_api/query/rules` endpoint that returns the available
 optimizer rules for AQL queries. It returns an array of objects that contain
 the name of each available rule and its respective flags.
@@ -54,6 +56,19 @@ low-level method in _arangosh_:
 ```js
 arango.GET("/_api/query/rules")
 ```
+
+#### Shard rebalancing
+
+Starting with version 3.10, new endpoints are added that allow you to perform
+move shard operations and improve balance in the cluster.
+
+- `GET /_admin/cluster/rebalance`
+- `POST /_admin/cluster/rebalance`
+- `POST /_admin/cluster/rebalance_execute`
+- `PUT /_admin/cluster/rebalance`
+  
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+section of the HTTP API reference manual. 
 
 ### Endpoints augmented
 
