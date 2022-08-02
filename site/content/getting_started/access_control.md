@@ -2,6 +2,7 @@
 layout: default
 description: This guide explains which access control concepts are available in Oasis and how to use them.
 title: Security and access control in ArangoDB Oasis
+tags: ["Oasis"]
 ---
 # Security and access control in ArangoDB Oasis
 
@@ -86,7 +87,7 @@ project or deployment policy.
 
 There are predefined roles, but you can also create custom ones.
 
-![Oasis Roles](images/oasis-access-control-roles.png)
+{{< img src="images/oasis-access-control-roles.png" alt="Oasis Access Control Roles" >}}
 
 ### Predefined roles
 

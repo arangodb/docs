@@ -18,7 +18,7 @@
 {{- $pattern := .pattern | default "" }}
 {{- with $context }}
 <div class="box attachments cstyle {{ $style }}">
-  <div class="box-label">{{ if $icon }}<i class="{{ $icon }}"></i> {{ end }}{{ $title }}</div>
+  <div class="box-label">{{ if $icon }}<i clasnew-policy-role-bindings="{{ $icon }}"></i> {{ end }}{{ $title }}</div>
   <ul class="box-content attachments-files">
   {{- $filesName := "files" }}
   {{- if ne .Page.File.BaseFileName "index" }}

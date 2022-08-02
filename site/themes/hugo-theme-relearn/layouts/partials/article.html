@@ -1,6 +1,9 @@
 {{- $page := .page }}
 {{- $content := .content }}
 <button class="back-to-top hidden" onclick="goToTop()" href="#"><i class="fa fa-arrow-up"></i></button>
-
+<aside class="lg:block tableOfContentContainer border-indigo-200" id="tableOfContentContainer">
+    <h3>Table of contents</h3>
+    <nav id="TableOfContents">{{ $page.TableOfContents }}</nav>
+  </aside>
 <script type="text/javascript" src="/js/back-to-top-button.js"></script>
 {{- partial "archetype.hugo" (dict "hook" "article" "page" $page "parameter" (dict "page" $page "content" $content)) }}
