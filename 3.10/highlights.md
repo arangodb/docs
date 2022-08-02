@@ -26,6 +26,10 @@ grouped by version
   for faster lookups and [**Stored Values**](indexing-persistent.html#storing-additional-values-in-indexes)
   to let persistent indexes cover additional attributes of projections.
 
+- **AQL Graph Traversals**:
+  [All Shortest Paths](aql/graphs-all-shortest-paths.html) allows you to query
+  for all paths of shortest length between two documents.
+
 **Enterprise Edition**
 
 - 

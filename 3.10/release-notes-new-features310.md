@@ -36,6 +36,21 @@ UI
 AQL
 ---
 
+### All Shortest Paths Graph Traversal
+
+In addition to finding any shortest path and enumerating all paths between two
+vertices in order of increasing length, you can now use the new
+`ALL_SHORTEST_PATHS` graph traversal algorithm in AQL to get all paths of
+shortest length:
+
+```aql
+FOR p IN OUTBOUND ALL_SHORTEST_PATHS 'places/Carlisle' TO 'places/London'
+  GRAPH 'kShortestPathsGraph'
+    RETURN { places: p.vertices[*].label }
+```
+
+See [All Shortest Paths in AQL](aql/graphs-all-shortest-paths.html) for details.
+
 ### Parallelism for Sharded Graphs (Enterprise Edition)
 
 The 3.10 release supports traversal parallelism for Sharded Graphs,
