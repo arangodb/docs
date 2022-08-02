@@ -140,6 +140,8 @@ FOR vertex[, edge[, path]]
     that are running in a OneShard setup. Cluster traversals that run on a
     Coordinator node and SmartGraph traversals are currently not parallelized,
     even if the options is specified.
+  - **maxProjections** (number, *optional*): Specifies the number of graph
+    attributes per FOR loop to be used as projections. The default value is `5`. 
   - **weightAttribute** (string, *optional*): Specifies the name of an attribute
     that is used to look up the weight of an edge. If no attribute is specified
     or if it is not present in the edge document then the `defaultWeight` is used.

@@ -66,6 +66,16 @@ geo indexes need to be dropped and recreated after an upgrade.
 See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
 details and for hints about upgrading to version 3.10 or later.
 
+### Traversal Projections (Enterprise Edition)
+
+Starting with version 3.10, you can use projections in graph traversals to
+follow edges connected to a start vertex, up to a variable depth.
+
+The `maxProjections` is now introduced as an option when
+[working with named graphs](aql/graphs-traversals.html#working-with-named-graphs).
+
+See also [how to use `maxProjections` with FOR loops](aql/operations-for.html#maxprojections).
+
 ### Number of filtered documents in profiling output
 
 The AQL query profiling output now shows the number of filtered inputs for each execution node
