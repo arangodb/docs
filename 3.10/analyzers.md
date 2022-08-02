@@ -980,6 +980,8 @@ Create different `segmentation` Analyzers to show the behavior of the different
 
 <small>Introduced in: v3.10.0</small>
 
+{% include hint-ee.md feature="The `classification` analyzer" %}
+
 {% hint 'warning' %}
 This feature is experimental and under active development.
 The naming and interfaces may change at any time.
@@ -988,13 +990,13 @@ Execution times are not representative of the final product.
 
 An Analyzer capable of classifying tokens in the input text.
 
-It applies a user-provided [fastText](https://fasttext.cc/){:target="_blank"}
+It applies a user-provided [supervised fastText](https://fasttext.cc/docs/en/supervised-tutorial.html){:target="_blank"}
 word embedding model to classify the input text. It is able to classify
 individual tokens as well as entire inputs.
 
 The *properties* allowed for this Analyzer are an object with the following attributes:
 
-- `model_location` (string): the on-disk path to the trained fastText model.
+- `model_location` (string): the on-disk path to the trained fastText supervised model.
   Note: if you are running this in an ArangoDB cluster, this model must exist on
   every machine in the cluster.
 - `top_k` (number, optional): the number of class labels that will be produced
@@ -1038,6 +1040,8 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 <small>Introduced in: v3.10.0</small>
 
+{% include hint-ee.md feature="The `nearest_neighbors` analyzer" %}
+
 {% hint 'warning' %}
 This feature is experimental and under active development.
 The naming and interfaces may change at any time.
@@ -1046,7 +1050,7 @@ Execution times are not representative of the final product.
 
 An Analyzer capable of finding nearest neighbors of tokens in the input.
 
-It applies a user-provided [fastText](https://fasttext.cc/){:target="_blank"}
+It applies a user-provided [supervised fastText](https://fasttext.cc/docs/en/supervised-tutorial.html){:target="_blank"}
 word embedding model to retrieve nearest neighbor tokens in the text.
 It is able to find neighbors of individual tokens as well as entire input strings.
 For entire input strings, the Analyzer will return nearest neighbors for each
@@ -1054,7 +1058,7 @@ token within the input string.
 
 The *properties* allowed for this Analyzer are an object with the following attributes:
 
-- `model_location` (string): the on-disk path to the trained fastText model.
+- `model_location` (string): the on-disk path to the trained fastText supervised model.
   Note: if you are running this in an ArangoDB cluster, this model must exist on
   every machine in the cluster.
 - `top_k` (number, optional): the number of class labels that will be produced
