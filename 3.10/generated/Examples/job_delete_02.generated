@@ -2,10 +2,15 @@
 
 HTTP/1.1 202 Accepted
 content-type: text/plain
+cache-control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
 connection: Keep-Alive
 content-length: 0
+content-security-policy: frame-ancestors 'self'; form-action 'self';
+expires: 0
+pragma: no-cache
 server: ArangoDB
-x-arango-async-id: 82236
+strict-transport-security: max-age=31536000 ; includeSubDomains
+x-arango-async-id: 82366
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
@@ -13,24 +18,34 @@ x-content-type-options: nosniff
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">51</span>
+content-length: <span class="hljs-number">55</span>
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-number">1657876236.205681</span> 
+  <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-number">1659366116.5705843</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/expired?stamp=1657876236.205681</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/expired?stamp=1659366116.5705843</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
 content-length: <span class="hljs-number">15</span>
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
@@ -41,9 +56,14 @@ x-content-type-options: nosniff
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
 content-length: <span class="hljs-number">2</span>
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
