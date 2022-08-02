@@ -5,9 +5,14 @@ EOF
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">1065</span>
+content-length: <span class="hljs-number">1047</span>
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
@@ -15,40 +20,40 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">&quot;result&quot;</span> : { 
-    <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;SNGL-65d1362e-ef57-47db-bbd9-00f77ccbb4e6&quot;</span>, 
+    <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;SNGL-6275bac7-514f-45d1-9e87-c9d36d407eee&quot;</span>, 
     <span class="hljs-string">&quot;list&quot;</span> : { 
-      <span class="hljs-string">&quot;2022-06-23T11.54.29Z_96339dd6-f804-495d-8dd1-a339091ad0a3&quot;</span> : { 
-        <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-06-23T11.54.29Z_96339dd6-f804-495d-8dd1-a339091ad0a3&quot;</span>, 
-        <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.0-devel&quot;</span>, 
-        <span class="hljs-string">&quot;datetime&quot;</span> : <span class="hljs-string">&quot;2022-06-23T11:54:29Z&quot;</span>, 
+      <span class="hljs-string">&quot;2022-08-01T15.01.43Z_9a1d0b0c-d674-499c-9f04-c280d0739ddf&quot;</span> : { 
+        <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-08-01T15.01.43Z_9a1d0b0c-d674-499c-9f04-c280d0739ddf&quot;</span>, 
+        <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.0&quot;</span>, 
+        <span class="hljs-string">&quot;datetime&quot;</span> : <span class="hljs-string">&quot;2022-08-01T15:01:43Z&quot;</span>, 
         <span class="hljs-string">&quot;keys&quot;</span> : [ ], 
-        <span class="hljs-string">&quot;sizeInBytes&quot;</span> : <span class="hljs-number">85743</span>, 
-        <span class="hljs-string">&quot;nrFiles&quot;</span> : <span class="hljs-number">25</span>, 
+        <span class="hljs-string">&quot;sizeInBytes&quot;</span> : <span class="hljs-number">84670</span>, 
+        <span class="hljs-string">&quot;nrFiles&quot;</span> : <span class="hljs-number">23</span>, 
         <span class="hljs-string">&quot;nrDBServers&quot;</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">&quot;available&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;nrPiecesPresent&quot;</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">&quot;potentiallyInconsistent&quot;</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">&quot;countIncludesFilesOnly&quot;</span> : <span class="hljs-literal">true</span> 
       }, 
-      <span class="hljs-string">&quot;2022-06-23T11.54.29Z_70779553-9cf4-4323-acc6-2cc69c88bb0c&quot;</span> : { 
-        <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-06-23T11.54.29Z_70779553-9cf4-4323-acc6-2cc69c88bb0c&quot;</span>, 
-        <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.0-devel&quot;</span>, 
-        <span class="hljs-string">&quot;datetime&quot;</span> : <span class="hljs-string">&quot;2022-06-23T11:54:29Z&quot;</span>, 
+      <span class="hljs-string">&quot;2022-08-01T15.01.12Z_foo&quot;</span> : { 
+        <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-08-01T15.01.12Z_foo&quot;</span>, 
+        <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.0&quot;</span>, 
+        <span class="hljs-string">&quot;datetime&quot;</span> : <span class="hljs-string">&quot;2022-08-01T15:01:12Z&quot;</span>, 
         <span class="hljs-string">&quot;keys&quot;</span> : [ ], 
-        <span class="hljs-string">&quot;sizeInBytes&quot;</span> : <span class="hljs-number">83283</span>, 
-        <span class="hljs-string">&quot;nrFiles&quot;</span> : <span class="hljs-number">25</span>, 
+        <span class="hljs-string">&quot;sizeInBytes&quot;</span> : <span class="hljs-number">68831</span>, 
+        <span class="hljs-string">&quot;nrFiles&quot;</span> : <span class="hljs-number">21</span>, 
         <span class="hljs-string">&quot;nrDBServers&quot;</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">&quot;available&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;nrPiecesPresent&quot;</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">&quot;potentiallyInconsistent&quot;</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">&quot;countIncludesFilesOnly&quot;</span> : <span class="hljs-literal">true</span> 
       }, 
-      <span class="hljs-string">&quot;2022-06-23T11.53.58Z_foo&quot;</span> : { 
-        <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-06-23T11.53.58Z_foo&quot;</span>, 
-        <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.0-devel&quot;</span>, 
-        <span class="hljs-string">&quot;datetime&quot;</span> : <span class="hljs-string">&quot;2022-06-23T11:53:58Z&quot;</span>, 
+      <span class="hljs-string">&quot;2022-08-01T15.01.43Z_0af51383-3816-4d64-96a8-69da97312349&quot;</span> : { 
+        <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-08-01T15.01.43Z_0af51383-3816-4d64-96a8-69da97312349&quot;</span>, 
+        <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.0&quot;</span>, 
+        <span class="hljs-string">&quot;datetime&quot;</span> : <span class="hljs-string">&quot;2022-08-01T15:01:43Z&quot;</span>, 
         <span class="hljs-string">&quot;keys&quot;</span> : [ ], 
-        <span class="hljs-string">&quot;sizeInBytes&quot;</span> : <span class="hljs-number">67175</span>, 
+        <span class="hljs-string">&quot;sizeInBytes&quot;</span> : <span class="hljs-number">81327</span>, 
         <span class="hljs-string">&quot;nrFiles&quot;</span> : <span class="hljs-number">21</span>, 
         <span class="hljs-string">&quot;nrDBServers&quot;</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">&quot;available&quot;</span> : <span class="hljs-literal">true</span>, 

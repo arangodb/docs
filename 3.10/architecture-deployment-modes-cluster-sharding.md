@@ -114,7 +114,7 @@ consider picking multiple shard keys.
 ### Configuring Shards
 
 The number of _shards_ can be configured at collection creation time, e.g. in
-the Web UI or via _arangosh_:
+the web interface or via _arangosh_:
 
 ```js
 db._create("sharded_collection", {"numberOfShards": 4, "shardKeys": ["country"]});

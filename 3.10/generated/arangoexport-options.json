@@ -67,7 +67,7 @@
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "the configuration file or 'none'",
+    "description" : "The configuration file or \"none\".",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -87,7 +87,7 @@
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "the configuration file or 'none'",
+    "description" : "The configuration file or \"none\".",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -127,7 +127,7 @@
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "bind parameters to be used with '--custom-query' or custom-query-file'",
+    "description" : "The bind parameters to be used with the `--custom-query` or `--custom-query-file` option.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -199,7 +199,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "define key=value for a @key@ entry in config file",
+    "description" : "Define a value for a `@key@` entry in the configuration file using the syntax `\"key=value\"`.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -584,7 +584,7 @@
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
+    "description" : "The hostname to use in log message. Leave empty for none, use \"auto\" to automatically determine a hostname.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -722,7 +722,7 @@
     "deprecatedIn" : [
       "v3.5.0"
     ],
-    "description" : "shortcut for '--log.level performance=trace'",
+    "description" : "Shortcut for `--log.level performance=trace`.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -931,7 +931,7 @@
     "requiresValue" : true,
     "section" : "log",
     "type" : "string",
-    "values" : "Possible values: \"local-datestring\", \"timestamp\", \"timestamp-micros\", \"timestamp-millis\", \"uptime\", \"uptime-micros\", \"uptime-millis\", \"utc-datestring\", \"utc-datestring-millis\""
+    "values" : "Possible values: \"local-datestring\", \"timestamp\", \"timestamp-micros\", \"timestamp-millis\", \"uptime\", \"uptime-micros\", \"uptime-millis\", \"utc-datestring\", \"utc-datestring-micros\", \"utc-datestring-millis\""
   },
   "log.use-json-format" : {
     "category" : "option",
@@ -1379,7 +1379,7 @@
     "category" : "option",
     "default" : "label",
     "deprecatedIn" : null,
-    "description" : "specify document attribute that will be the xgmml label",
+    "description" : "Specify document attribute that will be the XGMML label.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,

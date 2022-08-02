@@ -130,7 +130,7 @@ all the machines participating to the Cluster.
 
 Multi-datacenter Clusters, where the entire structure and content of a Cluster located
 in a specific DC is replicated to others Clusters located in different DCs, are
-possible as well. See [Datacenter to datacenter replication](architecture-deployment-modes-dc2-dc.html)
+possible as well. See [Datacenter to datacenter replication](deployment-dc2dc.html)
 (DC2DC) for further details.
 {% endhint %}
 
@@ -654,7 +654,7 @@ loss of fault tolerance or data loss. Furthermore, one can re-balance the
 distribution of the _shards_, either manually or automatically.
 
 All these operations can be triggered via a REST/JSON API or via the
-graphical web UI. All fail-over operations are completely handled within
+graphical web interface. All fail-over operations are completely handled within
 the ArangoDB Cluster.
 
 Microservices and zero administation

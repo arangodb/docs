@@ -12,10 +12,10 @@ General
 - [Getting started](getting-started.html):
   A beginner's guide to ArangoDB.
 
-- [ArangoDB Web UI](https://www.arangodb.com/learn/first-day/web-ui/){:target="_blank"}:
+- [ArangoDB Web Interface](https://www.arangodb.com/learn/first-day/web-ui/){:target="_blank"}:
   Overview over the built-in web interface.
 
-- [Using the Web UI AQL Editor](https://www.arangodb.com/2018/02/using-webui-aql-editor/){:target="_blank"}:
+- [Using the Web Interface AQL Editor](https://www.arangodb.com/2018/02/using-webui-aql-editor/){:target="_blank"}:
   Basic introduction to the query editor of the web interface.
 
 - Index types and how indexes are used in ArangoDB:
@@ -152,7 +152,6 @@ Deployment
   Starting an ArangoDB Cluster or database the easy way
 
 - Datacenter to datacenter Replication:
-  - [A tutorial about the _ArangoSync_ DC2DC solution](tutorials-dc2-dc.html)
   - [Setting up Datacenter to Datacenter Replication in ArangoDB](https://www.arangodb.com/2017/10/setting-datacenter-datacenter-replication-in-arangodb/){:target="_blank"}
 
 - [Kubernetes](tutorials-kubernetes.html):

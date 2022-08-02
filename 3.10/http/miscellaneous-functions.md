@@ -30,4 +30,4 @@ This is an overview of ArangoDB's HTTP interface for miscellaneous functions.
 {% docublock post_admin_execute %}
 
 <!-- /_admin/status -->
-{% docublock JSF_get_admin_status %}
+{% docublock get_admin_status %}

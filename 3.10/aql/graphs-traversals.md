@@ -135,11 +135,7 @@ FOR vertex[, edge[, path]]
     vertices, which can then be distributed randomly to worker threads for parallel
     execution.
 
-    Traversal parallelization is only available in the *Enterprise Edition*, and
-    limited to traversals in single server deployments and to cluster traversals
-    that are running in a OneShard setup. Cluster traversals that run on a
-    Coordinator node and SmartGraph traversals are currently not parallelized,
-    even if the options is specified.
+    {% include hint-ee.md feature="Traversal parallelization" plural=false %}
   - **weightAttribute** (string, *optional*): Specifies the name of an attribute
     that is used to look up the weight of an edge. If no attribute is specified
     or if it is not present in the edge document then the `defaultWeight` is used.

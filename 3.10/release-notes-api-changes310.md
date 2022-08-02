@@ -11,6 +11,27 @@ integrations for ArangoDB 3.10.
 
 ## HTTP RESTful API
 
+### Behavior changes
+
+The HTTP interface of _arangod_ instances can now optionally be started earlier
+during the startup process, so that ping probes from monitoring tools can
+already be responded to when the instance has not fully started.
+
+By default, the HTTP interface is opened at the same point during the startup
+sequence as in previous versions, but it can optionally be opened earlier by
+setting the new `--server.early-connections` startup option to `true`.
+
+The following APIs can reply early with an HTTP 200 status:
+
+- `GET /_api/version` and `GET /_admin/version`:
+  These APIs return the server version number, but can also be used as a
+  lifeliness probe, to check if the instance is responding to incoming HTTP requests.
+- `GET /_admin/status`:
+  This API returns information about the instance's status, now also including
+  recovery progress and information about which server feature is currently starting.
+  
+See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more details.
+
 ### Privilege changes
 
 ### Endpoint return value changes
@@ -45,6 +66,41 @@ to handle WAL markers of type `2004`.
 The following HTTP APIs are affected:
 * `/_api/wal/tail`
 * `/_api/replication/logger-follow`
+
+
+The GET `/_admin/status` API now also returns startup and recovery information. This
+can be used to determine the instance's progress during startup. The new `progress`
+attribute is returned inside the `serverInfo` object with the following subattributes:
+
+- `phase`: name of the lifecycle phase the instance is currently in. Normally one of
+  `"in prepare"`, `"in start"`, `"in wait"`, `"in shutdown"`, `"in stop"`, or `"in unprepare"`.
+- `feature`: internal name of the feature that is currently being prepared, started, 
+   stopped or unprepared.
+- `recoveryTick`: current recovery sequence number value if the instance is currently in
+  recovery. If the instance is already past the recovery, this attribute contains 
+  the last handled recovery sequence number.
+
+See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
+
+
+#### Read from Followers
+
+A number of read-only APIs now observe the `x-arango-allow-dirty-read`
+header, which was previously only used in Active Failover deployments.
+This header allows reading from followers or "dirty reads". See
+[Read from Followers](http/document-address-and-etag.html#read-from-followers)
+for details.
+
+The following APIs are affected:
+
+- Single document reads (`GET /_api/document`)
+- Batch document reads (`PUT /_api/document?onlyget=true`)
+- Read-only AQL queries (`POST /_api/cursor`)
+- The edge API (`GET /_api/edges`)
+- Read-only stream transactions and their sub-operations
+  (`POST /_api/transaction/begin` etc.)
+
+If the header is not specified, the behavior is the same as before.
 
 #### Cursor API
 

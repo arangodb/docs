@@ -9,6 +9,20 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.10. ArangoDB 3.10 also contains several bug fixes that are not listed
 here.
 
+Native ARM Support
+------------------
+
+ArangoDB is now available for the ARM architecture, in addition to the x86-64
+architecture.
+
+It can natively run on Apple silicon (e.g. M1 chips). It was already possible to
+run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
+3.9.x because of its use of AVX instructions, which Rosetta 2 does not emulate.
+3.10.x runs on this hardware again, but now without emulation.
+
+ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
+The minimum requirement is an ARMv8 chip with Neon (SIMD).
+
 ArangoSearch
 ------------
 
@@ -21,6 +35,34 @@ UI
 
 AQL
 ---
+
+### Parallelism for Sharded Graphs (Enterprise Edition)
+
+The 3.10 release supports traversal parallelism for Sharded Graphs,
+which means that traversals with many start vertices can now run
+in parallel. An almost linear performance improvement has been
+achieved, so the parallel processing of threads leads to faster results.
+
+This feature supports all types of graphs - General Graphs, SmartGraphs,
+EnterpriseGraphs (including Disjoint).
+
+Traversals with many start vertices can now run in parallel.
+A traversal always starts with one single start vertex and then explores
+the vertex neighborhood. When you want to explore the neighborhoods of
+multiple vertices, you now have the option to do multiple operations in parallel.
+
+The example below shows how to use parallelism to allow using up to three
+threads to search for `v/1`, `v/2`, and `v/3` in parallel and independent of one
+another. Note that parallelism increases the memory usage of the query due to
+having multiple operations performed simultaneously, instead of one after the
+other.
+
+```aql
+FOR startVertex IN ["v/1", "v/2", "v/3", "v/4"]
+FOR v,e,p IN 1..3 OUTBOUND startVertex GRAPH "yourShardedGraph" OPTIONS {parallelism: 3}
+[...]
+```
+This feature is only available in the Enterprise Edition.
 
 ### GeoJSON changes
 
@@ -94,7 +136,7 @@ Query Statistics:
 
 ### Number of cache hits / cache misses in profiling output
 
-When profiling an AQL query via `db._profileQuery(...)` command or via the web UI, the
+When profiling an AQL query via `db._profileQuery(...)` command or via the web interface, the
 query profile output will now contain the number of index entries read from
 in-memory caches (usable for edge and persistent indexes) plus the number of cache misses.
 
@@ -124,6 +166,37 @@ Query Statistics:
            0            0           0        71000            689 / 11      10300          98304         0.15389
 ```
 
+### Index Lookup Optimization
+
+ArangoDB 3.10 features a new optimization for index lookups that can help to
+speed up index accesses with post-filter conditions. The optimization is 
+triggered if an index is used that does not cover all required attributes for
+the query, but the index lookup post-filter conditions only access attributes
+that are part of the index.
+
+For example, if you have a collection with an index on `value1` and `value2`,
+a query like below can only partially utilize the index for the lookup: 
+
+```aql
+FOR doc IN collection
+  FILTER doc.value1 == @value1   /* uses the index */
+  FILTER ABS(doc.value2) != @value2   /* does not use the index */
+  RETURN doc
+```
+
+In this case, previous versions of ArangoDB always fetched the full documents
+from the storage engine for all index entries that matched the index lookup
+conditions. 3.10 will now only fetch the full documents from the storage engine
+for all index entries that matched the index lookup conditions, and that satisfy
+the index lookup post-filter conditions, too.
+
+If the post-filter conditions filter out a lot of documents, this optimization
+can significantly speed up queries that produce large result sets from index
+lookups but filter many of the documents away with post-filter conditions.
+
+See [Filter Projections Optimization](aql/execution-and-performance-optimizer.html#filter-projections-optimizations)
+for details.
+
 ### Lookahead for Multi-Dimensional Indexes
 
 The multi-dimensional index type `zkd` (experimental) now supports an optional
@@ -152,6 +225,14 @@ AQL functions changed in 3.10:
 
 Indexes
 -------
+
+### Parallel index creation (Enterprise Edition)
+
+In the Enterprise Edition, non-unique indexes can be created with multiple
+threads in parallel. The number of parallel index creation threads is currently 
+set to 2, but future versions of ArangoDB may increase this value.
+Parallel index creation is only triggered for collections with at least 120,000
+documents.
 
 ### Storing additional values in indexes
 
@@ -224,8 +305,9 @@ It is now possible to test [SmartGraphs](graphs-smart-graphs.html) and
 [SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to
 port them to a cluster with multiple servers.
 
-You can create SmartGraphs, Disjoint SmartGraphs, Hybrid SmartGraphs,
-Hybrid Disjoint SmartGraphs, as well as SatelliteGraphs in the usual way, using
+You can create SmartGraphs, Disjoint SmartGraphs, SmartGraphs using 
+SatelliteCollections, Disjoint SmartGraphs using SatelliteCollections, as well
+as SatelliteGraphs in the usual way, using
 `arangosh` for instance, but on a single server, then dump them, start a cluster
 (with multiple servers) and restore the graphs in the cluster. The graphs and
 the collections will keep all properties that are kept when the graph is already
@@ -235,6 +317,18 @@ This feature is only available in the Enterprise Edition.
 
 Server options
 --------------
+
+### Responses early during instance startup
+
+The HTTP interface of _arangod_ instances can now optionally be started earlier
+during the startup process, so that ping probes from monitoring tools can
+already be responded to when the instance has not fully started.
+
+You can set the new `--server.early-connections` startup option to `true` to
+let the instance respond to the `/_api/version`, `/_admin/version`, and
+`/_admin/status` REST APIs early.
+
+See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
 
 ### RocksDB startup options
 
@@ -296,6 +390,17 @@ temporary data:
   files are used. 
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+
+Read from Followers in Clusters
+-------------------------------
+
+You can now allow for reads from followers for a
+number of read-only operations in cluster deployments. In this case, Coordinators
+are allowed to read not only from shard leaders but also from shard replicas.
+This has a positive effect, because the reads can scale out to all DB-Servers
+that have copies of the data. Therefore, the read throughput is higher.
+
+For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
 
 Miscellaneous changes
 ---------------------
@@ -397,6 +502,6 @@ The bundled version of the Boost library has been upgraded from 1.71.0 to 1.78.0
 
 The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.
 
-The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.2.1-RC.
+The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.3.0.
 
 The bundled version of the zlib library has been upgraded from 1.2.11 to 1.2.12.

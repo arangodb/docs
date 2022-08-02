@@ -44,7 +44,7 @@ The parameter definition can have the following properties:
     any well-formed JSON value.
 
   * `"password"`:
-    like *string* but will be displayed as a masked input field in the web frontend.
+    like *string* but will be displayed as a masked input field in the web web interface.
 
 * **default**: `any`
 

@@ -10,7 +10,7 @@ upgrading to ArangoDB 3.10, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.10:
 
-Foxx / Server console
+Foxx / Server Console
 ---------------------
 
 Previously a call to `db._version(true)` inside a Foxx app or the server console
@@ -34,7 +34,7 @@ The fulltext index type is now deprecated in favor of [ArangoSearch](arangosearc
 Fulltext indexes are still usable in this version of ArangoDB, although their usage is
 now discouraged.
 
-### Geo indexes
+### Geo Indexes
 
 After an upgrade to 3.10 or higher, consider to drop and recreate geo
 indexes. GeoJSON polygons are interpreted slightly differently (and more
@@ -58,10 +58,46 @@ and older. This can mean that old polygon GeoJSON data in the database is
 suddenly interpreted in a different way. See
 [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
 
-Startup options
+Startup Options
 ---------------
 
-### RocksDB options
+### Handling of Invalid Startup Options
+
+Starting with ArangoDB 3.10, the _arangod_ executable and all other client
+tools use more specific process exit codes in the following situations:
+  
+- An unknown startup option name is used: Previously, the exit code was `1`.
+  Now, the exit code when using an invalid option is `3` (symbolic exit code
+  name `EXIT_INVALID_OPTION_NAME`).
+- An invalid value is used for a startup option (e.g. a number that is
+  outside the allowed range for the option's underlying value type, or a
+  string value is used for a numeric option): Previously, the exit code was
+  `1`. Now, the exit code for these case is `4` (symbolic exit code name
+  `EXIT_INVALID_OPTION_VALUE`).
+- A config file is specified that does not exist: Previously, the exit code
+  was either `1` or `6` (symbolic exit code name `EXIT_CONFIG_NOT_FOUND`).
+  Now, the exit code in this case is always `6` (`EXIT_CONFIG_NOT_FOUND`).
+- A structurally invalid config file is used, e.g. the config file contains
+  a line that cannot be parsed: Previously, the exit code in this situation
+  was `1`. Now, it is always `6` (symbolic exit code name `EXIT_CONFIG_NOT_FOUND`).
+
+Note that this change can affect any custom scripts that check for startup
+failures using the specific exit code `1`. These scripts should be adjusted so
+that they check for a non-zero exit code. They can opt into more specific
+error handling using the additional exit codes mentioned above, in order to
+distinguish between different kinds of startup errors.
+
+### Web Interface Options
+
+The `--frontend.*` startup options were renamed to `--web-interface.*`:
+
+- `--frontend.proxy-request.check` is now `--web-interface.proxy-request.check`
+- `--frontend.trusted-proxy` is now `--web-interface.trusted-proxy`
+- `--frontend.version-check` is now `--web-interface.version-check`
+
+The former startup options are still supported for backward compatibility.
+
+### RocksDB Options
 
 The default value of the  `--rocksdb.cache-index-and-filter-blocks` startup option was changed
 from `false` to `true`. This makes RocksDB track all loaded index and filter blocks in the 
@@ -85,7 +121,7 @@ It is possible to opt out of these changes and get back the memory and performan
 of the previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
-### Pregel options
+### Pregel Options
 
 Pregel jobs now have configurable minimum, maximum and default parallelism values. You can set them
 by the following startup options:
@@ -117,8 +153,7 @@ memory-mapped files: `--pregel.memory-mapped-files` and `--pregel.memory-mapped-
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
 
-
-Maximum Array / Object nesting
+Maximum Array / Object Nesting
 ------------------------------
 
 When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
@@ -129,7 +164,7 @@ The limit is also enforced when converting any server data to JavaScript in Foxx
 when sending JavaScript input data from Foxx to a server API.
 This maximum recursion depth is hard-coded in arangod and all client tools.
 
-Client tools
+Client Tools
 ------------
 
 ### arangobench

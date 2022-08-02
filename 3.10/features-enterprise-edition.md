@@ -23,7 +23,7 @@ features outlined below. For additional information, see
   Value-based sharding of large graph datasets for better data locality when
   traversing graphs.
 
-- [**SmartGraphs using SatelliteCollections**](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs):
+- [**SmartGraphs using SatelliteCollections**](graphs-smart-graphs.html):
   Collections replicated on all cluster nodes can be combined with graphs
   sharded by document attributes to enable more local execution of graph queries.
 
@@ -48,7 +48,7 @@ features outlined below. For additional information, see
 
 ## Security
 
-- [**DC2DC**](architecture-deployment-modes-dc2-dc-introduction.html):
+- [**DC2DC**](arangosync.html):
   Datacenter to Datacenter Replication for disaster recovery.
 
 - [**Auditing**](security-auditing.html):

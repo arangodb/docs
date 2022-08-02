@@ -10,7 +10,7 @@ arangosh&gt; db.example.ensureIndex({ <span class="hljs-attr">type</span>: <span
   ], 
   <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;example/66808&quot;</span>, 
   <span class="hljs-string">&quot;isNewlyCreated&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1736426376592883713&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1739971437811204097&quot;</span>, 
   <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
@@ -28,8 +28,8 @@ Execution plan:
   <span class="hljs-number">5</span>   ReturnNode         <span class="hljs-number">0</span>       - RETURN doc
 
 Indexes used:
- By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields         Ranges
-  <span class="hljs-number">6</span>   idx_1736426376592883713   persistent   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>      <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
+ By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields         Stored values   Ranges
+  <span class="hljs-number">6</span>   idx_1739971437811204097   persistent   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>      <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   [  ]            (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
 
 Optimization rules applied:
  Id   RuleName

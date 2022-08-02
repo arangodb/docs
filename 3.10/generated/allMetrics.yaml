@@ -962,6 +962,42 @@
     It is normal that this number is growing rapidly when there is any
     kind of activity in the cluster.
 
+- name: arangodb_dirty_read_queries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of AQL queries which have been executed with dirty reads.
+  unit: number
+  type: counter
+  category: AQL
+  complexity: simple
+  exposedBy:
+    - coordinator
+  description: |
+    This counter exposes the number of AQL queries which have been executed
+    with "dirty reads". A dirty read is one which may also use follower shards
+    and not only leader shards. Note that it is the transaction in the context
+    of which the AQL runs which determines, if dirty reads are allowed.
+
+- name: arangodb_dirty_read_transactions_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of read transactions, which are allowed to do dirty reads.
+  unit: number
+  type: counter
+  category: Transactions
+  complexity: simple
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total number of read-only transactions, which allow for dirty reads
+    (read from followers). This metric will only be collected for
+    transactions on Coordinators in a cluster. Other instances may expose
+    the value as 0.
+  
+
 - name: arangodb_document_insert_time
   introducedIn: "3.8.0"
   help: |
@@ -1984,6 +2020,203 @@
     a single internal request (plus replication), whereas an operation on a
     collection with 10 shards may lead to a fan-out of 10 (plus replication).
 
+- name: arangodb_potentially_dirty_document_reads_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of document reads which have been executed with dirty reads.
+  unit: number
+  type: counter
+  category: Statistics
+  complexity: simple
+  exposedBy:
+    - coordinator
+  description: |
+    This counter exposes the number of document reads (single or batch to
+    shards in the cluster) which have been executed with "dirty reads".
+    A dirty read is one which may also use follower shards and not only
+    leader shards. Note that it is the transaction in the context of which
+    the read runs which determines, if dirty reads are allowed.
+
+- name: arangodb_pregel_conductors_loading_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of loading Pregel conductors.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of loading Pregel conductors.
+
+- name: arangodb_pregel_conductors_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of Pregel conductors.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of Pregel conductors.
+
+- name: arangodb_pregel_conductors_running_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of running Pregel conductors.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of running Pregel conductors.
+
+- name: arangodb_pregel_conductors_storing_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of storing Pregel conductors.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of storing Pregel conductors.
+
+- name: arangodb_pregel_graph_memory_bytes_number
+  introducedIn: "3.10.0"
+  help: |
+    Memory allocated by Pregel for graph storage.
+  unit: bytes
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    The number of bytes allocated by Pregel.
+
+- name: arangodb_pregel_messages_received_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of messages received by Pregel.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    The number of messages received by Pregel.
+
+- name: arangodb_pregel_messages_sent_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of messages sent by Pregel.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of messages sent by Pregel.
+
+- name: arangodb_pregel_threads_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of threads running for Pregel.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of threads running for Pregel.
+
+- name: arangodb_pregel_workers_loading_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of loading Pregel workers.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of loading Pregel workers.
+
+- name: arangodb_pregel_workers_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of Pregel workers.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of Pregel Workers.
+
+- name: arangodb_pregel_workers_running_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of running Pregel workers.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of running Pregel workers.
+
+- name: arangodb_pregel_workers_storing_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of storing Pregel workers.
+  unit: number
+  type: gauge
+  category: Pregel
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+    - coordinator
+  description: |
+    Number of storing Pregel workers.
+
 - name: arangodb_process_statistics_major_page_faults_total
   renamedFrom: arangodb_process_statistics_major_page_faults
   introducedIn: "3.8.0"
@@ -2328,7 +2561,7 @@
   description: |
     Inserts into replicated logs this server is a leader of are counted by this
     histogram, plus their respective round-trip time. This includes the time for
-    replication, at least until the writeConcern is satisified.
+    replication, at least until the writeConcern is satisfied.
 
 - name: arangodb_replication2_replicated_log_leader_number
   introducedIn: "3.9.0"
@@ -2372,6 +2605,60 @@
   description: |
     Number of replicated logs this server is a participant of.
 
+- name: arangodb_replication2_replicated_log_number_accepted_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of accepted (not yet committed) log entries.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    The entries have been inserted into the log and are being replicated but a quorum has not yet been reached.
+
+- name: arangodb_replication2_replicated_log_number_committed_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of committed log entries.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of committed log entries.
+
+- name: arangodb_replication2_replicated_log_number_compacted_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of compacted log entries.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of compacted log entries. If log entries have been replicated to every participant and applied
+    durably, they can be compacted, i.e. deleted.
+
+- name: arangodb_replication2_replicated_log_number_meta_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of meta log entries.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of meta log entries. A meta log entry is used to create artificial write barriers, for example during a
+    configuration change or move shard operation.
+
 - name: arangodb_replication2_replicated_log_started_following_total
   introducedIn: "3.9.0"
   help: |
@@ -2386,6 +2673,45 @@
   description: |
     Number of times this server started following a replicated log
     since server start.
+
+- name: arangodb_replication2_replicated_state_follower_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of follower replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a follower of.
+
+- name: arangodb_replication2_replicated_state_leader_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of leader replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a leader of.
+
+- name: arangodb_replication2_replicated_state_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a participant of.
 
 - name: arangodb_replication_cluster_inventory_requests_total
   renamedFrom: arangodb_replication_cluster_inventory_requests
