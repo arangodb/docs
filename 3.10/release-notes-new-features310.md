@@ -36,6 +36,49 @@ UI
 AQL
 ---
 
+### All Shortest Paths Graph Traversal
+
+In addition to finding any shortest path and enumerating all paths between two
+vertices in order of increasing length, you can now use the new
+`ALL_SHORTEST_PATHS` graph traversal algorithm in AQL to get all paths of
+shortest length:
+
+```aql
+FOR p IN OUTBOUND ALL_SHORTEST_PATHS 'places/Carlisle' TO 'places/London'
+  GRAPH 'kShortestPathsGraph'
+    RETURN { places: p.vertices[*].label }
+```
+
+See [All Shortest Paths in AQL](aql/graphs-all-shortest-paths.html) for details.
+
+### Parallelism for Sharded Graphs (Enterprise Edition)
+
+The 3.10 release supports traversal parallelism for Sharded Graphs,
+which means that traversals with many start vertices can now run
+in parallel. An almost linear performance improvement has been
+achieved, so the parallel processing of threads leads to faster results.
+
+This feature supports all types of graphs - General Graphs, SmartGraphs,
+EnterpriseGraphs (including Disjoint).
+
+Traversals with many start vertices can now run in parallel.
+A traversal always starts with one single start vertex and then explores
+the vertex neighborhood. When you want to explore the neighborhoods of
+multiple vertices, you now have the option to do multiple operations in parallel.
+
+The example below shows how to use parallelism to allow using up to three
+threads to search for `v/1`, `v/2`, and `v/3` in parallel and independent of one
+another. Note that parallelism increases the memory usage of the query due to
+having multiple operations performed simultaneously, instead of one after the
+other.
+
+```aql
+FOR startVertex IN ["v/1", "v/2", "v/3", "v/4"]
+FOR v,e,p IN 1..3 OUTBOUND startVertex GRAPH "yourShardedGraph" OPTIONS {parallelism: 3}
+[...]
+```
+This feature is only available in the Enterprise Edition.
+
 ### GeoJSON changes
 
 The 3.10 release of ArangoDB conforms to the standards specified in 
@@ -137,6 +180,37 @@ Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
            0            0           0        71000            689 / 11      10300          98304         0.15389
 ```
+
+### Index Lookup Optimization
+
+ArangoDB 3.10 features a new optimization for index lookups that can help to
+speed up index accesses with post-filter conditions. The optimization is 
+triggered if an index is used that does not cover all required attributes for
+the query, but the index lookup post-filter conditions only access attributes
+that are part of the index.
+
+For example, if you have a collection with an index on `value1` and `value2`,
+a query like below can only partially utilize the index for the lookup: 
+
+```aql
+FOR doc IN collection
+  FILTER doc.value1 == @value1   /* uses the index */
+  FILTER ABS(doc.value2) != @value2   /* does not use the index */
+  RETURN doc
+```
+
+In this case, previous versions of ArangoDB always fetched the full documents
+from the storage engine for all index entries that matched the index lookup
+conditions. 3.10 will now only fetch the full documents from the storage engine
+for all index entries that matched the index lookup conditions, and that satisfy
+the index lookup post-filter conditions, too.
+
+If the post-filter conditions filter out a lot of documents, this optimization
+can significantly speed up queries that produce large result sets from index
+lookups but filter many of the documents away with post-filter conditions.
+
+See [Filter Projections Optimization](aql/execution-and-performance-optimizer.html#filter-projections-optimizations)
+for details.
 
 ### Lookahead for Multi-Dimensional Indexes
 
@@ -309,7 +383,7 @@ deployments will use RangeDeletes regardless of the value of this option.
 Note that it is not guaranteed that all truncate operations will use a RangeDelete operation. 
 For collections containing a low number of documents, the O(n) truncate method may still be used.
 
-### Pregel configration options
+### Pregel configuration options
 
 There are now several startup options to configure the parallelism of Pregel jobs:
 
@@ -332,8 +406,8 @@ temporary data:
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
 
-Read from Followers in Clusters
--------------------------------
+Read from Followers in Clusters (Enterprise Edition)
+----------------------------------------------------
 
 You can now allow for reads from followers for a
 number of read-only operations in cluster deployments. In this case, Coordinators
@@ -341,7 +415,23 @@ are allowed to read not only from shard leaders but also from shard replicas.
 This has a positive effect, because the reads can scale out to all DB-Servers
 that have copies of the data. Therefore, the read throughput is higher.
 
+This feature is only available in the Enterprise Edition.
+
 For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
+
+## Improved shard rebalancing
+
+Starting with version 3.10, the shard rebalancing feature introduces an automatic shard rebalancing API. 
+
+You can do any of the following by using the API:
+
+* Get an analysis of the current cluster imbalance.
+* Compute a plan of move shard operations to rebalance the cluster and thus improve balance.
+* Execute the given set of move shard operations.
+* Compute a set of move shard operations to improve balance and execute them immediately. 
+
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+section of the HTTP API reference manual.
 
 Miscellaneous changes
 ---------------------

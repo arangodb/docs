@@ -175,6 +175,7 @@ based on the context:
   [SEARCH](operations-search.html) operation
 - `TO` –
   [Shortest Path](graphs-shortest-path.html) /
+  [All Shortest Paths](graphs-all-shortest-paths.html) /
   [k Shortest Paths](graphs-kshortest-paths.html) /
   [k Paths](graphs-k-paths.html) graph traversal
 

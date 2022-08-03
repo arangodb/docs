@@ -55,6 +55,11 @@ Cluster
 {% docublock get_cluster_statistics %}
 {% docublock get_cluster_health %}
 
+<!-- arangod/Cluster/AutoRebalance.cpp -->
+{% docublock get_admin_cluster_rebalance %}
+{% docublock post_admin_cluster_rebalance %}
+{% docublock post_admin_cluster_rebalance_execute %}
+{% docublock put_admin_cluster_rebalance %}
 
 Other
 -----

@@ -8,7 +8,7 @@ ArangoDB Deployment Modes
 - [Single Instance](architecture-deployment-modes-single-instance.html)
 - [Active Failover](architecture-deployment-modes-active-failover.html)
 - [Cluster](architecture-deployment-modes-cluster.html)
-- [Multiple Datacenters](architecture-deployment-modes-dc2-dc.html)
+- [Multiple Datacenters](deployment-dc2dc.html)
 
 See also:
 
