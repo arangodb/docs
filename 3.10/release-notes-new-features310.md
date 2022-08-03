@@ -490,23 +490,33 @@ arangoexport \
 Query changes for decreasing memory usage
 -----------------------------------------
 
-Queries can execute with storing input and intermediate results temporarily
-on disk for decreasing of memory usage when it reaches a certain threshold.
-The parameters are `--temp.intermediate-results-path`, 
-`--temp.-intermediate-results-encryption-hardware-acceleration`, 
-`--temp.intermediate-results-encryption`, 
-`--temp.intermediate-results-spillover-threshold-num-rows` and
-`--temp.intermediate-results-spillover-threshold-memory-usage`.
+Queries can be executed with storing input and intermediate results temporarily
+on disk to descrease memory usage when a specified threshold is reached.
+
+{% hint 'info' %}
+This feature is experimental and is turned off by default.
+{% endhint %}
+
+The new parameters are listed below:
+
+- `--temp.intermediate-results-path`
+- `--temp.-intermediate-results-encryption-hardware-acceleration`
+- `--temp.intermediate-results-encryption`
+- `--temp.intermediate-results-spillover-threshold-num-rows`
+- `--temp.intermediate-results-spillover-threshold-memory-usage`
+
 Example:
-`arangod --temp.intermediate-results-path "tempDir" 
+
+```
+arangod --temp.intermediate-results-path "tempDir" 
 --database.directory "myDir"
 --temp.-intermediate-results-encryption-hardware-acceleration true
 --temp.intermediate-results-encryption true 
 --temp.intermediate-results-spillover-threshold-num-rows 50000
---temp.intermediate-results-spillover-threshold-memory-usage 134217728`
+--temp.intermediate-results-spillover-threshold-memory-usage 134217728
+```
 
-Note: this feature is experimental and off by default. 
-
+For more information, refer to the [Query invocation](../aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk) topics.
 
 Internal changes
 ----------------
