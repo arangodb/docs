@@ -175,8 +175,32 @@ feature does not have its own sharding strategy, it uses `hash` instead.
 Moving/Rebalancing _shards_
 ---------------------------
 
+Rebalancing redistributes resources in the cluster to optimise resource
+allocation - shards and location of leaders/followers.
+
+It aims to achieve, for example, a balanced load, fair shard distribution,
+and resiliency.
+
+Rebalancing might occur, amongst other scenarios, when:
+- There is a change in the number of nodes in the cluster and more (or fewer)
+resources are available to the cluster.
+- There is a detectable imbalance in the distribution of shards
+(i.e. specific nodes holding high number of shards while others don’t) or in
+the distribution of leaders/followers across the nodes, resulting in
+computational imbalance on the nodes.
+- There are changes in the number or size of data collections.
+
 A _shard_ can be moved from a _DB-Server_ to another, and the entire shard distribution
 can be rebalanced using the corresponding buttons in the web [UI](programs-web-interface-cluster.html).
+
+You can also do any of the following by using the API:
+- Calculate the current cluster imbalance.
+- Compute a set of move shard operations to improve balance.
+- Execute the given set of move shard operations.
+- Compute a set of move shard operations to improve balance and immediately execute them.
+
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+section of the HTTP API reference manual.
 
 Replacing/Removing a _Coordinator_
 ----------------------------------

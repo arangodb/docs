@@ -751,9 +751,9 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
     |   "FOR d IN SPLIT(@param, '-') RETURN d"
       }, ["frequency", "norm", "position"]);
       var coll = db._create("coll");
+      var doc = db.coll.save({ text: "A-B-C-D" });
     | var view = db._createView("view", "arangosearch",
         { links: { coll: { analyzers: [ "collapsed", "uncollapsed" ], includeAllFields: true }}});
-      var doc = db.coll.save({ text: "A-B-C-D" });
     ~ db._query("FOR d IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d");
@@ -1063,7 +1063,7 @@ The Analyzer can be used for two different coordinate representations:
   The attributes cannot be at the top level of the document, but must be nested
   like in the example, so that the Analyzer can be defined for the field
   `location` with the Analyzer properties
-  `{ "latitude": ["lat"], "longitude": ["lng"] }`.
+  `{ "latitude": ["lat"], "longitude": ["lon"] }`.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:

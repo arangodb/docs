@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/gharial/social/edge/relation/66440</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/gharial/social/edge/relation/67078</span> &lt;&lt;EOF
 { 
   <span class="hljs-string">&quot;since&quot;</span> : <span class="hljs-string">&quot;01.01.2001&quot;</span> 
 }
@@ -6,10 +6,15 @@ EOF
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
 content-length: <span class="hljs-number">118</span>
-etag: _eeCdEFC--_
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+etag: _ej7UAxO--B
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
@@ -17,9 +22,9 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">202</span>, 
   <span class="hljs-string">&quot;edge&quot;</span> : { 
-    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;relation/66440&quot;</span>, 
-    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;66440&quot;</span>, 
-    <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eeCdEFC---&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eeCdEFC--_&quot;</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;relation/67078&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67078&quot;</span>, 
+    <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_ej7UAxK--C&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ej7UAxO--B&quot;</span> 
   } 
 }
