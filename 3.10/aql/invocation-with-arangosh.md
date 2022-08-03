@@ -245,7 +245,7 @@ In the ArangoDB Enterprise Edition there is an additional parameter:
 Additional parameters for spilling data from the query onto disk
 -----------------------------------------------------------------
 
-There are two additional parameters that allow spilling 
+Starting from ArangoDB 3.10, there are two additional parameters that allow spilling 
 intermediate data from a query onto a disk to descrease the memory usage.
   
 {% hint 'info' %}
