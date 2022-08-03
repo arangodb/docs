@@ -30,11 +30,11 @@ transaction is committed or aborted when it is no longer needed.
 This avoids taking up resources on the ArangoDB server.
 
 {% hint 'warning' %}
-Transactions will acquire collection locks for write operations in RocksDB.
+Transactions acquire collection locks for write operations in RocksDB.
 It is therefore advisable to keep the transactions as short as possible.
 {% endhint %}
 
-For a more detailed description of how transactions work in ArangoDB please
+For a more detailed description of how transactions work in ArangoDB, please
 refer to [Transactions](../transactions.html).
 
 You can use Stream Transactions via the [JavaScript API](#javascript-api) and
@@ -48,15 +48,15 @@ A maximum lifetime and transaction size for Stream Transactions is enforced
 on the Coordinator to ensure that abandoned transactions cannot block the
 cluster from operating properly:
 
-- Maximum idle timeout of up to **120 seconds** between operations
-- Maximum transaction size of **128 MB** per DB-Server
+- Maximum idle timeout of up to **120 seconds** between operations.
+- Maximum transaction size of **128 MB** per DB-Server.
 
 These limits are also enforced for Stream Transactions on single servers.
 
 The default maximum idle timeout is **60 seconds** between operations in a
 single Stream Transaction. The maximum value can be bumped up to at most 120
-seconds by setting the startup option `--transaction.streaming-idle-timeout`.
-Posting an operation into a non-expired Stream Transaction will reset the
+seconds by setting the startup `--transaction.streaming-idle-timeout` option.
+Posting an operation into a non-expired Stream Transaction resets the
 transaction's timeout to the configured idle timeout.
 
 Enforcing the limit is useful to free up resources used by abandoned
@@ -70,14 +70,14 @@ A given transaction is intended to be used **serially**. No concurrent requests
 using the same transaction ID should be issued by the client. The server can
 make some effort to serialize certain operations (see
 [Streaming Lock Timeout](programs-arangod-transaction.html#streaming-lock-timeout)),
-however this will degrade the server's performance and may lead to sporadic
+however this degrades the server's performance and may lead to sporadic
 errors with code `28` (locked).
 
 ### Batch requests
 
 The [Batch API](http/batch-request.html) cannot be used in combination with
 Stream Transactions for submitting batched requests, because the required
-header `x-arango-trx-id` is not forwarded.
+`x-arango-trx-id` header is not forwarded.
 
 ## JavaScript API
 
@@ -87,7 +87,7 @@ header `x-arango-trx-id` is not forwarded.
 
 Begin a Stream Transaction.
 
-`options` must be an object have the following attributes:
+`options` must be an object with the following attributes:
 
 - `collections`: A sub-object that defines which collections you want to use
   in the transaction. It can have the following sub-attributes:
@@ -187,7 +187,7 @@ Stream Transactions, but they work the same otherwise.
 `trx.query(aql-query) → cursor`
 
 Run an AQL query as part of a Stream Transaction and return a result cursor.
-The method works analogous to the
+The method works similar to the
 [`db._query()` method](aql/invocation-with-arangosh.html#with-db_query).
 
 ### ID
