@@ -516,7 +516,7 @@ arangod --temp.intermediate-results-path "tempDir"
 --temp.intermediate-results-spillover-threshold-memory-usage 134217728
 ```
 
-For more information, refer to the [Query invocation](../aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk) topics.
+For more information, refer to the [Query invocation](/aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk) topics.
 
 Internal changes
 ----------------
