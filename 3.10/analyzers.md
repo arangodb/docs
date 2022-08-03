@@ -755,9 +755,9 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
     |   "FOR d IN SPLIT(@param, '-') RETURN d"
       }, ["frequency", "norm", "position"]);
       var coll = db._create("coll");
+      var doc = db.coll.save({ text: "A-B-C-D" });
     | var view = db._createView("view", "arangosearch",
         { links: { coll: { analyzers: [ "collapsed", "uncollapsed" ], includeAllFields: true }}});
-      var doc = db.coll.save({ text: "A-B-C-D" });
     ~ db._query("FOR d IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d");
@@ -980,6 +980,8 @@ Create different `segmentation` Analyzers to show the behavior of the different
 
 <small>Introduced in: v3.10.0</small>
 
+{% include hint-ee.md feature="The `classification` analyzer" %}
+
 {% hint 'warning' %}
 This feature is experimental and under active development.
 The naming and interfaces may change at any time.
@@ -988,13 +990,13 @@ Execution times are not representative of the final product.
 
 An Analyzer capable of classifying tokens in the input text.
 
-It applies a user-provided [fastText](https://fasttext.cc/){:target="_blank"}
+It applies a user-provided [supervised fastText](https://fasttext.cc/docs/en/supervised-tutorial.html){:target="_blank"}
 word embedding model to classify the input text. It is able to classify
 individual tokens as well as entire inputs.
 
 The *properties* allowed for this Analyzer are an object with the following attributes:
 
-- `model_location` (string): the on-disk path to the trained fastText model.
+- `model_location` (string): the on-disk path to the trained fastText supervised model.
   Note: if you are running this in an ArangoDB cluster, this model must exist on
   every machine in the cluster.
 - `top_k` (number, optional): the number of class labels that will be produced
@@ -1038,6 +1040,8 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 <small>Introduced in: v3.10.0</small>
 
+{% include hint-ee.md feature="The `nearest_neighbors` analyzer" %}
+
 {% hint 'warning' %}
 This feature is experimental and under active development.
 The naming and interfaces may change at any time.
@@ -1046,7 +1050,7 @@ Execution times are not representative of the final product.
 
 An Analyzer capable of finding nearest neighbors of tokens in the input.
 
-It applies a user-provided [fastText](https://fasttext.cc/){:target="_blank"}
+It applies a user-provided [supervised fastText](https://fasttext.cc/docs/en/supervised-tutorial.html){:target="_blank"}
 word embedding model to retrieve nearest neighbor tokens in the text.
 It is able to find neighbors of individual tokens as well as entire input strings.
 For entire input strings, the Analyzer will return nearest neighbors for each
@@ -1054,7 +1058,7 @@ token within the input string.
 
 The *properties* allowed for this Analyzer are an object with the following attributes:
 
-- `model_location` (string): the on-disk path to the trained fastText model.
+- `model_location` (string): the on-disk path to the trained fastText supervised model.
   Note: if you are running this in an ArangoDB cluster, this model must exist on
   every machine in the cluster.
 - `top_k` (number, optional): the number of class labels that will be produced
@@ -1185,7 +1189,7 @@ The Analyzer can be used for two different coordinate representations:
   The attributes cannot be at the top level of the document, but must be nested
   like in the example, so that the Analyzer can be defined for the field
   `location` with the Analyzer properties
-  `{ "latitude": ["lat"], "longitude": ["lng"] }`.
+  `{ "latitude": ["lat"], "longitude": ["lon"] }`.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:

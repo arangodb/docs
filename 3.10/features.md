@@ -38,7 +38,7 @@ or as a [cluster](architecture-deployment-modes-cluster-architecture.html)
 comprised of multiple nodes with synchronous replication and automatic failover
 for high availability and resilience. For the highest level of data safety,
 you can additionally set up off-site replication for your entire cluster
-([Datacenter-to-Datacenter Replication](architecture-deployment-modes-dc2-dc-introduction.html)).
+([Datacenter-to-Datacenter Replication](arangosync.html)).
 
 If you do not want to operate your own ArangoDB instances on-premise, then
 you may use our fully managed multi-cloud service **ArangoDB Oasis**.

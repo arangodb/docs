@@ -1,0 +1,38 @@
+arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">&quot;users&quot;</span>, {
+........&gt;   computedValues: [
+........&gt;     {
+........&gt;       name: <span class="hljs-string">&quot;searchTags&quot;</span>,
+........&gt;       expression: <span class="hljs-string">&quot;RETURN APPEND(@doc.is[* FILTER CURRENT.public == true RETURN LOWER(CURRENT.name)], @doc.loves[* RETURN LOWER(CURRENT)])&quot;</span>,
+........&gt;       overwrite: <span class="hljs-literal">true</span>
+........&gt;     }
+........&gt;   ]
+........&gt; });
+arangosh&gt; <span class="hljs-keyword">var</span> doc = db.users.save({ <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Paula Plant&quot;</span>, <span class="hljs-attr">is</span>: [ { <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Gardener&quot;</span>, <span class="hljs-attr">public</span>: <span class="hljs-literal">true</span> }, { <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;female&quot;</span> } ], <span class="hljs-attr">loves</span>: [<span class="hljs-string">&quot;AVOCADOS&quot;</span>, <span class="hljs-string">&quot;Databases&quot;</span>] });
+arangosh&gt; <span class="hljs-keyword">var</span> idx = db.users.ensureIndex({ <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;persistent&quot;</span>, <span class="hljs-attr">fields</span>: [<span class="hljs-string">&quot;searchTags[*]&quot;</span>] });
+arangosh&gt; db._query(<span class="hljs-string">`FOR u IN users FILTER &quot;avocados&quot; IN u.searchTags RETURN u`</span>).toArray();
+[ 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72667&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72667&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ej7UrNu---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Paula Plant&quot;</span>, 
+    <span class="hljs-string">&quot;is&quot;</span> : [ 
+      { 
+        <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Gardener&quot;</span>, 
+        <span class="hljs-string">&quot;public&quot;</span> : <span class="hljs-literal">true</span> 
+      }, 
+      { 
+        <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;female&quot;</span> 
+      } 
+    ], 
+    <span class="hljs-string">&quot;loves&quot;</span> : [ 
+      <span class="hljs-string">&quot;AVOCADOS&quot;</span>, 
+      <span class="hljs-string">&quot;Databases&quot;</span> 
+    ], 
+    <span class="hljs-string">&quot;searchTags&quot;</span> : [ 
+      <span class="hljs-string">&quot;gardener&quot;</span>, 
+      <span class="hljs-string">&quot;avocados&quot;</span>, 
+      <span class="hljs-string">&quot;databases&quot;</span> 
+    ] 
+  } 
+]

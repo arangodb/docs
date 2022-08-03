@@ -26,6 +26,10 @@ grouped by version
   for faster lookups and [**Stored Values**](indexing-persistent.html#storing-additional-values-in-indexes)
   to let persistent indexes cover additional attributes of projections.
 
+- **AQL Graph Traversals**:
+  [All Shortest Paths](aql/graphs-all-shortest-paths.html) allows you to query
+  for all paths of shortest length between two documents.
+
 **Enterprise Edition**
 
 - 
@@ -275,7 +279,7 @@ Also see [What's New in 3.4](release-notes-new-features34.html).
 
 **Enterprise Edition**
 
-- [**Datacenter to Datacenter Replication**](deployment-dc2-dc.html):
+- [**Datacenter to Datacenter Replication**](deployment-dc2dc.html):
   Replicate the entire structure and content of an ArangoDB cluster
   asynchronously to another cluster in a different datacenter with ArangoSync.
   Multi-datacenter support means you can fallback to a replica of your cluster
