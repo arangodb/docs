@@ -1,16 +1,14 @@
 ---
 #archetype: "chapter"
 layout: default
-title: Introduction
+title: What is ArangoDB
+description: ArangoDB is a scalable database management system for graphs, with a broad range of features and a rich ecosystem
+menuTitle: Introduction
 weight: 1
 ---
-# What is ArangoDB?
 
-ArangoDB is a scalable database management system for graphs, with a broad range
-of features and a rich ecosystem
-{:class="lead"}
+{{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" >}}
 
-![ArangoDB Overview Diagram](images/arangodb-overview-diagram.png)
 
 It supports a variety of data access patterns with a single, composable query
 language thanks to its multi-model approach that combines the analytical power

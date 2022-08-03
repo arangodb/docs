@@ -1,12 +1,10 @@
 ---
-title: Use Cases
+title: ArangoDB Use Cases
+menuTitle: Use Cases
+description: ArangoDB is a database system with a large solution space because it combines graphs, documents, key-value, search engine, and machine learning all in one
 layout: default
 weigth: 2
 ---
-# ArangoDB Use Cases
-
-{{ page.description }}
-{:class="lead"}
 
 ## ArangoDB as a Graph Database
 
