@@ -4,7 +4,7 @@ HTTP/1.1 200 OK
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
 connection: Keep-Alive
-content-length: 863
+content-length: 848
 content-security-policy: frame-ancestors 'self'; form-action 'self';
 expires: 0
 location: /_db/_system/_api/collection/testCollection/shards
@@ -14,4 +14,4 @@ strict-transport-security: max-age=31536000 ; includeSubDomains
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s10056\":[\"PRMR-a04f3f4b-af9d-4644-9f0a-ff39caed346b\",\"PRMR-7c5fc968-288b-4e35-b964-89f21b950aa6\"],\"s10057\":[\"PRMR-7c5fc968-288b-4e35-b964-89f21b950aa6\",\"PRMR-a04f3f4b-af9d-4644-9f0a-ff39caed346b\"],\"s10058\":[\"PRMR-a04f3f4b-af9d-4644-9f0a-ff39caed346b\",\"PRMR-7c5fc968-288b-4e35-b964-89f21b950aa6\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"numberOfShards\":3,\"minReplicationFactor\":1,\"id\":\"10055\",\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"computedValues\":null,\"internalValidatorType\":0,\"globallyUniqueId\":\"c10055/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s56\":[\"PRMR-79dd893b-6480-4f81-a304-b34456ca702c\",\"PRMR-e3d086cb-2b8b-41eb-9019-ec4f5acffee7\"],\"s57\":[\"PRMR-e3d086cb-2b8b-41eb-9019-ec4f5acffee7\",\"PRMR-79dd893b-6480-4f81-a304-b34456ca702c\"],\"s58\":[\"PRMR-79dd893b-6480-4f81-a304-b34456ca702c\",\"PRMR-e3d086cb-2b8b-41eb-9019-ec4f5acffee7\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"numberOfShards\":3,\"minReplicationFactor\":1,\"id\":\"55\",\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"computedValues\":null,\"internalValidatorType\":0,\"globallyUniqueId\":\"c55/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"

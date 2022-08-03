@@ -1,6 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/restore</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-08-02T14.02.40Z_c9616a89-0020-4a18-8e80-9ac5435a547f&quot;</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-08-03T10.00.40Z_78ec4389-d3fc-4ae1-bcee-35b08c851363&quot;</span> 
 }
 EOF
 
@@ -16,6 +16,6 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">&quot;result&quot;</span> : { 
-    <span class="hljs-string">&quot;previous&quot;</span> : <span class="hljs-string">&quot;/tmp/arangosh_NbHbKi/rocksdb-clusterOrNot/data/backups/DIRECTORY_TO_DELETE&quot;</span> 
+    <span class="hljs-string">&quot;previous&quot;</span> : <span class="hljs-string">&quot;/tmp/arangosh_eBfhDM/rocksdb-clusterOrNot/data/backups/DIRECTORY_TO_DELETE&quot;</span> 
   } 
 }

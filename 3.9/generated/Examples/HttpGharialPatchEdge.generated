@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/gharial/social/edge/relation/66436</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/gharial/social/edge/relation/66434</span> &lt;&lt;EOF
 { 
   <span class="hljs-string">&quot;since&quot;</span> : <span class="hljs-string">&quot;01.01.2001&quot;</span> 
 }
@@ -8,7 +8,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">118</span>
-etag: _ej5bGSG---
+etag: _ekKj7fO--C
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -17,9 +17,9 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">202</span>, 
   <span class="hljs-string">&quot;edge&quot;</span> : { 
-    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;relation/66436&quot;</span>, 
-    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;66436&quot;</span>, 
-    <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_ej5bGR6---&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ej5bGSG---&quot;</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;relation/66434&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;66434&quot;</span>, 
+    <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_ekKj7fO--B&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ekKj7fO--C&quot;</span> 
   } 
 }
