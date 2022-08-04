@@ -40,6 +40,7 @@ Supported Graph Algorithms
   - breadth-first, depth-first, and weighted traversals
   - optionally with prune conditions
 - [Shortest Path](aql/graphs-shortest-path.html)
+- [All Shortest Paths](aql/graphs-all-shortest-paths.html)
 - [k Shortest Paths](aql/graphs-kshortest-paths.html)
 - [k Paths](aql/graphs-k-paths.html)
 - [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)

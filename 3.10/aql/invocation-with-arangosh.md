@@ -242,6 +242,44 @@ In the ArangoDB Enterprise Edition there is an additional parameter:
   into sync. The default value is 60.0 (seconds). When the max time has been reached
   the query will be stopped.
 
+Additional parameters for spilling data from the query onto disk
+-----------------------------------------------------------------
+
+Starting from ArangoDB 3.10, there are two additional parameters that allow spilling 
+intermediate data from a query onto a disk to descrease the memory usage.
+  
+{% hint 'info' %}
+The option of spilling data from RAM onto disk is experimental and is turned off 
+by default. This parameter currently only has effect for sorting - 
+for a query that uses the SORT keyword, but without LIMIT.
+Also, the query results are still built up entirely in RAM on coordinators
+and single servers for non-streaming queries. To avoid the buildup of
+the entire query result in RAM, a streaming query should be used.
+{% endhint %}
+
+- `spillOverThresholdNumRows`: This parameter allows for input data and 
+  intermediate results to be spilled onto disk for a query execution
+  after the number of rows reaches the specified value. This is 
+  used for decreasing the memory usage during the query execution. In a query 
+  that iterates over a collection that contains documents, each row is a 
+  document and, in a query that iterates over temporary values 
+  (i.e. `FOR i IN 1..100`), each row is one of such temporary values. 
+  This parameter is experimental and is only taken into account if a path for a
+  directory to store the temporary data is provided with the  [`--temp.intermediate-results-path`
+  server startup option](../programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk). 
+  Default value: 5000000 rows.
+
+
+- `spillOverThresholdMemoryUsage`: This parameter allows for input data and 
+  intermediate results to be spilled onto disk for a query execution 
+  after the memory usage reaches the specified value (in bytes). This 
+  is used for decreasing the memory usage during the query execution. This 
+  parameter is experimental and is only taken into account if a path for a 
+  directory to store the temporary data is provided with the [`--temp.intermediate-results-path`
+  server startup option](../programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk). 
+  Default value: 128MB.
+
+
 With _createStatement (ArangoStatement)
 ---------------------------------------
 
