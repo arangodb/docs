@@ -42,9 +42,13 @@
             {{- range sort . "Weight" }}
             <li>{{ .Pre }}<a class="padding" href="{{ .URL | relLangURL }}">{{ safeHTML .Name }}</a>{{ .Post }}</li>
             {{- end }}
+            {{- end }}
           </ul>
+          <div class="nav-title">Tags</div>
+          <ul>
+            {{- partial "tags-list.html" . }}
+          <ul>
         </div>
-        {{- end }}
         {{- $siteLanguages := .Site.Languages }}
         {{- $showlangswitch := and .Site.IsMultiLingual (not .Site.Params.disableLanguageSwitchingButton) (gt (int (len $siteLanguages)) 1) }}
         {{- $themevariants := slice | append (.Site.Params.themeVariant | default "relearn-light" ) }}

@@ -1,10 +1,10 @@
 ---
-#archetype: "chapter"
 layout: default
 title: What is ArangoDB
 description: ArangoDB is a scalable database management system for graphs, with a broad range of features and a rich ecosystem
 menuTitle: Introduction
 weight: 1
+tags: ["test1"]
 ---
 
 {{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" >}}

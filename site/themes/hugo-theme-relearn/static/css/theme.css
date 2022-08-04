@@ -790,14 +790,12 @@ span.nav i{
     transform: translateY(-50%);
 }
 
-#toc-menu{
-    cursor: pointer;
-}
-#toc-menu,
 #sidebar-toggle-span {
     border-right: thin solid rgba( 134, 134, 134, .333 );
     padding-left: 1rem;
     padding-right: 1rem;
+    cursor: pointer;
+
 }
 
 #body #breadcrumbs {
@@ -821,7 +819,7 @@ span.nav i{
 }
 
 #sidebar-toggle-span {
-    display: none;
+    display: block;
 }
 .progress {
     left: 1rem;

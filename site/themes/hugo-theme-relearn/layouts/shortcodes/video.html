@@ -1,0 +1,8 @@
+{{ $video := resources.GetMatch ( .Get "src" ) }}
+{{- $width := "100%" -}}
+
+{{- with $video }}
+<video controls autoplay loop muted playsinline class="html-video">
+    <source src="{{ .RelPermalink }}" type="video/mp4">
+</video>
+{{- end -}}

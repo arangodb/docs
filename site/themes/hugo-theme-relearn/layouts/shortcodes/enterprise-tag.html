@@ -1,0 +1,12 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
+{{ $feature := .Get "feature" }}
+
+<div class="box notices cstyle info">
+    <div class="box-label"><i class="fa-fw fas fa-info-circle"></i>info</div>
+    <div class="box-content">
+        <p>{{ $feature }} only available in the
+            <a href="https://www.arangodb.com/enterprise-server/" target="_blank"><strong>Enterprise Edition</strong></a>,
+            including <a href="https://cloud.arangodb.com/home?utm_source=docs&amp;utm_medium=ee_pages&amp;utm_campaign=docs_traffic" target="_blank">ArangoDB Oasis</a>.
+        </p>
+        </div>
+</div>
