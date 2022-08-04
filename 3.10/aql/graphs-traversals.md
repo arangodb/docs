@@ -135,7 +135,7 @@ FOR vertex[, edge[, path]]
     vertices, which can then be distributed randomly to worker threads for parallel
     execution.
     % include hint-ee.md feature="Traversal parallelization" plural=false %}
-  - **maxProjections** (number, *optional*): Specifies the number of graph
+  - **maxProjections** (number, *optional*): Specifies the number of document
     attributes per FOR loop to be used as projections. The default value is `5`. 
   - **weightAttribute** (string, *optional*): Specifies the name of an attribute
     that is used to look up the weight of an edge. If no attribute is specified
