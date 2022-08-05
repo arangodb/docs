@@ -83,5 +83,5 @@ which is necessary when connecting to Prometheus.
    - Click **Save & Test**.      
 4. To add a dashboard, open the menu and click **Create** and then **Import**.
 5. Download the [Grafana dashboard for ArangoDB Oasis](https://github.com/arangodb-managed/grafana-dashboards){:target="_blank"}.
-6. Copy the content of the `main.json` file into **Import via panel json** field in Grafana.
+6. Copy the contents of the `main.json` file into the **Import via panel json** field in Grafana.
 7. Click **Load**.
