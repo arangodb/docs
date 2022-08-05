@@ -16,8 +16,11 @@ markup:
     ordered: false
     startLevel: 2
 
+outputs:
+  home: ["HTML", "RSS", "JSON"]
 
 params:
+  docs_version: "3.10"
   description: "Documentation for ArangoDB"
   showVisitedLinks: true
   alwaysopen: false

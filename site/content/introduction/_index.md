@@ -7,7 +7,7 @@ weight: 1
 tags: ["test1"]
 ---
 
-{{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" >}}
+{{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" size="small" inline="true" >}}
 
 
 It supports a variety of data access patterns with a single, composable query

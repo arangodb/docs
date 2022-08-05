@@ -494,12 +494,6 @@ function sidebarShortcutHandler( event ){
     }
 }
 
-function tocShortcutHandler( event ){
-    if( event.altKey && event.ctrlKey && event.which == 84 /* t */ ){
-        showToc();
-    }
-}
-
 function editShortcutHandler( event ){
     if( event.altKey && event.ctrlKey && event.which == 69 /* e */ ){
         showEdit();
@@ -513,10 +507,8 @@ function printShortcutHandler( event ){
 }
 
 function showNav(){
-    if( !document.querySelector( '#sidebar-overlay' ) ){
-        // we may not have a flyout
-        return;
-    }
+    var sidebar = document.querySelector('#sidebar');
+    sidebar.style.width = "0px";
     var b = document.querySelector( 'body' );
     b.classList.toggle( 'sidebar-flyout' );
     if( b.classList.contains( 'sidebar-flyout' ) ){
@@ -526,25 +518,6 @@ function showNav(){
     }
     else{
         document.removeEventListener( 'keydown', sidebarEscapeHandler );
-        document.querySelector( '#body-inner' ).focus();
-        psc && psc.scrollbarY.focus();
-    }
-}
-
-function showToc(){
-    var t = document.querySelector( '#toc-menu' );
-    if( !t ){
-        // we may not have a toc
-        return;
-    }
-    var b = document.querySelector( 'body' );
-    b.classList.toggle( 'toc-flyout' );
-    if( b.classList.contains( 'toc-flyout' ) ){
-        pst && pst.update();
-        document.addEventListener( 'keydown', tocEscapeHandler );
-    }
-    else{
-        document.removeEventListener( 'keydown', tocEscapeHandler );
         document.querySelector( '#body-inner' ).focus();
         psc && psc.scrollbarY.focus();
     }
@@ -562,40 +535,6 @@ function showPrint(){
     if( l ){
         l.click();
     }
-}
-
-function initToc(){
-    if( isPrint ){
-        return;
-    }
-
-    document.addEventListener( 'keydown', editShortcutHandler );
-    document.addEventListener( 'keydown', printShortcutHandler );
-    document.addEventListener( 'keydown', sidebarShortcutHandler );
-    document.addEventListener( 'keydown', tocShortcutHandler );
-    // avoid keyboard navigation for input fields
-    jQuery(formelements).keydown(function (e) {
-        if( e.altKey && event.ctrlKey ){
-            if( e.which == 77 /* m */ || e.which == 84 /* t */ || e.which == 69 /* e */ || e.which == 80 /* p */ ){
-                e.stopPropagation();
-            }
-        }
-    });
-
-    document.querySelector( '#sidebar-overlay' ).addEventListener( 'click', showNav );
-    document.querySelector( '#sidebar-toggle' ).addEventListener( 'click', showNav );
-    document.querySelector( '#toc-overlay' ).addEventListener( 'click', showToc );
-    var t = document.querySelector( '#toc-menu' );
-    var p = document.querySelector( '.progress' );
-    if( t && p ){
-        // we may not have a toc
-        t.addEventListener( 'click', showToc );
-        p.addEventListener( 'click', showToc );
-    }
-
-    // finally give initial focus to allow keyboard scrolling in FF
-    document.querySelector( '#body-inner' ).focus();
-    psc && psc.scrollbarY.focus();
 }
 
 function initSwipeHandler(){
@@ -637,13 +576,13 @@ function initSwipeHandler(){
         return false;
     };
 
-    document.querySelector( '#sidebar-overlay' ).addEventListener("touchstart", handleStartX, false);
+    document.querySelector( '#sidebar-toggle' ).addEventListener("touchstart", handleStartX, false);
     document.querySelector( '#sidebar' ).addEventListener("touchstart", handleStartX, false);
     document.querySelectorAll( '#sidebar *' ).forEach( function(e){ e.addEventListener("touchstart", handleStartX); }, false);
-    document.querySelector( '#sidebar-overlay' ).addEventListener("touchmove", handleMoveX, false);
+    document.querySelector( '#sidebar-toggle' ).addEventListener("touchmove", handleMoveX, false);
     document.querySelector( '#sidebar' ).addEventListener("touchmove", handleMoveX, false);
     document.querySelectorAll( '#sidebar *' ).forEach( function(e){ e.addEventListener("touchmove", handleMoveX); }, false);
-    document.querySelector( '#sidebar-overlay' ).addEventListener("touchend", handleEndX, false);
+    document.querySelector( '#sidebar-toggle' ).addEventListener("touchend", handleEndX, false);
     document.querySelector( '#sidebar' ).addEventListener("touchend", handleEndX, false);
     document.querySelectorAll( '#sidebar *' ).forEach( function(e){ e.addEventListener("touchend", handleEndX); }, false);
 }
@@ -830,7 +769,6 @@ jQuery(function() {
     scrollToFragment();
     initLightbox();
     initImageStyles();
-    initToc();
     initAnchorClipboard();
     initCodeClipboard();
     restoreTabSelections();

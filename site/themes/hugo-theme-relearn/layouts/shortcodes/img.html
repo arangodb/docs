@@ -1,7 +1,25 @@
 {{ $image := resources.GetMatch ( .Get "src" ) }}
+{{ $inline := .Get "inline" }}
+
+{{ $width := 600 }}
+{{ $size := .Get "size" }}
+{{- if eq $size "small" -}}
+  {{- $width = 300 -}}
+{{- else if eq $size "medium" -}}
+    {{- $width = 600 -}}
+{{- else if eq $size "large" -}}
+    {{- $width = 1200 -}}    
+{{- end }}
+
+{{- if eq $inline "true" }}
+<p>
+    <img class="inline-img" src="{{ ($image.Resize (printf "%dx" $width)).RelPermalink }}"  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
+</p>
+
+{{- else }}
 <div class="flex-container">
     <figure>
-        <img {{ with $image }}src="{{ $image.RelPermalink }}" {{ end }} {{ with .Get "alt" }}alt="{{ . }}"{{ end }}/>
+        <img src="{{ ($image.Resize (printf "%dx" $width)).RelPermalink }}"  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
         {{ with .Get "alt" }}
         <figcaption>
             <div class="caption">{{ . }}</div>
@@ -9,3 +27,4 @@
         {{ end }}
     </figure>
 </div>
+{{ end }}

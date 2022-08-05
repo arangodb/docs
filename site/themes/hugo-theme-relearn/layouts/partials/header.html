@@ -27,8 +27,6 @@
   </head>
   <body class="mobile-support {{ (partial "output-format.hugo" .) }}{{- if .Site.Params.disableInlineCopyToClipBoard }} disableInlineCopyToClipboard{{ end }}" data-url="{{ .RelPermalink }}">
     <div id="body" class="default-animation">
-      <div id="sidebar-overlay"></div>
-      <div id="toc-overlay"></div>
       <nav id="topbar" class="highlightable">
         <div>
         {{- $showPrevNext := (and (not .Params.disableNextPrev) (not .Site.Params.disableNextPrev)) }}
@@ -70,6 +68,7 @@
             </a>
           </div>
           <div id="breadcrumbs">
+            <a id="sidebar-toggle" aria-label=""><i class="fa fa-align-justify"></i></a>
           {{- $showBreadcrumb := (and (not .Params.disableBreadcrumb) (not .Site.Params.disableBreadcrumb)) }}
           {{- if $showBreadcrumb }}
             <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">

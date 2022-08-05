@@ -15,11 +15,19 @@ figure {
 }
 
 img {
-    width: 100%;
-    height: auto;
     opacity: 1;
     -webkit-transition: opacity 0.5s; /* For Safari 3.1 to 6.0 */
     transition: opacity 0.5s;
+    height: auto !important;
+    width: auto !important;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.inline-img {
+    float: right;
+    padding: 0 20px;
+    margin-bottom: 20px;
 }
 
 img:hover {
@@ -42,25 +50,4 @@ figcaption {
     font-size: 0.8rem;
 }
 
-
-/* Media queries*/
-
-
-@media screen and (min-width: 701px) {
-	figure {
-		width: calc(75% - 0.5rem);
-	}
-}
-
-@media screen and (max-width: 700px) {
-	figure {
-		width: calc(50% - 0.5rem);
-	}
-}
-
-@media screen and (max-width: 550px) {
-	figure {
-		width: 100%;
-	}
-}
 
