@@ -141,6 +141,9 @@ Returns an object containing all collection properties.
   The attribute keys `rule`, `level` and `message` must follow the rules
   documented in [Document Schema Validation](document-schema-validation.html)
 
+- `computedValues` (optional, default: `null`): An array of objects,
+  each representing a [Computed Value](data-modeling-documents-computed-values.html).
+
 In a cluster setup, the result also contains the following attributes:
 
 - `numberOfShards`: the number of shards of the collection.

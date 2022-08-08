@@ -124,6 +124,14 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   - `offset`: initial offset value for `autoincrement` key generator.
     Not used for other key generator types.
 
+- `schema` (optional, default: `null`): 
+  Object that specifies the collection level document schema for documents.
+  The attribute keys `rule`, `level` and `message` must follow the rules
+  documented in [Document Schema Validation](document-schema-validation.html)
+
+- `computedValues` (optional, default: `null`): An array of objects,
+  each representing a [Computed Value](data-modeling-documents-computed-values.html).
+
 - `numberOfShards` (optional, default `1`): in a cluster, this value
   determines the number of shards to create for the collection. In a single
   server setup, this option is meaningless.
