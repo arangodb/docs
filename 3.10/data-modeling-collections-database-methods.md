@@ -10,33 +10,31 @@ Collection
 
 <!-- arangod/V8Server/v8-vocbase.cpp -->
 
+Return a single collection:
 
-returns a single collection or null
 `db._collection(collection-name)`
 
-Returns the collection with the given name or null if no such collection
+Returns the collection with the given name, or `null` if no such collection
 exists.
 
 `db._collection(collection-identifier)`
 
-Returns the collection with the given identifier or null if no such
+Returns the collection with the given identifier or `null` if no such
 collection exists. Accessing collections by identifier is discouraged for
 end users. End users should access collections using the collection name.
 
-
 **Examples**
-
 
 Get a collection by name:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseNameKnown
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameKnown}
       db._collection("demo");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseNameKnown
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Get a collection by id:
 
@@ -47,66 +45,66 @@ arangosh> db._collection(123456);
 
 Unknown collection:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameUnknown}
       db._collection("unknown");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseNameUnknown
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Create
 ------
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
+Create a new document or edge collection:
 
-creates a new document or edge collection
 `db._create(collection-name)`
 
-Creates a new document collection named *collection-name*.
+Creates a new document collection named `collection-name`.
 If the collection name already exists or if the name format is invalid, an
 error is thrown. For more information on valid collection names please refer
 to the [naming conventions](data-modeling-naming-conventions.html).
 
 `db._create(collection-name, properties)`
 
-*properties* must be an object with the following attributes:
+`properties` must be an object with the following attributes:
 
-- *waitForSync* (optional, default *false*): If *true* creating
-  a document will only return after the data was synced to disk.
+- `waitForSync` (optional, default `false`): If `true`, creating
+  a document only returns after the data is synced to disk.
 
-- *isSystem* (optional, default is *false*): If *true*, create a
-  system collection. In this case *collection-name* should start with
+- `isSystem` (optional, default is `false`): If `true`, create a
+  system collection. In this case `collection-name` should start with
   an underscore. End users should normally create non-system collections
   only. API implementors may be required to create system collections in
-  very special occasions, but normally a regular collection will do.
+  very special occasions, but normally a regular collection is sufficient.
 
-- *keyOptions* (optional): additional options for key generation. If
-  specified, then *keyOptions* should be a JSON object containing the
+- `keyOptions` (optional): additional options for key generation. If
+  specified, then `keyOptions` should be a JSON object containing the
   following attributes (**note**: some of them are optional):
-  - *type*: specifies the type of the key generator. The currently
-    available generators are *traditional*, *autoincrement*, *uuid* and
-    *padded*.
-    The `traditional` key generator generates numerical keys in ascending order.
-    The sequence of keys is not guaranteed to be gap-free.
-    The `autoincrement` key generator generates numerical keys in ascending order, 
-    the initial offset and the spacing can be configured (**note**: 
-    *autoincrement* is currently only supported for non-sharded or 
-    single-sharded collections). 
-    The sequence of generated keys is not guaranteed to be gap-free, because a new key
-    will be generated on every document insert attempt, not just for successful
-    inserts.
-    The `padded` key generator generates keys of a fixed length (16 bytes) in
-    ascending lexicographical sort order. This is ideal for usage with the _RocksDB_
-    engine, which will slightly benefit keys that are inserted in lexicographically
-    ascending order. The key generator can be used in a single-server or cluster.
-    The sequence of generated keys is not guaranteed to be gap-free.
-    The `uuid` key generator generates universally unique 128 bit keys, which 
-    are stored in hexadecimal human-readable format. This key generator can be used
-    in a single-server or cluster to generate "seemingly random" keys. The keys 
-    produced by this key generator are not lexicographically sorted.
+  - `type`: specifies the type of the key generator.
+    The available generators are `traditional`, `autoincrement`, `uuid` and
+    `padded`.
+    - The `traditional` key generator generates numerical keys in ascending order.
+      The sequence of keys is not guaranteed to be gap-free.
+    - The `autoincrement` key generator generates numerical keys in ascending order, 
+      the initial offset and the spacing can be configured (**note**: 
+      `autoincrement` is only supported for non-sharded or 
+      single-sharded collections). 
+      The sequence of generated keys is not guaranteed to be gap-free, because a new key
+      is generated on every document insert attempt, not just for successful
+      inserts.
+    - The `padded` key generator generates keys of a fixed length (16 bytes) in
+      ascending lexicographical sort order. This is ideal for usage with the _RocksDB_
+      engine, which slightly benefits keys that are inserted in lexicographically
+      ascending order. The key generator can be used in a single-server or cluster.
+      The sequence of generated keys is not guaranteed to be gap-free.
+    - The `uuid` key generator generates universally unique 128 bit keys, which 
+      are stored in hexadecimal human-readable format. This key generator can be used
+      in a single-server or cluster to generate "seemingly random" keys. The keys 
+      produced by this key generator are not lexicographically sorted.
 
     Please note that keys are only guaranteed to be truly ascending in single
     server deployments and for collections that only have a single shard (that includes
@@ -116,21 +114,21 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     keys are generated on the leader DB-Server, which has full control over the key
     sequence.
 
-  - *allowUserKeys*: if set to *true*, then it is allowed to supply
-    own key values in the *_key* attribute of a document. If set to
-    *false*, then the key generator will solely be responsible for
-    generating keys and supplying own key values in the *_key* attribute
+  - `allowUserKeys`: if set to `true`, then it is allowed to supply
+    own key values in the `_key` attribute of a document. If set to
+    `false`, then the key generator is solely responsible for
+    generating keys and supplying own key values in the `_key` attribute
     of documents is considered an error.
-  - *increment*: increment value for *autoincrement* key generator.
+  - `increment`: increment value for `autoincrement` key generator.
     Not used for other key generator types.
-  - *offset*: initial offset value for *autoincrement* key generator.
+  - `offset`: initial offset value for `autoincrement` key generator.
     Not used for other key generator types.
 
-- *numberOfShards* (optional, default is *1*): in a cluster, this value
+- `numberOfShards` (optional, default `1`): in a cluster, this value
   determines the number of shards to create for the collection. In a single
   server setup, this option is meaningless.
 
-- *shardKeys* (optional, default is `[ "_key" ]`): in a cluster, this
+- `shardKeys` (optional, default is `[ "_key" ]`): in a cluster, this
   attribute determines which document attributes are used to determine the
   target shard for documents. Documents are sent to shards based on the
   values they have in their shard key attributes. The values of all shard
@@ -139,27 +137,27 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   be changed once set.
   This option is meaningless in a single server setup.
 
-  When choosing the shard keys, one must be aware of the following
+  When choosing the shard keys, you must be aware of the following
   rules and limitations: In a sharded collection with more than
   one shard it is not possible to set up a unique constraint on
   an attribute that is not the one and only shard key given in
-  *shardKeys*. This is because enforcing a unique constraint
+  `shardKeys`. This is because enforcing a unique constraint
   would otherwise make a global index necessary or need extensive
   communication for every single write operation. Furthermore, if
-  *_key* is not the one and only shard key, then it is not possible
-  to set the *_key* attribute when inserting a document, provided
+  `_key` is not the one and only shard key, then it is not possible
+  to set the `_key` attribute when inserting a document, provided
   the collection has more than one shard. Again, this is because
-  the database has to enforce the unique constraint on the *_key*
+  the database has to enforce the unique constraint on the `_key`
   attribute and this can only be done efficiently if this is the
   only shard key by delegating to the individual shards.
 
-- *replicationFactor* (optional, default is 1): in a cluster, this
+- `replicationFactor` (optional, default `1`): in a cluster, this
   attribute determines how many copies of each shard are kept on 
   different DB-Servers. The value 1 means that only one copy (no
   synchronous replication) is kept. A value of k means that
   k-1 replicas are kept. Any two copies reside on different DB-Servers.
   Replication between them is synchronous, that is, every write operation
-  to the "leader" copy will be replicated to all "follower" replicas,
+  to the "leader" copy is replicated to all "follower" replicas,
   before the write operation is reported successful.
 
   If a server fails, this is detected automatically and one of the
@@ -172,24 +170,24 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   dramatically when using joins in AQL at the costs of reduced write
   performance on these collections.
 
-- *writeConcern* (optional, default is 1): in a cluster, this
+- `writeConcern` (optional, default `1`): in a cluster, this
   attribute determines how many copies of each shard are required
   to be in sync on the different DB-Servers. If there are less then these
-  many copies in the cluster a shard will refuse to write. The value of
-  *writeConcern* can not be larger than *replicationFactor*.
+  many copies in the cluster, a shard refuses to write. The value of
+  `writeConcern` can not be larger than `replicationFactor`.
   Please note: during server failures this might lead to writes
   not being possible until the failover is sorted out and might cause
   write slow downs in trade for data durability.
 
-- *distributeShardsLike*: distribute the shards of this collection
+- `distributeShardsLike`: distribute the shards of this collection
   cloning the shard distribution of another. If this value is set,
-  it will copy the attributes *replicationFactor*, *numberOfShards* and 
-  *shardingStrategy* from the other collection. 
+  it copies the attributes `replicationFactor`, `numberOfShards` and 
+  `shardingStrategy` from the other collection. 
 
-- *shardingStrategy* (optional): specifies the name of the sharding
+- `shardingStrategy` (optional): specifies the name of the sharding
   strategy to use for the collection. Since ArangoDB 3.4 there are
   different sharding strategies to select from when creating a new 
-  collection. The selected *shardingStrategy* value will remain
+  collection. The selected `shardingStrategy` value remains
   fixed for the collection and cannot be changed afterwards. This is
   important to make the collection keep its sharding settings and
   always find documents already distributed to shards using the same
@@ -207,58 +205,57 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   - `enterprise-hash-smart-edge`: default sharding used for new
     smart edge collections starting from version 3.4
 
-  If no sharding strategy is specified, the default will be `hash` for
+  If no sharding strategy is specified, the default is `hash` for
   all collections, and `enterprise-hash-smart-edge` for all smart edge
   collections (requires the *Enterprise Edition* of ArangoDB). 
   Manually overriding the sharding strategy does not yet provide a 
   benefit, but it may later in case other sharding strategies are added.
   
-  In single-server mode, the *shardingStrategy* attribute is meaningless 
-  and will be ignored.
+  In single-server mode, the `shardingStrategy` attribute is meaningless 
+  and is ignored.
 
-- *smartJoinAttribute: in an *Enterprise Edition* cluster, this attribute 
+- `smartJoinAttribute`: in an *Enterprise Edition* cluster, this attribute 
   determines an attribute of the collection that must contain the shard key value 
   of the referred-to SmartJoin collection. Additionally, the sharding key 
   for a document in this collection must contain the value of this attribute, 
   followed by a colon, followed by the actual primary key of the document.
 
   This feature can only be used in the *Enterprise Edition* and requires the
-  *distributeShardsLike* attribute of the collection to be set to the name
-  of another collection. It also requires the *shardKeys* attribute of the
-  collection to be set to a single shard key attribute, with an additional ':'
+  `distributeShardsLike` attribute of the collection to be set to the name
+  of another collection. It also requires the `shardKeys` attribute of the
+  collection to be set to a single shard key attribute, with an additional `:`
   at the end.
   A further restriction is that whenever documents are stored or updated in the 
-  collection, the value stored in the *smartJoinAttribute* must be a string.
+  collection, the value stored in the `smartJoinAttribute` must be a string.
 
 `db._create(collection-name, properties, type)`
 
-Specifies the optional *type* of the collection, it can either be *document* 
-or *edge*. On default it is document. Instead of giving a type you can also use 
-*db._createEdgeCollection* or *db._createDocumentCollection*.
+Specifies the optional `type` of the collection, it can either be `document` 
+or `edge`. On default it is document. Instead of giving a type you can also use 
+`db._createEdgeCollection()` or `db._createDocumentCollection()`.
 
 `db._create(collection-name, properties[, type], options)`
 
-As an optional third (if the *type* string is being omitted) or fourth
+As an optional third (if the `type` string is being omitted) or fourth
 parameter you can specify an optional options map that controls how the
-cluster will create the collection. These options are only relevant at
-creation time and will not be persisted:
+cluster creates the collection. These options are only relevant at
+creation time and are not persisted:
 
-- *waitForSyncReplication* (default: true)
-  When enabled the server will only report success back to the client
-  if all replicas have created the collection. Set to *false* if you want faster
+- `waitForSyncReplication` (default: `true`)
+  If enabled, the server only reports success back to the client
+  if all replicas have created the collection. Set to `false` if you want faster
   server responses and don't care about full replication.
 
-- *enforceReplicationFactor* (default: true)
-  When enabled which means the server will check if there are enough replicas
-  available at creation time and bail out otherwise. Set to *false* to disable
+- `enforceReplicationFactor` (default: `true`)
+  If enabled, the server checks if there are enough replicas
+  available at creation time and bails out otherwise. Set to `false` to disable
   this extra check.
 
 **Examples**
 
-
 With defaults:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateSuccess
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSuccess}
       c = db._create("users");
@@ -266,12 +263,12 @@ With defaults:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSuccess
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 With properties:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateProperties
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateProperties}
       c = db._create("users", { waitForSync: true });
@@ -279,12 +276,12 @@ With properties:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateProperties
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 With a key generator:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateKey}
     | db._create("users",
@@ -295,12 +292,12 @@ With a key generator:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateKey
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 With a special key option:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateSpecialKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
       db._create("users", { keyOptions: { allowUserKeys: false } });
@@ -310,52 +307,49 @@ With a special key option:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSpecialKey
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
+Create a new edge collection:
 
-creates a new edge collection
 `db._createEdgeCollection(collection-name)`
 
-Creates a new edge collection named *collection-name*. If the
+Creates a new edge collection named `collection-name`. If the
 collection name already exists an error is thrown. The default value
-for *waitForSync* is *false*.
+for `waitForSync` is `false`.
 
 `db._createEdgeCollection(collection-name, properties)`
 
-*properties* must be an object with the following attributes:
+`properties` must be an object with the following attributes:
 
-- *waitForSync* (optional, default *false*): If *true* creating
-  a document will only return after the data was synced to disk.
-
+- `waitForSync` (optional, default: `false`): If `true`, creating
+  a document only returns after the data is synced to disk.
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
+Create a new document collection:
 
-creates a new document collection
 `db._createDocumentCollection(collection-name)`
 
-Creates a new document collection named *collection-name*. If the
+Creates a new document collection named `collection-name`. If the
 document name already exists and error is thrown.
-
 
 All Collections
 ---------------
 
 <!-- arangod/V8Server/v8-vocbase.cpp -->
 
+Return all collections:
 
-returns all collections
 `db._collections()`
 
 Returns all collections of the given database.
 
-
 **Examples**
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionsDatabaseName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionsDatabaseName}
     ~ db._create("example");
@@ -363,27 +357,25 @@ Returns all collections of the given database.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionsDatabaseName
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Collection Name
 ---------------
 
 <!-- arangod/V8Server/v8-vocbase.cpp -->
 
+Select a collection from the database:
 
-selects a collection from the database
 `db.collection-name`
 
-Returns the collection with the given *collection-name*. If no such
-collection exists, create a collection named *collection-name* with the
+Returns the collection with the given `collection-name`. If no such
+collection exists, create a collection named `collection-name` with the
 default properties.
-
 
 **Examples**
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCollectionName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCollectionName}
     ~ db._create("example");
@@ -391,45 +383,46 @@ default properties.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCollectionName
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Drop
 ----
 
 <!-- js/server/modules/@arangodb/arango-database.js -->
 
+Drop a collection:
 
-drops a collection
 `db._drop(collection)`
 
-Drops a *collection* and all its indexes and data.
+Drops a `collection` and all its indexes and data.
 
 `db._drop(collection-identifier)`
 
-Drops a collection identified by *collection-identifier* with all its
+Drops a collection identified by `collection-identifier` with all its
 indexes and data. No error is thrown if there is no such collection.
 
 `db._drop(collection-name)`
 
-Drops a collection named *collection-name* and all its indexes. No error
+Drops a collection named `collection-name` and all its indexes. No error
 is thrown if there is no such collection.
 
 `db._drop(collection-name, options)`
 
-In order to drop a system collection, one must specify an *options* object
-with attribute *isSystem* set to *true*. Otherwise it is not possible to
+In order to drop a system collection, you must specify an `options` object
+with attribute `isSystem` set to `true`. Otherwise it is not possible to
 drop system collections.
 
-**Note**: cluster collection, which are prototypes for collections
-with *distributeShardsLike* parameter, cannot be dropped.
+{% hint 'info' %}
+Cluster collection, which are prototypes for collections
+with `distributeShardsLike` parameter, cannot be dropped.
+{% endhint %}
 
-*Examples*
+**Examples**
 
 Drops a collection:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseDropByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropByObject}
     ~ db._create("example");
@@ -439,12 +432,12 @@ Drops a collection:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropByObject
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Drops a collection identified by name:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseDropName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropName}
     ~ db._create("example");
@@ -453,12 +446,12 @@ Drops a collection identified by name:
       col;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropName
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Drops a system collection
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropSystem}
     ~ db._create("_example", { isSystem: true });
@@ -467,38 +460,36 @@ Drops a system collection
       col;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropSystem
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Truncate
 --------
 
 <!-- js/server/modules/@arangodb/arango-database.js -->
 
+Truncate a collection:
 
-truncates a collection
 `db._truncate(collection)`
 
-Truncates a *collection*, removing all documents but keeping all its
+Truncates a `collection`, removing all documents but keeping all its
 indexes.
 
 `db._truncate(collection-identifier)`
 
-Truncates a collection identified by *collection-identified*. No error is
+Truncates a collection identified by `collection-identified`. No error is
 thrown if there is no such collection.
 
 `db._truncate(collection-name)`
 
-Truncates a collection named *collection-name*. No error is thrown if
+Truncates a collection named `collection-name`. No error is thrown if
 there is no such collection.
-
 
 **Examples**
 
-
 Truncates a collection:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseTruncateByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateByObject}
     ~ db._create("example");
@@ -510,12 +501,12 @@ Truncates a collection:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateByObject
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Truncates a collection identified by name:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseTruncateName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateName}
     ~ db._create("example");
@@ -527,6 +518,5 @@ Truncates a collection identified by name:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateName
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
