@@ -9,8 +9,8 @@ ArangoDB Oasis provides metrics for each deployment in a
 [Prometheus](https://prometheus.io/){:target="_blank"}
 compatible format.
 You can use these metrics to gather detailed insights into the current
-and previous workings of your deployment.
-Once metrics are scraped by Prometheus, you can inspect them using tools
+and previous states of your deployment.
+Once metrics are collected by Prometheus, you can inspect them using tools
 such as [Grafana](https://grafana.com/oss/grafana/){:target="_blank"}.
 
 To get started, select an existing deployment from within a project and
@@ -23,7 +23,7 @@ open the **Monitoring** tab.
 ## Metrics tokens
 
 The **Metrics tokens** section allows you to create a new metrics token,
-which is necessary when connecting to Prometheus.
+which is required for connecting to Prometheus.
 
 1. To create a metrics token, click **New metrics token**.
 2. For **Name**, enter a name for the metrics token.
@@ -36,7 +36,7 @@ which is necessary when connecting to Prometheus.
 ## How to connect Prometheus
 
 1. In the **Metrics** section, click **Connect Prometheus**.
-2. Create a `prometheus.yml` file and add the following content:
+2. Create the `prometheus.yml` file with the following content:
 
     ```yml
     global:
@@ -59,8 +59,8 @@ which is necessary when connecting to Prometheus.
     prom/prometheus
     ```
     {% hint 'info' %}
-    This command also opens a port 3000 for Grafana. In a production setting,
-    this is not needed nor recommended.
+    This command also opens a port 3000 for Grafana. In a production environment,
+    this is not needed and not recommended to have it open.
     {% endhint %}
 
 ## How to connect Grafana
@@ -72,9 +72,13 @@ which is necessary when connecting to Prometheus.
     --network container:prometheus \
     grafana/grafana
     ```  
-2. Go to `localhost:3000` and login with the following credentials:
+2. Go to `localhost:3000` and log in with the following credentials:
    - For username, enter *admin*.
    - For password, enter *admin*. 
+   
+    {% hint 'tip' %}
+    After the initial login, make sure to change your password.
+    {% endhint %}
 
    After the initial login, make sure to change your password.
 3. To add a data source, click **Add your first data source** and then do the following:
