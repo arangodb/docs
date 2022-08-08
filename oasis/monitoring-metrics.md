@@ -80,7 +80,6 @@ which is required for connecting to Prometheus.
     After the initial login, make sure to change your password.
     {% endhint %}
 
-   After the initial login, make sure to change your password.
 3. To add a data source, click **Add your first data source** and then do the following:
    - Select **Prometheus**.
    - For **HTTP URL**, enter `http://localhost:9090`.
