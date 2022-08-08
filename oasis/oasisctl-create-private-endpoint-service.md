@@ -19,6 +19,7 @@ oasisctl create private endpoint service [flags]
 
 ```
       --alternate-dns-name strings             DNS names used for the deployment in the private network
+      --aws-principal strings                  List of AWS Principals from which a Private Endpoint can be created (Format: <AccountID>[/Role/<RoleName>|/User/<UserName>])
       --azure-client-subscription-id strings   List of Azure subscription IDs from which a Private Endpoint can be created
   -d, --deployment-id string                   Identifier of the deployment that the private endpoint service is connected to
       --description string                     Description of the private endpoint service

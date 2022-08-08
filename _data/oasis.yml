@@ -15,6 +15,8 @@
   href: deployments.html
 - text: My Account
   href: my-account.html
+- text: Monitoring & Metrics
+  href: monitoring-metrics.html  
 - text: Security and Access Control
   href: access-control.html
 - text: Backups
@@ -163,6 +165,16 @@
           href: oasisctl-delete-project.html
         - text: Delete Role
           href: oasisctl-delete-role.html
+    - text: Disable
+      href: oasisctl-disable.html
+      children:
+        - text: Disable Scheduled Root Password Rotation
+          href: oasisctl-disable-scheduled-root-password-rotation.html
+    - text: Enable
+      href: oasisctl-enable.html
+      children:
+        - text: Enable Scheduled Root Password Rotation
+          href: oasisctl-enable-scheduled-root-password-rotation.html
     - text: Generate Docs
       href: oasisctl-generate-docs.html
     - text: Get
