@@ -134,7 +134,7 @@ FOR vertex[, edge[, path]]
     case when a nested traversal is fed with several tens of thousands of start
     vertices, which can then be distributed randomly to worker threads for parallel
     execution.
-    % include hint-ee.md feature="Traversal parallelization" plural=false %}
+    {% include hint-ee.md feature="Traversal parallelization" plural=false %}
   - **maxProjections** (number, *optional*): Specifies the number of document
     attributes per FOR loop to be used as projections. The default value is `5`. 
   - **weightAttribute** (string, *optional*): Specifies the name of an attribute
