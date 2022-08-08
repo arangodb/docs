@@ -82,7 +82,7 @@ collection for JavaScript objects will be run in each thread.
 
 `--javascript.v8-options options`
 
-Optional arguments to pass to the V8 Javascript engine. The V8 engine will run
+Optional arguments to pass to the V8 JavaScript engine. The V8 engine will run
 with default settings unless explicit options are specified using this
 option. The options passed will be forwarded to the V8 engine which will parse
 them on its own. Passing invalid options may result in an error being printed on

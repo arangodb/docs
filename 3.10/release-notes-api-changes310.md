@@ -112,7 +112,7 @@ The following APIs are affected:
 - Batch document reads (`PUT /_api/document?onlyget=true`)
 - Read-only AQL queries (`POST /_api/cursor`)
 - The edge API (`GET /_api/edges`)
-- Read-only stream transactions and their sub-operations
+- Read-only Stream Transactions and their sub-operations
   (`POST /_api/transaction/begin` etc.)
 
 If the header is not specified, the behavior is the same as before.
