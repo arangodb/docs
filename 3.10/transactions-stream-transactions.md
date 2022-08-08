@@ -55,7 +55,7 @@ These limits are also enforced for Stream Transactions on single servers.
 
 The default maximum idle timeout is **60 seconds** between operations in a
 single Stream Transaction. The maximum value can be bumped up to at most 120
-seconds by setting the startup `--transaction.streaming-idle-timeout` option.
+seconds by setting the `--transaction.streaming-idle-timeout` startup option.
 Posting an operation into a non-expired Stream Transaction resets the
 transaction's timeout to the configured idle timeout.
 
@@ -70,7 +70,7 @@ A given transaction is intended to be used **serially**. No concurrent requests
 using the same transaction ID should be issued by the client. The server can
 make some effort to serialize certain operations (see
 [Streaming Lock Timeout](programs-arangod-transaction.html#streaming-lock-timeout)),
-however this degrades the server's performance and may lead to sporadic
+however, this degrades the server's performance and may lead to sporadic
 errors with code `28` (locked).
 
 ### Batch requests
