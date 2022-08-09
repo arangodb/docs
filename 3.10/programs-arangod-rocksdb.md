@@ -242,7 +242,7 @@ value is false.
 
 ### Validation
 
-`--rocksdb.validate-sst`
+`--rocksdb.verify-sst`
 
 This flag specifies whether or not to validate the sst files present in the 
 database directory provided on startup. If set to true, during startup, all the
