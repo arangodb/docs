@@ -775,6 +775,7 @@ jQuery(function() {
     initSwipeHandler();
     initHistory();
     initSearch();
+    videosAutoplayer();
 });
 
 jQuery.extend({
@@ -876,4 +877,28 @@ function useSwagger( config ){
 }
 if( window.themeUseSwagger ){
     useSwagger( window.themeUseSwagger );
+}
+
+// Common custom functions
+
+function videosAutoplayer() {
+    let videos = document.querySelectorAll("video");
+    videos.forEach((video) => {
+        observeVideo(video);
+    });
+}
+
+function observeVideo(video) {
+    let observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting === true) 
+                    video.play();
+                else 
+                    video.pause();
+                });
+        },
+        { threshold: 0.2 }
+    );
+    observer.observe(video);
 }
