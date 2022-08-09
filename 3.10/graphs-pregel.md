@@ -77,7 +77,7 @@ var execution = pregel.start("<algorithm>", { vertexCollections: ["vertices"], e
 ```
 
 The `params` argument needs to be an object with the algorithm settings as
-described in [Available Algorithms](#available-algorithms).
+described in [Pregel Algorithms](graphs-pregel-algorithms.html).
 
 ### Status of an Algorithm Execution
 
