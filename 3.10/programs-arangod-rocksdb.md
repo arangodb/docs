@@ -244,7 +244,7 @@ value is false.
 
 `--rocksdb.verify-sst`
 
-This flag specifies whether or not to validate the sst files present in the 
+This flag specifies whether or not to validate the SST files present in the 
 database directory provided on startup. If set to true, during startup, all the
 SST files in `engine-rocksdb` of the database directory will be checked for 
 validation and then the execution will be finished, so this parameter treats 
