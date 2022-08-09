@@ -240,6 +240,17 @@ Approximate size of user data (in bytes) packed per block for uncompressed data.
 If true, keeps a pool of log files around for recycling them. The default
 value is false.
 
+### Validation
+
+`--rocksdb.validate-sst`
+
+This flag specifies whether or not to validate the sst files present in the 
+database directory provided on startup. If set to true, during startup, all the
+sst files in `engine-rocksdb` of the database directory will be checked for 
+validation and then the execution will be finished, so this parameter treats 
+the server startup as a means to execute the file validation as a tool and then
+stop execution. Default: false.
+
 ### Miscellaneous
 
 `--rocksdb.optimize-filters-for-hits`

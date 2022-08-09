@@ -357,6 +357,11 @@ See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness
 
 ### RocksDB startup options
 
+There's a new startup option `--rocksdb.validate-sst` for validating the sst files currently
+contained in the database directory on startup. If set to true, on startup, all sst files
+in the `engine-rocksdb` directory of the database will be validated, then the program will
+finish execution. The default value is `false`.
+
 The default value of the `--rocksdb.cache-index-and-filter-blocks` startup option was changed
 from `false` to `true`. This makes RocksDB track all loaded index and filter blocks in the 
 block cache, so they are accounted against the RocksDB's block cache memory limit. 
