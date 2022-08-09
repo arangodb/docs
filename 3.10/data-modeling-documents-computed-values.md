@@ -79,9 +79,10 @@ Each object represents a computed value and can have the following attributes:
 
 ## HTTP API
 
-See the `computedValues` collection property in the HTTP API documentation for
-[Creating Collections](http/collection-creating.html) and
-[Modifying Collections](http/collection-modifying.html).
+See the `computedValues` collection property in the HTTP API documentation:
+- [Create a collection](http/collection-creating.html#create-collection),
+- [Read properties of a collection](http/collection-getting.html#read-properties-of-a-collection),
+- [Change properties of a collection](http/collection-modifying.html#change-properties-of-a-collection).
 
 ## Computed Value Expressions
 

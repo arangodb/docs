@@ -72,6 +72,27 @@ section of the HTTP API reference manual.
 
 ### Endpoints augmented
 
+#### Computed Values
+
+The [Computed Values](data-modeling-documents-computed-values.html) feature
+extends the following endpoints with a new `computedValues` collection property
+that you can read or write to manage the computed value definitions:
+
+- Create a collection (`POST /_api/collection`)
+- Read the properties of a collection (`GET /_api/collection/{collection-name}/properties`)
+- Change the properties of a collection (`PUT /_api/collection/{collection-name}/properties`)
+
+The `computedValues` attribute is either `null` or an array of objects with the
+following attributes:
+- `name` (string, _required_)
+- `expression` (string, _required_)
+- `overwrite` (boolean, _required_)
+- `computeOn` (array of strings, _optional_, default: `["insert","update","replace"]`)
+- `keepNull` (boolean, _optional_, default: `true`)
+- `failOnWarning` (boolean, _optional_, default: `false`)
+
+#### Collection truncation markers
+
 APIs that return data from ArangoDB's write-ahead log (WAL) may now return
 collection truncate markers in the cluster, too. Previously such truncate
 markers were only issued in the single server and active failover modes, but not
@@ -79,9 +100,10 @@ in a cluster. Client applications that tail ArangoDB's WAL are thus supposed
 to handle WAL markers of type `2004`.
 
 The following HTTP APIs are affected:
-* `/_api/wal/tail`
-* `/_api/replication/logger-follow`
+- `/_api/wal/tail`
+- `/_api/replication/logger-follow`
 
+#### Startup and recovery information
 
 The GET `/_admin/status` API now also returns startup and recovery information. This
 can be used to determine the instance's progress during startup. The new `progress`
@@ -96,7 +118,6 @@ attribute is returned inside the `serverInfo` object with the following subattri
   the last handled recovery sequence number.
 
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
-
 
 #### Read from Followers
 
@@ -180,4 +201,6 @@ one needs to be created.
 
 ## JavaScript API
 
-
+The Computed Values feature extends the collection properties with a new
+`computedValues` attribute. See [Computed Values](data-modeling-documents-computed-values.html#javascript-api)
+for details.
