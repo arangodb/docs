@@ -246,10 +246,10 @@ value is false.
 
 This flag specifies whether or not to validate the sst files present in the 
 database directory provided on startup. If set to true, during startup, all the
-sst files in `engine-rocksdb` of the database directory will be checked for 
-validation and then the execution will be finished, so this parameter treats 
-the server startup as a means to execute the file validation as a tool and then
-stop execution. Default: false.
+SST files in `engine-rocksdb` of the database directory will be checked for 
+potential corruption and errors. The server process will stop after the check
+and return an exit code of `0` if the validation was successful, or a non-zero
+exit code if there is an error in any of the SST files. Default: false.
 
 ### Miscellaneous
 
