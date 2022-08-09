@@ -9,6 +9,7 @@ tags: ["test1"]
 
 {{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" size="small" inline="true" >}}
 
+{{< marker id="test" >}}
 
 It supports a variety of data access patterns with a single, composable query
 language thanks to its multi-model approach that combines the analytical power
@@ -17,6 +18,7 @@ of graphs with JSON documents, a key-value store, and a built-in search engine.
 ArangoDB is available in an open-source and a commercial [edition](features.html),
 you can use it for on-premise deployments, as well as a fully managed
 [cloud service](oasis/).
+
 
 ## What are Graphs?
 
@@ -59,9 +61,9 @@ ArangoDB is designed from the ground up to support multiple data models with a
 single, composable query language.
 
 ```aql
-FOR book IN Books
+FOR book IN Books   // This is a comment
   FILTER book.title == "ArangoDB"
-  FOR person IN 2..2 INBOUND book Sales, OUTBOUND People
+  FOR person IN 2..2 INBOUND book Sales, OUTBOUND People      // Another comment
     RETURN person.name
 ```
 
@@ -72,3 +74,7 @@ ArangoDB is written in C++ for high performance and built to work at scale, in
 the cloud or on-premise.
 
 <!-- deployment options, move from features page, on-prem vs cloud? -->
+
+{{% annotation id="test" %}}
+Simple annotation id test
+{{% /annotation %}}

@@ -7,6 +7,8 @@ menuTitle: SmartGraphs
 
 {{% enterprise-tag feature="SmartGraphs" %}}
 
+
+
 {{< video src="videos/videotest.mp4" size="medium" >}}
 
 SmartGraphs are specifically targeted at graphs that need scalability and high performance. The way SmartGraphs use the ArangoDB cluster sharding makes it extremely useful for distributing data across multiple servers with minimal network latency.
