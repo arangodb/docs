@@ -35,7 +35,7 @@ the data-centers has enough bandwidth. It is fault-tolerant
 without a single point of failure and includes a lot of
 metrics for monitoring in a production scenario.
 
-[DC2DC](deployment-dc2-dc.html) is available in the *Enterprise Edition*.
+DC2DC is available in the *Enterprise Edition*.
 
 Encrypted backups
 -----------------

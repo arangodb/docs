@@ -34,6 +34,8 @@ oasisctl [flags]
 * [oasisctl completion](oasisctl-completion.html)	 - Generates bash completion scripts
 * [oasisctl create](oasisctl-create.html)	 - Create resources
 * [oasisctl delete](oasisctl-delete.html)	 - Delete resources
+* [oasisctl disable](oasisctl-disable.html)	 - Disable some settings related to deployment
+* [oasisctl enable](oasisctl-enable.html)	 - Enable some settings related to deployment
 * [oasisctl generate-docs](oasisctl-generate-docs.html)	 - Generate output
 * [oasisctl get](oasisctl-get.html)	 - Get information
 * [oasisctl import](oasisctl-import.html)	 - Import data from a local database or from another remote database into an Oasis deployment.

@@ -166,6 +166,10 @@ operation is aborted and an *HTTP 412* error is returned.
 Read from Followers
 -------------------
 
+<small>Introduced in: v3.10.0</small>
+
+{% include hint-ee.md feature="Reading from followers in cluster deployments" %}
+
 In an ArangoDB cluster, all reads and writes are performed via
 the shard leaders. Shard replicas replicate all operations, but are
 only on hot standby to take over in case of a failure. This is to ensure

@@ -134,12 +134,10 @@ FOR vertex[, edge[, path]]
     case when a nested traversal is fed with several tens of thousands of start
     vertices, which can then be distributed randomly to worker threads for parallel
     execution.
-
-    Traversal parallelization is only available in the *Enterprise Edition*, and
-    limited to traversals in single server deployments and to cluster traversals
-    that are running in a OneShard setup. Cluster traversals that run on a
-    Coordinator node and SmartGraph traversals are currently not parallelized,
-    even if the options is specified.
+    {% include hint-ee.md feature="Traversal parallelization" plural=false %}
+  - **maxProjections** (number, *optional*): Specifies the number of document
+    attributes per FOR loop to be used as projections. The default value is `5`.
+    {% include hint-ee.md feature="Traversal projections" plural=true %}
   - **weightAttribute** (string, *optional*): Specifies the name of an attribute
     that is used to look up the weight of an edge. If no attribute is specified
     or if it is not present in the edge document then the `defaultWeight` is used.
