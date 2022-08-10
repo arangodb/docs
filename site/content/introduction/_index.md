@@ -7,7 +7,7 @@ weight: 1
 tags: ["test1"]
 ---
 
-{{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" size="small" inline="true" >}}
+{{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" size="medium" >}}
 
 {{< marker id="test" >}}
 
@@ -22,21 +22,15 @@ you can use it for on-premise deployments, as well as a fully managed
 
 ## What are Graphs?
 
-Graphs are information networks comprised of nodes and relations.
-
-![Node - Relation - Node](images/data-model-graph-relation-abstract.png)
+Graphs are information networks comprised of nodes and relations. {{< marker id="graph-1" >}}
 
 A social network is a common example of a graph. People are represented by nodes
 and their friendships by relations.
-
-![Mary - is friend of - John](images/data-model-graph-relation-concrete.png)
 
 Nodes are also called vertices (singular: vertex), and relations are edges that
 connect vertices.
 A vertex typically represents a specific entity (a person, a book, a sensor
 reading, etc.) and an edge defines how one entity relates to another.
-
-![Mary - bought - Book, is friend of - John](images/data-model-graph-relations.png)
 
 This paradigm of storing data feels natural because it closely matches the
 cognitive model of humans. It is an expressive data model that allows you to
@@ -49,8 +43,6 @@ Not everything is a graph use case. ArangoDB lets you equally work with
 structured, semi-structured, and unstructured data in the form of schema-free
 JSON objects, without having to connect these objects to form a graph.
 
-![Person Mary, Book ArangoDB](images/data-model-document.png)
-
 <!-- TODO:
 Seems too disconnected, what is the relation?
 Maybe multiple docs, maybe also include folders (collections)?
@@ -61,9 +53,9 @@ ArangoDB is designed from the ground up to support multiple data models with a
 single, composable query language.
 
 ```aql
-FOR book IN Books   // This is a comment
+FOR book IN Books {{< marker id="code-ann-2" >}}
   FILTER book.title == "ArangoDB"
-  FOR person IN 2..2 INBOUND book Sales, OUTBOUND People      // Another comment
+  FOR person IN 2..2 INBOUND book Sales, OUTBOUND People
     RETURN person.name
 ```
 
@@ -77,4 +69,14 @@ the cloud or on-premise.
 
 {{% annotation id="test" %}}
 Simple annotation id test
+{{% /annotation %}}
+
+{{% annotation id="graph-1" %}}
+This is an inline annotation explaining graphs, they are wonderful and bidibi bodibi bu
+yeah yeah yeah
+yeah
+{{% /annotation %}}
+
+{{% annotation id="code-ann-2" %}}
+code annotation 2
 {{% /annotation %}}

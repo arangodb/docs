@@ -1,6 +1,12 @@
 {{ $_hugo_config := `{ "version": 1 }` }}
 {{- $id := .Get "id" }}
 
-<annotation class="annotation hidden" id="{{ $id }}">
-{{ .Inner }}
-</annotation>
+<div class="annotation-wrapper" id="{{ $id }}">
+    <div class="annotation">
+        <div class="annotation-icon">
+            <div class="annotation-tooltip">{{ .Inner }}</div>
+            <span><i class="fas fa-plus-circle"></i></span>
+        </div>    
+    </div>
+</div>
+
