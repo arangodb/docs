@@ -9,25 +9,31 @@ createMarkedAnnotations();
 function createCodeAnnotations() {
   var commentRegex = /\/\/.*/g;
   const codeBlocks = document.querySelectorAll('code');
+  if (codeBlocks == null) return
 
-  codeBlocks.forEach(block => {
+  for(let block of codeBlocks) {
     let annotations = block.innerText.match(commentRegex);
-    annotations.forEach(annotation => {
+    if (annotations == null) continue
+
+    for(let annotation of annotations) {
       let annotationTemplate = "<div class='annotation-wrapper'><div class='annotation'><div class='annotation-icon'><div class='annotation-tooltip'>"+annotation+"</div><span><i class='fas fa-plus-circle'></i></span></div></div></div>";
       block.innerHTML = block.innerHTML.replace(annotation, annotationTemplate);
-    })
-  })
+    }
+  }
 }
 
 // Generic Markers Annotation
 function createMarkedAnnotations() {
   const markers = document.querySelectorAll('marker');
+  if (markers == null) return
 
-  markers.forEach(marker => {
+  for(let marker of markers) {
     let annotation = document.querySelector('.annotation-wrapper#'+marker.id);
+    if (annotation == null) continue
+    
     if (marker.id === annotation.id) {
       marker.innerHTML = annotation.outerHTML;
       annotation.remove();
     }
-  });
+  };
 }
