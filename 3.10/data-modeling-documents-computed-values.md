@@ -24,9 +24,10 @@ stored like any other attribute, which means that you may use them in indexes,
 but also that the schema validation is applied if you use one.
 
 Possible use cases are to add timestamps of the creation or last modification to
-every document, or to automatically combine multiple attributes into one,
-possibly with filtering and a conversion to lowercase characters, to then index
-the attribute and use it to perform case-insensitive searches.
+every document, to add default attributes, or to automatically process attributes
+for indexing purposes. For example, you can combine multiple attributes into one,
+filter out array elements, and convert text to lowercase characters, to then index
+the new attribute and use it to perform case-insensitive searches.
 
 ## Using Computed Values
 
