@@ -5,6 +5,7 @@ description: ArangoDB is a scalable database management system for graphs, with 
 menuTitle: Introduction
 weight: 1
 tags: ["test1"]
+fileID: "introduction-index"
 ---
 
 {{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" size="medium" >}}
@@ -18,6 +19,15 @@ of graphs with JSON documents, a key-value store, and a built-in search engine.
 ArangoDB is available in an open-source and a commercial [edition](features.html),
 you can use it for on-premise deployments, as well as a fully managed
 [cloud service](oasis/).
+
+## Page References Test
+To reference other files in the site, use the reference shortcode.
+
+The page' front matter "fileID" variable is used to match the page and get the link to reference, so the file can be moved anywhere it will always
+be found as long as the fileID is referenced well.
+
+Check out the {{< reference fileID="smartgraphs-intro" label="SmartGraphs" >}}. 
+
 
 
 ## What are Graphs?

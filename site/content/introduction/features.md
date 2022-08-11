@@ -6,4 +6,4 @@ weight: 1
 tags: ["test1"]
 ---
 
-{{% feature-cards %}}
+{{< feature-cards >}}

@@ -1,4 +1,6 @@
+{{ if gt (len .TableOfContents) 80}}
 <aside class="lg:block tableOfContentContainer border-indigo-200" id="tableOfContentContainer">
     <div class="toc-header">{{ .Page.Title }} </div>
     <nav id="TableOfContents">{{ .Page.TableOfContents }}</nav>
-  </aside>
+</aside>
+{{ end }}

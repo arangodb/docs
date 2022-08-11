@@ -1,0 +1,8 @@
+{{ $fileID := .Get "fileID" | default "unknown" }}
+{{ $label := .Get "label" }}
+
+{{ range .Site.Pages  }}
+    {{ if eq $fileID .Params.fileID }} 
+    <a href="{{ .RelPermalink }}">{{ $label }}</a>
+    {{ end }}
+{{ end }}
