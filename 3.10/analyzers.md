@@ -151,6 +151,19 @@ Analyzer  /  Feature                      | Tokenization | Stemming | Normalizat
 [`geojson`](#geojson)                     |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)                   |      –       |    –     |      –        |   –
 
+Some Analyzers support features indirectly or to a limited extent, indicated by
+a `(Yes)` in the above table.
+
+- The `text` Analyzer supports edge _n_-grams but not full _n_-grams.
+- The `aql` Analyzer allows you to use a query and you can thus mimic features
+  like normalization but it is limited to what is possible with the supported
+  AQL subset.
+- The `pipeline` and `minhash` Analyzers let you use other Analyzers and the
+  features therefore depend on the features of these other Analyzers.
+
+A `–` in the above table stands for "not applicable" because the respective
+Analyzer does not transform input text.
+
 Analyzer Features
 -----------------
 
