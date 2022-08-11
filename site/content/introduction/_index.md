@@ -10,8 +10,6 @@ fileID: "introduction-index"
 
 {{< img src="images/arangodb-overview-diagram.png" alt="ArangoDB Overview Diagram" size="medium" >}}
 
-{{< marker id="test" >}}
-
 It supports a variety of data access patterns with a single, composable query
 language thanks to its multi-model approach that combines the analytical power
 of graphs with JSON documents, a key-value store, and a built-in search engine.
@@ -27,8 +25,6 @@ The page' front matter "fileID" variable is used to match the page and get the l
 be found as long as the fileID is referenced well.
 
 Check out the {{< reference fileID="smartgraphs-intro" label="SmartGraphs" >}}. 
-
-
 
 ## What are Graphs?
 
@@ -63,10 +59,12 @@ ArangoDB is designed from the ground up to support multiple data models with a
 single, composable query language.
 
 ```aql
-FOR book IN Books {{< marker id="code-ann-2" >}}
+// This function does really cool stuff
+
+FOR book IN Books
   FILTER book.title == "ArangoDB"
-  FOR person IN 2..2 INBOUND book Sales, OUTBOUND People
-    RETURN person.name
+  FOR person IN 2..2 INBOUND book Sales, OUTBOUND People  //Comment
+    RETURN person.name    // cCC
 ```
 
 ArangoDB also comes with an integrated search engine for information retrieval,
@@ -77,16 +75,8 @@ the cloud or on-premise.
 
 <!-- deployment options, move from features page, on-prem vs cloud? -->
 
-{{% annotation id="test" %}}
-Simple annotation id test
-{{% /annotation %}}
-
 {{% annotation id="graph-1" %}}
 This is an inline annotation explaining graphs, they are wonderful and bidibi bodibi bu
 yeah yeah yeah
 yeah
-{{% /annotation %}}
-
-{{% annotation id="code-ann-2" %}}
-code annotation 2
 {{% /annotation %}}

@@ -3,6 +3,6 @@
 
 {{ range .Site.Pages  }}
     {{ if eq $fileID .Params.fileID }} 
-    <a href="{{ .RelPermalink }}">{{ $label }}</a>
+        <a href="{{ .RelPermalink }}">{{ $label }}</a>
     {{ end }}
 {{ end }}
