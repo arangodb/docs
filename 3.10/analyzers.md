@@ -120,8 +120,11 @@ The currently implemented Analyzer types are:
 - `pipeline`: chains multiple Analyzers
 - `stopwords`: removes the specified tokens from the input
 - `collation`: respects the alphabetic order of a language in range queries
+- `minhash`: applies another Analyzer and then a locality-sensitive hash function,
+  to find candidates for set comparisons based on the Jaccard index
 - `classification`: classifies the input text using a word embedding model
-- `nearest_neighbors`: finds the nearest neighbors of the input text using a word embedding model
+- `nearest_neighbors`: finds the nearest neighbors of the input text using a
+   word embedding model
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -142,6 +145,7 @@ Analyzer  /  Feature                      | Tokenization | Stemming | Normalizat
 [`pipeline`](#pipeline)                   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`stopwords`](#stopwords)                 |      No      |    No    |      No       |   No
 [`collation`](#collation)                 |      No      |    No    |      No       |   No
+[`minhash`](#minhash)                     |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`classification`](#classification)       |      –       |    –     |      –        |   –
 [`nearest_neighbors`](#nearest_neighbors) |      –       |    –     |      –        |   –
 [`geojson`](#geojson)                     |      –       |    –     |      –        |   –
@@ -976,11 +980,21 @@ Create different `segmentation` Analyzers to show the behavior of the different
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### `minhash`
+
+<small>Introduced in: v3.10.0</small>
+
+{% include hint-ee.md feature="The `minhash` Analyzer" %}
+
+An Analyzer that computes so called MinHash signatures using a
+locality-sensitive hash function. It applies an Analyzer of your choice before
+the hashing, for example, to break up text into words.
+
 ### `classification`
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `classification` analyzer" %}
+{% include hint-ee.md feature="The `classification` Analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1040,7 +1054,7 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `nearest_neighbors` analyzer" %}
+{% include hint-ee.md feature="The `nearest_neighbors` Analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
