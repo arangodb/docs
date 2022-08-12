@@ -357,7 +357,7 @@ See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness
 
 ### RocksDB startup options
 
-There's a new startup option `--rocksdb.verify-sst` for validating the SST files currently
+The new `--rocksdb.verify-sst` startup option lets you validate the SST files currently
 contained in the database directory on startup. If set to `true`, on startup, all SST files
 in the `engine-rocksdb` folder in the database directory are validated, then the process
 finishes execution. The default value is `false`.
