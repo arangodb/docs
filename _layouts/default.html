@@ -39,6 +39,15 @@ ArangoDB v{{ page.version.version }} reached End of Life (EOL) and is no longer 
 
 This documentation is outdated. Please see the most recent version here: <a href="/docs/stable" target="_blank">Latest Docs</a>
                 {% endhint -%}
+              {%- else %}
+                {%- assign isDevel = site.versions.devel | version: ">=" %}
+                {%- if isDevel %}
+                  {% hint 'warning' %}
+ArangoDB v{{ page.version.version }} is under development and not released yet.
+
+This documentation is not final and potentially incomplete.
+                  {% endhint -%}
+                {%- endif %}
               {%- endif %}
               {{ content }}
             </section>

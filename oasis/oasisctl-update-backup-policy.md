@@ -27,6 +27,7 @@ oasisctl update backup policy [flags]
   -h, --help                         help for policy
       --hours int32                  Hours part of the time of day (0-23)
       --minutes int32                Minutes part of the time of day (0-59)
+      --minutes-offset int32         Schedule should run with specific minutes offset (0-59)
       --monday                       If set, a backup will be created on Mondays. Set to false explicitly to clear the flag.
       --name string                  Name of the deployment
       --paused                       The policy is paused. Set to false explicitly to clear the flag.

@@ -34,7 +34,7 @@ The algorithm stops when at least one of the two conditions is satisfied:
 
 ```js
 var pregel = require("@arangodb/pregel");
-pregel.start("pagerank", "graphname", {maxGSS: 100, threshold: 0.00000001, resultField: "rank"})
+pregel.start("pagerank", "graphname", { maxGSS: 100, threshold: 0.00000001, resultField: "rank" })
 ```
 
 #### Seeded PageRank
@@ -47,7 +47,7 @@ the default initial rank of `1 / numVertices`.
 
 ```js
 var pregel = require("@arangodb/pregel");
-pregel.start("pagerank", "graphname", {maxGSS: 20, threshold: 0.00000001, sourceField: "seed", resultField: "rank"})
+pregel.start("pagerank", "graphname", { maxGSS: 20, threshold: 0.00000001, sourceField: "seed", resultField: "rank" })
 ```
 
 ### Single-Source Shortest Path
@@ -64,51 +64,64 @@ specified in `_resultField` (note the underscore).
 
 ```js
 var pregel = require("@arangodb/pregel");
-pregel.start("sssp", "graphname", {source: "vertices/1337", _resultField: "distance"});
+pregel.start("sssp", "graphname", { source: "vertices/1337", _resultField: "distance" });
 ```
 
 ### Connected Components
 
 There are three algorithms to find connected components in a graph:
 
-1. If your graph is effectively undirected (for every edge from vertex A to vertex B there is also an edge from B to A), 
-   then the simple **connected components** algorithm named `"connectedcomponents"` is suitable.
+1. If your graph is effectively undirected (for every edge from vertex A to
+   vertex B there is also an edge from B to A),
+   then the simple **connected components** algorithm named
+   `"connectedcomponents"` is suitable.
 
    It is a very simple and fast algorithm, but it only works correctly on
    undirected graphs. Your results on directed graphs may vary, depending on
    how connected your components are.
    
    In an undirected graph, a _connected component_ is a subgraph:
-      - where there is a path between every pair of vertices from this component and
-      - which is maximal with this property: adding any other vertex would destroy it. In other words, there is no path between any vertex from the            component and any vertex not in the component.
+   - where there is a path between every pair of vertices from this component and
+   - which is maximal with this property: adding any other vertex would destroy it.
+     In other words, there is no path between any vertex from the component and
+     any vertex not in the component.
+
 2. To find **weakly connected components** (WCC) you can use the algorithm named `"wcc"`.
-   A _weakly connected component_ in a directed graph is a maximal subgraph such that there is a path between each pair of vertices 
-   where _we can walk also against the direction of edges._ More formally, it is a connected component (see the definition above) in the _underlying
-   undirected graph_, i.e., in the undirected graph obtained by adding an edge from vertex B to vertex A (if it does not already exist), 
+   A _weakly connected component_ in a directed graph is a maximal subgraph such
+   that there is a path between each pair of vertices
+   where _we can walk also against the direction of edges_. More formally, it is
+   a connected component (see the definition above) in the
+   _underlying undirected graph_, i.e., in the undirected graph obtained by
+   adding an edge from vertex B to vertex A (if it does not already exist),
    if there is an edge from vertex A to vertex B.
 
    This algorithm works on directed graphs but, in general, requires a greater amount of
-   traffic between your DB-Servers.
+   traffic between DB-Servers.
 
-3. To find **strongly connected components** (SCC) you can use the algorithm named `"scc"`. A _strongly connected component_ is a maximal subgraph,
-   where for every two vertices, there is a path from one of them to the other. It is thus defined as a weakly connected component, 
+3. To find **strongly connected components** (SCC) you can use the algorithm named `"scc"`.
+   A _strongly connected component_ is a maximal subgraph,
+   where for every two vertices, there is a path from one of them to the other.
+   It is thus defined as a weakly connected component,
    but one is not allowed to run against the edge directions.
 
    The algorithm is more complex than the WCC algorithm and, in general, requires more memory.
 
-All above algorithms will assign to each vertex a component ID, a number which will be written into the specified `resultField`. All vertices from the same component obtain the same component ID, every two vertices from different components obtain different IDs.
+All above algorithms assign a component ID to each vertex, a number which is
+written into the specified `resultField`. All vertices from the same component
+obtain the same component ID, every two vertices from different components
+obtain different IDs.
 
 ```js
 var pregel = require("@arangodb/pregel");
 
 // connected components
-pregel.start("connectedcomponents", "graphname", {resultField: "component"});
+pregel.start("connectedcomponents", "graphname", { resultField: "component" });
 
 // weakly connected components
-pregel.start("wcc", "graphname", {resultField: "component_weak"});
+pregel.start("wcc", "graphname", { resultField: "component_weak" });
 
 // strongly connected components
-pregel.start("scc", "graphname", {resultField: "component_strong"});
+pregel.start("scc", "graphname", { resultField: "component_strong" });
 ```
 
 ### Hyperlink-Induced Topic Search (HITS)
@@ -123,7 +136,8 @@ compilations of a broad catalog of information that leads users direct to other
 authoritative webpages.
 
 The algorithm assigns each vertex two scores: the authority score and the
-hub score. The authority score of a vertex rates the total hub score of vertices pointing to that vertex; the hub score rates the total authority score of vertices pointed by it. Also see
+hub score. The authority score of a vertex rates the total hub score of vertices
+pointing to that vertex; the hub score rates the total authority score of vertices pointed by it. Also see
 [en.wikipedia.org/wiki/HITS_algorithm](https://en.wikipedia.org/wiki/HITS_algorithm){:target="_blank"}
 
 ArangoDB's version of the algorithm converges after a certain amount of time.
@@ -138,7 +152,7 @@ The algorithm can be executed like this:
 
 ```js
 var pregel = require("@arangodb/pregel");
-var handle = pregel.start("hits", "graphname", {threshold:0.00001, resultField: "score"});
+var handle = pregel.start("hits", "graphname", { threshold:0.00001, resultField: "score" });
 ```
 
 ### Vertex Centrality
@@ -182,7 +196,7 @@ The algorithm can be used like this:
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("effectivecloseness", "graphname", {resultField: "closeness"});
+const handle = pregel.start("effectivecloseness", "graphname", { resultField: "closeness" });
 ```
 
 #### LineRank
@@ -199,8 +213,8 @@ By intuition a vertex with higher betweenness centrality has more
 information passing through it.
 
 **LineRank** approximates the random walk betweenness of every vertex in a
-graph. This is the probability that someone starting on an arbitrary vertex,
-will visit this node when they randomly choose edges to visit.
+graph. This is the probability that someone, starting on an arbitrary vertex,
+visits this node when they randomly choose edges to visit.
 
 The algorithm essentially builds a line graph out of your graph
 (switches the vertices and edges), and then computes a score similar to PageRank.
@@ -210,7 +224,7 @@ be executed distributedly in ArangoDB. The algorithm is from the paper
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("linerank", "graphname", {resultField: "linerank"});
+const handle = pregel.start("linerank", "graphname", { resultField: "linerank" });
 ```
 
 ### Community Detection
@@ -231,7 +245,8 @@ The idea is that each vertex should be in the community that most of
 its neighbors are in. 
 
 At first, the algorithm assigns unique initial Community IDs to the vertices. 
-The assignment is deterministic given the graph and the distribution of vertices on the shards, but there is no guarantee that a vertex obtains
+The assignment is deterministic given the graph and the distribution of vertices
+on the shards, but there is no guarantee that a vertex obtains
 the same initial ID in two different runs of the algorithm, even if the graph does not change 
 (because the sharding may change). Moreover, there is no guarantee on a particular
 distribution of the initial IDs over the vertices.
@@ -240,15 +255,22 @@ Then, in each iteration, a vertex sends its current Community
 ID to all its neighbor vertices. After that each vertex adopts the Community ID it
 received most frequently in the last step. 
 
-Note that, in a usual implementation of Label Propagation, if there are multiple most frequently received Community IDs, one is chosen randomly.
-An advantage of our implementation is that this choice is deterministic. This comes for the price that the choice rules are somewhat involved: 
-If a vertex obtains only one ID and the ID of the vertex from the previous step, its old ID, is less than the obtained ID, the old ID is kept. 
-(IDs are numbers and thus comparable to each other.) If a vertex obtains more than one ID, its new ID is the lowest ID among the most frequently 
-obtained IDs. (For example, if the obtained IDs are 1, 2, 2, 3, 3, then 2 is the new ID.) If, however, no ID arrives more than once, the new ID is
-the minimum of the lowest obtained IDs and the old ID. (For example, if the old ID is 5 and the obtained IDs are 3, 4, 6, then the new ID is 3. 
+Note that, in a usual implementation of Label Propagation, if there are
+multiple most frequently received Community IDs, one is chosen randomly.
+An advantage of our implementation is that this choice is deterministic.
+This comes for the price that the choice rules are somewhat involved: 
+If a vertex obtains only one ID and the ID of the vertex from the previous step,
+its old ID, is less than the obtained ID, the old ID is kept. 
+(IDs are numbers and thus comparable to each other.) If a vertex obtains
+more than one ID, its new ID is the lowest ID among the most frequently 
+obtained IDs. (For example, if the obtained IDs are 1, 2, 2, 3, 3,
+then 2 is the new ID.) If, however, no ID arrives more than once, the new ID is
+the minimum of the lowest obtained IDs and the old ID. (For example, if the
+old ID is 5 and the obtained IDs are 3, 4, 6, then the new ID is 3. 
 If the old ID is 2, it is kept.) 
 
-If a vertex keeps its ID 20 times or more in a row, it does not send its ID. Vertices that did not obtain any IDs do not update their ID and do not send it.
+If a vertex keeps its ID 20 times or more in a row, it does not send its ID.
+Vertices that did not obtain any IDs do not update their ID and do not send it.
 
 The algorithm runs until it converges, which likely never really happens on
 large graphs. Therefore you need to specify a maximum iteration bound.
@@ -262,7 +284,7 @@ may be influenced by the density of the graph.
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("labelpropagation", "graphname", {maxGSS: 100, resultField: "community"});
+const handle = pregel.start("labelpropagation", "graphname", { maxGSS: 100, resultField: "community" });
 ```
 
 #### Speaker-Listener Label Propagation
@@ -284,7 +306,7 @@ During the run three steps are executed for each vertex:
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("slpa", "graphname", {maxGSS:100, resultField: "community"});
+const handle = pregel.start("slpa", "graphname", { maxGSS:100, resultField: "community" });
 ```
 
 You can also execute SLPA with the `maxCommunities` parameter to limit the
@@ -294,7 +316,7 @@ observed labels.
 
 ```js
 const pregel = require("@arangodb/pregel");
-const handle = pregel.start("slpa", "graphname", {maxGSS: 100, resultField: "community", maxCommunities: 1});
+const handle = pregel.start("slpa", "graphname", { maxGSS: 100, resultField: "community", maxCommunities: 1 });
 // check the status periodically for completion
 pregel.status(handle);
 ```

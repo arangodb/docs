@@ -23,6 +23,55 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
 The minimum requirement is an ARMv8 chip with Neon (SIMD).
 
+Computed Values
+---------------
+
+This feature lets you define expressions on the collection level
+that run on inserts, modifications, or both. You can access the data of the
+current document to compute new values using a subset of AQL.
+
+Possible use cases are to add timestamps of the creation or last modification to
+every document, to add default attributes, or to automatically process
+attributes for indexing purposes, like filtering, combining multiple attributes
+into one, and to convert characters to lowercase.
+
+The following example uses the JavaScript API to create a collection with two
+computed values, one to add a timestamp of the document creation, and another
+to maintain an attribute that combines two other attributes:
+
+```js
+var coll = db._create("users", {
+  computedValues: [
+    {
+      name: "createdAt",
+      expression: "RETURN DATE_ISO8601(DATE_NOW())",
+      overwrite: true,
+      computeOn: ["insert"]
+    },
+    {
+      name: "fullName",
+      expression: "RETURN LOWER(CONCAT_SEPARATOR(' ', @doc.firstName, @doc.lastName))",
+      overwrite: false,
+      computeOn: ["insert", "update", "replace"], // default
+      keepNull: false,
+      failOnWarning: true
+    }
+  ]
+});
+var doc = db.users.save({ firstName: "Paula", lastName: "Plant" });
+/* Stored document:
+  {
+    "createdAt": "2022-08-08T17:14:37.362Z",
+    "fullName": "paula plant",
+    "firstName": "Paula",
+    "lastName": "Plant"
+  }
+*/
+```
+
+See [Computed Values](data-modeling-documents-computed-values.html) for more
+information and examples.
+
 ArangoSearch
 ------------
 
@@ -108,6 +157,16 @@ geo indexes need to be dropped and recreated after an upgrade.
 
 See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
 details and for hints about upgrading to version 3.10 or later.
+
+### Traversal Projections (Enterprise Edition)
+
+Starting with version 3.10, you can use projections in graph traversals to
+follow edges connected to a start vertex, up to a variable depth.
+
+The `maxProjections` is now introduced as an option when
+[working with named graphs](aql/graphs-traversals.html#working-with-named-graphs).
+
+See also [how to use `maxProjections` with FOR loops](aql/operations-for.html#maxprojections).
 
 ### Number of filtered documents in profiling output
 
@@ -516,6 +575,38 @@ arangoexport \
   --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
   ...
 ```
+
+
+Query changes for decreasing memory usage
+-----------------------------------------
+
+Queries can be executed with storing input and intermediate results temporarily
+on disk to descrease memory usage when a specified threshold is reached.
+
+{% hint 'info' %}
+This feature is experimental and is turned off by default.
+{% endhint %}
+
+The new parameters are listed below:
+
+- `--temp.intermediate-results-path`
+- `--temp.-intermediate-results-encryption-hardware-acceleration`
+- `--temp.intermediate-results-encryption`
+- `--temp.intermediate-results-spillover-threshold-num-rows`
+- `--temp.intermediate-results-spillover-threshold-memory-usage`
+
+Example:
+
+```
+arangod --temp.intermediate-results-path "tempDir" 
+--database.directory "myDir"
+--temp.-intermediate-results-encryption-hardware-acceleration true
+--temp.intermediate-results-encryption true 
+--temp.intermediate-results-spillover-threshold-num-rows 50000
+--temp.intermediate-results-spillover-threshold-memory-usage 134217728
+```
+
+For more information, refer to the [Query invocation](aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk) topics.
 
 Internal changes
 ----------------

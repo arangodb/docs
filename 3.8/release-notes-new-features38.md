@@ -699,7 +699,7 @@ areas of JavaScript code execution:
   executed.
 
 - `--javascript.transactions`: the default value for this option is
-  `true`, meaning JavaScript transactions are available as before. However,
+  `true`, meaning JavaScript Transactions are available as before. However,
   with this option they can be turned off by admins to limit the amount of
   JavaScript user code that is executed.
 

@@ -42,9 +42,9 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">&quot;indexCoversProjections&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;indexes&quot;</span> : [ 
             { 
-              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60626&quot;</span>, 
+              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60630&quot;</span>, 
               <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1740066626045214720&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1740872139833081856&quot;</span>, 
               <span class="hljs-string">&quot;fields&quot;</span> : [ 
                 <span class="hljs-string">&quot;value&quot;</span> 
               ], 
@@ -200,7 +200,7 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
   ], 
   <span class="hljs-string">&quot;warnings&quot;</span> : [ ], 
   <span class="hljs-string">&quot;stats&quot;</span> : { 
-    <span class="hljs-string">&quot;rulesExecuted&quot;</span> : <span class="hljs-number">43</span>, 
+    <span class="hljs-string">&quot;rulesExecuted&quot;</span> : <span class="hljs-number">44</span>, 
     <span class="hljs-string">&quot;rulesSkipped&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;plansCreated&quot;</span> : <span class="hljs-number">1</span> 
   } 

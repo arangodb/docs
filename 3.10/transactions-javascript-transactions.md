@@ -153,7 +153,7 @@ the value of `allowImplicit`.
 ### Declaration of Data Modification and Retrieval Operations
 
 All data modification and retrieval operations that are to be executed inside
-the transaction need to be specified in a Javascript function, using the `action`
+the transaction need to be specified in a JavaScript function, using the `action`
 attribute:
 
 ```js
@@ -167,7 +167,7 @@ db._executeTransaction({
 });
 ```
 
-Any valid Javascript code is allowed inside `action` but the code may only
+Any valid JavaScript code is allowed inside `action` but the code may only
 access the collections declared in `collections`.
 `action` may be a JavaScript function as shown above, or a string representation
 of a JavaScript function:
