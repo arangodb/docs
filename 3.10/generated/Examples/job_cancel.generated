@@ -14,7 +14,7 @@ expires: 0
 pragma: no-cache
 server: ArangoDB
 strict-transport-security: max-age=31536000 ; includeSubDomains
-x-arango-async-id: 83016
+x-arango-async-id: 83008
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
@@ -34,9 +34,9 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;83016&quot;</span> 
+  <span class="hljs-string">&quot;83008&quot;</span> 
 ]
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/83016/cancel</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/83008/cancel</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
@@ -70,5 +70,5 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;83016&quot;</span> 
+  <span class="hljs-string">&quot;83008&quot;</span> 
 ]

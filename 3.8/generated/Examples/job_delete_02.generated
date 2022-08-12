@@ -5,7 +5,7 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 81501
+x-arango-async-id: 81493
 x-content-type-options: nosniff
 
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_admin/time</span>
@@ -13,16 +13,16 @@ x-content-type-options: nosniff
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">51</span>
+content-length: <span class="hljs-number">55</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-number">1659448366.011359</span> 
+  <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-number">1660300643.5497587</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/expired?stamp=1659448366.011359</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/expired?stamp=1660300643.5497587</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
