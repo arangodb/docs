@@ -229,7 +229,7 @@ that you need during the creation of your Private Endpoint(s).
    icon. If you see a pencil icon and no menu opens, then you are on the
    free-to-try or professional tier. The private endpoint service is only available on the enterprise tier.
 3. Click **Change to private endpoint** in the menu.
-   ![Oasis Deployment Private Endpoint Menu](images/oasis-deployment-private-endpoint-menu.png)
+   ![Oasis Deployment Private Endpoint Menu](images/oasis-gcp-change.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
 5. Enter one or more Google project names. You can also add them later in the summary view.
    Click **Next**.
@@ -246,7 +246,7 @@ that you need during the creation of your Private Endpoint(s).
 
 {% hint 'tip' %}
 When you create a private endpoint on ArangoDB Cloud, both endpoints (the regular one and the new private one) are available
-for two hours. During this time period you can switch your application to the new private endpoint. After this period, the old
+for two hours. During this time period, you can switch your application to the new private endpoint. After this period, the old
 endpoint will not be available anymore.
 {% endhint %}
 
@@ -293,7 +293,7 @@ contact support via **Request help** in the help menu.
 
 {% hint 'tip' %}
 When you create a private endpoint on ArangoDB Cloud, both endpoints (the old one and the new private one) are available
-for two hours. During this time period you can switch your application to the new private endpoint. After this period, the old
+for two hours. During this time period, you can switch your application to the new private endpoint. After this period, the old
 endpoint will not be available anymore.
 {% endhint %}
 
@@ -356,7 +356,7 @@ that automatically connects to private endpoints that are created in those princ
 
 {% hint 'tip' %}
 When you create a private endpoint on ArangoDB Cloud, both endpoints (the old one and the new private one) are available
-for two hours. During this time period you can switch your application to the new private endpoint. After this period, the old
+for two hours. During this time period, you can switch your application to the new private endpoint. After this period, the old
 endpoint will not be available anymore.
 {% endhint %}
 
