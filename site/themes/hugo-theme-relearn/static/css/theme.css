@@ -564,10 +564,6 @@ hr {
     border-bottom: 4px solid rgba( 134, 134, 134, .125 );
 }
 
-#body-inner pre {
-    white-space: pre-wrap;
-}
-
 #body-inner h1,
 #body-inner h2,
 #body-inner h3,
@@ -864,6 +860,13 @@ span.nav i{
         max-width: 230px;
         width: 230px;
     }
+
+    .tableOfContentContainer{
+        min-width: 230px;
+        max-width: 230px;
+        width: 230px;
+    }
+
     #body {
         margin-left: 230px;
         min-width: calc( 100% - 230px);
@@ -885,7 +888,10 @@ span.nav i{
         max-width: 100%;
         width: 100%;
     }
-    .mobile-support.sidebar-flyout {
+    .mobile-support.sidebar-flyout{
+        overflow: hidden;
+    }
+    .tableOfContentContainer{
         overflow: hidden;
     }
     .mobile-support.sidebar-flyout #sidebar {

@@ -14,9 +14,6 @@ It supports a variety of data access patterns with a single, composable query
 language thanks to its multi-model approach that combines the analytical power
 of graphs with JSON documents, a key-value store, and a built-in search engine.
 
-ArangoDB is available in an open-source and a commercial [edition](features.html),
-you can use it for on-premise deployments, as well as a fully managed
-[cloud service](oasis/).
 
 ## Page References Test
 To reference other files in the site, use the reference shortcode.
@@ -59,8 +56,6 @@ ArangoDB is designed from the ground up to support multiple data models with a
 single, composable query language.
 
 ```aql
-// This function does really cool stuff
-
 FOR book IN Books
   FILTER book.title == "ArangoDB"
   FOR person IN 2..2 INBOUND book Sales, OUTBOUND People  //Comment

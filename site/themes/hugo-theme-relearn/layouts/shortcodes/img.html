@@ -13,7 +13,7 @@
 
 {{- if eq $inline "true" }}
 <p>
-    <img class="inline-img" src="{{ ($image.Resize (printf "%dx" $width)).RelPermalink }}"  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
+    <img class="inline-img" src="{{ $image.RelPermalink }}"  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
 </p>
 
 {{- else }}
