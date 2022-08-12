@@ -10,7 +10,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> C
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">507</span>
+content-length: <span class="hljs-number">508</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -22,20 +22,20 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;result&quot;</span> : [ 
     { 
-      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;68006&quot;</span>, 
-      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/68006&quot;</span>, 
-      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ekdzsNq---&quot;</span>, 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;68002&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/68002&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_emyee4e--_&quot;</span>, 
       <span class="hljs-string">&quot;hello1&quot;</span> : <span class="hljs-string">&quot;world1&quot;</span> 
     }, 
     { 
-      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;68008&quot;</span>, 
-      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/68008&quot;</span>, 
-      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_ekdzsNu---&quot;</span>, 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;68004&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/68004&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_emyee4i---&quot;</span>, 
       <span class="hljs-string">&quot;hello2&quot;</span> : <span class="hljs-string">&quot;world1&quot;</span> 
     } 
   ], 
   <span class="hljs-string">&quot;hasMore&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68017&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68013&quot;</span>, 
   <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">5</span>, 
   <span class="hljs-string">&quot;extra&quot;</span> : { 
     <span class="hljs-string">&quot;warnings&quot;</span> : [ ], 
@@ -50,7 +50,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">&quot;cacheMisses&quot;</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0002695741131901741</span>, 
+      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00011918321251869202</span>, 
       <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">0</span> 
     } 
   }, 
@@ -58,5 +58,5 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/cursor/68017</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/cursor/68013</span>
 

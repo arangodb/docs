@@ -31,7 +31,7 @@ serializer.DefaultOptions.IgnoreNullValues = false;
 
 APIs that support specifying HTTP request headers have an optional method argument to pass in header values.
 
-For example, to specify a stream transaction ID when creating a document:
+For example, to specify a Stream Transaction ID when creating a document:
 
 
 ```csharp

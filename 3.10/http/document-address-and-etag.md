@@ -207,13 +207,13 @@ The following APIs support reading from followers:
 - Batch document reads (`PUT /_api/document?onlyget=true`)
 - Read-only AQL queries (`POST /_api/cursor`)
 - The edge API (`GET /_api/edges`)
-- Read-only stream transactions and their sub-operations
+- Read-only Stream Transactions and their sub-operations
   (`POST /_api/transaction/begin` etc.)
 
 The following APIs do not support reading from followers:
 
 - The graph API (`GET /_api/gharial` etc.)
-- JavaScript transactions (`POST /_api/transaction`)
+- JavaScript Transactions (`POST /_api/transaction`)
 
 You need to set the following HTTP header in an API request to ask for reads
 from followers:
@@ -226,7 +226,7 @@ This is in line with the older support to read from followers in the
 Active Failover deployment mode (see [Reading from Followers](../architecture-deployment-modes-active-failover-architecture.html#reading-from-followers)).
 
 For single requests, you specify this header in the read request.
-For stream transactions, the header has to be set on the request that
+For Stream Transactions, the header has to be set on the request that
 creates a read-only transaction.
 
 Every response to a request that could produce dirty reads has

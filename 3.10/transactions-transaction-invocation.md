@@ -50,7 +50,7 @@ Executes a server-side transaction, as specified by *object*.
     used in the transaction in read-only mode
   - *write*: a single collection or a list of collections that will be
     used in the transaction in write or read mode.
-- *action*: a Javascript function or a string with Javascript code
+- *action*: a JavaScript function or a string with JavaScript code
   containing all the instructions to be executed inside the transaction.
   If the code runs through successfully, the transaction will be committed
   at the end. If the code throws an exception, the transaction will be
@@ -145,7 +145,7 @@ Declaration of data modification and retrieval operations
 ---------------------------------------------------------
 
 All data modification and retrieval operations that are to be executed inside
-the transaction need to be specified in a Javascript function, using the *action*
+the transaction need to be specified in a JavaScript function, using the *action*
 attribute:
 
 ```js
@@ -159,10 +159,10 @@ db._executeTransaction({
 });
 ```
 
-Any valid Javascript code is allowed inside *action* but the code may only
+Any valid JavaScript code is allowed inside *action* but the code may only
 access the collections declared in *collections*.
-*action* may be a Javascript function as shown above, or a string representation
-of a Javascript function:
+*action* may be a JavaScript function as shown above, or a string representation
+of a JavaScript function:
 
 ```js
 db._executeTransaction({

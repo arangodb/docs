@@ -10,7 +10,7 @@ arangosh&gt; db.example.ensureIndex({ <span class="hljs-attr">type</span>: <span
   ], 
   <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;example/67460&quot;</span>, 
   <span class="hljs-string">&quot;isNewlyCreated&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1740218287592046592&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1740872141716324352&quot;</span>, 
   <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
@@ -29,7 +29,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields         Stored values   Ranges
-  <span class="hljs-number">6</span>   idx_1740218287592046592   persistent   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>      <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   [  ]            (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
+  <span class="hljs-number">6</span>   idx_1740872141716324352   persistent   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>      <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   [  ]            (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
 
 Optimization rules applied:
  Id   RuleName
@@ -37,6 +37,6 @@ Optimization rules applied:
   <span class="hljs-number">2</span>   remove-filter-covered-by-index
   <span class="hljs-number">3</span>   remove-unnecessary-calculations-<span class="hljs-number">2</span>
 
-<span class="hljs-number">41</span> rule(s) executed, <span class="hljs-number">1</span> plan(s) created
+<span class="hljs-number">42</span> rule(s) executed, <span class="hljs-number">1</span> plan(s) created
 
 
