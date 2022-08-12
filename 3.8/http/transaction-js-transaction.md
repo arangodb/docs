@@ -1,16 +1,16 @@
 ---
 layout: default
-description: ArangoDB's JS-transactions are executed on the server
+description: ArangoDB's JavaScript Transactions are executed on the server
 ---
 HTTP Interface for JavaScript Transactions
 ==========================================
 
-ArangoDB's JS-transactions are executed on the server. Transactions can be 
+ArangoDB's JavaScript Transactions are executed on the server. Transactions can be 
 initiated by clients by sending the transaction description for execution to
 the server.
 
-JS-Transactions in ArangoDB do not offer separate *BEGIN*, *COMMIT* and *ROLLBACK*
-operations. Instead, ArangoDB JS-transactions are described by a JavaScript function, 
+JavaScript Transactions in ArangoDB do not offer separate *BEGIN*, *COMMIT* and *ROLLBACK*
+operations. Instead, JavaScript Transactions are described by a JavaScript function, 
 and the code inside the JavaScript function will then be executed transactionally.
 
 At the end of the function, the transaction is automatically committed, and all
@@ -23,5 +23,3 @@ refer to [Transactions](../transactions.html).
 
 <!-- RestTransactionHandler.cpp -->
 {% docublock post_api_transaction %}
-
-

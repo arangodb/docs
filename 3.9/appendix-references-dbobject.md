@@ -67,7 +67,8 @@ The following methods exist on the *_db* object:
 * [db._compact()](data-modeling-databases-working-with.html#compact)
 * [db._engine()](data-modeling-databases-working-with.html#engine)
 * [db._engineStats()](data-modeling-databases-working-with.html#engine-statistics)
-* [db._executeTransaction()](transactions-transaction-invocation.html)
+* [db._createTransaction()](transactions-stream-transactions.html#create-transaction)
+* [db._executeTransaction()](transactions-javascript-transactions.html#execute-transaction)
 * [db._version()](data-modeling-databases-working-with.html#get-the-version-of-arangodb)
 
 *License*
