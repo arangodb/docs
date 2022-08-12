@@ -53,7 +53,7 @@ global write transaction lock:
   be used with caution, as it will potentially abort valid write transactions,
   meaning client applications will see errors for otherwise valid operations
   and queries. The force option currently only aborts Stream Transactions but
-  no JavaScript transactions.
+  no JavaScript Transactions.
 
 Restore
 -------
