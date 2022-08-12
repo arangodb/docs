@@ -25,9 +25,8 @@ multi-document transactions with individual begin and commit / abort commands.
 They work similar to the *BEGIN*, *COMMIT*, and *ROLLBACK* operations in
 relational database systems.
 
-This API is recommended for larger transactions. However, the client is
-responsible for making sure that transactions are committed or aborted when they
-are no longer needed, to avoid taking up resources.
+The client is responsible for making sure that transactions are committed or
+aborted when they are no longer needed, to avoid taking up resources.
 
 ###  JavaScript Transactions
 
