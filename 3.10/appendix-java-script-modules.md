@@ -163,5 +163,5 @@ noteworthy however and intended to be used by the user:
 - [**@arangodb/users**](administration-managing-users-in-arangosh.html)
   provides an interface for user management.
 
-- [**@arangodb/pregel**](graphs-pregel.html#arangosh-api)
+- [**@arangodb/pregel**](graphs-pregel.html#javascript-api)
   provides an interface for Pregel management.
