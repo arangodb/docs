@@ -109,6 +109,11 @@ compare the individual array elements of the left-hand argument to the right-han
 argument. Depending on the quantifying keyword, all, any, or none of these
 comparisons need to be satisfied to evaluate to `true` overall.
 
+You can also combine one of the supported comparison operators with the special
+`AT LEAST (<expression>)` operator to require an arbitrary number of elements
+to satisfy the condition to evaluate to `true`. You can use a static number or
+calculate it dynamically using an expression.
+
 Examples:
 
 ```aql
@@ -130,6 +135,9 @@ Examples:
 ["foo", "bar"]  ALL !=  "moo"     // true
 ["foo", "bar"]  NONE ==  "bar"    // false
 ["foo", "bar"]  ANY ==  "foo"     // true
+
+[ 1, 2, 3 ]  AT LEAST (2) IN  [ 2, 3, 4 ]  // true
+["foo", "bar"]  AT LEAST (1+1) ==  "foo"   // false
 ```
 
 Note that these operators will not utilize indexes in regular queries.

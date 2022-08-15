@@ -233,6 +233,20 @@ FOR … IN … OPTIONS { lookahead: 32 }
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
+### New `AT LEAST` array comparison operator
+
+You can now combine one of the supported comparison operators with the special
+`AT LEAST (<expression>)` operator to require an arbitrary number of elements
+to satisfy the condition to evaluate to `true`. You can use a static number or
+calculate it dynamically using an expression:
+
+```aql
+[ 1, 2, 3 ]  AT LEAST (2) IN  [ 2, 3, 4 ]  // true
+["foo", "bar"]  AT LEAST (1+1) ==  "foo"   // false
+```
+
+See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
+
 ### New and Changed AQL Functions
 
 AQL functions added in 3.10:
