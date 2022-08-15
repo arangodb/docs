@@ -1,0 +1,13 @@
+@Q:
+  LET doc = { <span class="hljs-attr">foo</span>: { <span class="hljs-attr">bar</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">baz</span>: <span class="hljs-number">2</span> }, <span class="hljs-attr">baz</span>: <span class="hljs-number">3</span> }, <span class="hljs-attr">baz</span>: <span class="hljs-number">4</span> }
+  RETURN KEEP_RECURSIVE(doc, <span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-string">&quot;baz&quot;</span>)
+
+@R
+[
+  {
+    <span class="hljs-string">&quot;baz&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-string">&quot;foo&quot;</span>: {
+      <span class="hljs-string">&quot;baz&quot;</span>: <span class="hljs-number">3</span>
+    }
+  }
+]

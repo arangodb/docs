@@ -1,0 +1,7 @@
+@Q:
+RETURN JSON_PARSE(<span class="hljs-string">&quot;abc&quot;</span>) <span class="hljs-comment">// invalid JSON</span>
+
+@R
+[
+  <span class="hljs-literal">null</span>
+]
