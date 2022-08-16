@@ -1,0 +1,17 @@
+@Q:
+  RETURN [
+    IS_SAME_COLLECTION( <span class="hljs-string">&quot;_users&quot;</span>, <span class="hljs-string">&quot;_users/my-user&quot;</span> ),
+    IS_SAME_COLLECTION( <span class="hljs-string">&quot;_users&quot;</span>, { <span class="hljs-attr">_id</span>: <span class="hljs-string">&quot;_users/my-user&quot;</span> } ),
+    IS_SAME_COLLECTION( <span class="hljs-string">&quot;_users&quot;</span>, <span class="hljs-string">&quot;foobar/baz&quot;</span>),
+    IS_SAME_COLLECTION( <span class="hljs-string">&quot;_users&quot;</span>, { <span class="hljs-attr">_id</span>: <span class="hljs-string">&quot;something/else&quot;</span> } )
+  ]
+
+@R
+[
+  [
+    <span class="hljs-literal">true</span>,
+    <span class="hljs-literal">true</span>,
+    <span class="hljs-literal">false</span>,
+    <span class="hljs-literal">false</span>
+  ]
+]
