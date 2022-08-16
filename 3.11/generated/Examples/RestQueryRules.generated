@@ -1,0 +1,512 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/query/rules</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
+connection: Keep-Alive
+content-length: <span class="hljs-number">8243</span>
+content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
+expires: <span class="hljs-number">0</span>
+pragma: no-cache
+server: ArangoDB
+strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+x-content-type-options: nosniff
+
+[ 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;replace-function-with-index&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;inline-subqueries&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;simplify-conditions&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;move-calculations-up&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;move-filters-up&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-redundant-calculations&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-unnecessary-filters&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-unnecessary-calculations&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;specialize-collect&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-redundant-sorts&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;optimize-subqueries&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;interchange-adjacent-enumerations&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;move-calculations-up-2&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;move-filters-up-2&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-redundant-sorts-2&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-sort-rand-limit-1&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-collect-variables&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;propagate-constant-attributes&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-data-modification-out-variables&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;replace-or-with-in&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-redundant-or&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;geo-index-optimizer&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;use-indexes&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-filter-covered-by-index&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-unnecessary-filters-2&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;use-index-for-sort&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;sort-in-values&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;optimize-traversals&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-filter-covered-by-traversal&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;handle-arangosearch-views&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;arangosearch-constrained-sort&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-unnecessary-calculations-2&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-redundant-path-var&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;move-calculations-down&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;fuse-filters&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;move-filters-into-enumerate&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;remove-unnecessary-calculations-3&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;sort-limit&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;reduce-extraction-to-projection&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;optimize-count&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;async-prefetch&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;late-document-materialization-arangosearch&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;handle-offset-info&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">true</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;late-document-materialization&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;splice-subqueries&quot;</span>, 
+    <span class="hljs-string">&quot;flags&quot;</span> : { 
+      <span class="hljs-string">&quot;hidden&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;clusterOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canBeDisabled&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;canCreateAdditionalPlans&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;disabledByDefault&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;enterpriseOnly&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
+  } 
+]

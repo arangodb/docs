@@ -313,7 +313,7 @@ extra options are available for locking down JavaScript access to server functio
   [JavaScript tasks](appendix-java-script-modules-tasks.html).
 
 - `--javascript.transactions`: This option be set to `false` to turn off
-  [JavaScript transactions](http/transaction-js-transaction.html).
+  [JavaScript Transactions](http/transaction-js-transaction.html).
 
 ## Security options for managing Foxx applications
 

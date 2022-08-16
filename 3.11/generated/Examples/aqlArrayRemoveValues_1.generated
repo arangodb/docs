@@ -1,0 +1,11 @@
+@Q:
+RETURN REMOVE_VALUES( [ <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;e&quot;</span>, <span class="hljs-string">&quot;f&quot;</span> ], [ <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-string">&quot;d&quot;</span> ] )
+
+@R
+[
+  [
+    <span class="hljs-string">&quot;b&quot;</span>,
+    <span class="hljs-string">&quot;c&quot;</span>,
+    <span class="hljs-string">&quot;e&quot;</span>
+  ]
+]
