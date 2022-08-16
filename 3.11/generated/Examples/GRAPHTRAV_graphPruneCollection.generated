@@ -1,0 +1,7 @@
+@Q:
+  FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">&#x27;circles/A&#x27;</span> GRAPH <span class="hljs-string">&#x27;traversalGraph&#x27;</span>
+      PRUNE IS_SAME_COLLECTION(<span class="hljs-string">&#x27;circles&#x27;</span>, v)
+      RETURN { <span class="hljs-attr">vertices</span>: p.vertices[*]._key, <span class="hljs-attr">edges</span>: p.edges[*].label }
+
+@R
+[]
