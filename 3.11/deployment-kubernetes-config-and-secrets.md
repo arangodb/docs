@@ -1,0 +1,1 @@
+../3.7/deployment-kubernetes-config-and-secrets.md
