@@ -1,0 +1,1020 @@
+- subtitle: GETTING STARTED
+- text: Introduction
+  href: index.html
+  children:
+    - text: Use Cases
+      href: use-cases.html
+- text: Features
+  href: features.html
+  children:
+    - text: Community Edition
+      href: features-community-edition.html
+    - text: Enterprise Edition
+      href: features-enterprise-edition.html
+    - text: Highlights by Version
+      href: highlights.html
+- text: Quick Start Guide
+  href: quick-start-guide.html
+  children:
+    - text: In the Cloud
+      href: quick-start-in-the-cloud.html
+    - text: On-Premise
+      href: quick-start-on-premise.html
+    - text: How to Interact with ArangoDB
+      href: how-to-interact-with-arangodb.html
+    - text: AQL Query Language Tutorial
+      href: aql-tutorial.html
+      children:
+        - text: Basic CRUD
+          href: aql-tutorial-crud.html
+        - text: Matching documents
+          href: aql-tutorial-filter.html
+        - text: Sorting and limiting
+          href: aql-tutorial-sort-limit.html
+        - text: Joining together
+          href: aql-tutorial-join.html
+        - text: Graph traversal
+          href: aql-tutorial-traversal.html
+        - text: Geospatial queries
+          href: aql-tutorial-geospatial.html
+    - text: Coming from SQL
+      href: quick-start-coming-from-sql.html
+- text: Data Model & Concepts
+  href: data-model-and-concepts.html
+  children:
+    - text: Databases
+      href: data-modeling-databases.html
+      children:
+        - text: Working with Databases
+          href: data-modeling-databases-working-with.html
+        - text: Notes about Databases
+          href: data-modeling-databases-notes.html
+    - text: Collections
+      href: data-modeling-collections.html
+      children:
+        - text: Collection Methods
+          href: data-modeling-collections-collection-methods.html
+        - text: Database Methods
+          href: data-modeling-collections-database-methods.html
+    - text: Documents
+      href: data-modeling-documents.html
+      children:
+        - text: Basics and Terminology
+          href: data-modeling-documents-document-address.html
+        - text: Collection Methods
+          href: data-modeling-documents-document-methods.html
+        - text: Database Methods
+          href: data-modeling-documents-database-methods.html
+        - text: Schema Validation
+          href: data-modeling-documents-schema-validation.html
+        - text: Computed Values
+          href: data-modeling-documents-computed-values.html
+    - text: Views
+      href: data-modeling-views.html
+      children:
+        - text: Database Methods
+          href: data-modeling-views-database-methods.html
+        - text: View Methods
+          href: data-modeling-views-view-methods.html
+    - text: Naming Conventions
+      href: data-modeling-naming-conventions.html
+      children:
+        - text: Database Names
+          href: data-modeling-naming-conventions-database-names.html
+        - text: Collection and View Names
+          href: data-modeling-naming-conventions-collection-and-view-names.html
+        - text: Document Keys
+          href: data-modeling-naming-conventions-document-keys.html
+        - text: Attribute Names
+          href: data-modeling-naming-conventions-attribute-names.html
+- subtitle: CORE TOPICS
+- text: Tutorials
+  href: tutorials.html
+  children:
+    - text: Reduce Memory Footprint
+      href: tutorials-reduce-memory-footprint.html
+    - text: ArangoDB Starter
+      href: tutorials-starter.html
+    - text: Kubernetes
+      href: tutorials-kubernetes.html
+      children:
+        - text: Amazon EKS
+          href: tutorials-kubernetes-eks.html
+        - text: Google GKE
+          href: tutorials-kubernetes-gke.html
+        - text: Azure AKS
+          href: tutorials-kubernetes-aks.html
+    - text: DC2DC on Kubernetes
+      href: tutorials-kubernetes-dc2-dc.html
+- text: Programs & Tools
+  href: programs.html
+  children:
+    - text: ArangoDB Server
+      href: programs-arangod.html
+      children:
+        - text: Options
+          href: programs-arangod-options.html
+          children:
+            - text: General
+              href: programs-arangod-general.html
+            - text: Agency
+              href: programs-arangod-agency.html
+            - text: ArangoSearch
+              href: programs-arangod-arangosearch.html
+            - text: Audit
+              href: programs-arangod-audit.html
+            - text: Cache
+              href: programs-arangod-cache.html
+            - text: Backup
+              href: programs-arangod-backup.html
+            - text: Cluster
+              href: programs-arangod-cluster.html
+            - text: Database
+              href: programs-arangod-database.html
+            - text: Encryption
+              href: programs-arangod-encryption.html
+            - text: Foxx
+              href: programs-arangod-foxx.html
+            - text: HTTP
+              href: programs-arangod-http.html
+            - text: JavaScript
+              href: programs-arangod-javascript.html
+            - text: LDAP
+              href: programs-arangod-ldap.html
+            - text: Log
+              href: programs-arangod-log.html
+            - text: Network
+              href: programs-arangod-network.html
+            - text: Nonce
+              href: programs-arangod-nonce.html
+            - text: Pregel
+              href: programs-arangod-pregel.html
+            - text: Query
+              href: programs-arangod-query.html
+            - text: Random
+              href: programs-arangod-random.html
+            - text: Replication
+              href: programs-arangod-replication.html
+            - text: Rclone
+              href: programs-arangod-rclone.html
+            - text: RocksDB
+              href: programs-arangod-rocksdb.html
+            - text: Server
+              href: programs-arangod-server.html
+            - text: SSL
+              href: programs-arangod-ssl.html
+            - text: TCP
+              href: programs-arangod-tcp.html
+            - text: Temp
+              href: programs-arangod-temp.html
+            - text: Transaction
+              href: programs-arangod-transaction.html
+            - text: TTL
+              href: programs-arangod-ttl.html
+            - text: VST
+              href: programs-arangod-vst.html
+            - text: Web Interface
+              href: programs-arangod-web-interface.html
+        - text: Environment variables
+          href: programs-arangod-env-vars.html
+    - text: Web Interface
+      href: programs-web-interface.html
+      children:
+        - text: Dashboard
+          href: programs-web-interface-dashboard.html
+        - text: Cluster
+          href: programs-web-interface-cluster.html
+        - text: Collections
+          href: programs-web-interface-collections.html
+        - text: Document
+          href: programs-web-interface-document.html
+        - text: Queries
+          href: programs-web-interface-aql-editor.html
+        - text: Graphs
+          href: programs-web-interface-graphs.html
+        - text: Services
+          href: programs-web-interface-services.html
+        - text: Users
+          href: programs-web-interface-users.html
+        - text: Logs
+          href: programs-web-interface-logs.html
+    - text: ArangoDB Shell
+      href: programs-arangosh.html
+      children:
+        - text: Examples
+          href: programs-arangosh-examples.html
+        - text: Details
+          href: programs-arangosh-details.html
+        - text: Options
+          href: programs-arangosh-options.html
+    - text: ArangoDB Starter
+      href: programs-starter.html
+      children:
+        - text: Options
+          href: programs-starter-options.html
+        - text: Security
+          href: programs-starter-security.html
+        - text: Architecture
+          href: programs-starter-architecture.html
+    - text: arangodump
+      href: programs-arangodump.html
+      children:
+        - text: Examples
+          href: programs-arangodump-examples.html
+        - text: Options
+          href: programs-arangodump-options.html
+        - text: Maskings
+          href: programs-arangodump-maskings.html
+        - text: Limitations
+          href: programs-arangodump-limitations.html
+    - text: arangorestore
+      href: programs-arangorestore.html
+      children:
+        - text: Examples
+          href: programs-arangorestore-examples.html
+        - text: Fast Cluster Restore
+          href: programs-arangorestore-fast-cluster-restore.html
+        - text: Options
+          href: programs-arangorestore-options.html
+    - text: arangobackup
+      href: programs-arangobackup.html
+      children:
+        - text: Examples
+          href: programs-arangobackup-examples.html
+        - text: Options
+          href: programs-arangobackup-options.html
+    - text: arangoimport
+      href: programs-arangoimport.html
+      children:
+        - text: Examples JSON
+          href: programs-arangoimport-examples-json.html
+        - text: Examples CSV
+          href: programs-arangoimport-examples-csv.html
+        - text: Details
+          href: programs-arangoimport-details.html
+        - text: Options
+          href: programs-arangoimport-options.html
+    - text: arangoexport
+      href: programs-arangoexport.html
+      children:
+        - text: Examples
+          href: programs-arangoexport-examples.html
+        - text: Options
+          href: programs-arangoexport-options.html
+    - text: arangobench
+      href: programs-arangobench.html
+      children:
+        - text: Options
+          href: programs-arangobench-options.html
+    - text: arangovpack
+      href: programs-arangovpack.html
+      children:
+        - text: Options
+          href: programs-arangovpack-options.html
+    - text: arangoinspect
+      href: programs-arangoinspect.html
+      children:
+        - text: Examples
+          href: programs-arangoinspect-examples.html
+        - text: Options
+          href: programs-arangoinspect-options.html
+    - text: Foxx CLI
+      href: programs-foxx-cli.html
+      children:
+        - text: Details
+          href: programs-foxx-cli-details.html
+- text: Modeling Data
+  href: data-modeling.html
+  children:
+    - text: Operational Factors
+      href: data-modeling-operational-factors.html
+    - text: Mapping RDF to Graphs
+      href: data-modeling-graphs-from-rdf.html
+    - text: Monetary data without precision loss
+      href: data-modeling-monetary-data-without-precision-loss.html
+- text: Indexing
+  href: indexing.html
+  children:
+    - text: Index Basics
+      href: indexing-index-basics.html
+    - text: Which index to use when
+      href: indexing-which-index.html
+    - text: Index Utilization
+      href: indexing-index-utilization.html
+    - text: Working with Indexes
+      href: indexing-working-with-indexes.html
+      children:
+        - text: Persistent Indexes
+          href: indexing-persistent.html
+        - text: TTL Indexes
+          href: indexing-ttl.html
+        - text: Fulltext Indexes
+          href: indexing-fulltext.html
+        - text: Multi-dimensional Indexes
+          href: indexing-multi-dim.html
+        - text: Geo-spatial Indexes
+          href: indexing-geo.html
+        - text: Vertex Centric Indexes
+          href: indexing-vertex-centric.html
+    - text: ArangoSearch
+      href: arangosearch.html
+      children:
+        - text: Example Datasets
+          href: arangosearch-example-datasets.html
+        - text: Exact value matching
+          href: arangosearch-exact-value-matching.html
+        - text: Range Queries
+          href: arangosearch-range-queries.html
+        - text: Prefix matching
+          href: arangosearch-prefix-matching.html
+        - text: Case-sensitivity and Diacritics
+          href: arangosearch-case-sensitivity-and-diacritics.html
+        - text: Wildcard search
+          href: arangosearch-wildcard-search.html
+        - text: Full-text token search
+          href: arangosearch-fulltext-token-search.html
+        - text: Phrase and proximity search
+          href: arangosearch-phrase-and-proximity-search.html
+        - text: Faceted search
+          href: arangosearch-faceted-search.html
+        - text: Fuzzy search
+          href: arangosearch-fuzzy-search.html
+        - text: Geospatial search
+          href: arangosearch-geospatial-search.html
+        - text: Ranking
+          href: arangosearch-ranking.html
+        - text: Performance
+          href: arangosearch-performance.html
+        - text: Views Reference
+          href: arangosearch-views.html
+- text: Transactions
+  href: transactions.html
+  children:
+    - text: JavaScript Transactions
+      href: transactions-javascript-transactions.html
+    - text: Stream Transactions
+      href: transactions-stream-transactions.html
+    - text: Locking and isolation
+      href: transactions-locking-and-isolation.html
+    - text: Durability
+      href: transactions-durability.html
+    - text: Limitations
+      href: transactions-limitations.html
+- text: Graphs
+  href: graphs.html
+  children:
+    - text: General Graphs
+      href: graphs-general-graphs.html
+      children:
+        - text: Graph Management
+          href: graphs-general-graphs-management.html
+        - text: Graph Functions
+          href: graphs-general-graphs-functions.html
+    - text: SatelliteGraphs
+      href: graphs-satellite-graphs.html
+      children:
+        - text: Management
+          href: graphs-satellite-graphs-management.html
+        - text: Details
+          href: graphs-satellite-graphs-details.html
+    - text: SmartGraphs
+      href: graphs-smart-graphs.html
+      children:
+        - text: Getting Started with SmartGraphs
+          href: graphs-smart-graphs-getting-started.html
+        - text: SmartGraph Management
+          href: graphs-smart-graphs-management.html
+    - text: EnterpriseGraphs
+      href: graphs-enterprise-graphs.html
+      children:
+        - text: Getting Started with EnterpriseGraphs
+          href: graphs-enterprise-graphs-getting-started.html
+        - text: EnterpriseGraph Management
+          href: graphs-enterprise-graphs-management.html
+    - text: Testing Graphs on Single Server
+      href: smart-and-satellite-graphs-single-server.html
+    - text: Traversals
+      href: graphs-traversals.html
+      children:
+        - text: Example Data
+          href: graphs-traversals-example-data.html
+    - text: Working with Edges
+      href: graphs-edges.html
+- text: Data Science
+  href: data-science.html
+  children:
+    - text: Pregel
+      href: graphs-pregel.html
+      children:
+        - text: Pregel Algorithms
+          href: graphs-pregel-algorithms.html
+    - text: NetworkX Adapter
+      href: data-science-networkx-adapter.html
+    - text: DGL Adapter
+      href: data-science-dgl-adapter.html
+    - text: cuGraph Adapter
+      href: data-science-cugraph-adapter.html
+    - text: ArangoRDF
+      href: data-science-arango-rdf-adapter.html
+- subtitle: ADVANCED TOPICS
+- text: Architecture
+  href: architecture.html
+  children:
+    - text: ArangoDB Deployment Modes
+      href: architecture-deployment-modes.html
+      children:
+        - text: Single Instance
+          href: architecture-deployment-modes-single-instance.html
+        - text: Active Failover
+          href: architecture-deployment-modes-active-failover.html
+          children:
+            - text: Architecture
+              href: architecture-deployment-modes-active-failover-architecture.html
+            - text: Limitations
+              href: architecture-deployment-modes-active-failover-limitations.html
+        - text: Cluster
+          href: architecture-deployment-modes-cluster.html
+          children:
+            - text: Architecture
+              href: architecture-deployment-modes-cluster-architecture.html
+            - text: Data Models
+              href: architecture-deployment-modes-cluster-data-models.html
+            - text: Data Sharding
+              href: architecture-deployment-modes-cluster-sharding.html
+            - text: Limitations
+              href: architecture-deployment-modes-cluster-limitations.html
+    - text: Single Instance vs. Cluster
+      href: architecture-single-instance-vs-cluster.html
+    - text: Storage Engine
+      href: architecture-storage-engines.html
+    - text: Replication
+      href: architecture-replication.html
+    - text: Write-ahead log
+      href: architecture-write-ahead-log.html
+- text: ArangoSync
+  href: arangosync.html
+  children:
+    - text: Deployment
+      href: deployment-dc2dc.html
+      children:
+        - text: ArangoDB Cluster
+          href: deployment-dc2dc-cluster.html
+        - text: ArangoSync Master
+          href: deployment-dc2dc-arango-sync-master.html
+        - text: ArangoSync Workers
+          href: deployment-dc2dc-arango-sync-workers.html
+        - text: Promotheus & Grafana
+          href: deployment-dc2dc-prometheus-grafana.html
+    - text: Administration
+      href: administration-dc2dc.html
+    - text: Operations & Maintenance
+      href: operations-maintenance-dc2dc.html
+    - text: Security
+      href: security-dc2dc.html
+    - text: Monitoring
+      href: monitoring-dc2dc.html
+    - text: Troubleshooting
+      href: troubleshooting-dc2dc.html
+- text: Foxx Microservices
+  href: foxx.html
+  children:
+    - text: Getting started
+      href: foxx-getting-started.html
+    - text: Guides
+      href: foxx-guides.html
+      children:
+        - text: Working with routers
+          href: foxx-guides-routing.html
+        - text: Working with collections
+          href: foxx-guides-collections.html
+        - text: Writing queries
+          href: foxx-guides-queries.html
+        - text: Development mode
+          href: foxx-guides-development-mode.html
+        - text: Testing Foxx services
+          href: foxx-guides-testing.html
+        - text: Foxx in a cluster
+          href: foxx-guides-cluster.html
+        - text: Scripts and scheduling
+          href: foxx-guides-scripts.html
+        - text: Using Node modules
+          href: foxx-guides-bundled-node-modules.html
+        - text: Using Webpack with Foxx
+          href: foxx-guides-webpack.html
+        - text: Authentication and sessions
+          href: foxx-guides-auth.html
+        - text: Linking services together
+          href: foxx-guides-dependencies.html
+        - text: Working with files
+          href: foxx-guides-files.html
+        - text: Making requests
+          href: foxx-guides-making-requests.html
+        - text: Access from the browser
+          href: foxx-guides-browser.html
+    - text: Reference
+      href: foxx-reference.html
+      children:
+        - text: Service manifest
+          href: foxx-reference-manifest.html
+        - text: Service context
+          href: foxx-reference-context.html
+        - text: Configuration
+          href: foxx-reference-configuration.html
+        - text: Routers
+          href: foxx-reference-routers.html
+          children:
+            - text: Endpoints
+              href: foxx-reference-routers-endpoints.html
+            - text: Middleware
+              href: foxx-reference-routers-middleware.html
+            - text: Request
+              href: foxx-reference-routers-request.html
+            - text: Response
+              href: foxx-reference-routers-response.html
+        - text: Sessions middleware
+          href: foxx-reference-sessions.html
+          children:
+            - text: Session storages
+              href: foxx-reference-sessions-storages.html
+              children:
+                - text: Collection storage
+                  href: foxx-reference-sessions-storages-collection.html
+                - text: JWT storage
+                  href: foxx-reference-sessions-storages-jwt.html
+            - text: Session transports
+              href: foxx-reference-sessions-transports.html
+              children:
+                - text: Cookie transport
+                  href: foxx-reference-sessions-transports-cookie.html
+                - text: Header transport
+                  href: foxx-reference-sessions-transports-header.html
+        - text: Related modules
+          href: foxx-reference-modules.html
+          children:
+            - text: Authentication
+              href: foxx-reference-modules-auth.html
+            - text: OAuth 1.0a
+              href: foxx-reference-modules-oauth1.html
+            - text: OAuth 2.0
+              href: foxx-reference-modules-oauth2.html
+            - text: GraphQL
+              href: foxx-reference-modules-graph-ql.html
+            - text: Queues
+              href: foxx-reference-modules-queues.html
+    - text: Deployment
+      href: foxx-deployment.html
+- text: SatelliteCollections
+  href: satellites.html
+- text: SmartJoins
+  href: smartjoins.html
+- text: Analyzers
+  href: analyzers.html
+- subtitle: OPERATIONS
+- text: Installation
+  href: installation.html
+  children:
+    - text: Linux
+      href: installation-linux.html
+      children:
+        - text: Operating System Configuration
+          href: installation-linux-osconfiguration.html
+        - text: Linux OS Tuning Script Examples
+          href: installation-linux-ostuning-scripts.html
+    - text: macOS
+      href: installation-mac-osx.html
+    - text: Windows
+      href: installation-windows.html
+    - text: Compiling
+      href: installation-compiling.html
+      children:
+        - text: Compile on Debian
+          href: installation-compiling-debian.html
+        - text: Compile on Windows
+          href: installation-compiling-windows.html
+        - text: Running Custom Build
+          href: installation-compiling-running-custom-build.html
+        - text: Recompiling jemalloc
+          href: installation-compiling-jemalloc.html
+- text: Uninstallation
+  href: uninstallation.html
+- text: Deployment
+  href: deployment.html
+  children:
+    - text: By ArangoDB Deployment Modes
+      href: deployment-modes.html
+      children:
+        - text: Single Instance
+          href: deployment-single-instance.html
+          children:
+            - text: Using the ArangoDB Starter
+              href: deployment-single-instance-using-the-starter.html
+            - text: Manual Start
+              href: deployment-single-instance-manual-start.html
+        - text: Active Failover
+          href: deployment-active-failover.html
+          children:
+            - text: Using the ArangoDB Starter
+              href: deployment-active-failover-using-the-starter.html
+            - text: Manual Start
+              href: deployment-active-failover-manual-start.html
+        - text: Cluster
+          href: deployment-cluster.html
+          children:
+            - text: Preliminary Information
+              href: deployment-cluster-preliminary-information.html
+            - text: Using the ArangoDB Starter
+              href: deployment-cluster-using-the-starter.html
+            - text: Manual Start
+              href: deployment-cluster-manual-start.html
+            - text: Kubernetes
+              href: deployment-cluster-kubernetes.html
+        - text: Standalone Agency
+          href: deployment-standalone-agency.html
+    - text: By Technology
+      href: deployment-technology.html
+      children:
+        - text: Manually
+          href: deployment-manually.html
+        - text: ArangoDB Starter
+          href: deployment-arango-dbstarter.html
+        - text: Docker
+          href: deployment-docker.html
+        - text: Kubernetes
+          href: deployment-kubernetes.html
+          children:
+            - text: Using the Operator
+              href: deployment-kubernetes-usage.html
+            - text: Dashboards
+              href: deployment-kubernetes-dashboards.html
+            - text: Deployment Resource Reference
+              href: deployment-kubernetes-deployment-resource.html
+            - text: Backup Resource
+              href: deployment-kubernetes-backup-resource.html
+            - text: BackupPolicy Resource
+              href: deployment-kubernetes-backup-policy-resource.html
+            - text: Driver Configuration
+              href: deployment-kubernetes-driver-configuration.html
+            - text: Helm
+              href: deployment-kubernetes-helm.html
+            - text: Authentication
+              href: deployment-kubernetes-authentication.html
+            - text: Scaling
+              href: deployment-kubernetes-scaling.html
+            - text: Draining Nodes
+              href: deployment-kubernetes-drain.html
+            - text: Upgrading
+              href: deployment-kubernetes-upgrading.html
+            - text: ArangoDB Configuration & Secrets
+              href: deployment-kubernetes-config-and-secrets.html
+            - text: Metrics
+              href: deployment-kubernetes-metrics.html
+            - text: Services & Load balancer
+              href: deployment-kubernetes-services-and-load-balancer.html
+            - text: Deployment Replication Resource Reference
+              href: deployment-kubernetes-deployment-replication-resource.html
+            - text: Storage
+              href: deployment-kubernetes-storage.html
+            - text: Storage Resource
+              href: deployment-kubernetes-storage-resource.html
+            - text: TLS
+              href: deployment-kubernetes-tls.html
+            - text: Troubleshooting
+              href: deployment-kubernetes-troubleshooting.html
+    - text: In the Cloud
+      href: deployment-cloud.html
+      children:
+        - text: AWS
+          href: deployment-cloud-aws.html
+        - text: Azure
+          href: deployment-cloud-azure.html
+    - text: Production Checklist
+      href: deployment-production-checklist.html
+    - text: Migrating Single Instance to Cluster
+      href: deployment-migrating-single-instance-cluster.html
+- text: Backup & Restore
+  href: backup-restore.html
+- text: Upgrading
+  href: upgrading.html
+  children:
+    - text: General Upgrade Information
+      href: upgrading-general-info.html
+    - text: Community to Enterprise Upgrade
+      href: upgrading-community-to-enterprise.html
+    - text: OS-specific Information
+      href: upgrading-osspecific-info.html
+      children:
+        - text: Upgrading on Linux
+          href: upgrading-osspecific-info-linux.html
+        - text: Upgrading on macOS
+          href: upgrading-osspecific-info-mac-os.html
+        - text: Upgrading on Windows
+          href: upgrading-osspecific-info-windows.html
+    - text: Upgrading Starter Deployments
+      href: upgrading-starter.html
+    - text: Upgrading Manual Deployments
+      href: upgrading-manually.html
+      children:
+        - text: Upgrading an Active Failover deployment
+          href: upgrading-manually-active-failover.html
+        - text: Upgrading a Cluster
+          href: upgrading-manually-cluster.html
+    - text: Upgrading Kubernetes Deployments
+      href: upgrading-kubernetes.html
+    - text: Version Specific Upgrade Information
+      href: upgrading-version-specific.html
+      children:
+        - text: Upgrading to 3.4
+          href: upgrading-version-specific-upgrading34.html
+        - text: Upgrading to 3.3
+          href: upgrading-version-specific-upgrading33.html
+        - text: Upgrading to 3.2
+          href: upgrading-version-specific-upgrading32.html
+        - text: Upgrading to 3.1
+          href: upgrading-version-specific-upgrading31.html
+        - text: Upgrading to 3.0
+          href: upgrading-version-specific-upgrading30.html
+        - text: Upgrading to 2.8
+          href: upgrading-version-specific-upgrading28.html
+        - text: Upgrading to 2.6
+          href: upgrading-version-specific-upgrading26.html
+        - text: Upgrading to 2.5
+          href: upgrading-version-specific-upgrading25.html
+        - text: Upgrading to 2.4
+          href: upgrading-version-specific-upgrading24.html
+        - text: Upgrading to 2.3
+          href: upgrading-version-specific-upgrading23.html
+        - text: Upgrading to 2.2
+          href: upgrading-version-specific-upgrading22.html
+- text: Downgrading
+  href: downgrading.html
+- text: Scaling
+  href: scaling.html
+- text: Administration
+  href: administration.html
+  children:
+    - text: Configuration
+      href: administration-configuration.html
+    - text: License Management
+      href: administration-license.html
+    - text: Import & Export
+      href: administration-import-export.html
+    - text: User Management
+      href: administration-managing-users.html
+      children:
+        - text: In arangosh
+          href: administration-managing-users-in-arangosh.html
+    - text: Active Failover
+      href: administration-active-failover.html
+    - text: Cluster
+      href: administration-cluster.html
+    - text: ArangoDB Starter Administration
+      href: administration-starter.html
+      children:
+        - text: Removal Procedure
+          href: administration-starter-removal.html
+        - text: Recovery Procedure
+          href: administration-starter-recovery.html
+- text: Security
+  href: security.html
+  children:
+    - text: Security Options
+      href: security-security-options.html
+    - text: Change Root Password
+      href: security-change-root-password.html
+    - text: Encryption at Rest
+      href: security-encryption.html
+    - text: Auditing
+      href: security-auditing.html
+      children:
+        - text: Configuration
+          href: security-auditing-audit-configuration.html
+        - text: Events
+          href: security-auditing-audit-events.html
+    - text: Securing Starter Deployments
+      href: security-starter.html
+- text: Monitoring
+  href: monitoring.html
+  children:
+    - text: Log Levels
+      href: monitoring-log-levels.html
+- text: Troubleshooting
+  href: troubleshooting.html
+  children:
+    - text: arangod
+      href: troubleshooting-arangod.html
+    - text: Emergency Console
+      href: troubleshooting-emergency-console.html
+    - text: Cluster
+      href: troubleshooting-cluster.html
+      children:
+        - text: Agency Dump
+          href: troubleshooting-cluster-agency-dump.html
+- divider: true
+- text: Release Notes
+  href: release-notes.html
+  children:
+    - text: Version 3.11
+      href: release-notes-311.html
+      children:
+        - text: What's New in 3.11
+          href: release-notes-new-features311.html
+        - text: Known Issues in 3.11
+          href: release-notes-known-issues311.html
+        - text: Incompatible changes in 3.11
+          href: release-notes-upgrading-changes311.html
+        - text: API changes in 3.11
+          href: release-notes-api-changes311.html
+    - text: Version 3.10
+      href: release-notes-310.html
+      children:
+        - text: What's New in 3.10
+          href: release-notes-new-features310.html
+        - text: Known Issues in 3.10
+          href: release-notes-known-issues310.html
+        - text: Incompatible changes in 3.10
+          href: release-notes-upgrading-changes310.html
+        - text: API changes in 3.10
+          href: release-notes-api-changes310.html
+    - text: Version 3.9
+      href: release-notes-39.html
+      children:
+        - text: What's New in 3.9
+          href: release-notes-new-features39.html
+        - text: Known Issues in 3.9
+          href: release-notes-known-issues39.html
+        - text: Incompatible changes in 3.9
+          href: release-notes-upgrading-changes39.html
+        - text: API changes in 3.9
+          href: release-notes-api-changes39.html
+    - text: Version 3.8
+      href: release-notes-38.html
+      children:
+        - text: What's New in 3.8
+          href: release-notes-new-features38.html
+        - text: Known Issues in 3.8
+          href: release-notes-known-issues38.html
+        - text: Incompatible changes in 3.8
+          href: release-notes-upgrading-changes38.html
+        - text: API changes in 3.8
+          href: release-notes-api-changes38.html
+    - text: Version 3.7
+      href: release-notes-37.html
+      children:
+        - text: What's New in 3.7
+          href: release-notes-new-features37.html
+        - text: Known Issues in 3.7
+          href: release-notes-known-issues37.html
+        - text: Incompatible changes in 3.7
+          href: release-notes-upgrading-changes37.html
+        - text: API changes in 3.7
+          href: release-notes-api-changes37.html
+    - text: Version 3.6
+      href: release-notes-36.html
+      children:
+        - text: What's New in 3.6
+          href: release-notes-new-features36.html
+        - text: Known Issues in 3.6
+          href: release-notes-known-issues36.html
+        - text: Incompatible changes in 3.6
+          href: release-notes-upgrading-changes36.html
+    - text: Version 3.5
+      href: release-notes-35.html
+      children:
+        - text: What's New in 3.5
+          href: release-notes-new-features35.html
+        - text: Known Issues in 3.5
+          href: release-notes-known-issues35.html
+        - text: Incompatible changes in 3.5
+          href: release-notes-upgrading-changes35.html
+    - text: Version 3.4
+      href: release-notes-34.html
+      children:
+        - text: What's New in 3.4
+          href: release-notes-new-features34.html
+        - text: Known Issues in 3.4
+          href: release-notes-known-issues34.html
+        - text: Incompatible changes in 3.4
+          href: release-notes-upgrading-changes34.html
+    - text: Version 3.3
+      href: release-notes-33.html
+      children:
+        - text: What's New in 3.3
+          href: release-notes-new-features33.html
+        - text: Known Issues in 3.3
+          href: release-notes-known-issues33.html
+        - text: Incompatible changes in 3.3
+          href: release-notes-upgrading-changes33.html
+    - text: Version 3.2
+      href: release-notes-32.html
+      children:
+        - text: What's New in 3.2
+          href: release-notes-new-features32.html
+        - text: Known Issues in 3.2
+          href: release-notes-known-issues32.html
+        - text: Incompatible changes in 3.2
+          href: release-notes-upgrading-changes32.html
+    - text: Version 3.1
+      href: release-notes-31.html
+      children:
+        - text: What's New in 3.1
+          href: release-notes-new-features31.html
+        - text: Incompatible changes in 3.1
+          href: release-notes-upgrading-changes31.html
+    - text: Version 3.0
+      href: release-notes-30.html
+      children:
+        - text: What's New in 3.0
+          href: release-notes-new-features30.html
+        - text: Incompatible changes in 3.0
+          href: release-notes-upgrading-changes30.html
+    - text: Version 2.8
+      href: release-notes-28.html
+      children:
+        - text: What's New in 2.8
+          href: release-notes-new-features28.html
+        - text: Incompatible changes in 2.8
+          href: release-notes-upgrading-changes28.html
+    - text: Version 2.7
+      href: release-notes-27.html
+      children:
+        - text: What's New in 2.7
+          href: release-notes-new-features27.html
+        - text: Incompatible changes in 2.7
+          href: release-notes-upgrading-changes27.html
+    - text: Version 2.6
+      href: release-notes-26.html
+      children:
+        - text: What's New in 2.6
+          href: release-notes-new-features26.html
+        - text: Incompatible changes in 2.6
+          href: release-notes-upgrading-changes26.html
+    - text: Version 2.5
+      href: release-notes-25.html
+      children:
+        - text: What's New in 2.5
+          href: release-notes-new-features25.html
+        - text: Incompatible changes in 2.5
+          href: release-notes-upgrading-changes25.html
+    - text: Version 2.4
+      href: release-notes-24.html
+      children:
+        - text: What's New in 2.4
+          href: release-notes-new-features24.html
+        - text: Incompatible changes in 2.4
+          href: release-notes-upgrading-changes24.html
+    - text: Version 2.3
+      href: release-notes-23.html
+      children:
+        - text: What's New in 2.3
+          href: release-notes-new-features23.html
+        - text: Incompatible changes in 2.3
+          href: release-notes-upgrading-changes23.html
+    - text: Version 2.2
+      href: release-notes-22.html
+      children:
+        - text: What's New in 2.2
+          href: release-notes-new-features22.html
+    - text: Version 2.1
+      href: release-notes-21.html
+      children:
+        - text: What's New in 2.1
+          href: release-notes-new-features21.html
+- text: Appendix
+  href: appendix.html
+  children:
+    - text: References
+      href: appendix-references.html
+      children:
+        - text: db
+          href: appendix-references-dbobject.html
+        - text: collection
+          href: appendix-references-collection-object.html
+        - text: cursor
+          href: appendix-references-cursor-object.html
+    - text: JavaScript Modules
+      href: appendix-java-script-modules.html
+      children:
+        - text: '@arangodb'
+          href: appendix-java-script-modules-arango-db.html
+        - text: analyzers
+          href: appendix-java-script-modules-analyzers.html
+        - text: console
+          href: appendix-java-script-modules-console.html
+        - text: crypto
+          href: appendix-java-script-modules-crypto.html
+        - text: fs
+          href: appendix-java-script-modules-file-system.html
+        - text: request
+          href: appendix-java-script-modules-request.html
+        - text: actions
+          href: appendix-java-script-modules-actions.html
+        - text: queries
+          href: appendix-java-script-modules-queries.html
+        - text: Task Management
+          href: appendix-java-script-modules-tasks.html
+    - text: Deprecated
+      href: appendix-deprecated.html
+    - text: Error codes and meanings
+      href: appendix-error-codes.html
+    - text: Glossary
+      href: appendix-glossary.html

@@ -1,0 +1,167 @@
+- text: Introduction
+  href: index.html
+- text: How to invoke AQL
+  href: invocation.html
+  children:
+    - text: with arangosh
+      href: invocation-with-arangosh.html
+    - text: with the Web Interface
+      href: invocation-with-web-interface.html
+- text: AQL Fundamentals
+  href: fundamentals.html
+  children:
+    - text: AQL Syntax
+      href: fundamentals-syntax.html
+    - text: Data types
+      href: fundamentals-data-types.html
+    - text: Bind Parameters
+      href: fundamentals-bind-parameters.html
+    - text: Type and value order
+      href: fundamentals-type-value-order.html
+    - text: Accessing data from collections
+      href: fundamentals-document-data.html
+    - text: Query Results
+      href: fundamentals-query-results.html
+    - text: Query Errors
+      href: fundamentals-query-errors.html
+    - text: Limitations
+      href: fundamentals-limitations.html
+- text: Operators
+  href: operators.html
+- text: Data Queries
+  href: data-queries.html
+- text: High level Operations
+  href: operations.html
+  children:
+    - text: FOR
+      href: operations-for.html
+    - text: RETURN
+      href: operations-return.html
+    - text: FILTER
+      href: operations-filter.html
+    - text: SEARCH
+      href: operations-search.html
+    - text: SORT
+      href: operations-sort.html
+    - text: LIMIT
+      href: operations-limit.html
+    - text: LET
+      href: operations-let.html
+    - text: COLLECT
+      href: operations-collect.html
+    - text: WINDOW
+      href: operations-window.html
+    - text: REMOVE
+      href: operations-remove.html
+    - text: UPDATE
+      href: operations-update.html
+    - text: REPLACE
+      href: operations-replace.html
+    - text: INSERT
+      href: operations-insert.html
+    - text: UPSERT
+      href: operations-upsert.html
+    - text: WITH
+      href: operations-with.html
+- text: Functions
+  href: functions.html
+  children:
+    - text: ArangoSearch
+      href: functions-arangosearch.html
+    - text: Array
+      href: functions-array.html
+    - text: Bit
+      href: functions-bit.html
+    - text: Date
+      href: functions-date.html
+    - text: Document / Object
+      href: functions-document.html
+    - text: Fulltext
+      href: functions-fulltext.html
+    - text: Geo
+      href: functions-geo.html
+    - text: Miscellaneous
+      href: functions-miscellaneous.html
+    - text: Numeric
+      href: functions-numeric.html
+    - text: String
+      href: functions-string.html
+    - text: Type check & cast
+      href: functions-type-cast.html
+- text: Graphs
+  href: graphs.html
+  children:
+    - text: Traversals explained
+      href: graphs-traversals-explained.html
+    - text: Traversals
+      href: graphs-traversals.html
+    - text: Shortest Path
+      href: graphs-shortest-path.html
+    - text: All Shortest Paths
+      href: graphs-all-shortest-paths.html
+    - text: k Shortest Paths
+      href: graphs-kshortest-paths.html
+    - text: k Paths
+      href: graphs-k-paths.html
+- text: Advanced Features
+  href: advanced.html
+  children:
+    - text: Array Operators
+      href: advanced-array-operators.html
+- text: Examples & Query Patterns
+  href: examples.html
+  children:
+    - text: Create Test Data
+      href: examples-create-test-data.html
+    - text: Counting
+      href: examples-counting.html
+    - text: Data-modification queries
+      href: examples-data-modification-queries.html
+    - text: Subqueries
+      href: examples-combining-queries.html
+    - text: Dynamic Attribute Names
+      href: examples-dynamic-attribute-names.html
+    - text: Projections and filters
+      href: examples-projections-and-filters.html
+    - text: Joins
+      href: examples-join.html
+    - text: Grouping
+      href: examples-grouping.html
+    - text: Actors & Movies Dataset Queries
+      href: examples-actors-and-movies.html
+    - text: Traversals
+      href: examples-combining-graph-traversals.html
+    - text: Remove vertex
+      href: examples-remove-vertex.html
+    - text: Multiple path search
+      href: examples-multiple-paths.html
+    - text: Queries without collections
+      href: examples-queries-no-collections.html
+    - text: Diffing Two Documents
+      href: examples-diffing-documents.html
+    - text: Upsert / Repsert Guide
+      href: examples-upsert-repsert.html
+- text: User Functions
+  href: extending.html
+  children:
+    - text: Conventions
+      href: extending-conventions.html
+    - text: Registering Functions
+      href: extending-functions.html
+- text: Execution and Performance
+  href: execution-and-performance.html
+  children:
+    - text: Query statistics
+      href: execution-and-performance-query-statistics.html
+    - text: Parsing queries
+      href: execution-and-performance-parsing-queries.html
+    - text: Explaining queries
+      href: execution-and-performance-explaining-queries.html
+    - text: Query Profiling
+      href: execution-and-performance-query-profiler.html
+    - text: Query Optimization
+      href: execution-and-performance-optimizer.html
+    - text: Caching query results
+      href: execution-and-performance-query-cache.html
+- text: Common Errors
+  href: common-errors.html

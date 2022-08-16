@@ -1,0 +1,18 @@
+@Q:
+  RETURN MERGE(
+    [
+      { <span class="hljs-attr">foo</span>: <span class="hljs-string">&quot;bar&quot;</span> },
+      { <span class="hljs-attr">quux</span>: <span class="hljs-string">&quot;quetzalcoatl&quot;</span>, <span class="hljs-attr">ruled</span>: <span class="hljs-literal">true</span> },
+      { <span class="hljs-attr">bar</span>: <span class="hljs-string">&quot;baz&quot;</span>, <span class="hljs-attr">foo</span>: <span class="hljs-string">&quot;done&quot;</span> }
+    ]
+  )
+
+@R
+[
+  {
+    <span class="hljs-string">&quot;foo&quot;</span>: <span class="hljs-string">&quot;done&quot;</span>,
+    <span class="hljs-string">&quot;quux&quot;</span>: <span class="hljs-string">&quot;quetzalcoatl&quot;</span>,
+    <span class="hljs-string">&quot;ruled&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">&quot;bar&quot;</span>: <span class="hljs-string">&quot;baz&quot;</span>
+  }
+]

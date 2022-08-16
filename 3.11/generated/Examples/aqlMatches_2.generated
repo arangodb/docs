@@ -1,0 +1,14 @@
+@Q:
+  RETURN MATCHES(
+    { <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-number">1</span> },
+    [
+      { <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;foo&quot;</span>: <span class="hljs-string">&quot;bar&quot;</span> },
+      { <span class="hljs-string">&quot;foo&quot;</span>: <span class="hljs-number">1</span> },
+      { <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-number">1</span> }
+    ],
+  <span class="hljs-literal">true</span>)
+
+@R
+[
+  <span class="hljs-number">2</span>
+]

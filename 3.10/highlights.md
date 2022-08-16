@@ -36,7 +36,6 @@ grouped by version
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
 
-
 ## Version 3.9
 
 **All Editions**

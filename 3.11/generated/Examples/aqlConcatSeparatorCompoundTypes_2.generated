@@ -1,0 +1,7 @@
+@Q:
+RETURN CONCAT_SEPARATOR(<span class="hljs-string">&quot;, &quot;</span>, [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], {<span class="hljs-attr">foo</span>: <span class="hljs-string">&quot;bar&quot;</span>}])
+
+@R
+[
+  <span class="hljs-string">&quot;[5,6], {\&quot;foo\&quot;:\&quot;bar\&quot;}&quot;</span>
+]
