@@ -132,7 +132,7 @@ The currently implemented Analyzer types are:
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Analyzer  /  Feature                      | Tokenization | Stemming | Normalization | _N_-grams
+Analyzer  /  Capability                   | Tokenization | Stemming | Normalization | _N_-grams
 :----------------------------------------:|:------------:|:--------:|:-------------:|:--------:
 [`identity`](#identity)                   |      No      |    No    |      No       |   No
 [`delimiter`](#delimiter)                 |    (Yes)     |    No    |      No       |   No
@@ -151,15 +151,15 @@ Analyzer  /  Feature                      | Tokenization | Stemming | Normalizat
 [`geojson`](#geojson)                     |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)                   |      –       |    –     |      –        |   –
 
-Some Analyzers support features indirectly or to a limited extent, indicated by
+Some Analyzers support capabilities indirectly or to a limited extent, indicated by
 a `(Yes)` in the above table.
 
 - The `text` Analyzer supports edge _n_-grams but not full _n_-grams.
-- The `aql` Analyzer allows you to use a query and you can thus mimic features
+- The `aql` Analyzer allows you to use a query and you can thus mimic capabilities
   like normalization but it is limited to what is possible with the supported
   AQL subset.
 - The `pipeline` and `minhash` Analyzers let you use other Analyzers and the
-  features therefore depend on the features of these other Analyzers.
+  capabilities therefore depend on the capabilities of these other Analyzers.
 
 A `–` in the above table stands for "not applicable" because the respective
 Analyzer does not transform input text.
@@ -535,7 +535,7 @@ disabled like this:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Custom text Analyzer with the edge _n_-grams feature and normalization enabled,
+Custom text Analyzer with the edge _n_-grams capability and normalization enabled,
 stemming disabled and `"the"` defined as stop-word to exclude it:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -1326,10 +1326,10 @@ Built-in Analyzers
 There is a set of built-in Analyzers which are available by default for
 convenience and backward compatibility. They can not be removed.
 
-The `identity` Analyzer has no properties and the features `frequency`
-and `norm`. The Analyzers of type `text` all tokenize strings with stemming
+The `identity` Analyzer has no properties and the `frequency` and `norm`
+features. The Analyzers of type `text` all tokenize strings with stemming
 enabled, no stopwords configured, accent removal and case conversion to
-lowercase turned on and the features `frequency`, `norm` and `position`:
+lowercase turned on and the `frequency`, `norm` and `position` features
 
 Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming | Stopwords | Features |
 -----------|------------|-------------------------|---------|---------|----------|-----------|----------|
