@@ -1,0 +1,11 @@
+arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/general-graph&quot;</span>);
+arangosh&gt; graph_module._relation(<span class="hljs-string">&quot;has_bought&quot;</span>, <span class="hljs-string">&quot;Customer&quot;</span>, <span class="hljs-string">&quot;Product&quot;</span>);
+{ 
+  <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;has_bought&quot;</span>, 
+  <span class="hljs-string">&quot;from&quot;</span> : [ 
+    <span class="hljs-string">&quot;Customer&quot;</span> 
+  ], 
+  <span class="hljs-string">&quot;to&quot;</span> : [ 
+    <span class="hljs-string">&quot;Product&quot;</span> 
+  ] 
+}

@@ -1,0 +1,53 @@
+arangosh&gt; db._create(&quot;test&quot;);
+[ArangoCollection 60421, &quot;test&quot; (type document, status loaded)]
+arangosh&gt; for (i = 0; i &lt; 100; ++i) { db.test.save({ value: i }); }
+arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot;value&quot; ] });
+{ 
+  &quot;cacheEnabled&quot; : false, 
+  &quot;deduplicate&quot; : true, 
+  &quot;estimates&quot; : true, 
+  &quot;fields&quot; : [ 
+    &quot;value&quot; 
+  ], 
+  &quot;id&quot; : &quot;test/60626&quot;, 
+  &quot;isNewlyCreated&quot; : true, 
+  &quot;name&quot; : &quot;idx_1740955231087230981&quot;, 
+  &quot;selectivityEstimate&quot; : 1, 
+  &quot;sparse&quot; : false, 
+  &quot;type&quot; : &quot;persistent&quot;, 
+  &quot;unique&quot; : false, 
+  &quot;code&quot; : 201 
+}
+arangosh&gt; var explain = require(&quot;@arangodb/aql/explainer&quot;).explain;
+arangosh&gt; explain(&quot;FOR i IN test FILTER i.value &gt; 97 SORT i.value RETURN i.value&quot;, {colors:false});
+Query String (61 chars, cacheable: true):
+ FOR i IN test FILTER i.value &gt; 97 SORT i.value RETURN i.value
+
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  9   IndexNode          100     - FOR i IN test   /* persistent index scan, index only (projections: `value`) */    
+  5   CalculationNode    100       - LET #3 = i.`value`   /* attribute expression */   /* collections used: i : test */
+  8   ReturnNode         100       - RETURN #3
+
+Indexes used:
+ By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields        Stored values   Ranges
+  9   idx_1740955231087230981   persistent   test         false    false    false      100.00 %   [ `value` ]   [  ]            (i.`value` &gt; 97)
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   move-filters-up
+  3   remove-redundant-calculations
+  4   remove-unnecessary-calculations
+  5   move-calculations-up-2
+  6   move-filters-up-2
+  7   use-indexes
+  8   remove-filter-covered-by-index
+  9   use-index-for-sort
+ 10   remove-unnecessary-calculations-2
+ 11   reduce-extraction-to-projection
+
+44 rule(s) executed, 1 plan(s) created
+
+

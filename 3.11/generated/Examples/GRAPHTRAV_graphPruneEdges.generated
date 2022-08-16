@@ -1,0 +1,26 @@
+@Q:
+  FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">&#x27;circles/A&#x27;</span> GRAPH <span class="hljs-string">&#x27;traversalGraph&#x27;</span>
+      PRUNE e.theTruth == <span class="hljs-literal">true</span>
+      RETURN { <span class="hljs-attr">vertices</span>: p.vertices[*]._key, <span class="hljs-attr">edges</span>: p.edges[*].label }
+
+@R
+[
+  {
+    <span class="hljs-string">&quot;vertices&quot;</span>: [
+      <span class="hljs-string">&quot;A&quot;</span>,
+      <span class="hljs-string">&quot;G&quot;</span>
+    ],
+    <span class="hljs-string">&quot;edges&quot;</span>: [
+      <span class="hljs-string">&quot;right_foo&quot;</span>
+    ]
+  },
+  {
+    <span class="hljs-string">&quot;vertices&quot;</span>: [
+      <span class="hljs-string">&quot;A&quot;</span>,
+      <span class="hljs-string">&quot;B&quot;</span>
+    ],
+    <span class="hljs-string">&quot;edges&quot;</span>: [
+      <span class="hljs-string">&quot;left_bar&quot;</span>
+    ]
+  }
+]
