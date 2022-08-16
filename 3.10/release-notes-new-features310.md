@@ -21,15 +21,57 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 3.10.x runs on this hardware again, but now without emulation.
 
 ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
-The minimum requirement is an ARMv8 chip with Neon (SIMD).
+The minimum requirement is an ARMv8 chip with Neon (SIMD extension).
 
 ArangoSearch
 ------------
 
 
 
-UI
---
+Analyzers
+---------
+
+### `minhash` Analyzer (Enterprise Edition)
+
+This new Analyzer applies another Analyzer, for example, a `text` Analyzer to
+tokenize text into words, and then computes so called *MinHash signatures* from
+the tokens using a locality-sensitive hash function. The result lets you
+approximate the Jaccard similarity of sets.
+
+A common use case is to compare sets with many elements for entity resolution,
+such as for finding duplicate records, based on how many common elements they
+have.
+
+You can use the Analyzer with a new inverted index or ArangoSearch View to
+quickly find candidates for the actual Jaccard similarity comparisons you want
+to perform. Instead of testing all possible combinations with a quadratic time
+complexity, it is possible to reduce it to a linear time complexity. This comes
+at the cost of missing some combinations with a higher similarity than predicted.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#minhash) for details.
+
+### `classification` Analyzer (Enterprise Edition)
+
+A new, experimental Analyzer for classifying individual tokens or entire inputs
+using a supervised fastText word embedding model that you provide.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#classification) for details.
+
+### `nearest_neighbor` Analyzer (Enterprise Edition)
+
+A new, experimental Analyzer for finding similar tokens
+using a supervised fastText word embedding model that you provide.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#nearest_neighbors) for details.
+
+Web Interface
+-------------
 
 
 
