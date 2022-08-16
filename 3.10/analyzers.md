@@ -1003,6 +1003,33 @@ An Analyzer that computes so called MinHash signatures using a
 locality-sensitive hash function. It applies an Analyzer of your choice before
 the hashing, for example, to break up text into words.
 
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `analyzer` (object, _required_): an Analyzer definition-like objects with
+  `type` and `properties` attributes
+- `numHashes` (number, _required_): the size of the MinHash signature. Must be
+  greater or equal to `1`. The signature size defines the probalistic error
+  (`err = rsqrt(numHashes)`)
+
+**Examples**
+
+Create a `minhash` Analyzers:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerMinHash
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerMinHash}
+      var analyzers = require("@arangodb/analyzers");
+      var analyzer = analyzers.save("lsh", "minhash", { analyzer: {}, numHashes: 1 / (err * err) }, ["frequency", "norm", "position"]);
+    | db._query(`LET str = 'foo bar baz'
+    |   RETURN TOKENS(str, 'lsh')
+      `);
+    ~ analyzers.remove(analyzer.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerMinHash
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### `classification`
 
 <small>Introduced in: v3.10.0</small>
