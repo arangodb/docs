@@ -460,7 +460,7 @@ Return the week date of *date* according to ISO 8601.
 
 ### DATE_ISOWEEKYEAR()
 
-`DATE_ISOWEEKYEAR(date) → {weekDate, year}`
+`DATE_ISOWEEKYEAR(date) → {week, year}`
 
 Return the week date of *date* according to ISO 8601.
 
