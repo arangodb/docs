@@ -105,7 +105,7 @@ The following Node.js modules are not available at all:
 - `v8`
 - `zlib`
 
-ArangoDB Specific Modules
+ArangoDB-specific modules
 -------------------------
 
 There are a large number of ArangoDB-specific modules using the `@arangodb`
@@ -162,3 +162,6 @@ noteworthy however and intended to be used by the user:
 
 - [**@arangodb/users**](administration-managing-users-in-arangosh.html)
   provides an interface for user management.
+
+- [**@arangodb/pregel**](graphs-pregel.html#javascript-api)
+  provides an interface for Pregel management.
