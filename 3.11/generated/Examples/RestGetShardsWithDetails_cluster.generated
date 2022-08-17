@@ -2,16 +2,11 @@
 
 HTTP/1.1 200 OK
 content-type: application/json
-cache-control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
 connection: Keep-Alive
 content-length: 863
-content-security-policy: frame-ancestors 'self'; form-action 'self';
-expires: 0
 location: /_db/_system/_api/collection/testCollection/shards
-pragma: no-cache
 server: ArangoDB
-strict-transport-security: max-age=31536000 ; includeSubDomains
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s10056\":[\"PRMR-8e980b9d-2353-4706-a269-35771a41e89c\",\"PRMR-d9a05cd8-df6a-431c-a106-d9c93a9585ca\"],\"s10057\":[\"PRMR-d9a05cd8-df6a-431c-a106-d9c93a9585ca\",\"PRMR-8e980b9d-2353-4706-a269-35771a41e89c\"],\"s10058\":[\"PRMR-8e980b9d-2353-4706-a269-35771a41e89c\",\"PRMR-d9a05cd8-df6a-431c-a106-d9c93a9585ca\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"numberOfShards\":3,\"minReplicationFactor\":1,\"id\":\"10055\",\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"computedValues\":null,\"internalValidatorType\":0,\"globallyUniqueId\":\"c10055/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s10056\":[\"PRMR-7caa3f59-504f-4608-abae-3434c871bf7a\",\"PRMR-f796c6d2-ef64-438c-a36b-16e44510b22c\"],\"s10057\":[\"PRMR-f796c6d2-ef64-438c-a36b-16e44510b22c\",\"PRMR-7caa3f59-504f-4608-abae-3434c871bf7a\"],\"s10058\":[\"PRMR-7caa3f59-504f-4608-abae-3434c871bf7a\",\"PRMR-f796c6d2-ef64-438c-a36b-16e44510b22c\"]},\"writeConcern\":1,\"waitForSync\":false,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"schema\":null,\"numberOfShards\":3,\"minReplicationFactor\":1,\"id\":\"10055\",\"isSmartChild\":false,\"name\":\"testCollection\",\"statusString\":\"loaded\",\"isSmart\":false,\"replicationFactor\":2,\"type\":2,\"status\":3,\"cacheEnabled\":false,\"isSystem\":false,\"computedValues\":null,\"internalValidatorType\":0,\"globallyUniqueId\":\"c10055/\",\"shardKeys\":[\"_key\"],\"isDisjoint\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"

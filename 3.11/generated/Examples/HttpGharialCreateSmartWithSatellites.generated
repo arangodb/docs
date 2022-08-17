@@ -1,0 +1,72 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/gharial</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;smartGraph&quot;</span>, 
+  <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
+    { 
+      <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;edges&quot;</span>, 
+      <span class="hljs-string">&quot;from&quot;</span> : [ 
+        <span class="hljs-string">&quot;startVertices&quot;</span> 
+      ], 
+      <span class="hljs-string">&quot;to&quot;</span> : [ 
+        <span class="hljs-string">&quot;endVertices&quot;</span> 
+      ] 
+    } 
+  ], 
+  <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ 
+    <span class="hljs-string">&quot;orphanVertices&quot;</span> 
+  ], 
+  <span class="hljs-string">&quot;isSmart&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;options&quot;</span> : { 
+    <span class="hljs-string">&quot;replicationFactor&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;numberOfShards&quot;</span> : <span class="hljs-number">9</span>, 
+    <span class="hljs-string">&quot;smartGraphAttribute&quot;</span> : <span class="hljs-string">&quot;region&quot;</span>, 
+    <span class="hljs-string">&quot;satellites&quot;</span> : [ 
+      <span class="hljs-string">&quot;endVertices&quot;</span> 
+    ] 
+  } 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">465</span>
+etag: _eopCJIS--A
+server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">202</span>, 
+  <span class="hljs-string">&quot;graph&quot;</span> : { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;smartGraph&quot;</span>, 
+    <span class="hljs-string">&quot;numberOfShards&quot;</span> : <span class="hljs-number">9</span>, 
+    <span class="hljs-string">&quot;replicationFactor&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;minReplicationFactor&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;writeConcern&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;isSmart&quot;</span> : <span class="hljs-literal">true</span>, 
+    <span class="hljs-string">&quot;isSatellite&quot;</span> : <span class="hljs-literal">false</span>, 
+    <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
+      { 
+        <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;edges&quot;</span>, 
+        <span class="hljs-string">&quot;from&quot;</span> : [ 
+          <span class="hljs-string">&quot;startVertices&quot;</span> 
+        ], 
+        <span class="hljs-string">&quot;to&quot;</span> : [ 
+          <span class="hljs-string">&quot;endVertices&quot;</span> 
+        ] 
+      } 
+    ], 
+    <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ 
+      <span class="hljs-string">&quot;orphanVertices&quot;</span> 
+    ], 
+    <span class="hljs-string">&quot;initial&quot;</span> : <span class="hljs-string">&quot;startVertices&quot;</span>, 
+    <span class="hljs-string">&quot;initialCid&quot;</span> : <span class="hljs-number">66432</span>, 
+    <span class="hljs-string">&quot;smartGraphAttribute&quot;</span> : <span class="hljs-string">&quot;region&quot;</span>, 
+    <span class="hljs-string">&quot;isDisjoint&quot;</span> : <span class="hljs-literal">false</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eopCJIS--A&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;_graphs/smartGraph&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;smartGraph&quot;</span> 
+  } 
+}
