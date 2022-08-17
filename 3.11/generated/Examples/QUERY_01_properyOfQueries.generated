@@ -1,0 +1,34 @@
+arangosh&gt; <span class="hljs-keyword">var</span> queries = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/aql/queries&quot;</span>);
+arangosh&gt; queries.properties();
+{ 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;enabled&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;trackSlowQueries&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;trackBindVars&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;maxSlowQueries&quot;</span> : <span class="hljs-number">64</span>, 
+  <span class="hljs-string">&quot;slowQueryThreshold&quot;</span> : <span class="hljs-number">10</span>, 
+  <span class="hljs-string">&quot;slowStreamingQueryThreshold&quot;</span> : <span class="hljs-number">10</span>, 
+  <span class="hljs-string">&quot;maxQueryStringLength&quot;</span> : <span class="hljs-number">4096</span> 
+}
+arangosh&gt; queries.properties({<span class="hljs-attr">slowQueryThreshold</span>: <span class="hljs-number">1</span>});
+{ 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;enabled&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;trackSlowQueries&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;trackBindVars&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;maxSlowQueries&quot;</span> : <span class="hljs-number">64</span>, 
+  <span class="hljs-string">&quot;slowQueryThreshold&quot;</span> : <span class="hljs-number">1</span>, 
+  <span class="hljs-string">&quot;slowStreamingQueryThreshold&quot;</span> : <span class="hljs-number">10</span>, 
+  <span class="hljs-string">&quot;maxQueryStringLength&quot;</span> : <span class="hljs-number">4096</span> 
+}
+arangosh&gt; queries.properties({<span class="hljs-attr">slowStreamingQueryThreshold</span>: <span class="hljs-number">1</span>});
+{ 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;enabled&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;trackSlowQueries&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;trackBindVars&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;maxSlowQueries&quot;</span> : <span class="hljs-number">64</span>, 
+  <span class="hljs-string">&quot;slowQueryThreshold&quot;</span> : <span class="hljs-number">1</span>, 
+  <span class="hljs-string">&quot;slowStreamingQueryThreshold&quot;</span> : <span class="hljs-number">1</span>, 
+  <span class="hljs-string">&quot;maxQueryStringLength&quot;</span> : <span class="hljs-number">4096</span> 
+}

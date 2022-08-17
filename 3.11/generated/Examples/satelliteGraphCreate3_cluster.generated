@@ -1,0 +1,3 @@
+arangosh&gt; <span class="hljs-keyword">var</span> graph = satelliteGraphModule._create(<span class="hljs-string">&quot;satelliteGraph&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> relation = satelliteGraphModule._relation(<span class="hljs-string">&quot;isFriend&quot;</span>, [<span class="hljs-string">&quot;person&quot;</span>], [<span class="hljs-string">&quot;person&quot;</span>]);
+arangosh&gt; graph._extendEdgeDefinitions(relation);
