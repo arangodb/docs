@@ -14,14 +14,9 @@ EOF
 
 HTTP/1.1 200 OK
 content-type: unset
-cache-control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
 connection: Keep-Alive
 content-length: 598
-content-security-policy: frame-ancestors 'self'; form-action 'self';
-expires: 0
-pragma: no-cache
 server: ArangoDB
-strict-transport-security: max-age=31536000 ; includeSubDomains
 x-arango-errors: 2
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
