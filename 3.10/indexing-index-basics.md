@@ -26,10 +26,6 @@ are covered by an edge collection's edge index automatically.
 Using the system attribute `_id` in user-defined indexes is not possible, but 
 indexing `_key`, `_rev`, `_from`, and `_to` is.
 
-Also, it's not possible to use attributes in which their names either start or end with `:`, 
-for example, `fields: ["value1:"]`. This applies both for single server or cluster mode in 
-the coordinator.
-
 Creating new indexes is by default done under an exclusive collection lock. The collection is not
 available while the index is being created. This "foreground" index creation can be undesirable, 
 if you have to perform it on a live system without a dedicated maintenance window.
