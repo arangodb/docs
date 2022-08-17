@@ -10,3 +10,5 @@ ArangoDB 3.11. ArangoDB 3.11 also contains several bug fixes that are not listed
 here.
 
 
+Added function `DATE_ISOWEEKYEAR(date)` that retrieves the ISO week and year referring to
+the date provided in its argument referred to as `date`.

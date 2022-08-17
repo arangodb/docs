@@ -458,6 +458,31 @@ Return the week date of *date* according to ISO 8601.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+### DATE_ISOWEEKYEAR()
+
+`DATE_ISOWEEKYEAR(date) → {weekDate, year}`
+
+Return the week date of *date* according to ISO 8601.
+
+- **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- returns **weekDate** (number): the ISO week date of *date*. The return values
+  range from 1 to 53. Monday is considered the first day of the week. There are no
+  fractional weeks, thus the last days in December may belong to the first week of
+  the next year, and the first days in January may be part of the previous year's
+  last week. **year** (number): the ISO year to which the week belongs.
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateisofwky1
+  @EXAMPLE_AQL{dateisofwky1}
+    RETURN DATE_ISOWEEKYEAR("2020-08-29")
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateisofwky1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+
 ### DATE_LEAPYEAR()
 
 `DATE_LEAPYEAR(date) → leapYear`
