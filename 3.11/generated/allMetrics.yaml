@@ -2436,6 +2436,416 @@
     delayed and there was a recent leadership change. This should not be a
     common case and normally indicates a problem with the setup or with the load.
 
+- name: arangodb_replication2_replicated_log_append_entries_rtt
+  introducedIn: "3.9.0"
+  help: |
+    Histogram of the RTT of appendEntries requests in microseconds.
+  unit: us
+  type: histogram
+  category: Replication
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    The leader of a replicated log replicates the log entries by sending
+    appendEntries requests to its followers.
+    This is a histogram keeping track of the number of such requests this
+    server sends (for any log it is a leader of), as well as their respective
+    round-trip times in microseconds.
+
+- name: arangodb_replication2_replicated_log_creation_total
+  introducedIn: "3.9.0"
+  help: |
+    Number of replicated log instances created on this server since its start.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of replicated log instances created on this server since its start.
+
+- name: arangodb_replication2_replicated_log_deletion_total
+  introducedIn: "3.9.0"
+  help: |
+    Number of replicated log instances deleted on this server since its start.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of replicated log instances deleted on this server since its start.
+
+- name: arangodb_replication2_replicated_log_follower_append_entries_rt
+  introducedIn: "3.9.0"
+  help: |
+    Histogram of the duration of appendEntries calls in microseconds.
+  unit: us
+  type: histogram
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Followers of a replicated log, including the local followers for persistence
+    each leader has, receive appendEntries requests. These contain log entries
+    to be replicated. Serving these requests means writing them to persistence.
+  
+    This histogram counts the number of such requests server by this server,
+    plus their respective runtime in microseconds.
+
+- name: arangodb_replication2_replicated_log_follower_number
+  introducedIn: "3.9.0"
+  help: |
+    Current number of followers of replicated logs.
+  unit: number
+  type: gauge
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Current number of replicated logs this server is a follower of.
+
+- name: arangodb_replication2_replicated_log_inactive_number
+  introducedIn: "3.9.0"
+  help: |
+    Current number of inactive replicated logs.
+  unit: number
+  type: gauge
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Current number of replicated logs this server is a participant of,
+    but is not yet configured to be either a leader or a follower. This
+    number should usually be zero, except during server startup until
+    the configuration from the Agency is fetched and applied, and for
+    a short time when a log is newly created.
+- name: arangodb_replication2_replicated_log_inserts_bytes
+  introducedIn: "3.9.0"
+  help: |
+    Number of bytes inserted into replicated logs.
+  unit: bytes
+  type: histogram
+  category: Replication
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    For all replicated logs this server is a leader of, this counts the number
+    of bytes of raw payload inserted into it.
+
+- name: arangodb_replication2_replicated_log_inserts_rtt
+  introducedIn: "3.9.0"
+  help: |
+    Round-trip time of inserts into replicated logs in microseconds.
+  unit: us
+  type: histogram
+  category: Replication
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Inserts into replicated logs this server is a leader of are counted by this
+    histogram, plus their respective round-trip time. This includes the time for
+    replication, at least until the writeConcern is satisfied.
+
+- name: arangodb_replication2_replicated_log_leader_number
+  introducedIn: "3.9.0"
+  help: |
+    Current number of replicated log leaders.
+  unit: number
+  type: gauge
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of replicated logs this server is currently a leader of.
+- name: arangodb_replication2_replicated_log_leader_took_over_total
+  introducedIn: "3.9.0"
+  help: |
+    Number of leader takeovers.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of times this server took over the leadership of a replicated log
+    since server start.
+
+- name: arangodb_replication2_replicated_log_number
+  introducedIn: "3.9.0"
+  help: |
+    Number of replicated logs.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of replicated logs this server is a participant of.
+
+- name: arangodb_replication2_replicated_log_number_accepted_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of accepted (not yet committed) log entries.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    The entries have been inserted into the log and are being replicated but a quorum has not yet been reached.
+
+- name: arangodb_replication2_replicated_log_number_committed_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of committed log entries.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of committed log entries.
+
+- name: arangodb_replication2_replicated_log_number_compacted_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of compacted log entries.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of compacted log entries. If log entries have been replicated to every participant and applied
+    durably, they can be compacted, i.e. deleted.
+
+- name: arangodb_replication2_replicated_log_number_meta_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of meta log entries.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of meta log entries. A meta log entry is used to create artificial write barriers, for example during a
+    configuration change or move shard operation.
+
+- name: arangodb_replication2_replicated_log_started_following_total
+  introducedIn: "3.9.0"
+  help: |
+    Number of times started following a replicated log.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of times this server started following a replicated log
+    since server start.
+
+- name: arangodb_replication2_replicated_state_acquire_snapshot_errors_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of errors during an acquire snapshot operation.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Number of errors during an acquire snapshot operation.
+
+- name: arangodb_replication2_replicated_state_applied_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of log entries applied to the internal state.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Number of log entries applied to the internal state.
+
+- name: arangodb_replication2_replicated_state_apply_entries_errors_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of errors during an apply entries operation.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Number of errors during an apply entries operation.
+
+- name: arangodb_replication2_replicated_state_follower_acquire_snapshot_rt
+  introducedIn: "3.10.0"
+  help: |
+    Histogram of the duration of acquireSnapshot calls in microseconds.
+  unit: us
+  type: histogram
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Histogram of the duration of acquireSnapshot calls in microseconds. This measures the time
+    a new follower takes to acquire a snapshot from the leader.
+
+- name: arangodb_replication2_replicated_state_follower_apply_entries_rt
+  introducedIn: "3.10.0"
+  help: |
+    Histogram of the duration of applyEntries calls in microseconds.
+  unit: us
+  type: histogram
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Histogram of the duration of applyEntries calls in microseconds. This measures the time
+    a follower takes to apply log entries to its local state after they have been committed.
+
+- name: arangodb_replication2_replicated_state_follower_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of follower replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a follower of.
+
+- name: arangodb_replication2_replicated_state_follower_waiting_for_leader_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of followers waiting for the leader to acknowledge the current term.
+  unit: number
+  type: gauge
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Number of followers waiting for the leader to acknowledge the current term.
+
+- name: arangodb_replication2_replicated_state_follower_waiting_for_snapshot_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of followers waiting for a snapshot transfer to complete.
+  unit: number
+  type: gauge
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Number of followers waiting for a snapshot transfer to complete.
+
+- name: arangodb_replication2_replicated_state_leader_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of leader replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a leader of.
+
+- name: arangodb_replication2_replicated_state_leader_recover_entries_rt
+  introducedIn: "3.10.0"
+  help: |
+    Histogram of the duration of recoverEntries calls in microseconds.
+  unit: us
+  type: histogram
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Histogram of the duration of recoverEntries calls in microseconds. This measures the time
+    a new leader takes to recover from existing log entries after it was elected.
+
+- name: arangodb_replication2_replicated_state_leader_waiting_for_recovery_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of leaders waiting for recovery to be complete.
+  unit: number
+  type: gauge
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Number of leaders waiting for recovery to be complete.
+
+- name: arangodb_replication2_replicated_state_number
+  introducedIn: "3.10.0"
+  help: |
+    Number of replicated states.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+  description: |
+    Number of replicated states this server is a participant of.
+
+- name: arangodb_replication2_replicated_state_processed_entries_total
+  introducedIn: "3.10.0"
+  help: |
+    Number of log entries processed by the follower.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+  description: |
+    Number of log entries processed by the follower.
+
 - name: arangodb_replication_cluster_inventory_requests_total
   renamedFrom: arangodb_replication_cluster_inventory_requests
   introducedIn: "3.8.0"
