@@ -6,8 +6,8 @@ arangosh&gt; graph._commonNeighbors({<span class="hljs-attr">isCapital</span> : 
     <span class="hljs-string">&quot;left&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
     <span class="hljs-string">&quot;right&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
     <span class="hljs-string">&quot;neighbors&quot;</span> : [ 
-      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
       <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
       <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span> 
     ] 
   }, 
@@ -15,8 +15,8 @@ arangosh&gt; graph._commonNeighbors({<span class="hljs-attr">isCapital</span> : 
     <span class="hljs-string">&quot;left&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
     <span class="hljs-string">&quot;right&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
     <span class="hljs-string">&quot;neighbors&quot;</span> : [ 
-      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
       <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
       <span class="hljs-string">&quot;germanCity/Cologne&quot;</span> 
     ] 
   } 
