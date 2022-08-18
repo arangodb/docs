@@ -22,3 +22,12 @@ RETURN DATE_ISOWEEKYEAR("2023-01-01") // { "week": 52, "year": 2022 }
 ```
 
 See [AQL Date functions](aql/functions-date.html#date_isoweekyear) for details.
+
+Server options
+--------------
+
+The new `--rocksdb.verify-sst` startup option lets you validate the SST files
+currently contained in the database directory on startup. If set to `true`,
+on startup, all SST files in the `engine-rocksdb` folder in the database
+directory are validated, then the process finishes execution.
+The default value is `false`.
