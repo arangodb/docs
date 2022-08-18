@@ -107,9 +107,10 @@ in a cluster. Client applications that tail ArangoDB's WAL are thus supposed
 to handle WAL markers of type `2004`.
 
 The following HTTP APIs are affected:
-* `/_api/wal/tail`
-* `/_api/replication/logger-follow`
+- `/_api/wal/tail`
+- `/_api/replication/logger-follow`
 
+#### Startup and recovery information
 
 The GET `/_admin/status` API now also returns startup and recovery information. This
 can be used to determine the instance's progress during startup. The new `progress`
@@ -125,7 +126,6 @@ attribute is returned inside the `serverInfo` object with the following subattri
 
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
 
-
 #### Read from Followers
 
 A number of read-only APIs now observe the `x-arango-allow-dirty-read`
@@ -140,7 +140,7 @@ The following APIs are affected:
 - Batch document reads (`PUT /_api/document?onlyget=true`)
 - Read-only AQL queries (`POST /_api/cursor`)
 - The edge API (`GET /_api/edges`)
-- Read-only stream transactions and their sub-operations
+- Read-only Stream Transactions and their sub-operations
   (`POST /_api/transaction/begin` etc.)
 
 If the header is not specified, the behavior is the same as before.
@@ -200,6 +200,38 @@ The values of `storedValues` and `cacheEnabled` are not considered in index
 creation calls when checking if a persistent index is already present or a new
 one needs to be created.
 
+#### Pregel API
+
+When loading the graph data into memory, a `"loading"` state is now returned by
+the `GET /_api/control_pregel` and `GET /_api/control_pregel/{id}` endpoints.
+The state changes to `"running"` when loading finishes.
+
+In previous versions, the state was `"running"` when loading the data as well as
+when running the algorithm.
+
+Both endpoints return a new `detail` attribute with additional Pregel run details:
+
+- `detail` (object)
+  - `aggregatedStatus` (object)
+    - `timeStamp` (string)
+    - `graphStoreStatus` (object)
+      - `verticesLoaded` (integer)
+      - `edgesLoaded` (integer)
+      - `memoryBytesUsed` (integer)
+      - `verticesStored` (integer)
+    - `allGssStatus` (object)
+      - `items` (array of objects)
+        - `verticesProcessed` (integer)
+        - `messagesSent` (integer)
+        - `messagesReceived` (integer)
+        - `memoryBytesUsedForMessages` (integer)
+    - `workerStatus` (object)
+      - `<serverId>` (object)
+        - (the same attributes like under `aggregatedStatus`)
+
+For a detailed description of the attributes, see
+[Pregel HTTP API](http/pregel.html#get-pregel-job-execution-status).
+
 ### Endpoints moved
 
 ### Endpoints deprecated
@@ -208,4 +240,6 @@ one needs to be created.
 
 ## JavaScript API
 
-
+The Computed Values feature extends the collection properties with a new
+`computedValues` attribute. See [Computed Values](data-modeling-documents-computed-values.html#javascript-api)
+for details.

@@ -1,0 +1,10 @@
+@Q:
+  RETURN PARSE_IDENTIFIER( { <span class="hljs-string">&quot;_id&quot;</span>: <span class="hljs-string">&quot;mycollection/mykey&quot;</span>, <span class="hljs-string">&quot;value&quot;</span>: <span class="hljs-string">&quot;some value&quot;</span> } )
+
+@R
+[
+  {
+    <span class="hljs-string">&quot;collection&quot;</span>: <span class="hljs-string">&quot;mycollection&quot;</span>,
+    <span class="hljs-string">&quot;key&quot;</span>: <span class="hljs-string">&quot;mykey&quot;</span>
+  }
+]

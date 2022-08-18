@@ -1,0 +1,54 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/edges/edges?vertex=vertices/1</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">606</span>
+server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;edges&quot;</span> : [ 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;5&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;edges/5&quot;</span>, 
+      <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;vertices/1&quot;</span>, 
+      <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;vertices/3&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eopCvhC--A&quot;</span>, 
+      <span class="hljs-string">&quot;$label&quot;</span> : <span class="hljs-string">&quot;v1 -&gt; v3&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;6&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;edges/6&quot;</span>, 
+      <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;vertices/2&quot;</span>, 
+      <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;vertices/1&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eopCvhC--B&quot;</span>, 
+      <span class="hljs-string">&quot;$label&quot;</span> : <span class="hljs-string">&quot;v2 -&gt; v1&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;7&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;edges/7&quot;</span>, 
+      <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;vertices/4&quot;</span>, 
+      <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;vertices/1&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eopCvhC--C&quot;</span>, 
+      <span class="hljs-string">&quot;$label&quot;</span> : <span class="hljs-string">&quot;v4 -&gt; v1&quot;</span> 
+    } 
+  ], 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;stats&quot;</span> : { 
+    <span class="hljs-string">&quot;writesExecuted&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">3</span>, 
+    <span class="hljs-string">&quot;cursorsCreated&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;cursorsRearmed&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;cacheHits&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;cacheMisses&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00039292871952056885</span>, 
+    <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">32768</span> 
+  } 
+}

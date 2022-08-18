@@ -1,0 +1,27 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;x-arango-async: store&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/version</span>
+
+HTTP/1.1 202 Accepted
+content-type: text/plain
+connection: Keep-Alive
+content-length: 0
+server: ArangoDB
+x-arango-async-id: 83377
+x-arango-queue-time-seconds: 0.000000
+x-content-type-options: nosniff
+
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/83377</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">67</span>
+server: ArangoDB
+x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">83377</span>
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;arango&quot;</span>, 
+  <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
+  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.11.0-devel&quot;</span> 
+}

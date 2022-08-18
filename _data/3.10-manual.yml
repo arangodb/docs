@@ -350,10 +350,10 @@
 - text: Transactions
   href: transactions.html
   children:
-    - text: Transaction invocation
-      href: transactions-transaction-invocation.html
-    - text: Passing parameters
-      href: transactions-passing.html
+    - text: JavaScript Transactions
+      href: transactions-javascript-transactions.html
+    - text: Stream Transactions
+      href: transactions-stream-transactions.html
     - text: Locking and isolation
       href: transactions-locking-and-isolation.html
     - text: Durability
@@ -390,7 +390,7 @@
         - text: Getting Started with EnterpriseGraphs
           href: graphs-enterprise-graphs-getting-started.html
         - text: EnterpriseGraph Management
-          href: graphs-enterprise-graphs-management.html     
+          href: graphs-enterprise-graphs-management.html
     - text: Testing Graphs on Single Server
       href: smart-and-satellite-graphs-single-server.html
     - text: Traversals
@@ -405,7 +405,7 @@
   children:
     - text: Pregel
       href: graphs-pregel.html
-      children: 
+      children:
         - text: Pregel Algorithms
           href: graphs-pregel-algorithms.html
     - text: NetworkX Adapter
@@ -413,7 +413,7 @@
     - text: DGL Adapter
       href: data-science-dgl-adapter.html
     - text: cuGraph Adapter
-      href: data-science-cugraph-adapter.html 
+      href: data-science-cugraph-adapter.html
     - text: ArangoRDF
       href: data-science-arango-rdf-adapter.html
 - subtitle: ADVANCED TOPICS
@@ -464,7 +464,7 @@
         - text: ArangoSync Workers
           href: deployment-dc2dc-arango-sync-workers.html
         - text: Promotheus & Grafana
-          href: deployment-dc2dc-prometheus-grafana.html      
+          href: deployment-dc2dc-prometheus-grafana.html
     - text: Administration
       href: administration-dc2dc.html
     - text: Operations & Maintenance
@@ -474,7 +474,7 @@
     - text: Monitoring
       href: monitoring-dc2dc.html
     - text: Troubleshooting
-      href: troubleshooting-dc2dc.html        
+      href: troubleshooting-dc2dc.html
 - text: Foxx Microservices
   href: foxx.html
   children:
@@ -985,22 +985,22 @@
       children:
         - text: '@arangodb'
           href: appendix-java-script-modules-arango-db.html
-        - text: analyzers
+        - text: '@arangodb/actions'
+          href: appendix-java-script-modules-actions.html
+        - text: '@arangodb/analyzers'
           href: appendix-java-script-modules-analyzers.html
+        - text: '@arangodb/aql/queries'
+          href: appendix-java-script-modules-queries.html
+        - text: '@arangodb/crypto'
+          href: appendix-java-script-modules-crypto.html
+        - text: '@arangodb/request'
+          href: appendix-java-script-modules-request.html
+        - text: '@arangodb/tasks'
+          href: appendix-java-script-modules-tasks.html
         - text: console
           href: appendix-java-script-modules-console.html
-        - text: crypto
-          href: appendix-java-script-modules-crypto.html
         - text: fs
           href: appendix-java-script-modules-file-system.html
-        - text: request
-          href: appendix-java-script-modules-request.html
-        - text: actions
-          href: appendix-java-script-modules-actions.html
-        - text: queries
-          href: appendix-java-script-modules-queries.html
-        - text: Task Management
-          href: appendix-java-script-modules-tasks.html
     - text: Deprecated
       href: appendix-deprecated.html
     - text: Error codes and meanings

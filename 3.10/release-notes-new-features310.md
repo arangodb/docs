@@ -23,6 +23,55 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
 The minimum requirement is an ARMv8 chip with Neon (SIMD extension).
 
+Computed Values
+---------------
+
+This feature lets you define expressions on the collection level
+that run on inserts, modifications, or both. You can access the data of the
+current document to compute new values using a subset of AQL.
+
+Possible use cases are to add timestamps of the creation or last modification to
+every document, to add default attributes, or to automatically process
+attributes for indexing purposes, like filtering, combining multiple attributes
+into one, and to convert characters to lowercase.
+
+The following example uses the JavaScript API to create a collection with two
+computed values, one to add a timestamp of the document creation, and another
+to maintain an attribute that combines two other attributes:
+
+```js
+var coll = db._create("users", {
+  computedValues: [
+    {
+      name: "createdAt",
+      expression: "RETURN DATE_ISO8601(DATE_NOW())",
+      overwrite: true,
+      computeOn: ["insert"]
+    },
+    {
+      name: "fullName",
+      expression: "RETURN LOWER(CONCAT_SEPARATOR(' ', @doc.firstName, @doc.lastName))",
+      overwrite: false,
+      computeOn: ["insert", "update", "replace"], // default
+      keepNull: false,
+      failOnWarning: true
+    }
+  ]
+});
+var doc = db.users.save({ firstName: "Paula", lastName: "Plant" });
+/* Stored document:
+  {
+    "createdAt": "2022-08-08T17:14:37.362Z",
+    "fullName": "paula plant",
+    "firstName": "Paula",
+    "lastName": "Plant"
+  }
+*/
+```
+
+See [Computed Values](data-modeling-documents-computed-values.html) for more
+information and examples.
+
 ArangoSearch
 ------------
 
