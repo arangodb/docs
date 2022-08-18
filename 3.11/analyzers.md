@@ -120,8 +120,11 @@ The currently implemented Analyzer types are:
 - `pipeline`: chains multiple Analyzers
 - `stopwords`: removes the specified tokens from the input
 - `collation`: respects the alphabetic order of a language in range queries
+- `minhash`: applies another Analyzer and then a locality-sensitive hash function,
+  to find candidates for set comparisons based on the Jaccard index
 - `classification`: classifies the input text using a word embedding model
-- `nearest_neighbors`: finds the nearest neighbors of the input text using a word embedding model
+- `nearest_neighbors`: finds the nearest neighbors of the input text using a
+   word embedding model
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -129,7 +132,7 @@ The currently implemented Analyzer types are:
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Analyzer  /  Feature                      | Tokenization | Stemming | Normalization | _N_-grams
+Analyzer  /  Capability                   | Tokenization | Stemming | Normalization | _N_-grams
 :----------------------------------------:|:------------:|:--------:|:-------------:|:--------:
 [`identity`](#identity)                   |      No      |    No    |      No       |   No
 [`delimiter`](#delimiter)                 |    (Yes)     |    No    |      No       |   No
@@ -142,10 +145,24 @@ Analyzer  /  Feature                      | Tokenization | Stemming | Normalizat
 [`pipeline`](#pipeline)                   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`stopwords`](#stopwords)                 |      No      |    No    |      No       |   No
 [`collation`](#collation)                 |      No      |    No    |      No       |   No
+[`minhash`](#minhash)                     |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`classification`](#classification)       |      –       |    –     |      –        |   –
 [`nearest_neighbors`](#nearest_neighbors) |      –       |    –     |      –        |   –
 [`geojson`](#geojson)                     |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)                   |      –       |    –     |      –        |   –
+
+Some Analyzers support capabilities indirectly or to a limited extent, indicated by
+a `(Yes)` in the above table.
+
+- The `text` Analyzer supports edge _n_-grams but not full _n_-grams.
+- The `aql` Analyzer allows you to use a query and you can thus mimic capabilities
+  like normalization but it is limited to what is possible with the supported
+  AQL subset.
+- The `pipeline` and `minhash` Analyzers let you use other Analyzers and the
+  capabilities therefore depend on the capabilities of these other Analyzers.
+
+A `–` in the above table stands for "not applicable" because the respective
+Analyzer does not transform input text.
 
 Analyzer Features
 -----------------
@@ -518,7 +535,7 @@ disabled like this:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Custom text Analyzer with the edge _n_-grams feature and normalization enabled,
+Custom text Analyzer with the edge _n_-grams capability and normalization enabled,
 stemming disabled and `"the"` defined as stop-word to exclude it:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -976,11 +993,55 @@ Create different `segmentation` Analyzers to show the behavior of the different
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### `minhash`
+
+<small>Introduced in: v3.10.0</small>
+
+{% include hint-ee.md feature="The `minhash` Analyzer" %}
+
+An Analyzer that computes so called MinHash signatures using a
+locality-sensitive hash function. It applies an Analyzer of your choice before
+the hashing, for example, to break up text into words.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `analyzer` (object, _required_): an Analyzer definition-like objects with
+  `type` and `properties` attributes
+- `numHashes` (number, _required_): the size of the MinHash signature. Must be
+  greater or equal to `1`. The signature size defines the probalistic error
+  (`err = rsqrt(numHashes)`). For an error amount that does not exceed 5%
+  (`0.05`), use a size of `1 / (0.05 * 0.05) = 400`.
+
+**Examples**
+
+Create a `minhash` Analyzers:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerMinHash
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerMinHash}
+      var analyzers = require("@arangodb/analyzers");
+      var analyzerMinHash = analyzers.save("minhash5", "minhash", { analyzer: { type: "segmentation", properties: { break: "alpha", case: "lower" } }, numHashes: 5 }, ["frequency", "norm", "position"]);
+      var analyzerSegment = analyzers.save("segment", "segmentation", { break: "alpha", case: "lower" }, ["frequency", "norm", "position"]);
+    | db._query(`
+    |   LET str1 = "The quick brown fox jumps over the lazy dog."
+    |   LET str2 = "The fox jumps over the crazy dog."
+    |   RETURN {
+    |     approx: JACCARD(TOKENS(str1, "minhash5"), TOKENS(str2, "minhash5")),
+    |     actual: JACCARD(TOKENS(str1, "segment"), TOKENS(str2, "segment"))
+        }`);
+    ~ analyzers.remove(analyzerMinHash.name);
+    ~ analyzers.remove(analyzerSegment.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerMinHash
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### `classification`
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `classification` analyzer" %}
+{% include hint-ee.md feature="The `classification` Analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1040,7 +1101,7 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `nearest_neighbors` analyzer" %}
+{% include hint-ee.md feature="The `nearest_neighbors` Analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1299,10 +1360,10 @@ Built-in Analyzers
 There is a set of built-in Analyzers which are available by default for
 convenience and backward compatibility. They can not be removed.
 
-The `identity` Analyzer has no properties and the features `frequency`
-and `norm`. The Analyzers of type `text` all tokenize strings with stemming
+The `identity` Analyzer has no properties and the `frequency` and `norm`
+features. The Analyzers of type `text` all tokenize strings with stemming
 enabled, no stopwords configured, accent removal and case conversion to
-lowercase turned on and the features `frequency`, `norm` and `position`:
+lowercase turned on and the `frequency`, `norm` and `position` features
 
 Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming | Stopwords | Features |
 -----------|------------|-------------------------|---------|---------|----------|-----------|----------|

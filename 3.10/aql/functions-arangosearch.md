@@ -389,14 +389,21 @@ To only compute the MinHash signatures, see the
 - returns **fulfilled** (bool): `true` if the approximate Jaccard similarity
   is greater than or equal to the specified threshold, `false` otherwise
 
-#### Example: Matching a subset of search sub-expressions
+#### Example: Find documents with a text similar to a target text
 
-Assuming a View with a text Analyzer, you may use it to match documents where
-the attribute contains at least two out of three tokens:
+Assuming a View with a `minhash` Analyzer, you can use the stored
+MinHash signature to find candidates for the more expensive Jaccard similarity
+calculation:
 
 ```aql
+LET target = "the quick brown fox jumps over the lazy dog"
+LET targetSingature = TOKENS(target, "myMinHash")
+
 FOR doc IN viewName
-  SEARCH ANALYZER(MIN_MATCH(doc.text == 'quick', doc.text == 'brown', doc.text == 'fox', 2), "text_en")
+  SEARCH MINHASH_MATCH(doc.text, target, 0.5, "myMinHash") // approximation
+  LET jaccard = JACCARD(targetSingature, TOKENS(doc.text, "myMinHash"))
+  FILTER jaccard > 0.75
+  SORT jaccard DESC
   RETURN doc.text
 ```
 

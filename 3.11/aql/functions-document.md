@@ -950,6 +950,46 @@ Recursively remove `baz` attributes, by passing an array with the attribute key:
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+VALUE()
+--------
+
+`VALUE(document, path) → value`
+
+Return the specified attribute value of the `document`.
+
+- **document** (object): a document / object
+- **path** (array): an array of strings and numbers that describes the
+  attribute path. You can select object keys with strings and array elements
+  with numbers.
+- returns **value** (any): the selected value of `document`
+
+**Examples**
+
+Dynamically get the inner string, like `obj.foo.bar` would:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlValue_1
+    @EXAMPLE_AQL{aqlValue_1}
+      LET obj = { foo: { bar: "baz" } }
+      RETURN VALUE(obj, ["foo", "bar"])
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlValue_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Dynamically get the inner object of the second array element of a top-level
+attribute, like `obj.foo[1].bar` would:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlValue_2
+    @EXAMPLE_AQL{aqlValue_2}
+      LET obj = { foo: [ { bar: "baz" }, { bar: { inner: true } } ] }
+      RETURN VALUE(obj, ["foo", 1, "bar"])
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlValue_2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 VALUES()
 --------
 

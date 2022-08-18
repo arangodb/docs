@@ -342,7 +342,7 @@ See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
 
 AQL functions added in 3.10:
 
-- [`MINHASH()`](aql/functions-miscellaneous.html#minmatch):
+- [`MINHASH()`](aql/functions-miscellaneous.html#minhash):
   A new function for locality-sensitive hashing to approximate the
   Jaccard similarity.
 
