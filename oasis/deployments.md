@@ -196,12 +196,58 @@ To isolate your deployments and increase security, you can use the private endpo
 Follow the steps outlined below to get started.
 
 {% hint 'info' %}
-The private endpoint feature is only available on the enterprise tier for
-deployments running on Microsoft Azure and Amazon Web Services (AWS).
+The private endpoint feature is only available on the enterprise tier of ArangoDB Cloud.
 {% endhint %}
 
 {% hint 'tip' %}
 Private endpoints on Microsoft Azure can be cross region; in AWS they should be located in the same region.
+{% endhint %}
+
+### Google Cloud Platform
+
+Google Cloud Platform (GCP) offers a feature called
+[Private Service Connect](https://cloud.google.com/vpc/docs/private-service-connect){:target="_blank"}
+that allows private consumption of services across VPC networks that belong to different groups, teams, projects, or organizations. 
+You can publish and consume services using the defined IP addresses which are internal to your VPC network.
+
+In ArangoDB Cloud, you can
+[create a regular deployment](#how-to-create-a-new-deployment) and change it
+to a private endpoint deployment afterwards.
+
+Such a deployment will not be reachable from the internet anymore, other than via
+the ArangoDB Cloud dashboard to administrate it. To revert to a public deployment, please
+contact support via **Request help** in the help menu.
+
+To configure a private endpoint for GCP, you need to provide your Google project names. ArangoDB Cloud then
+configures a Private Endpoint Service that will automatically connect to Private Endpoints that are created for those projects.
+
+After creation of the Private Endpoint Service, you will receive a service attachment 
+that you need during the creation of your Private Endpoint(s).
+
+1. Open the deployment you want to change.
+2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
+   icon. If you see a pencil icon and no menu opens, then you are on the
+   free-to-try or professional tier. The private endpoint service is only available on the enterprise tier.
+3. Click **Change to private endpoint** in the menu.
+   ![Oasis Deployment Private Endpoint Menu](images/oasis-gcp-change.png)
+4. In the configuration wizard, click **Next** to enter your configuration details.
+5. Enter one or more Google project names. You can also add them later in the summary view.
+   Click **Next**.
+   ![Oasis Deployment Private Endpoint Setup 2](images/oasis-gcp-private-endpoint.png)
+6. Enter one or more alternate DNS names. This step is optional.
+   Continue with or without alternate DNS names entered by clicking **Next**.
+   The names can be changed later.
+7. Click **Confirm Settings** to change the deployment.
+8. Back on the **Overview** tab, scroll down to the **Private Endpoint** section
+   that is now displayed to see the connection status and to change the
+   configuration.
+9. ArangoDB Cloud will configure a Private Endpoint Service. As soon as as the **Service Attachment** is ready,
+   you can use it to configure the Private Service Connect in your VPC.
+
+{% hint 'tip' %}
+When you create a private endpoint on ArangoDB Cloud, both endpoints (the regular one and the new private one) are available
+for two hours. During this time period, you can switch your application to the new private endpoint. After this period, the old
+endpoint will not be available anymore.
 {% endhint %}
 
 ### Microsoft Azure
@@ -219,31 +265,37 @@ to a private endpoint deployment afterwards.
 
 The deployment will not be reachable from the internet anymore, other than via
 the Oasis dashboard to administrate it. To revert to a public deployment, please
-contact support via __Request help__ in the help menu.
+contact support via **Request help** in the help menu.
 
 1. Open the deployment you want to change.
 2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
-   icon. If you see a pencil icon and no menu opens, then you are either on the
-   free-to-try or professional tier, or the selected deployment is not eligible.
+   icon. If you see a pencil icon and no menu opens, then you are on the
+   free-to-try or professional tier. The private endpoint service is only available on the enterprise tier.
 3. Click **Change to private endpoint** in the menu.
    ![Oasis Deployment Private Endpoint Menu](images/oasis-deployment-private-endpoint-menu.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
-5. You need to enter one or more Azure Subscription IDs (GUIDs). They cannot be
+5. Enter one or more Azure Subscription IDs (GUIDs). They cannot be
    changed anymore once a connection has been established.
    Proceed by clicking **Next**.
    ![Oasis Deployment Private Endpoint Setup 2](images/oasis-deployment-private-endpoint-setup2.png)
-6. You may enter one or more Alternate DNS names. This step is optional.
+6. Enter one or more Alternate DNS names. This step is optional.
    Continue with or without Alternate DNS names entered by clicking **Next**.
    They can be changed later.
 7. Click **Confirm Settings** to change the deployment.
 8. Back on the **Overview** tab, scroll down to the **Private Endpoint** section
    that is now displayed to see the connection status and to change the
    configuration.
-9. Oasis will configure a Private Endpoint Service. As soon as the **Azure alias**
+9. ArangoDB Cloud will configure a Private Endpoint Service. As soon as the **Azure alias**
    becomes available, you can copy it and then go to your Microsoft Azure portal
    to create Private Endpoints using this alias. The number of established
    **Connections** will increase and you can view the connection details by
    clicking it.
+
+{% hint 'tip' %}
+When you create a private endpoint on ArangoDB Cloud, both endpoints (the old one and the new private one) are available
+for two hours. During this time period, you can switch your application to the new private endpoint. After this period, the old
+endpoint will not be available anymore.
+{% endhint %}
 
 ### Amazon Web Services (AWS)
 
@@ -271,8 +323,8 @@ that automatically connects to private endpoints that are created in those princ
 
 1. Open the deployment you want to change.
 2. In the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
-   icon. If you see a pencil icon and no menu opens, then you are either on the
-   free-to-try or professional tier, or the selected deployment is not eligible.
+   icon. If you see a pencil icon and no menu opens, then you are on the
+   free-to-try or professional tier. The private endpoint service is only available on the enterprise tier.
 3. Click **Change to private endpoint** in the menu.
    ![Oasis Deployment AWS Change to Private Endpoint](images/oasis-aws-change-to-private-endpoint.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
@@ -284,7 +336,7 @@ that automatically connects to private endpoints that are created in those princ
    Principals cannot be changed anymore once a connection has been established.
    {% endhint %}
    ![Oasis AWS Private Endpoint Configure Principals](images/oasis-aws-endpoint-configure-principals.png)
-6. You may enter one or more Alternate DNS names. This step is optional, you can 
+6. Enter one or more Alternate DNS names. This step is optional, you can 
    add or change them later. Click **Next** to continue.
    ![Oasis AWS Private Endpoint Alternate DNS](images/oasis-aws-private-endpoint-dns.png)
 7. Confirm that you want to use a private endpoint for your deployment by
@@ -297,10 +349,16 @@ that automatically connects to private endpoints that are created in those princ
    To learn more or request help from the Oasis support team, click **Help**
    in the top right corner of the **Private Endpoint** section.
    {% endhint %}
-9. Oasis will configure a private endpoint service. As soon as this is available,
+9. ArangoDB Cloud will configure a private endpoint service. As soon as this is available,
    you can use it in the AWS portal to create an interface endpoint to connect
    to your endpoint service. For more details, see
    [How to connect to an endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html#share-endpoint-service){:target="_blank"}.
+
+{% hint 'tip' %}
+When you create a private endpoint on ArangoDB Cloud, both endpoints (the old one and the new private one) are available
+for two hours. During this time period, you can switch your application to the new private endpoint. After this period, the old
+endpoint will not be available anymore.
+{% endhint %}
 
 ## How to delete a deployment
 

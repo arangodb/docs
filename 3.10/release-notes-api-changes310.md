@@ -193,6 +193,38 @@ The values of `storedValues` and `cacheEnabled` are not considered in index
 creation calls when checking if a persistent index is already present or a new
 one needs to be created.
 
+#### Pregel API
+
+When loading the graph data into memory, a `"loading"` state is now returned by
+the `GET /_api/control_pregel` and `GET /_api/control_pregel/{id}` endpoints.
+The state changes to `"running"` when loading finishes.
+
+In previous versions, the state was `"running"` when loading the data as well as
+when running the algorithm.
+
+Both endpoints return a new `detail` attribute with additional Pregel run details:
+
+- `detail` (object)
+  - `aggregatedStatus` (object)
+    - `timeStamp` (string)
+    - `graphStoreStatus` (object)
+      - `verticesLoaded` (integer)
+      - `edgesLoaded` (integer)
+      - `memoryBytesUsed` (integer)
+      - `verticesStored` (integer)
+    - `allGssStatus` (object)
+      - `items` (array of objects)
+        - `verticesProcessed` (integer)
+        - `messagesSent` (integer)
+        - `messagesReceived` (integer)
+        - `memoryBytesUsedForMessages` (integer)
+    - `workerStatus` (object)
+      - `<serverId>` (object)
+        - (the same attributes like under `aggregatedStatus`)
+
+For a detailed description of the attributes, see
+[Pregel HTTP API](http/pregel.html#get-pregel-job-execution-status).
+
 ### Endpoints moved
 
 ### Endpoints deprecated
