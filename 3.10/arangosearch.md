@@ -657,6 +657,10 @@ To learn more, check out the different search examples:
   You can use ArangoSearch for geographic search queries to find nearby
   locations, places within a certain area and more. It can be combined with
   other types of search queries unlike with the regular geo index.
+- [**Entity resolution**](arangosearch-entity-resolution.html):
+  You can use ArangoSearch to find similar sets of tokens by combining a
+  View with locality-sensitive hashing of attributes, for example, to identify
+  duplicate records.
 
 For relevance and performance tuning, as well as the reference documentation, see:
 

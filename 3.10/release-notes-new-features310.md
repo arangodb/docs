@@ -293,6 +293,21 @@ See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
 
 AQL functions added in 3.10:
 
+- [`MINHASH()`](aql/functions-miscellaneous.html#minmatch):
+  A new function for locality-sensitive hashing to approximate the
+  Jaccard similarity.
+
+- [`MINHASH_COUNT()`](aql/functions-miscellaneous.html#minhash_count):
+  A helper function to calculate the number of hashes (MinHash signature size)
+  needed to not exceed the specified error amount.
+
+- [`MINHASH_ERROR()`](aql/functions-miscellaneous.html#minhash_error):
+  A helper function to calculate the error amount based on the number of hashes
+  (MinHash signature size).
+
+- [`MINHASH_MATCH()`](aql/functions-arangosearch.html#minhash_match):
+  A new ArangoSearch function to match documents with an approximate
+  Jaccard similarity of at least the specified threshold that are indexed by a View.
 
 - [`VALUE()`](aql/functions-document.html#value):
   A new document function to dynamically get an attribute value of an object,

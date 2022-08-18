@@ -1010,25 +1010,32 @@ attributes:
   `type` and `properties` attributes
 - `numHashes` (number, _required_): the size of the MinHash signature. Must be
   greater or equal to `1`. The signature size defines the probalistic error
-  (`err = rsqrt(numHashes)`)
+  (`err = rsqrt(numHashes)`). For an error amount that does not exceed 5%
+  (`0.05`), use a size of `1 / (0.05 * 0.05) = 400`.
 
 **Examples**
 
 Create a `minhash` Analyzers:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerMinHash
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerMinHash}
       var analyzers = require("@arangodb/analyzers");
-      var analyzer = analyzers.save("lsh", "minhash", { analyzer: {}, numHashes: 1 / (err * err) }, ["frequency", "norm", "position"]);
-    | db._query(`LET str = 'foo bar baz'
-    |   RETURN TOKENS(str, 'lsh')
-      `);
-    ~ analyzers.remove(analyzer.name);
+      var analyzerMinHash = analyzers.save("minhash5", "minhash", { analyzer: { type: "segmentation", properties: { break: "alpha", case: "lower" } }, numHashes: 5 }, ["frequency", "norm", "position"]);
+      var analyzerSegment = analyzers.save("segment", "segmentation", { break: "alpha", case: "lower" }, ["frequency", "norm", "position"]);
+    | db._query(`
+    |   LET str1 = "The quick brown fox jumps over the lazy dog."
+    |   LET str2 = "The fox jumps over the crazy dog."
+    |   RETURN {
+    |     approx: JACCARD(TOKENS(str1, "minhash5"), TOKENS(str2, "minhash5")),
+    |     actual: JACCARD(TOKENS(str1, "segment"), TOKENS(str2, "segment"))
+        }`);
+    ~ analyzers.remove(analyzerMinHash.name);
+    ~ analyzers.remove(analyzerSegment.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerMinHash
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### `classification`
 
