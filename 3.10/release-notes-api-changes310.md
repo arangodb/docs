@@ -72,6 +72,34 @@ section of the HTTP API reference manual.
 
 ### Endpoints augmented
 
+#### Computed Values
+
+The [Computed Values](data-modeling-documents-computed-values.html) feature
+extends the following endpoints with a new `computedValues` collection property
+that you can read or write to manage the computed value definitions:
+
+- Create a collection (`POST /_api/collection`)
+- Read the properties of a collection (`GET /_api/collection/{collection-name}/properties`)
+- Change the properties of a collection (`PUT /_api/collection/{collection-name}/properties`)
+
+The `computedValues` attribute is either `null` or an array of objects with the
+following attributes:
+- `name` (string, _required_)
+- `expression` (string, _required_)
+- `overwrite` (boolean, _required_)
+- `computeOn` (array of strings, _optional_, default: `["insert","update","replace"]`)
+- `keepNull` (boolean, _optional_, default: `true`)
+- `failOnWarning` (boolean, _optional_, default: `false`)
+
+#### MinHash Analyzer
+
+The `/_api/analyzer` endpoint supports a new [`minhash` Analyzer](analyzers.html#minhash)
+type. It has two properties, `analyzer` (object) and `numHashes` (number).
+The `analyzer` object is an Analyzer-like definition with a `type` (string) and
+`properties` attribute (object).
+
+#### Collection truncation markers
+
 APIs that return data from ArangoDB's write-ahead log (WAL) may now return
 collection truncate markers in the cluster, too. Previously such truncate
 markers were only issued in the single server and active failover modes, but not
