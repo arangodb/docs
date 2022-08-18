@@ -467,7 +467,7 @@ week belongs to.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **weekAndYear** (object): an object with two attributes
-  - **week**: the ISO week year number of *date*. The values range from 1 to 53.
+  - **week** (number): the ISO week year number of *date*. The values range from 1 to 53.
     Monday is considered the first day of the week. There are no fractional weeks,
     thus the last days in December may belong to the first week of the next year,
     and the first days in January may be part of the previous year's last week.
