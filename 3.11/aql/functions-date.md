@@ -438,10 +438,10 @@ Return the day of year of *date*.
 
 `DATE_ISOWEEK(date) → weekDate`
 
-Return the week date of *date* according to ISO 8601.
+Return the week year number of *date* according to ISO 8601.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
-- returns **weekDate** (number): the ISO week date of *date*. The return values
+- returns **weekDate** (number): the ISO week year number of *date*. The return values
   range from 1 to 53. Monday is considered the first day of the week. There are no
   fractional weeks, thus the last days in December may belong to the first week of
   the next year, and the first days in January may be part of the previous year's
@@ -460,28 +460,42 @@ Return the week date of *date* according to ISO 8601.
 
 ### DATE_ISOWEEKYEAR()
 
-`DATE_ISOWEEKYEAR(date) → {week, year}`
+`DATE_ISOWEEKYEAR(date) → weekAndYear`
 
-Return the week date of *date* according to ISO 8601.
+Return the week year number of *date* according to ISO 8601 and the year the
+week belongs to.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
-- returns **week** (number): the ISO week date of *date*. The return values
-  range from 1 to 53. Monday is considered the first day of the week. There are no
-  fractional weeks, thus the last days in December may belong to the first week of
-  the next year, and the first days in January may be part of the previous year's
-  last week. **year** (number): the ISO year to which the week belongs.
+- returns **weekAndYear** (object): an object with two attributes
+  - **week**: the ISO week year number of *date*. The values range from 1 to 53.
+    Monday is considered the first day of the week. There are no fractional weeks,
+    thus the last days in December may belong to the first week of the next year,
+    and the first days in January may be part of the previous year's last week.
+  - **year** (number): the year to which the ISO week year number belongs to
 
 **Examples**
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline dateisofwky1
-  @EXAMPLE_AQL{dateisofwky1}
-    RETURN DATE_ISOWEEKYEAR("2020-08-29")
-  @END_EXAMPLE_AQL
-  @endDocuBlock dateisofwky1
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+January 1st of 2023 is part of the previous year's last week:
 
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlDateIsoWeekYear1
+    @EXAMPLE_AQL{aqlDateIsoWeekYear1}
+      RETURN DATE_ISOWEEKYEAR("2023-01-01")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlDateIsoWeekYear1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+The last two days of 2019 are part of the next year's first week:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlDateIsoWeekYear2
+    @EXAMPLE_AQL{aqlDateIsoWeekYear2}
+      RETURN DATE_ISOWEEKYEAR("2019-12-30")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlDateIsoWeekYear2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_LEAPYEAR()
 
@@ -711,8 +725,8 @@ Format a date according to the given format string.
 - %fff – millisecond (000..999), padded to length of 3
 - %x – day of year (1..366)
 - %xxx – day of year (001..366), padded to length of 3
-- %k – ISO week date (1..53)
-- %kk – ISO week date (01..53), padded to length of 2
+- %k – ISO week year number (1..53)
+- %kk – ISO week year number (01..53), padded to length of 2
 - %l – leap year (0 or 1)
 - %q – quarter (1..4)
 - %a – days in month (28..31)
