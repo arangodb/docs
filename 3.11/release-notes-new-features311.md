@@ -14,7 +14,7 @@ AQL
 
 ### Added AQL functions
 
-Added a `DATE_ISOWEEKYEAR()` function that returns the ISO week year number,
+Added the `DATE_ISOWEEKYEAR()` function that returns the ISO week number,
 like `DATE_ISOWEEK()` does, but also the year it belongs to:
 
 ```aql
