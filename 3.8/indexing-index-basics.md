@@ -23,8 +23,14 @@ by ArangoDB, without the user being required to create extra indexes for them.
 `_id` and `_key` are covered by a collection's primary key, and `_from` and `_to`
 are covered by an edge collection's edge index automatically.
 
-Using the system attribute `_id` in user-defined indexes is not possible, but 
-indexing `_key`, `_rev`, `_from`, and `_to` is.
+You cannot use the `_id` system attribute in user-defined indexes, but indexing
+`_key`, `_rev`, `_from`, and `_to` is possible.
+
+You cannot index fields that contain `.` in their attribute names because dots
+are interpreted as paths of nested attributes. For example, `fields: ["foo.bar"]`
+indexes the value of the nested attribute `bar` under the top-level attribute
+`foo` (`{ "foo": { "bar": "value" } }`) and not a top-level attribute
+`foo.bar` (`{ "foo.bar": "value" }`).
 
 Creating new indexes is by default done under an exclusive collection lock. The collection is not
 available while the index is being created. This "foreground" index creation can be undesirable, 
