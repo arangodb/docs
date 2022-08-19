@@ -438,10 +438,10 @@ Return the day of year of *date*.
 
 `DATE_ISOWEEK(date) → weekDate`
 
-Return the week year number of *date* according to ISO 8601.
+Return the week number in the year of *date* according to ISO 8601.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
-- returns **weekDate** (number): the ISO week year number of *date*. The return values
+- returns **weekDate** (number): the ISO week number of *date*. The return values
   range from 1 to 53. Monday is considered the first day of the week. There are no
   fractional weeks, thus the last days in December may belong to the first week of
   the next year, and the first days in January may be part of the previous year's
@@ -462,16 +462,16 @@ Return the week year number of *date* according to ISO 8601.
 
 `DATE_ISOWEEKYEAR(date) → weekAndYear`
 
-Return the week year number of *date* according to ISO 8601 and the year the
+Return the week number of *date* according to ISO 8601 and the year the
 week belongs to.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **weekAndYear** (object): an object with two attributes
-  - **week** (number): the ISO week year number of *date*. The values range from 1 to 53.
+  - **week** (number): the ISO week number of *date*. The values range from 1 to 53.
     Monday is considered the first day of the week. There are no fractional weeks,
     thus the last days in December may belong to the first week of the next year,
     and the first days in January may be part of the previous year's last week.
-  - **year** (number): the year to which the ISO week year number belongs to
+  - **year** (number): the year to which the ISO week number belongs to
 
 **Examples**
 
@@ -725,8 +725,8 @@ Format a date according to the given format string.
 - %fff – millisecond (000..999), padded to length of 3
 - %x – day of year (1..366)
 - %xxx – day of year (001..366), padded to length of 3
-- %k – ISO week year number (1..53)
-- %kk – ISO week year number (01..53), padded to length of 2
+- %k – ISO week number of year (1..53)
+- %kk – ISO week number of year (01..53), padded to length of 2
 - %l – leap year (0 or 1)
 - %q – quarter (1..4)
 - %a – days in month (28..31)
