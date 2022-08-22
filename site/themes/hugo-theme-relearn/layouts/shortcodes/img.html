@@ -19,7 +19,7 @@
 {{- else }}
 <div class="flex-container">
     <figure>
-        <img src="{{ ($image.Resize (printf "%dx" $width)).RelPermalink }}"  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
+        <img {{ with $image }}src="{{ (.Resize (printf "%dx" $width)).RelPermalink }}"{{ end }}  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
         {{ with .Get "alt" }}
         <figcaption>
             <div class="caption">{{ . }}</div>

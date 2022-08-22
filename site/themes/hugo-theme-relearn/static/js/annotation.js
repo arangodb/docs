@@ -7,7 +7,7 @@ createMarkedAnnotations();
 
 // Code Blocks Annotation, workaround to avoid broken css inside code block box
 function createCodeAnnotations() {
-  var commentRegex = /\/\/.*/g;
+  var commentRegex = /(?<=\/\/:annotation:).*/g;
   const codeBlocks = document.querySelectorAll('code');
   if (codeBlocks == null) return
 
@@ -17,7 +17,7 @@ function createCodeAnnotations() {
 
     for(let annotation of annotations) {
       let annotationTemplate = "<div class='annotation-wrapper'><div class='annotation'><div class='annotation-icon'><div class='annotation-tooltip'>"+annotation+"</div><span><i class='fas fa-plus-circle'></i></span></div></div></div>";
-      block.innerHTML = block.innerHTML.replace(annotation, annotationTemplate);
+      block.innerHTML = block.innerHTML.replace("//:annotation:"+annotation, annotationTemplate);
     }
   }
 }
