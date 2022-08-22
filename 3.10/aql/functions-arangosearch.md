@@ -1165,7 +1165,7 @@ FOR doc IN viewName
 Search Highlighting Functions
 -----------------------------
 
-{% include hint-ee.md feature="Search Highlighting" %}
+{% include hint-ee.md feature="Search highlighting" %}
 
 ### OFFSET_INFO()
 
@@ -1177,7 +1177,8 @@ _n_-grams for search highlighting purposes.
 - **doc** (document): must be emitted by `FOR ... IN viewName`
 - **paths** (array): an array of strings, each describing an attribute and array
   element path you want to get the offsets for. Use `.` to access nested objects,
-  and `[n]` with `n` being an array index to specify array elements.
+  and `[n]` with `n` being an array index to specify array elements. The
+  attributes need to be indexed by Analyzers with the `offset` feature enabled.
 - returns **offsetInfo** (array): an array of objects, each with the following
   attributes:
   - **name** (array): the attribute and array element path as an array of
@@ -1185,6 +1186,35 @@ _n_-grams for search highlighting purposes.
     [VALUE()](functions-document.html) to dynamically look up the value.
   - **offsets** (array): an array of arrays with the matched positions. Each
     inner array has two elements with the start and end offset of a match.
+
+---
+
+`OFFSET_INFO(doc, rules) → offsetInfo`
+
+- **doc** (document): must be emitted by `FOR ... IN viewName`
+- **rules** (array): an array of objects with the following attributes:
+  - **name** (string): an attribute and array element path
+    you want to get the offsets for. Use `.` to access nested objects,
+    and `[n]` with `n` being an array index to specify array elements. The
+    attributes need to be indexed by Analyzers with the `offset` feature enabled.
+  - **options** (object): an object with the following attributes:
+    - **maxOffsets** (number, _optional_): the total number of offsets to
+      collect per path. Default: `10`.
+    - **limits** (object, _optional_): an object with the following attributes:
+      - **term** (number, _optional_): the total number of term offsets to
+        collect per path. Default: 2<sup>32</sup>.
+      - **phrase** (number, _optional_): the total number of phrase offsets to
+        collect per path. Default: 2<sup>32</sup>.
+      - **ngram** (number, _optional_): the total number of _n_-gram offsets to
+        collect per path. Default: 2<sup>32</sup>.
+- returns **offsetInfo** (array): an array of objects, each with the following
+  attributes: 
+  - **name** (array): the attribute and array element path as an array of
+    strings and numbers. You can pass this name to the
+    [VALUE()](functions-document.html) to dynamically look up the value.
+  - **offsets** (array): an array of arrays with the matched positions, capped
+    to the specified limits. Each inner array has two elements with the start
+    and end offset of a match.
 
 **Examples**
 
@@ -1210,3 +1240,5 @@ Search a View and get the offset information for the matches:
     @endDocuBlock aqlOffsetInfo
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
+
+For full examples, see [Search Highlighting](arangosearch-search-highlighting.html).
