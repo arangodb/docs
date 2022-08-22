@@ -75,7 +75,64 @@ information and examples.
 ArangoSearch
 ------------
 
+### Search highlighting (Enterprise Edition)
 
+Views now support search highlighting, letting you retrieve the positions of
+matches within strings, to highlight what was found in search results.
+
+You need to index attributes with custom Analyzers that have the new `offset`
+feature enabled to use this feature. You can then call the
+[`OFFSET_INFO()` function](aql/functions-arangosearch.html#offset_info) to
+get the offsets of the matches.
+
+```js
+db._create("food");
+db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
+db.food.save({ name: "carrot", description: { en: "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } });
+db.food.save({ name: "chili pepper", description: { en: "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } });
+db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
+
+var analyzers = require("@arangodb/analyzers");
+var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+
+db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
+db._query(`FOR doc IN food_view
+  SEARCH ANALYZER(TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en, "text_en_offset")
+  FOR offsetInfo IN OFFSET_INFO(doc, ["description.en"])
+    RETURN {
+      description: doc.description,
+      name: offsetInfo.name,
+      matches: offsetInfo.offsets[* RETURN {
+        offset: CURRENT,
+        match: SUBSTRING(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1] - CURRENT[0])
+      }]
+    }`);
+
+/*
+[
+  {
+    "description" : { "en" : "The avocado is a medium-sized, evergreen tree, native to the Americas." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [ 4, 11 ], "match" : "avocado" }
+    ]
+  },
+  {
+    "description" : { "en" : "The tomato is the edible berry of the tomato plant." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [ 4, 10 ], "match" : "tomato" },
+      { "offset" : [ 38, 44 ], "match" : "tomato" }
+    ]
+  }
+]
+*/
+```
+
+See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
+for details.
+
+This feature is only available in the Enterprise Edition.
 
 UI
 --

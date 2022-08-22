@@ -91,6 +91,13 @@ following attributes:
 - `keepNull` (boolean, _optional_, default: `true`)
 - `failOnWarning` (boolean, _optional_, default: `false`)
 
+#### `offset` Analyzer feature
+
+The `POST /_api/analyzer` endpoint accepts `"offset"` as a string in the
+`features` array attribute. The `/_api/analyzer` endpoints may return this new
+value in the `features` attribute. It enables search highlighting capabilities
+for ArangoSearch Views.
+
 #### Collection truncation markers
 
 APIs that return data from ArangoDB's write-ahead log (WAL) may now return

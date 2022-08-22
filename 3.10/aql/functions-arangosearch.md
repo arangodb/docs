@@ -24,6 +24,8 @@ to form complex search conditions.
 
 Scoring functions allow you to rank matches and to sort results by relevance.
 
+Search highlighting functions let you retrieve the string positions of matches.
+
 Most functions can also be used without a View and the `SEARCH` keyword, but
 will then not be accelerated by a View index.
 
