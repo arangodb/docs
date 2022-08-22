@@ -105,7 +105,7 @@ against other databases by specifying the prefixed name, e.g.
 Analyzer Types
 --------------
 
-The currently implemented Analyzer types are:
+The following Analyzer types are available:
 
 - `identity`: treats value as atom (no transformation)
 - `delimiter`: splits into tokens at user-defined character
@@ -129,40 +129,20 @@ The currently implemented Analyzer types are:
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
 
-Available normalizations are case conversion and accent removal
-(conversion of characters with diacritical marks to the base characters).
+The following table compares the Analyzers for text processing:
 
 Analyzer  /  Capability                   | Tokenization | Stemming | Normalization | _N_-grams
 :----------------------------------------:|:------------:|:--------:|:-------------:|:--------:
-[`identity`](#identity)                   |      No      |    No    |      No       |   No
-[`delimiter`](#delimiter)                 |    (Yes)     |    No    |      No       |   No
 [`stem`](#stem)                           |      No      |   Yes    |      No       |   No
 [`norm`](#norm)                           |      No      |    No    |     Yes       |   No
 [`ngram`](#ngram)                         |      No      |    No    |      No       |  Yes
 [`text`](#text)                           |     Yes      |   Yes    |     Yes       | (Yes)
 [`segmentation`](#segmentation)           |     Yes      |    No    |     Yes       |   No
-[`aql`](#aql)                             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[`pipeline`](#pipeline)                   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[`stopwords`](#stopwords)                 |      No      |    No    |      No       |   No
-[`collation`](#collation)                 |      No      |    No    |      No       |   No
-[`minhash`](#minhash)                     |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[`classification`](#classification)       |      –       |    –     |      –        |   –
-[`nearest_neighbors`](#nearest_neighbors) |      –       |    –     |      –        |   –
-[`geojson`](#geojson)                     |      –       |    –     |      –        |   –
-[`geopoint`](#geopoint)                   |      –       |    –     |      –        |   –
 
-Some Analyzers support capabilities indirectly or to a limited extent, indicated by
-a `(Yes)` in the above table.
+Available normalizations are case conversion and accent removal
+(conversion of characters with diacritical marks to the base characters).
 
-- The `text` Analyzer supports edge _n_-grams but not full _n_-grams.
-- The `aql` Analyzer allows you to use a query and you can thus mimic capabilities
-  like normalization but it is limited to what is possible with the supported
-  AQL subset.
-- The `pipeline` and `minhash` Analyzers let you use other Analyzers and the
-  capabilities therefore depend on the capabilities of these other Analyzers.
-
-A `–` in the above table stands for "not applicable" because the respective
-Analyzer does not transform input text.
+The `text` Analyzer supports edge _n_-grams but not full _n_-grams.
 
 Analyzer Features
 -----------------
