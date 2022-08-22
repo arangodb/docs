@@ -110,7 +110,7 @@ This feature is only available in the Enterprise Edition.
 
 See [Analyzers](analyzers.html#classification) for details.
 
-### `nearest_neighbor` Analyzer (Enterprise Edition)
+### `nearest_neighbors` Analyzer (Enterprise Edition)
 
 A new, experimental Analyzer for finding similar tokens
 using a supervised fastText word embedding model that you provide.
