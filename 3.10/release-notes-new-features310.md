@@ -358,10 +358,6 @@ AQL functions added in 3.10:
   A new ArangoSearch function to match documents with an approximate
   Jaccard similarity of at least the specified threshold that are indexed by a View.
 
-- [`VALUE()`](aql/functions-document.html#value):
-  A new document function to dynamically get an attribute value of an object,
-  using an array to specify the path.
-
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
   A document function to recursively keep attributes from objects/documents,
   as a counterpart to `UNSET_RECURSIVE()`.
