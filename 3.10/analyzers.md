@@ -150,16 +150,16 @@ Analyzer  /  Feature                      | Tokenization | Stemming | Normalizat
 Analyzer Features
 -----------------
 
-The *features* of an Analyzer determine what term matching capabilities will be
-available and as such are only applicable in the context of ArangoSearch Views.
+The *features* of an Analyzer determine what searching capabilities are
+available and are only applicable in the context of ArangoSearch Views.
 
 The valid values for the features are dependant on both the capabilities of
 the underlying Analyzer *type* and the query filtering and sorting functions that the
-result can be used with. For example the *text* type will produce
-`frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
+result can be used with. For example, the `text` type produces
+`frequency` + `norm` + `position`, and the `PHRASE()` AQL function requires
 `frequency` + `position` to be available.
 
-Currently the following *features* are supported:
+The following *features* are supported:
 
 - **frequency**: track how often a term occurs.
   Required for `PHRASE()`, `BM25()`, and `TDIDF()`.
@@ -169,11 +169,14 @@ Currently the following *features* are supported:
 - **position**: enumerate the tokens for position-dependent queries. Required
   for `PHRASE()` and `NGRAM_MATCH()`.
   If present, then the `frequency` feature is also required.
+- **offset**: enable search highlighting capabilities (Enterprise Edition only).
+  Required for `OFFSET_INFO()`.
 
 Also see [PHRASE()](aql/functions-arangosearch.html#phrase),
 [BM25()](aql/functions-arangosearch.html#bm25),
 [TFIDF()](aql/functions-arangosearch.html#tfidf),
-[NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match).
+[NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match),
+[OFFSET_INFO()](aql/functions-arangosearch.html#offset_info).
 
 Analyzer Properties
 -------------------

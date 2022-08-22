@@ -1161,3 +1161,52 @@ FOR doc IN viewName
   SORT doc.text, TFIDF(doc) DESC
   RETURN doc
 ```
+
+Search Highlighting Functions
+-----------------------------
+
+{% include hint-ee.md feature="Search Highlighting" %}
+
+### OFFSET_INFO()
+
+`OFFSET_INFO(doc, paths) → offsetInfo`
+
+Returns the attribute paths and substring offsets of matched tokens, phrases, or
+_n_-grams for search highlighting purposes.
+
+- **doc** (document): must be emitted by `FOR ... IN viewName`
+- **paths** (array): an array of strings, each describing an attribute and array
+  element path you want to get the offsets for. Use `.` to access nested objects,
+  and `[n]` with `n` being an array index to specify array elements.
+- returns **offsetInfo** (array): an array of objects, each with the following
+  attributes:
+  - **name** (array): the attribute and array element path as an array of
+    strings and numbers. You can pass this name to the
+    [VALUE()](functions-document.html) to dynamically look up the value.
+  - **offsets** (array): an array of arrays with the matched positions. Each
+    inner array has two elements with the start and end offset of a match.
+
+**Examples**
+
+Search a View and get the offset information for the matches:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline aqlOffsetInfo
+    @EXAMPLE_ARANGOSH_OUTPUT{aqlOffsetInfo}
+    ~ db._create("food");
+    ~ db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
+    ~ db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
+    ~ var analyzers = require("@arangodb/analyzers");
+    ~ var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: false }, ["frequency", "norm", "position", "offset"]);
+    ~ db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
+    ~ db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`);
+    | db._query(`FOR doc IN food_view
+    |   SEARCH ANALYZER(doc.description.en ANY IN TOKENS("avocado tomato", "text_en_offset"), "text_en_offset")
+        RETURN OFFSET_INFO(doc, ["description.en"])`);
+    ~ db._dropView("food_view");
+    ~ db._drop("food");
+    ~ analyzers.remove(analyzer.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock aqlOffsetInfo
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
