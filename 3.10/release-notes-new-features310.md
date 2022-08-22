@@ -286,6 +286,10 @@ See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
 AQL functions added in 3.10:
 
+- [`VALUE()`](aql/functions-document.html#value):
+  A new document function to dynamically get an attribute value of an object,
+  using an array to specify the path.
+
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
   A document function to recursively keep attributes from objects/documents,
   as a counterpart to `UNSET_RECURSIVE()`
