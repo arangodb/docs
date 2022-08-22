@@ -162,21 +162,19 @@ result can be used with. For example, the `text` type produces
 The following *features* are supported:
 
 - **frequency**: track how often a term occurs.
-  Required for `PHRASE()`, `BM25()`, and `TDIDF()`.
+  Required for [`PHRASE()`](aql/functions-arangosearch.html#phrase),
+  [`BM25()`](aql/functions-arangosearch.html#bm25), and
+  [`TFIDF()`](aql/functions-arangosearch.html#tfidf).
 - **norm**: write the field length normalization factor that is used to score
-  repeated terms fairer. Required for `BM25()` (except BM15) and `TFIDF()`
+  repeated terms fairer. Required for [`BM25()`](aql/functions-arangosearch.html#bm25)
+  (except BM15) and [`TFIDF()`](aql/functions-arangosearch.html#tfidf)
   (if called with normalization enabled).
 - **position**: enumerate the tokens for position-dependent queries. Required
-  for `PHRASE()` and `NGRAM_MATCH()`.
+  for [`PHRASE()`](aql/functions-arangosearch.html#phrase) and
+  [`NGRAM_MATCH()`](aql/functions-arangosearch.html#ngram_match).
   If present, then the `frequency` feature is also required.
 - **offset**: enable search highlighting capabilities (Enterprise Edition only).
-  Required for `OFFSET_INFO()`.
-
-Also see [PHRASE()](aql/functions-arangosearch.html#phrase),
-[BM25()](aql/functions-arangosearch.html#bm25),
-[TFIDF()](aql/functions-arangosearch.html#tfidf),
-[NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match),
-[OFFSET_INFO()](aql/functions-arangosearch.html#offset_info).
+  Required for [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info).
 
 Analyzer Properties
 -------------------
