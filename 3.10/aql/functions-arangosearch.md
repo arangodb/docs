@@ -1182,8 +1182,8 @@ _n_-grams for search highlighting purposes.
   access nested objects, and `[n]` with `n` being an array index to specify array
   elements. The attributes need to be indexed by Analyzers with the `offset`
   feature enabled.
-- returns **offsetInfo** (array): an array of objects, each with the following
-  attributes:
+- returns **offsetInfo** (array): an array of objects, limited to a default of
+  10 offsets per path. Each object has the following attributes:
   - **name** (array): the attribute and array element path as an array of
     strings and numbers. You can pass this name to the
     [`VALUE()` function](functions-document.html) to dynamically look up the value.
