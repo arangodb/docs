@@ -1,0 +1,7 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
+
+{{ $version := .Get 0 }}
+{{ $version = replace $version "." "" }}
+<div class="version {{ $version }}" style="display: none;">
+    {{ .Inner }} 
+</div>
