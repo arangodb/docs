@@ -45,7 +45,7 @@ Also see [What's New in 3.11](release-notes-new-features311.html).
 **Enterprise Edition**
 
 - [**Search highlighting**](arangosearch-search-highlighting.html):
-  Get the substring positions of matched tokens, phrases, or _n_-grams.
+  Get the substring positions of matched terms, phrases, or _n_-grams.
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
 

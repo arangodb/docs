@@ -83,7 +83,7 @@ matches within strings, to highlight what was found in search results.
 You need to index attributes with custom Analyzers that have the new `offset`
 feature enabled to use this feature. You can then call the
 [`OFFSET_INFO()` function](aql/functions-arangosearch.html#offset_info) to
-get the offsets of the matches.
+get the offsets of the matches (in bytes).
 
 ```js
 db._create("food");
@@ -97,7 +97,11 @@ var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", st
 
 db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
 db._query(`FOR doc IN food_view
-  SEARCH ANALYZER(TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en, "text_en_offset")
+  SEARCH ANALYZER(
+    TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en OR
+    PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
+    STARTS_WITH(doc.description.en, "cap")
+  , "text_en_offset")
   FOR offsetInfo IN OFFSET_INFO(doc, ["description.en"])
     RETURN {
       description: doc.description,
@@ -114,15 +118,23 @@ db._query(`FOR doc IN food_view
     "description" : { "en" : "The avocado is a medium-sized, evergreen tree, native to the Americas." },
     "name" : [ "description", "en" ],
     "matches" : [
-      { "offset" : [ 4, 11 ], "match" : "avocado" }
+      { "offset" : [4, 11], "match" : "avocado" }
+    ]
+  },
+  {
+    "description" : { "en" : "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [82, 111], "match" : "cultivated for their pungency" },
+      { "offset" : [72, 80], "match" : "Capsicum" }
     ]
   },
   {
     "description" : { "en" : "The tomato is the edible berry of the tomato plant." },
     "name" : [ "description", "en" ],
     "matches" : [
-      { "offset" : [ 4, 10 ], "match" : "tomato" },
-      { "offset" : [ 38, 44 ], "match" : "tomato" }
+      { "offset" : [4, 10], "match" : "tomato" },
+      { "offset" : [38, 44], "match" : "tomato" }
     ]
   }
 ]

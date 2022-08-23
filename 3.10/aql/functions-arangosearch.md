@@ -1173,7 +1173,7 @@ Search Highlighting Functions
 
 `OFFSET_INFO(doc, paths) → offsetInfo`
 
-Returns the attribute paths and substring offsets of matched tokens, phrases, or
+Returns the attribute paths and substring offsets of matched terms, phrases, or
 _n_-grams for search highlighting purposes.
 
 - **doc** (document): must be emitted by `FOR ... IN viewName`
@@ -1189,6 +1189,11 @@ _n_-grams for search highlighting purposes.
     [`VALUE()` function](functions-document.html) to dynamically look up the value.
   - **offsets** (array): an array of arrays with the matched positions. Each
     inner array has two elements with the start and end offset of a match.
+
+    {% hint 'warning' %}
+    The offsets describe the positions in bytes, not characters. You may need
+    to account for characters encoded using multiple bytes.
+    {% endhint %}
 
 ---
 
@@ -1218,6 +1223,11 @@ _n_-grams for search highlighting purposes.
   - **offsets** (array): an array of arrays with the matched positions, capped
     to the specified limits. Each inner array has two elements with the start
     and end offset of a match.
+
+    {% hint 'warning' %}
+    The offsets describe the positions in bytes, not characters. You may need
+    to account for characters encoded using multiple bytes.
+    {% endhint %}
 
 **Examples**
 
