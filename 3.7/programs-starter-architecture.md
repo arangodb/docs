@@ -97,48 +97,18 @@ It contains the following files & sub-directories.
 
 The Starter can be configured using a configuration file. The format of the
 configuration file is the same as the `arangod` configuration file format.
-For more details, refer to the [General Configuration of ArangoDB programs and tools](administration-configuration.html#configuration-file-format).
+For more details, refer to the [configuration file format](administration-configuration.html#configuration-file-format)
+and [how to use configuration files](administration-configuration.html#using-configuration-files).
 
 The default configuration file of the Starter is `arangodb-starter.conf`.
 It can be changed using the `--configuration` option. 
-For more information about supported commands and other
-configuration options, see [Using Configuration Files](administration-configuration.html#using-configuration-files). 
+For more information about other
+configuration options, see [ArangoDB Starter options](programs-starter-options.html). 
 
 {% hint 'info' %}
 The Starter has a different set of supported command line options than `arangod` binary.
 Using the `arangod` configuration file as input for `arangodb` binary is not supported.
 {% endhint %}
-
-### Basic example
-
-You can run the Starter without specifying any command line options or only
-by specifying the path of the configuration file. 
-
-```conf
-# config file '/etc/arangodb-starter.conf'
-
-[starter]
-local = true
-data-dir = /var/local/arangodb
-```
-
-```bash
-./arangodb --configuration=/etc/arangodb-starter.conf
-```
-
-### Invalid file path
-
-In case of an invalid file path, the Starter returns an error message. For
-example, specifying a configuration file that does not exist returns 
-the following output:
-
-```bash
-➜ ./arangodb --configuration=invalid-config-file.conf
-2022-08-22T12:08:10+02:00 |FATAL| Could not load config file 
-invalid-config-file.conf
-➜ echo $?                                    
-1
-```
 
 ### Passing through `arangod` options
 
@@ -166,24 +136,9 @@ enable-statistics = true
 ./arangodb --configuration=passthrough-example.conf
 ```
 
-To check whether the pass through options have passed, you can fetch the current
-configuration options of the running `arangod` instance by using `arangosh`.
-
-```bash
-> require("internal").options();
-```
-
-The expected output must include:
-- `default-language: de_DE` 
-- `rocksdb.enable-statistics: true` 
-- `log.levels: ["startup=trace", "queries=debug", "warning", "info"]`
-
 ### Configuration precedence
 
-Similarly to the `arangod` configuration, options supplied on the command line
-take precedence over values set in a configuration file.
-
-For example, when adding a command line option next to the modified configuration
+When adding a command line option next to a modified configuration
 file, the last occurrence of the option becomes the final value.
 
 Running the Starter with the configuration example above and adding the
