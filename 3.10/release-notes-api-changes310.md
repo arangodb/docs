@@ -91,6 +91,22 @@ following attributes:
 - `keepNull` (boolean, _optional_, default: `true`)
 - `failOnWarning` (boolean, _optional_, default: `false`)
 
+#### Nested search
+
+The following endpoints accepts a new, optional link property called `nested`:
+
+- `POST /_api/view`
+- `PUT /_api/view/{view-name}/properties`
+- `PATCH /_api/view/{view-name}/properties`
+
+It is an object and similar to the existing `fields` property. However, it
+cannot be used at the top-level of the link properties. It needs to have a
+parent field (`"fields": { "<field>": { "nested": { ... } } }`). It can be
+nested, however (`"nested": { "<field>": { "nested": { ... } } }`).
+
+The `GET /_api/view/{view-name}/properties` endpoint may return link properties
+including the new `nested` property.
+
 #### Collection truncation markers
 
 APIs that return data from ArangoDB's write-ahead log (WAL) may now return

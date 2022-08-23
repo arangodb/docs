@@ -156,6 +156,22 @@ attribute is an array. `IN` and `==` as part of array comparison operators are
 treated the same in `SEARCH` expressions for ease of use. The behavior is
 different outside of `SEARCH`, where `IN` needs to be followed by an array.
 
+### Question mark operator
+
+You can use the [Question mark operator](advanced-array-operators.html#question-mark-operator)
+to perform [Nested searches in ArangoSearch](../arangosearch-nested-search.html):
+
+```aql
+FOR doc IN myView
+  SEARCH doc.dimensions[? FILTER CURRENT.type == "height" AND CURRENT.value > 40]
+  RETURN doc
+```
+
+It allows you to match nested objects in arrays that satisfy multiple conditions
+each, and optionally define how often these conditions should be fulfilled for
+the entire array. You need to configure the View specifically for this type of
+search using the `nested` [link property](../arangosearch-views.html#link-properties).
+
 Handling of non-indexed fields
 ------------------------------
 

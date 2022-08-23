@@ -32,7 +32,9 @@ grouped by version
 
 **Enterprise Edition**
 
-- 
+- [**Nested search**](arangosearch-nested-search.html):
+  Match arrays of objects with all the conditions met by a single sub-object,
+  and define for how many of the elements this must be true.
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
 

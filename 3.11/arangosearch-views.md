@@ -79,6 +79,25 @@ During view modification the following directives apply:
   Analyzers may significantly slow down the indexing process.
   {% endhint %}
 
+- **nested** (_optional_; type: `object`; default: `{}`)
+
+  An object `{ attribute-name: [Link properties], … }` to index the specified
+  sub-objects that are stored in an array. Other than with the `fields`
+  property, the values get indexed in a way that lets you query for co-occurring
+  values. For example, you can search the sub-objects and all the conditions
+  need to be met by a single sub-object instead of across all of them.
+
+  {% hint 'info' %}
+  You cannot use the `nested` property at the top-level of the link properties.
+  It needs to have a parent field, e.g.
+  `"fields": { "<fieldName>": { "nested": { ... } } }`.
+  However, You can nest `nested` properties to index objects in arrays in
+  objects in arrays etc.
+  {% endhint %}
+
+  See [Nested search with ArangoSearch](arangosearch-nested-search.html)
+  for details.
+
 - **trackListPositions** (_optional_; type: `boolean`; default: `false`)
 
   If set to `true`, then for array values track the value position in arrays.
