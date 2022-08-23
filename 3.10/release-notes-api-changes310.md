@@ -94,9 +94,9 @@ following attributes:
 #### MinHash Analyzer
 
 The `/_api/analyzer` endpoint supports a new [`minhash` Analyzer](analyzers.html#minhash)
-type. It has two properties, `analyzer` (object) and `numHashes` (number).
+type in the Enterprise Edition. It has two properties, `analyzer` (object) and `numHashes` (number).
 The `analyzer` object is an Analyzer-like definition with a `type` (string) and
-`properties` attribute (object).
+a `properties` attribute (object). The properties depend on the Analyzer type.
 
 #### Collection truncation markers
 
