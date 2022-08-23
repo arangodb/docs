@@ -1,5 +1,5 @@
 arangosh&gt; db._create(&quot;test&quot;);
-[ArangoCollection 60425, &quot;test&quot; (type document, status loaded)]
+[ArangoCollection 60421, &quot;test&quot; (type document, status loaded)]
 arangosh&gt; for (i = 0; i &lt; 100; ++i) { db.test.save({ value: i }); }
 arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot;value&quot; ] });
 { 
@@ -9,9 +9,9 @@ arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot
   &quot;fields&quot; : [ 
     &quot;value&quot; 
   ], 
-  &quot;id&quot; : &quot;test/60630&quot;, 
+  &quot;id&quot; : &quot;test/60626&quot;, 
   &quot;isNewlyCreated&quot; : true, 
-  &quot;name&quot; : &quot;idx_1741329494905454596&quot;, 
+  &quot;name&quot; : &quot;idx_1741940064952254464&quot;, 
   &quot;selectivityEstimate&quot; : 1, 
   &quot;sparse&quot; : false, 
   &quot;type&quot; : &quot;persistent&quot;, 
@@ -32,7 +32,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields        Stored values   Ranges
-  9   idx_1741329494905454596   persistent   test         false    false    false      100.00 %   [ `value` ]   [  ]            (i.`value` &gt; 97)
+  9   idx_1741940064952254464   persistent   test         false    false    false      100.00 %   [ `value` ]   [  ]            (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName
