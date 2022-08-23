@@ -105,7 +105,7 @@ For more information about supported commands and other
 configuration options, see [Using Configuration Files](administration-configuration.html#using-configuration-files). 
 
 {% hint 'info' %}
-The Starter has a different set of supported command line options.
+The Starter has a different set of supported command line options than `arangod` binary.
 Using the `arangod` configuration file as input for `arangodb` binary is not supported.
 {% endhint %}
 
@@ -122,7 +122,7 @@ local = true
 data-dir = /var/local/arangodb
 ```
 
-```conf
+```bash
 ./arangodb --configuration=/etc/arangodb-starter.conf
 ```
 
@@ -140,7 +140,7 @@ invalid-config-file.conf
 1
 ```
 
-### Passing through options
+### Passing through `arangod` options
 
 The configuration file also supports setting pass through options. Options with
 same prefixes can be split into sections.
@@ -148,11 +148,9 @@ same prefixes can be split into sections.
 ```conf
 # passthrough-example.conf
 
-# both log.level options are passed to arangod, with no overrides
 args.all.log.level = startup=trace
 args.all.log.level = warning
 
-# a comment on section
 [starter]
   mode = single
 
@@ -160,7 +158,6 @@ args.all.log.level = warning
 all.log.level = queries=debug
 all.default-language = de_DE
 
-# more comments here
 [args.all.rocksdb]
 enable-statistics = true
 ```
@@ -189,10 +186,11 @@ take precedence over values set in a configuration file.
 For example, when adding a command line option next to the modified configuration
 file, the last occurrence of the option becomes the final value.
 
-Running the Starter with the configuration set above and adding the
+Running the Starter with the configuration example above and adding the
 `default-language=es_419` command line option
 <br>
-`./arangodb --args.all.default-language=es_419 --configuration=passthrough-example.conf`</br>
+`./arangodb --args.all.default-language=es_419 --configuration=passthrough-example.conf`
+</br>
 results in having the `default-language` set to `es_419` and not the value from
 the configuration file.
 
