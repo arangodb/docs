@@ -93,6 +93,109 @@ It contains the following files & sub-directories.
   - `arangod.log`: The log file of the server
   - `arangod_command.txt`: File containing the exact command line of the started server (for debugging purposes only)
 
+## Starter configuration file
+
+The Starter can be configured using a configuration file. The format of the
+configuration file is the same as the `arangod` configuration file format.
+For more details, refer to the [General Configuration of ArangoDB programs and tools](administration-configuration.html#configuration-file-format).
+
+The default configuration file of the Starter is `arangodb-starter.conf`.
+It can be changed using the `--configuration` option. 
+For more information about supported commands and other
+configuration options, see [Using Configuration Files](administration-configuration.html#using-configuration-files). 
+
+{% hint 'info' %}
+The Starter has a different set of supported command line options.
+Using the `arangod` configuration file as input for `arangodb` binary is not supported.
+{% endhint %}
+
+### Basic example
+
+You can run the Starter without specifying any command line options or only
+by specifying the path of the configuration file. 
+
+```conf
+# config file '/etc/arangodb-starter.conf'
+
+[starter]
+local = true
+data-dir = /var/local/arangodb
+```
+
+```conf
+./arangodb --configuration=/etc/arangodb-starter.conf
+```
+
+### Invalid file path
+
+In case of an invalid file path, the Starter returns an error message. For
+example, specifying a configuration file that does not exist returns 
+the following output:
+
+```bash
+➜ ./arangodb --configuration=invalid-config-file.conf
+2022-08-22T12:08:10+02:00 |FATAL| Could not load config file 
+invalid-config-file.conf
+➜ echo $?                                    
+1
+```
+
+### Passing through options
+
+The configuration file also supports setting pass through options. Options with
+same prefixes can be split into sections.
+
+```conf
+# passthrough-example.conf
+
+# both log.level options are passed to arangod, with no overrides
+args.all.log.level = startup=trace
+args.all.log.level = warning
+
+# a comment on section
+[starter]
+  mode = single
+
+[args]
+all.log.level = queries=debug
+all.default-language = de_DE
+
+# more comments here
+[args.all.rocksdb]
+enable-statistics = true
+```
+
+```bash
+./arangodb --configuration=passthrough-example.conf
+```
+
+To check whether the pass through options have passed, you can fetch the current
+configuration options of the running `arangod` instance by using `arangosh`.
+
+```bash
+> require("internal").options();
+```
+
+The expected output must include:
+- `default-language: de_DE` 
+- `rocksdb.enable-statistics: true` 
+- `log.levels: ["startup=trace", "queries=debug", "warning", "info"]`
+
+### Configuration precedence
+
+Similarly to the `arangod` configuration, options supplied on the command line
+take precedence over values set in a configuration file.
+
+For example, when adding a command line option next to the modified configuration
+file, the last occurrence of the option becomes the final value.
+
+Running the Starter with the configuration set above and adding the
+`default-language=es_419` command line option
+<br>
+`./arangodb --args.all.default-language=es_419 --configuration=passthrough-example.conf`</br>
+results in having the `default-language` set to `es_419` and not the value from
+the configuration file.
+
 ## Running on multiple machines
 
 For the `activefailover` & `cluster` mode, it is required to run multiple
@@ -111,7 +214,7 @@ with the ArangoDB database cluster).
 This cluster of Starters is formed from the values given to the `--starter.join`
 command line option. You should pass the addresses (`<host>:<port>`) of all Starters.
 
-For example a typical commandline for a cluster deployment looks like this:
+For example, a typical command line for a cluster deployment looks like this:
 
 ```bash
 arangodb --starter.mode=cluster --starter.join=hostA:8528,hostB:8528,hostC:8528

@@ -199,3 +199,12 @@ Using the old option names (`--query` and `--query-max-runtime`) is still
 supported and will implicitly use the `--custom-query` and
 `--custom-query-max-runtime` options under the hood. Client scripts should
 eventually be updated to use the new option name, however.
+
+### ArangoDB Starter
+
+_ArangoDB Starter_ comes with the following usability improvements:
+- Headers are now added to generated command files, indicating the purpose of
+the file.
+- The process output is now shown when errors occur during process startup.
+- When passing through other database options, explicit hints are now displayed
+to indicate how to pass those options.  
