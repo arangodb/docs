@@ -1,10 +1,9 @@
 ---
 layout: default
-description: In order to access a named attribute from all elements in an array easily, AQLoffers the shortcut operator [*] for array variable expansion
+description: In order to access a named attribute from all elements in an array easily, AQL offers the shortcut operator [*] for array variable expansion
 ---
 Array Operators
 ===============
-
 
 Array expansion
 ---------------
@@ -303,4 +302,40 @@ The above will return:
     "elena is a friend of sandra"
   ]
 ]
+```
+
+Question mark operator
+----------------------
+
+You can use the `[? ... ]` operator on arrays to check whether the elements
+fulfill certain criteria, and you can specify how often they should be satisfied.
+The operator is similar to an inline filter but with an additional length check
+and it evaluates to `true` or `false`.
+
+The following example shows how to check whether two of numbers in the array
+are even:
+
+```aql
+LET arr = [ 1, 2, 3, 4 ]
+RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
+```
+
+The number `2` after the `?` is the quantifier. It is optional and defaults to
+`ANY`. The following quantifiers are supported:
+
+- Integer numbers for exact quantities (e.g. `2`)
+- Number ranges for a quantity between the two values (e.g. `2..3`)
+- `NONE` (equivalent to `0`)
+- `ANY`
+- `ALL`
+- `AT LEAST`
+
+The quantifier must be followed by a `FILTER` operation. You can refer to the
+current array element via the `CURRENT` pseudo-variable in the filter expression.
+
+The operator is a shorthand for an inline filter with a surrounding length check
+like the following:
+
+```aql
+RETURN LENGTH(arr[* FILTER CURRENT % 2 == 0]) == 2
 ```

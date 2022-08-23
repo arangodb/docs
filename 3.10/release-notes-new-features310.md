@@ -75,6 +75,8 @@ information and examples.
 ArangoSearch
 ------------
 
+### Nested search (Enterprise Edition)
+
 
 
 UI
@@ -281,6 +283,23 @@ FOR … IN … OPTIONS { lookahead: 32 }
 ```
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
+
+### Question mark operator
+
+The new `[? ... ]` array operator is a shorthand for an inline filter with a
+surrounding length check:
+
+```aql
+LET arr = [ 1, 2, 3, 4 ]
+RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
+```
+
+The quantifier can be a number, a range, `NONE`, `ANY`, `ALL`, or `AT LEAST`.
+
+This operator is handy for the new nested search feature.
+
+See [Array Operators](aql/advanced-array-operators.html#question-mark-operator)
+for details.
 
 ### New and Changed AQL Functions
 
