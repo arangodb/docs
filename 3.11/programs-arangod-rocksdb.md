@@ -240,6 +240,21 @@ Approximate size of user data (in bytes) packed per block for uncompressed data.
 If true, keeps a pool of log files around for recycling them. The default
 value is false.
 
+### Validation
+
+<small>Introduced in: v3.11.0</small>
+
+`--rocksdb.verify-sst`
+
+This flag specifies whether or not to validate the SST files present in the 
+database directory provided on startup. The default value is `false`.
+
+If set to true, during startup, all SST files in the `engine-rocksdb` folder in
+the database directory are checked for potential corruption and errors.
+The server process stops after the check and returns an exit code of `0` if the
+validation was successful, or a non-zero exit code if there is an error in any
+of the SST files.
+
 ### Miscellaneous
 
 `--rocksdb.optimize-filters-for-hits`
@@ -248,7 +263,7 @@ This flag specifies that the implementation should optimize the filters mainly
 for cases where keys are found rather than also optimize for the case where
 keys are not. This would be used in cases where the application knows that
 there are very few misses or the performance in the case of misses is not as
-important. Default: false.
+important. Default: `false`.
 
 `--rocksdb.wal-recovery-skip-corrupted`
 
