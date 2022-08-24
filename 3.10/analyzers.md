@@ -129,7 +129,7 @@ The following Analyzer types are available:
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
 
-The following table compares the Analyzers for text processing:
+The following table compares the Analyzers for **text processing**:
 
 Analyzer  /  Capability                   | Tokenization | Stemming | Normalization | _N_-grams
 :----------------------------------------:|:------------:|:--------:|:-------------:|:--------:
