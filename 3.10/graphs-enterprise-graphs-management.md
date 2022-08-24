@@ -36,10 +36,12 @@ enforce the correct sharding.
   A JSON object having the following keys:
   - `numberOfShards` (number):
     The number of shards that will be created for each collection. To maintain
-    the correct sharding all collections need an identical number of shards.
+    the correct sharding, all collections need an identical number of shards.
     This cannot be modified after creation of the graph.
+  - `isSmart` (bool):
+    Mandatory parameter that needs to be set to `true` to create an EnterpriseGraph. 
   - `satellites` (array, optional):
-    An array of collection names that will be used to create
+    An array of collection names that is used to create
     [SatelliteCollections](satellites.html) for an EnterpriseGraph.
     Each array element must be a string and a valid collection name.
     The collection type cannot be modified later.
