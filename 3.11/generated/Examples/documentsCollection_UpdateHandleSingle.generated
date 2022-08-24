@@ -2,12 +2,12 @@ arangosh&gt; a1 = db.example.insert({<span class="hljs-string">&quot;a&quot;</sp
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/18612116&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;18612116&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2i---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_er_piq6--_&quot;</span> 
 }
 arangosh&gt; a2 = db.example.update(<span class="hljs-string">&quot;example/18612115&quot;</span>, { <span class="hljs-string">&quot;x&quot;</span> : <span class="hljs-number">1</span>, <span class="hljs-string">&quot;y&quot;</span> : <span class="hljs-number">2</span> });
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/18612115&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;18612115&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2i--_&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eq61p2e--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_er_piq6--A&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_er_piq6---&quot;</span> 
 }
