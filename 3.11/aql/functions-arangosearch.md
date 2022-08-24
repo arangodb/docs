@@ -370,6 +370,43 @@ FOR doc IN viewName
 This will match `{ "text": "the quick brown fox" }` and `{ "text": "some brown fox" }`,
 but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 
+### MINHASH_MATCH()
+
+`MINHASH_MATCH(path, target, threshold, analyzer) → fulfilled`
+
+Match documents with an approximate Jaccard similarity of at least the
+`threshold`, approximated with the specified `minhash` Analyzer.
+
+To only compute the MinHash signatures, see the
+[`MINHASH()` Miscellaneous function](functions-miscellaneous.html#minhash).
+
+- **path** (attribute path expression\|string): the path of the attribute in
+  a document or a string
+- **target** (string): the string to hash with the specified Analyzer and to
+  compare against the stored attribute
+- **threshold** (number, _optional_): a value between `0.0` and `1.0`.
+- **analyzer** (string): the name of a [`minhash` Analyzer](../analyzers.html#minhash).
+- returns **fulfilled** (bool): `true` if the approximate Jaccard similarity
+  is greater than or equal to the specified threshold, `false` otherwise
+
+#### Example: Find documents with a text similar to a target text
+
+Assuming a View with a `minhash` Analyzer, you can use the stored
+MinHash signature to find candidates for the more expensive Jaccard similarity
+calculation:
+
+```aql
+LET target = "the quick brown fox jumps over the lazy dog"
+LET targetSingature = TOKENS(target, "myMinHash")
+
+FOR doc IN viewName
+  SEARCH MINHASH_MATCH(doc.text, target, 0.5, "myMinHash") // approximation
+  LET jaccard = JACCARD(targetSingature, TOKENS(doc.text, "myMinHash"))
+  FILTER jaccard > 0.75
+  SORT jaccard DESC
+  RETURN doc.text
+```
+
 ### NGRAM_MATCH()
 
 <small>Introduced in: v3.7.0</small>
@@ -396,11 +433,11 @@ for calculating _n_-gram similarity that cannot be accelerated by a View index.
 - **path** (attribute path expression\|string): the path of the attribute in
   a document or a string
 - **target** (string): the string to compare against the stored attribute
-- **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
+- **threshold** (number, _optional_): a value between `0.0` and `1.0`. Defaults
   to `0.7` if none is specified.
-- **analyzer** (string): name of an [Analyzer](../analyzers.html).
+- **analyzer** (string): the name of an [Analyzer](../analyzers.html).
 - returns **fulfilled** (bool): `true` if the evaluated _n_-gram similarity value
-  is greater or equal than the specified threshold, `false` otherwise
+  is greater than or equal to the specified threshold, `false` otherwise
 
 {% hint 'info' %}
 Use an Analyzer of type `ngram` with `preserveOriginal: false` and `min` equal
