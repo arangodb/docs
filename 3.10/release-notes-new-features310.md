@@ -93,9 +93,7 @@ have.
 
 You can use the Analyzer with a new inverted index or ArangoSearch View to
 quickly find candidates for the actual Jaccard similarity comparisons you want
-to perform. Instead of testing all possible combinations with a quadratic time
-complexity, it is possible to reduce it to a linear time complexity. This comes
-at the cost of missing some combinations with a higher similarity than predicted.
+to perform.
 
 This feature is only available in the Enterprise Edition.
 
