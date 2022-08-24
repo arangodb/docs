@@ -2,52 +2,52 @@ arangosh&gt; db.example.insert({<span class="hljs-string">&quot;a&quot;</span> :
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/19988372&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;19988372&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eoqw1La--A&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2W--A&quot;</span> 
 }
 arangosh&gt; db.example.update(<span class="hljs-string">&quot;example/19988371&quot;</span>,
 ........&gt; { <span class="hljs-string">&quot;b&quot;</span> : <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;c&quot;</span> : <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;d&quot;</span> : <span class="hljs-number">3</span> });
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/19988371&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;19988371&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eoqw1Le---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eoqw1La--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2W--B&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eq61p2W--_&quot;</span> 
 }
 arangosh&gt; db.example.document(<span class="hljs-string">&quot;example/19988371&quot;</span>);
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;19988371&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/19988371&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eoqw1Le---&quot;</span>, 
-  <span class="hljs-string">&quot;c&quot;</span> : <span class="hljs-literal">null</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2W--B&quot;</span>, 
   <span class="hljs-string">&quot;b&quot;</span> : <span class="hljs-literal">null</span>, 
-  <span class="hljs-string">&quot;d&quot;</span> : <span class="hljs-number">3</span> 
+  <span class="hljs-string">&quot;d&quot;</span> : <span class="hljs-number">3</span>, 
+  <span class="hljs-string">&quot;c&quot;</span> : <span class="hljs-literal">null</span> 
 }
 arangosh&gt; db.example.update(<span class="hljs-string">&quot;example/19988371&quot;</span>, { <span class="hljs-string">&quot;a&quot;</span> : <span class="hljs-literal">null</span> }, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>);
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/19988371&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;19988371&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eoqw1Le--_&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eoqw1Le---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2W--C&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eq61p2W--B&quot;</span> 
 }
 arangosh&gt; db.example.document(<span class="hljs-string">&quot;example/19988371&quot;</span>);
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;19988371&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/19988371&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eoqw1Le--_&quot;</span>, 
-  <span class="hljs-string">&quot;c&quot;</span> : <span class="hljs-literal">null</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2W--C&quot;</span>, 
   <span class="hljs-string">&quot;b&quot;</span> : <span class="hljs-literal">null</span>, 
-  <span class="hljs-string">&quot;d&quot;</span> : <span class="hljs-number">3</span> 
+  <span class="hljs-string">&quot;d&quot;</span> : <span class="hljs-number">3</span>, 
+  <span class="hljs-string">&quot;c&quot;</span> : <span class="hljs-literal">null</span> 
 }
 arangosh&gt; db.example.update(<span class="hljs-string">&quot;example/19988371&quot;</span>,
 ........&gt; { <span class="hljs-string">&quot;b&quot;</span> : <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;c&quot;</span>: <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;d&quot;</span> : <span class="hljs-literal">null</span> }, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>);
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/19988371&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;19988371&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eoqw1Le--A&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eoqw1Le--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2a---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_eq61p2W--C&quot;</span> 
 }
 arangosh&gt; db.example.document(<span class="hljs-string">&quot;example/19988371&quot;</span>);
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;19988371&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/19988371&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eoqw1Le--A&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eq61p2a---&quot;</span> 
 }
