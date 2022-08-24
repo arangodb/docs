@@ -27,17 +27,17 @@ enforce the correct sharding.
 `graph_module._create(graphName, edgeDefinitions, orphanCollections, smartOptions)`
 
 - `graphName` (string):
-  Unique identifier of the graph
+  Unique identifier of the graph.
 - `edgeDefinitions` (array):
-  List of relation definition objects, may be empty
+  List of relation definition objects, may be empty.
 - `orphanCollections` (array):
-  List of additional vertex collection names, may be empty
+  List of additional vertex collection names, may be empty.
 - `smartOptions` (object):
   A JSON object having the following keys:
   - `numberOfShards` (number):
-    The number of shards that will be created for each collection. To maintain
+    The number of shards that are created for each collection. To maintain
     the correct sharding, all collections need an identical number of shards.
-    This cannot be modified after creation of the graph.
+    This cannot be modified after the creation of the graph.
   - `isSmart` (bool):
     Mandatory parameter that needs to be set to `true` to create an EnterpriseGraph. 
   - `satellites` (array, optional):
@@ -47,7 +47,7 @@ enforce the correct sharding.
     The collection type cannot be modified later.
 
 The creation of a graph requires the name and some SmartGraph options.
-Due to the API `edgeDefinitions` and `orphanCollections` have to be given, but
+Due to the API, `edgeDefinitions` and `orphanCollections` have to be given but
 both can be empty arrays and be added later.
 
 The `edgeDefinitions` can be created using the convenience method `_relation`
@@ -60,7 +60,7 @@ the graph theoretic sense: it is possible to add edges having one end in a colle
 that has been declared as orphan. 
 
 All collections used within the creation process are newly created.
-The process will fail if one of them already exists, unless they have the
+The process fails if one of them already exists, unless they have the
 correct sharding already. All newly created collections will immediately
 be dropped again in the failure case.
 
@@ -116,7 +116,7 @@ Create a graph with edge definitions and orphan collections:
 After you have created an EnterpriseGraph, its definition is not immutable. You can
 still add or remove relations. This is again identical to General Graphs.
 
-However there is one important difference: you can only add collections that
+However, there is one important difference: you can only add collections that
 either *do not exist*, or that have been created by this graph earlier. The
 latter can be the case if you, for example, remove an orphan collection from this
 graph, without dropping the collection itself. When after some time you decide
@@ -132,11 +132,11 @@ Remove a vertex collection from the graph:
 - `vertexCollectionName` (string):
   Name of vertex collection.
 - `dropCollection` (bool, _optional_):
-  If true, the collection will be dropped if it is not used in any other graph.
+  If true, the collection is dropped if it is not used in any other graph.
   Default: false.
 
-In most cases this function works identically to the General Graph one.
-However there is one special case: The first vertex collection added to the graph
+In most cases, this function works identically to the General Graph one.
+However, there is one special case: the first vertex collection added to the graph
 (either orphan or within a relation) defines the sharding for all collections
 within the graph. Every other collection has its `distributeShardsLike` attribute set to the
 name of the initial collection. This collection cannot be dropped as long as
@@ -211,7 +211,7 @@ sharding for other collections (`edges`).
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
 You may drop the complete graph including the underlying collections by setting
-the second argument in the call to `_drop()` to `true`. This will only drop
+the second argument in the call to `_drop()` to `true`. This only drops
 collections that are in the graph definition at that point. Remember to manually
 drop collections that you might have removed from the graph beforehand.
 
@@ -243,7 +243,7 @@ Delete an edge definition from the graph:
 - `edgeCollectionName` (string):
   Name of edge collection.
 - `dropCollection` (bool, _optional_):
-  If true the collection will be dropped if it is not used in any other graph.
+  If true, the collection is dropped if it is not used in any other graph.
   Default: false.
 
 ### Examples
