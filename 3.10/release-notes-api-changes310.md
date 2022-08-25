@@ -91,6 +91,13 @@ following attributes:
 - `keepNull` (boolean, _optional_, default: `true`)
 - `failOnWarning` (boolean, _optional_, default: `false`)
 
+#### MinHash Analyzer
+
+The `/_api/analyzer` endpoint supports a new [`minhash` Analyzer](analyzers.html#minhash)
+type in the Enterprise Edition. It has two properties, `analyzer` (object) and `numHashes` (number).
+The `analyzer` object is an Analyzer-like definition with a `type` (string) and
+a `properties` attribute (object). The properties depend on the Analyzer type.
+
 #### Collection truncation markers
 
 APIs that return data from ArangoDB's write-ahead log (WAL) may now return

@@ -1709,6 +1709,34 @@
     "section" : "database",
     "type" : "boolean"
   },
+  "database.default-replication-version" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "1",
+    "deprecatedIn" : null,
+    "description" : "default replication version, can be overwritten when creating a new database, possible values: 1, 2",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "database",
+    "type" : "replicationVersion"
+  },
   "database.directory" : {
     "category" : "option",
     "component" : [

@@ -1079,7 +1079,7 @@ Now there is an extra step at the end of the register planning that keeps track
 of the actually used registers on each depth, and that will shrink the number
 of registers for the depth to the id of the maximum register. This is done for
 each depth separately. Unneeded registers on the right hand side of the maximum
-used register are now discarded. Unused registers on the left hand side of the
+used register are now discarded. Unused registers on the left-hand side of the
 maximum used register id are not discarded, because we still need to guarantee
 that registers from depths above stay in the same slot when starting a new
 depth.
