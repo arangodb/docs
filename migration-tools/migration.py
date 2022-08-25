@@ -67,29 +67,55 @@ def processFile(filepath):
 	buffer = file.read()
 	file.close()
 
+	page = Page()
+
 	#Front Matter
 	fileID = filepath.split("/")
-	_processFrontMatter(fileID[len(fileID)-1].replace(".md", ""), buffer)
+	page.frontMatter.fileID = fileID[len(fileID)-1].replace(".md", "")
+	_processFrontMatter(page, buffer)
+	_processChapters(page, buffer)
 	return
 
-def _processFrontMatter(fileID, buffer):
+def _processFrontMatter(page, buffer):
 	frontMatterRegex = re.search("---\n(.*\n)*---\n", buffer)
 	if not frontMatterRegex:
 		return		# TODO
 
+	
 	frontMatter = frontMatterRegex.group(0)
 
-	
-	frontMatter = f"fileID: {fileID}\n{frontMatter}"
+	if not 'title' in frontMatter:
+		headerRegex = re.search("(.+\n(?==))|((?<=#).*)",  buffer)
+		if headerRegex is not None:
+			title = headerRegex.group(0).replace('\n', '')
+			page.frontMatter.title = title
 
-	if 'redirectFrom' in frontMatter:
-		redirectRegex = re.sub("redirect_from:\n*(\s* -.*)*", '', frontMatter)
+	page.frontMatter.description = re.search("(?<=description: ).*", frontMatter).group(0) if re.search("(?<=description: ).*", frontMatter) else ""
+	#print(page.frontMatter.__dict__)
 
-	frontMatter = f"{frontMatter}\nmenuTitle"
-	print(frontMatter)
-		
+	return page
+
+def _processChapters(page, buffer):
+	paragraphs = re.split("\n(?:(.+\n={1,})|([#]+.*)|(.*\n-{3,}))", buffer)
+	print(paragraphs)
+	for i in range(len(paragraphs)):
+		if paragraphs[i] is None or paragraphs[i] == '':
+			continue
+		currentParagraph = paragraphs[i]
+		print(f"Element\n{paragraphs[i]}\nEnd\n")
 
 
+class Page():
+	def __init__(self):
+		self.frontMatter = FrontMatter()
+		self.paragraphs = []
+
+class FrontMatter():
+	def __init__(self):
+		self.title = ""
+		self.layout = "default"
+		self.fileID = ""
+		self.description = ""
 
 
 if __name__ == "__main__":
