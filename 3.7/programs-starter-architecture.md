@@ -145,7 +145,7 @@ Running the Starter with the configuration example above and adding the
 `default-language=es_419` command line option
 <br>
 `./arangodb --args.all.default-language=es_419 --configuration=passthrough-example.conf`
-</br>
+<br>
 results in having the `default-language` set to `es_419` and not the value from
 the configuration file.
 
