@@ -112,7 +112,7 @@ Using the `arangod` configuration file as input for `arangodb` binary is not sup
 
 ### Passing through `arangod` options
 
-The configuration file also supports setting pass through options. Options with
+The configuration file also supports setting pass-through options. Options with
 same prefixes can be split into sections.
 
 ```conf
