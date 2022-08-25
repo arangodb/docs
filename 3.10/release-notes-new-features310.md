@@ -646,12 +646,21 @@ arangoexport \
   ...
 ```
 
+### ArangoDB Starter
+
+_ArangoDB Starter_ has a new feature that allows you to configure the binary
+by reading from a configuration file. The default configuration file of the Starter
+is `arangodb-starter.conf` and can be changed using the `--configuration` option. 
+
+See the [Starter configuration file](programs-starter-architecture.html#starter-configuration-file)
+section for more information about the configuration file format, passing
+through command line options, and examples. 
 
 Query changes for decreasing memory usage
 -----------------------------------------
 
 Queries can be executed with storing input and intermediate results temporarily
-on disk to descrease memory usage when a specified threshold is reached.
+on disk to decrease memory usage when a specified threshold is reached.
 
 {% hint 'info' %}
 This feature is experimental and is turned off by default.
