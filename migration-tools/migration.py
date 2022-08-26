@@ -3,6 +3,7 @@ import os
 import re
 from pathlib import Path
 import shutil
+import traceback
 
 
 oldToolchain = "/home/dan/work/projects/old-arango-docs/docs"
@@ -20,7 +21,6 @@ def structure_migration():
 	for item in documents:
 		if "subtitle" in item:
 			label = item['subtitle']
-			print(f"New label {label}")
 
 		create_files(label, item)
 	
@@ -70,39 +70,72 @@ def processFile(filepath):
 	page = Page()
 
 	#Front Matter
+	_processFrontMatter(page, buffer)
 	fileID = filepath.split("/")
 	page.frontMatter.fileID = fileID[len(fileID)-1].replace(".md", "")
-	_processFrontMatter(page, buffer)
-	_processChapters(page, buffer)
+	buffer = re.sub(r"(?<=---)\n[\s\w:\,>\.-]*(?<=---)", '', buffer)
+
+	#Internal content
+	paragraphs = re.split(r"\n(?:(.+\n={1,})|([#]+.*)|(.*\n-{3,}))", buffer)
+	for i in range(len(paragraphs)):
+		_processChapters(page, paragraphs[i])
+
+	file = open(filepath, "w")
+	file.write(page.toString())
+	file.close()
+
 	return
 
 def _processFrontMatter(page, buffer):
-	frontMatterRegex = re.search("---\n(.*\n)*---\n", buffer)
+	frontMatterRegex = re.search(r"(?<=---)\n[\s\w:\,>\.-]*(?<=---)", buffer)
 	if not frontMatterRegex:
 		return		# TODO
 
-	
 	frontMatter = frontMatterRegex.group(0)
 
 	if not 'title' in frontMatter:
-		headerRegex = re.search("(.+\n(?==))|((?<=#).*)",  buffer)
+		headerRegex = re.search(r"(.+\n(?==))|((?<=#).*)",  buffer)
 		if headerRegex is not None:
 			title = headerRegex.group(0).replace('\n', '')
+			if ":" in title:
+				title = '"{}"'.format(title)
 			page.frontMatter.title = title
+			page.frontMatter.menuTitle = title
+	else:
+		titleRegex = re.search(r"(?<=title: ).*", frontMatter)
+		page.frontMatter.title = titleRegex.group(0)
 
-	page.frontMatter.description = re.search("(?<=description: ).*", frontMatter).group(0) if re.search("(?<=description: ).*", frontMatter) else ""
-	#print(page.frontMatter.__dict__)
+	page.frontMatter.description = re.search(r"(?<=description: ).*", frontMatter).group(0) if re.search(r"(?<=description: ).*", frontMatter) else ""
 
 	return page
 
-def _processChapters(page, buffer):
-	paragraphs = re.split("\n(?:(.+\n={1,})|([#]+.*)|(.*\n-{3,}))", buffer)
-	print(paragraphs)
-	for i in range(len(paragraphs)):
-		if paragraphs[i] is None or paragraphs[i] == '':
+def _processChapters(page, paragraph):
+	if paragraph is None or paragraph == '':
+		return
+
+	if paragraph.startswith("# ") or "====" in paragraph:
+		return
+
+	paragraph = re.sub("{:class=\"lead\"}", '', paragraph)
+	paragraph = re.sub("{+\s?page.description\s?}+", '', paragraph)
+
+
+	#HREFs
+	hrefRegex = re.findall("\[.*\]\(.*\)", paragraph)
+	for href in hrefRegex:
+		if 'https://' in href or 'http://' in href:
 			continue
-		currentParagraph = paragraphs[i]
-		print(f"Element\n{paragraphs[i]}\nEnd\n")
+
+		label = href.split("]")[0].strip('[')
+		if "\"" in label:
+			label = label.replace('"', '')
+
+		fileID = href.split("]")[1].strip('()').replace('.html', '')
+		newHref = '{{{{< reference fileID="{}" label="{}" >}}}}'.format(fileID, label)
+		paragraph = paragraph.replace(href, newHref)
+
+
+	page.paragraphs.append(paragraph)
 
 
 class Page():
@@ -110,12 +143,22 @@ class Page():
 		self.frontMatter = FrontMatter()
 		self.paragraphs = []
 
+	def toString(self):
+		res = self.frontMatter.toString()
+		for paragraph in self.paragraphs:
+			res = f"{res}\n{paragraph}"
+
+		return res
+
 class FrontMatter():
 	def __init__(self):
 		self.title = ""
 		self.layout = "default"
 		self.fileID = ""
 		self.description = ""
+
+	def toString(self):
+		return f"---\nfileID: {self.fileID}\ntitle: {self.title}\nmenuTitle: {self.title}\ndescription: {self.description}\nlayout: default"
 
 
 if __name__ == "__main__":
@@ -125,4 +168,4 @@ if __name__ == "__main__":
 		structure_migration()
 		processFiles()
 	except Exception as ex:
-		print(f"[MAIN] Exception occurred: {ex}")
+		print(traceback.format_exc())
