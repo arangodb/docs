@@ -127,26 +127,45 @@ pregel.start("scc", "graphname", { resultField: "component_strong" });
 ### Hyperlink-Induced Topic Search (HITS)
 
 HITS is a link analysis algorithm that rates Web pages, developed by
-Jon Kleinberg. The algorithm is also known as _Hubs and Authorities_.
+Jon Kleinberg in J. Kleinberg,
+[Authoritative sources in a hyperlinked environment](http://www.cs.cornell.edu/home/kleinber/auth.pdf),
+Journal of the ACM. 46 (5): 604–632, 1999. The algorithm is also known as _Hubs and Authorities_.
 
-The idea behind Hubs and Authorities comes from the typical structure of the web:
-Certain websites known as hubs, serve as large directories that are not actually
-authoritative on the information that they hold. These hubs are used as
-compilations of a broad catalog of information that leads users direct to other
-authoritative webpages.
+The idea behind hubs and authorities comes from the typical structure of the early web:
+Certain websites, known as hubs, serve as large directories that are not actually
+authoritative on the information that they point to. These hubs are used as
+compilations of a broad catalog of information that leads users to other,
+authoritative, webpages.
 
-The algorithm assigns each vertex two scores: the authority score and the
+The algorithm assigns two scores to each vertex: the authority score and the
 hub score. The authority score of a vertex rates the total hub score of vertices
-pointing to that vertex; the hub score rates the total authority score of vertices pointed by it. Also see
-[en.wikipedia.org/wiki/HITS_algorithm](https://en.wikipedia.org/wiki/HITS_algorithm){:target="_blank"}
+pointing to that vertex; the hub score rates the total authority 
+score of vertices pointed by it. Also see
+[en.wikipedia.org/wiki/HITS_algorithm](https://en.wikipedia.org/wiki/HITS_algorithm){:target="_blank"}.
+(Note,however, that this version of the algorithm is slightly different from that of the original paper.)
 
-ArangoDB's version of the algorithm converges after a certain amount of time.
-The `threshold` parameter can be used to set a limit for the convergence
+ArangoDB offers two versions of the algorithm: the original Kleinberg's version and our own version
+that has some advantages and disadvantages as discussed below.
+
+Both versions keep two values for each vertex: the hub value and the authority value and update
+both of them in iterations until the corresponding sequences converge or until the maximum number of steps
+is reached. The hub value of a vertex is updated from the authority values of the vertices pointed by it; 
+the authority value is updated from the hub values of the vertices pointing to it. 
+
+The differences of the two versions are technical (and we omit the tedious description here) 
+but have some less technical implications:
+- The original version needs twice as many global super-steps as our version.
+- The original version is guaranteed to converge, our version may also converge, but there are examples 
+where it does not (for instance, on undirected stars).
+- In the original version, the output values are normed in the sense that the sum of their squared values
+is 1, our version does not guarantee that.
+
+In a call of either version, the `threshold` parameter can be used to set a limit for the convergence
 (measured as the maximum absolute difference of the hub and authority scores
 between the current and last iteration).
 
-When you specify the result field name, the hub score is stored in
-`<resultField>_hub` and the authority score in `<resultField>_auth`.
+If the value of the result field is `<resultField>`, then the hub score is stored in
+the field `<resultField>_hub` and the authority score in the field `<resultField>_auth`.
 
 The algorithm can be executed like this:
 
@@ -154,6 +173,15 @@ The algorithm can be executed like this:
 var pregel = require("@arangodb/pregel");
 var handle = pregel.start("hits", "graphname", { threshold:0.00001, resultField: "score" });
 ```
+
+for ArangoDB's version and 
+
+```js
+var pregel = require("@arangodb/pregel");
+var handle = pregel.start("hitskleinberg", "graphname", { threshold:0.00001, resultField: "score" });
+```
+
+for the original version.
 
 ### Vertex Centrality
 
