@@ -9,6 +9,8 @@ import traceback
 oldToolchain = "/home/dan/work/projects/old-arango-docs/docs"
 newToolchain = "/home/dan/work/projects/arangodb/docs/site/content"
 
+frontMatterCapture = r"(?<=---)\n[\s\w:\,>#\.-]*(?<=---)"
+
 # Directory Tree Migration phase
 ## In this phase, old toolchain files and dirs are copied in a new tree suitable for hugo. No file processing is done.
 def structure_migration():
@@ -44,7 +46,6 @@ def create_files(label, chapter):
 		return
 
 	# Not in a leaf, create a new menu entry/chapter index file and go through the subtree
-	print("found children")
 	print(f"Creating folder {path}/{root}")
 
 	Path(f"{path}/{root}").mkdir(parents=True, exist_ok=True)
@@ -73,7 +74,7 @@ def processFile(filepath):
 	_processFrontMatter(page, buffer)
 	fileID = filepath.split("/")
 	page.frontMatter.fileID = fileID[len(fileID)-1].replace(".md", "")
-	buffer = re.sub(r"(?<=---)\n[\s\w:\,>\.-]*(?<=---)", '', buffer)
+	buffer = re.sub(frontMatterCapture, '', buffer)
 
 	#Internal content
 	paragraphs = re.split(r"\n(?:(.+\n={1,})|([#]+.*)|(.*\n-{3,}))", buffer)
@@ -87,13 +88,13 @@ def processFile(filepath):
 	return
 
 def _processFrontMatter(page, buffer):
-	frontMatterRegex = re.search(r"(?<=---)\n[\s\w:\,>\.-]*(?<=---)", buffer)
+	frontMatterRegex = re.search(frontMatterCapture, buffer)
 	if not frontMatterRegex:
 		return		# TODO
 
 	frontMatter = frontMatterRegex.group(0)
 
-	if not 'title' in frontMatter:
+	if not 'title:' in frontMatter:
 		headerRegex = re.search(r"(.+\n(?==))|((?<=#).*)",  buffer)
 		if headerRegex is not None:
 			title = headerRegex.group(0).replace('\n', '')
@@ -105,8 +106,8 @@ def _processFrontMatter(page, buffer):
 		titleRegex = re.search(r"(?<=title: ).*", frontMatter)
 		page.frontMatter.title = titleRegex.group(0)
 
-	page.frontMatter.description = re.search(r"(?<=description: ).*", frontMatter).group(0) if re.search(r"(?<=description: ).*", frontMatter) else ""
-
+	page.frontMatter.description = re.search(r"(?<=description: )[\n]*.*[\s\n\w\.-]*", frontMatter).group(0).replace("\n---", "").replace("title", "").replace("redirect_from", "") if re.findall(r"(?<=description: )[\n]*.*[\s\n\w\.-]*", frontMatter) else ""
+	print(page.frontMatter.description)
 	return page
 
 def _processChapters(page, paragraph):
@@ -121,16 +122,16 @@ def _processChapters(page, paragraph):
 
 
 	#HREFs
-	hrefRegex = re.findall("\[.*\]\(.*\)", paragraph)
+	hrefRegex = re.findall(r"[^\s]*\[.*\]\(.*\)", paragraph)
 	for href in hrefRegex:
 		if 'https://' in href or 'http://' in href:
 			continue
 
-		label = href.split("]")[0].strip('[')
+		label = re.search(r"(?<=\[).*(?=\])", href).group(0)
 		if "\"" in label:
 			label = label.replace('"', '')
 
-		fileID = href.split("]")[1].strip('()').replace('.html', '')
+		fileID = re.search(r"(?<=\]\().*(?=\))", href).group(0).strip('"').strip('()').replace('.html', '')
 		newHref = '{{{{< reference fileID="{}" label="{}" >}}}}'.format(fileID, label)
 		paragraph = paragraph.replace(href, newHref)
 
