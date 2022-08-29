@@ -1188,7 +1188,7 @@ _n_-grams for search highlighting purposes.
     strings and numbers. You can pass this name to the
     [`VALUE()` function](functions-document.html) to dynamically look up the value.
   - **offsets** (array): an array of arrays with the matched positions. Each
-    inner array has two elements with the start and end offset of a match.
+    inner array has two elements with the start offset and the length of a match.
 
     {% hint 'warning' %}
     The offsets describe the positions in bytes, not characters. You may need
@@ -1222,11 +1222,11 @@ _n_-grams for search highlighting purposes.
     [VALUE()](functions-document.html) to dynamically look up the value.
   - **offsets** (array): an array of arrays with the matched positions, capped
     to the specified limits. Each inner array has two elements with the start
-    and end offset of a match.
+    offset and the length of a match.
 
     {% hint 'warning' %}
-    The offsets describe the positions in bytes, not characters. You may need
-    to account for characters encoded using multiple bytes.
+    The start offsets and lengths describe the positions in bytes, not characters.
+    You may need to account for characters encoded using multiple bytes.
     {% endhint %}
 
 **Examples**
@@ -1240,11 +1240,11 @@ Search a View and get the offset information for the matches:
     ~ db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
     ~ db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
     ~ var analyzers = require("@arangodb/analyzers");
-    ~ var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: false }, ["frequency", "norm", "position", "offset"]);
+    ~ var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
     ~ db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
     ~ db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`);
     | db._query(`FOR doc IN food_view
-    |   SEARCH ANALYZER(doc.description.en ANY IN TOKENS("avocado tomato", "text_en_offset"), "text_en_offset")
+    |   SEARCH ANALYZER(TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en, "text_en_offset")
         RETURN OFFSET_INFO(doc, ["description.en"])`);
     ~ db._dropView("food_view");
     ~ db._drop("food");

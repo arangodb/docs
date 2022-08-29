@@ -39,13 +39,13 @@ look up the value with the [`VALUE()` function](aql/functions-document.html#valu
 using this path description.
 
 The `offsets` are a list of offset pairs, one for every match. Each pair is an
-array with two numbers, with the start and end offset of the match. There can be
+array with two numbers, with the start offset and length of the match. There can be
 multiple matches per path. You can optionally cap how many matches are collected
 per path by setting limits when calling the `OFFSET_INFO()` function.
 
 {% hint 'warning' %}
-The offsets describe the positions in bytes, not characters. You may need
-to account for characters encoded using multiple bytes.
+The start offsets and lengths describe the positions in bytes, not characters.
+You may need to account for characters encoded using multiple bytes.
 {% endhint %}
 
 ### Term and phrase search with highlighting
@@ -105,9 +105,8 @@ search highlighting:
 Search the View for descriptions that contain the tokens `avocado` or `tomato`,
 the phrase `cultivated ... pungency` with two arbitrary tokens between the two
 words, and for words that start with `cap`. Get the matching positions, and use
-this information to extract the substrings. Note that the example documents
-use single-byte characters only, allowing the use of the character-based
-[`SUBSTRING()` function] (aql/functions-string.html#substring).
+this information to extract the substrings with the
+[`SUBSTRING_BYTES()` function](aql/functions-string.html#substring_bytes).
 
 The [`OFFSET_INFO()` function](aql/functions-arangosearch.html#offset_info)
 returns a `name` that describes the path of the attribute or array element with
@@ -138,7 +137,7 @@ to dynamically get the respective value:
     |       name: offsetInfo.name,
     |       matches: offsetInfo.offsets[* RETURN {
     |         offset: CURRENT,
-    |         match: SUBSTRING(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1] - CURRENT[0])
+    |         match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
     |       }]
           }`);
     ~ db._dropView("food_view");

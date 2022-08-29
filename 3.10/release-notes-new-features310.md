@@ -83,7 +83,11 @@ matches within strings, to highlight what was found in search results.
 You need to index attributes with custom Analyzers that have the new `offset`
 feature enabled to use this feature. You can then call the
 [`OFFSET_INFO()` function](aql/functions-arangosearch.html#offset_info) to
-get the offsets of the matches (in bytes).
+get the start offsets and lengths of the matches (in bytes).
+
+You can use the [`SUBSTRING_BYTES()` function](aql/functions-string.html#substring_bytes)
+together with the [`VALUE()` function](aql/functions-document.html#value) to
+extract a match.
 
 ```js
 db._create("food");
@@ -108,7 +112,7 @@ db._query(`FOR doc IN food_view
       name: offsetInfo.name,
       matches: offsetInfo.offsets[* RETURN {
         offset: CURRENT,
-        match: SUBSTRING(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1] - CURRENT[0])
+        match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
       }]
     }`);
 
@@ -354,6 +358,14 @@ See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 ### New and Changed AQL Functions
 
 AQL functions added in 3.10:
+
+- [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info):
+  An ArangoSearch function to get the start offsets and lengths of matches for
+  [search highlighting](arangosearch-search-highlighting.html).
+
+- [`SUBSTRING_BYTES()`](aql/functions-string.html#substring_bytes):
+  A function to get a string subset using a start and length in bytes instead of
+  in number of characters. 
 
 - [`VALUE()`](aql/functions-document.html#value):
   A new document function to dynamically get an attribute value of an object,
