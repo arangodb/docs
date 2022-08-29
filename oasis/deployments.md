@@ -224,7 +224,7 @@ attached to your role. Read more about [roles and permissions](access-control.ht
    click **Sharded**. In addition to the other configuration options, you can
    select the number of nodes for your deployment. This can also be modified later on.
 	- AWS deployments have an additional option that allows you to select the
-   **Disk Performance** - either with general settings, or optimised for large
+   **Disk Performance** either with general settings, or optimised for large
    and very large data sets.
 
    {% hint 'warning' %}
