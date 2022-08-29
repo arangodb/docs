@@ -50,6 +50,10 @@ role bindings to regulate access control on a deployment level.
 ### In the __Location__ section
 
 1. Select the __Provider__ and __Region__ of the provider.
+   {% hint 'warning' %}
+   Once a deployment has been created, it is not possible to change the
+   provider and region anymore.
+   {% endhint %}
 2. Select the __DB Version__.
    **Note**: If you don't know which DB version to select, leave the version
    selected by default.
@@ -189,6 +193,47 @@ for how long passwords are valid. ArangoDB Oasis can automatically change the
    ![Oasis Deployment Password Rotation](images/oasis-deployment-password-rotation.png)
 4. You can expand the __Root password__ panel to see when the password was
    rotated last. The rotation takes place every three months.
+
+## How to edit a deployment
+
+You can modify a deployment’s configuration, including the ArangoDB version
+that is being used, change the memory, CPU, and disk size, or even switch from
+a OneShard deployment to a Sharded one if your data set no longer fits in a
+single node. 
+
+{% hint 'info' %}
+To edit an existing deployment, you must have the necessary set of permissions
+attached to your role. Read more about [roles and permissions](access-control.html#roles).
+{% endhint %}
+
+1. Go to the **Projects** section and select an existing deployment from the list. 
+2. Open the deployment you want to change. 
+3. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
+   icon. 
+4. In the **Version and Security** section, you can:
+   - Modify the DB version that is currently being used or add a custom
+   image for testing purposes.
+   - Select a different CA certificate.
+   - Add or remove an IP allowlist.
+5. In the **Configuration** section, you can:
+   - Upgrade the memory size per node. 
+   - Modify the CPU per node from General to Low or vice-versa.
+   - Select a different disk size per node. To enable automatic scaling, move
+   the slider to a value higher than the current disk size.
+   - Change **OneShard** deployments into **Sharded** deployments. To do so,
+   click **Sharded**. In addition to the other configuration options, you can
+   select the number of nodes for your deployment. This can also be modified later on.
+	- AWS deployments have an additional option that allows you to select the
+   **Disk Performance** - either with general settings, or optimised for large
+   and very large data sets.
+
+   {% hint 'warning' %}
+   When upgrading the memory size per node in AWS deployments, the value gets
+   locked and cannot be changed until the cloud provider rate limit is reset.  
+   {% endhint %}
+	
+6. All changes are reflected in the **Summary** section. Review the new
+   configuration and click **Save**. 
 
 ## How to create a private endpoint deployment
 
