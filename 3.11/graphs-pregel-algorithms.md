@@ -142,7 +142,7 @@ hub score. The authority score of a vertex rates the total hub score of vertices
 pointing to that vertex; the hub score rates the total authority 
 score of vertices pointed by it. Also see
 [en.wikipedia.org/wiki/HITS_algorithm](https://en.wikipedia.org/wiki/HITS_algorithm){:target="_blank"}.
-(Note,however, that this version of the algorithm is slightly different from that of the original paper.)
+Note, however, that this version of the algorithm is slightly different from that of the original paper.
 
 ArangoDB offers two versions of the algorithm: the original Kleinberg's version and our own version
 that has some advantages and disadvantages as discussed below.
