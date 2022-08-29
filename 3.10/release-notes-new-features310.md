@@ -21,7 +21,7 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 3.10.x runs on this hardware again, but now without emulation.
 
 ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
-The minimum requirement is an ARMv8 chip with Neon (SIMD).
+The minimum requirement is an ARMv8 chip with Neon (SIMD extension).
 
 Computed Values
 ---------------
@@ -150,8 +150,48 @@ for details.
 
 This feature is only available in the Enterprise Edition.
 
-UI
---
+Analyzers
+---------
+
+### `minhash` Analyzer (Enterprise Edition)
+
+This new Analyzer applies another Analyzer, for example, a `text` Analyzer to
+tokenize text into words, and then computes so called *MinHash signatures* from
+the tokens using a locality-sensitive hash function. The result lets you
+approximate the Jaccard similarity of sets.
+
+A common use case is to compare sets with many elements for entity resolution,
+such as for finding duplicate records, based on how many common elements they
+have.
+
+You can use the Analyzer with a new inverted index or ArangoSearch View to
+quickly find candidates for the actual Jaccard similarity comparisons you want
+to perform.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#minhash) for details.
+
+### `classification` Analyzer (Enterprise Edition)
+
+A new, experimental Analyzer for classifying individual tokens or entire inputs
+using a supervised fastText word embedding model that you provide.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#classification) for details.
+
+### `nearest_neighbors` Analyzer (Enterprise Edition)
+
+A new, experimental Analyzer for finding similar tokens
+using a supervised fastText word embedding model that you provide.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#nearest_neighbors) for details.
+
+Web Interface
+-------------
 
 
 
@@ -355,6 +395,20 @@ FOR … IN … OPTIONS { lookahead: 32 }
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
+### New `AT LEAST` array comparison operator
+
+You can now combine one of the supported comparison operators with the special
+`AT LEAST (<expression>)` operator to require an arbitrary number of elements
+to satisfy the condition to evaluate to `true`. You can use a static number or
+calculate it dynamically using an expression:
+
+```aql
+[ 1, 2, 3 ]  AT LEAST (2) IN  [ 2, 3, 4 ]  // true
+["foo", "bar"]  AT LEAST (1+1) ==  "foo"   // false
+```
+
+See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
+
 ### New and Changed AQL Functions
 
 AQL functions added in 3.10:
@@ -371,9 +425,25 @@ AQL functions added in 3.10:
   A new document function to dynamically get an attribute value of an object,
   using an array to specify the path.
 
+- [`MINHASH()`](aql/functions-miscellaneous.html#minhash):
+  A new function for locality-sensitive hashing to approximate the
+  Jaccard similarity.
+
+- [`MINHASH_COUNT()`](aql/functions-miscellaneous.html#minhash_count):
+  A helper function to calculate the number of hashes (MinHash signature size)
+  needed to not exceed the specified error amount.
+
+- [`MINHASH_ERROR()`](aql/functions-miscellaneous.html#minhash_error):
+  A helper function to calculate the error amount based on the number of hashes
+  (MinHash signature size).
+
+- [`MINHASH_MATCH()`](aql/functions-arangosearch.html#minhash_match):
+  A new ArangoSearch function to match documents with an approximate
+  Jaccard similarity of at least the specified threshold that are indexed by a View.
+
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
   A document function to recursively keep attributes from objects/documents,
-  as a counterpart to `UNSET_RECURSIVE()`
+  as a counterpart to `UNSET_RECURSIVE()`.
 
 AQL functions changed in 3.10:
 
@@ -661,12 +731,21 @@ arangoexport \
   ...
 ```
 
+### ArangoDB Starter
+
+_ArangoDB Starter_ has a new feature that allows you to configure the binary
+by reading from a configuration file. The default configuration file of the Starter
+is `arangodb-starter.conf` and can be changed using the `--configuration` option. 
+
+See the [Starter configuration file](programs-starter-architecture.html#starter-configuration-file)
+section for more information about the configuration file format, passing
+through command line options, and examples. 
 
 Query changes for decreasing memory usage
 -----------------------------------------
 
 Queries can be executed with storing input and intermediate results temporarily
-on disk to descrease memory usage when a specified threshold is reached.
+on disk to decrease memory usage when a specified threshold is reached.
 
 {% hint 'info' %}
 This feature is experimental and is turned off by default.

@@ -12,4 +12,5 @@ This chapter describes the RESTful interface for
 You can manage all types of named graphs with Gharial:
 - [General Graphs](../graphs-general-graphs.html)
 - [SmartGraphs](../graphs-smart-graphs.html)
+- [EnterpriseGraphs](../graphs-enterprise-graphs.html)
 - [SatelliteGraphs](../graphs-satellite-graphs.html)

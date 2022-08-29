@@ -47,6 +47,11 @@ Also see [What's New in 3.11](release-notes-new-features311.html).
 - [**Search highlighting**](arangosearch-search-highlighting.html):
   Get the substring positions of matched terms, phrases, or _n_-grams.
 
+- **ArangoSearch**:
+  New [MinHash Analyzer](analyzers.html#minhash) for locality-sensitive hashing
+  to approximate the Jaccard similarity, with inverted index and
+  ArangoSearch View support that allows you to implement entity resolution.
+
 Also see [What's New in 3.10](release-notes-new-features310.html).
 
 ## Version 3.9

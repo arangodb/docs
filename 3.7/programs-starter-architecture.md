@@ -93,6 +93,62 @@ It contains the following files & sub-directories.
   - `arangod.log`: The log file of the server
   - `arangod_command.txt`: File containing the exact command line of the started server (for debugging purposes only)
 
+## Starter configuration file
+
+The Starter can be configured using a configuration file. The format of the
+configuration file is the same as the `arangod` configuration file format.
+For more details, refer to the [configuration file format](administration-configuration.html#configuration-file-format)
+and [how to use configuration files](administration-configuration.html#using-configuration-files).
+
+The default configuration file of the Starter is `arangodb-starter.conf`.
+It can be changed using the `--configuration` option. 
+For more information about other
+configuration options, see [ArangoDB Starter options](programs-starter-options.html). 
+
+{% hint 'info' %}
+The Starter has a different set of supported command line options than `arangod` binary.
+Using the `arangod` configuration file as input for `arangodb` binary is not supported.
+{% endhint %}
+
+### Passing through `arangod` options
+
+The configuration file also supports setting pass-through options. Options with
+same prefixes can be split into sections.
+
+```conf
+# passthrough-example.conf
+
+args.all.log.level = startup=trace
+args.all.log.level = warning
+
+[starter]
+  mode = single
+
+[args]
+all.log.level = queries=debug
+all.default-language = de_DE
+
+[args.all.rocksdb]
+enable-statistics = true
+```
+
+```bash
+./arangodb --configuration=passthrough-example.conf
+```
+
+### Configuration precedence
+
+When adding a command line option next to a modified configuration
+file, the last occurrence of the option becomes the final value.
+
+Running the Starter with the configuration example above and adding the
+`default-language=es_419` command line option
+<br>
+`./arangodb --args.all.default-language=es_419 --configuration=passthrough-example.conf`
+<br>
+results in having the `default-language` set to `es_419` and not the value from
+the configuration file.
+
 ## Running on multiple machines
 
 For the `activefailover` & `cluster` mode, it is required to run multiple
@@ -111,7 +167,7 @@ with the ArangoDB database cluster).
 This cluster of Starters is formed from the values given to the `--starter.join`
 command line option. You should pass the addresses (`<host>:<port>`) of all Starters.
 
-For example a typical commandline for a cluster deployment looks like this:
+For example, a typical command line for a cluster deployment looks like this:
 
 ```bash
 arangodb --starter.mode=cluster --starter.join=hostA:8528,hostB:8528,hostC:8528
