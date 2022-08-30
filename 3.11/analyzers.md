@@ -172,6 +172,7 @@ The following *features* are supported:
   If present, then the `frequency` feature is also required.
 - **offset**: enable search highlighting capabilities (Enterprise Edition only).
   Required for [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info).
+  If present, then the `position` and `frequency` features are also required.
 
 Analyzer Properties
 -------------------

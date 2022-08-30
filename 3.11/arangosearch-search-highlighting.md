@@ -64,7 +64,7 @@ A collection called `food` with the following documents:
 **Custom Analyzer:**
 
 Create a `text` Analyzer in arangosh to tokenize text, like the built-in
-`text_en` Analyzer, but additionally set the `offset` feature that enables
+`text_en` Analyzer, but additionally set the `offset` feature, enabling
 search highlighting:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
