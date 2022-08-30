@@ -461,10 +461,9 @@ This feature is only available in the Enterprise Edition.
 
 ### (Disjoint) Hybrid SmartGraphs renaming
 
-The display name of Hybrid SmartGraphs and Disjoint Hybrid SmartGraphs has
-been changed to **SmartGraphs using SatelliteCollections**, respectively
-**Disjoint SmartGraphs using SatelliteCollections**.
-The functionality and behavior of both types of graphs stays the same.
+(Disjoint) Hybrid SmartGraphs were renamed to
+**(Disjoint) SmartGraphs using SatelliteCollections**.
+The functionality and behavior of both types of graphs stay the same.
 
 Server options
 --------------
