@@ -133,6 +133,11 @@ default of `1h`.
 
 ## What to do in case of a document that exceeds the message queue limits
 
+{% hint 'info' %}
+Starting with ArangoSync version 2.0.0, there is no limitation in terms of
+document size anymore.
+{% endhint %}
+
 If you insert/update a document in a collection and the size of that document
 is larger than the maximum message size of your message queue, the collection
 will no longer be able to synchronize. It will go into a `failed` state.
