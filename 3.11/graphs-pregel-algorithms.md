@@ -132,7 +132,7 @@ Jon Kleinberg in J. Kleinberg,
 Journal of the ACM. 46 (5): 604–632, 1999. The algorithm is also known as _Hubs and Authorities_.
 
 The idea behind hubs and authorities comes from the typical structure of the early web:
-Certain websites, known as hubs, serve as large directories that are not actually
+certain websites, known as hubs, serve as large directories that are not actually
 authoritative on the information that they point to. These hubs are used as
 compilations of a broad catalog of information that leads users to other,
 authoritative, webpages.
