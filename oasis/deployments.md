@@ -210,15 +210,16 @@ attached to your role. Read more about [roles and permissions](access-control.ht
 2. Open the deployment you want to change. 
 3. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
    icon. 
-4. In the **Version and Security** section, you can:
+4. In the **Version and Security** section, you can do the following:
    - Modify the DB version that is currently being used or add a custom
    image for testing purposes.
    - Select a different CA certificate.
    - Add or remove an IP allowlist.
-5. In the **Configuration** section, you can:
+5. In the **Configuration** section, you can do the following:
    - Upgrade the memory size per node. 
    - Modify the CPU per node from General to Low or vice-versa.
-   - Select a different disk size per node. To enable automatic scaling, move
+   - Select a different disk size per node. The available ranges for the disk size
+   depend on the selected memory size. To enable automatic disk size scaling, move
    the slider to a value higher than the current disk size.
    - Change **OneShard** deployments into **Sharded** deployments. To do so,
    click **Sharded**. In addition to the other configuration options, you can
