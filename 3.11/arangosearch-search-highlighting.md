@@ -71,8 +71,8 @@ search highlighting:
     @startDocuBlockInline analyzerTextOffset
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextOffset}
       var analyzers = require("@arangodb/analyzers");
-      var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["position", "frequency", "norm", "offset"]);
-    ~ analyzers.remove(analyzer.name);
+      analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["position", "frequency", "norm", "offset"]);
+    ~ analyzers.remove("text_en_offset");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextOffset
     {% endarangoshexample %}
@@ -116,15 +116,17 @@ to dynamically get the respective value:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline searchHighlighting_1
     @EXAMPLE_ARANGOSH_OUTPUT{searchHighlighting_1}
-      db._create("food");
-      db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
-      db.food.save({ name: "carrot", description: { en: "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } });
-      db.food.save({ name: "chili pepper", description: { en: "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } });
-      db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
+      var coll = db._create("food");
+    | var docs = db.food.save([
+    |   { name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } },
+    |   { name: "carrot", description: { en: "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } },
+    |   { name: "chili pepper", description: { en: "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } },
+    |   { name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } }
+      ]);
       var analyzers = require("@arangodb/analyzers");
       var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
-      db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
-      db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`); /* wait for View to update */
+      var view = db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
+      var wait = db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`); /* wait for View to update */
     | db._query(`FOR doc IN food_view
     |   SEARCH ANALYZER(
     |     TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en OR
@@ -139,7 +141,7 @@ to dynamically get the respective value:
     |         offset: CURRENT,
     |         match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
     |       }]
-          }`);
+          }`).toArray();
     ~ db._dropView("food_view");
     ~ db._drop("food");
     ~ analyzers.remove(analyzer.name);
