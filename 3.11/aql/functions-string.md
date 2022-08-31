@@ -1801,30 +1801,124 @@ To return the rightmost characters, see [RIGHT()](#right).<br>
 To return the leftmost characters, see [LEFT()](#left).
 
 - **value** (string): a string
-- **offset** (number): start at `offset`, offsets start at position 0
-- **length** (number, *optional*): at most `length` characters, omit to get the
-  substring from `offset` to the end of the string
+- **offset** (number): start at this character of the string. Offsets start at 0.
+  Negative offsets start from the end of the string. The last character has an
+  index of -1
+- **length** (number, *optional*): take this many characters. Omit the parameter
+  to get the substring from `offset` to the end of the string
 - returns **substring** (string): a substring of `value`
 
 **Examples**
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlSubstring_1
-@EXAMPLE_AQL{aqlSubstring_1}
-  RETURN SUBSTRING("Holy Guacamole!", 5)
-@END_EXAMPLE_AQL
-@endDocuBlock aqlSubstring_1
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+Get a substring starting at the 6th character and until the end of the string:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlSubstring_2
-@EXAMPLE_AQL{aqlSubstring_2}
-  RETURN SUBSTRING("Holy Guacamole!", 10, 4)
-@END_EXAMPLE_AQL
-@endDocuBlock aqlSubstring_2
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSubstring_1
+    @EXAMPLE_AQL{aqlSubstring_1}
+      RETURN SUBSTRING("Holy Guacamole!", 5)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSubstring_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Get a 4 characters long substring, starting at the 11th character:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSubstring_2
+    @EXAMPLE_AQL{aqlSubstring_2}
+      RETURN SUBSTRING("Holy Guacamole!", 10, 4)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSubstring_2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Get a 4 characters long substring, starting at the 5th from last character:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSubstring_3
+    @EXAMPLE_AQL{aqlSubstring_3}
+      RETURN SUBSTRING("Holy Guacamole!", -5, 4)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSubstring_3
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+SUBSTRING_BYTES()
+-----------------
+
+`SUBSTRING_BYTES(value, offset, length) → substring`
+
+Return a substring of `value`, using an `offset` and `length` in bytes instead
+of in number of characters.
+
+This function is intended to be used together with the
+[`OFFSET_INFO()` function](functions-arangosearch.html#offset_info) for
+[search highlighting](../arangosearch-search-highlighting.html).
+
+- **value** (string): a string
+- **offset** (number): start at this byte of the UTF-8 encoded string.
+  Offsets start at 0. Negative offsets start from the end of the string.
+  The last byte has an index of -1. The offset needs to coincide with the
+  beginning of a character's byte sequence
+- **length** (number, *optional*): take this many bytes. Omit the parameter to
+  get the substring from `offset` to the end of the string. The end byte
+  (`offset` + `length`) needs to coincide with the end of a character's
+  byte sequence
+- returns **substring** (string\|null): a substring of `value`, or `null` and
+  produces a warning if the start or end byte is in the middle of a character's
+  byte sequence
+
+**Examples**
+
+Get a substring starting at the 11th byte and until the end of the string.
+Note that the heart emoji is comprised of two characters, the Black Heart Symbol
+and the Variation Selector-16, each encoded using 3 bytes in UTF-8:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSubstringBytes_1
+    @EXAMPLE_AQL{aqlSubstringBytes_1}
+      RETURN SUBSTRING_BYTES("We ❤️ avocado!", 10)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSubstringBytes_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Get a 3 bytes long substring starting at the 3rd byte, extracting the
+Black Heart Symbol:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSubstringBytes_2
+    @EXAMPLE_AQL{aqlSubstringBytes_2}
+      RETURN SUBSTRING_BYTES("We ❤️ avocado!", 3, 3)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSubstringBytes_2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Get a 6 bytes long substring starting at the 15th byte from last, extracting the
+heart emoji:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSubstringBytes_3
+    @EXAMPLE_AQL{aqlSubstringBytes_3}
+      RETURN SUBSTRING_BYTES("We ❤️ avocado!", -15, 6)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSubstringBytes_3
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Try to get a 4 bytes long substring starting at the 15th byte from last,
+resulting in a `null` value and a warning because the substring contains an
+incomplete UTF-8 byte sequence:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSubstringBytes_4
+    @EXAMPLE_AQL{aqlSubstringBytes_4}
+      RETURN SUBSTRING_BYTES("We ❤️ avocado!", -15, 4)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSubstringBytes_4
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 TOKENS()
 --------

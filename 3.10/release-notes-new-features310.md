@@ -75,7 +75,80 @@ information and examples.
 ArangoSearch
 ------------
 
+### Search highlighting (Enterprise Edition)
 
+Views now support search highlighting, letting you retrieve the positions of
+matches within strings, to highlight what was found in search results.
+
+You need to index attributes with custom Analyzers that have the new `offset`
+feature enabled to use this feature. You can then call the
+[`OFFSET_INFO()` function](aql/functions-arangosearch.html#offset_info) to
+get the start offsets and lengths of the matches (in bytes).
+
+You can use the [`SUBSTRING_BYTES()` function](aql/functions-string.html#substring_bytes)
+together with the [`VALUE()` function](aql/functions-document.html#value) to
+extract a match.
+
+```js
+db._create("food");
+db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
+db.food.save({ name: "carrot", description: { en: "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } });
+db.food.save({ name: "chili pepper", description: { en: "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } });
+db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
+
+var analyzers = require("@arangodb/analyzers");
+var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+
+db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
+db._query(`FOR doc IN food_view
+  SEARCH ANALYZER(
+    TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en OR
+    PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
+    STARTS_WITH(doc.description.en, "cap")
+  , "text_en_offset")
+  FOR offsetInfo IN OFFSET_INFO(doc, ["description.en"])
+    RETURN {
+      description: doc.description,
+      name: offsetInfo.name,
+      matches: offsetInfo.offsets[* RETURN {
+        offset: CURRENT,
+        match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
+      }]
+    }`);
+
+/*
+[
+  {
+    "description" : { "en" : "The avocado is a medium-sized, evergreen tree, native to the Americas." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [4, 11], "match" : "avocado" }
+    ]
+  },
+  {
+    "description" : { "en" : "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [82, 111], "match" : "cultivated for their pungency" },
+      { "offset" : [72, 80], "match" : "Capsicum" }
+    ]
+  },
+  {
+    "description" : { "en" : "The tomato is the edible berry of the tomato plant." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [4, 10], "match" : "tomato" },
+      { "offset" : [38, 44], "match" : "tomato" }
+    ]
+  }
+]
+*/
+```
+
+See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
+for details.
+
+This feature is only available in the Enterprise Edition.
 
 Analyzers
 ---------
@@ -339,6 +412,18 @@ See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
 ### New and Changed AQL Functions
 
 AQL functions added in 3.10:
+
+- [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info):
+  An ArangoSearch function to get the start offsets and lengths of matches for
+  [search highlighting](arangosearch-search-highlighting.html).
+
+- [`SUBSTRING_BYTES()`](aql/functions-string.html#substring_bytes):
+  A function to get a string subset using a start and length in bytes instead of
+  in number of characters. 
+
+- [`VALUE()`](aql/functions-document.html#value):
+  A new document function to dynamically get an attribute value of an object,
+  using an array to specify the path.
 
 - [`MINHASH()`](aql/functions-miscellaneous.html#minhash):
   A new function for locality-sensitive hashing to approximate the

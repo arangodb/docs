@@ -24,6 +24,8 @@ to form complex search conditions.
 
 Scoring functions allow you to rank matches and to sort results by relevance.
 
+Search highlighting functions let you retrieve the string positions of matches.
+
 Most functions can also be used without a View and the `SEARCH` keyword, but
 will then not be accelerated by a View index.
 
@@ -1198,3 +1200,95 @@ FOR doc IN viewName
   SORT doc.text, TFIDF(doc) DESC
   RETURN doc
 ```
+
+Search Highlighting Functions
+-----------------------------
+
+{% include hint-ee.md feature="Search highlighting" %}
+
+### OFFSET_INFO()
+
+`OFFSET_INFO(doc, paths) → offsetInfo`
+
+Returns the attribute paths and substring offsets of matched terms, phrases, or
+_n_-grams for search highlighting purposes.
+
+- **doc** (document): must be emitted by `FOR ... IN viewName`
+- **paths** (string\|array): a string or an array of strings, each describing an
+  attribute and array element path you want to get the offsets for. Use `.` to
+  access nested objects, and `[n]` with `n` being an array index to specify array
+  elements. The attributes need to be indexed by Analyzers with the `offset`
+  feature enabled.
+- returns **offsetInfo** (array): an array of objects, limited to a default of
+  10 offsets per path. Each object has the following attributes:
+  - **name** (array): the attribute and array element path as an array of
+    strings and numbers. You can pass this name to the
+    [`VALUE()` function](functions-document.html) to dynamically look up the value.
+  - **offsets** (array): an array of arrays with the matched positions. Each
+    inner array has two elements with the start offset and the length of a match.
+
+    {% hint 'warning' %}
+    The offsets describe the positions in bytes, not characters. You may need
+    to account for characters encoded using multiple bytes.
+    {% endhint %}
+
+---
+
+`OFFSET_INFO(doc, rules) → offsetInfo`
+
+- **doc** (document): must be emitted by `FOR ... IN viewName`
+- **rules** (array): an array of objects with the following attributes:
+  - **name** (string): an attribute and array element path
+    you want to get the offsets for. Use `.` to access nested objects,
+    and `[n]` with `n` being an array index to specify array elements. The
+    attributes need to be indexed by Analyzers with the `offset` feature enabled.
+  - **options** (object): an object with the following attributes:
+    - **maxOffsets** (number, _optional_): the total number of offsets to
+      collect per path. Default: `10`.
+    - **limits** (object, _optional_): an object with the following attributes:
+      - **term** (number, _optional_): the total number of term offsets to
+        collect per path. Default: 2<sup>32</sup>.
+      - **phrase** (number, _optional_): the total number of phrase offsets to
+        collect per path. Default: 2<sup>32</sup>.
+      - **ngram** (number, _optional_): the total number of _n_-gram offsets to
+        collect per path. Default: 2<sup>32</sup>.
+- returns **offsetInfo** (array): an array of objects, each with the following
+  attributes: 
+  - **name** (array): the attribute and array element path as an array of
+    strings and numbers. You can pass this name to the
+    [VALUE()](functions-document.html) to dynamically look up the value.
+  - **offsets** (array): an array of arrays with the matched positions, capped
+    to the specified limits. Each inner array has two elements with the start
+    offset and the length of a match.
+
+    {% hint 'warning' %}
+    The start offsets and lengths describe the positions in bytes, not characters.
+    You may need to account for characters encoded using multiple bytes.
+    {% endhint %}
+
+**Examples**
+
+Search a View and get the offset information for the matches:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline aqlOffsetInfo
+    @EXAMPLE_ARANGOSH_OUTPUT{aqlOffsetInfo}
+    ~ db._create("food");
+    ~ db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
+    ~ db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
+    ~ var analyzers = require("@arangodb/analyzers");
+    ~ var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+    ~ db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
+    ~ db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`);
+    | db._query(`FOR doc IN food_view
+    |   SEARCH ANALYZER(TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en, "text_en_offset")
+        RETURN OFFSET_INFO(doc, ["description.en"])`);
+    ~ db._dropView("food_view");
+    ~ db._drop("food");
+    ~ analyzers.remove(analyzer.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock aqlOffsetInfo
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+For full examples, see [Search Highlighting](../arangosearch-search-highlighting.html).

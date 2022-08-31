@@ -657,6 +657,9 @@ To learn more, check out the different search examples:
   You can use ArangoSearch for geographic search queries to find nearby
   locations, places within a certain area and more. It can be combined with
   other types of search queries unlike with the regular geo index.
+- [**Search highlighting**](arangosearch-search-highlighting.html):
+  Retrieve the positions of matches within strings, to highlight what was found
+  in search results.
 
 For relevance and performance tuning, as well as the reference documentation, see:
 
