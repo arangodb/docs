@@ -459,7 +459,7 @@ created in a cluster.
 
 This feature is only available in the Enterprise Edition.
 
-## EnterpriseGraphs (Enterprise Edition)
+### EnterpriseGraphs (Enterprise Edition)
 
 The 3.10 version of ArangoDB introduces a specialized version of SmartGraphs, 
 called EnterpriseGraphs. 
