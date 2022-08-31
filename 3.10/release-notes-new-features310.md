@@ -466,7 +466,7 @@ called EnterpriseGraphs.
 
 EnterpriseGraphs come with a concept of automated sharding key selection,
 meaning that the sharding key is randomly selected while ensuring that all
-vertices with the same sharding key and their adjacent edges are co-located
+ their adjacent edges are co-located
 on the same servers, whenever possible. This approach provides significant
 advantages as it minimizes the impact of having suboptimal sharding keys
 defined when creating the graph.
