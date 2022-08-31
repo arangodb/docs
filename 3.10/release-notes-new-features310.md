@@ -544,6 +544,22 @@ created in a cluster.
 
 This feature is only available in the Enterprise Edition.
 
+### EnterpriseGraphs (Enterprise Edition)
+
+The 3.10 version of ArangoDB introduces a specialized version of SmartGraphs, 
+called EnterpriseGraphs. 
+
+EnterpriseGraphs come with a concept of automated sharding key selection,
+meaning that the sharding key is randomly selected while ensuring that all
+their adjacent edges are co-located
+on the same servers, whenever possible. This approach provides significant
+advantages as it minimizes the impact of having suboptimal sharding keys
+defined when creating the graph.
+
+See the [EnterpriseGraphs](graphs-enterprise-graphs.html) chapter for more details.
+
+This feature is only available in the Enterprise Edition.
+
 ### (Disjoint) Hybrid SmartGraphs renaming
 
 (Disjoint) Hybrid SmartGraphs were renamed to
