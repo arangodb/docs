@@ -330,12 +330,21 @@ The number `2` after the `?` is the quantifier. It is optional and defaults to
 - `ALL`
 - `AT LEAST`
 
-The quantifier must be followed by a `FILTER` operation. You can refer to the
-current array element via the `CURRENT` pseudo-variable in the filter expression.
+The quantifier needs be followed by a `FILTER` operation if you want to specify
+conditions. You can refer to the current array element via the `CURRENT`
+pseudo-variable in the filter expression. If you leave out the quantifier and
+`FILTER` operation (only `arr[?]`), then `arr` is checked whether it is an array
+and if it has at least one element.
 
-The operator is a shorthand for an inline filter with a surrounding length check
-like the following:
+The question mark operator is a shorthand for an inline filter with a
+surrounding length check. The following table compares both variants:
 
-```aql
-RETURN LENGTH(arr[* FILTER CURRENT % 2 == 0]) == 2
-```
+| Question mark operator | Inline filter with length check |
+|:-----------------------|:--------------------------------|
+| `arr[? <number> FILTER <conditions>]` | `LENGTH(arr[* FILTER <conditions>]) == <number>`
+| `arr[? <min>..<max> FILTER <conditions>]` | `IN_RANGE(LENGTH(arr[* FILTER <conditions>]), <min>, <max>, true, true)`
+| `arr[? NONE FILTER <conditions>]` | `LENGTH(arr[* FILTER <conditions>]) == 0`
+| `arr[? ANY FILTER <conditions>]`  | `LENGTH(arr[* FILTER <conditions>]) > 0`
+| `arr[? ALL FILTER <conditions>]`  | `LENGTH(arr[* FILTER <conditions>]) == LENGTH(arr)`
+| `arr[? AT LEAST (<number>) FILTER <conditions>]` | `LENGTH(arr[* FILTER <conditions>]) >= <number>`
+| `arr[?]` | `LENGTH(arr) > 0`
