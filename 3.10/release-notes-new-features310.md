@@ -21,7 +21,7 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 3.10.x runs on this hardware again, but now without emulation.
 
 ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
-The minimum requirement is an ARMv8 chip with Neon (SIMD).
+The minimum requirement is an ARMv8 chip with Neon (SIMD extension).
 
 Computed Values
 ---------------
@@ -75,6 +75,81 @@ information and examples.
 ArangoSearch
 ------------
 
+### Search highlighting (Enterprise Edition)
+
+Views now support search highlighting, letting you retrieve the positions of
+matches within strings, to highlight what was found in search results.
+
+You need to index attributes with custom Analyzers that have the new `offset`
+feature enabled to use this feature. You can then call the
+[`OFFSET_INFO()` function](aql/functions-arangosearch.html#offset_info) to
+get the start offsets and lengths of the matches (in bytes).
+
+You can use the [`SUBSTRING_BYTES()` function](aql/functions-string.html#substring_bytes)
+together with the [`VALUE()` function](aql/functions-document.html#value) to
+extract a match.
+
+```js
+db._create("food");
+db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
+db.food.save({ name: "carrot", description: { en: "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } });
+db.food.save({ name: "chili pepper", description: { en: "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } });
+db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
+
+var analyzers = require("@arangodb/analyzers");
+var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+
+db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
+db._query(`FOR doc IN food_view
+  SEARCH ANALYZER(
+    TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en OR
+    PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
+    STARTS_WITH(doc.description.en, "cap")
+  , "text_en_offset")
+  FOR offsetInfo IN OFFSET_INFO(doc, ["description.en"])
+    RETURN {
+      description: doc.description,
+      name: offsetInfo.name,
+      matches: offsetInfo.offsets[* RETURN {
+        offset: CURRENT,
+        match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
+      }]
+    }`);
+
+/*
+[
+  {
+    "description" : { "en" : "The avocado is a medium-sized, evergreen tree, native to the Americas." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [4, 11], "match" : "avocado" }
+    ]
+  },
+  {
+    "description" : { "en" : "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [82, 111], "match" : "cultivated for their pungency" },
+      { "offset" : [72, 80], "match" : "Capsicum" }
+    ]
+  },
+  {
+    "description" : { "en" : "The tomato is the edible berry of the tomato plant." },
+    "name" : [ "description", "en" ],
+    "matches" : [
+      { "offset" : [4, 10], "match" : "tomato" },
+      { "offset" : [38, 44], "match" : "tomato" }
+    ]
+  }
+]
+*/
+```
+
+See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
+for details.
+
+This feature is only available in the Enterprise Edition.
+
 ### Nested search (Enterprise Edition)
 
 Nested search allows you to index arrays of objects in a way that lets you
@@ -124,8 +199,48 @@ See [Nested search in ArangoSearch](arangosearch-nested-search.html) for details
 
 This feature is only available in the Enterprise Edition.
 
-UI
---
+Analyzers
+---------
+
+### `minhash` Analyzer (Enterprise Edition)
+
+This new Analyzer applies another Analyzer, for example, a `text` Analyzer to
+tokenize text into words, and then computes so called *MinHash signatures* from
+the tokens using a locality-sensitive hash function. The result lets you
+approximate the Jaccard similarity of sets.
+
+A common use case is to compare sets with many elements for entity resolution,
+such as for finding duplicate records, based on how many common elements they
+have.
+
+You can use the Analyzer with a new inverted index or ArangoSearch View to
+quickly find candidates for the actual Jaccard similarity comparisons you want
+to perform.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#minhash) for details.
+
+### `classification` Analyzer (Enterprise Edition)
+
+A new, experimental Analyzer for classifying individual tokens or entire inputs
+using a supervised fastText word embedding model that you provide.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#classification) for details.
+
+### `nearest_neighbors` Analyzer (Enterprise Edition)
+
+A new, experimental Analyzer for finding similar tokens
+using a supervised fastText word embedding model that you provide.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#nearest_neighbors) for details.
+
+Web Interface
+-------------
 
 
 
@@ -347,13 +462,55 @@ This operator is handy for the new nested search feature.
 See [Array Operators](aql/advanced-array-operators.html#question-mark-operator)
 for details.
 
+### New `AT LEAST` array comparison operator
+
+You can now combine one of the supported comparison operators with the special
+`AT LEAST (<expression>)` operator to require an arbitrary number of elements
+to satisfy the condition to evaluate to `true`. You can use a static number or
+calculate it dynamically using an expression:
+
+```aql
+[ 1, 2, 3 ]  AT LEAST (2) IN  [ 2, 3, 4 ]  // true
+["foo", "bar"]  AT LEAST (1+1) ==  "foo"   // false
+```
+
+See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
+
 ### New and Changed AQL Functions
 
 AQL functions added in 3.10:
 
+- [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info):
+  An ArangoSearch function to get the start offsets and lengths of matches for
+  [search highlighting](arangosearch-search-highlighting.html).
+
+- [`SUBSTRING_BYTES()`](aql/functions-string.html#substring_bytes):
+  A function to get a string subset using a start and length in bytes instead of
+  in number of characters. 
+
+- [`VALUE()`](aql/functions-document.html#value):
+  A new document function to dynamically get an attribute value of an object,
+  using an array to specify the path.
+
+- [`MINHASH()`](aql/functions-miscellaneous.html#minhash):
+  A new function for locality-sensitive hashing to approximate the
+  Jaccard similarity.
+
+- [`MINHASH_COUNT()`](aql/functions-miscellaneous.html#minhash_count):
+  A helper function to calculate the number of hashes (MinHash signature size)
+  needed to not exceed the specified error amount.
+
+- [`MINHASH_ERROR()`](aql/functions-miscellaneous.html#minhash_error):
+  A helper function to calculate the error amount based on the number of hashes
+  (MinHash signature size).
+
+- [`MINHASH_MATCH()`](aql/functions-arangosearch.html#minhash_match):
+  A new ArangoSearch function to match documents with an approximate
+  Jaccard similarity of at least the specified threshold that are indexed by a View.
+
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
   A document function to recursively keep attributes from objects/documents,
-  as a counterpart to `UNSET_RECURSIVE()`
+  as a counterpart to `UNSET_RECURSIVE()`.
 
 AQL functions changed in 3.10:
 
@@ -453,6 +610,28 @@ the collections will keep all properties that are kept when the graph is already
 created in a cluster.
 
 This feature is only available in the Enterprise Edition.
+
+### EnterpriseGraphs (Enterprise Edition)
+
+The 3.10 version of ArangoDB introduces a specialized version of SmartGraphs, 
+called EnterpriseGraphs. 
+
+EnterpriseGraphs come with a concept of automated sharding key selection,
+meaning that the sharding key is randomly selected while ensuring that all
+their adjacent edges are co-located
+on the same servers, whenever possible. This approach provides significant
+advantages as it minimizes the impact of having suboptimal sharding keys
+defined when creating the graph.
+
+See the [EnterpriseGraphs](graphs-enterprise-graphs.html) chapter for more details.
+
+This feature is only available in the Enterprise Edition.
+
+### (Disjoint) Hybrid SmartGraphs renaming
+
+(Disjoint) Hybrid SmartGraphs were renamed to
+**(Disjoint) SmartGraphs using SatelliteCollections**.
+The functionality and behavior of both types of graphs stay the same.
 
 Server options
 --------------
@@ -641,12 +820,21 @@ arangoexport \
   ...
 ```
 
+### ArangoDB Starter
+
+_ArangoDB Starter_ has a new feature that allows you to configure the binary
+by reading from a configuration file. The default configuration file of the Starter
+is `arangodb-starter.conf` and can be changed using the `--configuration` option. 
+
+See the [Starter configuration file](programs-starter-architecture.html#starter-configuration-file)
+section for more information about the configuration file format, passing
+through command line options, and examples. 
 
 Query changes for decreasing memory usage
 -----------------------------------------
 
 Queries can be executed with storing input and intermediate results temporarily
-on disk to descrease memory usage when a specified threshold is reached.
+on disk to decrease memory usage when a specified threshold is reached.
 
 {% hint 'info' %}
 This feature is experimental and is turned off by default.

@@ -1,6 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/gharial</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;myGraph&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;enterpriseGraph&quot;</span>, 
   <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
     { 
       <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;edges&quot;</span>, 
@@ -12,14 +12,11 @@
       ] 
     } 
   ], 
-  <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ 
-    <span class="hljs-string">&quot;orphanVertices&quot;</span> 
-  ], 
+  <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ ], 
   <span class="hljs-string">&quot;isSmart&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;options&quot;</span> : { 
     <span class="hljs-string">&quot;replicationFactor&quot;</span> : <span class="hljs-number">2</span>, 
-    <span class="hljs-string">&quot;numberOfShards&quot;</span> : <span class="hljs-number">9</span>, 
-    <span class="hljs-string">&quot;smartGraphAttribute&quot;</span> : <span class="hljs-string">&quot;region&quot;</span> 
+    <span class="hljs-string">&quot;numberOfShards&quot;</span> : <span class="hljs-number">9</span> 
   } 
 }
 EOF
@@ -28,9 +25,9 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">456</span>
+content-length: <span class="hljs-number">433</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: _eoadK9m--A
+etag: _etKtqka---
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
 server: ArangoDB
@@ -42,7 +39,7 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">202</span>, 
   <span class="hljs-string">&quot;graph&quot;</span> : { 
-    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;myGraph&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;enterpriseGraph&quot;</span>, 
     <span class="hljs-string">&quot;numberOfShards&quot;</span> : <span class="hljs-number">9</span>, 
     <span class="hljs-string">&quot;replicationFactor&quot;</span> : <span class="hljs-number">2</span>, 
     <span class="hljs-string">&quot;minReplicationFactor&quot;</span> : <span class="hljs-number">1</span>, 
@@ -60,15 +57,12 @@ x-content-type-options: nosniff
         ] 
       } 
     ], 
-    <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ 
-      <span class="hljs-string">&quot;orphanVertices&quot;</span> 
-    ], 
+    <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ ], 
     <span class="hljs-string">&quot;initial&quot;</span> : <span class="hljs-string">&quot;startVertices&quot;</span>, 
-    <span class="hljs-string">&quot;initialCid&quot;</span> : <span class="hljs-number">66234</span>, 
-    <span class="hljs-string">&quot;smartGraphAttribute&quot;</span> : <span class="hljs-string">&quot;region&quot;</span>, 
+    <span class="hljs-string">&quot;initialCid&quot;</span> : <span class="hljs-number">66289</span>, 
     <span class="hljs-string">&quot;isDisjoint&quot;</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_eoadK9m--A&quot;</span>, 
-    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;_graphs/myGraph&quot;</span>, 
-    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;myGraph&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_etKtqka---&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;_graphs/enterpriseGraph&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;enterpriseGraph&quot;</span> 
   } 
 }

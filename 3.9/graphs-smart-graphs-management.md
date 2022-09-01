@@ -59,7 +59,8 @@ enforce the correct sharding.
     editable after creation. Default: false.
   - `satellites` (array, optional):
     An array of collection names that will be used to create
-    [SatelliteCollections](satellites.html) for a Hybrid (Disjoint) SmartGraph.
+    [SatelliteCollections](satellites.html) for a (Disjoint) SmartGraph
+    using SatelliteCollections.
     Each array element must be a string and a valid collection name.
     The collection type cannot be modified later.
 

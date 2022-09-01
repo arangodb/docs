@@ -23,7 +23,7 @@ Assume we have documents in a collection `points` of the form
 {"x": 12.9, "y": -284.0, "z": 0.02}
 ```
 
-and we want to query all documents that contained within a box defined by
+and we want to query all documents that are contained within a box defined by
 `[x0, x1] * [y0, y1] * [z0, z1]`.
 
 To do so one creates a multi-dimensional index on the attributes `x`, `y` and
@@ -114,7 +114,7 @@ intersect `[f, t]`. Two intervals `[f, t]` and `[from, to]` intersect if
 and only if
 
 ```
-a_2 <= b_1 and a_1 <= b_2
+f <= to and from <= t
 ```
 
 Thus our query would be:
