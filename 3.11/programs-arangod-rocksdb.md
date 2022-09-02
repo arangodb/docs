@@ -163,7 +163,7 @@ which may waste some memory but may reduce the number of cross-page I/O operatio
 
 ### Background tasks
 
-<small>Introduced in: v3.9.4</small>
+<small>Introduced in: v3.9.3</small>
 
 `--rocksdb.periodic-compaction-ttl`
 
