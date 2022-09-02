@@ -36,8 +36,8 @@ Consider the following document:
 }
 ```
 
-You would normally index the `dimensions` field and its sub-fields with a
-View definition like the following:
+You would normally index the `dimensions` field and its sub-fields with an
+`arangosearch` View definition like the following:
 
 ```json
 {
@@ -88,7 +88,7 @@ FOR doc IN viewName
   RETURN doc
 ```
 
-The required View definition for this to work is as follows:
+The required `arangosearch` View definition for this to work is as follows:
 
 ```json
 {
@@ -133,10 +133,13 @@ including the specified boundaries. To require two or more sub-objects to
 fulfill the conditions, you can use `AT LEAST (2)`, and so on.
 
 {% hint 'info' %}
-The `ALL` quantifier of the Question mark operator is not supported in View queries.
-
-Using the question mark operator without quantifier and filter conditions (`[?]`)
-cannot utilize View indexes.
+- The `ALL` quantifier of the question mark operator is not supported in
+  `SEARCH` queries against `arangosearch` Views.
+- The expression of the `AT LEAST` quantifier needs to evaluate to a number
+  before the search is performed. It can therefore not reference the document
+  emitted by `FOR doc IN viewName`, nor the `CURRENT` pseudo-variable.
+- Using the question mark operator without quantifier and filter conditions
+  (`[?]`) is possible but cannot utilize indexes.
 {% endhint %}
 
 ## Searching deeply nested data
@@ -167,7 +170,7 @@ Consider the following document:
 ```
 
 To index the array of dimension objects and the nested array of measurement
-objects, you can use a View definition like the following:
+objects, you can use an `arangosearch` View definition like the following:
 
 ```json
 {

@@ -87,6 +87,8 @@ During view modification the following directives apply:
   values. For example, you can search the sub-objects and all the conditions
   need to be met by a single sub-object instead of across all of them.
 
+  This property is available in the Enterprise Edition only.
+
   {% hint 'info' %}
   You cannot use the `nested` property at the top-level of the link properties.
   It needs to have a parent field, e.g.
