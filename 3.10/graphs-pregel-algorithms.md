@@ -165,7 +165,7 @@ In a call of either version, the `threshold` parameter can be used to set a limi
 between the current and last iteration).
 
 If the value of the result field is `<resultField>`, then the hub score is stored in
-the field `<resultField>_hub` and the authority score in the field `<resultField>_auth`.
+the `<resultField>_hub` field and the authority score in the `<resultField>_auth` field.
 
 The algorithm can be executed like this:
 
