@@ -163,6 +163,14 @@ which may waste some memory but may reduce the number of cross-page I/O operatio
 
 ### Background tasks
 
+<small>Introduced in: v3.9.3</small>
+
+`--rocksdb.periodic-compaction-ttl`
+
+TTL (in seconds) for periodic compaction of .sst files in RocksDB, based on
+the .sst file age. The default value from RocksDB is ~30 days. To avoid
+periodic auto-compaction and the I/O caused by it, the option can be set to `0`.
+
 `--rocksdb.max-background-jobs`
 
 Maximum number of concurrent background compaction jobs, submitted to the low
