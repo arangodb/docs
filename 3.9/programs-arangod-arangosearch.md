@@ -90,3 +90,34 @@ set, then the commit and consolidation thread counts are calculated as follows:
   `arangosearch.threads-limit` divided by 2, but at least 1.
 - Minimum: the maximum divided by 2, but at least 1.
 {% endhint %}
+
+`arangosearch.skip-recovery`
+
+<small>Introduced in: v3.9.4</small>
+
+Skip data recovery for the specified view links on startup. 
+Values for this startup option should have the format `<collection-name>/<link-id>`.
+On DB servers, the `<collection-name>` part should contain a shard name.
+
+The option can be used multiple times for each link to skip the recovery for. 
+The pseudo-value `all` will disable recovery for all links.
+
+By default, this option has no value(s) and the recovery is not skipped for any
+link.
+
+All links that are skipped during recovery, but for which there is recovery data, 
+will be permanently marked as "out of sync" when the recovery is 
+completed. These links should be recreated manually afterwards to get back 
+into sync. How these links respond to queries can be controlled
+via the startup option `arangosearch.fail-queries-on-out-of-sync`.
+
+`arangosearch.fail-queries-on-out-of-sync`
+
+<small>Introduced in: v3.9.4</small>
+
+If this option is set to `true`, any data retrieval queries on out of sync links 
+will fail with "internal error". Note: this error will change in ArangoDB 3.10
+to "collection/view is out of sync" (error code 1481).
+
+The option is set to `false` by default. With this setting, queries on out of sync
+links will be answered normally, but the return data may be incomplete.
