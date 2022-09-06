@@ -8543,6 +8543,34 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.periodic-compaction-ttl" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 2592000,
+    "deprecatedIn" : null,
+    "description" : "TTL (in seconds) for periodic compaction of .sst files, based on file age (0 = no periodic compaction)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.3"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.pin-l0-filter-and-index-blocks-in-cache" : {
     "category" : "option",
     "component" : [
