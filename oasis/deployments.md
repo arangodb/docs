@@ -210,6 +210,7 @@ attached to your role. Read more about [roles and permissions](access-control.ht
 The configuration options depend on the tier your organization belongs to.
 For more details about available resources and usage limits, refer to the 
 [Oasis tiers](organizations.html#oasis-tiers) section.
+{% endhint %}
 
 1. Go to the **Projects** section and select an existing deployment from the list. 
 2. Open the deployment you want to change. 
