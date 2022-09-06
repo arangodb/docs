@@ -72,7 +72,7 @@ See [Billing: How to add billing details / payment methods](billing.html)
 ## How to upgrade to Enterprise tier
 
 To upgrade to the Enterprise tier, you need to get in touch with the ArangoDB
-team. [Contact us]https://www.arangodb.com/contact/){:target="_blank"} for more details.
+team. [Contact us](https://www.arangodb.com/contact/){:target="_blank"} for more details.
 
 ## How to create a new organization
 
