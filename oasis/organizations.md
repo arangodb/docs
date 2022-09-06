@@ -14,7 +14,7 @@ An organization typically represents a (commercial) entity such as a company,
 a company division, an institution or a non-profit organization.
 
 Users can be members of one or more organizations. However, you can only be a
-member of one _Free to try_ tier organization at a time.
+member of one _Free-to-try_ tier organization at a time.
 
 ## How to switch between my organizations
 
@@ -29,19 +29,50 @@ member of one _Free to try_ tier organization at a time.
 
 ![Oasis Organization Overview](images/oasis-organization-overview.png)
 
-## How to upgrade to professional
+## Oasis tiers
 
-ArangoDB Oasis comes with a free-to-try tier that lets you test our ArangoDB
-Cloud for free for 14 days. After the trial period, your deployments will
-be deleted automatically.
+With ArangoDB Oasis, your organization can belong to one of the following three tiers:
 
-You can convert to the professional service model at any time by adding
+- **Free-to-try tier**: ArangoDB Oasis comes with a free-to-try tier that lets
+you test the ArangoDB Cloud for free for 14 days. After the trial period,
+your deployments will be deleted automatically. Includes the Basic Support plan,
+which covers the availability and connectivity of the Oasis platform, and general questions.
+- **Professional tier**: Allows you to create additional organizations and
+projects, and have more and larger deployments. Includes the Standard support for
+professional deployments, which covers everything from the Basic support plan
+with explicit response times.
+- **Enterprise tier**: Get unlimited access to all functionalities and resources,
+with the best available support and response times. Includes the Premium Standard
+support plan.
+
+| &nbsp;| Free-to-try  | Professional  | Enterprise  |
+|-------|--------------|---------------|-------------|
+| Organizations | 1 | Unlimited | Unlimited |
+| Projects per organization | 1 | 3 | Unlimited |
+| Deployments per project | 1 | 5 | Unlimited |
+| Deployment nodes | Up to 3 nodes | Unlimited | Unlimited | 
+| Memory per node | 2 GB | 256 GB | Unlimited |
+| Total memory per project | 96 GB | 2048 GB | Unlimited | 
+| Storage per node | 150 GB | 6400 GB | Unlimited |  
+| Total storage per project | 450 GB | 64000 GB | Unlimited | 
+| Upload backup | Not included | Included | Included |
+| Private endpoint deployment | Not included | Included | Included |
+| Support plan | Basic | Standard | Premium Standard |
+
+## How to upgrade to Professional tier
+
+You can upgrade to the professional service model at any time by adding
 your billing details and at least one payment method. You can then create
 additional organizations and projects and have more and larger deployments.
 
 See [Billing: How to add billing details / payment methods](billing.html)
 
 ![Oasis Billing](images/oasis-billing.png)
+
+## How to upgrade to Enterprise tier
+
+To upgrade to the Enterprise tier, you need to get in touch with the ArangoDB
+team. [Contact us]https://www.arangodb.com/contact/){:target="_blank"} for more details.
 
 ## How to create a new organization
 
