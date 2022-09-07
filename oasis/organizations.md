@@ -46,15 +46,11 @@ with the best available support and response times. Includes the Premium Standar
 support plan.
 
 | &nbsp;| Free-to-try  | Professional  | Enterprise  |
-|-------|--------------|---------------|-------------|
-| **Organizations** | 1 | Unlimited | Unlimited |
+|-------|:--------------:|:---------------:|:-------------:|
+| **Organizations per user** | 1 | Unlimited | Unlimited |
 | **Projects per organization** | 1 | 3 | Unlimited |
 | **Deployments per project** | 1 | 5 | Unlimited |
-| **Deployment nodes** | Up to 3 nodes | Unlimited | Unlimited | 
-| **Memory per node** | 2 GB | 256 GB | Unlimited |
-| **Total memory per project** | 96 GB | 2048 GB | Unlimited | 
-| **Storage per node** | 150 GB | 6400 GB | Unlimited |  
-| **Total storage per project** | 450 GB | 64000 GB | Unlimited | 
+| **Configuration options** || Different usage limits apply | Unlimited |
 | **Upload backup** | Not included | Included | Included |
 | **Private endpoint deployment** | Not included | Included | Included |
 | **Support plan** | Basic | Standard | Premium Standard |
