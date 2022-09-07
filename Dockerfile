@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM  ruby:2.6
 
 RUN apt-get update && \
     apt-get install -y ruby-full build-essential zlib1g-dev wget python2.7 libpython2.7
