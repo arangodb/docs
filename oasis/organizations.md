@@ -50,10 +50,14 @@ support plan.
 | **Organizations per user** | 1 | Unlimited | Unlimited |
 | **Projects per organization** | 1 | 3 | Unlimited |
 | **Deployments per project** | 1 | 5 | Unlimited |
-| **Configuration options** || Different usage limits apply | Unlimited |
 | **Upload backup** | Not included | Included | Included |
 | **Private endpoint deployment** | Not included | Included | Included |
 | **Support plan** | Basic | Standard | Premium Standard |
+
+{% hint 'info' %}
+Based on the type of tier your organization belongs to, different usage
+limits apply for memory and storage.
+{% endhint %}
 
 ## How to upgrade to Professional tier
 
