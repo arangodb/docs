@@ -23,6 +23,6 @@ func (service JSService) Execute(request common.Request) error {
 		return nil
 	}
 
-	// Launch example
+	// Launch example and return desired stuff
 	return nil
 }

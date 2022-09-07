@@ -8,24 +8,32 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type ExampleType string
+
+const (
+	JS  ExampleType = "js"
+	AQL ExampleType = "aql"
+)
+
 type Request struct {
+	Type    ExampleType
 	Options RequestOptions
 	Code    string
 }
 
 type RequestOptions struct {
-	Name string `yaml:"name"`
-	Run  bool   `yaml:"run"`
+	Name    string `yaml:"name"`
+	Run     bool   `yaml:"run"`
+	Version string `yaml:"version"`
 }
 
-func ParseRequest(request []byte) (Request, error) {
+func ParseRequest(request []byte, exampleType ExampleType) (Request, error) {
 	r, err := regexp.Compile("---[\\w\\s\\W]*---")
 	if err != nil {
 		return Request{}, fmt.Errorf("ParseRequest error compiling regex: %s", err.Error())
 	}
 
 	options := r.Find(request)
-	fmt.Printf("ParseRequest options: %s", options)
 	optionsYaml := RequestOptions{}
 	err = yaml.Unmarshal(options, &optionsYaml)
 	if err != nil {
@@ -33,7 +41,17 @@ func ParseRequest(request []byte) (Request, error) {
 	}
 
 	code := strings.Replace(string(request), string(options), "", -1)
-	fmt.Printf("ParseRequest code: %s", code)
 
-	return Request{Options: optionsYaml, Code: code}, nil
+	return Request{Type: exampleType, Options: optionsYaml, Code: code}, nil
+}
+
+func (r Request) String() string {
+	return fmt.Sprintf("%s\nfunction %s() {\n%s\n}", r.Options, r.Options.Name, r.Code)
+}
+
+func (r RequestOptions) String() string {
+	return fmt.Sprintf("//run: %v\n//version: %s", r.Run, r.Version)
+}
+
+type Reponse struct {
 }

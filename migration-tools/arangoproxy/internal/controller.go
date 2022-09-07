@@ -12,6 +12,9 @@ import (
 
 func StartController() {
 	http.HandleFunc("/js", JSHandler)
+	http.HandleFunc("/aql", TODOHandler)
+	http.HandleFunc("/go", TODOHandler)
+	http.HandleFunc("/java", TODOHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
@@ -28,11 +31,15 @@ func JSHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	request, err := common.ParseRequest(req)
+	request, err := common.ParseRequest(req, common.JS)
 	if err != nil {
 		fmt.Printf("%s", err.Error())
 		return
 	}
 
 	JSService.Execute(request)
+}
+
+func TODOHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("TODO")
 }
