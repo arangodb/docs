@@ -75,7 +75,7 @@ inverse document frequency (IDF).
 }
 ```
 
-**AQL Queries:**
+### AQL queries
 
 Search for movies with certain keywords in their description and rank the
 results using the [`BM25()` function](aql/functions-arangosearch.html#bm25):
@@ -164,7 +164,7 @@ boosted parts of the search expression will get higher scores.
 }
 ```
 
-**AQL Queries:**
+### AQL queries
 
 Prefer `galaxy` over the other keywords:
 

@@ -160,15 +160,18 @@ The following *features* are supported:
 
 - **frequency**: track how often a term occurs.
   Required for [`PHRASE()`](aql/functions-arangosearch.html#phrase),
-  [`BM25()`](aql/functions-arangosearch.html#bm25), and
-  [`TFIDF()`](aql/functions-arangosearch.html#tfidf).
+  [`NGRAM_MATCH()`](aql/functions-arangosearch.html#ngram_match),
+  [`BM25()`](aql/functions-arangosearch.html#bm25),
+  [`TFIDF()`](aql/functions-arangosearch.html#tfidf), and
+  [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info).
 - **norm**: write the field length normalization factor that is used to score
   repeated terms fairer. Required for [`BM25()`](aql/functions-arangosearch.html#bm25)
   (except BM15) and [`TFIDF()`](aql/functions-arangosearch.html#tfidf)
   (if called with normalization enabled).
 - **position**: enumerate the tokens for position-dependent queries. Required
-  for [`PHRASE()`](aql/functions-arangosearch.html#phrase) and
-  [`NGRAM_MATCH()`](aql/functions-arangosearch.html#ngram_match).
+  for [`PHRASE()`](aql/functions-arangosearch.html#phrase),
+  [`NGRAM_MATCH()`](aql/functions-arangosearch.html#ngram_match), and
+  [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info).
   If present, then the `frequency` feature is also required.
 - **offset**: enable search highlighting capabilities (Enterprise Edition only).
   Required for [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info).
@@ -1385,7 +1388,8 @@ script, or use its default locale if neither of the former is valid.
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
-language rules as per the defined Analyzer locale nor the server language
+language rules as per the defined Analyzer locale (except for the
+[`collation` Analyzer](analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](release-notes-known-issues311.html#arangosearch).
 {% endhint %}

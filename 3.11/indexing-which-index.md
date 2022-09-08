@@ -36,6 +36,28 @@ different usage scenarios:
   speed up index lookups for queries that cover all index attributes
   (`cacheEnabled` index option).
 
+- **Inverted index**: an inverted index lets you accelerate a broad range of
+  queries, from simple lookups to complex information retrieval. It can cover
+  filter conditions of the following types:
+
+  - Exact value matching
+  - Range queries
+  - Prefix matching
+  - Accent- and case-insensitive matching
+  - Wildcard and fuzzy matching
+  - Token and phrase queries for full-text search
+  - Geo-spatial queries
+  - Nested matching
+  - Search highlighting
+
+  The inverted index type is eventually consistent unlike other indexes, except
+  the inverted index of ArangoSearch Views, which is also eventually consistent.
+  It may thus not be a suitable index type depending on your requirements.
+
+  You can add one more more inverted indexes to a Search Alias View for
+  federated searching over multiple collections and for ranking results by
+  relevance. It is a lightweight alternative to an ArangoSearch View.
+
 - **TTL index**: the TTL index provided by ArangoDB can be used for automatically
   removing expired documents from a collection.
 

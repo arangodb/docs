@@ -100,7 +100,7 @@ search highlighting:
 }
 ```
 
-**AQL queries:**
+#### AQL queries
 
 Search the View for descriptions that contain the tokens `avocado` or `tomato`,
 the phrase `cultivated ... pungency` with two arbitrary tokens between the two

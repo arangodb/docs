@@ -33,15 +33,28 @@ more.
 
 ## Getting Started with ArangoSearch
 
-ArangoSearch introduces the concept of **Views** which can be seen as
-virtual collections. Each View represents an inverted index to provide fast
-full-text searching over one or multiple linked collections and holds the
-configuration for the search capabilities, such as the attributes to index.
-It can cover multiple or even all attributes of the documents in the linked
-collections.
+ArangoSearch introduces the concept of **Views**, which can be seen as
+virtual collections. There are two types of Views:
+
+- **ArangoSearch Views**:
+  Each View of the `arangosearch` type represents an inverted index to provide fast
+  full-text searching over one or multiple linked collections and holds the
+  configuration for the search capabilities, such as the attributes to index.
+  It can cover multiple or even all attributes of the documents in the linked
+  collections.
+
+- **Search Alias Views**:
+  Views of the `search-alias` type reference one or more
+  [Inverted indexes](indexing-inverted.html). Inverted indexes are defined on
+  the collection level and can be used stand-alone for filtering, but adding
+  them to a Search Alias View enables you to search over multiple collections at
+  once, called "federated search", and offers you the same capabilities for
+  ranking search results by relevance like with ArangoSearch Views. Each
+  inverted index can index multiple or even all attribute of the documents of
+  the collection it is defined for.
 
 {% hint 'info' %}
-ArangoSearch Views are not updated synchronously as the source collections
+Views are not updated synchronously as the source collections
 change in order to minimize the performance impact. They are
 **eventually consistent**, with a configurable consolidation policy.
 {% endhint %}
@@ -125,14 +138,21 @@ logical and comparison operators, as well as
 
 ### Understanding the Analyzer context
 
-ArangoSearch allows you to index the same field with multiple Analyzers.
+ArangoSearch Views allow you to index the same field with multiple Analyzers.
 This makes it necessary to select the right one in your query by setting the
 Analyzer context with the `ANALYZER()` function.
+
+{% hint 'tip' %}
+If you use Search Alias Views, you do not need to specify the Analyzer context
+with the `ANALYZER()` function in queries. The Analyzers are inferred from the
+definitions of the inverted indexes. This is possible because every field can
+only be indexed with a single Analyzer.
+{% endhint %}
 
 We did not specify an Analyzer explicitly in above example, but it worked
 regardless. That is because the `identity` Analyzer is used by default in both
 View definitions and AQL queries. The Analyzer chosen in a query needs to match
-with one of the Analyzers that a field was indexed with as per the View
+with one of the Analyzers that a field was indexed with as per the ArangoSearch View
 definition - and this happened to be the case. We can rewrite the query to be
 more explicit about the Analyzer context:
 
@@ -296,7 +316,7 @@ ANALYZER(STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom"), "identity
 ```
 
 The default Analyzer that will be used for searching is `"identity"`.
-While some ArangoSearch functions accept an Analyzer argument, it is often
+While some ArangoSearch functions accept an Analyzer argument, it is sometimes
 necessary to wrap search (sub-)expressions with an `ANALYZER()` call to set the
 correct Analyzer in the query so that it matches one of the Analyzers with
 which the field was indexed.
@@ -585,9 +605,9 @@ therefore applied to each element).
 Regular indexes are immediately consistent. If you have a collection with a
 `persistent` index on an attribute `text` and update the value of the attribute
 for instance, then this modification is reflected in the index immediately.
-ArangoSearch View indexes on the other hand are eventual consistent. Document
-changes are not reflected instantly, but only near-realtime. This mainly has
-performance reasons.
+ArangoSearch View indexes and inverted indexed on the other hand are eventual
+consistent. Document changes are not reflected instantly, but only near-realtime.
+This mainly has performance reasons.
 
 If you run a search query shortly after a CRUD operation, then the results may
 be slightly stale, e.g. not include a newly inserted document:

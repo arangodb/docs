@@ -75,6 +75,68 @@ information and examples.
 ArangoSearch
 ------------
 
+### Inverted collection indexes
+
+A new `inverted` index type is available that you can define at the collection
+level. You can use these indexes similar to ArangoSearch Views, to accelerate
+queries like value lookups, range queries, accent- and case-insensitive search,
+wildcard and fuzzy search, nested search, search highlighting, as well as for
+sophisticated full-text search with the ability to search for words, phrases,
+and more.
+
+```js
+db.coll.ensureIndex({
+  type: "inverted",
+  name: "inv-idx",
+  fields: [
+    "title",
+    { name: "description", analyzer: "text_en" }
+  ]
+});
+
+db._query(`FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
+  FILTER TOKENS("neo smith", "text_en") ALL IN doc.description
+  RETURN doc.title`);
+```
+
+You need to use an index hint to utilize an inverted index.
+Note that the `FOR` loop uses a collection, not a View, and documents are
+matched using a `FILTER` operation. Filter conditions work similar to the
+`SEARCH` operation but you don't need to specify Analyzers with the `ANALYZER()`
+function in queries.
+
+Like Views, this type of index is eventually consistent.
+
+See [Inverted index](indexing-inverted.html) for details.
+
+### Search Alias Views
+
+A new `search-alias` View type was added to let you add one or more
+inverted indexes to a View, enabling federated searching over multiple
+collections and ranking of search results by relevance similar to
+ArangoSearch Views. This is on top of the filtering capabilities provided by the
+inverted indexes, including full-text processing with Analyzers and more.
+
+```js
+db._createView("view", "search-alias", {
+  indexes: [
+    { collection: "coll", index: "inv-idx" }
+  ]
+});
+
+db._query(`FOR doc IN view
+  SEARCH STARTS_WITH(doc.title, "The Matrix") AND
+  PHRASE(doc.description, "begin", 2, "end")
+  RETURN doc`);
+```
+
+A key difference between ArangoSearch and Search Alias Views is that you don't
+need to specify an Analyzer context with the `ANALYZER()` function in queries
+because it is inferred from the inverted index definition, which only supports
+a single Analyzer per field.
+
+Also see [Getting started with ArangoSearch](arangosearch.html#getting-started-with-arangosearch).
+
 ### Search highlighting (Enterprise Edition)
 
 Views now support search highlighting, letting you retrieve the positions of
@@ -146,7 +208,8 @@ db._query(`FOR doc IN food_view
 ```
 
 See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
-for details.
+for details. Search highlighting is also available for the new
+[Invertex index](indexing-inverted.html) type.
 
 This feature is only available in the Enterprise Edition.
 

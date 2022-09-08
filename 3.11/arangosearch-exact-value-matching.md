@@ -20,7 +20,16 @@ the entire string is equal (not matching substrings).
 
 **Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
-**View definition:**
+### View definition
+
+#### Search Alias View
+
+```js
+db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-exact", fields: [ "title" ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
+```
+
+#### ArangoSearch View
 
 ```json
 {
@@ -38,23 +47,9 @@ the entire string is equal (not matching substrings).
 }
 ```
 
-**AQL queries:**
+### AQL queries
 
 Match exact movie title (case-sensitive, full string):
-
-```aql
-FOR doc IN imdb
-  SEARCH ANALYZER(doc.title == "The Matrix", "identity")
-  RETURN doc.title
-```
-
-| Result |
-|:-------|
-| **The Matrix** |
-
-It is not necessary to set the Analyzer context with the `ANALYZER()` function
-here, because the default Analyzer is `identity` anyway. The following query
-will return the exact same results:
 
 ```aql
 FOR doc IN imdb
@@ -62,15 +57,33 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
-However, being explicit about the Analyzer context helps with clarity and it
+| Result |
+|:-------|
+| **The Matrix** |
+
+For ArangoSearch Views, it is not necessary to set the Analyzer context with
+the `ANALYZER()` function here, because the default Analyzer is `identity` anyway.
+However, being explicit about the Analyzer context can help with clarity and it
 also makes it easier to adjust queries if you want to use something other than
-the `identity` Analyzers. A common pitfall is to index a field with a certain
+the `identity` Analyzers:
+
+```aql
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.title == "The Matrix", "identity")
+  RETURN doc.title
+```
+
+A common pitfall is to index a field with a certain
 Analyzer, but forgetting to set this Analyzer as context in the query.
 The consequence is usually an empty result, because there is nothing in the
 View index for the implicitly requested Analyzer. Or the field happens to be
 indexed with the `identity` Analyzer as well, but there are no or different
 matches because of different Analyzer pre-processing between the indexed data
 and the search terms.
+
+For Search Alias Views, you never need to specify an Analyzer in queries,
+because the Analyzer is inferred from the inverted index definition, which only
+allows a single Analyzer per field.
 
 ## Matching Multiple Strings
 
@@ -84,7 +97,7 @@ Match multiple exact movie titles using `OR`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.title == "The Matrix" OR doc.title == "The Matrix Reloaded", "identity")
+  SEARCH doc.title == "The Matrix" OR doc.title == "The Matrix Reloaded"
   RETURN doc.title
 ```
 
@@ -97,7 +110,7 @@ Match multiple exact movie titles using `IN`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.title IN ["The Matrix", "The Matrix Reloaded"], "identity")
+  SEARCH doc.title IN ["The Matrix", "The Matrix Reloaded"]
   RETURN doc.title
 ```
 
@@ -111,7 +124,7 @@ to use the same query for an arbitrary amount of alternative strings to match:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.title IN @titles, "identity")
+  SEARCH doc.title IN @titles
   RETURN doc.title
 ```
 
@@ -149,7 +162,7 @@ Match movies that do not have the title `The Matrix`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.title != "The Matrix", "identity")
+  SEARCH doc.title != "The Matrix"
   RETURN doc.title
 ```
 
@@ -178,7 +191,7 @@ Post-filter the results to exclude implicit `null`s:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.title NOT IN ["The Matrix", "The Matrix Reloaded"], "identity")
+  SEARCH doc.title NOT IN ["The Matrix", "The Matrix Reloaded"]
   FILTER doc.title != null
   RETURN doc.title
 ```
@@ -193,16 +206,19 @@ FOR doc IN imdb
 | The Magician |
 | … |
 
-A better way to ignore documents without title attribute is to change the View
-property `storeValues` (not to be confused with `storedValues`!) from `"none"`
-to `"id"`. You can then use the [`EXISTS()` function](aql/functions-arangosearch.html#exists)
-to test whether there is a title field or not. On a single server with this
-particular dataset, the query is roughly five times faster than the previous
-one without `EXISTS()`:
+A better way to ignore documents without title attribute is to use the
+[`EXISTS()` function](aql/functions-arangosearch.html#exists).
+For ArangoSearch Views, you need to change the `storeValues` View property
+(not to be confused with `storedValues`!) from `"none"` to `"id"`. You can then 
+to test whether there is a title field or not. For Search Alias Views, the
+`EXISTS()` function works out of the box.
+
+On a single server with this particular dataset, the query is roughly five times
+faster than the previous one without `EXISTS()`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(EXISTS(doc.title) AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"], "identity")
+  SEARCH EXISTS(doc.title) AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"]
   RETURN doc.title
 ```
 

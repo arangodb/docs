@@ -26,7 +26,7 @@ grouped by version
   queries, providing similar search capabilities as ArangoSearch Views, but
   defined per collection and simpler to use.
 
-- [**Search alias views**](arangosearch-search-alias.html):
+- [**Search Alias Views**](release-notes-new-features310.html#search-alias-views):
   Add inverted indexes to `search-alias` Views for searching multiple collections
   at once, as an alternative to `arangosearch` Views.
 

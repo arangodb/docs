@@ -21,9 +21,20 @@ to group and count how many documents share an attribute value. This is also
 possible with ArangoSearch Views by simply iterating over a View instead of a
 collection.
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+## Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+## View definition
+
+### Search Alias View
+
+```js
+db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-exact", fields: [ "title" ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
+```
+
+### ArangoSearch View
 
 ```json
 {
@@ -41,7 +52,7 @@ collection.
 }
 ```
 
-**AQL Queries:**
+## AQL queries
 
 Find out all genre values by grouping by the `genre` attribute and count the
 number of occurrences:
@@ -71,7 +82,7 @@ utilizes the View index, but the `COLLECT` operation is still a post-operation:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.genre == "Action", "identity")
+  SEARCH doc.genre == "Action"
   COLLECT WITH COUNT INTO count
   RETURN count
 ```
@@ -89,7 +100,7 @@ the standard `COLLECT`. Also see
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.genre == "Action", "identity")
+  SEARCH doc.genre == "Action"
   OPTIONS { countApproximate: "cost" }
   COLLECT WITH COUNT INTO count
   RETURN count
@@ -117,7 +128,7 @@ LET genres = [ "Action", "Adventure", "Animation", /* ... */ ]
 FOR genre IN genres
   LET count = FIRST(
     FOR doc IN imdb
-      SEARCH ANALYZER(doc.genre == genre, "identity")
+      SEARCH doc.genre == genre
       OPTIONS { countApproximate: "cost" }
       COLLECT WITH COUNT INTO count
       RETURN count

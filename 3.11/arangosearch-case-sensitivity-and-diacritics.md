@@ -10,9 +10,11 @@ title: Case-insensitive Search ArangoSearch Examples
 
 ## Normalizing a Single Token
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**Custom Analyzer:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### Custom Analyzer
 
 Create a `norm` Analyzer in arangosh to normalize case to all lowercase and to
 remove diacritics:
@@ -23,7 +25,16 @@ var analyzers = require("@arangodb/analyzers");
 analyzers.save("norm_en", "norm", { locale: "en.utf-8", accent: false, case: "lower" }, ["frequency", "norm", "position"]);
 ```
 
-**View definition:**
+### View definition
+
+#### Search Alias View
+
+```js
+db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-ci", fields: [ { name: "title", analyzer: "norm_en" } ] });
+db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-ci" } ] });
+```
+
+#### ArangoSearch View
 
 ```json
 {
@@ -41,10 +52,22 @@ analyzers.save("norm_en", "norm", { locale: "en.utf-8", accent: false, case: "lo
 }
 ```
 
-**AQL queries:**
+### AQL queries
+
+#### Example: Full string matching
 
 Match movie title, ignoring capitalization and using the base characters
-instead of accented characters (full string):
+instead of accented characters (full string).
+
+_Search Alias View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.title == TOKENS("thé mäTRïX", "norm_en")[0]
+  RETURN doc.title
+```
+
+_ArangoSearch View:_
 
 ```aql
 FOR doc IN imdb
@@ -56,7 +79,19 @@ FOR doc IN imdb
 |:-------|
 | **The Matrix** |
 
-Match a title prefix (case-insensitive):
+#### Example: Prefix matching
+
+Match a title prefix (case-insensitive).
+
+_Search Alias View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH STARTS_WITH(doc.title, "the matr")
+  RETURN doc.title
+```
+
+_ArangoSearch View:_
 
 ```aql
 FOR doc IN imdb

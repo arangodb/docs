@@ -78,13 +78,13 @@ The `/_api/index` endpoints support a new `inverted` index type.
 
 Options for creating an index (`POST /_api/index`):
 
-- `type` (string): needs to be set to `"inverted"`, immutable
+- `type` (string): needs to be set to `"inverted"`
 - `name` (string, _optional_)
 - `fields` (array): required unless the top-level `includeAllFields` option is
   set to `true`. The array elements can be a mix of strings and objects:
   - `name` (string, _required_): an attribute path. Passing a string instead of
     an object is the same as passing an object with this name attribute
-  - `analyzer` (string, _optional_), default: the value defined by the top-level
+  - `analyzer` (string, _optional_): default: the value defined by the top-level
     `analyzer` option
   - `features` (array, _optional_): an array of strings, possible values:
     `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the value of
@@ -92,7 +92,8 @@ Options for creating an index (`POST /_api/index`):
   - `includeAllFields` (boolean, _optional_): default: `false`
   - `searchField` (boolean, _optional_): default: the value defined by the
     top-level `searchField` option
-  - `trackListPositions` (boolean, _optional_): default: `false`
+  - `trackListPositions` (boolean, _optional_): default: the value of the
+    top-level `trackListPositions` option
   - `nested` (array, _optional_): the array elements can be a mix of strings
     and objects:
     - `name` (string, _required_): an attribute path. Passing a string instead
@@ -109,7 +110,7 @@ Options for creating an index (`POST /_api/index`):
   - `fields` (array, _required_): an array of strings
   - `compression` (string, _optional_): possible values: `"lz4"`, `"none"`.
     Default: `"lz"`
-- `primarySort` (object, _optional_): immutable
+- `primarySort` (object, _optional_)
   - `fields` (array, _required_): an array of objects:
     - `field` (string, _required_)
     - `direction` (string, _required_): possible values: `"asc"`, `"desc"`
@@ -136,9 +137,94 @@ Options for creating an index (`POST /_api/index`):
   - `segmentsMax` (integer, _optional_): default: `10`
   - `segmentsMin` (integer, _optional_): default: `1`
   - `minScore`: (integer, _optional_): default: `0`
-- `writebufferIdle` (integer, _optional_): default: `64`, immutable
-- `writebufferActive` (integer, _optional_): default: `0`, immutable
-- `writebufferSizeMax` (integer, _optional_): default: `33554432`, immutable
+- `writebufferIdle` (integer, _optional_): default: `64`
+- `writebufferActive` (integer, _optional_): default: `0`
+- `writebufferSizeMax` (integer, _optional_): default: `33554432`
+
+Index definition returned by index endpoints:
+
+- `id` (string)
+- `isNewlyCreated` (boolean)
+- `unique` (boolean): `false`
+- `sparse` (boolean): `true`
+- `version` (integer)
+- `code` (integer)
+- `type` (string): `"inverted"`
+- `name` (string)
+- `fields` (array): array of objects:
+  - `name` (string)
+  - `analyzer` (string): default: omitted
+  - `features` (array): an array of strings, possible values:
+    `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: omitted
+  - `includeAllFields` (boolean): default: omitted
+  - `searchField` (boolean): default: `false`
+  - `trackListPositions` (boolean): default: omitted
+  - `nested` (array): default: omitted. An array of objects:
+    - `name` (string)
+    - `analyzer` (string), default: `identity`
+    - `features` (array): an array of strings, possible values:
+      `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: `[]`
+    - `searchField` (boolean): default: `false`
+- `searchField` (boolean): default: `false`
+- `storedValues` (array): default: `[]`. An array of objects:
+  - `fields` (array): an array of strings
+  - `compression` (string): possible values: `"lz4"`, `"none"`.
+    Default: `"lz"`
+- `primarySort` (object)
+  - `fields` (array): default: `[]`. An array of objects:
+    - `field` (string)
+    - `direction` (string): possible values: `"asc"`, `"desc"`
+  - `compression` (string): possible values: `"lz4"`, `"none"`.
+    Default: `"lz4"`
+- `analyzer` (string): default: `identity`
+- `features` (array): default: `[]`
+- `includeAllFields` (boolean): default: `false`
+- `trackListPositions` (boolean): default: `false`
+- `cleanupIntervalStep` (integer): default: `2`
+- `commitIntervalMsec` (integer): default: `1000`
+- `consolidationIntervalMsec` (integer): default: `1000`
+- `consolidationPolicy` (object):
+  - `type` (string): possible values: `"tier"`, `"bytes_accum"`.
+    Default: `"tier"`
+  - `threshold` (number): only available if the `type` is
+    `"bytes_accum"`. Allowed value range: `0.0` through `1.0` (inclusive)
+  - `segmentsBytesFloor` (integer): default: `2097152`
+  - `segmentsBytesMax` (integer): default: `5368709120`
+  - `segmentsMax` (integer): default: `10`
+  - `segmentsMin` (integer): default: `1`
+  - `minScore`: (integer): default: `0`
+- `writebufferIdle` (integer): default: `64`
+- `writebufferActive` (integer): default: `0`
+- `writebufferSizeMax` (integer): default: `33554432`
+
+#### `search-alias` Views
+
+The `/_api/view` endpoints support a new `search-alias` type.
+
+Options for creating an Search Alias View (`POST /_api/view`):
+
+- `name` (string, _required_)
+- `type` (string, _required_): needs to be set to `"search-alias"`
+- `indexes` (array, _optional_): default: `[]`. An array of objects:
+  - `collection` (string, _required_)
+  - `index` (string, _required_)
+
+Options for partially changing properties (`PATCH /_api/view/<view>/properties`),
+to add or remove inverted indexes from the View definition:
+
+- `indexes` (array, _optional_): default: `[]`. An array of objects:
+  - `collection` (string, _required_)
+  - `index` (string, _required_)
+  - `operation` (string, _optional_): possible values: `"add"` and `"del"`.
+    Default: `"add"`
+
+View definition returned by View endpoints:
+
+- `name` (string)
+- `type` (string): `"search-alias"`
+- `indexes` (array): default: `[]`. An array of objects:
+  - `collection` (string)
+  - `index` (string)
 
 #### Computed Values
 
