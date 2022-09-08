@@ -25,6 +25,7 @@ type RequestOptions struct {
 	Name    string `yaml:"name"`
 	Run     bool   `yaml:"run"`
 	Version string `yaml:"version"`
+	Release string `yaml:"release"`
 }
 
 func ParseRequest(request []byte, exampleType ExampleType) (Request, error) {
@@ -46,7 +47,7 @@ func ParseRequest(request []byte, exampleType ExampleType) (Request, error) {
 }
 
 func (r Request) String() string {
-	return fmt.Sprintf("%s\nfunction %s() {\n%s\n}", r.Options, r.Options.Name, r.Code)
+	return fmt.Sprintf("%s\nfunction %s() {%s\n}", r.Options, r.Options.Name, r.Code)
 }
 
 func (r RequestOptions) String() string {
@@ -54,4 +55,6 @@ func (r RequestOptions) String() string {
 }
 
 type Reponse struct {
+	ExampleInput  string
+	ExampleOutput string
 }
