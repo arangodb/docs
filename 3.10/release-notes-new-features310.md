@@ -148,8 +148,8 @@ db._query(`FOR doc IN food_view
 See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
 for details.
 
-This feature is available in all editions but nested search queries are
-optimized in the Enterprise Edition only. The Community Edition does not utilize
+This feature is available in all editions, but nested search queries are only
+optimized in the Enterprise Edition. The Community Edition does not utilize
 View indexes.
 
 ### Nested search (Enterprise Edition)

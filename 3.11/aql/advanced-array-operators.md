@@ -330,7 +330,7 @@ The number `2` after the `?` is the quantifier. It is optional and defaults to
 - `ALL`
 - `AT LEAST`
 
-The quantifier needs be followed by a `FILTER` operation if you want to specify
+The quantifier needs to be followed by a `FILTER` operation if you want to specify
 conditions. You can refer to the current array element via the `CURRENT`
 pseudo-variable in the filter expression. If you leave out the quantifier and
 `FILTER` operation (only `arr[?]`), then `arr` is checked whether it is an array

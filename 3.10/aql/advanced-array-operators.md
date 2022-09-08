@@ -330,7 +330,7 @@ The number `2` after the `?` is the quantifier. It is optional and defaults to
 - `ALL`
 - `AT LEAST`
 
-The quantifier needs be followed by a `FILTER` operation if you want to specify
+The quantifier needs to be followed by a `FILTER` operation if you want to specify
 conditions. You can refer to the current array element via the `CURRENT`
 pseudo-variable in the filter expression. If you leave out the quantifier and
 `FILTER` operation (only `arr[?]`), then `arr` is checked whether it is an array
@@ -347,4 +347,4 @@ surrounding length check. The following table compares both variants:
 | `arr[? ANY FILTER <conditions>]`  | `LENGTH(arr[* FILTER <conditions>]) > 0`
 | `arr[? ALL FILTER <conditions>]`  | `LENGTH(arr[* FILTER <conditions>]) == LENGTH(arr)`
 | `arr[? AT LEAST (<number>) FILTER <conditions>]` | `LENGTH(arr[* FILTER <conditions>]) >= <number>`
-| `arr[?]` | `LENGTH(arr) > 0`
+| `arr[?]` | `LENGTH(arr[*]) > 0`

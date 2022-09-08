@@ -107,8 +107,8 @@ The required `arangosearch` View definition for this to work is as follows:
 }
 ```
 
-Note the `nested` property instead of a `fields` property, configuring the View
-to index the objects in the `dimensions` array so that you can use the
+Note the usage of a `nested` property instead of a `fields` property, configuring
+the View to index the objects in the `dimensions` array so that you can use the
 [Question mark operator](aql/advanced-array-operators.html#question-mark-operator)
 to query the nested objects. The default `identity` Analyzer is used for the
 fields because none is specified explicitly.
