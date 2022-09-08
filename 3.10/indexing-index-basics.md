@@ -248,6 +248,11 @@ The different types of persistent indexes have the following characteristics:
   the indexed attributes set to a value other than `null`. It can be used for optional
   attributes.
 
+Inverted index
+--------------
+
+
+
 TTL (time-to-live) Index
 ------------------------
 

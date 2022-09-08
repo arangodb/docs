@@ -14,6 +14,7 @@ There are special sections for
 - [Working with Indexes](indexing-working-with-indexes.html): How to handle indexes
   programmatically using the `db` object
   - [Persistent Indexes](indexing-persistent.html)
+  - [Inverted Indexes](indexing-inverted.html)
   - [TTL Indexes](indexing-ttl.html)
   - [Fulltext Indexes](indexing-fulltext.html)
   - [Multi-dimensional Indexes](indexing-multi-dim.html)

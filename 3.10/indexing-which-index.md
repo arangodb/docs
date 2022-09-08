@@ -36,6 +36,8 @@ different usage scenarios:
   speed up index lookups for queries that cover all index attributes
   (`cacheEnabled` index option).
 
+- **Inverted index**:
+
 - **TTL index**: the TTL index provided by ArangoDB can be used for automatically
   removing expired documents from a collection.
 

@@ -21,7 +21,16 @@ grouped by version
   Persistent document attributes that are generated when documents are created
   or modified, using an AQL expression.
 
-- **Indexes**:
+- [**Inverted indexes**](indexing-inverted.html):
+  A new, eventually consistent index type that can accelerate a broad range of
+  queries, providing similar search capabilities as ArangoSearch Views, but
+  defined per collection and simpler to use.
+
+- [**Search alias views**](arangosearch-search-alias.html):
+  Add inverted indexes to `search-alias` Views for searching multiple collections
+  at once, as an alternative to `arangosearch` Views.
+
+- **Persistent indexes**:
   An optional [**In-memory Cache**](indexing-persistent.html#caching-of-index-values)
   for faster lookups and [**Stored Values**](indexing-persistent.html#storing-additional-values-in-indexes)
   to let persistent indexes cover additional attributes of projections.
