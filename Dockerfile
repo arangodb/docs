@@ -1,7 +1,7 @@
-FROM  ruby:2.6
+FROM ruby:2.6.7-buster
 
-RUN apt-get update && \
-    apt-get install -y ruby-full build-essential zlib1g-dev wget python2.7 libpython2.7
+RUN apt update && \
+    apt install -y ruby-full build-essential zlib1g-dev wget python2.7 libpython2.7
 
 RUN cd /tmp && \
     wget https://github.com/wjdp/htmltest/releases/download/v0.14.0/htmltest_0.14.0_linux_amd64.tar.gz && \
