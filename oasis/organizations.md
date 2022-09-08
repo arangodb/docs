@@ -51,7 +51,7 @@ support plan.
 | **Projects per organization** | 1 | 3 | Unlimited |
 | **Deployments per project** | 1 | 5 | Unlimited |
 | **Upload backup** | Not included | Included | Included |
-| **Private endpoint deployment** | Not included | Included | Included |
+| **Private endpoint deployment** | Not included | Not included | Included |
 | **Support plan** | Basic | Standard | Premium Standard |
 
 {% hint 'info' %}
