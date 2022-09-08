@@ -121,7 +121,7 @@ FOR doc IN viewName
 The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale (except for the
-[`collation` Analyzer](analyzers.html#collation)) nor the server language
+[`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](../release-notes-known-issues311.html#arangosearch).
 {% endhint %}
