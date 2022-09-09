@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -37,7 +38,14 @@ func JSHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	JSService.Execute(request)
+	resp := JSService.Execute(request)
+	response, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Printf("Error marshal %s", err.Error())
+		return
+	}
+	fmt.Printf("Response %s", response)
+	w.Write(response)
 }
 
 func TODOHandler(w http.ResponseWriter, r *http.Request) {

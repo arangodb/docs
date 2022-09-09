@@ -9,10 +9,15 @@ import (
 )
 
 type ExampleType string
+type RenderType string
 
 const (
 	JS  ExampleType = "js"
 	AQL ExampleType = "aql"
+
+	INPUT        RenderType = "input"
+	OUTPUT       RenderType = "output"
+	INPUT_OUTPUT RenderType = "input/output"
 )
 
 type Request struct {
@@ -22,10 +27,11 @@ type Request struct {
 }
 
 type RequestOptions struct {
-	Name    string `yaml:"name"`
-	Run     bool   `yaml:"run"`
-	Version string `yaml:"version"`
-	Release string `yaml:"release"`
+	Name    string     `yaml:"name"`
+	Run     bool       `yaml:"run"`
+	Version string     `yaml:"version"`
+	Release string     `yaml:"release"`
+	Render  RenderType `yaml:"render"`
 }
 
 func ParseRequest(request []byte, exampleType ExampleType) (Request, error) {
@@ -54,7 +60,8 @@ func (r RequestOptions) String() string {
 	return fmt.Sprintf("//run: %v\n//version: %s", r.Run, r.Version)
 }
 
-type Reponse struct {
-	ExampleInput  string
-	ExampleOutput string
+type Response struct {
+	Input  string `json:"input"`
+	Output string `json:"output"`
+	Error  string `json:"error"`
 }

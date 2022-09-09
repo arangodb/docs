@@ -1,9 +1,7 @@
 package js
 
 import (
-	"bytes"
 	"fmt"
-	"os/exec"
 	"strings"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
@@ -13,38 +11,45 @@ type JSService struct {
 	common.Service
 }
 
-func (service JSService) Execute(request common.Request) error {
+func (service JSService) Execute(request common.Request) common.Response {
 	fmt.Printf("JSService.Execute invoked\n")
 	// Do some content stuff  ...
 
-	toProcess, err := service.ValidateExample(request)
+	_, err := service.ValidateExample(request)
 	if err != nil {
-		return err
+		return common.Response{Input: "", Output: "", Error: err.Error()}
 	}
 
-	if toProcess {
-		//Launch example, update file if output needed, otherwise only launch and check
-	}
+	//if !toProcess {
+	// ?
+	//service.InvokeArangoSH(request)
+	//return common.Response{}
+	//}
 
-	service.InvokeArangoSH(request)
-	return nil
+	cmdResult := service.InvokeArangoSH(request)
+	fmt.Printf("cmd res %s\n", cmdResult)
+
+	return service.processOutput(request, cmdResult)
 }
 
-func (service JSService) InvokeArangoSH(request common.Request) error {
-	cmdName := "arangosh"
-	cmdArgs := []string{"--configuration", "none",
-		"--server.endpoint", "http+tcp://127.0.0.1:8529",
-		"--server.password", "",
-		"--javascript.startup-directory", "/usr/share/arangodb3/js"}
-	cmd := exec.Command(cmdName, cmdArgs...)
+func (service JSService) processOutput(request common.Request, cmdResult map[string]string) common.Response {
+	response := new(common.Response)
 
-	var out, er bytes.Buffer
-	cmd.Stdin = strings.NewReader(request.Code)
-	cmd.Stdout = &out
-	cmd.Stderr = &er
+	for input, output := range cmdResult {
+		if strings.Contains(output, "ArangoError") {
+			// How do we want to handle error transmission?? is in the output already
+		}
 
-	cmd.Run()
+		if strings.Contains(string(request.Options.Render), "input") {
+			response.Input = fmt.Sprintf("%s\n%s", response.Input, input)
+		}
 
-	fmt.Printf("StdErr %s StdOut %s", er.String(), out.String())
-	return nil
+		if strings.Contains(string(request.Options.Render), "output") {
+			response.Output = fmt.Sprintf("%s\n%s", response.Output, output)
+		}
+	}
+
+	fmt.Printf("ProcessOutput res %s\n", response)
+
+	return *response
 }
