@@ -157,14 +157,16 @@ Index definition returned by index endpoints:
   - `features` (array): an array of strings, possible values:
     `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: omitted
   - `includeAllFields` (boolean): default: omitted
-  - `searchField` (boolean): default: `false`
+  - `searchField` (boolean): default: the value defined by the top-level
+    `searchField` option
   - `trackListPositions` (boolean): default: omitted
   - `nested` (array): default: omitted. An array of objects:
     - `name` (string)
     - `analyzer` (string), default: `identity`
     - `features` (array): an array of strings, possible values:
       `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: `[]`
-    - `searchField` (boolean): default: `false`
+    - `searchField` (boolean): default: the value defined by the top-level
+      `searchField` option
 - `searchField` (boolean): default: `false`
 - `storedValues` (array): default: `[]`. An array of objects:
   - `fields` (array): an array of strings

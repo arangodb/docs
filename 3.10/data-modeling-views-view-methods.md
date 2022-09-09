@@ -155,7 +155,7 @@ Currently, the only supported View type is `"arangosearch"`. See
 
 **Examples**
 
-Modify View properties:
+Modify ArangoSearch View properties:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewModifyProperties
@@ -172,5 +172,31 @@ Modify View properties:
       ~ db._dropView("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewModifyProperties
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Add and remove inverted indexes from a Search Alias View:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline viewModifyPropertiesSearchAlias
+    @EXAMPLE_ARANGOSH_OUTPUT{viewModifyPropertiesSearchAlias}
+      ~ db._create("coll");
+      ~ db.coll.ensureIndex({ type: "inverted", name: "inv1", fields: ["a"] });
+      ~ db.coll.ensureIndex({ type: "inverted", name: "inv2", fields: ["b[*]"] });
+      ~ db.coll.ensureIndex({ type: "inverted", name: "inv3", fields: ["c"] });
+     |~ db._createView("example", "search-alias", { indexes: [
+     |~  { collection: "coll", index: "inv1" },
+     |~  { collection: "coll", index: "inv2" }
+      ~ ] });
+        var v = db._view("example");
+        v.properties();
+      | v.properties({ indexes: [
+      |   { collection: "coll", index: "inv1", operation: "del" },
+      |   { collection: "coll", index: "inv3" }
+        ] });
+      ~ db._dropView("example");
+      ~ db._drop("coll");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock viewModifyPropertiesSearchAlias
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}

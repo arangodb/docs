@@ -60,19 +60,21 @@ defined by the Analyzer itself are used.
 
 ### Indexing sub-attributes
 
-To index a sub-attribute, like `{ "nested": { "attr": "value" } }`, use the
+To index a sub-attribute, like `{ "attr": { "sub": "value" } }`, use the
 `.` character for the description of the attribute path:
 
 ```js
-db.<collection>.ensureIndex({ type: "inverted", fields: ["nested.attr"] });
+db.<collection>.ensureIndex({ type: "inverted", fields: ["attr.sub"] });
 ```
 
-You can also index all sub-attribute of an attribute with the `includeAllFields`
-options, either for specific attributes in the `fields` definition, or for the
+For `SEARCH` queries using a `search-alias` View, you can also index all
+sub-attribute of an attribute with the `includeAllFields` options. It has no
+effect on `FILTER` queries that use an inverted index directly, however. You can
+enable the option for specific attributes in the `fields` definition, or for the
 entire document by setting the option at the top-level of the index properties:
 
 ```js
-db.<collection>.ensureIndex({ type: "inverted", fields: [ { name: "nested", includeAllFields: true } ] });
+db.<collection>.ensureIndex({ type: "inverted", fields: [ { name: "attr", includeAllFields: true } ] });
 db.<collection>.ensureIndex({ type: "inverted", includeAllFields: true });
 ```
 
@@ -80,7 +82,7 @@ With the `includeAllFields` option enabled at the top-level, the otherwise
 mandatory `fields` property becomes optional.
 
 The `includeAllFields` option only includes the remaining fields that are not
-separately specified in the `fields` definition.
+separately specified in the `fields` definition, including their sub-attributes.
 
 ### Indexing array values
 
@@ -95,7 +97,7 @@ db.<collection>.ensureIndex({ type: "inverted", fields: ["arr[*].name"] });
 
 You can only expand one level of arrays.
 
-If you want to use the inverted index in a Search Alias View and index primitive
+If you want to use the inverted index in a `search-alias` View and index primitive
 and array values like ArangoSearch Views do by default, then you can enable the
 `searchField` option for specific attributes in the `fields` definition, or by
 default using the top-level option with the same name. You may want to combine
@@ -107,7 +109,7 @@ db.<collection>.ensureIndex({ type: "inverted", fields: [ { name: "arr", searchF
 db.<collection>.ensureIndex({ type: "inverted", fields: [ "arr", "arr.name" ], searchField: true });
 ```
 
-To index array values but preserve the array indexes for a Search Alias View,
+To index array values but preserve the array indexes for a `search-alias` View,
 which you then also need to specify in queries, enable the `trackListPositions`
 option:
 
@@ -193,8 +195,8 @@ FOR doc IN coll OPTIONS { indexHint: "inverted_index_name", forceIndexHint: true
 
 ## Examples
 
-The following examples demonstrate how you can use inverted indexes with the
-JavaScript API of arangosh.
+The following examples demonstrate how you can set up and use inverted indexes
+with the JavaScript API of arangosh. See for 
 
 ### Exact value matching
 
