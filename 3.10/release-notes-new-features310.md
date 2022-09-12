@@ -150,6 +150,12 @@ for details.
 
 This feature is only available in the Enterprise Edition.
 
+### Optimization rule `arangosearch-constrained-sort`
+
+This new optimization rule brings significant performance improvements by 
+allowing you to perform sorting and limiting inside an ArangoSearch View
+enumeration node, if using just scoring for a sort operation.
+
 Analyzers
 ---------
 
@@ -193,7 +199,11 @@ See [Analyzers](analyzers.html#nearest_neighbors) for details.
 Web Interface
 -------------
 
+The 3.10 release of ArangoDB introduces a new Web UI for **Views** that allows
+you to view, configure, or drop an ArangoSearch View.
 
+The Web UI is full-featured, you can insert all parameters and options that you
+would otherwise do through the [HTTP Interface for Views](http/views.html).
 
 AQL
 ---
@@ -416,6 +426,7 @@ AQL functions added in 3.10:
 - [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info):
   An ArangoSearch function to get the start offsets and lengths of matches for
   [search highlighting](arangosearch-search-highlighting.html).
+  Available in the Enterprise Edition only.
 
 - [`SUBSTRING_BYTES()`](aql/functions-string.html#substring_bytes):
   A function to get a string subset using a start and length in bytes instead of
@@ -428,18 +439,22 @@ AQL functions added in 3.10:
 - [`MINHASH()`](aql/functions-miscellaneous.html#minhash):
   A new function for locality-sensitive hashing to approximate the
   Jaccard similarity.
+  Available in the Enterprise Edition only.
 
 - [`MINHASH_COUNT()`](aql/functions-miscellaneous.html#minhash_count):
   A helper function to calculate the number of hashes (MinHash signature size)
   needed to not exceed the specified error amount.
+  Available in the Enterprise Edition only.
 
 - [`MINHASH_ERROR()`](aql/functions-miscellaneous.html#minhash_error):
   A helper function to calculate the error amount based on the number of hashes
   (MinHash signature size).
+  Available in the Enterprise Edition only.
 
 - [`MINHASH_MATCH()`](aql/functions-arangosearch.html#minhash_match):
   A new ArangoSearch function to match documents with an approximate
   Jaccard similarity of at least the specified threshold that are indexed by a View.
+  Available in the Enterprise Edition only.
 
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
   A document function to recursively keep attributes from objects/documents,
@@ -698,7 +713,7 @@ can now return smaller responses to the leader. This change reduces the network
 traffic between the leader and its followers, and can lead to slightly faster
 turnover in replication.
 
-### Calculation of file hashes
+### Calculation of file hashes (Enterprise Edition)
 
 The calculation of SHA256 file hashes for the .sst files created by RocksDB and
 that are required for hot backups has been moved from a separate background
@@ -752,6 +767,21 @@ arangoexport \
   --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
   ...
 ```
+
+### arangoimport
+
+_arangoimport_ has a new `--overwrite-collection-prefix` option that is useful
+when importing edge collections. This option should be used together with
+`--to-collection-prefix` or `--from-collection-prefix`.
+If there are vertex collection prefixes in the file you want to import,
+you can overwrite them with command line prefixes. If the option is set
+to `false`, only `_from` and `_to` values without a prefix are going to be
+prefixed by the entered values.
+
+_arangoimport_ now supports the `--remove-attribute` option when using JSON
+as input file format.
+
+For more information, refer to the [_arangoimport_ Options](programs-arangoimport-options.html).
 
 ### ArangoDB Starter
 
