@@ -39,7 +39,7 @@ enforce the correct sharding.
     the correct sharding, all collections need an identical number of shards.
     This cannot be modified after the creation of the graph.
   - `isSmart` (bool):
-    Mandatory parameter that needs to be set to `true` to create an EnterpriseGraph. 
+    Mandatory parameter that needs to be set to `true` to create an EnterpriseGraph.
   - `satellites` (array, optional):
     An array of collection names that is used to create
     [SatelliteCollections](satellites.html) for an EnterpriseGraph.

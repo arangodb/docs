@@ -55,15 +55,24 @@ Collection Methods
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
-returns information about the indexes
-`getIndexes()`
+`collection.getIndexes(withStats, withHidden)`
+
+`collection.indexes(withStats, withHidden)`
 
 Returns an array of all indexes defined for the collection.
-Since ArangoDB 3.4, `indexes()` is an alias for `getIndexes()`.
+
+You set the following parameters:
+
+- **withStats** (boolean, _optional_): whether to include index figures and
+  estimates in the result. Default: `false`
+- **withHidden** (boolean, _optional_): whether to include hidden indexes in the
+  result. Default: `false`
+
+The `indexes()` method is an alias for `getIndexes()`.
 
 Note that `_key` implicitly has an index assigned to it.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionGetIndexes
     @EXAMPLE_ARANGOSH_OUTPUT{collectionGetIndexes}
     ~db._create("test");
@@ -75,8 +84,8 @@ Note that `_key` implicitly has an index assigned to it.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionGetIndexes
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Creating an index
 

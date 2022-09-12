@@ -147,8 +147,7 @@ command, potentially giving the impression that it failed to start.
 
 ## Using Configuration Files
 
-Binaries have a
-corresponding `.conf` file that an ArangoDB package ships with.
+Binaries have a corresponding `.conf` file that an ArangoDB package ships with.
 `arangosh.conf` contains the default ArangoShell configuration for instance.
 The configuration files can be adjusted or new ones be created.
 
