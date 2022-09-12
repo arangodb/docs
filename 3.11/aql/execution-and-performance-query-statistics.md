@@ -78,6 +78,11 @@ The meaning of the statistics attributes is as follows:
   high level, not including any memory allocator overhead nor any memory used for temporary
   results calculations (e.g. memory allocated/deallocated inside AQL expressions and function 
   calls).
+- **intermediateCommits**: the total number of intermediate commits the query has performed. 
+  This number can only be greater than zero for data-modification queries that perform modifications 
+  beyond the `--rocksdb.intermediate-commit-count` or `--rocksdb.intermediate-commit-size` thresholds.
+  In a cluster, the intermediate commits are tracked per DB server that participates in the query
+  and are summed up in the end.
 - **nodes**: _(optional)_ when the query was executed with the option `profile` set to at least `2`,
   then this value contains runtime statistics per query execution node. This field contains the
   node id (in `id`), the number of calls to this node `calls` and the number of items returned
