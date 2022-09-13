@@ -226,7 +226,7 @@ figures, and for `arangosearch` Views, `withHidden` needs to be enabled, too:
 
 #### Metrics API
 
-The `GET /_admin/metrics/v2` (and `GET /_admin/metrics`) endpoint provides
+The `GET /_admin/metrics/v2` (and `GET /_admin/metrics`) endpoints provide
 metrics for `arangosearch` View links and inverted indexes:
 
 - `arangodb_search_cleanup_time`
