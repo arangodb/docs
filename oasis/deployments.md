@@ -33,6 +33,12 @@ Also see the video
 4. Click the __New deployment__ button.
 5. Set up your deployment. The configuration options are described below.
 
+   {% hint 'info' %}
+   The configuration options depend on the tier your organization belongs to.
+   For more details about available resources and usage limits, refer to the 
+   [Oasis tiers](organizations.html#oasis-tiers) section.
+   {% endhint %}  
+
 ![Oasis New Deployment](images/oasis-new-deployment1.png)
 
 Also see the video
@@ -201,9 +207,15 @@ that is being used, change the memory, CPU, and disk size, or even switch from
 a OneShard deployment to a Sharded one if your data set no longer fits in a
 single node. 
 
-{% hint 'info' %}
+{% hint 'tip' %}
 To edit an existing deployment, you must have the necessary set of permissions
 attached to your role. Read more about [roles and permissions](access-control.html#roles).
+{% endhint %}
+
+{% hint 'info' %}
+The configuration options depend on the tier your organization belongs to.
+For more details about available resources and usage limits, refer to the 
+[Oasis tiers](organizations.html#oasis-tiers) section.
 {% endhint %}
 
 1. Go to the **Projects** section and select an existing deployment from the list. 
@@ -247,7 +259,8 @@ To isolate your deployments and increase security, you can use the private endpo
 Follow the steps outlined below to get started.
 
 {% hint 'info' %}
-The private endpoint feature is only available on the enterprise tier of ArangoDB Cloud.
+The private endpoint feature is only available on the
+[Enterprise tier](organizations.html#oasis-tiers) of ArangoDB Cloud.
 {% endhint %}
 
 {% hint 'tip' %}
