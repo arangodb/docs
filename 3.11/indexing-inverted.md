@@ -198,14 +198,12 @@ To use an inverted index, add an `OPTIONS` clause to the `FOR` operation that
 you want to speed up. It needs to be a loop over a collection, not an array or
 a View. Specify the desired index as an `indexHint`, using its name.
 
-If any of the attributes you filter by is processed by an Analyzer other than
-`identity`, then you need to enable the `forceIndexHint` option. It prevents
-unexpected query results: Index hints are only recommendations you provide to
+You should enable the `forceIndexHint` option to prevent unexpected query
+results: Index hints are only recommendations you provide to
 the optimizer unless you force them, and because `FILTER` queries behave
-differently if an inverted index is used together with an Analyzer other than
-`identity`, the results would be inconsistent, depending on whether or not the
-index hint is used. Forcing the hint ensures that an error is raised if the
-index isn't suitable.
+differently if an inverted index is used, the results would be inconsistent,
+depending on whether or not the index hint is used. Forcing the hint ensures
+that an error is raised if the index isn't suitable.
 
 ```aql
 FOR doc IN coll OPTIONS { indexHint: "inverted_index_name", forceIndexHint: true }
@@ -220,7 +218,9 @@ with the JavaScript API of arangosh. See the
 [`ensureIndex()` method](indexing-working-with-indexes.html#creating-an-index)
 description for details. 
 
-The example dataset is the [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset).
+For more in-depth explanations and example data, see the
+[ArangoSearch example datasets](arangosearch-example-datasets.html) and the
+corresponding ArangoSearch examples.
 
 ### Exact value matching
 
@@ -229,7 +229,7 @@ Match exact movie title (case-sensitive, full string):
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
 
-db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact" }
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER doc.title == "The Matrix"
   RETURN doc.title`);
 ```
@@ -237,7 +237,7 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact" }
 Match multiple exact movie titles using `IN`:
 
 ```js
-db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact" }
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER doc.title IN ["The Matrix", "The Matrix Reloaded"]
   RETURN doc.title`);
 ```
@@ -246,7 +246,7 @@ Match movies that neither have the title `The Matrix` nor `The Matrix Reloaded`,
 but ignore documents without a title:
 
 ```js
-db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact" }
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER EXISTS(doc.title) AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"]
   RETURN doc.title`);
 ```
@@ -269,7 +269,7 @@ db.imdb_vertices.ensureIndex({
   }
 });
 
-db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact" }
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER doc.runtime > 300
   SORT doc.runtime DESC
   RETURN doc`);
@@ -280,7 +280,7 @@ Match movies where the name is `>= Wu` and `< Y`:
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "name" ] });
 
-db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact" }
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER IN_RANGE(doc.name, "Wu", "Y", true, false)
   RETURN doc`);
 ```
@@ -291,7 +291,7 @@ i.e. range queries backed by inverted indexes do not follow the
 language rules as per the defined Analyzer locale (except for the
 [`collation` Analyzer](analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](release-notes-known-issues310.html#arangosearch).
+Also see [Known Issues](release-notes-known-issues311.html#arangosearch).
 {% endhint %}
 
 ### Case-insensitive search
@@ -455,9 +455,37 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-text", forceIndexH
 
 ### Geo-spatial search
 
+Using the Museum of Modern Arts as reference location, find restaurants within
+a 100 meter radius. Return the matches sorted by distance and include how far
+away they are from the reference point in the result:
 
+```js
+var analyzers = require("@arangodb/analyzers");
+analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
 
-### Nested search
+db.restaurants.ensureIndex({
+  name: "inv-rest",
+  type: "inverted",
+  fields: [
+    { name: "location", analyzer: "geojson" }
+  ]
+});
+
+db._query(`LET moma = GEO_POINT(-73.983, 40.764)
+FOR doc IN restaurants OPTIONS { indexHint: "inv-rest", forceIndexHint: true }
+  FILTER GEO_DISTANCE(doc.location, moma) < 100
+  LET distance = GEO_DISTANCE(doc.location, moma)
+  SORT distance
+  RETURN {
+    geometry: doc.location,
+    distance
+  }`);
+```
+
+### Nested search (Enterprise Edition)
+
+Match documents with a `dimensions` array that contains one or two sub-objects
+with a `type` of `"height"` and a `value` greater than `40`:
 
 ```js
 db.coll.ensureIndex({
@@ -474,17 +502,32 @@ db.coll.ensureIndex({
   ]
 });
 
-db._query(`FOR doc IN coll
-  SEARCH doc.dimensions[? 1..2 FILTER CURRENT.type == "height" AND CURRENT.value > 40]
+db._query(`FOR doc IN coll OPTIONS { indexHint: "inv-text", forceIndexHint: true }
+  FILTER doc.dimensions[? 1..2 FILTER CURRENT.type == "height" AND CURRENT.value > 40]
   RETURN doc
 `);
 ```
 
-### Search highlighting
+Nested search is only available in the Enterprise Edition.
+
+### Search highlighting (Enterprise Edition)
+
+Search for descriptions that contain the tokens `avocado` or `tomato`,
+the phrase `cultivated ... pungency` with two arbitrary tokens between the two
+words, and for words that start with `cap`. Get the matching positions, and use
+this information to extract the substrings with the
+[`SUBSTRING_BYTES()` function](aql/functions-string.html#substring_bytes):
 
 ```js
-db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] } ] });
-db._query(`FOR doc IN food
+db.food.ensureIndex({
+  name: "inv-text",
+  type: "inverted",
+  fields: [
+    { name: "description", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] }
+  ]
+});
+
+db._query(`FOR doc IN food OPTIONS { indexHint: "inv-text", forceIndexHint: true }
   FILTER
     TOKENS("avocado tomato", "text_en") ANY == doc.description.en OR
     PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
@@ -501,3 +544,5 @@ db._query(`FOR doc IN food
   }
 `);
 ```
+
+Search highlighting is only available in the Enterprise Edition.
