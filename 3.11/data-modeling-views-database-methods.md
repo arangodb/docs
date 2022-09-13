@@ -77,7 +77,7 @@ supported View type.
 *properties* is an optional object containing View configuration specific
 to each View-type.
 - [`arangosearch` View definition](arangosearch-views.html#view-definitionmodification)
-- [`search-alias` View definition]()
+- [`search-alias` View definition](arangosearch-views-search-alias.html#view-definition)
 
 **Examples**
 
