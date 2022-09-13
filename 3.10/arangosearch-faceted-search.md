@@ -18,8 +18,8 @@ any properties, also called facets.
 
 To implement such a feature in ArangoDB, you can use a `COLLECT` operation
 to group and count how many documents share an attribute value. This is also
-possible with ArangoSearch Views by simply iterating over a View instead of a
-collection.
+possible with `arangosearch` and `search-alias` Views by simply iterating over a
+View instead of a collection.
 
 ## Dataset
 
@@ -27,14 +27,14 @@ collection.
 
 ## View definition
 
-### Search Alias View
+### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-exact", fields: [ "title" ] });
+db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
 ```
 
-### ArangoSearch View
+### `arangosearch` View
 
 ```json
 {

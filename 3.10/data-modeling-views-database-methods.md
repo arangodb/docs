@@ -1,7 +1,7 @@
 ---
 layout: default
 description: View-related JavaScript methods of Database objects for arangosh and Foxx
-title: Database Methods in ArangoSearch Views JS API
+title: Database Methods in Views JS API
 ---
 Database Methods
 ================
@@ -75,9 +75,9 @@ valid View names please refer to the [naming conventions](data-modeling-naming-c
 supported View type.
 
 *properties* is an optional object containing View configuration specific
-to each View-type. Currently, only ArangoSearch Views are supported. See
-[ArangoSearch View definition](arangosearch-views.html#view-definitionmodification) for
-details.
+to each View-type.
+- [`arangosearch` View definition](arangosearch-views.html#view-definitionmodification)
+- [`search-alias` View definition]()
 
 **Examples**
 

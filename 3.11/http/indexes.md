@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's HTTP interface for indexes ingeneral
+description: This is an introduction to ArangoDB's HTTP interface for indexes in general
 ---
 HTTP Interface for Indexes
 ==========================
@@ -49,6 +49,17 @@ immediately like other indexes.
 
 The TTL index can be used for automatically removing expired documents from a collection.
 Documents which are expired are eventually removed by a background thread.
+
+### Geo-spatial index
+
+A geo-spatial index can accelerate queries that filter and sort by the distance
+between stored coordinates and coordinates provided in a query.
+
+### Multi-dimensional index
+
+The `zkd` index type is an experimental index for indexing two- or higher
+dimensional data such as time ranges, for efficient intersection of multiple
+range queries.
 
 ### Fulltext Index
 

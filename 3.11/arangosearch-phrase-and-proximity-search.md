@@ -18,14 +18,14 @@ tokens may occur between defined tokens for word proximity searches.
 
 ## View definition
 
-### Search Alias View
+### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-text", fields: [ { name: "description", analyzer: "text_en" } ] });
+db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en" } ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
 ```
 
-### ArangoSearch View
+### `arangosearch` View
 
 ```json
 {

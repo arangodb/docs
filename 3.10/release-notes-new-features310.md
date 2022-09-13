@@ -2,15 +2,13 @@
 layout: default
 description: ArangoDB v3.10 Release Notes New Features
 ---
-Features and Improvements in ArangoDB 3.10
-==========================================
+# Features and Improvements in ArangoDB 3.10
 
 The following list shows in detail which features have been added or improved in
 ArangoDB 3.10. ArangoDB 3.10 also contains several bug fixes that are not listed
 here.
 
-Native ARM Support
-------------------
+## Native ARM Support
 
 ArangoDB is now available for the ARM architecture, in addition to the x86-64
 architecture.
@@ -23,8 +21,47 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
 The minimum requirement is an ARMv8 chip with Neon (SIMD extension).
 
-Computed Values
----------------
+## SmartGraphs (Enterprise Edition)
+
+### SmartGraphs and SatelliteGraphs on a single server
+
+It is now possible to test [SmartGraphs](graphs-smart-graphs.html) and
+[SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to
+port them to a cluster with multiple servers.
+
+You can create SmartGraphs, Disjoint SmartGraphs, SmartGraphs using 
+SatelliteCollections, Disjoint SmartGraphs using SatelliteCollections, as well
+as SatelliteGraphs in the usual way, using
+`arangosh` for instance, but on a single server, then dump them, start a cluster
+(with multiple servers) and restore the graphs in the cluster. The graphs and
+the collections will keep all properties that are kept when the graph is already
+created in a cluster.
+
+This feature is only available in the Enterprise Edition.
+
+### EnterpriseGraphs (Enterprise Edition)
+
+The 3.10 version of ArangoDB introduces a specialized version of SmartGraphs, 
+called EnterpriseGraphs. 
+
+EnterpriseGraphs come with a concept of automated sharding key selection,
+meaning that the sharding key is randomly selected while ensuring that all
+their adjacent edges are co-located
+on the same servers, whenever possible. This approach provides significant
+advantages as it minimizes the impact of having suboptimal sharding keys
+defined when creating the graph.
+
+See the [EnterpriseGraphs](graphs-enterprise-graphs.html) chapter for more details.
+
+This feature is only available in the Enterprise Edition.
+
+### (Disjoint) Hybrid SmartGraphs renaming
+
+(Disjoint) Hybrid SmartGraphs were renamed to
+**(Disjoint) SmartGraphs using SatelliteCollections**.
+The functionality and behavior of both types of graphs stay the same.
+
+## Computed Values
 
 This feature lets you define expressions on the collection level
 that run on inserts, modifications, or both. You can access the data of the
@@ -72,13 +109,12 @@ var doc = db.users.save({ firstName: "Paula", lastName: "Plant" });
 See [Computed Values](data-modeling-documents-computed-values.html) for more
 information and examples.
 
-ArangoSearch
-------------
+## ArangoSearch
 
 ### Inverted collection indexes
 
 A new `inverted` index type is available that you can define at the collection
-level. You can use these indexes similar to ArangoSearch Views, to accelerate
+level. You can use these indexes similar to `arangosearch` Views, to accelerate
 queries like value lookups, range queries, accent- and case-insensitive search,
 wildcard and fuzzy search, nested search, search highlighting, as well as for
 sophisticated full-text search with the ability to search for words, phrases,
@@ -109,12 +145,12 @@ Like Views, this type of index is eventually consistent.
 
 See [Inverted index](indexing-inverted.html) for details.
 
-### Search Alias Views
+### `search-alias` Views
 
 A new `search-alias` View type was added to let you add one or more
 inverted indexes to a View, enabling federated searching over multiple
 collections and ranking of search results by relevance similar to
-ArangoSearch Views. This is on top of the filtering capabilities provided by the
+`arangosearch` Views. This is on top of the filtering capabilities provided by the
 inverted indexes, including full-text processing with Analyzers and more.
 
 ```js
@@ -130,7 +166,7 @@ db._query(`FOR doc IN view
   RETURN doc`);
 ```
 
-A key difference between ArangoSearch and Search Alias Views is that you don't
+A key difference between `arangosearch` and `search-alias` Views is that you don't
 need to specify an Analyzer context with the `ANALYZER()` function in queries
 because it is inferred from the inverted index definition, which only supports
 a single Analyzer per field.
@@ -159,7 +195,7 @@ db.food.save({ name: "chili pepper", description: { en: "Chili peppers are varie
 db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
 
 var analyzers = require("@arangodb/analyzers");
-var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+var analyzer = analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
 
 db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
 db._query(`FOR doc IN food_view
@@ -177,8 +213,9 @@ db._query(`FOR doc IN food_view
         match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
       }]
     }`);
+```
 
-/*
+```json
 [
   {
     "description" : { "en" : "The avocado is a medium-sized, evergreen tree, native to the Americas." },
@@ -213,8 +250,7 @@ for details. Search highlighting is also available for the new
 
 This feature is only available in the Enterprise Edition.
 
-Analyzers
----------
+## Analyzers
 
 ### `minhash` Analyzer (Enterprise Edition)
 
@@ -227,7 +263,7 @@ A common use case is to compare sets with many elements for entity resolution,
 such as for finding duplicate records, based on how many common elements they
 have.
 
-You can use the Analyzer with a new inverted index or ArangoSearch View to
+You can use the Analyzer with a new inverted index or `arangosearch` View to
 quickly find candidates for the actual Jaccard similarity comparisons you want
 to perform.
 
@@ -253,13 +289,11 @@ This feature is only available in the Enterprise Edition.
 
 See [Analyzers](analyzers.html#nearest_neighbors) for details.
 
-Web Interface
--------------
+## Web Interface
 
 
 
-AQL
----
+## AQL
 
 ### All Shortest Paths Graph Traversal
 
@@ -474,19 +508,11 @@ See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
 
 ### New and Changed AQL Functions
 
-AQL functions added in 3.10:
+AQL functions added to the 3.10 Enterprise Edition:
 
 - [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info):
   An ArangoSearch function to get the start offsets and lengths of matches for
   [search highlighting](arangosearch-search-highlighting.html).
-
-- [`SUBSTRING_BYTES()`](aql/functions-string.html#substring_bytes):
-  A function to get a string subset using a start and length in bytes instead of
-  in number of characters. 
-
-- [`VALUE()`](aql/functions-document.html#value):
-  A new document function to dynamically get an attribute value of an object,
-  using an array to specify the path.
 
 - [`MINHASH()`](aql/functions-miscellaneous.html#minhash):
   A new function for locality-sensitive hashing to approximate the
@@ -504,6 +530,16 @@ AQL functions added in 3.10:
   A new ArangoSearch function to match documents with an approximate
   Jaccard similarity of at least the specified threshold that are indexed by a View.
 
+AQL functions added to all editions of 3.10:
+
+- [`SUBSTRING_BYTES()`](aql/functions-string.html#substring_bytes):
+  A function to get a string subset using a start and length in bytes instead of
+  in number of characters. 
+
+- [`VALUE()`](aql/functions-document.html#value):
+  A new document function to dynamically get an attribute value of an object,
+  using an array to specify the path.
+
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
   A document function to recursively keep attributes from objects/documents,
   as a counterpart to `UNSET_RECURSIVE()`.
@@ -515,8 +551,7 @@ AQL functions changed in 3.10:
   It also accepts an array of objects now, matching the behavior of the
   `MERGE()` function.
 
-Indexes
--------
+## Indexes
 
 ### Parallel index creation (Enterprise Edition)
 
@@ -567,8 +602,34 @@ scans, for sorting, or for lookups that do not include all index attributes.
 
 See [Persistent Indexes](indexing-persistent.html#caching-of-index-values).
 
-Document keys
--------------
+## Read from Followers in Clusters (Enterprise Edition)
+
+You can now allow for reads from followers for a
+number of read-only operations in cluster deployments. In this case, Coordinators
+are allowed to read not only from shard leaders but also from shard replicas.
+This has a positive effect, because the reads can scale out to all DB-Servers
+that have copies of the data. Therefore, the read throughput is higher.
+
+This feature is only available in the Enterprise Edition.
+
+For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
+
+## Improved shard rebalancing
+
+Starting with version 3.10, the shard rebalancing feature introduces an
+automatic shard rebalancing API. 
+
+You can do any of the following by using the API:
+
+- Get an analysis of the current cluster imbalance.
+- Compute a plan of move shard operations to rebalance the cluster and thus improve balance.
+- Execute the given set of move shard operations.
+- Compute a set of move shard operations to improve balance and execute them immediately. 
+
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+section of the HTTP API reference manual.
+
+## Document keys
 
 Some key generators can generate keys in an ascending order, meaning that document
 keys with "higher" values also represent newer documents. This is true for the
@@ -588,49 +649,7 @@ single-sharded collections.
 Document keys are still not guaranteed to be truly ascending for collections with
 more than a single shard.
 
-SmartGraphs (Enterprise Edition)
---------------------------------
-
-### SmartGraphs and SatelliteGraphs on a single server
-
-It is now possible to test [SmartGraphs](graphs-smart-graphs.html) and
-[SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to
-port them to a cluster with multiple servers.
-
-You can create SmartGraphs, Disjoint SmartGraphs, SmartGraphs using 
-SatelliteCollections, Disjoint SmartGraphs using SatelliteCollections, as well
-as SatelliteGraphs in the usual way, using
-`arangosh` for instance, but on a single server, then dump them, start a cluster
-(with multiple servers) and restore the graphs in the cluster. The graphs and
-the collections will keep all properties that are kept when the graph is already
-created in a cluster.
-
-This feature is only available in the Enterprise Edition.
-
-### EnterpriseGraphs (Enterprise Edition)
-
-The 3.10 version of ArangoDB introduces a specialized version of SmartGraphs, 
-called EnterpriseGraphs. 
-
-EnterpriseGraphs come with a concept of automated sharding key selection,
-meaning that the sharding key is randomly selected while ensuring that all
-their adjacent edges are co-located
-on the same servers, whenever possible. This approach provides significant
-advantages as it minimizes the impact of having suboptimal sharding keys
-defined when creating the graph.
-
-See the [EnterpriseGraphs](graphs-enterprise-graphs.html) chapter for more details.
-
-This feature is only available in the Enterprise Edition.
-
-### (Disjoint) Hybrid SmartGraphs renaming
-
-(Disjoint) Hybrid SmartGraphs were renamed to
-**(Disjoint) SmartGraphs using SatelliteCollections**.
-The functionality and behavior of both types of graphs stay the same.
-
-Server options
---------------
+## Server options
 
 ### Responses early during instance startup
 
@@ -705,35 +724,7 @@ temporary data:
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
 
-Read from Followers in Clusters (Enterprise Edition)
-----------------------------------------------------
-
-You can now allow for reads from followers for a
-number of read-only operations in cluster deployments. In this case, Coordinators
-are allowed to read not only from shard leaders but also from shard replicas.
-This has a positive effect, because the reads can scale out to all DB-Servers
-that have copies of the data. Therefore, the read throughput is higher.
-
-This feature is only available in the Enterprise Edition.
-
-For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
-
-## Improved shard rebalancing
-
-Starting with version 3.10, the shard rebalancing feature introduces an automatic shard rebalancing API. 
-
-You can do any of the following by using the API:
-
-* Get an analysis of the current cluster imbalance.
-* Compute a plan of move shard operations to rebalance the cluster and thus improve balance.
-* Execute the given set of move shard operations.
-* Compute a set of move shard operations to improve balance and execute them immediately. 
-
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
-section of the HTTP API reference manual.
-
-Miscellaneous changes
----------------------
+## Miscellaneous changes
 
 Added the `GET /_api/query/rules` REST API endpoint that returns the available
 optimizer rules for AQL queries.
@@ -773,8 +764,7 @@ The previous background thread named `Sha256Thread`, which was responsible for
 calculating the SHA256 hashes and sometimes for high CPU utilization after
 larger write operations, has now been fully removed.
 
-Client tools
-------------
+## Client tools
 
 ### arangobench
 
@@ -826,8 +816,7 @@ See the [Starter configuration file](programs-starter-architecture.html#starter-
 section for more information about the configuration file format, passing
 through command line options, and examples. 
 
-Query changes for decreasing memory usage
------------------------------------------
+## Query changes for decreasing memory usage
 
 Queries can be executed with storing input and intermediate results temporarily
 on disk to decrease memory usage when a specified threshold is reached.
@@ -857,8 +846,7 @@ arangod --temp.intermediate-results-path "tempDir"
 
 For more information, refer to the [Query invocation](aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk) topics.
 
-Internal changes
-----------------
+## Internal changes
 
 ### C++20 
 

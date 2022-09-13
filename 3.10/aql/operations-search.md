@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The SEARCH keyword starts the language construct to filter Views of type ArangoSearch.
+description: The SEARCH keyword starts the language construct to filter Views.
 title: The SEARCH operation in AQL
 redirect_from:
   - views.html
@@ -8,8 +8,8 @@ redirect_from:
 SEARCH
 ======
 
-The `SEARCH` keyword starts the language construct to filter Views of type
-ArangoSearch. Conceptually, a View is just another document data source,
+The `SEARCH` keyword starts the language construct to filter Views.
+Conceptually, a View is just another document data source,
 similar to an array or a document/edge collection, over which you can iterate
 using a [FOR operation](operations-for.html) in AQL:
 
@@ -25,7 +25,8 @@ The optional `SEARCH` operation provides the capabilities to:
 - sort the result set based on how closely each document matched the
   search conditions
 
-See [ArangoSearch Views](../arangosearch-views.html) on how to set up a View.
+See [`arangosearch` Views](../arangosearch-views.html) and
+[`search-alias` Views](../arangosearch-views-search-alias.html) on how to set up Views.
 
 Syntax
 ------
@@ -48,7 +49,7 @@ followed by the name of a View, not a collection. The `SEARCH` operation has to
 follow next, other operations before `SEARCH` such as `FILTER`, `COLLECT` etc.
 are not allowed in this position. Subsequent operations are possible after
 `SEARCH` and the expression however, including `SORT` to order the search
-results based on a ranking value computed by the ArangoSearch View.
+results based on a ranking value computed by the View.
 
 *expression* must be an ArangoSearch expression. The full power of ArangoSearch
 is harnessed and exposed via special [ArangoSearch functions](functions-arangosearch.html),
@@ -172,7 +173,7 @@ For example, given a collection `myCol` with the following documents:
 { "someAttr": "Two", "anotherAttr": "Two" }
 ```
 
-… with a View where `someAttr` is indexed by the following View `myView`:
+… with an `arangosearch` View where `someAttr` is indexed by the following View `myView`:
 
 ```js
 {
@@ -213,8 +214,8 @@ FOR doc IN myView
 ```
 
 You can use the special `includeAllFields`
-[View property](../arangosearch-views.html#link-properties) to index all
-(sub-)fields of the source documents if desired.
+[`arangosearch` View property](../arangosearch-views.html#link-properties)
+to index all (sub-)attributes of the source documents if desired.
 
 SEARCH with SORT
 ----------------

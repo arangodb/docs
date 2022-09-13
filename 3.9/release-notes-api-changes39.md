@@ -231,6 +231,13 @@ The HTTP REST API endpoint `POST /_open/auth` now returns JWTs with a shorter
 lifetime of one hour by default. You can adjust the lifetime with the
 `--server.session-timeout` startup option.
 
+Analyzers with a `locale` property use a new syntax. The encoding (`.utf-8`)
+does not need to be set anymore. The `collation` Analyzer supports
+`language[_COUNTRY][_VARIANT][@keywords]` (square bracket denote optional parts).
+The `text` and `norm` Analyzers support `language[_COUNTRY]`, the `stem`
+Analyzer only `language`. The former syntax is still supported but automatically
+normalized to the new syntax.
+
 ### Endpoints moved
 
 #### Cluster API redirects

@@ -34,14 +34,14 @@ Token search is covered below. For phrase search see
 
 ### View definition
 
-#### Search Alias View
+#### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-text", fields: [ { name: "description", analyzer: "text_en" } ] });
+db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en" } ] });
 db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
 ```
 
-#### ArangoSearch View
+#### `arangosearch` View
 
 ```json
 {
@@ -65,7 +65,7 @@ db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_ve
 
 Search for movies with `dinosaur` or `park` (or both) in their description.
 
-_Search Alias View:_
+_`search-alias` View:_
 
 ```aql
 FOR doc IN imdb_alias
@@ -76,7 +76,7 @@ FOR doc IN imdb_alias
   }
 ```
 
-_ArangoSearch View:_
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -99,7 +99,7 @@ FOR doc IN imdb
 
 Search for movies with both `dinosaur` and `park` in their description:
 
-_Search Alias View:_
+_`search-alias` View:_
 
 ```aql
 FOR doc IN imdb_alias
@@ -110,7 +110,7 @@ FOR doc IN imdb_alias
   }
 ```
 
-_ArangoSearch View:_
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb

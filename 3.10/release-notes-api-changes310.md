@@ -203,7 +203,7 @@ Index definition returned by index endpoints:
 
 The `/_api/view` endpoints support a new `search-alias` type.
 
-Options for creating an Search Alias View (`POST /_api/view`):
+Options for creating an `search-alias` View (`POST /_api/view`):
 
 - `name` (string, _required_)
 - `type` (string, _required_): needs to be set to `"search-alias"`
@@ -252,7 +252,7 @@ following attributes:
 The `POST /_api/analyzer` endpoint accepts `"offset"` as a string in the
 `features` array attribute. The `/_api/analyzer` endpoints may return this new
 value in the `features` attribute. It enables search highlighting capabilities
-for ArangoSearch Views.
+for `arangosearch` Views.
 
 #### MinHash Analyzer
 

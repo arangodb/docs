@@ -35,12 +35,12 @@ Also see [What's New in 3.11](release-notes-new-features311.html).
 
 - [**Inverted indexes**](indexing-inverted.html):
   A new, eventually consistent index type that can accelerate a broad range of
-  queries, providing similar search capabilities as ArangoSearch Views, but
+  queries, providing similar search capabilities as `arangosearch` Views, but
   defined per collection and simpler to use.
 
 - [**Search Alias Views**](release-notes-new-features310.html#search-alias-views):
   Add inverted indexes to `search-alias` Views for searching multiple collections
-  at once, as an alternative to `arangosearch` Views.
+  at once, as a lightweight alternative to `arangosearch` Views.
 
 - **Persistent indexes**:
   An optional [**In-memory Cache**](indexing-persistent.html#caching-of-index-values)
@@ -59,7 +59,7 @@ Also see [What's New in 3.11](release-notes-new-features311.html).
 - **ArangoSearch**:
   New [MinHash Analyzer](analyzers.html#minhash) for locality-sensitive hashing
   to approximate the Jaccard similarity, with inverted index and
-  ArangoSearch View support that allows you to implement entity resolution.
+  `arangosearch` View support that allows you to implement entity resolution.
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
 

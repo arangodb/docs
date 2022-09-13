@@ -31,14 +31,14 @@ fields.
 
 ### View definition
 
-#### Search Alias View
+#### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-exact", fields: [ "runtime" ] });
+db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "runtime" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
 ```
 
-#### ArangoSearch View
+#### `arangosearch` View
 
 ```json
 {
@@ -251,14 +251,14 @@ Also see [Known Issues](release-notes-known-issues311.html#arangosearch).
 
 ### View definition
 
-#### Search Alias View
+#### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-exact", fields: [ "name" ] });
+db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "name" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
 ```
 
-#### ArangoSearch View
+#### `arangosearch` View
 
 ```json
 {

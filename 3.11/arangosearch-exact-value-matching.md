@@ -22,14 +22,14 @@ the entire string is equal (not matching substrings).
 
 ### View definition
 
-#### Search Alias View
+#### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-exact", fields: [ "title" ] });
+db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
 ```
 
-#### ArangoSearch View
+#### `arangosearch` View
 
 ```json
 {
@@ -61,7 +61,7 @@ FOR doc IN imdb
 |:-------|
 | **The Matrix** |
 
-For ArangoSearch Views, it is not necessary to set the Analyzer context with
+For `arangosearch` Views, it is not necessary to set the Analyzer context with
 the `ANALYZER()` function here, because the default Analyzer is `identity` anyway.
 However, being explicit about the Analyzer context can help with clarity and it
 also makes it easier to adjust queries if you want to use something other than
@@ -81,7 +81,7 @@ indexed with the `identity` Analyzer as well, but there are no or different
 matches because of different Analyzer pre-processing between the indexed data
 and the search terms.
 
-For Search Alias Views, you never need to specify an Analyzer in queries,
+For `search-alias` Views, you never need to specify an Analyzer in queries,
 because the Analyzer is inferred from the inverted index definition, which only
 allows a single Analyzer per field.
 
@@ -208,9 +208,9 @@ FOR doc IN imdb
 
 A better way to ignore documents without title attribute is to use the
 [`EXISTS()` function](aql/functions-arangosearch.html#exists).
-For ArangoSearch Views, you need to change the `storeValues` View property
+For `arangosearch` Views, you need to change the `storeValues` View property
 (not to be confused with `storedValues`!) from `"none"` to `"id"`. You can then 
-to test whether there is a title field or not. For Search Alias Views, the
+to test whether there is a title field or not. For `search-alias` Views, the
 `EXISTS()` function works out of the box.
 
 On a single server with this particular dataset, the query is roughly five times

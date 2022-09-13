@@ -35,7 +35,7 @@ transforms an example input:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerCustomTokens}
       var analyzers = require("@arangodb/analyzers")
     | var a = analyzers.save("custom", "text", {
-    |   locale: "en.utf-8",
+    |   locale: "en",
     |   stopwords: ["a", "example"]
       }, ["frequency","norm","position"]);
       db._query(`RETURN TOKENS("UPPER & lower, a Stemming Example.", "custom")`).toArray();
@@ -73,9 +73,10 @@ This applies to sub-objects as well as objects in arrays. Only primitive values
 are added to the index, arrays and objects can not be searched for.
 
 Also see:
-- [SEARCH operation](aql/operations-search.html) on how to query indexed
+- [`SEARCH` operation](aql/operations-search.html) on how to query indexed
   values such as numbers and nested values
-- [ArangoSearch Views](arangosearch-views.html) for details about how
+- [`arangosearch` Views](arangosearch-views.html) and
+  [Inverted indexes](indexing-inverted.html) for details about how
   compound data types (arrays, objects) get indexed
 
 Analyzer Names
@@ -148,7 +149,7 @@ Analyzer Features
 -----------------
 
 The *features* of an Analyzer determine what searching capabilities are
-available and are only applicable in the context of ArangoSearch Views.
+available and are only applicable in the context of Views and inverted indexes.
 
 The valid values for the features are dependant on both the capabilities of
 the underlying Analyzer *type* and the query filtering and sorting functions that the
@@ -241,10 +242,8 @@ for supported languages.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `locale` (string): a locale in the format
-  `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
-  parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. The locale is forwarded to ICU without checks.
+- `locale` (string): a locale in the format `language`, e.g. `"de"` or `"en"`.
+  The locale is forwarded to the Snowball stemmer without checks.
   An invalid locale does not prevent the creation of the Analyzer.
   Also see [Supported Languages](#supported-languages).
 
@@ -257,7 +256,7 @@ Apply stemming to the input string as a whole:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerStem}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("stem_en", "stem", {
-    |   locale: "en.utf-8"
+    |   locale: "en"
       }, ["frequency", "norm", "position"]);
       db._query(`RETURN TOKENS("databases", "stem_en")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -273,10 +272,10 @@ token, i.e. case conversion and accent removal.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `locale` (string): a locale in the format
-  `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
-  parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. The locale is forwarded to ICU without checks.
+- `locale` (string): a locale in the format `language[_COUNTRY]`
+  (square brackets denote optional parts), e.g. `"de"` or `"en_US"`. See the
+  [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
+  for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
   Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
@@ -296,7 +295,7 @@ Convert input string to all upper-case characters:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm1}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("norm_upper", "norm", {
-    |   locale: "en.utf-8",
+    |   locale: "en",
     |   case: "upper"
       }, ["frequency", "norm", "position"]);
       db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_upper")`).toArray();
@@ -312,7 +311,7 @@ Convert accented characters to their base characters:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm2}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("norm_accent", "norm", {
-    |   locale: "en.utf-8",
+    |   locale: "en",
     |   accent: false
       }, ["frequency", "norm", "position"]);
       db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent")`).toArray();
@@ -328,7 +327,7 @@ Convert input string to all lower-case characters and remove diacritics:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm3}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("norm_accent_lower", "norm", {
-    |   locale: "en.utf-8",
+    |   locale: "en",
     |   accent: false,
     |   case: "lower"
       }, ["frequency", "norm", "position"]);
@@ -438,10 +437,10 @@ case conversion and accent removal.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `locale` (string): a locale in the format
-  `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
-  parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. The locale is forwarded to ICU without checks.
+- `locale` (string): a locale in the format `language[_COUNTRY]`
+  (square brackets denote optional parts), e.g. `"de"` or `"en_US"`. See the
+  [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
+  for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
   Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
@@ -470,7 +469,7 @@ attributes:
   filtering provide an empty array `[]`. If both *stopwords* and
   *stopwordsPath* are provided then both word sources are combined.
 - `stopwordsPath` (string, _optional_): path with a *language* sub-directory
-  (e.g. `en` for a locale `en_US.utf-8`) containing files with words to omit.
+  (e.g. `en` for a locale `en_US`) containing files with words to omit.
   Each word has to be on a separate line. Everything after the first whitespace
   character on a line will be ignored and can be used for comments. The files
   can be named arbitrarily and have any file extension (or none).
@@ -508,7 +507,7 @@ disabled like this:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextNoStem}
       var analyzers = require("@arangodb/analyzers")
     | var a = analyzers.save("text_en_nostem", "text", {
-    |   locale: "en.utf-8",
+    |   locale: "en",
     |   case: "lower",
     |   accent: false,
     |   stemming: false,
@@ -529,7 +528,7 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     ~ var analyzers = require("@arangodb/analyzers")
     | var a = analyzers.save("text_edge_ngrams", "text", {
     |   edgeNgram: { min: 3, max: 8, preserveOriginal: true },
-    |   locale: "en.utf-8",
+    |   locale: "en",
     |   case: "lower",
     |   accent: false,
     |   stemming: false,
@@ -556,9 +555,10 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `locale` (string): a locale in the format
-  `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
-  parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. The locale is forwarded to ICU without checks.
+  `language[_COUNTRY][_VARIANT][@keywords]` (square brackets denote optional
+  parts), e.g. `"de"`, `"en_US"`, or `fr@collation=phonebook`. See the
+  [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
+  for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
   Also see [Supported Languages](#supported-languages).
 
@@ -575,8 +575,8 @@ letters before `c`:
     @startDocuBlockInline analyzerCollation
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerCollation}
       var analyzers = require("@arangodb/analyzers");
-      var en = analyzers.save("collation_en", "collation", { locale: "en.utf-8" }, ["frequency", "norm", "position"]);
-      var sv = analyzers.save("collation_sv", "collation", { locale: "sv.utf-8" }, ["frequency", "norm", "position"]);
+      var en = analyzers.save("collation_en", "collation", { locale: "en" }, ["frequency", "norm", "position"]);
+      var sv = analyzers.save("collation_sv", "collation", { locale: "sv" }, ["frequency", "norm", "position"]);
       var test = db._create("test");
     | db.test.save([
     |   { text: "a" },
@@ -814,7 +814,7 @@ Normalize to all uppercase and compute bigrams:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineUpperNgram}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("ngram_upper", "pipeline", { pipeline: [
-    |   { type: "norm", properties: { locale: "en.utf-8", case: "upper" } },
+    |   { type: "norm", properties: { locale: "en", case: "upper" } },
     |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
       ] }, ["frequency", "norm", "position"]);
       db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
@@ -832,7 +832,7 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
     | var a = analyzers.save("delimiter_stem", "pipeline", { pipeline: [
     |   { type: "delimiter", properties: { delimiter: "," } },
     |   { type: "delimiter", properties: { delimiter: ";" } },
-    |   { type: "stem", properties: { locale: "en.utf-8" } }
+    |   { type: "stem", properties: { locale: "en" } }
       ] }, ["frequency", "norm", "position"]);
       db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -904,7 +904,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineStopwords}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("norm_stop", "pipeline", { "pipeline": [
-    |   { type: "norm", properties: { locale: "en.utf-8", accent: false, case: "lower" } },
+    |   { type: "norm", properties: { locale: "en", accent: false, case: "lower" } },
     |   { type: "stopwords", properties: { stopwords: ["and","the"], hex: false } },
       ]}, ["frequency", "norm", "position"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
@@ -1353,18 +1353,18 @@ lowercase turned on and the `frequency`, `norm` and `position` features
 Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming | Stopwords | Features |
 -----------|------------|-------------------------|---------|---------|----------|-----------|----------|
 `identity` | `identity` |                         |         |         |          |           | `["frequency", "norm"]`
-`text_de`  | `text`     | `de.utf-8` (German)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_en`  | `text`     | `en.utf-8` (English)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_es`  | `text`     | `es.utf-8` (Spanish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_fi`  | `text`     | `fi.utf-8` (Finnish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_fr`  | `text`     | `fr.utf-8` (French)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_it`  | `text`     | `it.utf-8` (Italian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_nl`  | `text`     | `nl.utf-8` (Dutch)      | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_no`  | `text`     | `no.utf-8` (Norwegian)  | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_pt`  | `text`     | `pt.utf-8` (Portuguese) | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_ru`  | `text`     | `ru.utf-8` (Russian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_sv`  | `text`     | `sv.utf-8` (Swedish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_zh`  | `text`     | `zh.utf-8` (Chinese)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_de`  | `text`     | `de` (German)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_en`  | `text`     | `en` (English)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_es`  | `text`     | `es` (Spanish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_fi`  | `text`     | `fi` (Finnish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_fr`  | `text`     | `fr` (French)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_it`  | `text`     | `it` (Italian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_nl`  | `text`     | `nl` (Dutch)      | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_no`  | `text`     | `no` (Norwegian)  | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_pt`  | `text`     | `pt` (Portuguese) | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_ru`  | `text`     | `ru` (Russian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_sv`  | `text`     | `sv` (Swedish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_zh`  | `text`     | `zh` (Chinese)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
 {:class="table-scroll"}
 
 Note that _locale_, _case_, _accent_, _stemming_ and _stopwords_ are Analyzer

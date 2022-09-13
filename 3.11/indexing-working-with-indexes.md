@@ -41,7 +41,7 @@ db._index("demo/362549736");
 
 An index may also be looked up by its name. Since names are only unique within
 a collection, rather than within the database, the lookup must also include the
-collection name.
+collection name when calling `db._index()`:
 
 ```js
 db._index("demo/primary")
@@ -59,7 +59,7 @@ returns information about the indexes
 `getIndexes()`
 
 Returns an array of all indexes defined for the collection.
-Since ArangoDB 3.4, `indexes()` is an alias for `getIndexes()`.
+The `indexes()` method is an alias for `getIndexes()`.
 
 Note that `_key` implicitly has an index assigned to it.
 
@@ -97,21 +97,24 @@ The *index-description* input value must contain at least a *type* attribute.
 Other attributes may be necessary, depending on the index type.
 
 **type** can be one of the following values:
-- *persistent*: persistent index
-- *fulltext*: fulltext index (deprecated from ArangoDB 3.10 onwards)
-- *geo*: geo index, with _one_ or _two_ attributes
+- `"persistent"`: persistent index
+- `"inverted"`: inverted index
+- `"ttl"`: time-to-live index
+- `"fulltext"`: fulltext index (deprecated from ArangoDB 3.10 onwards)
+- `"geo"`: geo index, with _one_ or _two_ attributes
+- `"zkd"`: multi-dimensional index (experimental)
 
 **fields** is an array of attribute paths, containing the document attributes
-(or subattributes) to be indexed. Some indexes allow using only a single path,
+(or sub-attributes) to be indexed. Some indexes allow using only a single path,
 and others allow multiple. 
 If multiple attributes are used, their order matters.
 
 If an attribute path contains an `[*]` extension (e.g. `friends[*].id`), it means
 that the index attribute value is treated as an array and all array members are
-indexed separately. This is possible with *persistent* indexes.
+indexed separately. This is possible with `persistent` and `inverted` indexes.
 
-**storedValues**: in indexes of type *persistent*, additional attributes can be
-stored in the index. These additional attributes cannot be used for
+**storedValues**: in indexes of type `persistent` and `inverted`, additional
+attributes can be stored in the index. These additional attributes cannot be used for
 index lookups or for sorting, but they can be used for projections. This allows an
 index to fully cover more queries and avoid extra document lookups.
 Non-existing attributes are stored as **null** values inside **storedValues**.
@@ -131,38 +134,37 @@ The purpose of user-defined index names is have easy-to-remember names to
 use in index hints in AQL queries.
 If no index hints are used, going with the auto-generated index names is fine.
 
-**sparse** can be *true* or *false*.
+**sparse** can be `true` or `false`.
+You can control the sparsity for `persistent` indexes. The `inverted`, `fulltext`,
+and `geo` index types are [sparse](indexing-which-index.html) by definition.
 
-For *persistent* the sparsity can be controlled, *fulltext* and *geo*
-are [sparse](indexing-which-index.html) by definition.
-
-**unique** can be *true* or *false* and is supported by *persistent*. By default,
-all user-defined indexes are non-unique.
+**unique** can be `true` or `false` and is supported by `persistent` indexes.
+By default, all user-defined indexes are non-unique.
 Only the attributes in **fields** are checked for uniqueness. Any attributes in
 from **storedValues** are not checked for their uniqueness.
 
-**deduplicate** can be *true* or *false* and is supported by array indexes of
-type *persistent*. It controls whether inserting duplicate index values
+**deduplicate** can be `true` or `false` and is supported by array indexes of
+type `persistent`. It controls whether inserting duplicate index values
 from the same document into a unique array index will lead to a unique constraint
-error or not. The default value is *true*, so only a single instance of each
+error or not. The default value is `true`, so only a single instance of each
 non-unique index value will be inserted into the index per document. Trying to
 insert a value into the index that already exists in the index will always fail,
 regardless of the value of this attribute.
 
-**estimates** can be *true* or *false* and is supported by indexes of type
-*persistent*. This attribute controls whether index selectivity estimates are
+**estimates** can be `true` or `false` and is supported by indexes of type
+`persistent`. This attribute controls whether index selectivity estimates are
 maintained for the index. Not maintaining index selectivity estimates can have
 a slightly positive impact on write performance.
 The downside of turning off index selectivity estimates will be that
 the query optimizer will not be able to determine the usefulness of different
 competing indexes in AQL queries when there are multiple candidate indexes to
 choose from.
-The **estimates** attribute is optional and defaults to *true* if not set. It will
-have no effect on indexes other than *persistent* (with *hash* and *skiplist*
-being mere aliases for *persistent* nowadays).
+The **estimates** attribute is optional and defaults to `true` if not set. It will
+have no effect on indexes other than `persistent` (with `hash` and `skiplist`
+being mere aliases for the `persistent` index type nowadays).
 
-**cacheEnabled** can be *true* or *false* and is supported by indexes of type
-*persistent*. The attribute controls whether an extra in-memory hash cache is
+**cacheEnabled** can be `true` or `false` and is supported by indexes of type
+`persistent`. The attribute controls whether an extra in-memory hash cache is
 created for the index. The hash cache can be used to speed up index lookups.
 The cache can only be used for queries that look up all index attributes via
 an equality lookup (`==`). The hash cache cannot be used for range scans, 
@@ -175,8 +177,10 @@ The maximum size of cache entries that can be stored is currently 4 MB, i.e.
 the cumulated size of all index entries for any index lookup value must be
 less than 4 MB. This limitation is there to avoid storing the index entries
 of "super nodes" in the cache.
-**cacheEnabled** defaults to *false* and should only be used for indexes that
+**cacheEnabled** defaults to `false` and should only be used for indexes that
 are known to benefit from an extra layer of caching.
+
+Also check the documentation of the specific index type for additional options.
 
 **Examples**
 

@@ -2,9 +2,9 @@
 layout: default
 description: Search Alias Views
 ---
-# Search Alias Views Reference
+# `search-alias` Views Reference
 
-Search Alias Views let you add one or more inverted indexes to a View, enabling
+`search-alias` Views let you add one or more inverted indexes to a View, enabling
 federate searching and sorting search results by relevance, on top of
 sophisticated information retrieval capabilities such as full-text search for
 unstructured or semi-structured data provided by the inverted indexes that they
@@ -21,7 +21,7 @@ introduction.
 
 ## View Definition
 
-A Search Alias View is configured via an object containing a set of
+A `search-alias` View is configured via an object containing a set of
 View-specific configuration directives, allowing you to add inverted indexes:
 
 - **name** (string, _immutable_): the View name

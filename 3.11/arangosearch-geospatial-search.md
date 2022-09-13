@@ -69,18 +69,18 @@ as described below:
 
 ### View definition
 
-#### Search Alias View
+#### `search-alias` View
 
 ```js
-db.restaurants.ensureIndex({ type: "inverted", name: "inv-rest", fields: [ { name: "location", analyzer: "geojson" } ] });
-db.neighborhoods.ensureIndex({ type: "inverted", name: "inv-hood", fields: [ "name", { name: "geometry", analyzer: "geojson" } ] });
+db.restaurants.ensureIndex({ name: "inv-rest", type: "inverted", fields: [ { name: "location", analyzer: "geojson" } ] });
+db.neighborhoods.ensureIndex({ name: "inv-hood", type: "inverted", fields: [ "name", { name: "geometry", analyzer: "geojson" } ] });
 db._createView("restaurantsViewAlias", "search-alias", { indexes: [
   { collection: "restaurants", index: "inv-rest" },
   { collection: "neighborhoods", index: "inv-hood" }
 ] });
 ```
 
-#### ArangoSearch View
+#### `arangosearch` View
 
 ```json
 {
@@ -118,7 +118,7 @@ Using the Museum of Modern Arts as reference location, find restaurants within
 a 100 meter radius. Return the matches sorted by distance and include how far
 away they are from the reference point in the result.
 
-_Search Alias View_:
+_`search-alias` View_:
 
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
@@ -132,7 +132,7 @@ FOR doc IN restaurantsViewAlias
   }
 ```
 
-_ArangoSearch View_:
+_`arangosearch` View_:
 
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
@@ -149,7 +149,7 @@ FOR doc IN restaurantsView
 Search for restaurants with `Cafe` in their name within a radius of 1000 meters
 and return the ten closest matches:
 
-_Search Alias View_:
+_`search-alias` View_:
 
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
@@ -166,7 +166,7 @@ FOR doc IN restaurantsViewAlias
   }
 ```
 
-_ArangoSearch View_:
+_`arangosearch` View_:
 
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
@@ -189,7 +189,7 @@ First off, search for the neighborhood `Upper West Side` in a subquery and
 return its GeoJSON Polygon. Then search for restaurants that are contained
 in this polygon and return them together with the polygon itself:
 
-_Search Alias View_:
+_`search-alias` View_:
 
 ```aql
 LET upperWestSide = FIRST(
@@ -206,7 +206,7 @@ FOR result IN PUSH(
   RETURN result
 ```
 
-_ArangoSearch View_:
+_`arangosearch` View_:
 
 ```aql
 LET upperWestSide = FIRST(
@@ -320,7 +320,7 @@ FOR doc IN restaurantsView
   SEARCH ANALYZER(GEO_CONTAINS(upperWestSide, doc.location), "geojson")
   RETURN doc.location
 
-/* Search Alias View:
+/* `search-alias` View:
 FOR doc IN restaurantsViewAlias
   SEARCH GEO_CONTAINS(upperWestSide, doc.location)
   RETURN doc.location
@@ -351,7 +351,7 @@ LET rect = GEO_POLYGON([
 FOR result IN PUSH(
   FOR doc IN restaurantsView
     SEARCH ANALYZER(GEO_CONTAINS(rect, doc.geometry), "geojson")
-  /* Search Alias View:
+  /* `search-alias` View:
   FOR doc IN restaurantsViewAlias
     SEARCH GEO_CONTAINS(rect, doc.geometry)
   */
@@ -392,7 +392,7 @@ LET rect = GEO_POLYGON([
 FOR result IN PUSH(
   FOR doc IN restaurantsView
     SEARCH ANALYZER(GEO_INTERSECTS(rect, doc.geometry), "geojson")
-  /* Search Alias View:
+  /* `search-alias` View:
   FOR doc IN restaurantsViewAlias
     SEARCH GEO_INTERSECTS(rect, doc.geometry)
   */

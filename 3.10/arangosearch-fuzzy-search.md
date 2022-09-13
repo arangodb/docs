@@ -196,7 +196,7 @@ also relevant.
     @startDocuBlockInline levenshtein_match_sample
     @EXAMPLE_ARANGOSH_OUTPUT{levenshtein_match_sample}
     var analyzers = require("@arangodb/analyzers");
-    analyzers.save("text_en_no_stem", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
+    analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock levenshtein_match_sample
 {% endarangoshexample %}
@@ -204,14 +204,14 @@ also relevant.
 
 #### View definition
 
-##### Search Alias View
+##### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-text", fields: [ { name: "description", analyzer: "text_en_no_stem" } ] });
+db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en_no_stem" } ] });
 db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
 ```
 
-##### ArangoSearch View
+##### `arangosearch` View
 
 ```json
 {
@@ -237,7 +237,7 @@ Levenshtein distance equal to or lower than this value will be a match and the
 respective documents will be included in the search result. The query will find
 the token `galaxy` as the edit distance to `galxy` is `1`.
 
-_Search Alias View:_
+_`search-alias` View:_
 
 ```aql
 FOR doc IN imdb_alias
@@ -254,7 +254,7 @@ FOR doc IN imdb_alias
   }
 ```
 
-_ArangoSearch View:_
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -305,14 +305,14 @@ not including the original string:
 
 #### View definition
 
-##### Search Alias View
+##### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-ngram", fields: [ { name: "name", analyzer: "trigram" } ] });
+db.imdb_vertices.ensureIndex({ name: "inv-ngram", type: "inverted", fields: [ { name: "name", analyzer: "trigram" } ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-ngram" } ] });
 ```
 
-##### ArangoSearch View
+##### `arangosearch` View
 
 ```json
 {

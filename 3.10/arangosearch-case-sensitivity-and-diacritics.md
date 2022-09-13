@@ -22,19 +22,19 @@ remove diacritics:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("norm_en", "norm", { locale: "en.utf-8", accent: false, case: "lower" }, ["frequency", "norm", "position"]);
+analyzers.save("norm_en", "norm", { locale: "en", accent: false, case: "lower" }, ["frequency", "norm", "position"]);
 ```
 
 ### View definition
 
-#### Search Alias View
+#### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ type: "inverted", name: "inv-ci", fields: [ { name: "title", analyzer: "norm_en" } ] });
+db.imdb_vertices.ensureIndex({ name: "inv-ci", type: "inverted", fields: [ { name: "title", analyzer: "norm_en" } ] });
 db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-ci" } ] });
 ```
 
-#### ArangoSearch View
+#### `arangosearch` View
 
 ```json
 {
@@ -59,7 +59,7 @@ db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_ve
 Match movie title, ignoring capitalization and using the base characters
 instead of accented characters (full string).
 
-_Search Alias View:_
+_`search-alias` View:_
 
 ```aql
 FOR doc IN imdb_alias
@@ -67,7 +67,7 @@ FOR doc IN imdb_alias
   RETURN doc.title
 ```
 
-_ArangoSearch View:_
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -83,7 +83,7 @@ FOR doc IN imdb
 
 Match a title prefix (case-insensitive).
 
-_Search Alias View:_
+_`search-alias` View:_
 
 ```aql
 FOR doc IN imdb_alias
@@ -91,7 +91,7 @@ FOR doc IN imdb_alias
   RETURN doc.title
 ```
 
-_ArangoSearch View:_
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb

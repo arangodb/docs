@@ -71,7 +71,7 @@ search highlighting:
     @startDocuBlockInline analyzerTextOffset
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextOffset}
       var analyzers = require("@arangodb/analyzers");
-      analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["position", "frequency", "norm", "offset"]);
+      analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["position", "frequency", "norm", "offset"]);
     ~ analyzers.remove("text_en_offset");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextOffset
@@ -124,7 +124,7 @@ to dynamically get the respective value:
     |   { name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } }
       ]);
       var analyzers = require("@arangodb/analyzers");
-      var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+      var analyzer = analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
       var view = db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
       var wait = db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`); /* wait for View to update */
     | db._query(`FOR doc IN food_view

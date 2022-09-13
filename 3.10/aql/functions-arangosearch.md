@@ -47,15 +47,15 @@ Context Functions
 Sets the Analyzer for the given search expression.
 
 {% hint 'info' %}
-The `ANALYZER()` function is only applicable for queries against ArangoSearch Views.
+The `ANALYZER()` function is only applicable for queries against `arangosearch` Views.
 
-In queries against Search Alias Views and inverted indexes, you don't need to
+In queries against `search-alias` Views and inverted indexes, you don't need to
 specify Analyzers because every field can be indexed with a single Analyzer only
 and they are inferred from the index definition.
 {% endhint %}
 
 The default Analyzer is `identity` for any search expression that is used for
-filtering ArangoSearch Views. This utility function can be used
+filtering `arangosearch` Views. This utility function can be used
 to wrap a complex expression to set a particular Analyzer. It also sets it for
 all the nested functions which require such an argument to avoid repeating the
 Analyzer parameter. If an Analyzer argument is passed to a nested function
@@ -217,7 +217,7 @@ Filter Functions
 ### EXISTS()
 
 {% hint 'info' %}
-If you use ArangoSearch Views, the `EXISTS()` function only matches values if
+If you use `arangosearch` Views, the `EXISTS()` function only matches values if
 you set the **storeValues** link property to `"id"` in the View definition
 (the default is `"none"`).
 {% endhint %}
@@ -1087,7 +1087,7 @@ Scoring functions return a ranking value for the documents found by a
 the search expression the higher the returned number.
 
 The first argument to any scoring function is always the document emitted by
-a `FOR` operation over an ArangoSearch View.
+a `FOR` operation over an `arangosearch` View.
 
 To sort the result set by relevance, with the more relevant documents coming
 first, sort in **descending order** by the score (e.g. `SORT BM25(...) DESC`).
@@ -1294,7 +1294,7 @@ Search a View and get the offset information for the matches:
     ~ db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
     ~ db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
     ~ var analyzers = require("@arangodb/analyzers");
-    ~ var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+    ~ var analyzer = analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
     ~ db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
     ~ db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`);
     | db._query(`FOR doc IN food_view

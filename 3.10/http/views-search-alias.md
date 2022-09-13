@@ -3,7 +3,7 @@ layout: default
 description: HTTP interface to manage Views of type Search Alias
 title: Search Alias Views HTTP API
 ---
-# Search Alias Views
+# `search-alias` Views HTTP API
 
 {% docublock post_api_view_searchalias %}
 
