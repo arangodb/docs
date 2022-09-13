@@ -11,7 +11,7 @@ title: Nested Search ArangoSearch Examples
 {{ page.description }}
 {:class="lead"}
 
-{% include hint-ee.md feature="Nested search with View index acceleration" %}
+{% include hint-ee.md feature="Nested search" %}
 
 By default, ArangoSearch Views index arrays as if the parent attribute had
 multiple values at once. With `trackListPositions` set to `true`, every array

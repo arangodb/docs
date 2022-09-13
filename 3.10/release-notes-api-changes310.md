@@ -98,7 +98,7 @@ following attributes:
 - `keepNull` (boolean, _optional_, default: `true`)
 - `failOnWarning` (boolean, _optional_, default: `false`)
 
-#### Nested search
+#### Nested search (Enterprise Edition)
 
 The following endpoints accepts a new, optional link property called `nested`
 in the Enterprise Edition:

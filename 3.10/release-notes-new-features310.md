@@ -148,10 +148,6 @@ db._query(`FOR doc IN food_view
 See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
 for details.
 
-This feature is available in all editions, but nested search queries are only
-optimized in the Enterprise Edition. The Community Edition does not utilize
-View indexes.
-
 ### Nested search (Enterprise Edition)
 
 Nested search allows you to index arrays of objects in a way that lets you
@@ -455,11 +451,16 @@ surrounding length check:
 ```aql
 LET arr = [ 1, 2, 3, 4 ]
 RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
+
+/* Equivalent expression:
+RETURN LENGTH(arr[* FILTER CURRENT % 2 == 0]) == 2
+*/
 ```
 
 The quantifier can be a number, a range, `NONE`, `ANY`, `ALL`, or `AT LEAST`.
 
-This operator is handy for the new nested search feature.
+This operator is used for the new [Nested search](#nested-search-enterprise-edition)
+feature.
 
 See [Array Operators](aql/advanced-array-operators.html#question-mark-operator)
 for details.
