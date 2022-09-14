@@ -720,33 +720,6 @@ scans, for sorting, or for lookups that do not include all index attributes.
 
 See [Persistent Indexes](indexing-persistent.html#caching-of-index-values).
 
-## Read from Followers in Clusters (Enterprise Edition)
-
-You can now allow for reads from followers for a
-number of read-only operations in cluster deployments. In this case, Coordinators
-are allowed to read not only from shard leaders but also from shard replicas.
-This has a positive effect, because the reads can scale out to all DB-Servers
-that have copies of the data. Therefore, the read throughput is higher.
-
-This feature is only available in the Enterprise Edition.
-
-For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
-
-## Improved shard rebalancing
-
-Starting with version 3.10, the shard rebalancing feature introduces an
-automatic shard rebalancing API. 
-
-You can do any of the following by using the API:
-
-- Get an analysis of the current cluster imbalance.
-- Compute a plan of move shard operations to rebalance the cluster and thus improve balance.
-- Execute the given set of move shard operations.
-- Compute a set of move shard operations to improve balance and execute them immediately. 
-
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
-section of the HTTP API reference manual.
-
 ## Document keys
 
 Some key generators can generate keys in an ascending order, meaning that document
