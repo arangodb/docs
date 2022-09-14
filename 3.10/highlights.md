@@ -44,6 +44,10 @@ grouped by version
 - [**Search highlighting**](arangosearch-search-highlighting.html):
   Get the substring positions of matched terms, phrases, or _n_-grams.
 
+- [**Nested search**](arangosearch-nested-search.html):
+  Match arrays of objects with all the conditions met by a single sub-object,
+  and define for how many of the elements this must be true.
+
 - **ArangoSearch**:
   New [MinHash Analyzer](analyzers.html#minhash) for locality-sensitive hashing
   to approximate the Jaccard similarity, with inverted index and

@@ -3,7 +3,7 @@
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">718</span>
+content-length: <span class="hljs-number">754</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -11,13 +11,13 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;arango&quot;</span>, 
   <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.11.0-devel&quot;</span>, 
-  <span class="hljs-string">&quot;pid&quot;</span> : <span class="hljs-number">908</span>, 
+  <span class="hljs-string">&quot;pid&quot;</span> : <span class="hljs-number">1172</span>, 
   <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
   <span class="hljs-string">&quot;mode&quot;</span> : <span class="hljs-string">&quot;server&quot;</span>, 
   <span class="hljs-string">&quot;operationMode&quot;</span> : <span class="hljs-string">&quot;server&quot;</span>, 
   <span class="hljs-string">&quot;foxxApi&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;host&quot;</span> : <span class="hljs-string">&quot;hw06-linux&quot;</span>, 
-  <span class="hljs-string">&quot;hostname&quot;</span> : <span class="hljs-string">&quot;9a894000eee1&quot;</span>, 
+  <span class="hljs-string">&quot;host&quot;</span> : <span class="hljs-string">&quot;EC2 (AWS X86) - AWS X86 (i-0c1b5c230941ec0be)&quot;</span>, 
+  <span class="hljs-string">&quot;hostname&quot;</span> : <span class="hljs-string">&quot;5e37050ecd91&quot;</span>, 
   <span class="hljs-string">&quot;serverInfo&quot;</span> : { 
     <span class="hljs-string">&quot;progress&quot;</span> : { 
       <span class="hljs-string">&quot;phase&quot;</span> : <span class="hljs-string">&quot;in wait&quot;</span>, 
@@ -28,22 +28,22 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;role&quot;</span> : <span class="hljs-string">&quot;COORDINATOR&quot;</span>, 
     <span class="hljs-string">&quot;writeOpsEnabled&quot;</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">&quot;readOnly&quot;</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">&quot;persistedId&quot;</span> : <span class="hljs-string">&quot;CRDN-4e6c4769-87dd-4437-8875-56e12e695517&quot;</span>, 
+    <span class="hljs-string">&quot;persistedId&quot;</span> : <span class="hljs-string">&quot;CRDN-87c36ab0-75fc-41eb-9b0e-d57a6aff12f6&quot;</span>, 
     <span class="hljs-string">&quot;rebootId&quot;</span> : <span class="hljs-number">1</span>, 
-    <span class="hljs-string">&quot;address&quot;</span> : <span class="hljs-string">&quot;tcp://127.0.0.1:9662&quot;</span>, 
-    <span class="hljs-string">&quot;serverId&quot;</span> : <span class="hljs-string">&quot;CRDN-4e6c4769-87dd-4437-8875-56e12e695517&quot;</span>, 
+    <span class="hljs-string">&quot;address&quot;</span> : <span class="hljs-string">&quot;tcp://127.0.0.1:18370&quot;</span>, 
+    <span class="hljs-string">&quot;serverId&quot;</span> : <span class="hljs-string">&quot;CRDN-87c36ab0-75fc-41eb-9b0e-d57a6aff12f6&quot;</span>, 
     <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;SERVING&quot;</span> 
   }, 
   <span class="hljs-string">&quot;coordinator&quot;</span> : { 
-    <span class="hljs-string">&quot;foxxmaster&quot;</span> : <span class="hljs-string">&quot;CRDN-4e6c4769-87dd-4437-8875-56e12e695517&quot;</span>, 
+    <span class="hljs-string">&quot;foxxmaster&quot;</span> : <span class="hljs-string">&quot;CRDN-87c36ab0-75fc-41eb-9b0e-d57a6aff12f6&quot;</span>, 
     <span class="hljs-string">&quot;isFoxxmaster&quot;</span> : <span class="hljs-literal">true</span> 
   }, 
   <span class="hljs-string">&quot;agency&quot;</span> : { 
     <span class="hljs-string">&quot;agencyComm&quot;</span> : { 
       <span class="hljs-string">&quot;endpoints&quot;</span> : [ 
-        <span class="hljs-string">&quot;tcp://127.0.0.1:27809&quot;</span>, 
-        <span class="hljs-string">&quot;tcp://127.0.0.1:10049&quot;</span>, 
-        <span class="hljs-string">&quot;tcp://127.0.0.1:14197&quot;</span> 
+        <span class="hljs-string">&quot;tcp://127.0.0.1:18011&quot;</span>, 
+        <span class="hljs-string">&quot;tcp://127.0.0.1:25516&quot;</span>, 
+        <span class="hljs-string">&quot;tcp://127.0.0.1:8711&quot;</span> 
       ] 
     } 
   } 
