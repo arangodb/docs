@@ -123,14 +123,14 @@ and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on sta
 
 ### RocksDB File Format
 
-ArangoDB 3.10 will internally switch to RocksDB's `format_version` 5, which can still be 
+ArangoDB 3.10 internally switches to RocksDB's `format_version` 5, which can still be 
 read by older versions of ArangoDB. 
-However, ArangoDB 3.10 will use the LZ4 compression scheme to reduce the size of RocksDB .sst
+However, ArangoDB 3.10 uses the LZ4 compression scheme to reduce the size of RocksDB .sst
 files from LSM tree level 2 onwards. This compression scheme is not supported in ArangoDB 
 versions before 3.10, so any database files created with ArangoDB 3.10 or higher cannot be
-opened with versions older than 3.10.
+opened with versions before 3.10.
 The internal checksum type of RocksDB .sst files has been changed to xxHash64 in ArangoDB
-3.10, for a slight performance improvement.
+3.10 for a slight performance improvement.
 
 ### Pregel Options
 
