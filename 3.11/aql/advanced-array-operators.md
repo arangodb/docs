@@ -1,10 +1,9 @@
 ---
 layout: default
-description: In order to access a named attribute from all elements in an array easily, AQLoffers the shortcut operator [*] for array variable expansion
+description: In order to access a named attribute from all elements in an array easily, AQL offers the shortcut operator [*] for array variable expansion
 ---
 Array Operators
 ===============
-
 
 Array expansion
 ---------------
@@ -304,3 +303,51 @@ The above will return:
   ]
 ]
 ```
+
+Question mark operator
+----------------------
+
+You can use the `[? ... ]` operator on arrays to check whether the elements
+fulfill certain criteria, and you can specify how often they should be satisfied.
+The operator is similar to an inline filter but with an additional length check
+and it evaluates to `true` or `false`.
+
+The following example shows how to check whether two of numbers in the array
+are even:
+
+```aql
+LET arr = [ 1, 2, 3, 4 ]
+RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
+```
+
+The number `2` after the `?` is the quantifier. It is optional and defaults to
+`ANY`. The following quantifiers are supported:
+
+- Integer numbers for exact quantities (e.g. `2`)
+- Number ranges for a quantity between the two values (e.g. `2..3`)
+- `NONE` (equivalent to `0`)
+- `ANY`
+- `ALL`
+- `AT LEAST`
+
+The quantifier needs to be followed by a `FILTER` operation if you want to specify
+conditions. You can refer to the current array element via the `CURRENT`
+pseudo-variable in the filter expression. If you leave out the quantifier and
+`FILTER` operation (only `arr[?]`), then `arr` is checked whether it is an array
+and if it has at least one element.
+
+The question mark operator is a shorthand for an inline filter with a
+surrounding length check. The following table compares both variants:
+
+| Question mark operator | Inline filter with length check |
+|:-----------------------|:--------------------------------|
+| `arr[? <number> FILTER <conditions>]` | `LENGTH(arr[* FILTER <conditions>]) == <number>`
+| `arr[? <min>..<max> FILTER <conditions>]` | `IN_RANGE(LENGTH(arr[* FILTER <conditions>]), <min>, <max>, true, true)`
+| `arr[? NONE FILTER <conditions>]` | `LENGTH(arr[* FILTER <conditions>]) == 0`
+| `arr[? ANY FILTER <conditions>]`  | `LENGTH(arr[* FILTER <conditions>]) > 0`
+| `arr[? ALL FILTER <conditions>]`  | `LENGTH(arr[* FILTER <conditions>]) == LENGTH(arr)`
+| `arr[? AT LEAST (<number>) FILTER <conditions>]` | `LENGTH(arr[* FILTER <conditions>]) >= <number>`
+| `arr[?]` | `LENGTH(arr[*]) > 0`
+
+The question mark operator can be used for [Nested search](../arangosearch-nested-search.html)
+(Enterprise Edition only).

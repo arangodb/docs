@@ -148,6 +148,53 @@ db._query(`FOR doc IN food_view
 See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
 for details.
 
+### Nested search (Enterprise Edition)
+
+Nested search allows you to index arrays of objects in a way that lets you
+search the sub-objects with all the conditions met by a single sub-object
+instead of each condition being met by any of the sub-objects.
+
+Consider a document like the following:
+
+```json
+{
+  "dimensions": [
+    { "type": "height", "value": 35 },
+    { "type": "width", "value": 60 }
+  ]
+}
+```
+
+The following search query matches the document because the individual conditions
+are satisfied by one of the nested objects:
+
+```aql
+FOR doc IN viewName
+  SEARCH doc.dimensions.type == "height" AND doc.dimensions.value > 40
+  RETURN doc
+```
+
+If you only want to find documents where both conditions are true for a single
+nested object, you could post-filter the search results:
+
+```aql
+FOR doc IN viewName
+  SEARCH doc.dimensions.type == "height" AND doc.dimensions.value > 40
+  FILTER LENGTH(doc.dimensions[* FILTER CURRENT.type == "height" AND CURRENT.value > 40]) > 0
+  RETURN doc
+```
+
+The new nested search feature allows you to simplify the query and get better
+performance:
+
+```aql
+FOR doc IN viewName
+  SEARCH doc.dimensions[? FILTER CURRENT.type == "height" AND CURRENT.value > 40]
+  RETURN doc
+```
+
+See [Nested search in ArangoSearch](arangosearch-nested-search.html) for details.
+
 This feature is only available in the Enterprise Edition.
 
 Analyzers
@@ -239,6 +286,7 @@ FOR startVertex IN ["v/1", "v/2", "v/3", "v/4"]
 FOR v,e,p IN 1..3 OUTBOUND startVertex GRAPH "yourShardedGraph" OPTIONS {parallelism: 3}
 [...]
 ```
+
 This feature is only available in the Enterprise Edition.
 
 ### GeoJSON changes
@@ -394,6 +442,28 @@ FOR … IN … OPTIONS { lookahead: 32 }
 ```
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
+
+### Question mark operator
+
+The new `[? ... ]` array operator is a shorthand for an inline filter with a
+surrounding length check:
+
+```aql
+LET arr = [ 1, 2, 3, 4 ]
+RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
+
+/* Equivalent expression:
+RETURN LENGTH(arr[* FILTER CURRENT % 2 == 0]) == 2
+*/
+```
+
+The quantifier can be a number, a range, `NONE`, `ANY`, `ALL`, or `AT LEAST`.
+
+This operator is used for the new [Nested search](#nested-search-enterprise-edition)
+feature.
+
+See [Array Operators](aql/advanced-array-operators.html#question-mark-operator)
+for details.
 
 ### New `AT LEAST` array comparison operator
 
