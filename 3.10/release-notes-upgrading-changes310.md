@@ -121,6 +121,17 @@ It is possible to opt out of these changes and get back the memory and performan
 of the previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
+### RocksDB File Format
+
+ArangoDB 3.10 will internally switch to RocksDB's `format_version` 5, which can still be 
+read by older versions of ArangoDB. 
+However, ArangoDB 3.10 will use the LZ4 compression scheme to reduce the size of RocksDB .sst
+files from LSM tree level 2 onwards. This compression scheme is not supported in ArangoDB 
+versions before 3.10, so any database files created with ArangoDB 3.10 or higher cannot be
+opened with versions older than 3.10.
+The internal checksum type of RocksDB .sst files has been changed to xxHash64 in ArangoDB
+3.10, for a slight performance improvement.
+
 ### Pregel Options
 
 Pregel jobs now have configurable minimum, maximum and default parallelism values. You can set them
