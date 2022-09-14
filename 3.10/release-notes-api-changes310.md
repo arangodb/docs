@@ -74,7 +74,7 @@ move shard operations and improve balance in the cluster.
 - `POST /_admin/cluster/rebalance_execute`
 - `PUT /_admin/cluster/rebalance`
   
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
 section of the HTTP API reference manual. 
 
 ### Endpoints augmented
