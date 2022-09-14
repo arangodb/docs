@@ -29,6 +29,7 @@ The following methods exist on the collection object (returned by *db.name*):
 * [collection.dropIndex(index)](indexing-working-with-indexes.html#dropping-an-index-via-a-collection-handle)
 * [collection.ensureIndex(description)](indexing-working-with-indexes.html#creating-an-index)
 * [collection.getIndexes(name)](indexing-working-with-indexes.html#listing-all-indexes-of-a-collection)
+* [collection.indexes(name)](indexing-working-with-indexes.html#listing-all-indexes-of-a-collection)
 * [collection.index(index)](indexing-working-with-indexes.html#index-identifiers-and-handles)
 
 *Document*

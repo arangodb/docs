@@ -55,15 +55,29 @@ Collection Methods
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
-returns information about the indexes
-`getIndexes()`
+`collection.getIndexes(withStats, withHidden)`
+
+`collection.indexes(withStats, withHidden)`
 
 Returns an array of all indexes defined for the collection.
-Since ArangoDB 3.4, `indexes()` is an alias for `getIndexes()`.
+
+You can set the following parameters:
+
+- **withStats** (boolean, _optional_): whether to include index figures and
+  estimates in the result. Default: `false`
+- **withHidden** (boolean, _optional_): whether to include hidden indexes in the
+  result. Default: `false`
+
+The `indexes()` method is an alias for `getIndexes()`.
 
 Note that `_key` implicitly has an index assigned to it.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+
+**Examples**
+
+Get the index definitions for a collection:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionGetIndexes
     @EXAMPLE_ARANGOSH_OUTPUT{collectionGetIndexes}
     ~db._create("test");
@@ -75,8 +89,28 @@ Note that `_key` implicitly has an index assigned to it.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionGetIndexes
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Get the index definitions for a collection, including figures and hidden indexes:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline collectionGetIndexesStats
+    @EXAMPLE_ARANGOSH_OUTPUT{collectionGetIndexesStats}
+    ~ db._create("coll");
+    ~ db.coll.save({ attr: "foo" });
+    ~ db.coll.save({ attr: "bar" });
+    ~ db.coll.ensureIndex({ type: "inverted", fields: ["attr"], name: "inv-idx" });
+    ~ db._createView("arangosearch-view", "arangosearch", { links: { coll: { includeAllFields: true } } });
+    ~ db._query(`FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true, waitForSync: true } FILTER doc.attr != null RETURN true`);
+    ~ db._query(`FOR doc IN ´arangosearch-view´ SEARCH true OPTIONS { waitForSync: true } RETURN true`);
+      db.coll.indexes(true, true);
+    ~ db._drop("coll");
+    ~ db._dropView("arangosearch-view");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock collectionGetIndexesStats
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Creating an index
 

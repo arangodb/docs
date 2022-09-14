@@ -4233,6 +4233,28 @@
   description: |
     Number of live documents for current snapshot.
 
+- name: arangodb_search_num_out_of_sync_links
+  introducedIn: "3.9.4"
+  help: |
+    Number of out-of-sync arangosearch links/inverted indexes.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of arangosearch links and inverted indexes that are
+    currently out of sync. A link or inverted index is out of sync
+    if the recovery for it is intentionally skipped or a commit
+    operation on the link/index has failed.
+  troubleshoot: |
+    If this metric contains a value greater than zero, the
+    log files should be checked to find out which links/indexes
+    are affected. The out-of-sync links/indexes should then
+    be dropped and recreated.
+
 - name: arangodb_search_num_segments
   introducedIn: "3.10.0"
   help: |
@@ -4501,14 +4523,16 @@
   description: |
     Number of times a follower shard needed to be completely rebuilt
     because of too many subsequent shard synchronization failures.
-    If this metric is non-zero, it means that a follower shard could
+    This metric is always zero from version 3.9.3 onwards. In previous
+    releases, a non-zero value indicates that a follower shard could
     not get in sync with the leader even after many attempts. When
-    the metric gets increased, the follower shard is dropped and
+    the metric got increased, the follower shard was dropped and
     completely rebuilt from leader data, in order to increase its
     chances of getting in sync.
   troubleshoot: |
-    Normally, this number will always be 0. If it is not, then something
-    is wrong, please contact ArangoDB customer support in this case.
+    This number will always be 0 from version 3.9.3 onwards. If it is
+    non-zero in previous versions, then something is wrong, please 
+    contact ArangoDB customer support in this case.
 
 - name: arangodb_sync_timeouts_total
   introducedIn: "3.9.2"

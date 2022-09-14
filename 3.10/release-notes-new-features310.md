@@ -197,6 +197,53 @@ See [Nested search in ArangoSearch](arangosearch-nested-search.html) for details
 
 This feature is only available in the Enterprise Edition.
 
+### ArangoSearch metrics and figures
+
+The [Metrics HTTP API](http/administration-and-monitoring-metrics.html) has been
+extended with metrics for ArangoSearch for monitoring `arangosearch` View links
+and inverted indexes.
+
+The following metrics have been added in ArangoDB 3.10:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_search_cleanup_time` | Average time of few last cleanups.
+| `arangodb_search_commit_time` | Average time of few last commits.
+| `arangodb_search_consolidation_time` | Average time of few last consolidations.
+| `arangodb_search_index_size` | Size of the index in bytes for current snapshot.
+| `arangodb_search_num_docs` | Number of documents for current snapshot.
+| `arangodb_search_num_failed_cleanups` | Number of failed cleanups.
+| `arangodb_search_num_failed_commits` | Number of failed commits.
+| `arangodb_search_num_failed_consolidations` | Number of failed consolidations.
+| `arangodb_search_num_files` | Number of files for current snapshot.
+| `arangodb_search_num_live_docs` | Number of live documents for current snapshot.
+| `arangodb_search_num_out_of_sync_links` | Number of out-of-sync arangosearch links/inverted indexes.
+| `arangodb_search_num_segments` | Number of segments for current snapshot.
+
+These metrics are exposed by single servers and DB-Servers.
+
+Additionally, the JavaScript and HTTP API for indexes has been extended with
+figures for `arangosearch` View links and inverted indexes.
+
+In arangosh, you can call `db.<collection>.indexes(true, true);` to get at this
+information. Also see [Listing all indexes of a collection](indexing-working-with-indexes.html#listing-all-indexes-of-a-collection).
+The information has the following structure:
+
+```js
+{
+  "figures" : { 
+    "numDocs" : 4,      // total number of documents in the index with removals
+    "numLiveDocs" : 4,  // total number of documents in the index without removals
+    "numSegments" : 1,  // total number of index segments
+    "numFiles" : 8,     // total number of index files
+    "indexSize" : 1358  // size of the index in bytes
+  }, ...
+}
+```
+
+Note that the number of (live) docs may differ from the actual number of
+documents if the nested search feature is used.
+
 Analyzers
 ---------
 
@@ -736,7 +783,7 @@ You can do any of the following by using the API:
 * Execute the given set of move shard operations.
 * Compute a set of move shard operations to improve balance and execute them immediately. 
 
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
 section of the HTTP API reference manual.
 
 Miscellaneous changes
