@@ -660,6 +660,9 @@ To learn more, check out the different search examples:
 - [**Search highlighting**](arangosearch-search-highlighting.html):
   Retrieve the positions of matches within strings, to highlight what was found
   in search results.
+- [**Nested search**](arangosearch-nested-search.html):
+  Match arrays of objects with all the conditions met by a single sub-object,
+  and define for how many of the elements this must be true (Enterprise Edition only).
 
 For relevance and performance tuning, as well as the reference documentation, see:
 
