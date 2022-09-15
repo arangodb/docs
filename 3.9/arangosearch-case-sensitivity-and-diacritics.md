@@ -20,7 +20,7 @@ remove diacritics:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("norm_en", "norm", { locale: "en.utf-8", accent: false, case: "lower" }, ["frequency", "norm", "position"]);
+analyzers.save("norm_en", "norm", { locale: "en", accent: false, case: "lower" }, ["frequency", "norm", "position"]);
 ```
 
 **View definition:**

@@ -289,7 +289,8 @@ and `false`), but the data type must be the same for both.
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
-language rules as per the defined Analyzer locale nor the server language
+language rules as per the defined Analyzer locale (except for the
+[`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](../release-notes-known-issues39.html#arangosearch).
 {% endhint %}
@@ -668,7 +669,8 @@ to match the document.
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
-language rules as per the defined Analyzer locale nor the server language
+language rules as per the defined Analyzer locale (except for the
+[`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](../release-notes-known-issues39.html#arangosearch).
 {% endhint %}

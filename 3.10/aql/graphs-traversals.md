@@ -173,7 +173,7 @@ If the same edge collection is specified multiple times, it will behave as if it
 were specified only once. Specifying the same edge collection is only allowed when
 the collections do not have conflicting traversal directions.
 
-ArangoSearch Views cannot be used as edge collections.
+Views cannot be used as edge collections.
 
 ### Traversing in mixed directions
 

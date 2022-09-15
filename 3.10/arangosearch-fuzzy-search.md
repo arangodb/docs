@@ -178,9 +178,11 @@ when [ranking](arangosearch-ranking.html) results.
 
 ### Searching with `LEVENSHTEIN_MATCH()`
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+#### Dataset
 
-**Custom Analyzer:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+#### Custom Analyzer
 
 Create a `text` Analyzer in arangosh to tokenize text, normalize case to all
 lowercase and to remove diacritics, but with stemming disabled unlike the
@@ -194,13 +196,22 @@ also relevant.
     @startDocuBlockInline levenshtein_match_sample
     @EXAMPLE_ARANGOSH_OUTPUT{levenshtein_match_sample}
     var analyzers = require("@arangodb/analyzers");
-    analyzers.save("text_en_no_stem", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
+    analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock levenshtein_match_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-**View definition:**
+#### View definition
+
+##### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en_no_stem" } ] });
+db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
+```
+
+##### `arangosearch` View
 
 ```json
 {
@@ -218,13 +229,32 @@ also relevant.
 }
 ```
 
-**AQL queries:**
+#### AQL queries
 
 Search for the token `galxy` in the movie descriptions with some fuzziness.
 The maximum allowed Levenshtein distance is set to `1`. Everything with a
 Levenshtein distance equal to or lower than this value will be a match and the
 respective documents will be included in the search result. The query will find
-the token `galaxy` as the edit distance to `galxy` is `1`:
+the token `galaxy` as the edit distance to `galxy` is `1`.
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH LEVENSHTEIN_MATCH(
+    doc.description,
+    TOKENS("galxy", "text_en_no_stem")[0],
+    1,    // max distance
+    false // without transpositions
+  )
+  SORT BM25(doc) DESC
+  RETURN {
+    title: doc.title,
+    description: doc.description
+  }
+```
+
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -253,9 +283,11 @@ FOR doc IN imdb
 
 ### Searching with `NGRAM_MATCH()`
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+#### Dataset
 
-**Custom Analyzer:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+#### Custom Analyzer
 
 `NGRAM_MATCH()` requires an `ngram` Analyzer. For this example, create a
 trigram Analyzer in arangosh with a minimum and maximum _n_-gram size of 3,
@@ -271,7 +303,16 @@ not including the original string:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-**View definition:**
+#### View definition
+
+##### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-ngram", type: "inverted", fields: [ { name: "name", analyzer: "trigram" } ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-ngram" } ] });
+```
+
+##### `arangosearch` View
 
 ```json
 {
@@ -289,7 +330,7 @@ not including the original string:
 }
 ```
 
-**AQL queries:**
+#### AQL queries
 
 Search for actor names with an _n_-gram similarity of at least 50%.
 

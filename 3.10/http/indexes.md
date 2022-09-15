@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's HTTP interface for indexes ingeneral
+description: This is an introduction to ArangoDB's HTTP interface for indexes in general
 ---
 HTTP Interface for Indexes
 ==========================
@@ -39,18 +39,34 @@ The edge index is non-unique.
 ### Persistent Index
 
 A persistent index is a sorted index that can be used for finding individual documents or ranges of documents.
-In contrast to the other indexes, the contents of a persistent index are stored on disk and thus do not need to be rebuilt in memory from the documents when the collection is loaded.
+
+### Inverted Index
+
+An inverted index can accelerate a broad range of queries, but it is not updated
+immediately like other indexes.
 
 ### TTL (time-to-live) index
 
 The TTL index can be used for automatically removing expired documents from a collection.
 Documents which are expired are eventually removed by a background thread.
 
+### Geo-spatial index
+
+A geo-spatial index can accelerate queries that filter and sort by the distance
+between stored coordinates and coordinates provided in a query.
+
+### Multi-dimensional index
+
+The `zkd` index type is an experimental index for indexing two- or higher
+dimensional data such as time ranges, for efficient intersection of multiple
+range queries.
+
 ### Fulltext Index
 
 {% hint 'warning' %}
 The fulltext index type is deprecated from version 3.10 onwards.
-It is recommended to use [ArangoSearch](../arangosearch.html) for advanced full-text search capabilities.
+It is recommended to use [Inverted indexes](../indexing-inverted.html) or
+[ArangoSearch](../arangosearch.html) for advanced full-text search capabilities.
 {% endhint %}
 
 A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be set on one attribute only, and will index all words contained in documents that have a textual value in this attribute. Only words with a (specifiable) minimum length are indexed. Word tokenization is done using the word boundary analysis provided by libicu, which is taking into account the selected language provided at server start. Words are indexed in their lower-cased form. The index supports complete match queries (full words) and prefix queries.

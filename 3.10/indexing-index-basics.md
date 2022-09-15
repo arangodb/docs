@@ -248,6 +248,27 @@ The different types of persistent indexes have the following characteristics:
   the indexed attributes set to a value other than `null`. It can be used for optional
   attributes.
 
+Inverted index
+--------------
+
+Inverted indexes store mappings from values (of document attributes) to their
+locations in collections. You can add an arbitrary number of document attributes
+to an inverted index. For each attribute, you can specify an Analyzer to process
+the input with. This enables you tokenize strings for full-text search,
+for example. You can also index multiple levels of nested objects in arrays.
+
+The index can optionally be sorted to optimize away `SORT` operations if the
+sort direction of the fields match. You can also store additional attributes in
+the index to cover projections.
+
+Inverted indexes are eventually consistent. They are updated near real-time when
+documents are changed, but you may get stale values until the index catches up
+with the changes.
+
+To accelerate queries with inverted indexes, you need to specify index hints in
+these queries. Inverted indexes are not utilized automatically, unlike with
+other index types, even if they would be capable of accelerating the queries.
+
 TTL (time-to-live) Index
 ------------------------
 

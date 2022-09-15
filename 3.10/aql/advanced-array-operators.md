@@ -349,5 +349,6 @@ surrounding length check. The following table compares both variants:
 | `arr[? AT LEAST (<number>) FILTER <conditions>]` | `LENGTH(arr[* FILTER <conditions>]) >= <number>`
 | `arr[?]` | `LENGTH(arr[*]) > 0`
 
-The question mark operator can be used for [Nested search](../arangosearch-nested-search.html)
-(Enterprise Edition only).
+The question mark operator can be used for nested search (Enterprise Edition only):
+- [Nested search with ArangoSearch](../arangosearch-nested-search.html) using Views
+- Nested search using [Inverted indexes](../indexing-inverted.html#nested-search-enterprise-edition)

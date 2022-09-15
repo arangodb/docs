@@ -1,7 +1,7 @@
 ---
 layout: default
 description: This is an introduction to ArangoDB's interface for Views and how to handle Views from the JavaScript shell arangosh
-title: JS API for ArangoSearch Views
+title: JS API for Views
 ---
 JavaScript Interface for Views
 ==============================
@@ -25,7 +25,8 @@ Usage
 Here follow some basic usage examples. More details can be found in the
 following chapters:
 
-- [ArangoSearch Views](arangosearch-views.html)
+- [`arangosearch` Views](arangosearch-views.html)
+- [`search-alias` Views](arangosearch-views-search-alias.html)
 - [Database Methods for Views](data-modeling-views-database-methods.html)
 - [View Methods](data-modeling-views-view-methods.html)
 

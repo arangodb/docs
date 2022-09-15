@@ -194,7 +194,7 @@ also relevant.
     @startDocuBlockInline levenshtein_match_sample
     @EXAMPLE_ARANGOSH_OUTPUT{levenshtein_match_sample}
     var analyzers = require("@arangodb/analyzers");
-    analyzers.save("text_en_no_stem", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
+    analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock levenshtein_match_sample
 {% endarangoshexample %}

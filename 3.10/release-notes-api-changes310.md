@@ -79,6 +79,159 @@ section of the HTTP API reference manual.
 
 ### Endpoints augmented
 
+#### Inverted Indexes
+
+The `/_api/index` endpoints support a new `inverted` index type.
+
+Options for creating an index (`POST /_api/index`):
+
+- `type` (string): needs to be set to `"inverted"`
+- `name` (string, _optional_)
+- `fields` (array): required unless the top-level `includeAllFields` option is
+  set to `true`. The array elements can be a mix of strings and objects:
+  - `name` (string, _required_): an attribute path. Passing a string instead of
+    an object is the same as passing an object with this name attribute
+  - `analyzer` (string, _optional_): default: the value defined by the top-level
+    `analyzer` option
+  - `features` (array, _optional_): an array of strings, possible values:
+    `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the value of
+    the top-level `features` option
+  - `includeAllFields` (boolean, _optional_): default: `false`
+  - `searchField` (boolean, _optional_): default: the value defined by the
+    top-level `searchField` option
+  - `trackListPositions` (boolean, _optional_): default: the value of the
+    top-level `trackListPositions` option
+  - `nested` (array, _optional_): Enterprise Edition only.
+    The array elements can be a mix of strings and objects:
+    - `name` (string, _required_): an attribute path. Passing a string instead
+      of an object is the same as passing an object with this name attribute
+    - `analyzer` (string, _optional_), default: the value defined by the
+      top-level `analyzer` option
+    - `features` (array, _optional_): an array of strings, possible values:
+      `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the value of
+      the top-level `features` option
+    - `searchField` (boolean, _optional_): default: the value defined by the
+      top-level `searchField` option
+- `searchField` (boolean, _optional_): default: `false`
+- `storedValues` (array, _optional_): an array of objects:
+  - `fields` (array, _required_): an array of strings
+  - `compression` (string, _optional_): possible values: `"lz4"`, `"none"`.
+    Default: `"lz"`
+- `primarySort` (object, _optional_)
+  - `fields` (array, _required_): an array of objects:
+    - `field` (string, _required_)
+    - `direction` (string, _required_): possible values: `"asc"`, `"desc"`
+  - `compression` (string, _optional_): possible values: `"lz4"`, `"none"`.
+    Default: `"lz4"`
+- `analyzer` (string, _optional_)
+- `features` (array, _optional_): an array of strings, possible values:
+  `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the features as
+  defined by the Analyzer itself
+- `includeAllFields` (boolean, _optional_): default: `false`
+- `trackListPositions` (boolean, _optional_): default: `false`
+- `parallelism` (integer, _optional_): default: ???
+- `inBackground` (boolean, _optional_)
+- `cleanupIntervalStep` (integer, _optional_): default: `2`
+- `commitIntervalMsec` (integer, _optional_): default: `1000`
+- `consolidationIntervalMsec` (integer, _optional_): default: `1000`
+- `consolidationPolicy` (object, _optional_):
+  - `type` (string, _optional_): possible values: `"tier"`, `"bytes_accum"`.
+    Default: `"tier"`
+  - `threshold` (number, _optional_): only available if the `type` is
+    `"bytes_accum"`. Allowed value range: `0.0` through `1.0` (inclusive)
+  - `segmentsBytesFloor` (integer, _optional_): default: `2097152`
+  - `segmentsBytesMax` (integer, _optional_): default: `5368709120`
+  - `segmentsMax` (integer, _optional_): default: `10`
+  - `segmentsMin` (integer, _optional_): default: `1`
+  - `minScore`: (integer, _optional_): default: `0`
+- `writebufferIdle` (integer, _optional_): default: `64`
+- `writebufferActive` (integer, _optional_): default: `0`
+- `writebufferSizeMax` (integer, _optional_): default: `33554432`
+
+Index definition returned by index endpoints:
+
+- `id` (string)
+- `isNewlyCreated` (boolean)
+- `unique` (boolean): `false`
+- `sparse` (boolean): `true`
+- `version` (integer)
+- `code` (integer)
+- `type` (string): `"inverted"`
+- `name` (string)
+- `fields` (array): array of objects:
+  - `name` (string)
+  - `analyzer` (string): default: omitted
+  - `features` (array): an array of strings, possible values:
+    `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: omitted
+  - `includeAllFields` (boolean): default: omitted
+  - `searchField` (boolean): default: the value defined by the top-level
+    `searchField` option
+  - `trackListPositions` (boolean): default: omitted
+  - `nested` (array): default: omitted. Enterprise Edition only. An array of objects:
+    - `name` (string)
+    - `analyzer` (string), default: `identity`
+    - `features` (array): an array of strings, possible values:
+      `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: `[]`
+    - `searchField` (boolean): default: the value defined by the top-level
+      `searchField` option
+- `searchField` (boolean): default: `false`
+- `storedValues` (array): default: `[]`. An array of objects:
+  - `fields` (array): an array of strings
+  - `compression` (string): possible values: `"lz4"`, `"none"`.
+    Default: `"lz"`
+- `primarySort` (object)
+  - `fields` (array): default: `[]`. An array of objects:
+    - `field` (string)
+    - `direction` (string): possible values: `"asc"`, `"desc"`
+  - `compression` (string): possible values: `"lz4"`, `"none"`.
+    Default: `"lz4"`
+- `analyzer` (string): default: `identity`
+- `features` (array): default: `[]`
+- `includeAllFields` (boolean): default: `false`
+- `trackListPositions` (boolean): default: `false`
+- `cleanupIntervalStep` (integer): default: `2`
+- `commitIntervalMsec` (integer): default: `1000`
+- `consolidationIntervalMsec` (integer): default: `1000`
+- `consolidationPolicy` (object):
+  - `type` (string): possible values: `"tier"`. Default: `"tier"`
+  - `segmentsBytesFloor` (integer): default: `2097152`
+  - `segmentsBytesMax` (integer): default: `5368709120`
+  - `segmentsMax` (integer): default: `10`
+  - `segmentsMin` (integer): default: `1`
+  - `minScore`: (integer): default: `0`
+- `writebufferIdle` (integer): default: `64`
+- `writebufferActive` (integer): default: `0`
+- `writebufferSizeMax` (integer): default: `33554432`
+
+#### `search-alias` Views
+
+The `/_api/view` endpoints support a new `search-alias` type.
+
+Options for creating an `search-alias` View (`POST /_api/view`):
+
+- `name` (string, _required_)
+- `type` (string, _required_): needs to be set to `"search-alias"`
+- `indexes` (array, _optional_): default: `[]`. An array of objects:
+  - `collection` (string, _required_)
+  - `index` (string, _required_)
+
+Options for partially changing properties (`PATCH /_api/view/<view>/properties`),
+to add or remove inverted indexes from the View definition:
+
+- `indexes` (array, _optional_): default: `[]`. An array of objects:
+  - `collection` (string, _required_)
+  - `index` (string, _required_)
+  - `operation` (string, _optional_): possible values: `"add"` and `"del"`.
+    Default: `"add"`
+
+View definition returned by View endpoints:
+
+- `name` (string)
+- `type` (string): `"search-alias"`
+- `indexes` (array): default: `[]`. An array of objects:
+  - `collection` (string)
+  - `index` (string)
+
 #### Computed Values
 
 The [Computed Values](data-modeling-documents-computed-values.html) feature
@@ -120,7 +273,7 @@ including the new `nested` property.
 In the Enterprise Edition, the `POST /_api/analyzer` endpoint accepts `"offset"`
 as a string in the `features` array attribute. The `/_api/analyzer` endpoints
 may return this new value in the `features` attribute. It enables
-search highlighting capabilities for ArangoSearch Views.
+search highlighting capabilities for Views and inverted indexes.
 
 #### MinHash Analyzer
 

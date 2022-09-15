@@ -84,7 +84,7 @@ The output will reflect the restore operation's success:
 2019-05-15T15:24:14Z [16201] INFO {backup} Successfully restored '2019-05-15T14.36.38Z_my-label'
 ```
 
-Note that current ArangoSearch views are not stored in hot backups,
+Note that current `arangosearch` Views are not stored in hot backups,
 therefore, after a successful restore operation, all views have to be
 dropped and recreated. This is done automatically in the background, but
 the recreation of the ArangoSearch indexes can take some time, in

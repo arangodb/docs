@@ -12,9 +12,20 @@ With phrase search, you can query for tokens in a certain order. This allows
 you to match partial or full sentences. You can also specify how many arbitrary
 tokens may occur between defined tokens for word proximity searches.
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+## Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+## View definition
+
+### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en" } ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
+```
+
+### `arangosearch` View
 
 ```json
 {
@@ -34,14 +45,14 @@ tokens may occur between defined tokens for word proximity searches.
 
 ## Phrase Search
 
-**AQL Queries:**
+### AQL queries
 
 Search for movies that have the (normalized and stemmed) tokens `biggest` and
 `blockbust` in their description, in this order:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(PHRASE(doc.description, "BIGGEST Blockbuster"), "text_en")
+  SEARCH PHRASE(doc.description, "BIGGEST Blockbuster", "text_en")
   RETURN {
     title: doc.title,
     description: doc.description
@@ -52,18 +63,6 @@ FOR doc IN imdb
 |:------|:------------|
 | Jurassic Park Series | … Steven Spielberg gives us on of the **biggest blockbusters** of the 1990’s |
 | Scary Movie	| … some of Hollywood's **biggest blockbusters**, …
-
-The `text_en` Analyzer set via the context is applied to the search term
-`BIGGEST Blockbuster`, effectively resulting in the query:
-
-```aql
-FOR doc IN imdb
-  SEARCH PHRASE(doc.description, ["biggest", "blockbust"], "text_en")
-  RETURN {
-    title: doc.title,
-    description: doc.description
-  }
-```
 
 The search phrase can be handed in via a bind parameter, but it can also be
 constructed dynamically using a subquery for instance:
@@ -91,14 +90,14 @@ The `PHRASE()` functions lets you specify tokens and the number of wildcard
 tokens in an alternating order. You can use this to search for two words with
 one arbitrary word in between the two words, for instance.
 
-**AQL Queries:**
+### AQL queries
 
 Match movies that contain the phrase `epic <something> film` in their
 description, where `<something>` can be exactly one arbitrary token:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(PHRASE(doc.description, "epic", 1, "film"), "text_en")
+  SEARCH PHRASE(doc.description, "epic", 1, "film", "text_en")
   RETURN {
     title: doc.title,
     description: doc.description
@@ -124,9 +123,9 @@ their description:
 ```aql
 LET title = DOCUMENT("imdb_vertices/39967").title // Family Business
 FOR doc IN imdb
-  SEARCH ANALYZER(
-    PHRASE(doc.description, INTERLEAVE(TOKENS(title, "text_en"), [1])) OR
-    PHRASE(doc.description, INTERLEAVE(TOKENS(title, "text_en"), [2])), "text_en")
+  SEARCH
+    PHRASE(doc.description, INTERLEAVE(TOKENS(title, "text_en"), [1]), "text_en") OR
+    PHRASE(doc.description, INTERLEAVE(TOKENS(title, "text_en"), [2]), "text_en")
   RETURN {
     title: doc.title,
     description: doc.description
@@ -146,14 +145,14 @@ the specified order. See the _object tokens_ description of the
 [`PHRASE()` function](aql/functions-arangosearch.html#phrase) for a full list
 of options.
 
-**AQL Queries:**
+### AQL queries
 
 Match movies where the title has a token that starts with `Härr` (normalized to
 `harr`), followed by six arbitrary tokens and then a token that contains `eni`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(PHRASE(doc.title, {STARTS_WITH: TOKENS("Härr", "text_en")[0]}, 6, {WILDCARD: "%eni%"}), "text_en")
+  SEARCH PHRASE(doc.title, {STARTS_WITH: TOKENS("Härr", "text_en")[0]}, 6, {WILDCARD: "%eni%"}, "text_en")
   RETURN doc.title
 ```
 

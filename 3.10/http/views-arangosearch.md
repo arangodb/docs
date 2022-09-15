@@ -9,8 +9,7 @@ redirect_from:
   - views-getting.html # 3.4 -> 3.5
   - views-arango-search.html # 3.4 -> 3.5
 ---
-ArangoSearch View
-=================
+# `arangosearch` Views HTTP API
 
 <!-- js/actions/api-view.js -->
 
