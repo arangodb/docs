@@ -294,7 +294,7 @@ FOR doc IN viewName
 ```
 
 See [Nested search with ArangoSearch](arangosearch-nested-search.html) using Views
-and the nested search example using [Inverted indexes](indexing-inverted.md#nested-search-enterprise-edition)
+and the nested search example using [Inverted indexes](indexing-inverted.html#nested-search-enterprise-edition)
 for details.
 
 This feature is only available in the Enterprise Edition.

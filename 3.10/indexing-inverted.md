@@ -262,7 +262,7 @@ FOR doc IN coll { indexHint: "inv-idx", forceIndexHint: true, waitForSync: true 
   FILTER ...
 ```
 
-Also see [Dealing with eventual consistency](arangosearch.md#dealing-with-eventual-consistency).
+Also see [Dealing with eventual consistency](arangosearch.html#dealing-with-eventual-consistency).
 
 ## Examples
 
