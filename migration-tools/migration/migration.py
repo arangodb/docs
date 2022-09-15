@@ -8,8 +8,8 @@ import traceback
 from utils import *
 
 
-oldToolchain = "/home/dan/work/projects/old-arango-docs/docs"
-newToolchain = "/home/dan/work/projects/arangodb/docs/site"
+oldToolchain = "old-arango-docs/docs"
+newToolchain = "docs/site"
 
 frontMatterCapture = r"(?<=---\n)[\w:\s\W]*[\n]*(?=\n---)"
 widgetRegex = r"{% .* %}[\n]+.*[\n]+{% .* %}"
@@ -18,6 +18,7 @@ menu = {}
 
 # Directory Tree Migration phase
 ## In this phase, old toolchain files and dirs are copied in a new tree suitable for hugo. No file processing is done.
+## Code became a mess, TODO: Refactor
 def structure_migration():
 	print(f"----- STARTING MIGRATION FROM {oldToolchain} TO {newToolchain}")
 
@@ -58,6 +59,7 @@ def structure_migration():
 	print("----- STRUCTURE MIGRATION END ----")
 
 
+## TODO: Code is a mess, refactor
 def create_files(section, label, chapter):
 	if not "text" in chapter:			# Is just a subtitle
 		return
@@ -103,13 +105,14 @@ def create_files(section, label, chapter):
 
 # File processing jekyll-hugo migration phase
 def processFiles():
+	print(f"----- STARTING CONTENT MIGRATION")
 	for root, dirs, files in os.walk(f"{newToolchain}/content", topdown=True):
 		for file in files:
-			#print(f"opening file {root}/{file}")
 			processFile(f"{root}/{file}")
+	print("------ CONTENT MIGRATION END")
 
 def processFile(filepath):
-	#print(f"Migrating {filepath} content")
+	print(f"Migrating {filepath} content")
 	try:
 		file = open(filepath, "r")
 		buffer = file.read()
@@ -169,26 +172,25 @@ def _processChapters(page, paragraph):
 	paragraph = re.sub(r"(?<=\n\n)[\w\s\W]+{:class=\"lead\"}", '', paragraph)
 
 	paragraph = migrate_headers(paragraph)
-
 	paragraph = migrate_hrefs(paragraph)
-
 	paragraph = migrate_hints(paragraph)
 
-	
-
 	page.content = paragraph
+	return
 
 
 def migrate_media():
+	print("----- MIGRATING MEDIA")
 	for root, dirs, files in os.walk(f"{oldToolchain}/3.10/images", topdown=True):
 		for file in files:
-			#print(f"migrating {file}")
+			print(f"migrating {file}")
 			shutil.copyfile(f"{root}/{file}", f"{newToolchain}/assets/images/{file}")
 
 	for root, dirs, files in os.walk(f"{oldToolchain}/3.10/oasis/images", topdown=True):
 		for file in files:
-			#print(f"migrating {file}")
+			print(f"migrating {file}")
 			shutil.copyfile(f"{root}/{file}", f"{newToolchain}/assets/images/{file}")
+	print("----- END MEDIA MIGRATION")
 
 class Page():
 	def __init__(self):
