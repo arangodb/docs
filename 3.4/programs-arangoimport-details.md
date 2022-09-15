@@ -155,7 +155,7 @@ Arangoimport has an automatic pacing algorithm that limits how fast
 data is sent to the ArangoDB servers.  This pacing algorithm exists to
 prevent the import operation from failing due to slow responses.
 
-Google Compute and other VM providers limit the throughput of disk
+Google Cloud and other VM providers limit the throughput of disk
 devices. Google's limit is more strict for smaller disk rentals, than
 for larger. Specifically, a user could choose the smallest disk space
 and be limited to 3 Mbytes per second.  Similarly, other users'
