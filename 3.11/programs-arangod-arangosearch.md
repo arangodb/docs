@@ -90,3 +90,35 @@ set, then the commit and consolidation thread counts are calculated as follows:
   `arangosearch.threads-limit` divided by 2, but at least 1.
 - Minimum: the maximum divided by 2, but at least 1.
 {% endhint %}
+
+`arangosearch.skip-recovery`
+
+<small>Introduced in: v3.9.4, 3.10.0</small>
+
+Skip data recovery for the specified view links and inverted indexes on startup. 
+Values for this startup option should have the format `<collection-name>/<link-id>`,
+`<collection-name>/<index-id>` or `<collection-name>/<index-name>`. 
+On DB servers, the `<collection-name>` part should contain a shard name.
+
+The option can be used multiple times for each link/inverted index to skip the
+recovery for. The pseudo-value `all` will disable recovery for all links and 
+inverted indexes.
+
+By default, this option has no value(s) and the recovery is not skipped for any
+link/inverted index.
+
+All links/inverted indexes that are skipped during recovery, but for which there is
+recovery data, will be permanently marked as "out of sync" when the recovery is 
+completed. These links/indexes should be recreated manually afterwards to get back 
+into sync. How these links/inverted indexes respond to queries can be controlled
+via the startup option `arangosearch.fail-queries-on-out-of-sync`.
+
+`arangosearch.fail-queries-on-out-of-sync`
+
+<small>Introduced in: v3.9.4, 3.10.0</small>
+
+If this option is set to `true`, any data retrieval queries on out of sync 
+links/indexes will fail with error "collection/view is out of sync" (error code 1481).
+
+The option is set to `false` by default. With this setting, queries on out of sync
+links/indexes will be answered normally, but the return data may be incomplete.
