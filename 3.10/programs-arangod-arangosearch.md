@@ -93,7 +93,7 @@ set, then the commit and consolidation thread counts are calculated as follows:
 
 `arangosearch.skip-recovery`
 
-<small>Introduced in: v3.9.4</small>
+<small>Introduced in: v3.9.4, 3.10.0</small>
 
 Skip data recovery for the specified view links and inverted indexes on startup. 
 Values for this startup option should have the format `<collection-name>/<link-id>`,
@@ -115,7 +115,7 @@ via the startup option `arangosearch.fail-queries-on-out-of-sync`.
 
 `arangosearch.fail-queries-on-out-of-sync`
 
-<small>Introduced in: v3.9.4</small>
+<small>Introduced in: v3.9.4, 3.10.0</small>
 
 If this option is set to `true`, any data retrieval queries on out of sync 
 links/indexes will fail with error "collection/view is out of sync" (error code 1481).
