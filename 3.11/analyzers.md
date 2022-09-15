@@ -108,27 +108,29 @@ Analyzer Types
 
 The following Analyzer types are available:
 
-- `identity`: treats value as atom (no transformation)
-- `delimiter`: splits into tokens at user-defined character
-- `stem`: applies stemming to the value as a whole
-- `norm`: applies normalization to the value as a whole
-- `ngram`: creates _n_-grams from value with user-defined lengths
-- `text`: tokenizes text strings into words, optionally with stemming,
+- [`identity`](#identity): treats value as atom (no transformation)
+- [`delimiter`](#delimiter): splits into tokens at user-defined character
+- [`stem`](#stem): applies stemming to the value as a whole
+- [`norm`](#norm): applies normalization to the value as a whole
+- [`ngram`](#ngram): creates _n_-grams from value with user-defined lengths
+- [`text`](#text): tokenizes text strings into words, optionally with stemming,
   normalization, stop-word filtering and edge _n_-gram generation
-- `segmentation`: tokenizes text in a language-agnostic manner, optionally with
-  normalization
-- `aql`: runs an AQL query to prepare tokens for index
-- `pipeline`: chains multiple Analyzers
-- `stopwords`: removes the specified tokens from the input
-- `collation`: respects the alphabetic order of a language in range queries
-- `minhash`: applies another Analyzer and then a locality-sensitive hash function,
-  to find candidates for set comparisons based on the Jaccard index
-- `classification`: classifies the input text using a word embedding model
-- `nearest_neighbors`: finds the nearest neighbors of the input text using a
-   word embedding model
-- `geojson`: breaks up a GeoJSON object into a set of indexable tokens
-- `geopoint`: breaks up a JSON object describing a coordinate into a set of
-  indexable tokens
+- [`segmentation`](#segmentation): tokenizes text in a language-agnostic manner,
+  optionally with normalization
+- [`aql`](#aql): runs an AQL query to prepare tokens for index
+- [`pipeline`](#pipeline): chains multiple Analyzers
+- [`stopwords`](#stopwords): removes the specified tokens from the input
+- [`collation`](#collation): respects the alphabetic order of a language in range queries
+- [`minhash`](#minhash): applies another Analyzer and then a locality-sensitive
+  hash function, to find candidates for set comparisons based on the
+  Jaccard index (Enterprise Edition only)
+- [`classification`](#classification): classifies the input text using a
+  word embedding model (Enterprise Edition only)
+- [`nearest_neighbors`](#nearest_neighbors): finds the nearest neighbors of the
+  input text using a word embedding model (Enterprise Edition only)
+- [`geojson`](#geojson): breaks up a GeoJSON object into a set of indexable tokens
+- [`geopoint`](#geopoint): breaks up a JSON object describing a coordinate into
+  a set of indexable tokens
 
 The following table compares the Analyzers for **text processing**:
 

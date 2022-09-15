@@ -20,7 +20,9 @@ change the View name, but not the View identifier.
 Views have a type that is specified by the user when the View
 is created. 
 
-The only available View type currently is [ArangoSearch](../arangosearch-views.html).
+Available View types:
+- [`arangosearch` Views](../arangosearch-views.html).
+- [`search-alias` Views](../arangosearch-views-search-alias.html).
 
 ### View Identifier
 

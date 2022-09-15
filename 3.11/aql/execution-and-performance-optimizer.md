@@ -486,7 +486,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   will appear when a geo index is utilized.
 
 - `handle-arangosearch-views`:
-  appears whenever an ArangoSearch View is accessed in a query.
+  appears whenever an `arangosearch` or `search-alias` View is accessed in a query.
 
 - `inline-subqueries`:
   will appear when a subquery was pulled out in its surrounding scope, e.g.

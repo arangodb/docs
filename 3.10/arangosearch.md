@@ -679,7 +679,7 @@ To learn more, check out the different search examples:
   other types of search queries unlike with the regular geo index.
 - [**Search highlighting**](arangosearch-search-highlighting.html):
   Retrieve the positions of matches within strings, to highlight what was found
-  in search results.
+  in search results (Enterprise Edition only).
 - [**Nested search**](arangosearch-nested-search.html):
   Match arrays of objects with all the conditions met by a single sub-object,
   and define for how many of the elements this must be true (Enterprise Edition only).
@@ -693,8 +693,11 @@ For relevance and performance tuning, as well as the reference documentation, se
   Give the View index a primary sort order to benefit common search queries
   that you will run and store often used attributes directly in the View index
   for fast access.
-- [**Views Reference**](arangosearch-views.html):
-  You can find all View properties and options in this reference documentation.
+- **Views Reference**
+  You can find all View properties and options that are available for the
+  respective type in the [`arangosearch` Views Reference](arangosearch-views.html)
+  and [`search-alias` Views Reference](arangosearch-views-search-alias.html)
+  documentation.
 
 If you are interested in more technical details, have a look at:
 

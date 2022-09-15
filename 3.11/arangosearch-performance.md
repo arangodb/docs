@@ -53,7 +53,7 @@ AQL query example:
 
 ```aql
 FOR doc IN viewName
-  SORT doc.name
+  SORT doc.text
   RETURN doc
 ```
 
@@ -64,7 +64,7 @@ Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
   2   EnumerateViewNode      1     - FOR doc IN viewName   /* view query */
-  3   CalculationNode        1       - LET #1 = doc.`val`   /* attribute expression */
+  3   CalculationNode        1       - LET #1 = doc.`text`   /* attribute expression */
   4   SortNode               1       - SORT #1 ASC   /* sorting strategy: standard */
   5   ReturnNode             1       - RETURN doc
 ```
@@ -75,7 +75,7 @@ Execution plan with a the primary sort order of the index being utilized:
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
-  2   EnumerateViewNode      1     - FOR doc IN viewName SORT doc.`val` ASC   /* view query */
+  2   EnumerateViewNode      1     - FOR doc IN viewName SORT doc.`text` ASC   /* view query */
   5   ReturnNode             1       - RETURN doc
 ```
 
@@ -95,7 +95,8 @@ sub-objects in the `primarySort` array:
   ]
 ```
 
-Inverted index definition example:
+You can also define a primary sort order for inverted indexes and utilize it
+via a `search-alias` View:
 
 ```js
 db.coll.ensureIndex({
@@ -117,6 +118,19 @@ AQL query example:
 FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
   SORT doc.name
   RETURN doc
+```
+
+If you add the inverted index to a `search-alias` View, then the query example
+is the same as for the `arangosearch` View:
+
+```js
+db._createView("viewName", "search-alias", { indexes: [
+  { collection: "coll", index: "inv-idx" }
+] });
+
+db._query(`FOR doc IN viewName
+  SORT doc.text
+  RETURN doc`);
 ```
 
 The optimization can be applied to queries which sort by both fields as
@@ -147,6 +161,8 @@ View indexes may fully cover `SEARCH` queries for improved performance.
 While late document materialization reduces the amount of fetched documents,
 this optimization can avoid to access the storage engine entirely.
 
+_`arangosearch` View:_
+
 ```json
 {
   "links": {
@@ -166,7 +182,31 @@ this optimization can avoid to access the storage engine entirely.
 }
 ```
 
-In above View definition, the document attribute *categories* is indexed for
+_`search-alias` View:_
+
+```js
+db.articles.ensureIndex({
+  name: "inv-idx",
+  type: "inverted",
+  fields: ["categories"],
+  primarySort: {
+    fields: [
+      { field: "publishedAt", direction: "desc" }
+    ]
+  },
+  storedValues: [
+    {
+      fields: [ "title", "categories" ]
+    }
+  ]
+});
+
+db._createView("articlesView", "search-alias", { indexes: [
+  { collection: "articles", index: "inv-idx" }
+] });
+```
+
+In above View definitions, the document attribute *categories* is indexed for
 searching, *publishedAt* is used as primary sort order and *title* as well as
 *categories* are stored in the View using the new `storedValues` property.
 

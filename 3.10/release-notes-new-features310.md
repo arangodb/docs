@@ -160,9 +160,9 @@ db._createView("view", "search-alias", {
   ]
 });
 
-db._query(`FOR doc IN view
+db._query(`FOR doc IN imdb
   SEARCH STARTS_WITH(doc.title, "The Matrix") AND
-  PHRASE(doc.description, "begin", 2, "end")
+  PHRASE(doc.description, "invasion", 2, "machine")
   RETURN doc`);
 ```
 
@@ -293,7 +293,9 @@ FOR doc IN viewName
   RETURN doc
 ```
 
-See [Nested search in ArangoSearch](arangosearch-nested-search.html) for details.
+See [Nested search with ArangoSearch](arangosearch-nested-search.html) using Views
+and the nested search example using [Inverted indexes](indexing-inverted.md#nested-search-enterprise-edition)
+for details.
 
 This feature is only available in the Enterprise Edition.
 
@@ -605,7 +607,7 @@ RETURN LENGTH(arr[* FILTER CURRENT % 2 == 0]) == 2
 The quantifier can be a number, a range, `NONE`, `ANY`, `ALL`, or `AT LEAST`.
 
 This operator is used for the new [Nested search](#nested-search-enterprise-edition)
-feature.
+feature (Enterprise Edition only).
 
 See [Array Operators](aql/advanced-array-operators.html#question-mark-operator)
 for details.

@@ -33,7 +33,10 @@ For example, you can create an inverted index for the attributes `value1` and
 `value2` with the following command in arangosh:
 
 ```js
-db.<collection>.ensureIndex({ type: "inverted", fields: ["value1", "value2"] });
+db.<collection>.ensureIndex({
+  type: "inverted",
+  fields: ["value1", "value2"]
+});
 ```
 
 You should give inverted indexes easy-to-remember names because you need to
@@ -41,7 +44,11 @@ refer to them with `indexHint` in queries to
 [utilize inverted indexes](#utilizing-inverted-indexes-in-queries):
 
 ```js
-db.<collection>.ensureIndex({ name: "inverted_index_name", type: "inverted", fields: ["value1", "value2"] });
+db.<collection>.ensureIndex({
+  name: "inverted_index_name",
+  type: "inverted",
+  fields: ["value1", "value2"]
+});
 ```
 
 ### Processing fields with Analyzers
@@ -53,7 +60,13 @@ Analyzer for `value1` and the built-in `text_en` Analyzer for `value2`.
 You can also overwrite the `features` of an Analyzer:
 
 ```js
-db.<collection>.ensureIndex({ type: "inverted", fields: ["value1", { name: "value2", analyzer: "text_en", features: [ "frequency", "norm", "position", "offset" ] } ] });
+db.<collection>.ensureIndex({
+  type: "inverted",
+  fields: [
+    "value1",
+    { name: "value2", analyzer: "text_en", features: [ "frequency", "norm", "position", "offset" ] }
+  ]
+});
 ```
 
 You can define default `analyzer` and `features` value at the top-level of the
@@ -61,7 +74,11 @@ index property. In the following example, both fields are indexed with the
 `text_en` Analyzer:
 
 ```js
-db.<collection>.ensureIndex({ type: "inverted", fields: ["value1", "value2" ], analyzer: "text_en" });
+db.<collection>.ensureIndex({
+  type: "inverted",
+  fields: ["value1", "value2" ],
+  analyzer: "text_en"
+});
 ```
 
 If no `features` are defined in `fields` nor at the top-level, then the features
@@ -114,8 +131,20 @@ it with the `includeAllFields` option to index sub-objects without explicit
 definition:
 
 ```js
-db.<collection>.ensureIndex({ type: "inverted", fields: [ { name: "arr", searchField: true, includeAllFields: true } ] });
-db.<collection>.ensureIndex({ type: "inverted", fields: [ "arr", "arr.name" ], searchField: true });
+db.<collection>.ensureIndex({
+  type: "inverted",
+  fields: [
+    { name: "arr", searchField: true, includeAllFields: true }
+  ]
+});
+```
+
+```js
+db.<collection>.ensureIndex({
+  type: "inverted",
+  fields: [ "arr", "arr.name" ],
+  searchField: true
+});
 ```
 
 To index array values but preserve the array indexes for a `search-alias` View,
@@ -123,8 +152,21 @@ which you then also need to specify in queries, enable the `trackListPositions`
 option:
 
 ```js
-db.<collection>.ensureIndex({ type: "inverted", fields: [ { name: "arr", searchField: true, trackListPositions: true, includeAllFields: true } ] });
-db.<collection>.ensureIndex({ type: "inverted", fields: [ "arr", "arr.name" ], searchField: true, trackListPositions: true });
+db.<collection>.ensureIndex({
+  type: "inverted",
+  fields: [
+    { name: "arr", searchField: true, trackListPositions: true, includeAllFields: true }
+  ]
+});
+```
+
+```js
+db.<collection>.ensureIndex({
+  type: "inverted",
+  fields: [ "arr", "arr.name" ],
+  searchField: true,
+  trackListPositions: true
+});
 ```
 
 ### Storing additional values in indexes
@@ -210,6 +252,17 @@ FOR doc IN coll OPTIONS { indexHint: "inverted_index_name", forceIndexHint: true
   FILTER doc.value == 42 AND PHRASE(doc.text, ["meaning", 1, "life"])
   RETURN doc
 ```
+
+Inverted indexes are eventually consistent. Document changes are not reflected
+instantly, but only near-realtime. There is an internal option to wait for the
+inverted index to update. This option is intended to be used **in unit tests only**:
+
+```aql
+FOR doc IN coll { indexHint: "inv-idx", forceIndexHint: true, waitForSync: true }
+  FILTER ...
+```
+
+Also see [Dealing with eventual consistency](arangosearch.md#dealing-with-eventual-consistency).
 
 ## Examples
 

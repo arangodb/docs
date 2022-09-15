@@ -13,7 +13,7 @@ title: Nested Search ArangoSearch Examples
 
 {% include hint-ee.md feature="Nested search" %}
 
-By default, ArangoSearch Views index arrays as if the parent attribute had
+By default, `arangosearch` Views index arrays as if the parent attribute had
 multiple values at once. With `trackListPositions` set to `true`, every array
 element is indexed individually and can be queried separately using the
 respective array index. With the nested search feature, you get another
@@ -55,6 +55,23 @@ You would normally index the `dimensions` field and its sub-fields with an
   },
   ...
 }
+```
+
+Or using an inverted index via a `search-alias` View, in arangosh:
+
+```js
+db.<collection>.ensureIndex({
+  name: "inv-idx",
+  type: "inverted",
+  fields: [
+    "dimensions.type",
+    "dimensions.value"
+  ]
+});
+
+db._createView("viewName", "search-alias", { indexes: [
+  { collection: <collection>, index: "inv-idx" }
+]});
 ```
 
 You might then write a query like the following to find documents where the
@@ -112,6 +129,30 @@ the View to index the objects in the `dimensions` array so that you can use the
 [Question mark operator](aql/advanced-array-operators.html#question-mark-operator)
 to query the nested objects. The default `identity` Analyzer is used for the
 fields because none is specified explicitly.
+
+Similarly, the required inverted index definition for using a `search-alias` View
+to perform nested searches needs to index the parent `dimensions` field, as well
+as the nested attributes using the `nested` property under the `fields` property:
+
+```js
+db.<collection>.ensureIndex({
+  name: "inv-nest",
+  type: "inverted",
+  fields: [
+    {
+      name: "dimensions",
+      nested: [
+        { name: "type" },
+        { name: "value" }
+      ]
+    }
+  ]
+});
+
+db._createView("viewName", "search-alias", { indexes: [
+  { collection: <collection>, index: "inv-nest" }
+]});
+```
 
 ## Defining how often the conditions need to be true
 
@@ -197,6 +238,39 @@ objects, you can use an `arangosearch` View definition like the following:
     }
   }
 }
+```
+
+The equivalent `search-alias` View and inverted index definition is as follows,
+using arangosh:
+
+```js
+db.<collection>.ensureIndex({
+  name: "inv-nest",
+  type: "inverted",
+  fields: [
+    {
+      name: "dimensions",
+      nested: [
+        {
+          name: "measurements",
+          nested: [
+            { name: "type" },
+            { name: "value" }
+          ]
+        },
+        "part",
+        {
+          name: "comments",
+          analyzer: "text_en"
+        }
+      ]
+    }
+  ]
+});
+
+db._createView("viewName", "search-alias", { indexes: [
+  { collection: <collection>, index: "inv-nest" }
+]});
 ```
 
 The default `identity` Analyzer is used for the `type`, `value`, and `part`

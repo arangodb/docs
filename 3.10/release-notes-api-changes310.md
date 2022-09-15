@@ -101,8 +101,8 @@ Options for creating an index (`POST /_api/index`):
     top-level `searchField` option
   - `trackListPositions` (boolean, _optional_): default: the value of the
     top-level `trackListPositions` option
-  - `nested` (array, _optional_): the array elements can be a mix of strings
-    and objects:
+  - `nested` (array, _optional_): Enterprise Edition only.
+    The array elements can be a mix of strings and objects:
     - `name` (string, _required_): an attribute path. Passing a string instead
       of an object is the same as passing an object with this name attribute
     - `analyzer` (string, _optional_), default: the value defined by the
@@ -167,7 +167,7 @@ Index definition returned by index endpoints:
   - `searchField` (boolean): default: the value defined by the top-level
     `searchField` option
   - `trackListPositions` (boolean): default: omitted
-  - `nested` (array): default: omitted. An array of objects:
+  - `nested` (array): default: omitted. Enterprise Edition only. An array of objects:
     - `name` (string)
     - `analyzer` (string), default: `identity`
     - `features` (array): an array of strings, possible values:
@@ -193,10 +193,7 @@ Index definition returned by index endpoints:
 - `commitIntervalMsec` (integer): default: `1000`
 - `consolidationIntervalMsec` (integer): default: `1000`
 - `consolidationPolicy` (object):
-  - `type` (string): possible values: `"tier"`, `"bytes_accum"`.
-    Default: `"tier"`
-  - `threshold` (number): only available if the `type` is
-    `"bytes_accum"`. Allowed value range: `0.0` through `1.0` (inclusive)
+  - `type` (string): possible values: `"tier"`. Default: `"tier"`
   - `segmentsBytesFloor` (integer): default: `2097152`
   - `segmentsBytesMax` (integer): default: `5368709120`
   - `segmentsMax` (integer): default: `10`
@@ -276,7 +273,7 @@ including the new `nested` property.
 In the Enterprise Edition, the `POST /_api/analyzer` endpoint accepts `"offset"`
 as a string in the `features` array attribute. The `/_api/analyzer` endpoints
 may return this new value in the `features` attribute. It enables
-search highlighting capabilities for ArangoSearch Views.
+search highlighting capabilities for Views and inverted indexes.
 
 #### MinHash Analyzer
 
