@@ -306,6 +306,8 @@
       children:
         - text: Persistent Indexes
           href: indexing-persistent.html
+        - text: Inverted Indexes
+          href: indexing-inverted.html
         - text: TTL Indexes
           href: indexing-ttl.html
         - text: Fulltext Indexes
@@ -343,11 +345,15 @@
           href: arangosearch-geospatial-search.html
         - text: Search highlighting
           href: arangosearch-search-highlighting.html
+        - text: Nested search
+          href: arangosearch-nested-search.html
         - text: Ranking
           href: arangosearch-ranking.html
         - text: Performance
           href: arangosearch-performance.html
-        - text: Views Reference
+        - text: Search Alias Views Reference
+          href: arangosearch-views-search-alias.html
+        - text: ArangoSearch Views Reference
           href: arangosearch-views.html
 - text: Transactions
   href: transactions.html
@@ -410,14 +416,16 @@
       children:
         - text: Pregel Algorithms
           href: graphs-pregel-algorithms.html
-    - text: NetworkX Adapter
+    - text: ArangoDB-NetworkX Adapter
       href: data-science-networkx-adapter.html
-    - text: DGL Adapter
+    - text: ArangoDB-DGL Adapter
       href: data-science-dgl-adapter.html
-    - text: cuGraph Adapter
+    - text: ArangoDB-cuGraph Adapter
       href: data-science-cugraph-adapter.html
-    - text: ArangoRDF
-      href: data-science-arango-rdf-adapter.html
+    - text: ArangoDB-PyG Adapter
+      href: data-science-pyg-adapter.html 
+    - text: ArangoRDF Adapter
+      href: data-science-arango-rdf-adapter.html 
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html

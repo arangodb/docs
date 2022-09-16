@@ -4,10 +4,10 @@ description: ArangoSearch Views
 redirect_from:
   - views-arango-search-detailed-overview.html # 3.4 -> 3.5
 ---
-ArangoSearch Views Reference
-============================
+`arangosearch` Views Reference
+==============================
 
-ArangoSearch Views enable sophisticated information retrieval queries such as
+`arangosearch` Views enable sophisticated information retrieval queries such as
 full-text search for unstructured or semi-structured data over documents from
 different collections, filtering on multiple document attributes and sorting
 the documents that satisfy the search criteria by relevance.
@@ -30,7 +30,7 @@ introduction.
 View Definition/Modification
 ----------------------------
 
-An ArangoSearch View is configured via an object containing a set of
+An `arangosearch` View is configured via an object containing a set of
 View-specific configuration directives and a map of link-specific configuration
 directives.
 
@@ -78,6 +78,27 @@ During view modification the following directives apply:
   Using `includeAllFields` for a lot of attributes in combination with complex
   Analyzers may significantly slow down the indexing process.
   {% endhint %}
+
+- **nested** (_optional_; type: `object`; default: `{}`)
+
+  An object `{ attribute-name: [Link properties], … }` to index the specified
+  sub-objects that are stored in an array. Other than with the `fields`
+  property, the values get indexed in a way that lets you query for co-occurring
+  values. For example, you can search the sub-objects and all the conditions
+  need to be met by a single sub-object instead of across all of them.
+
+  This property is available in the Enterprise Edition only.
+
+  {% hint 'info' %}
+  You cannot use the `nested` property at the top-level of the link properties.
+  It needs to have a parent field, e.g.
+  `"fields": { "<fieldName>": { "nested": { ... } } }`.
+  However, You can nest `nested` properties to index objects in arrays in
+  objects in arrays etc.
+  {% endhint %}
+
+  See [Nested search with ArangoSearch](arangosearch-nested-search.html)
+  for details.
 
 - **trackListPositions** (_optional_; type: `boolean`; default: `false`)
 
@@ -150,7 +171,7 @@ During view modification the following directives apply:
   Not to be confused with *storeValues*, which allows to store meta data
   about attribute values in the View index.
 
-An inverted index is the heart of ArangoSearch Views.
+An inverted index is the heart of `arangosearch` Views.
 The index consists of several independent segments and the index **segment**
 itself is meant to be treated as a standalone index. **Commit** is meant to be
 treated as the procedure of accumulating processed data creating new index
@@ -188,10 +209,10 @@ of removing unused segments after release of internal resources.
   performance and waste disk space for each commit call without any added
   benefits.
 
-  > For data retrieval ArangoSearch Views follow the concept of
+  > For data retrieval `arangosearch` Views follow the concept of
   > "eventually-consistent", i.e. eventually all the data in ArangoDB will be
   > matched by corresponding query expressions.
-  > The concept of ArangoSearch View "commit" operation is introduced to
+  > The concept of `arangosearch` View "commit" operation is introduced to
   > control the upper-bound on the time until document addition/removals are
   > actually reflected by corresponding query expressions.
   > Once a "commit" operation is complete all documents added/removed prior to
@@ -211,7 +232,7 @@ of removing unused segments after release of internal resources.
   will impact performance due to no segment candidates available for
   consolidation.
 
-  > For data modification ArangoSearch Views follow the concept of a
+  > For data modification `arangosearch` Views follow the concept of a
   > "versioned data store". Thus old versions of data may be removed once there
   > are no longer any users of the old data. The frequency of the cleanup and
   > compaction operations are governed by `consolidationIntervalMsec` and the

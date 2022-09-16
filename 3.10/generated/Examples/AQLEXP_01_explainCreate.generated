@@ -45,7 +45,7 @@ arangosh&gt; stmt.explain();
           { 
             <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60630&quot;</span>, 
             <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1742667632951164929&quot;</span>, 
+            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1743964788250116098&quot;</span>, 
             <span class="hljs-string">&quot;fields&quot;</span> : [ 
               <span class="hljs-string">&quot;value&quot;</span> 
             ], 
@@ -100,7 +100,9 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">&quot;ascending&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;reverse&quot;</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">&quot;evalFCalls&quot;</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">&quot;limit&quot;</span> : <span class="hljs-number">0</span> 
+        <span class="hljs-string">&quot;waitForSync&quot;</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">&quot;limit&quot;</span> : <span class="hljs-number">0</span>, 
+        <span class="hljs-string">&quot;lookahead&quot;</span> : <span class="hljs-number">1</span> 
       }, 
       { 
         <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;CalculationNode&quot;</span>, 

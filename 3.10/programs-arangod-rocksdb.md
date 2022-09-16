@@ -256,7 +256,7 @@ This flag specifies that the implementation should optimize the filters mainly
 for cases where keys are found rather than also optimize for the case where
 keys are not. This would be used in cases where the application knows that
 there are very few misses or the performance in the case of misses is not as
-important. Default: false.
+important. Default: `false`.
 
 `--rocksdb.wal-recovery-skip-corrupted`
 

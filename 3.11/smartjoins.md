@@ -15,7 +15,7 @@ SmartJoins
 SmartJoins allow to execute co-located join operations among identically
 sharded collections.
 
-ArangoSearch Views are eligible for SmartJoins, provided that their underlying
+`arangosearch` Views are eligible for SmartJoins, provided that their underlying
 collections are eligible too (introduced in v3.6.0).
 
 {% include youtube.html id="WGFIEdihRS8" %}

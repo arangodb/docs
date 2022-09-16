@@ -12,9 +12,9 @@ arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span c
 arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRASE(d.text, {TERM: &#x27;B&#x27;}, 1, {TERM: &#x27;D&#x27;}, &#x27;uncollapsed&#x27;) RETURN d&quot;</span>);
 [ 
   { 
-    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71516&quot;</span>, 
-    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/71516&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_etLB1yq---&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71552&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/71552&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_exyNqXO---&quot;</span>, 
     <span class="hljs-string">&quot;text&quot;</span> : <span class="hljs-string">&quot;A-B-C-D&quot;</span> 
   } 
 ]
@@ -22,9 +22,9 @@ arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRA
 arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRASE(d.text, {TERM: &#x27;B&#x27;}, -1, {TERM: &#x27;D&#x27;}, &#x27;uncollapsed&#x27;) RETURN d&quot;</span>);
 [ 
   { 
-    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71516&quot;</span>, 
-    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/71516&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_etLB1yq---&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71552&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/71552&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_exyNqXO---&quot;</span>, 
     <span class="hljs-string">&quot;text&quot;</span> : <span class="hljs-string">&quot;A-B-C-D&quot;</span> 
   } 
 ]
@@ -34,9 +34,9 @@ arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRA
 arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRASE(d.text, {TERM: &#x27;B&#x27;}, -1, {TERM: &#x27;D&#x27;}, &#x27;collapsed&#x27;) RETURN d&quot;</span>);
 [ 
   { 
-    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71516&quot;</span>, 
-    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/71516&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_etLB1yq---&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71552&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/71552&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_exyNqXO---&quot;</span>, 
     <span class="hljs-string">&quot;text&quot;</span> : <span class="hljs-string">&quot;A-B-C-D&quot;</span> 
   } 
 ]

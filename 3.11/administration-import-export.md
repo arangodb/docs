@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Imports and exports can be done with the toolsarangoimport andarangoexport
+description: Imports and exports can be done with the tools arangoimport and arangoexport
 ---
 Import and Export
 =================

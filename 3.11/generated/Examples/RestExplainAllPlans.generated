@@ -10,7 +10,7 @@ EOF
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">1965</span>
+content-length: <span class="hljs-number">1999</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -56,9 +56,9 @@ x-content-type-options: nosniff
           <span class="hljs-string">&quot;indexCoversProjections&quot;</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">&quot;indexes&quot;</span> : [ 
             { 
-              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68790&quot;</span>, 
+              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68786&quot;</span>, 
               <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1742669012437827584&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1743967249864065025&quot;</span>, 
               <span class="hljs-string">&quot;fields&quot;</span> : [ 
                 <span class="hljs-string">&quot;id&quot;</span> 
               ], 
@@ -114,7 +114,9 @@ x-content-type-options: nosniff
           <span class="hljs-string">&quot;ascending&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;reverse&quot;</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">&quot;evalFCalls&quot;</span> : <span class="hljs-literal">true</span>, 
-          <span class="hljs-string">&quot;limit&quot;</span> : <span class="hljs-number">0</span> 
+          <span class="hljs-string">&quot;waitForSync&quot;</span> : <span class="hljs-literal">false</span>, 
+          <span class="hljs-string">&quot;limit&quot;</span> : <span class="hljs-number">0</span>, 
+          <span class="hljs-string">&quot;lookahead&quot;</span> : <span class="hljs-number">1</span> 
         }, 
         { 
           <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;ReturnNode&quot;</span>, 

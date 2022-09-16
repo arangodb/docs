@@ -1,27 +1,29 @@
 ---
 layout: default
-description: You can improve the performance of View queries with a primary sort order, stored values and other optimizations
-title: ArangoSearch View Query Performance Optimization
+description: >-
+  You can improve the performance of View and inverted index queries with a
+  primary sort order, stored values and other optimizations
+title: View and inverted index query performance optimization
 redirect_from:
   - views-arango-search.html # 3.4 -> 3.5
 ---
-# Optimizing View Query Performance
+# Optimizing View and inverted index query performance
 
 {{ page.description }}
 {:class="lead"}
 
 ## Primary Sort Order
 
-The index behind an ArangoSearch View can have a primary sort order.
-A direction can be specified upon View creation for each uniquely named
+Inverted indexes and `arangosearch` Views can have a primary sort order.
+A direction can be specified upon their creation for each uniquely named
 attribute (ascending or descending), to enable an optimization for AQL
-queries which iterate over a View and sort by one or multiple of the
-attributes. If the field(s) and the sorting direction(s) match then the
+queries which iterate over a collection or View and sort by one or multiple of the
+indexed attributes. If the field(s) and the sorting direction(s) match, then the
 the data can be read directly from the index without actual sort operation.
 
 {% include youtube.html id="bKeKzexInm0" %}
 
-View definition example:
+`arangosearch` View definition example:
 
 ```json
 {
@@ -51,7 +53,7 @@ AQL query example:
 
 ```aql
 FOR doc IN viewName
-  SORT doc.name
+  SORT doc.text
   RETURN doc
 ```
 
@@ -62,7 +64,7 @@ Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
   2   EnumerateViewNode      1     - FOR doc IN viewName   /* view query */
-  3   CalculationNode        1       - LET #1 = doc.`val`   /* attribute expression */
+  3   CalculationNode        1       - LET #1 = doc.`text`   /* attribute expression */
   4   SortNode               1       - SORT #1 ASC   /* sorting strategy: standard */
   5   ReturnNode             1       - RETURN doc
 ```
@@ -73,12 +75,12 @@ Execution plan with a the primary sort order of the index being utilized:
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
-  2   EnumerateViewNode      1     - FOR doc IN viewName SORT doc.`val` ASC   /* view query */
+  2   EnumerateViewNode      1     - FOR doc IN viewName SORT doc.`text` ASC   /* view query */
   5   ReturnNode             1       - RETURN doc
 ```
 
-To define more than one attribute to sort by, simply add more sub-objects to
-the `primarySort` array:
+To define more than one attribute to sort by, simply provide multiple
+sub-objects in the `primarySort` array:
 
 ```json
   "primarySort": [
@@ -93,20 +95,61 @@ the `primarySort` array:
   ]
 ```
 
-The optimization can be applied to View queries which sort by both fields as
+You can also define a primary sort order for inverted indexes and utilize it
+via a `search-alias` View:
+
+```js
+db.coll.ensureIndex({
+  name: "inv-idx",
+  type: "inverted",
+  fields: ["text", "date"],
+  primarySort: {
+    fields: [
+      { field: "date", direction: "desc" },
+      { field: "text", direction: "asc" }
+    ]
+  }
+});
+```
+
+AQL query example:
+
+```aql
+FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
+  SORT doc.name
+  RETURN doc
+```
+
+If you add the inverted index to a `search-alias` View, then the query example
+is the same as for the `arangosearch` View:
+
+```js
+db._createView("viewName", "search-alias", { indexes: [
+  { collection: "coll", index: "inv-idx" }
+] });
+
+db._query(`FOR doc IN viewName
+  SORT doc.text
+  RETURN doc`);
+```
+
+The optimization can be applied to queries which sort by both fields as
 defined (`SORT doc.date DESC, doc.name`), but also if they sort in descending
 order by the `date` attribute only (`SORT doc.date DESC`). Queries which sort
-by `text` alone (`SORT doc.name`) are not eligible, because the View is sorted
+by `text` alone (`SORT doc.name`) are not eligible, because the index is sorted
 by `date` first. This is similar to persistent indexes, but inverted sorting
 directions are not covered by the View index
 (e.g. `SORT doc.date, doc.name DESC`).
 
 Note that the `primarySort` option is immutable: it can not be changed after
-View creation. It is therefore not possible to configure it through the web interface.
-The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
+View creation. Index definitions are generally immutable, so it cannot be
+changed for inverted indexes after creation either.
 
-The primary sort data is LZ4 compressed by default (`primarySortCompression` is
-`"lz4"`). Set it to `"none"` on View creation to trade space for speed.
+The primary sort data is LZ4 compressed by default.
+- `arangosearch` Views: `primarySortCompression: "lz4"`
+- Inverted indexes: `primarySort: { compression: "lz4" }`
+
+Set it to `"none"` on View or index creation to trade space for speed. 
 
 ## Stored Values
 
@@ -117,6 +160,8 @@ indexes with the View property `storedValues` (not to be confused with
 View indexes may fully cover `SEARCH` queries for improved performance.
 While late document materialization reduces the amount of fetched documents,
 this optimization can avoid to access the storage engine entirely.
+
+_`arangosearch` View:_
 
 ```json
 {
@@ -137,7 +182,31 @@ this optimization can avoid to access the storage engine entirely.
 }
 ```
 
-In above View definition, the document attribute *categories* is indexed for
+_`search-alias` View:_
+
+```js
+db.articles.ensureIndex({
+  name: "inv-idx",
+  type: "inverted",
+  fields: ["categories"],
+  primarySort: {
+    fields: [
+      { field: "publishedAt", direction: "desc" }
+    ]
+  },
+  storedValues: [
+    {
+      fields: [ "title", "categories" ]
+    }
+  ]
+});
+
+db._createView("articlesView", "search-alias", { indexes: [
+  { collection: "articles", index: "inv-idx" }
+] });
+```
+
+In above View definitions, the document attribute *categories* is indexed for
 searching, *publishedAt* is used as primary sort order and *title* as well as
 *categories* are stored in the View using the new `storedValues` property.
 

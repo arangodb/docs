@@ -21,8 +21,8 @@ everything in lower case and not use characters with diacritical marks but just
 the base characters.
 
 The fastest option for prefix matching is to use edge _n_-grams, a feature
-supported by `text` Analyzers. They make it possible for ArangoSearch Views to
-simply look up prefixes in the inverted index. The downsides are that the minimum
+supported by `text` Analyzers. They make it possible for Views and inverted indexes
+to simply look up prefixes in the index. The downsides are that the minimum
 and maximum _n_-gram length needs to be defined upfront and only prefixes in
 this range will be found, and that edge _n_-grams can take up more space.
 
@@ -33,9 +33,20 @@ matching can be done if a field is indexed with just the `identity` Analyzer.
 It creates the necessary index data to perform prefix queries with
 `STARTS_WITH()` but also wildcard queries with `LIKE()`.
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### View definition
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -53,13 +64,13 @@ It creates the necessary index data to perform prefix queries with
 }
 ```
 
-**AQL queries**
+### AQL queries
 
 Match all movie titles that start with `"The Matri"` (case-sensitive):
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(STARTS_WITH(doc.title, "The Matr"), "identity")
+  SEARCH STARTS_WITH(doc.title, "The Matr")
   RETURN doc.title
 ```
 
@@ -76,7 +87,7 @@ using `OR`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(STARTS_WITH(doc.title, "The Matr") OR STARTS_WITH(doc.title, "Harry Pot"), "identity")
+  SEARCH STARTS_WITH(doc.title, "The Matr") OR STARTS_WITH(doc.title, "Harry Pot")
   RETURN doc.title
 ```
 
@@ -103,7 +114,7 @@ multiple possible prefixes as array of strings, of which one must match:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(STARTS_WITH(doc.title, ["The Matr", "Harry Pot"]), "identity")
+  SEARCH STARTS_WITH(doc.title, ["The Matr", "Harry Pot"])
   RETURN doc.title
 ```
 
@@ -133,9 +144,20 @@ to define how many of the given prefixes must match. This is handy if the input
 is full-text tokenized by a `text` Analyzer or an array of strings, where
 conditions for different tokens can be fulfilled.
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### View definition
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "title", analyzer: "text_en" } ] });
+db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -153,9 +175,19 @@ conditions for different tokens can be fulfilled.
 }
 ```
 
-**AQL queries**
+### AQL queries
 
-Match movie titles that contain three out of five prefixes:
+Match movie titles that contain three out of five prefixes.
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH STARTS_WITH(doc.title, TOKENS("Sec Cham Har Pot Phoe", "text_en"), 3)
+  RETURN doc.title
+```
+
+_AranogSearch View:_
 
 ```aql
 FOR doc IN imdb
@@ -169,7 +201,18 @@ FOR doc IN imdb
 | **Har**ry **Pot**ter and the Order of the **Phoe**nix |
 
 You can calculate the number of prefixes that need to match dynamically, for
-example to require that all prefixes must match:
+example to require that all prefixes must match.
+
+_`search-alias` View:_
+
+```aql
+LET prefixes = TOKENS("Brot Blu", "text_en")
+FOR doc IN imdb_alias
+  SEARCH STARTS_WITH(doc.title, prefixes, LENGTH(prefixes))
+  RETURN doc.title
+```
+
+_AranogSearch View:_
 
 ```aql
 LET prefixes = TOKENS("Brot Blu", "text_en")
@@ -189,9 +232,11 @@ Edge _n_-grams is a feature of the `text` Analyzer type. It generates _n_-grams
 for each token (usually a word), but anchored to the beginning of the token.
 It thus creates prefix _n_-grams only and not all _n_-grams for the input.
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**Custom Analyzer:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### Custom Analyzer
 
 Create a `text` Analyzer in arangosh to normalize case to all lowercase, remove
 diacritics, with no stemming, with edge _n_-grams of size 3 to 6 for example and
@@ -200,7 +245,7 @@ including the original string as well:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("edge_ngram", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false, edgeNgram: { min: 3, max: 6, preserveOriginal: true } }, ["frequency", "norm", "position"]);
+analyzers.save("edge_ngram", "text", { locale: "en", accent: false, case: "lower", stemming: false, edgeNgram: { min: 3, max: 6, preserveOriginal: true } }, ["frequency", "norm", "position"]);
 ```
 
 Test the Analyzer:
@@ -224,7 +269,16 @@ db._query(`RETURN TOKENS("Ocean Equilibrium", "edge_ngram")`);
 ]
 ```
 
-**View definition:**
+### View definition
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-ngram", type: "inverted", fields: [ { name: "title", analyzer: "edge_ngram" } ] });
+db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-ngram" } ] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -242,9 +296,19 @@ db._query(`RETURN TOKENS("Ocean Equilibrium", "edge_ngram")`);
 }
 ```
 
-**AQL queries**
+### AQL queries
 
-Match movie titles that have a word starting with `"ocea"`:
+Match movie titles that have a word starting with `"ocea"`
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.title == "ocea"
+  RETURN doc.title
+```
+
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -269,11 +333,21 @@ but without creating any _n_-grams:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("match_edge_ngram", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false }, ["frequency", "norm", "position"]);
+analyzers.save("match_edge_ngram", "text", { locale: "en", accent: false, case: "lower", stemming: false }, ["frequency", "norm", "position"]);
 ```
 
 Now we can also match movie titles that start with `"Oceä"`
 (normalized to `"ocea"`):
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.title == TOKENS("Oceä", "match_edge_ngram")[0]
+  RETURN doc.title
+```
+
+_AranogSearch View:_
 
 ```aql
 FOR doc IN imdb
@@ -296,6 +370,16 @@ if `preserveOriginal` is enabled. For example, this query does not match
 anything because the longest indexed edge _n_-gram is `"equili"` but the search
 term is nine characters long:
 
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.title == TOKENS("Equilibri", "match_edge_ngram")[0]
+  RETURN doc.title
+```
+
+_AranogSearch View:_
+
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title == TOKENS("Equilibri", "match_edge_ngram")[0], "edge_ngram")
@@ -305,6 +389,16 @@ FOR doc IN imdb
 Searching for `"Equilibrium"` does match because the full token `"equilibrium"`
 is indexed by our custom Analyzer thanks to `preserveOriginal`. We can take
 advantage of the full token being indexed with the `STARTS_WITH()` function:
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH STARTS_WITH(doc.title, TOKENS("Equilibri", "match_edge_ngram"))
+  RETURN doc.title
+```
+
+_AranogSearch View:_
 
 ```aql
 FOR doc IN imdb

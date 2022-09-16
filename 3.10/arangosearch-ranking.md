@@ -55,9 +55,29 @@ Scoring functions cannot be used outside of `SEARCH` operations, as the scores
 can only be computed in the context of a View, especially because of the
 inverse document frequency (IDF).
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### View definition
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({
+  name: "inv-text",
+  type: "inverted",
+  fields: [
+    { name: "description", analyzer: "text_en" }
+  ]
+});
+
+db._createView("imdb_alias", "search-alias", { indexes: [
+  { collection: "imdb_vertices", index: "inv-text" }
+] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -75,10 +95,27 @@ inverse document frequency (IDF).
 }
 ```
 
-**AQL Queries:**
+### AQL queries
 
 Search for movies with certain keywords in their description and rank the
 results using the [`BM25()` function](aql/functions-arangosearch.html#bm25):
+
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.description IN TOKENS("amazing action world alien sci-fi science documental galaxy", "text_en")
+  SORT BM25(doc) DESC
+  LIMIT 10
+  RETURN {
+    title: doc.title,
+    description: doc.description,
+    score: BM25(doc)
+  }
+```
+
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -106,6 +143,22 @@ FOR doc IN imdb
 | Alien Planet | The dynamic meeting of solid **science** … **Alien** Planet creates a realistic depiction of creatures on another **world**, … | 21.493724822998047 |
 
 Do the same but with the [`TFIDF()` function](aql/functions-arangosearch.html#tfidf):
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.description IN TOKENS("amazing action world alien sci-fi science documental galaxy", "text_en")
+  SORT TFIDF(doc) DESC
+  LIMIT 10
+  RETURN {
+    title: doc.title,
+    description: doc.description,
+    score: TFIDF(doc)
+  }
+```
+
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -144,9 +197,30 @@ accepts any valid `SEARCH` expression as first argument. You can set the boost
 factor for that sub-expression via the second parameter. Documents that match
 boosted parts of the search expression will get higher scores.
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### View definition
+
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({
+  name: "inv-text",
+  type: "inverted",
+  fields: [
+    { name: "description", analyzer: "text_en" }
+  ]
+});
+
+db._createView("imdb_alias", "search-alias", { indexes: [
+  { collection: "imdb_vertices", index: "inv-text" }
+] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -164,9 +238,26 @@ boosted parts of the search expression will get higher scores.
 }
 ```
 
-**AQL Queries:**
+### AQL queries
 
 Prefer `galaxy` over the other keywords:
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.description IN TOKENS("amazing action world alien sci-fi science documental", "text_en")
+      OR BOOST(doc.description IN TOKENS("galaxy", "text_en"), 5)
+  SORT BM25(doc) DESC
+  LIMIT 10
+  RETURN {
+    title: doc.title,
+    description: doc.description,
+    score: BM25(doc)
+  }
+```
+
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -197,6 +288,24 @@ FOR doc IN imdb
 If you are an information retrieval expert and want to fine-tuning the
 weighting schemes at query time, then you can do so. The `BM25()` function
 accepts free coefficients as parameters to turn it into BM15 for instance:
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.description IN TOKENS("amazing action world alien sci-fi science documental", "text_en")
+      OR BOOST(doc.description IN TOKENS("galaxy", "text_en"), 5)
+  LET score = BM25(doc, 1.2, 0)
+  SORT score DESC
+  LIMIT 10
+  RETURN {
+    title: doc.title,
+    description: doc.description,
+    score
+  }
+```
+
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -233,6 +342,9 @@ a custom score based on BM25 and the movie runtime to favor longer movies:
 
 ```aql
 FOR doc IN imdb
+/* `search-alias` View:
+FOR doc IN imdb_alias
+*/
   SEARCH PHRASE(doc.title, "Star Wars", "text_en")
   LET score = BM25(doc) * LOG(doc.runtime + 1)
   SORT score DESC

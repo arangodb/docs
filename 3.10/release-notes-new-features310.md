@@ -2,15 +2,13 @@
 layout: default
 description: ArangoDB v3.10 Release Notes New Features
 ---
-Features and Improvements in ArangoDB 3.10
-==========================================
+# Features and Improvements in ArangoDB 3.10
 
 The following list shows in detail which features have been added or improved in
 ArangoDB 3.10. ArangoDB 3.10 also contains several bug fixes that are not listed
 here.
 
-Native ARM Support
-------------------
+## Native ARM Support
 
 ArangoDB is now available for the ARM architecture, in addition to the x86-64
 architecture.
@@ -23,8 +21,47 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
 The minimum requirement is an ARMv8 chip with Neon (SIMD extension).
 
-Computed Values
----------------
+## SmartGraphs (Enterprise Edition)
+
+### SmartGraphs and SatelliteGraphs on a single server
+
+It is now possible to test [SmartGraphs](graphs-smart-graphs.html) and
+[SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to
+port them to a cluster with multiple servers.
+
+You can create SmartGraphs, Disjoint SmartGraphs, SmartGraphs using 
+SatelliteCollections, Disjoint SmartGraphs using SatelliteCollections, as well
+as SatelliteGraphs in the usual way, using
+`arangosh` for instance, but on a single server, then dump them, start a cluster
+(with multiple servers) and restore the graphs in the cluster. The graphs and
+the collections will keep all properties that are kept when the graph is already
+created in a cluster.
+
+This feature is only available in the Enterprise Edition.
+
+### EnterpriseGraphs (Enterprise Edition)
+
+The 3.10 version of ArangoDB introduces a specialized version of SmartGraphs, 
+called EnterpriseGraphs. 
+
+EnterpriseGraphs come with a concept of automated sharding key selection,
+meaning that the sharding key is randomly selected while ensuring that all
+their adjacent edges are co-located
+on the same servers, whenever possible. This approach provides significant
+advantages as it minimizes the impact of having suboptimal sharding keys
+defined when creating the graph.
+
+See the [EnterpriseGraphs](graphs-enterprise-graphs.html) chapter for more details.
+
+This feature is only available in the Enterprise Edition.
+
+### (Disjoint) Hybrid SmartGraphs renaming
+
+(Disjoint) Hybrid SmartGraphs were renamed to
+**(Disjoint) SmartGraphs using SatelliteCollections**.
+The functionality and behavior of both types of graphs stay the same.
+
+## Computed Values
 
 This feature lets you define expressions on the collection level
 that run on inserts, modifications, or both. You can access the data of the
@@ -72,8 +109,69 @@ var doc = db.users.save({ firstName: "Paula", lastName: "Plant" });
 See [Computed Values](data-modeling-documents-computed-values.html) for more
 information and examples.
 
-ArangoSearch
-------------
+## ArangoSearch
+
+### Inverted collection indexes
+
+A new `inverted` index type is available that you can define at the collection
+level. You can use these indexes similar to `arangosearch` Views, to accelerate
+queries like value lookups, range queries, accent- and case-insensitive search,
+wildcard and fuzzy search, nested search, search highlighting, as well as for
+sophisticated full-text search with the ability to search for words, phrases,
+and more.
+
+```js
+db.coll.ensureIndex({
+  type: "inverted",
+  name: "inv-idx",
+  fields: [
+    "title",
+    { name: "description", analyzer: "text_en" }
+  ]
+});
+
+db._query(`FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
+  FILTER TOKENS("neo smith", "text_en") ALL IN doc.description
+  RETURN doc.title`);
+```
+
+You need to use an index hint to utilize an inverted index.
+Note that the `FOR` loop uses a collection, not a View, and documents are
+matched using a `FILTER` operation. Filter conditions work similar to the
+`SEARCH` operation but you don't need to specify Analyzers with the `ANALYZER()`
+function in queries.
+
+Like Views, this type of index is eventually consistent.
+
+See [Inverted index](indexing-inverted.html) for details.
+
+### `search-alias` Views
+
+A new `search-alias` View type was added to let you add one or more
+inverted indexes to a View, enabling federated searching over multiple
+collections and ranking of search results by relevance similar to
+`arangosearch` Views. This is on top of the filtering capabilities provided by the
+inverted indexes, including full-text processing with Analyzers and more.
+
+```js
+db._createView("view", "search-alias", {
+  indexes: [
+    { collection: "coll", index: "inv-idx" }
+  ]
+});
+
+db._query(`FOR doc IN imdb
+  SEARCH STARTS_WITH(doc.title, "The Matrix") AND
+  PHRASE(doc.description, "invasion", 2, "machine")
+  RETURN doc`);
+```
+
+A key difference between `arangosearch` and `search-alias` Views is that you don't
+need to specify an Analyzer context with the `ANALYZER()` function in queries
+because it is inferred from the inverted index definition, which only supports
+a single Analyzer per field.
+
+Also see [Getting started with ArangoSearch](arangosearch.html#getting-started-with-arangosearch).
 
 ### Search highlighting (Enterprise Edition)
 
@@ -97,7 +195,7 @@ db.food.save({ name: "chili pepper", description: { en: "Chili peppers are varie
 db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
 
 var analyzers = require("@arangodb/analyzers");
-var analyzer = analyzers.save("text_en_offset", "text", { locale: "en.utf-8", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+var analyzer = analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
 
 db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
 db._query(`FOR doc IN food_view
@@ -115,8 +213,9 @@ db._query(`FOR doc IN food_view
         match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
       }]
     }`);
+```
 
-/*
+```json
 [
   {
     "description" : { "en" : "The avocado is a medium-sized, evergreen tree, native to the Americas." },
@@ -146,6 +245,56 @@ db._query(`FOR doc IN food_view
 ```
 
 See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
+for details. Search highlighting is also available for the new
+[Invertex index](indexing-inverted.html) type.
+
+### Nested search (Enterprise Edition)
+
+Nested search allows you to index arrays of objects in a way that lets you
+search the sub-objects with all the conditions met by a single sub-object
+instead of each condition being met by any of the sub-objects.
+
+Consider a document like the following:
+
+```json
+{
+  "dimensions": [
+    { "type": "height", "value": 35 },
+    { "type": "width", "value": 60 }
+  ]
+}
+```
+
+The following search query matches the document because the individual conditions
+are satisfied by one of the nested objects:
+
+```aql
+FOR doc IN viewName
+  SEARCH doc.dimensions.type == "height" AND doc.dimensions.value > 40
+  RETURN doc
+```
+
+If you only want to find documents where both conditions are true for a single
+nested object, you could post-filter the search results:
+
+```aql
+FOR doc IN viewName
+  SEARCH doc.dimensions.type == "height" AND doc.dimensions.value > 40
+  FILTER LENGTH(doc.dimensions[* FILTER CURRENT.type == "height" AND CURRENT.value > 40]) > 0
+  RETURN doc
+```
+
+The new nested search feature allows you to simplify the query and get better
+performance:
+
+```aql
+FOR doc IN viewName
+  SEARCH doc.dimensions[? FILTER CURRENT.type == "height" AND CURRENT.value > 40]
+  RETURN doc
+```
+
+See [Nested search with ArangoSearch](arangosearch-nested-search.html) using Views
+and the nested search example using [Inverted indexes](indexing-inverted.html#nested-search-enterprise-edition)
 for details.
 
 This feature is only available in the Enterprise Edition.
@@ -155,6 +304,52 @@ This feature is only available in the Enterprise Edition.
 This new optimization rule brings significant performance improvements by 
 allowing you to perform sorting and limiting inside an ArangoSearch View
 enumeration node, if using just scoring for a sort operation.
+### ArangoSearch metrics and figures
+
+The [Metrics HTTP API](http/administration-and-monitoring-metrics.html) has been
+extended with metrics for ArangoSearch for monitoring `arangosearch` View links
+and inverted indexes.
+
+The following metrics have been added in ArangoDB 3.10:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_search_cleanup_time` | Average time of few last cleanups.
+| `arangodb_search_commit_time` | Average time of few last commits.
+| `arangodb_search_consolidation_time` | Average time of few last consolidations.
+| `arangodb_search_index_size` | Size of the index in bytes for current snapshot.
+| `arangodb_search_num_docs` | Number of documents for current snapshot.
+| `arangodb_search_num_failed_cleanups` | Number of failed cleanups.
+| `arangodb_search_num_failed_commits` | Number of failed commits.
+| `arangodb_search_num_failed_consolidations` | Number of failed consolidations.
+| `arangodb_search_num_files` | Number of files for current snapshot.
+| `arangodb_search_num_live_docs` | Number of live documents for current snapshot.
+| `arangodb_search_num_out_of_sync_links` | Number of out-of-sync arangosearch links/inverted indexes.
+| `arangodb_search_num_segments` | Number of segments for current snapshot.
+
+These metrics are exposed by single servers and DB-Servers.
+
+Additionally, the JavaScript and HTTP API for indexes has been extended with
+figures for `arangosearch` View links and inverted indexes.
+
+In arangosh, you can call `db.<collection>.indexes(true, true);` to get at this
+information. Also see [Listing all indexes of a collection](indexing-working-with-indexes.html#listing-all-indexes-of-a-collection).
+The information has the following structure:
+
+```js
+{
+  "figures" : { 
+    "numDocs" : 4,      // total number of documents in the index with removals
+    "numLiveDocs" : 4,  // total number of documents in the index without removals
+    "numSegments" : 1,  // total number of index segments
+    "numFiles" : 8,     // total number of index files
+    "indexSize" : 1358  // size of the index in bytes
+  }, ...
+}
+```
+
+Note that the number of (live) docs may differ from the actual number of
+documents if the nested search feature is used.
 
 Analyzers
 ---------
@@ -170,7 +365,7 @@ A common use case is to compare sets with many elements for entity resolution,
 such as for finding duplicate records, based on how many common elements they
 have.
 
-You can use the Analyzer with a new inverted index or ArangoSearch View to
+You can use the Analyzer with a new inverted index or `arangosearch` View to
 quickly find candidates for the actual Jaccard similarity comparisons you want
 to perform.
 
@@ -196,8 +391,7 @@ This feature is only available in the Enterprise Edition.
 
 See [Analyzers](analyzers.html#nearest_neighbors) for details.
 
-Web Interface
--------------
+## Web Interface
 
 The 3.10 release of ArangoDB introduces a new Web UI for **Views** that allows
 you to view, configure, or drop an ArangoSearch View.
@@ -205,8 +399,7 @@ you to view, configure, or drop an ArangoSearch View.
 The Web UI is full-featured, you can insert all parameters and options that you
 would otherwise do through the [HTTP Interface for Views](http/views.html).
 
-AQL
----
+## AQL
 
 ### All Shortest Paths Graph Traversal
 
@@ -249,6 +442,7 @@ FOR startVertex IN ["v/1", "v/2", "v/3", "v/4"]
 FOR v,e,p IN 1..3 OUTBOUND startVertex GRAPH "yourShardedGraph" OPTIONS {parallelism: 3}
 [...]
 ```
+
 This feature is only available in the Enterprise Edition.
 
 ### GeoJSON changes
@@ -405,6 +599,28 @@ FOR … IN … OPTIONS { lookahead: 32 }
 
 See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
 
+### Question mark operator
+
+The new `[? ... ]` array operator is a shorthand for an inline filter with a
+surrounding length check:
+
+```aql
+LET arr = [ 1, 2, 3, 4 ]
+RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
+
+/* Equivalent expression:
+RETURN LENGTH(arr[* FILTER CURRENT % 2 == 0]) == 2
+*/
+```
+
+The quantifier can be a number, a range, `NONE`, `ANY`, `ALL`, or `AT LEAST`.
+
+This operator is used for the new [Nested search](#nested-search-enterprise-edition)
+feature (Enterprise Edition only).
+
+See [Array Operators](aql/advanced-array-operators.html#question-mark-operator)
+for details.
+
 ### New `AT LEAST` array comparison operator
 
 You can now combine one of the supported comparison operators with the special
@@ -421,20 +637,12 @@ See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
 
 ### New and Changed AQL Functions
 
-AQL functions added in 3.10:
+AQL functions added to the 3.10 Enterprise Edition:
 
 - [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info):
   An ArangoSearch function to get the start offsets and lengths of matches for
   [search highlighting](arangosearch-search-highlighting.html).
   Available in the Enterprise Edition only.
-
-- [`SUBSTRING_BYTES()`](aql/functions-string.html#substring_bytes):
-  A function to get a string subset using a start and length in bytes instead of
-  in number of characters. 
-
-- [`VALUE()`](aql/functions-document.html#value):
-  A new document function to dynamically get an attribute value of an object,
-  using an array to specify the path.
 
 - [`MINHASH()`](aql/functions-miscellaneous.html#minhash):
   A new function for locality-sensitive hashing to approximate the
@@ -456,6 +664,16 @@ AQL functions added in 3.10:
   Jaccard similarity of at least the specified threshold that are indexed by a View.
   Available in the Enterprise Edition only.
 
+AQL functions added to all editions of 3.10:
+
+- [`SUBSTRING_BYTES()`](aql/functions-string.html#substring_bytes):
+  A function to get a string subset using a start and length in bytes instead of
+  in number of characters. 
+
+- [`VALUE()`](aql/functions-document.html#value):
+  A new document function to dynamically get an attribute value of an object,
+  using an array to specify the path.
+
 - [`KEEP_RECURSIVE()`](aql/functions-document.html#keep_recursive):
   A document function to recursively keep attributes from objects/documents,
   as a counterpart to `UNSET_RECURSIVE()`.
@@ -467,8 +685,7 @@ AQL functions changed in 3.10:
   It also accepts an array of objects now, matching the behavior of the
   `MERGE()` function.
 
-Indexes
--------
+## Indexes
 
 ### Parallel index creation (Enterprise Edition)
 
@@ -519,8 +736,7 @@ scans, for sorting, or for lookups that do not include all index attributes.
 
 See [Persistent Indexes](indexing-persistent.html#caching-of-index-values).
 
-Document keys
--------------
+## Document keys
 
 Some key generators can generate keys in an ascending order, meaning that document
 keys with "higher" values also represent newer documents. This is true for the
@@ -540,49 +756,7 @@ single-sharded collections.
 Document keys are still not guaranteed to be truly ascending for collections with
 more than a single shard.
 
-SmartGraphs (Enterprise Edition)
---------------------------------
-
-### SmartGraphs and SatelliteGraphs on a single server
-
-It is now possible to test [SmartGraphs](graphs-smart-graphs.html) and
-[SatelliteGraphs](graphs-satellite-graphs.html) on a single server and then to
-port them to a cluster with multiple servers.
-
-You can create SmartGraphs, Disjoint SmartGraphs, SmartGraphs using 
-SatelliteCollections, Disjoint SmartGraphs using SatelliteCollections, as well
-as SatelliteGraphs in the usual way, using
-`arangosh` for instance, but on a single server, then dump them, start a cluster
-(with multiple servers) and restore the graphs in the cluster. The graphs and
-the collections will keep all properties that are kept when the graph is already
-created in a cluster.
-
-This feature is only available in the Enterprise Edition.
-
-### EnterpriseGraphs (Enterprise Edition)
-
-The 3.10 version of ArangoDB introduces a specialized version of SmartGraphs, 
-called EnterpriseGraphs. 
-
-EnterpriseGraphs come with a concept of automated sharding key selection,
-meaning that the sharding key is randomly selected while ensuring that all
-their adjacent edges are co-located
-on the same servers, whenever possible. This approach provides significant
-advantages as it minimizes the impact of having suboptimal sharding keys
-defined when creating the graph.
-
-See the [EnterpriseGraphs](graphs-enterprise-graphs.html) chapter for more details.
-
-This feature is only available in the Enterprise Edition.
-
-### (Disjoint) Hybrid SmartGraphs renaming
-
-(Disjoint) Hybrid SmartGraphs were renamed to
-**(Disjoint) SmartGraphs using SatelliteCollections**.
-The functionality and behavior of both types of graphs stay the same.
-
-Server options
---------------
+## Server options
 
 ### Responses early during instance startup
 
@@ -681,7 +855,7 @@ You can do any of the following by using the API:
 * Execute the given set of move shard operations.
 * Compute a set of move shard operations to improve balance and execute them immediately. 
 
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
 section of the HTTP API reference manual.
 
 Miscellaneous changes
@@ -725,8 +899,7 @@ The previous background thread named `Sha256Thread`, which was responsible for
 calculating the SHA256 hashes and sometimes for high CPU utilization after
 larger write operations, has now been fully removed.
 
-Client tools
-------------
+## Client tools
 
 ### arangobench
 
@@ -793,8 +966,7 @@ See the [Starter configuration file](programs-starter-architecture.html#starter-
 section for more information about the configuration file format, passing
 through command line options, and examples. 
 
-Query changes for decreasing memory usage
------------------------------------------
+## Query changes for decreasing memory usage
 
 Queries can be executed with storing input and intermediate results temporarily
 on disk to decrease memory usage when a specified threshold is reached.
@@ -824,8 +996,7 @@ arangod --temp.intermediate-results-path "tempDir"
 
 For more information, refer to the [Query invocation](aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk) topics.
 
-Internal changes
-----------------
+## Internal changes
 
 ### C++20 
 

@@ -157,7 +157,7 @@ specify them via the `--view` option.
 
     arangorestore --collection myusers --view myview --input-directory "dump"
 
-In the case of an arangosearch view you must make sure that the linked collections are either
+In the case of an `arangosearch` View you must make sure that the linked collections are either
 also restored or already present on the server.
 
 Encryption

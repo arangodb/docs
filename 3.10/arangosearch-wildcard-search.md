@@ -67,7 +67,7 @@ escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
 }
 ```
 
-**AQL queries:**
+### AQL queries
 
 Match all titles that starts with `The Matr` using `LIKE()`,
 where `_` stands for a single wildcard character and `%` for an arbitrary amount:

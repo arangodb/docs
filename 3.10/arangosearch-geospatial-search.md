@@ -67,7 +67,20 @@ as described below:
 
 **Dataset:** [Demo Geo S2 dataset](arangosearch-example-datasets.html#demo-geo-s2-dataset)
 
-**View definition:**
+### View definition
+
+#### `search-alias` View
+
+```js
+db.restaurants.ensureIndex({ name: "inv-rest", type: "inverted", fields: [ { name: "location", analyzer: "geojson" } ] });
+db.neighborhoods.ensureIndex({ name: "inv-hood", type: "inverted", fields: [ "name", { name: "geometry", analyzer: "geojson" } ] });
+db._createView("restaurantsViewAlias", "search-alias", { indexes: [
+  { collection: "restaurants", index: "inv-rest" },
+  { collection: "neighborhoods", index: "inv-hood" }
+] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -103,7 +116,23 @@ as described below:
 
 Using the Museum of Modern Arts as reference location, find restaurants within
 a 100 meter radius. Return the matches sorted by distance and include how far
-away they are from the reference point in the result:
+away they are from the reference point in the result.
+
+_`search-alias` View_:
+
+```aql
+LET moma = GEO_POINT(-73.983, 40.764)
+FOR doc IN restaurantsViewAlias
+  SEARCH GEO_DISTANCE(doc.location, moma) < 100
+  LET distance = GEO_DISTANCE(doc.location, moma)
+  SORT distance
+  RETURN {
+    geometry: doc.location,
+    distance
+  }
+```
+
+_`arangosearch` View_:
 
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
@@ -120,10 +149,29 @@ FOR doc IN restaurantsView
 Search for restaurants with `Cafe` in their name within a radius of 1000 meters
 and return the ten closest matches:
 
+_`search-alias` View_:
+
+```aql
+LET moma = GEO_POINT(-73.983, 40.764)
+FOR doc IN restaurantsViewAlias
+  SEARCH LIKE(doc.name, "%Cafe%")
+     AND GEO_DISTANCE(doc.location, moma) < 1000
+  LET distance = GEO_DISTANCE(doc.location, moma)
+  SORT distance
+  LIMIT 10
+  RETURN {
+    geometry: doc.location,
+    name: doc.name,
+    distance
+  }
+```
+
+_`arangosearch` View_:
+
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
 FOR doc IN restaurantsView
-  SEARCH ANALYZER(LIKE(doc.name, "%Cafe%"), "identity")
+  SEARCH LIKE(doc.name, "%Cafe%")
      AND ANALYZER(GEO_DISTANCE(doc.location, moma) < 1000, "geojson")
   LET distance = GEO_DISTANCE(doc.location, moma)
   SORT distance
@@ -141,10 +189,29 @@ First off, search for the neighborhood `Upper West Side` in a subquery and
 return its GeoJSON Polygon. Then search for restaurants that are contained
 in this polygon and return them together with the polygon itself:
 
+_`search-alias` View_:
+
+```aql
+LET upperWestSide = FIRST(
+  FOR doc IN restaurantsViewAlias
+    SEARCH doc.name == "Upper West Side"
+    RETURN doc.geometry
+)
+FOR result IN PUSH(
+  FOR doc IN restaurantsViewAlias
+    SEARCH GEO_CONTAINS(upperWestSide, doc.location)
+    RETURN doc.location,
+  upperWestSide
+)
+  RETURN result
+```
+
+_`arangosearch` View_:
+
 ```aql
 LET upperWestSide = FIRST(
   FOR doc IN restaurantsView
-    SEARCH ANALYZER(doc.name == "Upper West Side", "identity")
+    SEARCH doc.name == "Upper West Side"
     RETURN doc.geometry
 )
 FOR result IN PUSH(
@@ -252,6 +319,12 @@ LET upperWestSide = {
 FOR doc IN restaurantsView
   SEARCH ANALYZER(GEO_CONTAINS(upperWestSide, doc.location), "geojson")
   RETURN doc.location
+
+/* `search-alias` View:
+FOR doc IN restaurantsViewAlias
+  SEARCH GEO_CONTAINS(upperWestSide, doc.location)
+  RETURN doc.location
+*/
 ```
 
 ## Search for polygons within polygons
@@ -278,6 +351,10 @@ LET rect = GEO_POLYGON([
 FOR result IN PUSH(
   FOR doc IN restaurantsView
     SEARCH ANALYZER(GEO_CONTAINS(rect, doc.geometry), "geojson")
+  /* `search-alias` View:
+  FOR doc IN restaurantsViewAlias
+    SEARCH GEO_CONTAINS(rect, doc.geometry)
+  */
     RETURN doc.geometry,
   rect
 )
@@ -315,6 +392,10 @@ LET rect = GEO_POLYGON([
 FOR result IN PUSH(
   FOR doc IN restaurantsView
     SEARCH ANALYZER(GEO_INTERSECTS(rect, doc.geometry), "geojson")
+  /* `search-alias` View:
+  FOR doc IN restaurantsViewAlias
+    SEARCH GEO_INTERSECTS(rect, doc.geometry)
+  */
     RETURN doc.geometry,
   rect
 )
