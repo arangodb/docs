@@ -304,6 +304,23 @@ This feature is only available in the Enterprise Edition.
 This new optimization rule brings significant performance improvements by 
 allowing you to perform sorting and limiting inside an ArangoSearch View
 enumeration node, if using just scoring for a sort operation.
+
+### New startup options
+
+With `arangosearch.skip-recovery`, you can skip data recovery for the specified View links
+and inverted indexes on startup. 
+Values for this startup option should have the format `<collection-name>/<link-id>`,
+`<collection-name>/<index-id>`, or `<collection-name>/<index-name>`. 
+On DB servers, the `<collection-name>` part should contain a shard name.
+
+The `arangosearch.fail-queries-on-out-of-sync` startup option allows you to
+handle queries out of sync. The option is set to `false` by default. With this setting,
+queries on out of sync links/indexes are answered normally, but the return data
+may be incomplete.
+If set to `true`, any data retrieval queries on out of sync 
+links/indexes are going to fail with error "collection/view is out of sync"
+(error code 1481).
+
 ### ArangoSearch metrics and figures
 
 The [Metrics HTTP API](http/administration-and-monitoring-metrics.html) has been
@@ -642,27 +659,22 @@ AQL functions added to the 3.10 Enterprise Edition:
 - [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info):
   An ArangoSearch function to get the start offsets and lengths of matches for
   [search highlighting](arangosearch-search-highlighting.html).
-  Available in the Enterprise Edition only.
 
 - [`MINHASH()`](aql/functions-miscellaneous.html#minhash):
   A new function for locality-sensitive hashing to approximate the
   Jaccard similarity.
-  Available in the Enterprise Edition only.
 
 - [`MINHASH_COUNT()`](aql/functions-miscellaneous.html#minhash_count):
   A helper function to calculate the number of hashes (MinHash signature size)
   needed to not exceed the specified error amount.
-  Available in the Enterprise Edition only.
 
 - [`MINHASH_ERROR()`](aql/functions-miscellaneous.html#minhash_error):
   A helper function to calculate the error amount based on the number of hashes
   (MinHash signature size).
-  Available in the Enterprise Edition only.
 
 - [`MINHASH_MATCH()`](aql/functions-arangosearch.html#minhash_match):
   A new ArangoSearch function to match documents with an approximate
   Jaccard similarity of at least the specified threshold that are indexed by a View.
-  Available in the Enterprise Edition only.
 
 AQL functions added to all editions of 3.10:
 
