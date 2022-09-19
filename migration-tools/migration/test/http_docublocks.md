@@ -41,6 +41,8 @@ Encryption at Rest
 <!-- arangod/RestHandler/RestAdminServerHandler.cpp -->
 {% docublock post_admin_server_encryption %}
 
+{% docublock delete_api_tasks %}
+
 Cluster
 -------
 

@@ -2,7 +2,7 @@ from docublocks import *
 
 
 def test_http_docublocks():
-    paragraph = open("./test/http_docublocks.md")
+    paragraph = open("test/http_docublocks.md")
     migrateHTTPDocuBlocks(paragraph.read())
     paragraph.close()
 

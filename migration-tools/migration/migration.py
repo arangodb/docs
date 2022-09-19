@@ -6,7 +6,7 @@ import shutil
 import time
 import traceback
 from utils import *
-
+from docublocks import *
 
 oldToolchain = "old-arango-docs/docs"
 newToolchain = "docs/site"
@@ -174,7 +174,7 @@ def _processChapters(page, paragraph):
 	paragraph = migrate_headers(paragraph)
 	paragraph = migrate_hrefs(paragraph)
 	paragraph = migrate_hints(paragraph)
-
+	paragraph = migrateHTTPDocuBlocks(paragraph)
 	page.content = paragraph
 	return
 
@@ -218,6 +218,7 @@ if __name__ == "__main__":
 	print("Starting migration")
 
 	try:
+		initBlocksFileLocations()
 		structure_migration()
 		processFiles()
 		migrate_media()

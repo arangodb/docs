@@ -1,8 +1,9 @@
 import re
 import json
+import yaml
 
 # HTTP DocuBlocks
-apiDocsFile = "./docs/3.10/generated/allComments.txt"
+apiDocsFile = "/home/dan/work/projects/old-arango-docs/docs/3.10/generated/allComments.txt"
 blocksFileLocations = {}
 
 def initBlocksFileLocations():
@@ -28,84 +29,158 @@ def migrateHTTPDocuBlocks(paragraph):
         for block in declaredDocuBlocks:
             if block.startswith(docuBlock+"\n"):
                 yml = processHTTPDocuBlock(block)
-                # dump object as yaml and replace the old content with new codeblock yaml
 
-    return
+                paragraph = paragraph.replace("{% docublock "+ docuBlock + " %}", yml)
+                #print(paragraph)
+    return paragraph
 
 def processHTTPDocuBlock(docuBlock):
-    blocks = docuBlock.split("@REST")
+    blocks = docuBlock.split("@EXAMPLE")
+    restBlocks = blocks[0].split("@REST")
+    newBlock = {
+        'header': {
+            'verb': '',
+            'url': '',
+            'description': '',
+            'operationId': ''
+        },
+        'parameters': [],
+        'responses': [], 
+        'requestBody': [],
+        'examples': [],
+        }
 
     for block in blocks:
-        if block.startswith("HEADER"):
-            #processHeader
+        if block.startswith("_ARANGOSH"):
+            #print(block)
+            exampleBlock = {}
+            exampleName = re.search(r"(?<={).*(?=})", block).group(0)
+            exampleBlock["name"] = exampleName
+            code = re.search(r"(?<=_ARANGOSH_RUN{"+exampleName+"}\n).*[\n\s\w\W]*", block).group(0)
+            code = re.sub(r"@END_EXAMPLE_ARANGOSH_RUN.*", '', code)
+            exampleBlock["code"] = code
 
-        if block.startswith("DESCRIPTION"):
-            #processDesc
+            newBlock["examples"].append(exampleBlock)
 
-        if block.startswith("RETURNCODE"):
-            #processReturn
+    for block in restBlocks:
+        #print(block)
+        try:
+            if re.search(r"HEADER{", block):
+                headerRe = re.search(r"(?<=HEADER){.*}", block).group(0)
+                headerSplit = headerRe.split(",")
 
-        if block.startswith("EXAMPLE_"):
-            #processExample
+                try:
+                    newBlock["header"]["verb"] = headerSplit[0].split(" ")[0].strip("{").lower()
+                    newBlock["header"]["url"] = headerSplit[0].split(" ")[1] 
+                    newBlock["header"]["description"] = headerSplit[1]
+                    newBlock["header"]["operationId"] = headerSplit[2].strip("}")
+                except IndexError:
+                    pass      
 
+            if block.startswith("DESCRIPTION"):
+                newBlock["description"] = block.replace("DESCRIPTION\n", "")
 
-    return
+            elif re.search(r".*PARAM{", block):
+                paramType = re.search(r".*{", block).group(0).strip("{")
+                paramBlock = {}
+                
+                p = f"(?<={paramType})"
+                paramRe = re.search(p + r".*}", block).group(0)
+                paramSplit = paramRe.split(",")
 
+                try:
+                    paramBlock["name"] = paramSplit[0].strip("{")
+                    paramBlock["type"] = paramSplit[1]
+                    paramBlock["necessity"] = paramSplit[2]
+                except IndexError:
+                    pass
+                
+                block = re.sub(p + r".*}", '', block)
+                paramBlock["description"] = block
 
-class HTTPDocuBlock():
-    def __init__(self):
-        self.brief = ""
-        self.header = RestHeader()
-        self.hints = ""
-        self.urlParameters = list(RestURLParameter())
+                if "BODYPARAM" in paramType:
+                    newBlock["requestBody"].append(paramBlock)
+                    continue
 
-class RestParameter():
-    def __init__(self):
-        self.param = ""
-        self.type = ""
-        self.necessity = ""
-        self.description = ""
+                if "URLPARAM" in paramType:
+                    paramBlock["in"] = "path"
+                elif "QUERYPARAM" in paramType:
+                    paramBlock["in"] = "query"
+                elif "HEADERPARAM" in paramType:
+                    paramBlock["in"] = "header"
 
-class RestHeader():
-    def __init__(self):
-        self.verb = ""
-        self.url = ""
-        self.description = ""
-        self.operationId = ""
+                newBlock["parameters"].append(paramBlock)
+                    
 
-class RestURLParameter(RestParameter):
-    def __init__(super, self):
-        super().__init__(self)
+            if re.search(r"RETURNCODE{", block):
+                blockSplit = block.split("\n")
+                retBlock = {}
+                retBlock["status"] = re.search(r"(?<=RETURNCODE{).*(?=})", blockSplit[0]).group(0)
+                retBlock["description"] = "".join(blockSplit[1:]).strip("@endDocuBlock")
 
-class RestQueryParameter(RestParameter):
-    def __init__(super, self):
-        super().__init__(self)
+                newBlock["responses"].append(retBlock)
 
-class RestHeaderParameter(RestParameter):
-    def __init__(super, self):
-        super().__init__(self)
+        
+    
+        except Exception as ex:
+            print(f"Exception occurred for block {block}\n{ex}")
+            exit(1)
 
-class RestBodyParameter(RestParameter):
-    def __init__(super, self):
-        super().__init__(self)
-        self.subtype = ""
+    yml = render_yaml(newBlock)
+    return yml
 
-class RestReturnCode():
-    def __init__(self):
-        self.status = 413
-        self.description = ""
+def render_yaml(block):
+    parameters = ''
+    for param in block["parameters"]:
+        parameters = f'{parameters}\n\
+            - name: {param["name"]}\n\
+              in:   {param["in"]}\n\
+              required: {"true" if param["necessity"] == "required" else "false"}\n\
+            '
 
-class RestReplyBody():
-    def __init__(self):
-        self.name = ""
-        self.type = ""
-        self.necessity = ""
-        self.subtype = ""
+    bodyParameters = 'requestBody:\n\
+            content:\n\
+                application/json:\n\
+                    schema:\n\
+                        type: object\n\
+                        properties:\n'
+    for param in block["requestBody"]:
+       bodyParameters = f'{bodyParameters}\n\
+                            {param["name"]}:\n\
+                                type: {param["type"]}\n\
+                                required: {"true" if param["necessity"] == "required" else "false"}\n\
+                                description: {param["description"]}\n'
 
-# Inline DocuBlocks
+    responses = ''
+    for response in block["responses"]:
+        responses = f'{responses}\n\
+            {response["status"]}:\n\
+              description: {response["description"]}'
 
+    examples = ''
+    for example in block["examples"]:
+        examples = f'{examples}\n\
+            {example["name"]}:\n\
+                code: {example["code"]}\n\
+            '
 
+    res = f'```http\n\
+openapi: 3.0.2\n\
+servers:\n\
+  - url: /v3\n\
+paths:\n\
+  {block["header"]["url"]}:\n\
+    {block["header"]["verb"]}:\n\
+        {"description:" + block["header"]["description"] if block["header"]["description"] else ""}\n\
+        {"operationId:" + block["header"]["operationId"] if block["header"]["operationId"] else "" }\n\
+        {"parameters:"  + parameters if parameters else ""}\n\
+        {bodyParameters if block["requestBody"] else ""}\n\
+        {"responses:" + responses if responses else ""}\n\
+        {"x-arango-examples:" + examples if examples else ""}\n\
+```'
+    print(res)      
 
+    return res
 
 if __name__ == "__main__":
     initBlocksFileLocations()
