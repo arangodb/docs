@@ -48,7 +48,7 @@ features outlined below. For additional information, see
   Parallel execution of traversal queries with many start vertices, leading to
   faster results.
 
-- [**Traversal Projections**](release-notes-new-features310.html#traversal-aprojections-enterprise-edition):
+- [**Traversal Projections**](release-notes-new-features310.html#traversal-projections-enterprise-edition):
   Optimized data loading for AQL traversal queries if only a few document
   attributes are accessed.
 
