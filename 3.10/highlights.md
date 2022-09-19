@@ -45,7 +45,7 @@ grouped by version
   SmartGraphs, with an automatic sharding key selection.
 
 - [**Parallelism for Sharded Graphs**](release-notes-new-features310.html#parallelism-for-sharded-graphs-enterprise-edition):
-  Traversals with many start vertices can now run in parallel, leading to
+  All types of sharded graphs now support traversal parallelism, leading to
   faster results.    
 
 - [**Search highlighting**](arangosearch-search-highlighting.html):
@@ -61,7 +61,8 @@ grouped by version
   `arangosearch` View support that allows you to implement entity resolution.
 
 - [**AQL Traversal Projections**](release-notes-new-features310.html#traversal-projections-enterprise-edition): 
-  Projections are now supported in graph traversals. 
+  Use projections in graph traversals to follow edges connected to a start
+  vertex, up to a variable depth.
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
 
