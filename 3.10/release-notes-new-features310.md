@@ -492,13 +492,36 @@ details and for hints about upgrading to version 3.10 or later.
 
 ### Traversal Projections (Enterprise Edition)
 
-Starting with version 3.10, you can use projections in graph traversals to
-follow edges connected to a start vertex, up to a variable depth.
+Starting with version 3.10, the AQL optimizer automatically detects which
+document attributes you access in traversal queries and optimizes the data
+loading. This optimization is beneficial if you have large document sizes
+but only access small parts of the documents.
 
-The `maxProjections` is now introduced as an option when
-[working with named graphs](aql/graphs-traversals.html#working-with-named-graphs).
-
+By default, up to 5 attributes are extracted instead of loading the full document.
+You can control this number with the `maxProjections` option, which is now
+supported for [graph traversals](aql/graphs-traversals.html#working-with-named-graphs).
 See also [how to use `maxProjections` with FOR loops](aql/operations-for.html#maxprojections).
+
+In the following query, the accessed attributes are the `name` attribute of the
+neighbor vertices and the `vertex` attribute of the edges (via the path variable):
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND "persons/alice" GRAPH "knows_graph" OPTIONS { maxProjections: 5 }
+  RETURN { name: v.name, vertices: p.edges[*].vertex }
+```
+
+The use of projections is indicated in the query explain output:
+
+```aql
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  2   TraversalNode        1     - FOR v  /* vertex (projections: `name`) */, p  /* paths: edges (projections: `_from`, `_to`, `vertex`) */ IN 1..3  /* min..maxPathDepth */ OUTBOUND 'persons/alice' /* startnode */  GRAPH 'knows_graph'
+  3   CalculationNode      1       - LET #7 = { "name" : v.`name`, "vertex" : p.`edges`[*].`vertex` }   /* simple expression */
+  4   ReturnNode           1       - RETURN #7
+```
+
+This feature is only available in the Enterprise Edition.
 
 ### Number of filtered documents in profiling output
 
