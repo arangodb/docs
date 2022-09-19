@@ -25,9 +25,20 @@ Analyzer. Therefore, you do not need to specify Analyzers in View definitions
 and no Analyzer context in queries with the `ANALYZER()` function for numeric
 fields.
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### View definition
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "runtime" ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -58,7 +69,7 @@ no Analyzer using an empty array `[]` as shown below.
 }
 ```
 
-**AQL queries**
+### AQL queries
 
 Match movies with a runtime of exactly `5` minutes:
 
@@ -136,7 +147,7 @@ for an inclusive range of values. You can also use the
 you to specify individually whether the minimum and maximum value shall be
 included or excluded in the range.
 
-**AQL queries**
+### AQL queries
 
 Match movies with a runtime of `4` to `6` minutes with the range operator:
 
@@ -232,12 +243,22 @@ other operations work.
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
-language rules as per the defined Analyzer locale nor the server language
+language rules as per the defined Analyzer locale (except for the
+[`collation` Analyzer](analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](release-notes-known-issues311.html#arangosearch).
 {% endhint %}
 
-**View definition:**
+### View definition
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "name" ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -259,7 +280,7 @@ Match movies where the name is `>= Wu` and `< Y`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(IN_RANGE(doc.name, "Wu", "Y", true, false), "identity")
+  SEARCH IN_RANGE(doc.name, "Wu", "Y", true, false)
   RETURN doc.name
 ```
 

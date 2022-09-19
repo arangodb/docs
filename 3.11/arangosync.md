@@ -118,10 +118,10 @@ The _datacenter to datacenter replication_ setup in ArangoDB has a few limitatio
 Some of these limitations may be removed in later versions of ArangoDB:
 
 - All the machines where the ArangoDB Server processes run must run the Linux
-  operating system using the AMD64 architecture. Clients can run from any platform.
+  operating system using the AMD64 (x86-64) or ARM64 (AArch64) architecture. Clients can run from any platform.
 
 - All the machines where the ArangoSync Server processes run must run the Linux
-  operating system using the AMD64 architecture.
+  operating system using the AMD64 (x86-64) or ARM64 (AArch64) architecture.
   The ArangoSync command line tool is available for Linux, Windows & macOS.
 
 - The entire cluster is replicated. It is not possible to exclude specific

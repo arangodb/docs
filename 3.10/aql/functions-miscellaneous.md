@@ -446,6 +446,74 @@ guaranteed to remain the same in future versions of ArangoDB. The hash values
 should therefore be used only for temporary calculations, e.g. to compare if two
 documents are the same, or for grouping values in queries.
 
+### MINHASH()
+
+`MINHASH(values, numHashes) → hashes`
+
+Calculate MinHash signatures for the *values* using locality-sensitive hashing.
+The result can be used to approximate the Jaccard similarity of sets.
+
+- **values** (array): an array with elements of arbitrary type to hash
+- **numHashes** (number): the size of the MinHash signature. Must be
+  greater or equal to `1`. The signature size defines the probabilistic error
+  (`err = rsqrt(numHashes)`). For an error amount that does not exceed 5%
+  (`0.05`), use a size of `1 / (0.05 * 0.05) = 400`.
+- returns **hashes** (array): an array of strings with the encoded hash values
+
+**Examples**
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlMinHash
+    @EXAMPLE_AQL{aqlMinHash}
+      RETURN MINHASH(["foo", "bar", "baz"], 5)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlMinHash
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+### MINHASH_COUNT()
+
+`MINHASH_COUNT(error) → numHashes`
+
+Calculate the number of hashes (MinHash signature size) needed to not exceed the
+specified error amount.
+
+- **error** (number): the probabilistic error you can tolerate in the range `[0, 1]`
+- returns **numHashes** (number): the required number of hashes to not exceed
+  the specified error amount
+
+**Examples**
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlMinHashCount
+    @EXAMPLE_AQL{aqlMinHashCount}
+      RETURN MINHASH_ERROR(0.05)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlMinHashCount
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+### MINHASH_ERROR()
+
+`MINHASH_ERROR(numHashes) → error`
+
+Calculate the error amount based on the number of hashes (MinHash signature size).
+
+- **numHashes** (number): the number of hashes you want to check
+- returns **error** (number): the probabilistic error to expect with the specified
+  number of hashes
+
+**Examples**
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlMinHashError
+    @EXAMPLE_AQL{aqlMinHashError}
+      RETURN MINHASH_ERROR(400)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlMinHashError
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### String-based hashing
 
 See the following string functions:

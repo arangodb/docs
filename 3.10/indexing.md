@@ -14,9 +14,10 @@ There are special sections for
 - [Working with Indexes](indexing-working-with-indexes.html): How to handle indexes
   programmatically using the `db` object
   - [Persistent Indexes](indexing-persistent.html)
+  - [Inverted Indexes](indexing-inverted.html)
   - [TTL Indexes](indexing-ttl.html)
   - [Fulltext Indexes](indexing-fulltext.html)
   - [Multi-dimensional Indexes](indexing-multi-dim.html)
   - [Geo-spatial Indexes](indexing-geo.html)
   - [Vertex-centric Indexes](indexing-vertex-centric.html)
-- [ArangoSearch](arangosearch.html): How to use ArangoSearch Views, analyzers, and functions.
+- [ArangoSearch](arangosearch.html): How to use Views, Analyzers, and search functions.

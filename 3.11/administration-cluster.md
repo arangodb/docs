@@ -202,7 +202,7 @@ You can also do any of the following by using the API:
 - Execute the given set of move shard operations.
 - Compute a set of move shard operations to improve balance and immediately execute them.
 
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#calculates-the-current-cluster-imbalance) 
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
 section of the HTTP API reference manual.
 
 Replacing/Removing a _Coordinator_

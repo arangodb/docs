@@ -270,12 +270,12 @@ pretty important to know which `node-size-id` your deployment will be using.
 
 The command you execute will determine on the available providers and regions
 for your organization but here is an example command that lists the available
-options in the US West region for the Google Compute Platform:
+options in the US West region for the Google Cloud Platform:
 
 ```bash
 oasisctl list nodesizes \
   --organization-id "Oasis Organization" \
-  --provider-id "Google Compute Platform" \
+  --provider-id "Google Cloud Platform" \
   --region-id gcp-us-west2
 ```
 

@@ -121,6 +121,17 @@ It is possible to opt out of these changes and get back the memory and performan
 of the previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
+### RocksDB File Format
+
+ArangoDB 3.10 internally switches to RocksDB's `format_version` 5, which can still be 
+read by older versions of ArangoDB. 
+However, ArangoDB 3.10 uses the LZ4 compression scheme to reduce the size of RocksDB .sst
+files from LSM tree level 2 onwards. This compression scheme is not supported in ArangoDB 
+versions before 3.10, so any database files created with ArangoDB 3.10 or higher cannot be
+opened with versions before 3.10.
+The internal checksum type of RocksDB .sst files has been changed to xxHash64 in ArangoDB
+3.10 for a slight performance improvement.
+
 ### Pregel Options
 
 Pregel jobs now have configurable minimum, maximum and default parallelism values. You can set them
@@ -199,3 +210,16 @@ Using the old option names (`--query` and `--query-max-runtime`) is still
 supported and will implicitly use the `--custom-query` and
 `--custom-query-max-runtime` options under the hood. Client scripts should
 eventually be updated to use the new option name, however.
+
+### ArangoDB Starter
+
+_ArangoDB Starter_ comes with the following usability improvements:
+- Headers are now added to generated command files, indicating the purpose of
+the file.
+- The process output is now shown when errors occur during process startup.
+- When passing through other database options, explicit hints are now displayed
+to indicate how to pass those options.
+- The Starter now returns exit code `1` if it encounters any errors while
+starting. Previously, the exit code was `0`. Note that this change can affect
+any custom scripts that check for startup errors or invalid command line options.
+These scripts can be adjusted so that they check for a non-zero exit code.  

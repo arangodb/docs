@@ -1,6 +1,6 @@
 arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;text_edge_ngrams&quot;</span>, <span class="hljs-string">&quot;text&quot;</span>, {
 ........&gt;   edgeNgram: { <span class="hljs-attr">min</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">8</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">true</span> },
-........&gt;   locale: <span class="hljs-string">&quot;en.utf-8&quot;</span>,
+........&gt;   locale: <span class="hljs-string">&quot;en&quot;</span>,
 ........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">&quot;lower&quot;</span>,
 ........&gt;   accent: <span class="hljs-literal">false</span>,
 ........&gt;   stemming: <span class="hljs-literal">false</span>,

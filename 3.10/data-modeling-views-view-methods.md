@@ -1,7 +1,7 @@
 ---
 layout: default
 description: Available JavaScript methods of View objects for arangosh and Foxx
-title: View Methods in ArangoSearch Views JS API
+title: View Methods in Views JS API
 ---
 View Methods
 ============
@@ -150,27 +150,54 @@ determines how the *new-properties* object is merged with current View propertie
 (adds or updates *new-properties* properties to current if `true` replaces all
 properties if `false`).
 
-Currently, the only supported View type is `"arangosearch"`. See
-[ArangoSearch View Properties](arangosearch-views.html#view-properties).
+For the available properties of the supported View types, see:
+- [`arangosearch` View Properties](arangosearch-views.html#view-properties)
+- [`search-alias` View Modification](arangosearch-views-search-alias.html#view-modification)
 
 **Examples**
 
-Modify View properties:
+Modify `arangosearch` View properties:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewModifyProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewModifyProperties}
       ~ db._createView("example", "arangosearch");
-      v = db._view("example");
+        v = db._view("example");
       | v.properties();
-      // set cleanupIntervalStep to 12
+        // set cleanupIntervalStep to 12
       | v.properties({cleanupIntervalStep: 12});
-      // add a link
+        // add a link
       | v.properties({links: {demo: {}}})
-      // remove a link
-      v.properties({links: {demo: null}})
+        // remove a link
+        v.properties({links: {demo: null}})
       ~ db._dropView("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewModifyProperties
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Add and remove inverted indexes from a `search-alias` View:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline viewModifyPropertiesSearchAlias
+    @EXAMPLE_ARANGOSH_OUTPUT{viewModifyPropertiesSearchAlias}
+      ~ db._create("coll");
+      ~ db.coll.ensureIndex({ name: "inv1", type: "inverted", fields: ["a"] });
+      ~ db.coll.ensureIndex({ name: "inv2", type: "inverted", fields: ["b[*]"] });
+      ~ db.coll.ensureIndex({ name: "inv3", type: "inverted", fields: ["c"] });
+     |~ db._createView("example", "search-alias", { indexes: [
+     |~  { collection: "coll", index: "inv1" },
+     |~  { collection: "coll", index: "inv2" }
+      ~ ] });
+        var v = db._view("example");
+        v.properties();
+      | v.properties({ indexes: [
+      |   { collection: "coll", index: "inv1", operation: "del" },
+      |   { collection: "coll", index: "inv3" }
+        ] });
+      ~ db._dropView("example");
+      ~ db._drop("coll");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock viewModifyPropertiesSearchAlias
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}

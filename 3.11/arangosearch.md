@@ -33,15 +33,28 @@ more.
 
 ## Getting Started with ArangoSearch
 
-ArangoSearch introduces the concept of **Views** which can be seen as
-virtual collections. Each View represents an inverted index to provide fast
-full-text searching over one or multiple linked collections and holds the
-configuration for the search capabilities, such as the attributes to index.
-It can cover multiple or even all attributes of the documents in the linked
-collections.
+ArangoSearch introduces the concept of **Views**, which can be seen as
+virtual collections. There are two types of Views:
+
+- **`arangosearch` Views**:
+  Each View of the `arangosearch` type represents an inverted index to provide fast
+  full-text searching over one or multiple linked collections and holds the
+  configuration for the search capabilities, such as the attributes to index.
+  It can cover multiple or even all attributes of the documents in the linked
+  collections.
+
+- **`search-alias` Views**:
+  Views of the `search-alias` type reference one or more
+  [Inverted indexes](indexing-inverted.html). Inverted indexes are defined on
+  the collection level and can be used stand-alone for filtering, but adding
+  them to a `search-alias` View enables you to search over multiple collections at
+  once, called "federated search", and offers you the same capabilities for
+  ranking search results by relevance like with `arangosearch` Views. Each
+  inverted index can index multiple or even all attribute of the documents of
+  the collection it is defined for.
 
 {% hint 'info' %}
-ArangoSearch Views are not updated synchronously as the source collections
+Views are not updated synchronously as the source collections
 change in order to minimize the performance impact. They are
 **eventually consistent**, with a configurable consolidation policy.
 {% endhint %}
@@ -64,7 +77,7 @@ It takes a search expression composed of the fields to search, the search terms,
 logical and comparison operators, as well as
 [ArangoSearch functions](aql/functions-arangosearch.html).
 
-### Create your first ArangoSearch View
+### Create your first `arangosearch` View
 
 1. Create a test collection (e.g. `food`) and insert a few documents so
    that you have something to index and search for:
@@ -125,14 +138,21 @@ logical and comparison operators, as well as
 
 ### Understanding the Analyzer context
 
-ArangoSearch allows you to index the same field with multiple Analyzers.
+`arangosearch` Views allow you to index the same field with multiple Analyzers.
 This makes it necessary to select the right one in your query by setting the
 Analyzer context with the `ANALYZER()` function.
+
+{% hint 'tip' %}
+If you use `search-alias` Views, the Analyzers are inferred from the definitions
+of the inverted indexes. This is possible because every field can only be
+indexed with a single Analyzer. Don't specify the Analyzer context with the
+`ANALYZER()` function in `search-alias` queries to avoid errors.
+{% endhint %}
 
 We did not specify an Analyzer explicitly in above example, but it worked
 regardless. That is because the `identity` Analyzer is used by default in both
 View definitions and AQL queries. The Analyzer chosen in a query needs to match
-with one of the Analyzers that a field was indexed with as per the View
+with one of the Analyzers that a field was indexed with as per the `arangosearch` View
 definition - and this happened to be the case. We can rewrite the query to be
 more explicit about the Analyzer context:
 
@@ -296,7 +316,7 @@ ANALYZER(STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom"), "identity
 ```
 
 The default Analyzer that will be used for searching is `"identity"`.
-While some ArangoSearch functions accept an Analyzer argument, it is often
+While some ArangoSearch functions accept an Analyzer argument, it is sometimes
 necessary to wrap search (sub-)expressions with an `ANALYZER()` call to set the
 correct Analyzer in the query so that it matches one of the Analyzers with
 which the field was indexed.
@@ -585,9 +605,9 @@ therefore applied to each element).
 Regular indexes are immediately consistent. If you have a collection with a
 `persistent` index on an attribute `text` and update the value of the attribute
 for instance, then this modification is reflected in the index immediately.
-ArangoSearch View indexes on the other hand are eventual consistent. Document
-changes are not reflected instantly, but only near-realtime. This mainly has
-performance reasons.
+`arangosearch` View indexes and inverted indexed on the other hand are eventual
+consistent. Document changes are not reflected instantly, but only near-realtime.
+This mainly has performance reasons.
 
 If you run a search query shortly after a CRUD operation, then the results may
 be slightly stale, e.g. not include a newly inserted document:
@@ -657,6 +677,12 @@ To learn more, check out the different search examples:
   You can use ArangoSearch for geographic search queries to find nearby
   locations, places within a certain area and more. It can be combined with
   other types of search queries unlike with the regular geo index.
+- [**Search highlighting**](arangosearch-search-highlighting.html):
+  Retrieve the positions of matches within strings, to highlight what was found
+  in search results (Enterprise Edition only).
+- [**Nested search**](arangosearch-nested-search.html):
+  Match arrays of objects with all the conditions met by a single sub-object,
+  and define for how many of the elements this must be true (Enterprise Edition only).
 
 For relevance and performance tuning, as well as the reference documentation, see:
 
@@ -667,8 +693,11 @@ For relevance and performance tuning, as well as the reference documentation, se
   Give the View index a primary sort order to benefit common search queries
   that you will run and store often used attributes directly in the View index
   for fast access.
-- [**Views Reference**](arangosearch-views.html):
-  You can find all View properties and options in this reference documentation.
+- **Views Reference**
+  You can find all View properties and options that are available for the
+  respective type in the [`arangosearch` Views Reference](arangosearch-views.html)
+  and [`search-alias` Views Reference](arangosearch-views-search-alias.html)
+  documentation.
 
 If you are interested in more technical details, have a look at:
 

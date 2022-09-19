@@ -28,9 +28,20 @@ Token search is covered below. For phrase search see
 
 ## Token Search
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### View definition
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en" } ] });
+db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -48,9 +59,24 @@ Token search is covered below. For phrase search see
 }
 ```
 
-**AQL Queries:**
+### AQL queries
 
-Search for movies with `dinosaur` or `park` (or both) in their description:
+#### Example: Match one out of multiple tokens
+
+Search for movies with `dinosaur` or `park` (or both) in their description.
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH doc.description IN TOKENS("dinosaur park", "text_en")
+  RETURN {
+    title: doc.title,
+    description: doc.description
+  }
+```
+
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
@@ -69,11 +95,26 @@ FOR doc IN imdb
 | Land of the Lost | … their only ally in a world full of **dinosaurs** and other fantastic creatures. |
 | … | … |
 
+#### Example: Match multiple tokens
+
 Search for movies with both `dinosaur` and `park` in their description:
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH TOKENS("dinosaur park", "text_en") ALL == doc.description
+  RETURN {
+    title: doc.title,
+    description: doc.description
+  }
+```
+
+_`arangosearch` View:_
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(TOKENS("dinosaur park", "text_en") ALL == doc.description , "text_en")
+  SEARCH ANALYZER(TOKENS("dinosaur park", "text_en") ALL == doc.description, "text_en")
   RETURN {
     title: doc.title,
     description: doc.description

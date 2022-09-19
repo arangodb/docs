@@ -62,6 +62,22 @@ See:
 - [`segmentation` Analyzer](analyzers.html#segmentation)
 - [`collation` Analyzer](analyzers.html#collation)
 
+### Analyzer locale normalization
+
+Analyzers with a `locale` property no longer require that you specify the UTF-8
+encoding (`.utf-8`) that ArangoDB uses for strings.
+
+The syntax for specifying the language, and possibly a country, variant,
+keywords, is now the same as described in the
+[ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}.
+The new `collation` Analyzer is currently the only Analyzer that supports all
+four: `language[_COUNTRY][_VARIANT][@keywords]` (square bracket denote optional
+parts). The `text` and `norm` Analyzers support `language[_COUNTRY]`, the
+`stem` Analyzer only `language`.
+
+The former syntax is still supported but automatically normalized to the
+new syntax.
+
 UI
 --
 

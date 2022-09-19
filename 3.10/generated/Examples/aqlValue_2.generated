@@ -1,0 +1,10 @@
+@Q:
+    LET obj = { <span class="hljs-attr">foo</span>: [ { <span class="hljs-attr">bar</span>: <span class="hljs-string">&quot;baz&quot;</span> }, { <span class="hljs-attr">bar</span>: { <span class="hljs-attr">inner</span>: <span class="hljs-literal">true</span> } } ] }
+    RETURN VALUE(obj, [<span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&quot;bar&quot;</span>])
+
+@R
+[
+  {
+    <span class="hljs-string">&quot;inner&quot;</span>: <span class="hljs-literal">true</span>
+  }
+]

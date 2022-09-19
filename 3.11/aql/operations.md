@@ -18,7 +18,7 @@ The following high-level operations are described here after:
   Restrict the results to elements that match arbitrary logical conditions.
 
 - [**SEARCH**](operations-search.html):
-  Query the (full-text) index of an ArangoSearch View
+  Query an `arangosearch` or `search-alias` View.
 
 - [**SORT**](operations-sort.html):
   Force a sort of the array of already produced intermediate results.

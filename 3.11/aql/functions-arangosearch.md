@@ -14,18 +14,25 @@ ArangoSearch Functions
 {{ page.description }}
 {:class="lead"}
 
-You can form search expressions to filter Views by composing ArangoSearch
-function calls, logical operators and comparison operators.
+You can form search expressions by composing ArangoSearch function calls,
+logical operators and comparison operators. This allows you to filter Views
+as well as to utilize inverted indexes to filter collections.
 
-The AQL [`SEARCH` operation](operations-search.html) accepts search expressions
-such as `ANALYZER(PHRASE(doc.text, "foo bar"), "text_en")`. You can
-combine filter and context functions as well as operators like `AND` and `OR`
-to form complex search conditions.
+The AQL [`SEARCH` operation](operations-search.html) accepts search expressions,
+such as `PHRASE(doc.text, "foo bar", "text_en")`, for querying Views. You can
+combine ArangoSearch filter and context functions as well as operators like
+`AND` and `OR` to form complex search conditions. Similarly, the
+[`FILTER` operation](operations-filter.html) accepts such search expressions
+when using [inverted indexes](../indexing-inverted.html).
 
 Scoring functions allow you to rank matches and to sort results by relevance.
+They are limited to Views.
 
-Most functions can also be used without a View and the `SEARCH` keyword, but
-will then not be accelerated by a View index.
+Search highlighting functions let you retrieve the string positions of matches,
+for both, Views and inverted indexes.
+
+You can use most functions also without an inverted index or a View and the
+`SEARCH` keyword, but then they are not accelerated by an index.
 
 See [Information Retrieval with ArangoSearch](../arangosearch.html) for an
 introduction.
@@ -37,8 +44,18 @@ Context Functions
 
 `ANALYZER(expr, analyzer) → retVal`
 
-Sets the Analyzer for the given search expression. The default Analyzer is
-`identity` for any ArangoSearch expression. This utility function can be used
+Sets the Analyzer for the given search expression.
+
+{% hint 'info' %}
+The `ANALYZER()` function is only applicable for queries against `arangosearch` Views.
+
+In queries against `search-alias` Views and inverted indexes, you don't need to
+specify Analyzers because every field can be indexed with a single Analyzer only
+and they are inferred from the index definition.
+{% endhint %}
+
+The default Analyzer is `identity` for any search expression that is used for
+filtering `arangosearch` Views. This utility function can be used
 to wrap a complex expression to set a particular Analyzer. It also sets it for
 all the nested functions which require such an argument to avoid repeating the
 Analyzer parameter. If an Analyzer argument is passed to a nested function
@@ -200,9 +217,9 @@ Filter Functions
 ### EXISTS()
 
 {% hint 'info' %}
-`EXISTS()` will only match values when the specified attribute has been
-processed with the link property **storeValues** set to `"id"` in the
-View definition (the default is `"none"`).
+If you use `arangosearch` Views, the `EXISTS()` function only matches values if
+you set the **storeValues** link property to `"id"` in the View definition
+(the default is `"none"`).
 {% endhint %}
 
 #### Testing for attribute presence
@@ -289,7 +306,8 @@ and `false`), but the data type must be the same for both.
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
-language rules as per the defined Analyzer locale nor the server language
+language rules as per the defined Analyzer locale (except for the
+[`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](../release-notes-known-issues311.html#arangosearch).
 {% endhint %}
@@ -370,6 +388,43 @@ FOR doc IN viewName
 This will match `{ "text": "the quick brown fox" }` and `{ "text": "some brown fox" }`,
 but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 
+### MINHASH_MATCH()
+
+`MINHASH_MATCH(path, target, threshold, analyzer) → fulfilled`
+
+Match documents with an approximate Jaccard similarity of at least the
+`threshold`, approximated with the specified `minhash` Analyzer.
+
+To only compute the MinHash signatures, see the
+[`MINHASH()` Miscellaneous function](functions-miscellaneous.html#minhash).
+
+- **path** (attribute path expression\|string): the path of the attribute in
+  a document or a string
+- **target** (string): the string to hash with the specified Analyzer and to
+  compare against the stored attribute
+- **threshold** (number, _optional_): a value between `0.0` and `1.0`.
+- **analyzer** (string): the name of a [`minhash` Analyzer](../analyzers.html#minhash).
+- returns **fulfilled** (bool): `true` if the approximate Jaccard similarity
+  is greater than or equal to the specified threshold, `false` otherwise
+
+#### Example: Find documents with a text similar to a target text
+
+Assuming a View with a `minhash` Analyzer, you can use the stored
+MinHash signature to find candidates for the more expensive Jaccard similarity
+calculation:
+
+```aql
+LET target = "the quick brown fox jumps over the lazy dog"
+LET targetSingature = TOKENS(target, "myMinHash")
+
+FOR doc IN viewName
+  SEARCH MINHASH_MATCH(doc.text, target, 0.5, "myMinHash") // approximation
+  LET jaccard = JACCARD(targetSingature, TOKENS(doc.text, "myMinHash"))
+  FILTER jaccard > 0.75
+  SORT jaccard DESC
+  RETURN doc.text
+```
+
 ### NGRAM_MATCH()
 
 <small>Introduced in: v3.7.0</small>
@@ -396,11 +451,11 @@ for calculating _n_-gram similarity that cannot be accelerated by a View index.
 - **path** (attribute path expression\|string): the path of the attribute in
   a document or a string
 - **target** (string): the string to compare against the stored attribute
-- **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
+- **threshold** (number, _optional_): a value between `0.0` and `1.0`. Defaults
   to `0.7` if none is specified.
-- **analyzer** (string): name of an [Analyzer](../analyzers.html).
+- **analyzer** (string): the name of an [Analyzer](../analyzers.html).
 - returns **fulfilled** (bool): `true` if the evaluated _n_-gram similarity value
-  is greater or equal than the specified threshold, `false` otherwise
+  is greater than or equal to the specified threshold, `false` otherwise
 
 {% hint 'info' %}
 Use an Analyzer of type `ngram` with `preserveOriginal: false` and `min` equal
@@ -668,7 +723,8 @@ to match the document.
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
-language rules as per the defined Analyzer locale nor the server language
+language rules as per the defined Analyzer locale (except for the
+[`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](../release-notes-known-issues311.html#arangosearch).
 {% endhint %}
@@ -1031,7 +1087,7 @@ Scoring functions return a ranking value for the documents found by a
 the search expression the higher the returned number.
 
 The first argument to any scoring function is always the document emitted by
-a `FOR` operation over an ArangoSearch View.
+a `FOR` operation over an `arangosearch` View.
 
 To sort the result set by relevance, with the more relevant documents coming
 first, sort in **descending order** by the score (e.g. `SORT BM25(...) DESC`).
@@ -1161,3 +1217,95 @@ FOR doc IN viewName
   SORT doc.text, TFIDF(doc) DESC
   RETURN doc
 ```
+
+Search Highlighting Functions
+-----------------------------
+
+{% include hint-ee.md feature="Search highlighting" %}
+
+### OFFSET_INFO()
+
+`OFFSET_INFO(doc, paths) → offsetInfo`
+
+Returns the attribute paths and substring offsets of matched terms, phrases, or
+_n_-grams for search highlighting purposes.
+
+- **doc** (document): must be emitted by `FOR ... IN viewName`
+- **paths** (string\|array): a string or an array of strings, each describing an
+  attribute and array element path you want to get the offsets for. Use `.` to
+  access nested objects, and `[n]` with `n` being an array index to specify array
+  elements. The attributes need to be indexed by Analyzers with the `offset`
+  feature enabled.
+- returns **offsetInfo** (array): an array of objects, limited to a default of
+  10 offsets per path. Each object has the following attributes:
+  - **name** (array): the attribute and array element path as an array of
+    strings and numbers. You can pass this name to the
+    [`VALUE()` function](functions-document.html) to dynamically look up the value.
+  - **offsets** (array): an array of arrays with the matched positions. Each
+    inner array has two elements with the start offset and the length of a match.
+
+    {% hint 'warning' %}
+    The offsets describe the positions in bytes, not characters. You may need
+    to account for characters encoded using multiple bytes.
+    {% endhint %}
+
+---
+
+`OFFSET_INFO(doc, rules) → offsetInfo`
+
+- **doc** (document): must be emitted by `FOR ... IN viewName`
+- **rules** (array): an array of objects with the following attributes:
+  - **name** (string): an attribute and array element path
+    you want to get the offsets for. Use `.` to access nested objects,
+    and `[n]` with `n` being an array index to specify array elements. The
+    attributes need to be indexed by Analyzers with the `offset` feature enabled.
+  - **options** (object): an object with the following attributes:
+    - **maxOffsets** (number, _optional_): the total number of offsets to
+      collect per path. Default: `10`.
+    - **limits** (object, _optional_): an object with the following attributes:
+      - **term** (number, _optional_): the total number of term offsets to
+        collect per path. Default: 2<sup>32</sup>.
+      - **phrase** (number, _optional_): the total number of phrase offsets to
+        collect per path. Default: 2<sup>32</sup>.
+      - **ngram** (number, _optional_): the total number of _n_-gram offsets to
+        collect per path. Default: 2<sup>32</sup>.
+- returns **offsetInfo** (array): an array of objects, each with the following
+  attributes: 
+  - **name** (array): the attribute and array element path as an array of
+    strings and numbers. You can pass this name to the
+    [VALUE()](functions-document.html) to dynamically look up the value.
+  - **offsets** (array): an array of arrays with the matched positions, capped
+    to the specified limits. Each inner array has two elements with the start
+    offset and the length of a match.
+
+    {% hint 'warning' %}
+    The start offsets and lengths describe the positions in bytes, not characters.
+    You may need to account for characters encoded using multiple bytes.
+    {% endhint %}
+
+**Examples**
+
+Search a View and get the offset information for the matches:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline aqlOffsetInfo
+    @EXAMPLE_ARANGOSH_OUTPUT{aqlOffsetInfo}
+    ~ db._create("food");
+    ~ db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
+    ~ db.food.save({ name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } });
+    ~ var analyzers = require("@arangodb/analyzers");
+    ~ var analyzer = analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+    ~ db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
+    ~ db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`);
+    | db._query(`FOR doc IN food_view
+    |   SEARCH ANALYZER(TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en, "text_en_offset")
+        RETURN OFFSET_INFO(doc, ["description.en"])`);
+    ~ db._dropView("food_view");
+    ~ db._drop("food");
+    ~ analyzers.remove(analyzer.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock aqlOffsetInfo
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+For full examples, see [Search Highlighting](../arangosearch-search-highlighting.html).

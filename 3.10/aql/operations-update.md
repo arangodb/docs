@@ -26,7 +26,8 @@ Both variants can optionally end with an `OPTIONS { … }` clause.
 
 `collection` must contain the name of the collection in which the documents should
 be updated. `document` must be a document that contains the attributes and values 
-to be updated. When using the first syntax, `document` must also contain the `_key`
+to update. Attributes that don't exist in the stored document yet are added to it.
+When using the first syntax, `document` must also contain the `_key`
 attribute to identify the document to be updated. 
 
 ```aql

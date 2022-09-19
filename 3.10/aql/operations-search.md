@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The SEARCH keyword starts the language construct to filter Views of type ArangoSearch.
+description: The SEARCH keyword starts the language construct to filter Views.
 title: The SEARCH operation in AQL
 redirect_from:
   - views.html
@@ -8,8 +8,8 @@ redirect_from:
 SEARCH
 ======
 
-The `SEARCH` keyword starts the language construct to filter Views of type
-ArangoSearch. Conceptually, a View is just another document data source,
+The `SEARCH` keyword starts the language construct to filter Views.
+Conceptually, a View is just another document data source,
 similar to an array or a document/edge collection, over which you can iterate
 using a [FOR operation](operations-for.html) in AQL:
 
@@ -25,7 +25,8 @@ The optional `SEARCH` operation provides the capabilities to:
 - sort the result set based on how closely each document matched the
   search conditions
 
-See [ArangoSearch Views](../arangosearch-views.html) on how to set up a View.
+See [`arangosearch` Views](../arangosearch-views.html) and
+[`search-alias` Views](../arangosearch-views-search-alias.html) on how to set up Views.
 
 Syntax
 ------
@@ -48,7 +49,7 @@ followed by the name of a View, not a collection. The `SEARCH` operation has to
 follow next, other operations before `SEARCH` such as `FILTER`, `COLLECT` etc.
 are not allowed in this position. Subsequent operations are possible after
 `SEARCH` and the expression however, including `SORT` to order the search
-results based on a ranking value computed by the ArangoSearch View.
+results based on a ranking value computed by the View.
 
 *expression* must be an ArangoSearch expression. The full power of ArangoSearch
 is harnessed and exposed via special [ArangoSearch functions](functions-arangosearch.html),
@@ -120,7 +121,8 @@ FOR doc IN viewName
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
-language rules as per the defined Analyzer locale nor the server language
+language rules as per the defined Analyzer locale (except for the
+[`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](../release-notes-known-issues310.html#arangosearch).
 {% endhint %}
@@ -156,6 +158,25 @@ attribute is an array. `IN` and `==` as part of array comparison operators are
 treated the same in `SEARCH` expressions for ease of use. The behavior is
 different outside of `SEARCH`, where `IN` needs to be followed by an array.
 
+### Question mark operator
+
+You can use the [Question mark operator](advanced-array-operators.html#question-mark-operator)
+to perform [Nested searches with ArangoSearch](../arangosearch-nested-search.html)
+(Enterprise Edition only):
+
+```aql
+FOR doc IN myView
+  SEARCH doc.dimensions[? FILTER CURRENT.type == "height" AND CURRENT.value > 40]
+  RETURN doc
+```
+
+It allows you to match nested objects in arrays that satisfy multiple conditions
+each, and optionally define how often these conditions should be fulfilled for
+the entire array. You need to configure the View specifically for this type of
+search using the `nested` property in [`arangosearch` Views](../arangosearch-views.html#link-properties)
+or in the definition of [Inverted Indexes](../indexing-inverted.html#nested-search-enterprise-edition)
+that you can add to [`search-alias` Views](../arangosearch-views-search-alias.html).
+
 Handling of non-indexed fields
 ------------------------------
 
@@ -171,7 +192,7 @@ For example, given a collection `myCol` with the following documents:
 { "someAttr": "Two", "anotherAttr": "Two" }
 ```
 
-… with a View where `someAttr` is indexed by the following View `myView`:
+… with an `arangosearch` View where `someAttr` is indexed by the following View `myView`:
 
 ```js
 {
@@ -212,8 +233,8 @@ FOR doc IN myView
 ```
 
 You can use the special `includeAllFields`
-[View property](../arangosearch-views.html#link-properties) to index all
-(sub-)fields of the source documents if desired.
+[`arangosearch` View property](../arangosearch-views.html#link-properties)
+to index all (sub-)attributes of the source documents if desired.
 
 SEARCH with SORT
 ----------------
