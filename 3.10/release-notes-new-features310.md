@@ -1023,3 +1023,5 @@ The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.
 The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.3.0.
 
 The bundled version of the zlib library has been upgraded from 1.2.11 to 1.2.12.
+
+For ArangoDB 3.10, the bundled version of rclone is 1.59.0.
