@@ -172,7 +172,7 @@ Linux-specific `splice()` syscall should be used for copying file
 contents. While that syscall is generally available since Linux 2.6.x,
 it is also required that the underlying filesystem supports the splice
 operation. This is not true for some encrypted filesystems (e.g.
-ecryptfs), on which splice() calls can fail.
+ecryptfs), on which `splice()` calls can fail.
 
 You can set the `--use-splice-syscall` startup option to `false`
 to use a less efficient, but more portable file copying method
