@@ -158,3 +158,22 @@ way to work with the server in this mode is by using the emergency
 console.
 Note that the server cannot be started in this mode if it is
 already running in this or another mode.
+
+## File copying mode
+
+<small>Introduced in: v3.9.4</small>
+
+`--use-splice-syscall`
+
+This is a Linux-specific startup option that controls whether the 
+Linux-specific `splice()` syscall should be used for copying file
+contents. While that syscall is generally available since Linux 2.6.x,
+it is also required that the underlying filesystem supports the splice
+operation. This is not true for some encrypted filesystems (e.g.
+ecryptfs), on which `splice()` calls can fail.
+
+You can set the `--use-splice-syscall` startup option to `false`
+to use a less efficient, but more portable file copying method
+instead, which should work on all filesystems.
+
+The startup option is not available on other operating systems than Linux.
