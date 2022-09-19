@@ -299,6 +299,29 @@ for details.
 
 This feature is only available in the Enterprise Edition.
 
+### Optimization rule `arangosearch-constrained-sort`
+
+This new optimization rule brings significant performance improvements by 
+allowing you to perform sorting and limiting inside `arangosearch` Views
+enumeration node, if using just scoring for a sort operation.
+
+### New startup options
+
+With `--arangosearch.skip-recovery`, you can skip data recovery for the specified View links
+and inverted indexes on startup. 
+Values for this startup option should have the format `<collection-name>/<link-id>`,
+`<collection-name>/<index-id>`, or `<collection-name>/<index-name>`. 
+On DB-Servers, the `<collection-name>` part should contain a shard name.
+
+With `arangosearch.fail-queries-on-out-of-sync` startup option you can let
+write operations fail if `arangosearch` View links or inverted indexes are not
+up-to-date with the collection data. The option is set to `false` by default.
+Queries on out-of-sync links/indexes are answered normally, but the return data
+may be incomplete.
+If set to `true`, any data retrieval queries on out-of-sync 
+links/indexes are going to fail with error "collection/view is out of sync"
+(error code 1481).
+
 ### ArangoSearch metrics and figures
 
 The [Metrics HTTP API](http/administration-and-monitoring-metrics.html) has been
@@ -388,7 +411,8 @@ See [Analyzers](analyzers.html#nearest_neighbors) for details.
 
 ## Web Interface
 
-
+The 3.10 release of ArangoDB introduces a new Web UI for **Views** that allows
+you to view, configure, or drop `arangosearch` Views.
 
 ## AQL
 
@@ -468,13 +492,36 @@ details and for hints about upgrading to version 3.10 or later.
 
 ### Traversal Projections (Enterprise Edition)
 
-Starting with version 3.10, you can use projections in graph traversals to
-follow edges connected to a start vertex, up to a variable depth.
+Starting with version 3.10, the AQL optimizer automatically detects which
+document attributes you access in traversal queries and optimizes the data
+loading. This optimization is beneficial if you have large document sizes
+but only access small parts of the documents.
 
-The `maxProjections` is now introduced as an option when
-[working with named graphs](aql/graphs-traversals.html#working-with-named-graphs).
-
+By default, up to 5 attributes are extracted instead of loading the full document.
+You can control this number with the `maxProjections` option, which is now
+supported for [graph traversals](aql/graphs-traversals.html#working-with-named-graphs).
 See also [how to use `maxProjections` with FOR loops](aql/operations-for.html#maxprojections).
+
+In the following query, the accessed attributes are the `name` attribute of the
+neighbor vertices and the `vertex` attribute of the edges (via the path variable):
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND "persons/alice" GRAPH "knows_graph" OPTIONS { maxProjections: 5 }
+  RETURN { name: v.name, vertices: p.edges[*].vertex }
+```
+
+The use of projections is indicated in the query explain output:
+
+```aql
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  2   TraversalNode        1     - FOR v  /* vertex (projections: `name`) */, p  /* paths: edges (projections: `_from`, `_to`, `vertex`) */ IN 1..3  /* min..maxPathDepth */ OUTBOUND 'persons/alice' /* startnode */  GRAPH 'knows_graph'
+  3   CalculationNode      1       - LET #7 = { "name" : v.`name`, "vertex" : p.`edges`[*].`vertex` }   /* simple expression */
+  4   ReturnNode           1       - RETURN #7
+```
+
+This feature is only available in the Enterprise Edition.
 
 ### Number of filtered documents in profiling output
 
@@ -873,7 +920,7 @@ can now return smaller responses to the leader. This change reduces the network
 traffic between the leader and its followers, and can lead to slightly faster
 turnover in replication.
 
-### Calculation of file hashes
+### Calculation of file hashes (Enterprise Edition)
 
 The calculation of SHA256 file hashes for the .sst files created by RocksDB and
 that are required for hot backups has been moved from a separate background
@@ -926,6 +973,20 @@ arangoexport \
   --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
   ...
 ```
+
+### arangoimport
+
+_arangoimport_ has a new `--overwrite-collection-prefix` option that is useful
+when importing edge collections. This option should be used together with
+`--to-collection-prefix` or `--from-collection-prefix`.
+If there are vertex collection prefixes in the file you want to import,
+you can overwrite them with prefixes specified on the command line. If the option is set
+to `false`, only `_from` and `_to` values without a prefix are going to be
+prefixed by the entered values.
+
+_arangoimport_ now supports the `--remove-attribute` option when using JSON
+as input file format.
+For more information, refer to the [_arangoimport_ Options](programs-arangoimport-options.html).
 
 ### ArangoDB Starter
 
@@ -985,3 +1046,5 @@ The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.
 The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.3.0.
 
 The bundled version of the zlib library has been upgraded from 1.2.11 to 1.2.12.
+
+For ArangoDB 3.10, the bundled version of rclone is 1.59.0.

@@ -54,6 +54,9 @@ Also see [What's New in 3.11](release-notes-new-features311.html).
 
 **Enterprise Edition**
 
+- [**EnterpriseGraphs**](graphs-enterprise-graphs.html): A new specialized version of
+  SmartGraphs, with an automatic sharding key selection.
+
 - [**Search highlighting**](arangosearch-search-highlighting.html):
   Get the substring positions of matched terms, phrases, or _n_-grams.
 
@@ -65,6 +68,14 @@ Also see [What's New in 3.11](release-notes-new-features311.html).
   New [`minhash` Analyzer](analyzers.html#minhash) for locality-sensitive hashing
   to approximate the Jaccard similarity, with inverted index and
   `arangosearch` View support that allows you to implement entity resolution.
+
+- [**Parallelism for sharded graphs**](release-notes-new-features310.html#parallelism-for-sharded-graphs-enterprise-edition):
+  Parallel execution of AQL traversal queries with many start vertices for all
+  types of sharded graphs, leading to faster results.
+
+- [**Traversal Projections**](release-notes-new-features310.html#traversal-projections-enterprise-edition): 
+  Optimized data loading for AQL traversal queries if only a few document
+  attributes are accessed.
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
 
