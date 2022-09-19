@@ -26,9 +26,10 @@ grouped by version
   queries, providing similar search capabilities as `arangosearch` Views, but
   defined per collection and simpler to use.
 
-- [**Search Alias Views**](release-notes-new-features310.html#search-alias-views):
+- [**`search-alias` Views**](release-notes-new-features310.html#search-alias-views):
   Add inverted indexes to `search-alias` Views for searching multiple collections
-  at once, as a lightweight alternative to `arangosearch` Views.
+  at once and for ranking capabilities, as a lightweight alternative to
+  `arangosearch` Views.
 
 - **Persistent indexes**:
   An optional [**In-memory Cache**](indexing-persistent.html#caching-of-index-values)
@@ -49,7 +50,7 @@ grouped by version
   and define for how many of the elements this must be true.
 
 - **ArangoSearch**:
-  New [MinHash Analyzer](analyzers.html#minhash) for locality-sensitive hashing
+  New [`minhash` Analyzer](analyzers.html#minhash) for locality-sensitive hashing
   to approximate the Jaccard similarity, with inverted index and
   `arangosearch` View support that allows you to implement entity resolution.
 

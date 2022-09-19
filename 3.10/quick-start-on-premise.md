@@ -4,7 +4,7 @@ redirect_from:
   - getting-started-installation.html # 3.9 -> 3.10
   - getting-started-authentication.html # 3.9 -> 3.10 ##### TODO #####
 ---
-# Use ArangoDB On-Premise
+# Install ArangoDB on-premise
 
 <!-- TODO: title? distinguish between local and on-premise server deployments? -->
 

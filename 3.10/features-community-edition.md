@@ -42,13 +42,18 @@ see [arangodb.com/community-server/]https://www.arangodb.com/community-server/){
   memory. It uses journaling (write-ahead logging) and can take advantage of
   modern storage hardware, like SSDs and large caches.
 
+- [**Computed Values**](data-modeling-documents-computed-values.html):
+  Persistent document attributes that are generated when documents are created
+  or modified, using an AQL expression.
+
 - **Multi-Platform**:
-  Available for Linux, macOS, and Windows, for the x86-64 architecture, as well
-  as for 64-bit ARM chips on macOS (Apple silicon, like M1) and Linux (ARMv8+). <!-- TODO: Limitations? -->
+  Available for Linux, macOS, and Windows, for the x86-64 architecture (with the
+  SSE 4.2 and AVX instruction set extensions), as well as for 64-bit ARM chips
+  on macOS (Apple silicon, like M1) and Linux (ARMv8+ with Neon SIMD support). <!-- TODO: Limitations? -->
 
 ## Scalability & High Availability
 
-- [**Auto-Sharding**](architecture-deployment-modes-cluster-sharding.html):
+- [**Hash-based sharding**](architecture-deployment-modes-cluster-sharding.html):
   Spread bigger datasets across multiple servers using consistent hashing on
   the default or custom shard keys.
 
@@ -122,12 +127,13 @@ see [arangodb.com/community-server/]https://www.arangodb.com/community-server/){
   requires the Enterprise Edition.
 
 - [**ArangoSearch for Text Search and Ranking**](arangosearch.html):
-  Wildcard and fuzzy search support for full-text search.
-  Edge _n_-gram support.
+  A built-in search engine for full-text, complex data structures, and more.
+  Exact value matching, range queries, prefix matching, case-insensitive and
+  accent-insensitive search. Token, phrase, wildcard, and fuzzy search support
+  for full-text. Result ranking using Okapi BM25 and TF-IDF.
+  Geo-spatial search that can be combined with full-text search.
   Flexible data field pre-processing with custom queries and the ability to
-  chain built-in and custom analyzers.
-  Geo-spatial queries can be combined with full-text search.
-  Language-agnostic tokenization of text.
+  chain built-in and custom Analyzers. Language-agnostic tokenization of text.
 
 - [**GeoJSON Support**](indexing-geo.html#geojson):
   Geographic data encoded in the popular GeoJSON format can be stored and used
@@ -171,6 +177,10 @@ see [arangodb.com/community-server/]https://www.arangodb.com/community-server/){
   constraint. A "sparse" option to only index non-null values is also available.
   The elements of an array can be indexed individually.
 
+- [**Inverted indexes**](indexing-inverted.html):
+  An eventually consistent index type that can accelerate a broad range of
+  queries from simple to complex, including full-text search.
+
 - [**Vertex-centric Indexes**](indexing-index-basics.html#vertex-centric-indexes):
   Secondary indexes for more efficient graph traversals with filter conditions.
 
@@ -181,6 +191,12 @@ see [arangodb.com/community-server/]https://www.arangodb.com/community-server/){
   Accelerated geo-spatial queries for coordinates and GeoJSON objects, based on
   the S2 library. <!-- TODO: list supported queries? Centroid-limitations? -->
   Support for composable, distance-based geo-queries ("geo cursors").
+
+{% comment %} Experimental feature
+- [**Multi-dimensional indexes**](indexing-multi-dim.html):
+  An index type to efficiently intersect multiple range queries, like finding
+  all appointments that intersect a time range.
+{% endcomment %}
 
 - [**Background Indexing**](indexing-index-basics.html#creating-indexes-in-background):
   Indexes can be created in the background to not block queries in the meantime.
@@ -239,3 +255,7 @@ see [arangodb.com/community-server/]https://www.arangodb.com/community-server/){
   CLI utilities to load and export data in multiple text-based formats.
   You can import from JSON, JSONL, CSV, and TSV files, and export to JSON, JSONL,
   CSV, TSV, XML, and XGMML files.
+
+- [**Metrics**](http/administration-and-monitoring-metrics.html):
+  Monitor the healthiness and performance of ArangoDB servers using the metrics
+  exported in the Prometheus format.

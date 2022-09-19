@@ -2,7 +2,8 @@
 layout: default
 description: >-
   The commercial version of ArangoDB offers performance, compliance, and
-  security features for larger or more sensitive datasets
+  security features for larger or more sensitive datasets, as well as additional
+  query capabilities
 ---
 # Enterprise Edition Features
 
@@ -12,16 +13,16 @@ description: >-
 The Enterprise Edition has all the features of the
 [Community Edition](features-community-edition.html) and, on top of that, the
 features outlined below. For additional information, see
-<https://www.arangodb.com/enterprise-server/>{:target="_blank"}.
+[arangodb.com/enterprise-server/](https://www.arangodb.com/enterprise-server/){:target="_blank"}.
 
 ## Performance
-
-- [**Pregel in Cluster**](graphs-pregel.html#prerequisites):
-  Distributed iterative graph analytics for cluster deployments.
 
 - [**SmartGraphs**](graphs-smart-graphs.html):
   Value-based sharding of large graph datasets for better data locality when
   traversing graphs.
+
+- [**EnterpriseGraphs**](graphs-enterprise-graphs.html):
+  A specialized version of SmartGraphs, with an automatic sharding key selection.
 
 - [**SmartGraphs using SatelliteCollections**](graphs-smart-graphs.html):
   Collections replicated on all cluster nodes can be combined with graphs
@@ -42,14 +43,41 @@ features outlined below. For additional information, see
   combine the performance of a single server and ACID semantics with a
   fault-tolerant cluster setup.
 
-- [**Traversal Parallelization**](release-notes-new-features37.html#traversal-parallelization-enterprise-edition):
-  Parallel execution of traversal queries in single server and OneShard
-  deployments.
+- [**Traversal**](release-notes-new-features37.html#traversal-parallelization-enterprise-edition)
+  [**Parallelization**](release-notes-new-features310.html#parallelism-for-sharded-graphs-enterprise-edition):
+  Parallel execution of traversal queries with many start vertices, leading to
+  faster results.
+
+- [**Traversal Projections**](release-notes-new-features310.html#traversal-aprojections-enterprise-edition):
+  Optimized data loading for AQL traversal queries if only a few document
+  attributes are accessed.
+
+- [**`minhash` Analyzer**](analyzers.html#minhash):
+  Jaccard similarity approximation for entity resolution, such as for finding
+  duplicate records, based on how many elements they have in common
+
+## Querying
+
+- [**Pregel in Cluster**](graphs-pregel.html#prerequisites):
+  Distributed iterative graph analytics for cluster deployments.
+
+- [**Search highlighting**](arangosearch-search-highlighting.html):
+  Get the substring positions of matched terms, phrases, or _n_-grams.
+
+- [**Nested search**](arangosearch-nested-search.html):
+  Match arrays of objects with all the conditions met by a single sub-object,
+  and define for how many of the elements this must be true.
+
+{% comment %} Experimental feature
+- **[`classification`](analyzers.html#classification) and [`nearest_neighbors` Analyzers](analyzers.html#nearest_neighbors)**:
+  Classification of text tokens and finding similar tokens using supervised
+  fastText word embedding models.
+{% endcomment %}
 
 ## Security
 
 - [**DC2DC**](arangosync.html):
-  Datacenter to Datacenter Replication for disaster recovery.
+  Datacenter-to-Datacenter Replication for disaster recovery.
 
 - [**Auditing**](security-auditing.html):
   Audit log of all server interactions.
