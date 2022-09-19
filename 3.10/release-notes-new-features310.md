@@ -307,11 +307,11 @@ enumeration node, if using just scoring for a sort operation.
 
 ### New startup options
 
-With `arangosearch.skip-recovery`, you can skip data recovery for the specified View links
+With `--arangosearch.skip-recovery`, you can skip data recovery for the specified View links
 and inverted indexes on startup. 
 Values for this startup option should have the format `<collection-name>/<link-id>`,
 `<collection-name>/<index-id>`, or `<collection-name>/<index-name>`. 
-On DB servers, the `<collection-name>` part should contain a shard name.
+On DB-Servers, the `<collection-name>` part should contain a shard name.
 
 The `arangosearch.fail-queries-on-out-of-sync` startup option allows you to
 handle queries out of sync. The option is set to `false` by default. With this setting,
@@ -411,7 +411,7 @@ See [Analyzers](analyzers.html#nearest_neighbors) for details.
 ## Web Interface
 
 The 3.10 release of ArangoDB introduces a new Web UI for **Views** that allows
-you to view, configure, or drop an ArangoSearch View.
+you to view, configure, or drop `arangosearch` Views.
 
 ## AQL
 
@@ -962,7 +962,6 @@ prefixed by the entered values.
 
 _arangoimport_ now supports the `--remove-attribute` option when using JSON
 as input file format.
-
 For more information, refer to the [_arangoimport_ Options](programs-arangoimport-options.html).
 
 ### ArangoDB Starter
