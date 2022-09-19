@@ -1,7 +1,7 @@
 ---
 layout: default
-description: HTTP interface to manage Views of type Search Alias
-title: Search Alias Views HTTP API
+description: HTTP interface to manage Views of type search-alias
+title: search-alias Views HTTP API
 ---
 # `search-alias` Views HTTP API
 
