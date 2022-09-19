@@ -174,8 +174,8 @@ it is also required that the underlying filesystem supports the splice
 operation. This is not true for some encrypted filesystems (e.g.
 ecryptfs), on which splice() calls can fail.
 
-By setting the startup option `--use-splice-syscall` to `false`, 
-a less efficient, but more portable file copying method will be used 
+You can set the `--use-splice-syscall` startup option to `false`
+to use a less efficient, but more portable file copying method
 instead, which should work on all filesystems.
 
 The startup option is not available on other operating systems than Linux.
