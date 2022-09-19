@@ -11,7 +11,7 @@ description: >-
 {:class="lead"}
 
 The Community Edition features are outlined below. For additional information,
-see <https://www.arangodb.com/community-server/>{:target="_blank"}.
+see [arangodb.com/community-server/]https://www.arangodb.com/community-server/){:target="_blank"}.
 
 ## General
 
@@ -21,11 +21,10 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   restrictions in complexity.
 
 - [**Document Database**](data-model-and-concepts.html#document-model):
-  A modern document store that allows you to model data intuitively and evolve
-  the data model easily. Documents can be organized in collections, and
-  collections in databases for multi-tenancy.
+  A modern document database system that allows you to model data intuitively
+  and evolve the data model easily. Documents can be organized in collections,
+  and collections in databases for multi-tenancy.
 
-  <!-- TODO: Replace "store" with "database system"? -->
   <!-- TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...) -->
 
 - [**Data Format**](data-model-and-concepts.html#documents):
@@ -44,7 +43,8 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   modern storage hardware, like SSDs and large caches.
 
 - **Multi-Platform**:
-  Available for Linux, macOS, and Windows. <!-- TODO: Limitations? -->
+  Available for Linux, macOS, and Windows, for the x86-64 architecture, as well
+  as for 64-bit ARM chips on macOS (Apple silicon, like M1) and Linux (ARMv8+). <!-- TODO: Limitations? -->
 
 ## Scalability & High Availability
 
@@ -64,7 +64,6 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
 
 - [**Automatic Failover Cluster**](architecture-deployment-modes-cluster-architecture.html#automatic-failover):
   If a nodes goes down, another node takes over to avoid any downtime. <!-- TODO: Can we say that? -->
-
 
 <!-- TODO: - **Master/Master Conflict Resolution**: What does this refer to? How does it work? MVCC? -->
 

@@ -254,7 +254,7 @@ following attributes:
 #### Nested search (Enterprise Edition)
 
 The following endpoints accepts a new, optional link property called `nested`
-in the Enterprise Edition:
+for Views of type `arangosearch` in the Enterprise Edition:
 
 - `POST /_api/view`
 - `PUT /_api/view/{view-name}/properties`
@@ -268,6 +268,9 @@ nested, however (`"nested": { "<field>": { "nested": { ... } } }`).
 The `GET /_api/view/{view-name}/properties` endpoint may return link properties
 including the new `nested` property.
 
+For nested search with inverted indexes (and indirectly with `search-alias` Views),
+see the `nested` property supported by inverted indexes.
+
 #### `offset` Analyzer feature
 
 In the Enterprise Edition, the `POST /_api/analyzer` endpoint accepts `"offset"`
@@ -275,7 +278,7 @@ as a string in the `features` array attribute. The `/_api/analyzer` endpoints
 may return this new value in the `features` attribute. It enables
 search highlighting capabilities for Views and inverted indexes.
 
-#### MinHash Analyzer
+#### `minhash` Analyzer
 
 The `/_api/analyzer` endpoint supports a new [`minhash` Analyzer](analyzers.html#minhash)
 type in the Enterprise Edition. It has two properties, `analyzer` (object) and `numHashes` (number).
