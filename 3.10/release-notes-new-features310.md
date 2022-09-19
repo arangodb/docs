@@ -413,9 +413,6 @@ See [Analyzers](analyzers.html#nearest_neighbors) for details.
 The 3.10 release of ArangoDB introduces a new Web UI for **Views** that allows
 you to view, configure, or drop an ArangoSearch View.
 
-The Web UI is full-featured, you can insert all parameters and options that you
-would otherwise do through the [HTTP Interface for Views](http/views.html).
-
 ## AQL
 
 ### All Shortest Paths Graph Traversal
