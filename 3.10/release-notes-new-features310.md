@@ -302,7 +302,7 @@ This feature is only available in the Enterprise Edition.
 ### Optimization rule `arangosearch-constrained-sort`
 
 This new optimization rule brings significant performance improvements by 
-allowing you to perform sorting and limiting inside an ArangoSearch View
+allowing you to perform sorting and limiting inside `arangosearch` Views
 enumeration node, if using just scoring for a sort operation.
 
 ### New startup options
@@ -313,11 +313,12 @@ Values for this startup option should have the format `<collection-name>/<link-i
 `<collection-name>/<index-id>`, or `<collection-name>/<index-name>`. 
 On DB-Servers, the `<collection-name>` part should contain a shard name.
 
-The `arangosearch.fail-queries-on-out-of-sync` startup option allows you to
-handle queries out of sync. The option is set to `false` by default. With this setting,
-queries on out of sync links/indexes are answered normally, but the return data
+With `arangosearch.fail-queries-on-out-of-sync` startup option you can let
+write operations fail if `arangosearch` View links or inverted indexes are not
+up-to-date with the collection data. The option is set to `false` by default.
+Queries on out-of-sync links/indexes are answered normally, but the return data
 may be incomplete.
-If set to `true`, any data retrieval queries on out of sync 
+If set to `true`, any data retrieval queries on out-of-sync 
 links/indexes are going to fail with error "collection/view is out of sync"
 (error code 1481).
 
@@ -956,7 +957,7 @@ _arangoimport_ has a new `--overwrite-collection-prefix` option that is useful
 when importing edge collections. This option should be used together with
 `--to-collection-prefix` or `--from-collection-prefix`.
 If there are vertex collection prefixes in the file you want to import,
-you can overwrite them with command line prefixes. If the option is set
+you can overwrite them with prefixes specified on the command line. If the option is set
 to `false`, only `_from` and `_to` values without a prefix are going to be
 prefixed by the entered values.
 
