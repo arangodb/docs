@@ -10,6 +10,36 @@ upgrading to ArangoDB 3.10, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.10:
 
+Empty Document Updates
+----------------------
+
+ArangoDB 3.10 adds back the optimization for empty document update operations 
+(i.e. updates in which no attributes were specified to be updated).
+Such updates were handled in a special way in ArangoDB until including 3.7.12,
+so that no actual writes would be performed and would not be replicated. This
+also included the `_rev` value of documents not being changed on an empty
+update.
+
+ArangoDB 3.7.13 and 3.8.0 changed this behavior so that empty document updates
+would actually perform a write operation, leading to the changes being replicated
+and the `_rev` value of affected documents being changed.
+That change allowed simplification of code and was considered reasonable, as
+empty document updates seemed to be an exceptional case. However, the change
+also slowed down the case of UPSERT operations which would perform an insert
+if a document doesn't already exist, but should act as a no-op if it already
+existed, e.g.
+
+```
+UPDATE { id: "123" } 
+INSERT { id: "123", created: DATE_NOW() }
+UPDATE {}
+IN collection
+```
+
+So ArangoDB 3.10 adds back the performance optimization for empty document
+updates, which from 3.10 onwards do not perform a write operation, will not be
+replicated and will not change the documents' `_rev` values.
+
 Foxx / Server Console
 ---------------------
 
