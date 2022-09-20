@@ -25,7 +25,9 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   and evolve the data model easily. Documents can be organized in collections,
   and collections in databases for multi-tenancy.
 
-  <!-- TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...) -->
+{%- comment %}
+  TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...)
+{%- endcomment %}
 
 - [**Data Format**](data-model-and-concepts.html#documents):
   JSON, internally stored in a binary format invented by ArangoDB called
@@ -70,7 +72,9 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
 - [**Automatic Failover Cluster**](architecture-deployment-modes-cluster-architecture.html#automatic-failover):
   If a nodes goes down, another node takes over to avoid any downtime. <!-- TODO: Can we say that? -->
 
-<!-- TODO: - **Master/Master Conflict Resolution**: What does this refer to? How does it work? MVCC? -->
+{%- comment %}
+  TODO: - **Master/Master Conflict Resolution**: What does this refer to? How does it work? MVCC?
+{%- endcomment %}
 
 - **Load-Balancer Support**:
   Round-robin load-balancer support for cloud environments.

@@ -52,6 +52,9 @@ features outlined below. For additional information, see
   Optimized data loading for AQL traversal queries if only a few document
   attributes are accessed.
 
+- [**Parallel index creation**](release-notes-new-features310.html#parallel-index-creation-enterprise-edition):
+  Non-unique indexes can be created with multiple threads in parallel.
+
 - [**`minhash` Analyzer**](analyzers.html#minhash):
   Jaccard similarity approximation for entity resolution, such as for finding
   duplicate records, based on how many elements they have in common
