@@ -22,6 +22,9 @@ def initBlocksFileLocations():
 def migrateHTTPDocuBlocks(paragraph):
     docuBlockNameRe = re.findall(r"(?<={% docublock ).*(?= %})", paragraph)
     for docuBlock in docuBlockNameRe:
+        if 'errorCodes' in docuBlock: ## TODO: Implement
+            continue
+
         docuBlockFile = blocksFileLocations[docuBlock]
         docuBlockFile = open(docuBlockFile, "r").read()
         declaredDocuBlocks = docuBlockFile.split("@startDocuBlock ")
@@ -178,7 +181,8 @@ paths:\n\
         {"responses:" + responses if responses else ""}\n\
         {"x-arango-examples:" + examples if examples else ""}\n\
 ```'
-    print(res)      
+    res = res.replace("@endDocuBlock", "")   
+    res = res.replace("\n\n", "")  
 
     return res
 

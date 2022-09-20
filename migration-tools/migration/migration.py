@@ -6,10 +6,11 @@ import shutil
 import time
 import traceback
 from utils import *
-from docublocks import *
+from http_docublocks import *
+from inline_docublocks import *
 
-oldToolchain = "old-arango-docs/docs"
-newToolchain = "docs/site"
+oldToolchain = "/home/dan/work/projects/old-arango-docs/docs"
+newToolchain = "/home/dan/work/projects/arangodb/docs/site"
 
 frontMatterCapture = r"(?<=---\n)[\w:\s\W]*[\n]*(?=\n---)"
 widgetRegex = r"{% .* %}[\n]+.*[\n]+{% .* %}"
@@ -33,7 +34,7 @@ def structure_migration():
 
 		create_files('', label, item)
 
-	sections = ['oasis', 'drivers', 'aql']
+	sections = ['oasis', 'drivers', 'aql', 'http']
 	for section in sections:
 		Path(f"{newToolchain}/content/{section}").mkdir(parents=True, exist_ok=True)
 		label = ''
@@ -84,7 +85,10 @@ def create_files(section, label, chapter):
 
 		newFilePath = f"{path}/{filename}"
 		newFilePath = newFilePath.replace("//", "/")
-		shutil.copyfile(oldFilePath, newFilePath)
+		try:
+			shutil.copyfile(oldFilePath, newFilePath)
+		except Exception:
+			print(f"Exception on {oldFilePath}")
 		if root == 'Introduction':
 			root = section
 
@@ -96,8 +100,11 @@ def create_files(section, label, chapter):
 	Path(f"{path}/{root}").mkdir(parents=True, exist_ok=True)
 	indexPath = f"{path}/{root}/_index.md"
 	indexPath = indexPath.replace("//", "/")
-	print(oldFilePath)
-	shutil.copyfile(oldFilePath, indexPath)
+	try:	
+		shutil.copyfile(oldFilePath, indexPath)
+	except Exception:
+		print(f"Exception for {oldFilePath}")
+
 	menu[indexPath] = f"'{root}'" if '@' in root else root
 
 	for child in chapter["children"]:
@@ -106,13 +113,14 @@ def create_files(section, label, chapter):
 # File processing jekyll-hugo migration phase
 def processFiles():
 	print(f"----- STARTING CONTENT MIGRATION")
+	#print(menu)
 	for root, dirs, files in os.walk(f"{newToolchain}/content", topdown=True):
 		for file in files:
 			processFile(f"{root}/{file}")
 	print("------ CONTENT MIGRATION END")
 
 def processFile(filepath):
-	print(f"Migrating {filepath} content")
+	#print(f"Migrating {filepath} content")
 	try:
 		file = open(filepath, "r")
 		buffer = file.read()
@@ -124,7 +132,8 @@ def processFile(filepath):
 	page = Page()
 
 	#Front Matter
-	page.frontMatter.menuTitle = menu[filepath]
+	if filepath in menu:
+		page.frontMatter.menuTitle = menu[filepath]
 	_processFrontMatter(page, buffer)
 	fileID = filepath.split("/")
 	page.frontMatter.fileID = fileID[len(fileID)-1].replace(".md", "")
@@ -175,6 +184,7 @@ def _processChapters(page, paragraph):
 	paragraph = migrate_hrefs(paragraph)
 	paragraph = migrate_hints(paragraph)
 	paragraph = migrateHTTPDocuBlocks(paragraph)
+	paragraph = migrateInlineDocuBlocks(paragraph)
 	page.content = paragraph
 	return
 
@@ -221,6 +231,6 @@ if __name__ == "__main__":
 		initBlocksFileLocations()
 		structure_migration()
 		processFiles()
-		migrate_media()
+		#migrate_media()
 	except Exception as ex:
 		print(traceback.format_exc())
