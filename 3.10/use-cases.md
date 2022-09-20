@@ -133,7 +133,8 @@ This paradigm is used at the heart of ArangoDB and allows it to scale well,
 but without the limitations of a pure key-value store. Every document has a
 `_key` attribute, which is either user-provided or automatically generated.
 You can create additional indexes and work with subsets of attributes as
-needed, requiring the system to be aware of the stored data structures.
+needed, requiring the system to be aware of the stored data structures - unlike
+pure key-value stores.
 
 While ArangoDB can store binary data, it is not designed for
 binary large objects (BLOBs) and works best with small to medium-sized
@@ -154,8 +155,10 @@ kinds of search patterns (tokens, phrases, wildcard, fuzzy, geo-spatial, etc.)
 and it can rank results by relevance and similarity using popular
 scoring algorithms.
 
-It also features natural language processing (NLP) capabilities and can
-classify or find similar terms using word embedding models.
+It also features natural language processing (NLP) capabilities.
+{%- comment %} Experimental feature
+and can classify or find similar terms using word embedding models.
+{%- endcomment %}
 
 For more information about the search engine, see [ArangoSearch](arangosearch.html).
 

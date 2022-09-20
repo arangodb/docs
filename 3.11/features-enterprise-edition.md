@@ -92,7 +92,7 @@ features outlined below. For additional information, see
   Data dumps can be encrypted using a strong 256-bit AES block cipher.
 
 - [**Hot Backups**](backup-restore.html#hot-backups):
-  Incremental data backups without downtime for single servers and clusters.
+  Consistent, incremental data backups without downtime for single servers and clusters.
 
 - [**Enhanced Data Masking**](programs-arangodump-maskings.html#masking-functions):
   Extended data masking capabilities for attributes containing sensitive data

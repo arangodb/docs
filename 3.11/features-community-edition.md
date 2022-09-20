@@ -11,7 +11,7 @@ description: >-
 {:class="lead"}
 
 The Community Edition features are outlined below. For additional information,
-see [arangodb.com/community-server/]https://www.arangodb.com/community-server/){:target="_blank"}.
+see [arangodb.com/community-server/](https://www.arangodb.com/community-server/){:target="_blank"}.
 
 ## General
 
@@ -249,7 +249,6 @@ see [arangodb.com/community-server/]https://www.arangodb.com/community-server/){
   Multi-threaded dumping and restoring of collection settings and data
   in JSON format. Data masking capabilities for attributes containing sensitive
   data / PII when creating backups.
-  Consistent cluster backups. <!-- TODO -->
 
 - **[Import](programs-arangoimport.html) and [Export](programs-arangoexport.html) Tools**:
   CLI utilities to load and export data in multiple text-based formats.
