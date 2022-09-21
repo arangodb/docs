@@ -4,9 +4,9 @@ redirect_from:
   - getting-started-installation.html # 3.9 -> 3.10
   - getting-started-authentication.html # 3.9 -> 3.10 ##### TODO #####
 ---
-# Install ArangoDB on-premise
+# Install ArangoDB on-premises
 
-<!-- TODO: title? distinguish between local and on-premise server deployments? -->
+<!-- TODO: title? distinguish between local and on-premises server deployments? -->
 
 ## Installation
 
@@ -38,7 +38,7 @@ The web interface will become available shortly after you started `arangod`.
 By default, authentication is enabled. The default user is `root`.
 Depending on the installation method used, the installation process either
 prompted for the root password or the default root password is empty
-(see [Securing the installation](quick-start-on-premise.html#securing-the-installation)).
+(see [Securing the installation](quick-start-on-premises.html#securing-the-installation)).
 
 ![Web Interface Login Form](images/loginView.png)
 
@@ -76,7 +76,7 @@ package has **no effect** in case of deployments done with the _ArangoDB Starter
 See [Securing Starter Deployments](security-starter.html) instead.
 {% endhint %}
 
-<!-- NOT ON-PREMISE SPECIFIC!
+<!-- NOT ON-PREMISES SPECIFIC!
 Authentication
 ==============
 
