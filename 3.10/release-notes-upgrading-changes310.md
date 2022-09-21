@@ -10,6 +10,24 @@ upgrading to ArangoDB 3.10, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.10:
 
+Empty Document Updates
+----------------------
+
+ArangoDB 3.10 adds back the optimization for empty document update operations 
+(i.e. updates in which no attributes were specified to be updated).
+Such updates were handled in a special way in ArangoDB until including 3.7.12,
+so that no actual writes were performed and replicated. This
+also included the `_rev` value of documents not being changed on an empty
+update.
+
+ArangoDB 3.7.13 and 3.8.0 changed this behavior so that empty document updates
+actually performed a write operation, leading to the replication of changes and modification
+of the `_rev` value of affected.
+
+ArangoDB 3.10 adds back the optimal behavior for empty document
+updates, which no longer perform a write operation, do not need to be
+replicated and do not change the documents' `_rev` values.
+
 Foxx / Server Console
 ---------------------
 
