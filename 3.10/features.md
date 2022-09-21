@@ -72,10 +72,10 @@ See all [Enterprise Edition Features](features-enterprise-edition.html).
 | Only regular backups | **Datacenter-to-Datacenter Replication** for disaster recovery |
 | Only unencrypted backups and basic data masking for backups | **Hot Backups**, **encrypted backups**, and **enhanced data masking** for backups |
 
-## On-Premise versus Cloud
+## On-Premises versus Cloud
 
 You can install ArangoDB on your local machine or run it in a Docker container
-for development purposes. You can deploy it on-premise as a
+for development purposes. You can deploy it on-premises as a
 [single server](architecture-deployment-modes-single-instance.html), optionally
 as a resilient pair with asynchronous replication and automatic failover
 ([Active Failover](architecture-deployment-modes-active-failover-architecture.html)),
@@ -85,7 +85,7 @@ for high availability and resilience. For the highest level of data safety,
 you can additionally set up off-site replication for your entire cluster
 ([Datacenter-to-Datacenter Replication](arangosync.html)).
 
-If you do not want to operate your own ArangoDB instances on-premise, then
+If you do not want to operate your own ArangoDB instances on-premises, then
 you may use our fully managed multi-cloud service **ArangoDB Oasis**.
 It runs the Enterprise Edition of ArangoDB, lets you deploy clusters with a
 few clicks, and is operated by a dedicated team of ArangoDB engineers day and
