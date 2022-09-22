@@ -8,7 +8,7 @@ The _ArangoSync Master_ is responsible for managing all synchronization, creatin
 tasks and assigning those to the _ArangoSync Workers_.
 
 At least 2 instances must be deployed in each datacenter.
-One instance will be the "leader", the other will be an inactive slave. When the
+One instance will be the "leader", the other will be a "follower". When the
 leader is gone for a short while, one of the other instances will take over.
 
 With clusters of a significant size, the _sync master_ will require a
