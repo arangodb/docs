@@ -8,12 +8,6 @@ title: ArangoDB Query Language (AQL) Introduction
 The ArangoDB Query Language (AQL) can be used to retrieve and modify data that 
 are stored in ArangoDB.
 
-{% hint 'info' %}
-Want to learn AQL for the first time? Be sure to check out the
-[**Tutorial**](../aql-tutorial.html) before you head off to the
-in-depth documentation!
-{% endhint %}
-
 The general workflow when executing a query is as follows:
 
 - A client application ships an AQL query to the ArangoDB server. The query text
@@ -41,6 +35,4 @@ The syntax of AQL queries is different to SQL, even if some keywords overlap.
 Nevertheless, AQL should be easy to understand for anyone with an SQL background.
 
 For some example queries, please refer to the chapters
-[Data Queries](data-queries.html),
-[Usual query patterns](examples.html)
-and [Tutorial](../aql-tutorial.html).
+[Data Queries](data-queries.html) and [AQL query patterns and examples](examples.html).

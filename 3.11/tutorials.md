@@ -46,13 +46,10 @@ Data modeling
 Queries
 -------
 
-- [AQL](aql-tutorial.html):
-  Introduction to ArangoDB's query language AQL
-
 - [Data Queries](aql/data-queries.html):
   A primer on AQL data access and modification queries.
 
-- [AQL Query Patterns & Examples](aql/examples.html):
+- [AQL Query Patterns and Examples](aql/examples.html):
   Subqueries, joins, dynamic attribute names and more.
 
 - [CRUD](https://www.arangodb.com/tutorials/arangodb-crud/){:target="_blank"}:
