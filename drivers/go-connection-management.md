@@ -19,7 +19,7 @@ conn, err := http.NewConnection(http.ConnectionConfig{
 if err != nil {
     // Handle error
 }
-c, err := driver.NewClient(driver.ClientConfig{
+client, err := driver.NewClient(driver.ClientConfig{
     Connection: conn,
 })
 if err != nil {
@@ -80,7 +80,7 @@ conn, err := http.NewConnection(http.ConnectionConfig{
 if err != nil {
     // Handle error
 }
-c, err := driver.NewClient(driver.ClientConfig{
+client, err := driver.NewClient(driver.ClientConfig{
     Connection: conn,
 })
 if err != nil {
