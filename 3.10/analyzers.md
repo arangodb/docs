@@ -1051,7 +1051,7 @@ The *properties* allowed for this Analyzer are an object with the following attr
   per input (default: 1).
 - `threshold` (number, optional): the probability threshold for which a label
   will be assigned to an input. A fastText model produces a probability per
-  class label, and this is what will be filtered (default: 0.99).
+  class label, and this is what will be filtered (default: `0.99`).
 
 **Examples**
 
@@ -1110,7 +1110,7 @@ The *properties* allowed for this Analyzer are an object with the following attr
   Note: if you are running this in an ArangoDB cluster, this model must exist on
   every machine in the cluster.
 - `top_k` (number, optional): the number of class labels that will be produced
-  per input (default: 1).
+  per input (default: `1`).
 
 **Examples**
 

@@ -71,7 +71,7 @@ See all [Enterprise Edition Features](features-enterprise-edition.html).
 | Only regular backups | **Datacenter-to-Datacenter Replication** for disaster recovery |
 | Only unencrypted backups and basic data masking for backups | **Hot Backups**, **encrypted backups**, and **enhanced data masking** for backups |
 
-## On-Premises versus Cloud
+## On-premises versus Cloud
 
 You can install ArangoDB on your local machine or run it in a Docker container
 for development purposes. You can deploy it on-premises as a

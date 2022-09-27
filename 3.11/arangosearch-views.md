@@ -277,7 +277,7 @@ is used by these writers (in terms of "writers pool") one can use
   > segment, thereby allowing the search algorithm to perform more optimally and
   > for extra file handles to be released once old segments are no longer used.
 
-  - **type** (_optional_; type: `string`; default: `"bytes_accum"`)
+  - **type** (_optional_; type: `string`; default: `"tier"`)
 
     The segment candidates for the "consolidation" operation are selected based
     upon several possible configurable formulas as defined by their types.
@@ -288,11 +288,11 @@ is used by these writers (in terms of "writers pool") one can use
     - `"tier"`: Consolidate based on segment byte size and live document count
       as dictated by the customization attributes.
 
-{% hint 'warning' %}
-The "bytes_accum" policy type is deprecated and remains in ArangoSearch for backwards
-compatibility with the older versions. Please make sure to always use the "tier" policy
-instead.
-{% endhint %}
+    {% hint 'warning' %}
+    The "bytes_accum" policy type is deprecated and remains in ArangoSearch for backwards
+    compatibility with the older versions. Please make sure to always use the `tier` policy
+    instead.
+    {% endhint %}
 
   `consolidationPolicy` properties for `"bytes_accum"` type:
 
@@ -322,3 +322,7 @@ instead.
 
     Defines the value (in bytes) to treat all smaller segments as equal for consolidation
     selection.
+
+  - **minScore** (_optional_; type: `integer`; default: `0`)
+
+    Filter out consolidation candidates with a score less than this.

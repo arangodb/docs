@@ -70,7 +70,7 @@ db.<collection>.ensureIndex({
 });
 
 db._createView("viewName", "search-alias", { indexes: [
-  { collection: <collection>, index: "inv-idx" }
+  { collection: "<collection>", index: "inv-idx" }
 ]});
 ```
 
@@ -150,7 +150,7 @@ db.<collection>.ensureIndex({
 });
 
 db._createView("viewName", "search-alias", { indexes: [
-  { collection: <collection>, index: "inv-nest" }
+  { collection: "<collection>", index: "inv-nest" }
 ]});
 ```
 
@@ -269,7 +269,7 @@ db.<collection>.ensureIndex({
 });
 
 db._createView("viewName", "search-alias", { indexes: [
-  { collection: <collection>, index: "inv-nest" }
+  { collection: "<collection>", index: "inv-nest" }
 ]});
 ```
 

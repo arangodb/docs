@@ -284,7 +284,7 @@ db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "t
 
 db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER doc.title == "The Matrix"
-  RETURN doc.title`);
+  RETURN KEEP(doc, "title", "tagline")`);
 ```
 
 Match multiple exact movie titles using `IN`:
@@ -292,7 +292,7 @@ Match multiple exact movie titles using `IN`:
 ```js
 db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER doc.title IN ["The Matrix", "The Matrix Reloaded"]
-  RETURN doc.title`);
+  RETURN KEEP(doc, "title", "tagline")`);
 ```
 
 Match movies that neither have the title `The Matrix` nor `The Matrix Reloaded`,
@@ -300,7 +300,7 @@ but ignore documents without a title:
 
 ```js
 db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
-  FILTER EXISTS(doc.title) AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"]
+  FILTER doc.title != null AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"]
   RETURN doc.title`);
 ```
 
@@ -312,7 +312,7 @@ operation of the query can be optimized away:
 
 ```js
 db.imdb_vertices.ensureIndex({
-  name: "inv-exact",
+  name: "inv-exact-runtime",
   type: "inverted",
   fields: [ "runtime" ],
   primarySort: {
@@ -322,20 +322,20 @@ db.imdb_vertices.ensureIndex({
   }
 });
 
-db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact-runtime", forceIndexHint: true }
   FILTER doc.runtime > 300
   SORT doc.runtime DESC
-  RETURN doc`);
+  RETURN KEEP(doc, "title", "runtime")`);
 ```
 
 Match movies where the name is `>= Wu` and `< Y`:
 
 ```js
-db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "name" ] });
+db.imdb_vertices.ensureIndex({ name: "inv-exact-name", type: "inverted", fields: [ "name" ] });
 
-db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact-name", forceIndexHint: true }
   FILTER IN_RANGE(doc.name, "Wu", "Y", true, false)
-  RETURN doc`);
+  RETURN doc.name`);
 ```
 
 {% hint 'warning' %}
@@ -366,7 +366,7 @@ db.imdb_vertices.ensureIndex({
 
 db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-ci", forceIndexHint: true }
   FILTER doc.title == TOKENS("thé mäTRïX", "norm_en")[0]
-  RETURN doc.title)
+  RETURN doc.title`);
 ```
 
 ### Prefix matching
@@ -378,13 +378,13 @@ multiple possible prefixes as array of strings, of which one must match:
 
 ```js
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("norm_en", "norm", { locale: "en", case: "lower", accent: false });
+analyzers.save("norm_en", "norm", { locale: "en", accent: false, case: "lower" });
 
 db.imdb_vertices.ensureIndex({
   name: "inv-ci",
   type: "inverted",
   fields: [
-    { name: "name", analyzer: "norm_en" }
+    { name: "title", analyzer: "norm_en" }
   ]
 });
 
@@ -411,7 +411,7 @@ db.imdb_vertices.ensureIndex({
 });
 
 db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-ci", forceIndexHint: true }
-  FILTER ANALYZER(LIKE(doc.title, "the matr%"), "identity")
+  FILTER LIKE(doc.title, "the matr%")
   RETURN doc.title`);
 ```
 
@@ -486,14 +486,14 @@ var analyzers = require("@arangodb/analyzers");
 analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] });
 
 db.imdb_vertices.ensureIndex({
-  name: "inv-text",
+  name: "inv-text-no-stem",
   type: "inverted",
   fields: [
     { name: "description", analyzer: "text_en_no_stem" }
   ]
 });
 
-db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-text", forceIndexHint: true }
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-text-no-stem", forceIndexHint: true }
   FILTER LEVENSHTEIN_MATCH(
     doc.description,
     TOKENS("galxy", "text_en_no_stem")[0],
@@ -537,25 +537,45 @@ FOR doc IN restaurants OPTIONS { indexHint: "inv-rest", forceIndexHint: true }
 
 ### Nested search (Enterprise Edition)
 
+Example data:
+
+```js
+db._create("exhibits");
+db.exhibits.save([
+  {
+    "dimensions": [
+      { "type": "height", "value": 35 },
+      { "type": "width", "value": 60 }
+    ]
+  },
+  {
+    "dimensions": [
+      { "type": "height", "value": 47 },
+      { "type": "width", "value": 72 }
+    ]
+  }
+]);
+```
+
 Match documents with a `dimensions` array that contains one or two sub-objects
 with a `type` of `"height"` and a `value` greater than `40`:
 
 ```js
-db.coll.ensureIndex({
+db.exhibits.ensureIndex({
   name: "inv-nest",
   type: "inverted",
   fields: [
     {
       name: "dimensions",
       nested: [
-        { name: "type" }
+        { name: "type" },
         { name: "value" }
       ]
     }
   ]
 });
 
-db._query(`FOR doc IN coll OPTIONS { indexHint: "inv-text", forceIndexHint: true }
+db._query(`FOR doc IN exhibits OPTIONS { indexHint: "inv-nest", forceIndexHint: true }
   FILTER doc.dimensions[? 1..2 FILTER CURRENT.type == "height" AND CURRENT.value > 40]
   RETURN doc
 `);
@@ -565,6 +585,18 @@ Nested search is only available in the Enterprise Edition.
 
 ### Search highlighting (Enterprise Edition)
 
+Example data:
+
+```js
+db._create("food");
+db.food.save([
+  { "name": "avocado", "description": { "en": "The avocado is a medium-sized, evergreen tree, native to the Americas." } },
+  { "name": "carrot", "description": { "en": "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } },
+  { "name": "chili pepper", "description": { "en": "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } },
+  { "name": "tomato", "description": { "en": "The tomato is the edible berry of the tomato plant." } }
+]);
+```
+
 Search for descriptions that contain the tokens `avocado` or `tomato`,
 the phrase `cultivated ... pungency` with two arbitrary tokens between the two
 words, and for words that start with `cap`. Get the matching positions, and use
@@ -573,14 +605,14 @@ this information to extract the substrings with the
 
 ```js
 db.food.ensureIndex({
-  name: "inv-text",
+  name: "inv-text-offset",
   type: "inverted",
   fields: [
-    { name: "description", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] }
+    { name: "description.en", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] }
   ]
 });
 
-db._query(`FOR doc IN food OPTIONS { indexHint: "inv-text", forceIndexHint: true }
+db._query(`FOR doc IN food OPTIONS { indexHint: "inv-text-offset", forceIndexHint: true }
   FILTER
     TOKENS("avocado tomato", "text_en") ANY == doc.description.en OR
     PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
