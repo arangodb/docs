@@ -116,7 +116,7 @@ information and examples.
 A new `inverted` index type is available that you can define at the collection
 level. You can use these indexes similar to `arangosearch` Views, to accelerate
 queries like value lookups, range queries, accent- and case-insensitive search,
-wildcard and fuzzy search, nested search, search highlighting, as well as for
+wildcard and fuzzy search, nested search, as well as for
 sophisticated full-text search with the ability to search for words, phrases,
 and more.
 
@@ -148,8 +148,8 @@ See [Inverted index](indexing-inverted.html) for details.
 ### `search-alias` Views
 
 A new `search-alias` View type was added to let you add one or more
-inverted indexes to a View, enabling federated searching over multiple
-collections and ranking of search results by relevance similar to
+inverted indexes to a View, enabling federated searching over multiple collections,
+ranking of search results by relevance, and search highlighting, similar to
 `arangosearch` Views. This is on top of the filtering capabilities provided by the
 inverted indexes, including full-text processing with Analyzers and more.
 
@@ -245,8 +245,7 @@ db._query(`FOR doc IN food_view
 ```
 
 See [Search highlighting with ArangoSearch](arangosearch-search-highlighting.html)
-for details. Search highlighting is also available for the new
-[Invertex index](indexing-inverted.html) type.
+for details.
 
 ### Nested search (Enterprise Edition)
 

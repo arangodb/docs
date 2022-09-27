@@ -279,7 +279,7 @@ see the `nested` property supported by [inverted indexes](#inverted-indexes).
 In the Enterprise Edition, the `POST /_api/analyzer` endpoint accepts `"offset"`
 as a string in the `features` array attribute. The `/_api/analyzer` endpoints
 may return this new value in the `features` attribute. It enables
-search highlighting capabilities for Views and inverted indexes.
+search highlighting capabilities for Views.
 
 #### Analyzer types
 

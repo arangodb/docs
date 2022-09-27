@@ -13,7 +13,7 @@ Documents hold attributes, mapping attribute keys to values.
 Inverted indexes store mappings from values (of document attributes) to their
 locations in collections. You can create these indexes to accelerate queries
 like value lookups, range queries, accent- and case-insensitive search,
-wildcard and fuzzy search, nested search, search highlighting, as well as for
+wildcard and fuzzy search, nested search, as well as for
 sophisticated full-text search with the ability to search for words, phrases,
 and more.
 
@@ -582,52 +582,3 @@ db._query(`FOR doc IN exhibits OPTIONS { indexHint: "inv-nest", forceIndexHint: 
 ```
 
 Nested search is only available in the Enterprise Edition.
-
-### Search highlighting (Enterprise Edition)
-
-Example data:
-
-```js
-db._create("food");
-db.food.save([
-  { "name": "avocado", "description": { "en": "The avocado is a medium-sized, evergreen tree, native to the Americas." } },
-  { "name": "carrot", "description": { "en": "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } },
-  { "name": "chili pepper", "description": { "en": "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } },
-  { "name": "tomato", "description": { "en": "The tomato is the edible berry of the tomato plant." } }
-]);
-```
-
-Search for descriptions that contain the tokens `avocado` or `tomato`,
-the phrase `cultivated ... pungency` with two arbitrary tokens between the two
-words, and for words that start with `cap`. Get the matching positions, and use
-this information to extract the substrings with the
-[`SUBSTRING_BYTES()` function](aql/functions-string.html#substring_bytes):
-
-```js
-db.food.ensureIndex({
-  name: "inv-text-offset",
-  type: "inverted",
-  fields: [
-    { name: "description.en", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] }
-  ]
-});
-
-db._query(`FOR doc IN food OPTIONS { indexHint: "inv-text-offset", forceIndexHint: true }
-  FILTER
-    TOKENS("avocado tomato", "text_en") ANY == doc.description.en OR
-    PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
-    STARTS_WITH(doc.description.en, "cap")
-  RETURN {
-    title: doc.title,
-    matches: (
-      FOR offsetInfo IN OFFSET_INFO(doc, ["description.en"])
-        RETURN offsetInfo.offsets[* RETURN {
-          offset: CURRENT,
-          match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
-        }]
-    )
-  }
-`);
-```
-
-Search highlighting is only available in the Enterprise Edition.

@@ -49,9 +49,9 @@ virtual collections. There are two types of Views:
   the collection level and can be used stand-alone for filtering, but adding
   them to a `search-alias` View enables you to search over multiple collections at
   once, called "federated search", and offers you the same capabilities for
-  ranking search results by relevance like with `arangosearch` Views. Each
-  inverted index can index multiple or even all attribute of the documents of
-  the collection it is defined for.
+  ranking search results by relevance and search highlighting like with
+  `arangosearch` Views. Each inverted index can index multiple or even all
+  attribute of the documents of the collection it is defined for.
 
 {% hint 'info' %}
 Views are not updated synchronously as the source collections

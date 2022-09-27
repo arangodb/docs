@@ -4,7 +4,7 @@ layout: default
 # `search-alias` Views Reference
 
 `search-alias` Views let you add one or more inverted indexes to a View, enabling
-federate searching and sorting search results by relevance, on top of
+federate searching, sorting search results by relevance, and search highlighting, on top of
 sophisticated information retrieval capabilities such as full-text search for
 unstructured or semi-structured data provided by the inverted indexes that they
 are comprised of.
