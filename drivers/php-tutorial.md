@@ -25,7 +25,6 @@ use ArangoDBClient\ConnectionOptions as ArangoConnectionOptions;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\Exception as ArangoException;
-use ArangoDBClient\Export as ArangoExport;
 use ArangoDBClient\ConnectException as ArangoConnectException;
 use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
@@ -521,45 +520,6 @@ $cursor = $statement->execute();
 var_dump($cursor->getAll());
 ```
 
-## Exporting data
-
-To export the contents of a collection to PHP, use the *Export* class.
-The *Export* class will create a light-weight cursor over all documents
-of the specified collection. The results can be transferred to PHP
-in chunks incrementally. This is the most efficient way of iterating
-over all documents in a collection.
-
-```php
-// creates an export object for collection users
-$export = new ArangoExport($connection, 'users', []);
-
-// execute the export. this will return a special, forward-only cursor
-$cursor = $export->execute();
-
-// now we can fetch the documents from the collection in blocks
-while ($docs = $cursor->getNextBatch()) {
-    // do something with $docs
-    var_dump($docs);
-}
-
-// the export can also be restricted to just a few attributes per document:
-$export = new ArangoExport(
-    $connection, 'users', [
-        '_flat' => true,
-        'restrict' => [
-            'type' => 'include',
-            'fields' => ['_key', 'likes']
-        ]
-    ]
-);
-
-// now fetch just the configured attributes for each document
-while ($docs = $cursor->getNextBatch()) {
-    // do something with $docs
-    var_dump($docs);
-}
-```
-
 ## Bulk document handling
 
 The ArangoDB-PHP driver provides a mechanism to easily fetch multiple documents
@@ -675,7 +635,6 @@ use ArangoDBClient\ConnectionOptions as ArangoConnectionOptions;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\Exception as ArangoException;
-use ArangoDBClient\Export as ArangoExport;
 use ArangoDBClient\ConnectException as ArangoConnectException;
 use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
@@ -869,36 +828,6 @@ try {
 
     // to get statistics for the query, use Cursor::getExtra();
     var_dump($cursor->getExtra());
-
-
-    // creates an export object for collection users
-    $export = new ArangoExport($connection, 'users', []);
-
-    // execute the export. this will return a special, forward-only cursor
-    $cursor = $export->execute();
-
-    // now we can fetch the documents from the collection in blocks
-    while ($docs = $cursor->getNextBatch()) {
-        // do something with $docs
-        var_dump($docs);
-    }
-
-    // the export can also be restricted to just a few attributes per document:
-    $export = new ArangoExport(
-        $connection, 'users', [
-            '_flat' => true,
-            'restrict' => [
-                'type' => 'include',
-                'fields' => ['_key', 'likes']
-            ]
-        ]
-    );
-
-    // now fetch just the configured attributes for each document
-    while ($docs = $cursor->getNextBatch()) {
-        // do something with $docs
-        var_dump($docs);
-    }
 
 
     $exampleCollection = new ArangoCollection();
