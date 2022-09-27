@@ -125,6 +125,8 @@ The following edge definition options are supported:
 - `satellites` (array):
   An array of collection names that will be used to create [SatelliteCollections](satellites.html)
   for a (Disjoint) SmartGraph using SatelliteCollections (Enterprise Edition only).
+  The value of this option is accepted if it's an empty array, but it will raise 
+  an error if its value is not in array format, such as a string or `null`.
   Each array element must be a string and a valid collection name. The collection
   type cannot be modified later.
 
