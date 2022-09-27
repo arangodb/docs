@@ -150,7 +150,7 @@ _`search-alias` View:_
       var wait = db._query(`FOR doc IN food OPTIONS { indexHint: "inv-text-offset", forceIndexHint: true, waitForSync: true } FILTER doc.description.en != null LIMIT 1 RETURN doc`); /* wait for inverted index to update */
     | db._query(`FOR doc IN food_view
     |   SEARCH
-    |     TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en OR
+    |     TOKENS("avocado tomato", "text_en") ANY == doc.description.en OR
     |     PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
     |     STARTS_WITH(doc.description.en, "cap")
     |   FOR offsetInfo IN OFFSET_INFO(doc, ["description.en"])

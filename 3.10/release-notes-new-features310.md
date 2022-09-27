@@ -121,7 +121,7 @@ sophisticated full-text search with the ability to search for words, phrases,
 and more.
 
 ```js
-db.coll.ensureIndex({
+db.imdb_vertices.ensureIndex({
   type: "inverted",
   name: "inv-idx",
   fields: [
@@ -130,8 +130,8 @@ db.coll.ensureIndex({
   ]
 });
 
-db._query(`FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
-  FILTER TOKENS("neo smith", "text_en") ALL IN doc.description
+db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
+  FILTER TOKENS("neo morpheus", "text_en") ALL IN doc.description
   RETURN doc.title`);
 ```
 

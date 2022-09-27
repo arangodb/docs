@@ -34,8 +34,8 @@ fields.
 #### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "runtime" ] });
-db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
+db.imdb_vertices.ensureIndex({ name: "inv-exact-runtime", type: "inverted", fields: [ "runtime" ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact-runtime" } ] });
 ```
 
 #### `arangosearch` View
@@ -254,8 +254,8 @@ Also see [Known Issues](release-notes-known-issues310.html#arangosearch).
 #### `search-alias` View
 
 ```js
-db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "name" ] });
-db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
+db.imdb_vertices.ensureIndex({ name: "inv-exact-name", type: "inverted", fields: [ "name" ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact-name" } ] });
 ```
 
 #### `arangosearch` View
