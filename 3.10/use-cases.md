@@ -90,6 +90,9 @@ persistence layer for a broad range of services that benefit from an agile
 and scalable data store.
 
 ### Content Management
+{:style="clear: left;"}
+
+![Content management icon](images/icon-content-management.png){:style="float: right; padding: 0 20px; margin-bottom: 20px;"}
 
 Store information of any kind without upfront schema declaration. ArangoDB is
 schema-free, storing every data record as a self-contained document, allowing
@@ -97,6 +100,9 @@ you to manage heterogeneous content with ease. Build the next (headless)
 content management system on top of ArangoDB.
 
 ### E-Commerce Systems
+{:style="clear: left;"}
+
+![E-commerce icon](images/icon-e-commerce.png){:style="float: right; padding: 0 20px; margin-bottom: 20px;"}
 
 ArangoDB combines data modeling freedom with strong consistency and resilience
 features to power online shops and ordering systems. Handle product catalog data
@@ -104,14 +110,18 @@ with ease using any combination of free text and structured data, and process
 checkouts with the necessary transactional guarantees.
 
 ### Internet of Things
+{:style="clear: left;"}
+
+![Internet of things icon](images/icon-internet-of-things.png){:style="float: right; padding: 0 20px; margin-bottom: 20px;"}
 
 Collect sensor readings and other IoT data in ArangoDB for a single view of
 everything. Store all data points in the same system that also lets you run
 aggregation queries using sliding windows for efficient data analysis.
 
-<!-- TODO: illustrations? -->
-
 ## ArangoDB as a Key-Value Database
+{:style="clear: left;"}
+
+![Key value icon](images/icon-key-value.png){:style="float: right; padding: 0 20px; margin-bottom: 20px;"}
 
 Key-value stores are the simplest kind of database systems. Each record is
 stored as a block of data under a key that uniquely identifies the record.
@@ -123,7 +133,8 @@ This paradigm is used at the heart of ArangoDB and allows it to scale well,
 but without the limitations of a pure key-value store. Every document has a
 `_key` attribute, which is either user-provided or automatically generated.
 You can create additional indexes and work with subsets of attributes as
-needed, requiring the system to be aware of the stored data structures.
+needed, requiring the system to be aware of the stored data structures - unlike
+pure key-value stores.
 
 While ArangoDB can store binary data, it is not designed for
 binary large objects (BLOBs) and works best with small to medium-sized
@@ -133,6 +144,9 @@ For more information about how ArangoDB persists data, see
 [Storage Engine](architecture-storage-engines.html).
 
 ## ArangoDB as a Search Engine
+{:style="clear: left;"}
+
+![Search engine icon](images/icon-search-engine.png){:style="float: right; padding: 0 20px; margin-bottom: 20px;"}
 
 ArangoDB has a natively integrated search engine for a broad range of
 information retrieval needs. It is powered by inverted indexes and can index
@@ -141,12 +155,15 @@ kinds of search patterns (tokens, phrases, wildcard, fuzzy, geo-spatial, etc.)
 and it can rank results by relevance and similarity using popular
 scoring algorithms.
 
-It also features natural language processing (NLP) capabilities and can
-classify or find similar terms using word embedding models.
+It also features natural language processing (NLP) capabilities.
+{%- comment %} Experimental feature
+and can classify or find similar terms using word embedding models.
+{%- endcomment %}
 
 For more information about the search engine, see [ArangoSearch](arangosearch.html).
 
 ## ArangoDB for Machine Learning
+{:style="clear: left;"}
 
 You can use ArangoDB as the foundation for machine learning based on graphs
 at enterprise scale. You can use it as a metadata store for model training

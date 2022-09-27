@@ -49,4 +49,4 @@ that you can focus on building amazing things on top of ArangoDB. See
 [Use ArangoDB in the Cloud](quick-start-in-the-cloud.html) to get started.
 
 You can also install ArangoDB locally or on your own server hardware.
-See [Use ArangoDB On-Premise](quick-start-on-premise.html) for more details.
+See [Use ArangoDB On-Premises](quick-start-on-premises.html) for more details.

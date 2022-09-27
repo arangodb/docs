@@ -48,11 +48,14 @@ a translation layer that takes over the low-level communication with the server.
 
 ### REST API
 
-Under the hood, all interactions with the server make use of its
-[REST API](https://en.wikipedia.org/wiki/Representational_state_transfer){:target="_blank"},
-an application programming interface (API) based on the HTTP protocol that
-powers the world wide web. This includes the web interface, _arangosh_, as well
-as the drivers and integrations for different programming languages and
+Under the hood, all interactions with the server make use of its REST API.
+A [REST](https://en.wikipedia.org/wiki/Representational_state_transfer){:target="_blank"}
+API is an application programming interface based on the HTTP protocol that
+powers the world wide web.
+
+All requests from the outside to the server need to made against the respective
+endpoints of this API to perform actions. This includes the web interface, _arangosh_,
+as well as the drivers and integrations for different programming languages and
 environments. They all provide a convenient way to work with ArangoDB, but you
 may use the low-level REST API directly as needed.
 

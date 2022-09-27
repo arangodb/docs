@@ -13,12 +13,22 @@ conn, err := http.NewConnection(http.ConnectionConfig{
 if err != nil {
     // Handle error
 }
-c, err := driver.NewClient(driver.ClientConfig{
+client, err := driver.NewClient(driver.ClientConfig{
     Connection: conn,
     Authentication: driver.BasicAuthentication("user", "password"),
 })
 if err != nil {
     // Handle error
+}
+```
+
+## Creating a new database
+```go
+ctx := context.Background()
+options := driver.CreateDatabaseOptions{ /*...*/ }
+db, err := client.CreateDatabase(ctx, "myDB", &options)
+if err != nil {
+// handle error 
 }
 ```
 
@@ -56,38 +66,21 @@ if err != nil {
 
 ```go
 ctx := context.Background()
-options := &driver.CreateCollectionOptions{ /* ... */ }
-col, err := db.CreateCollection(ctx, "myCollection", options)
+options := driver.CreateCollectionOptions{ /* ... */ }
+col, err := db.CreateCollection(ctx, "myCollection", &options)
 if err != nil {
     // handle error 
 }
 ```
 
-## Reading a document from a collection 
+## Creating a document
 
 ```go
-var doc MyDocument 
-ctx := context.Background()
-meta, err := col.ReadDocument(ctx, myDocumentKey, &doc)
-if err != nil {
-    // handle error 
+type MyDocument struct {
+    Name    string `json:"name"`
+    Counter int    `json:"counter"`
 }
-```
 
-## Reading a document from a collection with an explicit revision
-
-```go
-var doc MyDocument 
-revCtx := driver.WithRevision(ctx, "mySpecificRevision")
-meta, err := col.ReadDocument(revCtx, myDocumentKey, &doc)
-if err != nil {
-    // handle error 
-}
-```
-
-## Creating a document 
-
-```go
 doc := MyDocument{
     Name: "jan",
     Counter: 23,
@@ -100,11 +93,33 @@ if err != nil {
 fmt.Printf("Created document with key '%s', revision '%s'\n", meta.Key, meta.Rev)
 ```
 
+## Reading a document from a collection 
+
+```go
+var doc MyDocument 
+ctx := context.Background()
+meta, err := col.ReadDocument(ctx, "myDocumentKey (meta.Key)", &doc)
+if err != nil {
+    // handle error 
+}
+```
+
+## Reading a document from a collection with an explicit revision
+
+```go
+var doc MyDocument 
+revCtx := driver.WithRevision(ctx, "mySpecificRevision (meta.Rev)")
+meta, err := col.ReadDocument(revCtx, "myDocumentKey (meta.Key)", &doc)
+if err != nil {
+    // handle error 
+}
+```
+
 ## Removing a document 
 
 ```go
 ctx := context.Background()
-err := col.RemoveDocument(revCtx, myDocumentKey)
+meta, err := col.RemoveDocument(ctx, myDocumentKey)
 if err != nil {
     // handle error 
 }
@@ -114,7 +129,7 @@ if err != nil {
 
 ```go
 revCtx := driver.WithRevision(ctx, "mySpecificRevision")
-err := col.RemoveDocument(revCtx, myDocumentKey)
+meta, err := col.RemoveDocument(revCtx, myDocumentKey)
 if err != nil {
     // handle error 
 }
@@ -125,7 +140,7 @@ if err != nil {
 ```go
 ctx := context.Background()
 patch := map[string]interface{}{
-    "Name": "Frank",
+    "name": "Frank",
 }
 meta, err := col.UpdateDocument(ctx, myDocumentKey, patch)
 if err != nil {
@@ -171,15 +186,15 @@ fmt.Printf("Query yields %d documents\n", cursor.Count())
 ## Querying documents, with bind variables
 
 ```go
-ctx := context.Background()
-query := "FOR d IN myCollection FILTER d.Name == @name RETURN d"
+ctx := driver.WithQueryCount(context.Background())
+query := "FOR d IN myCollection FILTER d.name == @myVar RETURN d"
 bindVars := map[string]interface{}{
-    "name": "Some name",
+    "myVar": "Some name",
 }
 cursor, err := db.Query(ctx, query, bindVars)
 if err != nil {
     // handle error 
 }
 defer cursor.Close()
-...
+fmt.Printf("Query yields %d documents\n", cursor.Count())
 ```

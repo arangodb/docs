@@ -109,7 +109,7 @@ the specified order. It will use the first suitable index, regardless of
 whether it would normally use a different index.
 
 If none of the specified indices is suitable, then it falls back to its normal
-logic to select another index or fails if `forceForceHint` is enabled.
+logic to select another index or fails if `forceIndexHint` is enabled.
 
 ### `forceIndexHint`
 

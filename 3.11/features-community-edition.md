@@ -11,7 +11,7 @@ description: >-
 {:class="lead"}
 
 The Community Edition features are outlined below. For additional information,
-see <https://www.arangodb.com/community-server/>{:target="_blank"}.
+see [arangodb.com/community-server/](https://www.arangodb.com/community-server/){:target="_blank"}.
 
 ## General
 
@@ -21,12 +21,13 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   restrictions in complexity.
 
 - [**Document Database**](data-model-and-concepts.html#document-model):
-  A modern document store that allows you to model data intuitively and evolve
-  the data model easily. Documents can be organized in collections, and
-  collections in databases for multi-tenancy.
+  A modern document database system that allows you to model data intuitively
+  and evolve the data model easily. Documents can be organized in collections,
+  and collections in databases for multi-tenancy.
 
-  <!-- TODO: Replace "store" with "database system"? -->
-  <!-- TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...) -->
+{%- comment %}
+  TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...)
+{%- endcomment %}
 
 - [**Data Format**](data-model-and-concepts.html#documents):
   JSON, internally stored in a binary format invented by ArangoDB called
@@ -43,12 +44,18 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   memory. It uses journaling (write-ahead logging) and can take advantage of
   modern storage hardware, like SSDs and large caches.
 
+- [**Computed Values**](data-modeling-documents-computed-values.html):
+  Persistent document attributes that are generated when documents are created
+  or modified, using an AQL expression.
+
 - **Multi-Platform**:
-  Available for Linux, macOS, and Windows. <!-- TODO: Limitations? -->
+  Available for Linux, macOS, and Windows, for the x86-64 architecture (with the
+  SSE 4.2 and AVX instruction set extensions), as well as for 64-bit ARM chips
+  on macOS (Apple silicon, like M1) and Linux (ARMv8+ with Neon SIMD support). <!-- TODO: Limitations? -->
 
 ## Scalability & High Availability
 
-- [**Auto-Sharding**](architecture-deployment-modes-cluster-sharding.html):
+- [**Hash-based sharding**](architecture-deployment-modes-cluster-sharding.html):
   Spread bigger datasets across multiple servers using consistent hashing on
   the default or custom shard keys.
 
@@ -65,8 +72,9 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
 - [**Automatic Failover Cluster**](architecture-deployment-modes-cluster-architecture.html#automatic-failover):
   If a nodes goes down, another node takes over to avoid any downtime. <!-- TODO: Can we say that? -->
 
-
-<!-- TODO: - **Master/Master Conflict Resolution**: What does this refer to? How does it work? MVCC? -->
+{%- comment %}
+  TODO: - **Master/Master Conflict Resolution**: What does this refer to? How does it work? MVCC?
+{%- endcomment %}
 
 - **Load-Balancer Support**:
   Round-robin load-balancer support for cloud environments.
@@ -123,12 +131,13 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   requires the Enterprise Edition.
 
 - [**ArangoSearch for Text Search and Ranking**](arangosearch.html):
-  Wildcard and fuzzy search support for full-text search.
-  Edge _n_-gram support.
+  A built-in search engine for full-text, complex data structures, and more.
+  Exact value matching, range queries, prefix matching, case-insensitive and
+  accent-insensitive search. Token, phrase, wildcard, and fuzzy search support
+  for full-text. Result ranking using Okapi BM25 and TF-IDF.
+  Geo-spatial search that can be combined with full-text search.
   Flexible data field pre-processing with custom queries and the ability to
-  chain built-in and custom analyzers.
-  Geo-spatial queries can be combined with full-text search.
-  Language-agnostic tokenization of text.
+  chain built-in and custom Analyzers. Language-agnostic tokenization of text.
 
 - [**GeoJSON Support**](indexing-geo.html#geojson):
   Geographic data encoded in the popular GeoJSON format can be stored and used
@@ -172,6 +181,10 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   constraint. A "sparse" option to only index non-null values is also available.
   The elements of an array can be indexed individually.
 
+- [**Inverted indexes**](indexing-inverted.html):
+  An eventually consistent index type that can accelerate a broad range of
+  queries from simple to complex, including full-text search.
+
 - [**Vertex-centric Indexes**](indexing-index-basics.html#vertex-centric-indexes):
   Secondary indexes for more efficient graph traversals with filter conditions.
 
@@ -182,6 +195,12 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   Accelerated geo-spatial queries for coordinates and GeoJSON objects, based on
   the S2 library. <!-- TODO: list supported queries? Centroid-limitations? -->
   Support for composable, distance-based geo-queries ("geo cursors").
+
+{% comment %} Experimental feature
+- [**Multi-dimensional indexes**](indexing-multi-dim.html):
+  An index type to efficiently intersect multiple range queries, like finding
+  all appointments that intersect a time range.
+{% endcomment %}
 
 - [**Background Indexing**](indexing-index-basics.html#creating-indexes-in-background):
   Indexes can be created in the background to not block queries in the meantime.
@@ -234,9 +253,12 @@ see <https://www.arangodb.com/community-server/>{:target="_blank"}.
   Multi-threaded dumping and restoring of collection settings and data
   in JSON format. Data masking capabilities for attributes containing sensitive
   data / PII when creating backups.
-  Consistent cluster backups. <!-- TODO -->
 
 - **[Import](programs-arangoimport.html) and [Export](programs-arangoexport.html) Tools**:
   CLI utilities to load and export data in multiple text-based formats.
   You can import from JSON, JSONL, CSV, and TSV files, and export to JSON, JSONL,
   CSV, TSV, XML, and XGMML files.
+
+- [**Metrics**](http/administration-and-monitoring-metrics.html):
+  Monitor the healthiness and performance of ArangoDB servers using the metrics
+  exported in the Prometheus format.

@@ -2,7 +2,7 @@
 layout: default
 description: >-
   ArangoDB is a scalable graph database system with native support for other
-  data models and a built-in search engine, for the cloud and on-premise
+  data models and a built-in search engine, for the cloud and on-premises
 title: Introduction to ArangoDB's Technical Documentation and Ecosystem
 redirect_from:
   - cookbook/index.html # 3.5 -> 3.5
@@ -21,7 +21,7 @@ language thanks to its multi-model approach that combines the analytical power
 of graphs with JSON documents, a key-value store, and a built-in search engine.
 
 ArangoDB is available in an open-source and a commercial [edition](features.html),
-you can use it for on-premise deployments, as well as a fully managed
+you can use it for on-premises deployments, as well as a fully managed
 [cloud service](oasis/).
 
 ## What are Graphs?
@@ -75,6 +75,6 @@ ArangoDB also comes with an integrated search engine for information retrieval,
 such as full-text search with relevance ranking.
 
 ArangoDB is written in C++ for high performance and built to work at scale, in
-the cloud or on-premise.
+the cloud or on-premises.
 
 <!-- deployment options, move from features page, on-prem vs cloud? -->
