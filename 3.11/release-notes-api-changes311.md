@@ -15,8 +15,8 @@ integrations for ArangoDB 3.11.
 
 ### Graph API (Gharial)
 
-The following changes affect the behavior of the RESTful graph APIs at
-endpoints starting with path `/_api/gharial/`:
+The following changes affect the behavior of the RESTful graph in the creation
+of graphs with POST request to path `/_api/gharial/`:
 
 The `satellites` field from object `options` must be an array, either empty or  
 with one or more collection name strings. Now, for SmartGraph, if the value of

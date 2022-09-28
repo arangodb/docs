@@ -62,7 +62,8 @@ enforce the correct sharding.
   - `satellites` (array, optional):
     An array of collection names that will be used to create
     [SatelliteCollections](satellites.html) for a (Disjoint) SmartGraph
-    using SatelliteCollections.
+    using SatelliteCollections. An empty array is accepted, but no other values 
+    such as strings or `null` are accepted. 
     Each array element must be a string and a valid collection name.
     The collection type cannot be modified later.
 
