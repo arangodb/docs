@@ -1,4 +1,4 @@
-from docublocks import *
+from http_docublocks import *
 
 
 def test_http_docublocks():

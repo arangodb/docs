@@ -7,6 +7,8 @@ def set_page_description(page, buffer, frontMatter):
         if not "page.description" in description:
             description = description.replace("\n", "\n  ")
             page.frontMatter.description = f">-\n  {description}"
+        else:
+            page.frontMatter.description = re.search(r"(?<=description: )(.*?)((?=\n\w)|(?=---))", buffer, re.MULTILINE | re.DOTALL).group(0)
 
 def migrate_hints(paragraph):
     #Hints
@@ -51,22 +53,25 @@ def migrate_hrefs(paragraph):
         if 'https://' in href or 'http://' in href:
             continue
 
-        label = re.search(r"(?<=\[).*(?=\])", href).group(0)	# Bug with new style regex, to fix
-        if "\"" in label:
-            label = label.replace('"', '')
 
-        attr = re.search(r"(?<=\]\().*(?=\))", href).group(0).strip('"').strip('()').replace('.html', '')
-        
+
         if href.startswith("!"):
-            ## Check for the inline images
-            if ':style' in href:
-                imgWidget = '{{{{< img src="{}" alt="{}" inline="true" >}}}}'.format(attr, label)
-                paragraph = paragraph.replace(href, imgWidget)
-                continue
+            imgName = re.search(r"(?<=\().*(?=\))", href).group(0)
+            newImgName = "images/"+ imgName.split("/")[len(imgName.split("/"))-1]
+            print(newImgName)
+            styleRegex = re.search(r"(?<={:style=\").*(?=\"})", href)
+            if styleRegex:
+                newImgName = newImgName + "?"
+                styles = styleRegex.group(0).split(";")
 
-            imgWidget = '{{{{< img src="{}" alt="{}" >}}}}'.format(attr, label)
-            paragraph = paragraph.replace(href, imgWidget)
+                for style in styles:
+                    style = style.replace(": ", "=").replace(" ", "&")
+                    newImgName = newImgName + style
+            newHref = href.replace(imgName, newImgName)
+            newHref = re.sub(r"{.*}", '', newHref, 0)
+            paragraph = paragraph.replace(href, newHref)
             continue
+
 
         newHref = href.replace(".html", "")
         paragraph = paragraph.replace(href, newHref)

@@ -12,103 +12,107 @@ from inline_docublocks import *
 oldToolchain = "/home/dan/work/projects/old-arango-docs/docs"
 newToolchain = "/home/dan/work/projects/arangodb/docs/site"
 
-frontMatterCapture = r"(?<=---\n)[\w:\s\W]*[\n]*(?=\n---)"
+frontMatterCapture = r"(?<=---\n)(.*?)(?=---)"
 widgetRegex = r"{% .* %}[\n]+.*[\n]+{% .* %}"
 
-menu = {}
+infos = {"": {}}
+currentWeight = 0
 
-# Directory Tree Migration phase
-## In this phase, old toolchain files and dirs are copied in a new tree suitable for hugo. No file processing is done.
-## Code became a mess, TODO: Refactor
-def structure_migration():
-	print(f"----- STARTING MIGRATION FROM {oldToolchain} TO {newToolchain}")
 
-	directoryTree = open(f"{oldToolchain}/_data/3.10-manual.yml")
-	documents = yaml.full_load(directoryTree)
-	label = 'Manual'
+def structure_migration_new(label, document, manual):
+	if document is None:
+		directoryTree = open(f"{oldToolchain}/_data/3.10-{manual}.yml")
+		document = yaml.full_load(directoryTree)
 
-	for item in documents:
+		if manual != "manual":
+			create_index("core-topics", {"text": manual.upper(), "href": "index.html"}, manual+"/")
+			document = document[1:]
+
+	extendedSection = ''
+	if manual != "manual":
+		extendedSection = manual +"/"
+
+	for item in document:
 		if "subtitle" in item:
-			label = item['subtitle']
-			label = label.replace(" ", "_")
+			label = create_chapter(item, manual)
+			continue
 
-		create_files('', label, item)
+		if "divider" in item:
+			continue
+		if "Release Notes" in item["text"]:
+			label = "Release Notes"
 
-	sections = ['oasis', 'drivers', 'aql', 'http']
-	for section in sections:
-		Path(f"{newToolchain}/content/{section}").mkdir(parents=True, exist_ok=True)
-		label = ''
-		directoryTree = open(f"{oldToolchain}/_data/3.10-{section}.yml")
-		documents = yaml.full_load(directoryTree)
-		for item in documents:
-			if "subtitle" in item:
-				label = item['subtitle']
-				label = label.replace(" ", "_")
-				Path(f"{newToolchain}/content/{section}/{label}").mkdir(parents=True, exist_ok=True)
-				labelPage = Page()
-				labelPage.frontMatter.title = label
-				labelPage.frontMatter.menuTitle = label
-				labelPage.frontMatter.fileID = label
-				menu[f"{newToolchain}/content/{section}/{label}/_index.md"] = label
+		if "Appendix" in item["text"]:
+			label = "Appendix"
 
-				file = open(f"{newToolchain}/content/{section}/{label}/_index.md", "w")
-				file.write(labelPage.toString())
-				file.close()
-
-			create_files(section, label, item)
-	
-	print("----- STRUCTURE MIGRATION END ----")
+		if "children" in item:
+			label = create_index(label, item, extendedSection)
+			
+			structure_migration_new(label, item["children"], extendedSection)
+			labelSplit = label.split("/")
+			label = "/".join(labelSplit[0:len(labelSplit)-1])
+			continue
+		else:
+			label = create_files_new(label, item, extendedSection)
 
 
-## TODO: Code is a mess, refactor
-def create_files(section, label, chapter):
-	if not "text" in chapter:			# Is just a subtitle
-		return
-	path = f"{newToolchain}/content/{label}"
-	if section != '':
-		path = f"{newToolchain}/content/{section}/{label}"
+def create_chapter(item, manual):
+	label = item["subtitle"].lower().replace(" ", "-")
 
-	root = chapter['text']		# Menu entry
-	filename = f"{chapter['href']}".replace(".html", ".md")
-	oldFilePath = f"{oldToolchain}/3.10/{filename}"
+	if manual != "manual":
+		label = f"core-topics/{manual}/{label}"
 
-	if section != '':
-		oldFilePath = f"{oldToolchain}/3.10/{section}/{filename}"
+	filepath = f'{newToolchain}/content/{label}/_index.md'
+	Path(f'{newToolchain}/content/{label}').mkdir(parents=True, exist_ok=True)
+
+	labelPage = Page()
+	labelPage.frontMatter.title = item["subtitle"]
+	labelPage.frontMatter.menuTitle = item["subtitle"]
+	labelPage.frontMatter.weight = get_weight(currentWeight)
+	labelPage.frontMatter.fileID = "fileID"
+	infos[filepath] = {"title": item["subtitle"], "weight": get_weight(currentWeight)}
+
+	file = open(filepath, "w")
+	file.write(labelPage.toString())
+	file.close()
+	return label
 
 
-	if not "children" in chapter:		# Leaf in the current tree
-		if 'http' in chapter['href']:
-			return
+def create_index(label, item, extendedSection):
+	oldFileName = item["href"].replace(".html", ".md")
+	folderName = item["text"].lower().replace(" ", "-").replace("/", "")
+	label = label + "/" + folderName
 
-		if filename == 'index.md':
-			filename = '_index.md'
+	Path(f'{newToolchain}/content/{label}').mkdir(parents=True, exist_ok=True)
 
-		newFilePath = f"{path}/{filename}"
-		newFilePath = newFilePath.replace("//", "/")
-		try:
-			shutil.copyfile(oldFilePath, newFilePath)
-		except Exception:
-			print(f"Exception on {oldFilePath}")
-		if root == 'Introduction':
-			root = section
+	indexPath = f'{newToolchain}/content/{label}/_index.md'
+	oldFilePath = f'{oldToolchain}/3.10/{extendedSection}{oldFileName}'
+	shutil.copyfile(oldFilePath, indexPath)
+	infos[indexPath] = {
+		"title": f'\'{item["text"]}\'' if '@' in item["text"] else item["text"],
+		"weight": get_weight(currentWeight),
+		"fileID": oldFileName.replace(".md", "")
+		}
+	return label
 
-		menu[newFilePath] = f"'{root}'" if '@' in root else root
-		return
+def create_files_new(label, item, extendedSection):
+	oldFileName = item["href"].replace(".html", ".md")
+	oldFilePath = f'{oldToolchain}/3.10/{extendedSection}{oldFileName}'.replace("//", "/")
+	filePath = f'{newToolchain}/content/{label}/{oldFileName}'
 
-	# Not in a leaf, create a new menu entry/chapter index file and go through the subtree
-	root = root.replace(" ", "-")
-	Path(f"{path}/{root}").mkdir(parents=True, exist_ok=True)
-	indexPath = f"{path}/{root}/_index.md"
-	indexPath = indexPath.replace("//", "/")
-	try:	
-		shutil.copyfile(oldFilePath, indexPath)
-	except Exception:
-		print(f"Exception for {oldFilePath}")
+	try:
+		shutil.copyfile(oldFilePath, filePath)
+	except FileNotFoundError:
+		print(f"WARNING! FILE NOT FOUND IN OLD TOOLCHAIN {oldFilePath}")
+		
+	infos[filePath]  = {
+		"title": f'\'{item["text"]}\'' if '@' in item["text"] else item["text"],
+		"weight": get_weight(currentWeight),
+		"fileID": oldFileName.replace(".md", "")
+		}
+	return label
 
-	menu[indexPath] = f"'{root}'" if '@' in root else root
 
-	for child in chapter["children"]:
-		create_files(section, f"{label}/{root}", child)
 
 # File processing jekyll-hugo migration phase
 def processFiles():
@@ -132,11 +136,18 @@ def processFile(filepath):
 	page = Page()
 
 	#Front Matter
-	if filepath in menu:
-		page.frontMatter.menuTitle = menu[filepath]
+	if filepath in infos:
+		page.frontMatter.menuTitle = infos[filepath]["title"]
+		page.frontMatter.weight = infos[filepath]["weight"] if "weight" in infos[filepath] else 0
 	_processFrontMatter(page, buffer)
 	fileID = filepath.split("/")
 	page.frontMatter.fileID = fileID[len(fileID)-1].replace(".md", "")
+	if page.frontMatter.fileID == "_index":
+		page.frontMatter.fileID = fileID[len(fileID)-2]
+	if "fileID" in infos[filepath]:
+		page.frontMatter.fileID = infos[filepath]["fileID"]
+
+
 	buffer = re.sub(r"-{3}\n[\w\s:/#,()?’'\@&\[\]\*.>-]+\n-{3}", '', buffer)
 
 	#Internal content
@@ -149,7 +160,7 @@ def processFile(filepath):
 	return
 
 def _processFrontMatter(page, buffer):
-	frontMatterRegex = re.search(frontMatterCapture, buffer)
+	frontMatterRegex = re.search(frontMatterCapture, buffer, re.MULTILINE | re.DOTALL)
 	if not frontMatterRegex:
 		return		# TODO
 
@@ -219,17 +230,26 @@ class FrontMatter():
 		self.fileID = ""
 		self.description = ""
 		self.menuTitle = ""
+		self.weight = 0
 
 	def toString(self):
-		return f"---\nfileID: {self.fileID}\ntitle: {self.title}\nmenuTitle: {self.menuTitle}\ndescription: {self.description}\nlayout: default\n---\n"
+		return f"---\nfileID: {self.fileID}\ntitle: {self.title}\nmenuTitle: {self.menuTitle}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
 
+def get_weight(weight):
+	global currentWeight
+	currentWeight += 5
+	print(currentWeight)
+	return currentWeight
 
 if __name__ == "__main__":
 	print("Starting migration")
-
 	try:
+		structure_migration_new('', None, "manual")
+		structure_migration_new('core-topics/http', None, "http")
+		structure_migration_new('core-topics/oasis', None, "oasis")
+		structure_migration_new('core-topics/aql', None, "aql")
+		structure_migration_new('core-topics/drivers', None, "drivers")
 		initBlocksFileLocations()
-		structure_migration()
 		processFiles()
 		#migrate_media()
 	except Exception as ex:
