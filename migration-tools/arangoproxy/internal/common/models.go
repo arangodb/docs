@@ -1,7 +1,10 @@
 package common
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"regexp"
 	"strings"
 
@@ -12,56 +15,89 @@ type ExampleType string
 type RenderType string
 
 const (
-	JS  ExampleType = "js"
-	AQL ExampleType = "aql"
+	JS   ExampleType = "js"
+	AQL  ExampleType = "aql"
+	HTTP ExampleType = "http"
 
 	INPUT        RenderType = "input"
 	OUTPUT       RenderType = "output"
 	INPUT_OUTPUT RenderType = "input/output"
 )
 
-type Request struct {
-	Type    ExampleType
-	Options RequestOptions
-	Code    string
+type Example struct {
+	Type    ExampleType    `json:"type"`
+	Options ExampleOptions `json:"options"`
+	Code    string         `json:"code"`
 }
 
-type RequestOptions struct {
-	Name    string     `yaml:"name"`
-	Run     bool       `yaml:"run"`
-	Version string     `yaml:"version"`
-	Release string     `yaml:"release"`
-	Render  RenderType `yaml:"render"`
+type ExampleOptions struct {
+	Name     string                 `yaml:"name" json:"name"`
+	Run      bool                   `yaml:"run" json:"run"`
+	Version  string                 `yaml:"version" json:"version"`
+	Release  string                 `yaml:"release" json:"release"`
+	Render   RenderType             `yaml:"render" json:"render"`
+	Explain  bool                   `yaml:"explain" json:"explain"`
+	BindVars map[string]interface{} `yaml:"bindVars" json:"bindVars"`
+	Dataset  string                 `yaml:"dataset" json:"dataset"`
 }
 
-func ParseRequest(request []byte, exampleType ExampleType) (Request, error) {
+func ParseExample(request io.Reader, exampleType ExampleType) (Example, error) {
+	req, err := ioutil.ReadAll(request)
+	if err != nil {
+		Logger.Printf("Error reading Example body: %s\n", err.Error())
+		return Example{}, err
+	}
+
 	r, err := regexp.Compile("---[\\w\\s\\W]*---")
 	if err != nil {
-		return Request{}, fmt.Errorf("ParseRequest error compiling regex: %s", err.Error())
+		return Example{}, fmt.Errorf("ParseExample error compiling regex: %s", err.Error())
 	}
 
-	options := r.Find(request)
-	optionsYaml := RequestOptions{}
+	options := r.Find(req)
+	optionsYaml := ExampleOptions{}
 	err = yaml.Unmarshal(options, &optionsYaml)
 	if err != nil {
-		return Request{}, fmt.Errorf("ParseRequest error parsing options: %s", err.Error())
+		return Example{}, fmt.Errorf("ParseExample error parsing options: %s", err.Error())
 	}
 
-	code := strings.Replace(string(request), string(options), "", -1)
+	code := strings.Replace(string(req), string(options), "", -1)
 
-	return Request{Type: exampleType, Options: optionsYaml, Code: code}, nil
+	codeComments := regexp.MustCompile(`(?m)~.*`)
+	code = codeComments.ReplaceAllString(code, "")
+
+	return Example{Type: exampleType, Options: optionsYaml, Code: code}, nil
 }
 
-func (r Request) String() string {
-	return fmt.Sprintf("%s\nfunction %s() {%s\n}", r.Options, r.Options.Name, r.Code)
+func (r Example) String() string {
+	j, err := json.Marshal(r)
+	if err != nil {
+		return ""
+	}
+
+	return string(j)
 }
 
-func (r RequestOptions) String() string {
-	return fmt.Sprintf("//run: %v\n//version: %s", r.Run, r.Version)
+func (r ExampleOptions) String() string {
+	j, err := json.Marshal(r)
+	if err != nil {
+		return ""
+	}
+
+	return string(j)
 }
 
-type Response struct {
-	Input  string `json:"input"`
-	Output string `json:"output"`
-	Error  string `json:"error"`
+type ExampleResponse struct {
+	Input   string         `json:"input"`
+	Output  string         `json:"output"`
+	Error   string         `json:"error"`
+	Options ExampleOptions `json:"options"`
+}
+
+func (r ExampleResponse) String() string {
+	j, err := json.Marshal(r)
+	if err != nil {
+		return ""
+	}
+
+	return string(j)
 }

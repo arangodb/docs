@@ -1,12 +1,23 @@
 package utils
 
 import (
-	"fmt"
-	"hash/fnv"
+	"bytes"
+	"encoding/base64"
+	"encoding/json"
+	"strings"
 )
 
-func CalculateHash(s string) string {
-	h := fnv.New32a()
-	h.Write([]byte(s))
-	return fmt.Sprint(h.Sum32())
+func EncodeToBase64(v interface{}) (string, error) {
+	var buf bytes.Buffer
+	encoder := base64.NewEncoder(base64.StdEncoding, &buf)
+	err := json.NewEncoder(encoder).Encode(v)
+	if err != nil {
+		return "", err
+	}
+	encoder.Close()
+	return buf.String(), nil
+}
+
+func DecodeFromBase64(v interface{}, enc string) error {
+	return json.NewDecoder(base64.NewDecoder(base64.StdEncoding, strings.NewReader(enc))).Decode(v)
 }
