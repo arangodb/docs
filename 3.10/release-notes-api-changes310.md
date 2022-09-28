@@ -95,7 +95,8 @@ Options for creating an index (`POST /_api/index`):
     `analyzer` option
   - `features` (array, _optional_): an array of strings, possible values:
     `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the features as
-    defined by the Analyzer itself
+    defined by the Analyzer itself, or inherited from the top-level `features`
+    option if the `analyzer` option adjacent to this option is not set
   - `includeAllFields` (boolean, _optional_): default: `false`
   - `searchField` (boolean, _optional_): default: the value defined by the
     top-level `searchField` option
@@ -109,7 +110,9 @@ Options for creating an index (`POST /_api/index`):
       field, or the top-level `analyzer` option
     - `features` (array, _optional_): an array of strings, possible values:
       `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the features as
-      defined by the Analyzer itself
+      defined by the Analyzer itself, or inherited from the parent field's or
+      top-level `features` option if no `analyzer` option is set at a deeper
+      level, closer to this option
     - `searchField` (boolean, _optional_): default: the value defined by the
       top-level `searchField` option
     - `nested` (array, _optional_): can be used recursively. See `nested` above
