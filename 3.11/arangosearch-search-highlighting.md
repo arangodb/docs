@@ -135,39 +135,34 @@ to dynamically get the respective value.
 
 _`search-alias` View:_
 
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline searchHighlighting_2
-    @EXAMPLE_ARANGOSH_OUTPUT{searchHighlighting_2}
-      var coll = db._create("food");
-    | var docs = db.food.save([
-    |   { name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } },
-    |   { name: "carrot", description: { en: "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } },
-    |   { name: "chili pepper", description: { en: "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } },
-    |   { name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } }
-      ]);
-      var idx = db.food.ensureIndex({ name: "inv-text-offset", type: "inverted", fields: [ { name: "description.en", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] } ] });
-      var view = db._createView("food_view", "search-alias", { indexes: [ { collection: "food", index: "inv-text-offset" } ] });
-      var wait = db._query(`FOR doc IN food OPTIONS { indexHint: "inv-text-offset", forceIndexHint: true, waitForSync: true } FILTER doc.description.en != null LIMIT 1 RETURN doc`); /* wait for inverted index to update */
-    | db._query(`FOR doc IN food_view
-    |   SEARCH
-    |     TOKENS("avocado tomato", "text_en") ANY == doc.description.en OR
-    |     PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
-    |     STARTS_WITH(doc.description.en, "cap")
-    |   FOR offsetInfo IN OFFSET_INFO(doc, ["description.en"])
-    |     RETURN {
-    |       description: doc.description,
-    |       name: offsetInfo.name,
-    |       matches: offsetInfo.offsets[* RETURN {
-    |         offset: CURRENT,
-    |         match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
-    |       }]
-          }`).toArray();
-    ~ db._dropView("food_view");
-    ~ db._drop("food");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock searchHighlighting_2
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
+```js
+var coll = db._create("food");
+var docs = db.food.save([
+  { name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } },
+  { name: "carrot", description: { en: "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } },
+  { name: "chili pepper", description: { en: "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } },
+  { name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } }
+]);
+var idx = db.food.ensureIndex({ name: "inv-text-offset", type: "inverted", fields: [ { name: "description.en", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] } ] });
+var view = db._createView("food_view", "search-alias", { indexes: [ { collection: "food", index: "inv-text-offset" } ] });
+var wait = db._query(`FOR doc IN food OPTIONS { indexHint: "inv-text-offset", forceIndexHint: true, waitForSync: true } FILTER doc.description.en != null LIMIT 1 RETURN doc`); /* wait for inverted index to update */
+db._query(`FOR doc IN food_view
+  SEARCH
+    TOKENS("avocado tomato", "text_en") ANY == doc.description.en OR
+    PHRASE(doc.description.en, "cultivated", 2, "pungency") OR
+    STARTS_WITH(doc.description.en, "cap")
+  FOR offsetInfo IN OFFSET_INFO(doc, ["description.en"])
+    RETURN {
+      description: doc.description,
+      name: offsetInfo.name,
+      matches: offsetInfo.offsets[* RETURN {
+        offset: CURRENT,
+        match: SUBSTRING_BYTES(VALUE(doc, offsetInfo.name), CURRENT[0], CURRENT[1])
+      }]
+    }`).toArray();
+db._dropView("food_view");
+db._drop("food");
+```
 
 _`arangosearch` View:_
 
