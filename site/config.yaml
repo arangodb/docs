@@ -2,6 +2,7 @@ baseURL: "http://example.org/"
 languageCode: "en-us"
 title: "ArangoDB Documentation"
 theme: "hugo-theme-relearn"
+timeout: "200000000"
 
 menu:
   shortcuts:
@@ -16,11 +17,35 @@ markup:
     ordered: false
     startLevel: 2
 
+  goldmark:
+    renderer:
+      unsafe: true
+
 outputs:
   home: ["HTML", "RSS", "JSON"]
 
+caches:
+  assets:
+    dir: :resourceDir/_gen
+    maxAge: 0
+  getcsv:
+    dir: :cacheDir/:project
+    maxAge: 0
+  getjson:
+    dir: :cacheDir/:project
+    maxAge: 0
+  getresource:
+    dir: :cacheDir/:project
+    maxAge: 0
+  images:
+    dir: :resourceDir/_gen
+    maxAge: 0
+  modules:
+    dir: :cacheDir/modules
+    maxAge: 0
+
 params:
-  docs_version: "3.10"
+  pygmentsUseClassic: false
   description: "Documentation for ArangoDB"
   showVisitedLinks: true
   alwaysopen: false
@@ -33,4 +58,6 @@ params:
   disableSeoHiddenPages: true
   additionalContentLanguage: [ "en" ]
   custom_css: ["css/*"]
+  swaggerInitialize: "{ \"theme\": \"dark\" }"
+
 
