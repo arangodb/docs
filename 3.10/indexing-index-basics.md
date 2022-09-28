@@ -35,10 +35,6 @@ indexes the value of the nested attribute `bar` under the top-level attribute
 You can also not index fields whose names either start or end with `:`, for
 example, `fields: ["foo:"]`. This notation is reserved for internal use.
 
-Also, it's not possible to use attributes in which their names either start or end with `:`, 
-for example, `fields: ["value1:"]`. This applies both for single server or cluster mode in 
-the coordinator.
-
 Creating new indexes is by default done under an exclusive collection lock. The collection is not
 available while the index is being created. This "foreground" index creation can be undesirable, 
 if you have to perform it on a live system without a dedicated maintenance window.
