@@ -1,17 +1,13 @@
-{{- $context := .context }}
-{{- $src := .src }}
-{{- with $context }}
-{{- with .Page.Resources.Match $src }}
-	{{- range . }}
-		{{- $src = .RelPermalink }}
-	{{- end }}
-{{- end }}
+{{ $data := getJSON "data/test/docs.json" }}
+{{ $x := $data.definitions | jsonify }}
+
 <style>
   rapi-doc::part(section-endpoint-head-method) {
     font-size: 11px;
   }
 </style>
 <rapi-doc
+  id="test"
   allow-spec-file-download="true"
   default-schema-tab="example"
   font-size="largest"
@@ -21,8 +17,11 @@
   schema-description-expanded="true"
   schema-style="table"
   show-header="false"
-  spec-url="{{ $src }}"
   sort-tags="true"
 ></rapi-doc>
+<script>
+    let docEl = document.getElementById("test");
+    let objSpec = JSON.parse("{{ $x }}");
+    docEl.loadSpec(objSpec);
+</script>
 {{- .Page.Store.Set "hasSwagger" true }}
-{{- end }}

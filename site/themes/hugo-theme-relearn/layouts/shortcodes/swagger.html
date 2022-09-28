@@ -1,4 +1,24 @@
-{{- partial "shortcodes/swagger.html" (dict
-  "context" .
-  "src"     (.Get "src")
-) }}
+<rapi-doc
+ id="thedoc"
+ allow-spec-file-download="true"
+  default-schema-tab="example"
+  font-size="largest"
+  layout="column"
+  load-fonts="false"
+  render-style="view"
+  schema-description-expanded="true"
+  schema-style="table"
+  show-header="false"
+  sort-tags="true"
+> </rapi-doc>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        let docEl = document.getElementById("thedoc");
+        let strSpec = `
+	"basePath": "/"
+	"swagger": "2.0"
+        `;
+        docEl.loadSpec(strSpec);
+      })
+    </script>

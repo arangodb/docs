@@ -1,0 +1,25 @@
+{{ $src := .Destination  }}
+{{ $alt := .PlainText | safeHTML }}
+
+{{ if $src }}
+{{ $style := "" }}
+{{ $styles := split .Destination "?"}}
+{{ $filepath := index $styles 0}}
+{{ $file := resources.GetMatch ( index $styles 0 ) }}
+{{ with index $styles 1}}
+    {{ $styles2 := split . "&" }}
+    {{ range $styles2 }}
+        {{ replace . "=" ": " }}
+        {{ $style = printf "%s" $style | printf "%s;" . }}
+    {{ end }}
+    {{ end }}
+
+    <a href="{{ $file.RelPermalink }}">
+        <picture>
+    
+        <img 
+       alt="{{ $alt }}" title="{{ $alt }}" src="{{ $file.RelPermalink }}" style="{{ $style }}" class="img-fluid">
+    
+    </picture>
+    </a>
+{{ end }}

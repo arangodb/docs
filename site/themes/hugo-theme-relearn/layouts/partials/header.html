@@ -67,6 +67,12 @@
               <i class="fab fa-fw fa-github"></i>Contribute
             </a>
           </div>
+          <select id="arangodb-version" onchange="changeVersion();" style="float: right;">
+            <option value="311">3.11</option>
+            <option value="310">3.10</option>
+            <option value="39">3.9</option>
+            <option value="38">3.8</option>
+          </select>
           <div id="breadcrumbs">
             <a id="sidebar-toggle" aria-label=""><i class="fa fa-align-justify"></i></a>
           {{- $showBreadcrumb := (and (not .Params.disableBreadcrumb) (not .Site.Params.disableBreadcrumb)) }}
@@ -81,28 +87,6 @@
             </span>
           {{- end }}
           </div>
-          
-          <select id="arangodb-version" onchange="changeVersion();" selected=getCurrentVersion();>
-            <option value="311">3.11</option>
-            <option value="310">3.10</option>
-            <option value="39">3.9</option>
-            <option value="38">3.8</option>
-          </select>
-
-        <script>
-          function changeVersion() {
-            var version = localStorage.getItem('docs-version');
-            var versionSelector = document.getElementById("arangodb-version");
-            version  = versionSelector.options[versionSelector.selectedIndex].value;
-            localStorage.setItem('docs-version', version);
-            
-            location.reload();
-          }
-
-          function getCurrentVersion() {
-            return localStorage.getItem('docs-version');
-          }
-        </script>
         </div>
       </nav>
       <main id="body-inner" class="highlightable {{ partial "archetype.hugo" (dict "hook" "styleclass" "page" . "parameter" .) }}" tabindex="-1">

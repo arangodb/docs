@@ -1,0 +1,26 @@
+{{ $link := .Destination -}}
+{{ $url := urls.Parse $link -}}
+{{ $path := $url.Path }}
+{{ $fragment := "" -}}
+{{ with $url.Fragment }}{{ $fragment = printf "#%s" . }}{{ end -}}
+
+{{ $isRemote := ne $url.Scheme "" -}}
+{{ if not $isRemote -}}
+  {{ $page := .Page.GetPage $path }}
+  {{ if $page }}
+    {{ $link = printf "%s%s" $page.RelPermalink $fragment}}
+
+  {{ else }}
+    {{ $linkSplit := split $path "/"}}
+    {{ $x := sub (len $linkSplit) 1 }}
+    {{ $idSearch := index $linkSplit $x }}
+    {{ range site.Pages }}
+      {{ if eq $path .Params.fileID }}
+        {{ $link = .RelPermalink }}
+      {{ end }}
+    {{ end }}
+
+  {{ end }}
+{{ end }}
+<a href="{{ $link | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isRemote }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- /* whitespace control */ -}}

@@ -94,6 +94,7 @@
       window.themeUseSwagger = JSON.parse({{ $.Scratch.Get "swaggerInitialize" }});
     </script>
 {{- end }}
+<script src="{{ "js/rapidoc-min.js" | relURL }}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" defer></script>
     <script src="{{"js/theme.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" defer></script>
     <script src="{{"js/annotation.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" defer></script>
     <script src="{{"js/version.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" defer></script>

@@ -1,0 +1,62 @@
+
+{{ $remote := resources.GetRemote "http://localhost:8080/http-spec" (dict
+"method" "post"
+"body" .Inner 
+"headers" (dict 
+    "Content-Type" "application/json"
+    "User-Agent" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
+    "Timeout" "10000000"
+)
+)
+}}
+{{ if $remote }}
+    {{ if $remote.Err }}
+        {{ warnf "[HTTP-SPEC] ERROR CALLING ENDPOINT %#v" .Position }}
+  {{ else }}
+{{ $response := unmarshal $remote.Content }}
+{{ $spec := $response.spec | jsonify }}
+{{ $seed := "foo" }}
+{{ $random := delimit (shuffle (split (md5 $seed) "" )) "" }}
+<style>  
+  rapi-doc::part(section-endpoint-head-method) {
+    font-size: 11px;
+  }
+  .section-tag-header{
+    display: none;
+  }
+  rapi-doc::part(section-header) {
+    display: none;
+  }
+  rapi-doc::part(section-auth) {
+    display: none;
+  }
+  rapi-doc::part(section-servers) {
+    display: none;
+  }
+  
+</style>
+<rapi-doc
+  id="{{ $random }}"
+  allow-try="false"
+  allow-spec-file-download="true"
+  default-schema-tab="example"
+  font-size="largest"
+  layout="column"
+  load-fonts="false"
+  render-style="view"
+  schema-description-expanded="true"
+  schema-style="table"
+  show-header="false"
+  sort-tags="true"
+>
+</rapi-doc>   
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    let docEl = document.getElementById("{{ $random }}");
+    let strSpec = "{{ $spec }}";
+    let objSpec = JSON.parse(strSpec);
+    docEl.loadSpec(objSpec);
+})
+</script>
+{{ end }}
+{{ end }}

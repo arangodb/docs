@@ -2,7 +2,7 @@
 {{ $inline := .Get "inline" }}
 
 {{ $width := 600 }}
-{{ $size := .Get "size" }}
+{{ $size := .Get "size" | default ""}}
 {{- if eq $size "small" -}}
   {{- $width = 300 -}}
 {{- else if eq $size "medium" -}}
@@ -13,13 +13,25 @@
 
 {{- if eq $inline "true" }}
 <p>
-    <img class="inline-img" src="{{ $image.RelPermalink }}"  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
+    <img class="inline-img" {{ with $image }}src="{{ .RelPermalink }}"{{ end }}  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
 </p>
 
 {{- else }}
 <div class="flex-container">
     <figure>
-        <img {{ with $image }}src="{{ (.Resize (printf "%dx" $width)).RelPermalink }}"{{ end }}  {{ with .Get "alt" }}alt="{{ . }}"{{ end }} />
+        <img {{ with $image }}
+                {{ if eq .MediaType.SubType "svg" }} 
+                    src="{{ .RelPermalink }}"
+                {{- else }}
+                    {{ if eq $size "" }}
+                        src="{{ .RelPermalink }}" 
+                    {{- else }}
+                    src="{{ (.Resize (printf "%dx" $width)).RelPermalink }}"
+                    {{ end }}
+                {{ end }}
+
+                {{ end }}  {{ with .Get "alt" }}alt="{{ . }}"
+            {{ end }} />
         {{ with .Get "alt" }}
         <figcaption>
             <div class="caption">{{ . }}</div>

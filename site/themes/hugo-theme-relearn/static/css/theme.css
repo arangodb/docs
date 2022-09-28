@@ -801,7 +801,7 @@ span.nav i{
     top: 50%;
     transform: translateY(-50%);
     white-space: nowrap;
-    width: calc(100% - 5*3.25rem);
+    width: calc(100% - 28.25rem);
 }
 @media screen and (max-width: 47.938em) {
     #body #breadcrumbs {
@@ -1419,4 +1419,12 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 	position: absolute;
 	width: 100px;
 	top: -9999px;
+}
+
+section #servers {
+    display: none;
+}
+
+section #auth {
+    display: none;
 }
