@@ -37,7 +37,8 @@ Also see the video
    The configuration options depend on the tier your organization belongs to.
    For more details about available resources and usage limits, refer to the 
    [Oasis tiers](organizations.html#oasis-tiers) section.
-   {% endhint %}  
+   {% endhint %}
+
 
 ![Oasis New Deployment](images/oasis-new-deployment1.png)
 
