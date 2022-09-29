@@ -224,9 +224,9 @@ until the migration process is fully completed.
    - It waits until all shards are synchronized.
    - The target deployment is switched into default read/write mode.
 
-    {% hint 'info' %}
+{% hint 'info' %}
     The source data cluster remains read-only. You can use the `set-server-mode` 
     subcommand to switch it back to default, if needed.
     In case something goes wrong during the migration, the `stop` command is not
     switching the source data cluster into read-only mode. 
-    {% endhint %}
+{% endhint %}
