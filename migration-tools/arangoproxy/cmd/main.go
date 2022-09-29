@@ -41,8 +41,13 @@ func init() {
 	}
 
 	common.Logger.Print("Cleaning api-docs.json file\n")
-	os.OpenFile("./api-docs.json", os.O_TRUNC, 0644)
-
+	file, err := os.OpenFile("./api-docs.json", os.O_TRUNC|os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		common.Logger.Printf("Cannot clean api-docs: %s\n", err.Error())
+		os.Exit(1)
+	}
+	file.WriteString(internal.SWAGGER_INITIALIZE)
+	file.Close()
 	common.Logger.Print("Setup Done\n---------\n")
 }
 

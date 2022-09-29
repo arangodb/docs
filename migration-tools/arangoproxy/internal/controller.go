@@ -37,7 +37,7 @@ func JSHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	common.Logger.Printf("[js/CONTROLLER] Processing Example %s\n", request.Options.Name)
+	//common.Logger.Printf("[js/CONTROLLER] Processing Example %s\n", request.Options.Name)
 
 	resp := JSService.ExecuteExample(request)
 	response, err := json.Marshal(resp)
@@ -55,7 +55,7 @@ func HTTPExampleHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	common.Logger.Printf("[http-example/CONTROLLER] Processing Example %s\n", request.Options.Name)
+	//common.Logger.Printf("[http-example/CONTROLLER] Processing Example %s\n", request.Options.Name)
 
 	resp := HTTPService.ExecuteExample(request)
 	response, err := json.Marshal(resp)
@@ -90,7 +90,7 @@ func AQLHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	common.Logger.Printf("[aql/CONTROLLER] Processing Example %s\n", request.Options.Name)
+	//common.Logger.Printf("[aql/CONTROLLER] Processing Example %s\n", request.Options.Name)
 
 	resp := AQLService.Execute(request)
 	response, err := json.Marshal(resp)
