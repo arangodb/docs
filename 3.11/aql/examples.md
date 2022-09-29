@@ -5,8 +5,8 @@ title: AQL Query Patterns & Examples
 redirect_from:
   - ../cookbook/aql.html # 3.5 -> 3.5
 ---
-AQL Query Patterns & Examples
-=============================
+AQL Query Patterns and Examples
+===============================
 
 These pages contain some common query patterns with examples. For better
 understandability the query results are also included directly below each query.
