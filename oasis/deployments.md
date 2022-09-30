@@ -33,11 +33,11 @@ Also see the video
 4. Click the __New deployment__ button.
 5. Set up your deployment. The configuration options are described below.
 
-{% hint 'info' %}
+   {% hint 'info' %}
    The configuration options depend on the tier your organization belongs to.
    For more details about available resources and usage limits, refer to the 
    [Oasis tiers](organizations.html#oasis-tiers) section.
-{% endhint %}
+   {% endhint %}
 
 ![Oasis New Deployment](images/oasis-new-deployment1.png)
 

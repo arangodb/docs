@@ -213,20 +213,20 @@ Allowed values are `readonly` or `default`.
 ## Cloud migration workflow for minimal downtime
 
 1. Download and start the `arangosync-migration` tool. The target deployment
-is switched into read-only mode automatically.
+   is switched into read-only mode automatically.
 2. Wait until all shards are in sync. You can use the `status` or the `start`
-command with the same parameters to track that.
+   command with the same parameters to track that.
 3. Optional: when all shards are in-sync, you can switch your applications
-to use the Oasis deployment, but note that it stays into read-only mode
-until the migration process is fully completed.
+   to use the Oasis deployment, but note that it stays into read-only mode
+   until the migration process is fully completed.
 4. Stop the migration using the `stop` subcommand. What happens:
    - The source data cluster is switched into read-only mode.
    - It waits until all shards are synchronized.
    - The target deployment is switched into default read/write mode.
 
-{% hint 'info' %}
-    The source data cluster remains read-only. You can use the `set-server-mode` 
-    subcommand to switch it back to default, if needed.
-    In case something goes wrong during the migration, the `stop` command is not
-    switching the source data cluster into read-only mode. 
-{% endhint %}
+   {% hint 'info' %}
+   The source data cluster remains read-only. You can use the `set-server-mode` 
+   subcommand to switch it back to default, if needed.
+   In case something goes wrong during the migration, the `stop` command is not
+   switching the source data cluster into read-only mode. 
+   {% endhint %}
