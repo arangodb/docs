@@ -228,22 +228,22 @@ For more details about available resources and usage limits, refer to the
 5. In the **Configuration** section, you can do the following:
    - Upgrade the memory size per node. 
    - Modify the CPU per node from General to Low or vice-versa, if made available
-   by the cloud provider.
+     by the cloud provider.
    - Select a different disk size per node. The available ranges for the disk size
-   depend on the selected memory size. To enable automatic disk size scaling, move
-   the slider to a value higher than the current disk size.
+     depend on the selected memory size. To enable automatic disk size scaling, move
+     the slider to a value higher than the current disk size.
    - Change **OneShard** deployments into **Sharded** deployments. To do so,
-   click **Sharded**. In addition to the other configuration options, you can
-   select the number of nodes for your deployment. This can also be modified later on.
+     click **Sharded**. In addition to the other configuration options, you can
+     select the number of nodes for your deployment. This can also be modified later on.
 
    {% hint 'warning' %}
    Notice that you cannot switch from **Sharded** back to **OneShard**.
    {% endhint %}
    
 	- AWS deployments have an additional option that allows you to select the
-   **Disk Performance** either with general settings, or optimised for large
-   and very large data sets. This option is dependent on the selected memory
-   size. For example, larger deployments have optimised settings by default.
+     **Disk Performance** either with general settings, or optimised for large
+     and very large data sets. This option is dependent on the selected memory
+     size. For example, larger deployments have optimised settings by default.
 
    {% hint 'warning' %}
    When upgrading the memory size, disk size, and/or disk performance in AWS deployments,
