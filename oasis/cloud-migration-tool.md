@@ -129,7 +129,7 @@ connection between your local cluster and the Oasis platform.
 If you do not provide them, the migration tool creates self-signed certificates.
 If you wish to provide TLS certificates, use the `arangodb` tool to convert them in
 a suitable format for the migration tool.
-See a detailed guide on how to [create a new certificate/keyfile pair](programs-starter-security.html).
+See a detailed guide on how to [create a new certificate/keyfile pair](../programs-starter-security.html).
 Make sure to specify your publicly available host name, `$MG_HOST` when creating
 the keyfile. 
 
@@ -186,7 +186,7 @@ migration-related processes as soon as possible.
 
 ### Switching the local cluster to read-only mode
 
-The `arangosync-migration set-server-mode` command allows switching [read-only mode](..http/administration-and-monitoring.html#update-whether-or-not-a-server-is-in-read-only-mode)
+The `arangosync-migration set-server-mode` command allows switching [read-only mode](../http/administration-and-monitoring.html#update-whether-or-not-a-server-is-in-read-only-mode)
 for your local cluster on and off.
 
 In a read-only mode, all write operations are going to fail with an error code
