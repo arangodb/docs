@@ -1500,7 +1500,7 @@ SHA256()
 
 `SHA256(text) → hash`
 
-Calculate the SHA256 checksum for `text` and returns it in a hexadecimal
+Calculate the SHA256 checksum for `text` and return it in a hexadecimal
 string representation.
 
 - **text** (string): a string
@@ -1508,21 +1508,21 @@ string representation.
 
 **Examples**
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlSha256
-@EXAMPLE_AQL{aqlSha256}
-  RETURN SHA256("foobar")
-@END_EXAMPLE_AQL
-@endDocuBlock aqlSha256
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSha256
+    @EXAMPLE_AQL{aqlSha256}
+      RETURN SHA256("foobar")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSha256
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 SHA512()
 --------
 
 `SHA512(text) → hash`
 
-Calculate the SHA512 checksum for `text` and returns it in a hexadecimal
+Calculate the SHA512 checksum for `text` and return it in a hexadecimal
 string representation.
 
 - **text** (string): a string
@@ -1530,14 +1530,14 @@ string representation.
 
 **Examples**
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlSha512
-@EXAMPLE_AQL{aqlSha512}
-  RETURN SHA512("foobar")
-@END_EXAMPLE_AQL
-@endDocuBlock aqlSha512
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSha512
+    @EXAMPLE_AQL{aqlSha512}
+      RETURN SHA512("foobar")
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSha512
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 SOUNDEX()
 ---------
