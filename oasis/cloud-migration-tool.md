@@ -8,8 +8,8 @@ description: >-
 {{ page.description }}
 {:class="lead"}
 
-The `arangosync-migration` tool allows you to easily migrate data to the
-cloud while ensuring a smooth transition with minimal downtime.
+The `arangosync-migration` tool allows you to easily move from on-premises to 
+the cloud while ensuring a smooth transition with minimal downtime.
 Start the cloud migration, let the tool do the job and, at the same time,
 keep your local cluster up and running. 
 
@@ -28,11 +28,11 @@ Before getting started, make sure the following prerequisites are in place:
 and sign in. If you don’t have an account yet, sign-up to create one.
 
 - Generate an Oasis API key and API secret. See a detailed guide on 
-[how to create an API key](oasis/api-getting-started.html#creating-an-api-key).
+[how to create an API key](api-getting-started.html#creating-an-api-key).
 
 ### Setting up the target deployment in Oasis
 
-Continue by [creating a new Oasis deployment](oasis/deployments.html#how-to-create-a-new-deployment)
+Continue by [creating a new Oasis deployment](deployments.html#how-to-create-a-new-deployment)
 or choose an existing one.
 
 The target deployment in Oasis requires specific configuration rules to be
@@ -63,16 +63,14 @@ To start the migration process, run the following command:
 ```bash
 arangosync-migration start
 ```
+The `start` command runs some pre-checks. Among other things, it measures
+the disk space which is occupied by your ArangoDB cluster. If you are using the
+same data volume for ArangoDB servers and other data as well, the measurements
+can be incorrect. Provide the `--source.ignore-metrics` option to overcome this.
 
-An optional `--check-only` option can be provided. When specified, you can check
-if your local cluster and target deployment are compatible and if the migration 
-can start. No data is sent to Oasis.
-
-Before the actual migration starts, the `start` command also runs some
-pre-checks. Among other things, it measures the disk space which is occupied
-by your ArangoDB cluster. If you are using the same data volume for ArangoDB
-servers and other data as well, the measurements can be incorrect.
-Provide the `--source.ignore-metrics` option to overcome this.
+You also have the option of doing a `--check-only` without starting the actual
+migration. If specified, this checks if your local cluster and target deployment
+are compatible without sending any data to Oasis.
 
 Once the migration starts, the local cluster enters into monitoring mode and the
 synchronization status is displayed in real-time. If you don't want to see the
@@ -80,7 +78,8 @@ status you can also terminate this process, as the underlying agent process
 continues to work. If something goes wrong, restarting the same command restores
 the replication state.
 
-To restart the migration, use the `stop --abort` command.
+To restart the migration, first `stop` or `stop --abort` the migration. Then,
+start it again using the `start` command.
 Note that restarting works only if you are not using
 auto-generated certificates.
 
@@ -96,7 +95,7 @@ What happens during active migration:
 - The source data cluster remains usable. 
 - The target deployment in Oasis is switched to read-only mode.
 - Your root user password is not copied to the target deployment in Oasis.
-To get your new root password, select the target deployment from the Oasis
+To get your root password, select the target deployment from the Oasis
 Dashboard and go to the **Overview** tab. All other users are fully synchronized.
 
 {% hint 'warning' %}
@@ -128,9 +127,9 @@ export MG_HOST=<your IP or publicly-available hostname here>
 The migration agent HTTPS server uses TLS certificate pairs to ensure a secure
 connection between your local cluster and the Oasis platform.
 If you do not provide them, the migration tool creates self-signed certificates.
-If you can provide TLS certificates, use the `arangodb` tool to convert them in
+If you wish to provide TLS certificates, use the `arangodb` tool to convert them in
 a suitable format for the migration tool.
-See a detailed guide on how to [create a new certificate/keyfile pair](programs-starter-security.html).
+See a detailed guide on how to [create a new certificate/keyfile pair](3.10/programs-starter-security.html).
 Make sure to specify your publicly available host name, `$MG_HOST` when creating
 the keyfile. 
 
@@ -143,10 +142,10 @@ When starting the migration, specify the generated files on the command line:
 ### How long does it take?
 
 The total time required to complete the migration depends on how much data you
-have and how many write operations are executed during the process.
+have and how often write operations are executed during the process.
 
 You can also track the progress by checking the **Migration status** section of
-your target deployment in Oasis.
+your target deployment in Oasis dashboard.
 
 ![Oasis Cloud Migration Progress](images/oasis-migration-agent.png)
 
@@ -155,18 +154,18 @@ your target deployment in Oasis.
 To print the current status of the migration, run the following command:
 
 ```bash
-arangosync-migration status
+./arangosync-migration status --watch \
+  --oasis.api-key=$OASIS_API_KEY \
+  --oasis.api-secret=$OASIS_API_SECRET \
+  --oasis.deployment-id=$OASIS_DEPLOYMENT_ID
 ```
 
 You can also add the `--watch` option to start monitoring the status in real-time.
 
 ### Stopping the migration process
 
-To stop the migration, run the following command:
-
-```bash
-arangosync-migration stop
-```
+The `arangosync-migration stop` command stops the migration and terminates
+the migration agent process.
 
 If replication is running normally, the command waits until all shards are
 in sync. The local cluster is then switched into read-only mode.
@@ -187,17 +186,13 @@ migration-related processes as soon as possible.
 
 ### Switching the local cluster to read-only mode
 
-The following command allows switching [read-only mode](http/administration-and-monitoring.html#update-whether-or-not-a-server-is-in-read-only-mode)
-for your local cluster on and off:
-
-```bash
-arangosync-migration set-server-mode
-```
+The `arangosync-migration set-server-mode` command allows switching [read-only mode](http/administration-and-monitoring.html#update-whether-or-not-a-server-is-in-read-only-mode)
+for your local cluster on and off.
 
 In a read-only mode, all write operations are going to fail with an error code
-of 1004 (ERROR_READ_ONLY).
+of `1004` (ERROR_READ_ONLY).
 Creating or dropping databases and collections are also going to fail with 
-error code 11 (ERROR_FORBIDDEN).
+error code `11` (ERROR_FORBIDDEN).
 
 ```bash
 ./arangosync-migration set-server-mode \
@@ -225,7 +220,8 @@ Allowed values are `readonly` or `default`.
    - The target deployment is switched into default read/write mode.
 
    {% hint 'info' %}
-   The source data cluster remains read-only. You can use the `set-server-mode` 
+   After finishing the migration, the source data cluster will remain read-only. 
+   You can use the `set-server-mode` 
    subcommand to switch it back to default, if needed.
    In case something goes wrong during the migration, the `stop` command is not
    switching the source data cluster into read-only mode. 
