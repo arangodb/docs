@@ -4,13 +4,24 @@
 <link rel="canonical" href="{{ page.canonical | absolute_url }}">
 {%- assign navvar = page.dir | navvar %}
 <title>{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation</title>
-<meta itemprop="description" name="description" content="{% if page.description %}{{ page.description | truncate: 160 }}{% else %}{{ site.description | truncate: 160  }}{% endif %}" />
-<meta name="robots" content="{% if page.version.tag == "devel" or site.data.deprecations contains page.version.version %}noindex, nofollow{% else %}index, follow{% endif %}" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta property="og:url" content="{{ page.canonical | absolute_url }}" />
-<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content="{% if page.description %}{{ page.description | truncate: 200 }}{% else %}{{ site.description | truncate: 200  }}{% endif %}" />
+<meta itemprop="description" name="description" content="{% if page.description %}{{ page.description | truncate: 160 | xml_escape }}{% else %}{{ site.description | truncate: 160 | xml_escape }}{% endif %}">
+<meta name="robots" content="{% if page.version.tag == "devel" or site.data.deprecations contains page.version.version %}noindex, nofollow{% else %}index, follow{% endif %}">
+<meta property="og:url" content="{{ page.canonical | absolute_url }}">
+<meta property="og:title" content="{% if page.title %}{{ page.title | xml_escape }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation">
+<meta property="og:type" content="website">
+<meta property="og:description" content="{% if page.description %}{{ page.description | truncate: 200 | xml_escape }}{% else %}{{ site.description | truncate: 200 | xml_escape }}{% endif %}">
+
+<link rel="shortcut icon" href="https://www.arangodb.com/wp-content/uploads/2018/07/www.arangodb.com-favicon.png">
+<link rel="stylesheet" href="{{ "/styles/gitbook/style.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/styles/gitbook/highlight-website.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/styles/gitbook/fontsettings-website.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/styles/website.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/styles/header.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/styles/navbar.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/styles/site.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/styles/pygments-arango.css" | relative_url }}">
+<script src="{{ "/js/jquery-3.4.0.min.js" | relative_url }}"></script>
+<script src="{{ "/js/site.js" | relative_url }}"></script>
 
 {%- if jekyll.environment != 'netlify' -%}
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-81053435-1"></script>
@@ -59,11 +70,11 @@
   twq('track','PageView');
 </script>
 
-<script type="text/javascript">
+<script>
   _linkedin_partner_id = "499017";
   window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
   window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-  </script><script type="text/javascript">
+  </script><script>
   (function(){var s = document.getElementsByTagName("script")[0];
   var b = document.createElement("script");
   b.type = "text/javascript";b.async = true;
@@ -83,15 +94,3 @@
   })();
 </script>
 {%- endif %}
-
-<link rel="shortcut icon" href="https://www.arangodb.com/wp-content/uploads/2018/07/www.arangodb.com-favicon.png">
-<link rel="stylesheet" href="{{ "/styles/gitbook/style.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/styles/gitbook/highlight-website.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/styles/gitbook/fontsettings-website.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/styles/website.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/styles/header.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/styles/navbar.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/styles/site.css" | relative_url }}">
-<link rel="stylesheet" href="{{ "/styles/pygments-arango.css" | relative_url }}">
-<script src="{{ "/js/jquery-3.4.0.min.js" | relative_url }}"></script>
-<script src="{{ "/js/site.js" | relative_url }}"></script>
