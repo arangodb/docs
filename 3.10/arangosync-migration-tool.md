@@ -128,7 +128,7 @@ export MG_HOST=<your IP or publicly-available hostname here>
 The migration agent HTTPS server uses TLS certificate pairs to ensure a secure
 connection between your local cluster and the Oasis platform.
 If you do not provide them, the migration tool creates self-signed certificates.
-If you can provide TLS certificates, use the `arangodb` tool to convert them in
+If you wish to provide TLS certificates, use the `arangodb` tool to convert them in
 a suitable format for the migration tool.
 See a detailed guide on how to [create a new certificate/keyfile pair](programs-starter-security.html).
 Make sure to specify your publicly available host name, `$MG_HOST` when creating
@@ -143,10 +143,10 @@ When starting the migration, specify the generated files on the command line:
 ### How long does it take?
 
 The total time required to complete the migration depends on how much data you
-have and how many write operations are executed during the process.
+have and how often write operations are executed during the process.
 
 You can also track the progress by checking the **Migration status** section of
-your target deployment in Oasis.
+your target deployment in Oasis dashboard.
 
 ![Oasis Cloud Migration Progress](images/oasis-migration-agent.png)
 
@@ -195,9 +195,9 @@ arangosync-migration set-server-mode
 ```
 
 In a read-only mode, all write operations are going to fail with an error code
-of 1004 (ERROR_READ_ONLY).
+of `1004` (ERROR_READ_ONLY).
 Creating or dropping databases and collections are also going to fail with 
-error code 11 (ERROR_FORBIDDEN).
+error code `11` (ERROR_FORBIDDEN).
 
 ```bash
 ./arangosync-migration set-server-mode \
