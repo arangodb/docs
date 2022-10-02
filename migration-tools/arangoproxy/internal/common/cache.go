@@ -8,13 +8,14 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 )
 
 // Check in the examples.txt hashes file if this example's hash is the same as before
 func (service Service) IsCached(request Example) (bool, error) {
 	hashName := fmt.Sprintf("%s_%s_%s", request.Options.Name, request.Options.Release, request.Options.Version)
-	hashFile, err := os.ReadFile("./cache/requests.txt")
+	hashFile, err := os.ReadFile(config.Conf.Cache.RequestsFile)
 	if err != nil {
 		fmt.Printf("Error opening file %s", err.Error())
 		return false, err
@@ -27,7 +28,7 @@ func (service Service) IsCached(request Example) (bool, error) {
 		return true, nil // Example has not been modified
 	}
 
-	f, err := os.OpenFile("./cache/requests.txt",
+	f, err := os.OpenFile(config.Conf.Cache.RequestsFile,
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		Logger.Printf("[IsCached] Error Opening cache file: %s\n", err.Error())
@@ -46,7 +47,7 @@ func (service Service) IsCached(request Example) (bool, error) {
 
 func (service Service) GetCachedExampleResponse(request Example) (ExampleResponse, error) {
 	hashName := fmt.Sprintf("%s_%s_%s", request.Options.Name, request.Options.Release, request.Options.Version)
-	hashFile, err := os.ReadFile("./cache/responses.txt")
+	hashFile, err := os.ReadFile(config.Conf.Cache.ResponsesFile)
 	if err != nil {
 		Logger.Printf("[GetCachedExampleResponse] Error opening cache file: %s\n", err.Error())
 		return ExampleResponse{}, err
@@ -68,7 +69,7 @@ func (service Service) SaveCachedExampleResponse(ExampleResponse ExampleResponse
 	hashName := fmt.Sprintf("%s_%s_%s", ExampleResponse.Options.Name, ExampleResponse.Options.Release, ExampleResponse.Options.Version)
 	exampleHash, err := utils.EncodeToBase64(ExampleResponse)
 
-	f, err := os.OpenFile("./cache/responses.txt",
+	f, err := os.OpenFile(config.Conf.Cache.ResponsesFile,
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Println(err)

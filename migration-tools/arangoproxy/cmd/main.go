@@ -2,33 +2,35 @@ package main
 
 import (
 	"flag"
-	"io"
-	"log"
+	"fmt"
 	"os"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/webui"
 )
 
-var listener string
-var Qualcosa string
-
 func init() {
-	logFile, _ := os.OpenFile("log.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
-	mw := io.MultiWriter(os.Stdout, logFile)
-	common.Logger = log.New(mw, "", log.Ldate|log.Ltime)
+	var configFile string
+	var help, cleanCache bool
+
+	flag.StringVar(&configFile, "config", "./configs/local.json", "path of config file")
+	flag.BoolVar(&help, "help", false, "Display help usage")
+	flag.BoolVar(&cleanCache, "no-cache", false, "Reset cache")
+	flag.Parse()
+
+	err := config.LoadConfig(configFile)
+	if err != nil {
+		fmt.Printf("Error loading config, aborting %s", err.Error())
+		os.Exit(1)
+	}
+
+	internal.InitLog(config.Conf.Log)
 
 	common.Logger.Println(startupBanner)
 	common.Logger.Print("./arangoproxy -help for help usage\n\n")
 	common.Logger.Print("Init Setup\n")
-
-	var help, cleanCache bool
-
-	flag.StringVar(&listener, "url", ":8080", "URL of webserver")
-	flag.BoolVar(&help, "help", false, "Display help usage")
-	flag.BoolVar(&cleanCache, "no-cache", false, "Reset cache")
-	flag.Parse()
 
 	if help {
 		common.Logger.Printf("Usage: ...\n")
@@ -37,8 +39,7 @@ func init() {
 
 	if cleanCache {
 		common.Logger.Printf("Deleting Cache\n")
-		os.OpenFile("./cache/requests.txt", os.O_TRUNC, 0644)
-		os.OpenFile("./cache/responses.txt", os.O_TRUNC, 0644)
+		internal.CleanCache()
 	}
 
 	webui.InitSwaggerFile()
@@ -47,9 +48,9 @@ func init() {
 
 func main() {
 	common.Logger.Print("Available endpoints:\n - /js\n - /aql\n - /http-spec\n - /http-example\n")
-	common.Logger.Printf("Starting Server at %s\n", listener)
+	common.Logger.Printf("Starting Server at %s\n", config.Conf.WebServer)
 
-	internal.StartController(listener)
+	internal.StartController(config.Conf.WebServer)
 }
 
 var startupBanner = `

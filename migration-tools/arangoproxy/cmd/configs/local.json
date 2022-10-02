@@ -1,16 +1,18 @@
 {
-    "servers": [
+    "webserver": ":8080",
+    "logFile": "log.txt",
+    "openapi": {
+        "apiDocsFile": "./openapi/api-docs.json",
+        "componentsFile": "./openapi/components.yaml"
+    },
+    "cache": {
+        "requestsFile": "./cache/requests.txt",
+        "responsesFile": "./cache/responses.txt"
+    },
+    "repositories": [
         {
-            "stable_3.10": {
-                "url": "http:...",
-                "authorization": "..."
-            },
-            "nightly_3.10": {
-                "url": "http:...",
-                "authorization": "..."
-            }
+            "name": "local_3.10",
+            "url": "http://localhost:8529"
         }
-    ],
-    "cache": "./cache",
-    "log": "log.txt"
+    ]
 }

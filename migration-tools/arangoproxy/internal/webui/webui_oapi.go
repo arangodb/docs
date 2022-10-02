@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 	"github.com/dlclark/regexp2"
 	"gopkg.in/yaml.v3"
@@ -17,7 +18,7 @@ import (
 func InitSwaggerFile() {
 	common.Logger.Print("Cleaning api-docs.json file\n")
 
-	buf, err := ioutil.ReadFile("./openapi/components.yaml")
+	buf, err := ioutil.ReadFile(config.Conf.OpenApi.ComponentsFile)
 	if err != nil {
 		common.Logger.Printf("Cannot read components file s: %s\n", err.Error())
 		os.Exit(1)
@@ -43,7 +44,7 @@ func InitSwaggerFile() {
 		os.Exit(1)
 	}
 
-	file, err := os.OpenFile("./openapi/api-docs.json", os.O_TRUNC|os.O_APPEND|os.O_WRONLY, 0644)
+	file, err := os.OpenFile(config.Conf.OpenApi.ApiDocsFile, os.O_TRUNC|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		common.Logger.Printf("Cannot clean api-docs: %s\n", err.Error())
 		os.Exit(1)
@@ -55,7 +56,7 @@ func InitSwaggerFile() {
 func Write(spec map[string]interface{}, WriteWG *sync.WaitGroup) error {
 	defer WriteWG.Done()
 
-	apiDocsMap, err := utils.ReadFileAsMap("./api-docs.json")
+	apiDocsMap, err := utils.ReadFileAsMap(config.Conf.OpenApi.ApiDocsFile)
 	if err != nil {
 		common.Logger.Printf("[WEBUI-Write] Error read file as map: %s\n", err.Error())
 
@@ -79,7 +80,7 @@ func Write(spec map[string]interface{}, WriteWG *sync.WaitGroup) error {
 }
 
 func WriteAPI(apiMap map[string]interface{}) error {
-	apiFile, err := os.OpenFile("./api-docs.json", os.O_WRONLY|os.O_APPEND|os.O_TRUNC, 0644)
+	apiFile, err := os.OpenFile(config.Conf.OpenApi.ApiDocsFile, os.O_WRONLY|os.O_APPEND|os.O_TRUNC, 0644)
 	defer apiFile.Close()
 	jsonEndpoint, err := json.Marshal(apiMap)
 	if err != nil {

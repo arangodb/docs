@@ -185,8 +185,6 @@ def processHTTPDocuBlock(docuBlock):
             traceback.print_exc()
             exit(1)
 
-    print(f"COMPONENTS {components}")
-
     yml = render_yaml(newBlock)
 
     exampleCodeBlocks = ""
