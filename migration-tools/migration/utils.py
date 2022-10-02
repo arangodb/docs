@@ -1,5 +1,7 @@
 import re
 
+## TODO: These functions are horrible, refactor with cleaner code
+
 def set_page_description(page, buffer, frontMatter):
     paragraphDescRegex = re.search(r"(?<=\n\n)[\w\s\W]+(?={:class=\"lead\"})", buffer)
     if paragraphDescRegex:
@@ -11,7 +13,7 @@ def set_page_description(page, buffer, frontMatter):
             page.frontMatter.description = re.search(r"(?<=description: )(.*?)((?=\n\w)|(?=---))", buffer, re.MULTILINE | re.DOTALL).group(0)
 
 def migrate_hints(paragraph):
-    #Hints
+    #Hints TODO: Replace this horrible regex with the lazy capture
     hintRegex = re.findall(r"{% hint .* %}[\w\n\s\?\'\\\&\$\,\{\}\_\<\>\"\.\[\]\-\/\(\)\#\:\!\=\*\`\…]*{% endhint %}", paragraph)
     for hint in hintRegex:
         hintSplit = hint.split("\n")
@@ -58,7 +60,6 @@ def migrate_hrefs(paragraph):
         if href.startswith("!"):
             imgName = re.search(r"(?<=\().*(?=\))", href).group(0)
             newImgName = "images/"+ imgName.split("/")[len(imgName.split("/"))-1]
-            print(newImgName)
             styleRegex = re.search(r"(?<={:style=\").*(?=\"})", href)
             if styleRegex:
                 newImgName = newImgName + "?"

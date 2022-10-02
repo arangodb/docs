@@ -3,39 +3,62 @@ package webui
 import (
 	"encoding/json"
 	"errors"
+	"io/ioutil"
 	"os"
 	"strings"
+	"sync"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 	"github.com/dlclark/regexp2"
+	"gopkg.in/yaml.v3"
 )
 
-func WriteX(spec map[string]interface{}) error {
-	apiDocs, err := os.OpenFile("./api-docs.json", os.O_APPEND|os.O_WRONLY|os.O_TRUNC, os.ModeAppend)
+func InitSwaggerFile() {
+	common.Logger.Print("Cleaning api-docs.json file\n")
+
+	buf, err := ioutil.ReadFile("./openapi/components.yaml")
 	if err != nil {
-		common.Logger.Printf("[WEBUI] Error Opening api docs file: %s\n", err.Error())
-		return err
+		common.Logger.Printf("Cannot read components file s: %s\n", err.Error())
+		os.Exit(1)
 	}
 
-	endpoint := spec["paths"]
-	jsonEndpoint, err := json.Marshal(endpoint)
+	components := make(map[string]interface{})
+	err = yaml.Unmarshal(buf, &components)
 	if err != nil {
-		common.Logger.Printf("[WEBUI] Error marshalling endpoint: %s\n", err.Error())
-		return err
+		common.Logger.Printf("Cannot unmarshal components file: %s\n", err.Error())
+		os.Exit(1)
 	}
-	modifiedEndpoint := strings.TrimPrefix(string(jsonEndpoint), "{")
-	_, err = apiDocs.WriteString(modifiedEndpoint + ",")
+
+	apiDocsMap := make(map[string]interface{})
+	err = json.Unmarshal([]byte(SWAGGER_INITIALIZE), &apiDocsMap)
 	if err != nil {
-		common.Logger.Printf("[WEBUI] Error writing to file: %s\n", err.Error())
+		common.Logger.Printf("[WEBUI-Write] Error read file as map: %s\n", err.Error())
 	}
-	return err
+
+	apiDocsMap["definitions"] = components["schemas"].(map[string]interface{})
+	apiDocsJson, err := json.Marshal(apiDocsMap)
+	if err != nil {
+		common.Logger.Printf("Cannot marshal apidocs file: %s\n", err.Error())
+		os.Exit(1)
+	}
+
+	file, err := os.OpenFile("./openapi/api-docs.json", os.O_TRUNC|os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		common.Logger.Printf("Cannot clean api-docs: %s\n", err.Error())
+		os.Exit(1)
+	}
+	file.WriteString(string(apiDocsJson))
+	file.Close()
 }
 
-func Write(spec map[string]interface{}) error {
+func Write(spec map[string]interface{}, WriteWG *sync.WaitGroup) error {
+	defer WriteWG.Done()
+
 	apiDocsMap, err := utils.ReadFileAsMap("./api-docs.json")
 	if err != nil {
 		common.Logger.Printf("[WEBUI-Write] Error read file as map: %s\n", err.Error())
+
 		return err
 	}
 
@@ -45,7 +68,6 @@ func Write(spec map[string]interface{}) error {
 	}
 
 	if existingPath, ok := apiDocsMap["paths"].(map[string]interface{})[path]; ok {
-		common.Logger.Printf("EXISTING PATH %s\n", existingPath)
 		existingPath.(map[string]interface{})[method] = make(map[string]interface{})
 		existingPath.(map[string]interface{})[method] = spec["paths"].(map[string]interface{})[path].(map[string]interface{})[method]
 	} else {
@@ -58,6 +80,7 @@ func Write(spec map[string]interface{}) error {
 
 func WriteAPI(apiMap map[string]interface{}) error {
 	apiFile, err := os.OpenFile("./api-docs.json", os.O_WRONLY|os.O_APPEND|os.O_TRUNC, 0644)
+	defer apiFile.Close()
 	jsonEndpoint, err := json.Marshal(apiMap)
 	if err != nil {
 		common.Logger.Printf("[WEBUI] Error marshalling endpoint: %s\n", err.Error())
@@ -67,9 +90,11 @@ func WriteAPI(apiMap map[string]interface{}) error {
 	_, err = apiFile.WriteString(string(jsonEndpoint))
 	if err != nil {
 		common.Logger.Printf("[WEBUI] Error writing to file: %s\n", err.Error())
+		return err
 	}
 
-	return err
+	common.Logger.Printf("[WRITEAPI] Write ok\n")
+	return nil
 }
 
 func getApiPathAndMethod(spec map[string]interface{}) (path string, method string, err error) {
@@ -90,7 +115,7 @@ func getApiPathAndMethod(spec map[string]interface{}) (path string, method strin
 	method = strings.Trim(methodMatch.String(), "\"")
 	common.Logger.Printf("[METHOD] %s\n", method)
 
-	pathRe := regexp2.MustCompile("(?<=paths\":{\").*(?=\":{\""+method+"\")", 0)
+	pathRe := regexp2.MustCompile("(?<=paths\":{\").*((?=\":{\""+method+"\")|(?=\":{\"parameters\"))", 0)
 	pathMatch, err := pathRe.FindStringMatch(string(specJson))
 	if pathMatch == nil {
 		err = errors.New("cannot find path")

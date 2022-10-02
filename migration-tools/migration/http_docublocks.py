@@ -1,13 +1,13 @@
 import re
 import json
 import yaml
+import traceback
+from globals import *
 
-# HTTP DocuBlocks
-apiDocsFile = "/home/dan/work/projects/old-arango-docs/docs/3.10/generated/allComments.txt"
-blocksFileLocations = {}
+#TODO: Same as inline_docublocks TODO about yaml lib
 
 def initBlocksFileLocations():
-    with open(apiDocsFile, 'r') as apiDocs:
+    with open(APIDOCS_FILE, 'r') as apiDocs:
         data = apiDocs.read()
 
         docuBlocks = re.findall(r"<!-- filename: .* -->\n@startDocuBlock .*", data)
@@ -153,12 +153,39 @@ def processHTTPDocuBlock(docuBlock):
 
                 relatedResponseBlock["responseBody"].append(replyBlock)
 
+            if block.startswith("STRUCT"):
+                argsRe = re.search(r"(?<={).*(?=})", block).group(0)
+                args = argsRe.split(",") 
+                
+                description = "".join(block.split("\n")[1:])
+                structName, paramName, paramType, paramRequired, paramSubtype = args[1], args[0], args[2], args[3], args[4]
 
-        
+                struct = {
+                    "name": structName,
+                    "property": {
+                        paramName: {
+                            "type": paramType,
+                            "required": "true" if paramRequired == "required" else "false"},
+                            "format": paramSubtype,
+                            "description": description,
+                        }
+                    }
+                
+                if structName in components["schemas"]:
+                    components["schemas"][structName]["properties"].append(struct["property"])
+                    continue
+
+                components["schemas"][structName] = {
+                    "type": "object",
+                     "properties": [struct["property"]]
+                     }
     
         except Exception as ex:
             print(f"Exception occurred for block {block}\n{ex}")
+            traceback.print_exc()
             exit(1)
+
+    print(f"COMPONENTS {components}")
 
     yml = render_yaml(newBlock)
 
@@ -284,7 +311,35 @@ explain: {example["options"]["explain"] if "explain" in example["options"] else 
     return re.sub(r"^\s*$\n", '', res, 0, re.MULTILINE | re.DOTALL)
 
 
+def write_components_to_file():
+    components["schemas"]["ARANGO_ERROR"] = {
+			"description": "An ArangoDB Error code",
+			"type": "integer"
+    }
 
+    components["schemas"]["ArangoError"] = {
+			"description": "the arangodb error type",
+			"properties": {
+				"code": {
+					"description": "the HTTP Status code",
+					"type": "integer"
+				},
+				"error": {
+					"description": "boolean flag to indicate whether an error occurred (*true* in this case)",
+					"type": "boolean"
+				},
+				"errorMessage": {
+					"description": "a descriptive error message describing what happened, may contain additional information",
+					"type": "string"
+				},
+				"errorNum": {
+					"description": "the ARANGO_ERROR code",
+					"type": "integer"
+				}
+			}
+    }
+    with open(OAPI_COMPONENTS_FILE, 'w') as outfile:
+        yaml.dump(components, outfile, default_flow_style=False)
 
 if __name__ == "__main__":
     initBlocksFileLocations()

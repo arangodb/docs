@@ -8,9 +8,9 @@ import traceback
 from utils import *
 from http_docublocks import *
 from inline_docublocks import *
+import argparse
+from globals import *
 
-oldToolchain = "/home/dan/work/projects/old-arango-docs/docs"
-newToolchain = "/home/dan/work/projects/arangodb/docs/site"
 
 frontMatterCapture = r"(?<=---\n)(.*?)(?=---)"
 widgetRegex = r"{% .* %}[\n]+.*[\n]+{% .* %}"
@@ -21,7 +21,7 @@ currentWeight = 0
 
 def structure_migration_new(label, document, manual):
 	if document is None:
-		directoryTree = open(f"{oldToolchain}/_data/3.10-{manual}.yml")
+		directoryTree = open(f"{OLD_TOOLCHAIN}/_data/3.10-{manual}.yml")
 		document = yaml.full_load(directoryTree)
 
 		if manual != "manual":
@@ -62,8 +62,8 @@ def create_chapter(item, manual):
 	if manual != "manual":
 		label = f"core-topics/{manual}/{label}"
 
-	filepath = f'{newToolchain}/content/{label}/_index.md'
-	Path(f'{newToolchain}/content/{label}').mkdir(parents=True, exist_ok=True)
+	filepath = f'{NEW_TOOLCHAIN}/content/{label}/_index.md'
+	Path(f'{NEW_TOOLCHAIN}/content/{label}').mkdir(parents=True, exist_ok=True)
 
 	labelPage = Page()
 	labelPage.frontMatter.title = item["subtitle"]
@@ -83,10 +83,10 @@ def create_index(label, item, extendedSection):
 	folderName = item["text"].lower().replace(" ", "-").replace("/", "")
 	label = label + "/" + folderName
 
-	Path(f'{newToolchain}/content/{label}').mkdir(parents=True, exist_ok=True)
+	Path(f'{NEW_TOOLCHAIN}/content/{label}').mkdir(parents=True, exist_ok=True)
 
-	indexPath = f'{newToolchain}/content/{label}/_index.md'
-	oldFilePath = f'{oldToolchain}/3.10/{extendedSection}{oldFileName}'
+	indexPath = f'{NEW_TOOLCHAIN}/content/{label}/_index.md'
+	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'
 	shutil.copyfile(oldFilePath, indexPath)
 	infos[indexPath] = {
 		"title": f'\'{item["text"]}\'' if '@' in item["text"] else item["text"],
@@ -97,8 +97,8 @@ def create_index(label, item, extendedSection):
 
 def create_files_new(label, item, extendedSection):
 	oldFileName = item["href"].replace(".html", ".md")
-	oldFilePath = f'{oldToolchain}/3.10/{extendedSection}{oldFileName}'.replace("//", "/")
-	filePath = f'{newToolchain}/content/{label}/{oldFileName}'
+	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'.replace("//", "/")
+	filePath = f'{NEW_TOOLCHAIN}/content/{label}/{oldFileName}'
 
 	try:
 		shutil.copyfile(oldFilePath, filePath)
@@ -118,7 +118,7 @@ def create_files_new(label, item, extendedSection):
 def processFiles():
 	print(f"----- STARTING CONTENT MIGRATION")
 	#print(menu)
-	for root, dirs, files in os.walk(f"{newToolchain}/content", topdown=True):
+	for root, dirs, files in os.walk(f"{NEW_TOOLCHAIN}/content", topdown=True):
 		for file in files:
 			processFile(f"{root}/{file}")
 	print("------ CONTENT MIGRATION END")
@@ -202,15 +202,15 @@ def _processChapters(page, paragraph):
 
 def migrate_media():
 	print("----- MIGRATING MEDIA")
-	for root, dirs, files in os.walk(f"{oldToolchain}/3.10/images", topdown=True):
+	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
-			shutil.copyfile(f"{root}/{file}", f"{newToolchain}/assets/images/{file}")
+			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
 
-	for root, dirs, files in os.walk(f"{oldToolchain}/3.10/oasis/images", topdown=True):
+	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/oasis/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
-			shutil.copyfile(f"{root}/{file}", f"{newToolchain}/assets/images/{file}")
+			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
 	print("----- END MEDIA MIGRATION")
 
 class Page():
@@ -238,7 +238,6 @@ class FrontMatter():
 def get_weight(weight):
 	global currentWeight
 	currentWeight += 5
-	print(currentWeight)
 	return currentWeight
 
 if __name__ == "__main__":
@@ -251,6 +250,7 @@ if __name__ == "__main__":
 		structure_migration_new('core-topics/drivers', None, "drivers")
 		initBlocksFileLocations()
 		processFiles()
+		write_components_to_file()
 		#migrate_media()
 	except Exception as ex:
 		print(traceback.format_exc())

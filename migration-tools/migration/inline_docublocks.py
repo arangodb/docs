@@ -1,5 +1,9 @@
 import re
 
+
+#TODO: Using yaml lib, is it possible to convert dicts into yaml without formatting those horrible strings by hand?
+
+
 def migrateInlineDocuBlocks(paragraph):
     paragraph = re.sub(r"{%.*arangoshexample.* %}", '', paragraph, 0)
     paragraph = re.sub(r"{%.*aqlexample.* %}", '', paragraph, 0)

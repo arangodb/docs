@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"sync"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/aql"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
@@ -28,6 +29,8 @@ var (
 	JSService   = js.JSService{}
 	HTTPService = httpapi.HTTPService{}
 	AQLService  = aql.AQLService{}
+
+	APIWriteWG = sync.WaitGroup{} // WaitGroup is needed for concurrent writing on the api-docs.json being the HTTPSpecHandler multiplexed
 )
 
 func JSHandler(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +82,9 @@ func HTTPSpecHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		common.Logger.Printf("[http-spec/CONTROLLER] Error Marshalling Response: %s\n", err.Error())
 	}
-	webui.Write(response.ApiSpec)
+	APIWriteWG.Wait()
+	APIWriteWG.Add(1)
+	webui.Write(response.ApiSpec, &APIWriteWG)
 	w.Write(jsonResponse)
 }
 

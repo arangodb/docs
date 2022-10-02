@@ -8,6 +8,7 @@ import (
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/webui"
 )
 
 var listener string
@@ -40,14 +41,7 @@ func init() {
 		os.OpenFile("./cache/responses.txt", os.O_TRUNC, 0644)
 	}
 
-	common.Logger.Print("Cleaning api-docs.json file\n")
-	file, err := os.OpenFile("./api-docs.json", os.O_TRUNC|os.O_APPEND|os.O_WRONLY, 0644)
-	if err != nil {
-		common.Logger.Printf("Cannot clean api-docs: %s\n", err.Error())
-		os.Exit(1)
-	}
-	file.WriteString(internal.SWAGGER_INITIALIZE)
-	file.Close()
+	webui.InitSwaggerFile()
 	common.Logger.Print("Setup Done\n---------\n")
 }
 
