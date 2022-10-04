@@ -8,6 +8,11 @@ description: >-
 {{ page.description }}
 {:class="lead"}
 
+{% hint 'info' %}
+This documentation describes the preview version of the Cloud Migration tool
+and is subject to change.
+{% endhint %}
+
 The `arangosync-migration` tool allows you to easily move from on-premises to 
 the cloud while ensuring a smooth transition with minimal downtime.
 Start the cloud migration, let the tool do the job and, at the same time,
@@ -20,6 +25,30 @@ Some of the key benefits of the cloud migration tool include:
 - Get access to what a cloud-based fully managed service has to offer: 
 high availability and reliability, elastic scalability, and much more.
 
+## Downloading the tool
+
+The `arangosync-migration` tool is available to download for the following
+operating systems:
+
+**Linux**
+- [AMD64 (x86_64) architecture](https://download.arangodb.com/arangosync-migration/linux/amd64/arangosync-migration){:target="_blank"}
+- [ARM64 (AArch64) architecture](https://download.arangodb.com/arangosync-migration/linux/arm64/arangosync-migration){:target="_blank"}
+
+**macOS / Darwin**
+- [AMD64 (x86_64) architecture](https://download.arangodb.com/arangosync-migration/darwin/amd64/arangosync-migration){:target="_blank"}
+- [ARM64 (AArch64) architecture](https://download.arangodb.com/arangosync-migration/darwin/arm64/arangosync-migration){:target="_blank"}
+
+**Windows**
+- [AMD64 (x86_64) architecture](https://download.arangodb.com/arangosync-migration/windows/amd64/arangosync-migration.exe){:target="_blank"}
+- [ARM64 (AArch64) architecture](https://download.arangodb.com/arangosync-migration/windows/arm64/arangosync-migration.exe){:target="_blank"}
+
+For macOs as well as other Unix-based operating systems, run the following 
+command to make sure you can execute the binary:
+
+```bash
+chmod 755 ./arangosync-migration
+```
+
 ## Prerequisites 
 
 Before getting started, make sure the following prerequisites are in place:
@@ -29,6 +58,14 @@ and sign in. If you don’t have an account yet, sign-up to create one.
 
 - Generate an Oasis API key and API secret. See a detailed guide on 
 [how to create an API key](api-getting-started.html#creating-an-api-key).
+
+- Your on-premises deployment should be able to communicate with the Oasis
+platform. Check if the host is available and your firewall is not blocking
+port `8629`.  
+
+{% hint 'info' %}
+The cloud migration tool is only available for clusters.
+{% endhint %}
 
 ### Setting up the target deployment in Oasis
 
@@ -44,8 +81,12 @@ the DB-Servers count, and disk space.
 - **Deployment region and cloud provider**: Choose the closest region to your
 data cluster. This factor can speed up your migration to the cloud.
 
-After setting up your Oasis deployment, wait for a few minutes to become 
+After setting up your Oasis deployment, wait for a few minutes for it to become
 fully operational.
+
+{% hint 'info' %}
+Note that Developer mode deployments are not supported.
+{% endhint %}
 
 ## Running the migration tool
 
@@ -89,9 +130,9 @@ to the target deployment in Oasis. All data that has previously existed in the
 target deployment will be lost.
 {% endhint %}
 
-### During the migration...
+### During the migration
 
-What happens during active migration:
+The following takes place during an active migration:
 - The source data cluster remains usable. 
 - The target deployment in Oasis is switched to read-only mode.
 - Your root user password is not copied to the target deployment in Oasis.
@@ -100,7 +141,7 @@ Dashboard and go to the **Overview** tab. All other users are fully synchronized
 
 {% hint 'warning' %}
 The migration tool increases the CPU and memory usage of the server you are
-running on. Depending on your ArangoDB usage pattern, it may take a lot of CPU
+running it on. Depending on your ArangoDB usage pattern, it may take a lot of CPU
 to handle the replication. You can stop the migration process anytime
 if you see any problems.
 {% endhint %}
@@ -130,10 +171,10 @@ If you do not provide them, the migration tool creates self-signed certificates.
 If you wish to provide TLS certificates, use the `arangodb` tool to convert them in
 a suitable format for the migration tool.
 See a detailed guide on how to [create a new certificate/keyfile pair](../programs-starter-security.html).
-Make sure to specify your publicly available host name, `$MG_HOST` when creating
+Make sure to specify your publicly available host name, `$MG_HOST`, when creating
 the keyfile. 
 
-When starting the migration, specify the generated files on the command line:
+When starting the migration, specify the generated files in the command line:
 
 ```bash
 --agent.cacert=tls.crt --agent.keyfile=tls.keyfile --agent.client-auth-cacert=client-auth-ca.crt --agent.client-auth-keyfile=client-auth.keyfile
@@ -180,7 +221,7 @@ read-only mode.
   --oasis.deployment-id=$OASIS_DEPLOYMENT_ID
 ```
 
-An optional `--abort` option is supported. If specified, the `stop` command 
+The additional `--abort` option is supported. If specified, the `stop` command 
 will not check anymore if both deployments are in-sync and stops all
 migration-related processes as soon as possible.
 
@@ -214,7 +255,7 @@ Allowed values are `readonly` or `default`.
 3. Optional: when all shards are in-sync, you can switch your applications
    to use the Oasis deployment, but note that it stays into read-only mode
    until the migration process is fully completed.
-4. Stop the migration using the `stop` subcommand. What happens:
+4. Stop the migration using the `stop` subcommand. The following steps are executed:
    - The source data cluster is switched into read-only mode.
    - It waits until all shards are synchronized.
    - The target deployment is switched into default read/write mode.
@@ -223,6 +264,6 @@ Allowed values are `readonly` or `default`.
    After finishing the migration, the source data cluster will remain read-only. 
    You can use the `set-server-mode` 
    subcommand to switch it back to default, if needed.
-   In case something goes wrong during the migration, the `stop` command is not
-   switching the source data cluster into read-only mode. 
+   If something goes wrong during the migration, the `stop` command doesn't
+   switch the source data cluster into read-only mode. 
    {% endhint %}
