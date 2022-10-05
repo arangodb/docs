@@ -6,11 +6,11 @@ import (
 )
 
 type Config struct {
-	WebServer    string       `json:"webserver"`
-	Repositories []Repository `json:"repositories"`
-	Cache        CacheConfig  `json:"cache"`
-	Log          string       `json:"logFile"`
-	OpenApi      OpenApi      `json:"openapi"`
+	WebServer    string       `json:"webserver"`    // Arangoproxy url+port
+	Repositories []Repository `json:"repositories"` // ArangoDB instances
+	Cache        CacheConfig  `json:"cache"`        // Cache configuration
+	Log          string       `json:"logFile"`      // Logfile
+	OpenApi      OpenApi      `json:"openapi"`      // OpenApi files configuration
 }
 
 var Conf Config
@@ -26,19 +26,20 @@ func LoadConfig(file string) error {
 }
 
 type Repository struct {
-	Name           string           `json:"name"`
-	Url            string           `json:"url"`
-	Authentication []Authentication `json:"authentications,omitempty"`
+	Type           string           `json:"type"` // ArangoDB instance type: nightly, release, stable ....
+	Version        string           `json:"version"`
+	Url            string           `json:"url"`                       // Instance URL+Port to connect to
+	Authentication []Authentication `json:"authentications,omitempty"` // Instance authentication
 }
 
 type OpenApi struct {
-	ApiDocsFile    string `json:"apiDocsFile"`
-	ComponentsFile string `json:"componentsFile"`
+	ApiDocsFile    string `json:"apiDocsFile"`    // Filepath of the api-docs.json
+	ComponentsFile string `json:"componentsFile"` // Filepath of the components.yaml file where common schemas are stored
 }
 
 type CacheConfig struct {
-	RequestsFile  string `json:"requestsFile"`
-	ResponsesFile string `json:"responsesFile"`
+	RequestsFile  string `json:"requestsFile"`  // Fileapth of requests cache
+	ResponsesFile string `json:"responsesFile"` // Filepath of responses cache
 }
 
 type Authentication interface {

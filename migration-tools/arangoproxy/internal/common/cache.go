@@ -12,7 +12,7 @@ import (
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 )
 
-// Check in the examples.txt hashes file if this example's hash is the same as before
+// Check in the {config.Cache.RequestsFile} if this request is cached by checking base64 encodings
 func (service Service) IsCached(request Example) (bool, error) {
 	hashName := fmt.Sprintf("%s_%s_%s", request.Options.Name, request.Options.Release, request.Options.Version)
 	hashFile, err := os.ReadFile(config.Conf.Cache.RequestsFile)
@@ -21,13 +21,15 @@ func (service Service) IsCached(request Example) (bool, error) {
 		return false, err
 	}
 
-	exampleHash, err := utils.EncodeToBase64(request)
+	exampleHash, err := utils.EncodeToBase64(request) // Base64 encoding of the incoming request
 
 	if strings.Contains(string(hashFile), fmt.Sprintf("%s: %s", hashName, exampleHash)) {
+		// Encodings are the same, so the incoming request is the same as the cached one
 		Logger.Print("[IsCached] Example is cached\n")
 		return true, nil // Example has not been modified
 	}
 
+	// Example is not cached
 	f, err := os.OpenFile(config.Conf.Cache.RequestsFile,
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -37,6 +39,7 @@ func (service Service) IsCached(request Example) (bool, error) {
 
 	defer f.Close()
 
+	// Write encoded request inside cache file
 	if _, err = f.WriteString(fmt.Sprintf("%s: %s\n", hashName, exampleHash)); err != nil {
 		Logger.Printf("[IsCached] Error writing to cache file: %s", err.Error())
 		return false, err
@@ -45,6 +48,7 @@ func (service Service) IsCached(request Example) (bool, error) {
 	return false, nil
 }
 
+// Check in the {config.Cache.ResponsesFile} if the example output is cached
 func (service Service) GetCachedExampleResponse(request Example) (ExampleResponse, error) {
 	hashName := fmt.Sprintf("%s_%s_%s", request.Options.Name, request.Options.Release, request.Options.Version)
 	hashFile, err := os.ReadFile(config.Conf.Cache.ResponsesFile)
@@ -53,6 +57,7 @@ func (service Service) GetCachedExampleResponse(request Example) (ExampleRespons
 		return ExampleResponse{}, err
 	}
 
+	// Find the example entry in cache
 	re := regexp.MustCompile(fmt.Sprintf(`(?m)%s:.*`, hashName))
 	hashedRes := re.FindString(string(hashFile))
 	if hashedRes == "" {

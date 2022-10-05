@@ -1,8 +1,9 @@
 package webui
 
+// Base content for the api-docs file
 const SWAGGER_INITIALIZE = `
 {
-	"swagger": "2.0",
+	"openapi": "3.0.2",
 	"info": {
 		"description": "ArangoDB REST API Interface",
 		"version": "1.0",
@@ -12,7 +13,8 @@ const SWAGGER_INITIALIZE = `
 		}
 	},
 	"basePath": "/",
-	"definitions": {
+	"components": {
+		"schemas": {}
 	},
 	"paths" : {}
 }

@@ -9,8 +9,8 @@
   {{ $page := .Page.GetPage $path }}
   {{ if $page }}
     {{ $link = printf "%s%s" $page.RelPermalink $fragment}}
-
   {{ else }}
+    {{ warnf "Page not found '%v'" $path}}
     {{ $linkSplit := split $path "/"}}
     {{ $x := sub (len $linkSplit) 1 }}
     {{ $idSearch := index $linkSplit $x }}

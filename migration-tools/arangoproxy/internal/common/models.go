@@ -24,23 +24,26 @@ const (
 	INPUT_OUTPUT RenderType = "input/output"
 )
 
+// @Example represents an example request to be supplied to an arango instance
 type Example struct {
 	Type    ExampleType    `json:"type"`
-	Options ExampleOptions `json:"options"`
+	Options ExampleOptions `json:"options"` // The codeblock yaml part
 	Code    string         `json:"code"`
 }
 
+// The yaml part in the codeblock
 type ExampleOptions struct {
-	Name     string                 `yaml:"name" json:"name"`
-	Run      bool                   `yaml:"run" json:"run"`
-	Version  string                 `yaml:"version" json:"version"`
-	Release  string                 `yaml:"release" json:"release"`
-	Render   RenderType             `yaml:"render" json:"render"`
-	Explain  bool                   `yaml:"explain" json:"explain"`
-	BindVars map[string]interface{} `yaml:"bindVars" json:"bindVars"`
-	Dataset  string                 `yaml:"dataset" json:"dataset"`
+	Release  string                 `yaml:"release" json:"release"`                     // Arango instance to be used: nightly, release ...
+	Name     string                 `yaml:"name" json:"name"`                           // Example Name
+	Run      bool                   `yaml:"run,omitempty" json:"run,omitempty"`         // Choose if the example has to be run or not
+	Version  string                 `yaml:"version" json:"version"`                     // Arango instance version to launch the example against
+	Render   RenderType             `yaml:"render" json:"render"`                       // Return the example code, the example output or both
+	Explain  bool                   `yaml:"explain,omitempty" json:"explain,omitempty"` // AQL @EXPLAIN flag
+	BindVars map[string]interface{} `yaml:"bindVars,omitempty" json:"bindVars,omitempty"`
+	Dataset  string                 `yaml:"dataset,omitempty" json:"dataset,omitempty"`
 }
 
+// Get an example code block, parse the yaml options and the code itself
 func ParseExample(request io.Reader, exampleType ExampleType) (Example, error) {
 	req, err := ioutil.ReadAll(request)
 	if err != nil {
@@ -48,6 +51,7 @@ func ParseExample(request io.Reader, exampleType ExampleType) (Example, error) {
 		return Example{}, err
 	}
 
+	// Parse the yaml part
 	r, err := regexp.Compile("---[\\w\\s\\W]*---")
 	if err != nil {
 		return Example{}, fmt.Errorf("ParseExample error compiling regex: %s", err.Error())
@@ -61,9 +65,6 @@ func ParseExample(request io.Reader, exampleType ExampleType) (Example, error) {
 	}
 
 	code := strings.Replace(string(req), string(options), "", -1)
-
-	codeComments := regexp.MustCompile(`(?m)~.*`)
-	code = codeComments.ReplaceAllString(code, "")
 
 	return Example{Type: exampleType, Options: optionsYaml, Code: code}, nil
 }

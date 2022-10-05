@@ -205,12 +205,12 @@ def migrate_media():
 	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
-			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
+			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/site/assets/images/{file}")
 
 	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/oasis/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
-			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
+			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/site/assets/images/{file}")
 	print("----- END MEDIA MIGRATION")
 
 class Page():

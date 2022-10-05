@@ -14,7 +14,9 @@ import (
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/webui"
 )
 
+// Start and expose the webserver
 func StartController(url string) {
+	// Create routes
 	http.HandleFunc("/js", JSHandler)
 	http.HandleFunc("/http-spec", HTTPSpecHandler)
 	http.HandleFunc("/http-example", HTTPExampleHandler)
@@ -25,6 +27,7 @@ func StartController(url string) {
 	log.Fatal(http.ListenAndServe(url, nil))
 }
 
+// Dependency Injection
 var (
 	JSService   = js.JSService{}
 	HTTPService = httpapi.HTTPService{}
@@ -33,6 +36,7 @@ var (
 	APIWriteWG = sync.WaitGroup{} // WaitGroup is needed for concurrent writing on the api-docs.json being the HTTPSpecHandler multiplexed
 )
 
+// Handler for the js codeblocks
 func JSHandler(w http.ResponseWriter, r *http.Request) {
 	request, err := common.ParseExample(r.Body, common.JS)
 	if err != nil {
@@ -48,9 +52,11 @@ func JSHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("[js/CONTROLLER] Error marshalling response: %s\n", err.Error())
 		return
 	}
+
 	w.Write(response)
 }
 
+// Handler for http-example codeblocks
 func HTTPExampleHandler(w http.ResponseWriter, r *http.Request) {
 	request, err := common.ParseExample(r.Body, common.HTTP)
 	if err != nil {
@@ -69,6 +75,7 @@ func HTTPExampleHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(response)
 }
 
+// Handler for http-spec codeblocks
 func HTTPSpecHandler(w http.ResponseWriter, r *http.Request) {
 	request, err := httpapi.ParseRequest(r.Body)
 	if err != nil {
@@ -82,12 +89,17 @@ func HTTPSpecHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		common.Logger.Printf("[http-spec/CONTROLLER] Error Marshalling Response: %s\n", err.Error())
 	}
+
 	APIWriteWG.Wait()
 	APIWriteWG.Add(1)
-	webui.Write(response.ApiSpec, &APIWriteWG)
+	// Write new specs to api-docs
+	webui.Write(response.ApiSpec, request.Filename)
+	APIWriteWG.Done()
+
 	w.Write(jsonResponse)
 }
 
+// Handler for aql codeblocks
 func AQLHandler(w http.ResponseWriter, r *http.Request) {
 	request, err := common.ParseExample(r.Body, common.AQL)
 	if err != nil {
@@ -105,6 +117,8 @@ func AQLHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Write(response)
 }
+
+// Empty handler
 func TODOHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("TODO")
 }

@@ -11,6 +11,7 @@ import (
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/webui"
 )
 
+// Pre-Run Setup
 func init() {
 	var configFile string
 	var help, cleanCache bool
@@ -22,7 +23,7 @@ func init() {
 
 	err := config.LoadConfig(configFile)
 	if err != nil {
-		fmt.Printf("Error loading config, aborting %s", err.Error())
+		fmt.Printf("Error loading config: %s\n, aborting...", err.Error())
 		os.Exit(1)
 	}
 

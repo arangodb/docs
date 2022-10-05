@@ -2,9 +2,38 @@ import re
 import json
 import yaml
 import traceback
+from definitions import *
 from globals import *
 
-#TODO: Same as inline_docublocks TODO about yaml lib
+
+swaggerBaseTypes = [
+    'object',
+    'array',
+    'number',
+    'integer',
+    'long',
+    'float',
+    'double',
+    'string',
+    'byte',
+    'binary',
+    'boolean',
+    'date',
+    'dateTime',
+    'password',
+    'int64'
+]
+
+def str_presenter(dumper, data):
+    """configures yaml for dumping multiline strings
+    Ref: https://stackoverflow.com/questions/8640959/how-can-i-control-what-scalar-form-pyyaml-uses-for-my-data"""
+    if data.count('\n') > 0:  # check for multiline string
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+yaml.add_representer(str, str_presenter)
+yaml.representer.SafeRepresenter.add_representer(str, str_presenter) # to use with safe_dum
+
 
 def initBlocksFileLocations():
     with open(APIDOCS_FILE, 'r') as apiDocs:
@@ -26,6 +55,7 @@ def migrateHTTPDocuBlocks(paragraph):
             continue
 
         docuBlockFile = blocksFileLocations[docuBlock]
+        tag = docuBlockFile.split("/")[len(docuBlockFile.split("/"))-2]
         docuBlockFile = open(docuBlockFile, "r").read()
         declaredDocuBlocks = re.findall(r"(?<=@startDocuBlock )(.*?)@endDocuBlock", docuBlockFile, re.MULTILINE | re.DOTALL)
 
@@ -36,28 +66,60 @@ def migrateHTTPDocuBlocks(paragraph):
                     paragraph = paragraph.replace("{% docublock "+ docuBlock + " %}", revisionContent)
                     continue
 
-                newBlock = processHTTPDocuBlock(block)
+                newBlock = processHTTPDocuBlock(block, tag)
 
                 paragraph = paragraph.replace("{% docublock "+ docuBlock + " %}", newBlock)
                 #print(paragraph)
     return paragraph
 
-def processHTTPDocuBlock(docuBlock):
-    examples = re.findall(r"(?<=@EXAMPLE_)(.*?)(?=@END_EXAMPLE_)", docuBlock, re.MULTILINE | re.DOTALL)
+def processHTTPDocuBlock(docuBlock, tag):
+    blockExamples = processExamples(docuBlock)
+
     docuBlock = re.sub(r"@EXAMPLES.*", "", docuBlock, 0, re.MULTILINE | re.DOTALL)
     restBlocks = docuBlock.split("@REST")
-    newBlock = {
-        'header': {
-            'verb': '',
-            'url': '',
-            'description': '',
-            'operationId': ''
-        },
-        'parameters': [],
-        'responses': [], 
-        'requestBody': [],
-        'examples': [],
-        }
+    newBlock = {"openapi": "3.0.2", "paths": {}}
+    url, verb, currentRetStatus = "", "", 0
+
+    for block in restBlocks:
+        #print(block)
+        try:
+            if re.search(r"HEADER{", block):
+                url, verb = processHeader(block, newBlock)     
+
+            if block.startswith("DESCRIPTION"):
+                newBlock["paths"][url][verb]["description"] = block.replace("DESCRIPTION\n", "").rstrip("}")
+
+            elif re.search(r".*PARAM{", block):
+                processParameters(block, newBlock["paths"][url][verb])
+
+            if re.search(r"RETURNCODE{", block):
+                currentRetStatus = processResponse(block, newBlock["paths"][url][verb])
+
+            if re.search(r"REPLYBODY{", block):
+                processResponseBody(block, newBlock["paths"][url][verb]["responses"], currentRetStatus)
+
+            if block.startswith("STRUCT"):
+                processComponents(block)
+    
+        except Exception as ex:
+            print(f"Exception occurred for block {block}\n{ex}")
+            traceback.print_exc()
+            exit(1)
+    newBlock["paths"][url][verb]["tags"] = [tag]
+    yml = render_yaml(newBlock)
+
+    exampleCodeBlocks = ""
+    if len(blockExamples) > 0:
+        exampleCodeBlocks = parse_examples(blockExamples)
+
+    return yml + "\n" + exampleCodeBlocks
+
+
+### BLOCK PROCESSING    
+
+def processExamples(docuBlock):
+    examples = re.findall(r"(?<=@EXAMPLE_)(.*?)(?=@END_EXAMPLE_)", docuBlock, re.MULTILINE | re.DOTALL)
+    blockExamples = []
 
     for block in examples:
         exampleBlock = {'options': {}, 'code': ""}
@@ -73,271 +135,180 @@ def processHTTPDocuBlock(docuBlock):
         code = re.search(r"(?<="+exampleType+"{"+exampleName+"}\n).*", block, re.MULTILINE | re.DOTALL).group(0)
         exampleBlock["code"] = code
 
-        newBlock["examples"].append(exampleBlock)
+        blockExamples.append(exampleBlock)
 
-    for block in restBlocks:
-        #print(block)
-        try:
-            if re.search(r"HEADER{", block):
-                headerRe = re.search(r"(?<=HEADER){.*}", block).group(0)
-                headerSplit = headerRe.split(",")
+    return blockExamples
 
-                try:
-                    newBlock["header"]["verb"] = headerSplit[0].split(" ")[0].strip("{").lower()
-                    newBlock["header"]["url"] = headerSplit[0].split(" ")[1] 
-                    newBlock["header"]["description"] = headerSplit[1].replace("}", "")
-                    newBlock["header"]["operationId"] = headerSplit[2].replace("}", "")
-                except IndexError:
-                    pass      
+def processHeader(docuBlock, newBlock):
+    headerRe = re.search(r"(?<=HEADER){.*}", docuBlock).group(0)
+    headerSplit = headerRe.split(",")
+    try:
+        url, verb, desc = headerSplit[0].split(" ")[1], headerSplit[0].split(" ")[0].strip("{").lower(), headerSplit[1].replace("}", "")
+        newBlock["paths"][url] = {verb: {"description": desc}}
+        newBlock["paths"][url][verb]["operationId"] = headerSplit[2].replace("}", "")
+    except IndexError:
+        pass 
 
-            if block.startswith("DESCRIPTION"):
-                newBlock["description"] = block.replace("DESCRIPTION\n", "").rstrip("}")
+    return url, verb
 
-            elif re.search(r".*PARAM{", block):
-                paramType = re.search(r".*{", block).group(0).strip("{")
-                paramBlock = {}
-                
-                p = f"(?<={paramType})"
-                paramRe = re.search(p + r".*}", block).group(0)
-                paramSplit = paramRe.split(",")
+def processParameters(docuBlock, newBlock):
+    paramType = re.search(r".*{", docuBlock).group(0).strip("{")
 
-                try:
-                    paramBlock["name"] = paramSplit[0].strip("{")
-                    paramBlock["type"] = paramSplit[1]
-                    paramBlock["necessity"] = paramSplit[2]
-                except IndexError:
-                    pass
-                
-                block = re.sub(p + r".*}", '', block)
-                paramBlock["description"] = re.sub(r".*PARAM", '', block).replace(":", "")
+    if "BODYPARAM" in paramType:
+        processRequestBody(docuBlock, newBlock)
+        return
 
-                if "BODYPARAM" in paramType:
-                    newBlock["requestBody"].append(paramBlock)
-                    continue
-
-                if "URLPARAM" in paramType:
-                    paramBlock["in"] = "path"
-                elif "QUERYPARAM" in paramType:
-                    paramBlock["in"] = "query"
-                elif "HEADERPARAM" in paramType:
-                    paramBlock["in"] = "header"
-
-                newBlock["parameters"].append(paramBlock)
-                    
-
-            if re.search(r"RETURNCODE{", block):
-                blockSplit = block.split("\n")
-                retBlock = {}
-                retBlock["status"] = re.search(r"(?<=RETURNCODE{).*(?=})", blockSplit[0]).group(0)
-                retBlock["status"] = f'\"{retBlock["status"]}\"'
-                retBlock["description"] = "".join(blockSplit[1:]).strip("@endDocuBlock").replace(":", "")
-                retBlock["responseBody"] = []
-                newBlock["responses"].append(retBlock)
-
-            if re.search(r"REPLYBODY{", block):
-                relatedResponseBlock = newBlock["responses"][len(newBlock["responses"])-1]
-                replyBlock = {}
-                
-                paramRe = re.search(r"(?<=REPLYBODY){.*}", block).group(0)
-                paramSplit = paramRe.split(",")
-
-                try:
-                    replyBlock["name"] = paramSplit[0].strip("{")
-                    replyBlock["type"] = paramSplit[1]
-                    replyBlock["necessity"] = paramSplit[2]
-                except IndexError:
-                    pass
-                
-                block = re.sub(r"(?<=REPLYBODY){.*}", '', block)
-                replyBlock["description"] = re.sub(r"REPLYBODY", '', block).replace(":", "")
-
-                relatedResponseBlock["responseBody"].append(replyBlock)
-
-            if block.startswith("STRUCT"):
-                argsRe = re.search(r"(?<={).*(?=})", block).group(0)
-                args = argsRe.split(",") 
-                
-                description = "".join(block.split("\n")[1:])
-                structName, paramName, paramType, paramRequired, paramSubtype = args[1], args[0], args[2], args[3], args[4]
-
-                struct = {
-                    "name": structName,
-                    "property": {
-                        paramName: {
-                            "type": paramType,
-                            "required": "true" if paramRequired == "required" else "false"},
-                            "format": paramSubtype,
-                            "description": description,
-                        }
-                    }
-                
-                if structName in components["schemas"]:
-                    components["schemas"][structName]["properties"].append(struct["property"])
-                    continue
-
-                components["schemas"][structName] = {
-                    "type": "object",
-                     "properties": [struct["property"]]
-                     }
+    paramBlock = {}
     
-        except Exception as ex:
-            print(f"Exception occurred for block {block}\n{ex}")
-            traceback.print_exc()
-            exit(1)
+    p = f"(?<={paramType})"
+    paramRe = re.search(r"(?<="+paramType+"{)" + r".*(?=})", docuBlock).group(0)
+    paramSplit = paramRe.split(",")
+    try:
+        paramBlock["name"] = paramSplit[0]
+        paramBlock["schema"] = {"type": paramSplit[1]}
+        paramBlock["required"] = True if paramSplit[2] == "required" else False
+        if paramSplit[3] != "" and not paramSplit[3] in swaggerBaseTypes:
+            paramBlock["schema"] = {"$ref": f"#/components/schemas/{paramSplit[3]}" }
+    except IndexError:
+        pass
+    
+    docuBlock = re.sub(p + r".*}", '', docuBlock)
+    paramBlock["description"] = re.sub(r".*PARAM", '', docuBlock).replace(":", "")
 
-    yml = render_yaml(newBlock)
+    if "URLPARAM" in paramType:
+        paramBlock["in"] = "path"
+    elif "QUERYPARAM" in paramType:
+        paramBlock["in"] = "query"
+    elif "HEADERPARAM" in paramType:
+        paramBlock["in"] = "header"
 
-    exampleCodeBlocks = ""
-    if len(newBlock["examples"]) > 0:
-        exampleCodeBlocks = parse_examples(newBlock)
+    if "parameters" not in newBlock:
+        newBlock["parameters"] = []
 
-    return yml + "\n" + exampleCodeBlocks
+    newBlock["parameters"].append(paramBlock)
+
+def processRequestBody(docuBlock, newBlock):
+    paramRe = re.search(r"(?<=BODYPARAM{).*(?=})", docuBlock).group(0)
+    paramSplit = paramRe.split(",")
+    name = paramSplit[0]
+    paramBlock = {}
+    paramBlock[name] = {}
+    try:
+        paramBlock[name]["type"] = paramSplit[1]
+        if paramSplit[3] != "" and not paramSplit[3] in swaggerBaseTypes:
+            paramBlock[name]["schema"] = {"$ref": f"#/components/schemas/{paramSplit[3]}" }
+    except IndexError:
+        pass
+    
+    docuBlock = re.sub(r"BODYPARAM{.*}", '', docuBlock)
+    paramBlock[name]["description"] = re.sub(r".*PARAM", '', docuBlock).replace(":", "")
+
+    if "requestBody" not in newBlock:
+        newBlock["requestBody"] = {"content": {"application/json": {"schema": {"type": "object", "properties": {}, "required": []}}}}
+
+
+    newBlock["requestBody"]["content"]["application/json"]["schema"]["properties"][name] = paramBlock[name]
+    if paramSplit[2] == "required":
+            newBlock["requestBody"]["content"]["application/json"]["schema"]["required"].append(name)
+    return
+
+def processResponse(docuBlock, newBlock):
+    blockSplit = docuBlock.split("\n")
+    status = re.search(r"(?<=RETURNCODE{).*(?=})", blockSplit[0]).group(0)
+    description = "".join(blockSplit[1:]).strip("@endDocuBlock").replace(":", "")
+
+    retBlock = {"description": description}
+
+    if "responses" not in newBlock:
+        newBlock["responses"] = {}
+
+    newBlock["responses"][status] = retBlock
+    return status
+
+def processResponseBody(docuBlock, newBlock, statusCode):
+    replyBlock = {}
+    
+    paramRe = re.search(r"(?<=REPLYBODY{).*(?=})", docuBlock).group(0)
+    paramSplit = paramRe.split(",")
+    name = paramSplit[0].strip("{")
+    try:
+        replyBlock["type"] = paramSplit[1]
+        if paramSplit[3] != "":
+            replyBlock["schema"] = {"$ref": f"#/components/schemas/{paramSplit[3]}"}
+    except IndexError:
+        pass
+    
+    docuBlock = re.sub(r"(?<=REPLYBODY){.*}", '', docuBlock)
+    replyBlock["description"] = re.sub(r"REPLYBODY", '', docuBlock).replace(":", "")
+
+    if name == "" and "schema" in replyBlock:
+        newBlock[statusCode]["content"] = {"application/json": {"schema": replyBlock["schema"]}}
+        return
+
+    if not "content" in newBlock:
+        newBlock[statusCode]["content"] = {"application/json": {"schema": {"type": "object", "properties": {}, "required": []}}}
+
+    newBlock[statusCode]["content"]["application/json"]["schema"]["properties"][name] = replyBlock
+    if paramSplit[2] == "required":
+            newBlock[statusCode]["content"]["application/json"]["schema"]["required"].append(name)
+    return
+
+
+def processComponents(block):
+    argsRe = re.search(r"(?<={).*(?=})", block).group(0)
+    args = argsRe.split(",") 
+    
+    description = "".join(block.split("\n")[1:])
+    structName, paramName, paramType, paramRequired, paramSubtype = args[1], args[0], args[2], args[3], args[4]
+    structProperty = {
+        "type": paramType,
+        "format": paramSubtype,
+        "description": description,
+    }    
+
+    if structName in components["schemas"]:
+        components["schemas"][structName]["properties"][paramName] = structProperty
+        return
+
+    components["schemas"][structName] = {
+        "type": "object",
+        "properties": {paramName: structProperty}
+            }
+    return
+
+
+
+####    YAML WRITERS
 
 def render_yaml(block):
-    res = ''
-    f1 = f'```http-spec\n\
-openapi: 3.0.2\n\
-paths:\n\
-  {block["header"]["url"]}:\n\
-    {block["header"]["verb"]}:\n\
-        {"description: " + block["header"]["description"] if block["header"]["description"] else ""}\n\
-        {"operationId: " + block["header"]["operationId"] if block["header"]["operationId"] else "" }'
-    res = f1 + "\n" + parse_request_body(res, block)
-    res = parse_responses(res, block)
-    
-    res = parse_parameters(res, block)
-
-    res = res + f'\n\
-```'
+    blockYaml = yaml.dump(block, sort_keys=False, default_flow_style=False)
+    res = f'```http-spec\n\
+{blockYaml}\
+```\n'
     res = res.replace("@endDocuBlock", "")   
     #res = res.replace("\n\n", "")  
     return re.sub(r"^\s*$\n", '', res, 0, re.MULTILINE | re.DOTALL)
 
-def parse_request_body(res, block):
-    if len(block["requestBody"]) > 0:
-        parameters = f'\
-        requestBody:\n\
-            content:\n\
-                application/json:\n\
-                    schema:\n\
-                        type: object\n\
-                        properties:\n'
-        for param in block["requestBody"]:
-            description = param["description"].split("\n")
-            paramBlock = f'\
-                            {param["name"]}:\n\
-                              type: {param["type"]}\n\
-                              required: {"true" if param["necessity"] == "required" else "false"}\n\
-                              description: >-\n'
-            for d in description:
-                paramBlock = paramBlock + f'\
-                                {d}\n' 
-            
-            parameters = parameters + paramBlock
-        res = res + "\n" + parameters
-    return res
-
-def parse_parameters(res, block):
-    if len(block["parameters"]) > 0:
-        parameters = f'\
-    parameters:\n'
-        for param in block["parameters"]:
-            description = param["description"].split("\n")
-            paramBlock = f'\
-        - name: {param["name"]}\n\
-          in: {param["in"]}\n\
-          required: {"true" if param["necessity"] == "required" else "false"}\n\
-          schema:\n\
-            type: {param["type"]}\n\
-          description: >-\n'
-            for d in description:
-                paramBlock = paramBlock + f'\
-            {d}\n'
-            parameters = parameters + paramBlock
-        res = res + "\n" + parameters
-    return res
-
-def parse_responses(res, block):
-    if len(block["responses"]) > 0:
-        parameters = f'\
-        responses:\n'
-        for response in block["responses"]:
-            responseBlock = f'\
-            {response["status"]}:\n\
-                description: {response["description"]}\n'
-            if len(response["responseBody"]) > 0:
-                responseBlock = responseBlock + f'\
-                content:\n\
-                  application/json:\n\
-                    schema:\n\
-                        type: object\n\
-                        properties:\n'
-                for responseBody in response["responseBody"]:
-                    description = responseBody["description"].split("\n")
-                    bodyBlock = f'\
-                            {responseBody["name"]}:\n\
-                              type: {responseBody["type"]}\n\
-                              required: {"true" if responseBody["necessity"] == "required" else "false"}\n\
-                              description: >-\n'
-                    for d in description:
-                        bodyBlock = bodyBlock + f'\
-                                {d}\n' 
-                    responseBlock = responseBlock + bodyBlock
-            
-            parameters = parameters + responseBlock
-        res = res + "\n" + parameters
-    return res
-
-def parse_examples(block):
+def parse_examples(blockExamples):
     res = '**Examples**\n'
-    for example in block["examples"]:
+    for example in blockExamples:
+        exampleOptions = yaml.dump(example["options"], sort_keys=False, default_flow_style=False)
         codeBlock = f'\n\
 ```http-example\n\
 ---\n\
-name: {example["options"]["name"]}\n\
-version: {example["options"]["version"]}\n\
-render: {example["options"]["render"]}\n\
-bindVars: {example["options"]["bindVars"] if "bindVars" in example["options"] else ""}\n\
-dataset: {example["options"]["dataset"] if "dataset" in example["options"] else ""}\n\
-explain: {example["options"]["explain"] if "explain" in example["options"] else ""}\n\
+{exampleOptions}\n\
 ---\n\
 {example["code"]}\n\
 ```\
 '
-
         res = res + "\n" + codeBlock
     return re.sub(r"^\s*$\n", '', res, 0, re.MULTILINE | re.DOTALL)
 
 
 def write_components_to_file():
-    components["schemas"]["ARANGO_ERROR"] = {
-			"description": "An ArangoDB Error code",
-			"type": "integer"
-    }
-
-    components["schemas"]["ArangoError"] = {
-			"description": "the arangodb error type",
-			"properties": {
-				"code": {
-					"description": "the HTTP Status code",
-					"type": "integer"
-				},
-				"error": {
-					"description": "boolean flag to indicate whether an error occurred (*true* in this case)",
-					"type": "boolean"
-				},
-				"errorMessage": {
-					"description": "a descriptive error message describing what happened, may contain additional information",
-					"type": "string"
-				},
-				"errorNum": {
-					"description": "the ARANGO_ERROR code",
-					"type": "integer"
-				}
-			}
-    }
+    components["schemas"] = definitions
     with open(OAPI_COMPONENTS_FILE, 'w') as outfile:
-        yaml.dump(components, outfile, default_flow_style=False)
+        yaml.dump(components, outfile, sort_keys=False, default_flow_style=False)
 
 if __name__ == "__main__":
     initBlocksFileLocations()

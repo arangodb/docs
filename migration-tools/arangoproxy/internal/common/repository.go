@@ -1,59 +1,18 @@
 package common
 
 import (
-	"crypto/tls"
 	"fmt"
-	"time"
 
-	"github.com/arangodb/go-driver"
-	"github.com/arangodb/go-driver/http"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
 )
 
-type RepositoryType string
-
-const (
-	STABLE  RepositoryType = "stable"
-	NIGHTLY RepositoryType = "nightly"
-)
-
-type Repository struct {
-	Type    RepositoryType
-	Version string
-	driver.Client
-}
-
-var repositories map[string]Repository
+var Repositories map[string]config.Repository
 
 func init() {
-	repositories = make(map[string]Repository)
-	Connect()
-}
-
-func Connect() {
-	conn, err := http.NewConnection(http.ConnectionConfig{
-		Endpoints: []string{"http://localhost:8529"},
-		TLSConfig: &tls.Config{ /*...*/ },
-	})
-	if err != nil {
-		fmt.Printf("Connection Error: %s\nRetrying in 5 secs", err.Error())
-		time.Sleep(time.Second * 5)
-		Connect()
+	Repositories = make(map[string]config.Repository)
+	for _, repo := range config.Conf.Repositories {
+		Repositories[fmt.Sprintf("%s_%s", repo.Type, repo.Version)] = repo
 	}
-
-	// For every arango kind of instance, create connection and store it in map
-
-	drvr, err := driver.NewClient(driver.ClientConfig{
-		Connection:     conn,
-		Authentication: driver.BasicAuthentication("user", "password"),
-	})
-
-	repo := Repository{
-		STABLE,
-		"3.10",
-		drvr,
-	}
-
-	repositories[fmt.Sprintf("%s_%s", repo.Type, repo.Version)] = repo
 }
 
 /*

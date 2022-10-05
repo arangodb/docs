@@ -21,11 +21,11 @@
       <div class="version {{ $version }}" style="display: none;">
         {{ $x := transform.Highlight $response.output "" }}
       {{- partial "shortcodes/expand.html" (dict
-        "context" .
-        "content" $x
-        "open"    "open"
-        "title"   "show output"
-      ) }}
+      "context" .
+      "content" $x
+      "open"    "open"
+      "title"   "show output"
+    ) }}
       </div>
     {{ end }}
   {{ end }}

@@ -1,7 +1,9 @@
 
+{{ $request := printf "%s\n%s" .Position .Inner}}
+{{ warnf "request '%v'" $request}}
 {{ $remote := resources.GetRemote "http://localhost:8080/http-spec" (dict
 "method" "post"
-"body" .Inner 
+"body" $request 
 "headers" (dict 
     "Content-Type" "application/json"
     "User-Agent" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
