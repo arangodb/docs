@@ -42,7 +42,7 @@ operating systems:
 - [AMD64 (x86_64) architecture](https://download.arangodb.com/arangosync-migration/windows/amd64/arangosync-migration.exe){:target="_blank"}
 - [ARM64 (AArch64) architecture](https://download.arangodb.com/arangosync-migration/windows/arm64/arangosync-migration.exe){:target="_blank"}
 
-For macOs as well as other Unix-based operating systems, run the following 
+For macOS as well as other Unix-based operating systems, run the following 
 command to make sure you can execute the binary:
 
 ```bash
@@ -211,8 +211,7 @@ the migration agent process.
 If replication is running normally, the command waits until all shards are
 in sync. The local cluster is then switched into read-only mode.
 After all shards are in-sync and the migration stopped, the target deployment
-is switched into normal mode (read/write) while the source cluster stays in
-read-only mode. 
+is switched into normal mode (read/write).
 
 ```bash
 ./arangosync-migration stop \
@@ -253,7 +252,7 @@ Allowed values are `readonly` or `default`.
 2. Wait until all shards are in sync. You can use the `status` or the `start`
    command with the same parameters to track that.
 3. Optional: when all shards are in-sync, you can switch your applications
-   to use the Oasis deployment, but note that it stays into read-only mode
+   to use the Oasis deployment, but note that it stays in read-only mode
    until the migration process is fully completed.
 4. Stop the migration using the `stop` subcommand. The following steps are executed:
    - The source data cluster is switched into read-only mode.
@@ -261,9 +260,7 @@ Allowed values are `readonly` or `default`.
    - The target deployment is switched into default read/write mode.
 
    {% hint 'info' %}
-   After finishing the migration, the source data cluster will remain read-only. 
-   You can use the `set-server-mode` 
-   subcommand to switch it back to default, if needed.
-   If something goes wrong during the migration, the `stop` command doesn't
-   switch the source data cluster into read-only mode. 
+   If you switched the source data cluster into read-only mode,
+   you can switch it back to default (read/write) mode using the
+   `set-server-mode` subcommand.
    {% endhint %}
