@@ -10,7 +10,7 @@ description: >-
 
 {% hint 'info' %}
 This documentation describes the beta version of the Notebooks feature and is
-subject to change. The beta version is free-for-all.
+subject to change. The beta version is free for all.
 {% endhint %}
 
 ArangoDB Oasis provides an easy way to run Jupyter Notebooks in the cloud,
@@ -30,12 +30,11 @@ Platform, Python and ML libraries.
 1. Navigate to the **Deployments** tab.
 2. Open the deployment in which you want to create the notebook.
 3. Go to the **Notebooks** tab and click the **Create Notebook** button.
-You can only create three notebooks per deployment.
 4. Enter a name and optionally a description for your new notebook. Click **Save**.
 5. The notebook's phase is set to **Initializing**. Once the phase changes to
 **Running**, the notebook's endpoint will be accessible.
 6. Click the **Open notebook** button to access your notebook. 
-7. To login into your notebook, use the `root` password from your deployment.
+7. To log in into your notebook, use the `root` password from your deployment.
 
 {% hint 'info' %}
 Depending on the tier your organization belongs to, different limitations apply:
@@ -46,7 +45,7 @@ Depending on the tier your organization belongs to, different limitations apply:
 ![Notebooks](images/oasis-notebooks.png)
 
 {% hint 'info' %}
-Notebooks in beta version have a fixed configuration with 10 GiB of Disk size.
+Notebooks in beta version have a fixed configuration of 10&nbsp;GB of disk size.
 {% endhint %}
 
 ## How to edit a notebook
