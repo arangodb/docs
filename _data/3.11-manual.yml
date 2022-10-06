@@ -1,18 +1,18 @@
 - subtitle: GETTING STARTED
-- text: Introduction
+- text: About ArangoDB
   href: index.html
   children:
     - text: Use Cases
       href: use-cases.html
-- text: Features
-  href: features.html
-  children:
-    - text: Community Edition
-      href: features-community-edition.html
-    - text: Enterprise Edition
-      href: features-enterprise-edition.html
-    - text: Highlights by Version
-      href: highlights.html
+    - text: Features
+      href: features.html
+      children:
+        - text: Community Edition
+          href: features-community-edition.html
+        - text: Enterprise Edition
+          href: features-enterprise-edition.html
+        - text: Highlights by Version
+          href: highlights.html
 - text: Quick Start Guide
   href: quick-start-guide.html
   children:
@@ -22,23 +22,6 @@
       href: quick-start-on-premises.html
     - text: How to Interact with ArangoDB
       href: how-to-interact-with-arangodb.html
-    - text: AQL Query Language Tutorial
-      href: aql-tutorial.html
-      children:
-        - text: Basic CRUD
-          href: aql-tutorial-crud.html
-        - text: Matching documents
-          href: aql-tutorial-filter.html
-        - text: Sorting and limiting
-          href: aql-tutorial-sort-limit.html
-        - text: Joining together
-          href: aql-tutorial-join.html
-        - text: Graph traversal
-          href: aql-tutorial-traversal.html
-        - text: Geospatial queries
-          href: aql-tutorial-geospatial.html
-    - text: Coming from SQL
-      href: quick-start-coming-from-sql.html
 - text: Data Model & Concepts
   href: data-model-and-concepts.html
   children:
@@ -484,7 +467,7 @@
     - text: Monitoring
       href: monitoring-dc2dc.html
     - text: Troubleshooting
-      href: troubleshooting-dc2dc.html
+      href: troubleshooting-dc2dc.html 
 - text: Foxx Microservices
   href: foxx.html
   children:
