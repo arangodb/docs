@@ -848,6 +848,38 @@
     "section" : "backup",
     "type" : "string"
   },
+  "backup.files-per-batch" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 100,
+    "deprecatedIn" : null,
+    "description" : "this option tells the hotbackup up-/download, how many files it should do in one call to rclone",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.8",
+      "v3.9.4"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "backup",
+    "type" : "uint64"
+  },
   "backup.local-path-prefix" : {
     "category" : "option",
     "component" : [
@@ -914,7 +946,7 @@
       "agent",
       "single"
     ],
-    "default" : 18004834304,
+    "default" : 16341337088,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -6537,7 +6569,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "maximum parallelism usable in a Pregel job",
     "dynamic" : true,
@@ -6679,7 +6711,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "default parallelism to use in a Pregel job if none is specified",
     "dynamic" : true,
@@ -6908,7 +6940,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 74166820864,
+    "base" : 67512832000,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6916,7 +6948,7 @@
       "agent",
       "single"
     ],
-    "default" : 60075124900,
+    "default" : 54685393920,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7041,7 +7073,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 74166820864,
+    "base" : 67512832000,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7049,7 +7081,7 @@
       "agent",
       "single"
     ],
-    "default" : 44500092519,
+    "default" : 40507699200,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7904,7 +7936,7 @@
       "agent",
       "single"
     ],
-    "default" : 21605801164,
+    "default" : 19609604505,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -8756,7 +8788,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "Maximum number of concurrent background jobs (compactions and flushes)",
     "dynamic" : true,
@@ -9594,7 +9626,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -10163,7 +10194,7 @@
       "agent",
       "single"
     ],
-    "default" : 28807734886,
+    "default" : 26146139340,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -10193,7 +10224,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "Number of lock stripes to use for transaction locks",
     "dynamic" : false,
@@ -10949,7 +10980,7 @@
       "agent",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "number of threads used to handle IO",
     "dynamic" : true,
@@ -11141,7 +11172,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex)",
     "dynamic" : true,
@@ -11171,7 +11202,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 10,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -11235,7 +11266,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 72)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -12454,6 +12485,33 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
+  },
+  "use-splice-syscall" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Use the splice() syscall for file copying (may not be supported on all filesystems",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "version" : {
     "category" : "command",

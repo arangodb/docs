@@ -28,8 +28,8 @@ grouped by version
 
 - [**`search-alias` Views**](release-notes-new-features310.html#search-alias-views):
   Add inverted indexes to `search-alias` Views for searching multiple collections
-  at once and for ranking capabilities, as a lightweight alternative to
-  `arangosearch` Views.
+  at once, with ranking and search highlighting capabilities, as a lightweight
+  alternative to `arangosearch` Views.
 
 - **Persistent indexes**:
   An optional [**In-memory Cache**](indexing-persistent.html#caching-of-index-values)

@@ -18,7 +18,9 @@ You can index and search strings with the `identity` Analyzer for exact
 matching, that is case-sensitive, with accented characters as-is, and only if
 the entire string is equal (not matching substrings).
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
+
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
 ### View definition
 
