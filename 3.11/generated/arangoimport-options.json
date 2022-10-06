@@ -1545,7 +1545,7 @@
   "threads" : {
     "base" : 1,
     "category" : "option",
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "Number of parallel import threads",
     "dynamic" : true,
@@ -1628,6 +1628,27 @@
     "section" : "",
     "type" : "string",
     "values" : "Possible values: \"auto\", \"csv\", \"json\", \"jsonl\", \"tsv\""
+  },
+  "use-splice-syscall" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Use the splice() syscall for file copying (may not be supported on all filesystems",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "version" : {
     "category" : "command",
