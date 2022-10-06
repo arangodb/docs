@@ -70,7 +70,7 @@ db.<collection>.ensureIndex({
 });
 
 db._createView("viewName", "search-alias", { indexes: [
-  { collection: <collection>, index: "inv-idx" }
+  { collection: "<collection>", index: "inv-idx" }
 ]});
 ```
 
@@ -150,7 +150,7 @@ db.<collection>.ensureIndex({
 });
 
 db._createView("viewName", "search-alias", { indexes: [
-  { collection: <collection>, index: "inv-nest" }
+  { collection: "<collection>", index: "inv-nest" }
 ]});
 ```
 
@@ -245,7 +245,7 @@ using arangosh:
 
 ```js
 db.<collection>.ensureIndex({
-  name: "inv-nest",
+  name: "inv-nest-deep",
   type: "inverted",
   fields: [
     {
@@ -269,7 +269,7 @@ db.<collection>.ensureIndex({
 });
 
 db._createView("viewName", "search-alias", { indexes: [
-  { collection: <collection>, index: "inv-nest" }
+  { collection: "<collection>", index: "inv-nest-deep" }
 ]});
 ```
 

@@ -47,9 +47,20 @@ escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
 
 ## Wildcard Search Examples
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+### Dataset
 
-**View definition:**
+[IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+### View definition
+
+#### `search-alias` View
+
+```js
+db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
+db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
+```
+
+#### `arangosearch` View
 
 ```json
 {
@@ -74,7 +85,7 @@ where `_` stands for a single wildcard character and `%` for an arbitrary amount
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(LIKE(doc.title, "The Matr%"), "identity")
+  SEARCH LIKE(doc.title, "The Matr%")
   RETURN doc.title
 ```
 
@@ -90,7 +101,7 @@ You can achieve the same with the `STARTS_WITH()` function:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(STARTS_WITH(doc.title, "The Matr"), "identity")
+  SEARCH STARTS_WITH(doc.title, "The Matr")
   RETURN doc.title
 ```
 
@@ -98,7 +109,7 @@ Match all titles that contain `Mat` using `LIKE()`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(LIKE(doc.title, "%Mat%"), "identity")
+  SEARCH LIKE(doc.title, "%Mat%")
   RETURN doc.title
 ```
 
@@ -120,7 +131,7 @@ Match all titles that end with `rix` using `LIKE()`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(LIKE(doc.title, "%rix"), "identity")
+  SEARCH LIKE(doc.title, "%rix")
   RETURN doc.title
 ```
 
@@ -140,7 +151,7 @@ match titles starting with `Harry` and `Henry`:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(LIKE(doc.title, "H__ry%"), "identity")
+  SEARCH LIKE(doc.title, "H__ry%")
   RETURN doc.title
 ```
 
@@ -158,7 +169,7 @@ and perform a contains-style search by prepending and appending a percent sign:
 
 ```aql
 FOR doc IN imdb
-  SEARCH ANALYZER(LIKE(doc.title, CONCAT("%", SUBSTITUTE(@term, ["_", "%"], ["\\_", "\\%"]), "%")), "identity")
+  SEARCH LIKE(doc.title, CONCAT("%", SUBSTITUTE(@term, ["_", "%"], ["\\_", "\\%"]), "%"))
   RETURN doc.title
 ```
 

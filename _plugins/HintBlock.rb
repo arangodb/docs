@@ -9,12 +9,15 @@ class HintTag < Liquid::Block
       converter = site.find_converter_instance(::Jekyll::Converters::Markdown)
       
       # Remove indention based on first actual line (but only spaces)
-      content = super.sub(/^[\r\n]+/, '')
+      content = super.sub(/^\R+/, '')
+      #content.rstrip!
       indent = content.index(/[^ ]/) || 0
       content = content.lines.map{ |line| line.slice([indent, line.index(/[^ ]/) || 0].min, line.length) }.join ''
-      # Parse Markdown and strip trailing whitespace (especially line breaks).
-      # Otherwise below <div>s will be wrapped in <p> for some reason!
-      content = converter.convert(content).sub(/\s+$/, '')
+      # Parse Markdown and collapse line breaks to spaces.
+      # Line breaks can cause pre-mature closing of elements it seems,
+      # observed when placing a hint block in a Markdown list,
+      # leading to unwanted literal "</div>" (HTML-encoded) in the output.
+      content = converter.convert(content).gsub(/\R+/, ' ')
 
       case @type
       when "tip"
@@ -35,9 +38,9 @@ class HintTag < Liquid::Block
       end
 
       return "<div class=\"alert alert-#{className}\" style=\"display: flex\">" +
-      "<i class=\"fa fa-#{icon}\" style=\"margin-right: 10px; margin-top: 4px;\"></i>" +
-      "<div>#{content}</div>" +
-      "</div>"
+        "<i class=\"fa fa-#{icon}\" style=\"margin-right: 10px; margin-top: 4px;\"></i>" +
+        "<div>#{content}</div>" +
+        "</div>"
     end
   end
   Liquid::Template.register_tag('hint', HintTag)

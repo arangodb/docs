@@ -28,8 +28,8 @@ when using [inverted indexes](../indexing-inverted.html).
 Scoring functions allow you to rank matches and to sort results by relevance.
 They are limited to Views.
 
-Search highlighting functions let you retrieve the string positions of matches,
-for both, Views and inverted indexes.
+Search highlighting functions let you retrieve the string positions of matches.
+They are limited to Views.
 
 You can use most functions also without an inverted index or a View and the
 `SEARCH` keyword, but then they are not accelerated by an index.

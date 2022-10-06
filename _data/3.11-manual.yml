@@ -1,18 +1,18 @@
 - subtitle: GETTING STARTED
-- text: Introduction
+- text: About ArangoDB
   href: index.html
   children:
     - text: Use Cases
       href: use-cases.html
-- text: Features
-  href: features.html
-  children:
-    - text: Community Edition
-      href: features-community-edition.html
-    - text: Enterprise Edition
-      href: features-enterprise-edition.html
-    - text: Highlights by Version
-      href: highlights.html
+    - text: Features
+      href: features.html
+      children:
+        - text: Community Edition
+          href: features-community-edition.html
+        - text: Enterprise Edition
+          href: features-enterprise-edition.html
+        - text: Highlights by Version
+          href: highlights.html
 - text: Quick Start Guide
   href: quick-start-guide.html
   children:
@@ -334,9 +334,9 @@
           href: arangosearch-ranking.html
         - text: Performance
           href: arangosearch-performance.html
-        - text: Search Alias Views Reference
+        - text: <code>search-alias</code> Views Reference
           href: arangosearch-views-search-alias.html
-        - text: ArangoSearch Views Reference
+        - text: <code>arangosearch</code> Views Reference
           href: arangosearch-views.html
 - text: Transactions
   href: transactions.html
@@ -467,7 +467,7 @@
     - text: Monitoring
       href: monitoring-dc2dc.html
     - text: Troubleshooting
-      href: troubleshooting-dc2dc.html
+      href: troubleshooting-dc2dc.html 
 - text: Foxx Microservices
   href: foxx.html
   children:
