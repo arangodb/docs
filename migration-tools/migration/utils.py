@@ -49,17 +49,17 @@ def migrate_hints(paragraph):
 
     return paragraph
 
-def migrate_hrefs(paragraph):
+def migrate_hrefs(paragraph, infos):
     hrefRegex = re.findall(r"[^\s]*\[.*\]\(.*\).*", paragraph)
     for href in hrefRegex:
         if 'https://' in href or 'http://' in href:
             continue
 
-
+        linkContent = re.search(r"(?<=\]\()(.*?)\)", href).group(0).replace(")", "")
+        #print(linkContent)
 
         if href.startswith("!"):
-            imgName = re.search(r"(?<=\().*(?=\))", href).group(0)
-            newImgName = "images/"+ imgName.split("/")[len(imgName.split("/"))-1]
+            newImgName = "images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
             styleRegex = re.search(r"(?<={:style=\").*(?=\"})", href)
             if styleRegex:
                 newImgName = newImgName + "?"
@@ -68,14 +68,39 @@ def migrate_hrefs(paragraph):
                 for style in styles:
                     style = style.replace(": ", "=").replace(" ", "&")
                     newImgName = newImgName + style
-            newHref = href.replace(imgName, newImgName)
+            newHref = href.replace(linkContent, newImgName)
             newHref = re.sub(r"{.*}", '', newHref, 0)
             paragraph = paragraph.replace(href, newHref)
             continue
 
+        linksContent = re.findall(r"(?<=\]\()(.*?)\)", href)
+        for linkContent in linksContent:
+            linkContent = linkContent.replace(")", "")
+            anchor = linkContent.split("#")[0].replace(".html", "")
+            filename = anchor.split("/")[len(anchor.split("/"))-1]
+           # print(f"\nHREF {href}")
+           # print(f"LINK CONTENT {linkContent}")
+           # print(f"FILENAME {filename}")
+            
+            for k in infos.keys():
+                if not "fileID" in infos[k]:
+                    continue
 
-        newHref = href.replace(".html", "")
-        paragraph = paragraph.replace(href, newHref)
+                if infos[k]["fileID"] == filename:
+                    newAnchor = re.search(r"(?<=site\/content).*", k).group(0).replace(".md", "")
+                
+                    if newAnchor.endswith("_index"):
+                        newAnchor = "/".join(newAnchor.split("/")[0:len(newAnchor.split("/"))-2])
+
+                    if "#" in linkContent:
+                        fragment = linkContent.split("#")[1]
+                        newAnchor = f"{newAnchor}#{fragment}"
+                    #print(f"NEW ANCHOR {newAnchor}")
+                    newHref = href.replace(linkContent, newAnchor).replace(".html", "")
+                    paragraph = paragraph.replace(href, newHref)
+
+                    #print(f"TROVATO {newHref}\n")
+
 
     #Youtube links
     youtubeRegex = re.search(r"{% include youtube\.html .* %}", paragraph)

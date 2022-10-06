@@ -1,6 +1,5 @@
 
 {{ $request := printf "%s\n%s" .Position .Inner}}
-{{ warnf "request '%v'" $request}}
 {{ $remote := resources.GetRemote "http://localhost:8080/http-spec" (dict
 "method" "post"
 "body" $request 
@@ -12,9 +11,6 @@
 )
 }}
 {{ if $remote }}
-    {{ if $remote.Err }}
-        {{ warnf "[HTTP-SPEC] ERROR CALLING ENDPOINT %#v" .Position }}
-  {{ else }}
 {{ $response := unmarshal $remote.Content }}
 {{ $spec := $response.spec | jsonify }}
 {{ $seed := "foo" }}
@@ -60,5 +56,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
     docEl.loadSpec(objSpec);
 })
 </script>
-{{ end }}
 {{ end }}

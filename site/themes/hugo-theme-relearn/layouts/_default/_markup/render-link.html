@@ -3,24 +3,30 @@
 {{ $path := $url.Path }}
 {{ $fragment := "" -}}
 {{ with $url.Fragment }}{{ $fragment = printf "#%s" . }}{{ end -}}
+{{ $permalink := "" }}
 
 {{ $isRemote := ne $url.Scheme "" -}}
 {{ if not $isRemote -}}
   {{ $page := .Page.GetPage $path }}
   {{ if $page }}
-    {{ $link = printf "%s%s" $page.RelPermalink $fragment}}
+    {{ $permalink = printf "%s%s" $page.RelPermalink $fragment}}
   {{ else }}
-    {{ warnf "Page not found '%v'" $path}}
     {{ $linkSplit := split $path "/"}}
     {{ $x := sub (len $linkSplit) 1 }}
     {{ $idSearch := index $linkSplit $x }}
     {{ range site.Pages }}
       {{ if eq $path .Params.fileID }}
-        {{ $link = .RelPermalink }}
+        {{ $permalink = .RelPermalink }}
       {{ end }}
     {{ end }}
-
-  {{ end }}
+    {{ if not $permalink }}
+      {{ if site.Params.failOnBrokenLinks }}
+        {{ errorf "[ERROR] Broken link '%v'" .Destination}}
+      {{ else }}
+        {{ warnf "Broken link '%v'" .Destination}}
+      {{ end }}
+    {{ end }}
+  {{end}}
 {{ end }}
-<a href="{{ $link | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isRemote }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>
+<a href="{{ $permalink | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isRemote }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>
 {{- /* whitespace control */ -}}

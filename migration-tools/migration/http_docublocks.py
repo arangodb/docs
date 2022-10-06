@@ -122,7 +122,7 @@ def processExamples(docuBlock):
     blockExamples = []
 
     for block in examples:
-        exampleBlock = {'options': {}, 'code': ""}
+        exampleBlock = {'options': {"draft": False}, 'code': ""}
         exampleType = re.search(r"ARANGO.*(?={)", block).group(0)
         if exampleType == "ARANGOSH_RUN":
             exampleBlock["options"]["render"] = "input"
@@ -131,9 +131,15 @@ def processExamples(docuBlock):
 
         exampleName = re.search(r"(?<={).*(?=})", block).group(0)
         exampleBlock["options"]["name"] = exampleName
+        exampleBlock["options"]["release"] = "stable"
         exampleBlock["options"]["version"] = "3.10"
         code = re.search(r"(?<="+exampleType+"{"+exampleName+"}\n).*", block, re.MULTILINE | re.DOTALL).group(0)
+        code = code.replace("|", " ")
         exampleBlock["code"] = code
+
+        if "logJsonResponse" in code:
+            exampleBlock["options"]["render"] = "input/output"
+
 
         blockExamples.append(exampleBlock)
 

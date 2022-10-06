@@ -12,13 +12,6 @@ import argparse
 from globals import *
 
 
-frontMatterCapture = r"(?<=---\n)(.*?)(?=---)"
-widgetRegex = r"{% .* %}[\n]+.*[\n]+{% .* %}"
-
-infos = {"": {}}
-currentWeight = 0
-
-
 def structure_migration_new(label, document, manual):
 	if document is None:
 		directoryTree = open(f"{OLD_TOOLCHAIN}/_data/3.10-{manual}.yml")
@@ -71,7 +64,7 @@ def create_chapter(item, manual):
 	labelPage.frontMatter.weight = get_weight(currentWeight)
 	labelPage.frontMatter.fileID = "fileID"
 	infos[filepath] = {"title": item["subtitle"], "weight": get_weight(currentWeight)}
-
+	
 	file = open(filepath, "w")
 	file.write(labelPage.toString())
 	file.close()
@@ -185,14 +178,19 @@ def _processChapters(page, paragraph):
 
 	paragraph = re.sub("{+\s?page.description\s?}+", '', paragraph)
 	paragraph = paragraph.replace("{:target=\"_blank\"}", "")
+	paragraph = paragraph.replace("{:style=\"clear: left;\"}", "")
 	test = re.search(r"#+ .*|(.*\n={4,})", paragraph)
 	if test:
 		paragraph = paragraph.replace(test.group(0), '', 1)
 
 	paragraph = re.sub(r"(?<=\n\n)[\w\s\W]+{:class=\"lead\"}", '', paragraph)
+	versionBlocks = re.findall(r"{%- assign ver.*{%- endif %}", paragraph)
+	for versionBlock in versionBlocks:
+		if not "3.10" in versionBlock:
+			paragraph = paragraph.replace(versionBlock, "")
 
 	paragraph = migrate_headers(paragraph)
-	paragraph = migrate_hrefs(paragraph)
+	paragraph = migrate_hrefs(paragraph, infos)
 	paragraph = migrate_hints(paragraph)
 	paragraph = migrateHTTPDocuBlocks(paragraph)
 	paragraph = migrateInlineDocuBlocks(paragraph)
@@ -205,12 +203,12 @@ def migrate_media():
 	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
-			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/site/assets/images/{file}")
+			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
 
 	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/oasis/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
-			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/site/assets/images/{file}")
+			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
 	print("----- END MEDIA MIGRATION")
 
 class Page():
@@ -251,6 +249,6 @@ if __name__ == "__main__":
 		initBlocksFileLocations()
 		processFiles()
 		write_components_to_file()
-		#migrate_media()
+		migrate_media()
 	except Exception as ex:
 		print(traceback.format_exc())

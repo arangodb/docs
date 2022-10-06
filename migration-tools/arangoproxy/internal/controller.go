@@ -66,7 +66,7 @@ func HTTPExampleHandler(w http.ResponseWriter, r *http.Request) {
 
 	//common.Logger.Printf("[http-example/CONTROLLER] Processing Example %s\n", request.Options.Name)
 
-	resp := HTTPService.ExecuteExample(request)
+	resp := HTTPService.ExecuteHTTPExample(request)
 	response, err := json.Marshal(resp)
 	if err != nil {
 		fmt.Printf("[http-example/CONTROLLER] Error marshalling response: %s\n", err.Error())
@@ -88,14 +88,18 @@ func HTTPSpecHandler(w http.ResponseWriter, r *http.Request) {
 	jsonResponse, err := json.Marshal(response)
 	if err != nil {
 		common.Logger.Printf("[http-spec/CONTROLLER] Error Marshalling Response: %s\n", err.Error())
+		x, _ := json.Marshal(httpapi.HTTPResponse{})
+		w.Write(x)
+		return
 	}
 
 	APIWriteWG.Wait()
 	APIWriteWG.Add(1)
 	// Write new specs to api-docs
-	webui.Write(response.ApiSpec, request.Filename)
-	APIWriteWG.Done()
-
+	err = webui.Write(response.ApiSpec, request.Filename, APIWriteWG)
+	if err != nil {
+		common.Logger.Printf("[http-spec/CONTROLLER] Error WebUI Write: %s\n", err.Error())
+	}
 	w.Write(jsonResponse)
 }
 

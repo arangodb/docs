@@ -30,6 +30,7 @@ type Repository struct {
 	Version        string           `json:"version"`
 	Url            string           `json:"url"`                       // Instance URL+Port to connect to
 	Authentication []Authentication `json:"authentications,omitempty"` // Instance authentication
+	Password       string           `json:"password"`                  // Temporary workaround for authentication to be implemented
 }
 
 type OpenApi struct {

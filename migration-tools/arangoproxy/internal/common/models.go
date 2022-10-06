@@ -37,6 +37,7 @@ type ExampleOptions struct {
 	Name     string                 `yaml:"name" json:"name"`                           // Example Name
 	Run      bool                   `yaml:"run,omitempty" json:"run,omitempty"`         // Choose if the example has to be run or not
 	Version  string                 `yaml:"version" json:"version"`                     // Arango instance version to launch the example against
+	Draft    bool                   `yaml:"draft" json:"draft"`                         // if true, cache will not be used on this example
 	Render   RenderType             `yaml:"render" json:"render"`                       // Return the example code, the example output or both
 	Explain  bool                   `yaml:"explain,omitempty" json:"explain,omitempty"` // AQL @EXPLAIN flag
 	BindVars map[string]interface{} `yaml:"bindVars,omitempty" json:"bindVars,omitempty"`

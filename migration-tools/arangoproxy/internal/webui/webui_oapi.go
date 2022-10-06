@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"sync"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
@@ -58,7 +59,8 @@ func InitSwaggerFile() {
 }
 
 // Load the api-docs content and add the new endpoint {spec} to it and add the entire content to file
-func Write(spec map[string]interface{}, filename string) error {
+func Write(spec map[string]interface{}, filename string, wg sync.WaitGroup) error {
+	defer wg.Done()
 	// Get all previous api-docs content
 	apiDocsMap, err := utils.ReadFileAsMap(config.Conf.OpenApi.ApiDocsFile)
 	if err != nil {

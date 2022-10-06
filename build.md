@@ -1,12 +1,14 @@
 # ArangoDB Docs Toolchain build
 
-To build the docs are needed:
--   **arangoproxy**
+## Prerequisites:
+-   **Go**
+-   **Python 3**
 -   **hugo**
 
 ## Build
--   Start the arangoproxy webserver
+-   Build and Start the arangoproxy webserver
     ```
+    arangoproxy/cmd> go build -o arangoproxy
     arangoproxy/cmd> ./arangoproxy {flags}
     ```
 

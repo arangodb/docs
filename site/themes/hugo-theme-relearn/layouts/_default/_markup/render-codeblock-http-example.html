@@ -13,7 +13,7 @@
     {{ if in $response.options.render "input" }}
     {{ $version := replace $response.options.version "." "" }}
       <div class="version {{ $version }}" style="display: none;">
-        {{ transform.Highlight $response.input "js" }}
+        {{ transform.Highlight $response.input "curl" }}
       </div>
     {{ end }}
     {{ if in $response.options.render "output" }}
@@ -30,6 +30,6 @@
     {{ end }}
   {{ end }}
 {{ else }}
-{{ transform.Highlight .Inner "js" }}
+{{ transform.Highlight .Inner "curl" }}
 {{ end }}
 {{ end }}

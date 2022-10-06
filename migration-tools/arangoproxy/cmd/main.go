@@ -28,6 +28,7 @@ func init() {
 	}
 
 	internal.InitLog(config.Conf.Log)
+	common.InitRepositories()
 
 	common.Logger.Println(startupBanner)
 	common.Logger.Print("./arangoproxy -help for help usage\n\n")

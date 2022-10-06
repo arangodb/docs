@@ -14,6 +14,9 @@ import (
 
 // Check in the {config.Cache.RequestsFile} if this request is cached by checking base64 encodings
 func (service Service) IsCached(request Example) (bool, error) {
+	if request.Options.Draft {
+		return true, nil
+	}
 	hashName := fmt.Sprintf("%s_%s_%s", request.Options.Name, request.Options.Release, request.Options.Version)
 	hashFile, err := os.ReadFile(config.Conf.Cache.RequestsFile)
 	if err != nil {
@@ -25,7 +28,7 @@ func (service Service) IsCached(request Example) (bool, error) {
 
 	if strings.Contains(string(hashFile), fmt.Sprintf("%s: %s", hashName, exampleHash)) {
 		// Encodings are the same, so the incoming request is the same as the cached one
-		Logger.Print("[IsCached] Example is cached\n")
+		//Logger.Print("[IsCached] Example is cached\n")
 		return true, nil // Example has not been modified
 	}
 

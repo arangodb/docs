@@ -18,4 +18,15 @@ func InitLog(logFilepath string) {
 func CleanCache() {
 	os.OpenFile(config.Conf.Cache.RequestsFile, os.O_TRUNC, 0644)
 	os.OpenFile(config.Conf.Cache.ResponsesFile, os.O_TRUNC, 0644)
+
+	removeAllCmd := `
+	for (let col of db._collections()) {
+
+		if (!col.properties().isSystem) {
+			db._drop(col._name);
+		}
+	}
+	`
+
+	JSService.InvokeArangoSH(removeAllCmd, config.Repository{})
 }

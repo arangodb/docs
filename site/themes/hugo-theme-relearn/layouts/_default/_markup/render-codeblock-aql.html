@@ -6,8 +6,8 @@
   )
 }}
 {{ if $remote }}
-    {{ if $remote.Err }}
-        {{ warnf "[AQL] ERROR CALLING ENDPOINT %#v" .Position }}
+{{ if $remote.Err }}
+        {{ warnf "[HTTP-EXAMPLE] ERROR CALLING ENDPOINT %#v" .Position }}
   {{ else }}
 {{ $response := unmarshal $remote.Content }}
     {{ if in $response.options.render "input" }}
@@ -28,7 +28,7 @@
       ) }}
       </div>
     {{ end }}
-  {{ end }}
+    {{end}}
   {{ end }}
 {{ else }}
 {{ transform.Highlight .Inner "aql" }}

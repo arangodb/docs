@@ -22,7 +22,7 @@ func (service Service) ExecuteExample(request Example) (res ExampleResponse) {
 	// Check example is cached
 	if cached, err := service.IsCached(request); cached {
 		if res, err = service.GetCachedExampleResponse(request); err == nil {
-			Logger.Print("Returning cached ExampleResponse")
+			//Logger.Print("Returning cached ExampleResponse")
 			return
 		}
 	}
@@ -49,9 +49,10 @@ func (service Service) InvokeArangoSH(command string, repository config.Reposito
 	command = strings.ReplaceAll(command, "~", "")
 	cmdName := "arangosh"
 	cmdArgs := []string{"--configuration", "none",
-		"--server.endpoint", "http+tcp://127.0.0.1:8529",
-		"--server.password", "AlterBridge95!",
+		"--server.endpoint", repository.Url,
+		"--server.password", repository.Password,
 		"--javascript.startup-directory", "/usr/share/arangodb3/js"}
+
 	cmd := exec.Command(cmdName, cmdArgs...)
 
 	var out, er bytes.Buffer
@@ -70,4 +71,5 @@ func (service Service) InvokeArangoSH(command string, repository config.Reposito
 	}
 
 	return strings.ReplaceAll(cmdOutput.String(), "\n\n", "")
+	//return cmdOutput.String()
 }

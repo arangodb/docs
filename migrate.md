@@ -1,4 +1,10 @@
-## Migration
+# Migration
+
+## Prerequisites:
+-   **Python 3**
+
+
+## Migrate
 
 **Create a backup copy of the docs repository first**
 

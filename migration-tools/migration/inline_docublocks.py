@@ -17,7 +17,8 @@ def migrateInlineDocuBlocks(paragraph):
                             "language": "js",
                             "name": "",
                             "render": "input",
-                            "version": "3.10"
+                            "version": "3.10",
+                            "draft": False,
                             },
                         "code": "",
                         }
@@ -30,6 +31,8 @@ def migrateInlineDocuBlocks(paragraph):
             elif "@EXAMPLE_AQL" in exampleType:
                 newBlock["options"]["language"] = "aql"
                 newBlock["options"]["render"] = "input/output"
+
+            newBlock["options"]["release"] = "stable"
 
             block = re.sub(r"@EXAMPLE_.*", '', block, 0)
             datasetRe = re.search(r"@DATASET.*", block)
@@ -65,6 +68,7 @@ def render_codeblock(block):
 name: {block["options"]["name"]}\n\
 version: {block["options"]["version"]}\n\
 render: {block["options"]["render"]}\n\
+release: {block["options"]["release"]}\n\
 bindVars: {block["options"]["bindVars"] if "bindVars" in block["options"] else ""}\n\
 dataset: {block["options"]["dataset"] if "dataset" in block["options"] else ""}\n\
 explain: {block["options"]["explain"] if "explain" in block["options"] else ""}\n\

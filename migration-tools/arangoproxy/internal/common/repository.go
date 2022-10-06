@@ -8,8 +8,9 @@ import (
 
 var Repositories map[string]config.Repository
 
-func init() {
+func InitRepositories() {
 	Repositories = make(map[string]config.Repository)
+	fmt.Printf("INIT REPOSITORIES CONF %s\n", config.Conf.Repositories)
 	for _, repo := range config.Conf.Repositories {
 		Repositories[fmt.Sprintf("%s_%s", repo.Type, repo.Version)] = repo
 	}
