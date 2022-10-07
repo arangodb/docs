@@ -130,6 +130,17 @@ queries early. When set to *false*, AQL queries that produce warnings will not
 abort and return the warnings along with the query results.
 The option can also be overridden for each individual AQL query.
 
+## Logging failed AQL queries
+
+<small>Introduced in: v3.11.0</small>
+
+`--query.log-failed-queries value`
+
+When set to *true*, will log all failed AQL queries to the server log. This
+option can be used during development, or to catch unexpected failed queries
+in production.
+The option is turned off by default.
+
 ## Requiring `WITH` statements
 
 <small>Introduced in: v3.7.12</small>
