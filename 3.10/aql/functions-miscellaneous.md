@@ -478,7 +478,7 @@ The result can be used to approximate the Jaccard similarity of sets.
 Calculate the number of hashes (MinHash signature size) needed to not exceed the
 specified error amount.
 
-- **error** (number): the probabilistic error you can tolerate in the range `[0, 1]`
+- **error** (number): the probabilistic error you can tolerate in the range `[0, 1)`
 - returns **numHashes** (number): the required number of hashes to not exceed
   the specified error amount
 
@@ -487,7 +487,7 @@ specified error amount.
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlMinHashCount
     @EXAMPLE_AQL{aqlMinHashCount}
-      RETURN MINHASH_ERROR(0.05)
+      RETURN MINHASH_COUNT(0.05)
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMinHashCount
     {% endaqlexample %}
