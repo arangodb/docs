@@ -22,7 +22,7 @@ class NavigationTag < Liquid::Tag
             if element['subtitle']
                 output += localIndent + "<li class=\"header\">" + element['subtitle'] + "</li>\n"
             elsif element['divider']
-                output += localIndent + "<li><hr/></li>\n"
+                output += localIndent + "<li><hr></li>\n"
             else
                 children = ""
                 classNames = "chapter"
