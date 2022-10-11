@@ -94,7 +94,7 @@ changes, use:
 
 `bundle exec jekyll build`
 
-The generated content will be stored in the `_site/` folder.
+The generated content will be stored in the `_site/docs/` folder.
 
 To serve the content from a previous build without watching for changes, use:
 
@@ -115,27 +115,26 @@ encounter stale content, then stop the container and run:
 
 `docker run --rm -v $(pwd):/docs -p 4000:4000 arangodb/arangodb-docs bundler exec jekyll serve -H 0.0.0.0 --trace`
 
-Alternatively, you may stop the container, execute
-`rm -rf .jekyll-cache/ .jekyll-metadata _site/`, and run the Docker command
-again (without additional arguments).
+Alternatively, you may stop the container, execute either of the following
+commands, and run the normal Docker command again (without additional arguments).
+- `rm -rf .jekyll-cache/ .jekyll-metadata _site/`
+- `docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll clean`
 
 To build the documentation without watch mode or serving the resulting site,
 you can execute:
 
 `docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll build --trace`
 
-After that the HTML files in `_site/` are ready to be served by a webserver.
-
-Please note that you still need to put them into a `/docs` subdirectory if you
-want to serve the documentation with another web server (only relevant for
-hosting the documentation). Example:
+After that the HTML files in `_site/` are ready to be served by a webserver:
 
 ```bash
-mkdir -p /tmp/arangodocs
-cp -a _site /tmp/arangodocs/docs
-cd /tmp/arangodocs
-python -m http.server
+cd _site
+python3 -m http.server
 ```
+
+To check for broken references (e.g. internal links), you can run `htmltest`:
+
+`docker run --rm -v $(pwd):/docs arangodb/arangodb-docs htmltest`
 
 ### Performance
 
