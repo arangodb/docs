@@ -13,8 +13,8 @@ cp -a _site htmltest/docs
 cp _redirects htmltest
 
 (cd /tmp && \
-    wget -nv https://github.com/wjdp/htmltest/releases/download/v0.14.0/htmltest_0.14.0_linux_amd64.tar.gz && \
-    tar xvzf htmltest_0.14.0_linux_amd64.tar.gz
+    wget -nv https://github.com/wjdp/htmltest/releases/download/v0.16.0/htmltest_0.16.0_linux_amd64.tar.gz && \
+    tar xvzf htmltest_0.16.0_linux_amd64.tar.gz
 )
 
 /tmp/htmltest -s
