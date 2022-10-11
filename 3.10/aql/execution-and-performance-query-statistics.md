@@ -66,7 +66,7 @@ The meaning of the statistics attributes is as follows:
   post-filter in the `IndexNode` itself or following `FilterNode` nodes. 
   Nodes of the `EnumerateCollectionNode` and `TraversalNode` types can also apply
   filter conditions and can report the number of filtered documents.
-- **httpRequests**: The total number of HTTP requests performed.
+- **httpRequests**: The total number of cluster-internal HTTP requests performed.
 - **fullCount** (_optional_): The total number of documents that matched the search condition if the query's
   final top-level `LIMIT` operation were not present.
   This attribute may only be returned if the `fullCount` option was set when starting the 
@@ -85,7 +85,7 @@ The meaning of the statistics attributes is as follows:
   for write queries, and only for queries that reached either the `intermediateCommitSize`
   or `intermediateCommitCount` thresholds. Note: in a cluster, intermediate
   commits can happen on each participating DB-Server.
-- **nodes** (_optional_): When the query was executed with the option `profile` set to at least `2`,
+- **nodes** (_optional_): When the query is executed with the option `profile` set to at least `2`,
   then this value contains runtime statistics per query execution node.
   For a human readable output you can execute `db._profileQuery(<query>, <bind-vars>)`
   in the arangosh.
