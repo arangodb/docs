@@ -68,7 +68,9 @@ in the [kube-arangodb repository](https://github.com/arangodb/kube-arangodb/rele
 
 ## ArangoDB deployment creation
 
-After deploying the latest ArangoDB Kubernetes operator, use the command below to deploy your [license key](../administration-license.html) as a secret which is required for the Enterprise Edition starting with version 3.9:
+After deploying the latest ArangoDB Kubernetes operator, use the command below
+to deploy your [license key](administration-license.html) as a secret which is
+required for the Enterprise Edition starting with version 3.9:
 
 ```bash
 kubectl create secret generic arango-license-key --from-literal=token-v2="<license-string>"
