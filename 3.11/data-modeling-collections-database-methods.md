@@ -132,6 +132,13 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 - `computedValues` (optional, default: `null`): An array of objects,
   each representing a [Computed Value](data-modeling-documents-computed-values.html).
 
+- `cacheEnabled`: Whether the in-memory hash cache for documents should be
+  enabled for this collection (default: `false`). Can be controlled globally
+  with the `--cache.size` startup option. The cache can speed up repeated reads
+  of the same documents via their document keys. If the same documents are not
+  fetched often or are modified frequently, then you may disable the cache to
+  avoid the maintenance costs.
+
 - `numberOfShards` (optional, default `1`): in a cluster, this value
   determines the number of shards to create for the collection. In a single
   server setup, this option is meaningless.
@@ -202,19 +209,19 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   initial sharding algorithm.
 
   The available sharding strategies are:
-  - `community-compat`: default sharding used by ArangoDB
+  - `"community-compat"`: default sharding used by ArangoDB
     Community Edition before version 3.4
-  - `enterprise-compat`: default sharding used by ArangoDB
+  - `"enterprise-compat"`: default sharding used by ArangoDB
     Enterprise Edition before version 3.4
-  - `enterprise-smart-edge-compat`: default sharding used by smart edge
+  - `"enterprise-smart-edge-compat"`: default sharding used by smart edge
     collections in ArangoDB Enterprise Edition before version 3.4
-  - `hash`: default sharding used for new collections starting from version 3.4
+  - `"hash"`: default sharding used for new collections starting from version 3.4
     (excluding smart edge collections)
-  - `enterprise-hash-smart-edge`: default sharding used for new
+  - `"enterprise-hash-smart-edge"`: default sharding used for new
     smart edge collections starting from version 3.4
 
-  If no sharding strategy is specified, the default is `hash` for
-  all collections, and `enterprise-hash-smart-edge` for all smart edge
+  If no sharding strategy is specified, the default is `"hash"` for
+  all collections, and `"enterprise-hash-smart-edge"` for all smart edge
   collections (requires the *Enterprise Edition* of ArangoDB). 
   Manually overriding the sharding strategy does not yet provide a 
   benefit, but it may later in case other sharding strategies are added.
