@@ -10,7 +10,7 @@ SmartJoins
 
 <small>Introduced in: v3.4.5, v3.5.0</small>
 
-{% include hint-ee-oasis.md feature="SmartJoins" plural=true %}
+{% include hint-ee-arangograph.md feature="SmartJoins" plural=true %}
 
 SmartJoins allow to execute co-located join operations among identically sharded collections.
 

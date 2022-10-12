@@ -187,8 +187,8 @@ Administration
 - [Using The Linux Kernel and Cgroups to Simulate Starvation](https://www.arangodb.com/2019/01/using-the-linux-kernel-and-cgroups-to-simulate-starvation/){:target="_blank"}
 
 - Oasisctl:
-  - [Opening the ArangoDB Oasis API & Terraform Provider](https://www.arangodb.com/2020/03/opening-the-arangodb-oasis-api-terraform-provider/){:target="_blank"}
-  - [Getting Started with the Oasis API and Oasisctl](oasis/oasisctl-getting-started.html)
+  - [Opening the ArangoGraph API & Terraform Provider](https://www.arangodb.com/2020/03/opening-the-arangodb-oasis-api-terraform-provider/){:target="_blank"}
+  - [Getting Started with the ArangoGraph API and Oasisctl](arangograph/oasisctl-getting-started.html)
 
 Drivers and Integrations
 ------------------------

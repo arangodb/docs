@@ -28,12 +28,12 @@
 #    ./oasisctl generate-docs --link-file-ext .html --replace-underscore-with - --output-dir temp-folder
 #
 # 6. Run this script with Ruby in a terminal, using the previously generated
-#    files as input and the Oasis documentation folder as output:
+#    files as input and the ArangoGraph documentation folder as output:
 #
-#    ruby oasisctl.rb /path/to/generated/docs /path/to/oasis
+#    ruby oasisctl.rb /path/to/generated/docs /path/to/arangograph
 #
 # 7. This script prints the navigation definition for the new files to the
-#    terminal. Copy the text, open _data/oasis.yml, and remove everything after
+#    terminal. Copy the text, open _data/arangograph.yml, and remove everything after
 #    the following block:
 #
 #    - text: Oasisctl
@@ -105,7 +105,7 @@ def main()
             command = title_arr[1]
         end
 
-        # Output for pasting into x.x-oasis.yml navigation definition
+        # Output for pasting into x.x-arangograph.yml navigation definition
         entry = [
             "- text: #{title}",
             "  href: #{File.basename(outfile, '.md') + '.html'}"
@@ -139,9 +139,9 @@ def rewrite_content(infile, outfile)
             f.write(line[1..])
         # Monkey-patching frontmatter (TODO: port to oasisctl?)
         elsif is_root and line.start_with?("description: ")
-            f.write("description: Command-line client tool for managing ArangoDB Oasis\n")
+            f.write("description: Command-line client tool for managing ArangoGraph\n")
         elsif is_root and line.start_with?("title: ")
-            f.write("title: ArangoDB Oasis Shell oasisctl\n")
+            f.write("title: ArangoGraph Shell oasisctl\n")
         else
             # TODO: Fix capitalization of link labels?
             f.write(line

@@ -39,4 +39,4 @@ Additional tools which are available separately:
 |-----------------|-------------------|
 | [Foxx CLI](programs-foxx-cli.html) | Command line tool for managing and developing Foxx services
 | [kube-arangodb](deployment-kubernetes.html) | Operators to manage Kubernetes deployments
-| [Oasisctl](oasis/oasisctl.html) | Command-line tool for managing ArangoDB Oasis
+| [Oasisctl](arangograph/oasisctl.html) | Command-line tool for managing the ArangoGraph Insights Platform

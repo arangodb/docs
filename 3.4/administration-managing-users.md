@@ -292,7 +292,7 @@ database. All changes to the access levels must be done using the
 
 ### LDAP Users
 
-{% include hint-ee-oasis.md feature="LDAP authentication" %}
+{% include hint-ee-arangograph.md feature="LDAP authentication" %}
 
 ArangoDB supports LDAP as an external authentication system. For detailed
 information please have look into the

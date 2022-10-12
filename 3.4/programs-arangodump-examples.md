@@ -122,7 +122,7 @@ more details about restoring the collection.
 Encryption
 ----------
 
-{% include hint-ee-oasis.md feature="Dump encryption" %}
+{% include hint-ee-arangograph.md feature="Dump encryption" %}
 
 Starting from version 3.3 encryption of the dump is supported.
 
