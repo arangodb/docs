@@ -23,6 +23,7 @@ oasisctl update private endpoint service [flags]
       --azure-client-subscription-id strings   List of Azure subscription IDs from which a Private Endpoint can be created
   -d, --deployment-id string                   Identifier of the deployment that the private endpoint service is connected to
       --description string                     Description of the private endpoint service
+      --gcp-project strings                    List of GCP projects from which a Private Endpoint can be created
   -h, --help                                   help for service
       --name string                            Name of the private endpoint service
   -o, --organization-id string                 Identifier of the organization

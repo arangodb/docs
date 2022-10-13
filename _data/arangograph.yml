@@ -72,6 +72,8 @@
     - text: Backup
       href: oasisctl-backup.html
       children:
+        - text: Backup Copy
+          href: oasisctl-backup-copy.html
         - text: Backup Download
           href: oasisctl-backup-download.html
     - text: Clone
@@ -110,6 +112,8 @@
           href: oasisctl-create-metrics.html
         - text: Create Metrics Token
           href: oasisctl-create-metrics-token.html
+        - text: Create Notebook
+          href: oasisctl-create-notebook.html
         - text: Create Organization
           href: oasisctl-create-organization.html
         - text: Create Organization Invite
@@ -159,6 +163,8 @@
           href: oasisctl-delete-metrics.html
         - text: Delete Metrics Token
           href: oasisctl-delete-metrics-token.html
+        - text: Delete Notebook
+          href: oasisctl-delete-notebook.html
         - text: Delete Organization
           href: oasisctl-delete-organization.html
         - text: Delete Organization Invite
@@ -210,6 +216,8 @@
           href: oasisctl-get-metrics.html
         - text: Get Metrics Token
           href: oasisctl-get-metrics-token.html
+        - text: Get Notebook
+          href: oasisctl-get-notebook.html
         - text: Get Organization
           href: oasisctl-get-organization.html
         - text: Get Organization Authentication
@@ -265,7 +273,7 @@
           href: oasisctl-list-auditlog-archives.html
         - text: List Audit Log Destinations
           href: oasisctl-list-auditlog-destinations.html
-        - text: List Auditlogs
+        - text: List Audit Logs
           href: oasisctl-list-auditlogs.html
         - text: List Backup
           href: oasisctl-list-backup.html
@@ -305,6 +313,10 @@
           href: oasisctl-list-metrics-tokens.html
         - text: List Node Sizes
           href: oasisctl-list-nodesizes.html
+        - text: List Notebook Models
+          href: oasisctl-list-notebookmodels.html
+        - text: List Notebooks
+          href: oasisctl-list-notebooks.html
         - text: List Organization
           href: oasisctl-list-organization.html
         - text: List Organization Invites
@@ -344,6 +356,11 @@
       href: oasisctl-login.html
     - text: Logs
       href: oasisctl-logs.html
+    - text: Pause
+      href: oasisctl-pause.html
+      children:
+        - text: Pause Notebook
+          href: oasisctl-pause-notebook.html
     - text: Rebalance
       href: oasisctl-rebalance.html
       children:
@@ -370,6 +387,8 @@
       children:
         - text: Resume Deployment
           href: oasisctl-resume-deployment.html
+        - text: Resume Notebook
+          href: oasisctl-resume-notebook.html
     - text: Revoke
       href: oasisctl-revoke.html
       children:
@@ -426,6 +445,8 @@
           href: oasisctl-update-metrics.html
         - text: Update Metrics Token
           href: oasisctl-update-metrics-token.html
+        - text: Update Notebook
+          href: oasisctl-update-notebook.html
         - text: Update Organization
           href: oasisctl-update-organization.html
         - text: Update Organization Authentication

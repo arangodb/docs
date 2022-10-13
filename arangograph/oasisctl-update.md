@@ -39,6 +39,7 @@ oasisctl update [flags]
 * [oasisctl update group](oasisctl-update-group.html)	 - Update a group the authenticated user has access to
 * [oasisctl update ipallowlist](oasisctl-update-ipallowlist.html)	 - Update an IP allowlist the authenticated user has access to
 * [oasisctl update metrics](oasisctl-update-metrics.html)	 - Update metrics resources
+* [oasisctl update notebook](oasisctl-update-notebook.html)	 - Update notebook
 * [oasisctl update organization](oasisctl-update-organization.html)	 - Update an organization the authenticated user has access to
 * [oasisctl update policy](oasisctl-update-policy.html)	 - Update a policy
 * [oasisctl update private](oasisctl-update-private.html)	 - Update private resources

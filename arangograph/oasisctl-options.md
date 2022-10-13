@@ -1,7 +1,7 @@
 ---
 layout: default
-description: Command-line client tool for managing ArangoDB Oasis
-title: ArangoDB Oasis Shell oasisctl
+description: Command-line client tool for managing ArangoGraph
+title: ArangoGraph Shell oasisctl
 ---
 # Oasisctl
 
@@ -43,6 +43,7 @@ oasisctl [flags]
 * [oasisctl lock](oasisctl-lock.html)	 - Lock resources
 * [oasisctl login](oasisctl-login.html)	 - Login to ArangoDB Oasis using an API key
 * [oasisctl logs](oasisctl-logs.html)	 - Get logs of the servers of a deployment the authenticated user has access to
+* [oasisctl pause](oasisctl-pause.html)	 - Pause resources
 * [oasisctl rebalance](oasisctl-rebalance.html)	 - Rebalance resources
 * [oasisctl reject](oasisctl-reject.html)	 - Reject invites
 * [oasisctl renew](oasisctl-renew.html)	 - Renew keys & tokens

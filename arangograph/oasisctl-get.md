@@ -40,6 +40,7 @@ oasisctl get [flags]
 * [oasisctl get group](oasisctl-get-group.html)	 - Get a group the authenticated user has access to
 * [oasisctl get ipallowlist](oasisctl-get-ipallowlist.html)	 - Get an IP allowlist the authenticated user has access to
 * [oasisctl get metrics](oasisctl-get-metrics.html)	 - Get metrics information
+* [oasisctl get notebook](oasisctl-get-notebook.html)	 - Get a notebook
 * [oasisctl get organization](oasisctl-get-organization.html)	 - Get an organization the authenticated user is a member of
 * [oasisctl get policy](oasisctl-get-policy.html)	 - Get a policy the authenticated user has access to
 * [oasisctl get private](oasisctl-get-private.html)	 - Get private information

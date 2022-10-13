@@ -41,6 +41,7 @@ oasisctl delete [flags]
 * [oasisctl delete group](oasisctl-delete-group.html)	 - Delete a group the authenticated user has access to
 * [oasisctl delete ipallowlist](oasisctl-delete-ipallowlist.html)	 - Delete an IP allowlist the authenticated user has access to
 * [oasisctl delete metrics](oasisctl-delete-metrics.html)	 - Delete metrics resources
+* [oasisctl delete notebook](oasisctl-delete-notebook.html)	 - Delete a notebook
 * [oasisctl delete organization](oasisctl-delete-organization.html)	 - Delete an organization the authenticated user has access to
 * [oasisctl delete project](oasisctl-delete-project.html)	 - Delete a project the authenticated user has access to
 * [oasisctl delete role](oasisctl-delete-role.html)	 - Delete a role the authenticated user has access to

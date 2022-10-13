@@ -50,6 +50,8 @@ oasisctl list [flags]
 * [oasisctl list ipallowlists](oasisctl-list-ipallowlists.html)	 - List all IP allowlists of the given project
 * [oasisctl list metrics](oasisctl-list-metrics.html)	 - List metrics resources
 * [oasisctl list nodesizes](oasisctl-list-nodesizes.html)	 - List node sizes
+* [oasisctl list notebookmodels](oasisctl-list-notebookmodels.html)	 - List notebook models
+* [oasisctl list notebooks](oasisctl-list-notebooks.html)	 - List notebooks
 * [oasisctl list organization](oasisctl-list-organization.html)	 - List organization resources
 * [oasisctl list organizations](oasisctl-list-organizations.html)	 - List all organizations the authenticated user is a member of
 * [oasisctl list permissions](oasisctl-list-permissions.html)	 - List the known permissions

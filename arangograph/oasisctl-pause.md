@@ -1,24 +1,24 @@
 ---
 layout: default
-description: Description of the oasisctl resume command
-title: Oasisctl Resume
+description: Description of the oasisctl pause command
+title: Oasisctl Pause
 ---
-# Oasisctl Resume
+# Oasisctl Pause
 
-Resume resources
+Pause resources
 
 ## Synopsis
 
-Resume resources
+Pause resources
 
 ```
-oasisctl resume [flags]
+oasisctl pause [flags]
 ```
 
 ## Options
 
 ```
-  -h, --help   help for resume
+  -h, --help   help for pause
 ```
 
 ## Options inherited from parent commands
@@ -32,6 +32,5 @@ oasisctl resume [flags]
 ## See also
 
 * [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
-* [oasisctl resume deployment](oasisctl-resume-deployment.html)	 - Resume a paused deployment the authenticated user has access to
-* [oasisctl resume notebook](oasisctl-resume-notebook.html)	 - Resume a notebook
+* [oasisctl pause notebook](oasisctl-pause-notebook.html)	 - Pause a notebook
 
