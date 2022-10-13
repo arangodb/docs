@@ -97,7 +97,7 @@ Predefined roles cannot be deleted.
 
 {% comment %}
 Windows command to generate below list (cmd.exe):
-oasisctl list roles --format json | jq -r ".[] | \"**\(.description)** (`\(.id)`):\n\(.permissions ^| split(\", \") ^| map(\"- `\(.)`\n\") ^| join(\"\"))""
+oasisctl list roles --organization-id <id> --format json | jq -r ".[] | select(.predefined == true) | \"**\(.description)** (`\(.id)`):\n\(.permissions ^| split(\", \") ^| map(\"- `\(.)`\n\") ^| join(\"\"))""
 {% endcomment %}
 
 {% details 'List of predefined roles and their permissions' %}
@@ -110,68 +110,71 @@ The roles below are described following this pattern:
 {% endhint %}
 
 **Audit Log Admin** (`auditlog-admin`):
-- `audit.auditlog.list`
-- `audit.auditlog.get`
 - `audit.auditlog.create`
 - `audit.auditlog.delete`
+- `audit.auditlog.get`
+- `audit.auditlog.list`
 - `audit.auditlog.set-default`
 - `audit.auditlog.test-https-post-destination`
 - `audit.auditlog.update`
 
 **Audit Log Archive Admin** (`auditlog-archive-admin`):
-- `audit.auditlogarchive.list`
-- `audit.auditlogarchive.get`
 - `audit.auditlogarchive.delete`
+- `audit.auditlogarchive.get`
+- `audit.auditlogarchive.list`
 
 **Audit Log Archive Viewer** (`auditlog-archive-viewer`):
-- `audit.auditlogarchive.list`
 - `audit.auditlogarchive.get`
+- `audit.auditlogarchive.list`
 
 **Audit Log Attachment Admin** (`auditlog-attachment-admin`):
-- `audit.auditlogattachment.get`
 - `audit.auditlogattachment.create`
 - `audit.auditlogattachment.delete`
+- `audit.auditlogattachment.get`
 
 **Audit Log Attachment Viewer** (`auditlog-attachment-viewer`):
 - `audit.auditlogattachment.get`
 
 **Audit Log Event Admin** (`auditlog-event-admin`):
-- `audit.auditlogevents.get`
 - `audit.auditlogevent.delete`
+- `audit.auditlogevents.get`
 
 **Audit Log Event Viewer** (`auditlog-event-viewer`):
 - `audit.auditlogevents.get`
 
 **Audit Log Viewer** (`auditlog-viewer`):
-- `audit.auditlog.list`
 - `audit.auditlog.get`
+- `audit.auditlog.list`
 
 **Backup Administrator** (`backup-admin`):
+- `backup.backup.copy`
 - `backup.backup.create`
 - `backup.backup.delete`
-- `backup.backup.list`
-- `backup.backup.get`
-- `backup.backup.update`
 - `backup.backup.download`
+- `backup.backup.get`
+- `backup.backup.list`
 - `backup.backup.restore`
+- `backup.backup.update`
+- `backup.feature.get`
 - `data.deployment.restore-backup`
 
 **Backup Viewer** (`backup-viewer`):
-- `backup.feature.get`
 - `backup.backup.get`
 - `backup.backup.list`
+- `backup.feature.get`
 
 **Backup Policy Administrator** (`backuppolicy-admin`):
 - `backup.backuppolicy.create`
 - `backup.backuppolicy.delete`
-- `backup.backuppolicy.list`
 - `backup.backuppolicy.get`
+- `backup.backuppolicy.list`
 - `backup.backuppolicy.update`
+- `backup.feature.get`
 
 **Backup Policy Viewer** (`backuppolicy-viewer`):
-- `backup.feature.get`
 - `backup.backuppolicy.get`
 - `backup.backuppolicy.list`
+- `backup.feature.get`
 
 **Billing Administrator** (`billing-admin`):
 - `billing.config.get`
@@ -205,8 +208,8 @@ The roles below are described following this pattern:
 **CA Certificate Administrator** (`cacertificate-admin`):
 - `crypto.cacertificate.create`
 - `crypto.cacertificate.delete`
-- `crypto.cacertificate.list`
 - `crypto.cacertificate.get`
+- `crypto.cacertificate.list`
 - `crypto.cacertificate.set-default`
 - `crypto.cacertificate.update`
 
@@ -221,12 +224,14 @@ The roles below are described following this pattern:
 - `data.deployment.delete`
 - `data.deployment.get`
 - `data.deployment.list`
-- `data.deployment.resume`
 - `data.deployment.rebalance-shards`
+- `data.deployment.resume`
 - `data.deployment.rotate-server`
 - `data.deployment.update`
+- `data.deployment.update-scheduled-root-password-rotation`
 - `data.deploymentfeatures.get`
 - `data.deploymentprice.calculate`
+- `data.diskperformance.list`
 - `data.limits.get`
 - `data.nodesize.list`
 - `data.presets.list`
@@ -243,17 +248,14 @@ The roles below are described following this pattern:
 - `data.deploymentcredentials.get`
 - `data.deploymentfeatures.get`
 - `data.deploymentprice.calculate`
+- `data.diskperformance.list`
 - `data.limits.get`
 - `data.nodesize.list`
 - `data.presets.list`
 - `monitoring.logs.get`
-
-**Deployment Content Viewer** (`deployment-content-viewer`):
-- `data.deployment.get`
-- `data.deployment.list`
-- `data.deploymentcredentials.get`
-- `data.limits.get`
-- `data.presets.list`
+- `notification.deployment-notification.list`
+- `notification.deployment-notification.mark-as-read`
+- `notification.deployment-notification.mark-as-unread`
 
 **Deployment Viewer** (`deployment-viewer`):
 - `data.cpusize.list`
@@ -270,25 +272,25 @@ The roles below are described following this pattern:
 - `notification.deployment-notification.mark-as-unread`
 
 **Example Datasets Viewer** (`exampledataset-viewer`):
-- `example.exampledataset.list`
 - `example.exampledataset.get`
+- `example.exampledataset.list`
 
 **Example Dataset Installation Administrator** (`exampledatasetinstallation-admin`):
-- `example.exampledatasetinstallation.list`
-- `example.exampledatasetinstallation.get`
 - `example.exampledatasetinstallation.create`
-- `example.exampledatasetinstallation.update`
 - `example.exampledatasetinstallation.delete`
+- `example.exampledatasetinstallation.get`
+- `example.exampledatasetinstallation.list`
+- `example.exampledatasetinstallation.update`
 
 **Example Dataset Installation Viewer** (`exampledatasetinstallation-viewer`):
-- `example.exampledatasetinstallation.list`
 - `example.exampledatasetinstallation.get`
+- `example.exampledatasetinstallation.list`
 
 **Group Administrator** (`group-admin`):
 - `iam.group.create`
 - `iam.group.delete`
-- `iam.group.list`
 - `iam.group.get`
+- `iam.group.list`
 - `iam.group.update`
 
 **Group Viewer** (`group-viewer`):
@@ -327,22 +329,37 @@ The roles below are described following this pattern:
 - `metrics.token.revoke`
 - `metrics.token.update`
 
+**Notebook Administrator** (`notebook-admin`):
+- `notebook.model.list`
+- `notebook.notebook.create`
+- `notebook.notebook.delete`
+- `notebook.notebook.get`
+- `notebook.notebook.list`
+- `notebook.notebook.pause`
+- `notebook.notebook.resume`
+- `notebook.notebook.update`
+
+**Notebook Viewer** (`notebook-viewer`):
+- `notebook.model.list`
+- `notebook.notebook.get`
+- `notebook.notebook.list`
+
 **Organization Administrator** (`organization-admin`):
 - `billing.organization.get`
-- `resourcemanager.organization.delete`
-- `resourcemanager.organization.get`
-- `resourcemanager.organization.update`
 - `resourcemanager.organization-invite.create`
 - `resourcemanager.organization-invite.delete`
 - `resourcemanager.organization-invite.get`
 - `resourcemanager.organization-invite.list`
 - `resourcemanager.organization-invite.update`
+- `resourcemanager.organization.delete`
+- `resourcemanager.organization.get`
+- `resourcemanager.organization.update`
 
 **Organization Viewer** (`organization-viewer`):
 - `billing.organization.get`
-- `resourcemanager.organization.get`
 - `resourcemanager.organization-invite.get`
 - `resourcemanager.organization-invite.list`
+- `resourcemanager.organization.get`
 
 **Policy Administrator** (`policy-admin`):
 - `iam.policy.get`
@@ -358,14 +375,14 @@ The roles below are described following this pattern:
 **Private Endpoint Service Administrator** (`privateendpointservice-admin`):
 - `network.privateendpointservice.create`
 - `network.privateendpointservice.get`
-- `network.privateendpointservice.get-feature`
 - `network.privateendpointservice.get-by-deployment-id`
+- `network.privateendpointservice.get-feature`
 - `network.privateendpointservice.update`
 
 **Private Endpoint Service Viewer** (`privateendpointservice-viewer`):
 - `network.privateendpointservice.get`
-- `network.privateendpointservice.get-feature`
 - `network.privateendpointservice.get-by-deployment-id`
+- `network.privateendpointservice.get-feature`
 
 **Project Administrator** (`project-admin`):
 - `resourcemanager.project.create`
@@ -380,12 +397,14 @@ The roles below are described following this pattern:
 
 **Replication Administrator** (`replication-admin`):
 - `replication.deployment.clone-from-backup`
+- `replication.deploymentreplication.get`
+- `replication.deploymentreplication.update`
 
 **Role Administrator** (`role-admin`):
 - `iam.role.create`
 - `iam.role.delete`
-- `iam.role.list`
 - `iam.role.get`
+- `iam.role.list`
 - `iam.role.update`
 
 **Role Viewer** (`role-viewer`):
@@ -422,6 +441,11 @@ following this schema: `<api>.<kind>.<verb>`.
 
 Permissions are solely defined by the ArangoGraph API.
 
+{% comment %}
+Retrieved with the below command, with manual adjustments:
+oasisctl list permissions
+{% endcomment %}
+
 | API               | Kind                         | Verbs
 |:------------------|:-----------------------------|:-------------------------------------------
 | `audit`           | `auditlogarchive`            | `delete`, `get`, `list`
@@ -430,7 +454,7 @@ Permissions are solely defined by the ArangoGraph API.
 | `audit`           | `auditlogevent`              | `delete`
 | `audit`           | `auditlog`                   | `create`, `delete`, `get`, `list`, `set-default`, `test-https-post-destination`, `update`
 | `backup`          | `backuppolicy`               | `create`, `delete`, `get`, `list`, `update`
-| `backup`          | `backup`                     | `create`, `delete`, `download`, `get`, `list`, `restore`, `update`
+| `backup`          | `backup`                     | `copy`, `create`, `delete`, `download`, `get`, `list`, `restore`, `update`
 | `backup`          | `feature`                    | `get`
 | `billing`         | `config`                     | `get`, `set`
 | `billing`         | `invoice`                    | `get`, `get-preliminary`, `get-statistics`, `list`
@@ -442,7 +466,7 @@ Permissions are solely defined by the ArangoGraph API.
 | `data`            | `deploymentcredentials`      | `get`
 | `data`            | `deploymentfeatures`         | `get`
 | `data`            | `deploymentprice`            | `calculate`
-| `data`            | `deployment`                 | `create`, `create-test-database`, `delete`, `get`, `list`, `rebalance-shards`, `restore-backup`, `resume`, `rotate-server`, `update`
+| `data`            | `deployment`                 | `create`, `create-test-database`, `delete`, `get`, `list`, `rebalance-shards`, `restore-backup`, `resume`, `rotate-server`, `update`, `update-scheduled-root-password-rotation`
 | `data`            | `diskperformance`            | `list`
 | `data`            | `limits`                     | `get`
 | `data`            | `nodesize`                   | `list`
@@ -456,8 +480,11 @@ Permissions are solely defined by the ArangoGraph API.
 | `metrics`         | `token`                      | `create`, `delete`, `get`, `list`, `revoke`, `update`
 | `monitoring`      | `logs`                       | `get`
 | `network`         | `privateendpointservice`     | `create`, `get`, `get-by-deployment-id`, `get-feature`, `update`
+| `notebook`        | `model`                      | `list`
+| `notebook`        | `notebook`                   | `create`, `delete`, `get`, `list`, `pause`, `resume`, `update`
 | `notification`    | `deployment-notification`    | `list`, `mark-as-read`, `mark-as-unread`
 | `prepaid`         | `prepaiddeployment`          | `get`, `list`
+| `replication`     | `deploymentreplication`      | `get`, `update`
 | `replication`     | `deployment`                 | `clone-from-backup`
 | `resourcemanager` | `organization-invite`        | `create`, `delete`, `get`, `list`, `update`
 | `resourcemanager` | `organization`               | `delete`, `get`, `update`
