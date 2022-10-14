@@ -120,28 +120,32 @@ Ensures that an index exists:
 
 `collection.ensureIndex(index-description)`
 
-Ensures that an index according to the *index-description* exists. A
+Ensures that an index according to the `index-description` exists. A
 new index will be created if none exists with the given description.
 
 Calling this method returns an index object. Whether or not the index
-object existed before the call is indicated in the return attribute
-*isNewlyCreated*.
+object existed before the call is indicated in the `isNewlyCreated` return
+attribute.
 
-The *index-description* input value must contain at least a *type* attribute.
+The `index-description` input value must contain at least a `type` attribute.
 Other attributes may be necessary, depending on the index type.
 
 **type** can be one of the following values:
-- `"persistent"`: persistent index
+- `"persistent"`: persistent (array) index, including vertex-centric index
 - `"inverted"`: inverted index
 - `"ttl"`: time-to-live index
 - `"fulltext"`: fulltext index (deprecated from ArangoDB 3.10 onwards)
-- `"geo"`: geo index, with _one_ or _two_ attributes
+- `"geo"`: geo-spatial index, with _one_ or _two_ attributes
 - `"zkd"`: multi-dimensional index (experimental)
 
 **fields** is an array of attribute paths, containing the document attributes
 (or sub-attributes) to be indexed. Some indexes allow using only a single path,
 and others allow multiple. 
 If multiple attributes are used, their order matters.
+
+The `.` character denotes sub-attributes in attribute paths. Attributes with
+literal `.` in their name cannot be indexed. Attributes with the name `_id`
+cannot be indexed either, neither as a top-level attribute nor as a sub-attribute.
 
 If an attribute path contains an `[*]` extension (e.g. `friends[*].id`), it means
 that the index attribute value is treated as an array and all array members are

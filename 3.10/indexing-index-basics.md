@@ -23,8 +23,8 @@ by ArangoDB, without the user being required to create extra indexes for them.
 `_id` and `_key` are covered by a collection's primary key, and `_from` and `_to`
 are covered by an edge collection's edge index automatically.
 
-You cannot use the `_id` system attribute in user-defined indexes, but indexing
-`_key`, `_rev`, `_from`, and `_to` is possible.
+You cannot use the `_id` system attribute, nor sub-attributes with this name, in
+user-defined indexes, but indexing `_key`, `_rev`, `_from`, and `_to` is possible.
 
 You cannot index fields that contain `.` in their attribute names because dots
 are interpreted as paths of nested attributes. For example, `fields: ["foo.bar"]`
@@ -398,9 +398,9 @@ Indexing attributes and sub-attributes
 
 Top-level as well as nested attributes can be indexed. For attributes at the top level,
 the attribute names alone are required. To index a single field, pass an array with a
-single element (string of the attribute key) to the *fields* parameter of the
+single element (string of the attribute key) to the `fields` parameter of the
 [ensureIndex() method](indexing-working-with-indexes.html#creating-an-index). To create a
-combined index over multiple fields, simply add more members to the *fields* array:
+combined index over multiple fields, simply add more members to the `fields` array:
 
 ```js
 // { name: "Smith", age: 35 }
@@ -484,7 +484,7 @@ FOR doc IN posts
 ```
 
 If you store a document having the array which does contain elements not having
-the subattributes this document will also be indexed with the value `null`, which
+the sub-attributes this document will also be indexed with the value `null`, which
 in ArangoDB is equal to attribute not existing.
 
 ArangoDB supports creating array indexes with a single `[*]` operator per index 
