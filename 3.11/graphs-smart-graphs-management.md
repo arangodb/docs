@@ -24,7 +24,7 @@ collections:
 
 To generally understand the concept of this module please read the chapter
 about [General Graph Management](graphs-general-graphs-management.html) first.
-In the following we will only describe the overloaded functionality.
+In the following, only the overloaded functionality is described.
 Everything else works identical in both modules.
 
 Create a Graph
@@ -48,22 +48,21 @@ enforce the correct sharding.
 - `smartOptions` (object):
   A JSON object having the following keys:
   - `numberOfShards` (number):
-    The number of shards that will be created for each collection. To maintain
-    the correct sharding all collections need an identical number of shards.
+    The number of shards that are created for each collection. To maintain
+    the correct sharding, all collections need an identical number of shards.
     This cannot be modified after creation of the graph.
   - `smartGraphAttribute` (string):
-    The attribute that will be used for sharding: vertices with the same value of this attribute will be in the same 
-    shard. All vertices are required to
+    The attribute that is used for sharding: vertices with the same value of
+    this attribute are placed in the same shard. All vertices are required to
     have this attribute set and it has to be a string. Edges derive the
     attribute from their connected vertices.
-  - `isDisjoint` (bool, optional):
-    If set to true, a Disjoint SmartGraph will be created. This flag is not
-    editable after creation. Default: false.
-  - `satellites` (array, optional):
-    An array of collection names that will be used to create
+  - `isDisjoint` (bool, _optional_):
+    If set to `true`, a Disjoint SmartGraph is created. This flag is not
+    editable after creation. Default: `false`.
+  - `satellites` (array, _optional_):
+    An array of collection names that is used to create
     [SatelliteCollections](satellites.html) for a (Disjoint) SmartGraph
-    using SatelliteCollections. An empty array is accepted, but no other values 
-    such as strings or `null` are accepted. 
+    using SatelliteCollections.
     Each array element must be a string and a valid collection name.
     The collection type cannot be modified later.
 
@@ -81,8 +80,8 @@ the graph theoretic sense: it is possible to add edges having one end in a colle
 that has been declared as orphan. 
 
 All collections used within the creation process are newly created.
-The process will fail if one of them already exists, unless they have the
-correct sharding already. All newly created collections will immediately
+The process fails if one of them already exists, unless they have the
+correct sharding already. All newly created collections are immediately
 be dropped again in the failure case.
 
 **Examples**
@@ -154,8 +153,8 @@ Remove a vertex collection from the graph:
 - `vertexCollectionName` (string):
   Name of vertex collection.
 - `dropCollection` (bool, _optional_):
-  If true, the collection will be dropped if it is not used in any other graph.
-  Default: false.
+  If `true`, the collection is dropped if it is not used in any other graph.
+  Default: `false`.
 
 In most cases this function works identically to the General Graph one.
 However there is one special case: The first vertex collection added to the graph
@@ -233,7 +232,7 @@ sharding for other collections (`edges`).
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 You may drop the complete graph including the underlying collections by setting
-the second argument in the call to `_drop()` to `true`. This will only drop
+the second argument in the call to `_drop()` to `true`. This only drops
 collections that are in the graph definition at that point. Remember to manually
 drop collections that you might have removed from the graph beforehand.
 
@@ -265,8 +264,8 @@ Delete an edge definition from the graph:
 - `edgeCollectionName` (string):
   Name of edge collection.
 - `dropCollection` (bool, _optional_):
-  If true the collection will be dropped if it is not used in any other graph.
-  Default: false.
+  If `true`, the collection is dropped if it is not used in any other graph.
+  Default: `false`.
 
 **Examples**
 

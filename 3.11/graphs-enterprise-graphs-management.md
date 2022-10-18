@@ -40,11 +40,9 @@ enforce the correct sharding.
     This cannot be modified after the creation of the graph.
   - `isSmart` (bool):
     Mandatory parameter that needs to be set to `true` to create an EnterpriseGraph.
-  - `satellites` (array, optional):
+  - `satellites` (array, _optional_):
     An array of collection names that is used to create
     [SatelliteCollections](satellites.html) for an EnterpriseGraph.
-    Its value must be an array. An empty array is 
-    accepted, but no other values such as strings or `null` are accepted. 
     Each array element must be a string and a valid collection name.
     The collection type cannot be modified later.
 
@@ -63,8 +61,8 @@ that has been declared as orphan.
 
 All collections used within the creation process are newly created.
 The process fails if one of them already exists, unless they have the
-correct sharding already. All newly created collections will immediately
-be dropped again in the failure case.
+correct sharding already. All newly created collections are immediately
+dropped again in the failure case.
 
 ### Examples
 
@@ -134,8 +132,8 @@ Remove a vertex collection from the graph:
 - `vertexCollectionName` (string):
   Name of vertex collection.
 - `dropCollection` (bool, _optional_):
-  If true, the collection is dropped if it is not used in any other graph.
-  Default: false.
+  If `true`, the collection is dropped if it is not used in any other graph.
+  Default: `false`.
 
 In most cases, this function works identically to the General Graph one.
 However, there is one special case: the first vertex collection added to the graph
@@ -245,8 +243,8 @@ Delete an edge definition from the graph:
 - `edgeCollectionName` (string):
   Name of edge collection.
 - `dropCollection` (bool, _optional_):
-  If true, the collection is dropped if it is not used in any other graph.
-  Default: false.
+  If `true`, the collection is dropped if it is not used in any other graph.
+  Default: `false`.
 
 ### Examples
 
@@ -297,7 +295,7 @@ Remove a SmartGraph:
 - `graphName` (string):
   Name of the Graph.
 - `dropCollections` (bool, _optional_):
-  Define if collections should be dropped. Default: false.
+  Define if collections should be dropped. Default: `false`.
 
 ### Examples
 

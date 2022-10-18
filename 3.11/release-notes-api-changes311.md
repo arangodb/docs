@@ -13,21 +13,18 @@ integrations for ArangoDB 3.11.
 
 ### Behavior changes
 
-### Graph API (Gharial)
+#### Graph API (Gharial)
 
-The following changes affect the behavior of the RESTful graph in the creation
-of graphs with POST request to path `/_api/gharial/`:
+The `POST /_api/gharial/` endpoint for creating named graphs validates the
+`satellites` property of the graph `options` for SmartGraphs differently now.
 
-The `satellites` field from object `options` must be an array, either empty or  
-with one or more collection name strings. Now, for SmartGraph, if the value of
-`satellites` is not in that format, the error "Missing array for field 
-`satellites`" will be returned if the value of the field `satellites` is not in
-array format, for example, if it's a string or `null` value. Before, it would 
-just return "invalid parameter type" if the format was invalid. If the graph is
-not a SmartGraph, the field `satellites` is ignored unless its value is an 
-array, but its elements are not strings, in which case, the error 
-"Invalid parameter type" will be returned.  
-
+If the `satellites` property is set, it must be an array, either empty or with
+one or more collection name strings. If the value is not in that format, the
+error "Missing array for field `satellites`" is now returned, for example, if
+it is a string or a `null` value. Previously, it returned "invalid parameter type".
+If the graph is not a SmartGraph, the `satellites` property is ignored unless its
+value is an array but its elements are not strings, in which case the error 
+"Invalid parameter type" is returned.
 
 ### Privilege changes
 
