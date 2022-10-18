@@ -23,7 +23,7 @@
       {{ if site.Params.failOnBrokenLinks }}
         {{ errorf "[ERROR] Broken link '%v'" .Destination}}
       {{ else }}
-        {{ warnf "Broken link '%v'" .Destination}}
+        {{ warnf "Broken link '%v' found in '%v'" .Destination .Page.File }}
       {{ end }}
     {{ end }}
   {{end}}

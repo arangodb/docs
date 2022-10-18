@@ -10,16 +10,15 @@
     {{ $styles2 := split . "&" }}
     {{ range $styles2 }}
         {{ replace . "=" ": " }}
-        {{ $style = printf "%s" $style | printf "%s;" . }}
+        {{ $style = printf "%s\n%s;" $style . }}
+        {{ warnf "Style '%v'" $style}}
     {{ end }}
-    {{ end }}
-
+{{ end }}
     <a href="{{ $file.RelPermalink }}">
-        <picture>
     
         <img 
-       alt="{{ $alt }}" title="{{ $alt }}" src="{{ $file.RelPermalink }}" style="{{ $style }}" class="img-fluid">
+       alt="{{ $alt }}"  src="{{ $file.RelPermalink }}" {{ if $style }}class="x-style" x-style="{{ $style }}"{{ end }}>
     
-    </picture>
     </a>
 {{ end }}
+

@@ -1,35 +1,48 @@
 
-{{ if in .Inner "---\nname:" }}
-{{ $remote := resources.GetRemote "http://localhost:8080/aql" (dict
-    "method" "post"
-    "body" .Inner
-  )
-}}
-{{ if $remote }}
-{{ if $remote.Err }}
-        {{ warnf "[HTTP-EXAMPLE] ERROR CALLING ENDPOINT %#v" .Position }}
+{{ if site.Params.useCodeblockHook }}
+  {{ if in .Inner "---\nname:" }}
+  {{ $remote := resources.GetRemote "http://localhost:8080/aql" (dict
+      "method" "post"
+      "body" .Inner
+    )
+  }}
+  {{ if $remote }}
+  {{ if $remote.Err }}
+          {{ warnf "[HTTP-EXAMPLE] ERROR CALLING ENDPOINT %#v" .Position }}
+    {{ else }}
+  {{ $response := unmarshal $remote.Content }}
+      {{ if in $response.options.render "input" }}
+      {{ $version := replace $response.options.version "." "" }}
+      <div class="codeblock">
+        <div class="code-header">
+          <p class="code-description">TEST HEADER</p>
+        </div>
+        <div class="version {{ $version }}" style="display: none;">
+          {{ transform.Highlight $response.input "js" }}
+        </div>
+      </div>
+      {{ end }}
+      {{ if in $response.options.render "output" }}
+      {{ $version := replace $response.options.version "." "" }}
+
+        <div class="version {{ $version }}" style="display: none;">
+          {{ $x := transform.Highlight $response.output "" }}
+        {{- partial "shortcodes/expand.html" (dict
+          "context" .
+          "content" $x
+          "open"    "open"
+          "title"   "show output"
+        ) }}
+        </div>
+      {{ end }}
+      {{end}}
+    {{ end }}
   {{ else }}
-{{ $response := unmarshal $remote.Content }}
-    {{ if in $response.options.render "input" }}
-    {{ $version := replace $response.options.version "." "" }}
-      <div class="version {{ $version }}" style="display: none;">
-        {{ transform.Highlight $response.input "js" }}
-      </div>
-    {{ end }}
-    {{ if in $response.options.render "output" }}
-    {{ $version := replace $response.options.version "." "" }}
-      <div class="version {{ $version }}" style="display: none;">
-        {{ $x := transform.Highlight $response.output "" }}
-      {{- partial "shortcodes/expand.html" (dict
-        "context" .
-        "content" $x
-        "open"    "open"
-        "title"   "show output"
-      ) }}
-      </div>
-    {{ end }}
-    {{end}}
+  <div class="codeblock">
+  <div class="code-header">
+    TEST HEADER
+    </div>
+  {{ transform.Highlight .Inner "aql" }}
+  </div>
   {{ end }}
-{{ else }}
-{{ transform.Highlight .Inner "aql" }}
 {{ end }}

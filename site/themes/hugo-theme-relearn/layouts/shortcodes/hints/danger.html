@@ -1,7 +1,7 @@
 {{ $_hugo_config := `{ "version": 1 }` }}
 <div class="box notices cstyle danger">
-    <div class="box-label"><i class="fa-fw fas fa-times-circle"></i>Danger</div>
+    <div class="box-label"><i class="fa-fw fas fa-times-circle"></i><p>Danger</p></div>
     <div class="box-content">
-        {{ .Inner }}
+        <h2 class="box-text">{{ .Inner }}</h2>
     </div>
 </div>

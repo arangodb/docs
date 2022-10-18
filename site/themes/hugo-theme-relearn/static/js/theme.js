@@ -35,6 +35,22 @@ function scrollbarWidth(){
     return scrollbarWidth;
 }
 
+function showSearchBar() {
+    let searchBar = document.querySelector(".searchbox");
+    let actualState = window.getComputedStyle(searchBar).getPropertyValue("opacity");
+
+    console.log(actualState)
+    
+    if (actualState == 0) {
+        searchBar.style.opacity = 1;
+        return
+    }
+
+    searchBar.style.opacity = 0;
+}
+
+
+
 function switchTab(tabGroup, tabId) {
     var tabs = jQuery(".tab-panel").has("[data-tab-group='"+tabGroup+"'][data-tab-item='"+tabId+"']");
     var allTabItems = tabs.find("[data-tab-group='"+tabGroup+"']");
@@ -775,6 +791,7 @@ jQuery(function() {
     initSwipeHandler();
     initHistory();
     initSearch();
+    showPrint
     videosAutoplayer();
 });
 
@@ -902,3 +919,79 @@ function observeVideo(video) {
     );
     observer.observe(video);
 }
+
+// Table of contents h2 highlighter
+
+const anchors = $('body').find('h2');
+
+$(window).scroll(function(){
+    var scrollTop = $(document).scrollTop();
+    
+    // highlight the last scrolled-to: set everything inactive first
+    for (var i = 0; i < anchors.length; i++){
+        let highlightedHref = $('#TableOfContents ul li a[href="#' + $(anchors[i]).attr('id') + '"]');
+        highlightedHref.removeClass('is-active');
+    }
+    
+    // then iterate backwards, on the first match highlight it and break
+    for (var i = anchors.length-1; i >= 0; i--){
+        if (scrollTop > $(anchors[i]).offset().top - 75) {
+            let highlightedHref = $('#TableOfContents ul li a[href="#' + $(anchors[i]).attr('id') + '"]')
+            highlightedHref.addClass('is-active');
+            break;
+        }
+    }
+});
+
+// Back To Top Button
+
+const showOnPx = 100;
+
+window.addEventListener("load", () => {
+    document.addEventListener("scroll", e => {
+        console.log("scrolling " + window.pageYOffset)
+    if (window.pageYOffset > showOnPx) {
+        document.querySelector(".back-to-top").classList.remove("hidden");
+      } else {
+        document.querySelector(".back-to-top").classList.add("hidden");
+      }
+    });
+});
+
+const goToTop = () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+
+
+
+var showSidenav = true;
+
+window.addEventListener("load", () => {
+    document.querySelector(".sidenav-toggle-navigation").addEventListener("click", e => {
+        console.log("show sidebar " + showSidenav)
+    if (showSidenav) {
+        $("#sidenav").removeClass("active");
+        showSidenav = false;
+        return
+    }
+
+    $("#sidenav").addClass("active");
+    showSidenav = true;
+    e.preventDefault();
+    });
+});
+
+$( document ).ready(function() {
+    images = document.querySelectorAll(".x-style");
+
+    for (let image of images) {
+        styles = image.getAttribute("x-style");
+        styles = styles.replaceAll("\n", "");
+        styles = styles.replaceAll("=", ": ");
+        styles = styles.replaceAll("_", " ");
+        image.setAttribute("style", styles)
+        image.removeAttribute("x-style")
+    }
+});
+
+

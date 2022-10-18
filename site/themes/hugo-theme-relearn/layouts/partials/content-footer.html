@@ -1,10 +1,15 @@
-<div id="page-footer" class="localized-footer">
-  <hr>
-  <p>© ArangoDB - Graph and Beyond</p>
-</div>
-{{- with .Params.LastModifierDisplayName }}
-            <i class='fas fa-user'></i> {{ with $.Params.LastModifierEmail }}<a href="mailto:{{ . }}">{{ end }}{{ . }}{{ with $.Params.LastModifierEmail }}</a>{{ end }}
-  {{- with $.Date }}
-            <i class='fas fa-calendar'></i> {{ . | time.Format ":date_medium" }}
-  {{- end }}
-{{- end }}
+<span class="prev">
+  {{- with ($.Scratch.Get "relearnPrevPage") }}
+          
+          <a class="nav nav-prev" href="{{.RelPermalink}}" title="{{.Title}} (&#129104;)">
+            <i class="fas fa-chevron-left fa-fw"></i><p>{{.Title}}</p></a>
+          {{- end}}
+  
+</span>
+
+<span class="next">
+  {{- with ($.Scratch.Get "relearnNextPage") }}
+            <a class="nav nav-next" href="{{.RelPermalink}}" title="{{.Title}} (&#129106;)">
+              <p>{{.Title}}</p><i class="fas fa-chevron-right fa-fw"></i></a>
+          {{- end }}
+</span>

@@ -1,5 +1,6 @@
 
     {{- $showvisitedlinks := .Site.Params.showVisitedLinks }}
+    <!--
     <aside id="sidebar" class="default-animation{{ if $showvisitedlinks }} showVisitedLinks{{ end }}">
       {{- $currentNode := . }}
       <div id="header-wrapper" class="default-animation">
@@ -114,6 +115,61 @@
         </div>
       </div>
     </aside>
+    --->
+    <div id="sidenav" class="default-animation{{ if $showvisitedlinks }} showVisitedLinks{{ end }} active">
+      <div class="sidenav-container">
+        <div class="sidenav-container-flex">
+          <div class="sidenav-navigation">
+            {{- $currentNode := . }}
+      
+            {{- if not .Site.Params.disableLandingPageButton }}
+            <div id="homelinks" class="default-animation">
+              <ul>
+                <li>
+                    <a class="padding" href="{{ .Site.Home.RelPermalink | default ("/" | relLangURL) }}">{{ .Site.Params.landingPageName | default `<i class="fas fa-home"></i> Home` | safeHTML }}</a>
+                </li>
+              </ul>
+            </div>
+            {{- end }}
+            <div id="content-wrapper" class="highlightable">
+              <div class=""></div>
+              <li class="home-item"><a class="lg-ui-4fdc4146 lg-ui-side-nav-item-c8b9d3b0 leafygreen-ui-1reuw0t" href="/" target="_self" aria-current="false" aria-disabled="false"><span class="leafygreen-ui-1m7caot">ArangoDB Documentation</span></a></li>
+              <hr>
+              <ul class="topics{{ if .Site.Params.collapsibleMenu }} collapsible-menu{{ end }}">
+                {{- $defaultOrdersectionsby := .Site.Params.ordersectionsby | default "weight" }}
+                {{- $currentOrdersectionsby := .Site.Home.Params.ordersectionsby | default $defaultOrdersectionsby }}
+                {{- $defaultAlwaysopen := .Site.Params.alwaysopen | default false }}
+                {{- if eq $currentOrdersectionsby "title" }}
+                  {{- range .Site.Home.Sections.ByTitle }}
+                    {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
+                  {{- end }}
+                {{- else }}
+                  {{- range .Site.Home.Sections.ByWeight }}
+                    {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
+                  {{- end }}
+                {{- end }}
+              </ul>
+              {{- $disableShortcutsTitle := .Site.Params.DisableShortcutsTitle }}
+              {{- with .Site.Menus.shortcuts }}
+              <div id="shortcuts">
+                <div class="nav-title">{{ if not $disableShortcutsTitle }}{{ T "Shortcuts-Title" }}{{ end }}</div>
+                <ul>
+                  {{- range sort . "Weight" }}
+                  <li>{{ .Pre }}<a class="padding" href="{{ .URL | relLangURL }}">{{ safeHTML .Name }}</a>{{ .Post }}</li>
+                  {{- end }}
+                  {{- end }}
+                </ul>
+                <div class="nav-title">Tags</div>
+                <ul>
+                  {{- partial "tags-list.html" . }}
+                <ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+      <!--
     {{- define "section-tree-nav" }}
       {{- $currentNode := .currentnode }}
       {{- $showvisitedlinks := .showvisitedlinks }}
@@ -173,3 +229,5 @@
         {{- end }}
       {{- end }}
     {{- end }}
+    </div>
+  -->

@@ -11,8 +11,11 @@
 ">
     {{/* things are getting complicated when search tries to open the expand box while jquery sets the display CSS on the element */}}{{ "" -}}
     <a class="expand-label" onclick="$t=$(this); if($t.parent('.expand-expanded.expand-marked').length){ $t.next().css('display','none') }else if($t.parent('.expand-marked').length){ $t.next().css('display','block') }else{ $t.next('.expand-content').slideToggle(100); } $t.parent().toggleClass('expand-expanded');">
-        <i class="fas fa-chevron-down"></i>
-        <i class="fas fa-chevron-right"></i>
+        {{ if $expanded }}
+            <i class="fas fa-chevron-right"></i>
+        {{ else }}
+            <i class="fas fa-chevron-down"></i>
+        {{ end }}
         {{ $title }}
     </a>
     <div class="expand-content" style="display:

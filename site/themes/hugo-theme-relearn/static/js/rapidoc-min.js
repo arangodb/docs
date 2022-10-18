@@ -643,9 +643,7 @@ input[type="checkbox"]:checked:after {
   padding:8px 8px;
 }
 .summary .title{
-  font-size:calc(var(--font-size-regular) + 2px);
-  margin-bottom: 6px;
-  word-break: break-all;
+  display: none;
 }
 
 .endpoint-head .method{
@@ -2620,7 +2618,7 @@ pre[class*="language-"] {
       ${"false"!==this.allowAuthentication&&this.resolvedSpec.securitySchemes?F`<div class='nav-bar-info' id='link-auth' data-content-id='auth' @click = '${e=>this.scrollToEventTarget(e,!1)}'> Authentication </div>`:""}
 
       <div id='link-operations-top' class='nav-bar-section operations' data-content-id='operations-top' @click = '${e=>this.scrollToEventTarget(e,!1)}'>
-        <div style="font-size:16px; display:flex; margin-left:10px;">
+        <div style="font-size:16px; display:none; margin-left:10px;">
           ${"focused"===this.renderStyle?F`
               <div @click="${e=>{VR.call(this,e,"expand-all")}}" title="Expand all" style="transform: rotate(90deg); cursor:pointer; margin-right:10px;">▸</div>
               <div @click="${e=>{VR.call(this,e,"collapse-all")}}" title="Collapse all" style="transform: rotate(270deg); cursor:pointer;">▸</div>`:""}  
@@ -2795,7 +2793,7 @@ pre[class*="language-"] {
     </div>
   </div>`}function aL(e=!0,t=!0,r=!1){return this.resolvedSpec?F`
     ${e?F`
-        <div style="display:flex; justify-content:flex-end;"> 
+        <div style="display:none; justify-content:flex-end;"> 
           <span @click="${e=>tL(e,"expand-all")}" style="color:var(--primary-color); cursor:pointer;">
             Expand all
           </span> 
@@ -3380,6 +3378,7 @@ pre[class*="language-"] {
         padding: 0px 4px; 
       }
       .section-tag-header {
+        display: none;
         position:relative;
         cursor: n-resize;
         padding: 12px 0;

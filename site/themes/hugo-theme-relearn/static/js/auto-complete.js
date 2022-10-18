@@ -75,7 +75,8 @@ var autoComplete = (function(){
                 var parentOffsetTop = 0;
                 var pageXOffset = 0;
                 var pageYOffset = 0;
-                if (parentElement != false) {
+                if (parentElement != undefined) {
+                    console.log("Parent Element " + parentElement)
                     parentOffsetLeft = parentElement.getBoundingClientRect().left;
                     parentOffsetTop = parentElement.getBoundingClientRect().top;
                 } else {
@@ -84,7 +85,8 @@ var autoComplete = (function(){
                 }
                 that.sc.style.left = Math.round(rect.left + pageXOffset + o.offsetLeft - parentOffsetLeft) + 'px';
                 that.sc.style.top = Math.round(rect.bottom + pageYOffset + o.offsetTop - parentOffsetTop) + 'px';
-                that.sc.style.width = Math.round(rect.right - rect.left) + 'px'; // outerWidth
+                //that.sc.style.width = Math.round(rect.right - rect.left) + 'px'; // outerWidth
+   
                 if (!resize) {
                     that.sc.style.display = 'block';
                     if (!that.sc.maxHeight) { that.sc.maxHeight = parseInt((window.getComputedStyle ? getComputedStyle(that.sc, null) : that.sc.currentStyle).maxHeight); }
@@ -112,7 +114,6 @@ var autoComplete = (function(){
                 var sel = that.sc.querySelector('.autocomplete-suggestion.selected');
                 if (sel) setTimeout(function(){ sel.className = sel.className.replace('selected', ''); }, 20);
             }, that.sc);
-
             live('autocomplete-suggestion', 'mouseover', function(e){
                 var sel = that.sc.querySelector('.autocomplete-suggestion.selected');
                 if (sel) sel.className = sel.className.replace('selected', '');
