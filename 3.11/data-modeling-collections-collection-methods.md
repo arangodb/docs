@@ -119,8 +119,8 @@ Get or set the properties of a collection:
 
 Returns an object containing all collection properties.
 
-- `waitForSync`: If `true`, creating a document only returns
-  after the data was synced to disk.
+- `waitForSync`: If `true`, creating, changing, or removing documents waits
+  until the data has been synchronized to disk.
 
 - `keyOptions` (optional) additional options for key generation. This is
   a JSON object containing the following attributes (note: some of the
@@ -139,7 +139,7 @@ Returns an object containing all collection properties.
     Not used for other key generator types.
 
 - `schema` (optional, default: `null`): 
-  Object that specifies the collection level document schema for documents.
+  An object that specifies the collection-level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
   documented in [Document Schema Validation](document-schema-validation.html)
 
@@ -154,6 +154,7 @@ Returns an object containing all collection properties.
   avoid the maintenance costs.
 
 - `isSystem`: Whether the collection is a system collection.
+  Collection names that starts with an underscore are usually system collections.
 
 - `syncByRevision`: Whether the newer revision-based replication protocol is
   enabled for this collection. This is an internal property.
@@ -163,12 +164,12 @@ Returns an object containing all collection properties.
 
 In a cluster setup, the result also contains the following attributes:
 
-- `numberOfShards`: the number of shards of the collection.
+- `numberOfShards`: The number of shards of the collection.
 
-- `shardKeys`: contains the names of document attributes that are used to
+- `shardKeys`: Contains the names of document attributes that are used to
   determine the target shard for documents.
 
-- `replicationFactor`: determines how many copies of each shard are kept
+- `replicationFactor`: Determines how many copies of each shard are kept
   on different DB-Servers. Has to be in the range of 1-10 or the string
   `"satellite"` for a SatelliteCollection (Enterprise Edition only).
   _(cluster only)_
