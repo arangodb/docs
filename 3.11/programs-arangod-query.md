@@ -136,9 +136,10 @@ The option can also be overridden for each individual AQL query.
 
 `--query.log-failed-queries value`
 
-When set to *true*, will log all failed AQL queries to the server log. This
+If set to `true`, all failed AQL queries are logged to the server log. This
 option can be used during development, or to catch unexpected failed queries
 in production.
+
 The option is turned off by default.
 
 ## Requiring `WITH` statements
