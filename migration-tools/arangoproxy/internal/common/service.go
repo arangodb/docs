@@ -34,12 +34,13 @@ func (service Service) ExecuteExample(request Example) (res ExampleResponse) {
 		res.Output = fmt.Sprintf("%s\n%s", res.Output, cmdOutput)
 	}
 
-	re := regexp.MustCompile(`^\s*$\n`) // Cut all excessive spaces and newlines from output
+	re := regexp.MustCompile(`(?m)^\s*$\n`) // Cut all excessive spaces and newlines from output
 	res.Input = re.ReplaceAllString(res.Input, "")
+	res.Output = re.ReplaceAllString(res.Output, "")
+	res.Output = strings.TrimPrefix(res.Output, "\n")
+
 	codeComments := regexp.MustCompile(`(?m)~.*`) // Cut the ~... strings from the displayed input
 	res.Input = codeComments.ReplaceAllString(res.Input, "")
-
-	res.Output = re.ReplaceAllString(res.Output, "")
 
 	service.SaveCachedExampleResponse(res)
 	return
@@ -70,6 +71,7 @@ func (service Service) InvokeArangoSH(command string, repository config.Reposito
 		return ""
 	}
 
-	return strings.ReplaceAll(cmdOutput.String(), "\n\n", "")
-	//return cmdOutput.String()
+	//return strings.ReplaceAll(cmdOutput.String(), "\n\n", "")
+	fmt.Printf("Invoke ARANGO Output %s\n\n")
+	return cmdOutput.String()
 }

@@ -16,6 +16,7 @@ def migrateInlineDocuBlocks(paragraph):
                         "options": {
                             "language": "js",
                             "name": "",
+                            "description": "",
                             "render": "input",
                             "version": "3.10",
                             "draft": False,
@@ -33,6 +34,10 @@ def migrateInlineDocuBlocks(paragraph):
                 newBlock["options"]["render"] = "input/output"
 
             newBlock["options"]["release"] = "stable"
+
+            brief = re.search(r"@brief.*", block)
+            if brief:
+                newBlock["options"]["description"] = brief.group(0)
 
             block = re.sub(r"@EXAMPLE_.*", '', block, 0)
             datasetRe = re.search(r"@DATASET.*", block)
@@ -66,6 +71,7 @@ def render_codeblock(block):
 ```{block["options"]["language"]}\n\
 ---\n\
 name: {block["options"]["name"]}\n\
+description: {block["options"]["description"]}\n\
 version: {block["options"]["version"]}\n\
 render: {block["options"]["render"]}\n\
 release: {block["options"]["release"]}\n\

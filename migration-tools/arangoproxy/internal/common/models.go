@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
 	"gopkg.in/yaml.v3"
 )
 
@@ -26,22 +27,24 @@ const (
 
 // @Example represents an example request to be supplied to an arango instance
 type Example struct {
-	Type    ExampleType    `json:"type"`
-	Options ExampleOptions `json:"options"` // The codeblock yaml part
-	Code    string         `json:"code"`
+	Type       ExampleType       `json:"type"`
+	Options    ExampleOptions    `json:"options"` // The codeblock yaml part
+	Code       string            `json:"code"`
+	Repository config.Repository `json:"-"`
 }
 
 // The yaml part in the codeblock
 type ExampleOptions struct {
-	Release  string                 `yaml:"release" json:"release"`                     // Arango instance to be used: nightly, release ...
-	Name     string                 `yaml:"name" json:"name"`                           // Example Name
-	Run      bool                   `yaml:"run,omitempty" json:"run,omitempty"`         // Choose if the example has to be run or not
-	Version  string                 `yaml:"version" json:"version"`                     // Arango instance version to launch the example against
-	Draft    bool                   `yaml:"draft" json:"draft"`                         // if true, cache will not be used on this example
-	Render   RenderType             `yaml:"render" json:"render"`                       // Return the example code, the example output or both
-	Explain  bool                   `yaml:"explain,omitempty" json:"explain,omitempty"` // AQL @EXPLAIN flag
-	BindVars map[string]interface{} `yaml:"bindVars,omitempty" json:"bindVars,omitempty"`
-	Dataset  string                 `yaml:"dataset,omitempty" json:"dataset,omitempty"`
+	Release     string                 `yaml:"release" json:"release"`                     // Arango instance to be used: nightly, release ...
+	Description string                 `yaml:"description" json:"description"`             // What appears on codeblock header
+	Name        string                 `yaml:"name" json:"name"`                           // Example Name
+	Run         bool                   `yaml:"run,omitempty" json:"run,omitempty"`         // Choose if the example has to be run or not
+	Version     string                 `yaml:"version" json:"version"`                     // Arango instance version to launch the example against
+	Draft       bool                   `yaml:"draft" json:"draft"`                         // if true, cache will not be used on this example
+	Render      RenderType             `yaml:"render" json:"render"`                       // Return the example code, the example output or both
+	Explain     bool                   `yaml:"explain,omitempty" json:"explain,omitempty"` // AQL @EXPLAIN flag
+	BindVars    map[string]interface{} `yaml:"bindVars,omitempty" json:"bindVars,omitempty"`
+	Dataset     string                 `yaml:"dataset,omitempty" json:"dataset,omitempty"`
 }
 
 // Get an example code block, parse the yaml options and the code itself

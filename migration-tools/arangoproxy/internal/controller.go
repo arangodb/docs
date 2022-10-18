@@ -5,13 +5,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"sync"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/aql"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/httpapi"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/js"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/webui"
+)
+
+// Dependency Injection
+var (
+	JSService   = js.JSService{}
+	HTTPService = httpapi.HTTPService{}
+	AQLService  = aql.AQLService{}
+
+	SpecListenerChannel = make(chan httpapi.HTTPSpecRequest)
 )
 
 // Start and expose the webserver
@@ -24,17 +32,10 @@ func StartController(url string) {
 	http.HandleFunc("/go", TODOHandler)
 	http.HandleFunc("/java", TODOHandler)
 
+	go webui.SpecListener(SpecListenerChannel)
+
 	log.Fatal(http.ListenAndServe(url, nil))
 }
-
-// Dependency Injection
-var (
-	JSService   = js.JSService{}
-	HTTPService = httpapi.HTTPService{}
-	AQLService  = aql.AQLService{}
-
-	APIWriteWG = sync.WaitGroup{} // WaitGroup is needed for concurrent writing on the api-docs.json being the HTTPSpecHandler multiplexed
-)
 
 // Handler for the js codeblocks
 func JSHandler(w http.ResponseWriter, r *http.Request) {
@@ -93,13 +94,7 @@ func HTTPSpecHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	APIWriteWG.Wait()
-	APIWriteWG.Add(1)
-	// Write new specs to api-docs
-	err = webui.Write(response.ApiSpec, request.Filename, APIWriteWG)
-	if err != nil {
-		common.Logger.Printf("[http-spec/CONTROLLER] Error WebUI Write: %s\n", err.Error())
-	}
+	SpecListenerChannel <- request
 	w.Write(jsonResponse)
 }
 

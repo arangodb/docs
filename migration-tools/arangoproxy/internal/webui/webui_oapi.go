@@ -10,10 +10,11 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
-	"sync"
+	"time"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/httpapi"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 	"github.com/dlclark/regexp2"
 	"gopkg.in/yaml.v3"
@@ -58,9 +59,35 @@ func InitSwaggerFile() {
 	file.Close()
 }
 
+func SpecListener(input <-chan httpapi.HTTPSpecRequest) {
+	cacheLimit := 30
+	cache := make([]httpapi.HTTPSpecRequest, 0, cacheLimit)
+	cacheTimeout := time.Second * 5
+	tick := time.NewTicker(cacheTimeout)
+
+	for {
+		select {
+		case m := <-input:
+			cache = append(cache, m)
+			if len(cache) < cacheLimit {
+				break
+			}
+
+			Write(cache)
+			cache = make([]httpapi.HTTPSpecRequest, 0, cacheLimit)
+
+			tick.Stop()
+			tick = time.NewTicker(cacheTimeout)
+
+		case <-tick.C:
+			Write(cache)
+			cache = make([]httpapi.HTTPSpecRequest, 0, cacheLimit)
+		}
+	}
+}
+
 // Load the api-docs content and add the new endpoint {spec} to it and add the entire content to file
-func Write(spec map[string]interface{}, filename string, wg sync.WaitGroup) error {
-	defer wg.Done()
+func Write(specs []httpapi.HTTPSpecRequest) error {
 	// Get all previous api-docs content
 	apiDocsMap, err := utils.ReadFileAsMap(config.Conf.OpenApi.ApiDocsFile)
 	if err != nil {
@@ -69,24 +96,25 @@ func Write(spec map[string]interface{}, filename string, wg sync.WaitGroup) erro
 		return err
 	}
 
-	// Parse the new provided endpoint
-	path, method, err := getApiPathAndMethod(spec)
-	if err != nil {
-		return errors.New("spec is malformed: " + err.Error())
+	for _, spec := range specs {
+		// Parse the new provided endpoint
+		path, method, err := getApiPathAndMethod(spec.ApiSpec)
+		if err != nil {
+			return errors.New("spec is malformed: " + err.Error())
+		}
+
+		// Add the new endpoint to the existing endpoints
+		if existingPath, ok := apiDocsMap["paths"].(map[string]interface{})[path]; ok {
+			existingPath.(map[string]interface{})[method] = make(map[string]interface{})
+			existingPath.(map[string]interface{})[method] = spec.ApiSpec["paths"].(map[string]interface{})[path].(map[string]interface{})[method]
+			existingPath.(map[string]interface{})[method].(map[string]interface{})["x-filename"] = spec.Filename
+		} else {
+			apiDocsMap["paths"].(map[string]interface{})[path] = make(map[string]interface{})
+			apiDocsMap["paths"].(map[string]interface{})[path] = spec.ApiSpec["paths"].(map[string]interface{})[path]
+			apiDocsMap["paths"].(map[string]interface{})[path].(map[string]interface{})["x-filename"] = spec.Filename
+
+		}
 	}
-
-	// Add the new endpoint to the existing endpoints
-	if existingPath, ok := apiDocsMap["paths"].(map[string]interface{})[path]; ok {
-		existingPath.(map[string]interface{})[method] = make(map[string]interface{})
-		existingPath.(map[string]interface{})[method] = spec["paths"].(map[string]interface{})[path].(map[string]interface{})[method]
-		existingPath.(map[string]interface{})[method].(map[string]interface{})["x-filename"] = filename
-	} else {
-		apiDocsMap["paths"].(map[string]interface{})[path] = make(map[string]interface{})
-		apiDocsMap["paths"].(map[string]interface{})[path] = spec["paths"].(map[string]interface{})[path]
-		apiDocsMap["paths"].(map[string]interface{})[path].(map[string]interface{})["x-filename"] = filename
-
-	}
-
 	// Write the endpoints to file
 	return WriteAPI(apiDocsMap)
 }

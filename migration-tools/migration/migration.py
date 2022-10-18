@@ -18,7 +18,7 @@ def structure_migration_new(label, document, manual):
 		document = yaml.full_load(directoryTree)
 
 		if manual != "manual":
-			create_index("core-topics", {"text": manual.upper(), "href": "index.html"}, manual+"/")
+			create_index("", {"text": manual.upper(), "href": "index.html"}, manual+"/")
 			document = document[1:]
 
 	extendedSection = ''
@@ -27,16 +27,10 @@ def structure_migration_new(label, document, manual):
 
 	for item in document:
 		if "subtitle" in item:
-			label = create_chapter(item, manual)
 			continue
 
 		if "divider" in item:
 			continue
-		if "Release Notes" in item["text"]:
-			label = "Release Notes"
-
-		if "Appendix" in item["text"]:
-			label = "Appendix"
 
 		if "children" in item:
 			label = create_index(label, item, extendedSection)
@@ -53,7 +47,7 @@ def create_chapter(item, manual):
 	label = item["subtitle"].lower().replace(" ", "-")
 
 	if manual != "manual":
-		label = f"core-topics/{manual}/{label}"
+		label = f"{manual}/{label}"
 
 	filepath = f'{NEW_TOOLCHAIN}/content/{label}/_index.md'
 	Path(f'{NEW_TOOLCHAIN}/content/{label}').mkdir(parents=True, exist_ok=True)
@@ -78,7 +72,7 @@ def create_index(label, item, extendedSection):
 
 	Path(f'{NEW_TOOLCHAIN}/content/{label}').mkdir(parents=True, exist_ok=True)
 
-	indexPath = f'{NEW_TOOLCHAIN}/content/{label}/_index.md'
+	indexPath = f'{NEW_TOOLCHAIN}/content/{label}/_index.md'.replace("//", "/")
 	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'
 	shutil.copyfile(oldFilePath, indexPath)
 	infos[indexPath] = {
@@ -91,7 +85,7 @@ def create_index(label, item, extendedSection):
 def create_files_new(label, item, extendedSection):
 	oldFileName = item["href"].replace(".html", ".md")
 	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'.replace("//", "/")
-	filePath = f'{NEW_TOOLCHAIN}/content/{label}/{oldFileName}'
+	filePath = f'{NEW_TOOLCHAIN}/content/{label}/{oldFileName}'.replace("//", "/")
 
 	try:
 		shutil.copyfile(oldFilePath, filePath)
@@ -132,6 +126,9 @@ def processFile(filepath):
 	if filepath in infos:
 		page.frontMatter.menuTitle = infos[filepath]["title"]
 		page.frontMatter.weight = infos[filepath]["weight"] if "weight" in infos[filepath] else 0
+		if "appendix" in filepath or "release-notes" in filepath:
+			page.frontMatter.weight = page.frontMatter.weight + 10000
+
 	_processFrontMatter(page, buffer)
 	fileID = filepath.split("/")
 	page.frontMatter.fileID = fileID[len(fileID)-1].replace(".md", "")
@@ -242,11 +239,12 @@ if __name__ == "__main__":
 	print("Starting migration")
 	try:
 		structure_migration_new('', None, "manual")
-		structure_migration_new('core-topics/http', None, "http")
-		structure_migration_new('core-topics/oasis', None, "oasis")
-		structure_migration_new('core-topics/aql', None, "aql")
-		structure_migration_new('core-topics/drivers', None, "drivers")
+		structure_migration_new('http', None, "http")
+		structure_migration_new('oasis', None, "oasis")
+		structure_migration_new('aql', None, "aql")
+		structure_migration_new('drivers', None, "drivers")
 		initBlocksFileLocations()
+		print(infos)
 		processFiles()
 		write_components_to_file()
 		migrate_media()
