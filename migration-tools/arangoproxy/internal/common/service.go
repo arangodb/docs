@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"os/exec"
-	"regexp"
 	"strings"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
@@ -17,7 +16,6 @@ type Service struct{}
 
 // Get an example, check if is cached, if not execute the code against the arango instance chose in the request.Options
 func (service Service) ExecuteExample(request Example) (res ExampleResponse) {
-	res.Input, res.Options = strings.ReplaceAll(request.Code, "\n     ", ""), request.Options
 
 	// Check example is cached
 	if cached, err := service.IsCached(request); cached {
@@ -27,20 +25,18 @@ func (service Service) ExecuteExample(request Example) (res ExampleResponse) {
 		}
 	}
 
+	// If xpError on, don't use try catch wrap
+	//request.Code = utils.TryCatchWrap()
+
 	// Example is not cached, execute it against the arango instance
-	repository := Repositories[fmt.Sprintf("%s_%s", request.Options.Release, request.Options.Version)] // The chosen arango instance
+	repository, _ := GetRepository(request.Options.Release, request.Options.Version)
 	cmdOutput := service.InvokeArangoSH(request.Code, repository)
 	if strings.Contains(string(request.Options.Render), "output") {
 		res.Output = fmt.Sprintf("%s\n%s", res.Output, cmdOutput)
 	}
 
-	re := regexp.MustCompile(`(?m)^\s*$\n`) // Cut all excessive spaces and newlines from output
-	res.Input = re.ReplaceAllString(res.Input, "")
-	res.Output = re.ReplaceAllString(res.Output, "")
-	res.Output = strings.TrimPrefix(res.Output, "\n")
-
-	codeComments := regexp.MustCompile(`(?m)~.*`) // Cut the ~... strings from the displayed input
-	res.Input = codeComments.ReplaceAllString(res.Input, "")
+	res.Input, res.Options = request.Code, request.Options
+	FormatResponse(&res)
 
 	service.SaveCachedExampleResponse(res)
 	return

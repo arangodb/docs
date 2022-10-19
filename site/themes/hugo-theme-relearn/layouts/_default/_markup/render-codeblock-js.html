@@ -9,7 +9,7 @@
     }}
   {{ if $remote }}
   {{ if $remote.Err }}
-          {{ warnf "[HTTP-EXAMPLE] ERROR CALLING ENDPOINT %#v" .Position }}
+          {{ warnf "[HTTP-JS] ERROR CALLING ENDPOINT %#v" .Position }}
     {{ else }}
     {{ $response := unmarshal $remote.Content }}
         {{ if in $response.options.render "input" }}
@@ -17,7 +17,7 @@
           <div class="version {{ $version }}" style="display: none;">
             <div class="codeblock">
               <div class="code-header">
-                <p class="code-description">TEST HEADER</p>
+                <p class="code-description">{{ $response.options.description }}</p>
                 </div>
             {{ transform.Highlight $response.input "js" }}
             </div>

@@ -50,13 +50,13 @@ def migrateInlineDocuBlocks(paragraph):
                 newBlock["options"]["explain"] = "true"
                 block = block.replace("@EXPLAIN{TRUE}", "")
 
-            bindVarsRe = re.search(r"@BV (.*?)[\s](?=@)", block, re.MULTILINE | re.DOTALL)
+            bindVarsRe = re.search(r"@BV (.*?)}", block, re.MULTILINE | re.DOTALL)
             if bindVarsRe:
                 newBlock["options"]["bindVars"] = bindVarsRe.group(0).replace("@BV ", "")
-                block = re.sub(r"@BV (.*?)[\s](?=@)", "", block, 0, re.MULTILINE | re.DOTALL)
+                block = re.sub(r"@BV (.*?)}", "", block, 0, re.MULTILINE | re.DOTALL)
 
             
-            newBlock["code"] = "\n".join(block.split("\n")[1:]).lstrip(" ")
+            newBlock["code"] = "\n".join(block.split("\n")[1:]).lstrip(" ").replace("    ", "")
             codeblock = render_codeblock(newBlock)
             codeblock = codeblock.replace("|", " ")
             paragraph = paragraph.replace(originalBlock, codeblock)

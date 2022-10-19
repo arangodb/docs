@@ -1,6 +1,7 @@
 package common
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
@@ -14,6 +15,14 @@ func InitRepositories() {
 	for _, repo := range config.Conf.Repositories {
 		Repositories[fmt.Sprintf("%s_%s", repo.Type, repo.Version)] = repo
 	}
+}
+
+func GetRepository(release, version string) (config.Repository, error) {
+	if repository, exists := Repositories[fmt.Sprintf("%s_%s", release, version)]; exists {
+		return repository, nil
+	}
+
+	return config.Repository{}, errors.New("repository " + release + "_" + version + " not found")
 }
 
 /*

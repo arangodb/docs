@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 	"github.com/dlclark/regexp2"
 )
 
@@ -28,13 +29,8 @@ func (service HTTPService) ExecuteHTTPExample(request common.Example) (res commo
 			continue
 		}
 
-		printReq := fmt.Sprintf("print('REQUEST');\nprint([%s]);\nprint('END REQUEST');", curlArgs)
-		swallowTextFunc := "var swallowText = function () {};"
-		appendCurlRequest := "var curlRequestRaw = internal.appendCurlRequest(swallowText, swallowText, swallowText);"
-		response := fmt.Sprintf("var response = curlRequestRaw.apply(curlRequestRaw, [%s]);", curlArgs)
-
-		requestString := fmt.Sprintf("%s\n%s\n%s\n%s\n", printReq, swallowTextFunc, appendCurlRequest, response)
-		request.Code = strings.Replace(request.Code, curlRequest, requestString, -1)
+		logCurlRequest := utils.LogCurlRequest(curlArgs.String())
+		request.Code = strings.Replace(request.Code, curlRequest, logCurlRequest, -1)
 	}
 
 	request.Code = strings.ReplaceAll(request.Code, "assert", "print")
@@ -61,11 +57,11 @@ func (service HTTPService) parseResponse(resp *common.ExampleResponse) {
 		return
 	}
 
-	common.Logger.Printf("REQUEST ARTGS %s\n", requestArgs.String())
+	//common.Logger.Printf("REQUEST ARTGS %s\n", requestArgs.String())
 	args := make([]interface{}, 0)
 
 	json.Unmarshal([]byte(requestArgs.String()), &args)
-	common.Logger.Printf("ARGS ARRAY %s\n", args)
+	//common.Logger.Printf("ARGS ARRAY %s\n", args)
 	curlString := fmt.Sprintf("curl -X %s -H 'accept: application/json' %s", args[0], args[1])
 	if len(args) > 2 {
 		postBody, _ := json.Marshal(args[2])

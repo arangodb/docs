@@ -45,7 +45,7 @@ func JSHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//common.Logger.Printf("[js/CONTROLLER] Processing Example %s\n", request.Options.Name)
+	common.Logger.Printf("[js/CONTROLLER] Processing Example %s\n", request.Options.Name)
 
 	resp := JSService.ExecuteExample(request)
 	response, err := json.Marshal(resp)
