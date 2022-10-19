@@ -89,12 +89,12 @@ Define a directed relation:
   have to be stored in these collections. Collections will be created if they
   do not exist.
 
-The *relationName* defines the name of this relation and references to the
-underlying edge collection. The *fromVertexCollections* is an Array of document
-collections holding the start vertices. The *toVertexCollections* is an array
+The `relationName` defines the name of this relation and references to the
+underlying edge collection. The `fromVertexCollections` is an Array of document
+collections holding the start vertices. The `toVertexCollections` is an array
 of document collections holding the target vertices. Relations are only allowed
-in the direction from any collection in *fromVertexCollections* to any
-collection in *toVertexCollections*.
+in the direction from any collection in `fromVertexCollections` to any
+collection in `toVertexCollections`.
 
 **Examples**
 
@@ -303,7 +303,7 @@ Drop a Graph by its name:
 
 This can drop all collections contained in the graph as long as they are not
 used within other graphs. To drop the collections only belonging to this graph,
-the optional parameter *drop-collections* has to be set to *true*.
+the optional parameter `drop-collections` has to be set to `true`.
 
 **Examples**
 
@@ -364,7 +364,7 @@ Add another edge definition to the graph:
 Extends the edge definitions of a graph. If an orphan collection is used in this
 edge definition, it will be removed from the orphanage. If the edge collection of
 the edge definition to add is already used in the graph or used in a different
-graph with different *from* and/or *to* collections an error is thrown.
+graph with different `from` and/or `to` collections an error is thrown.
 
 **Examples**
 
@@ -391,7 +391,7 @@ Modify a relation definition:
 
 - `edgeDefinition` (object):
   The edge definition to replace the existing edge definition with the same
-  attribute *collection*.
+  attribute `collection`.
 - `options` (object):
   Additional options related to the edge definition itself.
   See [Edge Definition Options](#edge-definition-options).
@@ -585,7 +585,7 @@ Manipulating Vertices
 
 ### Save a Vertex
 
-Create a new vertex in *vertexCollectionName*:
+Create a new vertex in `vertexCollectionName`:
 
 `graph.vertexCollectionName.save(data)`
 
@@ -608,7 +608,7 @@ Create a new vertex in *vertexCollectionName*:
 
 ### Replace a Vertex
 
-Replaces the data of a vertex in collection *vertexCollectionName*:
+Replaces the data of a vertex in collection `vertexCollectionName`:
 
 `graph.vertexCollectionName.replace(vertexId, data, options)`
 
@@ -636,12 +636,12 @@ Replaces the data of a vertex in collection *vertexCollectionName*:
 
 ### Update a Vertex
 
-Updates the data of a vertex in collection *vertexCollectionName*
+Updates the data of a vertex in collection `vertexCollectionName`
 
 `graph.vertexCollectionName.update(vertexId, data, options)`
 
 - `vertexId` (string):
-  *_id* attribute of the vertex
+  `_id` attribute of the vertex
 - `data` (object):
   JSON data of vertex.
 - `options` (object, _optional_):
@@ -664,12 +664,12 @@ Updates the data of a vertex in collection *vertexCollectionName*
 
 ### Remove a Vertex
 
-Removes a vertex in collection *vertexCollectionName*
+Removes a vertex in collection `vertexCollectionName`
 
 `graph.vertexCollectionName.remove(vertexId, options)`
 
 - `vertexId` (string):
-  *_id* attribute of the vertex
+  `_id` attribute of the vertex
 - `options` (object, _optional_):
   See [collection documentation](data-modeling-documents-document-methods.html)
 
@@ -727,7 +727,7 @@ Creates an edge from vertex `data._from` to vertex `data._to` in collection
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-If the collections of *from* and *to* are not defined in an edge definition
+If the collections of `from` and `to` are not defined in an edge definition
 of the graph, the edge will not be stored.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -747,13 +747,13 @@ of the graph, the edge will not be stored.
 
 ### Replace an Edge
 
-Replaces the data of an edge in collection *edgeCollectionName*.
+Replaces the data of an edge in collection `edgeCollectionName`.
 Note that `_from` and `_to` are mandatory.
 
 `graph.edgeCollectionName.replace(edgeId, data, options)`
 
 - `edgeId` (string):
-  *_id* attribute of the edge
+  `_id` attribute of the edge
 - `data` (object, _optional_):
   JSON data of the edge
 - `options` (object, _optional_):
@@ -776,12 +776,12 @@ Note that `_from` and `_to` are mandatory.
 
 ### Update an Edge
 
-Updates the data of an edge in collection *edgeCollectionName*
+Updates the data of an edge in collection `edgeCollectionName`
 
 `graph.edgeCollectionName.update(edgeId, data, options)`
 
 - `edgeId` (string):
-  *_id* attribute of the edge
+  `_id` attribute of the edge
 - `data` (object, _optional_):
   JSON data of the edge
 - `options` (object, _optional_):
@@ -809,7 +809,7 @@ Removes an edge in collection edgeCollectionName
 `graph.edgeCollectionName.remove(edgeId, options)`
 
 - `edgeId` (string):
-  *_id* attribute of the edge
+  `_id` attribute of the edge
 - `options` (object, _optional_):
   See [collection documentation](data-modeling-documents-document-methods.html)
 

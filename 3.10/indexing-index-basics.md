@@ -12,7 +12,7 @@ of documents.
 
 User-defined indexes can be created on collection level. Most user-defined indexes 
 can be created by specifying the names of the index attributes.
-Some index types allow indexing just one attribute (e.g. *ttl* index) whereas 
+Some index types allow indexing just one attribute (e.g. a `ttl` index) whereas 
 other index types allow indexing multiple attributes at the same time.
 
 Learn how to use different indexes efficiently by going through the
@@ -574,9 +574,9 @@ Ensuring uniqueness of relations in edge collections
 You can create a combined index over the edge attributes `_from` and `_to`
 with the unique option enabled to prevent duplicate relations from being created.
 
-For example, a document collection *users* might contain vertices with the document
+For example, a document collection `users` might contain vertices with the document
 handles `user/A`, `user/B` and `user/C`. Relations between these documents can
-be stored in an edge collection *knows*, for instance. You may want to make sure
+be stored in an edge collection `knows`, for instance. You may want to make sure
 that the vertex `user/A` is never linked to `user/B` by an edge more than once.
 This can be achieved by adding a unique, non-sparse persistent index for the
 fields `_from` and `_to`:
@@ -585,7 +585,7 @@ fields `_from` and `_to`:
 db.knows.ensureIndex({ type: "persistent", fields: [ "_from", "_to" ], unique: true });
 ```
 
-Creating an edge `{ _from: "user/A", _to: "user/B" }` in *knows* will be accepted,
+Creating an edge `{ _from: "user/A", _to: "user/B" }` in `knows` will be accepted,
 but only once. Another attempt to store an edge with the relation **A** → **B** will
 be rejected by the server with a *unique constraint violated* error. This includes
 updates to the `_from` and `_to` fields.
@@ -607,7 +607,7 @@ if you have to perform it on a live system without a dedicated maintenance windo
 Indexes can also be created in "background", not using an 
 exclusive lock during the entire index creation. The collection remains basically available, 
 so that other CRUD operations can run on the collection while the index is being created.
-This can be achieved by setting the *inBackground* attribute when creating an index.
+This can be achieved by setting the `inBackground` attribute when creating an index.
 
 To create an index in the background in *arangosh* just specify `inBackground: true`, 
 like in the following examples:
@@ -626,11 +626,11 @@ db.collection.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 4, 
 ### Behavior
 
 Indexes that are still in the build process will not be visible via the ArangoDB APIs. 
-Nevertheless it is not possible to create the same index twice via the *ensureIndex* API 
+Nevertheless it is not possible to create the same index twice via the `ensureIndex()` method
 while an index is still begin created. AQL queries also will not use these indexes until
-the index reports back as fully created. Note that the initial *ensureIndex* call or HTTP 
+the index reports back as fully created. Note that the initial `ensureIndex()` call or HTTP 
 request will still block until the index is completely ready. Existing single-threaded 
-client programs can thus safely set the *inBackground* option to *true* and continue to 
+client programs can thus safely set the `inBackground` option to `true` and continue to 
 work as before.
 
 {% hint 'info' %}

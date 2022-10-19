@@ -1,6 +1,6 @@
 ---
 layout: default
-description: In ArangoDB there are special indices designed to speed up graph operations,especially if the graph contains supernodes (vertices that have an exceptionallyhigh amount of connected edges)
+description: In ArangoDB there are special indices designed to speed up graph operations, especially if the graph contains supernodes (vertices that have an exceptionally high amount of connected edges)
 ---
 Vertex Centric Indexes
 ======================

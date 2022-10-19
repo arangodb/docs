@@ -8,11 +8,15 @@ ArangoDB Graphs
 First Steps with Graphs
 -----------------------
 
-A Graph consists of *vertices* and *edges*. Edges are stored as documents in *edge collections*.
-A vertex can be a document of a *document collection* or of an *edge collection* (so *edges* can be used as *vertices*).
-Which collections are used within a named graph is defined via *edge definitions*.
-A named graph can contain more than one *edge definition*, at least one is needed.
-Graphs allow you to structure your models in line with your domain and group them logically in collections and giving you the power to query them in the same graph queries.
+A Graph consists of **vertices** and **edges**. Edges are stored as documents in
+**edge collections**. A vertex can be a document of a **document collection** or
+of an **edge collection** (so edges can be used as vertices).
+
+Which collections are used within a named graph is defined via **edge definitions**.
+A named graph can contain more than one edge definition, at least one is needed.
+Graphs allow you to structure your models in line with your domain and group
+them logically in collections and giving you the power to query them in the same
+graph queries.
 
 {% hint 'info' %}
 New to graphs? [**Take our free graph course for freshers**](https://www.arangodb.com/arangodb-graph-course/){:target="_blank"}

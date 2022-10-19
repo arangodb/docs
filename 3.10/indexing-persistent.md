@@ -157,7 +157,7 @@ Ensures that a unique persistent index exists:
 
 `collection.ensureIndex({ type: "persistent", fields: [ "field1", ..., "fieldn" ], unique: true })`
 
-Creates a unique persistent index on all documents using *field1*, ... *fieldn*
+Creates a unique persistent index on all documents using `field1`, ... `fieldn`
 as attribute paths. At least one attribute path has to be given. The index will
 be non-sparse by default.
 
@@ -165,7 +165,9 @@ All documents in the collection must differ in terms of the indexed
 attributes. Creating a new document or updating an existing document will
 will fail if the attribute uniqueness is violated. 
 
-To create a sparse unique index, set the *sparse* attribute to `true`:
+---
+
+To create a sparse unique index, set the `sparse` attribute to `true`:
 
 `collection.ensureIndex({ type: "persistent", fields: [ "field1", ..., "fieldn" ], unique: true, sparse: true })`
 
@@ -180,6 +182,8 @@ account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
+***Examples**
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniquePersistentSingle
@@ -211,19 +215,17 @@ details, including the index-identifier, is returned.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-<!-- js/server/modules/@arangodb/arango-collection.js-->
-
+---
 
 Ensures that a non-unique persistent index exists:
 
 `collection.ensureIndex({ type: "persistent", fields: [ "field1", ..., "fieldn" ] })`
 
-Creates a non-unique persistent index on all documents using *field1*, ...
-*fieldn* as attribute paths. At least one attribute path has to be given.
+Creates a non-unique persistent index on all documents using `field1`, ...
+`fieldn` as attribute paths. At least one attribute path has to be given.
 The index will be non-sparse by default.
 
-To create a sparse unique index, set the *sparse* attribute to `true`.
+To create a sparse unique index, set the `sparse` attribute to `true`.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
@@ -253,11 +255,11 @@ Constructs a query-by-example using a persistent index:
 Selects all documents from the collection that match the specified example 
 and returns a cursor. A persistent index will be used if present.
 
-You can use *toArray*, *next*, or *hasNext* to access the
-result. The result can be limited using the *skip* and *limit*
+You can use `toArray()`, `next()`, or `hasNext()` to access the
+result. The result can be limited using the `skip()` and `limit()`
 operator.
 
-An attribute name of the form *a.b* is interpreted as attribute path,
+An attribute name of the form `a.b` is interpreted as attribute path,
 not as attribute. If you use
 
 ```json
@@ -265,7 +267,7 @@ not as attribute. If you use
 ```
 
 as example, then you will find all documents, such that the attribute
-*a* contains a document of the form *{c : 1 }*. For example the document
+`a` contains a document of the form `{ "c" : 1 }`. For example the document
 
 ```json
 { "a" : { "c" : 1 }, "b" : 1 }
@@ -285,8 +287,8 @@ However, if you use
 { "a.c" : 1 },
 ```
 
-then you will find all documents, which contain a sub-document in *a*
-that has an attribute *c* of value *1*. Both the following documents
+then you will find all documents, which contain a sub-document in `a`
+that has an attribute `c` of value `1`. Both the following documents
 
 ```json
 { "a" : { "c" : 1 }, "b" : 1 }
