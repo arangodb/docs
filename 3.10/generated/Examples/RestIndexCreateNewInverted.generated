@@ -15,7 +15,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> C
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">693</span>
+content-length: <span class="hljs-number">754</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -37,20 +37,28 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;segmentsMin&quot;</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">&quot;minScore&quot;</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">&quot;features&quot;</span> : [ ], 
+  <span class="hljs-string">&quot;features&quot;</span> : [ 
+    <span class="hljs-string">&quot;frequency&quot;</span>, 
+    <span class="hljs-string">&quot;norm&quot;</span> 
+  ], 
   <span class="hljs-string">&quot;fields&quot;</span> : [ 
     { 
       <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;a&quot;</span> 
     }, 
     { 
+      <span class="hljs-string">&quot;features&quot;</span> : [ 
+        <span class="hljs-string">&quot;frequency&quot;</span>, 
+        <span class="hljs-string">&quot;position&quot;</span>, 
+        <span class="hljs-string">&quot;norm&quot;</span> 
+      ], 
       <span class="hljs-string">&quot;analyzer&quot;</span> : <span class="hljs-string">&quot;text_en&quot;</span>, 
       <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;b&quot;</span> 
     } 
   ], 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;products/69150&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;products/69162&quot;</span>, 
   <span class="hljs-string">&quot;includeAllFields&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;isNewlyCreated&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1743964827526627328&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1745940452101586944&quot;</span>, 
   <span class="hljs-string">&quot;primarySort&quot;</span> : { 
     <span class="hljs-string">&quot;fields&quot;</span> : [ ], 
     <span class="hljs-string">&quot;compression&quot;</span> : <span class="hljs-string">&quot;lz4&quot;</span> 

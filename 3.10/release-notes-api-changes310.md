@@ -94,8 +94,9 @@ Options for creating an index (`POST /_api/index`):
   - `analyzer` (string, _optional_): default: the value defined by the top-level
     `analyzer` option
   - `features` (array, _optional_): an array of strings, possible values:
-    `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the value of
-    the top-level `features` option
+    `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the features as
+    defined by the Analyzer itself, or inherited from the top-level `features`
+    option if the `analyzer` option adjacent to this option is not set
   - `includeAllFields` (boolean, _optional_): default: `false`
   - `searchField` (boolean, _optional_): default: the value defined by the
     top-level `searchField` option
@@ -105,13 +106,16 @@ Options for creating an index (`POST /_api/index`):
     The array elements can be a mix of strings and objects:
     - `name` (string, _required_): an attribute path. Passing a string instead
       of an object is the same as passing an object with this name attribute
-    - `analyzer` (string, _optional_), default: the value defined by the
-      top-level `analyzer` option
+    - `analyzer` (string, _optional_): default: the value defined by the parent
+      field, or the top-level `analyzer` option
     - `features` (array, _optional_): an array of strings, possible values:
-      `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the value of
-      the top-level `features` option
+      `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the features as
+      defined by the Analyzer itself, or inherited from the parent field's or
+      top-level `features` option if no `analyzer` option is set at a deeper
+      level, closer to this option
     - `searchField` (boolean, _optional_): default: the value defined by the
       top-level `searchField` option
+    - `nested` (array, _optional_): can be used recursively. See `nested` above
 - `searchField` (boolean, _optional_): default: `false`
 - `storedValues` (array, _optional_): an array of objects:
   - `fields` (array, _required_): an array of strings
@@ -123,22 +127,19 @@ Options for creating an index (`POST /_api/index`):
     - `direction` (string, _required_): possible values: `"asc"`, `"desc"`
   - `compression` (string, _optional_): possible values: `"lz4"`, `"none"`.
     Default: `"lz4"`
-- `analyzer` (string, _optional_)
+- `analyzer` (string, _optional_): default: `identity`
 - `features` (array, _optional_): an array of strings, possible values:
   `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the features as
   defined by the Analyzer itself
 - `includeAllFields` (boolean, _optional_): default: `false`
 - `trackListPositions` (boolean, _optional_): default: `false`
-- `parallelism` (integer, _optional_): default: ???
+- `parallelism` (integer, _optional_): default: `2`
 - `inBackground` (boolean, _optional_)
 - `cleanupIntervalStep` (integer, _optional_): default: `2`
 - `commitIntervalMsec` (integer, _optional_): default: `1000`
 - `consolidationIntervalMsec` (integer, _optional_): default: `1000`
 - `consolidationPolicy` (object, _optional_):
-  - `type` (string, _optional_): possible values: `"tier"`, `"bytes_accum"`.
-    Default: `"tier"`
-  - `threshold` (number, _optional_): only available if the `type` is
-    `"bytes_accum"`. Allowed value range: `0.0` through `1.0` (inclusive)
+  - `type` (string, _optional_): possible values: `"tier"`. Default: `"tier"`
   - `segmentsBytesFloor` (integer, _optional_): default: `2097152`
   - `segmentsBytesMax` (integer, _optional_): default: `5368709120`
   - `segmentsMax` (integer, _optional_): default: `10`
@@ -169,9 +170,10 @@ Index definition returned by index endpoints:
   - `trackListPositions` (boolean): default: omitted
   - `nested` (array): default: omitted. Enterprise Edition only. An array of objects:
     - `name` (string)
-    - `analyzer` (string), default: `identity`
+    - `analyzer` (string), default: omitted
     - `features` (array): an array of strings, possible values:
-      `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: `[]`
+      `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the features
+      as defined by the Analyzer itself
     - `searchField` (boolean): default: the value defined by the top-level
       `searchField` option
 - `searchField` (boolean): default: `false`
@@ -186,7 +188,7 @@ Index definition returned by index endpoints:
   - `compression` (string): possible values: `"lz4"`, `"none"`.
     Default: `"lz4"`
 - `analyzer` (string): default: `identity`
-- `features` (array): default: `[]`
+- `features` (array): default: the features as defined by the Analyzer itself
 - `includeAllFields` (boolean): default: `false`
 - `trackListPositions` (boolean): default: `false`
 - `cleanupIntervalStep` (integer): default: `2`
@@ -202,6 +204,8 @@ Index definition returned by index endpoints:
 - `writebufferIdle` (integer): default: `64`
 - `writebufferActive` (integer): default: `0`
 - `writebufferSizeMax` (integer): default: `33554432`
+
+Also see the [HTTP API documentation](http/indexes-inverted.html).
 
 #### `search-alias` Views
 
@@ -231,6 +235,8 @@ View definition returned by View endpoints:
 - `indexes` (array): default: `[]`. An array of objects:
   - `collection` (string)
   - `index` (string)
+
+Also see the [HTTP API documentation](http/views-search-alias.html).
 
 #### Computed Values
 
@@ -269,21 +275,32 @@ The `GET /_api/view/{view-name}/properties` endpoint may return link properties
 including the new `nested` property.
 
 For nested search with inverted indexes (and indirectly with `search-alias` Views),
-see the `nested` property supported by inverted indexes.
+see the `nested` property supported by [inverted indexes](#inverted-indexes).
 
 #### `offset` Analyzer feature
 
 In the Enterprise Edition, the `POST /_api/analyzer` endpoint accepts `"offset"`
 as a string in the `features` array attribute. The `/_api/analyzer` endpoints
 may return this new value in the `features` attribute. It enables
-search highlighting capabilities for Views and inverted indexes.
+search highlighting capabilities for Views.
 
-#### `minhash` Analyzer
+#### Analyzer types
 
-The `/_api/analyzer` endpoint supports a new [`minhash` Analyzer](analyzers.html#minhash)
-type in the Enterprise Edition. It has two properties, `analyzer` (object) and `numHashes` (number).
-The `analyzer` object is an Analyzer-like definition with a `type` (string) and
-a `properties` attribute (object). The properties depend on the Analyzer type.
+The `/_api/analyzer` endpoint supports three new Analyzer types in the
+Enterprise Edition:
+
+- [`minhash`](analyzers.html#minhash):
+  It has two properties, `analyzer` (object) and `numHashes` (number).
+  The `analyzer` object is an Analyzer-like definition with a `type` (string) and
+  a `properties` attribute (object). The properties depend on the Analyzer type.
+
+- [`classification`](analyzers.html#classification) (experimental):
+  It has three properties, `model_location` (string), `top_k` (number, optional,
+  default: `1`), and `threshold` (number, optional, default: `0.99`).
+
+- [`nearest_neighbors`](analyzers.html#nearest_neighbors) (experimental):
+  It has two properties, `model_location` (string) and `top_k` (number, optional,
+  default: `1`).
 
 #### Collection truncation markers
 

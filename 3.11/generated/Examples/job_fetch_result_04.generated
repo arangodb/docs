@@ -9,18 +9,18 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 83505
+x-arango-async-id: 83508
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/83505</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/83508</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">400</span> Bad Request
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">114</span>
 server: ArangoDB
-x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">83505</span>
+x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">83508</span>
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 

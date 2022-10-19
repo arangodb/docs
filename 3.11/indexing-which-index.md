@@ -48,15 +48,15 @@ different usage scenarios:
   - Token and phrase queries for full-text search
   - Geo-spatial queries
   - Nested matching
-  - Search highlighting
 
   The inverted index type is eventually consistent like `arangosearch` Views,
   but unlike other index types.
   It may thus not be a suitable index type depending on your requirements.
 
   You can add one more more inverted indexes to a `search-alias` View for
-  federated searching over multiple collections and for ranking results by
-  relevance. It is a lightweight alternative to an `arangosearch` View.
+  federated searching over multiple collections, for ranking results by
+  relevance, and for search highlighting capabilities. It is a lightweight
+  alternative to an `arangosearch` View.
 
 - **TTL index**: the TTL index provided by ArangoDB can be used for automatically
   removing expired documents from a collection.

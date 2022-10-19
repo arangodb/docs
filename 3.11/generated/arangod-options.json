@@ -848,6 +848,38 @@
     "section" : "backup",
     "type" : "string"
   },
+  "backup.files-per-batch" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 100,
+    "deprecatedIn" : null,
+    "description" : "this option tells the hotbackup up-/download, how many files it should do in one call to rclone",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.8",
+      "v3.9.4"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "backup",
+    "type" : "uint64"
+  },
   "backup.local-path-prefix" : {
     "category" : "option",
     "component" : [
@@ -914,7 +946,7 @@
       "agent",
       "single"
     ],
-    "default" : 18004834304,
+    "default" : 17872713728,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -6908,7 +6940,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 74166820864,
+    "base" : 73638338560,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6916,7 +6948,7 @@
       "agent",
       "single"
     ],
-    "default" : 60075124900,
+    "default" : 59647054233,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7041,7 +7073,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 74166820864,
+    "base" : 73638338560,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7049,7 +7081,7 @@
       "agent",
       "single"
     ],
-    "default" : 44500092519,
+    "default" : 44183003136,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7904,7 +7936,7 @@
       "agent",
       "single"
     ],
-    "default" : 21605801164,
+    "default" : 21447256473,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -9594,7 +9626,6 @@
     "base" : 1,
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -10163,7 +10194,7 @@
       "agent",
       "single"
     ],
-    "default" : 28807734886,
+    "default" : 28596341964,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -12454,6 +12485,33 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
+  },
+  "use-splice-syscall" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Use the splice() syscall for file copying (may not be supported on all filesystems",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "version" : {
     "category" : "command",
