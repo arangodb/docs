@@ -142,11 +142,19 @@ in production.
 
 The option is turned off by default.
 
+`--query.log-memory-usage-threshold value`
+
+This option determines the peak memory usage threshold for AQL queries from
+which on a warning will be logged if queries exceed it. This is useful for
+finding queries that use a large amount of memory.
+
+The default value is `4294967296` (4 GB).
+
 <small>Introduced in: v3.11.0</small>
 
 `--query.max-artefact-log-length value`
 
-This option determins the maximum length of logged query strings and bind parameter 
+This option determines the maximum length of logged query strings and bind parameter 
 values. This allows truncating overly long query strings and bind parameter values
 to a reasonable length in logfiles.
 
