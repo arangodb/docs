@@ -31,7 +31,7 @@ integrations for ArangoDB 3.11.
 
 #### Cursor API
 
-The cursor API can now return an additional statistics value in its `stats` subattribute:
+The cursor API can now return an additional statistics value in its `stats` sub-attribute:
 
 - **intermediateCommits**: the total number of intermediate commits the query has performed. 
   This number can only be greater than zero for data-modification queries that perform modifications 
@@ -62,3 +62,7 @@ preceding or trailing colon using the `POST /_api/index` endpoint.
 
 ## JavaScript API
 
+### Deprecations
+
+The `collection.iterate()` method is deprecated from v3.11.0 onwards and will be
+removed in a future version.

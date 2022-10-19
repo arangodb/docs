@@ -1309,6 +1309,11 @@ Misc
 
 `collection.iterate(iterator, options)`
 
+{% hint 'warning' %}
+The `iterate()` method is deprecated from version 3.11.0 onwards and will be
+removed in a future version.
+{% endhint %}
+
 Iterates over some elements of the collection and apply the function
 *iterator* to the elements. The function will be called with the
 document as first argument and the current number (starting with 0)
