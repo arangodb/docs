@@ -134,12 +134,21 @@ The option can also be overridden for each individual AQL query.
 
 <small>Introduced in: v3.11.0</small>
 
-`--query.log-failed-queries value`
+`--query.log-failed value`
 
-When set to *true*, will log all failed AQL queries to the server log. This
+When set to *true*, will log **all** failed AQL queries to the server log. This
 option can be used during development, or to catch unexpected failed queries
 in production.
 The option is turned off by default.
+
+<small>Introduced in: v3.11.0</small>
+
+`--query.max-artefact-log-length value`
+
+This option determins the maximum length of logged query strings and bind parameter 
+values. This allows truncating overly long query strings and bind parameter values
+to a reasonable length in logfiles. 
+The default value is **4096** bytes.
 
 ## Requiring `WITH` statements
 
