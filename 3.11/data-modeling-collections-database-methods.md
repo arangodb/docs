@@ -8,14 +8,14 @@ Database Methods
 Collection
 ----------
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
-
 Return a single collection:
 
 `db._collection(collection-name)`
 
 Returns the collection with the given name, or `null` if no such collection
 exists.
+
+---
 
 `db._collection(collection-identifier)`
 
@@ -57,8 +57,6 @@ Unknown collection:
 Create
 ------
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
-
 Create a new document or edge collection:
 
 `db._create(collection-name)`
@@ -67,6 +65,8 @@ Creates a new document collection named `collection-name`.
 If the collection name already exists or if the name format is invalid, an
 error is thrown. For more information on valid collection names please refer
 to the [naming conventions](data-modeling-naming-conventions.html).
+
+---
 
 `db._create(collection-name, properties)`
 
@@ -362,7 +362,7 @@ With a special key option:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+---
 
 Create a new edge collection:
 
@@ -372,6 +372,8 @@ Creates a new edge collection named `collection-name`. If the
 collection name already exists an error is thrown. The default value
 for `waitForSync` is `false`.
 
+---
+
 `db._createEdgeCollection(collection-name, properties)`
 
 `properties` must be an object with the following attributes:
@@ -379,7 +381,7 @@ for `waitForSync` is `false`.
 - `waitForSync` (optional, default: `false`): If `true`, creating
   a document only returns after the data is synced to disk.
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+---
 
 Create a new document collection:
 
@@ -390,8 +392,6 @@ document name already exists and error is thrown.
 
 All Collections
 ---------------
-
-<!-- arangod/V8Server/v8-vocbase.cpp -->
 
 Return all collections:
 
@@ -414,8 +414,6 @@ Returns all collections of the given database.
 
 Collection Name
 ---------------
-
-<!-- arangod/V8Server/v8-vocbase.cpp -->
 
 Select a collection from the database:
 
@@ -441,23 +439,27 @@ default properties.
 Drop
 ----
 
-<!-- js/server/modules/@arangodb/arango-database.js -->
-
 Drop a collection:
 
 `db._drop(collection)`
 
 Drops a `collection` and all its indexes and data.
 
+---
+
 `db._drop(collection-identifier)`
 
 Drops a collection identified by `collection-identifier` with all its
 indexes and data. No error is thrown if there is no such collection.
 
+---
+
 `db._drop(collection-name)`
 
 Drops a collection named `collection-name` and all its indexes. No error
 is thrown if there is no such collection.
+
+---
 
 `db._drop(collection-name, options)`
 
@@ -518,8 +520,6 @@ Drops a system collection
 Truncate
 --------
 
-<!-- js/server/modules/@arangodb/arango-database.js -->
-
 Truncate a collection:
 
 `db._truncate(collection)`
@@ -527,10 +527,14 @@ Truncate a collection:
 Truncates a `collection`, removing all documents but keeping all its
 indexes.
 
+---
+
 `db._truncate(collection-identifier)`
 
 Truncates a collection identified by `collection-identified`. No error is
 thrown if there is no such collection.
+
+---
 
 `db._truncate(collection-name)`
 

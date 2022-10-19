@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's interface for working withdocuments from the JavaScript shell arangosh or in JavaScript code inthe server
+description: This is an introduction to ArangoDB's interface for working with documents from the JavaScript shell arangosh or in JavaScript code in the server
 ---
 Documents
 =========

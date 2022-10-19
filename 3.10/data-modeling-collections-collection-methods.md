@@ -8,8 +8,6 @@ Collection Methods
 Drop
 ----
 
-<!-- arangod/V8Server/v8-collection.cpp -->
-
 Drops a collection:
 
 `collection.drop(options)`
@@ -59,8 +57,6 @@ Drop a system collection:
 Truncate
 --------
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
-
 Truncate a collection:
 
 `collection.truncate()`
@@ -89,8 +85,6 @@ Truncates a collection:
 
 Compact
 -------
-
-<!-- js/server/modules/@arangodb/arango-collection.js-->
 
 <small>Introduced in: v3.4.5</small>
 
@@ -286,8 +280,6 @@ Change a property:
 Figures
 -------
 
-<!-- arangod/V8Server/v8-collection.cpp -->
-
 Return the figures of a collection:
 
 `collection.figures(details)`
@@ -338,8 +330,6 @@ Get the detailed collection figures:
 GetResponsibleShard
 -------------------
 
-<!-- arangod/V8Server/v8-collection.cpp -->
-
 Return the responsible shard for the given document:
 
 `collection.getResponsibleShard(document)`
@@ -355,8 +345,6 @@ in clusters.
 
 Shards
 ------
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Return the available shards for the collection:
 
@@ -377,8 +365,6 @@ The `shards()` method can only be used on Coordinators in clusters.
 
 Load
 ----
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Load a collection:
 
@@ -414,8 +400,6 @@ any need to load a collection with the RocksDB storage engine.
 Revision
 --------
 
-<!-- arangod/V8Server/v8-collection.cpp -->
-
 Return the revision ID of a collection:
 
 `collection.revision()`
@@ -435,8 +419,6 @@ as an opaque string, and only use it for equality/non-equality comparisons.
 Checksum
 --------
 
-<!-- arangod/V8Server/v8-query.cpp -->
-
 Calculate a checksum for the data in a collection:
 
 `collection.checksum(withRevisions, withData)`
@@ -453,8 +435,6 @@ checksumming makes the calculation slower, but is more accurate.
 
 Unload
 ------
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Unload a collection:
 
@@ -490,8 +470,6 @@ any need to unload a collection with the RocksDB storage engine.
 
 Rename
 ------
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Rename a collection:
 
