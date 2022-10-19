@@ -284,7 +284,7 @@ will not.
 However, if you use
 
 ```json
-{ "a.c" : 1 },
+{ "a.c" : 1 }
 ```
 
 then you will find all documents, which contain a sub-document in `a`

@@ -272,21 +272,24 @@ other index types, even if they would be capable of accelerating the queries.
 TTL (time-to-live) Index
 ------------------------
 
-The TTL index type provided by ArangoDB can be used for automatically removing expired documents 
-from a collection. 
+You can use the TTL index type for automatically removing expired documents
+from a collection.
 
 A TTL index is set up by setting an `expireAfter` value and by picking a single 
-document attribute which contains the documents' creation date and time. Documents 
-are expired after `expireAfter` seconds after their creation time. The creation time
-is specified as either a numeric timestamp (Unix timestamp) or a date string in format
-`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
-format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
-without a timezone offset will be interpreted as UTC dates.
+document attribute which contains the documents' reference point in time. Documents
+are expired after `expireAfter` seconds after their reference time has been reached.
+The document's reference point in time is specified as either a numeric timestamp
+(Unix timestamp) or a date string in the format `YYYY-MM-DDTHH:MM:SS`, optionally
+with milliseconds after a decimal point in the format `YYYY-MM-DDTHH:MM:SS.MMM`
+and an optional timezone offset. All date strings without a timezone offset are
+interpreted as UTC dates.
 
 For example, if `expireAfter` is set to 600 seconds (10 minutes) and the index
 attribute is "creationDate" and there is the following document:
 
-    { "creationDate" : 1550165973 }
+```json
+{ "creationDate" : 1550165973 }
+```
 
 This document will be indexed with a creation date time value of `1550165973`,
 which translates to the human-readable date `2019-02-14T17:39:33.000Z`. The document
@@ -294,22 +297,21 @@ will expire 600 seconds afterwards, which is at timestamp `1550166573` (or
 `2019-02-14T17:49:33.000Z` in the human-readable version).
 
 The actual removal of expired documents will not necessarily happen immediately. 
-Expired documents will eventually removed by a background thread that is periodically
-going through all TTL indexes and removing the expired documents. The frequency for
-invoking this background thread can be configured using the `--ttl.frequency`
-startup option. 
+Expired documents will eventually be removed by a background thread that is
+periodically going through all TTL indexes. The frequency for invoking this
+background thread can be configured using the `--ttl.frequency` startup option.
 
 There is no guarantee when exactly the removal of expired documents will be carried
 out, so queries may still find and return documents that have already expired. These
 will eventually be removed when the background thread kicks in and has capacity to
-remove the expired documents. It is guaranteed however that only documents which are 
+remove the expired documents. It is guaranteed however that only documents which are
 past their expiration time will actually be removed.
 
 Please note that the numeric date time values for the index attribute has to be
-specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
+specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current
 timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
 from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
-`DATE_NOW() / 1000` or divide an arbitrary timestamp that is in milliseconds
+`DATE_NOW() / 1000` or divide an arbitrary Unix timestamp that is in milliseconds
 by 1000 to convert it to seconds.
 
 Alternatively, the index attribute values can be specified as a date string in format
@@ -317,14 +319,23 @@ Alternatively, the index attribute values can be specified as a date string in f
 format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
 without a timezone offset will be interpreted as UTC dates.
 
-The above example document using a datestring attribute value would be
+The above example document using a date string attribute value would be
 
-    { "creationDate" : "2019-02-14T17:39:33.000Z" }
+```json
+{ "creationDate" : "2019-02-14T17:39:33.000Z" }
+```
 
 In case the index attribute does not contain a numeric value nor a proper date string,
 the document will not be stored in the TTL index and thus will not become a candidate 
 for expiration and removal. Providing either a non-numeric value or even no value for 
 the index attribute is a supported way of keeping documents from being expired and removed.
+
+TTL indexes are designed exactly for the purpose of removing expired documents from
+a collection. It is *not recommended* to rely on TTL indexes for user-land AQL queries. 
+This is because TTL indexes internally may store a transformed, always numerical version 
+of the index attribute value even if it was originally passed in as a date string. As a
+result TTL indexes will likely not be used for filtering and sort operations in user-land
+AQL queries.
 
 Geo Index
 ---------
