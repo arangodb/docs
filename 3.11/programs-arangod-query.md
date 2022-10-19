@@ -148,8 +148,9 @@ The option is turned off by default.
 
 This option determins the maximum length of logged query strings and bind parameter 
 values. This allows truncating overly long query strings and bind parameter values
-to a reasonable length in logfiles. 
-The default value is *4096* bytes.
+to a reasonable length in logfiles.
+
+The default value is `4096` bytes.
 
 ## Requiring `WITH` statements
 
