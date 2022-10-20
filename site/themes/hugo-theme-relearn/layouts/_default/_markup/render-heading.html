@@ -1,0 +1,2 @@
+{{ $ref := printf "%s#%s" .Page.Permalink .Anchor}}
+<h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }} <a href="{{ $ref | safeURL }}" class="header-link" onclick="copyURI(event)"><span></span><i class="fa fa-link"></i></a></h{{ .Level }}>

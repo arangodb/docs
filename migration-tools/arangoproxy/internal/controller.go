@@ -27,6 +27,7 @@ func StartController(url string) {
 	// Create routes
 	http.HandleFunc("/js", JSHandler)
 	http.HandleFunc("/http-spec", HTTPSpecHandler)
+	http.HandleFunc("/api-docs", ApiDocsHandler)
 	http.HandleFunc("/http-example", HTTPExampleHandler)
 	http.HandleFunc("/aql", AQLHandler)
 	http.HandleFunc("/go", TODOHandler)
@@ -94,8 +95,23 @@ func HTTPSpecHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	SpecListenerChannel <- request
 	w.Write(jsonResponse)
+}
+
+// Handler for http-spec codeblocks when building for webUI api-docs
+func ApiDocsHandler(w http.ResponseWriter, r *http.Request) {
+	request, err := httpapi.ParseRequest(r.Body)
+	if err != nil {
+		common.Logger.Printf("[http-spec/CONTROLLER] Error Parsing Request: %s\n", err.Error())
+		x, _ := json.Marshal(httpapi.HTTPResponse{})
+		w.Write(x)
+		return
+	}
+
+	fmt.Printf("ECCOLO %s\n\n", request)
+
+	SpecListenerChannel <- request
+	w.WriteHeader(200)
 }
 
 // Handler for aql codeblocks

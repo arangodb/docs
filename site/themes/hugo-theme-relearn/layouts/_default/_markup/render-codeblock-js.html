@@ -1,5 +1,5 @@
 
-{{ if site.Params.useCodeblockHook }}
+{{ if and (site.Params.useCodeblockHook) (not site.Params.buildForApiDocs) }}
 
   {{ if in .Inner "---" }}
     {{ $remote := resources.GetRemote "http://localhost:8080/js" (dict

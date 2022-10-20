@@ -2254,7 +2254,7 @@ body .page_content .widget_nav_menu li {
 body {
     font-family: Open Sans Light, Helvetica, Arial, sans-serif;
     font-size: 16px;
-    line-height: 2.8rem;
+    line-height: 1.5rem;
     font-weight: 100;
     color: #666;
 }
@@ -7239,6 +7239,7 @@ article.default {
 
 .default > p {
     font-size: 0.9rem;
+    line-height: 1.5rem;
 }
 
 /* Searchbar */
@@ -7311,6 +7312,7 @@ div.box > .box-content > .box-text > p {
     letter-spacing: 0.3px;
     color: inherit;
     letter-spacing: 0.6px;
+    font-weight: 100;
 }
 
 
@@ -7481,4 +7483,14 @@ p > code, a > code, h1 > code, h2 > code, li > code {
 
 .expand-content {
     margin-bottom: 3rem;
+}
+
+.header-link {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.header-link:hover {
+  filter: alpha(opacity=70);
+  opacity: 0.7;
 }
