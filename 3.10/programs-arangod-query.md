@@ -158,7 +158,7 @@ The default value is `4294967296` (4 GB).
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
 
-`--query.max-artefact-log-length value`
+`--query.max-artifact-log-length value`
 
 This option determines the maximum length of logged query strings and bind parameter 
 values. This allows truncating overly long query strings and bind parameter values
