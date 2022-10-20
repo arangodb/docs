@@ -14,5 +14,5 @@ For a general introduction to the _ArangoDB Cluster_, please refer to the
 - [Using the ArangoDB Starter](deployment-cluster-using-the-starter.html)
 - [Manual Start](deployment-cluster-manual-start.html)
 - [Kubernetes](deployment-cluster-kubernetes.html)
-- [ArangoDB Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"},
+- [ArangoGraph Insights Platform](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"},
   fully managed, available on AWS, Azure & GCP

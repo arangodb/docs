@@ -43,8 +43,8 @@ You can find all interactive tutorials on GitHub:
 
 ## How to Continue Your Learning Path
 
-When you are ready for your own ArangoDB server, you can sign up for ArangoDB's
-cloud service called Oasis, which takes care of the setup and maintenance, so
+When you are ready for your own ArangoDB server, you can sign up for the
+ArangoGraph Insights Platform, which takes care of the setup and maintenance, so
 that you can focus on building amazing things on top of ArangoDB. See
 [Use ArangoDB in the Cloud](quick-start-in-the-cloud.html) to get started.
 

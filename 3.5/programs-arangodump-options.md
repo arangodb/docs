@@ -14,7 +14,7 @@ Notes
 
 ### Encryption Option Details
 
-{% include hint-ee-oasis.md feature="Dump encryption" %}
+{% include hint-ee-arangograph.md feature="Dump encryption" %}
  
 *\--encryption.keyfile path-of-keyfile*
 

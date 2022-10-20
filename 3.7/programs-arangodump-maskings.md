@@ -471,7 +471,7 @@ processed by a single masking function, ignoring any other rules below it.
 Masking Functions
 -----------------
 
-{% include hint-ee-oasis.md feature="The following masking functions" plural=true %}
+{% include hint-ee-arangograph.md feature="The following masking functions" plural=true %}
 
 - [Xify Front](#xify-front)
 - [Zip](#zip)

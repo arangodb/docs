@@ -15,8 +15,8 @@ various commands to create TLS certificates & JWT token secrets to secure your
 ArangoDB deployment.
 
 {% hint 'info %}
-ArangoDB is also available as
-[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+ArangoDB is also available as a cloud service, the
+[**ArangoGraph Insights Platform**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 {% endhint %}
 
 ## Installation

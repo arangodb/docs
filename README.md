@@ -198,9 +198,9 @@ reasons. The core book (Manual) of a version does not have an own folder for its
 content, but the files are found in the version directory, e.g. `3.8/*.md`.
 Other books (AQL, HTTP) have subfolders in the version folder, e.g. `3.8/aql/`.
 
-There are also books (Drivers, Oasis) that are not directly couple to ArangoDB
+There are also books (Drivers, ArangoGraph) that are not directly couple to ArangoDB
 versions, that have their files in an own folders in the root directory, e.g.
-`oasis/*.md`. These folders are symlinked in multiple version folders. Some
+`arangograph/*.md`. These folders are symlinked in multiple version folders. Some
 files, like release notes, are also symlinked to reduce maintenance costs.
 
 The organization of documents is **flat**, namely there are no subdirectories
@@ -656,18 +656,20 @@ Current version is less than or equal to 3.8
 
 - Use the exact spelling of Enterprise Edition and its features, as well as for
   all other terms coined by ArangoDB:
-  - _SmartGraphs_
+  - _EnterpriseGraphs_
+  - _SmartGraphs_, _Disjoint SmartGraphs_
+  - _SmartGraphs using SatelliteCollection_, not ~~Hybrid SmartGraphs~~
   - _SmartJoins_
   - _OneShard_
   - _Community Edition_
   - _Enterprise Edition_
-  - _DB-Server_, not dbserver, db-server, DBserver (unless it is a code value)
+  - _DB-Server_, not ~~dbserver~~, ~~db-server~~, ~~DBserver~~ (unless it is a code value)
   - _Coordinator_ (uppercase C)
   - _Agent_, _Agency_ (uppercase A)
   - _Active Failover_
-  - _Datacenter to Datacenter Replication_, _DC2DC_
-  - _Oasis_, _ArangoDB Oasis_ (_… the ArangoDB cloud_, but do not use
-    _ArangoDB Cloud_)
+  - _Datacenter-to-Datacenter Replication_ (note the hyphens), _DC2DC_
+  - _ArangoGraph Insights Platform_ and _ArangoGraph_ for short, but not
+    ~~Oasis~~, ~~ArangoDB Oasis~~, or ~~ArangoDB Cloud~~
 
 - Do not capitalize the names of executables or code values, e.g. write
   _arangosh_ instead of _Arangosh_.
@@ -968,7 +970,7 @@ It makes a warning show at the top of every page for that version.
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```bash
   cd _data
-  for book in aql drivers http manual oasis; do
+  for book in aql drivers http manual arangograph; do
     cp -a "3.9-${book}.yml" "4.0-${book}.yml"
   done
   cd ..
@@ -1817,6 +1819,14 @@ failed example in `arangosh.examples.js`.
   Stray folders with untracked Markdown files may cause this problem, e.g. the
   output of `oasisctl generate-docs`. Either remove the files or add the folder
   to the list of excludes in `_config.yml`.
+
+- ```
+  /docs/_plugins/PageNavFilter.rb:13:in `create_flat_nav': undefined method `each' for nil:NilClass (NoMethodError)
+  ```
+
+  This error can originate from a missing symlink, e.g. the navigation definition
+  file for a specific version like `3.11-arangograph.yml` being absent. Create
+  a symlink that points to e.g. `../arangograph.yml` to resolve the problem.
 
 - ```
   /opt/build/repo/_plugins/versions/version.rb:45:in `<=>': undefined method `version' for nil:NilClass (NoMethodError)

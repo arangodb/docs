@@ -8,7 +8,7 @@ SatelliteGraphs
 
 <small>Introduced in: v3.7.0</small>
 
-{% include hint-ee-oasis.md feature="SatelliteGraphs" plural=true %}
+{% include hint-ee-arangograph.md feature="SatelliteGraphs" plural=true %}
 
 What is a SatelliteGraph?
 -------------------------

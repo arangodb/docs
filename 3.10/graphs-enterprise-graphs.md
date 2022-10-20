@@ -8,7 +8,7 @@ description: >-
 {{ page.description }}
 {:class="lead"}
 
-{% include hint-ee-oasis.md feature="Enterprise Graphs" plural=true %}
+{% include hint-ee-arangograph.md feature="Enterprise Graphs" plural=true %}
 
 This chapter describes the `enterprise-graph` module, a specialized version of
 [SmartGraphs](graphs-smart-graphs.html).

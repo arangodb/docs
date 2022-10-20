@@ -6,7 +6,7 @@ title: ArangoDB SmartGraphs
 SmartGraphs
 ===========
 
-{% include hint-ee-oasis.md feature="SmartGraphs" plural=true %}
+{% include hint-ee-arangograph.md feature="SmartGraphs" plural=true %}
 
 This chapter describes the `smart-graph` module, which enables you to manage
 graphs at scale. It will give a vast performance benefit for all graphs sharded

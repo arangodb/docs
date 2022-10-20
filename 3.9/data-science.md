@@ -119,12 +119,12 @@ This [interactive tutorial](https://colab.research.google.com/github/arangodb/in
 demonstrates how to integrate ArangoDB with PyTorch Geometric to
 build recommendation systems using Graph Neural Networks (GNNs).
 
-The full ArangoFlix demo website is accessible from ArangoDB Oasis,
+The full ArangoFlix demo website is accessible from the ArangoGraph Insights Platform,
 the managed cloud for ArangoDB. You can open the demo website that connects to
 your running database from the **Examples** tab of your deployment.
 
 {% hint 'tip' %}
-You can try out ArangoDB Oasis free of charge for 14 days.
+You can try out the ArangoGraph Insights Platform free of charge for 14 days.
 Sign up at [cloud.arangodb.com](https://cloud.arangodb.com/){:target="_blank"}. 
 {% endhint %}
 
