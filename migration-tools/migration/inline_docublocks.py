@@ -29,6 +29,8 @@ def migrateInlineDocuBlocks(paragraph):
 
             if "@EXAMPLE_ARANGOSH_OUTPUT" in exampleType:
                 newBlock["options"]["render"] = "input/output"
+                print(block)
+
             elif "@EXAMPLE_AQL" in exampleType:
                 newBlock["options"]["language"] = "aql"
                 newBlock["options"]["render"] = "input/output"

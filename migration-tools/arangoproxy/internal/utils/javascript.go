@@ -12,10 +12,20 @@ func TryCatchWrap(code string) string {
 }
 
 func LogCurlRequest(args string) string {
-	printReq := fmt.Sprintf("print('REQUEST');\nprint([%s]);\nprint('END REQUEST');", args)
-	swallowTextFunc := "var swallowText = function () {};"
-	appendCurlRequest := "var curlRequestRaw = internal.appendCurlRequest(swallowText, swallowText, swallowText);"
-	response := fmt.Sprintf("var response = curlRequestRaw.apply(curlRequestRaw, [%s]);", args)
+	curlRequest := fmt.Sprintf("print('REQUEST');\nprint([%s]);\nprint('END REQUEST');\n"+
+		"var swallowText = function () {};\n"+
+		"var curlRequestRaw = internal.appendCurlRequest(swallowText, swallowText, swallowText);\n"+
+		"var response = curlRequestRaw.apply(curlRequestRaw, [%s]);", args, args)
 
-	return fmt.Sprintf("%s\n%s\n%s\n%s\n", printReq, swallowTextFunc, appendCurlRequest, response)
+	return fmt.Sprintf("%s\n", curlRequest)
+}
+
+func LogJsonResponse() string {
+	jsonResponse := fmt.Sprintf(
+		"output = '';\n" +
+			"const rawAppender = function(text) {output += text;};\n" +
+			"var logJsonResponse = internal.appendJsonResponse(rawAppender, rawAppender);\n" +
+			"logJsonResponse.apply(logJsonResponse, [response]);\n" +
+			"print('RESPONSE');\noutput;\nprint('END RESPONSE');\n")
+	return jsonResponse
 }

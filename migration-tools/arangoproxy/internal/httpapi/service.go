@@ -39,8 +39,7 @@ func (service HTTPService) ExecuteHTTPExample(request common.Example) (res commo
 	logJsonResponses := logJsonResponseRE.FindAllString(request.Code, -1)
 
 	for _, logJsonResponse := range logJsonResponses {
-		newResponse := fmt.Sprintf("print('RESPONSE');\nprint(response);\nprint('END RESPONSE');\n")
-		request.Code = strings.Replace(request.Code, logJsonResponse, newResponse, -1)
+		request.Code = strings.Replace(request.Code, logJsonResponse, utils.LogJsonResponse(), -1)
 	}
 
 	res = service.ExecuteExample(request)
