@@ -1,6 +1,9 @@
 arangosh&gt; graph._addVertexCollection(<span class="hljs-string">&quot;shop&quot;</span>);
 arangosh&gt; graph._addVertexCollection(<span class="hljs-string">&quot;customer&quot;</span>);
 arangosh&gt; graph._addVertexCollection(<span class="hljs-string">&quot;pet&quot;</span>);
-arangosh&gt; graph;
+arangosh&gt; graph = graph_module._graph(<span class="hljs-string">&quot;myGraph&quot;</span>);
 {[GeneralGraph] 
+  <span class="hljs-string">&quot;customer&quot;</span> : [ArangoCollection <span class="hljs-number">72702</span>, <span class="hljs-string">&quot;customer&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;pet&quot;</span> : [ArangoCollection <span class="hljs-number">72711</span>, <span class="hljs-string">&quot;pet&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;shop&quot;</span> : [ArangoCollection <span class="hljs-number">72693</span>, <span class="hljs-string">&quot;shop&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }

@@ -1,0 +1,22 @@
+arangosh&gt; <span class="hljs-keyword">var</span> arr = [];
+arangosh&gt; <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;  i &lt; <span class="hljs-number">10</span>;  i++) {
+........&gt;   arr.push({ i });
+........&gt; }
+arangosh&gt; <span class="hljs-keyword">var</span> meta = db.example.save(arr);
+arangosh&gt; <span class="hljs-keyword">var</span> data = [];
+arangosh&gt; db.example.iterate( <span class="hljs-function">(<span class="hljs-params">doc, idx</span>) =&gt;</span> data.push({ idx, <span class="hljs-attr">i</span>: doc.i }), { <span class="hljs-attr">probability</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">limit</span>: <span class="hljs-number">5</span> });
+arangosh&gt; data;
+[ 
+  { 
+    <span class="hljs-string">&quot;idx&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;i&quot;</span> : <span class="hljs-number">1</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;idx&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;i&quot;</span> : <span class="hljs-number">4</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;idx&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;i&quot;</span> : <span class="hljs-number">8</span> 
+  } 
+]

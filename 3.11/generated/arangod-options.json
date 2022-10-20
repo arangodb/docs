@@ -946,7 +946,7 @@
       "agent",
       "single"
     ],
-    "default" : 17872713728,
+    "default" : 16341337088,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -6569,7 +6569,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "maximum parallelism usable in a Pregel job",
     "dynamic" : true,
@@ -6711,7 +6711,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "default parallelism to use in a Pregel job if none is specified",
     "dynamic" : true,
@@ -6940,7 +6940,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 73638338560,
+    "base" : 67512832000,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -6948,7 +6948,7 @@
       "agent",
       "single"
     ],
-    "default" : 59647054233,
+    "default" : 54685393920,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7073,7 +7073,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 73638338560,
+    "base" : 67512832000,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7081,7 +7081,7 @@
       "agent",
       "single"
     ],
-    "default" : 44183003136,
+    "default" : 40507699200,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7553,7 +7553,7 @@
     ],
     "default" : 1,
     "deprecatedIn" : null,
-    "description" : "random number generator to use (1 = MERSENNE, 2 = RANDOM, 3 = URANDOM, 4 = COMBINED (not for Windows), 5 = WinCrypt (Windows only)",
+    "description" : "random number generator to use (1 = MERSENNE, 2 = RANDOM, 3 = URANDOM, 4 = COMBINED (not for Windows), 5 = WinCrypt (Windows only). Options 2, 3, 4 and 5 are deprecated and will be removed in a future version.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -7936,7 +7936,7 @@
       "agent",
       "single"
     ],
-    "default" : 21447256473,
+    "default" : 19609604505,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -8081,7 +8081,7 @@
     ],
     "default" : "level",
     "deprecatedIn" : null,
-    "description" : "compaction style which is used to pick the next file(s) to be compacted",
+    "description" : "compaction style which is used to pick the next file(s) to be compacted (note: all styles except 'level' are experimental)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -8788,7 +8788,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "Maximum number of concurrent background jobs (compactions and flushes)",
     "dynamic" : true,
@@ -9764,6 +9764,34 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.reserve-file-metadata-memory" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "account for .sst file metadata memory in block cache",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.reserve-table-builder-memory" : {
     "category" : "option",
     "component" : [
@@ -10194,7 +10222,7 @@
       "agent",
       "single"
     ],
-    "default" : 28596341964,
+    "default" : 26146139340,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -10224,10 +10252,10 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "Number of lock stripes to use for transaction locks",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
@@ -10980,7 +11008,7 @@
       "agent",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "number of threads used to handle IO",
     "dynamic" : true,
@@ -11172,7 +11200,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex)",
     "dynamic" : true,
@@ -11202,7 +11230,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 10,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -11266,7 +11294,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 72)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,

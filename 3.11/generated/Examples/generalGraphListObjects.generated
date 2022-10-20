@@ -1,0 +1,51 @@
+arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/general-graph&quot;</span>);
+arangosh&gt; graph_module._listObjects();
+[ 
+  { 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;_graphs/myGraph&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;myGraph&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_e9TS1DO---&quot;</span>, 
+    <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
+      { 
+        <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;edges&quot;</span>, 
+        <span class="hljs-string">&quot;from&quot;</span> : [ 
+          <span class="hljs-string">&quot;vertices&quot;</span> 
+        ], 
+        <span class="hljs-string">&quot;to&quot;</span> : [ 
+          <span class="hljs-string">&quot;vertices&quot;</span> 
+        ] 
+      } 
+    ], 
+    <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ ], 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;myGraph&quot;</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;_graphs/myStore&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;myStore&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_e9TS1Da--_&quot;</span>, 
+    <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
+      { 
+        <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;friend_of&quot;</span>, 
+        <span class="hljs-string">&quot;from&quot;</span> : [ 
+          <span class="hljs-string">&quot;Customer&quot;</span> 
+        ], 
+        <span class="hljs-string">&quot;to&quot;</span> : [ 
+          <span class="hljs-string">&quot;Customer&quot;</span> 
+        ] 
+      }, 
+      { 
+        <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;has_bought&quot;</span>, 
+        <span class="hljs-string">&quot;from&quot;</span> : [ 
+          <span class="hljs-string">&quot;Company&quot;</span>, 
+          <span class="hljs-string">&quot;Customer&quot;</span> 
+        ], 
+        <span class="hljs-string">&quot;to&quot;</span> : [ 
+          <span class="hljs-string">&quot;Electronics&quot;</span>, 
+          <span class="hljs-string">&quot;Groceries&quot;</span> 
+        ] 
+      } 
+    ], 
+    <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ ], 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;myStore&quot;</span> 
+  } 
+]
