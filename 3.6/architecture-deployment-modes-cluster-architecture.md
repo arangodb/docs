@@ -166,7 +166,7 @@ For further information, please refer to the
 OneShard
 --------
 
-{% include hint-ee-oasis.md feature="The OneShard option" %}
+{% include hint-ee-arangograph.md feature="The OneShard option" %}
 
 A OneShard deployment offers a practicable solution that enables significant
 performance improvements by massively reducing cluster-internal communication

@@ -5,7 +5,7 @@ title: Encryption at Rest
 ---
 # Encryption at Rest
 
-{% include hint-ee-oasis.md feature="Encryption at Rest" %}
+{% include hint-ee-arangograph.md feature="Encryption at Rest" %}
 
 When you store sensitive data in your ArangoDB database, you want
 to protect that data under all circumstances.

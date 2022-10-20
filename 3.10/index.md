@@ -22,7 +22,7 @@ of graphs with JSON documents, a key-value store, and a built-in search engine.
 
 ArangoDB is available in an open-source and a commercial [edition](features.html),
 you can use it for on-premises deployments, as well as a fully managed
-[cloud service](oasis/).
+cloud service, the [ArangoGraph Insights Platform](arangograph/).
 
 ## What are Graphs?
 

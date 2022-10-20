@@ -6,7 +6,7 @@ title: ArangoDB SmartGraphs
 SmartGraphs
 ===========
 
-{% include hint-ee-oasis.md feature="SmartGraphs" plural=true %}
+{% include hint-ee-arangograph.md feature="SmartGraphs" plural=true %}
 
 SmartGraphs are specifically targeted at graphs that need scalability and
 high performance. The way SmartGraphs use the ArangoDB cluster sharding makes it

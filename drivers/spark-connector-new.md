@@ -315,9 +315,9 @@ The following Spark SQL data types (subtypes of `org.apache.spark.sql.types.Filt
   - `StructType`
 
 
-## Connect to ArangoDB Oasis
+## Connect to the ArangoGraph Insights Platform
 
-To connect to SSL secured deployments using X.509 Base64 encoded CA certificate (Oasis):
+To connect to SSL secured deployments using X.509 Base64 encoded CA certificate (ArangoGraph):
 
 ```scala
   val options = Map(

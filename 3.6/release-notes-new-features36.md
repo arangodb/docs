@@ -559,7 +559,7 @@ operand can be a collection or another View.
 OneShard
 --------
 
-{% include hint-ee-oasis.md feature="This option" %}
+{% include hint-ee-arangograph.md feature="This option" %}
 
 Not all use cases require horizontal scalability. In such cases, a OneShard
 deployment offers a practicable solution that enables significant performance
