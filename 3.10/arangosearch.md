@@ -176,9 +176,8 @@ will get an **empty result** back. Make sure that the fields are indexed
 correctly and that you set the Analyzer context.
 
 You can test if a field is indexed with particular Analyzer with one of the
-variants of the [`EXISTS()` function](aql/functions-arangosearch.html#exists).
-The prerequisite for this is that you change `"storeValues"` in the View
-definition from `"none"` to `"id"`. You can then run a query as shown below:
+variants of the [`EXISTS()` function](aql/functions-arangosearch.html#exists),
+for example, as shown below:
 
 ```aql
 RETURN LENGTH(
@@ -187,6 +186,10 @@ RETURN LENGTH(
     LIMIT 1
     RETURN true) > 0
 ```
+
+If you use an `arangosearch` View, you need to change the `"storeValues"`
+property in the View definition from `"none"` to `"id"` for the function to work.
+For `search-alias` Views, this feature is always enabled.
 
 ### Basic search expressions
 

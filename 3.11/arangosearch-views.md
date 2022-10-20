@@ -114,11 +114,11 @@ During view modification the following directives apply:
   Valid values are:
 
   - **none**: Do not store value meta data in the View.
-  - **id**: Store information about value presence to allow use of the
+  - **id**: Store information about value presence so that you can use the
     `EXISTS()` function.
 
-  Not to be confused with *storedValues*, which stores attribute values in the
-  View index.
+  Not to be confused with the `storedValues` property, which stores actual
+  attribute values in the View index.
 
 - **inBackground** (_optional_; type: `boolean`; default: `false`)
 
