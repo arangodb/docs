@@ -226,12 +226,13 @@ you set the **storeValues** link property to `"id"` in the View definition
 
 `EXISTS(path)`
 
-Match documents where the attribute at **path** is present.
+Match documents where the attribute at `path` is present.
 
 - **path** (attribute path expression): the attribute to test in the document
 - returns nothing: the function evaluates to a boolean, but this value cannot be
   returned. The function can only be called in a search expression. It throws
-  an error if used outside of a [SEARCH operation](operations-search.html).
+  an error if used outside of a [`SEARCH` operation](operations-search.html) or
+  a `FILTER` operation that uses an inverted index.
 
 ```aql
 FOR doc IN viewName
@@ -243,7 +244,7 @@ FOR doc IN viewName
 
 `EXISTS(path, type)`
 
-Match documents where the attribute at **path** is present _and_ is of the
+Match documents where the attribute at `path` is present _and_ is of the
 specified data type.
 
 - **path** (attribute path expression): the attribute to test in the document
@@ -255,7 +256,8 @@ specified data type.
   - `"analyzer"` (see below)
 - returns nothing: the function evaluates to a boolean, but this value cannot be
   returned. The function can only be called in a search expression. It throws
-  an error if used outside of a [SEARCH operation](operations-search.html).
+  an error if used outside of a [`SEARCH` operation](operations-search.html) or
+  a `FILTER` operation that uses an inverted index.
 
 ```aql
 FOR doc IN viewName
@@ -267,8 +269,8 @@ FOR doc IN viewName
 
 `EXISTS(path, "analyzer", analyzer)`
 
-Match documents where the attribute at **path** is present _and_ was indexed
-by the specified **analyzer**.
+Match documents where the attribute at `path` is present _and_ was indexed
+by the specified `analyzer`.
 
 - **path** (attribute path expression): the attribute to test in the document
 - **type** (string): string literal `"analyzer"`
@@ -277,7 +279,8 @@ by the specified **analyzer**.
   defaults to `"identity"`
 - returns nothing: the function evaluates to a boolean, but this value cannot be
   returned. The function can only be called in a search expression. It throws
-  an error if used outside of a [SEARCH operation](operations-search.html).
+  an error if used outside of a [`SEARCH` operation](operations-search.html) or
+  a `FILTER` operation that uses an inverted index.
 
 ```aql
 FOR doc IN viewName
@@ -289,7 +292,7 @@ FOR doc IN viewName
 
 `EXISTS(path, "nested")`
 
-Match documents where the attribute at **path** is present _and_ is indexed
+Match documents where the attribute at `path` is present _and_ is indexed
 as a nested field for [nested search with Views](../arangosearch-nested-search.html)
 or [inverted indexes](../indexing-inverted.html#nested-search-enterprise-edition).
 
@@ -342,8 +345,8 @@ FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
 
 `IN_RANGE(path, low, high, includeLow, includeHigh) → included`
 
-Match documents where the attribute at **path** is greater than (or equal to)
-**low** and less than (or equal to) **high**.
+Match documents where the attribute at `path` is greater than (or equal to)
+`low` and less than (or equal to) `high`.
 
 You can use `IN_RANGE()` for searching more efficiently compared to an equivalent
 expression that combines two comparisons with a logical conjunction:
@@ -353,7 +356,7 @@ expression that combines two comparisons with a logical conjunction:
 - `IN_RANGE(path, low, high, false, true)` instead of `low < value AND value <= high`
 - `IN_RANGE(path, low, high, false, false)` instead of `low < value AND value < high`
 
-*low* and *high* can be numbers or strings (technically also `null`, `true`
+`low` and `high` can be numbers or strings (technically also `null`, `true`
 and `false`), but the data type must be the same for both.
 
 {% hint 'warning' %}
@@ -376,10 +379,10 @@ that is used outside of `SEARCH` operations.
   the range (left-closed interval) or not (left-open interval)
 - **includeHigh** (bool): whether the maximum value shall be included in
   the range (right-closed interval) or not (right-open interval)
-- returns **included** (bool): whether *value* is in the range
+- returns **included** (bool): whether `value` is in the range
 
-If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
-to `false`, then nothing will match. If *low* is greater than *high* nothing will
+If `low` and `high` are the same, but `includeLow` and/or `includeHigh` is set
+to `false`, then nothing will match. If `low` is greater than `high` nothing will
 match either.
 
 #### Example: Using numeric ranges
@@ -409,13 +412,13 @@ FOR doc IN valView
 
 This will match `{ "value": "bar" }` and `{ "value": "foo bar" }` because the
 _b_ of _bar_ is in the range (`"a" <= "b" < "f"`), but not `{ "value": "foo" }`
-because the _f_ of _foo_ is excluded (*high* is "f" but *includeHigh* is false).
+because the _f_ of _foo_ is excluded (`high` is "f" but `includeHigh` is false).
 
 ### MIN_MATCH()
 
 `MIN_MATCH(expr1, ... exprN, minMatchCount) → fulfilled`
 
-Match documents where at least **minMatchCount** of the specified
+Match documents where at least `minMatchCount` of the specified
 search expressions are satisfied.
 
 There is a corresponding [`MIN_MATCH()` Miscellaneous function](functions-miscellaneous.html#min_match)
@@ -424,7 +427,7 @@ that is used outside of `SEARCH` operations.
 - **expr** (expression, _repeatable_): any valid search expression
 - **minMatchCount** (number): minimum number of search expressions that should
   be satisfied
-- returns **fulfilled** (bool): whether at least **minMatchCount** of the
+- returns **fulfilled** (bool): whether at least `minMatchCount` of the
   specified expressions are `true`
 
 #### Example: Matching a subset of search sub-expressions
@@ -551,7 +554,7 @@ FOR doc IN viewName
 #### Example: Using constant values
 
 `NGRAM_MATCH()` can be called with constant arguments, but for such calls the
-*analyzer* argument is mandatory (even for calls inside of a `SEARCH` clause):
+`analyzer` argument is mandatory (even for calls inside of a `SEARCH` clause):
 
 ```aql
 FOR doc IN viewName
@@ -575,7 +578,7 @@ Search for a phrase in the referenced attribute. It only matches documents in
 which the tokens appear in the specified order. To search for tokens in any
 order use [`TOKENS()`](functions-string.html#tokens) instead.
 
-The phrase can be expressed as an arbitrary number of *phraseParts* separated by
+The phrase can be expressed as an arbitrary number of `phraseParts` separated by
 *skipTokens* number of tokens (wildcards), either as separate arguments or as
 array as second argument.
 
@@ -583,7 +586,7 @@ array as second argument.
 - **phrasePart** (string\|array\|object): text to search for in the tokens.
   Can also be an [array](#example-using-phrase-with-an-array-of-tokens)
   comprised of string, array and [object tokens](#object-tokens), or tokens
-  interleaved with numbers of *skipTokens*. The specified *analyzer* is applied
+  interleaved with numbers of `skipTokens`. The specified `analyzer` is applied
   to string and array tokens, but not for object tokens.
 - **skipTokens** (number, _optional_): amount of tokens to treat
   as wildcards (introduced in v3.6.0)
@@ -592,7 +595,8 @@ array as second argument.
   defaults to `"identity"`
 - returns nothing: the function evaluates to a boolean, but this value cannot be
   returned. The function can only be called in a search expression. It throws
-  an error if used outside of a [SEARCH operation](operations-search.html).
+  an error if used outside of a [`SEARCH` operation](operations-search.html) or
+  a `FILTER` operation that uses an inverted index.
 
 {% hint 'info' %}
 The selected Analyzer must have the `"position"` and `"frequency"` features
@@ -635,7 +639,7 @@ Also see [Example: Using object tokens](#example-using-object-tokens).
 
 #### Example: Using a text Analyzer for a phrase search
 
-Given a View indexing an attribute *text* with the `"text_en"` Analyzer and a
+Given a View indexing an attribute `text` with the `"text_en"` Analyzer and a
 document `{ "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" }`,
 the following query would match it:
 
@@ -661,8 +665,8 @@ following search expression:
 PHRASE(doc.text, "ipsum", 2, "amet", "text_en")
 ```
 
-The *skipTokens* value of `2` defines how many wildcard tokens have to appear
-between *ipsum* and *amet*. A *skipTokens* value of `0` means that the tokens
+The `skipTokens` value of `2` defines how many wildcard tokens have to appear
+between *ipsum* and *amet*. A `skipTokens` value of `0` means that the tokens
 must be adjacent. Negative values are allowed, but not very useful. These three
 search expressions are equivalent:
 
@@ -675,7 +679,7 @@ PHRASE(doc.text, "ipsum", -1, "lorem", "text_en")
 #### Example: Using `PHRASE()` with an array of tokens
 
 The `PHRASE()` function also accepts an array as second argument with
-*phrasePart* and *skipTokens* parameters as elements.
+`phrasePart` and `skipTokens` parameters as elements.
 
 ```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
@@ -768,7 +772,7 @@ FOR doc IN myView SEARCH PHRASE(doc.title,
 
 `STARTS_WITH(path, prefix) → startsWith`
 
-Match the value of the attribute that starts with *prefix*. If the attribute
+Match the value of the attribute that starts with `prefix`. If the attribute
 is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
 is an array, then a single token/element starting with the prefix is sufficient
 to match the document.
@@ -797,8 +801,8 @@ that is used outside of `SEARCH` operations.
 
 <small>Introduced in: v3.7.1</small>
 
-Match the value of the attribute that starts with one of the *prefixes*, or
-optionally with at least *minMatchCount* of the prefixes.
+Match the value of the attribute that starts with one of the `prefixes`, or
+optionally with at least `minMatchCount` of the prefixes.
 
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
@@ -807,7 +811,7 @@ optionally with at least *minMatchCount* of the prefixes.
   that should be satisfied (see
   [example](#example-searching-for-one-or-multiple-prefixes)). The default is `1`
 - returns **startsWith** (bool): whether the specified attribute starts with at
-  least *minMatchCount* of the given prefixes
+  least `minMatchCount` of the given prefixes
 
 #### Example: Searching for an exact value prefix
 
@@ -905,8 +909,8 @@ contains one of the prefixes (`something`).
 `LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms, prefix) → fulfilled`
 
 Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target=_"blank"}
-lower than or equal to *distance* between the stored attribute value and
-*target*. It can optionally match documents using a pure Levenshtein distance.
+lower than or equal to `distance` between the stored attribute value and
+`target`. It can optionally match documents using a pure Levenshtein distance.
 
 See [LEVENSHTEIN_DISTANCE()](functions-string.html#levenshtein_distance)
 if you want to calculate the edit distance of two strings.
@@ -915,7 +919,7 @@ if you want to calculate the edit distance of two strings.
   compare against in the document or a string
 - **target** (string): the string to compare against the stored attribute
 - **distance** (number): the maximum edit distance, which can be between
-  `0` and `4` if *transpositions* is `false`, and between `0` and `3` if
+  `0` and `4` if `transpositions` is `false`, and between `0` and `3` if
   it is `true`
 - **transpositions** (bool, _optional_): if set to `false`, a Levenshtein
   distance is computed, otherwise a Damerau-Levenshtein distance (default)
@@ -1001,7 +1005,7 @@ FOR doc IN viewName
 
 `LIKE(path, search) → bool`
 
-Check whether the pattern *search* is contained in the attribute denoted by *path*,
+Check whether the pattern `search` is contained in the attribute denoted by `path`,
 using wildcard matching.
 
 - `_`: A single arbitrary character
@@ -1034,7 +1038,7 @@ case-insensitive matching. This can be controlled with Analyzers instead.
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
   character). Literal `%` and `_` must be escaped with backslashes.
-- returns **bool** (bool): `true` if the pattern is contained in *text*,
+- returns **bool** (bool): `true` if the pattern is contained in `text`,
   and `false` otherwise
 
 #### Example: Searching with wildcards
@@ -1067,8 +1071,8 @@ be used in conjunction with ArangoSearch.
 
 `GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
 
-Checks whether the [GeoJSON object](../indexing-geo.html#geojson) *geoJsonA*
-fully contains *geoJsonB* (every point in B is also in A).
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
+fully contains `geoJsonB` (every point in B is also in A).
 
 - **geoJsonA** (object\|array): first GeoJSON object or coordinate array
   (in longitude, latitude order)
@@ -1084,7 +1088,7 @@ fully contains *geoJsonB* (every point in B is also in A).
 `GEO_DISTANCE(geoJsonA, geoJsonB) → distance`
 
 Return the distance between two [GeoJSON objects](../indexing-geo.html#geojson),
-measured from the **centroid** of each shape.
+measured from the `centroid` of each shape.
 
 - **geoJsonA** (object\|array): first GeoJSON object or coordinate array
   (in longitude, latitude order)
@@ -1100,7 +1104,7 @@ measured from the **centroid** of each shape.
 `GEO_IN_RANGE(geoJsonA, geoJsonB, low, high, includeLow, includeHigh) → bool`
 
 Checks whether the distance between two [GeoJSON objects](../indexing-geo.html#geojson)
-lies within a given interval. The distance is measured from the **centroid** of
+lies within a given interval. The distance is measured from the `centroid` of
 each shape.
 
 - **geoJsonA** (object\|array): first GeoJSON object or coordinate array
@@ -1123,8 +1127,8 @@ each shape.
 
 `GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
 
-Checks whether the [GeoJSON object](../indexing-geo.html#geojson) *geoJsonA*
-intersects with *geoJsonB* (i.e. at least one point of B is in A or vice versa).
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
+intersects with `geoJsonB` (i.e. at least one point of B is in A or vice versa).
 
 - **geoJsonA** (object\|array): first GeoJSON object or coordinate array
   (in longitude, latitude order)
@@ -1176,14 +1180,14 @@ Sorts documents using the
 
 - **doc** (document): must be emitted by `FOR ... IN viewName`
 - **k** (number, _optional_): calibrates the text term frequency scaling.
-  The default is `1.2`. A *k* value of `0` corresponds to a binary model
+  The default is `1.2`. A `k` value of `0` corresponds to a binary model
   (no term frequency), and a large value corresponds to using raw term frequency
 - **b** (number, _optional_): determines the scaling by the total text length.
-  The default is `0.75`. At the extreme values of the coefficient *b*, BM25
+  The default is `0.75`. At the extreme values of the coefficient `b`, BM25
   turns into the ranking functions known as:
-  - BM11 for *b* = `1` (corresponds to fully scaling the term weight by the
+  - BM11 for `b` = `1` (corresponds to fully scaling the term weight by the
     total text length)
-  - BM15 for *b* = `0` (corresponds to no length normalization)
+  - BM15 for `b` = `0` (corresponds to no length normalization)
 - returns **score** (number): computed ranking value
 
 {% hint 'info' %}
@@ -1227,7 +1231,7 @@ Sorts documents using the
 
 - **doc** (document): must be emitted by `FOR ... IN viewName`
 - **normalize** (bool, _optional_): specifies whether scores should be
-  normalized. The default is *false*.
+  normalized. The default is `false`.
 - returns **score** (number): computed ranking value
 
 {% hint 'info' %}
