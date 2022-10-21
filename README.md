@@ -153,17 +153,15 @@ by changing the `_config.yml`:
 
 ```yaml
 exclude:
-# - 3.9/
-# - 3.8/
-# - 3.7/
-  - 3.6/
-  - 3.5/
-  - 3.4/
-  - 3.3/
+# - 3.11/
+# - 3.10/
+  - 3.9/
+  - 3.8/
+  - 3.7/
 ```
 
-Above example disables versions 3.3 through 3.6, so that 3.7, 3.8, and 3.9 will be
-built only. Do not commit these changes of the configuration!
+Above example disables versions 3.7 through 3.9, so that only 3.10 and 3.11 are
+built. Do not commit these changes of the configuration!
 
 Note that building may fail if you disable certain versions that contain the files
 that other versions refer to with symlinks, or required versions as defined in
@@ -952,7 +950,6 @@ its documentation needs to be marked as such. The respective version needs to
 be added to the `_data/deprecations.yml` file for that:
 
 ```diff
- - "3.4"
  - "3.5"
  - "3.6"
 +- "3.7"
@@ -989,8 +986,8 @@ It makes a warning show at the top of every page for that version.
   to match the new version folder, e.g.
   ```diff
    redirect_from:
-  -  - /3.9/path/to/file.html # 3.4 -> 3.5
-  +  - /4.0/path/to/file.html # 3.4 -> 3.5
+  -  - /3.9/path/to/file.html # 3.6 -> 3.7
+  +  - /4.0/path/to/file.html # 3.6 -> 3.7
   ```
   This is only necessary for absolute redirects. Relative redirects are
   preferred, e.g. `- old.html` in `new.html` (may also include `..`).

@@ -86,8 +86,6 @@ Database functions
 
 ### CHECK_DOCUMENT()
 
-<small>Introduced in: v3.3.22, v3.4.2</small>
-
 `CHECK_DOCUMENT(document) → checkResult`
 
 Returns *true* if *document* is a valid document object, i.e. a document
@@ -821,5 +819,5 @@ of the Coordinator.
 - returns **serverVersion** (string): the server version string
 
 ```aql
-RETURN VERSION()        // e.g. "3.4.0" 
+RETURN VERSION()        // e.g. "3.10.0" 
 ```

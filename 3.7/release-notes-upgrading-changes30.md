@@ -138,41 +138,36 @@ be replaced by [native AQL constructs](aql/graphs.html).
 These constructs allow for more fine-grained filtering on several graph levels.
 Also this allows the AQL optimizer to automatically improve these queries by
 enhancing them with appropriate indexes.
-We have created recipes to upgrade from 2.8 to 3.0 when using these functions.
 
-The functions:
+The following functions have been removed:
 
-* GRAPH_COMMON_NEIGHBORS
-* GRAPH_COMMON_PROPERTIES
-* GRAPH_DISTANCE_TO
-* GRAPH_EDGES
-* GRAPH_NEIGHBORS
-* GRAPH_TRAVERSAL
-* GRAPH_TRAVERSAL_TREE
-* GRAPH_SHORTEST_PATH
-* GRAPH_PATHS
-* GRAPH_VERTICES
+- `GRAPH_*` functions
+  - GRAPH_COMMON_NEIGHBORS()
+  - GRAPH_COMMON_PROPERTIES()
+  - GRAPH_DISTANCE_TO()
+  - GRAPH_EDGES()
+  - GRAPH_NEIGHBORS()
+  - GRAPH_TRAVERSAL()
+  - GRAPH_TRAVERSAL_TREE()
+  - GRAPH_SHORTEST_PATH()
+  - GRAPH_PATHS()
+  - GRAPH_VERTICES()
 
-are covered in [Migrating GRAPH_* Functions from 2.8 or earlier to 3.0](../3.4/cookbook/aql-migrating-graph-functions-to3.html)
-
-* GRAPH_ABSOLUTE_BETWEENNESS
-* GRAPH_ABSOLUTE_CLOSENESS
-* GRAPH_ABSOLUTE_ECCENTRICITY
-* GRAPH_BETWEENNESS
-* GRAPH_CLOSENESS
-* GRAPH_DIAMETER
-* GRAPH_ECCENTRICITY
-* GRAPH_RADIUS
-
-are covered in [Migrating GRAPH_* Measurements from 2.8 or earlier to 3.0](../3.4/cookbook/aql-migrating-measurements-to3.html)
-
-* EDGES
-* NEIGHBORS
-* PATHS
-* TRAVERSAL
-* TRAVERSAL_TREE
-
-are covered in [Migrating anonymous graph functions from 2.8 or earlier to 3.0](../3.4/cookbook/aql-migrating-edge-functions-to3.html)
+- `GRAPH_*` measurements functions
+  - GRAPH_ABSOLUTE_BETWEENNESS()
+  - GRAPH_ABSOLUTE_CLOSENESS()
+  - GRAPH_ABSOLUTE_ECCENTRICITY()
+  - GRAPH_BETWEENNESS()
+  - GRAPH_CLOSENESS()
+  - GRAPH_DIAMETER()
+  - GRAPH_ECCENTRICITY()
+  - GRAPH_RADIUS()
+- Anonymous graph functions
+  - EDGES()
+  - NEIGHBORS()
+  - PATHS()
+  - TRAVERSAL()
+  - TRAVERSAL_TREE()
 
 ### Typecasting functions
 

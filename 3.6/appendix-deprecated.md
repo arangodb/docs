@@ -57,7 +57,3 @@ replace the old features with:
   created anymore when the `_system` database is first created (blank new data
   folder). They are not actively removed, they remain on upgrade or backup
   restoration from previous versions.
-
-  You can still find the
-  [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
-  in 3.4 or older versions of the documentation.

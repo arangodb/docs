@@ -166,10 +166,8 @@ an encryption key that is exactly 32 bytes long.
 
 ### `spec.networkAttachedVolumes: bool`
 
-The default of this option is `false`. If set to `true`, and the
-deployed ArangoDB version is new enough (>= 3.4.8 for 3.4 and >= 3.5.1
-for 3.5), a `ResignLeaderShip` operation
-will be triggered when a DB-Server pod is evicted (rather than a
+The default of this option is `false`. If set to `true`, a `ResignLeaderShip`
+operation will be triggered when a DB-Server pod is evicted (rather than a
 `CleanOutServer` operation). Furthermore, the pod will simply be
 redeployed on a different node, rather than cleaned and retired and
 replaced by a new member. You must only set this option to `true` if
