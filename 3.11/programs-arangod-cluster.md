@@ -230,7 +230,7 @@ Agents or DB-Servers.
 
 **Synchronous replication minimum timeout**
 
-<small>Introduced in: v3.4.8, v3.5.1</small>
+<small>Introduced in: v3.5.1</small>
 
 `--cluster.synchronous-replication-timeout-minimum <double>`
 

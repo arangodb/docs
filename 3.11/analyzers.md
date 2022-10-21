@@ -3,7 +3,6 @@ layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
 title: Transforming data with Analyzers
 redirect_from:
-  - views-arango-search-analyzers.html # 3.4 -> 3.5
   - arangosearch-analyzers.html # 3.8 -> 3.8
 ---
 Transforming data with Analyzers
