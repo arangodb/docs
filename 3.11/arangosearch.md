@@ -608,7 +608,7 @@ therefore applied to each element).
 Regular indexes are immediately consistent. If you have a collection with a
 `persistent` index on an attribute `text` and update the value of the attribute
 for instance, then this modification is reflected in the index immediately.
-`arangosearch` View indexes and inverted indexed on the other hand are eventual
+View indexes (and inverted indexes) on the other hand are eventual
 consistent. Document changes are not reflected instantly, but only near-realtime.
 This mainly has performance reasons.
 
@@ -618,6 +618,7 @@ be slightly stale, e.g. not include a newly inserted document:
 ```js
 db._query(`INSERT { text: "cheese cake" } INTO collection`);
 db._query(`FOR doc IN viewName SEARCH doc.text == "cheese cake" RETURN doc`);
+// May not find the new document
 ```
 
 Re-running the search query a bit later will include the new document, however.
@@ -629,6 +630,9 @@ changes just made to documents:
 db._query(`INSERT { text: "pop tart" } INTO collection`);
 db._query(`FOR doc IN viewName SEARCH doc.text == "pop tart" OPTIONS { waitForSync: true } RETURN doc`);
 ```
+
+This is not necessary if you use a single server deployment and populate a
+collection with documents before creating a View.
 
 {% hint 'warning' %}
 `SEARCH … OPTIONS { waitForSync: true }` is intended to be used in unit tests

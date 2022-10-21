@@ -102,8 +102,7 @@ Get the index definitions for a collection, including figures and hidden indexes
     ~ db.coll.save({ attr: "bar" });
     ~ db.coll.ensureIndex({ type: "inverted", fields: ["attr"], name: "inv-idx" });
     ~ db._createView("arangosearch-view", "arangosearch", { links: { coll: { includeAllFields: true } } });
-    ~ db._query(`FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true, waitForSync: true } FILTER doc.attr != null RETURN true`);
-    ~ db._query(`FOR doc IN ´arangosearch-view´ SEARCH true OPTIONS { waitForSync: true } RETURN true`);
+    ~ assert(db._query(`FOR d in ´arangosearch-view´ COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 2);
       db.coll.indexes(true, true);
     ~ db._drop("coll");
     ~ db._dropView("arangosearch-view");
