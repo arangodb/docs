@@ -19,3 +19,13 @@ reserved for internal use.
 
 Existing indexes are not affected but you cannot create new indexes with a
 preceding or trailing colon.
+
+Client tools
+------------
+
+### arangoexport
+
+The default output file type produced by arangoexport was changed from `json` to `jsonl`.
+This allows more efficient processing of the files produced by arangoexport with
+other tools, such as arangoimport.
+
