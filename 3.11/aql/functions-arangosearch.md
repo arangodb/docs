@@ -285,6 +285,59 @@ FOR doc IN viewName
   RETURN doc
 ```
 
+#### Testing for nested fields
+
+`EXISTS(path, "nested")`
+
+Match documents where the attribute at **path** is present _and_ is indexed
+as a nested field for [nested search with Views](../arangosearch-nested-search.html)
+or [inverted indexes](../indexing-inverted.html#nested-search-enterprise-edition).
+
+- **path** (attribute path expression): the attribute to test in the document
+- **type** (string): string literal `"nested"`
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [`SEARCH` operation](operations-search.html) or
+  a `FILTER` operation that uses an inverted index.
+
+**Examples**
+
+Only return documents from the View `viewName` whose `text` attribute is indexed
+as a nested field:
+
+```aql
+FOR doc IN viewName
+  SEARCH EXISTS(doc.text, "nested")
+  RETURN doc
+```
+
+Only return documents whose `attr` attribute and its nested `text` attribute are
+indexed as nested fields:
+
+```aql
+FOR doc IN viewName
+  SEARCH doc.attr[? FILTER EXISTS(CURRENT.text, "nested")]
+  RETURN doc
+```
+
+Only return documents from the collection `coll` whose `text` attribute is indexed
+as a nested field by an inverted index:
+
+```aql
+FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
+  FILTER EXISTS(doc.text, "nested")
+  RETURN doc
+```
+
+Only return documents whose `attr` attribute and its nested `text` attribute are
+indexed as nested fields:
+
+```aql
+FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
+  FILTER doc.attr[? FILTER EXISTS(CURRENT.text, "nested")]
+  RETURN doc
+```
+
 ### IN_RANGE()
 
 `IN_RANGE(path, low, high, includeLow, includeHigh) → included`
