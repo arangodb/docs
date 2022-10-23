@@ -475,7 +475,7 @@ array as second argument.
   interleaved with numbers of *skipTokens*. The specified *analyzer* is applied
   to string and array tokens, but not for object tokens.
 - **skipTokens** (number, _optional_): amount of tokens to treat
-  as wildcards (introduced in v3.6.0)
+  as wildcards
 - **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`

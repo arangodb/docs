@@ -604,8 +604,6 @@ DATE_TRUNC('2017-02-03 04:05:06', 'hours') // 2017-02-03 04:00:00.000Z
 
 ### DATE_ROUND()
 
-<small>Introduced in: v3.6.0</small>
-
 `DATE_ROUND(date, amount, unit) → isoDate`
 
 Bin a date/time into a set of equal-distance buckets, to be used for

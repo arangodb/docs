@@ -296,7 +296,7 @@ not be suited for.
   then lead to the release of all partial locks.
 
   {% hint 'info' %}
-  The _arangobackup_ tool provides a `--force` option since ArangoDB v3.6.0
+  The _arangobackup_ tool provides a `--force` option
   that can be used to abort ongoing write transactions and thus to more quickly
   obtain the global transaction lock.
   {% endhint %}

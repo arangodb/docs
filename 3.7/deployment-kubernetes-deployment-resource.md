@@ -46,7 +46,7 @@ spec:
     storageClassName: ssd
   coordinators:
     count: 3
-  image: "arangodb/arangodb:3.6.5"
+  image: "arangodb/arangodb:3.9.3"
 ```
 
 ## Specification reference
@@ -537,7 +537,7 @@ See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-c
 
 ### `spec.<group>.overrideDetectedTotalMemory: bool`
 
-<small>Introduced in: v1.0.1 (kube-arangodb), 3.6.3 (arangod)</small>
+<small>Introduced in: v1.0.1 (kube-arangodb)</small>
 
 Set additional flag in ArangoDeployment pods to propagate Memory resource limits
 

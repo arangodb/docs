@@ -11,7 +11,7 @@ For completeness, the steps pertaining to AWS are also included here.
 
 {% hint 'info' %}
 ArangoDB v3.7 requires at least g++ 9.2 as compiler. Older versions, especially
-g++ 7, do not work anymore unlike for ArangoDB v3.6 and older.
+g++ 7, do not work anymore.
 {% endhint %}
 
 Launch the VM

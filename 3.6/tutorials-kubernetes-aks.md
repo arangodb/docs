@@ -1,1 +1,0 @@
-../3.7/tutorials-kubernetes-aks.md

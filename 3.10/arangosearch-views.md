@@ -141,8 +141,7 @@ During view modification the following directives apply:
   <small>Introduced in: v3.7.1</small>
 
   Defines how to compress the primary sort data (introduced in v3.7.0).
-  ArangoDB v3.5 and v3.6 always compress the index using LZ4.
-
+  
   - `"lz4"` (default): use LZ4 fast compression.
   - `"none"`: disable compression to trade space for speed.
 

@@ -1,1 +1,0 @@
-../3.7/deployment-single-instance-using-the-starter.md

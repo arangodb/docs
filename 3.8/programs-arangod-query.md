@@ -6,7 +6,7 @@ description: ArangoDB Server Query Options
 
 ## Limiting query runtime
 
-<small>Introduced in: v3.6.7, v3.7.3</small>
+<small>Introduced in: v3.7.3</small>
 
 `--query.max-runtime value`
 

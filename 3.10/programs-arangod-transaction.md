@@ -6,7 +6,7 @@ description: ArangoDB Server Transaction Options
 
 ## Streaming Lock Timeout
 
-<small>Introduced in: v3.6.5, v3.7.1</small>
+<small>Introduced in: v3.7.1</small>
 
 `transaction.streaming-lock-timeout`
 

@@ -154,8 +154,6 @@ will not cause any extra JWT checks compared to v3.7.
 
 ## Upgrade
 
-<small>Introduced in: v3.6.0</small>
-
 Toggle cluster upgrade mode on a Coordinator:
 
 `--cluster.upgrade <string>`
@@ -210,8 +208,6 @@ The option only affects Coordinators. It does not have any affect on single serv
 Agents or DB-Servers.
 
 **Force OneShard**
-
-<small>Introduced in: v3.6.0</small>
 
 `--cluster.force-one-shard <bool>`
 
@@ -305,8 +301,6 @@ The option only affects Coordinators. It does not have any affect on single serv
 Agents or DB-Servers.
 
 **Write concern**
-
-<small>Introduced in: v3.6.0</small>
 
 `--cluster.write-concern <integer>`
 

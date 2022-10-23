@@ -113,7 +113,7 @@ status:
     progress: "10%"
   backup:
     id: "id"
-    version: "3.6.0-dev"
+    version: "3.9.0-dev"
     forced: true
     uploaded: true
     downloaded: true
