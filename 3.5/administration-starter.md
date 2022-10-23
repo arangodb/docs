@@ -1,1 +1,0 @@
-../3.7/administration-starter.md

@@ -3,7 +3,6 @@ layout: default
 description: A Follower can be faster initialized using a backup of the Leader in Leader/Follower replication.
 title: Speeding up Follower initialization
 redirect_from:
-  - cookbook/administration-replication-replication-from-backup.html # 3.5 -> 3.5
   - administration-master-slave-initialize-from-backup.html # 3.8 -> 3.8
 ---
 # Speeding up Follower initialization

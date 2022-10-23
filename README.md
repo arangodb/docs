@@ -1753,7 +1753,7 @@ failed example in `arangosh.examples.js`.
   linked in the navigation.
 
   Another reason can be a faulty reference in the navigation file (e.g.
-  `_data/3.5-manual.yml`). The file name or directory might simply be wrong,
+  `_data/3.9-manual.yml`). The file name or directory might simply be wrong,
   or the file extension could be wrong or incomplete in the `href` attribute:
 
   ```
@@ -1794,8 +1794,8 @@ failed example in `arangosh.examples.js`.
 
 - ```
   Configuration file: none
-              Source: /path/to/docs/3.5
-         Destination: /path/to/docs/3.5/_site
+              Source: /path/to/docs/3.9
+         Destination: /path/to/docs/3.9/_site
    Incremental build: disabled. Enable with --incremental
         Generating...
        Build Warning: Layout 'default' requested in subfolder/page.md does not exist.

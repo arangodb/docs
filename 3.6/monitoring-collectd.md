@@ -1,8 +1,6 @@
 ---
 layout: default
 description: The ArangoDB web interface shows a nice summary of the current state
-redirect_from:
-  - cookbook/monitoring-collectd.html # 3.5 -> 3.5
 ---
 Monitoring ArangoDB using collectd
 ==================================

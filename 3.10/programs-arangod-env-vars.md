@@ -59,7 +59,7 @@ title: arangod environment variables
    required to set this environment variable, but it may be necessary in
    unusual setups with non-conventional directory layouts and paths.
 
-- `IRESEARCH_TEXT_STOPWORD_PATH` _(introduced in v3.5.0)_
+- `IRESEARCH_TEXT_STOPWORD_PATH`
 
   Path to a directory with stopword files for
   [ArangoSearch Text Analyzers](analyzers.html#text).

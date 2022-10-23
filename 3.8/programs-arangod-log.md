@@ -274,7 +274,7 @@ but thread name logging turned on:
 
 Log IDs: `--log.ids true`
 
-Since ArangoDB 3.5, each log invocation in the ArangoDB source code contains
+Each log invocation in the ArangoDB source code contains
 a unique log ID, which can be used to quickly find the location in the source
 code that produced a specific log message. These log IDs are shown by
 default, unless the option `--log.ids` is set to `false`.
@@ -347,7 +347,7 @@ The attributes produced for each log message JSON object are:
 
 ### Log API Access
 
-<small>Introduced in: v3.4.11, v3.5.6, v3.6.5, v3.7.1</small>
+<small>Introduced in: v3.6.5, v3.7.1</small>
 
 `/_admin/log` control: `--log.api-enabled`
 
