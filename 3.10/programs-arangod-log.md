@@ -292,7 +292,7 @@ but thread name logging turned on:
 
 Log IDs: `--log.ids true`
 
-Since ArangoDB 3.5, each log invocation in the ArangoDB source code contains
+Each log invocation in the ArangoDB source code contains
 a unique log ID, which can be used to quickly find the location in the source
 code that produced a specific log message. These log IDs are shown by
 default, unless the option `--log.ids` is set to `false`.

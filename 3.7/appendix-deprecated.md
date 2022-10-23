@@ -2,11 +2,6 @@
 layout: default
 description: Features listed in this section should no longer be used, because they are considered obsolete and may get removed in a future release
 title: Deprecated Features
-redirect_from:
-  - appendix-deprecated-actions.html # 3.4 -> 3.5
-  - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
-  - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
-  - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
 ---
 Deprecated
 ==========

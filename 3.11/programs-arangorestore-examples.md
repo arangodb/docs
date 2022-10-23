@@ -34,7 +34,6 @@ use the following startup options:
 - `--server.database <string>`: name of the database to connect to.
   Defaults to the `_system` database.
 - `--all-databases true`: restore multiple databases from a dump which used the same option.
-  Introduced in v3.5.0.
 
 Note that the specified user must have access to the database(s).
  
