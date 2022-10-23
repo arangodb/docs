@@ -14,12 +14,6 @@ to a new hotfix, or to perform an upgrade to a new minor version of ArangoDB.
 Please refer to the [Upgrade Paths](upgrading-general-info.html#upgrade-paths) section
 for detailed information.
 
-{% hint 'warning' %}
-It is highly recommended to upgrade 3.6.x deployments to at least 3.6.15
-and 3.7.x deployments to at least 3.7.13 because of a technical problem, see
-[Technical Alert #6](https://www.arangodb.com/alerts/tech06/){:target="_blank"}.
-{% endhint %}
-
 Preparations
 ------------
 

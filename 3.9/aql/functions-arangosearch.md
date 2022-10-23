@@ -370,8 +370,6 @@ but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 
 ### NGRAM_MATCH()
 
-<small>Introduced in: v3.7.0</small>
-
 `NGRAM_MATCH(path, target, threshold, analyzer) → fulfilled`
 
 Match documents whose attribute value has an
@@ -491,8 +489,6 @@ enabled. The `PHRASE()` function will otherwise not find anything.
 
 #### Object tokens
 
-<small>Introduced in v3.7.0</small>
-
 - `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
   see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
 - `{LEVENSHTEIN_MATCH: [token, maxDistance, transpositions, maxTerms, prefix]}`:
@@ -508,7 +504,7 @@ enabled. The `PHRASE()` function will otherwise not find anything.
     Damerau-Levenshtein distance is then computed for each candidate using the
     remainders of the strings. This option can improve performance in cases where
     there is a known common prefix. The default value is an empty string
-    (introduced in v3.7.13, v3.8.1).
+    (introduced in v3.8.1).
 - `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
   Array brackets are optional
 - `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
@@ -685,8 +681,6 @@ that is used outside of `SEARCH` operations.
 
 `STARTS_WITH(path, prefixes, minMatchCount) → startsWith`
 
-<small>Introduced in: v3.7.1</small>
-
 Match the value of the attribute that starts with one of the *prefixes*, or
 optionally with at least *minMatchCount* of the prefixes.
 
@@ -790,8 +784,6 @@ contains one of the prefixes (`something`).
 
 ### LEVENSHTEIN_MATCH()
 
-<small>Introduced in: v3.7.0</small>
-
 `LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms, prefix) → fulfilled`
 
 Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target=_"blank"}
@@ -821,7 +813,7 @@ if you want to calculate the edit distance of two strings.
   **prefix needs to be removed from `target`** (see
   [example](#example-matching-with-prefix-search)). This option can improve
   performance in cases where there is a known common prefix. The default value
-  is an empty string (introduced in v3.7.13, v3.8.1).
+  is an empty string (introduced in v3.8.1).
 
 #### Example: Matching with and without transpositions
 
@@ -886,8 +878,6 @@ FOR doc IN viewName
 ```
 
 ### LIKE()
-
-<small>Introduced in: v3.7.2</small>
 
 `LIKE(path, search) → bool`
 

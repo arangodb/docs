@@ -140,7 +140,7 @@ db._query(`RETURN TOKENS("αυτοκινητουσ πρωταγωνιστούσ�
 // [ [ "αυτοκινητ", "πρωταγωνιστ" ] ]
 ```
 
-Also see [Analyzers: Supported Languages]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#supported-languages)
+Also see [Analyzers: Supported Languages](analyzers.html#supported-languages)
 
 ### Condition Optimization Option
 

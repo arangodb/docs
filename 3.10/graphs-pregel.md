@@ -101,7 +101,7 @@ The `state` field has one of the following values:
 | `"loading"`    | The graph data is being loaded from the database into memory before executing the algorithm.
 | `"running"`    | The algorithm is executing normally.
 | `"storing"`    | The algorithm finished, but the results are still being written back into the collections. Only occurs if the `store` parameter is set to `true`.
-| `"done"`       | The execution is done. In version 3.7.1 and later, this means that storing is also done. In earlier versions, the results may not be written back into the collections yet. This event is announced in the server log (requires at least `info` log level for the `pregel` topic).
+| `"done"`       | The execution is done. This means that storing is also done. This event is announced in the server log (requires at least `info` log level for the `pregel` topic).
 | `"canceled"`   | The execution was permanently canceled, either by the user or by an error.
 | `"in error"`   | The execution is in an error state. This can be caused by primary DB-Servers being unreachable or unresponsive. The execution might recover later, or switch to `canceled` if it is not able to recover successfully.
 | `"recovering"` | The execution is actively recovering and switches back to `running` if the recovery is successful.
@@ -137,8 +137,8 @@ pregel.cancel(execution);
 ```
 
 You might get inconsistent results if you requested to store the results and
-then cancel an execution when it is already in its `storing` state (or `done`
-state in versions prior to 3.7.1). The data is written multi-threaded into all
+then cancel an execution when it is already in its `storing` state.
+The data is written multi-threaded into all
 collection shards at once. This means there are multiple transactions
 simultaneously. A transaction might already be committed when you cancel the
 execution job. Therefore, you might see some updated documents, while other

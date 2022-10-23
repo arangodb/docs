@@ -446,7 +446,7 @@ ArangoSearch
 ### Analyzers
 
 - Added UTF-8 support and ability to mark beginning/end of the sequence to
-  the [`ngram` Analyzer type]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#ngram).
+  the [`ngram` Analyzer type](analyzers.html#ngram).
 
   The following optional properties can be provided for an `ngram` Analyzer
   definition:
@@ -460,7 +460,7 @@ ArangoSearch
   - `streamType` : `"binary"|"utf8"`, default: "binary"<br>
     type of the input stream (support for UTF-8 is new)
 
-- Added _edge n-gram_ support to the [`text` Analyzer type]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#text).
+- Added _edge n-gram_ support to the [`text` Analyzer type](analyzers.html#text).
   The input gets tokenized as usual, but then _n_-grams are generated from each
   token. UTF-8 encoding is assumed (whereas the `ngram` Analyzer has a
   configurable stream type and defaults to binary).
@@ -497,7 +497,7 @@ FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunct
 In addition, both the `TOKENS()` and the `PHRASE()` functions were
 extended with array support for convenience.
 
-[TOKENS()](aql/functions-{% assign ver = "3.7" | version: ">=" %}{% if ver %}string{% else %}arangosearch{% endif %}.html#tokens) accepts recursive arrays of
+[TOKENS()](aql/functions-string.html#tokens) accepts recursive arrays of
 strings as the first argument:
 
 ```js
@@ -630,7 +630,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/administration-and-monitoring{% assign ver = "3.7" | version: ">=" %}{% if ver %}-metrics{% endif %}.html#read-the-metrics),<br>
+- New [Metrics API](http/administration-and-monitoring-metrics.html#read-the-metrics),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned

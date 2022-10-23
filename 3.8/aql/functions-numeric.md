@@ -377,8 +377,6 @@ POW( 5, 0 ) // 1
 PRODUCT()
 ---------
 
-<small>Introduced in: v3.7.2</small>
-
 `PRODUCT(numArray) → product`
 
 Return the product of the values in *array*.

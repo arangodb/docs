@@ -280,8 +280,6 @@ reasons.
 
 ### Multiple Secrets
 
-<small>Introduced in: v3.7.0</small>
-
 {% include hint-ee.md feature="Support for multiple secrets" %}
 
 You may use multiple secrets, where the _active_ secret is used to sign new
@@ -296,8 +294,6 @@ used during verification. Only one secret needs to verify a JWT token for it
 to be accepted.
 
 ### Hot-Reload of JWT Secrets
-
-<small>Introduced in: v3.7.0</small>
 
 {% include hint-ee.md feature="Hot-reloading of secrets" %}
 

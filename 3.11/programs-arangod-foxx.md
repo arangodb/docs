@@ -5,8 +5,6 @@ layout: default
 
 ## Foxx startup
 
-<small>Introduced in: v3.7.6</small>
-
 `--foxx.force-update-on-startup flag`
 
 Enable or disable the Foxx service propagation on startup

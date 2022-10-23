@@ -31,7 +31,7 @@ title: arangod environment variables
       machine and thus sharing the RAM with them, one should limit the
       amount of memory using this environment variable.
  
- - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` _(introduced in v3.7.1)_
+ - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES`
    
    This variable can be used to override the automatic detection of the
    number of CPU cores present on the system. 
@@ -44,7 +44,7 @@ title: arangod environment variables
    or alongside other services on the same machine and shall not use
    all available CPUs.
  
- - `ARANGODB_OVERRIDE_CRASH_HANDLER` _(introduced in v3.7.1)_
+ - `ARANGODB_OVERRIDE_CRASH_HANDLER`
    
    This variable can be used to toggle the built-in crash handler in the
    Linux builds of `arangod`. The crash handler is turned on by default

@@ -169,8 +169,6 @@ RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
 
 ## INTERLEAVE()
 
-<small>Introduced in: v3.7.1</small>
-
 `INTERLEAVE(array1, array2, ... arrayN) → newArray`
 
 Accepts an arbitrary number of arrays and produces a new array with the elements
@@ -250,8 +248,6 @@ RETURN INTERSECTION( [2,4,6], [8,10,12], [14,16,18] )
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ## JACCARD()
-
-<small>Introduced in: v3.7.0</small>
 
 `JACCARD(array1, array2) → jaccardIndex`
 
@@ -642,8 +638,6 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ## REPLACE_NTH()
-
-<small>Introduced in: v3.7.0</small>
 
 `REPLACE_NTH(anyArray, position, replaceValue, defaultPaddingValue) → newArray`
 

@@ -523,8 +523,6 @@ FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
 
 ### IN_RANGE()
 
-<small>Introduced in: v3.7.0</small>
-
 `IN_RANGE(value, low, high, includeLow, includeHigh) → included`
 
 Returns true if *value* is greater than (or equal to) *low* and less than

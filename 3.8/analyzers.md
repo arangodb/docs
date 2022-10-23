@@ -1115,33 +1115,31 @@ Also see [Known Issues](release-notes-known-issues38.html#arangosearch).
 Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
 which supports the following languages:
 
-Language     | Code
--------------|-----
-Arabic     * | `ar`
-Basque     * | `eu`
-Catalan    * | `ca`
-Danish     * | `da`
-Dutch        | `nl`
-English      | `en`
-Finnish      | `fi`
-French       | `fr`
-German       | `de`
-Greek      * | `el`
-Hindi      * | `hi`
-Hungarian  * | `hu`
-Indonesian * | `id`
-Irish      * | `ga`
-Italian      | `it`
-Lithuanian * | `lt`
-Nepali     * | `ne`
-Norwegian    | `no`
-Portuguese   | `pt`
-Romanian   * | `ro`
-Russian      | `ru`
-Serbian    * | `sr`
-Spanish      | `es`
-Swedish      | `sv`
-Tamil      * | `ta`
-Turkish    * | `tr`
-
-\* <small>Introduced in: v3.7.0</small>
+Language   | Code
+-----------|-----
+Arabic     | `ar`
+Basque     | `eu`
+Catalan    | `ca`
+Danish     | `da`
+Dutch      | `nl`
+English    | `en`
+Finnish    | `fi`
+French     | `fr`
+German     | `de`
+Greek      | `el`
+Hindi      | `hi`
+Hungarian  | `hu`
+Indonesian | `id`
+Irish      | `ga`
+Italian    | `it`
+Lithuanian | `lt`
+Nepali     | `ne`
+Norwegian  | `no`
+Portuguese | `pt`
+Romanian   | `ro`
+Russian    | `ru`
+Serbian    | `sr`
+Spanish    | `es`
+Swedish    | `sv`
+Tamil      | `ta`
+Turkish    | `tr`

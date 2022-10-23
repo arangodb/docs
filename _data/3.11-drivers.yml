@@ -1,1 +1,140 @@
-3.7-drivers.yml
+- text: Introduction
+  href: index.html
+- subtitle: Official Drivers
+- text: Java Driver
+  href: java.html
+  children:
+    - text: Getting Started
+      href: java-getting-started.html
+    - text: Examples
+      href: java-examples.html
+      children:
+        - text: The BaseDocument object
+          href: java-examples-base-document.html
+        - text: XML data
+          href: java-examples-xml-data.html
+        - text: Import Graph data
+          href: java-examples-import-graph-data.html
+    - text: Tutorial
+      href: java-tutorial.html
+    - text: Reference
+      href: java-reference.html
+      children:
+        - text: JavaDoc
+          href: http://arangodb.github.io/arangodb-java-driver/
+        - text: JavaDoc VelocyPack
+          href: http://arangodb.github.io/java-velocypack/
+        - text: Driver Setup
+          href: java-reference-setup.html
+        - text: Serialization
+          href: java-reference-serialization.html
+- text: ArangoJS - JavaScript Driver
+  href: js.html
+  children:
+    - text: Getting Started
+      href: js-getting-started.html
+    - text: Reference
+      href: http://arangodb.github.io/arangojs/
+- text: ArangoDB-PHP
+  href: php.html
+  children:
+    - text: Getting Started
+      href: php-getting-started.html
+    - text: Tutorial
+      href: php-tutorial.html
+    - text: Reference
+      href: http://arangodb.github.io/arangodb-php/
+- text: ArangoDB Go Driver
+  href: go.html
+  children:
+    - text: Getting Started
+      href: go-getting-started.html
+    - text: Example Requests
+      href: go-example-requests.html
+    - text: Connection Management
+      href: go-connection-management.html
+    - text: Reference
+      href: https://godoc.org/github.com/arangodb/go-driver
+- text: ArangoDB C#/.NET Driver
+  href: dotnet.html
+  children:
+    - text: Getting Started
+      href: dotnet-getting-started.html
+      children:
+        - text: Databases
+          href: dotnet-databases.html
+        - text: Collections
+          href: dotnet-collections.html
+        - text: Documents
+          href: dotnet-documents.html
+        - text: AQL
+          href: dotnet-aql.html
+    - text: Using the Driver
+      href: dotnet-usage.html
+    - text: Reference
+      href: https://arangodb-community.github.io/arangodb-net-standard/
+- subtitle: Integrations
+- text: Spring Data ArangoDB
+  href: spring-data.html
+  children:
+    - text: Getting Started
+      href: spring-data-getting-started.html
+    - text: Reference
+      href: spring-data-reference.html
+      children:
+        - text: JavaDoc
+          href: http://arangodb.github.io/spring-data/
+        - text: Template
+          href: spring-data-reference-template.html
+        - text: Repositories
+          href: spring-data-reference-repositories.html
+          children:
+            - text: Queries
+              href: spring-data-reference-repositories-queries.html
+              children:
+                - text: Derived queries
+                  href: spring-data-reference-repositories-queries-derived-queries.html
+                - text: Query methods
+                  href: spring-data-reference-repositories-queries-query-methods.html
+                - text: Named queries
+                  href: spring-data-reference-repositories-queries-named-queries.html
+        - text: Mapping
+          href: spring-data-reference-mapping.html
+          children:
+            - text: Document
+              href: spring-data-reference-mapping-document.html
+            - text: Edge
+              href: spring-data-reference-mapping-edge.html
+            - text: Reference
+              href: spring-data-reference-mapping-reference.html
+            - text: Relations
+              href: spring-data-reference-mapping-relations.html
+            - text: Indexes
+              href: spring-data-reference-mapping-indexes.html
+            - text: Converter
+              href: spring-data-reference-mapping-converter.html
+            - text: Events
+              href: spring-data-reference-mapping-events.html
+            - text: Auditing
+              href: spring-data-reference-mapping-auditing.html
+    - text: Migration
+      href: spring-data-migration.html
+      children:
+        - text: Migrating 1.x to 3.0
+          href: spring-data-migration-migrating-1-x-3-0.html
+        - text: Migrating 2.x to 3.0
+          href: spring-data-migration-migrating-2-x-3-0.html
+- text: ArangoDB Datasource for Apache Spark
+  href: spark-connector-new.html
+- text: ArangoDB Spark Connector
+  href: spark-connector.html
+  children:
+    - text: Getting Started
+      href: spark-connector-getting-started.html
+    - text: Reference
+      href: spark-connector-reference.html
+      children:
+        - text: Java
+          href: spark-connector-reference-java.html
+        - text: Scala
+          href: spark-connector-reference-scala.html

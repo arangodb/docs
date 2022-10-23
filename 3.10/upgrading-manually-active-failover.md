@@ -36,17 +36,17 @@ The first step is to install the new ArangoDB package.
 
 **Note:** you do not have to stop the _Active Failover_ (_arangod_) processes before upgrading it.
 
-For example, if you want to upgrade to `3.7.13` on Debian or Ubuntu, either call
+For example, if you want to upgrade to `3.9.3` on Debian or Ubuntu, either call
 
 ```
-$ apt install arangodb=3.7.13-1
+$ apt install arangodb=3.9.3-1
 ```
 
 (`apt-get` on older versions) if you have added the ArangoDB repository. Or
 install a specific package using
 
 ```
-$ dpkg -i arangodb3-3.7.13-1_amd64.deb
+$ dpkg -i arangodb3-3.9.3-1_amd64.deb
 ```
 
 after you have downloaded the corresponding file from

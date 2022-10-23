@@ -6,8 +6,6 @@ description: ArangoDB Server Query Options
 
 ## Limiting query runtime
 
-<small>Introduced in: v3.7.3</small>
-
 `--query.max-runtime value`
 
 Sets a default maximum runtime for AQL queries.
@@ -131,8 +129,6 @@ abort and return the warnings along with the query results.
 The option can also be overridden for each individual AQL query.
 
 ## Requiring `WITH` statements
-
-<small>Introduced in: v3.7.12</small>
 
 `--query.require-with value`
 

@@ -520,7 +520,7 @@ used to specify the following options:
   - *overwriteMode*: this optional flag can have one of the following values:
     - *ignore*: if a document with the specified *_key* value exists already,
       nothing will be done and no write operation will be carried out
-      (introduced in v3.7.0).
+     .
       The insert operation will return success in this case. This mode does not
       support returning the old document version using the *returnOld*
       attribute. *returnNew* will only set the *new* attribute in the response
@@ -531,7 +531,7 @@ used to specify the following options:
       flag is set to *true*.
     - *update*: if a document with the specified *_key* value exists already,
       it will be patched (partially updated) with the specified document value
-      (introduced in v3.7.0).
+     .
       The overwrite mode can be further controlled via the *keepNull* and
       *mergeObjects* parameters.
     - *conflict*: if a document with the specified *_key* value exists already,

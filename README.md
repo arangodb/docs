@@ -157,10 +157,9 @@ exclude:
 # - 3.10/
   - 3.9/
   - 3.8/
-  - 3.7/
 ```
 
-Above example disables versions 3.7 through 3.9, so that only 3.10 and 3.11 are
+Above example disables versions 3.8 and 3.9, so that only 3.10 and 3.11 are
 built. Do not commit these changes of the configuration!
 
 Note that building may fail if you disable certain versions that contain the files
@@ -700,8 +699,8 @@ to the parent folder of a file.
 | `3.9/tutorials.md` | `3.9/aql/operators.md` | `[AQL Operators](aql/operators.html)` |
 | `3.9/aql/operators.md` | `3.9/tutorials.md` | `[Tutorials](../tutorials.html)` |
 | `3.9/aql/operators.md` | `3.9/http/pregel.md` | `[Pregel HTTP API](../http/pregel.html)` |
-| `3.9/tutorials.md` | `3.7/architecture.md` | `[Architecture v3.7](../3.7/architecture.html)` |
-| `3.9/aql/operators.md` | `3.7/tutorials.md` | `[Tutorials v3.7](../../3.7/tutorials.html)` |
+| `3.9/tutorials.md` | `3.8/architecture.md` | `[Architecture v3.8](../3.8/architecture.html)` |
+| `3.9/aql/operators.md` | `3.8/tutorials.md` | `[Tutorials v3.8](../../3.8/tutorials.html)` |
 
 You can also link to headlines within a page like `[label](#anchor-id)`.
 The anchor ID is the headline text but with the characters converted to Latin
@@ -876,7 +875,7 @@ in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
 
 #### Version number schema
 
-The version number schema is `vMajor.Minor.Patch`, e.g. `v3.7.14`. Patch releases
+The version number schema is `vMajor.Minor.Patch`, e.g. `v3.9.3`. Patch releases
 contain bugfixes only. Minor releases often add new features and come with some
 breaking changes. Major releases add new features and may contain substantial
 breaking changes.

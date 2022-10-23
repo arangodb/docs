@@ -75,8 +75,6 @@ the certificate.
 
 ### Server Name Indication (SNI)
 
-<small>Introduced in: v3.7.0</small>
-
 Sometimes it is desirable to have the same server use different server keys
 and certificates when it is contacted under different names. This is
 what the TLS "server name" extension is for (see

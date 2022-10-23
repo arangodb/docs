@@ -265,8 +265,6 @@ FNV64("foobar") // "85944171F73967E8"
 IPV4_FROM_NUMBER()
 ------------------
 
-<small>Introduced in: v3.7.2</small>
-
 `IPV4_FROM_NUMBER(numericAddress) → stringAddress`
 
 Converts a numeric IPv4 address value into its string representation.
@@ -292,8 +290,6 @@ IPV4_FROM_NUMBER(-23) // null (and produces a warning)
 IPV4_TO_NUMBER()
 ----------------
 
-<small>Introduced in: v3.7.2</small>
-
 `IPV4_TO_NUMBER(stringAddress) → numericAddress`
 
 Converts an IPv4 address string into its numeric representation.
@@ -317,8 +313,6 @@ IPV4_TO_NUMBER("milk") // null (and produces a warning)
 
 IS_IPV4()
 ---------
-
-<small>Introduced in: v3.7.2</small>
 
 `IS_IPV4(value) → bool`
 
@@ -572,8 +566,6 @@ MD5("foobar") // "3858f62230ac3c915f300c664312c63f"
 NGRAM_POSITIONAL_SIMILARITY()
 -----------------------------
 
-<small>Introduced in: v3.7.0</small>
-
 `NGRAM_POSITIONAL_SIMILARITY(input, target, ngramSize) → similarity`
 
 Calculates the [_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
@@ -605,8 +597,6 @@ RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.66666668
 
 NGRAM_SIMILARITY()
 ------------------
-
-<small>Introduced in: v3.7.0</small>
 
 `NGRAM_SIMILARITY(input, target, ngramSize) → similarity`
 
@@ -938,8 +928,6 @@ RETURN STARTS_WITH("foobar", "baz") // false
 ---
 
 `STARTS_WITH(text, prefixes, minMatchCount) → startsWith`
-
-<small>Introduced in: v3.7.1</small>
 
 Check if the given string starts with one of the *prefixes*.
 

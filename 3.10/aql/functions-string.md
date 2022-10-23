@@ -473,8 +473,6 @@ string representation.
 IPV4_FROM_NUMBER()
 ------------------
 
-<small>Introduced in: v3.7.2</small>
-
 `IPV4_FROM_NUMBER(numericAddress) → stringAddress`
 
 Converts a numeric IPv4 address value into its string representation.
@@ -536,8 +534,6 @@ Converts a numeric IPv4 address value into its string representation.
 IPV4_TO_NUMBER()
 ----------------
 
-<small>Introduced in: v3.7.2</small>
-
 `IPV4_TO_NUMBER(stringAddress) → numericAddress`
 
 Converts an IPv4 address string into its numeric representation.
@@ -597,8 +593,6 @@ Converts an IPv4 address string into its numeric representation.
 
 IS_IPV4()
 ---------
-
-<small>Introduced in: v3.7.2</small>
 
 `IS_IPV4(value) → bool`
 
@@ -1059,8 +1053,6 @@ string representation.
 NGRAM_POSITIONAL_SIMILARITY()
 -----------------------------
 
-<small>Introduced in: v3.7.0</small>
-
 `NGRAM_POSITIONAL_SIMILARITY(input, target, ngramSize) → similarity`
 
 Calculates the [_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
@@ -1098,8 +1090,6 @@ not involving Analyzers.
 
 NGRAM_SIMILARITY()
 ------------------
-
-<small>Introduced in: v3.7.0</small>
 
 `NGRAM_SIMILARITY(input, target, ngramSize) → similarity`
 
@@ -1629,8 +1619,6 @@ that can utilize View indexes.
 ---
 
 `STARTS_WITH(text, prefixes, minMatchCount) → startsWith`
-
-<small>Introduced in: v3.7.1</small>
 
 Check if the given string starts with one of the `prefixes`.
 

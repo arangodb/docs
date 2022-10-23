@@ -164,8 +164,6 @@ The default value for this option is `true`.
 
 ## Maximum line length
 
-<small>Introduced in: v3.7.9</small>
-
 `--log.max-entry-length value`
 
 This option can be used to limit the maximum line length for individual log
@@ -346,8 +344,6 @@ The attributes produced for each log message JSON object are:
 | `message`  | the actual log message payload
 
 ### Log API Access
-
-<small>Introduced in: v3.7.1</small>
 
 `/_admin/log` control: `--log.api-enabled`
 

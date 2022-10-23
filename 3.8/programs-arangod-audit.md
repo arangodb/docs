@@ -28,8 +28,6 @@ inside shells such as Bash.
 
 ## Maximum line length
 
-<small>Introduced in: v3.7.9</small>
-
 `--audit.max-entry-length value`
 
 This option can be used to limit the maximum line length for individual audit
