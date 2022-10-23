@@ -355,7 +355,7 @@ oasisctl create deployment \
   --region-id gcp-us-west2 \
   --node-size-id c4-a4 \
   --node-disk-size 10 \
-  --version 3.6.2 \
+  --version 3.9.2 \
   --cacertificate-id OasisCert \
   --organization-id "ArangoGraph Organization" \
   --project-id "Getting Started with ArangoGraph" \

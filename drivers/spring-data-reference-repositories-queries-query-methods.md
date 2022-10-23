@@ -90,7 +90,7 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 ## Spring Expression support
 
-Since version 3.6.0, SpEL expressions can be embedded in the query string to
+SpEL expressions can be embedded in the query string to
 dynamically customize it depending on the invocation parameters and/or invoking
 methods on Spring Beans. In particular:
 - SpEL expressions must be wrapped within `#{}`
