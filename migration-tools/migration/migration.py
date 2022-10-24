@@ -26,6 +26,10 @@ def structure_migration_new(label, document, manual):
 		extendedSection = manual +"/"
 
 	for item in document:
+		# Ignore external links
+		if "href" in item and (item["href"].startswith("http://") or item["href"].startswith("https://")):
+			continue
+
 		if "subtitle" in item:
 			continue
 
