@@ -60,7 +60,7 @@ of the [`db` object](../appendix-references-dbobject.html). This chapter
 also describes how to use bind parameters, statistics, counting and cursors with
 arangosh.
 
-If you are using Foxx, see [how to write database queries](../foxx-getting-started.html#writing-database-queries)
+If you are using Foxx, see [how to write database queries](foxx-getting-started.html#writing-database-queries)
 for examples including tagged template strings.
 
 If you want to run AQL queries from your application via the HTTP REST API,
