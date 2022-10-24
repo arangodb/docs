@@ -9,8 +9,6 @@ Database Methods
 View
 ----
 
-<!-- arangod/V8Server/v8-views.cpp -->
-
 `db._view(view-name)`
 
 Returns the view with the given name or null if no such view exists.
@@ -27,6 +25,8 @@ Returns the view with the given name or null if no such view exists.
     @endDocuBlock viewDatabaseGet
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+---
 
 `db._view(view-identifier)`
 
@@ -61,20 +61,18 @@ Unknown View:
 Create
 ------
 
-<!-- arangod/V8Server/v8-views.cpp -->
-
 `db._createView(name, type, properties)`
 
 Creates a new View.
 
-*name* is a string and the name of the View. No View or collection with the
+`name` is a string and the name of the View. No View or collection with the
 same name may already exist in the current database. For more information on
 valid View names please refer to the [naming conventions](data-modeling-naming-conventions.html).
 
-*type* must be the string `"arangosearch"`, as it is currently the only
+`type` must be the string `"arangosearch"`, as it is currently the only
 supported View type.
 
-*properties* is an optional object containing View configuration specific
+`properties` is an optional object containing View configuration specific
 to each View-type.
 - [`arangosearch` View definition](arangosearch-views.html#view-definitionmodification)
 - [`search-alias` View definition](arangosearch-views-search-alias.html#view-definition)
@@ -94,8 +92,6 @@ to each View-type.
 
 All Views
 ---------
-
-<!-- arangod/V8Server/v8-views.cpp -->
 
 `db._views()`
 
@@ -119,16 +115,16 @@ List all views:
 Drop
 ----
 
-<!-- arangod/V8Server/v8-views.cpp -->
-
 `db._dropView(name)`
 
-Drops a view named *name* and all its data. No error is thrown if there is
+Drops a view named `name` and all its data. No error is thrown if there is
 no such view.
+
+---
 
 `db._dropView(view-identifier)`
 
-Drops a view identified by *view-identifier* with all its data. No error is
+Drops a view identified by `view-identifier` with all its data. No error is
 thrown if there is no such view.
 
 **Examples**

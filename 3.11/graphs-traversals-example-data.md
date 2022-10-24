@@ -5,8 +5,8 @@ description: The following examples all use a vertex collection v and an edge co
 Example Data
 ============
 
-The following examples all use a vertex collection *v* and an [edge collection](appendix-glossary.html#edge-collection) *e*. The vertex
-collection *v* contains continents, countries, and capitals. The edge collection *e* 
+The following examples all use a vertex collection `v` and an [edge collection](appendix-glossary.html#edge-collection) `e`. The vertex
+collection `v` contains continents, countries, and capitals. The edge collection `e` 
 contains connections between continents and countries, and between countries and capitals.
 
 To set up the collections and populate them with initial data, the following script was used:

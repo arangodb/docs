@@ -7553,7 +7553,7 @@
     ],
     "default" : 1,
     "deprecatedIn" : null,
-    "description" : "random number generator to use (1 = MERSENNE, 2 = RANDOM, 3 = URANDOM, 4 = COMBINED (not for Windows), 5 = WinCrypt (Windows only)",
+    "description" : "random number generator to use (1 = MERSENNE, 2 = RANDOM, 3 = URANDOM, 4 = COMBINED (not for Windows), 5 = WinCrypt (Windows only). Options 2, 3, 4 and 5 are deprecated and will be removed in a future version.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -8081,7 +8081,7 @@
     ],
     "default" : "level",
     "deprecatedIn" : null,
-    "description" : "compaction style which is used to pick the next file(s) to be compacted",
+    "description" : "compaction style which is used to pick the next file(s) to be compacted (note: all styles except 'level' are experimental)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -9764,6 +9764,34 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.reserve-file-metadata-memory" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "account for .sst file metadata memory in block cache",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.reserve-table-builder-memory" : {
     "category" : "option",
     "component" : [
@@ -10227,7 +10255,7 @@
     "default" : 36,
     "deprecatedIn" : null,
     "description" : "Number of lock stripes to use for transaction locks",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,

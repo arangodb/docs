@@ -58,7 +58,7 @@ each stage had to do.
 
 Without any indexes this query should have to perform the following operations:
 
-1. Perfom a full collection scan via a _EnumerateCollectionNode_ and outputting
+1. Perform a full collection scan via a _EnumerateCollectionNode_ and outputting
    a row containing the document in `doc`.
 2. Calculate the boolean expression `LET #1 = doc.value < 10` from all inputs
    via a _CalculationNode_ 
@@ -127,7 +127,7 @@ The resulting query profile contains a _SubqueryNode_ which has the runtime of
 all its children combined.
 
 Actually, we cheated a little. The optimizer would have completely removed the
-subquery if it had not been deactivated (`rules:["-all"]`). The optimimized
+subquery if it had not been deactivated (`rules:["-all"]`). The optimized
 version would take longer in the "optimizing plan" stage, but should perform
 better with a lot of results.
 
@@ -164,8 +164,8 @@ The following query gets us all age groups in buckets (0-9, 10-19, 20-29, ...):
 
 Without any indexes this query should have to perform the following operations:
 
-1. Perfom a full collection scan via a _EnumerateCollectionNode_ and outputing
-   a row containg the document in `doc`.
+1. Perform a full collection scan via a _EnumerateCollectionNode_ and outputting
+   a row containing the document in `doc`.
 2. Compute the expression `LET #1 = FLOOR(u.age / 10) * 10` for all inputs via
    a _CalculationNode_
 3. Perform the aggregations via the _CollectNode_
@@ -211,10 +211,10 @@ Another mistake is to start a graph traversal from the wrong side
 Assume we have two vertex collections _users_ and _products_ as well as an
 edge collection _purchased_. The graph model looks like this:
 `(users) <--[purchased]--> (products)`, i.e. every user is connected with an
-edge in _pruchased_ to zero or more _products_.
+edge in _purchased_ to zero or more _products_.
 
 If we want to know all users that have purchased the product _playstation_
-as well as produts of `type` _legwarmer_ we could use this query:
+as well as products of `type` _legwarmer_ we could use this query:
 
 ```js
 FOR prod IN products

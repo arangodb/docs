@@ -9,8 +9,6 @@ View Methods
 Drop
 ----
 
-<!-- arangod/V8Server/v8-views.cpp -->
-
 `view.drop()`
 
 Drops a View and all its data.
@@ -35,8 +33,6 @@ Drop a View:
 Query Name
 ----------
 
-<!-- arangod/V8Server/v8-views.cpp -->
-
 `view.name()`
 
 Returns the name of the View.
@@ -58,12 +54,10 @@ Get View name:
 Rename
 ------
 
-<!-- arangod/V8Server/v8-views.cpp -->
-
 `view.rename(new-name)`
 
-Renames a view using the *new-name*. The *new-name* must not already be used by
-a different view or collection in the same database. *new-name* must also be a
+Renames a view using the `new-name`. The `new-name` must not already be used by
+a different view or collection in the same database. `new-name` must also be a
 valid view name. For more information on valid view names please refer to the
 [naming conventions](data-modeling-naming-conventions.html).
 
@@ -91,8 +85,6 @@ The rename method is not available in clusters.
 Query Type
 ----------
 
-<!-- arangod/V8Server/v8-views.cpp -->
-
 `view.type()`
 
 Returns the type of the View.
@@ -113,8 +105,6 @@ Get View type:
 
 Query Properties
 ----------------
-
-<!-- arangod/V8Server/v8-views.cpp -->
 
 `view.properties()`
 
@@ -138,16 +128,14 @@ Get View properties:
 Modify Properties
 -----------------
 
-<!-- arangod/V8Server/v8-views.cpp -->
-
 `view.properties(new-properties, partialUpdate)`
 
-Modifies the properties of the *view*. The format of the result is specific to
+Modifies the properties of the `view`. The format of the result is specific to
 each of the supported [View Types](data-modeling-views.html).
 
-*partialUpdate* is an optional Boolean parameter (`true` by default) that
-determines how the *new-properties* object is merged with current View properties
-(adds or updates *new-properties* properties to current if `true` replaces all
+`partialUpdate` is an optional Boolean parameter (`true` by default) that
+determines how the `new-properties` object is merged with current View properties
+(adds or updates `new-properties` properties to current if `true` replaces all
 properties if `false`).
 
 For the available properties of the supported View types, see:

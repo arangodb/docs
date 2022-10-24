@@ -8,14 +8,14 @@ Database Methods
 Collection
 ----------
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
-
 Return a single collection:
 
 `db._collection(collection-name)`
 
 Returns the collection with the given name, or `null` if no such collection
 exists.
+
+---
 
 `db._collection(collection-identifier)`
 
@@ -57,8 +57,6 @@ Unknown collection:
 Create
 ------
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
-
 Create a new document or edge collection:
 
 `db._create(collection-name)`
@@ -68,25 +66,21 @@ If the collection name already exists or if the name format is invalid, an
 error is thrown. For more information on valid collection names please refer
 to the [naming conventions](data-modeling-naming-conventions.html).
 
+---
+
 `db._create(collection-name, properties)`
 
 `properties` must be an object with the following attributes:
 
-- `waitForSync` (optional, default `false`): If `true`, creating
-  a document only returns after the data is synced to disk.
+- `waitForSync` (boolean, _optional_, default `false`): If `true`, creating,
+  changing, or removing a document waits until the data is synchronized to disk.
 
-- `isSystem` (optional, default is `false`): If `true`, create a
-  system collection. In this case `collection-name` should start with
-  an underscore. End users should normally create non-system collections
-  only. API implementors may be required to create system collections in
-  very special occasions, but normally a regular collection is sufficient.
-
-- `keyOptions` (optional): additional options for key generation. If
-  specified, then `keyOptions` should be a JSON object containing the
-  following attributes (**note**: some of them are optional):
-  - `type`: specifies the type of the key generator.
-    The available generators are `traditional`, `autoincrement`, `uuid` and
-    `padded`.
+- `keyOptions` (object, _optional_): The options for key generation. If
+  specified, then `keyOptions` should be an object containing the
+  following attributes:
+  - `type` (string): specifies the type of the key generator.
+    The available generators are `"traditional"` (default), `"autoincrement"`,
+    `"uuid"` and `"padded"`.
     - The `traditional` key generator generates numerical keys in ascending order.
       The sequence of keys is not guaranteed to be gap-free.
     - The `autoincrement` key generator generates numerical keys in ascending order, 
@@ -114,29 +108,46 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     keys are generated on the leader DB-Server, which has full control over the key
     sequence.
 
-  - `allowUserKeys`: if set to `true`, then it is allowed to supply
-    own key values in the `_key` attribute of a document. If set to
-    `false`, then the key generator is solely responsible for
-    generating keys and supplying own key values in the `_key` attribute
-    of documents is considered an error.
-  - `increment`: increment value for `autoincrement` key generator.
+  - `allowUserKeys` (boolean, _optional_): If set to `true`, then you are allowed
+    to supply own key values in the `_key` attribute of documents. If set to
+    `false`, then the key generator is solely responsible for generating keys and
+    an error is raised if you supply own key values in the `_key` attribute
+    of documents.
+  - `increment`: The increment value for the `autoincrement` key generator.
     Not used for other key generator types.
-  - `offset`: initial offset value for `autoincrement` key generator.
+  - `offset`: The initial offset value for the `autoincrement` key generator.
     Not used for other key generator types.
 
-- `schema` (optional, default: `null`): 
-  Object that specifies the collection level document schema for documents.
+- `schema` (object\|null, _optional_, default: `null`): 
+  An object that specifies the collection-level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
   documented in [Document Schema Validation](document-schema-validation.html)
 
-- `computedValues` (optional, default: `null`): An array of objects,
+- `computedValues` (array\|null, _optional_, default: `null`): An array of objects,
   each representing a [Computed Value](data-modeling-documents-computed-values.html).
 
-- `numberOfShards` (optional, default `1`): in a cluster, this value
+- `cacheEnabled` (boolean): Whether the in-memory hash cache for documents should be
+  enabled for this collection (default: `false`). Can be controlled globally
+  with the `--cache.size` startup option. The cache can speed up repeated reads
+  of the same documents via their document keys. If the same documents are not
+  fetched often or are modified frequently, then you may disable the cache to
+  avoid the maintenance costs.
+
+- `isSystem` (boolean, _optional_, default: `false`): If `true`, create a
+  system collection. In this case, the collection name should start with
+  an underscore. End-users should normally create non-system collections
+  only. API implementors may be required to create system collections in
+  very special occasions, but normally a regular collection is sufficient.
+
+- `syncByRevision` (boolean, _optional_, default: `true`):
+  Whether the newer revision-based replication protocol
+  is enabled for this collection. This is an internal property.
+
+- `numberOfShards` (number, _optional_, default `1`): In a cluster, this value
   determines the number of shards to create for the collection. In a single
   server setup, this option is meaningless.
 
-- `shardKeys` (optional, default is `[ "_key" ]`): in a cluster, this
+- `shardKeys` (array, _optional_, default: `["_key"]`): In a cluster, this
   attribute determines which document attributes are used to determine the
   target shard for documents. Documents are sent to shards based on the
   values they have in their shard key attributes. The values of all shard
@@ -159,7 +170,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   attribute and this can only be done efficiently if this is the
   only shard key by delegating to the individual shards.
 
-- `replicationFactor` (optional, default `1`): in a cluster, this
+- `replicationFactor` (number\|string, _optional_, default `1`): In a cluster, this
   attribute determines how many copies of each shard are kept on 
   different DB-Servers. The value 1 means that only one copy (no
   synchronous replication) is kept. A value of k means that
@@ -178,7 +189,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   dramatically when using joins in AQL at the costs of reduced write
   performance on these collections.
 
-- `writeConcern` (optional, default `1`): in a cluster, this
+- `writeConcern` (number, _optional_, default `1`): In a cluster, this
   attribute determines how many copies of each shard are required
   to be in sync on the different DB-Servers. If there are less then these
   many copies in the cluster, a shard refuses to write. The value of
@@ -186,11 +197,6 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   Please note: during server failures this might lead to writes
   not being possible until the failover is sorted out and might cause
   write slow downs in trade for data durability.
-
-- `distributeShardsLike`: distribute the shards of this collection
-  cloning the shard distribution of another. If this value is set,
-  it copies the attributes `replicationFactor`, `numberOfShards` and 
-  `shardingStrategy` from the other collection. 
 
 - `shardingStrategy` (optional): specifies the name of the sharding
   strategy to use for the collection. Since ArangoDB 3.4 there are
@@ -202,27 +208,61 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   initial sharding algorithm.
 
   The available sharding strategies are:
-  - `community-compat`: default sharding used by ArangoDB
+  - `"community-compat"`: default sharding used by ArangoDB
     Community Edition before version 3.4
-  - `enterprise-compat`: default sharding used by ArangoDB
+  - `"enterprise-compat"`: default sharding used by ArangoDB
     Enterprise Edition before version 3.4
-  - `enterprise-smart-edge-compat`: default sharding used by smart edge
+  - `"enterprise-smart-edge-compat"`: default sharding used by smart edge
     collections in ArangoDB Enterprise Edition before version 3.4
-  - `hash`: default sharding used for new collections starting from version 3.4
+  - `"hash"`: default sharding used for new collections starting from version 3.4
     (excluding smart edge collections)
-  - `enterprise-hash-smart-edge`: default sharding used for new
+  - `"enterprise-hash-smart-edge"`: default sharding used for new
     smart edge collections starting from version 3.4
+  - `enterprise-hex-smart-vertex`: sharding used for vertex collections of
+    EnterpriseGraphs
 
   If no sharding strategy is specified, the default is `hash` for
-  all collections, and `enterprise-hash-smart-edge` for all smart edge
-  collections (requires the *Enterprise Edition* of ArangoDB). 
+  all normal collections, `enterprise-hash-smart-edge` for all smart edge
+  collections, and `enterprise-hex-smart-vertex` for EnterpriseGraph
+  vertex collections (the latter two require the *Enterprise Edition* of ArangoDB).
   Manually overriding the sharding strategy does not yet provide a 
   benefit, but it may later in case other sharding strategies are added.
   
   In single-server mode, the `shardingStrategy` attribute is meaningless 
   and is ignored.
 
-- `smartJoinAttribute`: in an *Enterprise Edition* cluster, this attribute 
+- `distributeShardsLike` (string, _optional_, default: `""`):
+  The name of another collection. If this property is set in a cluster, the
+  collection copies the `replicationFactor`, `numberOfShards` and `shardingStrategy`
+  properties from the specified collection (referred to as the _prototype collection_)
+  and distributes the shards of this collection in the same way as the shards of
+  the other collection. In an Enterprise Edition cluster, this data co-location is
+  utilized to optimize queries.
+
+  You need to use the same number of `shardKeys` as the prototype collection, but
+  you can use different attributes.
+
+  **Note**: Using this parameter has consequences for the prototype
+  collection. It can no longer be dropped, before the sharding-imitating
+  collections are dropped. Equally, backups and restores of imitating
+  collections alone generate warnings (which can be overridden)
+  about a missing sharding prototype.
+
+- `isSmart` (boolean): Whether the collection is for a SmartGraph or
+  EnterpriseGraph (Enterprise Edition only). This is an internal property.
+
+- `isDisjoint` (boolean): Whether the collection is for a Disjoint SmartGraph
+  (Enterprise Edition only). This is an internal property.
+
+- `smartGraphAttribute` (string, _optional_):
+  The attribute that is used for sharding: vertices with the same value of
+  this attribute are placed in the same shard. All vertices are required to
+  have this attribute set and it has to be a string. Edges derive the
+  attribute from their connected vertices.
+
+  This feature can only be used in the *Enterprise Edition*.
+
+- `smartJoinAttribute` (string, _optional_): In an *Enterprise Edition* cluster, this attribute 
   determines an attribute of the collection that must contain the shard key value 
   of the referred-to SmartJoin collection. Additionally, the sharding key 
   for a document in this collection must contain the value of this attribute, 
@@ -236,11 +276,15 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   A further restriction is that whenever documents are stored or updated in the 
   collection, the value stored in the `smartJoinAttribute` must be a string.
 
+---
+
 `db._create(collection-name, properties, type)`
 
 Specifies the optional `type` of the collection, it can either be `document` 
 or `edge`. On default it is document. Instead of giving a type you can also use 
 `db._createEdgeCollection()` or `db._createDocumentCollection()`.
+
+---
 
 `db._create(collection-name, properties[, type], options)`
 
@@ -318,7 +362,7 @@ With a special key option:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+---
 
 Create a new edge collection:
 
@@ -328,6 +372,8 @@ Creates a new edge collection named `collection-name`. If the
 collection name already exists an error is thrown. The default value
 for `waitForSync` is `false`.
 
+---
+
 `db._createEdgeCollection(collection-name, properties)`
 
 `properties` must be an object with the following attributes:
@@ -335,7 +381,7 @@ for `waitForSync` is `false`.
 - `waitForSync` (optional, default: `false`): If `true`, creating
   a document only returns after the data is synced to disk.
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+---
 
 Create a new document collection:
 
@@ -346,8 +392,6 @@ document name already exists and error is thrown.
 
 All Collections
 ---------------
-
-<!-- arangod/V8Server/v8-vocbase.cpp -->
 
 Return all collections:
 
@@ -370,8 +414,6 @@ Returns all collections of the given database.
 
 Collection Name
 ---------------
-
-<!-- arangod/V8Server/v8-vocbase.cpp -->
 
 Select a collection from the database:
 
@@ -397,23 +439,27 @@ default properties.
 Drop
 ----
 
-<!-- js/server/modules/@arangodb/arango-database.js -->
-
 Drop a collection:
 
 `db._drop(collection)`
 
 Drops a `collection` and all its indexes and data.
 
+---
+
 `db._drop(collection-identifier)`
 
 Drops a collection identified by `collection-identifier` with all its
 indexes and data. No error is thrown if there is no such collection.
 
+---
+
 `db._drop(collection-name)`
 
 Drops a collection named `collection-name` and all its indexes. No error
 is thrown if there is no such collection.
+
+---
 
 `db._drop(collection-name, options)`
 
@@ -474,8 +520,6 @@ Drops a system collection
 Truncate
 --------
 
-<!-- js/server/modules/@arangodb/arango-database.js -->
-
 Truncate a collection:
 
 `db._truncate(collection)`
@@ -483,10 +527,14 @@ Truncate a collection:
 Truncates a `collection`, removing all documents but keeping all its
 indexes.
 
+---
+
 `db._truncate(collection-identifier)`
 
 Truncates a collection identified by `collection-identified`. No error is
 thrown if there is no such collection.
+
+---
 
 `db._truncate(collection-name)`
 
