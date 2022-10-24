@@ -36,7 +36,7 @@ yaml.representer.SafeRepresenter.add_representer(str, str_presenter) # to use wi
 
 
 def initBlocksFileLocations():
-    with open(APIDOCS_FILE, 'r') as apiDocs:
+    with open(APIDOCS_FILE, 'r', encoding="utf-8") as apiDocs:
         data = apiDocs.read()
 
         docuBlocks = re.findall(r"<!-- filename: .* -->\n@startDocuBlock .*", data)
@@ -56,7 +56,7 @@ def migrateHTTPDocuBlocks(paragraph):
 
         docuBlockFile = blocksFileLocations[docuBlock]
         tag = docuBlockFile.split("/")[len(docuBlockFile.split("/"))-2]
-        docuBlockFile = open(docuBlockFile, "r").read()
+        docuBlockFile = open(docuBlockFile, "r", encoding="utf-8").read()
         declaredDocuBlocks = re.findall(r"(?<=@startDocuBlock )(.*?)@endDocuBlock", docuBlockFile, re.MULTILINE | re.DOTALL)
 
         for block in declaredDocuBlocks:
@@ -313,7 +313,7 @@ def parse_examples(blockExamples):
 
 def write_components_to_file():
     components["schemas"] = definitions
-    with open(OAPI_COMPONENTS_FILE, 'w') as outfile:
+    with open(OAPI_COMPONENTS_FILE, 'w', encoding="utf-8") as outfile:
         yaml.dump(components, outfile, sort_keys=False, default_flow_style=False)
 
 if __name__ == "__main__":

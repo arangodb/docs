@@ -14,7 +14,7 @@ from globals import *
 
 def structure_migration_new(label, document, manual):
 	if document is None:
-		directoryTree = open(f"{OLD_TOOLCHAIN}/_data/3.10-{manual}.yml")
+		directoryTree = open(f"{OLD_TOOLCHAIN}/_data/3.10-{manual}.yml", encoding="utf-8")
 		document = yaml.full_load(directoryTree)
 
 		if manual != "manual":
@@ -59,7 +59,7 @@ def create_chapter(item, manual):
 	labelPage.frontMatter.fileID = "fileID"
 	infos[filepath] = {"title": item["subtitle"], "weight": get_weight(currentWeight)}
 	
-	file = open(filepath, "w")
+	file = open(filepath, "w", encoding="utf-8")
 	file.write(labelPage.toString())
 	file.close()
 	return label
@@ -113,7 +113,7 @@ def processFiles():
 def processFile(filepath):
 	#print(f"Migrating {filepath} content")
 	try:
-		file = open(filepath, "r")
+		file = open(filepath, "r", encoding="utf-8")
 		buffer = file.read()
 		file.close()
 	except Exception as ex:
@@ -143,7 +143,7 @@ def processFile(filepath):
 	#Internal content
 	_processChapters(page, buffer)
 
-	file = open(filepath, "w")
+	file = open(filepath, "w", encoding="utf-8")
 	file.write(page.toString())
 	file.close()
 
