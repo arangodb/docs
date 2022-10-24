@@ -201,6 +201,7 @@ def _processChapters(page, paragraph):
 
 def migrate_media():
 	print("----- MIGRATING MEDIA")
+	Path(f"{NEW_TOOLCHAIN}/assets/images/").mkdir(parents=True, exist_ok=True)
 	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
