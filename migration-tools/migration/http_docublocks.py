@@ -42,6 +42,7 @@ def initBlocksFileLocations():
         docuBlocks = re.findall(r"<!-- filename: .* -->\n@startDocuBlock .*", data)
         for docuBlock in docuBlocks:
             fileLocation = re.findall(r"(?<=<!-- filename: ).*(?= -->)", docuBlock)[0]
+            fileLocation = fileLocation.replace("/work/ArangoDB/", "C:/ArangoDB/arangodb/") # HACK
             blockName = re.findall(r"(?<=@startDocuBlock ).*", docuBlock)[0]
 
             blocksFileLocations[blockName] = fileLocation
