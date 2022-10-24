@@ -54,8 +54,8 @@ thus easier to use.
 The ArangoDB Web Interface has a [specific tab for AQL queries execution](../aql/invocation-with-web-interface.html).
 
 You can run [AQL queries from the ArangoDB Shell](../aql/invocation-with-arangosh.html)
-with the [_query](../aql/invocation-with-arangosh.html#with-db_query) and
-[_createStatement](../aql/invocation-with-arangosh.html#with-db_createstatement-arangostatement) methods
+with the [_query](aql/invocation-with-arangosh.html#with-db_query) and
+[_createStatement](aql/invocation-with-arangosh.html#with-db_createstatement-arangostatement) methods
 of the [`db` object](../appendix-references-dbobject.html). This chapter
 also describes how to use bind parameters, statistics, counting and cursors with
 arangosh.
