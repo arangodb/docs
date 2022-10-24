@@ -18,6 +18,9 @@ NEW_TOOLCHAIN = f"{args.dst}/site"
 infos = {"": {}}
 currentWeight = 0
 
+httpDocuBlocksCount = 0
+inlineDocuBlocksCount = 0
+
 ## Regexes
 frontMatterCapture = r"(?<=---\n)(.*?)(?=---)"
 widgetRegex = r"{% .* %}[\n]+.*[\n]+{% .* %}"
@@ -28,3 +31,5 @@ APIDOCS_FILE = f"{OLD_TOOLCHAIN}/3.10/generated/allComments.txt"
 OAPI_COMPONENTS_FILE = f"{args.dst}/migration-tools/arangoproxy/cmd/openapi/components.yaml"
 blocksFileLocations = {}
 components = {"schemas": {}, "parameters": [], "securitySchemes": [], "requestBodies": [], "responses": [], "headers": [], "links": [], "callbacks": []}
+
+

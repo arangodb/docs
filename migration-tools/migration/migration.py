@@ -244,7 +244,6 @@ if __name__ == "__main__":
 		structure_migration_new('aql', None, "aql")
 		structure_migration_new('drivers', None, "drivers")
 		initBlocksFileLocations()
-		print(infos)
 		processFiles()
 		write_components_to_file()
 		migrate_media()

@@ -1,8 +1,7 @@
 import re
-
+import globals
 
 #TODO: Using yaml lib, is it possible to convert dicts into yaml without formatting those horrible strings by hand?
-
 
 def migrateInlineDocuBlocks(paragraph):
     paragraph = re.sub(r"{%.*arangoshexample.* %}", '', paragraph, 0)
@@ -10,6 +9,7 @@ def migrateInlineDocuBlocks(paragraph):
     paragraph = re.sub(r"@END_EXAMPLE_.*", '', paragraph, 0)
     docublocks = re.findall(r"(?<=@startDocuBlockInline )(.*?)[\s](?=@endDocuBlock)", paragraph, re.MULTILINE | re.DOTALL)
     if docublocks:
+        globals.inlineDocuBlocksCount += len(docublocks)
         for block in docublocks:
             originalBlock = block
             newBlock = {
@@ -29,7 +29,6 @@ def migrateInlineDocuBlocks(paragraph):
 
             if "@EXAMPLE_ARANGOSH_OUTPUT" in exampleType:
                 newBlock["options"]["render"] = "input/output"
-                print(block)
 
             elif "@EXAMPLE_AQL" in exampleType:
                 newBlock["options"]["language"] = "aql"
@@ -65,11 +64,13 @@ def migrateInlineDocuBlocks(paragraph):
     paragraph = re.sub(r"@endDocuBlock.*", '', paragraph, 0)
     paragraph = re.sub(r".*@startDocuBlockInline", '', paragraph, 0)
 
-            
     return paragraph
 
 def render_codeblock(block):
     res = f'\n\
+{{{{< version "3.10" >}}}}\n\
+{{{{< tabs >}}}}\n\
+{{{{% tab name="{block["options"]["language"]}" %}}}}\n\
 ```{block["options"]["language"]}\n\
 ---\n\
 name: {block["options"]["name"]}\n\
@@ -82,6 +83,9 @@ dataset: {block["options"]["dataset"] if "dataset" in block["options"] else ""}\
 explain: {block["options"]["explain"] if "explain" in block["options"] else ""}\n\
 ---\n\
 {block["code"]}\n\
-```\
+```\n\
+{{{{% /tab %}}}}\n\
+{{{{< /tabs >}}}}\n\
+{{{{< /version >}}}}\n\
 '
     return re.sub(r"^\s*$\n", '', res, 0, re.MULTILINE | re.DOTALL)

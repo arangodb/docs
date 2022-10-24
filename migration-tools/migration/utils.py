@@ -60,17 +60,27 @@ def migrate_hrefs(paragraph, infos):
 
         if href.startswith("!"):
             newImgName = "images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
-            styleRegex = re.search(r"(?<={:style=\").*(?=\"})", href)
-            if styleRegex:
-                newImgName = newImgName + "?"
-                styles = styleRegex.group(0).split(";")
+            if ':style' in href:
+                styleRegex = re.search(r"(?<={:style=\").*(?=\"})", href)
+                if styleRegex:
+                    newImgName = newImgName + "?"
+                    styles = styleRegex.group(0).split(";")
 
-                for style in styles:
-                    style = style.replace(": ", "=").replace(" ", "&")
-                    newImgName = newImgName + style
-            newHref = href.replace(linkContent, newImgName)
-            newHref = re.sub(r"{.*}", '', newHref, 0)
-            paragraph = paragraph.replace(href, newHref)
+                    for style in styles:
+                        style = style.replace(": ", "=").replace(" ", "&")
+                        newImgName = newImgName + style
+                    newHref = href.replace(linkContent, newImgName)
+                    newHref = re.sub(r"{.*}", '', newHref, 0)
+                    paragraph = paragraph.replace(href, newHref)
+            else:
+                label = re.search(r"(?<=\[).*(?=\])", href).group(0)	# Bug with new style regex, to fix
+                if "\"" in label:
+                    label = label.replace('"', '')
+
+                attr = re.search(r"(?<=\]\().*(?=\))", href).group(0).strip('"').strip('()').replace('.html', '')
+                imgWidget = '{{{{< img src="{}" alt="{}" size="medium" >}}}}'.format(attr, label)
+                paragraph = paragraph.replace(href, imgWidget)
+
             continue
 
         linksContent = re.findall(r"(?<=\]\()(.*?)\)", href)
