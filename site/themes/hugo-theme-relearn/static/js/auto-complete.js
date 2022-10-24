@@ -84,7 +84,7 @@ var autoComplete = (function(){
                     pageYOffset = window.pageYOffset || document.documentElement.scrollTop;
                 }
                 that.sc.style.left = Math.round(rect.left + pageXOffset + o.offsetLeft - parentOffsetLeft) + 'px';
-                that.sc.style.top = Math.round(rect.bottom + pageYOffset + o.offsetTop - parentOffsetTop) + 'px';
+                that.sc.style.top = Math.round(rect.bottom + pageYOffset + o.offsetTop - parentOffsetTop + 15) + 'px';
                 //that.sc.style.width = Math.round(rect.right - rect.left) + 'px'; // outerWidth
    
                 if (!resize) {

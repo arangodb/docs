@@ -3,5 +3,5 @@
 {{ $version := .Get 0 }}
 {{ $version = replace $version "." "" }}
 <div class="version {{ $version }}" style="display: none;">
-    {{ .Inner }} 
+    {{ .Inner | safeHTML }}
 </div>

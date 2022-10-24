@@ -12,6 +12,7 @@
       onclick="switchTab('{{ $groupid }}','{{ .name }}')"
       ><span>{{ .name }}</span></button>
   {{- end }}
+  <span class="copy-to-clipboard-button" title="Copy to clipboard"><i class="fas fa-copy"></i></span>
   </div>
   <div class="tab-content">
     {{- range $idx, $tab := $tabs }}
