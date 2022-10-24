@@ -107,7 +107,7 @@ def processFiles():
 	#print(menu)
 	for root, dirs, files in os.walk(f"{NEW_TOOLCHAIN}/content", topdown=True):
 		for file in files:
-			processFile(f"{root}/{file}")
+			processFile(f"{root}/{file}".replace("\\", "/"))
 	print("------ CONTENT MIGRATION END")
 
 def processFile(filepath):
