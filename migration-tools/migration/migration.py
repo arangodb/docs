@@ -202,7 +202,7 @@ def migrate_media():
 			print(f"migrating {file}")
 			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
 
-	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/oasis/images", topdown=True):
+	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/arangograph/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
 			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
@@ -240,7 +240,7 @@ if __name__ == "__main__":
 	try:
 		structure_migration_new('', None, "manual")
 		structure_migration_new('http', None, "http")
-		structure_migration_new('oasis', None, "oasis")
+		structure_migration_new('arangograph', None, "arangograph")
 		structure_migration_new('aql', None, "aql")
 		structure_migration_new('drivers', None, "drivers")
 		initBlocksFileLocations()

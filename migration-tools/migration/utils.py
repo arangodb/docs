@@ -26,14 +26,14 @@ def migrate_hints(paragraph):
         paragraph = paragraph.replace(hint, newHint)
 
     # Enterprise feature hints
-    enterpriseFeatureRegex = re.findall(r"{% include hint-ee-oasis\.md .* %}|{% include hint-ee\.md .* %}", paragraph)
+    enterpriseFeatureRegex = re.findall(r"{% include hint-ee-arangograph\.md .* %}|{% include hint-ee\.md .* %}", paragraph)
     for tag in enterpriseFeatureRegex:
         feature = re.search(r"(?<=feature=).*\"", tag).group(0)
-        oasis = "false"
-        if 'oasis' in tag:
-            oasis = "true"
+        arangograph = "false"
+        if 'arangograph' in tag:
+            arangograph = "true"
 
-        paragraph = paragraph.replace(tag, '{{{{% enterprise-tag feature={} oasis="{}" %}}}}'.format(feature, oasis))
+        paragraph = paragraph.replace(tag, '{{{{% enterprise-tag feature={} arangograph="{}" %}}}}'.format(feature, arangograph))
 
     detailsRegex = re.search(r"{% details .* %}[\w\n\s\W]*{% enddetails %}", paragraph)
     if detailsRegex:
