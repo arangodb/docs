@@ -58,7 +58,7 @@ You can also install ArangoDB locally or on your own server hardware.
 See [Install ArangoDB on-premises](quick-start-on-premises.html) for more details.
 
 If you want to migrate from bare metal servers to the cloud with minimal downtime,
-check out the [Cloud Migration Tool](../oasis/cloud-migration-tool.md).
+check out the [Cloud Migration Tool](oasis/cloud-migration-tool.html).
 
 ## Interactive Tutorials
 
