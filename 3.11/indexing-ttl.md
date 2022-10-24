@@ -32,11 +32,15 @@ with an attribute that contains the documents' creation or last-updated time.
 Let's assume the index attribute is set to "creationDate", and the `expireAfter`
 attribute of the index was set to 600 seconds (10 minutes).
 
-    db.collection.ensureIndex({ type: "ttl", fields: ["creationDate"], expireAfter: 600 });
+```js
+db.collection.ensureIndex({ type: "ttl", fields: ["creationDate"], expireAfter: 600 });
+```
 
 Let's further assume the following document now gets inserted into the collection:
 
-    { "creationDate" : 1550165973 }
+```json
+{ "creationDate" : 1550165973 }
+```
 
 This document will be indexed with a reference point in time value of `1550165973`,
 which translates to the human-readable date/time `2019-02-14T17:39:33.000Z`. The document
@@ -58,7 +62,9 @@ date strings without a timezone offset will be interpreted as UTC dates.
 
 The above example document using a date string attribute value would be
 
-    { "creationDate" : "2019-02-14T17:39:33.000Z" }
+```json
+{ "creationDate" : "2019-02-14T17:39:33.000Z" }
+```
 
 Now any data-modification access to the document could update the value in the document's
 `creationDate` attribute to the current date/time, which would prolong the existence
@@ -78,12 +84,16 @@ Let's assume the index attribute is set to "expireDate", and the `expireAfter`
 attribute of the index was set to 0 seconds (immediately when wall clock time reaches
 the value specified in `expireDate`).
 
-    db.collection.ensureIndex({ type: "ttl", fields: ["expireDate"], expireAfter: 0 });
+```js
+db.collection.ensureIndex({ type: "ttl", fields: ["expireDate"], expireAfter: 0 });
+```
 
 When storing the following document in the collection, it will expire at the point in time
 specified in the document itself:
 
-    { "expireDate" : "2019-03-28T01:06:00Z" }
+```json
+{ "expireDate" : "2019-03-28T01:06:00Z" }
+```
  
 As `expireAfter` was set to 0, the document will count as expired when wall clock time 
 has reached the timeout.
@@ -168,14 +178,13 @@ behind with its removal operations. It should eventually catch up in case the nu
 of to-be-removed documents per invocation is not higher than the background thread's
 configured threshold values.
 
-
 Accessing TTL Indexes from the Shell
 -------------------------------------
 
 Ensures that a TTL index exists:
 `collection.ensureIndex({ type: "ttl", fields: [ "field" ], expireAfter: 600 })`
 
-Creates a TTL index on all documents using *field* as attribute path. Exactly 
+Creates a TTL index on all documents using `field` as attribute path. Exactly 
 one attribute path has to be given. The index will be sparse in all cases.
 
 In case that the index was successfully created, an object with the index

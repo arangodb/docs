@@ -5,7 +5,7 @@ title: ArangoDB LDAP Configuration
 ---
 # ArangoDB Server LDAP Options
 
-{% include hint-ee-oasis.md feature="LDAP authentication" %}
+{% include hint-ee-arangograph.md feature="LDAP authentication" %}
 
 ## Basics Concepts
 

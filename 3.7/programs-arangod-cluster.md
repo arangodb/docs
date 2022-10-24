@@ -171,7 +171,7 @@ Agents or DB-Servers.
 
 `--cluster.force-one-shard <bool>`
 
-{% include hint-ee-oasis.md feature="This option" %}
+{% include hint-ee-arangograph.md feature="This option" %}
 
 When set to `true`, forces the cluster into creating all future collections with 
 only a single shard and using the same DB-Server as these collections' 

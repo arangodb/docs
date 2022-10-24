@@ -35,7 +35,7 @@ two documents, and searching for `prefix:Fox` would return all three documents:
 ```
 
 Note that deeper nested objects are ignored. For example, a fulltext index on
-*translations* would index *Fuchs*, but not *fox*, given the following document
+`translations` would index `Fuchs`, but not `fox`, given the following document
 structure:
 
 ```js
@@ -57,24 +57,22 @@ Other data types are ignored and not indexed.
 Accessing Fulltext Indexes from the Shell
 -----------------------------------------
 
-<!-- js/server/modules/@arangodb/arango-collection.js -->
-
 Ensures that a fulltext index exists:
 
 `collection.ensureIndex({ type: "fulltext", fields: [ "field" ], minLength: minLength })`
 
-Creates a fulltext index on all documents on attribute *field*.
+Creates a fulltext index on all documents on attribute `field`.
 
 Fulltext indexes are implicitly sparse: all documents which do not have
-the specified *field* attribute or that have a non-qualifying value in their
-*field* attribute will be ignored for indexing.
+the specified `field` attribute or that have a non-qualifying value in their
+`field` attribute will be ignored for indexing.
 
 Only a single attribute can be indexed. Specifying multiple attributes is
 unsupported.
 
 The minimum length of words that are indexed can be specified via the
-*minLength* parameter. Words shorter than minLength characters will
-not be indexed. *minLength* has a default value of 2, but this value might
+`minLength` parameter. Words shorter than minLength characters will
+not be indexed. `minLength` has a default value of 2, but this value might
 be changed in future versions of ArangoDB. It is thus recommended to explicitly
 specify this value.
 

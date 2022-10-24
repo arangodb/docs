@@ -33,17 +33,17 @@ only covers a part of it, then you can do so.
 
 To create a SatelliteGraph in arangosh, use the `satellite-graph` module:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphCreate1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate1_cluster}
-    var satelliteGraphModule = require("@arangodb/satellite-graph");
-    var graph = satelliteGraphModule._create("satelliteGraph");
-    satelliteGraphModule._graph("satelliteGraph");
-    ~satelliteGraphModule._drop("satelliteGraph", true);
+      var satelliteGraphModule = require("@arangodb/satellite-graph");
+      var graph = satelliteGraphModule._create("satelliteGraph");
+      satelliteGraphModule._graph("satelliteGraph");
+    ~ satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphCreate1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 In contrast to General Graphs and SmartGraphs, you do not need to take care of
 the sharding and replication properties. The properties `distributeShardsLike`,
@@ -53,17 +53,18 @@ the sharding and replication properties. The properties `distributeShardsLike`,
 
 Adding vertex collections is analogous to General Graphs:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphCreate2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate2_cluster}
-    ~var satelliteGraphModule = require("@arangodb/satellite-graph");
-    var graph = satelliteGraphModule._create("satelliteGraph");
-    graph._addVertexCollection("aVertexCollection");
-    ~satelliteGraphModule._drop("satelliteGraph", true);
+    ~ var satelliteGraphModule = require("@arangodb/satellite-graph");
+      var graph = satelliteGraphModule._create("satelliteGraph");
+      graph._addVertexCollection("aVertexCollection");
+      graph = satelliteGraphModule._graph("satelliteGraph");
+    ~ satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphCreate2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 If the collection `"aVertexCollection"` doesn't exist yet, then the
 SatelliteGraph module will create it automatically with the correct
@@ -77,18 +78,19 @@ Adding edge collections works the same as with General Graphs, but again, the
 collections are created by the SatelliteGraph module with the right properties
 if they don't exist already.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphCreate3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate3_cluster}
-    ~var satelliteGraphModule = require("@arangodb/satellite-graph");
-    var graph = satelliteGraphModule._create("satelliteGraph");
-    var relation = satelliteGraphModule._relation("isFriend", ["person"], ["person"]);
-    graph._extendEdgeDefinitions(relation);
-    ~satelliteGraphModule._drop("satelliteGraph", true);
+    ~ var satelliteGraphModule = require("@arangodb/satellite-graph");
+      var graph = satelliteGraphModule._create("satelliteGraph");
+      var relation = satelliteGraphModule._relation("isFriend", ["person"], ["person"]);
+      graph._extendEdgeDefinitions(relation);
+      graph = satelliteGraphModule._graph("satelliteGraph");
+    ~ satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphCreate3_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Existing edge collections can be added, but they require the
 `distributeShardsLike` property to reference the prototype collection.
@@ -114,13 +116,13 @@ of these properties.
 Creating an empty SatelliteGraph: No prototype collection is present.
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-        @startDocuBlockInline satelliteGraphPrototype1_cluster
-        @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphPrototype1_cluster}
-        var satelliteGraphModule = require("@arangodb/satellite-graph");
-        satelliteGraphModule._create("satelliteGraph");
-        ~satelliteGraphModule._drop("satelliteGraph", true);
-        @END_EXAMPLE_ARANGOSH_OUTPUT
-        @endDocuBlock satelliteGraphPrototype1_cluster
+    @startDocuBlockInline satelliteGraphPrototype1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphPrototype1_cluster}
+      var satelliteGraphModule = require("@arangodb/satellite-graph");
+      satelliteGraphModule._create("satelliteGraph");
+    ~ satelliteGraphModule._drop("satelliteGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock satelliteGraphPrototype1_cluster
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -129,14 +131,15 @@ This leads to the creation of a prototype collection `"myPrototypeColl"`
 (assuming that no collection with this name existed before):
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-        @startDocuBlockInline satelliteGraphPrototype2_cluster
-        @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphPrototype2_cluster}
-        var satelliteGraphModule = require("@arangodb/satellite-graph");
-        var graph = satelliteGraphModule._create("satelliteGraph");
-        graph._addVertexCollection("myPrototypeColl");
-        ~satelliteGraphModule._drop("satelliteGraph", true);
-        @END_EXAMPLE_ARANGOSH_OUTPUT
-        @endDocuBlock satelliteGraphPrototype2_cluster
+    @startDocuBlockInline satelliteGraphPrototype2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphPrototype2_cluster}
+      var satelliteGraphModule = require("@arangodb/satellite-graph");
+      var graph = satelliteGraphModule._create("satelliteGraph");
+      graph._addVertexCollection("myPrototypeColl");
+      graph = satelliteGraphModule._graph("satelliteGraph");
+    ~ satelliteGraphModule._drop("satelliteGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock satelliteGraphPrototype2_cluster
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -147,15 +150,16 @@ collection, then one of the collections will be chosen arbitrarily as
 prototype collection.
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-        @startDocuBlockInline satelliteGraphPrototype3_cluster
-        @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphPrototype3_cluster}
-        var satelliteGraphModule = require("@arangodb/satellite-graph");
-        var graph = satelliteGraphModule._create("satelliteGraph");
-        var relation = satelliteGraphModule._relation("isFriend", ["person"], ["person"]);
-        graph._extendEdgeDefinitions(relation);
-        ~satelliteGraphModule._drop("satelliteGraph", true);
-        @END_EXAMPLE_ARANGOSH_OUTPUT
-        @endDocuBlock satelliteGraphPrototype3_cluster
+    @startDocuBlockInline satelliteGraphPrototype3_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphPrototype3_cluster}
+      var satelliteGraphModule = require("@arangodb/satellite-graph");
+      var graph = satelliteGraphModule._create("satelliteGraph");
+      var relation = satelliteGraphModule._relation("isFriend", ["person"], ["person"]);
+      graph._extendEdgeDefinitions(relation);
+      graph = satelliteGraphModule._graph("satelliteGraph");
+    ~ satelliteGraphModule._drop("satelliteGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock satelliteGraphPrototype3_cluster
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -178,40 +182,40 @@ and a SatelliteGraph traversal query:
 
 1. First we setup our graphs and collections.
 
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-        @startDocuBlockInline satelliteGraphGeneralGraph1_cluster
-        @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphGeneralGraph1_cluster}
-        var graphModule = require("@arangodb/general-graph");
-        var satelliteGraphModule = require("@arangodb/satellite-graph");
-        graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-        satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
-        db._create("collection", {numberOfShards: 8});
-        ~db._drop("collection");
-        ~satelliteGraphModule._drop("satelliteGraph", true);
-        ~graphModule._drop("normalGraph", true);
-        @END_EXAMPLE_ARANGOSH_OUTPUT
-        @endDocuBlock satelliteGraphGeneralGraph1_cluster
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
+       {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+       @startDocuBlockInline satelliteGraphGeneralGraph1_cluster
+       @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphGeneralGraph1_cluster}
+         var graphModule = require("@arangodb/general-graph");
+         var satelliteGraphModule = require("@arangodb/satellite-graph");
+         graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
+         satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
+         db._create("collection", {numberOfShards: 8});
+       ~ db._drop("collection");
+       ~ satelliteGraphModule._drop("satelliteGraph", true);
+       ~ graphModule._drop("normalGraph", true);
+       @END_EXAMPLE_ARANGOSH_OUTPUT
+       @endDocuBlock satelliteGraphGeneralGraph1_cluster
+       {% endarangoshexample %}
+       {% include arangoshexample.html id=examplevar script=script result=result %}
 
 2. Let us analyze a query involving a traversal:
 
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-        @startDocuBlockInline satelliteGraphGeneralGraph2_cluster
-        @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphGeneralGraph2_cluster}
-        ~var graphModule = require("@arangodb/general-graph");
-        ~var satelliteGraphModule = require("@arangodb/satellite-graph");
-        ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-        ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
-        ~db._create("collection", {numberOfShards: 8});
-        db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "normalGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
-        ~db._drop("collection");
-        ~satelliteGraphModule._drop("satelliteGraph", true);
-        ~graphModule._drop("normalGraph", true);
-        @END_EXAMPLE_ARANGOSH_OUTPUT
-        @endDocuBlock satelliteGraphGeneralGraph2_cluster
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
+       {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+       @startDocuBlockInline satelliteGraphGeneralGraph2_cluster
+       @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphGeneralGraph2_cluster}
+       ~ var graphModule = require("@arangodb/general-graph");
+       ~ var satelliteGraphModule = require("@arangodb/satellite-graph");
+       ~ graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
+       ~ satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
+       ~ db._create("collection", {numberOfShards: 8});
+         db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "normalGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
+       ~ db._drop("collection");
+       ~ satelliteGraphModule._drop("satelliteGraph", true);
+       ~ graphModule._drop("normalGraph", true);
+       @END_EXAMPLE_ARANGOSH_OUTPUT
+       @endDocuBlock satelliteGraphGeneralGraph2_cluster
+       {% endarangoshexample %}
+       {% include arangoshexample.html id=examplevar script=script result=result %}
 
    You can see that the `TraversalNode` is executed on a Coordinator, and only
    the `EnumerateCollectionNode` is executed on DB-Servers. This will happen for
@@ -219,22 +223,22 @@ and a SatelliteGraph traversal query:
 
 3. Let us now have a look at the same query using a SatelliteGraph:
 
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-        @startDocuBlockInline satelliteGraphGeneralGraph3_cluster
-        @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphGeneralGraph3_cluster}
-        ~var graphModule = require("@arangodb/general-graph");
-        ~var satelliteGraphModule = require("@arangodb/satellite-graph");
-        ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-        ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
-        ~db._create("collection", {numberOfShards: 8});
-        db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
-        ~db._drop("collection");
-        ~satelliteGraphModule._drop("satelliteGraph", true);
-        ~graphModule._drop("normalGraph", true);
-        @END_EXAMPLE_ARANGOSH_OUTPUT
-        @endDocuBlock satelliteGraphGeneralGraph3_cluster
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
+       {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+       @startDocuBlockInline satelliteGraphGeneralGraph3_cluster
+       @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphGeneralGraph3_cluster}
+       ~ var graphModule = require("@arangodb/general-graph");
+       ~ var satelliteGraphModule = require("@arangodb/satellite-graph");
+       ~ graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
+       ~ satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
+       ~ db._create("collection", {numberOfShards: 8});
+         db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
+       ~ db._drop("collection");
+       ~ satelliteGraphModule._drop("satelliteGraph", true);
+       ~ graphModule._drop("normalGraph", true);
+       @END_EXAMPLE_ARANGOSH_OUTPUT
+       @endDocuBlock satelliteGraphGeneralGraph3_cluster
+       {% endarangoshexample %}
+       {% include arangoshexample.html id=examplevar script=script result=result %}
 
    Note that now the `TraversalNode` is executed on each DB-Server, leading to a
    great reduction in required network communication, and hence potential gains

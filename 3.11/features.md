@@ -85,7 +85,7 @@ you can additionally set up off-site replication for your entire cluster
 ([Datacenter-to-Datacenter Replication](arangosync.html)).
 
 If you do not want to operate your own ArangoDB instances on-premises, then
-you may use our fully managed multi-cloud service **ArangoDB Oasis**.
+you may use our fully managed multi-cloud **ArangoGraph Insights Platform**.
 It runs the Enterprise Edition of ArangoDB, lets you deploy clusters with a
 few clicks, and is operated by a dedicated team of ArangoDB engineers day and
 night. To learn more, go to [cloud.arangodb.com](https://cloud.arangodb.com/){:target="_blank"}.
