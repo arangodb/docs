@@ -5,8 +5,10 @@ import (
 	"log"
 	"os"
 
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/arangosh"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 )
 
 func InitLog(logFilepath string) {
@@ -19,14 +21,5 @@ func CleanCache() {
 	os.OpenFile(config.Conf.Cache.RequestsFile, os.O_TRUNC, 0644)
 	os.OpenFile(config.Conf.Cache.ResponsesFile, os.O_TRUNC, 0644)
 
-	removeAllCmd := `
-	for (let col of db._collections()) {
-
-		if (!col.properties().isSystem) {
-			db._drop(col._name);
-		}
-	}
-	`
-
-	JSService.InvokeArangoSH(removeAllCmd, config.Repository{})
+	arangosh.Exec(utils.REMOVE_ALL_COLLECTIONS, config.Repository{})
 }

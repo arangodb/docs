@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"regexp"
 	"strings"
+	"sync"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
 	"gopkg.in/yaml.v3"
@@ -98,6 +99,18 @@ type ExampleResponse struct {
 	Options ExampleOptions `json:"options"`
 }
 
+func NewExampleResponse(input, output string, options ExampleOptions) (res *ExampleResponse) {
+	res = new(ExampleResponse)
+	res.Input, res.Options = input, options
+	if strings.Contains(string(options.Render), "output") {
+		res.Output = output
+	}
+
+	FormatResponse(res)
+
+	return
+}
+
 func (r ExampleResponse) String() string {
 	j, err := json.Marshal(r)
 	if err != nil {
@@ -105,4 +118,9 @@ func (r ExampleResponse) String() string {
 	}
 
 	return string(j)
+}
+
+type IgnoreCollections struct {
+	Mutex    sync.Mutex
+	ToIgnore []string
 }
