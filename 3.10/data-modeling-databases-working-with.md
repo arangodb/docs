@@ -2,11 +2,8 @@
 layout: default
 description: The following methods are available to manage databases via JavaScript
 ---
-Working with Databases
-======================
 
-Database Methods
-----------------
+# Database Methods
 
 The following methods are available to manage databases via JavaScript.
 Please note that several of these methods can be used from the _system
