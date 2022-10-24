@@ -25,7 +25,7 @@ Client tools
 
 ### arangoexport
 
-The default output file type produced by arangoexport was changed from `json` to `jsonl`.
-This allows more efficient processing of the files produced by arangoexport with
-other tools, such as arangoimport.
-
+The default output file type produced by arangoexport, controlled by the `--type`
+startup option, has been changed from `json` to `jsonl`.
+This allows for more efficient processing of the files produced by arangoexport
+with other tools, such as arangoimport, by default.
