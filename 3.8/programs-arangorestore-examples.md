@@ -76,16 +76,26 @@ showing some aggregate statistics:
 By default, _arangorestore_ will re-create all non-system collections found in the input
 directory and load data into them. If the target database already contains collections
 which are also present in the input directory, the existing collections in the database
-will be dropped and re-created with the data found in the input directory.
+will be dropped and re-created with the properties and data found in the input directory.
 
 The following parameters are available to adjust this behavior:
 
 - `--create-collection <bool>`: set to *true* to create collections in the target
-  database. If the target database already contains a collection with the same name,
-  it will be dropped first and then re-created with the properties found in the input
-  directory. Set to *false* to keep existing collections in the target database. If
-  set to *false* and _arangorestore_ encounters a collection that is present in the
-  input directory but not in the target database, it will abort. The default value is *true*.
+  database if they don't yet exist. If the target database already contains a 
+  collection with the same name, then it will be dropped and recreated with the
+  same properties as in the dump if the *overwrite* option is also set. 
+  If the *overwrite* option is not set, an existing collection will be used as is,
+  and its properties will not be updated nor will its data be discarded before
+  restoring.
+  If `--create-collection` is set to *false*, then _arangorestore_ will not make any
+  attempts to create the collection or modify its properties. Data will be restored
+  into the existing collections without wiping the collection before.
+  If set to *false* and _arangorestore_ encounters a collection that is present in the
+  input directory but not in the target database, it will abort with "collection not
+  found" error. 
+  The default value for `--create-collection` is *true*.
+- `--overwrite <bool>`: controls whether existing collections will be dropped if
+  `--create-collection true` is used. The default value is *true*.
 - `--import-data <bool>`: set to *true* to load document data into the collections in
   the target database. Set to *false* to not load any document data. The default value 
   is *true*.
@@ -110,7 +120,7 @@ To (re-)create all non-system collections without loading document data, use:
 This will also drop existing collections in the target database that are also present in the
 input directory.
 
-To just load document data into all non-system collections, use:
+To just load document data into existing non-system collections, use:
 
     arangorestore --create-collection false --import-data true --input-directory "dump"
 

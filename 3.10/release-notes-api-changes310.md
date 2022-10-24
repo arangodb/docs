@@ -32,8 +32,6 @@ The following APIs can reply early with an HTTP 200 status:
   
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more details.
 
-### Privilege changes
-
 ### Endpoint return value changes
 
 Since ArangoDB 3.8, there have been two APIs for retrieving the metrics in two
@@ -470,12 +468,6 @@ Both endpoints return a new `detail` attribute with additional Pregel run detail
 
 For a detailed description of the attributes, see
 [Pregel HTTP API](http/pregel.html#get-pregel-job-execution-status).
-
-### Endpoints moved
-
-### Endpoints deprecated
-
-### Endpoints removed
 
 ## JavaScript API
 

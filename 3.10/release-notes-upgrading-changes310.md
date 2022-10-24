@@ -41,10 +41,6 @@ one in arangosh. Any Foxx app or script that ran in the server console which
 used `db._version(true)` must now be changed to use `db._version(true).details`
 instead.
 
-AQL
----
-
-
 Indexes
 -------
 
@@ -231,13 +227,13 @@ eventually be updated to use the new option name, however.
 
 ### ArangoDB Starter
 
-_ArangoDB Starter_ comes with the following usability improvements:
+The _ArangoDB Starter_ comes with the following usability improvements:
 - Headers are now added to generated command files, indicating the purpose of
-the file.
+  the file.
 - The process output is now shown when errors occur during process startup.
 - When passing through other database options, explicit hints are now displayed
-to indicate how to pass those options.
+  to indicate how to pass those options.
 - The Starter now returns exit code `1` if it encounters any errors while
-starting. Previously, the exit code was `0`. Note that this change can affect
-any custom scripts that check for startup errors or invalid command line options.
-These scripts can be adjusted so that they check for a non-zero exit code.  
+  starting. Previously, the exit code was `0`. Note that this change can affect
+  any custom scripts that check for startup errors or invalid command line options.
+  These scripts can be adjusted so that they check for a non-zero exit code.  

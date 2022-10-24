@@ -92,9 +92,24 @@ The *index-description* must contain at least a *type* attribute.
 Other attributes may be necessary, depending on the index type.
 
 **type** can be one of the following values:
-- *persistent*: persistent index
-- *fulltext*: fulltext index
-- *geo*: geo index, with _one_ or _two_ attributes
+- `"persistent"`: persistent (array) index, including vertex-centric index
+- `"ttl"`: time-to-live index
+- `"fulltext"`: fulltext index
+- `"geo"`: geo-spatial index, with _one_ or _two_ attributes
+- `"zkd"`: multi-dimensional index (experimental)
+
+**fields** is an array of attribute paths, containing the document attributes
+(or sub-attributes) to be indexed. Some indexes allow using only a single path,
+and others allow multiple. 
+If multiple attributes are used, their order matters.
+
+The `.` character denotes sub-attributes in attribute paths. Attributes with
+literal `.` in their name cannot be indexed. Attributes with the name `_id`
+cannot be indexed either, neither as a top-level attribute nor as a sub-attribute.
+
+If an attribute path contains an `[*]` extension (e.g. `friends[*].id`), it means
+that the index attribute value is treated as an array and all array members are
+indexed separately. This is possible with `persistent` and `inverted` indexes.
 
 **name** can be a string. Index names are subject to the same character
 restrictions as collection names. If omitted, a name will be auto-generated so
