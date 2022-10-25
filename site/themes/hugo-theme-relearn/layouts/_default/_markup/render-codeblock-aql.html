@@ -14,9 +14,6 @@
       {{ if in $response.options.render "input" }}
       {{ $version := replace $response.options.version "." "" }}
       <div class="codeblock">
-        <div class="code-header">
-          <p class="code-description">TEST HEADER</p>
-        </div>
         <div class="version {{ $version }}" style="display: none;">
           {{ transform.Highlight $response.input "js" }}
         </div>
@@ -39,9 +36,6 @@
     {{ end }}
   {{ else }}
   <div class="codeblock">
-  <div class="code-header">
-    TEST HEADER
-    </div>
   {{ transform.Highlight .Inner "aql" }}
   </div>
   {{ end }}

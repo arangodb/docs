@@ -141,8 +141,7 @@ def processFile(filepath):
 	if "fileID" in infos[filepath]:
 		page.frontMatter.fileID = infos[filepath]["fileID"]
 
-
-	buffer = re.sub(r"-{3}\n[\w\s:/#,()?’'\@&\[\]\*.>-]+\n-{3}", '', buffer)
+	buffer = re.sub(r"---(.*?)---", '', buffer, 0, re.MULTILINE | re.DOTALL)
 
 	#Internal content
 	_processChapters(page, buffer)
@@ -154,7 +153,7 @@ def processFile(filepath):
 	return
 
 def _processFrontMatter(page, buffer):
-	frontMatterRegex = re.search(frontMatterCapture, buffer, re.MULTILINE | re.DOTALL)
+	frontMatterRegex = re.search(r"---(.*?)---", buffer, re.MULTILINE | re.DOTALL)
 	if not frontMatterRegex:
 		return		# TODO
 
@@ -195,6 +194,8 @@ def _processChapters(page, paragraph):
 	paragraph = migrate_hints(paragraph)
 	paragraph = migrateHTTPDocuBlocks(paragraph)
 	paragraph = migrateInlineDocuBlocks(paragraph)
+	paragraph = paragraph.lstrip("\n")
+
 	page.content = paragraph
 	return
 
@@ -233,7 +234,7 @@ class FrontMatter():
 		self.weight = 0
 
 	def toString(self):
-		return f"---\nfileID: {self.fileID}\ntitle: {self.title}\nmenuTitle: {self.menuTitle}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
+		return f"---\nfileID: {self.fileID}\ntitle: {self.title}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
 
 def get_weight(weight):
 	global currentWeight
@@ -249,7 +250,6 @@ if __name__ == "__main__":
 		structure_migration_new('aql', None, "aql")
 		structure_migration_new('drivers', None, "drivers")
 		initBlocksFileLocations()
-		print(infos)
 		processFiles()
 		write_components_to_file()
 		migrate_media()

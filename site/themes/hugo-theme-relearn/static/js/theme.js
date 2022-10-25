@@ -217,16 +217,6 @@ function initSwagger( update ){
 }
 
 function initAnchorClipboard(){
-    document.querySelectorAll( 'h1~h2,h1~h3,h1~h4,h1~h5,h1~h6').forEach( function( element ){
-        var url = encodeURI(document.location.origin + document.location.pathname);
-        var link = url + "#"+element.id;
-        var new_element = document.createElement( 'span' );
-        new_element.classList.add( 'anchor' );
-        new_element.setAttribute( 'title', window.T_Copy_link_to_clipboard );
-        new_element.setAttribute( 'data-clipboard-text', link );
-        new_element.innerHTML = '<i class="fas fa-link fa-lg"></i>';
-        element.appendChild( new_element );
-    });
 
     $(".anchor").on('mouseleave', function(e) {
         $(this).attr('aria-label', null).removeClass('tooltipped tooltipped-s tooltipped-w');
@@ -344,7 +334,7 @@ function initMenuScrollbar(){
         return;
     }
 
-    var elc = document.querySelector('#body-inner');
+    var elc = document.querySelector('#page-main');
     var elm = document.querySelector('#content-wrapper');
     var elt = document.querySelector('#TableOfContents');
 

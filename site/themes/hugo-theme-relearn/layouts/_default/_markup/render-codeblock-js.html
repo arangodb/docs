@@ -14,18 +14,10 @@
     {{ $response := unmarshal $remote.Content }}
         {{ if in $response.options.render "input" }}
         {{ $version := replace $response.options.version "." "" }}
-          <div class="version {{ $version }}" style="display: none;">
-            <div class="codeblock">
-              <div class="code-header">
-                <p class="code-description">{{ $response.options.description }}</p>
-                </div>
             {{ transform.Highlight $response.input "js" }}
-            </div>
-          </div>
         {{ end }}
         {{ if in $response.options.render "output" }}
         {{ $version := replace $response.options.version "." "" }}
-          <div class="version {{ $version }}" style="display: none;">
             {{ $x := transform.Highlight $response.output "" }}
           {{- partial "shortcodes/expand.html" (dict
             "context" .
@@ -33,16 +25,10 @@
             "open"    "open"
             "title"   "show output"
           ) }}
-          </div>
       {{ end }}
         {{ end }}
   {{ else }}
-  <div class="codeblock">
-    <div class="code-header">
-      TEST HEADER
-    </div>
     {{ transform.Highlight .Inner "js" }}
-  </div>
   {{ end }}
   {{ end }}
 

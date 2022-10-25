@@ -68,10 +68,13 @@ func HTTPExampleHandler(w http.ResponseWriter, r *http.Request) {
 
 	//common.Logger.Printf("[http-example/CONTROLLER] Processing Example %s\n", request.Options.Name)
 
-	resp := HTTPService.ExecuteHTTPExample(request)
+	resp, err := HTTPService.ExecuteHTTPExample(request)
+	if err != nil {
+		common.Logger.Printf("[HTTP] Error caused by request\n%s", request.Code)
+	}
 	response, err := json.Marshal(resp)
 	if err != nil {
-		fmt.Printf("[http-example/CONTROLLER] Error marshalling response: %s\n", err.Error())
+		common.Logger.Printf("[http-example/CONTROLLER] Error marshalling response: %s\n", err.Error())
 		return
 	}
 	w.Write(response)
@@ -107,8 +110,6 @@ func ApiDocsHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(x)
 		return
 	}
-
-	fmt.Printf("ECCOLO %s\n\n", request)
 
 	SpecListenerChannel <- request
 	w.WriteHeader(200)

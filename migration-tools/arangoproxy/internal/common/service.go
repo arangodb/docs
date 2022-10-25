@@ -2,11 +2,12 @@ package common
 
 import (
 	"bytes"
-	"fmt"
 	"os/exec"
+	"regexp"
 	"strings"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 	"github.com/dlclark/regexp2"
 )
 
@@ -14,36 +15,16 @@ const ()
 
 type Service struct{}
 
-// Get an example, check if is cached, if not execute the code against the arango instance chose in the request.Options
-func (service Service) ExecuteExample(request Example) (res ExampleResponse) {
-
-	// Check example is cached
-	if cached, err := service.IsCached(request); cached {
-		if res, err = service.GetCachedExampleResponse(request); err == nil {
-			//Logger.Print("Returning cached ExampleResponse")
-			return
-		}
+func Recover(functionName string) {
+	if r := recover(); r != nil {
+		Logger.Printf("[PANIC] Recovered panic in func %s:\nPanic Cause: %s\n\n", functionName, r)
 	}
-
-	// If xpError on, don't use try catch wrap
-	//request.Code = utils.TryCatchWrap()
-
-	// Example is not cached, execute it against the arango instance
-	repository, _ := GetRepository(request.Options.Release, request.Options.Version)
-	cmdOutput := service.InvokeArangoSH(request.Code, repository)
-	if strings.Contains(string(request.Options.Render), "output") {
-		res.Output = fmt.Sprintf("%s\n%s", res.Output, cmdOutput)
-	}
-
-	res.Input, res.Options = request.Code, request.Options
-	FormatResponse(&res)
-
-	service.SaveCachedExampleResponse(res)
-	return
 }
 
-func (service Service) InvokeArangoSH(command string, repository config.Repository) (output string) {
-	command = strings.ReplaceAll(command, "~", "")
+func (service Service) CleanUpTestCollections(code string, collectionsToIgnore *IgnoreCollections, repository config.Repository) {
+	service.AddIgnoreCollections(code, collectionsToIgnore)
+	service.RemoveIgnoreCollection(code, collectionsToIgnore)
+	command := utils.RemoveAllTestCollections(collectionsToIgnore.ToIgnore)
 	cmdName := "arangosh"
 	cmdArgs := []string{"--configuration", "none",
 		"--server.endpoint", repository.Url,
@@ -58,16 +39,43 @@ func (service Service) InvokeArangoSH(command string, repository config.Reposito
 	cmd.Stderr = &er
 
 	cmd.Run()
+}
 
-	// Cut what is not the command output itself from the arangosh command invoke
-	outputRegex := regexp2.MustCompile("(?<=Type 'tutorial' for a tutorial or 'help' to see common examples\n)[\\w\\s\n\\W]*(?=\n\n\n)", 0)
-	cmdOutput, _ := outputRegex.FindStringMatch(out.String())
-	if cmdOutput == nil {
-		Logger.Print("[InvokeArangoSH] [WARNING] Output is empty!")
-		return ""
+func (service Service) AddIgnoreCollections(code string, collectionsToIgnore *IgnoreCollections) {
+	addIgnoreRe := regexp.MustCompile(".*addIgnoreCollection.*")
+	collections := addIgnoreRe.FindAllString(code, -1)
+
+	for _, collection := range collections {
+		collectionNameRe := regexp2.MustCompile("(?<=addIgnoreCollection\\(\").*(?=\"\\))", 0)
+		collectionName, _ := collectionNameRe.FindStringMatch(collection)
+		if collectionName == nil {
+			continue
+		}
+
+		collectionsToIgnore.Mutex.Lock()
+		collectionsToIgnore.ToIgnore = append(collectionsToIgnore.ToIgnore, collectionName.String())
+		collectionsToIgnore.Mutex.Unlock()
 	}
+}
 
-	//return strings.ReplaceAll(cmdOutput.String(), "\n\n", "")
-	fmt.Printf("Invoke ARANGO Output %s\n\n")
-	return cmdOutput.String()
+func (service Service) RemoveIgnoreCollection(code string, collectionsToIgnore *IgnoreCollections) {
+	addIgnoreRe := regexp.MustCompile(".*removeIgnoreCollection.*")
+	collections := addIgnoreRe.FindAllString(code, -1)
+
+	for _, collection := range collections {
+		collectionNameRe := regexp2.MustCompile("(?<=removeIgnoreCollection\\(\").*(?=\"\\))", 0)
+		collectionName, _ := collectionNameRe.FindStringMatch(collection)
+		if collectionName == nil {
+			continue
+		}
+
+		collectionsToIgnore.Mutex.Lock()
+		for _, coll := range collectionsToIgnore.ToIgnore {
+			if coll == collectionName.String() {
+
+			}
+		}
+		collectionsToIgnore.ToIgnore = append(collectionsToIgnore.ToIgnore, collectionName.String())
+		collectionsToIgnore.Mutex.Unlock()
+	}
 }

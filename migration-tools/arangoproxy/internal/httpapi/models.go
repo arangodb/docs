@@ -10,6 +10,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+var collectionsToIgnore = new(common.IgnoreCollections)
+
 type HTTPSpecRequest struct {
 	Filename string                 // The markdown file that triggered the http-spec call
 	ApiSpec  map[string]interface{} `json:"spec"` // The swagger specification

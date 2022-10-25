@@ -7,6 +7,8 @@ import (
 	"errors"
 	"io/ioutil"
 	"strings"
+
+	"github.com/dlclark/regexp2"
 )
 
 func EncodeToBase64(v interface{}) (string, error) {
@@ -37,4 +39,14 @@ func ReadFileAsMap(file string) (map[string]interface{}, error) {
 	}
 
 	return fileMap, nil
+}
+
+func Regexp2FindAllString(re *regexp2.Regexp, s string) []string {
+	var matches []string
+	m, _ := re.FindStringMatch(s)
+	for m != nil {
+		matches = append(matches, m.String())
+		m, _ = re.FindNextMatch(m)
+	}
+	return matches
 }
