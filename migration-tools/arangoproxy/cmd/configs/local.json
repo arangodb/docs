@@ -1,6 +1,7 @@
 {
     "webserver": ":8080",
     "logFile": "log.txt",
+    "datasetsFile": "../internal/aql/datasets.json",
     "openapi": {
         "apiDocsFile": "./openapi/api-docs.json",
         "componentsFile": "./openapi/components.yaml"
@@ -14,7 +15,7 @@
             "type": "stable",
             "version": "3.10",
             "url": "http+tcp://127.0.0.1:8529",
-            "password": "AlterBridge95!"
+            "password": ""
         }
     ]
 }
