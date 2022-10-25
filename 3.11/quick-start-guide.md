@@ -1,7 +1,7 @@
 ---
 layout: default
 redirect_from:
-  - getting-started.html # 3.9 -> 3.10
+  - getting-started.html # 3.9 -> 3.11
 ---
 # Getting Started
 
