@@ -2,7 +2,7 @@
 {{- $content := .content }}
 {{- with $page }}
     <article class="default">
-      <h1 class="page-title">{{ .Title }}</h1>
+      <h1 class="page-title">{{ .Title | markdownify }}</h1>
       <p class="lead">
         {{ .Description }}
       </p>
