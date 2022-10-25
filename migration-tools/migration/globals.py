@@ -12,8 +12,12 @@ if args.src is None or args.dst is None:
 	print("Args are required")
 	exit(1)
 
-OLD_TOOLCHAIN = args.src
-NEW_TOOLCHAIN = f"{args.dst}/site"
+# Handle Windows and trailing path separators
+src = args.src.replace("\\", "/").rstrip("/")
+dst = args.dst.replace("\\", "/").rstrip("/")
+
+OLD_TOOLCHAIN = src
+NEW_TOOLCHAIN = f"{dst}/site"
 
 infos = {"": {}}
 currentWeight = 0
