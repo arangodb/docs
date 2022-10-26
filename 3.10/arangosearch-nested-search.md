@@ -14,7 +14,8 @@ title: Nested Search ArangoSearch Examples
 {% include hint-ee.md feature="Nested search" %}
 
 By default, `arangosearch` Views index arrays as if the parent attribute had
-multiple values at once. With `trackListPositions` set to `true`, every array
+multiple values at once. This is also supported for `search-alias` Views by enabling
+the `searchField` option. With `trackListPositions` set to `true`, every array
 element is indexed individually and can be queried separately using the
 respective array index. With the nested search feature, you get another
 option for indexing arrays, in particular nested objects in arrays.
@@ -174,8 +175,9 @@ including the specified boundaries. To require two or more sub-objects to
 fulfill the conditions, you can use `AT LEAST (2)`, and so on.
 
 {% hint 'info' %}
-- The `ALL` quantifier of the question mark operator is not supported in
-  `SEARCH` queries against `arangosearch` Views.
+- To use the question mark operator with the `ALL` quantifier in `SEARCH`
+  queries against `arangosearch` Views, you need at least ArangoDB v3.10.1 and
+  set the `storeValues` property of the View to `"id"`.
 - The expression of the `AT LEAST` quantifier needs to evaluate to a number
   before the search is performed. It can therefore not reference the document
   emitted by `FOR doc IN viewName`, nor the `CURRENT` pseudo-variable.
