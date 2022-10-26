@@ -1,5 +1,6 @@
 import re
 import globals
+import yaml
 
 #TODO: Using yaml lib, is it possible to convert dicts into yaml without formatting those horrible strings by hand?
 
@@ -12,9 +13,8 @@ def migrateInlineDocuBlocks(paragraph):
         globals.inlineDocuBlocksCount += len(docublocks)
         for block in docublocks:
             originalBlock = block
-            newBlock = {
+            newBlock = {"language": "js",
                         "options": {
-                            "language": "js",
                             "name": "",
                             "description": "",
                             "render": "input",
@@ -31,7 +31,7 @@ def migrateInlineDocuBlocks(paragraph):
                 newBlock["options"]["render"] = "input/output"
 
             elif "@EXAMPLE_AQL" in exampleType:
-                newBlock["options"]["language"] = "aql"
+                newBlock["language"] = "aql"
                 newBlock["options"]["render"] = "input/output"
 
             newBlock["options"]["release"] = "stable"
@@ -67,20 +67,14 @@ def migrateInlineDocuBlocks(paragraph):
     return paragraph
 
 def render_codeblock(block):
+    exampleOptions = yaml.dump(block["options"], sort_keys=False, default_flow_style=False)
     res = f'\n\
 {{{{< version "3.10" >}}}}\n\
 {{{{< tabs >}}}}\n\
-{{{{% tab name="{block["options"]["language"]}" %}}}}\n\
-```{block["options"]["language"]}\n\
+{{{{% tab name="{block["language"]}" %}}}}\n\
+```{block["language"]}\n\
 ---\n\
-name: {block["options"]["name"]}\n\
-description: {block["options"]["description"]}\n\
-version: {block["options"]["version"]}\n\
-render: {block["options"]["render"]}\n\
-release: {block["options"]["release"]}\n\
-bindVars: {block["options"]["bindVars"] if "bindVars" in block["options"] else ""}\n\
-dataset: {block["options"]["dataset"] if "dataset" in block["options"] else ""}\n\
-explain: {block["options"]["explain"] if "explain" in block["options"] else ""}\n\
+{exampleOptions}\n\
 ---\n\
 {block["code"]}\n\
 ```\n\
