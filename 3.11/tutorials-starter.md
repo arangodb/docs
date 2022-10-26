@@ -204,9 +204,9 @@ Note: When you restart the starter, it remembers the original `--starter.local` 
 
 ## Starting a cluster with datacenter to datacenter synchronization
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
-Datacenter to datacenter replication (DC2DC) requires a normal ArangoDB cluster in both data centers
+Datacenter-to-Datacenter Replication (DC2DC) requires a normal ArangoDB cluster in both data centers
 and one or more (`arangosync`) syncmasters & syncworkers in both data centers.
 The starter enables you to run these syncmasters & syncworkers in combination with your normal
 cluster.

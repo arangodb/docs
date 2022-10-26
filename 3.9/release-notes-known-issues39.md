@@ -47,7 +47,7 @@ Hot Backup
 | Issue      |
 |------------|
 | **Date Added:** 2019-10-09 <br> **Component:** Hot Backup API / arangobackup <br> **Deployment Mode:** All <br> **Description:** The Hot Backup feature is not supported in the Windows version of ArangoDB at this point in time. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x, 3.8.x, 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
-| **Date Added:** 2019-10-09 <br> **Component:** Hot Backup API / arangobackup <br> **Deployment Mode:** DC2DC <br> **Description:** Hot Backup functionality in Datacenter to Datacenter Replication setups is experimental and may not work. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x, 3.8.x, 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-10-09 <br> **Component:** Hot Backup API / arangobackup <br> **Deployment Mode:** DC2DC <br> **Description:** Hot Backup functionality in Datacenter-to-Datacenter Replication setups is experimental and may not work. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x, 3.8.x, 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2019-10-09 <br> **Component:** arangobackup <br> **Deployment Mode:** All <br> **Description:** The startup option `--operation` works as positional argument only, e.g. `arangobackup list`. The alternative syntax `arangobackup --operation list` is not accepted. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x, 3.8.x, 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 
 Schema Validation

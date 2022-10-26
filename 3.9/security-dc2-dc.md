@@ -1,17 +1,17 @@
 ---
 layout: default
-description: Securing datacenter to datacenter replication
+description: Securing Datacenter-to-Datacenter Replication
 title: DC2DC Security
 ---
 # Datacenter to datacenter Security
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
-This section includes information related to the _datacenter to datacenter replication_
+This section includes information related to the _Datacenter-to-Datacenter Replication_
 security.
 
-For a general introduction to the _datacenter to datacenter replication_, please
-refer to the [Datacenter to datacenter replication](architecture-deployment-modes-dc2-dc.html)
+For a general introduction to the _Datacenter-to-Datacenter Replication_, please
+refer to the [Datacenter-to-Datacenter Replication](architecture-deployment-modes-dc2-dc.html)
 chapter.
 
 ## Firewall settings

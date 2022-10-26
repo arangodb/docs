@@ -1,16 +1,16 @@
 ---
 layout: default
-description: How to administrate datacenter to datacenter replication
+description: How to administrate Datacenter-to-Datacenter Replication
 title: Administrating DC2DC Replication
 redirect_from:
   - administration-dc2-dc.html # 3.9 -> 3.10
 ---
 # Datacenter-to-Datacenter Replication Administration
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 This section includes information related to the synchronization process
-of the _datacenter to datacenter replication_.
+of the _Datacenter-to-Datacenter Replication_.
 
 ## Starting synchronization
 
