@@ -53,13 +53,12 @@ Collection Methods
 
 ### Listing all indexes of a collection
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+Returns information about the indexes:
 
-returns information about the indexes
 `getIndexes()`
 
 Returns an array of all indexes defined for the collection.
-Since ArangoDB 3.4, `indexes()` is an alias for `getIndexes()`.
+The `indexes()` method is an alias for `getIndexes()`.
 
 Note that `_key` implicitly has an index assigned to it.
 
@@ -80,9 +79,8 @@ Note that `_key` implicitly has an index assigned to it.
 
 ### Creating an index
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+Ensures that an index exists:
 
-ensures that an index exists
 `collection.ensureIndex(index-description)`
 
 Ensures that an index according to the *index-description* exists. A
@@ -163,9 +161,8 @@ being mere aliases for *persistent* nowadays).
 
 ### Dropping an index via a collection handle
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+Drops an index:
 
-drops an index
 `collection.dropIndex(index)`
 
 Drops the index. If the index does not exist, then *false* is
@@ -195,9 +192,8 @@ Same as above. Instead of an index an index handle can be given.
 
 ### Load Indexes into Memory
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
-
 Loads all indexes of this collection into Memory.
+
 `collection.loadIndexesIntoMemory()`
 
 This function tries to cache all index entries
@@ -232,9 +228,8 @@ Database Methods
 
 ### Fetching an index by handle
 
-<!-- js/server/modules/@arangodb/arango-database.js -->
+Finds an index:
 
-finds an index
 `db._index(index-handle)`
 
 Returns the index with *index-handle* or null if no such index exists.
@@ -256,9 +251,8 @@ Returns the index with *index-handle* or null if no such index exists.
 
 ### Dropping an index via a database handle
 
-<!-- js/server/modules/@arangodb/arango-database.js -->
+Drops an index:
 
-drops an index
 `db._dropIndex(index)`
 
 Drops the *index*.  If the index does not exist, then *false* is
@@ -286,10 +280,6 @@ Drops the index with *index-handle*.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Revalidating whether an index is used
-
-<!-- js/server/modules/@arangodb/arango-database.js -->
-
-finds an index
 
 So you've created an index, and since its maintenance isn't for free,
 you definitely want to know whether your query can utilize it.

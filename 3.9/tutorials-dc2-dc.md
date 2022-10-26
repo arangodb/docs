@@ -73,8 +73,7 @@ ArangoSync is not a good solution when one of the following applies:
 
 To use ArangoSync you need the following:
 
-- Two datacenters, each running an ArangoDB Enterprise Edition cluster,
-  version 3.3 or higher, using the RocksDB storage engine.
+- Two datacenters, each running an ArangoDB Enterprise Edition cluster.
 - A network connection between both datacenters with accessible endpoints
   for several components (see individual components for details).
 - TLS certificates for ArangoSync master instances (can be self-signed).

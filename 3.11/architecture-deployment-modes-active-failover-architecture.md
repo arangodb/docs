@@ -58,7 +58,7 @@ A multi-datacenter solution currently supported is the Datacenter to Datacenter 
 {% endhint %}
 
 Operative Behavior
--------------------
+------------------
 
 In contrast to the normal behavior of a single-server instance, the Active-Failover
 mode will change the behavior of ArangoDB in some situations.

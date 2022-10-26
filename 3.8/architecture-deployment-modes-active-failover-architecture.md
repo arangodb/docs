@@ -59,14 +59,14 @@ A multi-datacenter solution currently supported is the Datacenter to Datacenter 
 {% endhint %}
 
 Operative Behavior
--------------------
+------------------
 
 In contrast to the normal behavior of a single-server instance, the Active-Failover
 mode will change the behavior of ArangoDB in some situations.
 
-The _Follower_ will _always_ deny write requests from client applications. Starting from ArangoDB 3.4
-read requests are _only_ permitted if the requests is marked with the `X-Arango-Allow-Dirty-Read: true` header,
-otherwise they are denied too.
+The _Follower_ will _always_ deny write requests from client applications.
+Read requests are _only_ permitted if the requests is marked with the
+`X-Arango-Allow-Dirty-Read: true` header, otherwise they are denied, too.
 Only the replication itself is allowed to access the follower's data until the
 follower becomes a new _Leader_ (should a _failover_ happen).
 
