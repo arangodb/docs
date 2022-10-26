@@ -30,7 +30,7 @@ Creating backups of your data before an ArangoDB upgrade is also a best practice
 
 {% hint 'warning' %}
 Making use of a high availability deployment mode of ArangoDB, like Active Failover,
-Cluster or data-center to data-center replication, does not remove the need of
+Cluster or Datacenter-to-Datacenter Replication, does not remove the need of
 taking frequent backups, which are recommended also when using such deployment modes.
 {% endhint %}
 
@@ -330,7 +330,7 @@ not be suited for.
 
   Hot backups are not automatically replicated between instances. This is
   true for both the Active Failover setup with 2 (or more) single servers
-  and for the Datacenter to Datacenter Replication between clusters.
+  and for the Datacenter-to-Datacenter Replication between clusters.
   Simply take hot backups on all instances.
 
   {% hint 'info' %}
