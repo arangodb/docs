@@ -8,16 +8,14 @@
 {{ $file := resources.GetMatch ( index $styles 0 ) }}
 {{ with index $styles 1}}
     {{ $styles2 := split . "&" }}
-    {{ range $styles2 }}
-        {{ replace . "=" ": " }}
-        {{ $style = printf "%s\n%s;" $style . }}
+    {{ range  $styles2 }}
+        {{ $singleStyle := . }}
+        {{ $style = printf "%s %s;" $style $singleStyle }}
     {{ end }}
 {{ end }}
     <a href="{{ $file.RelPermalink }}">
-    
         <img 
        alt="{{ $alt }}"  src="{{ $file.RelPermalink }}" {{ if $style }}class="x-style" x-style="{{ $style }}"{{ end }}>
-    
     </a>
 {{ end }}
 
