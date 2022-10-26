@@ -14,9 +14,14 @@ if args.src is None or args.dst is None:
 	print("Args are required")
 	exit(1)
 
-OLD_TOOLCHAIN = args.src
-NEW_TOOLCHAIN = f"{args.dst}/site"
-ARANGO_MAIN = args.arango_main
+# Handle Windows and trailing path separators
+src = args.src.replace("\\", "/").rstrip("/")
+dst = args.dst.replace("\\", "/").rstrip("/")
+main = args.arango_main.replace("\\", "/").rstrip("/")
+
+OLD_TOOLCHAIN = src
+NEW_TOOLCHAIN = f"{dst}/site"
+ARANGO_MAIN = main
 
 infos = {"": {}}
 currentWeight = 0

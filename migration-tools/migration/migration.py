@@ -14,7 +14,7 @@ from globals import *
 
 def structure_migration_new(label, document, manual):
 	if document is None:
-		directoryTree = open(f"{OLD_TOOLCHAIN}/_data/3.10-{manual}.yml")
+		directoryTree = open(f"{OLD_TOOLCHAIN}/_data/3.10-{manual}.yml", encoding="utf-8")
 		document = yaml.full_load(directoryTree)
 
 		if manual != "manual":
@@ -26,6 +26,10 @@ def structure_migration_new(label, document, manual):
 		extendedSection = manual +"/"
 
 	for item in document:
+		# Ignore external links
+		if "href" in item and (item["href"].startswith("http://") or item["href"].startswith("https://")):
+			continue
+
 		if "subtitle" in item:
 			continue
 
@@ -59,7 +63,7 @@ def create_chapter(item, manual):
 	labelPage.frontMatter.fileID = "fileID"
 	infos[filepath] = {"title": item["subtitle"], "weight": get_weight(currentWeight)}
 	
-	file = open(filepath, "w")
+	file = open(filepath, "w", encoding="utf-8")
 	file.write(labelPage.toString())
 	file.close()
 	return label
@@ -107,13 +111,13 @@ def processFiles():
 	#print(menu)
 	for root, dirs, files in os.walk(f"{NEW_TOOLCHAIN}/content", topdown=True):
 		for file in files:
-			processFile(f"{root}/{file}")
+			processFile(f"{root}/{file}".replace("\\", "/"))
 	print("------ CONTENT MIGRATION END")
 
 def processFile(filepath):
 	#print(f"Migrating {filepath} content")
 	try:
-		file = open(filepath, "r")
+		file = open(filepath, "r", encoding="utf-8")
 		buffer = file.read()
 		file.close()
 	except Exception as ex:
@@ -142,7 +146,7 @@ def processFile(filepath):
 	#Internal content
 	_processChapters(page, buffer)
 
-	file = open(filepath, "w")
+	file = open(filepath, "w", encoding="utf-8")
 	file.write(page.toString())
 	file.close()
 
@@ -198,12 +202,13 @@ def _processChapters(page, paragraph):
 
 def migrate_media():
 	print("----- MIGRATING MEDIA")
+	Path(f"{NEW_TOOLCHAIN}/assets/images/").mkdir(parents=True, exist_ok=True)
 	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
 			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
 
-	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/oasis/images", topdown=True):
+	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/arangograph/images", topdown=True):
 		for file in files:
 			print(f"migrating {file}")
 			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
@@ -241,7 +246,7 @@ if __name__ == "__main__":
 	try:
 		structure_migration_new('', None, "manual")
 		structure_migration_new('http', None, "http")
-		structure_migration_new('oasis', None, "oasis")
+		structure_migration_new('arangograph', None, "arangograph")
 		structure_migration_new('aql', None, "aql")
 		structure_migration_new('drivers', None, "drivers")
 		initBlocksFileLocations()
