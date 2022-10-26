@@ -42,10 +42,7 @@ def migrate_hints(paragraph):
         paragraph = paragraph.replace(f"{{% enddetails %}}", "{{{{% /expand %}}}}")
 
     # Comments
-    paragraph = paragraph.replace("{% comment %}", "{{/*")
-    paragraph = paragraph.replace("{% endcomment %}", "*/}}")
-
-    paragraph = paragraph.replace("{%- comment %}", "{{/*")
+    paragraph = paragraph.replace("{% comment %}", "{{% comment %}}").replace("{% endcomment %}", "{{% /comment %}}").replace("{%- comment %}", "{{% comment %}}").replace("{%- endcomment %}", "{{% /comment %}}")
 
     return paragraph
 

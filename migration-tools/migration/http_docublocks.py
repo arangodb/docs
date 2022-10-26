@@ -46,7 +46,6 @@ def initBlocksFileLocations():
             blockName = re.findall(r"(?<=@startDocuBlock ).*", docuBlock)[0]
 
             globals.blocksFileLocations[blockName] = fileLocation
-
     return
 
 def migrateHTTPDocuBlocks(paragraph):
@@ -57,8 +56,13 @@ def migrateHTTPDocuBlocks(paragraph):
             continue
 
         docuBlockFile =globals.blocksFileLocations[docuBlock]
+        print(docuBlockFile)
         tag = docuBlockFile.split("/")[len(docuBlockFile.split("/"))-2]
-        docuBlockFile = open(docuBlockFile, "r", encoding="utf-8").read()
+        try:
+            docuBlockFile = open(docuBlockFile, "r", encoding="utf-8").read()
+        except FileNotFoundError:
+            continue
+        
         declaredDocuBlocks = re.findall(r"(?<=@startDocuBlock )(.*?)@endDocuBlock", docuBlockFile, re.MULTILINE | re.DOTALL)
 
         for block in declaredDocuBlocks:

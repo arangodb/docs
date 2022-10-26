@@ -128,7 +128,6 @@ def processFile(filepath):
 
 	#Front Matter
 	if filepath in infos:
-		page.frontMatter.menuTitle = infos[filepath]["title"]
 		page.frontMatter.weight = infos[filepath]["weight"] if "weight" in infos[filepath] else 0
 		if "appendix" in filepath or "release-notes" in filepath:
 			page.frontMatter.weight = page.frontMatter.weight + 10000
@@ -168,6 +167,7 @@ def _processFrontMatter(page, buffer):
 		page.frontMatter.title = paragraphTitleRegex.group(0).replace('#', '').replace(':', '')
 		page.frontMatter.title = re.sub(r"{{ .* }}", '', page.frontMatter.title)
 	
+	page.frontMatter.title = page.frontMatter.title.replace("`", "")
 	set_page_description(page, buffer, frontMatter)
 
 	return page
