@@ -984,11 +984,8 @@ $( document ).ready(function() {
 });
 
 function copyURI(evt) {
-    console.log("COpy URL");
     evt.preventDefault();
     navigator.clipboard.writeText(evt.target.closest("a").getAttribute('href')).then(() => {
-     console.log(navigator.clipboard);
-     console.log(evt.target.closest("a"));
     }, () => {
       console.log("clipboard copy failed")
     });

@@ -78,7 +78,7 @@ def migrate_hrefs(paragraph, infos):
                     label = label.replace('"', '')
 
                 attr = re.search(r"(?<=\]\().*(?=\))", href).group(0).strip('"').strip('()').replace('.html', '')
-                imgWidget = '{{{{< img src="{}" alt="{}" size="medium" >}}}}'.format(attr, label)
+                imgWidget = '{{{{< img src="{}" alt="{}" >}}}}'.format(attr, label)
                 paragraph = paragraph.replace(href, imgWidget)
 
             continue

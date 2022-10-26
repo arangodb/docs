@@ -2,7 +2,7 @@
   {{- with ($.Scratch.Get "relearnPrevPage") }}
           
           <a class="nav nav-prev" href="{{.RelPermalink}}" title="{{.Title}} (&#129104;)">
-            <i class="fas fa-chevron-left fa-fw"></i><p>{{.Title}}</p></a>
+            <i class="fas fa-chevron-left fa-fw"></i><p>{{.Title | markdownify}}</p></a>
           {{- end}}
   
 </span>
@@ -10,6 +10,6 @@
 <span class="next">
   {{- with ($.Scratch.Get "relearnNextPage") }}
             <a class="nav nav-next" href="{{.RelPermalink}}" title="{{.Title}} (&#129106;)">
-              <p>{{.Title}}</p><i class="fas fa-chevron-right fa-fw"></i></a>
+              <p>{{.Title | markdownify}}</p><i class="fas fa-chevron-right fa-fw"></i></a>
           {{- end }}
 </span>
