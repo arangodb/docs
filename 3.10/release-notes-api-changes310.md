@@ -75,6 +75,61 @@ move shard operations and improve balance in the cluster.
 For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
 section of the HTTP API reference manual. 
 
+#### Maintenance mode for DB-Servers
+
+For rolling upgrades or rolling restarts, DB-Servers can now be put into
+maintenance mode, so that no attempts are made to re-distribute the data in a
+cluster for such planned events. DB-Servers in maintenance mode are not
+considered viable failover targets because they are likely restarted soon.
+
+To query the maintenance status of a DB-Server, use this new endpoint:
+
+`GET /_admin/cluster/maintenance/<DB-Server-ID>`
+
+An example reply of a DB-Server that is in maintenance mode:
+
+```json
+{
+  "error": false,
+  "code": 200,
+  "result": {
+    "Mode": "maintenance",
+    "Until": "2022-10-26T06:14:23Z"
+  }
+}
+```
+
+If the DB-Server is not in maintenance mode, then the `result` attribute is
+omitted:
+
+```json
+{
+  "error": false,
+  "code": 200,
+}
+```
+
+To put a DB-Server into maintenance mode, use this new endpoint:
+
+`PUT /_admin/cluster/maintenance/<DB-Server-ID>`
+
+The payload of the request needs to be as follows, with the `timeout` in seconds:
+
+```json
+{
+  "mode": "maintenance",
+  "timeout": 360
+}
+```
+
+To turn the maintenance mode off, set `mode` to `"normal"` instead, and omit the
+`timeout` attribute or set it to `0`.
+
+You can send another request when the DB-Server is already in maintenance mode
+to extend the timeout.
+
+The maintenance mode ends automatically after the defined timeout.
+
 ### Endpoints augmented
 
 #### Inverted Indexes
