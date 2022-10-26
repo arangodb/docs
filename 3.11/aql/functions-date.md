@@ -1159,7 +1159,7 @@ Returns all valid timezone names.
 - returns **timezones** (array): an array of
   [IANA timezone names](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"}
 
-Working with dates and indices
+Working with dates and indexes
 ------------------------------
 
 There are two recommended ways to store timestamps in ArangoDB:
@@ -1169,10 +1169,10 @@ There are two recommended ways to store timestamps in ArangoDB:
 The sort order of both is identical due to the sort properties of ISO date strings.
 You can't mix both types, numbers and strings, in a single attribute however.
 
-You can use [persistent indices](../indexing-persistent.html) with both date types.
+You can use [persistent indexes](../indexing-persistent.html) with both date types.
 When choosing string representations, you can work with string comparisons (less than,
 greater than etc.) to express time ranges in your queries while still utilizing
-persistent indices:
+persistent indexes:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline working_with_date_time

@@ -322,7 +322,7 @@ Version 3.1
 
 **All Editions**
 
-- [**Vertex-centric indices**](indexing-vertex-centric.html):
+- [**Vertex-centric indexes**](indexing-vertex-centric.html):
   AQL traversal queries can utilize secondary edge collection
   indexes for better performance against graphs with supernodes.
 

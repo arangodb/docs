@@ -147,7 +147,7 @@ lookup. Also see [`indexHint` Option of the `FOR` Operation](operations-for.html
 
 ### `forceIndexHint`
 
-Makes the index or indices specified in `indexHint` mandatory if enabled. The
+Makes the index or indexes specified in `indexHint` mandatory if enabled. The
 default is `false`. Also see
 [`forceIndexHint` Option of the `FOR` Operation](operations-for.html#forceindexhint).
 
