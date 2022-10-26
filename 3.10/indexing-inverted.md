@@ -259,8 +259,11 @@ inverted index to update. This option is intended to be used **in unit tests onl
 
 ```aql
 FOR doc IN coll { indexHint: "inv-idx", forceIndexHint: true, waitForSync: true }
-  FILTER ...
+  FILTER doc.value != null ... // an arbitrary expression that the index can cover
 ```
+
+This is not necessary if you use a single server deployment and populate a
+collection with documents before creating an inverted index.
 
 Also see [Dealing with eventual consistency](arangosearch.html#dealing-with-eventual-consistency).
 
