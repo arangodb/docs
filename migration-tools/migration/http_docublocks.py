@@ -35,13 +35,14 @@ yaml.representer.SafeRepresenter.add_representer(str, str_presenter) # to use wi
 
 
 def initBlocksFileLocations():
-    with open(globals.APIDOCS_FILE, 'r', encoding="utf-8") as apiDocs:
+    with open(globals.ALL_COMMENTS_FILE, 'r', encoding="utf-8") as apiDocs:
         data = apiDocs.read()
 
         docuBlocks = re.findall(r"<!-- filename: .* -->\n@startDocuBlock .*", data)
         for docuBlock in docuBlocks:
             fileLocation = re.findall(r"(?<=<!-- filename: ).*(?= -->)", docuBlock)[0]
-            fileLocation = fileLocation.replace("/work/ArangoDB/", "C:/ArangoDB/arangodb/") # HACK
+            fileLocation = re.sub(r".*(?=\/Documentation)", globals.ARANGO_MAIN, fileLocation, 1, re.MULTILINE)
+
             blockName = re.findall(r"(?<=@startDocuBlock ).*", docuBlock)[0]
 
             globals.blocksFileLocations[blockName] = fileLocation
@@ -55,7 +56,7 @@ def migrateHTTPDocuBlocks(paragraph):
         if 'errorCodes' in docuBlock: ## TODO: Implement
             continue
 
-        docuBlockFile =globals. blocksFileLocations[docuBlock]
+        docuBlockFile =globals.blocksFileLocations[docuBlock]
         tag = docuBlockFile.split("/")[len(docuBlockFile.split("/"))-2]
         docuBlockFile = open(docuBlockFile, "r", encoding="utf-8").read()
         declaredDocuBlocks = re.findall(r"(?<=@startDocuBlock )(.*?)@endDocuBlock", docuBlockFile, re.MULTILINE | re.DOTALL)
