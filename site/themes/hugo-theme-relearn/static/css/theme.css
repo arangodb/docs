@@ -416,25 +416,6 @@ body.zn_boxed_layout #page-wrapper, body.zn_boxed_layout #header  { max-width:12
 
 
 /* ===HEADER=== */
-#header { 
-    grid-area: header;
-    grid-row-start: header;
-    grid-column-start: header;
-    grid-row-end: header;
-    grid-column-end: header;
-    /*position: -webkit-sticky;*/
-    position: sticky;
-    z-index: 10;
-    top: 0; 
-    -moz-transition: top 0.2s ease-in-out; 
-    -o-transition: top 0.2s ease-in-out; 
-    -webkit-transition: top 0.2s ease-in-out; 
-    transition: top 0.2s ease-in-out; 
-    width: 100%; 
-    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-    z-index: 1001; }
 
 /* Do not follow header */
 #header.zn_do_not_follow { position: relative; }
@@ -453,11 +434,6 @@ body.zn_boxed_layout #page-wrapper, body.zn_boxed_layout #header  { max-width:12
     float: right;
 }
 
-.page_content_splash header#header {
-    position: sticky;
-    font-family: 'Inter', sans-serif !important;
-    background: #fff;
-    z-index: 9999999999 !important; }
 .page_content_splash header#header #main-menu {
     padding: 30px 0; }
 @media screen and (min-width: 1200px) {
@@ -6241,18 +6217,6 @@ body .vc_col-has-fill > .vc_column-inner {
     padding-top: 0; }
 body.admin-bar header#header.zn_header_smaller {
     margin-top: 32px !important; }
-body header.header-splash-wrap {
-    position: relative;
-    color: #577138;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    margin-top: 0 !important;
-    transition: all 0.9s ease-in-out;
-    -webkit-transition: all 0.9s ease-in-out;
-    -moz-transition: all 0.9s ease-in-out; }
 body header.header-splash-wrap .logo {
     width: 144px !important;
     height: 24px !important;
@@ -6880,11 +6844,13 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 
 #sidenav {
     grid-area: sidenav;
+    display: flex;
+    align-items: stretch;
     /*position: -webkit-sticky;*/
     position: sticky;
     z-index: 2;
-    top: 65px;
-    height: calc(100vh - 88px);
+    top: 4rem;
+    height: calc(112vh - 88px);
     width: calc(25vh -60px);
     background: #f9f9f9;
     left: 0;
@@ -6893,6 +6859,7 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 }
 
 #sidenav.active {
+    
     width: 20rem;
 }
 
@@ -6919,7 +6886,6 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
     position: relative;
     z-index: 100;
     overflow-y: scroll;
-    max-height: 90vh;
 }
 
 .sidenav-toggle-navigation {
@@ -7109,9 +7075,41 @@ hr {
 }
 
 header {
-    height: 7vh;
+    height: 4rem;
     padding: 16px 10px 10px 10px;
     display: flex;
+    color: #577138;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 0 !important;
+    transition: all 0.9s ease-in-out;
+    -webkit-transition: all 0.9s ease-in-out;
+    -moz-transition: all 0.9s ease-in-out;
+    grid-area: header;
+    grid-row-start: header;
+    grid-column-start: header;
+    grid-row-end: header;
+    grid-column-end: header;
+    z-index: 10;
+    top: 0;
+    -moz-transition: top 0.2s ease-in-out;
+    -o-transition: top 0.2s ease-in-out;
+    -webkit-transition: top 0.2s ease-in-out;
+    transition: top 0.2s ease-in-out;
+    width: 100%;
+    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+    z-index: 1001;
+    top: 0;
+    position: fixed;
+    font-family: 'Inter', sans-serif !important;
+    background: #fff;
+    /* z-index: 9999999999 !important; */
+    min-height: 0;
 }
 
 .navigation {
@@ -7127,8 +7125,8 @@ header {
     background: #f9f9f9;
     float: left;
     height: auto;
-    margin-bottom: 0;
-    top: 65px;
+    margin-bottom: 3rem;
+    top: 4rem;
     text-overflow: ellipsis;
     white-space: nowrap;
     height: 2.9rem;
@@ -7428,6 +7426,7 @@ body::-webkit-scrollbar {
   }
 
 .home-item {
+    margin: 17px 0 0 0;
     list-style: none;
 }
 
