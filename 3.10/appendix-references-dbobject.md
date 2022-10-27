@@ -42,9 +42,9 @@ The following methods exist on the *_db* object:
 
 *AQL*
 
-* [db._createStatement(query)](aql/invocation-with-arangosh.html#with-_createstatement-arangostatement)
+* [db._createStatement(query)](aql/invocation-with-arangosh.html#with-db_createstatement-arangostatement)
 * [db._query(query)](aql/invocation-with-arangosh.html#with-db_query)
-* [db._explain(query)](release-notes-new-features28.html#miscellaneous-improvements)
+* [db._explain(query)](aql/execution-and-performance-explaining-queries.html)
 * [db._parse(query)](aql/invocation-with-arangosh.html#query-validation)
 
 *Document*

@@ -86,8 +86,6 @@ Database functions
 
 ### CHECK_DOCUMENT()
 
-<small>Introduced in: v3.3.22, v3.4.2</small>
-
 `CHECK_DOCUMENT(document) → checkResult`
 
 Returns *true* if *document* is a valid document object, i.e. a document
@@ -478,7 +476,7 @@ The result can be used to approximate the Jaccard similarity of sets.
 Calculate the number of hashes (MinHash signature size) needed to not exceed the
 specified error amount.
 
-- **error** (number): the probabilistic error you can tolerate in the range `[0, 1]`
+- **error** (number): the probabilistic error you can tolerate in the range `[0, 1)`
 - returns **numHashes** (number): the required number of hashes to not exceed
   the specified error amount
 
@@ -487,7 +485,7 @@ specified error amount.
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlMinHashCount
     @EXAMPLE_AQL{aqlMinHashCount}
-      RETURN MINHASH_ERROR(0.05)
+      RETURN MINHASH_COUNT(0.05)
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMinHashCount
     {% endaqlexample %}
@@ -821,5 +819,5 @@ of the Coordinator.
 - returns **serverVersion** (string): the server version string
 
 ```aql
-RETURN VERSION()        // e.g. "3.4.0" 
+RETURN VERSION()        // e.g. "3.10.0" 
 ```

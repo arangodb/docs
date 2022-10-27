@@ -231,6 +231,7 @@ specified data type.
   - `"null"`
   - `"bool"` / `"boolean"`
   - `"numeric"`
+  - `"type"` (matches `null`, `boolean`, and `numeric` values)
   - `"string"`
   - `"analyzer"` (see below)
 - returns nothing: the function evaluates to a boolean, but this value cannot be

@@ -3,7 +3,6 @@ layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
 title: Transforming data with Analyzers
 redirect_from:
-  - views-arango-search-analyzers.html # 3.4 -> 3.5
   - arangosearch-analyzers.html # 3.8 -> 3.8
 ---
 Transforming data with Analyzers
@@ -588,7 +587,7 @@ letters before `c`:
       ]);
     | var view = db._createView("view", "arangosearch",
         { links: { test: { analyzers: [ "collation_en", "collation_sv" ], includeAllFields: true }}});
-    ~ db._query("FOR doc IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    ~ assert(db._query(`FOR d IN view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 4);
       db._query("FOR doc IN view SEARCH ANALYZER(doc.text < TOKENS('c', 'collation_en')[0], 'collation_en') RETURN doc.text");
       db._query("FOR doc IN view SEARCH ANALYZER(doc.text < TOKENS('c', 'collation_sv')[0], 'collation_sv') RETURN doc.text");
     ~ db._dropView(view.name());
@@ -726,7 +725,7 @@ without `keepNull: false`:
       var doc2 = db.coll.save({ value: "irregular" });
     | var view = db._createView("view", "arangosearch",
         { links: { coll: { fields: { value: { analyzers: ["filter"] }}}}})
-    ~ db._query("FOR doc IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    ~ assert(db._query(`FOR d IN view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] > 0);
       db._query("FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc");
     ~ db._dropView(view.name())
     ~ analyzers.remove(a.name);
@@ -762,7 +761,7 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
       var doc = db.coll.save({ text: "A-B-C-D" });
     | var view = db._createView("view", "arangosearch",
         { links: { coll: { analyzers: [ "collapsed", "uncollapsed" ], includeAllFields: true }}});
-    ~ db._query("FOR d IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    ~ assert(db._query(`FOR d IN view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 1);
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'collapsed') RETURN d");
@@ -1208,7 +1207,7 @@ longitude, latitude order:
     |     }
     |   }
       });
-    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    ~ assert(db._query(`FOR d IN geo_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 3);
     | db._query(`LET point = GEO_POINT(6.93, 50.94)
     |   FOR doc IN geo_view
     |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_json")
@@ -1284,7 +1283,7 @@ The stored coordinates are in latitude, longitude order, but `GEO_POINT()` and
     |     }
     |   }
       });
-    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    ~ assert(db._query(`FOR d IN geo_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 3);
     | db._query(`LET point = GEO_POINT(6.93, 50.94)
     |   FOR doc IN geo_view
     |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_pair")
@@ -1328,7 +1327,7 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |     }
     |   }
       });
-    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    ~ assert(db._query(`FOR d IN geo_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 3);
     | db._query(`LET point = GEO_POINT(6.93, 50.94)
     |   FOR doc IN geo_view
     |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_latlng")

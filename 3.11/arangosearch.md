@@ -3,8 +3,6 @@ layout: default
 description: ArangoSearch is ArangoDB's built-in search engine for full-text, complex data structures and more
 title: ArangoSearch - Integrated Search Engine
 redirect_from:
-  - views-arango-search.html # 3.4 -> 3.5
-  - views-arango-search-getting-started.html # 3.4 -> 3.5
   - arangosearch-examples.html # 3.8 -> 3.8
 ---
 # Information Retrieval with ArangoSearch
@@ -176,9 +174,8 @@ will get an **empty result** back. Make sure that the fields are indexed
 correctly and that you set the Analyzer context.
 
 You can test if a field is indexed with particular Analyzer with one of the
-variants of the [`EXISTS()` function](aql/functions-arangosearch.html#exists).
-The prerequisite for this is that you change `"storeValues"` in the View
-definition from `"none"` to `"id"`. You can then run a query as shown below:
+variants of the [`EXISTS()` function](aql/functions-arangosearch.html#exists),
+for example, as shown below:
 
 ```aql
 RETURN LENGTH(
@@ -187,6 +184,10 @@ RETURN LENGTH(
     LIMIT 1
     RETURN true) > 0
 ```
+
+If you use an `arangosearch` View, you need to change the `"storeValues"`
+property in the View definition from `"none"` to `"id"` for the function to work.
+For `search-alias` Views, this feature is always enabled.
 
 ### Basic search expressions
 
@@ -605,7 +606,7 @@ therefore applied to each element).
 Regular indexes are immediately consistent. If you have a collection with a
 `persistent` index on an attribute `text` and update the value of the attribute
 for instance, then this modification is reflected in the index immediately.
-`arangosearch` View indexes and inverted indexed on the other hand are eventual
+View indexes (and inverted indexes) on the other hand are eventual
 consistent. Document changes are not reflected instantly, but only near-realtime.
 This mainly has performance reasons.
 
@@ -615,6 +616,7 @@ be slightly stale, e.g. not include a newly inserted document:
 ```js
 db._query(`INSERT { text: "cheese cake" } INTO collection`);
 db._query(`FOR doc IN viewName SEARCH doc.text == "cheese cake" RETURN doc`);
+// May not find the new document
 ```
 
 Re-running the search query a bit later will include the new document, however.
@@ -626,6 +628,9 @@ changes just made to documents:
 db._query(`INSERT { text: "pop tart" } INTO collection`);
 db._query(`FOR doc IN viewName SEARCH doc.text == "pop tart" OPTIONS { waitForSync: true } RETURN doc`);
 ```
+
+This is not necessary if you use a single server deployment and populate a
+collection with documents before creating a View.
 
 {% hint 'warning' %}
 `SEARCH … OPTIONS { waitForSync: true }` is intended to be used in unit tests

@@ -23,9 +23,9 @@ version.
 
 This means that Starter version `a.b.c` can be used to run deployments
 of ArangoDB databases with different version.
-For example, the Starter with version `0.11.2` can be used to create
-ArangoDB deployments with ArangoDB version `3.2.<something>` as well
-as deployments with ArangoDB version `3.3.<something>`.
+For example, the Starter with version `0.15.5` can be used to create
+ArangoDB deployments with ArangoDB version `3.10.<something>` as well
+as deployments with ArangoDB version `3.9.<something>`.
 
 It also means that you can update the Starter independently from the ArangoDB
 database.

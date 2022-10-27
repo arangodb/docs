@@ -1,6 +1,6 @@
 ---
 layout: default
-description: It is recommended to check the following list of incompatible changes beforeupgrading to ArangoDB 2
+description: It is recommended to check the following list of incompatible changes before upgrading to ArangoDB 2
 ---
 Incompatible changes in ArangoDB 2.8
 ====================================
@@ -164,7 +164,7 @@ Specifically
 * absolute paths (e.g. `/some/absolute/path`) are now always interpreted as absolute
   file system paths, relative to the file system root
 
-* global names (e.g. `global/name`) are now first intepreted as references to modules
+* global names (e.g. `global/name`) are now first interpreted as references to modules
   residing in a relevant `node_modules` folder, a built-in module or a matching
   document in the internal `_modules` collection, and only resolved to local file paths
   if no other match is found
@@ -174,8 +174,7 @@ file paths first, leading to problems when local files used the same names as ot
 modules (e.g. a local file `chai.js` would cause problems when trying to load the
 `chai` module installed in `node_modules`).
 
-For more information see the [blog announcement of this change](https://www.arangodb.com/2015/11/foxx-module-resolution-will-change-in-2-8/){:target="_blank"}
-and the [upgrade guide](upgrading-version-specific-upgrading28.html#upgrading-foxx-apps-generated-by-arangodb-27-and-earlier).
+For more information see the [blog announcement of this change](https://www.arangodb.com/2015/11/foxx-module-resolution-will-change-in-2-8/){:target="_blank"}.
 
 ### Module `org/arangodb/request`
 

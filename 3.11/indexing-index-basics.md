@@ -12,7 +12,7 @@ of documents.
 
 User-defined indexes can be created on collection level. Most user-defined indexes 
 can be created by specifying the names of the index attributes.
-Some index types allow indexing just one attribute (e.g. *ttl* index) whereas 
+Some index types allow indexing just one attribute (e.g. a `ttl` index) whereas 
 other index types allow indexing multiple attributes at the same time.
 
 Learn how to use different indexes efficiently by going through the
@@ -23,8 +23,8 @@ by ArangoDB, without the user being required to create extra indexes for them.
 `_id` and `_key` are covered by a collection's primary key, and `_from` and `_to`
 are covered by an edge collection's edge index automatically.
 
-You cannot use the `_id` system attribute in user-defined indexes, but indexing
-`_key`, `_rev`, `_from`, and `_to` is possible.
+You cannot use the `_id` system attribute, nor sub-attributes with this name, in
+user-defined indexes, but indexing `_key`, `_rev`, `_from`, and `_to` is possible.
 
 You cannot index fields that contain `.` in their attribute names because dots
 are interpreted as paths of nested attributes. For example, `fields: ["foo.bar"]`
@@ -272,21 +272,24 @@ other index types, even if they would be capable of accelerating the queries.
 TTL (time-to-live) Index
 ------------------------
 
-The TTL index type provided by ArangoDB can be used for automatically removing expired documents 
-from a collection. 
+You can use the TTL index type for automatically removing expired documents
+from a collection.
 
 A TTL index is set up by setting an `expireAfter` value and by picking a single 
-document attribute which contains the documents' creation date and time. Documents 
-are expired after `expireAfter` seconds after their creation time. The creation time
-is specified as either a numeric timestamp (Unix timestamp) or a date string in format
-`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
-format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
-without a timezone offset will be interpreted as UTC dates.
+document attribute which contains the documents' reference point in time. Documents
+are expired after `expireAfter` seconds after their reference time has been reached.
+The document's reference point in time is specified as either a numeric timestamp
+(Unix timestamp) or a date string in the format `YYYY-MM-DDTHH:MM:SS`, optionally
+with milliseconds after a decimal point in the format `YYYY-MM-DDTHH:MM:SS.MMM`
+and an optional timezone offset. All date strings without a timezone offset are
+interpreted as UTC dates.
 
 For example, if `expireAfter` is set to 600 seconds (10 minutes) and the index
 attribute is "creationDate" and there is the following document:
 
-    { "creationDate" : 1550165973 }
+```json
+{ "creationDate" : 1550165973 }
+```
 
 This document will be indexed with a creation date time value of `1550165973`,
 which translates to the human-readable date `2019-02-14T17:39:33.000Z`. The document
@@ -294,22 +297,21 @@ will expire 600 seconds afterwards, which is at timestamp `1550166573` (or
 `2019-02-14T17:49:33.000Z` in the human-readable version).
 
 The actual removal of expired documents will not necessarily happen immediately. 
-Expired documents will eventually removed by a background thread that is periodically
-going through all TTL indexes and removing the expired documents. The frequency for
-invoking this background thread can be configured using the `--ttl.frequency`
-startup option. 
+Expired documents will eventually be removed by a background thread that is
+periodically going through all TTL indexes. The frequency for invoking this
+background thread can be configured using the `--ttl.frequency` startup option.
 
 There is no guarantee when exactly the removal of expired documents will be carried
 out, so queries may still find and return documents that have already expired. These
 will eventually be removed when the background thread kicks in and has capacity to
-remove the expired documents. It is guaranteed however that only documents which are 
+remove the expired documents. It is guaranteed however that only documents which are
 past their expiration time will actually be removed.
 
 Please note that the numeric date time values for the index attribute has to be
-specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
+specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current
 timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
 from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
-`DATE_NOW() / 1000` or divide an arbitrary timestamp that is in milliseconds
+`DATE_NOW() / 1000` or divide an arbitrary Unix timestamp that is in milliseconds
 by 1000 to convert it to seconds.
 
 Alternatively, the index attribute values can be specified as a date string in format
@@ -317,14 +319,23 @@ Alternatively, the index attribute values can be specified as a date string in f
 format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
 without a timezone offset will be interpreted as UTC dates.
 
-The above example document using a datestring attribute value would be
+The above example document using a date string attribute value would be
 
-    { "creationDate" : "2019-02-14T17:39:33.000Z" }
+```json
+{ "creationDate" : "2019-02-14T17:39:33.000Z" }
+```
 
 In case the index attribute does not contain a numeric value nor a proper date string,
 the document will not be stored in the TTL index and thus will not become a candidate 
 for expiration and removal. Providing either a non-numeric value or even no value for 
 the index attribute is a supported way of keeping documents from being expired and removed.
+
+TTL indexes are designed exactly for the purpose of removing expired documents from
+a collection. It is *not recommended* to rely on TTL indexes for user-land AQL queries. 
+This is because TTL indexes internally may store a transformed, always numerical version 
+of the index attribute value even if it was originally passed in as a date string. As a
+result TTL indexes will likely not be used for filtering and sort operations in user-land
+AQL queries.
 
 Geo Index
 ---------
@@ -398,9 +409,9 @@ Indexing attributes and sub-attributes
 
 Top-level as well as nested attributes can be indexed. For attributes at the top level,
 the attribute names alone are required. To index a single field, pass an array with a
-single element (string of the attribute key) to the *fields* parameter of the
+single element (string of the attribute key) to the `fields` parameter of the
 [ensureIndex() method](indexing-working-with-indexes.html#creating-an-index). To create a
-combined index over multiple fields, simply add more members to the *fields* array:
+combined index over multiple fields, simply add more members to the `fields` array:
 
 ```js
 // { name: "Smith", age: 35 }
@@ -484,7 +495,7 @@ FOR doc IN posts
 ```
 
 If you store a document having the array which does contain elements not having
-the subattributes this document will also be indexed with the value `null`, which
+the sub-attributes this document will also be indexed with the value `null`, which
 in ArangoDB is equal to attribute not existing.
 
 ArangoDB supports creating array indexes with a single `[*]` operator per index 
@@ -574,9 +585,9 @@ Ensuring uniqueness of relations in edge collections
 You can create a combined index over the edge attributes `_from` and `_to`
 with the unique option enabled to prevent duplicate relations from being created.
 
-For example, a document collection *users* might contain vertices with the document
+For example, a document collection `users` might contain vertices with the document
 handles `user/A`, `user/B` and `user/C`. Relations between these documents can
-be stored in an edge collection *knows*, for instance. You may want to make sure
+be stored in an edge collection `knows`, for instance. You may want to make sure
 that the vertex `user/A` is never linked to `user/B` by an edge more than once.
 This can be achieved by adding a unique, non-sparse persistent index for the
 fields `_from` and `_to`:
@@ -585,7 +596,7 @@ fields `_from` and `_to`:
 db.knows.ensureIndex({ type: "persistent", fields: [ "_from", "_to" ], unique: true });
 ```
 
-Creating an edge `{ _from: "user/A", _to: "user/B" }` in *knows* will be accepted,
+Creating an edge `{ _from: "user/A", _to: "user/B" }` in `knows` will be accepted,
 but only once. Another attempt to store an edge with the relation **A** → **B** will
 be rejected by the server with a *unique constraint violated* error. This includes
 updates to the `_from` and `_to` fields.
@@ -605,7 +616,7 @@ if you have to perform it on a live system without a dedicated maintenance windo
 Indexes can also be created in "background", not using an 
 exclusive lock during the entire index creation. The collection remains basically available, 
 so that other CRUD operations can run on the collection while the index is being created.
-This can be achieved by setting the *inBackground* attribute when creating an index.
+This can be achieved by setting the `inBackground` attribute when creating an index.
 
 To create an index in the background in *arangosh* just specify `inBackground: true`, 
 like in the following examples:
@@ -624,11 +635,11 @@ db.collection.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 4, 
 ### Behavior
 
 Indexes that are still in the build process will not be visible via the ArangoDB APIs. 
-Nevertheless it is not possible to create the same index twice via the *ensureIndex* API 
+Nevertheless it is not possible to create the same index twice via the `ensureIndex()` method
 while an index is still begin created. AQL queries also will not use these indexes until
-the index reports back as fully created. Note that the initial *ensureIndex* call or HTTP 
+the index reports back as fully created. Note that the initial `ensureIndex()` call or HTTP 
 request will still block until the index is completely ready. Existing single-threaded 
-client programs can thus safely set the *inBackground* option to *true* and continue to 
+client programs can thus safely set the `inBackground` option to `true` and continue to 
 work as before.
 
 {% hint 'info' %}

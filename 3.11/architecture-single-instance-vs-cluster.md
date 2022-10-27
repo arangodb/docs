@@ -109,7 +109,7 @@ lookups, e.g. not for range lookups.
 Some query results must be built up in memory on a Coordinator, for
 example if a dataset needs to be sorted on the fly. This can relatively
 easily overwhelm a Coordinator if the dataset is sharded across multiple
-DB-Servers. Use indexes and streaming cursors (>= 3.4) to circumvent this
+DB-Servers. Use indexes and streaming cursors to circumvent this
 problem.
 
 Transactions

@@ -49,11 +49,13 @@ The meaning of the statistics attributes is as follows:
   in a `FilterNode`. Note that `IndexRangeNode`s can also filter documents by selecting only
   the required index range from a collection, and the `filtered` value only indicates how much
   filtering was done by `FilterNode`s.
+* *httpRequests*: the total number of cluster-internal HTTP requests performed.
 * *fullCount*: the total number of documents that matched the search condition if the query's
   final top-level `LIMIT` statement were not present.
   This attribute may only be returned if the `fullCount` option was set when starting the 
   query and will only contain a sensible value if the query contained a `LIMIT` operation on
   the top level.
+* *executionTime*: the query execution time (wall-clock time) in seconds.
 * *peakMemoryUsage*: the maximum memory usage of the query while it was running. In a cluster,
   the memory accounting is done per shard, and the memory usage reported is the peak
   memory usage value from the individual shards.
