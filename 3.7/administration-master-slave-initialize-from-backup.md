@@ -2,8 +2,6 @@
 layout: default
 description: A slave can be faster initialized using a backup of the master in Master/Slave replication.
 title: Speeding up slave initialization
-redirect_from:
-  - cookbook/administration-replication-replication-from-backup.html # 3.5 -> 3.5
 ---
 # Speeding up slave initialization
 

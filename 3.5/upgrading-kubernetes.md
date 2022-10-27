@@ -1,1 +1,0 @@
-../3.7/upgrading-kubernetes.md
