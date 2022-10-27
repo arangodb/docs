@@ -2,8 +2,6 @@
 layout: default
 description: The SEARCH keyword starts the language construct to filter Views of type ArangoSearch.
 title: The SEARCH operation in AQL
-redirect_from:
-  - views.html
 ---
 SEARCH
 ======
