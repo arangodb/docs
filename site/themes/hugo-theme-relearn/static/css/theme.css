@@ -7003,6 +7003,30 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
     padding-right: 1rem;
 }
 
+.nav-link.nav-item-toggle::before {
+    content: "\f078";
+    position: absolute;
+    right: 0.5rem;
+    top: 0rem;
+    font-family: "Font Awesome 5 Free";
+    background-position: 50%;
+    background-size: auto 0.75em;
+    width: 1.5rem;
+    height: 50%;
+}
+
+.nav-link.nav-item-toggle::after {
+    content: "\f078";
+    position: absolute;
+    right: 0.5rem;
+    top: 0rem;
+    font-family: "Font Awesome 5 Free";
+    background-position: 50%;
+    background-size: auto 0.75em;
+    width: 1.5rem;
+    height: 50%;
+}
+
 #sidenav ul {
     list-style: none;
     padding: 0;

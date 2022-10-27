@@ -8,21 +8,20 @@
   }}
   {{ if $remote }}
   {{ if $remote.Err }}
-          {{ warnf "[HTTP-EXAMPLE] ERROR CALLING ENDPOINT %#v" .Position }}
+          {{ warnf "[AQL] ERROR CALLING ENDPOINT %#v" .Position }}
     {{ else }}
   {{ $response := unmarshal $remote.Content }}
+
+  {{ if $response.error }}
+  Error found in the example: {{ $response.error }}
+{{ end }}
       {{ if in $response.options.render "input" }}
       {{ $version := replace $response.options.version "." "" }}
-      <div class="codeblock">
-        <div class="version {{ $version }}" style="display: none;">
           {{ transform.Highlight $response.input "js" }}
-        </div>
-      </div>
       {{ end }}
       {{ if in $response.options.render "output" }}
       {{ $version := replace $response.options.version "." "" }}
 
-        <div class="version {{ $version }}" style="display: none;">
           {{ $x := transform.Highlight $response.output "" }}
         {{- partial "shortcodes/expand.html" (dict
           "context" .
@@ -30,13 +29,10 @@
           "open"    "open"
           "title"   "show output"
         ) }}
-        </div>
       {{ end }}
       {{end}}
     {{ end }}
   {{ else }}
-  <div class="codeblock">
   {{ transform.Highlight .Inner "js" }}
-  </div>
   {{ end }}
 {{ end }}
