@@ -53,10 +53,6 @@ replace the old features with:
   folder). They are not actively removed, they remain on upgrade or backup
   restoration from previous versions.
 
-  You can still find the
-  [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
-  in 3.4 or older versions of the documentation.
-
 - **Outdated AQL functions**: The following AQL functions are deprecated and
   their usage is discouraged:
   - `IS_IN_POLYGON`

@@ -4,8 +4,6 @@ description: >-
   You can improve the performance of View and inverted index queries with a
   primary sort order, stored values and other optimizations
 title: View and inverted index query performance optimization
-redirect_from:
-  - views-arango-search.html # 3.4 -> 3.5
 ---
 # Optimizing View and inverted index query performance
 

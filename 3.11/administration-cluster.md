@@ -146,7 +146,7 @@ There is no option to configure an affinity based on certain _shard_ keys.
 Sharding strategy
 -----------------
 
-Strategy to use for the collection. Since ArangoDB 3.4 there are
+Strategy to use for the collection. There are
 different sharding strategies to select from when creating a new 
 collection. The selected *shardingStrategy* value will remain
 fixed for the collection and cannot be changed afterwards. This is
@@ -181,7 +181,7 @@ feature does not have its own sharding strategy, it uses `hash` instead.
 Moving/Rebalancing _shards_
 ---------------------------
 
-Rebalancing redistributes resources in the cluster to optimise resource
+Rebalancing redistributes resources in the cluster to optimize resource
 allocation - shards and location of leaders/followers.
 
 It aims to achieve, for example, a balanced load, fair shard distribution,
