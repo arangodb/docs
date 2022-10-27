@@ -1,8 +1,6 @@
 ---
 layout: default
 description: If you use a NoSQL database it's common to retrieve documents with an unknown attribute structure
-redirect_from:
-  - ../cookbook/use-cases-java-driver-base-document.html # 3.5 -> 3.5
 ---
 How to retrieve documents from ArangoDB without knowing the structure?
 ======================================================================

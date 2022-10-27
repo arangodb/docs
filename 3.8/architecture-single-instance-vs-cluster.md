@@ -160,6 +160,6 @@ In a cluster, the `arangodump` utility cannot guarantee a consistent snapshot
 across multiple shards or even multiple collections. In a single server,
 `arangodump` produces a consistent snapshot.
 
-In the Enterprise Edition starting from v3.5.1 there is an additional utility
+In the Enterprise Edition, there is an additional utility
 `arangobackup` and an HTTP API for [Hot Backups](backup-restore.html#hot-backups)
 to create consistent cluster snapshots.

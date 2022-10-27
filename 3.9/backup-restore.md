@@ -72,8 +72,6 @@ procedure is recommended.
 Hot Backups
 -----------
 
-<small>Introduced in: v3.5.1</small>
-
 Hot backup and restore associated operations can be performed with the
 [_arangobackup_](programs-arangobackup.html) client tool and the
 [Hot Backup HTTP API](http/hot-backup.html).

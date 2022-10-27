@@ -2,8 +2,6 @@
 layout: default
 description: View and Analyzer usage examples
 title: ArangoSearch Examples
-redirect_from:
-  - views-arango-search-getting-started.html # 3.4 -> 3.5
 ---
 ArangoSearch Examples
 =====================

@@ -86,8 +86,6 @@ Truncates a collection:
 Compact
 -------
 
-<small>Introduced in: v3.4.5</small>
-
 Compacts the data of a collection:
 
 `collection.compact()`

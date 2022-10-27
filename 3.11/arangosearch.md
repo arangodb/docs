@@ -3,8 +3,6 @@ layout: default
 description: ArangoSearch is ArangoDB's built-in search engine for full-text, complex data structures and more
 title: ArangoSearch - Integrated Search Engine
 redirect_from:
-  - views-arango-search.html # 3.4 -> 3.5
-  - views-arango-search-getting-started.html # 3.4 -> 3.5
   - arangosearch-examples.html # 3.8 -> 3.8
 ---
 # Information Retrieval with ArangoSearch
