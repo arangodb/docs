@@ -20,7 +20,7 @@ Three Steps to create a graph
 
 **Create a graph**
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo1}
       var graph_module = require("@arangodb/general-graph");
@@ -29,12 +29,12 @@ Three Steps to create a graph
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo1
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 **Add some vertex collections**
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo2}
     ~ var graph_module = require("@arangodb/general-graph");
@@ -42,16 +42,16 @@ Three Steps to create a graph
       graph._addVertexCollection("shop");
       graph._addVertexCollection("customer");
       graph._addVertexCollection("pet");
-      graph;
+      graph = graph_module._graph("myGraph");
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo2
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 **Define relations on the Graph**
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo3}
     ~ var graph_module = require("@arangodb/general-graph");
@@ -59,9 +59,9 @@ Three Steps to create a graph
     ~ graph._addVertexCollection("pet");
       var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
       graph._extendEdgeDefinitions(rel);
-      graph;
+      graph = graph_module._graph("myGraph");
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo3
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}

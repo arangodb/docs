@@ -1,6 +1,5 @@
 arangosh&gt; db._query(<span class="hljs-string">`FOR i IN 1..100
-........&gt;             INSERT { _key: CONCAT(&#x27;test&#x27;, TO_STRING(i)) }
-........&gt;                INTO mycollection`</span>
+........&gt;   INSERT { _key: CONCAT(&#x27;test&#x27;, TO_STRING(i)) } INTO mycollection`</span>
 ........&gt; ).getExtra();
 { 
   <span class="hljs-string">&quot;warnings&quot;</span> : [ ], 
@@ -15,7 +14,7 @@ arangosh&gt; db._query(<span class="hljs-string">`FOR i IN 1..100
     <span class="hljs-string">&quot;cacheMisses&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0008644869994895998</span>, 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0008886249997885898</span>, 
     <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">32768</span>, 
     <span class="hljs-string">&quot;intermediateCommits&quot;</span> : <span class="hljs-number">0</span> 
   } 

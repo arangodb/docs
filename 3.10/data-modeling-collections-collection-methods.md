@@ -8,8 +8,6 @@ Collection Methods
 Drop
 ----
 
-<!-- arangod/V8Server/v8-collection.cpp -->
-
 Drops a collection:
 
 `collection.drop(options)`
@@ -59,8 +57,6 @@ Drop a system collection:
 Truncate
 --------
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
-
 Truncate a collection:
 
 `collection.truncate()`
@@ -90,8 +86,6 @@ Truncates a collection:
 Compact
 -------
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
-
 Compacts the data of a collection:
 
 `collection.compact()`
@@ -117,71 +111,135 @@ Get or set the properties of a collection:
 
 Returns an object containing all collection properties.
 
-- `waitForSync`: If `true`, creating a document only returns
-  after the data was synced to disk.
+- `waitForSync` (boolean): If `true`, creating, changing, or removing documents waits
+  until the data has been synchronized to disk.
 
-- `keyOptions` (optional) additional options for key generation. This is
-  a JSON object containing the following attributes (note: some of the
-  attributes are optional):
-  - `type`: the type of the key generator used for the collection.
-  - `allowUserKeys`: if set to `true`, then it is allowed to supply
-    own key values in the `_key` attribute of a document. If set to
+- `keyOptions` (object): An object which contains key generation options.
+  - `type` (string): Specifies the type of the key generator. Possible values:
+    - `"traditional"`
+    - `"autoincrement"`
+    - `"uuid"`
+    - `"padded"`
+  - `allowUserKeys` (boolean): If set to `true`, then you are allowed to supply
+    own key values in the `_key` attribute of documents. If set to
     `false`, then the key generator is solely responsible for
-    generating keys and supplying own key values in the `_key` attribute
-    of documents is considered an error.
-  - `increment`: increment value for `autoincrement` key generator.
+    generating keys and an error is raised if you supply own key values in the
+    `_key` attribute of documents.
+  - `increment` (number): The increment value for the `autoincrement` key generator.
     Not used for other key generator types.
-  - `offset`: initial offset value for `autoincrement` key generator.
+  - `offset` (number): The initial offset value for the `autoincrement` key generator.
     Not used for other key generator types.
+  - `lastValue` (number): the current offset value of the `autoincrement` or `padded`
+    key generator. This an internal property for restoring dumps properly.
 
-- `schema` (optional, default: `null`): 
-  Object that specifies the collection level document schema for documents.
+- `schema` (object\|null): 
+  An object that specifies the collection-level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
   documented in [Document Schema Validation](document-schema-validation.html)
 
-- `computedValues` (optional, default: `null`): An array of objects,
+- `computedValues` (array\|null): An array of objects,
   each representing a [Computed Value](data-modeling-documents-computed-values.html).
+
+- `cacheEnabled` (boolean): Whether the in-memory hash cache for documents is
+  enabled for this collection (default: `false`).
+
+- `isSystem` (boolean): Whether the collection is a system collection.
+  Collection names that starts with an underscore are usually system collections.
+
+- `syncByRevision` (boolean): Whether the newer revision-based replication protocol
+  is enabled for this collection. This is an internal property.
+
+- `globallyUniqueId` (string): A unique identifier of the collection.
+  This is an internal property.
 
 In a cluster setup, the result also contains the following attributes:
 
-- `numberOfShards`: the number of shards of the collection.
+- `numberOfShards` (number): The number of shards of the collection.
 
-- `shardKeys`: contains the names of document attributes that are used to
+- `shardKeys` (array): Contains the names of document attributes that are used to
   determine the target shard for documents.
 
-- `replicationFactor`: determines how many copies of each shard are kept
+- `replicationFactor` (number\|string): Determines how many copies of each shard are kept
   on different DB-Servers. Has to be in the range of 1-10 or the string
   `"satellite"` for a SatelliteCollection (Enterprise Edition only).
   _(cluster only)_
 
-- `writeConcern`: determines how many copies of each shard are required to be
+- `writeConcern` (number): Determines how many copies of each shard are required to be
   in sync on the different DB-Servers. If there are less then these many copies
   in the cluster, a shard refuses to write. Writes to shards with enough
   up-to-date copies succeed at the same time, however. The value of
   `writeConcern` can not be larger than `replicationFactor`. _(cluster only)_
 
-- `shardingStrategy`: the sharding strategy selected for the collection.
-  This attribute is only populated in cluster mode and is not populated
-  in single-server mode. _(cluster only)_
+- `shardingStrategy` (string): the sharding strategy selected for the collection.
+  _(cluster only)_
+
+  Possible values:
+  - `"community-compat"`
+  - `"enterprise-compat"`
+  - `"enterprise-smart-edge-compat"`
+  - `"hash"`
+  - `"enterprise-hash-smart-edge"`
+  - `"enterprise-hex-smart-vertex"`
+
+- `distributeShardsLike` (string):
+  The name of another collection. This collection uses the `replicationFactor`,
+  `numberOfShards` and `shardingStrategy` properties of the other collection and
+  the shards of this collection are distributed in the same way as the shards of
+  the other collection.
+
+- `isSmart` (boolean): Whether the collection is used in a SmartGraph or
+  EnterpriseGraph (Enterprise Edition only). This is an internal property.
+
+- `isDisjoint` (boolean): Whether the SmartGraph this collection belongs to is
+  disjoint (Enterprise Edition only). This is an internal property.
+
+- `smartGraphAttribute` (string):
+  The attribute that is used for sharding: vertices with the same value of
+  this attribute are placed in the same shard. All vertices are required to
+  have this attribute set and it has to be a string. Edges derive the
+  attribute from their connected vertices.
+
+  This feature can only be used in the *Enterprise Edition*.
+
+- `smartJoinAttribute` (string):
+  In an *Enterprise Edition* cluster, this attribute determines an attribute
+  of the collection that must contain the shard key value of the referred-to
+  SmartJoin collection.
+
+---
 
 `collection.properties(properties)`
 
-Changes the collection properties. `properties` must be an object with
+Changes the collection properties. `properties` must be an object and can have
 one or more of the following attribute(s):
 
-- `waitForSync`: If `true`, creating a document only returns
+- `waitForSync` (boolean): If `true`, creating a document only returns
   after the data was synced to disk.
 
-- `replicationFactor`: Change the number of shard copies kept on
+- `replicationFactor` (number\|string): Change the number of shard copies kept on
   different DB-Servers. Valid values are integer numbers in the range of 1-10
   or the string `"satellite"` for a SatelliteCollection (Enterprise Edition only).
   _(cluster only)_
 
-- `writeConcern`: change how many copies of each shard are required to be
+- `writeConcern` (number): Change how many copies of each shard are required to be
   in sync on the different DB-Servers. If there are less then these many copies
   in the cluster, a shard refuses to write. Writes to shards with enough
   up-to-date copies succeed at the same time however. The value of
   `writeConcern` can not be larger than `replicationFactor`. _(cluster only)_
+
+- `computedValues` (array\|null): An array of objects, each representing a
+  [Computed Value](data-modeling-documents-computed-values.html).
+
+- `schema` (object\|null): An object that specifies the collection level document schema for
+  documents. The attribute keys `rule`, `level` and `message` must follow the rules
+  documented in [Document Schema Validation](document-schema-validation.html)
+
+- `cacheEnabled` (boolean): Whether the in-memory hash cache for documents should be
+  enabled for this collection. Can be controlled globally
+  with the `--cache.size` startup option. The cache can speed up repeated reads
+  of the same documents via their document keys. If the same documents are not
+  fetched often or are modified frequently, then you may disable the cache to
+  avoid the maintenance costs.
 
 {% hint 'info' %}
 Some other collection properties, such as `type`,
@@ -219,8 +277,6 @@ Change a property:
 
 Figures
 -------
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Return the figures of a collection:
 
@@ -272,8 +328,6 @@ Get the detailed collection figures:
 GetResponsibleShard
 -------------------
 
-<!-- arangod/V8Server/v8-collection.cpp -->
-
 Return the responsible shard for the given document:
 
 `collection.getResponsibleShard(document)`
@@ -289,8 +343,6 @@ in clusters.
 
 Shards
 ------
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Return the available shards for the collection:
 
@@ -311,8 +363,6 @@ The `shards()` method can only be used on Coordinators in clusters.
 
 Load
 ----
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Load a collection:
 
@@ -348,8 +398,6 @@ any need to load a collection with the RocksDB storage engine.
 Revision
 --------
 
-<!-- arangod/V8Server/v8-collection.cpp -->
-
 Return the revision ID of a collection:
 
 `collection.revision()`
@@ -369,8 +417,6 @@ as an opaque string, and only use it for equality/non-equality comparisons.
 Checksum
 --------
 
-<!-- arangod/V8Server/v8-query.cpp -->
-
 Calculate a checksum for the data in a collection:
 
 `collection.checksum(withRevisions, withData)`
@@ -387,8 +433,6 @@ checksumming makes the calculation slower, but is more accurate.
 
 Unload
 ------
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Unload a collection:
 
@@ -424,8 +468,6 @@ any need to unload a collection with the RocksDB storage engine.
 
 Rename
 ------
-
-<!-- arangod/V8Server/v8-collection.cpp -->
 
 Rename a collection:
 

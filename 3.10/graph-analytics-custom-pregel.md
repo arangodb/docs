@@ -1290,7 +1290,7 @@ require the Pregel module in _arangosh_.
 
 ```js
 const pregel = require("@arangodb/pregel");
-return pregel.start("air", "<graphName>", "<custom-algorithm>");
+return pregel.start("ppa", "<graphName>", "<custom-algorithm>");
 ```
 
 Status of a PPA
@@ -1300,7 +1300,7 @@ Executing a PPA using the `pregel.start()` method will deliver unique ID to the
 status of the algorithm execution.
 
 ```js
-let pregelID = pregel.start("air", graphName, "<custom-algorithm>");
+let pregelID = pregel.start("ppa", graphName, "<custom-algorithm>");
 var status = pregel.status(pregelID);
 ```
 
