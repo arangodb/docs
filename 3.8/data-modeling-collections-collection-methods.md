@@ -124,6 +124,8 @@ Returns an object containing all collection properties.
     *false*, then the key generator will solely be responsible for
     generating keys and supplying own key values in the *_key* attribute
     of documents is considered an error.
+  * *lastValue*: the current offset value of the `autoincrement` or `padded`
+    key generator. This an internal property for restoring dumps properly.
   * *increment*: increment value for *autoincrement* key generator.
     Not used for other key generator types.
   * *offset*: initial offset value for *autoincrement* key generator.
@@ -133,6 +135,17 @@ Returns an object containing all collection properties.
   Object that specifies the collection level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
   documented in [Document Schema Validation](document-schema-validation.html)
+
+* *cacheEnabled*: Whether the in-memory hash cache for documents is
+  enabled for this collection (default: `false`).
+
+* *isSystem*: Whether the collection is a system collection.
+
+* *syncByRevision*: Whether the newer revision-based replication protocol is
+  enabled for this collection. This is an internal property.
+
+* *globallyUniqueId*: A unique identifier of the collection.
+  This is an internal property.
 
 In a cluster setup, the result will also contain the following attributes:
 
@@ -156,6 +169,33 @@ In a cluster setup, the result will also contain the following attributes:
   This attribute will only be populated in cluster mode and is not populated
   in single-server mode. _(cluster only)_
 
+* *distributeShardsLike*:
+  The name of another collection. This collection uses the `replicationFactor`,
+  `numberOfShards` and `shardingStrategy` properties of the other collection and
+  the shards of this collection are distributed in the same way as the shards of
+  the other collection.
+
+* *isSmart*: Whether the collection belongs to a SmartGraph
+  (Enterprise Edition only). This is an internal property.
+
+* *isDisjoint*: Whether the SmartGraph this collection belongs to is disjoint
+  (Enterprise Edition only). This is an internal property.
+
+- *smartGraphAttribute*:
+  The attribute that is used for sharding: vertices with the same value of
+  this attribute are placed in the same shard. All vertices are required to
+  have this attribute set and it has to be a string. Edges derive the
+  attribute from their connected vertices.
+
+  This feature can only be used in the *Enterprise Edition*.
+
+- *smartJoinAttribute*:
+  In an *Enterprise Edition* cluster, this attribute determines an attribute
+  of the collection that must contain the shard key value of the referred-to
+  SmartJoin collection.
+
+---
+
 `collection.properties(properties)`
 
 Changes the collection properties. *properties* must be an object with
@@ -174,6 +214,17 @@ one or more of the following attribute(s):
   in the cluster a shard will refuse to write. Writes to shards with enough
   up-to-date copies will succeed at the same time however. The value of
   *writeConcern* can not be larger than *replicationFactor*. _(cluster only)_
+
+* *schema*: An object that specifies the collection level document schema for
+  documents. The attribute keys `rule`, `level` and `message` must follow the rules
+  documented in [Document Schema Validation](document-schema-validation.html)
+
+- *cacheEnabled*: Whether the in-memory hash cache for documents should be
+  enabled for this collection. Can be controlled globally
+  with the `--cache.size` startup option. The cache can speed up repeated reads
+  of the same documents via their document keys. If the same documents are not
+  fetched often or are modified frequently, then you may disable the cache to
+  avoid the maintenance costs.
 
 **Note**: some other collection properties, such as *type*,
 *keyOptions*, *numberOfShards* or *shardingStrategy* cannot be changed once

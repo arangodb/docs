@@ -58,64 +58,12 @@ different usage scenarios:
   relevance, and for search highlighting capabilities. It is a lightweight
   alternative to an `arangosearch` View.
 
-- **TTL index**: the TTL index provided by ArangoDB can be used for automatically
-  removing expired documents from a collection.
-
-  The TTL index is set up by setting an `expireAfter` value and by picking a single 
-  document attribute which contains the documents' reference timepoint. Documents 
-  are expired `expireAfter` seconds after their reference timepoint has been reached.
-  The documents' reference timepoint is specified as either a numeric timestamp 
-  (Unix timestamp) or a date string in format `YYYY-MM-DDTHH:MM:SS` with optional 
-  milliseconds. All date strings will be interpreted as UTC dates.
-
-  For example, if `expireAfter` is set to 600 seconds (10 minutes) and the index
-  attribute is "creationDate" and there is the following document:
-
-      { "creationDate" : 1550165973 }
-
-  This document will be indexed with a creation date time value of `1550165973`,
-  which translates to the human-readable date `2019-02-14T17:39:33.000Z`. The document
-  will expire 600 seconds afterwards, which is at timestamp `1550166573` (or
-  `2019-02-14T17:49:33.000Z` in the human-readable version).
-
-  The actual removal of expired documents will not necessarily happen immediately.
-  Expired documents will eventually be removed by a background thread that is
-  periodically going through all TTL indexes. The frequency for invoking this
-  background thread can be configured using the `--ttl.frequency` startup option.
-
-  There is no guarantee when exactly the removal of expired documents will be carried
-  out, so queries may still find and return documents that have already expired. These
-  will eventually be removed when the background thread kicks in and has capacity to
-  remove the expired documents. It is guaranteed however that only documents which are 
-  past their expiration time will actually be removed.
-
-  Please note that the numeric date time values for the index attribute has to be
-  specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
-  timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
-  from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
-  `DATE_NOW() / 1000` or divide an arbitrary Unix timestamp in milliseconds by 1000 to
-  convert it to seconds.
-
-  Alternatively, the index attribute values can be specified as a date string in format
-  `YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
-  format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
-  without a timezone offset will be interpreted as UTC dates.
-
-  The above example document using a date string attribute value would be
- 
-      { "creationDate" : "2019-02-14T17:39:33.000Z" }
-
-  In case the index attribute does not contain a numeric value nor a proper date string,
-  the document will not be stored in the TTL index and thus will not become a candidate 
-  for expiration and removal. Providing either a non-numeric value or even no value for 
-  the index attribute is a supported way of keeping documents from being expired and removed.
-
-  TTL indexes are designed exactly for the purpose of removing expired documents from
-  a collection. It is *not recommended* to rely on TTL indexes for user-land AQL queries. 
-  This is because TTL indexes internally may store a transformed, always numerical version 
-  of the index attribute value even if it was originally passed in as a datestring. As a
-  result TTL indexes will likely not be used for filtering and sort operations in user-land
-  AQL queries.
+- **TTL index**: a time-to-live index can be used for automatically removing
+  expired documents from a collection.
+  
+  You can choose a document attribute that specifies a point in time and whether
+  documents shall expire at the point in time or a given number of seconds after
+  the point in time.
 
 - **multi-dimensional index** (ZKD): a multi dimensional index allows to
   efficiently intersect multiple range queries. Typical use cases are querying

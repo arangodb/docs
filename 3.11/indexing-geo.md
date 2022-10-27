@@ -5,8 +5,8 @@ description: ArangoDB features a Google S2-based geospatial index
 Geo-Spatial Indexes
 ===================
 
-ArangoDB features a [Google S2](http://s2geometry.io/){:target="_blank"}-based geospatial index
-since version 3.4.0, which supersedes the previous geo index implementation.
+ArangoDB features a [Google S2](http://s2geometry.io/){:target="_blank"}-based
+geo-spatial index.
 Indexing is supported for a subset of the [**GeoJSON**](#geojson) geometry types
 as well as simple latitude/longitude pairs.
 
@@ -66,9 +66,9 @@ the index can be created on one or two fields.
 
 The following examples will work in the _arangosh_ command shell.
 
-To create a geo-spatial index on all documents using *latitude* and
-*longitude* as separate attribute paths, two paths need to be specified
-in the *fields* array:
+To create a geo-spatial index on all documents using `latitude` and
+`longitude` as separate attribute paths, two paths need to be specified
+in the `fields` array:
 
 `collection.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] })`
 
@@ -79,7 +79,7 @@ Alternatively you can specify only one field:
 
 `collection.ensureIndex({ type: "geo", fields: [ "location" ], geoJson:false })`
 
-It creates a geospatial index on all documents using *location* as the path to the
+It creates a geospatial index on all documents using `location` as the path to the
 coordinates. The value of the attribute has to be an array with at least two
 numeric values. The array must contain the latitude (first value) and the
 longitude (second value).
@@ -606,12 +606,11 @@ Example with two polygons, the second one with a hole:
 _arangosh_ Examples
 -------------------
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+Ensures that a geo index exists:
 
-ensures that a geo index exists
 `collection.ensureIndex({ type: "geo", fields: [ "location" ] })`
 
-Creates a geospatial index on all documents using *location* as the path to the
+Creates a geospatial index on all documents using `location` as the path to the
 coordinates. The value of the attribute has to be an array with at least two
 numeric values. The array must contain the latitude (first value) and the
 longitude (second value).
@@ -635,14 +634,18 @@ coordinates supported by a geo index.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
+---
+
 To create a geo index on an array attribute that contains longitude first, set
-the *geoJson* attribute to `true`. This corresponds to the format described in
+the `geoJson` attribute to `true`. This corresponds to the format described in
 [RFC 7946 Position](https://tools.ietf.org/html/rfc7946#section-3.1.1){:target="_blank"}
 
 `collection.ensureIndex({ type: "geo", fields: [ "location" ], geoJson: true })`
 
-To create a geo-spatial index on all documents using *latitude* and *longitude*
-as separate attribute paths, two paths need to be specified in the *fields*
+---
+
+To create a geo-spatial index on all documents using `latitude` and `longitude`
+as separate attribute paths, two paths need to be specified in the `fields`
 array:
 
 `collection.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] })`

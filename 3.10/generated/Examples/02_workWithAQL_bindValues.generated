@@ -1,5 +1,4 @@
-arangosh&gt; db._query(
-........&gt; <span class="hljs-string">&#x27;FOR c IN @@collection FILTER c._key == @key RETURN c._key&#x27;</span>, {
+arangosh&gt; db._query(<span class="hljs-string">&#x27;FOR c IN @@collection FILTER c._key == @key RETURN c._key&#x27;</span>, {
 ........&gt;   <span class="hljs-string">&#x27;@collection&#x27;</span>: <span class="hljs-string">&#x27;mycollection&#x27;</span>, 
 ........&gt;   <span class="hljs-string">&#x27;key&#x27;</span>: <span class="hljs-string">&#x27;testKey&#x27;</span>
 ........&gt; }).toArray();

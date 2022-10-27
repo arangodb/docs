@@ -6,7 +6,7 @@ title: ArangoDB SatelliteCollections
 SatelliteCollections
 ====================
 
-{% include hint-ee-oasis.md feature="SatelliteCollections" plural=true %}
+{% include hint-ee-arangograph.md feature="SatelliteCollections" plural=true %}
 
 When doing joins in an ArangoDB cluster data has to be exchanged between different servers.
 

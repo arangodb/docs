@@ -98,9 +98,8 @@ To override this decision (only valid while bootstrapping), add a
 `--cluster.start-single=false` to the machine where the single server
 instance should _not_ be started.
 
-If you use an ArangoDB version of 3.4 or above and use the Enterprise
-Edition Docker image, you have to set the license key in an environment
-variable by adding this option to the above `docker` command:
+If you use the Enterprise Edition Docker image, you have to set the license key
+in an environment variable by adding this option to the above `docker` command:
 
 ```
     -e ARANGO_LICENSE_KEY=<thekey>

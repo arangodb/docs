@@ -2,8 +2,6 @@
 layout: default
 description: ArangoDB can be compiled directly from source code
 title: Compile ArangoDB
-redirect_from:
-  - cookbook/compiling.html # 3.5 -> 3.5
 ---
 Compiling ArangoDB from Source
 ===============================

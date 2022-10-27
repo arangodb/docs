@@ -152,17 +152,15 @@ by changing the `_config.yml`:
 
 ```yaml
 exclude:
-# - 3.9/
-# - 3.8/
-# - 3.7/
-  - 3.6/
-  - 3.5/
-  - 3.4/
-  - 3.3/
+# - 3.11/
+# - 3.10/
+  - 3.9/
+  - 3.8/
+  - 3.7/
 ```
 
-Above example disables versions 3.3 through 3.6, so that 3.7, 3.8, and 3.9 will be
-built only. Do not commit these changes of the configuration!
+Above example disables versions 3.7 through 3.9, so that only 3.10 and 3.11 are
+built. Do not commit these changes of the configuration!
 
 Note that building may fail if you disable certain versions that contain the files
 that other versions refer to with symlinks, or required versions as defined in
@@ -197,9 +195,9 @@ reasons. The core book (Manual) of a version does not have an own folder for its
 content, but the files are found in the version directory, e.g. `3.8/*.md`.
 Other books (AQL, HTTP) have subfolders in the version folder, e.g. `3.8/aql/`.
 
-There are also books (Drivers, Oasis) that are not directly couple to ArangoDB
+There are also books (Drivers, ArangoGraph) that are not directly couple to ArangoDB
 versions, that have their files in an own folders in the root directory, e.g.
-`oasis/*.md`. These folders are symlinked in multiple version folders. Some
+`arangograph/*.md`. These folders are symlinked in multiple version folders. Some
 files, like release notes, are also symlinked to reduce maintenance costs.
 
 The organization of documents is **flat**, namely there are no subdirectories
@@ -655,18 +653,20 @@ Current version is less than or equal to 3.8
 
 - Use the exact spelling of Enterprise Edition and its features, as well as for
   all other terms coined by ArangoDB:
-  - _SmartGraphs_
+  - _EnterpriseGraphs_
+  - _SmartGraphs_, _Disjoint SmartGraphs_
+  - _SmartGraphs using SatelliteCollection_, not ~~Hybrid SmartGraphs~~
   - _SmartJoins_
   - _OneShard_
   - _Community Edition_
   - _Enterprise Edition_
-  - _DB-Server_, not dbserver, db-server, DBserver (unless it is a code value)
+  - _DB-Server_, not ~~dbserver~~, ~~db-server~~, ~~DBserver~~ (unless it is a code value)
   - _Coordinator_ (uppercase C)
   - _Agent_, _Agency_ (uppercase A)
   - _Active Failover_
-  - _Datacenter to Datacenter Replication_, _DC2DC_
-  - _Oasis_, _ArangoDB Oasis_ (_… the ArangoDB cloud_, but do not use
-    _ArangoDB Cloud_)
+  - _Datacenter-to-Datacenter Replication_ (note the hyphens), _DC2DC_
+  - _ArangoGraph Insights Platform_ and _ArangoGraph_ for short, but not
+    ~~Oasis~~, ~~ArangoDB Oasis~~, or ~~ArangoDB Cloud~~
 
 - Do not capitalize the names of executables or code values, e.g. write
   _arangosh_ instead of _Arangosh_.
@@ -949,7 +949,6 @@ its documentation needs to be marked as such. The respective version needs to
 be added to the `_data/deprecations.yml` file for that:
 
 ```diff
- - "3.4"
  - "3.5"
  - "3.6"
 +- "3.7"
@@ -967,7 +966,7 @@ It makes a warning show at the top of every page for that version.
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```bash
   cd _data
-  for book in aql drivers http manual oasis; do
+  for book in aql drivers http manual arangograph; do
     cp -a "3.9-${book}.yml" "4.0-${book}.yml"
   done
   cd ..
@@ -986,8 +985,8 @@ It makes a warning show at the top of every page for that version.
   to match the new version folder, e.g.
   ```diff
    redirect_from:
-  -  - /3.9/path/to/file.html # 3.4 -> 3.5
-  +  - /4.0/path/to/file.html # 3.4 -> 3.5
+  -  - /3.9/path/to/file.html # 3.6 -> 3.7
+  +  - /4.0/path/to/file.html # 3.6 -> 3.7
   ```
   This is only necessary for absolute redirects. Relative redirects are
   preferred, e.g. `- old.html` in `new.html` (may also include `..`).
@@ -1753,7 +1752,7 @@ failed example in `arangosh.examples.js`.
   linked in the navigation.
 
   Another reason can be a faulty reference in the navigation file (e.g.
-  `_data/3.5-manual.yml`). The file name or directory might simply be wrong,
+  `_data/3.9-manual.yml`). The file name or directory might simply be wrong,
   or the file extension could be wrong or incomplete in the `href` attribute:
 
   ```
@@ -1794,8 +1793,8 @@ failed example in `arangosh.examples.js`.
 
 - ```
   Configuration file: none
-              Source: /path/to/docs/3.5
-         Destination: /path/to/docs/3.5/_site
+              Source: /path/to/docs/3.9
+         Destination: /path/to/docs/3.9/_site
    Incremental build: disabled. Enable with --incremental
         Generating...
        Build Warning: Layout 'default' requested in subfolder/page.md does not exist.
@@ -1816,6 +1815,14 @@ failed example in `arangosh.examples.js`.
   Stray folders with untracked Markdown files may cause this problem, e.g. the
   output of `oasisctl generate-docs`. Either remove the files or add the folder
   to the list of excludes in `_config.yml`.
+
+- ```
+  /docs/_plugins/PageNavFilter.rb:13:in `create_flat_nav': undefined method `each' for nil:NilClass (NoMethodError)
+  ```
+
+  This error can originate from a missing symlink, e.g. the navigation definition
+  file for a specific version like `3.11-arangograph.yml` being absent. Create
+  a symlink that points to e.g. `../arangograph.yml` to resolve the problem.
 
 - ```
   /opt/build/repo/_plugins/versions/version.rb:45:in `<=>': undefined method `version' for nil:NilClass (NoMethodError)

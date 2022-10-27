@@ -158,7 +158,7 @@ manually with the same command that has been used before.
 You can inspect which processes belong to a starter instance using the `pstree`
 command (see above).
 
-If you are using the `.tar.gz` distribution (only available from v3.4.0),
+If you are using the `.tar.gz` distribution,
 your new version of the executable might be located in a
 different directory. Make sure that you now start the new _Starter_
 executable (`bin/arangodb`) in the new installation place. If you are

@@ -1,6 +1,6 @@
 arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>)
 arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;text_en_nostem&quot;</span>, <span class="hljs-string">&quot;text&quot;</span>, {
-........&gt;   locale: <span class="hljs-string">&quot;en.utf-8&quot;</span>,
+........&gt;   locale: <span class="hljs-string">&quot;en&quot;</span>,
 ........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">&quot;lower&quot;</span>,
 ........&gt;   accent: <span class="hljs-literal">false</span>,
 ........&gt;   stemming: <span class="hljs-literal">false</span>,

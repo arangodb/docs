@@ -10,8 +10,6 @@ description: >-
 {{ page.description }}
 {:class="lead"}
 
-<small>Introduced in: v3.5.0</small>
-
 Stream Transactions allow you to perform multi-document transaction
 with individual begin and commit / abort commands. This is comparable to the
 *BEGIN*, *COMMIT* and *ROLLBACK* operations found in relational database systems.

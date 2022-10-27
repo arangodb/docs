@@ -2,9 +2,6 @@
 layout: default
 description: User management is possible in the web interface and in arangosh while logged on to the _system database.
 title: Manage User Authentication in ArangoDB
-redirect_from:
-  - cookbook/administration-show-users-grants.html # 3.5 -> 3.5
-  - cookbook/administration-authentication.html # 3.5 -> 3.5
 ---
 Managing Users
 ==============
@@ -334,7 +331,7 @@ database. All changes to the access levels must be done using the
 
 ### LDAP Users
 
-{% include hint-ee-oasis.md feature="LDAP authentication" %}
+{% include hint-ee-arangograph.md feature="LDAP authentication" %}
 
 ArangoDB supports LDAP as an external authentication system. For detailed
 information please have look into the

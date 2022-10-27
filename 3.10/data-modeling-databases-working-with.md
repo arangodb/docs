@@ -14,9 +14,8 @@ database only.
 
 ### Name
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Return the database name:
 
-return the database name
 `db._name()`
 
 Returns the name of the current database as a string.
@@ -34,9 +33,8 @@ Returns the name of the current database as a string.
 
 ### ID
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Return the database ID:
 
-return the database id
 `db._id()`
 
 Returns the id of the current database as a string.
@@ -54,9 +52,8 @@ Returns the id of the current database as a string.
 
 ### Path
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Return the path to database files:
 
-return the path to database files
 `db._path()`
 
 Returns the filesystem path of the current database as a string.
@@ -74,36 +71,34 @@ Returns the filesystem path of the current database as a string.
 
 ### isSystem
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Return the database type:
 
-return the database type
 `db._isSystem()`
 
-Returns whether the currently used database is the *_system* database.
+Returns whether the currently used database is the `_system` database.
 The system database has some special privileges and properties, for example,
 database management operations such as create or drop can only be executed
-from within this database. Additionally, the *_system* database itself
+from within this database. Additionally, the `_system` database itself
 cannot be dropped.
 
 ### Properties
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Return the path to database files:
 
-return the path to database files
 `db._properties()`
 
 Returns the properties of the current database as an object with the following
 attributes:
 
-- *id*: the database id
-- *name*: the database name
-- *isSystem*: the database type
-- *path*: the path to database files
-- *sharding*: the sharding method to use for new collections *(Cluster only)*
-- *replicationFactor*: default replication factor for new collections
-  *(Cluster only)*
-- *writeConcern*: a shard will refuse to write if less than this amount
-  of copies are in sync *(Cluster only)*
+- `id`: the database ID
+- `name`: the database name
+- `isSystem`: the database type
+- `path`: the path to the database files (not used anymore, always `""`)
+- `sharding`: the sharding method to use for new collections _(cluster only)_
+- `replicationFactor`: default replication factor for new collections
+  _(cluster only)_
+- `writeConcern`: a shard will refuse to write if less than this amount
+  of copies are in sync _(cluster only)_
 
 **Examples**
 
@@ -118,20 +113,19 @@ attributes:
 
 ### Use Database
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Change the current database:
 
-change the current database
 `db._useDatabase(name)`
 
-Changes the current database to the database specified by *name*. Note
-that the database specified by *name* must already exist.
+Changes the current database to the database specified by `name`. Note
+that the database specified by `name` must already exist.
 
 Changing the database might be disallowed in some contexts, for example
 server-side actions (including Foxx).
 
 When performing this command from arangosh, the current credentials (username
 and password) will be re-used. These credentials might not be valid to
-connect to the database specified by *name*. Additionally, the database
+connect to the database specified by `name`. Additionally, the database
 only be accessed from certain endpoints only. In this case, switching the
 database might not work, and the connection / session should be closed and
 restarted with different username and password credentials and/or
@@ -139,58 +133,56 @@ endpoint data.
 
 ### List Databases
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Return the list of all existing databases:
 
-return the list of all existing databases
 `db._databases()`
 
 Returns the list of all databases. This method can only be used from within
-the *_system* database.
+the `_system` database.
 
 ### Create Database
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Create a new database:
 
-create a new database
 `db._createDatabase(name, options, users)`
 
-Creates a new database with the name specified by *name*.
+Creates a new database with the name specified by `name`.
 There are restrictions for database names
 (see [DatabaseNames](data-modeling-naming-conventions-database-names.html)).
 
 Note that even if the database is created successfully, there will be no
 change into the current database to the new database. Changing the current
 database must explicitly be requested by using the
-*db._useDatabase* method.
+`db._useDatabase()` method.
 
-The *options* attribute can be used to set defaults for collections that will
-be created in the new database (*Cluster only*):
+The `options` attribute can be used to set defaults for collections that will
+be created in the new database (_cluster only_):
 
-- *sharding*: The sharding method to use. Valid values are: `""` or `"single"`.
+- `sharding`: The sharding method to use. Valid values are: `""` or `"single"`.
   Setting this option to `"single"` will enable the OneShard feature in the
   Enterprise Edition.
-- *replicationFactor*: Default replication factor. Special values include
+- `replicationFactor`: Default replication factor. Special values include
   `"satellite"`, which will replicate the collection to every DB-Server, and
   `1`, which disables replication.
-- *writeConcern*: how many copies of each shard are required to be in sync on
+- `writeConcern`: how many copies of each shard are required to be in sync on
   the different DB-Servers. If there are less then these many copies in the
-  cluster a shard will refuse to write. The value of *writeConcern* can not be
-  larger than *replicationFactor*.
+  cluster a shard will refuse to write. The value of `writeConcern` can not be
+  larger than `replicationFactor`.
 
-The optional *users* attribute can be used to create initial users for
+The optional `users` attribute can be used to create initial users for
 the new database. If specified, it must be a list of user objects. Each user
 object can contain the following attributes:
 
-- *username*: the user name as a string. This attribute is mandatory.
-- *passwd*: the user password as a string. If not specified, then it defaults
+- `username`: the user name as a string. This attribute is mandatory.
+- `passwd`: the user password as a string. If not specified, then it defaults
   to an empty string.
-- *active*: a boolean flag indicating whether the user account should be
-  active or not. The default value is *true*.
-- *extra*: an optional JSON object with extra user information. The data
-  contained in *extra* will be stored for the user but not be interpreted
+- `active`: a boolean flag indicating whether the user account should be
+  active or not. The default value is `true`.
+- `extra`: an optional JSON object with extra user information. The data
+  contained in `extra` will be stored for the user but not be interpreted
   further by ArangoDB.
 
-If no initial users are specified, a default user *root* will be created
+If no initial users are specified, a default user `root` will be created
 with an empty string password. This ensures that the new database will be
 accessible via HTTP after it is created.
 
@@ -209,41 +201,41 @@ Alternatively, you can specify user data directly. For example:
 db._createDatabase("newDB", {}, [{ username: "newUser", passwd: "123456", active: true}])
 ```
 
-Those methods can only be used from within the *_system* database.
+Those methods can only be used from within the `_system` database.
 
 ### Drop Database
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Drop an existing database:
 
-drop an existing database
 `db._dropDatabase(name)`
 
-Drops the database specified by *name*. The database specified by
-*name* must exist.
+Drops the database specified by `name`. The database specified by
+`name` must exist.
 
-**Note**: Dropping databases is only possible from within the *_system*
-database. The *_system* database itself cannot be dropped.
+**Note**: Dropping databases is only possible from within the `_system`
+database. The `_system` database itself cannot be dropped.
 
 Databases are dropped asynchronously, and will be physically removed if
 all clients have disconnected and references have been garbage-collected.
 
 ### Compact
 
-<small>Introduced in: v3.5.6, v3.6.7, v3.7.3</small>
+<small>Introduced in: v3.6.7, v3.7.3</small>
 
-compact the entire data, for all databases
+Compact the entire data, for all databases:
+
 `db._compact(options)`
 
 This command can be used to reclaim disk space after substantial data deletions
 have taken place. It requires superuser access.
 
-The optional *options* attribute can be used to get more control over the 
+The optional `options` attribute can be used to get more control over the 
 compaction. The following attributes can be used in it:
 
-- *changeLevel*: whether or not compacted data should be moved to the minimum
-  possible level. The default value is *false*.
-- *compactBottomMostLevel*: whether or not to compact the bottommost level of
-  data. The default value is *false*.
+- `changeLevel`: whether or not compacted data should be moved to the minimum
+  possible level. The default value is `false`.
+- `compactBottomMostLevel`: whether or not to compact the bottommost level of
+  data. The default value is `false`.
 
 {% hint 'warning' %}
 This command can cause a full rewrite of all data in all databases, which may
@@ -253,7 +245,8 @@ and only when additional I/O load can be tolerated for a prolonged time.
 
 ### Engine
 
-retrieve the storage engine type used by the server
+Retrieve the storage engine type used by the server:
+
 `db._engine()`
 
 Returns the name of the storage engine in use (`rocksdb`), as well
@@ -261,7 +254,8 @@ as a list of supported features such as types of indexes.
 
 ### Engine statistics
 
-retrieve statistics related to the storage engine
+Retrieve statistics related to the storage engine:
+
 `db._engineStats()`
 
 Returns some statistics related to the storage engine activity, including figures

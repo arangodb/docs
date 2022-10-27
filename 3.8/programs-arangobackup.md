@@ -6,15 +6,13 @@ title: Arangobackup Client Tool
 Arangobackup
 ============
 
-<small>Introduced in: v3.5.1</small>
-
 {% capture alternative %}
 
 Use [_arangodump_](programs-arangodump.html) and
 [_arangorestore_](programs-arangorestore.html) for
 [logical backups](backup-restore.html#logical-backups) in the Community Edition.
 {% endcapture %}
-{% include hint-ee.md feature="Arangobackup" extra=alternative %}
+{% include hint-ee.md feature="The arangobackup tool" extra=alternative %}
 
 _Arangobackup_ is a command-line client tool for instantaneous and
 consistent [hot backups](backup-restore.html#hot-backups) of the data and

@@ -15,16 +15,16 @@ nodes in the graphs are stored in an "edges collection", the nodes in the graph
 are stored in documents in regular collections.
 
 Edges in ArangoDB are special documents. In addition to the system
-attributes *_key*, *_id* and *_rev*, they have the attributes *_from* and *_to*, 
+attributes `_key`, `_id` and `_rev`, they have the attributes `_from` and `_to`, 
 which contain [document handles](appendix-glossary.html#document-handle), namely the start-point and the end-point of the edge.
 
-*Example*:
+**Example**
 
-- the "edge" collection stores the information that a company's reception is sub-unit to the services unit and the services unit is sub-unit to the
-  CEO. You would express this relationship with the *_from* and *_to* attributes
-- the "normal" collection stores all the properties about the reception, e.g. that 20 people are working there and the room number etc
-- *_from* is the [document handle](appendix-glossary.html#document-handle) of the linked vertex (incoming relation)
-- *_to* is the document handle of the linked vertex (outgoing relation)
+- The "edge" collection stores the information that a company's reception is sub-unit to the services unit and the services unit is sub-unit to the
+  CEO. You would express this relationship with the `_from` and `_to` attributes
+- The "normal" collection stores all the properties about the reception, e.g. that 20 people are working there and the room number etc
+- `_from` is the [document handle](appendix-glossary.html#document-handle) of the linked vertex (incoming relation)
+- `_to` is the document handle of the linked vertex (outgoing relation)
 
 [Edge collections](appendix-glossary.html#edge-collection) are special collections that store edge documents. Edge documents 
 are connection documents that reference other documents. The type of a collection 

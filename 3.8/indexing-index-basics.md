@@ -23,8 +23,8 @@ by ArangoDB, without the user being required to create extra indexes for them.
 `_id` and `_key` are covered by a collection's primary key, and `_from` and `_to`
 are covered by an edge collection's edge index automatically.
 
-You cannot use the `_id` system attribute in user-defined indexes, but indexing
-`_key`, `_rev`, `_from`, and `_to` is possible.
+You cannot use the `_id` system attribute, nor sub-attributes with this name, in
+user-defined indexes, but indexing `_key`, `_rev`, `_from`, and `_to` is possible.
 
 You cannot index fields that contain `.` in their attribute names because dots
 are interpreted as paths of nested attributes. For example, `fields: ["foo.bar"]`
@@ -659,8 +659,6 @@ for highly connected graphs and with RocksDB storage engine.
 
 Creating Indexes in Background
 ------------------------------
-
-<small>Introduced in: v3.5.0</small>
 
 Creating new indexes is by default done under an exclusive collection lock. This means
 that the collection (or the respective shards) are not available for write operations

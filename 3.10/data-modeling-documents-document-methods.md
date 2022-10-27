@@ -8,20 +8,15 @@ Collection Methods
 All
 ---
 
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-
-
 `collection.all()`
 
 Fetches all documents from a collection and returns a cursor. You can use
-*toArray*, *next*, or *hasNext* to access the result. The result
-can be limited using the *skip* and *limit* operator.
-
+`toArray()`, `next()`, or `hasNext()` to access the result. The result
+can be limited using the `skip()` and `limit()` operator.
 
 **Examples**
 
-
-Use *toArray* to get all documents at once:
+Use `toArray()` to get all documents at once:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 001_collectionAll
@@ -39,7 +34,7 @@ Use *toArray* to get all documents at once:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use *limit* to restrict the documents:
+Use `limit()` to restrict the documents:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 002_collectionAllNext
@@ -57,23 +52,19 @@ Use *limit* to restrict the documents:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 Query by example
 ----------------
-
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-
 
 `collection.byExample(example)`
 
 Fetches all documents from a collection that match the specified
 example and returns a cursor.
 
-You can use *toArray*, *next*, or *hasNext* to access the
-result. The result can be limited using the *skip* and *limit*
+You can use `toArray()`, `next()`, or `hasNext()` to access the
+result. The result can be limited using the `skip()` and `limit()`
 operator.
 
-An attribute name of the form *a.b* is interpreted as attribute path,
+An attribute name of the form `a.b` is interpreted as attribute path,
 not as attribute. If you use
 
 ```json
@@ -81,7 +72,7 @@ not as attribute. If you use
 ```
 
 as example, then you will find all documents, such that the attribute
-*a* contains a document of the form *{c : 1 }*. For example the document
+`a` contains a document of the form `{ "c" : 1 }`. For example the document
 
 ```json
 { "a" : { "c" : 1 }, "b" : 1 }
@@ -101,8 +92,8 @@ However, if you use
 { "a.c" : 1 }
 ```
 
-then you will find all documents, which contain a sub-document in *a*
-that has an attribute *c* of value *1*. Both the following documents
+then you will find all documents, which contain a sub-document in `a`
+that has an attribute `c` of value `1`. Both the following documents
 
 ```json
 { "a" : { "c" : 1 }, "b" : 1 }
@@ -124,7 +115,7 @@ As alternative you can supply an array of paths and values.
 
 **Examples**
 
-Use *toArray* to get all documents at once:
+Use `toArray()` to get all documents at once:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 003_collectionByExample
@@ -143,7 +134,7 @@ Use *toArray* to get all documents at once:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use *next* to loop over all documents:
+Use `next()` to loop over all documents:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 004_collectionByExampleNext
@@ -163,20 +154,18 @@ Use *next* to loop over all documents:
 First Example
 -------------
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
-
-
 `collection.firstExample(example)`
 
 Returns some document of a collection that matches the specified
-example. If no such document exists, *null* will be returned.
+example. If no such document exists, `null` will be returned.
 The example has to be specified as paths and values.
-See *byExample* for details.
+See `byExample` for details.
+
+---
 
 `collection.firstExample(path1, value1, ...)`
 
 As alternative you can supply an array of paths and values.
-
 
 **Examples**
 
@@ -197,25 +186,18 @@ As alternative you can supply an array of paths and values.
 Any
 ---
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
-
-
 `collection.any()`
 
-Returns a random document from the collection or *null* if none exists.
+Returns a random document from the collection or `null` if none exists.
 
 **Note**: this method is expensive when using the RocksDB storage engine.
 
 Count
 -----
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
-
-
 `collection.count()`
 
 Returns the number of living documents in the collection.
-
 
 **Examples**
 
@@ -230,72 +212,70 @@ Returns the number of living documents in the collection.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 toArray
 -------
-
-<!-- js/server/modules/@arangodb/arango-collection.js-->
-
 
 `collection.toArray()`
 
 Converts the collection into an array of documents. Never use this call
 in a production environment as it will basically create a copy of your
 collection in RAM which will use resources depending on the number and size
-of the documents in your collecion.
-
+of the documents in your collection.
 
 Document
 --------
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
-
-
 `collection.document(object [, options])`
 
-The *document* method finds a document given an object *object*
-containing the *_id* or *_key* attribute. The method returns
+The `document()` method finds a document given an object `object`
+containing the `_id` or `_key` attribute. The method returns
 the document if it can be found. If both attributes are given,
-the *_id* takes precedence, it is an error, if the collection part
-of the *_id* does not match the *collection*.
+the `_id` takes precedence, it is an error, if the collection part
+of the `_id` does not match the `collection`.
 
-An error is thrown if *_rev* is specified but the document found has a
+An error is thrown if `_rev` is specified but the document found has a
 different revision already. An error is also thrown if no document exists
-with the given *_id* or *_key* value.
+with the given `_id` or `_key` value.
 
 Please note that if the method is executed on the arangod server (e.g. from
 inside a Foxx application), an immutable document object will be returned
 for performance reasons. It is not possible to change attributes of this
 immutable object. To update or patch the returned document, it needs to be
 cloned/copied into a regular JavaScript object first. This is not necessary
-if the *document* method is called from out of arangosh or from any other
+if the `document` method is called from out of arangosh or from any other
 client.
 
-If you pass *options* as the second argument, it must be an object. If this
+If you pass `options` as the second argument, it must be an object. If this
 object has the `allowDirtyReads` attribute set to `true`, then the
 Coordinator is allowed to read from any shard replica and not only from
 the leader. See [Read from Followers](http/document-address-and-etag.html#read-from-followers)
 for details.
 
+---
+
 `collection.document(document-handle [, options])`
 
-As before. Instead of *object* a *document-handle* can be passed as
+As before. Instead of `object` a `document-handle` can be passed as
 first argument. No revision can be specified in this case.
+
+---
 
 `collection.document(document-key [, options])`
 
-As before. Instead of *object* a *document-key* can be passed as
+As before. Instead of `object` a `document-key` can be passed as
 first argument.
+
+---
 
 `collection.document(array [, options])`
 
 This variant allows to perform the operation on a whole array of arguments.
-The behavior is exactly as if *document* would have been called on all members
+The behavior is exactly as if `document` would have been called on all members
 of the array separately and all results are returned in an array. If an error
 occurs with any of the documents, no exception is risen! Instead of a document
 an error object is returned in the result array.
 
-*Examples*
+**Examples**
 
 Returns the document for a document-handle:
 
@@ -381,73 +361,72 @@ An error is raised if the handle is invalid:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 Exists
 ------
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+Checks whether a document exists:
 
-
-checks whether a document exists
 `collection.exists(object [, options])`
 
-The *exists* method determines whether a document exists given an object
-`object` containing the *_id* or *_key* attribute. If both attributes
-are given, the *_id* takes precedence, it is an error, if the collection
-part of the *_id* does not match the *collection*.
+The `exists()` method determines whether a document exists given an object
+`object` containing the `_id` or `_key` attribute. If both attributes
+are given, the `_id` takes precedence, it is an error, if the collection
+part of the `_id` does not match the `collection`.
 
-An error is thrown if *_rev* is specified but the document found has a
+An error is thrown if `_rev` is specified but the document found has a
 different revision already.
 
 Instead of returning the found document or an error, this method will
-only return an object with the attributes *_id*, *_key* and *_rev*, or
-*false* if no document with the given *_id* or *_key* exists. It can
+only return an object with the attributes `_id`, `_key` and `_rev`, or
+`false` if no document with the given `_id` or `_key` exists. It can
 thus be used for easy existence checks.
 
 This method will throw an error if used improperly, e.g. when called
 with a non-document handle, a non-document, or when a cross-collection
 request is performed.
 
-If you pass *options* as the second argument, it must be an object. If this
+If you pass `options` as the second argument, it must be an object. If this
 object has the `allowDirtyReads` attribute set to `true`, then the
 Coordinator is allowed to read from any shard replica and not only from
 the leader. See [Read from Followers](http/document-address-and-etag.html#read-from-followers)
 for details.
 
+---
+
 `collection.exists(document-handle [, options])`
 
-As before. Instead of *object* a *document-handle* can be passed as
+As before. Instead of `object` a `document-handle` can be passed as
 first argument.
+
+---
 
 `collection.exists(document-key [, options])`
 
-As before. Instead of *object* a *document-key* can be passed as
+As before. Instead of `object` a `document-key` can be passed as
 first argument.
+
+---
 
 `collection.exists(array [, options])`
 
 This variant allows to perform the operation on a whole array of arguments.
-The behavior is exactly as if *exists* would have been called on all
+The behavior is exactly as if `exists()` would have been called on all
 members of the array separately and all results are returned in an array. If an error
 occurs with any of the documents, the operation stops immediately returning
 only an error object.
 
-
 Lookup By Keys
 --------------
-
-<!-- arangod/V8Server/v8-query.cpp-->
-
 
 `collection.documents(keys)`
 
 Looks up the documents in the specified collection using the array of
 keys provided. All documents for which a matching key was specified in
-the *keys* array and that exist in the collection will be returned. Keys
+the `keys` array and that exist in the collection will be returned. Keys
 for which no document can be found in the underlying collection are
 ignored, and no exception will be thrown for them.
 
-This method is deprecated in favour of the array variant of *document*.
+This method is deprecated in favor of the array variant of `document()`.
 
 **Examples**
 
@@ -471,92 +450,94 @@ This method is deprecated in favour of the array variant of *document*.
 Insert / Save
 -------------
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
-
 `collection.insert(data)`<br>
 `collection.save(data)`
 
-Creates a new document in the *collection* from the given *data*. The
-*data* must be an object. The attributes *_id* and *_rev* are ignored
-and are automatically generated. A unique value for the attribute *_key*
+Creates a new document in the `collection` from the given `data`. The
+`data` must be an object. The attributes `_id` and `_rev` are ignored
+and are automatically generated. A unique value for the attribute `_key`
 will be automatically generated if not specified. If specified, there
-must not be a document with the given *_key* in the collection.
+must not be a document with the given `_key` in the collection.
 
-The method returns a document with the attributes *_id*, *_key* and
-*_rev*. The attribute *_id* contains the document handle of the newly
-created document, the attribute *_key* the document key and the
-attribute *_rev* contains the document revision.
+The method returns a document with the attributes `_id`, `_key` and
+`_rev`. The attribute `_id` contains the document handle of the newly
+created document, the attribute `_key` the document key and the
+attribute `_rev` contains the document revision.
+
+---
 
 `collection.insert(data, options)`<br>
 `collection.save(data, options)`
 
-Creates a new document in the *collection* from the given *data* as
-above. The optional *options* parameter must be an object and can be
+Creates a new document in the `collection` from the given `data` as
+above. The optional `options` parameter must be an object and can be
 used to specify the following options:
 
-  - *waitForSync*: One can force
+  - `waitForSync`: One can force
     synchronization of the document creation operation to disk even in
-    case that the *waitForSync* flag is been disabled for the entire
-    collection. Thus, the *waitForSync* option can be used to force
+    case that the `waitForSync` flag is been disabled for the entire
+    collection. Thus, the `waitForSync` option can be used to force
     synchronization of just specific operations. To use this, set the
-    *waitForSync* parameter to *true*. If the *waitForSync* parameter
-    is not specified or set to *false*, then the collection's default
-    *waitForSync* behavior is applied. The *waitForSync* parameter
+    `waitForSync` parameter to `true`. If the `waitForSync` parameter
+    is not specified or set to `false`, then the collection's default
+    `waitForSync` behavior is applied. The `waitForSync` parameter
     cannot be used to disable synchronization for collections that have
-    a default *waitForSync* value of *true*.
-  - *silent*: If this flag is set to *true*, the method does not return
+    a default `waitForSync` value of `true`.
+  - `silent`: If this flag is set to `true`, the method does not return
     any output.
-  - *returnNew*: If this flag is set to *true*, the complete new document
-    is returned in the output under the attribute *new*.
-  - *returnOld*: If this flag is set to *true*, the complete old document
-    is returned in the output under the attribute *old*. Only available 
-    in combination with the *overwrite* option
-  - *overwrite*: If set to *true*, the insert becomes a replace-insert.
-    If a document with the same *_key* exists already the new document
+  - `returnNew`: If this flag is set to `true`, the complete new document
+    is returned in the output under the attribute `new`.
+  - `returnOld`: If this flag is set to `true`, the complete old document
+    is returned in the output under the attribute `old`. Only available 
+    in combination with the `overwrite` option
+  - `overwrite`: If set to `true`, the insert becomes a replace-insert.
+    If a document with the same `_key` exists already the new document
     is not rejected with unique constraint violated but will replace
     the old document. Note that operations with `overwrite` parameter require
     a `_key` attribute in the request payload, therefore they can only be
     performed on collections sharded by `_key`.
-  - *overwriteMode*: this optional flag can have one of the following values:
-    - *ignore*: if a document with the specified *_key* value exists already,
+  - `overwriteMode`: this optional flag can have one of the following values:
+    - `ignore`: if a document with the specified `_key` value exists already,
       nothing will be done and no write operation will be carried out
       (introduced in v3.7.0).
       The insert operation will return success in this case. This mode does not
-      support returning the old document version using the *returnOld*
-      attribute. *returnNew* will only set the *new* attribute in the response
+      support returning the old document version using the `returnOld`
+      attribute. `returnNew` will only set the `new` attribute in the response
       if a new document was inserted.
-    - *replace*: if a document with the specified *_key* value exists already,
+    - `replace`: if a document with the specified `_key` value exists already,
       it will be overwritten with the specified document value. This mode will
-      also be used when no overwrite mode is specified but the *overwrite*
-      flag is set to *true*.
-    - *update*: if a document with the specified *_key* value exists already,
+      also be used when no overwrite mode is specified but the `overwrite`
+      flag is set to `true`.
+    - `update`: if a document with the specified `_key` value exists already,
       it will be patched (partially updated) with the specified document value
       (introduced in v3.7.0).
-      The overwrite mode can be further controlled via the *keepNull* and
-      *mergeObjects* parameters.
-    - *conflict*: if a document with the specified *_key* value exists already,
+      The overwrite mode can be further controlled via the `keepNull` and
+      `mergeObjects` parameters.
+    - `conflict`: if a document with the specified `_key` value exists already,
       return a unique constraint violation error so that the insert operation
       fails. This is also the default behavior in case the overwrite mode is
-      not set, and the *overwrite* flag is *false* or not set either.
-  - *keepNull*: The optional *keepNull* parameter can be used to modify
-    the behavior when handling *null* values. Normally, *null* values
-    are stored in the database. By setting the *keepNull* parameter to
-    *false*, this behavior can be changed so that all attributes in
-    *data* with *null* values will be removed from the target document.
+      not set, and the `overwrite` flag is `false` or not set either.
+  - `keepNull`: The optional `keepNull` parameter can be used to modify
+    the behavior when handling `null` values. Normally, `null` values
+    are stored in the database. By setting the `keepNull` parameter to
+    `false`, this behavior can be changed so that all attributes in
+    `data` with `null` values will be removed from the target document.
     This option controls the update-insert behavior only.
-  - *mergeObjects*: Controls whether objects (not arrays) will be
+  - `mergeObjects`: Controls whether objects (not arrays) will be
     merged if present in both the existing and the patch document. If
-    set to *false*, the value in the patch document will overwrite the
-    existing document's value. If set to *true*, objects will be merged.
-    The default is *true*.
+    set to `false`, the value in the patch document will overwrite the
+    existing document's value. If set to `true`, objects will be merged.
+    The default is `true`.
     This option controls the update-insert behavior only.
+
+---
 
 `collection.insert(array)`
 
 `collection.insert(array, options)`
 
 These two variants allow to perform the operation on a whole array of
-arguments. The behavior is exactly as if *insert* would have been called on all
+arguments. The behavior is exactly as if `insert()` would have been called on all
 members of the array separately and all results are returned in an array. If an
 error occurs with any of the documents, no exception is risen! Instead of a
 document an error object is returned in the result array. The options behave
@@ -603,79 +584,83 @@ exactly as before.
 Replace
 -------
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
-
-
 `collection.replace(selector, data)`
 
-Replaces an existing document described by the *selector*, which must
-be an object containing the *_id* or *_key* attribute. There must be
-a document with that *_id* or *_key* in the current collection. This
-document is then replaced with the *data* given as second argument.
-Any attribute *_id*, *_key* or *_rev* in *data* is ignored.
+Replaces an existing document described by the `selector`, which must
+be an object containing the `_id` or `_key` attribute. There must be
+a document with that `_id` or `_key` in the current collection. This
+document is then replaced with the `data` given as second argument.
+Any attribute `_id`, `_key` or `_rev` in `data` is ignored.
 
-The method returns a document with the attributes *_id*, *_key*, *_rev*
-and *_oldRev*. The attribute *_id* contains the document handle of the
-updated document, the attribute *_rev* contains the document revision of
-the updated document, the attribute *_oldRev* contains the revision of
+The method returns a document with the attributes `_id`, `_key`, `_rev`
+and `_oldRev`. The attribute `_id` contains the document handle of the
+updated document, the attribute `_rev` contains the document revision of
+the updated document, the attribute `_oldRev` contains the revision of
 the old (now replaced) document.
 
-If the selector contains a *_rev* attribute, the method first checks
+If the selector contains a `_rev` attribute, the method first checks
 that the specified revision is the current revision of that document.
 If not, there is a conflict, and an error is thrown.
 
+---
+
 `collection.replace(selector, data, options)`
 
-As before, but *options* must be an object that can contain the following
+As before, but `options` must be an object that can contain the following
 boolean attributes:
 
-  - *waitForSync*: One can force
+  - `waitForSync`: One can force
     synchronization of the document creation operation to disk even in
-    case that the *waitForSync* flag is been disabled for the entire
-    collection. Thus, the *waitForSync* option can be used to force
+    case that the `waitForSync` flag is been disabled for the entire
+    collection. Thus, the `waitForSync` option can be used to force
     synchronization of just specific operations. To use this, set the
-    *waitForSync* parameter to *true*. If the *waitForSync* parameter
-    is not specified or set to *false*, then the collection's default
-    *waitForSync* behavior is applied. The *waitForSync* parameter
+    `waitForSync` parameter to `true`. If the `waitForSync` parameter
+    is not specified or set to `false`, then the collection's default
+    `waitForSync` behavior is applied. The `waitForSync` parameter
     cannot be used to disable synchronization for collections that have
-    a default *waitForSync* value of *true*.
-  - *overwrite*: If this flag is set to *true*, a *_rev* attribute in
+    a default `waitForSync` value of `true`.
+  - `overwrite`: If this flag is set to `true`, a `_rev` attribute in
     the selector is ignored.
-  - *returnNew*: If this flag is set to *true*, the complete new document
-    is returned in the output under the attribute *new*.
-  - *returnOld*: If this flag is set to *true*, the complete previous
+  - `returnNew`: If this flag is set to `true`, the complete new document
+    is returned in the output under the attribute `new`.
+  - `returnOld`: If this flag is set to `true`, the complete previous
     revision of the document is returned in the output under the
-    attribute *old*.
-  - *silent*: If this flag is set to *true*, no output is returned.
+    attribute `old`.
+  - `silent`: If this flag is set to `true`, no output is returned.
+
+---
 
 `collection.replace(document-handle, data)`
 
 `collection.replace(document-handle, data, options)`
 
-As before. Instead of *selector* a *document-handle* can be passed as
+As before. Instead of `selector` a `document-handle` can be passed as
 first argument. No revision precondition is tested.
+
+---
 
 `collection.replace(document-key, data)`
 
 `collection.replace(document-key, data, options)`
 
-As before. Instead of *selector* a *document-key* can be passed as
+As before. Instead of `selector` a `document-key` can be passed as
 first argument. No revision precondition is tested.
 
-`collection.replace(selectorarray, dataarray)`
+---
 
-`collection.replace(selectorarray, dataarray, options)`
+`collection.replace(selector-array, data-array)`
+
+`collection.replace(selector-array, data-array, options)`
 
 These two variants allow to perform the operation on a whole array of
-selector/data pairs. The two arrays given as *selectorarray* and *dataarray*
-must have the same length. The behavior is exactly as if *replace* would have
+selector/data pairs. The two arrays given as `selector-array` and `data-array`
+must have the same length. The behavior is exactly as if `replace()` would have
 been called on all respective members of the two arrays and all results are
 returned in an array. If an error occurs with any of the documents, no
 exception is risen! Instead of a document an error object is returned in the
 result array. The options behave exactly as before.
  
 **Examples**
-
 
 Create and update a document:
 
@@ -707,92 +692,96 @@ Use a document handle:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 Update
 ------
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
-
 `collection.update(selector, data)`
 
-Updates an existing document described by the *selector*, which must
-be an object containing the *_id* or *_key* attribute. There must be
-a document with that *_id* or *_key* in the current collection. This
-document is then patched with the *data* given as second argument.
-Any attribute *_id*, *_key* or *_rev* in *data* is ignored.
+Updates an existing document described by the `selector`, which must
+be an object containing the `_id` or `_key` attribute. There must be
+a document with that `_id` or `_key` in the current collection. This
+document is then patched with the `data` given as second argument.
+Any attribute `_id`, `_key` or `_rev` in `data` is ignored.
 
-The method returns a document with the attributes *_id*, *_key*, *_rev*
-and *_oldRev*. The attribute *_id* contains the document handle of the
-updated document, the attribute *_rev* contains the document revision of
-the updated document, the attribute *_oldRev* contains the revision of
+The method returns a document with the attributes `_id`, `_key`, `_rev`
+and `_oldRev`. The attribute `_id` contains the document handle of the
+updated document, the attribute `_rev` contains the document revision of
+the updated document, the attribute `_oldRev` contains the revision of
 the old (now updated) document.
 
-If the selector contains a *_rev* attribute, the method first checks
+If the selector contains a `_rev` attribute, the method first checks
 that the specified revision is the current revision of that document.
 If not, there is a conflict, and an error is thrown.
 
+---
+
 `collection.update(selector, data, options)`
 
-As before, but *options* must be an object that can contain the following
+As before, but `options` must be an object that can contain the following
 boolean attributes:
 
-  - *waitForSync*: One can force
+  - `waitForSync`: One can force
     synchronization of the document creation operation to disk even in
-    case that the *waitForSync* flag is been disabled for the entire
-    collection. Thus, the *waitForSync* option can be used to force
+    case that the `waitForSync` flag is been disabled for the entire
+    collection. Thus, the `waitForSync` option can be used to force
     synchronization of just specific operations. To use this, set the
-    *waitForSync* parameter to *true*. If the *waitForSync* parameter
-    is not specified or set to *false*, then the collection's default
-    *waitForSync* behavior is applied. The *waitForSync* parameter
+    `waitForSync` parameter to `true`. If the `waitForSync` parameter
+    is not specified or set to `false`, then the collection's default
+    `waitForSync` behavior is applied. The `waitForSync` parameter
     cannot be used to disable synchronization for collections that have
-    a default *waitForSync* value of *true*.
-  - *overwrite*: If this flag is set to *true*, a *_rev* attribute in
+    a default `waitForSync` value of `true`.
+  - `overwrite`: If this flag is set to `true`, a `_rev` attribute in
     the selector is ignored.
-  - *returnNew*: If this flag is set to *true*, the complete new document
-    is returned in the output under the attribute *new*.
-  - *returnOld*: If this flag is set to *true*, the complete previous
+  - `returnNew`: If this flag is set to `true`, the complete new document
+    is returned in the output under the attribute `new`.
+  - `returnOld`: If this flag is set to `true`, the complete previous
     revision of the document is returned in the output under the
-    attribute *old*.
-  - *silent*: If this flag is set to *true*, no output is returned.
-  - *keepNull*: The optional *keepNull* parameter can be used to modify
-    the behavior when handling *null* values. Normally, *null* values
-    are stored in the database. By setting the *keepNull* parameter to
-    *false*, this behavior can be changed so that all attributes in
-    *data* with *null* values will be removed from the target document.
-  - *mergeObjects*: Controls whether objects (not arrays) will be
+    attribute `old`.
+  - `silent`: If this flag is set to `true`, no output is returned.
+  - `keepNull`: The optional `keepNull` parameter can be used to modify
+    the behavior when handling `null` values. Normally, `null` values
+    are stored in the database. By setting the `keepNull` parameter to
+    `false`, this behavior can be changed so that all attributes in
+    `data` with `null` values will be removed from the target document.
+  - `mergeObjects`: Controls whether objects (not arrays) will be
     merged if present in both the existing and the patch document. If
-    set to *false*, the value in the patch document will overwrite the
-    existing document's value. If set to *true*, objects will be merged.
-    The default is *true*.
+    set to `false`, the value in the patch document will overwrite the
+    existing document's value. If set to `true`, objects will be merged.
+    The default is `true`.
 
+---
 
 `collection.update(document-handle, data)`
 
 `collection.update(document-handle, data, options)`
 
-As before. Instead of *selector* a *document-handle* can be passed as
+As before. Instead of `selector` a `document-handle` can be passed as
 first argument. No revision precondition is tested.
+
+---
 
 `collection.update(document-key, data)`
 
 `collection.update(document-key, data, options)`
 
-As before. Instead of *selector* a *document-key* can be passed as
+---
+
+As before. Instead of `selector` a `document-key` can be passed as
 first argument. No revision precondition is tested.
 
-`collection.update(selectorarray, dataarray)`
+`collection.update(selector-array, data-array)`
 
-`collection.update(selectorarray, dataarray, options)`
+`collection.update(selector-array, data-array, options)`
 
 These two variants allow to perform the operation on a whole array of
-selector/data pairs. The two arrays given as *selectorarray* and *dataarray*
-must have the same length. The behavior is exactly as if *update* would have
+selector/data pairs. The two arrays given as `selector-array` and `data-array`
+must have the same length. The behavior is exactly as if `update()` would have
 been called on all respective members of the two arrays and all results are
 returned in an array. If an error occurs with any of the documents, no
 exception is risen! Instead of a document an error object is returned in the
 result array. The options behave exactly as before.
 
-*Examples*
+**Examples**
 
 Create and update a document:
 
@@ -872,77 +861,81 @@ Patching array values:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 Remove
 ------
 
-<!-- arangod/V8Server/v8-vocbase.cpp -->
-
 `collection.remove(selector)`
 
-Removes a document described by the *selector*, which must be an object
-containing the *_id* or *_key* attribute. There must be a document with
-that *_id* or *_key* in the current collection. This document is then
+Removes a document described by the `selector`, which must be an object
+containing the `_id` or `_key` attribute. There must be a document with
+that `_id` or `_key` in the current collection. This document is then
 removed.
 
-The method returns a document with the attributes *_id*, *_key* and *_rev*.
-The attribute *_id* contains the document handle of the
-removed document, the attribute *_rev* contains the document revision of
+The method returns a document with the attributes `_id`, `_key` and `_rev`.
+The attribute `_id` contains the document handle of the
+removed document, the attribute `_rev` contains the document revision of
 the removed document.
 
-If the selector contains a *_rev* attribute, the method first checks
+If the selector contains a `_rev` attribute, the method first checks
 that the specified revision is the current revision of that document.
 If not, there is a conflict, and an error is thrown.
 
+---
+
 `collection.remove(selector, options)`
 
-As before, but *options* must be an object that can contain the following
+As before, but `options` must be an object that can contain the following
 boolean attributes:
 
-  - *waitForSync*: One can force
+  - `waitForSync`: One can force
     synchronization of the document creation operation to disk even in
-    case that the *waitForSync* flag is been disabled for the entire
-    collection. Thus, the *waitForSync* option can be used to force
+    case that the `waitForSync` flag is been disabled for the entire
+    collection. Thus, the `waitForSync` option can be used to force
     synchronization of just specific operations. To use this, set the
-    *waitForSync* parameter to *true*. If the *waitForSync* parameter
-    is not specified or set to *false*, then the collection's default
-    *waitForSync* behavior is applied. The *waitForSync* parameter
+    `waitForSync` parameter to `true`. If the `waitForSync` parameter
+    is not specified or set to `false`, then the collection's default
+    `waitForSync` behavior is applied. The `waitForSync` parameter
     cannot be used to disable synchronization for collections that have
-    a default *waitForSync* value of *true*.
-  - *overwrite*: If this flag is set to *true*, a *_rev* attribute in
+    a default `waitForSync` value of `true`.
+  - `overwrite`: If this flag is set to `true`, a `_rev` attribute in
     the selector is ignored.
-  - *returnOld*: If this flag is set to *true*, the complete previous
+  - `returnOld`: If this flag is set to `true`, the complete previous
     revision of the document is returned in the output under the
-    attribute *old*.
-  - *silent*: If this flag is set to *true*, no output is returned.
+    attribute `old`.
+  - `silent`: If this flag is set to `true`, no output is returned.
+
+---
 
 `collection.remove(document-handle)`
 
 `collection.remove(document-handle, options)`
 
-As before. Instead of *selector* a *document-handle* can be passed as
+As before. Instead of `selector` a `document-handle` can be passed as
 first argument. No revision check is performed.
+
+---
 
 `collection.remove(document-key)`
 
 `collection.remove(document-handle, options)`
 
-As before. Instead of *selector* a *document-handle* can be passed as
+As before. Instead of `selector` a `document-handle` can be passed as
 first argument. No revision check is performed.
 
-`collection.remove(selectorarray)`
+---
 
-`collection.remove(selectorarray,options)`
+`collection.remove(selector-array)`
+
+`collection.remove(selector-array, options)`
 
 These two variants allow to perform the operation on a whole array of
-selectors. The behavior is exactly as if *remove* would have been called on all
+selectors. The behavior is exactly as if `remove()` would have been called on all
 members of the array separately and all results are returned in an array. If an
 error occurs with any of the documents, no exception is risen! Instead of a
 document an error object is returned in the result array. The options behave
 exactly as before.
 
 **Examples**
-
 
 Remove a document:
 
@@ -977,27 +970,22 @@ Remove a document with a conflict:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 Remove By Keys
 --------------
 
-<!-- arangod/V8Server/v8-query.cpp-->
-
-
 `collection.removeByKeys(keys)`
-
 
 Looks up the documents in the specified collection using the array of keys
 provided, and removes all documents from the collection whose keys are
-contained in the *keys* array. Keys for which no document can be found in
+contained in the `keys` array. Keys for which no document can be found in
 the underlying collection are ignored, and no exception will be thrown for
 them.
 
 The method will return an object containing the number of removed documents
-in the *removed* sub-attribute, and the number of not-removed/ignored
-documents in the *ignored* sub-attribute.
+in the `removed` sub-attribute, and the number of not-removed/ignored
+documents in the `ignored` sub-attribute.
 
-This method is deprecated in favour of the array variant of *remove*.
+This method is deprecated in favor of the array variant of `remove()`.
 
 **Examples**
 
@@ -1021,33 +1009,33 @@ This method is deprecated in favour of the array variant of *remove*.
 Remove By Example
 -----------------
 
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-
-
 `collection.removeByExample(example)`
 
 Removes all documents matching an example.
 
+---
+
 `collection.removeByExample(document, waitForSync)`
 
-The optional *waitForSync* parameter can be used to force synchronization
+The optional `waitForSync` parameter can be used to force synchronization
 of the document deletion operation to disk even in case that the
-*waitForSync* flag had been disabled for the entire collection. Thus,
-the *waitForSync* parameter can be used to force synchronization of just
-specific operations. To use this, set the *waitForSync* parameter to
-*true*. If the *waitForSync* parameter is not specified or set to
-*false*, then the collection's default *waitForSync* behavior is
-applied. The *waitForSync* parameter cannot be used to disable
-synchronization for collections that have a default *waitForSync* value
-of *true*.
+`waitForSync` flag had been disabled for the entire collection. Thus,
+the `waitForSync` parameter can be used to force synchronization of just
+specific operations. To use this, set the `waitForSync` parameter to
+`true`. If the `waitForSync` parameter is not specified or set to
+`false`, then the collection's default `waitForSync` behavior is
+applied. The `waitForSync` parameter cannot be used to disable
+synchronization for collections that have a default `waitForSync` value
+of `true`.
+
+---
 
 `collection.removeByExample(document, waitForSync, limit)`
 
-The optional *limit* parameter can be used to restrict the number of
-removals to the specified value. If *limit* is specified but less than the
+The optional `limit` parameter can be used to restrict the number of
+removals to the specified value. If `limit` is specified but less than the
 number of documents in the collection, it is undefined which documents are
 removed.
-
 
 **Examples**
 
@@ -1066,36 +1054,36 @@ removed.
 Replace By Example
 ------------------
 
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-
-
 `collection.replaceByExample(example, newValue)`
 
 Replaces all documents matching an example with a new document body.
-The entire document body of each document matching the *example* will be
-replaced with *newValue*. The document meta-attributes *_id*, *_key* and
-*_rev* will not be replaced.
+The entire document body of each document matching the `example` will be
+replaced with `newValue`. The document meta-attributes `_id`, `_key` and
+`_rev` will not be replaced.
+
+---
 
 `collection.replaceByExample(document, newValue, waitForSync)`
 
-The optional *waitForSync* parameter can be used to force synchronization
+The optional `waitForSync` parameter can be used to force synchronization
 of the document replacement operation to disk even in case that the
-*waitForSync* flag had been disabled for the entire collection. Thus,
-the *waitForSync* parameter can be used to force synchronization of just
-specific operations. To use this, set the *waitForSync* parameter to
-*true*. If the *waitForSync* parameter is not specified or set to
-*false*, then the collection's default *waitForSync* behavior is
-applied. The *waitForSync* parameter cannot be used to disable
-synchronization for collections that have a default *waitForSync* value
-of *true*.
+`waitForSync` flag had been disabled for the entire collection. Thus,
+the `waitForSync` parameter can be used to force synchronization of just
+specific operations. To use this, set the `waitForSync` parameter to
+`true`. If the `waitForSync` parameter is not specified or set to
+`false`, then the collection's default `waitForSync` behavior is
+applied. The `waitForSync` parameter cannot be used to disable
+synchronization for collections that have a default `waitForSync` value
+of `true`.
+
+---
 
 `collection.replaceByExample(document, newValue, waitForSync, limit)`
 
-The optional *limit* parameter can be used to restrict the number of
-replacements to the specified value. If *limit* is specified but less than
+The optional `limit` parameter can be used to restrict the number of
+replacements to the specified value. If `limit` is specified but less than
 the number of documents in the collection, it is undefined which documents are
 replaced.
-
 
 **Examples**
 
@@ -1114,55 +1102,57 @@ replaced.
 Update By Example
 -----------------
 
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-
-
 `collection.updateByExample(example, newValue)`
 
 Partially updates all documents matching an example with a new document body.
 Specific attributes in the document body of each document matching the
-*example* will be updated with the values from *newValue*.
-The document meta-attributes *_id*, *_key* and *_rev* cannot be updated.
+`example` will be updated with the values from `newValue`.
+The document meta-attributes `_id`, `_key` and `_rev` cannot be updated.
 
 Partial update could also be used to append new fields,
 if there were no old field with same name.
 
+---
+
 `collection.updateByExample(document, newValue, keepNull, waitForSync)`
 
-The optional *keepNull* parameter can be used to modify the behavior when
-handling *null* values. Normally, *null* values are stored in the
-database. By setting the *keepNull* parameter to *false*, this behavior
-can be changed so that all attributes in *data* with *null* values will
+The optional `keepNull` parameter can be used to modify the behavior when
+handling `null` values. Normally, `null` values are stored in the
+database. By setting the `keepNull` parameter to `false`, this behavior
+can be changed so that all attributes in `data` with `null` values will
 be removed from the target document.
 
-The optional *waitForSync* parameter can be used to force synchronization
+The optional `waitForSync` parameter can be used to force synchronization
 of the document replacement operation to disk even in case that the
-*waitForSync* flag had been disabled for the entire collection. Thus,
-the *waitForSync* parameter can be used to force synchronization of just
-specific operations. To use this, set the *waitForSync* parameter to
-*true*. If the *waitForSync* parameter is not specified or set to
-*false*, then the collection's default *waitForSync* behavior is
-applied. The *waitForSync* parameter cannot be used to disable
-synchronization for collections that have a default *waitForSync* value
-of *true*.
+`waitForSync` flag had been disabled for the entire collection. Thus,
+the `waitForSync` parameter can be used to force synchronization of just
+specific operations. To use this, set the `waitForSync` parameter to
+`true`. If the `waitForSync` parameter is not specified or set to
+`false`, then the collection's default `waitForSync` behavior is
+applied. The `waitForSync` parameter cannot be used to disable
+synchronization for collections that have a default `waitForSync` value
+of `true`.
+
+---
 
 `collection.updateByExample(document, newValue, keepNull, waitForSync, limit)`
 
-The optional *limit* parameter can be used to restrict the number of
-updates to the specified value. If *limit* is specified but less than
+The optional `limit` parameter can be used to restrict the number of
+updates to the specified value. If `limit` is specified but less than
 the number of documents in the collection, it is undefined which documents are
 updated.
+
+---
 
 `collection.updateByExample(document, newValue, options)`
 
 Using this variant, the options for the operation can be passed using
 an object with the following sub-attributes:
 
-  - *keepNull*
-  - *waitForSync*
-  - *limit*
-  - *mergeObjects*
-
+  - `keepNull`
+  - `waitForSync`
+  - `limit`
+  - `mergeObjects`
 
 **Examples**
 
@@ -1185,14 +1175,11 @@ Collection type
 `collection.type()`
 
 Returns the type of a collection. Possible values are:
-- 2: document collection
-- 3: edge collection
-
+- `2`: document collection
+- `3`: edge collection
 
 Convert a document key to a document id
 ---------------------------------------
-
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
 
 `collection.documentId(documentKey)`
 
@@ -1201,7 +1188,6 @@ valid document id.
 
 Throws if the document key is invalid. Note that this method does not
 check whether the document already exists in this collection.
-
 
 Edges
 -----
@@ -1212,13 +1198,15 @@ edges. The following methods, however, are specific to edges.
 
 `edge-collection.edges(vertex)`
 
-The *edges* operator finds all edges starting from (outbound) or ending
-in (inbound) *vertex*.
+The `edges()` operator finds all edges starting from (outbound) or ending
+in (inbound) `vertex`.
+
+---
 
 `edge-collection.edges(vertices)`
 
-The *edges* operator finds all edges starting from (outbound) or ending
-in (inbound) a document from *vertices*, which must be a list of documents
+The `edges` operator finds all edges starting from (outbound) or ending
+in (inbound) a document from `vertices`, which must be a list of documents
 or document handles.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -1240,14 +1228,18 @@ or document handles.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+---
+
 `edge-collection.inEdges(vertex)`
 
-The *edges* operator finds all edges ending in (inbound) *vertex*.
+The `inEdges()` operator finds all edges ending in (inbound) `vertex`.
+
+---
 
 `edge-collection.inEdges(vertices)`
 
-The *edges* operator finds all edges ending in (inbound) a document from
-*vertices*, which must a list of documents or document handles.
+The `inEdges()` operator finds all edges ending in (inbound) a document from
+`vertices`, which must a list of documents or document handles.
 
 **Examples**
 
@@ -1271,16 +1263,19 @@ The *edges* operator finds all edges ending in (inbound) a document from
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+---
+
 `edge-collection.outEdges(vertex)`
 
-The *edges* operator finds all edges starting from (outbound)
-*vertices*.
+The `outEdges()` operator finds all edges starting from (outbound)
+`vertices`.
+
+---
 
 `edge-collection.outEdges(vertices)`
 
-The *edges* operator finds all edges starting from (outbound) a document
-from *vertices*, which must a list of documents or document handles.
-
+The `outEdges()` operator finds all edges starting from (outbound) a document
+from `vertices`, which must a list of documents or document handles.
 
 **Examples**
 
@@ -1310,16 +1305,16 @@ Misc
 `collection.iterate(iterator, options)`
 
 Iterates over some elements of the collection and apply the function
-*iterator* to the elements. The function will be called with the
+`iterator` to the elements. The function will be called with the
 document as first argument and the current number (starting with 0)
 as second argument.
 
-*options* must be an object with the following attributes:
+`options` must be an object with the following attributes:
 
-  - *limit* (optional, default none): use at most *limit* documents.
+  - `limit` (optional, default none): use at most `limit` documents.
 
-  - *probability* (optional, default all): a number between *0* and
-    *1*. Documents are chosen with this probability.
+  - `probability` (optional, default all): a number between `0` and
+    `1`. Documents are chosen with this probability.
 
 **Examples**
 

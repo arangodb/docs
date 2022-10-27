@@ -198,8 +198,6 @@ For more information, refer to
 
 **Maximum number of shards**
 
-<small>Introduced in: v3.5.1</small>
-
 `--cluster.max-number-of-shards <integer>`
 
 Maximum number of shards than can be configured when creating new collections.
@@ -217,7 +215,7 @@ Agents or DB-Servers.
 
 `--cluster.force-one-shard <bool>`
 
-{% include hint-ee-oasis.md feature="This option" %}
+{% include hint-ee-arangograph.md feature="This option" %}
 
 When set to `true`, forces the cluster into creating all future collections with 
 only a single shard and using the same DB-Server as these collections' 
@@ -230,7 +228,7 @@ Agents or DB-Servers.
 
 **Synchronous replication minimum timeout**
 
-<small>Introduced in: v3.4.8, v3.5.1</small>
+<small>Introduced in: v3.5.1</small>
 
 `--cluster.synchronous-replication-timeout-minimum <double>`
 
@@ -271,8 +269,6 @@ Agents or DB-Servers.
 
 `--cluster.min-replication-factor <integer>`
 
-<small>Introduced in: v3.5.1</small>
-
 Minimum replication factor that needs to be used when creating new collections.
 The default value is `1`.
 When changing the value of this setting and restarting servers, no changes will be
@@ -282,8 +278,6 @@ The option only affects Coordinators. It does not have any affect on single serv
 Agents or DB-Servers.
 
 **Maximum replication factor**
-
-<small>Introduced in: v3.5.1</small>
 
 `--cluster.max-replication-factor <integer>`
 
