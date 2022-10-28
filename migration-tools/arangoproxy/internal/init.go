@@ -21,5 +21,5 @@ func CleanCache() {
 	os.OpenFile(config.Conf.Cache.RequestsFile, os.O_TRUNC, 0644)
 	os.OpenFile(config.Conf.Cache.ResponsesFile, os.O_TRUNC, 0644)
 
-	arangosh.Exec(utils.REMOVE_ALL_COLLECTIONS, config.Repository{})
+	arangosh.Exec(utils.REMOVE_ALL_COLLECTIONS, config.Repository{}) // FIXME
 }

@@ -7,7 +7,6 @@ package webui
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"os"
 	"strings"
 	"time"
@@ -24,7 +23,7 @@ import (
 func InitSwaggerFile() {
 	common.Logger.Print("Cleaning api-docs.json file\n")
 
-	buf, err := ioutil.ReadFile(config.Conf.OpenApi.ComponentsFile)
+	buf, err := os.ReadFile(config.Conf.OpenApi.ComponentsFile)
 	if err != nil {
 		common.Logger.Printf("Cannot read components file s: %s\n", err.Error())
 		os.Exit(1)
@@ -50,7 +49,7 @@ func InitSwaggerFile() {
 		os.Exit(1)
 	}
 
-	file, err := os.OpenFile(config.Conf.OpenApi.ApiDocsFile, os.O_TRUNC|os.O_APPEND|os.O_WRONLY, 0644)
+	file, err := os.OpenFile(config.Conf.OpenApi.ApiDocsFile, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
 	if err != nil {
 		common.Logger.Printf("Cannot clean api-docs: %s\n", err.Error())
 		os.Exit(1)
@@ -121,7 +120,7 @@ func Write(specs []httpapi.HTTPSpecRequest) error {
 
 // Write the new entire swagger spec to the api-docs file
 func WriteAPI(apiMap map[string]interface{}) error {
-	apiFile, err := os.OpenFile(config.Conf.OpenApi.ApiDocsFile, os.O_WRONLY|os.O_APPEND|os.O_TRUNC, 0644)
+	apiFile, err := os.OpenFile(config.Conf.OpenApi.ApiDocsFile, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
 	defer apiFile.Close()
 	jsonEndpoint, err := json.Marshal(apiMap)
 	if err != nil {
