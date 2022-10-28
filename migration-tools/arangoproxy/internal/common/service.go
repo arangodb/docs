@@ -1,13 +1,9 @@
 package common
 
 import (
-	"bytes"
-	"os/exec"
+	"fmt"
 	"regexp"
-	"strings"
 
-	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
-	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 	"github.com/dlclark/regexp2"
 )
 
@@ -21,29 +17,26 @@ func Recover(functionName string) {
 	}
 }
 
-func (service Service) CleanUpTestCollections(code string, collectionsToIgnore *IgnoreCollections, repository config.Repository) {
-	service.AddIgnoreCollections(code, collectionsToIgnore)
-	service.RemoveIgnoreCollection(code, collectionsToIgnore)
-	command := utils.RemoveAllTestCollections(collectionsToIgnore.ToIgnore)
-	cmdName := "arangosh"
-	cmdArgs := []string{"--configuration", "none",
-		"--server.endpoint", repository.Url,
-		"--server.password", repository.Password,
-		"--javascript.startup-directory", "/usr/share/arangodb3/js"}
+func (service Service) HandleIgnoreCollections(code string, collectionsToIgnore *IgnoreCollections) string {
+	code = service.AddIgnoreCollections(code, collectionsToIgnore)
+	code = service.RemoveIgnoreCollection(code, collectionsToIgnore)
+	ignoreCollections := "var toIgnore = ["
 
-	cmd := exec.Command(cmdName, cmdArgs...)
-
-	var out, er bytes.Buffer
-	cmd.Stdin = strings.NewReader(command)
-	cmd.Stdout = &out
-	cmd.Stderr = &er
-
-	cmd.Run()
+	for coll, toIgnore := range collectionsToIgnore.ToIgnore {
+		if toIgnore == true {
+			ignoreCollections = fmt.Sprintf("%s\"%s\",", ignoreCollections, coll)
+		}
+	}
+	ignoreCollections = ignoreCollections + "];"
+	code = ignoreCollections + "\n" + code
+	return code
 }
 
-func (service Service) AddIgnoreCollections(code string, collectionsToIgnore *IgnoreCollections) {
+func (service Service) AddIgnoreCollections(code string, collectionsToIgnore *IgnoreCollections) string {
 	addIgnoreRe := regexp.MustCompile(".*addIgnoreCollection.*")
 	collections := addIgnoreRe.FindAllString(code, -1)
+
+	code = addIgnoreRe.ReplaceAllString(code, "")
 
 	for _, collection := range collections {
 		collectionNameRe := regexp2.MustCompile("(?<=addIgnoreCollection\\(\").*(?=\"\\))", 0)
@@ -52,15 +45,16 @@ func (service Service) AddIgnoreCollections(code string, collectionsToIgnore *Ig
 			continue
 		}
 
-		collectionsToIgnore.Mutex.Lock()
-		collectionsToIgnore.ToIgnore = append(collectionsToIgnore.ToIgnore, collectionName.String())
-		collectionsToIgnore.Mutex.Unlock()
+		collectionsToIgnore.ToIgnore[collectionName.String()] = true
 	}
+	return code
 }
 
-func (service Service) RemoveIgnoreCollection(code string, collectionsToIgnore *IgnoreCollections) {
-	addIgnoreRe := regexp.MustCompile(".*removeIgnoreCollection.*")
+func (service Service) RemoveIgnoreCollection(code string, collectionsToIgnore *IgnoreCollections) string {
+	addIgnoreRe := regexp.MustCompile(`(?m).*removeIgnoreCollection.*`)
 	collections := addIgnoreRe.FindAllString(code, -1)
+
+	code = addIgnoreRe.ReplaceAllString(code, "")
 
 	for _, collection := range collections {
 		collectionNameRe := regexp2.MustCompile("(?<=removeIgnoreCollection\\(\").*(?=\"\\))", 0)
@@ -69,13 +63,7 @@ func (service Service) RemoveIgnoreCollection(code string, collectionsToIgnore *
 			continue
 		}
 
-		collectionsToIgnore.Mutex.Lock()
-		for _, coll := range collectionsToIgnore.ToIgnore {
-			if coll == collectionName.String() {
-
-			}
-		}
-		collectionsToIgnore.ToIgnore = append(collectionsToIgnore.ToIgnore, collectionName.String())
-		collectionsToIgnore.Mutex.Unlock()
+		collectionsToIgnore.ToIgnore[collectionName.String()] = false
 	}
+	return code
 }

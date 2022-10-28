@@ -1,8 +1,12 @@
 # Migration
 
-## Prerequisites:
--   **Python 3**
+## Prerequisites
 
+- Python 3
+- `yaml` module
+  ```
+  python3 -m pip install pyyaml
+  ```
 
 ## Migrate
 

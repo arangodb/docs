@@ -117,7 +117,6 @@
     </aside>
     --->
     <div id="sidenav" class="default-animation{{ if $showvisitedlinks }} showVisitedLinks{{ end }} active">
-      <div class="sidenav-container">
         <div class="sidenav-container-flex">
           <div class="sidenav-navigation">
             {{- $currentNode := . }}
@@ -141,12 +140,13 @@
                 {{- $defaultAlwaysopen := .Site.Params.alwaysopen | default false }}
                 {{- if eq $currentOrdersectionsby "title" }}
                   {{- range .Site.Home.Sections.ByTitle }}
+                  <i class="fa-solid fa-arrow-down"></i>
                     {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
                   {{- end }}
                 {{- else }}
                   {{- range .Site.Home.Sections.ByWeight }}
                     {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
-                  {{- end }}
+                    {{- end }}
                 {{- end }}
               </ul>
               {{- $disableShortcutsTitle := .Site.Params.DisableShortcutsTitle }}
@@ -166,7 +166,6 @@
               </div>
             </div>
           </div>
-        </div>
         </div>
     </div>
       <!--
@@ -204,7 +203,7 @@
             {{- $currentAlwaysopen := .Params.alwaysopen | default $alwaysopen }}
             {{- $pageHash := md5 .Page }}
             {{- $isOpen := or $currentAlwaysopen $isSelf $isAncestor }}
-          <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}{{if (or $isSelf $isAncestor) }} parent{{end}}{{if $currentAlwaysopen}} alwaysopen{{end}}"><input type="checkbox" id="section-{{ $pageHash }}" class="toggle"{{ if $isOpen }} checked{{ end }}/><label for="section-{{ $pageHash }}" ></label><a href="{{.RelPermalink}}">
+          <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}{{if (or $isSelf $isAncestor) }} parent{{end}}{{if $currentAlwaysopen}} alwaysopen{{end}}"><input type="checkbox" id="section-{{ $pageHash }}" class="toggle"{{ if $isOpen }} checked{{ end }}/><label for="section-{{ $pageHash }}" ></label><a class="nav-link nav-item-toggle" href="{{.RelPermalink}}">
               {{- partial "menu-pre.html" . }}{{ or .Params.menuTitle .LinkTitle .Title }}{{ partial "menu-post.html" . }}
               {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a><ul>
               {{- $defaultAlwaysopen := .Site.Params.alwaysopen | default true }}

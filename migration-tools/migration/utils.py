@@ -1,4 +1,5 @@
 import re
+import globals
 
 ## TODO: These functions are horrible, refactor with cleaner code
 
@@ -26,14 +27,14 @@ def migrate_hints(paragraph):
         paragraph = paragraph.replace(hint, newHint)
 
     # Enterprise feature hints
-    enterpriseFeatureRegex = re.findall(r"{% include hint-ee-oasis\.md .* %}|{% include hint-ee\.md .* %}", paragraph)
+    enterpriseFeatureRegex = re.findall(r"{% include hint-ee-arangograph\.md .* %}|{% include hint-ee\.md .* %}", paragraph)
     for tag in enterpriseFeatureRegex:
         feature = re.search(r"(?<=feature=).*\"", tag).group(0)
-        oasis = "false"
-        if 'oasis' in tag:
-            oasis = "true"
+        arangograph = "false"
+        if 'arangograph' in tag:
+            arangograph = "true"
 
-        paragraph = paragraph.replace(tag, '{{{{% enterprise-tag feature={} oasis="{}" %}}}}'.format(feature, oasis))
+        paragraph = paragraph.replace(tag, '{{{{% enterprise-tag feature={} arangograph="{}" %}}}}'.format(feature, arangograph))
 
     detailsRegex = re.search(r"{% details .* %}[\w\n\s\W]*{% enddetails %}", paragraph)
     if detailsRegex:
@@ -42,10 +43,7 @@ def migrate_hints(paragraph):
         paragraph = paragraph.replace(f"{{% enddetails %}}", "{{{{% /expand %}}}}")
 
     # Comments
-    paragraph = paragraph.replace("{% comment %}", "{{/*")
-    paragraph = paragraph.replace("{% endcomment %}", "*/}}")
-
-    paragraph = paragraph.replace("{%- comment %}", "{{/*")
+    paragraph = paragraph.replace("{% comment %}", "{{% comment %}}").replace("{% endcomment %}", "{{% /comment %}}").replace("{%- comment %}", "{{% comment %}}").replace("{%- endcomment %}", "{{% /comment %}}")
 
     return paragraph
 
@@ -78,7 +76,7 @@ def migrate_hrefs(paragraph, infos):
                     label = label.replace('"', '')
 
                 attr = re.search(r"(?<=\]\().*(?=\))", href).group(0).strip('"').strip('()').replace('.html', '')
-                imgWidget = '{{{{< img src="{}" alt="{}" size="medium" >}}}}'.format(attr, label)
+                imgWidget = '{{{{< img src="{}" alt="{}" >}}}}'.format(attr, label)
                 paragraph = paragraph.replace(href, imgWidget)
 
             continue
@@ -132,3 +130,12 @@ def migrate_headers(paragraph):
         paragraph = paragraph.replace(header, headerText)
 
     return paragraph
+
+def migrate_docublock_output(exampleName):
+    generatedFile = open(f"{globals.OLD_GENERATED_FOLDER}/{exampleName}.generated", 'r', encoding="utf-8")
+    output = generatedFile.read()
+    output = output.replace("arangosh&gt;", "").replace("shell&gt;", "")
+    output = re.sub(r"<(.*?)>", "", output, 0, re.MULTILINE)
+    output = output.replace("&#x27;", "\"").replace("&quot;", "\"")
+
+    return output

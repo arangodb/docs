@@ -3,6 +3,8 @@ package common
 import (
 	"regexp"
 	"strings"
+
+	"github.com/dlclark/regexp2"
 )
 
 /*
@@ -19,4 +21,16 @@ func FormatResponse(response *ExampleResponse) {
 		response.Output = re.ReplaceAllString(response.Output, "")
 		response.Output = strings.TrimPrefix(strings.TrimPrefix(response.Output, "\n"), "\r\n")
 	}
+
+	searchErrorsInResponse(response)
+}
+
+func searchErrorsInResponse(response *ExampleResponse) {
+	errorRE := regexp2.MustCompile(`(?ms)(?<=ERROR\n).*(?=END ERR)`, 0)
+	errorMatch, _ := errorRE.FindStringMatch(response.Output)
+	if errorMatch == nil {
+		return
+	}
+
+	response.Error = errorMatch.String()
 }

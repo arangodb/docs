@@ -22,7 +22,7 @@ arangoproxy/cmd> ./arangoproxy {flags}
 
 - `-help`: show help usage
 - `--config {filepath}`: load from config file (default: `configs/local.json`)
-- `-no-cache`: clean cache files
+- `-no-cache`: clean cache files -- WARNING: All collections in the arango instances will be erased!
 
 ## Configuration
 
@@ -34,6 +34,7 @@ A configuration file is made of (taken from `local.json`):
 {
     "webserver": ":8080",   // url+port the arangoproxy will be reachable
     "logFile": "log.txt",   // where to write logs
+    "datasetsFile": ""      // Where datasets examples for aql are stored
     // OpenApi module configuration
     "openapi": {            
         // Filepath to write the swagger spec for th webui team
@@ -53,7 +54,8 @@ A configuration file is made of (taken from `local.json`):
         {
             "type": "local", // Instance type: e.g. nightly, stable ...
             "version": "3.10",
-            "url": "http+tcp://127.0.0.1:8529"
+            "url": "http+tcp://127.0.0.1:8529",
+            "password": ""
         }
     ]
 }

@@ -3,6 +3,7 @@ import json
 import yaml
 import traceback
 from definitions import *
+import utils
 import globals
 
 swaggerBaseTypes = [
@@ -35,16 +36,17 @@ yaml.representer.SafeRepresenter.add_representer(str, str_presenter) # to use wi
 
 
 def initBlocksFileLocations():
-    with open(globals.APIDOCS_FILE, 'r') as apiDocs:
+    with open(globals.ALL_COMMENTS_FILE, 'r', encoding="utf-8") as apiDocs:
         data = apiDocs.read()
 
         docuBlocks = re.findall(r"<!-- filename: .* -->\n@startDocuBlock .*", data)
         for docuBlock in docuBlocks:
             fileLocation = re.findall(r"(?<=<!-- filename: ).*(?= -->)", docuBlock)[0]
+            fileLocation = re.sub(r".*(?=\/Documentation)", globals.ARANGO_MAIN, fileLocation, 1, re.MULTILINE)
+
             blockName = re.findall(r"(?<=@startDocuBlock ).*", docuBlock)[0]
 
             globals.blocksFileLocations[blockName] = fileLocation
-
     return
 
 def migrateHTTPDocuBlocks(paragraph):
@@ -54,9 +56,14 @@ def migrateHTTPDocuBlocks(paragraph):
         if 'errorCodes' in docuBlock: ## TODO: Implement
             continue
 
-        docuBlockFile =globals. blocksFileLocations[docuBlock]
+        docuBlockFile =globals.blocksFileLocations[docuBlock]
+        print(docuBlockFile)
         tag = docuBlockFile.split("/")[len(docuBlockFile.split("/"))-2]
-        docuBlockFile = open(docuBlockFile, "r").read()
+        try:
+            docuBlockFile = open(docuBlockFile, "r", encoding="utf-8").read()
+        except FileNotFoundError:
+            continue
+        
         declaredDocuBlocks = re.findall(r"(?<=@startDocuBlock )(.*?)@endDocuBlock", docuBlockFile, re.MULTILINE | re.DOTALL)
 
         for block in declaredDocuBlocks:
@@ -304,7 +311,7 @@ def parse_examples(blockExamples):
 {{{{< version "3.10" >}}}}\n\
 {{{{< tabs >}}}}\n\
 {{{{% tab name="curl" %}}}}\n\
-```http-example\n\
+```curl\n\
 ---\n\
 {exampleOptions}\n\
 ---\n\
@@ -320,7 +327,7 @@ def parse_examples(blockExamples):
 
 def write_components_to_file():
     globals.components["schemas"] = definitions
-    with open(globals.OAPI_COMPONENTS_FILE, 'w') as outfile:
+    with open(globals.OAPI_COMPONENTS_FILE, 'w', encoding="utf-8") as outfile:
         yaml.dump(globals.components, outfile, sort_keys=False, default_flow_style=False)
 
 if __name__ == "__main__":

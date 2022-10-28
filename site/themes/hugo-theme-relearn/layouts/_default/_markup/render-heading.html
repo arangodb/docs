@@ -1,2 +1,7 @@
 {{ $ref := printf "%s#%s" .Page.Permalink .Anchor}}
-<h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }} <a href="{{ $ref | safeURL }}" class="header-link" onclick="copyURI(event)"><span></span><i class="fa fa-link"></i></a></h{{ .Level }}>
+{{ $level := .Level }}
+{{ if eq .Level 1 }}
+    {{ warnf "Found illegal level 1 Header in '%v' -> '%v'" .Page.RelPermalink .Text }}
+    {{ $level := 2 }}
+{{ end }}
+<h{{ $level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }} <a href="{{ $ref | safeURL }}" class="header-link" onclick="copyURI(event)"><span></span><i class="fa fa-link"></i></a></h{{ $level }}>

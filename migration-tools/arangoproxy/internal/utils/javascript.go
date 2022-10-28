@@ -1,6 +1,10 @@
 package utils
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+)
 
 /*
 	These functions are a porting from the arangodb old toolchain defined in exampleHeader.js and client/internal.js
@@ -32,8 +36,26 @@ for (let col of db._collections()) {
 `
 )
 
+type Dataset struct {
+	Create string `json:"create"`
+	Remove string `json:"remove"`
+}
+
+var Datasets = make(map[string]Dataset)
+
+func LoadDatasets(datasetsFile string) error {
+
+	fileStream, err := ioutil.ReadFile(datasetsFile)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(fileStream, &Datasets)
+	return err
+}
+
 func TryCatchWrap(code string) string {
-	return fmt.Sprintf("try {\n%s\n} catch(err) {\n print('ERROR ' + err.errorNum + ' on ' + err.stack);\n }", code)
+	return fmt.Sprintf("try {\n%s\n} catch(err) {\n print('ERROR');\nprint('Arango Error ' + err.errorNum);\nprint('END ERR');\n }", code)
 }
 
 func Assert(condition string) string {
@@ -55,13 +77,25 @@ var response = curlRequestRaw.apply(curlRequestRaw, [%s]);`, args, args)
 	return fmt.Sprintf("%s\n", curlRequest)
 }
 
-func RemoveAllTestCollections(collectionsToIgnore []string) string {
+func RemoveAllTestCollections() string {
 	return fmt.Sprintf(`
 	for (let col of db._collections()) {
 
-		if (!col.properties().isSystem) and (!%s.includes(col._name)) {
+		if (!col.properties().isSystem && !toIgnore.includes(col._name)) {
 			db._drop(col._name);
 		}
 	}
-	`, collectionsToIgnore)
+	`)
+}
+
+func DatasetExists(dataset string) string {
+	createDSCmd := DATASET_HEADER + "\n" + Datasets[dataset].Create
+	removeDSCmd := DATASET_HEADER + "\n" + Datasets[dataset].Remove
+	iff := fmt.Sprintf(`const ds = %s;
+	if (ds !== '') {
+		%s
+		%s
+	  }`, dataset, removeDSCmd, createDSCmd)
+
+	return iff
 }

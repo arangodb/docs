@@ -39,6 +39,5 @@ func Exec(command string, repository config.Repository) (output string) {
 		common.Logger.Print("[InvokeArangoSH] [WARNING] Output is empty!")
 		return ""
 	}
-
 	return cmdOutput.String()
 }

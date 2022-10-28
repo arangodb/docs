@@ -939,7 +939,6 @@ const showOnPx = 100;
 
 window.addEventListener("load", () => {
     document.addEventListener("scroll", e => {
-        console.log("scrolling " + window.pageYOffset)
     if (window.pageYOffset > showOnPx) {
         document.querySelector(".back-to-top").classList.remove("hidden");
       } else {
@@ -986,10 +985,9 @@ $( document ).ready(function() {
 
 function copyURI(evt) {
     evt.preventDefault();
-    navigator.clipboard.writeText(evt.target.getAttribute('href')).then(() => {
-      /* clipboard successfully set */
+    navigator.clipboard.writeText(evt.target.closest("a").getAttribute('href')).then(() => {
     }, () => {
-      /* clipboard write failed */
+      console.log("clipboard copy failed")
     });
 }
 

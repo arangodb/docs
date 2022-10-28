@@ -9,9 +9,12 @@
     }}
   {{ if $remote }}
   {{ if $remote.Err }}
-          {{ warnf "[HTTP-JS] ERROR CALLING ENDPOINT %#v" .Position }}
+          {{ warnf "[JS] ERROR CALLING ENDPOINT %#v" .Position }}
     {{ else }}
     {{ $response := unmarshal $remote.Content }}
+        {{ if $response.error }}
+          Error found in the example: {{ $response.error }}
+        {{ end }}
         {{ if in $response.options.render "input" }}
         {{ $version := replace $response.options.version "." "" }}
             {{ transform.Highlight $response.input "js" }}
