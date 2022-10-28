@@ -1,6 +1,5 @@
 # ArangoProxy How To
 
-
 ## Build
 
 Compile the arangoproxy webserver (Only when new code is available).
@@ -10,6 +9,7 @@ Compile the arangoproxy webserver (Only when new code is available).
 ```
 arangoproxy/cmd> go build -o arangoproxy
 ```
+
 Golang will automatically detect the hardware and produce the right executable inside the cmd folder
 
 ## Run
@@ -19,17 +19,18 @@ arangoproxy/cmd> ./arangoproxy {flags}
 ```
 
 ### Flags
--   -help: show help usage
--   --config {filepath}: load  from config file (default: local.json)
--   -no-cache: clean cache files        // WARNING: All collections in the arango instances will be erased!
+
+- `-help`: show help usage
+- `--config {filepath}`: load from config file (default: `configs/local.json`)
+- `-no-cache`: clean cache files -- WARNING: All collections in the arango instances will be erased!
 
 ## Configuration
 
 Configuration is loaded with json files.
 
-A configuration file is made of (taken from local.json):
+A configuration file is made of (taken from `local.json`):
 
-```
+```json
 {
     "webserver": ":8080",   // url+port the arangoproxy will be reachable
     "logFile": "log.txt",   // where to write logs

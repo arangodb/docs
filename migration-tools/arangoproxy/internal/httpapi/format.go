@@ -65,7 +65,7 @@ func formatCurlRequest(input string) (output string, err error) {
 		return
 	}
 
-	re := regexp.MustCompile(`(?m)^\s*$\n`) // Cut all excessive spaces and newlines from output
+	re := regexp.MustCompile(`(?m)^\s*$\r?\n`) // Cut all excessive spaces and newlines from output
 	requestArgs := re.ReplaceAllString(requestRe.String(), "")
 
 	args := make([]interface{}, 0)
@@ -86,7 +86,7 @@ func formatCurlRequest(input string) (output string, err error) {
 }
 
 func formatCurlResponse(input string) (output string) {
-	responseRE := regexp2.MustCompile(`(?ms)(?<=RESPONSE\n).*(?=END RESP)`, 0)
+	responseRE := regexp2.MustCompile(`(?ms)(?<=RESPONSE\r?\n).*(?=END RESP)`, 0)
 	responseMatch, _ := responseRE.FindStringMatch(input)
 	if responseMatch == nil {
 		common.Logger.Printf("[HTTP] formatCurlResponse could not find Response part %s\n", input)

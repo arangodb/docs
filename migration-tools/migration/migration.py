@@ -233,8 +233,12 @@ class FrontMatter():
 		self.menuTitle = ""
 		self.weight = 0
 
+	@staticmethod
+	def clean(str):
+		return str.replace("`", "")
+
 	def toString(self):
-		return f"---\nfileID: {self.fileID}\ntitle: {self.title}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
+		return f"---\nfileID: {self.fileID}\ntitle: {self.clean(self.title)}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
 
 def get_weight(weight):
 	global currentWeight
