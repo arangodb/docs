@@ -25,7 +25,12 @@ func (service HTTPService) ExecuteHTTPExample(request common.Example) (res commo
 	commands := formatCommand(request.Code)
 	repository, _ := common.GetRepository(request.Options.Release, request.Options.Version)
 
+	commands = service.HandleIgnoreCollections(commands, collectionsToIgnore)
+
+	//commands = utils.TryCatchWrap(commands)
+	common.Logger.Printf("%s CODE %s\n", request.Options.Name, commands)
 	cmdOutput := arangosh.Exec(commands, repository)
+	common.Logger.Printf("%s OUTPUT %s\n\n", request.Options.Name, cmdOutput)
 
 	curlRequest, curlOutput, err := formatArangoResponse(cmdOutput, string(request.Options.Render))
 	if err != nil {
@@ -36,7 +41,5 @@ func (service HTTPService) ExecuteHTTPExample(request common.Example) (res commo
 
 	service.SaveCachedExampleResponse(res)
 
-	//repository, _ := common.GetRepository(request.Options.Release, request.Options.Version)
-	//service.CleanUpTestCollections(request.Code, collectionsToIgnore, repository)
 	return
 }

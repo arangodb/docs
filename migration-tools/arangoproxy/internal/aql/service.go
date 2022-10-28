@@ -30,16 +30,21 @@ func (service AQLService) Execute(request common.Example) (res AQLResponse) {
 
 	// Check if dataset to be used
 	if request.Options.Dataset != "" {
-		createDSCmd := utils.DATASET_HEADER
-		createDSCmd = utils.DATASET_HEADER + "\n" + Datasets[request.Options.Dataset].Create
-		arangosh.Exec(createDSCmd, repository)
+		createDSCmd := utils.Datasets[request.Options.Dataset].Create
+		removeDSCmd := utils.Datasets[request.Options.Dataset].Remove
+		commands = utils.DATASET_HEADER + "\n" + removeDSCmd + "\n" + createDSCmd + "\n" + commands + "\n" + removeDSCmd
 	}
+
+	commands = service.HandleIgnoreCollections(commands, collectionsToIgnore)
 
 	// If xpError on, don't use try catch wrap
 	//request.Code = utils.TryCatchWrap()
 
 	// Example is not cached, execute it against the arango instance
+	//commands = utils.TryCatchWrap(commands)
+	common.Logger.Printf("%s CODE %s\n", request.Options.Name, commands)
 	cmdOutput := arangosh.Exec(commands, repository)
+	common.Logger.Printf("%s OUTPUT %s\n\n", request.Options.Name, cmdOutput)
 
 	res.ExampleResponse.Input, res.ExampleResponse.Options = request.Code, request.Options
 
@@ -53,7 +58,6 @@ func (service AQLService) Execute(request common.Example) (res AQLResponse) {
 
 	res.BindVars = request.Options.BindVars
 
-	service.CleanUpTestCollections(request.Code, collectionsToIgnore, repository)
 	return
 }
 

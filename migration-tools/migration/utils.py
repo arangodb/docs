@@ -1,4 +1,5 @@
 import re
+import globals
 
 ## TODO: These functions are horrible, refactor with cleaner code
 
@@ -129,3 +130,12 @@ def migrate_headers(paragraph):
         paragraph = paragraph.replace(header, headerText)
 
     return paragraph
+
+def migrate_docublock_output(exampleName):
+    generatedFile = open(f"{globals.OLD_GENERATED_FOLDER}/{exampleName}.generated", 'r', encoding="utf-8")
+    output = generatedFile.read()
+    output = output.replace("arangosh&gt;", "").replace("shell&gt;", "")
+    output = re.sub(r"<(.*?)>", "", output, 0, re.MULTILINE)
+    output = output.replace("&#x27;", "\"").replace("&quot;", "\"")
+
+    return output

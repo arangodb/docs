@@ -21,6 +21,10 @@ type HTTPResponse struct {
 	ApiSpec map[string]interface{} `json:"spec"`
 }
 
+func init() {
+	collectionsToIgnore.ToIgnore = make(map[string]bool)
+}
+
 // Reads the Hugo http-spec request, get the calling file and unmarshal the yaml spec
 func ParseRequest(request io.Reader) (res HTTPSpecRequest, err error) {
 	req, err := ioutil.ReadAll(request)

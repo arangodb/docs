@@ -6,9 +6,9 @@ import (
 	"os"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal"
-	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/aql"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/webui"
 )
 
@@ -30,7 +30,7 @@ func init() {
 
 	internal.InitLog(config.Conf.Log)
 	common.InitRepositories()
-	aql.LoadDatasets(config.Conf.Datasets)
+	utils.LoadDatasets(config.Conf.Datasets)
 
 	common.Logger.Println(startupBanner)
 	common.Logger.Print("./arangoproxy -help for help usage\n\n")

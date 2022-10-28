@@ -3,6 +3,7 @@ import json
 import yaml
 import traceback
 from definitions import *
+import utils
 import globals
 
 swaggerBaseTypes = [
@@ -310,7 +311,7 @@ def parse_examples(blockExamples):
 {{{{< version "3.10" >}}}}\n\
 {{{{< tabs >}}}}\n\
 {{{{% tab name="curl" %}}}}\n\
-```http-example\n\
+```curl\n\
 ---\n\
 {exampleOptions}\n\
 ---\n\

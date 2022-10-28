@@ -14,6 +14,12 @@ import (
 func formatCommand(code string) string {
 	// Add js internal module import
 	code = fmt.Sprintf("var internal = require('internal');\n%s", code)
+	multiLineRE := regexp.MustCompile(`(?m)[+]\s*\n*`)
+	allMultiLines := multiLineRE.FindAllString(code, -1)
+	for _, multiLine := range allMultiLines {
+		noMoreMultiline := strings.ReplaceAll(multiLine, "\n", "")
+		code = strings.Replace(code, multiLine, noMoreMultiline, -1)
+	}
 
 	curlRequestRe := regexp.MustCompile(".*log.*Request.*")
 	curlRequests := curlRequestRe.FindAllString(code, -1)
@@ -37,7 +43,6 @@ func formatCommand(code string) string {
 			code = strings.Replace(code, logJsonResponse, utils.LOGJSONRESPONSE, -1)
 		}
 	}
-
 	return code
 }
 

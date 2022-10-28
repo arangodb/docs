@@ -1,6 +1,7 @@
 import re
 import globals
 import yaml
+import utils
 
 #TODO: Using yaml lib, is it possible to convert dicts into yaml without formatting those horrible strings by hand?
 
@@ -29,6 +30,7 @@ def migrateInlineDocuBlocks(paragraph):
 
             if "@EXAMPLE_ARANGOSH_OUTPUT" in exampleType:
                 newBlock["options"]["render"] = "input/output"
+                newBlock["options"]["name"] = re.search(r"(?<=@EXAMPLE_ARANGOSH_OUTPUT{).*(?=})", exampleType).group(0)
 
             elif "@EXAMPLE_AQL" in exampleType:
                 newBlock["language"] = "aql"

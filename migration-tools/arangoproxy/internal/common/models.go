@@ -122,5 +122,5 @@ func (r ExampleResponse) String() string {
 
 type IgnoreCollections struct {
 	Mutex    sync.Mutex
-	ToIgnore []string
+	ToIgnore map[string]bool
 }
