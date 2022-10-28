@@ -12,10 +12,16 @@ import (
 
 func Exec(command string, repository config.Repository) (output string) {
 	cmdName := "arangosh"
-	cmdArgs := []string{"--configuration", "none",
+	cmdArgs := []string{
+		//"--configuration", "none",
+		//"--javascript.startup-directory", "/usr/share/arangodb3/js",
 		"--server.endpoint", repository.Url,
-		"--server.password", repository.Password,
-		"--javascript.startup-directory", "/usr/share/arangodb3/js"}
+	}
+	if repository.Password == "" {
+		cmdArgs = append(cmdArgs, "--server.authentication", "false")
+	} else {
+		cmdArgs = append(cmdArgs, "--server.password", repository.Password)
+	}
 
 	cmd := exec.Command(cmdName, cmdArgs...)
 
