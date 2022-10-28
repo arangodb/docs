@@ -7,7 +7,6 @@ package webui
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"os"
 	"strings"
 	"time"
@@ -24,7 +23,7 @@ import (
 func InitSwaggerFile() {
 	common.Logger.Print("Cleaning api-docs.json file\n")
 
-	buf, err := ioutil.ReadFile(config.Conf.OpenApi.ComponentsFile)
+	buf, err := os.ReadFile(config.Conf.OpenApi.ComponentsFile)
 	if err != nil {
 		common.Logger.Printf("Cannot read components file s: %s\n", err.Error())
 		os.Exit(1)

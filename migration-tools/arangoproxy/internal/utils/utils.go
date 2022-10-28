@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/dlclark/regexp2"
@@ -27,7 +27,7 @@ func DecodeFromBase64(v interface{}, enc string) error {
 }
 
 func ReadFileAsMap(file string) (map[string]interface{}, error) {
-	fileBytes, err := ioutil.ReadFile(file)
+	fileBytes, err := os.ReadFile(file)
 	if err != nil {
 		return nil, errors.New("[ReadFileAsMap] error reading file " + err.Error())
 	}

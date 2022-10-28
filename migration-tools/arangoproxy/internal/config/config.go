@@ -2,7 +2,7 @@ package config
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 )
 
 type Config struct {
@@ -17,7 +17,7 @@ type Config struct {
 var Conf Config
 
 func LoadConfig(file string) error {
-	fileStream, err := ioutil.ReadFile(file)
+	fileStream, err := os.ReadFile(file)
 	if err != nil {
 		return err
 	}

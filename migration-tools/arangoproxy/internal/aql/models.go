@@ -2,7 +2,7 @@ package aql
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 )
@@ -23,7 +23,7 @@ var Datasets = make(map[string]Dataset)
 
 func LoadDatasets(datasetsFile string) error {
 
-	fileStream, err := ioutil.ReadFile(datasetsFile)
+	fileStream, err := os.ReadFile(datasetsFile)
 	if err != nil {
 		return err
 	}
