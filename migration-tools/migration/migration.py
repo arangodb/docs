@@ -48,7 +48,7 @@ def structure_migration_new(label, document, manual):
 
 
 def create_chapter(item, manual):
-	label = item["subtitle"].lower().replace(" ", "-")
+	label = item["subtitle"].lower().replace(" ", "-").replace("&","").replace("--","-")
 
 	if manual != "manual":
 		label = f"{manual}/{label}"
@@ -74,9 +74,9 @@ def create_index(label, item, extendedSection):
 	folderName = item["text"].lower().replace(" ", "-").replace("/", "")
 	label = label + "/" + folderName
 
-	Path(f'{NEW_TOOLCHAIN}/content/{label}').mkdir(parents=True, exist_ok=True)
+	Path(f'{NEW_TOOLCHAIN}/content/{label}'.replace("&","").replace("--","-")).mkdir(parents=True, exist_ok=True)
 
-	indexPath = f'{NEW_TOOLCHAIN}/content/{label}/_index.md'.replace("//", "/")
+	indexPath = f'{NEW_TOOLCHAIN}/content/{label}/_index.md'.replace("//", "/").replace("&","").replace("--","-")
 	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'
 	shutil.copyfile(oldFilePath, indexPath)
 	infos[indexPath] = {
@@ -89,7 +89,7 @@ def create_index(label, item, extendedSection):
 def create_files_new(label, item, extendedSection):
 	oldFileName = item["href"].replace(".html", ".md")
 	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'.replace("//", "/")
-	filePath = f'{NEW_TOOLCHAIN}/content/{label}/{oldFileName}'.replace("//", "/")
+	filePath = f'{NEW_TOOLCHAIN}/content/{label}/{oldFileName}'.replace("//", "/").replace("&","").replace("--","-")
 
 	try:
 		shutil.copyfile(oldFilePath, filePath)
