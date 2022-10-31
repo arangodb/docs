@@ -5,8 +5,6 @@ description: Stream Transactions allow you to perform a multi-document transacti
 HTTP Interface for Stream Transactions
 ======================================
 
-<small>Introduced in: v3.5.0</small>
-
 For an introduction to this transaction type, see
 [Stream Transactions](../transactions-stream-transactions.html).
 
@@ -32,7 +30,7 @@ Supported transactional API operations include:
 3. Truncate a collection via the [Collection API](collection-creating.html#truncate-collection)
 4. Create an AQL cursor via the [Cursor API](aql-query-cursor-accessing-cursors.html)
 5. Handle [vertices](gharial-vertices.html) and [edges](gharial-edges.html)
-   of managed graphs (_General Graph_ / _Gharial_ API, since v3.5.1)
+   of managed graphs (_General Graph_ / _Gharial_ API)
 
 Begin a Transaction
 -------------------

@@ -4,9 +4,6 @@ description: ArangoSearch offers various AQL functions for search queries to con
 title: ArangoSearch related AQL Functions
 page-toc:
   max-headline-level: 3
-redirect_from:
-  - ../views-arango-search-scorers.html # 3.4 -> 3.5
-  - views-arango-search.html # 3.4 -> 3.5
 ---
 ArangoSearch Functions
 ======================
@@ -234,6 +231,7 @@ specified data type.
   - `"null"`
   - `"bool"` / `"boolean"`
   - `"numeric"`
+  - `"type"` (matches `null`, `boolean`, and `numeric` values)
   - `"string"`
   - `"analyzer"` (see below)
 - returns nothing: the function evaluates to a boolean, but this value cannot be

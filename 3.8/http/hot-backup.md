@@ -6,8 +6,6 @@ title: Hot Backup HTTP API
 HTTP Interface for Hot Backup and Restore
 =========================================
 
-<small>Introduced in: v3.5.1</small>
-
 This is an introduction to ArangoDB's HTTP interface for hot backup and restore.
 
 {% include hint-ee.md feature="Hot Backup" %}

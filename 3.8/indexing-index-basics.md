@@ -660,8 +660,6 @@ for highly connected graphs and with RocksDB storage engine.
 Creating Indexes in Background
 ------------------------------
 
-<small>Introduced in: v3.5.0</small>
-
 Creating new indexes is by default done under an exclusive collection lock. This means
 that the collection (or the respective shards) are not available for write operations
 as long as the index is being created. This "foreground" index creation can be undesirable,

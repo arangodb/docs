@@ -1,9 +1,6 @@
 ---
 layout: default
 description: How to monitor the Follower status using the collectd curl_JSON plugin.
-redirect_from:
-  - cookbook/monitoring-slave-status.html # 3.5 -> 3.5
-  - monitoring-collectd-slave-status.html # 3.8 -> 3.8
 # TODO Update to Foxx 3.x or consider removing
 ---
 Monitoring Replication Follower

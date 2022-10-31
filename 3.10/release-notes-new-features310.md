@@ -717,6 +717,11 @@ AQL functions changed in 3.10:
   It also accepts an array of objects now, matching the behavior of the
   `MERGE()` function.
 
+- [`EXISTS()`](aql/functions-arangosearch.html#testing-for-nested-fields):
+  The function supports a new signature `EXISTS(doc.attr, "nested")` to check
+  whether the specified attribute is indexed as nested field by a View or
+  inverted index (introduced in v3.10.1).
+
 ## Indexes
 
 ### Parallel index creation (Enterprise Edition)

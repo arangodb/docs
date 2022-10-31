@@ -2,11 +2,8 @@
 layout: default
 description: The following methods are available to manage databases via JavaScript
 ---
-Working with Databases
-======================
 
-Database Methods
-----------------
+# Database Methods
 
 The following methods are available to manage databases via JavaScript.
 Please note that several of these methods can be used from the _system
@@ -220,7 +217,7 @@ all clients have disconnected and references have been garbage-collected.
 
 ### Compact
 
-<small>Introduced in: v3.5.6, v3.6.7, v3.7.3</small>
+<small>Introduced in: v3.6.7, v3.7.3</small>
 
 Compact the entire data, for all databases:
 
