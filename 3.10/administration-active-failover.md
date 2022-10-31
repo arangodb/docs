@@ -8,9 +8,6 @@ Active Failover Administration
 This section includes information related to the administration of an _Active Failover_
 setup.
 
-For a general introduction to the ArangoDB _Active Failover_ setup, please refer
-to the _Active Failover_ [chapter](architecture-deployment-modes-active-failover.html).
-
 Introduction
 ------------
 

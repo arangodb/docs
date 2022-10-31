@@ -223,7 +223,7 @@ x-arango-allow-dirty-read: true
 ```
 
 This is in line with the older support to read from followers in the
-Active Failover deployment mode (see [Reading from Followers](../architecture-deployment-modes-active-failover-architecture.html#reading-from-followers)).
+Active Failover deployment mode (see [Reading from Followers](../architecture-deployment-modes-active-failover.html#reading-from-followers)).
 
 For single requests, you specify this header in the read request.
 For Stream Transactions, the header has to be set on the request that

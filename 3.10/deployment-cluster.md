@@ -7,9 +7,6 @@ Cluster Deployment
 
 This chapter describes how to deploy an _ArangoDB Cluster_.
 
-For a general introduction to the _ArangoDB Cluster_, please refer to the
-[Cluster](architecture-deployment-modes-cluster.html) chapter.
-
 - [Preliminary Information](deployment-cluster-preliminary-information.html)
 - [Using the ArangoDB Starter](deployment-cluster-using-the-starter.html)
 - [Manual Start](deployment-cluster-manual-start.html)
