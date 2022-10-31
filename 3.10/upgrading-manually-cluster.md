@@ -5,7 +5,7 @@ description: This page will guide you through the process of a manual upgrade of
 Manually Upgrading a _Cluster_ Deployment
 =========================================
 
-This page will guide you through the process of a manual upgrade of a [_cluster_](architecture-deployment-modes-cluster.html)
+This page will guide you through the process of a manual upgrade of a [_cluster_](architecture-deployment-modes-cluster-architecture.html)
 setup. The different nodes in a _cluster_ can be upgraded one at a time without
 incurring downtime of the _cluster_ and very short downtimes of the single nodes.
 
