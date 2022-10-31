@@ -85,6 +85,5 @@ with `--database.auto-upgrade`. The server process will automatically resync
 with the Leader after a restart.
 
 The clean way of removing a _Follower_ is to first start a replacement _Follower_
-(otherwise you will lose resiliency). To start a _Follower_ please have a look
-into our [deployment guide](deployment-active-failover.html).
+(otherwise you will lose resiliency).
 After you have your replacement ready you can just kill the process and remove it.
