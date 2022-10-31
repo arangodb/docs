@@ -264,24 +264,31 @@ Same as above. Instead of an index an index handle can be given.
 
 ### Load Indexes into Memory
 
-Loads all indexes of this collection into memory:
+Loads suitable indexes of this collection into memory:
 
 `collection.loadIndexesIntoMemory()`
 
-This function tries to cache all index entries
-of this collection into the main memory.
-Therefore it iterates over all indexes of the collection
-and stores the indexed values, not the entire document data,
-in memory.
-All lookups that could be found in the cache are much faster
-than lookups not stored in the cache so you get a nice performance boost.
-It is also guaranteed that the cache is consistent with the stored data.
+This function tries to cache index entries of this collection in main memory.
+Index lookups that can be served from the memory cache can be much faster
+than lookups not stored in the cache, so you can get a nice performance boost.
+
+The function iterates over suitable indexes of the collection and stores the 
+indexed values, not the entire document data, in memory.
+Currently this is implemented only for edge indexes.
+
+The function returns as soon as the index warmup has been scheduled. The index
+warmup may still be ongoing in background even after the function has already
+returned. As all suitable indexes will be scanned, it may cause significant
+I/O activity and background load.
 
 This function honors memory limits. If the indexes you want to load are smaller
 than your memory limit this function guarantees that most index values are
 cached. If the index is larger than your memory limit this function will fill
 up values up to this limit and for the time being there is no way to control
 which indexes of the collection should have priority over others.
+
+It is guaranteed at all times that the in-memory cache data is consistent with 
+the stored index data.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline LoadIndexesIntoMemory
