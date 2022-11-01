@@ -122,7 +122,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 - *schema*:
   An object that specifies the collection-level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
-  documented in [Document Schema Validation](document-schema-validation.html)
+  documented in [Document Schema Validation](data-modeling-documents-schema-validation.html)
 
 - *cacheEnabled*: Whether the in-memory hash cache for documents should be
   enabled for this collection (default: `false`). Can be controlled globally
