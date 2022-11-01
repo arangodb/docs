@@ -2,8 +2,6 @@
 layout: default
 description: You can query Views and return the most relevant results first based on their ranking score
 title: ArangoSearch View Query Result Ranking
-redirect_from:
-  - views-arango-search.html # 3.4 -> 3.5
 ---
 # Ranking View Query Results
 

@@ -2,8 +2,6 @@
 layout: default
 description: Creating test data, counting, subqueries, joins, grouping, traversals and other examples
 title: AQL Query Patterns & Examples
-redirect_from:
-  - ../cookbook/aql.html # 3.5 -> 3.5
 ---
 AQL Query Patterns and Examples
 ===============================

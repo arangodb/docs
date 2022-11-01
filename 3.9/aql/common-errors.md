@@ -2,8 +2,6 @@
 layout: default
 description: Common errors to make in ArangoDB's query language
 title: AQL Pitfalls
-redirect_from:
-  - ../cookbook/aql-avoiding-injection.html # 3.5 -> 3.5
 ---
 Common Errors
 =============

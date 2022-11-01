@@ -2,9 +2,6 @@
 layout: default
 description: User management is possible in the web interface and in arangosh while logged on to the _system database.
 title: Manage User Authentication in ArangoDB
-redirect_from:
-  - cookbook/administration-show-users-grants.html # 3.5 -> 3.5
-  - cookbook/administration-authentication.html # 3.5 -> 3.5
 ---
 Managing Users
 ==============
