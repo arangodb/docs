@@ -2,11 +2,6 @@
 layout: default
 description: Features listed in this section should no longer be used, because they are considered obsolete and may get removed in a future release
 title: Deprecated Features
-redirect_from:
-  - appendix-deprecated-actions.html # 3.4 -> 3.5
-  - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
-  - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
-  - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
 ---
 Deprecated
 ==========
@@ -52,10 +47,6 @@ replace the old features with:
   created anymore when the `_system` database is first created (blank new data
   folder). They are not actively removed, they remain on upgrade or backup
   restoration from previous versions.
-
-  You can still find the
-  [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
-  in 3.4 or older versions of the documentation.
 
 - **Outdated AQL functions**: The following AQL functions are deprecated and
   their usage is discouraged:

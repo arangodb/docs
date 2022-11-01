@@ -2,8 +2,6 @@
 layout: default
 description: You can improve the performance of View queries with a primary sort order, stored values and other optimizations
 title: ArangoSearch View Query Performance Optimization
-redirect_from:
-  - views-arango-search.html # 3.4 -> 3.5
 ---
 # Optimizing View Query Performance
 

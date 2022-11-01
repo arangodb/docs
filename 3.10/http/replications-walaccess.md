@@ -5,7 +5,7 @@ description: WAL Access API
 WAL Access API
 ===========================
 
-The WAL Access API is used from 3.3 onwards to facilitate faster and
+The WAL Access API is used to facilitate faster and
 more reliable asynchronous replication. The API offers access to the 
 write-ahead log or operations log of the ArangoDB server. As a public
 API it is only supported to access these REST endpoints on a single-server

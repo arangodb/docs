@@ -1,1 +1,0 @@
-../3.7/deployment-kubernetes-deployment-replication-resource.md
