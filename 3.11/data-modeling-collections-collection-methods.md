@@ -135,7 +135,7 @@ Returns an object containing all collection properties.
 - `schema` (object\|null): 
   An object that specifies the collection-level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
-  documented in [Document Schema Validation](document-schema-validation.html)
+  documented in [Document Schema Validation](data-modeling-documents-schema-validation.html)
 
 - `computedValues` (array\|null): An array of objects,
   each representing a [Computed Value](data-modeling-documents-computed-values.html).
@@ -232,7 +232,7 @@ one or more of the following attribute(s):
 
 - `schema` (object\|null): An object that specifies the collection level document schema for
   documents. The attribute keys `rule`, `level` and `message` must follow the rules
-  documented in [Document Schema Validation](document-schema-validation.html)
+  documented in [Document Schema Validation](data-modeling-documents-schema-validation.html)
 
 - `cacheEnabled` (boolean): Whether the in-memory hash cache for documents should be
   enabled for this collection. Can be controlled globally
