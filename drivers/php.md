@@ -10,7 +10,7 @@ The official ArangoDB PHP Driver.
 - [Tutorial](php-tutorial.html)
 - [Changelog](https://github.com/arangodb/arangodb-php/blob/devel/CHANGELOG.md#readme){:target="_blank"}
 
-# More information
+## More information
 
 - Check the ArangoDB PHP client on github.com regularly for new releases and updates: [https://github.com/arangodb/arangodb-php](https://github.com/arangodb/arangodb-php){:target="_blank"}
 
