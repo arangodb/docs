@@ -57,7 +57,7 @@ FOR vertex[, edge[, path]]
 - `GRAPH` **graphName** (string): the name identifying the named graph.
   Its vertex and edge collections will be looked up. Note that the graph name
   is like a regular string, hence it must be enclosed by quote marks.
-- `PRUNE` **condition** (AQL condition, *optional*, (since version 3.4.5)):
+- `PRUNE` **condition** (AQL condition, *optional*):
   A condition, like in a FILTER statement, which will be evaluated in every step
   of the traversal, as early as possible. The semantics of this condition is as follows:
   - If the condition evaluates to `true` this path will be considered as a result,
@@ -223,8 +223,6 @@ combined filters cannot.
 The following examples are based on the [traversal graph](../graphs.html#the-traversal-graph).
 
 ### Pruning
-
-<small>Introduced in: v3.4.5</small>
 
 Pruning is the easiest variant to formulate conditions to reduce the amount of data
 to be checked during a search. So it allows to improve query performance and reduces

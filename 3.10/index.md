@@ -4,9 +4,6 @@ description: >-
   ArangoDB is a scalable graph database system with native support for other
   data models and a built-in search engine, for the cloud and on-premises
 title: Introduction to ArangoDB's Technical Documentation and Ecosystem
-redirect_from:
-  - cookbook/index.html # 3.5 -> 3.5
-  - cookbook/use-cases.html # 3.5 -> 3.5
 ---
 # What is ArangoDB?
 

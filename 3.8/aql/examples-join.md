@@ -2,8 +2,6 @@
 layout: default
 description: Query examples for joining documents with one-to-many and many-to-many relationships
 title: Joins in AQL
-redirect_from:
-  - ../cookbook/aql-joins.html # 3.5 -> 3.5
 ---
 Using Joins in AQL
 ==================

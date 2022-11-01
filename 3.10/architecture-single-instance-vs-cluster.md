@@ -109,7 +109,7 @@ lookups, e.g. not for range lookups.
 Some query results must be built up in memory on a Coordinator, for
 example if a dataset needs to be sorted on the fly. This can relatively
 easily overwhelm a Coordinator if the dataset is sharded across multiple
-DB-Servers. Use indexes and streaming cursors (>= 3.4) to circumvent this
+DB-Servers. Use indexes and streaming cursors to circumvent this
 problem.
 
 Transactions
@@ -160,6 +160,6 @@ In a cluster, the `arangodump` utility cannot guarantee a consistent snapshot
 across multiple shards or even multiple collections. In a single server,
 `arangodump` produces a consistent snapshot.
 
-In the Enterprise Edition starting from v3.5.1 there is an additional utility
+In the Enterprise Edition, there is an additional utility
 `arangobackup` and an HTTP API for [Hot Backups](backup-restore.html#hot-backups)
 to create consistent cluster snapshots.

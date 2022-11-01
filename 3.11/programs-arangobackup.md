@@ -6,8 +6,6 @@ title: Arangobackup Client Tool
 Arangobackup
 ============
 
-<small>Introduced in: v3.5.1</small>
-
 {% capture alternative %}
 
 Use [_arangodump_](programs-arangodump.html) and
