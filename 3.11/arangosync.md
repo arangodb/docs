@@ -1,7 +1,7 @@
 ---
 layout: default
 description: >-
-  A detailed guide into deploying a datacenter to datacenter replicated environment
+  A detailed guide into deploying a datacenter-to-datacenter replicated environment
 ---
 # ArangoSync
 

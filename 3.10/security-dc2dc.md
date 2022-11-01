@@ -3,7 +3,7 @@ layout: default
 description: Securing Datacenter-to-Datacenter Replication
 title: DC2DC Security
 ---
-# Datacenter to datacenter Security
+# Securing Datacenter-to-Datacenter Replication
 
 {% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 

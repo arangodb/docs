@@ -202,7 +202,7 @@ Using the starter this way does not provide resilience and high availability of 
 
 Note: When you restart the starter, it remembers the original `--starter.local` flag.
 
-## Starting a cluster with datacenter to datacenter synchronization
+## Starting a cluster with Datacenter-to-Datacenter Replication
 
 {% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
