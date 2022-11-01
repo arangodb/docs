@@ -20,9 +20,9 @@ Reasons for that can be:
 
 And many more.
 
-This tutorial describes what the ArangoSync Datacenter-to-Datacenter Replication solution (ArangoSync from now on) offers,
-when to use it, when not to use it and  how to configure,
-operate, troubleshoot it & keep it safe.
+This tutorial describes what the ArangoSync Datacenter-to-Datacenter Replication
+solution (ArangoSync from now on) offers, when to use it, when not to use it and
+how to configure, operate, troubleshoot it & keep it safe.
 
 ### What is it
 
