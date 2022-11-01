@@ -6,6 +6,8 @@ redirect_from:
 ---
 # ArangoDB Server General Options
 
+|||||||| how to make users discover --help and --help-all ??? ||||||||
+
 ## Help
 
 `--help`
@@ -18,25 +20,6 @@ see all options use *--help-all*.
 To receive the startup options in JSON format, pass the `--dump-options` flag. This will
 print out all options and exit.
 
-## Version
-
-`--version`
-
-`-v`
-
-Prints the version of the server and exits.
-
-`--version-json`
-
-Prints the version of the server in JSON format and exits.
-
-## Daemon
-
-`--daemon`
-
-Runs the server as a daemon (as a background process). This parameter can only
-be set if the pid (process id) file is specified. That is, unless a value to the
-parameter pid-file is given, then the server will report an error and exit.
 
 ## Default Language
 
@@ -70,83 +53,6 @@ To get this order, use `--icu-language sv`. In case of using `--default-language
 Please note, that you can use only one of the language options (either `--default-language` or `--icu-language`).
 Setting both of them will result in an error.
 
-## Supervisor
-
-`--supervisor`
-
-Executes the server in supervisor mode. In the event that the server
-unexpectedly terminates due to an internal error, the supervisor will
-automatically restart the server. Setting this flag automatically implies that
-the server will run as a daemon. Note that, as with the daemon flag, this flag
-requires that the pid-file parameter will set.
-
-```js
-unix> ./arangod --supervisor --pid-file /var/run/arangodb.pid /tmp/vocbase/
-2012-06-27T15:58:28Z [10133] INFO starting up in supervisor mode
-```
-
-As can be seen (e.g. by executing the ps command), this will start a supervisor
-process and the actual database process:
-
-```js
-unix> ps fax | grep arangod
-10137 ?        Ssl    0:00 ./arangod --supervisor --pid-file /var/run/arangodb.pid /tmp/vocbase/
-10142 ?        Sl     0:00  \_ ./arangod --supervisor --pid-file /var/run/arangodb.pid /tmp/vocbase/
-```
-
-When the database process terminates unexpectedly, the supervisor process will
-start up a new database process:
-
-```
-> kill -SIGSEGV 10142
-
-> ps fax | grep arangod
-10137 ?        Ssl    0:00 ./arangod --supervisor --pid-file /var/run/arangodb.pid /tmp/vocbase/
-10168 ?        Sl     0:00  \_ ./arangod --supervisor --pid-file /var/run/arangodb.pid /tmp/vocbase/
-```
-
-## User identity
-
-`--uid uid`
-
-The name (identity) of the user the server will run as. If this parameter is not
-specified, the server will not attempt to change its UID, so that the UID used
-by the server will be the same as the UID of the user who started the server. If
-this parameter is specified, then the server will change its UID after opening
-ports and reading configuration files, but before accepting connections or
-opening other files (such as recovery files).  This is useful when the server
-must be started with raised privileges (in certain environments) but security
-considerations require that these privileges be dropped once the server has
-started work.
-
-Observe that this parameter cannot be used to bypass operating system
-security. In general, this parameter (and its corresponding relative gid) can
-lower privileges but not raise them.
-
-
-## Group identity
-
-`--gid gid`
-
-The name (identity) of the group the server will run as. If this parameter is
-not specified, then the server will not attempt to change its GID, so that the
-GID the server runs as will be the primary group of the user who started the
-server. If this parameter is specified, then the server will change its GID
-after opening ports and reading configuration files, but before accepting
-connections or opening other files (such as recovery files).
-
-This parameter is related to the parameter uid.
-
-
-## Process identity
-
-`--pid-file filename`
-
-The name of the process ID file to use when running the server as a
-daemon. This parameter must be specified if either the flag *daemon* or
-*supervisor* is set.
-
-## Console
 
 `--console`
 
