@@ -24,8 +24,8 @@ preceding or trailing colon.
 
 The `--database.force-sync-properties` option was useful with the MMFiles
 storage engine, which has been removed in v3.7. The option does not have any
-useful effect if you use the RocksDB storage engine. It is therefore deprecated
-from v3.11.0 onwards and will be removed in a future version.
+useful effect if you use the RocksDB storage engine. From v3.11.0 onwards, it
+has no effect at all, is deprecated, and will be removed in a future version.
 
 ## Client tools
 
