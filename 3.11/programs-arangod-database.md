@@ -73,13 +73,10 @@ in a specific state on startup. the options for this value are:
 
 `--database.force-sync-properties boolean`
 
-Force syncing of collection properties to disk
-
 Force syncing of collection properties to disk after creating a collection
 or updating its properties.
 
-From ArangoDB version 3.11 onwards, this option is obsolete and will 
-have no effect.
+From version 3.11.0 onwards, this option is obsolete and has no effect.
 
 ## Wait for sync
 
