@@ -149,7 +149,7 @@ The option is turned off by default.
 <small>Introduced in: v3.9.5, v3.10.2, v3.11.0</small>
 
 This option determines the peak memory usage threshold for AQL queries from
-which on a warning will be logged if queries exceed it. This is useful for
+which on a warning is logged if queries exceed it. This is useful for
 finding queries that use a large amount of memory.
 
 The default value is `4294967296` (4 GB).
@@ -162,7 +162,7 @@ The default value is `4294967296` (4 GB).
 
 This option determines the maximum length of logged query strings and bind parameter 
 values. This allows truncating overly long query strings and bind parameter values
-to a reasonable length in logfiles.
+to a reasonable length in log files.
 
 The default value is `4096` bytes.
 
