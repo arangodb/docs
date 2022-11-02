@@ -40,9 +40,18 @@ Which address to advertise to the outside.
 
 ## Pool size
 
+<small>Deprecated in: v3.11.0</small>
+
 `agency.pool-size`
 
-Number of Agent pool.
+Number of Agents in pool.
+
+Effectively this option was not properly supported in ArangoDB
+versions before 3.11. Setting the option to anything else but the
+value of `--agency.size` should be avoided.
+From ArangoDB version 3.11 this option is deprecated, and setting to
+a value different than the value of `--agency.size` will lead to a
+startup error.
 
 ## Size
 
