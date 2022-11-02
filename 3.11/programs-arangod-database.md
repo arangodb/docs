@@ -69,6 +69,8 @@ in a specific state on startup. the options for this value are:
 
 ## Force syncing of properties
 
+<small>Deprecated in: v3.11.0</small>
+
 `--database.force-sync-properties boolean`
 
 Force syncing of collection properties to disk
