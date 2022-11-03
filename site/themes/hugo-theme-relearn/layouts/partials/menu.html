@@ -203,9 +203,18 @@
             {{- $currentAlwaysopen := .Params.alwaysopen | default $alwaysopen }}
             {{- $pageHash := md5 .Page }}
             {{- $isOpen := or $currentAlwaysopen $isSelf $isAncestor }}
-          <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}{{if (or $isSelf $isAncestor) }} parent{{end}}{{if $currentAlwaysopen}} alwaysopen{{end}}"><input type="checkbox" id="section-{{ $pageHash }}" class="toggle"{{ if $isOpen }} checked{{ end }}/><label for="section-{{ $pageHash }}" ></label><a class="nav-link nav-item-toggle" href="{{.RelPermalink}}">
-              {{- partial "menu-pre.html" . }}{{ or .Params.menuTitle .LinkTitle .Title }}{{ partial "menu-post.html" . }}
-              {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a><ul>
+          <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}{{if (or $isSelf $isAncestor) }} parent{{end}}{{if $currentAlwaysopen}} alwaysopen{{end}}">
+            <input type="checkbox" id="section-{{ $pageHash }}" class="toggle"{{ if $isOpen }} checked{{ end }}/>
+            <label for="section-{{ $pageHash }}" ></label>
+            <a class="nav-link nav-item-toggle" href="{{.RelPermalink}}">
+              {{ if (or $isActive $isSelf $isAncestor) }}
+                <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="leafygreen-ui-a4wnk0 leafygreen-ui-17wxqdk" role="img" aria-label="Caret Down Icon"><path d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z" fill="currentColor"></path></svg>
+              {{ else }}
+                <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="leafygreen-ui-a4wnk0 leafygreen-ui-17wxqdk" role="img" aria-label="Caret Right Icon"><path d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z" fill="currentColor"></path></svg>
+              {{ end }}
+              {{- partial "menu-pre.html" . }}<div class="menu-title">{{ or .Params.menuTitle .LinkTitle .Title }}</div>{{ partial "menu-post.html" . }}
+              {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a>
+              <ul>
               {{- $defaultAlwaysopen := .Site.Params.alwaysopen | default true }}
               {{- if eq $currentOrdersectionsby "title" }}
                 {{- range $pages.ByTitle }}

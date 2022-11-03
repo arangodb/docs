@@ -6850,7 +6850,7 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
     position: sticky;
     z-index: 2;
     top: 4rem;
-    height: calc(101vh - 70px);
+    height: 101vh;
     width: calc(25vh -60px);
     background: #f9f9f9;
     left: 0;
@@ -6961,10 +6961,6 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
     position: relative;
 }
 
-#sidenav li > a:hover {
-    font-weight: bold;
-}
-
 
 #sidenav ul.topics ul ul {
     padding-bottom: 0;
@@ -6997,35 +6993,10 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 }
 
 #sidenav ul.topics > li {
-    margin-left: -1rem;
+    margin-left: 0rem;
     margin-right: -1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
 }
 
-.nav-link.nav-item-toggle::before {
-    content: "\f078";
-    position: absolute;
-    right: 0.5rem;
-    top: 0rem;
-    font-family: "Font Awesome 5 Free";
-    background-position: 50%;
-    background-size: auto 0.75em;
-    width: 1.5rem;
-    height: 50%;
-}
-
-.nav-link.nav-item-toggle::after {
-    content: "\f078";
-    position: absolute;
-    right: 0.5rem;
-    top: 0rem;
-    font-family: "Font Awesome 5 Free";
-    background-position: 50%;
-    background-size: auto 0.75em;
-    width: 1.5rem;
-    height: 50%;
-}
 
 #sidenav ul {
     list-style: none;
@@ -7074,7 +7045,7 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 #sidenav ul li a {
     padding-left: 1rem;
     padding-right: 1rem;
-    display: block;
+    display: flex;
     padding: 5px 0;
     color: #666;
 }
@@ -7168,14 +7139,35 @@ header {
     font-size: bold;
 }
 
-#sidenav li.dd-item.active {
-    border-left: 2px solid #577138;
-}
-
 
 #sidenav li.dd-item.active > a {
     color: #577138;
     font-weight: bold;
+    background-color: rgb(227, 252, 247);
+}
+
+
+#sidenav li.dd-item.active > a::before {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    left: 0px;
+    top: 6px;
+    bottom: 6px;
+    width: 4px;
+    border-radius: 0px 6px 6px 0px;
+    transition: transform 150ms ease-in-out 0s;
+    transform: scaleY(0.3);
+}
+
+#sidenav li.dd-item.active > a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    border-radius: 2px;
 }
 
 .searchbox.default-animation {
