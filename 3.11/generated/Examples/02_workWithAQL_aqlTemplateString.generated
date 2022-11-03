@@ -1,0 +1,9 @@
+arangosh&gt; <span class="hljs-keyword">var</span> key = <span class="hljs-string">&#x27;testKey&#x27;</span>;
+arangosh&gt; aql<span class="hljs-string">`FOR c IN mycollection FILTER c._key == <span class="hljs-subst">${key}</span> RETURN c._key`</span>
+{ 
+  <span class="hljs-string">&quot;query&quot;</span> : <span class="hljs-string">&quot;FOR c IN mycollection FILTER c._key == @value0 RETURN c._key&quot;</span>, 
+  <span class="hljs-string">&quot;bindVars&quot;</span> : { 
+    <span class="hljs-string">&quot;value0&quot;</span> : <span class="hljs-string">&quot;testKey&quot;</span> 
+  }, 
+  <span class="hljs-string">&quot;_source&quot;</span> : () { ... } 
+}

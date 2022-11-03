@@ -19,7 +19,8 @@ Indexes are used to allow fast access to documents. For each collection there is
 
 Most user-land indexes can be created by defining the names of the attributes which should be indexed. Some index types allow indexing just one attribute (e.g. fulltext index) whereas other index types allow indexing multiple attributes.
 
-Using the system attribute `_id` in user-defined indexes is not supported by any index type.
+You cannot use the `_id` system attribute, nor sub-attributes with this name, in
+user-defined indexes of any type.
 
 ### Index Handle
 

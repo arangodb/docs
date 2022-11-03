@@ -23,8 +23,8 @@ by ArangoDB, without the user being required to create extra indexes for them.
 `_id` and `_key` are covered by a collection's primary key, and `_from` and `_to`
 are covered by an edge collection's edge index automatically.
 
-You cannot use the `_id` system attribute in user-defined indexes, but indexing
-`_key`, `_rev`, `_from`, and `_to` is possible.
+You cannot use the `_id` system attribute, nor sub-attributes with this name, in
+user-defined indexes, but indexing `_key`, `_rev`, `_from`, and `_to` is possible.
 
 You cannot index fields that contain `.` in their attribute names because dots
 are interpreted as paths of nested attributes. For example, `fields: ["foo.bar"]`
@@ -603,7 +603,7 @@ only if the query filters on the indexed attribute using the `IN` operator. The 
 comparison operators (`==`, `!=`, `>`, `>=`, `<`, `<=`, `ANY`, `ALL`, `NONE`)
 cannot use array indexes currently.
 
-Vertex centric indexes
+Vertex-centric indexes
 ----------------------
 
 As mentioned above, the most important indexes for graphs are the edge
@@ -615,7 +615,7 @@ in a graph.
 In many cases one would like to run more specific queries, for example
 finding amongst the edges originating from a given vertex only those
 with a timestamp greater than or equal to some date and time. Exactly this
-is achieved with "vertex centric indexes". In a sense these are localized
+is achieved with "vertex-centric indexes". In a sense these are localized
 indexes for an edge collection, which sit at every single vertex.
 
 Technically, they are implemented in ArangoDB as indexes, which sort the 
@@ -628,13 +628,12 @@ If we for example have a persistent index on the attributes `_from` and
 `timestamp` of an edge collection, we can answer the above question
 very quickly with a single range lookup in the index.
 
-Since ArangoDB 3.0 one can create sorted indexes (type
-"persistent") that index the special edge attributes `_from` or `_to`
-and additionally other attributes. Since ArangoDB 3.1, these are used
+You can create sorted persistent indexes that index the special edge attributes
+`_from` or `_to` and additionally other attributes. These are used
 in graph traversals, when appropriate `FILTER` statements are found
 by the optimizer.
 
-For example, to create a vertex centric index of the above type, you 
+For example, to create a vertex-centric index of the above type, you 
 would simply do
 
 ```js
@@ -651,16 +650,14 @@ FOR v, e, p IN 1..1 OUTBOUND "V/1" edges
 
 will be considerably faster in case there are many edges originating
 from vertex `"V/1"` but only few with a recent time stamp. Note that the
-optimizer may prefer the default edge index over vertex centric indexes
-based on the costs it estimates, even if a vertex centric index might
-in fact be faster. Vertex centric indexes are more likely to be chosen
+optimizer may prefer the default edge index over vertex-centric indexes
+based on the costs it estimates, even if a vertex-centric index might
+in fact be faster. Vertex-centric indexes are more likely to be chosen
 for highly connected graphs and with RocksDB storage engine.
 
 
 Creating Indexes in Background
 ------------------------------
-
-<small>Introduced in: v3.5.0</small>
 
 Creating new indexes is by default done under an exclusive collection lock. This means
 that the collection (or the respective shards) are not available for write operations

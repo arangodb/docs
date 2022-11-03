@@ -15,6 +15,5 @@ operating system's temporary directory.
 To avoid data loss the temporary path should not overlap with any directories that 
 contain important data, for example, the instance's database directory.
 
-If the temporary path is set to the same directory as the instance's database directory,
-a startup error will be logged from ArangoDB v3.4.8 onwards. ArangoDB v3.5 and higher will
-additionally abort the startup with such configuration.
+If you set the temporary path to the same directory as the instance's database directory,
+a startup error is logged and the startup is aborted.

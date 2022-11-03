@@ -10,13 +10,9 @@ System from the official [Download](https://www.arangodb.com/download){:target="
 ArangoDB web site.
 
 You can find packages for various operating systems, including _RPM_ and _Debian_
-packages. _dmg_ packages or _homebrew_ can be used on macOS; an _Installer_ or a
-`zip` archive is available for Windows.
-
-{% hint 'info' %}
-Starting from version 3.4.0, in addition to installation packages, a `tar.gz` archive
-is available for the Linux and macOS platforms.
-{% endhint %}
+packages. _dmg_ packages and _homebrew_ can be used on macOS. _Installers_ and
+`zip` archives are available for Windows. `tar.gz` archives are available for the
+Linux and macOS platforms.
 
 Besides the official images which are provided for the most popular linux distributions
 there are also a variety of unofficial images provided by the community. We are

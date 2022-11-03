@@ -53,13 +53,12 @@ Collection Methods
 
 ### Listing all indexes of a collection
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+Returns information about the indexes:
 
-returns information about the indexes
 `getIndexes()`
 
 Returns an array of all indexes defined for the collection.
-Since ArangoDB 3.4, `indexes()` is an alias for `getIndexes()`.
+The `indexes()` method is an alias for `getIndexes()`.
 
 Note that `_key` implicitly has an index assigned to it.
 
@@ -80,9 +79,8 @@ Note that `_key` implicitly has an index assigned to it.
 
 ### Creating an index
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+Ensures that an index exists:
 
-ensures that an index exists
 `collection.ensureIndex(index-description)`
 
 Ensures that an index according to the *index-description* exists. A
@@ -92,9 +90,24 @@ The *index-description* must contain at least a *type* attribute.
 Other attributes may be necessary, depending on the index type.
 
 **type** can be one of the following values:
-- *persistent*: persistent index
-- *fulltext*: fulltext index
-- *geo*: geo index, with _one_ or _two_ attributes
+- `"persistent"`: persistent (array) index, including vertex-centric index
+- `"ttl"`: time-to-live index
+- `"fulltext"`: fulltext index
+- `"geo"`: geo-spatial index, with _one_ or _two_ attributes
+- `"zkd"`: multi-dimensional index (experimental)
+
+**fields** is an array of attribute paths, containing the document attributes
+(or sub-attributes) to be indexed. Some indexes allow using only a single path,
+and others allow multiple. 
+If multiple attributes are used, their order matters.
+
+The `.` character denotes sub-attributes in attribute paths. Attributes with
+literal `.` in their name cannot be indexed. Attributes with the name `_id`
+cannot be indexed either, neither as a top-level attribute nor as a sub-attribute.
+
+If an attribute path contains an `[*]` extension (e.g. `friends[*].id`), it means
+that the index attribute value is treated as an array and all array members are
+indexed separately. This is possible with `persistent` and `inverted` indexes.
 
 **name** can be a string. Index names are subject to the same character
 restrictions as collection names. If omitted, a name will be auto-generated so
@@ -148,9 +161,8 @@ being mere aliases for *persistent* nowadays).
 
 ### Dropping an index via a collection handle
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+Drops an index:
 
-drops an index
 `collection.dropIndex(index)`
 
 Drops the index. If the index does not exist, then *false* is
@@ -180,9 +192,8 @@ Same as above. Instead of an index an index handle can be given.
 
 ### Load Indexes into Memory
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
-
 Loads all indexes of this collection into Memory.
+
 `collection.loadIndexesIntoMemory()`
 
 This function tries to cache all index entries
@@ -217,9 +228,8 @@ Database Methods
 
 ### Fetching an index by handle
 
-<!-- js/server/modules/@arangodb/arango-database.js -->
+Finds an index:
 
-finds an index
 `db._index(index-handle)`
 
 Returns the index with *index-handle* or null if no such index exists.
@@ -241,9 +251,8 @@ Returns the index with *index-handle* or null if no such index exists.
 
 ### Dropping an index via a database handle
 
-<!-- js/server/modules/@arangodb/arango-database.js -->
+Drops an index:
 
-drops an index
 `db._dropIndex(index)`
 
 Drops the *index*.  If the index does not exist, then *false* is
@@ -271,10 +280,6 @@ Drops the index with *index-handle*.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Revalidating whether an index is used
-
-<!-- js/server/modules/@arangodb/arango-database.js -->
-
-finds an index
 
 So you've created an index, and since its maintenance isn't for free,
 you definitely want to know whether your query can utilize it.

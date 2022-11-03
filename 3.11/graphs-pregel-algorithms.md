@@ -24,13 +24,27 @@ Pregel algorithms in ArangoDB.
 
 ### PageRank
 
-PageRank is a well known algorithm to rank vertices in a graph: the more important a vertex, the higher rank it gets. It goes back to L. Page and S. Brin's [paper](http://infolab.stanford.edu/pub/papers/google.pdf) and is used to rank pages in in search engines (hence the name). The algorithm runs until the execution converges. To specify a custom threshold, use the `threshold` parameter; to run for a fixed number of iterations, use the `maxGSS` parameter.
+PageRank is a well known algorithm to rank vertices in a graph: the more
+important a vertex, the higher rank it gets. It goes back to L. Page and S. Brin's
+[paper](http://infolab.stanford.edu/pub/papers/google.pdf){:target="_blank"} and
+is used to rank pages in in search engines (hence the name). The algorithm runs
+until the execution converges. To specify a custom threshold, use the `threshold`
+parameter; to run for a fixed number of iterations, use the `maxGSS` parameter.
 
-The rank of a vertex is a positive real number. The algorithm starts with every vertex having the same rank (one divided by the number of vertices) and sends its rank to its out-neighbors. The computation proceeds in iterations. In each iteration, the new rank is computed according to the formula "(0.15/total number of vertices) + (0.85 * the sum of all incoming ranks)". The value sent to each of the out-neighbors is the new rank divided by the number of those neighbors, thus every out-neighbor gets the same part of the new rank.
+The rank of a vertex is a positive real number. The algorithm starts with every
+vertex having the same rank (one divided by the number of vertices) and sends its
+rank to its out-neighbors. The computation proceeds in iterations. In each iteration,
+the new rank is computed according to the formula
+`(0.15/total number of vertices) + (0.85 * the sum of all incoming ranks)`.
+The value sent to each of the out-neighbors is the new rank divided by the number
+of those neighbors, thus every out-neighbor gets the same part of the new rank.
 
 The algorithm stops when at least one of the two conditions is satisfied:
-- The maximum number of iterations is reached. This is the same `maxGSS` parameter as for the other algorithms.
-- Every vertex changes its rank in the last iteration by less than a certain threshold. The default threshold is  0.00001, a custom value can be set with the `threshold` parameter.
+- The maximum number of iterations is reached. This is the same `maxGSS`
+  parameter as for the other algorithms.
+- Every vertex changes its rank in the last iteration by less than a certain
+  threshold. The default threshold is  0.00001, a custom value can be set with
+  the `threshold` parameter.
 
 ```js
 var pregel = require("@arangodb/pregel");
@@ -52,14 +66,18 @@ pregel.start("pagerank", "graphname", { maxGSS: 20, threshold: 0.00000001, sourc
 
 ### Single-Source Shortest Path
 
-Calculates the distances, that is, the lengths of shortest paths from the given source to all other vertices, called _targets_. The result is written to the specified property of the respective target.
+Calculates the distances, that is, the lengths of shortest paths from the
+given source to all other vertices, called _targets_. The result is written
+to the specified property of the respective target.
 The distance to the source vertex itself is returned as `0` and a length above
-`9007199254740991` (max safe integer) means that there is no path from the source to the vertex in the graph.
+`9007199254740991` (max safe integer) means that there is no path from the
+source to the vertex in the graph.
 
 The algorithm runs until all distances are computed. The number of iterations is bounded by the
 diameter of your graph (the longest distance between two vertices).
 
-A call of the algorithm requires the `source` parameter whose value is the document ID of the source vertex. The result field needs to be
+A call of the algorithm requires the `source` parameter whose value is the
+document ID of the source vertex. The result field needs to be
 specified in `_resultField` (note the underscore).
 
 ```js

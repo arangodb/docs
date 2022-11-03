@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's interface for collections and how to handlecollections from the JavaScript shell arangosh
+description: This is an introduction to ArangoDB's interface for collections and how to handle collections from the JavaScript shell arangosh
 ---
 JavaScript Interface to Collections
 ===================================
@@ -25,38 +25,43 @@ perspective, the [collection name](appendix-glossary.html#collection-name)
 should be used, i.e.:
 
 ### Collection
+
 `db._collection(collection-name)`
 
 A collection is created by a ["db._create"](data-modeling-collections-database-methods.html) call.
 
-For example: Assume that the [collection identifier](appendix-glossary.html#collection-identifier) is *7254820* and the name is
-*demo*, then the collection can be accessed as:
+For example: Assume that the [collection identifier](appendix-glossary.html#collection-identifier) is `7254820` and the name is
+`demo`, then the collection can be accessed as:
 
-    db._collection("demo")
+```js
+db._collection("demo")
+```
 
-If no collection with such a name exists, then *null* is returned.
+If no collection with such a name exists, then `null` is returned.
 
 There is a short-cut that can be used for non-system collections:
 
 ### Collection name
+
 `db.collection-name`
 
-This call will either return the collection named *db.collection-name* or create
+This call will either return the collection named `db.collection-name` or create
 a new one with that name and a set of default properties.
 
-**Note**: Creating a collection on the fly using *db.collection-name* is
+**Note**: Creating a collection on the fly using `db.collection-name` is
 not recommend and does not work in _arangosh_. To create a new collection, please
-use
+use `db._create()`.
 
 ### Create
+
 `db._create(collection-name)`
 
-This call will create a new collection called *collection-name*.
+This call will create a new collection called `collection-name`.
 This method is a database method and is documented in detail at [Database Methods](data-modeling-collections-database-methods.html#create)
 
 ### Synchronous replication
 
-Starting in ArangoDB 3.0, the distributed version offers synchronous
+The distributed version offers synchronous
 replication, which means that there is the option to replicate all data
 automatically within the ArangoDB cluster. This is configured for sharded
 collections on a per collection basis by specifying a "replication factor"

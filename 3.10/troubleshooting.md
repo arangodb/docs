@@ -11,4 +11,4 @@ Troubleshooting
 
 - [Cluster](troubleshooting-cluster.html)
 
-- [Datacenter to datacenter replication](troubleshooting-dc2dc.html)
+- [Datacenter-to-Datacenter Replication](troubleshooting-dc2dc.html)

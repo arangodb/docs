@@ -151,9 +151,9 @@ Deployment
 - [ArangoDB Starter](tutorials-starter.html):
   Starting an ArangoDB Cluster or database the easy way
 
-- Datacenter to datacenter Replication:
+- Datacenter-to-Datacenter Replication:
   - [A tutorial about the _ArangoSync_ DC2DC solution](tutorials-dc2-dc.html)
-  - [Setting up Datacenter to Datacenter Replication in ArangoDB](https://www.arangodb.com/2017/10/setting-datacenter-datacenter-replication-in-arangodb/){:target="_blank"}
+  - [Setting up Datacenter-to-Datacenter Replication in ArangoDB](https://www.arangodb.com/2017/10/setting-datacenter-datacenter-replication-in-arangodb/){:target="_blank"}
 
 - [Kubernetes](tutorials-kubernetes.html):
   Start ArangoDB on Kubernetes in 5 minutes

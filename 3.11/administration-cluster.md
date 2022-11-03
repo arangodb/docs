@@ -146,7 +146,7 @@ There is no option to configure an affinity based on certain _shard_ keys.
 Sharding strategy
 -----------------
 
-Strategy to use for the collection. Since ArangoDB 3.4 there are
+Strategy to use for the collection. There are
 different sharding strategies to select from when creating a new 
 collection. The selected *shardingStrategy* value will remain
 fixed for the collection and cannot be changed afterwards. This is
@@ -165,10 +165,13 @@ The available sharding strategies are:
   (excluding smart edge collections)
 - `enterprise-hash-smart-edge`: default sharding used for new
   smart edge collections starting from version 3.4
+- `enterprise-hex-smart-vertex`: sharding used for vertex collections of
+  EnterpriseGraphs
 
-If no sharding strategy is specified, the default will be `hash` for
-all collections, and `enterprise-hash-smart-edge` for all smart edge
-collections (requires the *Enterprise Edition* of ArangoDB).
+If no sharding strategy is specified, the default is `hash` for
+all normal collections, `enterprise-hash-smart-edge` for all smart edge
+collections, and `enterprise-hex-smart-vertex` for EnterpriseGraph
+vertex collections (the latter two require the *Enterprise Edition* of ArangoDB).
 Manually overriding the sharding strategy does not yet provide a
 benefit, but it may later in case other sharding strategies are added.
 
@@ -178,7 +181,7 @@ feature does not have its own sharding strategy, it uses `hash` instead.
 Moving/Rebalancing _shards_
 ---------------------------
 
-Rebalancing redistributes resources in the cluster to optimise resource
+Rebalancing redistributes resources in the cluster to optimize resource
 allocation - shards and location of leaders/followers.
 
 It aims to achieve, for example, a balanced load, fair shard distribution,

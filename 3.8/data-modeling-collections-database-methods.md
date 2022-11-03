@@ -77,12 +77,6 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 - *waitForSync* (optional, default *false*): If *true* creating
   a document will only return after the data was synced to disk.
 
-- *isSystem* (optional, default is *false*): If *true*, create a
-  system collection. In this case *collection-name* should start with
-  an underscore. End users should normally create non-system collections
-  only. API implementors may be required to create system collections in
-  very special occasions, but normally a regular collection will do.
-
 - *keyOptions* (optional): additional options for key generation. If
   specified, then *keyOptions* should be a JSON object containing the
   following attributes (**note**: some of them are optional):
@@ -124,6 +118,28 @@ to the [naming conventions](data-modeling-naming-conventions.html).
     Not used for other key generator types.
   - *offset*: initial offset value for *autoincrement* key generator.
     Not used for other key generator types.
+
+- *schema*:
+  An object that specifies the collection-level document schema for documents.
+  The attribute keys `rule`, `level` and `message` must follow the rules
+  documented in [Document Schema Validation](data-modeling-documents-schema-validation.html)
+
+- *cacheEnabled*: Whether the in-memory hash cache for documents should be
+  enabled for this collection (default: `false`). Can be controlled globally
+  with the `--cache.size` startup option. The cache can speed up repeated reads
+  of the same documents via their document keys. If the same documents are not
+  fetched often or are modified frequently, then you may disable the cache to
+  avoid the maintenance costs.
+
+- *isSystem* (optional, default is *false*): If *true*, create a
+  system collection. In this case *collection-name* should start with
+  an underscore. End users should normally create non-system collections
+  only. API implementors may be required to create system collections in
+  very special occasions, but normally a regular collection will do.
+
+- *syncByRevision*:
+  Whether the newer revision-based replication protocol
+  is enabled for this collection. This is an internal property.
 
 - *numberOfShards* (optional, default is *1*): in a cluster, this value
   determines the number of shards to create for the collection. In a single
@@ -180,11 +196,6 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   not being possible until the failover is sorted out and might cause
   write slow downs in trade for data durability.
 
-- *distributeShardsLike*: distribute the shards of this collection
-  cloning the shard distribution of another. If this value is set,
-  it will copy the attributes *replicationFactor*, *numberOfShards* and 
-  *shardingStrategy* from the other collection. 
-
 - *shardingStrategy* (optional): specifies the name of the sharding
   strategy to use for the collection. Since ArangoDB 3.4 there are
   different sharding strategies to select from when creating a new 
@@ -215,6 +226,25 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   In single-server mode, the *shardingStrategy* attribute is meaningless 
   and will be ignored.
 
+- *distributeShardsLike*: distribute the shards of this collection
+  cloning the shard distribution of another. If this value is set,
+  it will copy the attributes *replicationFactor*, *numberOfShards* and 
+  *shardingStrategy* from the other collection. 
+
+- *isSmart*: Whether the collection is for a SmartGraph
+  (Enterprise Edition only). This is an internal property.
+
+- *isDisjoint* (boolean): Whether the collection is for a Disjoint SmartGraph
+  (Enterprise Edition only). This is an internal property.
+
+- *smartGraphAttribute*:
+  The attribute that is used for sharding: vertices with the same value of
+  this attribute are placed in the same shard. All vertices are required to
+  have this attribute set and it has to be a string. Edges derive the
+  attribute from their connected vertices.
+
+  This feature can only be used in the *Enterprise Edition*.
+
 - *smartJoinAttribute: in an *Enterprise Edition* cluster, this attribute 
   determines an attribute of the collection that must contain the shard key value 
   of the referred-to SmartJoin collection. Additionally, the sharding key 
@@ -229,11 +259,15 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   A further restriction is that whenever documents are stored or updated in the 
   collection, the value stored in the *smartJoinAttribute* must be a string.
 
+---
+
 `db._create(collection-name, properties, type)`
 
 Specifies the optional *type* of the collection, it can either be *document* 
 or *edge*. On default it is document. Instead of giving a type you can also use 
 *db._createEdgeCollection* or *db._createDocumentCollection*.
+
+---
 
 `db._create(collection-name, properties[, type], options)`
 

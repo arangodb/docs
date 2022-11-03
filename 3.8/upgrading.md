@@ -16,4 +16,3 @@ chapter.
 - [Upgrading _Starter_ Deployments](upgrading-starter.html)  
 - [Upgrading Manual Deployments](upgrading-manually.html)
 - [Upgrading Kubernetes Deployments](upgrading-kubernetes.html)
-- [Version Specific Upgrade Information](upgrading-version-specific.html)

@@ -1,8 +1,6 @@
 ---
 layout: default
 description: You want to compile and run the devel branch, for example to test a bug fix
-redirect_from:
-  - cookbook/compiling-debian.html # 3.5 -> 3.5
 ---
 Compiling on Debian
 ===================

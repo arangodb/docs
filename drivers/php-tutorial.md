@@ -569,7 +569,7 @@ var_dump($result);
 $collectionHandler->drop('example');
 ```
 
-# Custom Document class
+## Custom Document class
 
 If you want to use custom document class you can pass its name to
 *DocumentHandler* or *CollectionHandler* using method `setDocumentClass`.

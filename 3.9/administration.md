@@ -1,8 +1,6 @@
 ---
 layout: default
 description: Deployments of ArangoDB servers can be managed with the following tools
-redirect_from:
-  - cookbook/administration.html # 3.5 -> 3.5
 ---
 Administration
 ==============
@@ -40,7 +38,7 @@ Deployment Administration
 
 - [Active Failover](administration-active-failover.html)
 - [Cluster](administration-cluster.html)
-- [Datacenter to datacenter replication](administration-dc2-dc.html)
+- [Datacenter-to-Datacenter Replication](administration-dc2-dc.html)
 - [ArangoDB Starter Administration](administration-starter.html)
 
 Other Topics
