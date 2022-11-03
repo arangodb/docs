@@ -1,21 +1,21 @@
 ---
 layout: default
-description: Fixing issues in datacenter to datacenter replication
+description: Fixing issues in Datacenter-to-Datacenter Replication
 title: DC2DC Replication Troubleshooting
 ---
-# Troubleshooting datacenter to datacenter replication
+# Troubleshooting Datacenter-to-Datacenter Replication
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
-The _datacenter to datacenter replication_ is a distributed system with a lot
+The _Datacenter-to-Datacenter Replication_ is a distributed system with a lot
 different components. As with any such system, it requires some, but not a lot,
 of operational support.
 
 This section includes information on how to troubleshoot the
-_datacenter to datacenter replication_.
+_Datacenter-to-Datacenter Replication_.
 
-For a general introduction to the _datacenter to datacenter replication_, please
-refer to the [Datacenter to datacenter replication](architecture-deployment-modes-dc2-dc.html)
+For a general introduction to the _Datacenter-to-Datacenter Replication_, please
+refer to the [Datacenter-to-Datacenter Replication](architecture-deployment-modes-dc2-dc.html)
 chapter.
 
 ## What means are available to monitor status

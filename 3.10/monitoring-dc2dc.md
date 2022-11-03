@@ -1,19 +1,19 @@
 ---
 layout: default
-description: Datacenter to datacenter replication monitoring
+description: Datacenter-to-Datacenter Replication monitoring
 title: DC2DC Replication Monitoring
 ---
-# Monitoring datacenter to datacenter replication
+# Monitoring Datacenter-to-Datacenter Replication
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 This section includes information related to the monitoring of the
-_datacenter to datacenter replication_.
+_Datacenter-to-Datacenter Replication_.
 
 ## Metrics
 
 _ArangoSync_ (_master_ & _worker_) provide metrics that can be used for monitoring
-the _datacenter to datacenter replication_ solution. These metrics are available
+the _Datacenter-to-Datacenter Replication_ solution. These metrics are available
 using the following HTTPS endpoints:
 
 - GET `/metrics`: Provides metrics in a format supported by Prometheus.

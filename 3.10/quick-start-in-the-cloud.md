@@ -164,5 +164,5 @@ there are a few limitations:
   security reasons, but can be enabled on request.
   Incoming calls to Foxx services are fully supported.
 - LDAP authentication is currently in a testing phase.
-- Datacenter to Datacenter Replication (DC2DC) is not yet available in a
+- Datacenter-to-Datacenter Replication (DC2DC) is not yet available in a
   managed form.
