@@ -1,17 +1,17 @@
 ---
 layout: default
-description: Datacenter to datacenter replication deployment overview
+description: Datacenter-to-Datacenter Replication deployment overview
 title: DC2DC Replication Deployment
 ---
-# Datacenter to datacenter replication deployment
+# Datacenter-to-Datacenter Replication deployment
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 This chapter describes how to deploy all the components needed for
-_datacenter to datacenter replication_.
+_Datacenter-to-Datacenter Replication_.
 
-For a general introduction to _datacenter to datacenter replication_, please refer
-to the [Datacenter to datacenter replication](architecture-deployment-modes-dc2-dc.html) chapter.
+For a general introduction to _Datacenter-to-Datacenter Replication_, please refer
+to the [Datacenter-to-Datacenter Replication](architecture-deployment-modes-dc2-dc.html) chapter.
 
 [Requirements](architecture-deployment-modes-dc2-dc-requirements.html) can be found in this section.
 

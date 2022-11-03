@@ -37,7 +37,7 @@ use the following startup options:
 
 Note that the specified user must have access to the database(s).
  
-Since version 2.6 _arangorestore_ provides the option *--create-database*. Setting this
+The _arangorestore_ tool provides the `--create-database` option. Setting this
 option to *true* will create the target database if it does not exist. When creating the
 target database, the username and passwords passed to _arangorestore_ (in options
 *--server.username* and *--server.password*) will be used to create an initial user for the

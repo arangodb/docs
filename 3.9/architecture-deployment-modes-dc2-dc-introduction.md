@@ -15,10 +15,9 @@ Reasons for that can be:
 
 And many more.
 
-Starting from version 3.3, ArangoDB supports _datacenter to datacenter
-replication_, via the _ArangoSync_ tool.
+ArangoDB supports _Datacenter-to-Datacenter Replication_, via the _ArangoSync_ tool.
 
-ArangoDB's _datacenter to datacenter replication_ is a solution that enables you
+ArangoDB's _Datacenter-to-Datacenter Replication_ is a solution that enables you
 to asynchronously replicate the entire structure and content in an ArangoDB Cluster
 in one place to a Cluster in another place. Typically it is used from one datacenter
 to another. It is possible to replicate to multiple other datacenters as well.

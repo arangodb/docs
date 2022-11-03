@@ -1,15 +1,15 @@
 ---
 layout: default
-description: How to set up datacenter to datacenter replication running on Kubernetes
+description: How to set up Datacenter-to-Datacenter Replication running on Kubernetes
 title: DC2DC K8s Tutorial
 ---
 # Start ArangoDB Cluster to Cluster Synchronization on Kubernetes
 
 This tutorial guides you through the steps needed to configure
-an ArangoDB datacenter to datacenter replication between two ArangoDB
+an ArangoDB Datacenter-to-Datacenter Replication between two ArangoDB
 clusters running in Kubernetes.
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 ## Requirements
 
