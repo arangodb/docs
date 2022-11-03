@@ -132,7 +132,7 @@ The option can also be overridden for each individual AQL query.
 
 ## Logging failed AQL queries
 
-<small>Introduced in: v3.9.5, v3.10.2, v3.11.0</small>
+<small>Introduced in: v3.9.5, v3.10.2</small>
 
 `--query.log-failed value`
 
@@ -146,7 +146,7 @@ The option is turned off by default.
 
 `--query.log-memory-usage-threshold value`
 
-<small>Introduced in: v3.9.5, v3.10.2, v3.11.0</small>
+<small>Introduced in: v3.9.5, v3.10.2</small>
 
 This option determines the peak memory usage threshold for AQL queries from
 which on a warning is logged if queries exceed it. This is useful for
@@ -156,7 +156,7 @@ The default value is `4294967296` (4 GB).
 
 ## Controlling length of logged query strings and bind parameter values
 
-<small>Introduced in: v3.9.5, v3.10.2, v3.11.0</small>
+<small>Introduced in: v3.9.5, v3.10.2</small>
 
 `--query.max-artifact-log-length value`
 
