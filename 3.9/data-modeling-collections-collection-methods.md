@@ -134,7 +134,7 @@ Returns an object containing all collection properties.
 * *schema* (optional, default is *null*): 
   Object that specifies the collection level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
-  documented in [Document Schema Validation](document-schema-validation.html)
+  documented in [Document Schema Validation](data-modeling-documents-schema-validation.html)
 
 * *cacheEnabled*: Whether the in-memory hash cache for documents is
   enabled for this collection (default: `false`).
@@ -217,7 +217,7 @@ one or more of the following attribute(s):
 
 * *schema*: An object that specifies the collection level document schema for
   documents. The attribute keys `rule`, `level` and `message` must follow the rules
-  documented in [Document Schema Validation](document-schema-validation.html)
+  documented in [Document Schema Validation](data-modeling-documents-schema-validation.html)
 
 - *cacheEnabled*: Whether the in-memory hash cache for documents should be
   enabled for this collection. Can be controlled globally
@@ -415,9 +415,6 @@ revision ids of the documents are also included in the hash calculation.
 If the optional argument *withData* is set to *true*, then all user-defined
 document attributes are also checksummed. Including the document data in
 checksumming will make the calculation slower, but is more accurate.
-
-The checksum calculation algorithm changed in ArangoDB 3.0, so checksums from
-3.0 and earlier versions for the same data will differ.
 
 Unload
 ------

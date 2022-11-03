@@ -18,7 +18,7 @@ To install ArangoDB on Linux:
 
 {% hint 'info' %}
 In addition to installation packages (distribution dependent) a `tar.gz` archive
-is available starting from version 3.4.0.
+is available.
 {% endhint %}
 
 After installation, you may start ArangoDB in several ways. The exact start-up command

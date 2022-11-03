@@ -13,7 +13,7 @@ Introduction to Fulltext Indexes
 A fulltext index can be used to find words, or prefixes of words inside documents.
 
 A fulltext index can be defined on one attribute only, and will include all words contained in
-documents that have a textual value in the index attribute. Since ArangoDB 2.6 the index
+documents that have a textual value in the index attribute. The index
 will also include words from the index attribute if the index attribute is an array of
 strings, or an object with string value members.
 
