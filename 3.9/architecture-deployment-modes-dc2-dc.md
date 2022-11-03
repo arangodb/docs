@@ -1,13 +1,13 @@
 ---
 layout: default
-description: Datacenter to datacenter replication, available in the Enterprise Edition
+description: Datacenter-to-Datacenter Replication, available in the Enterprise Edition
 title: DC2DC Replication
 ---
-# Datacenter to datacenter replication
+# Datacenter-to-Datacenter Replication
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
-This chapter introduces ArangoDB's _datacenter to datacenter replication_ (DC2DC).
+This chapter introduces ArangoDB's _Datacenter-to-Datacenter Replication_ (DC2DC).
 
 **Sections:**
 
@@ -16,7 +16,7 @@ This chapter introduces ArangoDB's _datacenter to datacenter replication_ (DC2DC
 - [Requirements](architecture-deployment-modes-dc2-dc-requirements.html)
 - [Limitations](architecture-deployment-modes-dc2-dc-limitations.html)
 
-For further information about _datacenter to datacenter replication_, please refer to the following sections included in other chapters of this Manual:
+For further information about _Datacenter-to-Datacenter Replication_, please refer to the following sections included in other chapters of this Manual:
 
 - [Deployment](deployment-dc2-dc.html)
 - [Administration](administration-dc2-dc.html)

@@ -38,7 +38,7 @@ Deployment Administration
 
 - [Active Failover](administration-active-failover.html)
 - [Cluster](administration-cluster.html)
-- [Datacenter to datacenter replication](administration-dc2-dc.html)
+- [Datacenter-to-Datacenter Replication](administration-dc2-dc.html)
 - [ArangoDB Starter Administration](administration-starter.html)
 
 Other Topics

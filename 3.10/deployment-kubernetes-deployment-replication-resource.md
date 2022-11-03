@@ -4,7 +4,7 @@ description: ArangoDeploymentReplication Custom Resource
 ---
 # ArangoDeploymentReplication Custom Resource
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 The ArangoDB Replication Operator creates and maintains ArangoDB
 `arangosync` configurations in a Kubernetes cluster, given a replication specification.

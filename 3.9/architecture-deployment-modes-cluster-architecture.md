@@ -130,7 +130,7 @@ all the machines participating to the Cluster.
 
 Multi-datacenter Clusters, where the entire structure and content of a Cluster located
 in a specific DC is replicated to others Clusters located in different DCs, are
-possible as well. See [Datacenter to datacenter replication](architecture-deployment-modes-dc2-dc.html)
+possible as well. See [Datacenter-to-Datacenter Replication](architecture-deployment-modes-dc2-dc.html)
 (DC2DC) for further details.
 {% endhint %}
 

@@ -7,7 +7,7 @@ description: There are several ways to start an ArangoDB cluster
 There are several ways to start an ArangoDB cluster. In this section we will focus
 on our recommended way to start ArangoDB: the ArangoDB _Starter_.
 
-_Datacenter to datacenter replication_ requires the `rocksdb` storage engine. The
+_Datacenter-to-Datacenter Replication_ requires the `rocksdb` storage engine. The
 example setup described in this section will have `rocksdb` enabled. If you choose
 to deploy with a different strategy keep in mind to set the storage engine.
 
