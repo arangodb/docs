@@ -33,7 +33,7 @@ and [HttpJobPutCancel](#managing-async-results-via-http) for details.
 
 ### Fire and Forget
 
-To mitigate client blocking issues, ArangoDB since version 1.4. offers a generic mechanism 
+To mitigate client blocking issues, offers a generic mechanism 
 for non-blocking requests: if clients add the HTTP header *x-arango-async: true* to their
 requests, ArangoDB will put the request into an in-memory task queue and return an HTTP 202
 (accepted) response to the client instantly. The server will execute the tasks from
