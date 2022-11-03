@@ -197,7 +197,7 @@ Same as above. Instead of an index an index handle can be given.
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
-Loads suitable indexes of this collection into Memory.
+Loads suitable indexes of this collection into memory.
 `collection.loadIndexesIntoMemory()`
 
 This function tries to cache index entries of this collection in main memory.
@@ -206,17 +206,17 @@ than lookups not stored in the cache, so you can get a nice performance boost.
 
 The function iterates over suitable indexes of the collection and stores the 
 indexed values, not the entire document data, in memory.
-Currently this is implemented only for edge indexes.
+This is implemented for edge indexes only.
 
 The function returns as soon as the index warmup has been scheduled. The index
-warmup may still be ongoing in background even after the function has already
-returned. As all suitable indexes will be scanned, it may cause significant
+warmup may still be ongoing in the background, even after the function has already
+returned. As all suitable indexes are scanned, it may cause significant
 I/O activity and background load.
 
 This function honors memory limits. If the indexes you want to load are smaller
-than your memory limit this function guarantees that most index values are
-cached. If the index is larger than your memory limit this function will fill
-up values up to this limit and for the time being there is no way to control
+than your memory limit, this function guarantees that most index values are
+cached. If the index is larger than your memory limit, this function fills
+up values up to this limit and there is no way to control
 which indexes of the collection should have priority over others.
 
 It is guaranteed at all times that the in-memory cache data is consistent with 
