@@ -10,8 +10,6 @@ Server-level Setup
 This page describes the replication process based on a complete ArangoDB instance. That means that
 all included databases will be replicated. 
 
-**Note:** Server-level Setup is available only from version 3.3.0.
-
 Setting up a working Leader/Follower replication requires two ArangoDB instances:
 - **Leader**: this is the instance where all data-modification operations should be directed to
 - **Follower**: this is the instance that replicates the data from the Leader. We will start a _replication applier_
