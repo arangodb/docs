@@ -386,7 +386,7 @@ Also see [What's New in 3.2](release-notes-new-features32.html).
 
 **All Editions**
 
-- [**Vertex-centric indices**](indexing-vertex-centric.html):
+- [**Vertex-centric indexes**](indexing-vertex-centric.html):
   AQL traversal queries can utilize secondary edge collection
   indexes for better performance against graphs with supernodes.
 

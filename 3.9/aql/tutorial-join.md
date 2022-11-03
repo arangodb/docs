@@ -288,7 +288,7 @@ character attribute, the latter got overwritten by the merge operation.
 Join another way
 ----------------
 
-The `DOCUMENT()` function utilizes primary indices to look up documents quickly.
+The `DOCUMENT()` function utilizes primary indexes to look up documents quickly.
 It is limited to find documents via their identifiers however. For a use case
 like in our example it is sufficient to accomplish a simple join.
 
