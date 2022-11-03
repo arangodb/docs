@@ -53,7 +53,7 @@ connection between all the machines participating in the Active Failover setup.
 
 Multi-datacenter Active Failover setups are currently not supported.
 
-A multi-datacenter solution currently supported is the Datacenter to Datacenter replication
+A multi-datacenter solution currently supported is the Datacenter-to-Datacenter Replication
 (DC2DC) among ArangoDB Clusters. See [DC2DC](architecture-deployment-modes-dc2-dc.html) chapter for details.
 {% endhint %}
 

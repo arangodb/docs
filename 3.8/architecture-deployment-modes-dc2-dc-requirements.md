@@ -1,11 +1,11 @@
 ---
 layout: default
-description: What you need for datacenter to datacenter replication
+description: What you need for Datacenter-to-Datacenter Replication
 title: DC2DC Requirements
 ---
 # Requirements
 
-To use _datacenter to datacenter replication_ you need the following:
+To use _Datacenter-to-Datacenter Replication_ you need the following:
 
 - Two datacenters, each running an ArangoDB Enterprise Edition cluster.
 - A network connection between both datacenters with accessible endpoints

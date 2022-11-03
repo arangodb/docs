@@ -9,7 +9,7 @@ Finding the start vertex via a geo query
 ----------------------------------------
 
 Our first example will locate the start vertex for a graph traversal via [a geo index](../indexing-geo.html).
-We use [the city graph](../graphs.html#the-city-graph) and its geo indices:
+We use [the city graph](../graphs.html#the-city-graph) and its geo indexes:
 
 ![Cities Example Graph](../images/cities_graph.png)
 
@@ -43,7 +43,7 @@ We won't find **Paris** since its in the `frenchCity` collection.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-Lets revalidate that the geo indices are actually used:
+Let's revalidate that the geo indexes are actually used:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline COMBINING_GRAPH_03_explain_geo

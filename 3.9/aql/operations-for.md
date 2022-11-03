@@ -104,11 +104,11 @@ FOR … IN … OPTIONS { indexHint: ["byName", "byColor"] }
 
 Whenever there is a chance to potentially use an index for this `FOR` loop,
 the optimizer will first check if the specified index can be used. In case of
-an array of indices, the optimizer will check the feasibility of each index in
+an array of indexes, the optimizer will check the feasibility of each index in
 the specified order. It will use the first suitable index, regardless of
 whether it would normally use a different index.
 
-If none of the specified indices is suitable, then it falls back to its normal
+If none of the specified indexes is suitable, then it falls back to its normal
 logic to select another index or fails if `forceIndexHint` is enabled.
 
 ### `forceIndexHint`

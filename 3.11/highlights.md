@@ -321,7 +321,7 @@ Also see [What's New in 3.4](release-notes-new-features34.html).
 
 **Enterprise Edition**
 
-- [**Datacenter to Datacenter Replication**](deployment-dc2dc.html):
+- [**Datacenter-to-Datacenter Replication**](deployment-dc2dc.html):
   Replicate the entire structure and content of an ArangoDB cluster
   asynchronously to another cluster in a different datacenter with ArangoSync.
   Multi-datacenter support means you can fallback to a replica of your cluster
@@ -386,7 +386,7 @@ Also see [What's New in 3.2](release-notes-new-features32.html).
 
 **All Editions**
 
-- [**Vertex-centric indices**](indexing-vertex-centric.html):
+- [**Vertex-centric indexes**](indexing-vertex-centric.html):
   AQL traversal queries can utilize secondary edge collection
   indexes for better performance against graphs with supernodes.
 
