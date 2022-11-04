@@ -6859,7 +6859,6 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 }
 
 #sidenav.active {
-    
     width: 20rem;
 }
 
@@ -6924,8 +6923,6 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 }
 
 
-
-
 .container-main {
     max-width: 1500px;
     grid-area: contents;
@@ -6970,6 +6967,8 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 #sidenav ul.topics li.active > ul,
 #sidenav ul.topics li.alwaysopen > ul {
     display: block;
+    margin-left: 10px;
+    font-size: 13px;
 }
 
 #sidenav ul.topics input.toggle,
@@ -6979,7 +6978,7 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 
 #sidenav ul.topics > li > label,
 #sidenav ul.topics > li > a {
-    font-size: 1rem;
+    font-size: 13px;
     line-height: 2rem;
 }
 
@@ -7016,9 +7015,6 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 }
 
 
-#sidenav ul li li {
-    padding-left: 1rem;
-}
 
 #sidenav ul.topics > li > a .read-icon {
     margin-top: 9px;
@@ -7048,6 +7044,10 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
     display: flex;
     padding: 5px 0;
     color: #666;
+}
+
+.menu-title-no-children {
+    margin-left: 21px;
 }
 
 hr {

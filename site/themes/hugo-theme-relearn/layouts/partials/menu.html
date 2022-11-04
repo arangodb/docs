@@ -214,7 +214,7 @@
               {{ end }}
               {{- partial "menu-pre.html" . }}<div class="menu-title">{{ or .Params.menuTitle .LinkTitle .Title }}</div>{{ partial "menu-post.html" . }}
               {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a>
-              <ul>
+              <ul class="menu-children">
               {{- $defaultAlwaysopen := .Site.Params.alwaysopen | default true }}
               {{- if eq $currentOrdersectionsby "title" }}
                 {{- range $pages.ByTitle }}
@@ -228,12 +228,12 @@
             {{- else }}
           <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
                   {{- partial "menu-pre.html" . }}{{ or .Params.menuTitle .LinkTitle .Title }}{{ partial "menu-post.html" . }}
-                  {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a></li>
+                  {{- if $showvisitedlinks }}{{ end }}</a></li>
             {{- end }}
         {{- else }}
           <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
-              {{- partial "menu-pre.html" . }}{{ or .Params.menuTitle .LinkTitle .Title }}{{ partial "menu-post.html" . }}
-              {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a></li>
+              {{- partial "menu-pre.html" . }}<div class="menu-title-no-children">{{ or .Params.menuTitle .LinkTitle .Title }}</div>{{ partial "menu-post.html" . }}
+              {{- if $showvisitedlinks }}{{ end }}</a></li>
         {{- end }}
       {{- end }}
     {{- end }}
