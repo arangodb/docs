@@ -1,7 +1,7 @@
 FROM ruby:2.6.10-buster
 
 RUN cd /tmp && \
-    wget https://github.com/wjdp/htmltest/releases/download/v0.16.0/htmltest_0.16.0_linux_amd64.tar.gz && \
+    wget --no-verbose https://github.com/wjdp/htmltest/releases/download/v0.16.0/htmltest_0.16.0_linux_amd64.tar.gz && \
     tar xvzf htmltest_0.16.0_linux_amd64.tar.gz && \
     mv htmltest /usr/local/bin
 
@@ -12,7 +12,7 @@ ENV PATH="/root/gems/bin:${PATH}"
 # python md script needs that :S
 ENV LC_ALL=C.UTF-8
 
-RUN gem install bundler:2.3.23
+RUN gem install bundler:2.3.25
 
 VOLUME /docs
 WORKDIR /docs
