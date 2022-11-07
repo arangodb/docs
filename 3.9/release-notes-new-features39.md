@@ -569,6 +569,19 @@ A pseudo log topic `"all"` was added. Setting the log level for the "all" log
 topic will adjust the log level for **all existing log topics**. For example,
 `--log.level all=debug` will set all log topics to log level "debug".
 
+### AQL query logging
+
+<small>Introduced in: v3.9.5</small>
+
+There are three new startup options to configure how AQL queries are logged:
+
+- `--query.log-failed` for logging all failed AQL queries, to be used during
+  development or to catch unexpected failed queries in production (off by default)
+- `--query.log-memory-usage-threshold` to define a peak memory threshold from
+  which on a warning is logged for AQL queries that exceed it (default: 4 GB)
+- `--query.max-artifact-log-length` for controlling the length of logged query
+  strings and bind parameter values. Both are truncated to 4096 bytes by default.
+
 Overload control
 ----------------
 

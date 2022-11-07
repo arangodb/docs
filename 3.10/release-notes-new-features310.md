@@ -868,6 +868,19 @@ temporary data:
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
 
+### AQL query logging
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+There are three new startup options to configure how AQL queries are logged:
+
+- `--query.log-failed` for logging all failed AQL queries, to be used during
+  development or to catch unexpected failed queries in production (off by default)
+- `--query.log-memory-usage-threshold` to define a peak memory threshold from
+  which on a warning is logged for AQL queries that exceed it (default: 4 GB)
+- `--query.max-artifact-log-length` for controlling the length of logged query
+  strings and bind parameter values. Both are truncated to 4096 bytes by default.
+
 Read from Followers in Clusters (Enterprise Edition)
 ----------------------------------------------------
 
