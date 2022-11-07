@@ -105,6 +105,14 @@ During view modification the following directives apply:
   `inBackground` is an option that can be set when adding links. It does not get
   persisted as it is not a View property, but only a one-off option. Also see:
   [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
+  
+ - **cache** (_optional_; type: `boolean`; default: `false`)
+  
+ <small>Introduced in: v3.9.5 Enterprise only</small>
+ 
+  Marks field norms as cachebale in the RAM. This improves scoring performance.
+  See "--arangosearch.columns-cache-limit" for memory consumption
+  limits.
 
 ### View Properties
 
@@ -125,6 +133,14 @@ During view modification the following directives apply:
 
   - `"lz4"` (default): use LZ4 fast compression.
   - `"none"`: disable compression to trade space for speed.
+  
+- **primarySortCache** (_optional_; type: `boolean`; default: `false`)
+  
+ <small>Introduced in: v3.9.5 Enterprise only</small>
+ 
+  Marks primary sort column as cachebale in the RAM. This improves query
+  performance. See "--arangosearch.columns-cache-limit" for memory consumption
+  limits.
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
@@ -136,7 +152,7 @@ During view modification the following directives apply:
   avoided.
 
   Each object is expected in the form
-  `{ "fields": [ "attr1", "attr2", ... "attrN" ], "compression": "none" }`,
+  `{ "fields": [ "attr1", "attr2", ... "attrN" ], "compression": "none", "cache":false }`,
   where the required `fields` attribute is an array of strings with one or more
   document attribute paths. The specified attributes are placed into a single
   column of the index. A column with all fields that are involved in common
@@ -144,6 +160,10 @@ During view modification the following directives apply:
   many unneeded fields however. The optional `compression` attribute defines
   the compression type used for the internal column-store, which can be `"lz4"`
   (LZ4 fast compression, default) or `"none"` (no compression).
+  The optional "cache" attribute allows to cache stored values in RAM. Intorduced in 3.9.5
+  Enteprise only. See "--arangosearch.columns-cache-limit" for memory consumption
+  limits.
+  
 
   Not to be confused with *storeValues*, which allows to store meta data
   about attribute values in the View index.
