@@ -28,8 +28,8 @@ built-in support for multiple data-center awareness and can
 replicate between data-centers in a fully automatic fashion.
 
 ArangoDB 3.3 takes an evolutionary step forward by introducing
-multi-data-center support, which is asynchronous data-center to
-data-center replication. Our solution is asynchronous and scales
+multi-data-center support, which is asynchronous Datacenter-to Datacenter Replication.
+Our solution is asynchronous and scales
 to arbitrary cluster sizes, provided your network link between
 the data-centers has enough bandwidth. It is fault-tolerant
 without a single point of failure and includes a lot of

@@ -1,13 +1,13 @@
 ---
 layout: default
-description: The LIMIT statement allows slicing the result array using anoffset and a count
+description: The LIMIT statement allows slicing the result array using an offset and a count
 ---
 LIMIT
 =====
 
 The `LIMIT` statement allows slicing the result array using an
 offset and a count. It reduces the number of elements in the result to at most
-the specified number. Two general forms of `LIMIT` are followed:
+the specified number.
 
 ```js
 LIMIT count
@@ -54,4 +54,16 @@ Where a `LIMIT` is used in relation to other operations in a query has meaning.
 significantly, because the operations are executed in the order in which they
 are written in the query. See [FILTER](operations-filter.html#order-of-operations) for a
 detailed example.
- 
+
+The `LIMIT` operation never applies to write operations (`INSERT`, `UPDATE`,
+`REPLACE`, `REMOVE`, `UPSERT`) but only their returned results. In the following
+example, five documents are created, regardless of the `LIMIT 2`. The `LIMIT`
+operation only constrains the number of documents returned by the query (via
+`RETURN`) to the first two:
+
+```aql
+FOR i IN 1..5
+  INSERT { value: i } INTO coll
+  LIMIT 2
+  RETURN NEW
+```

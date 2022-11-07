@@ -51,7 +51,7 @@ The following APIs have been added:
 
 - [The new Stream Transaction API](http/transaction.html)
 - [The new ArangoSearch Analyzer management API](http/analyzers.html)
-- [The management of the new TTL indices](http/indexes-ttl.html); this enhances the existing index-API
+- [The management of the new TTL indexes](http/indexes-ttl.html); this enhances the existing index-API
 - [Query the actual shard a document lives in](http/collection-getting.html#return-responsible-shard-for-a-document)
 
 The following APIs have been expanded:

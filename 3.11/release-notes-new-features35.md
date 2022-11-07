@@ -182,7 +182,7 @@ Also see:
 
 Users may now take advantage of the `indexHint` inline query option to override
 the internal optimizer decision regarding which index to use to serve content
-from a given collection. The index hint works with the [named indices](#named-indices)
+from a given collection. The index hint works with the [named indexes](#named-indexes)
 feature, making it easy to specify which index to use.
 
 See:
@@ -692,14 +692,14 @@ Existing `_modules` collections will also remain functional.
 The `_frontend` collection may still be required for actions triggered by the
 web interface, but it will automatically be created lazily if needed.
 
-### Named indices
+### Named indexes
 
-Indices now have an additional `name` field, which allows for more useful
-identifiers. System indices, like the primary and edge indices, have default 
+indexes now have an additional `name` field, which allows for more useful
+identifiers. System indexes, like the primary and edge indexes, have default 
 names (`primary` and `edge`, respectively). If no `name` value is specified
 on index creation, one will be auto-generated (e.g. `idx_13820395`). The index
-name _cannot_ be changed after index creation. No two indices on the same
-collection may share the same name, but two indices on different collections 
+name _cannot_ be changed after index creation. No two indexes on the same
+collection may share the same name, but two indexes on different collections 
 may.
 
 ### ID values in log messages
