@@ -1,11 +1,11 @@
 ---
 layout: default
-description: Datacenter to datacenter replication, available in the Enterprise Edition
+description: Datacenter-to-Datacenter Replication, available in the Enterprise Edition
 title: DC2DC Replication
 ---
-# Datacenter to Datacenter Replication
+# Datacenter-to-Datacenter Replication
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 ## About
 
@@ -20,10 +20,9 @@ Reasons for that can be:
 
 And many more.
 
-This tutorial describes what the ArangoSync datacenter to datacenter
-replication solution (ArangoSync from now on) offers,
-when to use it, when not to use it and  how to configure,
-operate, troubleshoot it & keep it safe.
+This tutorial describes what the ArangoSync Datacenter-to-Datacenter Replication
+solution (ArangoSync from now on) offers, when to use it, when not to use it and
+how to configure, operate, troubleshoot it & keep it safe.
 
 ### What is it
 
@@ -73,8 +72,7 @@ ArangoSync is not a good solution when one of the following applies:
 
 To use ArangoSync you need the following:
 
-- Two datacenters, each running an ArangoDB Enterprise Edition cluster,
-  version 3.3 or higher, using the RocksDB storage engine.
+- Two datacenters, each running an ArangoDB Enterprise Edition cluster.
 - A network connection between both datacenters with accessible endpoints
   for several components (see individual components for details).
 - TLS certificates for ArangoSync master instances (can be self-signed).
@@ -97,13 +95,13 @@ Besides the above list, you probably want to use the following:
 ## Deployment
 
 In the following paragraphs you'll learn which components have to be deployed
-for datacenter to datacenter replication using the `direct` message queue.
+for Datacenter-to-Datacenter Replication using the `direct` message queue.
 For detailed deployment instructions or instructions
 consult the [reference manual](deployment-dc2-dc.html).
 
 ### ArangoDB cluster
 
-Datacenter to datacenter replication requires an ArangoDB cluster in both data centers,
+Datacenter-to-Datacenter Replication requires an ArangoDB cluster in both data centers,
 configured with the `rocksdb` storage engine.
 
 Since the _Agents_ are so critical to the availability of both the ArangoDB and

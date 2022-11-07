@@ -1,11 +1,11 @@
 ---
 layout: default
-description: The datacenter to datacenter replication setup in ArangoDB has a few limitations
+description: The Datacenter-to-Datacenter Replication setup in ArangoDB has a few limitations
 ---
 Limitations
 ===========
 
-The _datacenter to datacenter replication_ setup in ArangoDB has a few limitations.
+The _Datacenter-to-Datacenter Replication_ setup in ArangoDB has a few limitations.
 Some of these limitations may be removed in later versions of ArangoDB:
 
 - All the machines where the ArangoDB Server processes run must run the Linux

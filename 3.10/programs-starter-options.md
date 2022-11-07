@@ -230,7 +230,7 @@ Example:
 arangodb --envs.all.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G --envs.coordinators.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=4G --envs.dbservers.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=8G ...
 ```
 
-## Datacenter to datacenter replication options
+## Datacenter-to-Datacenter Replication options
 
 - `--sync.start-master=bool`
 

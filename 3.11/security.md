@@ -8,4 +8,4 @@ layout: default
 - [Encryption at Rest](security-encryption.html)
 - [Auditing](security-auditing.html)
 - [Securing Starter Deployments](security-starter.html)
-- [Datacenter to datacenter Security](security-dc2dc.html)
+- [Securing Datacenter-to-Datacenter Replication](security-dc2dc.html)
