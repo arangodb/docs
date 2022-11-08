@@ -20,7 +20,7 @@ The request object specifies the following properties:
 * **arangoVersion**: `number`
 
   The numeric value of the `x-arango-version` header or the numeric version
-  of the ArangoDB server (e.g. `30102` for version 3.1.2) if no valid header
+  of the ArangoDB server (e.g. `30807` for version 3.8.7) if no valid header
   was provided.
 
 * **auth**: `object | null`

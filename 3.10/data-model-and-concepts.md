@@ -8,27 +8,13 @@ redirect_from:
   - data-modeling-graphs-vertices-edges.html # 3.9 -> 3.10
   - data-modeling-concepts.html # 3.9 -> 3.10
 ---
-# Data Model & Concepts
 
-This chapter introduces ArangoDB's core concepts and covers the following:
-
-- the high-level data organization
-- its data model (or rather multiple data models)
-- important terminology used throughout the database system and in this
-  documentation
-
-You can also find here examples on how to interact with the database system
-using [arangosh](programs-arangosh.html), e.g. how to create and
-drop databases / collections, or how to save, update, replace and remove
-documents. You can do all this using the [web interface](getting-started-web-interface.html)
-as well and may therefore skip these sections as a beginner.
-
-## How Data is Structured in ArangoDB
+# How Data is Structured in ArangoDB
 
 The hierarchy that data is organized in is **documents** (data records) in
 **collections**, and collections in **databases**.
 
-### Documents
+## Documents
 
 ArangoDB lets you store documents as JSON objects.
 
@@ -72,7 +58,7 @@ attributes. If you want to enforce a specific structure, then you can do so with
 Documents are internally stored in a binary format called
 [VelocyPack](https://github.com/arangodb/velocypack#readme){:target="_blank"}.
 
-### Collections
+## Collections
 
 Documents are stored in [**collections**](data-modeling-collections.html),
 similar to how files are stored in folders. A collection can hold an arbitrary
@@ -84,7 +70,7 @@ collections. All book records have some common attributes like a title,
 author, and publisher. You can later create indexes for some of the often-used
 attributes to speed up queries. This is done at the collection level.
 
-### Databases
+## Databases
 
 Each collection is part of a [**database**](data-modeling-databases.html).
 Databases allow you to isolate sets of collections from one another, usually for
@@ -96,9 +82,9 @@ because it cannot be removed and it holds a couple of system collections that
 are used internally by the server. Other than that, you may create your own
 collections in this database like in any other.
 
-## Data Models
+# Data Models
 
-### Key-Value Model
+## Key-Value Model
 
 The key-value data model is a subset of ArangoDB's document data model.
 Every document has a `_key` attribute that identifies a document within a
@@ -118,7 +104,7 @@ collection name that the document is stored in, a forward slash (`/`), and the
 document key, so `<collection>/<key>`. It uses the primary index under the hood
 and you can thus use it to look up documents equally fast.
 
-### Document Model
+## Document Model
 
 You can store data records as JSON objects in ArangoDB, and not only retrieve
 them one by one as they are like in the key-value model, but run queries of all
@@ -131,7 +117,7 @@ with or without built-in and user-defined (secondary) indexes, return subsets of
 attributes or even compute new ones on-the-fly, group records and aggregate
 values, and more.
 
-### Graph Model
+## Graph Model
 
 Graphs are comprised of **vertices** and **edges**. Both are documents in
 ArangoDB. Edges have two special attributes, `_from` and `_to`, that reference
@@ -170,7 +156,7 @@ distributed graph processing based on the Pregel framework.
 - [Index Free Adjacency or Hybrid Indexes for Graph Databases](https://www.arangodb.com/2016/04/index-free-adjacency-hybrid-indexes-graph-databases/){:target="_blank"}
 -->
 
-## Data Retrieval
+# Data Retrieval
 
 **Queries** are used to filter documents based on certain criteria, to compute
 or store new data, as well as to manipulate or delete existing documents.

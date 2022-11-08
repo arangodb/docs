@@ -1,10 +1,10 @@
 ---
 layout: default
-description: Since ArangoDB 3
+description: The several core components of the server use a cache system
 ---
 # ArangoDB Server Cache Options
 
-Since ArangoDB 3.2, the several core components of the server use a cache
+The several core components of the server use a cache
 system which pools memory across many different cache tables. In order to
 provide intelligent internal memory management, the system periodically
 reclaims memory from caches which are used less often and reallocates it to

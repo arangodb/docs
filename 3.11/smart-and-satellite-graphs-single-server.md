@@ -3,8 +3,9 @@ layout: default
 description: Test SmartGraphs and SatelliteGraphs on a single server, port them to an ArangoDB Cluster  
 title: SmartGraphs and SatelliteGraphs on a Single Server
 ---
+# SmartGraphs and SatelliteGraphs on a Single Server
 
-# General Idea
+## General Idea
 
 Simulate a SmartGraph or a SatelliteGraph on a single server and then to port it to an ArangoDB
 Cluster
@@ -18,7 +19,7 @@ After a test phase such a graph can be dumped and then restored in a cluster ins
 and edge collections now obtain true SmartGraph or SatelliteGraph sharding properties as if they were created in the
 cluster.
 
-# The Procedure
+## The Procedure
 
 On a single server, create [SmartGraphs](graphs-smart-graphs-management.html) or [SatelliteGraphs](graphs-satellite-graphs-management.html)
 graphs by using `arangosh` as usual. Then you can set all the cluster relevant properties of graphs and collections: `numberOfShards`, `isSmart`,
@@ -27,4 +28,3 @@ After that you can [dump](programs-arangodump-examples.html) the graphs with `ar
 
 Now [restore](programs-arangorestore-examples.html) the dumped data into a running instance of ArangoDB Cluster. As a result,
 all cluster relevant properties are restored correctly and affect now the sharding and the performance.
-

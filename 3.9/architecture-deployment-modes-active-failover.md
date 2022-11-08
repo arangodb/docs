@@ -20,6 +20,5 @@ sections included in other chapters of this Manual:
 
 **Note:** _Asynchronous Failover_, _Resilient Single_, _Active-Passive_ or _Hot
 Standby_ are other terms that have been used to define the _Active Failover_ environment. 
-Starting from version 3.3 _Active Failover_ is the preferred term to identify such
-environment.
+_Active Failover_ is the preferred term to identify such environment.
 

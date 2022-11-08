@@ -121,7 +121,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 - `schema` (object\|null, _optional_, default: `null`): 
   An object that specifies the collection-level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
-  documented in [Document Schema Validation](document-schema-validation.html)
+  documented in [Document Schema Validation](data-modeling-documents-schema-validation.html)
 
 - `computedValues` (array\|null, _optional_, default: `null`): An array of objects,
   each representing a [Computed Value](data-modeling-documents-computed-values.html).
