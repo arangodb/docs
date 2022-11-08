@@ -76,7 +76,7 @@ arangod --server.endpoint tcp://0.0.0.0:5003 \
 
 These two roles share a common set of relevant options. First you should specify
 the role using `--cluster.my-role`. This can either be `PRIMARY` (a DB-Server)
-or `COORDINATOR`. Note that starting from v.3.4 `DBSERVER` is allowed as an alias
+or `COORDINATOR`. Note that `DBSERVER` is allowed as an alias
 for `PRIMARY` as well. Furthermore please provide the external endpoint (IP and port)
 of the process via `--cluster.my-address`.
 
@@ -139,7 +139,7 @@ to every server. The generated _ID_ will be printed out to the log or can be acc
 via the HTTP API by calling `http://server-address/_admin/server/id`.
 
 You have now launched an ArangoDB Cluster and can contact its _Coordinators_ (and
-their corresponding web UI) at the endpoint `tcp://127.0.0.1:7001` and `tcp://127.0.0.1:7002`.
+their corresponding web interface) at the endpoint `tcp://127.0.0.1:7001` and `tcp://127.0.0.1:7002`.
 
 Multiple Machines
 -----------------
@@ -212,10 +212,6 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
 ```
 
 ### DB-Servers
-
-In the commands below, note that `DBSERVER`, as value of the option
-`--cluster.my-role`, is allowed only from version 3.4; for previous
-versions, to start a _DB-Server_, please use `PRIMARY` as role.
 
 On 192.168.1.1:
 

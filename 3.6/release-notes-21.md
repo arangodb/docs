@@ -1,1 +1,7 @@
-../3.7/release-notes-21.md
+---
+layout: default
+---
+Version 2.1
+===========
+
+- [What's New in 2.1](release-notes-new-features21.html)

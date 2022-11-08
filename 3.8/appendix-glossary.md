@@ -17,7 +17,7 @@ Collections contain documents of a specific type. There are currently two types:
 Collection Identifier
 ---------------------
 
-A collection identifier identifies a collection in a database. It is a string value and is unique within the database. Up to including ArangoDB 1.1, the collection identifier has been a client's primary means to access collections. Starting with ArangoDB 1.2, clients should instead use a collection's unique name to access a collection instead of its identifier.
+A collection identifier identifies a collection in a database. It is a string value and is unique within the database. Clients should use a collection's unique name to access a collection instead of its identifier.
 
 ArangoDB currently uses 64bit unsigned integer values to maintain collection ids internally. When returning collection ids to clients, ArangoDB will put them into a string to ensure the collection id is not clipped by clients that do not support big integers. Clients should treat the collection ids returned by ArangoDB as
 opaque strings when they store or use it locally.
@@ -165,7 +165,7 @@ An edges index is automatically created for edge collections. It contains connec
 Fulltext Index
 --------------
 
-A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be defined on one attribute only, and will include all words contained in documents that have a textual value in the index attribute. Since ArangoDB 2.6 the index will also include words from the index attribute if the index attribute is an array of strings, or an object with string value members.
+A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be defined on one attribute only, and will include all words contained in documents that have a textual value in the index attribute. The index will also include words from the index attribute if the index attribute is an array of strings, or an object with string value members.
 
 For example, given a fulltext index on the `translations` attribute and the following documents, then searching for `лиса` using the fulltext index would return only the first document. Searching for the index for the exact string `Fox` would return the first two documents, and searching for `prefix:Fox` would return all three documents:
      

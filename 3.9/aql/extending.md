@@ -32,7 +32,7 @@ This can be mitigated by very selective `FILTER`s before calls to UDFs.
 {% endhint %}
 
 Since the optimizer doesn't know anything about the nature of your function,
-**the optimizer can't use indices for UDFs**. So you should never lean on a UDF
+**the optimizer can't use indexes for UDFs**. So you should never lean on a UDF
 as the primary criterion for a `FILTER` statement to reduce your query result set.
 Instead, put a another `FILTER` statement in front of it. You should make sure
 that this [**`FILTER` statement** is effective](execution-and-performance-optimizer.html)
