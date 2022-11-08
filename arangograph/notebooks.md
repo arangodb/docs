@@ -73,10 +73,13 @@ at anytime. The notebook's phase is updated accordingly.
 ## Getting Started notebook
 
 To get a better understanding of how to interact with your ArangoDB database
-cluster, log in into the notebook you have created and go through the
-ArangoGraph Getting Started template.
+cluster, use the ArangoGraph Getting Started template.
 The ArangoGraph Notebook automatically connects to the ArangoDB service
 endpoint, so you can immediately start interacting with it.
+
+1. Log in into the notebook you have created.
+2. Open the file browser and navigate to the `jovyan` directory.
+3. Select the `GettingStarted.ipynb` file.
 
 ## ArangoGraph Magic Commands
 
