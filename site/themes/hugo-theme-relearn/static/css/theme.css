@@ -6859,7 +6859,7 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 }
 
 #sidenav.active {
-    width: 20rem;
+    width: 15rem;
 }
 
 
@@ -6982,6 +6982,7 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
     line-height: 2rem;
 }
 
+
 #sidenav ul.topics > li > a b {
     font-weight: 400;
     opacity: 0.5;
@@ -7044,6 +7045,11 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
     display: flex;
     padding: 5px 0;
     color: #666;
+    transition: 0.5s;
+}
+
+#sidenav a:hover {
+    background-color: rgb(215 245 239);
 }
 
 .menu-title-no-children {
@@ -7143,7 +7149,7 @@ header {
 #sidenav li.dd-item.active > a {
     color: #577138;
     font-weight: bold;
-    background-color: rgb(227, 252, 247);
+    background-color: rgb(215 245 239);
 }
 
 
