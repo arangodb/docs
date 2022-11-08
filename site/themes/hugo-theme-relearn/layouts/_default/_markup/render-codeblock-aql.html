@@ -1,11 +1,12 @@
 
 {{ if and (site.Params.useCodeblockHook) (not site.Params.buildForApiDocs)  }}
   {{ if in .Inner "---\nname:" }}
-  {{ $remote := resources.GetRemote "http://localhost:8080/aql" (dict
-      "method" "post"
-      "body" .Inner
-    )
-  }}
+  {{ $endpoint := printf "%s/aql" site.Params.arangoproxyUrl }}
+    {{ $remote := resources.GetRemote $endpoint (dict
+        "method" "post"
+        "body" .Inner
+      )
+    }}
   {{ if $remote }}
   {{ if $remote.Err }}
           {{ warnf "[AQL] ERROR CALLING ENDPOINT %#v" .Position }}

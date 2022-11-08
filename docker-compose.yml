@@ -1,0 +1,47 @@
+services:
+  arangoproxy:
+    container_name: arangoproxy
+    image: arangoproxy
+    build:
+      context: .
+      target: arangoproxy
+    networks:
+      docs_net:
+        ipv4_address: 192.168.129.4
+    volumes:
+      - ./migration-tools:/home
+
+  site:
+    container_name: site
+    image: site
+    build:
+      context: .
+      target: hugo
+    ports:
+      - "1313:1313"
+    networks:
+      docs_net:
+        ipv4_address: 192.168.129.3
+    volumes:
+      - ./site:/site
+    
+  arangodb:
+    container_name: arangodb
+    image: arangodb:latest
+    ports:
+      - "8520:8529"
+    networks:
+      docs_net:
+        ipv4_address: 192.168.129.5
+    environment:
+      - ARANGO_NO_AUTH=1
+
+networks:
+  docs_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.129.0/24
+          gateway: 192.168.129.1
+

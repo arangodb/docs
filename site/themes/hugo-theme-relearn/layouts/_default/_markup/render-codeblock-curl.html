@@ -2,11 +2,12 @@
 {{ if and (site.Params.useCodeblockHook) (not site.Params.buildForApiDocs)  }}
   
   {{ if in .Inner "---" }}
-  {{ $remote := resources.GetRemote "http://localhost:8080/http-example" (dict
-      "method" "post"
-      "body" .Inner
-    )
-  }}
+  {{ $endpoint := printf "%s/curl" site.Params.arangoproxyUrl }}
+    {{ $remote := resources.GetRemote $endpoint (dict
+        "method" "post"
+        "body" .Inner
+      )
+    }}
   {{ if $remote }}
       {{ if $remote.Err }}
           {{ warnf "[CURL] ERROR CALLING ENDPOINT %#v" .Position }}

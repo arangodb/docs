@@ -48,6 +48,7 @@ caches:
     maxAge: 0
 
 params:
+  arangoproxyUrl: "http://192.168.129.4:8080"
   pygmentsUseClassic: false
   description: "Documentation for ArangoDB"
   showVisitedLinks: true
@@ -62,5 +63,6 @@ params:
   additionalContentLanguage: [ "en" ]
   custom_css: ["css/*"]
   swaggerInitialize: "{ \"theme\": \"light\" }"
+  hidden: false
 
 

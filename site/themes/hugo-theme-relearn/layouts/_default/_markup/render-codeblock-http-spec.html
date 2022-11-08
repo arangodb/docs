@@ -1,7 +1,8 @@
 {{ if site.Params.useCodeblockHook }}
   {{ if site.Params.buildForApiDocs }}
     {{ $request := printf "%s\n%s" .Position .Inner}}
-    {{ $remote := resources.GetRemote "http://localhost:8080/api-docs" (dict
+    {{ $endpoint := printf "%s/api-docs" site.Params.arangoproxyUrl }}
+    {{ $remote := resources.GetRemote $endpoint (dict
     "method" "post"
     "body" $request 
     "headers" (dict 
@@ -16,7 +17,8 @@
       {{ end }}
   {{ else }}
     {{ $request := printf "%s\n%s" .Position .Inner}}
-    {{ $remote := resources.GetRemote "http://localhost:8080/http-spec" (dict
+    {{ $endpoint := printf "%s/http-spec" site.Params.arangoproxyUrl }}
+    {{ $remote := resources.GetRemote $endpoint (dict
     "method" "post"
     "body" $request 
     "headers" (dict 
