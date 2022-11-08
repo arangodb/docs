@@ -8,17 +8,6 @@ RocksDB is a highly configurable key-value store used to power ArangoDB's RocksD
 storage engine. Most of the options on this page are pass-through options to the
 underlying RocksDB instance, and only a few of its default settings are changed.
 
-### LSM tree structure
-
-
-### File I/O
-
-`--rocksdb.use-fsync`
-
-If set, issue an `fsync` call when writing to disk (set to false to issue
-`fdatasync` only. Default: false.
-
-
 ### Validation
 
 <small>Introduced in: v3.11.0</small>
