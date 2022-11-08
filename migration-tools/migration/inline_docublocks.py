@@ -3,8 +3,6 @@ import globals
 import yaml
 import utils
 
-#TODO: Using yaml lib, is it possible to convert dicts into yaml without formatting those horrible strings by hand?
-
 def migrateInlineDocuBlocks(paragraph):
     paragraph = re.sub(r"{%.*arangoshexample.* %}", '', paragraph, 0)
     paragraph = re.sub(r"{%.*aqlexample.* %}", '', paragraph, 0)
@@ -79,6 +77,9 @@ def render_codeblock(block):
 {exampleOptions}\n\
 ---\n\
 {block["code"]}\n\
+```\n\
+```{block["language"]}\n\
+{utils.migrate_docublock_output(block["options"]["name"])}\n\
 ```\n\
 {{{{% /tab %}}}}\n\
 {{{{< /tabs >}}}}\n\

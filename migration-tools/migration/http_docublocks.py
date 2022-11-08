@@ -317,6 +317,9 @@ def parse_examples(blockExamples):
 ---\n\
 {example["code"]}\n\
 ```\n\
+```curl\n\
+{utils.migrate_docublock_output(example["options"]["name"])}\n\
+```\n\
 {{{{% /tab %}}}}\n\
 {{{{< /tabs >}}}}\n\
 {{{{< /version >}}}}\n\

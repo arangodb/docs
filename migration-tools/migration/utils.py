@@ -15,9 +15,10 @@ def set_page_description(page, buffer, frontMatter):
 
 def migrate_hints(paragraph):
     #Hints TODO: Replace this horrible regex with the lazy capture
-    hintRegex = re.findall(r"{% hint .* %}[\w\n\s\?\'\\\&\$\,\{\}\_\<\>\"\.\[\]\-\/\(\)\#\:\!\=\*\`\…]*{% endhint %}", paragraph)
+    hintRegex = re.findall(r"{% hint .* %}.*?{% endhint %}", paragraph, re.MULTILINE | re.DOTALL)
     for hint in hintRegex:
         hintSplit = hint.split("\n")
+        print(hint)
         hintType = re.search(r"'.*[']* %}", hintSplit[0]).group(0).replace("'", '').strip(" %}")
         hintText = "\n".join(hintSplit[1:len(hintSplit)-2])
         if hintType == 'note':
@@ -25,6 +26,14 @@ def migrate_hints(paragraph):
 
         newHint = f"{{{{% hints/{hintType} %}}}}\n{hintText}\n{{{{% /hints/{hintType} %}}}}"
         paragraph = paragraph.replace(hint, newHint)
+
+    #Capture alternative
+    captureRE = re.findall(r"(?<={% capture alternative %})(.*?)(?= {% endcapture %})", paragraph, re.MULTILINE | re.DOTALL)
+    for capture in captureRE:
+        info = f"{{{{% hints/info %}}}}\n{capture}\n{{{{% /hints/info %}}}}"
+        paragraph = paragraph.replace(capture, info)
+
+    paragraph = paragraph.replace("{% capture alternative %}", "").replace("{% endcapture %}", "")
 
     # Enterprise feature hints
     enterpriseFeatureRegex = re.findall(r"{% include hint-ee-arangograph\.md .* %}|{% include hint-ee\.md .* %}", paragraph)
@@ -86,10 +95,7 @@ def migrate_hrefs(paragraph, infos):
             linkContent = linkContent.replace(")", "")
             anchor = linkContent.split("#")[0].replace(".html", "")
             filename = anchor.split("/")[len(anchor.split("/"))-1]
-           # print(f"\nHREF {href}")
-           # print(f"LINK CONTENT {linkContent}")
-           # print(f"FILENAME {filename}")
-            
+
             for k in infos.keys():
                 if not "fileID" in infos[k]:
                     continue
@@ -103,11 +109,9 @@ def migrate_hrefs(paragraph, infos):
                     if "#" in linkContent:
                         fragment = linkContent.split("#")[1]
                         newAnchor = f"{newAnchor}#{fragment}"
-                    #print(f"NEW ANCHOR {newAnchor}")
+                        
                     newHref = href.replace(linkContent, newAnchor).replace(".html", "")
                     paragraph = paragraph.replace(href, newHref)
-
-                    #print(f"TROVATO {newHref}\n")
 
 
     #Youtube links
