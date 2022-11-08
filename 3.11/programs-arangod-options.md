@@ -1,6 +1,35 @@
 ---
 layout: default
 description: ArangoDB Server Options
+redirect_from:
+  - programs-arangod-agency.html # 3.10 -> 3.10
+  - programs-arangod-arangosearch.html # 3.10 -> 3.10
+  - programs-arangod-audit.html # 3.10 -> 3.10
+  - programs-arangod-backup.html # 3.10 -> 3.10
+  - programs-arangod-cache.html # 3.10 -> 3.10
+  - programs-arangod-cluster.html # 3.10 -> 3.10
+  - programs-arangod-database.html # 3.10 -> 3.10
+  - programs-arangod-encryption.html # 3.10 -> 3.10
+  - programs-arangod-foxx.html # 3.10 -> 3.10
+  - programs-arangod-general.html # 3.10 -> 3.10
+  - programs-arangod-http.html # 3.10 -> 3.10
+  - programs-arangod-javascript.html # 3.10 -> 3.10
+  - programs-arangod-log.html # 3.10 -> 3.10
+  - programs-arangod-network.html # 3.10 -> 3.10
+  - programs-arangod-nonce.html # 3.10 -> 3.10
+  - programs-arangod-pregel.html # 3.10 -> 3.10
+  - programs-arangod-query.html # 3.10 -> 3.10
+  - programs-arangod-random.html # 3.10 -> 3.10
+  - programs-arangod-rclone.html # 3.10 -> 3.10
+  - programs-arangod-replication.html # 3.10 -> 3.10
+  - programs-arangod-server.html # 3.10 -> 3.10
+  - programs-arangod-ssl.html # 3.10 -> 3.10
+  - programs-arangod-tcp.html # 3.10 -> 3.10
+  - programs-arangod-temp.html # 3.10 -> 3.10
+  - programs-arangod-transaction.html # 3.10 -> 3.10
+  - programs-arangod-ttl.html # 3.10 -> 3.10
+  - programs-arangod-vst.html # 3.10 -> 3.10
+  - programs-arangod-web-interface.html # 3.10 -> 3.10
 ---
 ArangoDB Server Options
 =======================
