@@ -88,55 +88,58 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 
 **Database Commands**
 
-- `%listDatabases` - lists the databases on the database server
+- `%listDatabases` - lists the databases on the database server.
 - `%whichDatabase` - which database am I connected to?
-- `%createDatabase databaseName` - creates a database
-- `%selectDatabase databaseName` - selects a database as the current database
-- `%getDatabase databaseName`- gets a database. Used for assigning a database, e.g. `studentDB = getDatabase student_database`
-- `%deleteDatabase databaseName` - deletes the database
+- `%createDatabase databaseName` - creates a database.
+- `%selectDatabase databaseName` - selects a database as the current database.
+- `%getDatabase databaseName`- gets a database. Used for assigning a database,
+   e.g. `studentDB` = `getDatabase student_database`.
+- `%deleteDatabase databaseName` - deletes the database.
 
 **Graph Commands**
 
-- `%listGraphs` - lists the graphs defined in the currently selected database
+- `%listGraphs` - lists the graphs defined in the currently selected database.
 - `%whichGraph` - which graph is currently selected?
-- `%createGraph graphName` - creates a named graph
-- `%selectGraph graphName` - selects the graph as the current graph
-- `%getGraph graphName` - gets the graph for variable assignment, e.g. `studentGraph = %getGraph student-graph`
-- `%deleteGraph graphName` - deletes a graph
+- `%createGraph graphName` - creates a named graph.
+- `%selectGraph graphName` - selects the graph as the current graph.
+- `%getGraph graphName` - gets the graph for variable assignment, 
+  e.g. `studentGraph` = `%getGraph student-graph`.
+- `%deleteGraph graphName` - deletes a graph.
 
 **Collection Commands**
 
-- `%listCollections` - lists the collections on the selected current database
+- `%listCollections` - lists the collections on the selected current database.
 - `%whichCollection` - which collection is currently selected?
-- `%createCollection collectionName` - creates a collection
-- `%selectCollection collectionName` - selects a collection as the current collection
-- `%getCollection collectionName` - gets a collection for variable assignment, e.g. `student = % getCollection Student`
-- `%deleteCollection collectionName` - deletes the collection
-- `%truncateCollection collectionName` - truncates the collection
-- `%sampleCollection collectionName` - returns a random document from the collection
-  If no collection is specified, then it uses the selected collection
+- `%createCollection collectionName` - creates a collection.
+- `%selectCollection collectionName` - selects a collection as the current collection.
+- `%getCollection collectionName` - gets a collection for variable assignment,
+  e.g. `student` = `% getCollection Student`.
+- `%deleteCollection collectionName` - deletes the collection.
+- `%truncateCollection collectionName` - truncates the collection.
+- `%sampleCollection collectionName` - returns a random document from the collection.
+  If no collection is specified, then it uses the selected collection.
 
 **Document Commands**
 
-- `%insertDocument jsonDocument` - inserts the document into the currently selected collection
-- `%replaceDocument jsonDocument` - replaces the document in the currently selected collection
-- `%updateDocument jsonDocument` - updates the document in the currently selected collection
-- `%deleteDocument jsonDocument` - deletes the document from the currently selected collection
-- `%%importBulk jsonDocumentArray` - imports an array of documents into the currently selected collection
+- `%insertDocument jsonDocument` - inserts the document into the currently selected collection.
+- `%replaceDocument jsonDocument` - replaces the document in the currently selected collection.
+- `%updateDocument jsonDocument` - updates the document in the currently selected collection.
+- `%deleteDocument jsonDocument` - deletes the document from the currently selected collection.
+- `%%importBulk jsonDocumentArray` - imports an array of documents into the currently selected collection.
 
 **AQL Commands**
 
-- `%aql single-line_aql_query` - executes a single line AQL query
-- `%%aqlm multi-line_aql_query` - executes a multi-line AQL query
+- `%aql single-line_aql_query` - executes a single line AQL query.
+- `%%aqlm multi-line_aql_query` - executes a multi-line AQL query.
 
 **Variables**
 
-- `_endpoint` - the endpoint (URL) of the ArangoDB Server
-- `_system` - the system database used for creating, listing, and deleting databases
-- `_db` - the selected (current) database. To select a different database, use `%selectDatabase`
-- `_graph` - the selected (current) graph. To select a different graph, use `%selectGraph`
-- `_collection` - the selected (current) collection. To select a different collection, use `%selectCollection`
-- `_user` - the current user
+- `_endpoint` - the endpoint (URL) of the ArangoDB Server.
+- `_system` - the system database used for creating, listing, and deleting databases.
+- `_db` - the selected (current) database. To select a different database, use `%selectDatabase`.
+- `_graph` - the selected (current) graph. To select a different graph, use `%selectGraph`.
+- `_collection` - the selected (current) collection. To select a different collection, use `%selectCollection`.
+- `_user` - the current user.
 
 You can use these variables directly, for example, `_db.collections()` to list
 collections or `_system.databases` to list databases.
