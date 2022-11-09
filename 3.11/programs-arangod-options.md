@@ -22,6 +22,7 @@ redirect_from:
   - programs-arangod-random.html # 3.10 -> 3.10
   - programs-arangod-rclone.html # 3.10 -> 3.10
   - programs-arangod-replication.html # 3.10 -> 3.10
+  - programs-arangod-rocksdb.html # 3.10 -> 3.10
   - programs-arangod-server.html # 3.10 -> 3.10
   - programs-arangod-ssl.html # 3.10 -> 3.10
   - programs-arangod-tcp.html # 3.10 -> 3.10
