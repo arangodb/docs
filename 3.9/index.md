@@ -4,9 +4,6 @@ description: Technical documentation for ArangoDB's core features and ecosystem
 title: Introduction to ArangoDB Documentation
 page-toc:
   disable: true
-redirect_from:
-  - cookbook/index.html # 3.5 -> 3.5
-  - cookbook/use-cases.html # 3.5 -> 3.5
 ---
 # ArangoDB {{ site.data.versions[page.version.name] }} Documentation
 

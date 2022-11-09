@@ -3,7 +3,6 @@ layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
 title: Transforming data with Analyzers
 redirect_from:
-  - views-arango-search-analyzers.html # 3.4 -> 3.5
   - arangosearch-analyzers.html # 3.8 -> 3.8
 ---
 Transforming data with Analyzers
@@ -726,7 +725,7 @@ without `keepNull: false`:
       var doc2 = db.coll.save({ value: "irregular" });
     | var view = db._createView("view", "arangosearch",
         { links: { coll: { fields: { value: { analyzers: ["filter"] }}}}})
-    ~ assert(db._query(`FOR d IN view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 1);
+    ~ assert(db._query(`FOR d IN view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] > 0);
       db._query("FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc");
     ~ db._dropView(view.name())
     ~ analyzers.remove(a.name);

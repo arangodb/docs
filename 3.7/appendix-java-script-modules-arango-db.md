@@ -2,8 +2,6 @@
 layout: default
 description: The @arangodb module provides the db object and AQL helper methods for Foxx, arangosh etc.
 title: ArangoDB JS API Module
-redirect_from:
-  - cookbook/aql-multiline-query-strings.html # 3.5 -> 3.5
 ---
 ArangoDB Module
 ===============

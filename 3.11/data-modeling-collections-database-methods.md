@@ -121,7 +121,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 - `schema` (object\|null, _optional_, default: `null`): 
   An object that specifies the collection-level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
-  documented in [Document Schema Validation](document-schema-validation.html)
+  documented in [Document Schema Validation](data-modeling-documents-schema-validation.html)
 
 - `computedValues` (array\|null, _optional_, default: `null`): An array of objects,
   each representing a [Computed Value](data-modeling-documents-computed-values.html).
@@ -199,7 +199,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   write slow downs in trade for data durability.
 
 - `shardingStrategy` (optional): specifies the name of the sharding
-  strategy to use for the collection. Since ArangoDB 3.4 there are
+  strategy to use for the collection. There are
   different sharding strategies to select from when creating a new 
   collection. The selected `shardingStrategy` value remains
   fixed for the collection and cannot be changed afterwards. This is

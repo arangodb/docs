@@ -7,7 +7,7 @@ class NavTitleTag < Liquid::Tag
     end
 
     def findTitle(context, root, stack)
-        # Root URLs like /3.4/index.md don't have a nav title, set a default
+        # Root URLs like /3.9/index.md don't have a nav title, set a default
         if context["page"]["url"].end_with?("/")
             return stack.push "Introduction"
         end

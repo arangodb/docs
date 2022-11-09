@@ -104,9 +104,8 @@ The revision of a document can be checking using the HTTP method *HEAD*.
 Multiple Documents in a single Request
 --------------------------------------
 
-Beginning with ArangoDB 3.0 the basic document API has been extended
-to handle not only single documents but multiple documents in a single
-request. This is crucial for performance, in particular in the cluster
+The document API can handle not only single documents but multiple documents in
+a single request. This is crucial for performance, in particular in the cluster
 situation, in which a single request can involve multiple network hops
 within the cluster. Another advantage is that it reduces the overhead of
 the HTTP protocol and individual network round trips between the client

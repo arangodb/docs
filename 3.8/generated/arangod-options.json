@@ -645,6 +645,32 @@
     "section" : "backup",
     "type" : "string"
   },
+  "backup.files-per-batch" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 100,
+    "deprecatedIn" : null,
+    "description" : "this option tells the hotbackup up-/download, how many files it should do in one call to rclone",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.8",
+      "v3.9.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "backup",
+    "type" : "uint64"
+  },
   "backup.local-path-prefix" : {
     "category" : "option",
     "component" : [

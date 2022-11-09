@@ -2,8 +2,6 @@
 layout: default
 description: How to determine the differences in attributes of two documents
 title: Diffing Two Documents in AQL
-redirect_from:
-  - ../cookbook/aql-diffing-documents.html # 3.5 -> 3.5
 ---
 Diffing Two Documents in AQL
 ============================

@@ -132,6 +132,17 @@ The maintenance mode ends automatically after the defined timeout.
 
 ### Endpoints augmented
 
+#### EnterpriseGraphs (Enterprise Edition)
+
+You can create EnterpriseGraphs by setting `isSmart` to `true`, the `numberOfShards`,
+but no `smartGraphAttribute`. You can optionally specify which collections shall
+be `satellites`. There are no new attributes for creating this type of graph.
+
+The vertex collections of an EnterpriseGraph have a new `shardingStrategy` value
+of `enterprise-hex-smart-vertex`.
+
+Also see [EnterpriseGraphs](graphs-enterprise-graphs.html).
+
 #### Inverted Indexes
 
 The `/_api/index` endpoints support a new `inverted` index type.

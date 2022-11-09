@@ -5,8 +5,8 @@ description: ArangoDB features a Google S2-based geospatial index
 Geo-Spatial Indexes
 ===================
 
-ArangoDB features a [Google S2](http://s2geometry.io/){:target="_blank"}-based geospatial index
-since version 3.4.0, which supersedes the previous geo index implementation.
+ArangoDB features a [Google S2](http://s2geometry.io/){:target="_blank"}-based
+geo-spatial index, which supersedes the previous geo index implementation.
 Indexing is supported for a subset of the [**GeoJSON**](#geojson) geometry types
 as well as simple latitude/longitude pairs.
 

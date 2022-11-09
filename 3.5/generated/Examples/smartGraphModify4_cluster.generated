@@ -1,7 +1,0 @@
-arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/smart-graph"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> relation = graph_module._relation(<span class="hljs-string">"edges"</span>, <span class="hljs-string">"vertices"</span>, <span class="hljs-string">"vertices"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> graph = graph_module._create(<span class="hljs-string">"myGraph"</span>, [relation], [], {<span class="hljs-attr">smartGraphAttribute</span>: <span class="hljs-string">"region"</span>, <span class="hljs-attr">numberOfShards</span>: <span class="hljs-number">9</span>});
-arangosh&gt; graph._deleteEdgeDefinition(<span class="hljs-string">"edges"</span>);
-arangosh&gt; graph._removeVertexCollection(<span class="hljs-string">"vertices"</span>);
-arangosh&gt; db._drop(<span class="hljs-string">"vertices"</span>);
-[ArangoError <span class="hljs-number">1485</span>: Collection vertices must not be dropped <span class="hljs-keyword">while</span> _from_edges, _local_edges, _to_edges, edges have distributeShardsLike <span class="hljs-keyword">set</span> to vertices.]

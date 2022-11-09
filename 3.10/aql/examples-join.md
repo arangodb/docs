@@ -2,8 +2,6 @@
 layout: default
 description: Query examples for joining documents with one-to-many and many-to-many relationships
 title: Joins in AQL
-redirect_from:
-  - ../cookbook/aql-joins.html # 3.5 -> 3.5
 ---
 Using Joins in AQL
 ==================
@@ -851,14 +849,14 @@ saves even more precious CPU cycles and gives the optimizer more alternatives.
 
 ### Index usage
 
-Especially on joins you should make sure indices can be used to
+Especially on joins you should make sure indexes can be used to
 [speed up your query](execution-and-performance-explaining-queries.html).
-Please note that sparse indices don't qualify for joins:
+Please note that sparse indexes don't qualify for joins:
 
 In joins you typically would also want to join documents not containing the property 
-you join with. However sparse indices don't contain references to documents that 
+you join with. However sparse indexes don't contain references to documents that 
 don't contain the indexed attributes - thus they would be missing from the join operation.
-For that reason you should provide non-sparse indices. 
+For that reason you should provide non-sparse indexes. 
 
 ### Pitfalls
 
@@ -891,10 +889,10 @@ query will become 100,000,000 items larger and use much memory plus computation
 time. So it is generally a good idea to revalidate that the criteria for your
 join conditions exist.
 
-Using indices on the properties can speed up the operation significantly.
+Using indexes on the properties can speed up the operation significantly.
 You can use the explain helper to revalidate your query actually uses them.
 
 If you work with joins on edge collections you would typically aggregate over
 the internal fields *_id*, *_from* and *_to* (where *_id* equals *userId*,
 *_from* *friendOf* and *_to* would be *thisUser* in our examples). ArangoDB
-implicitly creates indices on them.
+implicitly creates indexes on them.

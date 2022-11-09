@@ -1,16 +1,16 @@
 ---
 layout: default
 description: >-
-  A detailed guide into deploying a datacenter to datacenter replicated environment
+  A detailed guide to deploying datacenter-to-datacenter replicated clusters
 ---
 # ArangoSync
 
 {{ page.description }}
 {:class="lead"}
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
-This chapter introduces ArangoDB's _datacenter to datacenter replication_ (DC2DC).
+This chapter introduces ArangoDB's _Datacenter-to-Datacenter Replication_ (DC2DC).
 
 At some point in the grows of a database, there comes a need for replicating it
 across multiple datacenters.
@@ -23,10 +23,9 @@ Reasons for that can be:
 
 And many more.
 
-Starting from version 3.3, ArangoDB supports _datacenter to datacenter
-replication_, via the _ArangoSync_ tool.
+ArangoDB supports _Datacenter-to-Datacenter Replication_, via the _arangosync_ tool.
 
-ArangoDB's _datacenter to datacenter replication_ is a solution that enables you
+ArangoDB's _Datacenter-to-Datacenter Replication_ is a solution that enables you
 to asynchronously replicate the entire structure and content in an ArangoDB Cluster
 in one place to a Cluster in another place. Typically it is used from one datacenter
 to another. It is possible to replicate to multiple other datacenters as well.
@@ -72,11 +71,11 @@ networking routines.
 
 ## When to use it... and when not
 
-The _datacenter to datacenter replication_ is a good solution in all cases where
+The _Datacenter-to-Datacenter Replication_ is a good solution in all cases where
 you want to replicate data from one cluster to another without the requirement
 that the data is available immediately in the other cluster.
 
-The _datacenter to datacenter replication_ is not a good solution when one of the
+The _Datacenter-to-Datacenter Replication_ is not a good solution when one of the
 following applies:
 
 - You want to replicate data from cluster A to cluster B and from cluster B
@@ -87,10 +86,9 @@ to cluster A at the same time.
 
 ## Requirements
 
-To use _datacenter to datacenter replication_ you need the following:
+To use _Datacenter-to-Datacenter Replication_ you need the following:
 
-- Two datacenters, each running an ArangoDB Enterprise Edition cluster,
-  version 3.3 or higher, using the RocksDB storage engine.
+- Two datacenters, each running an ArangoDB Enterprise Edition cluster.
 - A network connection between both datacenters with accessible endpoints
   for several components (see individual components for details).
 - TLS certificates for ArangoSync master instances (can be self-signed).
@@ -114,7 +112,7 @@ Besides the above list, you probably want to use the following:
 
 ## Limitations
 
-The _datacenter to datacenter replication_ setup in ArangoDB has a few limitations.
+The _Datacenter-to-Datacenter Replication_ setup in ArangoDB has a few limitations.
 Some of these limitations may be removed in later versions of ArangoDB:
 
 - All the machines where the ArangoDB Server processes run must run the Linux

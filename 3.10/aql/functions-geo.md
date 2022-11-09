@@ -40,8 +40,6 @@ FOR doc IN doc // e.g. documents returned by a traversal
 
 ### GEO_CONTAINS()
 
-<small>Introduced in: v3.4.0</small>
-
 `GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
 
 Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
@@ -83,8 +81,6 @@ second argument. Passing it as the first argument, like
 `geoJson`, cannot utilize the index.
 
 ### GEO_DISTANCE()
-
-<small>Introduced in: v3.4.0</small>
 
 `GEO_DISTANCE(geoJsonA, geoJsonB, ellipsoid) → distance`
 
@@ -162,8 +158,6 @@ RETURN GEO_AREA(polygon, "wgs84")
 
 ### GEO_EQUALS()
 
-<small>Introduced in: v3.4.0</small>
-
 `GEO_EQUALS(geoJsonA, geoJsonB) → bool`
 
 Checks whether two GeoJSON objects are equal or not. For a list of supported
@@ -194,8 +188,6 @@ RETURN GEO_EQUALS(polygonA, polygonB) // false
 ```
 
 ### GEO_INTERSECTS()
-
-<small>Introduced in: v3.4.0</small>
 
 `GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
 
@@ -305,8 +297,6 @@ IS_IN_POLYGON( [ [ 0, 0 ], [ 10, 0 ], [ 10, 10 ], [ 0, 10 ] ], [ 7, 4 ], true )
 
 GeoJSON Constructors
 ---------------------
-
-<small>Introduced in: v3.4.0</small>
 
 The following helper functions are available to easily create valid GeoJSON
 output. In all cases you can write equivalent JSON yourself, but these functions
