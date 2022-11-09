@@ -658,7 +658,7 @@ Startup options
 
 ### Metrics API option
 
-The new [option](programs-arangod-options.html#--servermetrics-api)
+The new [option](programs-arangod-options.html#--serverexport-metrics-api)
 `--server.export-metrics-api` allows you to disable the metrics API by setting
 it to `false`, which is otherwise turned on by default.
 
@@ -698,7 +698,7 @@ have any affect on single servers, Agents or DB-Servers.
 
 ### Other cluster options
 
-The following [options](programs-arangod-cluster.html) have been added:
+The following [options](programs-arangod-options.html#cluster) have been added:
 
 - `--cluster.max-replication-factor`: maximum replication factor for new
   collections. A value of `0` means that there is no restriction.
@@ -725,7 +725,7 @@ Note that the above options only have an effect when set for Coordinators, and
 only for collections that are created after the options have been set. They do
 not affect already existing collections.
 
-Furthermore, the following network related [options](programs-arangod-network.html)
+Furthermore, the following network related [options](programs-arangod-options.html#network)
 have been added:
 
 - `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal

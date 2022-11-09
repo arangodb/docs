@@ -59,7 +59,7 @@ of these resources, your query may abort with a
 To overcome these mentioned limitations, you may want to increase the
 [number of available V8 contexts](../programs-arangod-options.html#--javascriptv8-contexts)
 (at the expense of increased memory usage), and the
-[number of available server threads](../programs-arangod-options.html#--serverthreads).
+[number of available server threads](../programs-arangod-options.html#--servermaximal-threads).
 
 In addition, modification of global JavaScript variables from inside UDFs is 
 unsupported, as is reading or changing the data of any collection or running

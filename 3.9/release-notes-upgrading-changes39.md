@@ -141,7 +141,7 @@ probably intended to `RETURN doc` instead. Also see
 [ArangoDB Server Query Options](programs-arangod-options.html#--queryallow-collections-in-expressions)
 {%- else -%}
 [ArangoDB Server Query Options](programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
-{% endif -%}
+{% endif %}
 
 Such unintentional usage of collection names in queries now makes the query
 fail with error 1568 ("collection used as expression operand") by default.

@@ -176,7 +176,7 @@ in ArangoDB 3.10. The following startup options are available for the configurat
 memory-mapped files: `--pregel.memory-mapped-files` and `--pregel.memory-mapped-files-location-type`.
 {% endhint %}
 
-For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-options.html#pregel).
 
 Maximum Array / Object Nesting
 ------------------------------

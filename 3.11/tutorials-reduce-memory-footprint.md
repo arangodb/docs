@@ -56,7 +56,7 @@ memory buffers.
 
 Under normal write load, the write buffers will use less than 1 GByte of memory.
 If you are tight on memory, or your usage pattern does not require this, you can
-reduce these [RocksDB settings](programs-arangod-rocksdb.html):
+reduce these [RocksDB settings](programs-arangod-options.html#rocksdb):
 
 ``` 
 --rocksdb.max-total-wal-size 1024000
@@ -123,7 +123,7 @@ Index Caches
 --cache.size 0
 ```
 
-This option disables the in-memory index [caches](programs-arangod-cache.html).
+This option disables the in-memory index [caches](programs-arangod-options.html#cache).
 In versions before v3.9.2, you can limit the size to a minimum of `1048576` (1 MB).
 
 If you do not have a graph use case and do not use edge collections, nor the optional
@@ -193,7 +193,7 @@ done by the statistics gathering.
 JavaScript & Foxx
 -----------------
 
-[JavaScript](programs-arangod-javascript.html) is executed in the ArangoDB
+[JavaScript](programs-arangod-options.html#javascript) is executed in the ArangoDB
 process using the embedded V8 engine:
 
 - Backend parts of the web interface

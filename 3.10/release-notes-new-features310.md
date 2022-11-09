@@ -866,7 +866,7 @@ temporary data:
   files written by Pregel. This option is only meaningful, if memory-mapped
   files are used. 
 
-For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-options.html#pregel).
 
 ### AQL query logging
 

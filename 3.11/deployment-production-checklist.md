@@ -62,7 +62,7 @@ ArangoDB
   _minimal_replication_factor_ of your collections
   are set to a value equal or higher than 2, otherwise you run the risk of
   losing data in case of a node failure. See
-  [cluster startup options](programs-arangod-cluster.html).
+  [cluster startup options](programs-arangod-options.html#cluster).
 
 - *Disk Performance considerations*
   - Verify that your **storage performance** is at least 100 IOPS for each
