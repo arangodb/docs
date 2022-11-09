@@ -21,5 +21,5 @@ The HTTP replication interface serves four main purposes:
   a Follower
 
 Please note that if a per-database setup is used (as opposed to server-level replication,
-available since v3.3.0), then the replication system must be configured individually per
+then the replication system must be configured individually per
 database, and replicating the data of multiple databases will require multiple operations.

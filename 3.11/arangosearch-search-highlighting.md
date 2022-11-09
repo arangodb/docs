@@ -147,7 +147,7 @@ _`search-alias` View:_
       ]);
       var idx = db.food.ensureIndex({ name: "inv-text-offset", type: "inverted", fields: [ { name: "description.en", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] } ] });
       var view = db._createView("food_view", "search-alias", { indexes: [ { collection: "food", index: "inv-text-offset" } ] });
-      var wait = db._query(`FOR doc IN food OPTIONS { indexHint: "inv-text-offset", forceIndexHint: true, waitForSync: true } FILTER doc.description.en != null LIMIT 1 RETURN doc`); /* wait for inverted index to update */
+    ~ assert(db._query(`FOR d IN food_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 4);
     | db._query(`FOR doc IN food_view
     |   SEARCH
     |     TOKENS("avocado tomato", "text_en") ANY == doc.description.en OR
@@ -184,7 +184,7 @@ _`arangosearch` View:_
       var analyzers = require("@arangodb/analyzers");
       var analyzer = analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
       var view = db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
-      var wait = db._query(`FOR doc IN food_view SEARCH true OPTIONS { waitForSync: true } LIMIT 1 RETURN doc`); /* wait for View to update */
+    ~ assert(db._query(`FOR d IN food_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 4);
     | db._query(`FOR doc IN food_view
     |   SEARCH ANALYZER(
     |     TOKENS("avocado tomato", "text_en_offset") ANY == doc.description.en OR

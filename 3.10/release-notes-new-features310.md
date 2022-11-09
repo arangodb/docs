@@ -717,6 +717,11 @@ AQL functions changed in 3.10:
   It also accepts an array of objects now, matching the behavior of the
   `MERGE()` function.
 
+- [`EXISTS()`](aql/functions-arangosearch.html#testing-for-nested-fields):
+  The function supports a new signature `EXISTS(doc.attr, "nested")` to check
+  whether the specified attribute is indexed as nested field by a View or
+  inverted index (introduced in v3.10.1).
+
 ## Indexes
 
 ### Parallel index creation (Enterprise Edition)
@@ -862,6 +867,19 @@ temporary data:
   files are used. 
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+
+### AQL query logging
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+There are three new startup options to configure how AQL queries are logged:
+
+- `--query.log-failed` for logging all failed AQL queries, to be used during
+  development or to catch unexpected failed queries in production (off by default)
+- `--query.log-memory-usage-threshold` to define a peak memory threshold from
+  which on a warning is logged for AQL queries that exceed it (default: 4 GB)
+- `--query.max-artifact-log-length` for controlling the length of logged query
+  strings and bind parameter values. Both are truncated to 4096 bytes by default.
 
 Read from Followers in Clusters (Enterprise Edition)
 ----------------------------------------------------

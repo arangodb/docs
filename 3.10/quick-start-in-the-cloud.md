@@ -2,7 +2,7 @@
 layout: default
 description: >-
   This quick start guide covers the basics from creating an ArangoGraph account to
-  setting up and accessing your first ArangoGraph cloud deployment
+  setting up and accessing your first ArangoGraph deployment
 ---
 # Use ArangoDB in the Cloud
 
@@ -152,7 +152,7 @@ your billing details and at least one payment method. See:
 - [How to add billing details to organizations](arangograph/billing.html#how-to-add-billing-details)
 - [How to add a payment method to an organization](arangograph/billing.html#how-to-add-a-payment-method)
 
-## Limitations of The ArangoGraph Insights Platform
+## Limitations of the ArangoGraph Insights Platform
 
 The ArangoGraph Insights Platform aims to make all features of the ArangoDB
 [Enterprise Edition](features-enterprise-edition.html) available to you, but
@@ -164,5 +164,5 @@ there are a few limitations:
   security reasons, but can be enabled on request.
   Incoming calls to Foxx services are fully supported.
 - LDAP authentication is currently in a testing phase.
-- Datacenter to Datacenter Replication (DC2DC) is not yet available in a
+- Datacenter-to-Datacenter Replication (DC2DC) is not yet available in a
   managed form.

@@ -34,11 +34,10 @@ use the following startup options:
 - `--server.database <string>`: name of the database to connect to.
   Defaults to the `_system` database.
 - `--all-databases true`: restore multiple databases from a dump which used the same option.
-  Introduced in v3.5.0.
 
 Note that the specified user must have access to the database(s).
  
-Since version 2.6 _arangorestore_ provides the option *--create-database*. Setting this
+The _arangorestore_ tool provides the `--create-database` option. Setting this
 option to *true* will create the target database if it does not exist. When creating the
 target database, the username and passwords passed to _arangorestore_ (in options
 *--server.username* and *--server.password*) will be used to create an initial user for the

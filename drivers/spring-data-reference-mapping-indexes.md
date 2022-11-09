@@ -6,10 +6,8 @@ title: Spring Data ArangoDB - Indexes
 
 Indexes can be ensured using the following annotations. For reference see the
 [indexing](../indexing.html) documentation
-{%- assign ver = "3.5" | version: "!=" %}{% if ver %}
 and specific aspects that apply to
-[indexes on shards](../architecture-deployment-modes-cluster-sharding.html#indexes-on-shards)
-{%- endif -%}.
+[indexes on shards](../architecture-deployment-modes-cluster-sharding.html#indexes-on-shards).
 
 ## Annotation @\<IndexType\>Indexed
 

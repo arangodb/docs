@@ -138,7 +138,7 @@ showing you the log-file.
     Switching to log-file now, killing this windows will NOT stop the server.
 
 
-    2018-03-16T09:37:01Z [13373] INFO ArangoDB (version 3.3.4 [darwin]) is ready for business. Have fun!
+    2022-10-21T09:37:01Z [13373] INFO ArangoDB (version 3.9.3 [darwin]) is ready for business. Have fun!
 
 Note that it is possible to install both, the _homebrew_ version and the command-line
 app. You should, however, edit the configuration files of one version and change

@@ -130,6 +130,42 @@ queries early. When set to *false*, AQL queries that produce warnings will not
 abort and return the warnings along with the query results.
 The option can also be overridden for each individual AQL query.
 
+## Logging failed AQL queries
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+`--query.log-failed value`
+
+If set to `true`, all failed AQL queries are logged to the server log. This
+option can be used during development, or to catch unexpected failed queries
+in production.
+
+The option is turned off by default.
+
+## Logging AQL queries with high memory usage
+
+`--query.log-memory-usage-threshold value`
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+This option determines the peak memory usage threshold for AQL queries from
+which on a warning is logged if queries exceed it. This is useful for
+finding queries that use a large amount of memory.
+
+The default value is `4294967296` (4 GB).
+
+## Controlling length of logged query strings and bind parameter values
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+`--query.max-artifact-log-length value`
+
+This option determines the maximum length of logged query strings and bind parameter 
+values. This allows truncating overly long query strings and bind parameter values
+to a reasonable length in log files.
+
+The default value is `4096` bytes.
+
 ## Requiring `WITH` statements
 
 <small>Introduced in: v3.7.12</small>

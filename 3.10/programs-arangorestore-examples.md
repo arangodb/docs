@@ -34,11 +34,10 @@ use the following startup options:
 - `--server.database <string>`: name of the database to connect to.
   Defaults to the `_system` database.
 - `--all-databases true`: restore multiple databases from a dump which used the same option.
-  Introduced in v3.5.0.
 
 Note that the specified user must have access to the database(s).
  
-Since version 2.6 _arangorestore_ provides the option *--create-database*. Setting this
+The _arangorestore_ tool provides the `--create-database` option. Setting this
 option to *true* will create the target database if it does not exist. When creating the
 target database, the username and passwords passed to _arangorestore_ (in options
 *--server.username* and *--server.password*) will be used to create an initial user for the
@@ -149,7 +148,7 @@ It can be specified multiple times if required:
 
 Collections will be processed in alphabetical order by _arangorestore_, with all document
 collections being processed before all [edge collections](appendix-glossary.html#edge-collection).
-This remains valid also when multiple threads are in use (from v3.4.0 on).
+This remains valid also when multiple threads are in use.
 
 Note however that when restoring an edge collection no internal checks are made in order to validate that
 the documents that the edges connect exist. As a consequence, when restoring individual collections
@@ -241,7 +240,7 @@ to-be-restored-to cluster.
 
 To modify the number of _shards_ or the _replication factor_ for all or just
 some collections, *arangorestore* provides the options `--number-of-shards`
-and `--replication-factor` (starting from v3.3.22 and v3.4.2). These options
+and `--replication-factor`. These options
 can be specified multiple times as well, in order to override the settings
 for dedicated collections, e.g.
 
@@ -287,11 +286,9 @@ The following factors affect speed of _arangorestore_ in a Cluster:
   during the restore.
 - **Restore Parallelization**: if the collections are not restored in
   parallel, the restore speed is highly affected. A parallel restore can
-  be done from v3.4.0 by using the `--threads` option of _arangorestore_.
-  Before v3.4.0 it is possible to achieve parallelization by restoring
-  on multiple _Coordinators_ at the same time. Depending on your specific
-  case, parallelizing on multiple _Coordinators_ can still be useful even
-  when the `--threads` option is in use (from v.3.4.0).
+  be done by using the `--threads` option of _arangorestore_.
+  Depending on your specific case, you might be able to achieve additional
+  parallelization by restoring on multiple _Coordinators_ at the same time.
 - **Dump Format**: Since ArangoDB 3.8 arangodump can produce two different
   dump formats: an enveloped format, which was the default format up to
   including ArangoDB 3.8, and a non-envelop format, which is the default

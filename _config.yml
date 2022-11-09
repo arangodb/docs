@@ -54,9 +54,6 @@ algolia:
     - 3.8/**/*
     - 3.7/**/*
     - 3.6/**/*
-    - 3.5/**/*
-    - 3.4/**/*
-    - 3.3/**/*
     - \*.html
 
 # Exclude from processing.
@@ -74,17 +71,13 @@ exclude:
   - htmltest
   - LICENSE
   - LICENSE-OTHER-COMPONENTS.md
-  - migrate.sh
   - netlify.sh
   - netlify.toml
   - node_modules
   - oasisctl.rb
-  - README_maintainers.md
   - README.md
-  - scripts
   - sitemap.rb
   - tmp/
-  - TODO.md
   - vendor/bundle/
   - vendor/cache/
   - vendor/gems/
@@ -95,18 +88,12 @@ exclude:
   - 3.8/generated
   - 3.7/generated
   - 3.6/generated
-  - 3.5/generated
-  - 3.4/generated
-  - 3.3/generated
 # - 3.11/
 # - 3.10/
 # - 3.9/
 # - 3.8/
 # - 3.7/
 # - 3.6/
-# - 3.5/
-# - 3.4/
-# - 3.3/
 
 versions:
   stable: "3.10"

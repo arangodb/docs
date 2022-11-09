@@ -68,40 +68,13 @@ arangorestore
   --server.password <password>
   --import-data false
   --input-directory <dump-directory>
+  --replication-factor 1
 ```
-
-{% hint 'info' %}
-If you are using v3.3.22 or higher, or v3.4.2 or higher, please also add in the
-command above the option `--replication-factor 1`.
-{% endhint %}
 
 The option `--import-data false`  tells _arangorestore_ to restore only the
 collection structure and no data.
 
-Step 3: Set _Replication Factor_ to 1
---------------------------------------
-
-{% hint 'info' %}
-This step is **not** needed if you are using v3.3.22 or higher or v3.4.2 or higher
-and you have used in the previous step the option `--replication-factor 1`.
-{% endhint %}
-
-To speed up restore, it is possible to set the _replication factor_ to 1 before
-importing any data. Run the following command from exactly one _Coordinator_ (any
-_Coordinator_ can be used):
-
-```
-echo 'db._collections().filter(function(c) { return c.name()[0] !== "_"; })
-.forEach(function(c) { print("collection:", c.name(), "replicationFactor:",
-c.properties().replicationFactor); c.properties({ replicationFactor: 1 }); });'
-| arangosh
-  --server.endpoint <endpoint-of-a-coordinator>
-  --server.database <database-name>
-  --server.username <user-name>
-  --server.password <password>
-```
-
-Step 4: Create parallel restore scripts
+Step 3: Create parallel restore scripts
 ---------------------------------------
 
 Now that the Cluster is prepared, the `parallelRestore` script will be used.
@@ -248,9 +221,9 @@ _Coordinators_:
 
  - The option `--create-collection false` is passed since the collection
    structures were created already in the previous step.
- - Starting from v3.4.0 the _arangorestore_ option *--threads N* can be
+ - The _arangorestore_ option `--threads N` can be
    passed to the command above, where _N_ is an integer, to further parallelize
-   the restore (default is `--threads 2`).
+   the restore (the default is `--threads 2`).
 
 The above command will create three scripts, where three corresponds to
 the amount of listed _Coordinators_. 
@@ -258,14 +231,14 @@ the amount of listed _Coordinators_.
 The resulting scripts are named `coordinator_<number-of-coordinator>.sh` (e.g.
 `coordinator_0.sh`, `coordinator_1.sh`, `coordinator_2.sh`).
 
-Step 5: Execute parallel restore scripts
+Step 4: Execute parallel restore scripts
 ----------------------------------------
 
 The `coordinator_<number-of-coordinator>.sh` scripts, that were created in the
 previous step, now have to be executed on each machine where a _Coordinator_
 is running. This will start a parallel restore of the dump.
 
-Step 6: Revert to the initial _Replication Factor_
+Step 5: Revert to the initial _Replication Factor_
 --------------------------------------------------
 
 Once the _arangorestore_ process on every _Coordinator_ is completed, the

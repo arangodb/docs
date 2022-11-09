@@ -480,6 +480,63 @@
     "section" : "arangosearch",
     "type" : "uint32"
   },
+  "arangosearch.fail-queries-on-out-of-sync" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "whether or not retrieval queries on out of sync links should fail",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "arangosearch",
+    "type" : "boolean"
+  },
+  "arangosearch.skip-recovery" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "skip data recovery for the specified view links on startup. entries here should have the format '<collection-name>/<link-id>'. the pseudo-entry 'all' will disable recovery for all view links. all links skipped during recovery will be marked as out of sync when the recovery is completed. these links will need to be recreated manually afterwards (note: using this option may cause data of affected links to become incomplete or more incomplete until they have been manually recreated)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "arangosearch",
+    "type" : "string..."
+  },
   "arangosearch.threads" : {
     "category" : "option",
     "component" : [
@@ -699,6 +756,33 @@
     "requiresValue" : true,
     "section" : "backup",
     "type" : "string"
+  },
+  "backup.files-per-batch" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 100,
+    "deprecatedIn" : null,
+    "description" : "this option tells the hotbackup up-/download, how many files it should do in one call to rclone",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.8",
+      "v3.9.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "backup",
+    "type" : "uint64"
   },
   "backup.local-path-prefix" : {
     "category" : "option",
@@ -8546,7 +8630,6 @@
   "rocksdb.periodic-compaction-ttl" : {
     "category" : "option",
     "component" : [
-      "coordinator",
       "dbserver",
       "agent",
       "single"
@@ -10793,6 +10876,32 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
+  },
+  "use-splice-syscall" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Use the splice() syscall for file copying (may not be supported on all filesystems",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "version" : {
     "category" : "command",

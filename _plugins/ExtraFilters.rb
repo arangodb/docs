@@ -37,8 +37,8 @@ module Jekyll
         #end
 
         # Figure out where we are at and compute navvar from folder path, e.g.
-        # /3.4/ --> 34-manual
-        # /3.4/aql/ --> 34-aql
+        # /3.9/ --> 39-manual
+        # /3.9/aql/ --> 39-aql
         def navvar(page_dir)
             m = page_dir.to_s.match(/\/(\d)\.(\d{1,2})\/(\w+)?/)
             [m.captures[0] + m.captures[1], m.captures[2] || 'manual'].join('-')
