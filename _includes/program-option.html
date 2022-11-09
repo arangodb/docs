@@ -1,27 +1,19 @@
 {% assign sections=include.options | options_by_section %}
 {% for section in sections %}
-{% capture headline %}
 ## {{ section[0] | capitalize_section }}
-{% endcapture %}
-{{ headline | markdownify }}
 
 {% if include.name=="arangod" %}
 {% if section[0]=="ldap2" %}
-<div markdown="1">
 The `ldap2.*` options are identical to the `ldap.*` options, but configure a
 secondary LDAP server. See
 [LDAP Secondary server options (`ldap2`)](programs-arangod-ldap.html#secondary-server-options-ldap2).
-</div>
 {% elsif section[0]=="rocksdb" %}
-<div markdown="1">
 RocksDB is a highly configurable key-value store used to power ArangoDB's RocksDB
 storage engine. Most of the options on this page are pass-through options to the
 underlying RocksDB instance, and only a few of its default settings are changed.
-</div>
 {% endif %}
 {% endif %}
 
-{% capture table -%}
 <table class="table-program-options">
 <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
 <tbody>
@@ -73,7 +65,5 @@ Default: <code>{{ option[1].default | jsonify }}</code>
 {%- endfor -%}
 </tbody>
 </table>
-{%- endcapture -%}
-{{- table }}
 
 {% endfor %}
