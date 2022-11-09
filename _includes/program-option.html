@@ -1,27 +1,37 @@
-
 {% assign sections=include.options | options_by_section %}
 {% for section in sections %}
+{% capture headline %}
 ## {{ section[0] | capitalize_section }}
+{% endcapture %}
+{{ headline | markdownify }}
 
 {% if include.name=="arangod" %}
 {% if section[0]=="ldap2" %}
+<div markdown="1">
 The `ldap2.*` options are identical to the `ldap.*` options, but configure a
 secondary LDAP server. See
 [LDAP Secondary server options (`ldap2`)](programs-arangod-ldap.html#secondary-server-options-ldap2).
-{% else %}
-Also see [{{ section[0] | capitalize_section }} details](programs-arangod-{{ section[0] }}.html).
+</div>
+{% elsif section[0]=="rocksdb" %}
+<div markdown="1">
+RocksDB is a highly configurable key-value store used to power ArangoDB's RocksDB
+storage engine. Most of the options on this page are pass-through options to the
+underlying RocksDB instance, and only a few of its default settings are changed.
+</div>
 {% endif %}
 {% endif %}
 
-| Name | Type | Description |
-|------|------|-------------|
+{% capture table -%}
+<table class="table-program-options">
+<thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
 {% for option in section[1] -%}
 {%- if option[1].obsolete == false -%}
 {%- capture description -%}
 {%- if option[1].enterpriseOnly -%}
-*Enterprise Edition only*<br>
+<em>Enterprise Edition only</em><br>
 {%- endif -%}
-{{ option[1].description | upcase_first }}
+{{ option[1].description | upcase_first | escape }}
 {%- if option[1].requiresValue != true and option[1].category != "command" -%}
 <br>This option can be specified without a value to enable it.
 {%- endif -%}
@@ -31,7 +41,7 @@ Also see [{{ section[0] | capitalize_section }} details](programs-arangod-{{ sec
 {%- if option[1].default != nil and option[1].category != "command" -%}
 <br>
 {%- if option[1].dynamic -%}
-Default: *dynamic* (e.g. `{{ option[1].default | jsonify }}`)
+Default: <em>dynamic</em> (e.g. <code>{{ option[1].default | jsonify }}</code>)
 {%- else -%}
 Default: <code>{{ option[1].default | jsonify }}</code>
 {%- endif -%}
@@ -49,9 +59,21 @@ Default: <code>{{ option[1].default | jsonify }}</code>
 {%- if option[1].deprecatedIn -%}
 <br><small>Deprecated in: {{ option[1].deprecatedIn | join: ", " }}</small>
 {%- endif -%}
+{%- if option[1].longDescription -%}
+{%- capture longDescription -%}
+{%- details "Show details&hellip;" -%}
+{{- option[1].longDescription -}}
+{%- enddetails -%}
 {%- endcapture -%}
-| `{{ option[0] }}` | {{ option[1].type }} | {{ description }} |
+{{- longDescription -}}
+{%- endif -%}
+{%- endcapture -%}
+<tr><td><code>--{{ option[0] }}</code></td><td>{{ option[1].type }}</td><td>{{ description }}</td></tr>
 {% endif -%}
 {%- endfor -%}
+</tbody>
+</table>
+{%- endcapture -%}
+{{- table }}
 
 {% endfor %}
