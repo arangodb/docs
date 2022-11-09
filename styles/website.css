@@ -74,6 +74,26 @@ div.example_show_button {
   min-width: 250px;
 }
 
+.markdown-section table.table-program-options {
+  table-layout: fixed;
+}
+
+.markdown-section table.table-program-options th:nth-child(1) {
+  width: 30%;
+}
+
+.markdown-section table.table-program-options th:nth-child(2) {
+  width: 15%;
+}
+
+.markdown-section table.table-program-options th:nth-child(3) {
+  width: 55%;
+}
+
+.markdown-section table.table-program-options td {
+  vertical-align: top;
+}
+
 .markdown-section table.table-scroll {
   display: inline-block;
   white-space: nowrap;
