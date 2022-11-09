@@ -69,14 +69,19 @@ in a specific state on startup. the options for this value are:
 
 ## Force syncing of properties
 
-<small>Deprecated in: v3.11.0</small>
-
 `--database.force-sync-properties boolean`
+
+Force syncing of collection properties to disk
 
 Force syncing of collection properties to disk after creating a collection
 or updating its properties.
 
-From version 3.11.0 onwards, this option is obsolete and has no effect.
+If turned off, no fsync will happen for the collection and database
+properties stored in `parameter.json` files in the file system. Turning
+off this option will speed up workloads that create and drop a lot of
+collections (e.g. test suites).
+
+The default is *true*.
 
 ## Wait for sync
 
