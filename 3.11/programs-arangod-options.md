@@ -1,6 +1,8 @@
 ---
 layout: default
 description: ArangoDB Server Options
+page-toc:
+  max-headline-level: 2
 redirect_from:
   - programs-arangod-agency.html # 3.10 -> 3.10
   - programs-arangod-arangosearch.html # 3.10 -> 3.10

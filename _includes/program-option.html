@@ -14,56 +14,64 @@ underlying RocksDB instance, and only a few of its default settings are changed.
 {% endif %}
 {% endif %}
 
-<table class="table-program-options">
-<thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-<tbody>
-{% for option in section[1] -%}
-{%- if option[1].obsolete == false -%}
-{%- capture description -%}
-{%- if option[1].enterpriseOnly -%}
-<em>Enterprise Edition only</em><br>
-{%- endif -%}
+{% for option in section[1] %}
+{% if option[1].obsolete == false %}
+### `--{{ option[0] }}`
+
+{% if option[1].introducedIn %}
+<small>Introduced in: {{ option[1].introducedIn | join: ", " }}</small>
+{% endif %}
+{% if option[1].deprecatedIn %}
+<small>Deprecated in: {{ option[1].deprecatedIn | join: ", " }}</small>
+{% endif %}
+
+{% if option[1].enterpriseOnly %}
+*Enterprise Edition only*
+{% endif %}
+
+**Type**: {{ option[1].type }}
+
 {{ option[1].description | upcase_first | escape }}
-{%- if option[1].requiresValue != true and option[1].category != "command" -%}
-<br>This option can be specified without a value to enable it.
-{%- endif -%}
-{%- if option[1].category == "command" -%}
-<br>This is a command, no value needs to be specified. The process terminates after executing the command.
-{%- endif -%}
-{%- if option[1].default != nil and option[1].category != "command" -%}
-<br>
-{%- if option[1].dynamic -%}
-Default: <em>dynamic</em> (e.g. <code>{{ option[1].default | jsonify }}</code>)
-{%- else -%}
-Default: <code>{{ option[1].default | jsonify }}</code>
-{%- endif -%}
-{%- endif -%}
-{%- if option[1].values %}<br>{{ option[1].values }}{% endif -%}
-{%- if option[1].os and options[1].os.size < 3 -%}
-<br>Available on {{ option[1].os | capitalize_os | join_natural }} only.
-{%- endif -%}
-{%- if option[1].component and option[1].component.size < 4 -%}
-<br>Effective on {{ option[1].component | capitalize_components | join_natural }} only.
-{%- endif -%}
-{%- if option[1].introducedIn -%}
-<br><small>Introduced in: {{ option[1].introducedIn | join: ", " }}</small>
-{%- endif -%}
-{%- if option[1].deprecatedIn -%}
-<br><small>Deprecated in: {{ option[1].deprecatedIn | join: ", " }}</small>
-{%- endif -%}
-{%- if option[1].longDescription -%}
-{%- capture longDescription -%}
-{%- details "Show details&hellip;" -%}
+
+{% if option[1].requiresValue != true and option[1].category != "command" %}
+This option can be specified without a value to enable it.
+{% endif %}
+
+{% if option[1].category == "command" %}
+This is a command, no value needs to be specified. The process terminates after executing the command.
+{% endif %}
+
+{% if option[1].default != nil and option[1].category != "command" %}
+{% if option[1].dynamic %}
+Default: _dynamic_ (e.g. `{{ option[1].default | jsonify }}`)
+{% else %}
+Default: `{{ option[1].default | jsonify }}`
+{% endif %}
+{% endif %}
+
+{% if option[1].values %}
+{{ option[1].values }}
+{% endif %}
+
+{% if option[1].os and options[1].os.size < 3 %}
+Available on {{ option[1].os | capitalize_os | join_natural }} only.
+{% endif %}
+
+{% if option[1].component and option[1].component.size < 4 %}
+Effective on {{ option[1].component | capitalize_components | join_natural }} only.
+{% endif %}
+
+{% if option[1].longDescription %}
+{% details "Show details&hellip;" %}
 {{- option[1].longDescription -}}
-{%- enddetails -%}
-{%- endcapture -%}
-{{- longDescription -}}
-{%- endif -%}
-{%- endcapture -%}
-<tr><td><code>--{{ option[0] }}</code></td><td>{{ option[1].type }}</td><td>{{ description }}</td></tr>
+{% enddetails %}
+{% endif %}
+
+{% if forloop.last %}{% else %}
+---
 {% endif -%}
-{%- endfor -%}
-</tbody>
-</table>
+
+{% endif %}
+{% endfor %}
 
 {% endfor %}
