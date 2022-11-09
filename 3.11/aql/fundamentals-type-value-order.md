@@ -78,7 +78,7 @@ result is defined as follows:
 - boolean: *false* is less than *true*
 - number: numeric values are ordered by their cardinal value
 - string: string values are ordered using a localized comparison, using the configured
-  [server language](../programs-arangod-general.html#default-language)
+  [server language](../programs-arangod-options.html#--defaultlanguage)
   for sorting according to the alphabetical order rules of that language
 
 Note: unlike in SQL, *null* can be compared to any value, including *null*

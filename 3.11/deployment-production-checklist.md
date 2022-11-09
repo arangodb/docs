@@ -35,7 +35,7 @@ ArangoDB
     machine, adjust the [`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html)
     environment variable accordingly.
   - For versions prior to 3.8, make sure to change the
-    [`--query.memory-limit`](programs-arangod-query.html#limiting-memory-usage-of-aql-queries)
+    [`--query.memory-limit`](programs-arangod-options.html#--querymemory-limit)
     query option according to the node size and workload.
   - Disable swap space to avoid slowdown which can result in servers being incorrectly 
     detected as failed.

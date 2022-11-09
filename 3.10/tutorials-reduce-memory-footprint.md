@@ -174,7 +174,7 @@ Statistics
 ----------
 
 The server collects
-[statistics](programs-arangod-server.html#toggling-server-statistics) regularly,
+[statistics](programs-arangod-options.html#--serverstatistics) regularly,
 which is displayed in the web interface. You will have a light query load every
 few seconds, even if your application is idle, because of the statistics. If required, you can 
 turn it off via:
@@ -272,7 +272,7 @@ The default for this option is 4, which means that a Coordinator with `t`
 scheduler threads can execute up to `4 * t` requests concurrently. The
 minimal value for this option is 1.
 
-Also see [Preventing cluster overwhelm](programs-arangod-server.html#preventing-cluster-overwhelm).
+Also see the [_arangod_ startup options](programs-arangod-options.html#--serverongoing-low-priority-multiplier).
 
 CPU usage
 ---------

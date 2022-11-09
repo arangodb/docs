@@ -32,7 +32,7 @@ sudo locale-gen "en_US.UTF-8"
 Your distribution may also provide a frontend for doing so, for instance
 [`dpkg-reconfigure locales` on Debian](https://wiki.debian.org/Locale){:target="_blank"}.
 
-If you don't set a [default language](programs-arangod-general.html#default-language)
+If you don't set a [default language](programs-arangod-options.html#--defaultlanguage)
 for the server explicitly, ArangoDB will use the default locale of your system.
 
 {% hint 'warning' %}

@@ -518,7 +518,11 @@ A new server startup option for setting the language was added. The new
 `--icu-language` option will replace the existing `--default-language` option,
 and only one of the two can be set.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+Also see [ArangoDB Server General Options](programs-arangod-options.html#--iculanguage).
+{%- else -%}
 Also see [ArangoDB Server General Options](programs-arangod-general.html#icu-language).
+{% endif -%}
 
 ### Logging
 
