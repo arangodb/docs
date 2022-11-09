@@ -1,7 +1,10 @@
 ---
 layout: default
 description: >-
-  An overview of ArangoDB's deployment modes
+  This chapter describes ArangoDB's deployment modes and provides useful information
+  about different data models and scalability, data sharding, the storage engine
+  that lies at the very bottom of an ArangoDB database system, and also about the
+  replication methods that ArangoDB offers.
 ---
 # Architecture
 
@@ -42,8 +45,8 @@ Clustering ArangoDB not only delivers better performance and capacity improvemen
 but it also provides resilience through replication and automatic failover.
 You can deploy systems that dynamically scale up and down according to demand.
 
-### Multiple Datacenters
+### Datacenter-to-Datacenter
 
-With ArangoDB's [multi-datacenter](arangosync.html) support, you can replicate
+With ArangoDB's [Datacenter-to-Datacenter](arangosync.html) support, you can replicate
 your data to any other datacenter. The leading datacenter asynchronously
 replicates to any number of following datacenters for optimal write performance.
