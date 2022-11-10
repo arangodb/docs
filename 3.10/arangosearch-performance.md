@@ -28,14 +28,12 @@ the data can be read directly from the index without actual sort operation.
   "links": {
     "coll1": {
       "fields": {
-        "text": {
-        }
+        "text": {}
       }
     },
     "coll2": {
       "fields": {
-        "text": {
-        }
+        "text": {}
       }
     },
     "primarySort": [
@@ -82,16 +80,31 @@ To define more than one attribute to sort by, simply provide multiple
 sub-objects in the `primarySort` array:
 
 ```json
-  "primarySort": [
-    {
-      "field": "date",
-      "direction": "desc"
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "text": {},
+        "date": {}
+      }
     },
-    {
-      "field": "text",
-      "direction": "asc"
-    }
-  ]
+    "coll2": {
+      "fields": {
+        "text": {}
+      }
+    },
+    "primarySort": [
+      {
+        "field": "date",
+        "direction": "desc"
+      },
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ]
+  }
+}
 ```
 
 You can also define a primary sort order for inverted indexes and utilize it

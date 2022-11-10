@@ -26,14 +26,12 @@ View definition example:
   "links": {
     "coll1": {
       "fields": {
-        "text": {
-        }
+        "text": {}
       }
     },
     "coll2": {
       "fields": {
-        "text": {
-        }
+        "text": {}
       }
     },
     "primarySort": [
@@ -80,16 +78,31 @@ To define more than one attribute to sort by, simply add more sub-objects to
 the `primarySort` array:
 
 ```json
-  "primarySort": [
-    {
-      "field": "date",
-      "direction": "desc"
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "text": {},
+        "date": {}
+      }
     },
-    {
-      "field": "text",
-      "direction": "asc"
-    }
-  ]
+    "coll2": {
+      "fields": {
+        "text": {}
+      }
+    },
+    "primarySort": [
+      {
+        "field": "date",
+        "direction": "desc"
+      },
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ]
+  }
+}
 ```
 
 The optimization can be applied to View queries which sort by both fields as
@@ -219,5 +232,3 @@ FOR doc IN viewName
   COLLECT WITH COUNT INTO count
   RETURN count
 ```
-
-<!-- TODO: The Analyzer feature "norm" has some performance implications -->
