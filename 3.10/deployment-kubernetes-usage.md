@@ -44,9 +44,11 @@ support (`arm64`) in the operator, overwrite the following setting:
 helm install $URLPREFIX/kube-arangodb-<version>.tgz --set "operator.architectures={amd64,arm64}"
 ```
 
-Use at least version 1.2.19 of the operator.
+{% hint 'tip' %}
+Use at least version 1.2.20 of the operator to use the ARM architecture.
+{% endhint %}
 
-Note that you need to set [`spec.architectures`](deployment-kubernetes-deployment-resource.html#specarchitectures)
+Note that you need to set [`spec.architectures`](deployment-kubernetes-deployment-resource.html#specarchitectures-string)
 in the deployment specification, too, in order to create a deployment that runs
 on ARM chips.
 

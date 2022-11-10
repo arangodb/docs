@@ -70,6 +70,12 @@ Possible values are:
 - `amd64` (default): Use processors with the x86-64 architecture.
 - `arm64`: Use processors with the 64-bit ARM architecture.
 
+{% hint 'tip' %}
+To use the ARM architecture, you need to enable it in the operator first using
+`--set "operator.architectures={amd64,arm64}"`. See
+[Installation with Helm](deployment-kubernetes-usage.md#installation-with-helm).
+{% endhint 'tip' %}
+
 To let new members as well as recreated members use `arm64` nodes, modify the
 deployment specification as follows:
 
