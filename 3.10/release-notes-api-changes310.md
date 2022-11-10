@@ -77,6 +77,8 @@ section of the HTTP API reference manual.
 
 #### Maintenance mode for DB-Servers
 
+<small>Introduced in: v3.10.1</small>
+
 For rolling upgrades or rolling restarts, DB-Servers can now be put into
 maintenance mode, so that no attempts are made to re-distribute the data in a
 cluster for such planned events. DB-Servers in maintenance mode are not
@@ -129,6 +131,8 @@ You can send another request when the DB-Server is already in maintenance mode
 to extend the timeout.
 
 The maintenance mode ends automatically after the defined timeout.
+
+Also see the [HTTP interface for cluster maintenance](http/cluster-maintenance.html#query-the-maintenance-status-of-a-db-server).
 
 ### Endpoints augmented
 
