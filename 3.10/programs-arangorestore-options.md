@@ -1,6 +1,8 @@
 ---
 layout: default
 description: arangorestore Options
+page-toc:
+  max-headline-level: 2
 ---
 # _arangorestore_ Options
 
