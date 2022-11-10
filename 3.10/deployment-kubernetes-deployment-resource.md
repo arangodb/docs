@@ -73,7 +73,7 @@ Possible values are:
 {% hint 'tip' %}
 To use the ARM architecture, you need to enable it in the operator first using
 `--set "operator.architectures={amd64,arm64}"`. See
-[Installation with Helm](deployment-kubernetes-usage.md#installation-with-helm).
+[Installation with Helm](deployment-kubernetes-usage.html#installation-with-helm).
 {% endhint 'tip' %}
 
 To let new members as well as recreated members use `arm64` nodes, modify the
