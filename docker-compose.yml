@@ -27,7 +27,7 @@ services:
     
   arangodb:
     container_name: arangodb
-    image: arangodb:latest
+    image: arangodb/enterprise:latest
     ports:
       - "8520:8529"
     networks:
@@ -35,6 +35,27 @@ services:
         ipv4_address: 192.168.129.5
     environment:
       - ARANGO_NO_AUTH=1
+    
+  # arango_3_9:
+  #   container_name: arango_maintainer
+  #   image: arangodb:3.9
+  #   build:
+  #     context: .
+  #     target: arango_maintainer
+  #   networks:
+  #     docs_net:
+  #       ipv4_address: 192.168.129.10
+
+  # arango_maintainer:
+  #   container_name: arango_maintainer
+  #   image: arango_maintainer
+  #   build:
+  #     context: .
+  #     target: arango_maintainer
+  #   networks:
+  #     docs_net:
+  #       ipv4_address: 192.168.129.10
+  
 
 networks:
   docs_net:
