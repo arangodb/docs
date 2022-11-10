@@ -219,11 +219,9 @@ update non-existing documents or violating unique key constraints:
 
 ```aql
 FOR i IN 1..1000
-  UPDATE {
-    _key: CONCAT('test', i)
-  } WITH {
-    foobar: true
-  } IN users OPTIONS { ignoreErrors: true }
+  UPDATE CONCAT('test', i)
+  WITH { foobar: true } IN users
+  OPTIONS { ignoreErrors: true }
 ```
 
 An update operation only update the attributes specified in `document` and
@@ -239,10 +237,8 @@ operation, set them to `null` and set the `keepNull` option to `false`:
 
 ```aql
 FOR u IN users
-  UPDATE u WITH {
-    foobar: true,
-    notNeeded: null
-  } IN users OPTIONS { keepNull: false }
+  UPDATE u WITH { foobar: true, notNeeded: null } IN users
+  OPTIONS { keepNull: false }
 ```
 
 The above query removes the `notNeeded` attribute from the documents and update
@@ -262,7 +258,8 @@ being set to `false`:
 FOR u IN users
   UPDATE u WITH {
     name: { first: "foo", middle: "b.", last: "baz" }
-  } IN users OPTIONS { mergeObjects: false }
+  } IN users
+  OPTIONS { mergeObjects: false }
 ```
 
 Contrary, the following query merges the contents of the `name` attribute in the
@@ -272,7 +269,8 @@ original document with the value specified in the query:
 FOR u IN users
   UPDATE u WITH {
     name: { first: "foo", middle: "b.", last: "baz" }
-  } IN users OPTIONS { mergeObjects: true }
+  } IN users
+  OPTIONS { mergeObjects: true }
 ```
 
 Attributes in `name` that are present in the to-be-updated document but not in the
@@ -289,9 +287,8 @@ query option:
 
 ```aql
 FOR u IN users
-  UPDATE u WITH {
-    foobar: true
-  } IN users OPTIONS { waitForSync: true }
+  UPDATE u WITH { foobar: true } IN users
+  OPTIONS { waitForSync: true }
 ```
 
 ### `ignoreRevs`
@@ -349,9 +346,8 @@ documents before modification. For each modified document, the document key is r
 
 ```aql
 FOR u IN users
-  UPDATE u WITH { value: "test" }
-  IN users 
-  LET previous = OLD 
+  UPDATE u WITH { value: "test" } IN users 
+  LET previous = OLD
   RETURN previous._key
 ```
 
@@ -360,9 +356,8 @@ without some of the system attributes:
 
 ```aql
 FOR u IN users
-  UPDATE u WITH { value: "test" } 
-  IN users
-  LET updated = NEW 
+  UPDATE u WITH { value: "test" } IN users
+  LET updated = NEW
   RETURN UNSET(updated, "_key", "_id", "_rev")
 ```
 
@@ -370,8 +365,7 @@ It is also possible to return both `OLD` and `NEW`:
 
 ```aql
 FOR u IN users
-  UPDATE u WITH { value: "test" } 
-  IN users
+  UPDATE u WITH { value: "test" } IN users
   RETURN { before: OLD, after: NEW }
 ```
 

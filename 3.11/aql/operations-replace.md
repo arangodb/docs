@@ -158,11 +158,9 @@ replace non-existing documents or when violating unique key constraints:
 
 ```aql
 FOR i IN 1..1000
-  REPLACE {
-    _key: CONCAT('test', i)
-} WITH {
-  foobar: true
-} IN users OPTIONS { ignoreErrors: true }
+  REPLACE CONCAT('test', i)
+  WITH { foobar: true } IN users
+  OPTIONS { ignoreErrors: true }
 ```
 
 Internal attributes (such as `_id`, `_key`, `_rev`, `_from` and `_to`) cannot
@@ -176,7 +174,9 @@ query option:
 
 ```aql
 FOR i IN 1..1000
-  REPLACE { _key: CONCAT('test', i) } WITH { foobar: true } IN users OPTIONS { waitForSync: true }
+  REPLACE CONCAT('test', i)
+  WITH { foobar: true } IN users
+  OPTIONS { waitForSync: true }
 ```
 
 ### `ignoreRevs`
@@ -187,7 +187,9 @@ succeed if they still match, or let ArangoDB ignore them (default):
 
 ```aql
 FOR i IN 1..1000
-  REPLACE { _key: CONCAT('test', i), _rev: "1287623" } WITH { foobar: true } IN users OPTIONS { ignoreRevs: false }
+  REPLACE { _key: CONCAT('test', i), _rev: "1287623" }
+  WITH { foobar: true } IN users
+  OPTIONS { ignoreRevs: false }
 ```
 
 ### `exclusive`
@@ -233,9 +235,8 @@ returned:
 
 ```aql
 FOR u IN users
-  REPLACE u WITH { value: "test" } 
-  IN users
-  LET previous = OLD 
+  REPLACE u WITH { value: "test" } IN users
+  LET previous = OLD
   RETURN previous._key
 ```
 
@@ -245,8 +246,8 @@ documents (without some of their system attributes):
 ```aql
 FOR u IN users
   REPLACE u WITH { value: "test" } IN users
-  LET replaced = NEW 
-  RETURN UNSET(replaced, '_key', '_id', '_rev')
+  LET replaced = NEW
+  RETURN UNSET(replaced, "_key", "_id", "_rev")
 ```
 
 Transactionality
