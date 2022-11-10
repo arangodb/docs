@@ -226,16 +226,16 @@ FOR i IN 1..1000
   } IN users OPTIONS { ignoreErrors: true }
 ```
 
-An update operation will only update the attributes specified in `document` and
+An update operation only update the attributes specified in `document` and
 leave other attributes untouched. Internal attributes (such as `_id`, `_key`, `_rev`,
 `_from` and `_to`) cannot be modified and are ignored when specified in `document`.
 Updating a document modifies the document's revision number with a server-generated value.
 
 ### `keepNull`
 
-When updating an attribute with a null value, ArangoDB will not remove the attribute 
-from the document but store a null value for it. To get rid of attributes in an update
-operation, set them to null and provide the `keepNull` option:
+When updating an attribute to a `null` value, ArangoDB does not remove the attribute 
+from the document but stores this `null` value. To remove attributes in an update
+operation, set them to `null` and set the `keepNull` option to `false`:
 
 ```aql
 FOR u IN users
@@ -245,16 +245,16 @@ FOR u IN users
   } IN users OPTIONS { keepNull: false }
 ```
 
-The above query will remove the `notNeeded` attribute from the documents and update
+The above query removes the `notNeeded` attribute from the documents and update
 the `foobar` attribute normally.
 
 ### `mergeObjects`
 
-The option `mergeObjects` controls whether object contents will be
-merged if an object attribute is present in both the `UPDATE` query and in the 
+The option `mergeObjects` controls whether object contents are
+merged if an object attribute is present in both, the `UPDATE` query and in the 
 to-be-updated document.
 
-The following query will set the updated document's `name` attribute to the exact
+The following query sets the updated document's `name` attribute to the exact
 same value that is specified in the query. This is due to the `mergeObjects` option
 being set to `false`:
 
@@ -265,7 +265,7 @@ FOR u IN users
   } IN users OPTIONS { mergeObjects: false }
 ```
 
-Contrary, the following query will merge the contents of the `name` attribute in the
+Contrary, the following query merges the contents of the `name` attribute in the
 original document with the value specified in the query:
 
 ```aql
@@ -276,7 +276,7 @@ FOR u IN users
 ```
 
 Attributes in `name` that are present in the to-be-updated document but not in the
-query will now be preserved. Attributes that are present in both will be overwritten
+query are preserved. Attributes that are present in both are overwritten
 with the values specified in the query.
 
 Note: the default value for `mergeObjects` is `true`, so there is no need to specify it
@@ -334,7 +334,7 @@ are allowed, too). These statements can refer to the pseudo-values `OLD` and `NE
 The `OLD` pseudo-value refers to the document revisions before the update, and `NEW` 
 refers to document revisions after the update.
 
-Both `OLD` and `NEW` will contain all document attributes, even those not specified 
+Both ,`OLD` and `NEW`, contain all document attributes, even those not specified 
 in the update expression.
 
 ```aql
@@ -384,7 +384,7 @@ fashion.
 If the RocksDB engine is used and intermediate commits are enabled, a query may
 execute intermediate transaction commits in case the running transaction (AQL
 query) hits the specified size thresholds. In this case, the query's operations
-carried out so far will be committed and not rolled back in case of a later
+carried out so far are committed and not rolled back in case of a later
 abort/rollback. That behavior can be controlled by adjusting the intermediate
 commit settings for the RocksDB engine.
 

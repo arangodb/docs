@@ -216,7 +216,7 @@ statement must be followed by a `RETURN` statement (intermediate `LET` statement
 allowed, too). The `OLD` pseudo-value can be used to refer to document revisions before 
 the replace, and `NEW` refers to document revisions after the replace.
 
-Both `OLD` and `NEW` will contain all document attributes, even those not specified 
+Both `OLD` and `NEW` contain all document attributes, even those not specified
 in the replace expression.
 
 
@@ -228,7 +228,7 @@ REPLACE keyExpression WITH document IN collection options RETURN NEW
 ```
 
 Following is an example using a variable named `previous` to return the original
-documents before modification. For each replaced document, the document key will be
+documents before modification. For each replaced document, the document key is
 returned:
 
 ```aql
@@ -258,7 +258,7 @@ all-or-nothing fashion.
 If the RocksDB engine is used and intermediate commits are enabled, a query may
 execute intermediate transaction commits in case the running transaction (AQL
 query) hits the specified size thresholds. In this case, the query's operations
-carried out so far will be committed and not rolled back in case of a later
+carried out so far are committed and not rolled back in case of a later
 abort/rollback. That behavior can be controlled by adjusting the intermediate
 commit settings for the RocksDB engine. 
 
