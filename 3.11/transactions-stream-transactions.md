@@ -33,7 +33,7 @@ It is therefore advisable to keep the transactions as short as possible.
 {% endhint %}
 
 For a more detailed description of how transactions work in ArangoDB, please
-refer to [Transactions](../transactions.html).
+refer to [Transactions](transactions.html).
 
 You can use Stream Transactions via the [JavaScript API](#javascript-api) and
 the [HTTP API](http/transaction-stream-transaction.html).
