@@ -122,10 +122,16 @@ to "collection/view is out of sync" (error code 1481).
 The option is set to `false` by default. With this setting, queries on out of sync
 links will be answered normally, but the return data may be incomplete.
 
-`--arangosearch.columns-cache-limit`
+`arangosearch.columns-cache-limit`
 
-<small>Introduced in: v3.9.5 Enterprise only</small>
+<small>Introduced in: v3.9.5</small>
 
-Sets the total amount of memory (in bytes) that could be used for storing 
-ArangoSearch cached columns in RAM. Default = 0 (caching is disabled).
-Could be monitored by metric "arangodb_search_columns_cache_size"
+You can set the total amount of memory (in bytes) that can be used for caching 
+ArangoSearch columns in memory.
+
+The default is `0` (caching disabled).
+
+You can monitor the cache size via the
+[`arangodb_search_columns_cache_size` metric](http/administration-and-monitoring-metrics.html#arangodb_search_columns_cache_size).
+
+{% include hint-ee.md feature="ArangoSearch caching" %}

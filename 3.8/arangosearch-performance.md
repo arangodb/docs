@@ -33,15 +33,16 @@ View definition example:
     "coll2": {
       "fields": {
         "text": {
+        }
       }
-    }
-  },
-  "primarySort": [
-    {
-      "field": "text",
-      "direction": "asc"
-    }
-  ]
+    },
+    "primarySort": [
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ]
+  }
 }
 ```
 

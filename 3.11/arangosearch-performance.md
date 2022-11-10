@@ -35,15 +35,16 @@ the data can be read directly from the index without actual sort operation.
     "coll2": {
       "fields": {
         "text": {
+        }
       }
-    }
-  },
-  "primarySort": [
-    {
-      "field": "text",
-      "direction": "asc"
-    }
-  ]
+    },
+    "primarySort": [
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ]
+  }
 }
 ```
 
