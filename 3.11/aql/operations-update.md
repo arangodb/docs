@@ -25,32 +25,72 @@ UPDATE <em>keyExpression</em> WITH <em>document</em> IN <em>collection</em></cod
 Both variants can optionally end with an `OPTIONS { … }` clause.
 
 `collection` must contain the name of the collection in which the documents should
-be updated. `document` must be a document that contains the attributes and values 
-to update. Attributes that don't exist in the stored document yet are added to it.
-When using the first syntax, `document` must also contain the `_key`
-attribute to identify the document to be updated. 
+be updated. `document` must be an object that contains the attributes and values 
+to update. Attributes that don't yet exist in the stored document are added to it.
+
+### `UPDATE <document> IN <collection>`
+
+Using the first syntax, the `document` object must have a `_key` attribute with
+the document key. The existing document with this key is updated with the
+attributes provided by the `document` object.
+
+The following query adds or updates the `name` attribute of the document
+identified by the key `my_key` in the `users` collection. The key is passed via
+the `_key` attribute alongside other attributes:
+
+```aql
+UPDATE { _key: "my_key", name: "Jon" } IN users
+```
+
+The following query is invalid because the object does not contain a `_key`
+attribute and thus it is not possible to determine the documents that needs to
+be updated:
+
+```aql
+UPDATE { name: "Jon" } IN users
+```
+
+You can combine the `UPDATE` operation with a `FOR` loop to determine the
+necessary key attributes, like shown below:
 
 ```aql
 FOR u IN users
   UPDATE { _key: u._key, name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
 
-The following query is invalid because it does not contain a `_key` attribute and
-thus it is not possible to determine the documents to be updated:
+Note that the `UPDATE` and `FOR` operations are independent of each other and
+`u` does not automatically define a document for the `UPDATE` statement.
+Thus, the following query is invalid:
 
 ```aql
 FOR u IN users
   UPDATE { name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
 
-When using the second syntax, `keyExpression` provides the document identification.
-This can either be a string (which must then contain the document key) or a
-document, which must contain a `_key` attribute.
+### `UPDATE <keyExpression> WITH <document> IN <collection>`
 
-An object with `_id` attribute but without `_key` attribute as well as a
-document ID as string like `"users/john"` do not work. However, you can use
-`DOCUMENT(id)` to fetch the document via its ID and `PARSE_IDENTIFIER(id).key`
-to get the document key as string.
+Using the second syntax, the document to update is defined by the
+`keyExpression`. It can either be a string with the document key, an object
+which contains a `_key` attribute with the document key, or an expression that
+evaluates to either of these two.
+
+The following query adds or updates the `name` attribute of the document
+identified by the key `my_key` in the `users` collection. The key is passed as
+a string in the `keyExpression`. The attributes to add or update are passed
+separately as the `document` object:
+
+```aql
+UPDATE "my_key" WITH { name: "Jon" } IN users
+```
+
+If the `document` object may contain a `_key` attribute but it is ignored.
+
+You cannot define the document to update using an `_id` attribute, nor pass a
+document identifier as a string (like `"users/john"`). However, you can use
+`PARSE_IDENTIFIER(<id>).key` as `keyExpression` to get the document key as a
+string.
+
+### Comparison of the syntaxes
 
 The following queries are equivalent:
 
@@ -69,20 +109,32 @@ FOR u IN users
   UPDATE u WITH { name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
 
-An update operation may update arbitrary documents:
+Dynamic key expressions
+-----------------------
+
+An `UPDATE` operation may update arbitrary documents, using either of the two
+syntaxes:
 
 ```aql
 FOR i IN 1..1000
-  UPDATE CONCAT('test', i) WITH { foobar: true } IN users
+  UPDATE { _key: CONCAT('test', i), name: "Paula" } IN users
 ```
 
-The documents it modifies can be in a different collection than
-the ones produced by a preceding `FOR` operation:
+```aql
+FOR i IN 1..1000
+  UPDATE CONCAT('test', i) WITH { name: "Paula" } IN users
+```
+
+Target a different collection
+-----------------------------
+
+The documents an `UPDATE` operations modifies can be in a different collection
+than the ones produced by a preceding `FOR` operation:
 
 ```aql
 FOR u IN users
   FILTER u.active == false
-  UPDATE u WITH { status: 'inactive' } IN backup
+  UPDATE u WITH { status: "inactive" } IN backup
 ```
 
 Note how documents are read from the `users` collection but updated in another
@@ -176,8 +228,8 @@ FOR i IN 1..1000
 
 An update operation will only update the attributes specified in `document` and
 leave other attributes untouched. Internal attributes (such as `_id`, `_key`, `_rev`,
-`_from` and `_to`) cannot be updated and are ignored when specified in `document`.
-Updating a document will modify the document's revision number with a server-generated value.
+`_from` and `_to`) cannot be modified and are ignored when specified in `document`.
+Updating a document modifies the document's revision number with a server-generated value.
 
 ### `keepNull`
 
@@ -244,7 +296,7 @@ FOR u IN users
 
 ### `ignoreRevs`
 
-In order to not accidentally overwrite documents that have been updated since you last fetched
+In order to not accidentally overwrite documents that have been modified since you last fetched
 them, you can use the option `ignoreRevs` to either let ArangoDB compare the `_rev` value and 
 only succeed if they still match, or let ArangoDB ignore them (default):
 
