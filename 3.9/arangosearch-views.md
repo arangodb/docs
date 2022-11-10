@@ -122,7 +122,7 @@ During view modification the following directives apply:
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-arangosearch.html)
   to control the memory consumption of this cache.
 
-  {% include hint-ee.md feature="ArangoSearch caching"}
+  {% include hint-ee.md feature="ArangoSearch caching" %}
 
 ### View Properties
 
@@ -157,7 +157,7 @@ During view modification the following directives apply:
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-arangosearch.html)
   to control the memory consumption of this cache.
 
-  {% include hint-ee.md feature="ArangoSearch caching"}
+  {% include hint-ee.md feature="ArangoSearch caching" %}
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
