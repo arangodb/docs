@@ -309,7 +309,27 @@ emphasize these documents less.
 
 You can set the `cache` option to `true` for individual View links to always
 cache the field normalization values in memory. This can improve the performance
-of scoring and ranking queries.
+of scoring and ranking queries:
+
+```json
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "categories": {
+          "analyzers": ["text_en"],
+          "cache": true
+        }
+      }
+    },
+    "coll2": {
+      "includeAllFields": true,
+      "analyzers": ["text_en"],
+      "cache": true
+    }
+  }
+}
+```
 
 See the [`cache` Link property](arangosearch-views.html#link-properties)
 for details.
