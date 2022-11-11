@@ -15,12 +15,12 @@ def set_page_description(page, buffer, frontMatter):
 
 def migrate_hints(paragraph):
     #Hints TODO: Replace this horrible regex with the lazy capture
-    hintRegex = re.findall(r"{% hint .* %}.*?{% endhint %}", paragraph, re.MULTILINE | re.DOTALL)
+    hintRegex = re.findall(r"{% hint .*? %}.*?{% endhint %}", paragraph, re.MULTILINE | re.DOTALL)
     for hint in hintRegex:
         hintSplit = hint.split("\n")
         print(hint)
         hintType = re.search(r"'.*[']* %}", hintSplit[0]).group(0).replace("'", '').strip(" %}")
-        hintText = "\n".join(hintSplit[1:len(hintSplit)-2])
+        hintText = "\n".join(hintSplit[1:len(hintSplit)-1])
         if hintType == 'note':
             hintType = 'tip'
 
