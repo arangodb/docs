@@ -248,7 +248,7 @@ the `foobar` attribute normally.
 ### `mergeObjects`
 
 The option `mergeObjects` controls whether object contents are
-merged if an object attribute is present in both the `UPDATE` query and in the 
+merged if an object attribute is present in both the `UPDATE` query and in the
 to-be-updated document.
 
 The following query sets the updated document's `name` attribute to the exact
@@ -332,7 +332,7 @@ are allowed, too). These statements can refer to the pseudo-values `OLD` and `NE
 The `OLD` pseudo-value refers to the document revisions before the update, and `NEW` 
 refers to document revisions after the update.
 
-Both `OLD` and `NEW` contain all document attributes, even those not specified 
+Both `OLD` and `NEW` contain all document attributes, even those not specified
 in the update expression.
 
 ```aql

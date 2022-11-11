@@ -84,7 +84,7 @@ separately as the `document` object:
 REPLACE "my_key" WITH { name: "Jon", status: "active" } IN users
 ```
 
-If the `document` object may contain a `_key` attribute but it is ignored.
+The `document` object may contain a `_key` attribute, but it is ignored.
 
 You cannot define the document to replace using an `_id` attribute, nor pass a
 document identifier as a string (like `"users/john"`). However, you can use
@@ -129,7 +129,7 @@ FOR i IN 1..1000
 Target a different collection
 -----------------------------
 
-The documents an `REPLACE` operations modifies can be in a different collection
+The documents an `REPLACE` operation modifies can be in a different collection
 than the ones produced by a preceding `FOR` operation:
 
 ```aql

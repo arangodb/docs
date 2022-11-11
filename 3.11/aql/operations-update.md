@@ -43,7 +43,7 @@ UPDATE { _key: "my_key", name: "Jon" } IN users
 ```
 
 The following query is invalid because the object does not contain a `_key`
-attribute and thus it is not possible to determine the documents to
+attribute and thus it is not possible to determine the document to
 be updated:
 
 ```aql
@@ -83,7 +83,7 @@ separately as the `document` object:
 UPDATE "my_key" WITH { name: "Jon" } IN users
 ```
 
-If the `document` object may contain a `_key` attribute but it is ignored.
+The `document` object may contain a `_key` attribute, but it is ignored.
 
 You cannot define the document to update using an `_id` attribute, nor pass a
 document identifier as a string (like `"users/john"`). However, you can use
@@ -128,7 +128,7 @@ FOR i IN 1..1000
 Target a different collection
 -----------------------------
 
-The documents an `UPDATE` operations modifies can be in a different collection
+The documents an `UPDATE` operation modifies can be in a different collection
 than the ones produced by a preceding `FOR` operation:
 
 ```aql
@@ -224,16 +224,17 @@ FOR i IN 1..1000
   OPTIONS { ignoreErrors: true }
 ```
 
-An update operation only update the attributes specified in `document` and
-leave other attributes untouched. Internal attributes (such as `_id`, `_key`, `_rev`,
+An update operation only updates the attributes specified in `document` and
+leaves other attributes untouched. Internal attributes (such as `_id`, `_key`, `_rev`,
 `_from` and `_to`) cannot be modified and are ignored when specified in `document`.
 Updating a document modifies the document's revision number with a server-generated value.
 
 ### `keepNull`
 
-When updating an attribute to a `null` value, ArangoDB does not remove the attribute 
+When updating an attribute to the `null` value, ArangoDB does not remove the attribute 
 from the document but stores this `null` value. To remove attributes in an update
-operation, set them to `null` and set the `keepNull` option to `false`:
+operation, set them to `null` and set the `keepNull` option to `false`. This removes
+the attributes you specify but not any previously stored attributes with the `null` value:
 
 ```aql
 FOR u IN users
@@ -241,13 +242,13 @@ FOR u IN users
   OPTIONS { keepNull: false }
 ```
 
-The above query removes the `notNeeded` attribute from the documents and update
+The above query removes the `notNeeded` attribute from the documents and updates
 the `foobar` attribute normally.
 
 ### `mergeObjects`
 
 The option `mergeObjects` controls whether object contents are
-merged if an object attribute is present in both, the `UPDATE` query and in the 
+merged if an object attribute is present in both the `UPDATE` query and in the
 to-be-updated document.
 
 The following query sets the updated document's `name` attribute to the exact
@@ -331,7 +332,7 @@ are allowed, too). These statements can refer to the pseudo-values `OLD` and `NE
 The `OLD` pseudo-value refers to the document revisions before the update, and `NEW` 
 refers to document revisions after the update.
 
-Both ,`OLD` and `NEW`, contain all document attributes, even those not specified 
+Both `OLD` and `NEW` contain all document attributes, even those not specified
 in the update expression.
 
 ```aql
