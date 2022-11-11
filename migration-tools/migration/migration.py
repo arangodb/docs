@@ -167,7 +167,7 @@ def _processFrontMatter(page, buffer):
 		page.frontMatter.title = paragraphTitleRegex.group(0).replace('#', '').replace(':', '')
 		page.frontMatter.title = re.sub(r"{{ .* }}", '', page.frontMatter.title)
 	
-	page.frontMatter.title = page.frontMatter.title.replace("`", "")
+	page.frontMatter.title = page.frontMatter.title.replace("`", "").replace("  ", " ")
 	set_page_description(page, buffer, frontMatter)
 
 	return page
@@ -221,7 +221,8 @@ class Page():
 
 	def toString(self):
 		res = self.frontMatter.toString()
-		res = f"{res}\n{self.content}"
+		cleanedFrontMatter = re.sub(r"^\s*$\n", '', res, 0, re.MULTILINE | re.DOTALL)
+		res = re.sub(r"(?<=---)\n*", '\n', f"{cleanedFrontMatter}{self.content}", 0, re.MULTILINE | re.DOTALL)
 		return res
 
 class FrontMatter():
