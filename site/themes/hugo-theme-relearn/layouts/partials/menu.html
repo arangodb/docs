@@ -203,7 +203,7 @@
             {{- $currentAlwaysopen := .Params.alwaysopen | default $alwaysopen }}
             {{- $pageHash := md5 .Page }}
             {{- $isOpen := or $currentAlwaysopen $isSelf $isAncestor }}
-          <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}{{if (or $isSelf $isAncestor) }} parent{{end}}{{if $currentAlwaysopen}} alwaysopen{{end}}">
+          <li data-nav-id="{{.RelPermalink}}" title="{{.Title | markdownify }}" class="dd-item{{if $isActive }} active{{end}}{{if (or $isSelf $isAncestor) }} parent{{end}}{{if $currentAlwaysopen}} alwaysopen{{end}}">
             <input type="checkbox" id="section-{{ $pageHash }}" class="toggle"{{ if $isOpen }} checked{{ end }}/>
             <label for="section-{{ $pageHash }}" ></label>
             <a class="nav-link nav-item-toggle" href="{{.RelPermalink}}">
@@ -212,7 +212,7 @@
               {{ else }}
                 <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19" class="leafygreen-ui-a4wnk0 leafygreen-ui-17wxqdk" role="img" aria-label="Caret Right Icon"><path d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z" fill="currentColor"></path></svg>
               {{ end }}
-              {{- partial "menu-pre.html" . }}<div class="menu-title">{{ or .Params.menuTitle .LinkTitle .Title }}</div>{{ partial "menu-post.html" . }}
+              {{- partial "menu-pre.html" . }}<div class="menu-title">{{ .Title | markdownify }}</div>{{ partial "menu-post.html" . }}
               {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a>
               <ul class="menu-children">
               {{- $defaultAlwaysopen := .Site.Params.alwaysopen | default true }}
@@ -226,13 +226,13 @@
                 {{- end }}
               {{- end }}</ul></li>
             {{- else }}
-          <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
-                  {{- partial "menu-pre.html" . }}{{ or .Params.menuTitle .LinkTitle .Title }}{{ partial "menu-post.html" . }}
+          <li data-nav-id="{{.RelPermalink}}" title="{{.Title | markdownify }}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
+                  {{- partial "menu-pre.html" . }}{{ .Title | markdownify }}{{ partial "menu-post.html" . }}
                   {{- if $showvisitedlinks }}{{ end }}</a></li>
             {{- end }}
         {{- else }}
-          <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
-              {{- partial "menu-pre.html" . }}<div class="menu-title-no-children">{{ or .Params.menuTitle .LinkTitle .Title }}</div>{{ partial "menu-post.html" . }}
+          <li data-nav-id="{{.RelPermalink}}" title="{{.Title | markdownify }}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
+              {{- partial "menu-pre.html" . }}<div class="menu-title-no-children">{{ .Title | markdownify }}</div>{{ partial "menu-post.html" . }}
               {{- if $showvisitedlinks }}{{ end }}</a></li>
         {{- end }}
       {{- end }}
