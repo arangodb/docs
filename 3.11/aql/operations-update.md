@@ -43,7 +43,7 @@ UPDATE { _key: "my_key", name: "Jon" } IN users
 ```
 
 The following query is invalid because the object does not contain a `_key`
-attribute and thus it is not possible to determine the documents that needs to
+attribute and thus it is not possible to determine the documents to
 be updated:
 
 ```aql
