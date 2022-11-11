@@ -167,7 +167,7 @@ def _processFrontMatter(page, buffer):
 		page.frontMatter.title = paragraphTitleRegex.group(0).replace('#', '').replace(':', '')
 		page.frontMatter.title = re.sub(r"{{ .* }}", '', page.frontMatter.title)
 	
-	page.frontMatter.title = page.frontMatter.title.replace("`", "").replace("  ", " ")
+	page.frontMatter.title = page.frontMatter.title.replace("`", "")
 	set_page_description(page, buffer, frontMatter)
 
 	return page
@@ -239,7 +239,7 @@ class FrontMatter():
 		return str.replace("`", "")
 
 	def toString(self):
-		return f"---\nfileID: {self.fileID}\ntitle: {self.clean(self.title)}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
+		return f"---\nfileID: {self.fileID}\ntitle:{self.clean(self.title)}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
 
 def get_weight(weight):
 	global currentWeight
