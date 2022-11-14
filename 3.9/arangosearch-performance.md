@@ -26,22 +26,21 @@ View definition example:
   "links": {
     "coll1": {
       "fields": {
-        "text": {
-        }
+        "text": {}
       }
     },
     "coll2": {
       "fields": {
-        "text": {
+        "text": {}
       }
-    }
-  },
-  "primarySort": [
-    {
-      "field": "text",
-      "direction": "asc"
-    }
-  ]
+    },
+    "primarySort": [
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ]
+  }
 }
 ```
 
@@ -79,16 +78,31 @@ To define more than one attribute to sort by, simply add more sub-objects to
 the `primarySort` array:
 
 ```json
-  "primarySort": [
-    {
-      "field": "date",
-      "direction": "desc"
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "text": {},
+        "date": {}
+      }
     },
-    {
-      "field": "text",
-      "direction": "asc"
-    }
-  ]
+    "coll2": {
+      "fields": {
+        "text": {}
+      }
+    },
+    "primarySort": [
+      {
+        "field": "date",
+        "direction": "desc"
+      },
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ]
+  }
+}
 ```
 
 The optimization can be applied to View queries which sort by both fields as
@@ -105,6 +119,41 @@ The View needs to be created via the HTTP or JavaScript API (arangosh) to set it
 
 The primary sort data is LZ4 compressed by default (`primarySortCompression` is
 `"lz4"`). Set it to `"none"` on View creation to trade space for speed.
+
+You can additionally set the `primarySortCache` option to `true` to always cache
+the primary sort columns in memory, which can improve the query performance:
+
+```json
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "text": {},
+        "date": {}
+      }
+    },
+    "coll2": {
+      "fields": {
+        "text": {}
+      }
+    },
+    "primarySort": [
+      {
+        "field": "date",
+        "direction": "desc"
+      },
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ],
+    "primarySortCache": true
+  }
+}
+```
+
+See the [`primarySortCache` View property](arangosearch-views.html#view-properties)
+for details.
 
 ## Stored Values
 
@@ -175,6 +224,34 @@ Optimization rules applied:
   3   handle-arangosearch-views
 ```
 
+You can additionally enable the ArangoSearch column cache for stored values by
+setting the `cache` option in the `storedValues` definition to `true`:
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "primarySort": [
+    { "field": "publishedAt", "direction": "desc" }
+  ],
+  "storedValues": [
+    { "fields": [ "title", "categories" ], "cache": true }
+  ],
+  ...
+}
+```
+
+The stored are always cached in memory with this option enabled, which can
+improve the query performance.
+
+See the [`storedValues` View property](arangosearch-views.html#view-properties)
+for details.
+
 ## Condition Optimization Options
 
 The `SEARCH` operation in AQL accepts an option `conditionOptimization` to
@@ -219,4 +296,46 @@ FOR doc IN viewName
   RETURN count
 ```
 
-<!-- TODO: The Analyzer feature "norm" has some performance implications -->
+## Field normalization value caching
+
+<small>Introduced in: v3.9.5</small>
+
+{% include hint-ee.md feature="ArangoSearch caching" %}
+
+Normalization values are computed for fields which are processed with Analyzers
+that have the [`"norm"` feature](analyzers.html#analyzer-features) enabled.
+These values are used to score fairer if the same tokens occur repeatedly, to
+emphasize these documents less.
+
+You can set the `cache` option to `true` for individual View links to always
+cache the field normalization values in memory. This can improve the performance
+of scoring and ranking queries:
+
+```json
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "categories": {
+          "analyzers": ["text_en"],
+          "cache": true
+        }
+      }
+    },
+    "coll2": {
+      "includeAllFields": true,
+      "analyzers": ["text_en"],
+      "cache": true
+    }
+  }
+}
+```
+
+See the [`cache` Link property](arangosearch-views.html#link-properties)
+for details.
+
+The `"norm"` Analyzer feature has performance implications even if the cache is
+used. You can create custom Analyzers without this feature to disable the
+normalization and improve the performance. Make sure that the result ranking
+still matches your expectations without normalization. It is recommended to
+use normalization for a good scoring behavior.
