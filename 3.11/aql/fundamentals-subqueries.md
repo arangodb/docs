@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Wherever an expression is allowed in AQL, a subquery can be placed
+redirect_from:
+  - examples-combining-queries.html # 3.10 -> 3.10
 ---
 # Combining queries with subqueries
 
