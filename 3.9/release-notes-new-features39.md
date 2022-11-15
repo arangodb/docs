@@ -84,9 +84,9 @@ new syntax.
 
 Views of the type `arangosearch` support three new options:
 
-- You can enable the new `cache` link property to always cache field
-  normalization values in memory. This can improve the performance of scoring
-  and ranking queries.
+- You can enable the new `cache` option for individual View links or fields
+  to always cache field normalization values in memory. This can improve the
+  performance of scoring and ranking queries.
 - You can enable the new `primarySortCache` View property to always cache the
   primary sort columns in memory. This can improve the performance of queries
   that utilize the primary sort order.

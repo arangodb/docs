@@ -163,7 +163,7 @@ Administration
 - [User Management](https://www.arangodb.com/arangodb-user-management/){:target="_blank"}:
   Granting users permissions for databases and collections.
 
-- [Reduce Memory Footprint](tutorials-reduce-memory-footprint.html):
+- [Reduce Memory Footprint](administration-reduce-memory-footprint.html):
   Configuration options to restrict ArangoDB's memory usage and to reduce
   the CPU utilization
 

@@ -307,7 +307,7 @@ that have the [`"norm"` feature](analyzers.html#analyzer-features) enabled.
 These values are used to score fairer if the same tokens occur repeatedly, to
 emphasize these documents less.
 
-You can set the `cache` option to `true` for individual View links to always
+You can set the `cache` option to `true` for individual View links or fields to always
 cache the field normalization values in memory. This can improve the performance
 of scoring and ranking queries:
 
