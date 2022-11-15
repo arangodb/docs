@@ -11,42 +11,23 @@ description: >-
 {{ page.description }}
 {:class="lead"}
 
-## Deployment modes
+## What deployment modes are available?
 
-ArangoDB supports many resilient deployment modes to meet the exact needs of
-your project. 
+ArangoDB can be deployed in a variety of configurations, depending on your needs.
 
-### Single Instance
+You can deploy it on-premises as a single server, optionally as a resilient pair
+with asynchronous replication and automatic failover, or as a
+cluster comprised of multiple nodes with synchronous replication and automatic
+failover for high availability and resilience. For the highest level of data
+safety, you can additionally set up off-site replication for your entire cluster.
 
-A [Single Instance deployment](architecture-deployment-modes-single-instance.html)
-is the most simple way
-to get started. Unlike other setups, which require some specific procedures,
-deploying a stand-alone instance is straightforward and can be started manually
-or by using the ArangoDB Starter tool.   
+Read more about [deployment modes](deployment-modes.html) to find out all
+important details about each mode and the included features.
 
-### Active Failover
+## Deploying by technology
 
-[Active Failover deployments](architecture-deployment-modes-active-failover.html)
-use ArangoDB's
-multi-node technology to provide high availability for smaller projects with
-fast asynchronous replication from the leading node to multiple replicas.
-If the leader fails, then a replicant takes over seamlessly.
+You can deploy ArangoDB manually, using the ArangoDB Starter tool, in Docker
+containers, or using the ArangoDB Kubernetes Operator.
 
-### Cluster
-
-[Cluster deployments](architecture-deployment-modes-cluster-architecture.html)
-are designed for large scale
-operations and analytics, allowing you to scale elastically with your
-applications and data models. ArangoDB's synchronously-replicating cluster
-technology runs on premises, on Kubernetes, and in the cloud on ArangoGraph - 
-ArangoDB's fully managed service. 
-
-Clustering ArangoDB not only delivers better performance and capacity improvements,
-but it also provides resilience through replication and automatic failover.
-You can deploy systems that dynamically scale up and down according to demand.
-
-### Datacenter-to-Datacenter
-
-With ArangoDB's [Datacenter-to-Datacenter](arangosync.html) support, you can replicate
-your data to any other datacenter. The leading datacenter asynchronously
-replicates to any number of following datacenters for optimal write performance.
+Continue with [Deployment by Technology](deployment-technology.html)
+chapter to learn more about all the available options.
