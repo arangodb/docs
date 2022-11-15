@@ -21,7 +21,7 @@ cluster comprised of multiple nodes with synchronous replication and automatic
 failover for high availability and resilience. For the highest level of data
 safety, you can additionally set up off-site replication for your entire cluster.
 
-Read more about [deployment modes](deployment-modes.html) to find out all
+Read more about [deployment modes](architecture-deployment-modes.html) to find out all
 important details about each mode and the included features.
 
 ## Deploying by technology
