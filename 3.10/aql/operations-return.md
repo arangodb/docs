@@ -62,7 +62,7 @@ FOR u IN users
 ```
 
 Note: `RETURN` will close the current scope and eliminate all local variables in it.
-This is important to remember when working with [subqueries](examples-combining-queries.html).
+This is important to remember when working with [subqueries](fundamentals-subqueries.html).
 
 [Dynamic attribute names](fundamentals-data-types.html#objects--documents) are
 supported as well:
