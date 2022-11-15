@@ -61,7 +61,7 @@ This method is a database method and is documented in detail at [Database Method
 
 ### Synchronous replication
 
-Starting in ArangoDB 3.0, the distributed version offers synchronous
+The distributed version offers synchronous
 replication, which means that there is the option to replicate all data
 automatically within the ArangoDB cluster. This is configured for sharded
 collections on a per collection basis by specifying a "replication factor"

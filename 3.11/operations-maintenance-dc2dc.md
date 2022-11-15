@@ -1,11 +1,11 @@
 ---
 layout: default
-description: Datacenter to datacenter replication operations and maintenance
+description: Datacenter-to-Datacenter Replication operations and maintenance
 title: DC2DC Replication Operations & Maintenance
 ---
 ## Operations & Maintenance
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 ArangoSync is a distributed system with a lot different components.
 As with any such system, it requires some, but not a lot of operational

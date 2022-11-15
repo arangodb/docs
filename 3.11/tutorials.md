@@ -148,8 +148,8 @@ Deployment
 - [ArangoDB Starter](tutorials-starter.html):
   Starting an ArangoDB Cluster or database the easy way
 
-- Datacenter to datacenter Replication:
-  - [Setting up Datacenter to Datacenter Replication in ArangoDB](https://www.arangodb.com/2017/10/setting-datacenter-datacenter-replication-in-arangodb/){:target="_blank"}
+- Datacenter-to-Datacenter Replication:
+  - [Setting up Datacenter-to-Datacenter Replication in ArangoDB](https://www.arangodb.com/2017/10/setting-datacenter-datacenter-replication-in-arangodb/){:target="_blank"}
 
 - [Kubernetes](tutorials-kubernetes.html):
   Start ArangoDB on Kubernetes in 5 minutes
@@ -163,7 +163,7 @@ Administration
 - [User Management](https://www.arangodb.com/arangodb-user-management/){:target="_blank"}:
   Granting users permissions for databases and collections.
 
-- [Reduce Memory Footprint](tutorials-reduce-memory-footprint.html):
+- [Reduce Memory Footprint](administration-reduce-memory-footprint.html):
   Configuration options to restrict ArangoDB's memory usage and to reduce
   the CPU utilization
 

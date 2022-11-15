@@ -39,9 +39,9 @@ There are four view categories:
  - Download documents
  - Upload documents
 
-2. Indices:
- - Create indices
- - Delete indices
+2. indexes:
+ - Create indexes
+ - Delete indexes
 
 3. Info:
  - Detailed collection information and statistics 

@@ -78,6 +78,29 @@ parts). The `text` and `norm` Analyzers support `language[_COUNTRY]`, the
 The former syntax is still supported but automatically normalized to the
 new syntax.
 
+### ArangoSearch column cache (Enterprise Edition)
+
+<small>Introduced in: v3.9.5</small>
+
+Views of the type `arangosearch` support three new options:
+
+- You can enable the new `cache` option for individual View links or fields
+  to always cache field normalization values in memory. This can improve the
+  performance of scoring and ranking queries.
+- You can enable the new `primarySortCache` View property to always cache the
+  primary sort columns in memory. This can improve the performance of queries
+  that utilize the primary sort order.
+- You can enable the new `cache` option in the definition of a `storedValues`
+  View property to always cache stored values in memory. This can improve the
+  query performance if stored values are involved.
+
+The cache size can be controlled with the new `--arangosearch.columns-cache-limit`
+startup option and monitored via the new `arangodb_search_columns_cache_size`
+metric.
+
+[ArangoSearch caching](arangosearch-views.html) is only available in the
+Enterprise Edition.
+
 UI
 --
 
@@ -568,6 +591,27 @@ programmatically inspect an _arangod_ executable.
 A pseudo log topic `"all"` was added. Setting the log level for the "all" log
 topic will adjust the log level for **all existing log topics**. For example,
 `--log.level all=debug` will set all log topics to log level "debug".
+
+### AQL query logging
+
+<small>Introduced in: v3.9.5</small>
+
+There are three new startup options to configure how AQL queries are logged:
+
+- `--query.log-failed` for logging all failed AQL queries, to be used during
+  development or to catch unexpected failed queries in production (off by default)
+- `--query.log-memory-usage-threshold` to define a peak memory threshold from
+  which on a warning is logged for AQL queries that exceed it (default: 4 GB)
+- `--query.max-artifact-log-length` for controlling the length of logged query
+  strings and bind parameter values. Both are truncated to 4096 bytes by default.
+
+### ArangoSearch column cache limit
+
+<small>Introduced in: v3.9.5</small>
+
+The new `--arangosearch.columns-cache-limit` startup option lets you control how
+much memory (in bytes) the [ArangoSearch column cache](#arangosearch-column-cache-enterprise-edition)
+is allowed to use.
 
 Overload control
 ----------------

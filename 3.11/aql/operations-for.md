@@ -77,9 +77,21 @@ FOR u IN users
 
 In this example, there are two array iterations: an outer iteration over the array
 `users` plus an inner iteration over the array `locations`. The inner array is
-traversed as many times as there are elements in the outer array.  For each
+traversed as many times as there are elements in the outer array. For each
 iteration, the current values of `users` and `locations` are made available for
 further processing in the variable `u` and `l`.
+
+You can also use subqueries, for example, to iterate over a collection
+independently and get the results back as an array, that you can then access in
+an outer `FOR` loop:
+
+```aql
+FOR u IN users
+  LET subquery = (FOR l IN locations RETURN l.location)
+  RETURN { "user": u, "locations": subquery }
+```
+
+Also see [Combining queries with subqueries](fundamentals-subqueries.html).
 
 ## Options
 
@@ -104,11 +116,11 @@ FOR … IN … OPTIONS { indexHint: ["byName", "byColor"] }
 
 Whenever there is a chance to potentially use an index for this `FOR` loop,
 the optimizer will first check if the specified index can be used. In case of
-an array of indices, the optimizer will check the feasibility of each index in
+an array of indexes, the optimizer will check the feasibility of each index in
 the specified order. It will use the first suitable index, regardless of
 whether it would normally use a different index.
 
-If none of the specified indices is suitable, then it falls back to its normal
+If none of the specified indexes is suitable, then it falls back to its normal
 logic to select another index or fails if `forceIndexHint` is enabled.
 
 ### `forceIndexHint`

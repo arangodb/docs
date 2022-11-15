@@ -13,7 +13,7 @@ and tokens needed to do so.
 ## Creating certificates
 
 The starter provides commands to create all certificates needed for an ArangoDB
-deployment with optional datacenter to datacenter replication.
+deployment with optional Datacenter-to-Datacenter Replication.
 
 ### TLS server certificates
 

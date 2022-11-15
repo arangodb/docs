@@ -27,6 +27,15 @@ storage engine, which has been removed in v3.7. The option does not have any
 useful effect if you use the RocksDB storage engine. From v3.11.0 onwards, it
 has no effect at all, is deprecated, and will be removed in a future version.
 
+### `--agency.pool-size` deprecated
+
+The `--agency.pool-size` option was effectively not properly supported in any
+version of ArangoDB. Setting the option to anything but the value of
+`--agency.size` should be avoided.
+
+From v3.11.0 onwards, this option is deprecated, and setting it to a value
+different than the value of `--agency.size` leads to a startup error.
+
 ## Client tools
 
 ### arangoexport

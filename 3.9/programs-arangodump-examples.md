@@ -106,8 +106,7 @@ deletion marker, alongside with some meta data.
 Cluster Backup
 --------------
 
-Starting with Version 2.1 of ArangoDB, the *arangodump* tool also
-supports sharding and can be used to backup data from a Cluster.
+The *arangodump* tool supports sharding and can be used to backup data from a Cluster.
 Simply point it to one of the _Coordinators_ and it
 will behave exactly as described above, working on sharded collections
 in the Cluster.
@@ -125,7 +124,7 @@ version of the ArangoDB server it connects to.
 
 ### Advanced Cluster Options
 
-Starting with version 3.1.17, collections may be
+Collections may be
 [created with shard distribution](data-modeling-collections-database-methods.html#create)
 identical to an existing prototypical collection; i.e. shards are distributed in
 the very same pattern as in the prototype collection. Such collections cannot be
@@ -158,9 +157,7 @@ Encryption
 
 {% include hint-ee-arangograph.md feature="Dump encryption" %}
 
-Starting from version 3.3 encryption of the dump is supported.
-
-The dump is encrypted using an encryption keyfile, which must contain exactly 32
+You can encrypt dumps using an encryption keyfile, which must contain exactly 32
 bytes of data (required by the AES block cipher).
 
 The keyfile can be created by an external program, or, on Linux, by using a command

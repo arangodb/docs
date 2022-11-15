@@ -40,9 +40,11 @@ Which address to advertise to the outside.
 
 ## Pool size
 
+<small>Deprecated in: v3.11.0</small>
+
 `agency.pool-size`
 
-Number of Agent pool.
+Number of Agents in pool.
 
 ## Size
 

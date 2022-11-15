@@ -1,20 +1,20 @@
 ---
 layout: default
-description: Datacenter to datacenter replication deployment overview
+description: Datacenter-to-Datacenter Replication deployment overview
 title: DC2DC Replication Deployment
 ---
-# Datacenter to datacenter replication deployment
+# Datacenter-to-Datacenter Replication deployment
 
-{% include hint-ee.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 This chapter describes how to deploy all the components needed for
-_datacenter to datacenter replication_.
+_Datacenter-to-Datacenter Replication_.
 
 ## Deployment steps
 
 ## 1. Cluster
 
-Datacenter to datacenter replication requires an ArangoDB cluster in both data centers,
+Datacenter-to-Datacenter Replication requires an ArangoDB cluster in both data centers,
 configured with the `rocksdb` storage engine.
 
 Since the _Agents_ are so critical to the availability of both the ArangoDB and

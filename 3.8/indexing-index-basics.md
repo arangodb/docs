@@ -628,9 +628,8 @@ If we for example have a persistent index on the attributes `_from` and
 `timestamp` of an edge collection, we can answer the above question
 very quickly with a single range lookup in the index.
 
-Since ArangoDB 3.0 one can create sorted indexes (type
-"persistent") that index the special edge attributes `_from` or `_to`
-and additionally other attributes. Since ArangoDB 3.1, these are used
+You can create sorted persistent indexes that index the special edge attributes
+`_from` or `_to` and additionally other attributes. These are used
 in graph traversals, when appropriate `FILTER` statements are found
 by the optimizer.
 
