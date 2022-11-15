@@ -2,7 +2,7 @@
 layout: default
 description: >-
   You can use `REPLACE` operations to completely replace documents with all
-  their attributes in a collection
+  their non-system attributes in a collection
 ---
 REPLACE
 =======
