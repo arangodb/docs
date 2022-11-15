@@ -1,5 +1,6 @@
 ---
 layout: default
 ---
-<!-- js/actions/api-cluster.js -->
+# HTTP interface for cluster health
+
 {% docublock get_cluster_health %}
