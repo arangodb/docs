@@ -410,45 +410,46 @@
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html
-  - text: Deployment modes
-    href: deployment-modes.html
-    children:
-      - text: Single Instance
-        href: architecture-deployment-modes-single-instance.html
-        children: 
-          - text: Deploy using the ArangoDB Starter
-            href: deployment-single-instance-using-the-starter.html
-          - text: Manual Start
-            href: deployment-single-instance-manual-start.html  
-      - text: Active Failover
-        href: architecture-deployment-modes-active-failover.html
-        children:
-          - text: Deploy using the ArangoDB Starter
-            href: deployment-active-failover-using-the-starter.html
-          - text: Manual Start
-            href: deployment-active-failover-manual-start.html
-          - text: Administration
-            href: administration-active-failover.html  
-      - text: Cluster
-        href: architecture-deployment-modes-cluster-architecture.html
-        children:
-          - text: Deployment
-            href: deployment-cluster.html
-            children:
-              - text: Deploy using the ArangoDB Starter
-                href: deployment-cluster-using-the-starter.html
-              - text: Manual Start
-                href: deployment-cluster-manual-start.html
-              - text: Kubernetes
-                href: deployment-cluster-kubernetes.html
-          - text: Administration
-            href: administration-cluster.html      
-          - text: Limitations
-            href: architecture-deployment-modes-cluster-limitations.html
-      - text: Single Instance vs. Cluster
-        href: architecture-single-instance-vs-cluster.html      
-      - text: Standalone Agency
-        href: deployment-standalone-agency.html    
+  children:
+    - text: Deployment modes
+      href: deployment-modes.html
+      children:
+        - text: Single Instance
+          href: architecture-deployment-modes-single-instance.html
+          children: 
+            - text: Deploy using the ArangoDB Starter
+              href: deployment-single-instance-using-the-starter.html
+            - text: Manual Start
+              href: deployment-single-instance-manual-start.html  
+        - text: Active Failover
+          href: architecture-deployment-modes-active-failover.html
+          children:
+            - text: Deploy using the ArangoDB Starter
+              href: deployment-active-failover-using-the-starter.html
+            - text: Manual Start
+              href: deployment-active-failover-manual-start.html
+            - text: Administration
+              href: administration-active-failover.html  
+        - text: Cluster
+          href: architecture-deployment-modes-cluster-architecture.html
+          children:
+            - text: Deployment
+              href: deployment-cluster.html
+              children:
+                - text: Deploy using the ArangoDB Starter
+                  href: deployment-cluster-using-the-starter.html
+                - text: Manual Start
+                  href: deployment-cluster-manual-start.html
+                - text: Kubernetes
+                  href: deployment-cluster-kubernetes.html
+            - text: Administration
+              href: administration-cluster.html      
+            - text: Limitations
+              href: architecture-deployment-modes-cluster-limitations.html
+        - text: Single Instance vs. Cluster
+          href: architecture-single-instance-vs-cluster.html      
+        - text: Standalone Agency
+          href: deployment-standalone-agency.html    
   - text: Scalability
     href: architecture-deployment-modes-cluster-data-models.html
   - text: Data Sharding
