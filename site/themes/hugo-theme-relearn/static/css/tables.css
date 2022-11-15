@@ -1,0 +1,40 @@
+table {
+    border-collapse: collapse;
+    font-size: .83333rem;
+    margin: 2rem 0;
+    border-radius: 0.50em;
+    overflow: hidden;
+}
+
+table,
+table>*>tr>* {
+     border: 0 solid #edf2f7;
+     border-width: 1px;
+}
+
+thead {
+    background-color: #d9f2ce;
+}
+
+th, td {
+    vertical-align: top;
+    text-align: left;
+    padding: 0.5rem;
+}
+
+th {
+    font-weight: 600;
+}
+
+tr {
+    transition: 0.5s;
+}
+
+tr:hover {
+    background-color: #edf2f7;
+}
+
+table>:not(thead) th, table td {
+    border-top: 1px solid #edf2f7;
+    border-bottom: 1px solid #edf2f7;
+}

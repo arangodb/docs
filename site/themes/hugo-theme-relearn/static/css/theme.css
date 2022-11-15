@@ -164,51 +164,6 @@ ol { list-style: decimal; margin-left: 15px; }
 ul ul, ul ol, ol ol, ol ul { margin: 4px 0 5px 30px;  }
 ul ul li, ul ol li, ol ol li, ol ul li { margin-bottom: 6px; }
 
-/* TABLES */
-table {
-   width: 100%;
-   padding: 0;
-   margin: 0 0 20px 0;
-   font-size: 13px;
-}
-
-table caption {
-   padding: 0 0 5px 0;
-   width: auto;
-   font-style:italic;
-   text-align: right;
-   font-size: 12px;
-}
-
-th {
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-align: left;
-    padding: 9px 12px;
-    border-style: solid;
-    border-width: 1px;
-    border-left-width: 0;
-    border-top-width: 0;
-    border-bottom: 2.5px solid #959698;
-    padding: 0.5rem;
-}
-
-td {
-   font-size: 13px;
-   padding: 9px 12px;
-   border-style: solid;
-   border-width: 1px;
-   border-left-width:0;
-   border-top-width:0;
-   border-top-width: 1px;
-}
-
-tr:first-child th{
-    border-right: 1px solid lightgrey;
-    border-bottom: 1px solid lightgrey;
-}
-
 
 /* INPUTS */
 input[type=date],
@@ -2667,24 +2622,6 @@ article h4,
 .h4 {
     font-size: 22px;
     line-height: 30px
-}
-table {
-    font-size: 16px;
-    border-collapse: collapse;
-    font-size: .83333rem;
-    margin: 2rem 0;
-    border-radius: 0.25em;
-    overflow: hidden;
-    border: 0 solid #d7d7d7;
-}
-td {
-    border-top: 1px solid #edf2f7;
-    border-bottom: 1px solid #edf2f7;
-    padding: 0.5rem;
-}
-thead {
-    background: #eaffeb;
-    border-bottom: #91d095;
 }
 .minimal-table td {
     border: 0!important;
@@ -6509,7 +6446,7 @@ body .page-container {
     'sidenav contents'
     'sidenav footer';
     grid-template-columns: minmax(0px, auto) 4fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 4rem 1fr;
 }
 body .section-container {
     max-width: 1500px;
@@ -6859,7 +6796,6 @@ h4 { font-weight: 500 !important; font-size: 28px !important;}
 .container-main {
     max-width: 1500px;
     grid-area: contents;
-    margin-top: 4rem;
 }
 
 #content-wrapper {
@@ -6943,7 +6879,7 @@ header {
     background: #f9f9f9;
     float: left;
     height: auto;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     top: 4rem;
     text-overflow: ellipsis;
     white-space: nowrap;
