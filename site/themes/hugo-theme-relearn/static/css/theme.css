@@ -2630,7 +2630,8 @@ article h4,
 }
 article ul li {
     list-style: disc;
-    margin-left: 20px
+    margin-left: 20px;
+    line-height: 25px;
 }
 /*.home article ul li {
     margin-bottom: 10px
@@ -7253,6 +7254,10 @@ rapi-doc {
 
 p > code, a > code, h1 > code, h2 > code, li > code {
     padding: 0px 0px;
+}
+
+li > code {
+    margin: 0;
 }
 
 .expand-content {
