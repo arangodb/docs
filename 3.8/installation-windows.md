@@ -19,7 +19,7 @@ There are two possible methods to install ArangoDB on 64-bit Windows systems:
 Both installation methods have their own pros and cons.
 
 {% hint 'info' %}
-For production environments we highly recommend using Linux.
+Running production environments on Windows is not supported.
 {% endhint %}
 
 Installing using the Installer
