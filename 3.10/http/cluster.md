@@ -1,15 +1,14 @@
 ---
 layout: default
-description: This chapter describes the REST API of the ArangoDB Cluster
+description: This chapter describes the REST API for cluster deployments.
 ---
-HTTP Interface for Cluster
-==========================
+# HTTP interface for Clusters
 
-This chapter describes the REST API of the ArangoDB Cluster.
+This chapter describes the REST API for cluster deployments.
 
-* [Server ID](cluster-server-id.html)
-* [Server Role](cluster-server-role.html)
-* [Cluster Statistics](cluster-statistics.html)
-* [Cluster Health](cluster-health.html)
-* [Cluster Maintenance](cluster-maintenance.html)
-* [Agency](agency.html)
+- [Server ID](cluster-server-id.html)
+- [Server Role](cluster-server-role.html)
+- [Cluster Statistics](cluster-statistics.html)
+- [Cluster Health](cluster-health.html)
+- [Cluster Maintenance](cluster-maintenance.html)
+- [Agency](agency.html)
