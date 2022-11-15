@@ -21,7 +21,7 @@ to the hash of the file. For example, you can you run `openssl sha256 <filename>
 or `certutil -hashfile <filename> sha256` in a terminal.
 
 {% hint 'info' %}
-For production environments we highly recommend using Linux.
+Running production environments on Windows is not supported.
 {% endhint %}
 
 Installing using the Installer

@@ -8,7 +8,7 @@ require 'yaml'
 config = YAML.load_file('_config.yml')
 version = config['versions']['stable']
 baseurl = config['url'] + config['baseurl']
-dir = "_site/#{version}"
+dir = "_site/docs/#{version}"
 
 puts("\nGenerating sitemap.xml (dir = '#{dir}', baseurl = '#{baseurl}')")
 
@@ -16,7 +16,7 @@ if not Dir.exist?(dir)
     raise IOError, "Source directory does not exist: #{dir}"
 end
 
-f = File.open('_site/sitemap.xml', 'w')
+f = File.open('_site/docs/sitemap.xml', 'w')
 
 f.write('<?xml version="1.0" encoding="UTF-8"?>' + "\n")
 f.write('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "\n")
