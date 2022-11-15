@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Reducing the Memory Footprint of ArangoDB servers
+redirect_from:
+  - tutorials-reduce-memory-footprint.html # 3.10 -> 3.10
 ---
 Reducing the Memory Footprint of ArangoDB servers
 =================================================
