@@ -72,7 +72,8 @@ Possible values are:
 
 The setting expects a list of strings, but you should only specify a single
 list item for the architecture, except when you want to migrate from one
-architecture to the other.
+architecture to the other. The first list item defines the new default
+architecture for the deployment that you want to migrate to.
 
 {% hint 'tip' %}
 To use the ARM architecture, you need to enable it in the operator first using
