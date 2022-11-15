@@ -53,11 +53,11 @@
     --INTERNAL-MENU-SEARCH-BORDER-color: var(--MENU-SEARCH-BORDER-color, var(--MENU-SEARCH-BOX-color, var(--INTERNAL-MENU-SEARCH-BG-color)));
 
     --INTERNAL-MENU-SECTIONS-ACTIVE-BG-color: var(--MENU-SECTIONS-ACTIVE-BG-color, rgba( 0, 0, 0, .166 ));
-    --INTERNAL-MENU-SECTIONS-BG-color: var(--MENU-SECTIONS-BG-color, #282828);
+    --INTERNAL-MENU-SECTIONS-BG-color: var(--MENU-SECTIONS-BG-color, #f9f9f9;);
     --INTERNAL-MENU-SECTIONS-LINK-color: var(--MENU-SECTIONS-LINK-color, #bababa);
-    --INTERNAL-MENU-SECTIONS-LINK-HOVER-color: var(--MENU-SECTIONS-LINK-HOVER-color, var(--INTERNAL-MENU-SECTIONS-LINK-color));
+    --INTERNAL-MENU-SECTIONS-LINK-HOVER-color: var(--MENU-SECTIONS-LINK-HOVER-color, #e8fffd);
     --INTERNAL-MENU-SECTION-ACTIVE-CATEGORY-color: var(--MENU-SECTION-ACTIVE-CATEGORY-color, #444444);
-    --INTERNAL-MENU-SECTION-ACTIVE-CATEGORY-BG-color: var(--MENU-SECTION-ACTIVE-CATEGORY-BG-color, var(--INTERNAL-MAIN-BG-color));
+    --INTERNAL-MENU-SECTION-ACTIVE-CATEGORY-BG-color: var(--MENU-SECTION-ACTIVE-CATEGORY-BG-color, #e8fffd);
 
     --INTERNAL-MENU-VISITED-color: var(--MENU-VISITED-color, var(--INTERNAL-SECONDARY-color));
     --INTERNAL-MENU-SECTION-HR-color: var(--MENU-SECTION-HR-color, #606060);
@@ -128,16 +128,11 @@ a:hover,
 }
 
 #sidebar select:hover,
-#sidebar .collapsible-menu label:hover:after,
-#sidebar a:hover {
+#sidebar .collapsible-menu label:hover:after{
     color: var(--INTERNAL-MENU-SECTIONS-LINK-HOVER-color);
 }
 
-#sidebar ul.topics > li.parent,
-#sidebar ul.topics > li.active {
-    background-color: var(--INTERNAL-MENU-SECTIONS-ACTIVE-BG-color);
-}
-
+#sidebar  a:hover,
 #sidebar ul.topics li.active > label:after,
 #sidebar ul.topics li.active > a {
     background-color: var(--INTERNAL-MENU-SECTION-ACTIVE-CATEGORY-BG-color);

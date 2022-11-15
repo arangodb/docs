@@ -21,6 +21,8 @@
         {{- end }}
     {{- end }}
 
+    <link rel="shortcut icon" href="https://www.arangodb.com/wp-content/uploads/2018/07/www.arangodb.com-favicon.png">
+
     {{- partial "favicon.html" . }}
     {{- partial "stylesheet.html" . }}
     {{- partial "custom-header.html" . }}
@@ -31,54 +33,38 @@
         <section class="page-container">
           <!-- HEADER -->
             <header id="header" style="transition: 0.5s padding ease-out, 0.15s" class="zn_header_white header-splash-new nav-down header-splash-wrap zn_do_not_hide_small header1">
-              
-                    <!--LOGO-->
-                    <div class="version-logo-container">
-                      <div class="logo-container hasinfocard_img">
-                        <div class="logo "><a href="https://www.arangodb.com/"><img src="/images/logo_main.png" alt="ArangoDB" title=""></a></div>
-                      </div>
-                      <!-- END LOGO-->
-                      <div class="version-selector">
-                        <select id="arangodb-version" onchange="changeVersion();">
-                          <option value="311">3.11</option>
-                          <option value="310">3.10</option>
-                          <option value="39">3.9</option>
-                          <option value="38">3.8</option>
-                        </select>
-                      </div>
-                  </div>
-
-                    
-
-
-                        <!-- search, contribute, navigation arrows-->
-                        <div class="container-right">
-                          <div class="searchPanel">
-                            {{ partial "search.html" . }}
-                            <button class="searchbar-toggle" onclick="showSearchBar()">
-                            <span class="icon-search3 zn-header-icon text-dark"><i class="fa fa-search" aria-hidden="true"></i></span>
-                            </button>
-                          </div>
-                          
-                      <!-- Collapse icons with the 3 vertical rows on smaller screens, to enable trigger
-                      <div class="zn-res-menuwrapper">
-                        <a href="#" class="zn-res-trigger zn-header-icon"></a>
-                      </div>
-                      -->
-                      
-
+              <!--LOGO-->
+              <div class="version-logo-container">
+                <div class="logo-container hasinfocard_img">
+                  <div class="logo "><a href="https://www.arangodb.com/"><img src="/images/logo_main.png" alt="ArangoDB" title=""></a></div>
+                </div>
+                <!-- END LOGO-->
+                <div class="version-selector">
+                  <select id="arangodb-version" onchange="changeVersion();">
+                    <option value="311">3.11</option>
+                    <option value="310">3.10</option>
+                    <option value="39">3.9</option>
+                    <option value="38">3.8</option>
+                  </select>
+                </div>
+              </div>
+              <div class="container-right">
+                <div class="searchPanel">
+                  {{ partial "search.html" . }}
+                  <button class="searchbar-toggle" onclick="showSearchBar()">
+                  <span class="icon-search3 zn-header-icon text-dark"><i class="fa fa-search" aria-hidden="true"></i></span>
+                  </button>
+                </div>
             </header>
             {{- partial "menu.html" . }}
             <div class="container-main">
               <div class="row-main">
-                
                   <nav id="breadcrumbs">
-                      <a href="#" class="sidenav-toggle-navigation">
+                      <a href="#" class="sidebar-toggle-navigation">
                         <span></span>
                         <span></span>
                         <span></span>
                       </a>
-                    
                   {{- $showBreadcrumb := (and (not .Params.disableBreadcrumb) (not .Site.Params.disableBreadcrumb)) }}
                   {{- if $showBreadcrumb }}
                     <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">

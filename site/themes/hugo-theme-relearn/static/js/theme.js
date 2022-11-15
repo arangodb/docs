@@ -335,7 +335,7 @@ function initMenuScrollbar(){
     }
 
     var elc = document.querySelector('#page-main');
-    var elm = document.querySelector('#content-wrapper');
+    var elm = document.querySelector('#sidebar');
     var elt = document.querySelector('#TableOfContents');
 
     var autofocus = false;
@@ -367,7 +367,7 @@ function initMenuScrollbar(){
                 psm && psm.scrollbarY.focus();
             }
             else{
-                document.querySelector('#body-inner').focus();
+                document.querySelector('.container-main').focus();
                 psc && psc.scrollbarY.focus();
             }
         }
@@ -375,8 +375,8 @@ function initMenuScrollbar(){
     // scrollbars will install their own keyboard handlers
     // that need to be executed inbetween our own handlers
     // PSC removed for #242 #243 #244
-    // psc = elc && new PerfectScrollbar('#body-inner');
-    psm = elm && new PerfectScrollbar('#content-wrapper');
+    // psc = elc && new PerfectScrollbar('.container-main');
+    psm = elm && new PerfectScrollbar('#sidebar');
     pst = elt && new PerfectScrollbar('#TableOfContents');
     document.addEventListener('keydown', function(){
         // if we facked initial scrolling, we want to
@@ -421,7 +421,7 @@ function initMenuScrollbar(){
 
 function initLightbox(){
     // wrap image inside a lightbox (to get a full size view in a popup)
-    var images = $("main#body-inner img").not(".inline");
+    var images = $(".container-main img").not(".inline");
     images.wrap(function(){
         var image =$(this);
         var o = getUrlParameter(image[0].src);
@@ -442,7 +442,7 @@ function initLightbox(){
 
 function initImageStyles(){
     // change image styles, depending on parameters set to the image
-    var images = $("main#body-inner img").not(".inline");
+    var images = $("main.container-main img").not(".inline");
     images.each(function(index){
         var image = $(this)
         var o = getUrlParameter(image[0].src);
@@ -479,7 +479,7 @@ function sidebarEscapeHandler( event ){
         var b = document.querySelector( 'body' );
         b.classList.remove( 'sidebar-flyout' );
         document.removeEventListener( 'keydown', sidebarEscapeHandler );
-        document.querySelector( '#body-inner' ).focus();
+        document.querySelector( '.container-main' ).focus();
         psc && psc.scrollbarY.focus();
     }
 }
@@ -489,7 +489,7 @@ function tocEscapeHandler( event ){
         var b = document.querySelector( 'body' );
         b.classList.remove( 'toc-flyout' );
         document.removeEventListener( 'keydown', tocEscapeHandler );
-        document.querySelector( '#body-inner' ).focus();
+        document.querySelector( '.container-main' ).focus();
         psc && psc.scrollbarY.focus();
     }
 }
@@ -524,7 +524,7 @@ function showNav(){
     }
     else{
         document.removeEventListener( 'keydown', sidebarEscapeHandler );
-        document.querySelector( '#body-inner' ).focus();
+        document.querySelector( '.container-main' ).focus();
         psc && psc.scrollbarY.focus();
     }
 }
@@ -570,7 +570,7 @@ function initSwipeHandler(){
                 var b = document.querySelector( 'body' );
                 b.classList.remove( 'sidebar-flyout' );
                 document.removeEventListener( 'keydown', sidebarEscapeHandler );
-                document.querySelector( '#body-inner' ).focus();
+                document.querySelector( '.container-main' ).focus();
                 psc && psc.scrollbarY.focus();
             }
         }
@@ -625,7 +625,7 @@ function initHistory() {
 
 function scrollToActiveMenu() {
     window.setTimeout(function(){
-        var e = document.querySelector( '#sidebar ul.topics li.active a' );
+        var e = document.querySelector( 'ul.topics li.active a' );
         if( e && e.scrollIntoView ){
             e.scrollIntoView({
                 block: 'center',
@@ -706,7 +706,7 @@ function initSearch() {
         var searchValue = sessionStorage.getItem(baseUriFull+'search-value')
         $('[data-search-input]').val(searchValue);
         $('[data-search-input]').trigger('input');
-        var searchedElem = $('#body-inner').find(':contains(' + searchValue + ')').get(0);
+        var searchedElem = $('.container-main').find(':contains(' + searchValue + ')').get(0);
         if (searchedElem) {
             searchedElem.scrollIntoView(true);
             var scrolledY = window.scrollY;
@@ -718,7 +718,7 @@ function initSearch() {
 
     // mark some additonal stuff as searchable
     $('#topbar a:not(:has(img)):not(.btn)').addClass('highlight');
-    $('#body-inner a:not(:has(img)):not(.btn):not(a[rel="footnote"])').addClass('highlight');
+    $('.container-main a:not(:has(img)):not(.btn):not(a[rel="footnote"])').addClass('highlight');
 }
 
 // Get Parameters from some url
@@ -956,19 +956,27 @@ const goToTop = () => {
 var showSidenav = true;
 
 window.addEventListener("load", () => {
-    document.querySelector(".sidenav-toggle-navigation").addEventListener("click", e => {
+    document.querySelector(".sidebar-toggle-navigation").addEventListener("click", e => {
         console.log("show sidebar " + showSidenav)
     if (showSidenav) {
-        $("#sidenav").removeClass("active");
+        $("#sidebar").removeClass("active");
         showSidenav = false;
         return
     }
 
-    $("#sidenav").addClass("active");
+    $("#sidebar").addClass("active");
     showSidenav = true;
     e.preventDefault();
     });
 });
+
+function expandSubMenu(e) {
+    e.preventDefault();
+console.log("click");
+console.log(evt);
+
+    return false;
+}
 
 $( document ).ready(function() {
     images = document.querySelectorAll(".x-style");

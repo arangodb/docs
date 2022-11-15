@@ -9,6 +9,11 @@
     {{- $ver := printf "<meta name=\"generator\" content=\"%s %s\">" "Relearn" $ver }}
     {{ $ver | safeHTML }}
     {{- if not (and .Title (or (ne (.Scratch.Get "relearnIsHiddenStem") true) (ne .Site.Params.disableSeoHiddenPages true) ) ) }}
+    <meta itemprop="description" name="description" content="ArangoDB is a scalable graph database system with native support for other data models and a built-in search engine, for the cloud and on-premises">
+    <meta property="og:url" content="https://www.arangodb.com/docs/stable/">
+    <meta property="og:title" content="Introduction to ArangoDB's Technical Documentation and Ecosystem | ArangoDB Documentation">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="ArangoDB is a scalable graph database system with native support for other data models and a built-in search engine, for the cloud and on-premises">
     <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     {{- end }}
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
