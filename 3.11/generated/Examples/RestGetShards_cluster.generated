@@ -2,10 +2,15 @@
 
 HTTP/1.1 200 OK
 content-type: application/json
+cache-control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
 connection: Keep-Alive
 content-length: 593
+content-security-policy: frame-ancestors 'self'; form-action 'self';
+expires: 0
 location: /_db/_system/_api/collection/testCollection/shards
+pragma: no-cache
 server: ArangoDB
+strict-transport-security: max-age=31536000 ; includeSubDomains
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 

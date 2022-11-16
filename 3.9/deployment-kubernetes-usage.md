@@ -37,6 +37,21 @@ To use `ArangoLocalStorage` resources, also run:
 helm install $URLPREFIX/kube-arangodb-<version>.tgz --set "operator.features.storage=true"
 ```
 
+The default CPU architecture of the operator is `amd64` (x86-64). To enable ARM
+support (`arm64`) in the operator, overwrite the following setting:
+
+```bash
+helm install $URLPREFIX/kube-arangodb-<version>.tgz --set "operator.architectures={amd64,arm64}"
+```
+
+{% hint 'tip' %}
+Use at least version 1.2.20 of the operator to use the ARM architecture.
+{% endhint %}
+
+Note that you need to set [`spec.architectures`](deployment-kubernetes-deployment-resource.html#specarchitectures-string)
+in the deployment specification, too, in order to create a deployment that runs
+on ARM chips.
+
 For more information on installing with `Helm` and how to customize an installation,
 see [Using the ArangoDB Kubernetes Operator with Helm](deployment-kubernetes-helm.html).
 
@@ -68,7 +83,7 @@ in the [kube-arangodb repository](https://github.com/arangodb/kube-arangodb/rele
 
 ## ArangoDB deployment creation
 
-After deploying the latest ArangoDB Kubernetes operator, use the command below to deploy your [license key](../administration-license.html) as a secret which is required for the Enterprise Edition starting with version 3.9:
+After deploying the latest ArangoDB Kubernetes operator, use the command below to deploy your [license key](administration-license.html) as a secret which is required for the Enterprise Edition starting with version 3.9:
 
 ```bash
 kubectl create secret generic arango-license-key --from-literal=token-v2="<license-string>"
