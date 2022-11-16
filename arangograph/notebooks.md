@@ -14,7 +14,7 @@ subject to change. The beta version is free for all.
 {% endhint %}
 
 The ArangoGraph Notebook is a JupyterLab notebook embedded in the ArangoGraph
-ecosystem. The notebook integrates seamlessly with the ArangoGraph ecosystem,
+Insights Platform. The notebook integrates seamlessly with the ArangoGraph Insights Platform,
 automatically connecting to ArangoGraph services, including ArangoDB and the
 ArangoML platform services. This makes it much easier to leverage these
 resources without having to download any data locally or to remember userId's,
@@ -89,17 +89,17 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 **Database Commands**
 
 - `%listDatabases` - lists the databases on the database server.
-- `%whichDatabase` - which database am I connected to?
+- `%whichDatabase` - returns the database name you are connected to.
 - `%createDatabase databaseName` - creates a database.
 - `%selectDatabase databaseName` - selects a database as the current database.
-- `%getDatabase databaseName`- gets a database. Used for assigning a database,
+- `%getDatabase databaseName` - gets a database. Used for assigning a database,
    e.g. `studentDB` = `getDatabase student_database`.
 - `%deleteDatabase databaseName` - deletes the database.
 
 **Graph Commands**
 
 - `%listGraphs` - lists the graphs defined in the currently selected database.
-- `%whichGraph` - which graph is currently selected?
+- `%whichGraph` - returns the graph name that is currently selected.
 - `%createGraph graphName` - creates a named graph.
 - `%selectGraph graphName` - selects the graph as the current graph.
 - `%getGraph graphName` - gets the graph for variable assignment, 
@@ -109,7 +109,7 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 **Collection Commands**
 
 - `%listCollections` - lists the collections on the selected current database.
-- `%whichCollection` - which collection is currently selected?
+- `%whichCollection` - returns the collection name that is currently selected.
 - `%createCollection collectionName` - creates a collection.
 - `%selectCollection collectionName` - selects a collection as the current collection.
 - `%getCollection collectionName` - gets a collection for variable assignment,
