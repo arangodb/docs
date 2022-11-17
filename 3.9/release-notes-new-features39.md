@@ -80,13 +80,14 @@ new syntax.
 
 ### ArangoSearch column cache (Enterprise Edition)
 
-<small>Introduced in: v3.9.5</small>
+Views of the type `arangosearch` support new caching options.
 
-Views of the type `arangosearch` support three new options:
+<small>Introduced in: v3.9.5</small>
 
 - You can enable the new `cache` option for individual View links or fields
   to always cache field normalization values in memory. This can improve the
   performance of scoring and ranking queries.
+
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
@@ -96,9 +97,10 @@ Views of the type `arangosearch` support three new options:
 - You can enable the new `primarySortCache` View property to always cache the
   primary sort columns in memory. This can improve the performance of queries
   that utilize the primary sort order.
+
 - You can enable the new `primaryKeyCache` View property to always cache the
   primary key column in memory. This can improve the performance of queries
-  that return large amount of documents.
+  that return many documents.
 
 The cache size can be controlled with the new `--arangosearch.columns-cache-limit`
 startup option and monitored via the new `arangodb_search_columns_cache_size`

@@ -339,3 +339,28 @@ used. You can create custom Analyzers without this feature to disable the
 normalization and improve the performance. Make sure that the result ranking
 still matches your expectations without normalization. It is recommended to
 use normalization for a good scoring behavior.
+
+## Primary key caching
+
+<small>Introduced in: v3.9.6</small>
+
+You can set the `primaryKeyCache` View property to `true` to always cache the
+the primary key columns in memory. This can improve the performance of queries
+that return many documents:
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "primaryKeyCache": true,
+  ...
+}
+```
+
+See the [`primaryKeyCache` View property](arangosearch-views.html#view-properties)
+for details.

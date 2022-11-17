@@ -164,8 +164,7 @@ During view modification the following directives apply:
   <small>Introduced in: v3.9.6</small>
 
   If you enable this option, then the primary key columns are always cached in
-  memory. This can improve the performance of queries that return large amount of
-  documents.
+  memory. This can improve the performance of queries that return many documents.
   Otherwise, these values are memory-mapped and it is up to the operating system
   to load them from disk into memory and to evict them from memory.
 
@@ -173,7 +172,6 @@ During view modification the following directives apply:
   to control the memory consumption of this cache.
 
   {% include hint-ee.md feature="ArangoSearch caching" %}
-
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
