@@ -34,7 +34,7 @@ These backups are not automatically uploaded. To enable this, use the
 specifies how long backups are retained after creation.
 
 Part of the same backup policy, you can also create backups in different
-regions than the default one. The destination regions where the default
+regions than the default one. The regions where the default
 backup is copied are shown in the **Additional regions** column in the
 **Policies** section.
 
@@ -78,7 +78,7 @@ simultaneously either manually or automatically as part of a **Backup policy**.
 If a backup created in one region goes down, it is still available in other
 regions, significantly improving reliability. 
 
-The additional regions are only available when the
+Multiple region backup is only available when the
 **Upload backup to cloud storage** option is enabled.
 
 ![Multiple Region Backup](images/arangograph-multi-region-backup.png)
