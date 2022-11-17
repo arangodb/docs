@@ -134,7 +134,7 @@ Document Revision
 Edge
 ----
 
-Edges are special documents used for connecting other documents into a graph. An edge describes the connection between two documents using the internal attributes: `_from` and `_to`. These contain document handles, namely the start-point and the end-point of the edge.
+Edges are special documents used for connecting other documents into a graph. An edge describes the connection between two documents using the `_from` and `_to` system attributes. These contain document handles, namely the start-point and the end-point of the edge.
 
 Edge Collection
 ---------------
