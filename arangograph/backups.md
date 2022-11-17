@@ -74,6 +74,13 @@ required for [cloning](#how-to-clone-deployments-using-backups).
 
 ## Multi-region backups
 
+{% hint 'info' %}
+The multi-region backup feature is only available for the ArangoGraph
+Enterprise tier. To upgrade to the Enterprise tier,
+[get in touch](https://www.arangodb.com/contact/){:target="_blank"}
+with the ArangoDB team.
+{% endhint %}
+
 Using the multi-region backup feature, you can store backups in multiple regions
 simultaneously either manually or automatically as part of a **Backup policy**.
 If a backup created in one region goes down, it is still available in other
