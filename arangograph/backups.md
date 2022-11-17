@@ -31,12 +31,12 @@ as well. This policy creates backups every two hours. To edit this policy
 
 These backups are not automatically uploaded. To enable this, use the
 **Upload backup to storage** option and choose a retention period that
-specifies how long backups are retained after creation.
+specifies how long backups are retained after creation. 
 
-Part of the same backup policy, you can also create backups in different
-regions than the default one. The regions where the default
-backup is copied are shown in the **Additional regions** column in the
-**Policies** section.
+When the **Upload backup to storage** option is enabled for a backup policy,
+you can also create backups in different regions than the default one.
+The regions where the default backup is copied are shown in the
+**Additional regions** column in the **Policies** section.
 
 ### Manual backups
 
@@ -46,8 +46,9 @@ It's also possible to create a backup on demand. To do this, click **Back up now
 
 ![Back up Now Dialog](images/arangograph-back-up-now-dialog.png)
 
-If you want to manually copy a backup in a different region than the default
-one, you can do so by highlighting the backup row and using the
+If you want to manually copy a backup to a different region than the default
+one, first ensure that the **Upload backup to storage** option is enabled.
+Then, highlight the backup row and use the
 **Copy backup to a different region** button from the **Actions** column. 
 Once the copy of the default backup is created in the region of your choice,
 you can copy it to a different region as well. The source backup ID from
