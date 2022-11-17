@@ -40,5 +40,5 @@ Upgrading more complex environments
 
 The procedure described in this _Section_
 is a first step to upgrade more complex deployments such as
-[Cluster](architecture-deployment-modes-cluster.html)
+[Cluster](architecture-deployment-modes-cluster-architecture.html)
 or [Active Failover](architecture-deployment-modes-active-failover.html). 
