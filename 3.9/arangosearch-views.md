@@ -144,7 +144,7 @@ During view modification the following directives apply:
   - `"lz4"` (default): use LZ4 fast compression.
   - `"none"`: disable compression to trade space for speed.
   
-- **primarySortCache** (_optional_; type: `boolean`; default: `false`)
+- **primarySortCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
 
   <small>Introduced in: v3.9.6</small>
 
@@ -159,7 +159,7 @@ During view modification the following directives apply:
 
   {% include hint-ee.md feature="ArangoSearch caching" %}
   
-- **primaryKeyCache** (_optional_; type: `boolean`; default: `false`)
+- **primaryKeyCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
 
   <small>Introduced in: v3.9.6</small>
 

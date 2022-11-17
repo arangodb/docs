@@ -259,13 +259,14 @@ Enterprise Edition.
 
 <small>Introduced in: v3.9.6</small>
 
-- A `primarySortCache` View property (boolean, default: `false`).
-- A `primaryKeyCache` View property (boolean, default: `false`).
+- A `primarySortCache` View property (boolean, immutable, default: `false`).
+- A `primaryKeyCache` View property (boolean, immutable, default: `false`).
 
 The `POST /_api/view` endpoint accepts these new options for `arangosearch`
 Views, the `GET /_api/view/<view-name>/properties` endpoint may return these
-options, and you can change them with the `PUT /_api/view/<view-name>/properties`
-and `PATCH /_api/view/<view-name>/properties` endpoints (except the immutable one).
+options, and you can change the `cache` View link/field property with the
+`PUT /_api/view/<view-name>/properties` and `PATCH /_api/view/<view-name>/properties`
+endpoints.
 
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.

@@ -17,6 +17,9 @@ queries which iterate over a View and sort by one or multiple of the
 attributes. If the field(s) and the sorting direction(s) match then the
 the data can be read directly from the index without actual sort operation.
 
+You can only set the `primarySort` option and the related
+`primarySortCompression` and `primarySortCache` options on View creation.
+
 {% include youtube.html id="bKeKzexInm0" %}
 
 View definition example:
@@ -159,7 +162,7 @@ for details.
 
 It is possible to directly store the values of document attributes in View
 indexes with the View property `storedValues` (not to be confused with
-`storeValues`).
+`storeValues`). You can only set this option on View creation.
 
 View indexes may fully cover `SEARCH` queries for improved performance.
 While late document materialization reduces the amount of fetched documents,
@@ -344,9 +347,10 @@ use normalization for a good scoring behavior.
 
 <small>Introduced in: v3.9.6</small>
 
-You can set the `primaryKeyCache` View property to `true` to always cache the
-the primary key columns in memory. This can improve the performance of queries
-that return many documents:
+You can set the `primaryKeyCache` View property to `true` on View creation to
+always cache the primary key columns in memory. This can improve the performance
+of queries that return many documents, making it faster to map document IDs in
+the index to actual documents:
 
 ```json
 {
