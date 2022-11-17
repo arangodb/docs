@@ -246,6 +246,25 @@ The `text` and `norm` Analyzers support `language[_COUNTRY]`, the `stem`
 Analyzer only `language`. The former syntax is still supported but automatically
 normalized to the new syntax.
 
+#### Views API
+
+Views of the type `arangosearch` support new caching options in the
+Enterprise Edition.
+
+<small>Introduced in: v3.9.5</small>
+
+- A `cache` option for individual View links or fields (boolean, default: `false`).
+- A `cache` option in the definition of a `storedValues` View property
+  (boolean, immutable, default: `false`).
+
+The `POST /_api/view` endpoint accepts these new options for `arangosearch`
+Views, the `GET /_api/view/<view-name>/properties` endpoint may return these
+options, and you can change them with the `PUT /_api/view/<view-name>/properties`
+and `PATCH /_api/view/<view-name>/properties` endpoints (except the immutable one).
+
+See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
+for details.
+
 #### Metrics API
 
 <small>Introduced in: v3.9.5</small>
