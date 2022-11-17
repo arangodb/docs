@@ -140,7 +140,7 @@ def processFile(filepath):
 	if "fileID" in infos[filepath]:
 		page.frontMatter.fileID = infos[filepath]["fileID"]
 
-	buffer = re.sub(r"---(.*?)---", '', buffer, 0, re.MULTILINE | re.DOTALL)
+	buffer = re.sub(r"^---\n.*\n---\n", '', buffer, 0, re.MULTILINE | re.DOTALL)
 
 	#Internal content
 	_processChapters(page, buffer)
@@ -155,7 +155,6 @@ def _processFrontMatter(page, buffer):
 	frontMatterRegex = re.search(r"---(.*?)---", buffer, re.MULTILINE | re.DOTALL)
 	if not frontMatterRegex:
 		return		# TODO
-
 	frontMatter = frontMatterRegex.group(0)
 
 	fmTitleRegex = re.search(r"(?<=title: ).*", frontMatter)
@@ -169,13 +168,11 @@ def _processFrontMatter(page, buffer):
 	
 	page.frontMatter.title = page.frontMatter.title.replace("`", "")
 	set_page_description(page, buffer, frontMatter)
-
 	return page
 
 def _processChapters(page, paragraph):
 	if paragraph is None or paragraph == '':
 		return
-
 	paragraph = re.sub("{+\s?page.description\s?}+", '', paragraph)
 	paragraph = paragraph.replace("{:target=\"_blank\"}", "")
 	paragraph = paragraph.replace("{:style=\"clear: left;\"}", "")
@@ -188,7 +185,6 @@ def _processChapters(page, paragraph):
 	for versionBlock in versionBlocks:
 		if not "3.10" in versionBlock:
 			paragraph = paragraph.replace(versionBlock, "")
-
 	paragraph = migrate_headers(paragraph)
 	paragraph = migrate_hrefs(paragraph, infos)
 	paragraph = migrate_hints(paragraph)
@@ -205,12 +201,10 @@ def migrate_media():
 	Path(f"{NEW_TOOLCHAIN}/assets/images/").mkdir(parents=True, exist_ok=True)
 	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/images", topdown=True):
 		for file in files:
-			print(f"migrating {file}")
 			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
 
 	for root, dirs, files in os.walk(f"{OLD_TOOLCHAIN}/3.10/arangograph/images", topdown=True):
 		for file in files:
-			print(f"migrating {file}")
 			shutil.copyfile(f"{root}/{file}", f"{NEW_TOOLCHAIN}/assets/images/{file}")
 	print("----- END MEDIA MIGRATION")
 
@@ -222,7 +216,8 @@ class Page():
 	def toString(self):
 		res = self.frontMatter.toString()
 		cleanedFrontMatter = re.sub(r"^\s*$\n", '', res, 0, re.MULTILINE | re.DOTALL)
-		res = re.sub(r"(?<=---)\n*", '\n', f"{cleanedFrontMatter}{self.content}", 0, re.MULTILINE | re.DOTALL)
+		res =  f"{cleanedFrontMatter}{self.content}"
+		#res = re.sub(r"(?<=---)\n*", '\n', f"{cleanedFrontMatter}{self.content}", 0, re.MULTILINE | re.DOTALL)
 		return res
 
 class FrontMatter():

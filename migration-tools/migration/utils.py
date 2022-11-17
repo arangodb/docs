@@ -18,7 +18,6 @@ def migrate_hints(paragraph):
     hintRegex = re.findall(r"{% hint .*? %}.*?{% endhint %}", paragraph, re.MULTILINE | re.DOTALL)
     for hint in hintRegex:
         hintSplit = hint.split("\n")
-        print(hint)
         hintType = re.search(r"'.*[']* %}", hintSplit[0]).group(0).replace("'", '').strip(" %}")
         hintText = "\n".join(hintSplit[1:len(hintSplit)-1])
         if hintType == 'note':
@@ -124,13 +123,15 @@ def migrate_hrefs(paragraph, infos):
     return paragraph
 
 def migrate_headers(paragraph):
-    headersRegex = re.findall(r"(?<=\n)[\w\s_/]+\n-{4,}", paragraph)
+    headersRegex = re.findall(r"\n?.+\n-{4,}", paragraph)
     for header in headersRegex:
         if '|' in header:
             continue
-
+        print(f"HEADER {header}\n")
         headerSplit = header.replace('-', '').split("\n")
+        print(f"HEADER SPLIT {headerSplit}\n")
         headerText = f"\n## {headerSplit[len(headerSplit)-2]}"
+        print(f"HEADER TEXT {headerText}\n")
         paragraph = paragraph.replace(header, headerText)
 
     return paragraph
