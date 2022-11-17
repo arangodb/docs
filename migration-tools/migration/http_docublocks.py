@@ -130,7 +130,7 @@ def processExamples(docuBlock):
     blockExamples = []
 
     for block in examples:
-        exampleBlock = {'options': {"draft": False}, 'code': ""}
+        exampleBlock = {'options': {}, 'code': ""}
         exampleType = re.search(r"ARANGO.*(?={)", block).group(0)
         if exampleType == "ARANGOSH_RUN":
             exampleBlock["options"]["render"] = "input"
@@ -316,9 +316,6 @@ def parse_examples(blockExamples):
 {exampleOptions}\n\
 ---\n\
 {example["code"]}\n\
-```\n\
-```curl\n\
-{utils.migrate_docublock_output(example["options"]["name"])}\n\
 ```\n\
 {{{{% /tab %}}}}\n\
 {{{{< /tabs >}}}}\n\

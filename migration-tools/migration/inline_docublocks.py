@@ -18,7 +18,6 @@ def migrateInlineDocuBlocks(paragraph):
                             "description": "",
                             "render": "input",
                             "version": "3.10",
-                            "draft": False,
                             },
                         "code": "",
                         }
@@ -77,9 +76,6 @@ def render_codeblock(block):
 {exampleOptions}\n\
 ---\n\
 {block["code"]}\n\
-```\n\
-```{block["language"]}\n\
-{utils.migrate_docublock_output(block["options"]["name"])}\n\
 ```\n\
 {{{{% /tab %}}}}\n\
 {{{{< /tabs >}}}}\n\

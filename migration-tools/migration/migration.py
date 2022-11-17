@@ -236,10 +236,10 @@ class FrontMatter():
 
 	@staticmethod
 	def clean(str):
-		return str.replace("`", "")
+		return str.replace("`", "").lstrip(" ")
 
 	def toString(self):
-		return f"---\nfileID: {self.fileID}\ntitle:{self.clean(self.title)}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
+		return f"---\nfileID: {self.fileID}\ntitle: {self.clean(self.title)}\nweight: {self.weight}\ndescription: {self.description}\nlayout: default\n---\n"
 
 def get_weight(weight):
 	global currentWeight
