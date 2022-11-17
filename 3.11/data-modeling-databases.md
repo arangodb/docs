@@ -16,7 +16,7 @@ following action in the same shell or connection will use the
 specified database, unless otherwise specified.
 
 {% hint 'info' %}
-If the database is changed, client drivers need to store the 
+If the database is changed, client drivers need to store the
 current database name on their side, too. This is because connections
 in ArangoDB do not contain any state information. All state information
 is contained in the HTTP request/response data.

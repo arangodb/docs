@@ -2,23 +2,21 @@
 layout: default
 description: An ArangoDB Active Failover setup consists of several running tasks or processes
 ---
-Starting Manually
-=================
+# Starting Manually
 
 An ArangoDB _Active Failover_ setup consists of several running _tasks_ or _processes_. 
 
 This section describes how to start an _Active Failover_ by manually starting all
 the needed processes.
 
-Before continuing, be sure to read the [Architecture](architecture-deployment-modes-active-failover-architecture.html)
+Before continuing, be sure to read the [Architecture](architecture-deployment-modes-active-failover.html)
 section to get a basic understanding of the underlying architecture and the involved
 roles in an ArangoDB  Active Failover setup.
 
 We will include commands for a local test (all processes running on a single machine)
 and for a more real production scenario, which makes use of 3 different machines.
 
-Local Tests
------------
+## Local Tests
 
 In this paragraph we will include commands to manually start an Active Failover
 with 3 _Agents_, and two single server instances.
@@ -103,8 +101,7 @@ arangod --server.authentication false \
   --database.directory singleserver6002 &
 ```
 
-Multiple Machines
------------------
+## Multiple Machines
 
 The method from the previous paragraph can be extended to a more real production scenario,
 to start an Active Failover on multiple machines. The only changes are that one
@@ -214,8 +211,7 @@ arangod --server.authentication=false \
 **Note:** in the above commands, you can use host names, if they can be resolved,
 instead of IP addresses.
 
-Manual Start in Docker
-----------------------
+## Manual Start in Docker
 
 Manually starting an _Active Failover_ via Docker is basically the same as described in the 
 paragraphs above. 

@@ -7132,6 +7132,104 @@
     "section" : "query",
     "type" : "uint64"
   },
+  "query.log-failed" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "log failed AQL queries",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.5",
+      "v3.10.2",
+      "v3.11.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.log-memory-usage-threshold" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "agent",
+      "single"
+    ],
+    "default" : 4294967296,
+    "deprecatedIn" : null,
+    "description" : "log queries that have a peak memory usage larger than this threshold",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.5",
+      "v3.10.2",
+      "v3.11.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
+  "query.max-artifact-log-length" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "agent",
+      "single"
+    ],
+    "default" : 4096,
+    "deprecatedIn" : null,
+    "description" : "maximum length of query strings and bind parameter values in logs before they get truncated",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.5",
+      "v3.10.2",
+      "v3.11.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
   "query.max-nodes-per-callstack" : {
     "base" : 1,
     "category" : "option",
@@ -12462,6 +12560,35 @@
     "default" : true,
     "deprecatedIn" : null,
     "description" : "Use Intel intrinsics-based encryption, requiring a CPU with the AES-NI instruction set. If turned off, then OpenSSL is used, which may use hardware-accelerated encryption, too.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "temp",
+    "type" : "boolean"
+  },
+  "temp.intermediate-results-encryption-hardware-acceleration" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "use Intel intrinsics-based encryption, requiring a CPU with the AES-NI instruction set. If turned off, then OpenSSL is used, which may use hardware-accelarated encryption too.",
     "dynamic" : false,
     "enterpriseOnly" : true,
     "experimental" : true,

@@ -1,5 +1,6 @@
 ---
 layout: default
 ---
-<!-- js/actions/api-cluster.js -->
+# HTTP interface for cluster statistics
+
 {% docublock get_cluster_statistics %}
