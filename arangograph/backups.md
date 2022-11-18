@@ -50,8 +50,8 @@ If you want to manually copy a backup to a different region than the default
 one, first ensure that the **Upload backup to storage** option is enabled.
 Then, highlight the backup row and use the
 **Copy backup to a different region** button from the **Actions** column. 
-Once the copy of the default backup is created in the region of your choice,
-you can copy it to a different region as well. The source backup ID from
+
+The source backup ID from
 which the copy is created is displayed in the **Copied from Backup** column.
 
 ![Copy backup to a different region](images/arangograph-copy-backup-different-region.png)
