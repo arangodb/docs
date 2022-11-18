@@ -143,21 +143,6 @@ During view modification the following directives apply:
 
   - `"lz4"` (default): use LZ4 fast compression.
   - `"none"`: disable compression to trade space for speed.
-  
-- **primarySortCache** (_optional_; type: `boolean`; default: `false`)
-
-  <small>Introduced in: v3.9.5</small>
-
-  If you enable this option, then the primary sort columns are always cached in
-  memory. This can improve the performance of queries that utilize the
-  [primary sort order](arangosearch-performance.html#primary-sort-order).
-  Otherwise, these values are memory-mapped and it is up to the operating system
-  to load them from disk into memory and to evict them from memory.
-
-  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-arangosearch.html)
-  to control the memory consumption of this cache.
-
-  {% include hint-ee.md feature="ArangoSearch caching" %}
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 

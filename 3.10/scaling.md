@@ -30,5 +30,5 @@ Several options are available to scale ArangoDB, each of them has its own pros
 and cons:
 
 - [Active Failover](architecture-deployment-modes-active-failover.html)
-- [Cluster](architecture-deployment-modes-cluster.html)
+- [Cluster](architecture-deployment-modes-cluster-architecture.html)
 - [Multiple Datacenters](deployment-dc2dc.html)
