@@ -50,7 +50,7 @@ access to any external data, it must take care to set up the data by
 itself.
 
 All AQL user function-specific variables should be introduced with the `var`
-keyword in order to not accidentally access already defined variables from
+or `let` keywords in order to not accidentally access already defined variables from
 outer scopes. Not using the `var` keyword for own variables may cause side
 effects when executing the function.
 
@@ -74,8 +74,8 @@ The above function can be made free of side effects by using the `var` or
 
 ```js
 function (values) {
-  for (var i = 0; i < values.length; ++i) {
-    var name = values[i];
+  for (let i = 0; i < values.length; ++i) {
+    let name = values[i];
     if (name === "foo") {
       return i;
     }
@@ -117,8 +117,8 @@ the user function:
 function (values) {
   "use strict"
 
-  for (var i = 0; i < values.length; ++i) {
-    var name = values[i];
+  for (let i = 0; i < values.length; ++i) {
+    let name = values[i];
     if (name === "foo") {
       return i;
     }

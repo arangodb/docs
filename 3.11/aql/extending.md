@@ -56,6 +56,12 @@ in terms of used V8 contexts and server threads. If you run out
 of these resources, your query may abort with a
 [**cluster backend unavailable**](../appendix-error-codes.html) error.
 
+In a cluster, UDFs can only be executed on coordinators. It is not possible to
+execute UDFs on DB-Servers, as no JavaScript execution engine is available on DB-Servers. 
+Thus UDFs cannot be used inside traversal PRUNE conditions nor inside FILTER conditions
+that can be moved into the traversal execution on DB-Servers. This limitation also
+applies to single servers to keep the differences to cluster deployments minimal.
+
 To overcome these mentioned limitations, you may want to increase the
 [number of available V8 contexts](../programs-arangod-options.html#--javascriptv8-contexts)
 (at the expense of increased memory usage), and the
