@@ -1,0 +1,562 @@
+schemas:
+  ARANGO_ERROR:
+    description: An ArangoDB Error code
+    type: integer
+  ArangoError:
+    description: the arangodb error type
+    properties:
+      code:
+        description: the HTTP Status code
+        type: integer
+      error:
+        description: boolean flag to indicate whether an error occurred (*true* in
+          this case)
+        type: boolean
+      errorMessage:
+        description: a descriptive error message describing what happened, may contain
+          additional information
+        type: string
+      errorNum:
+        description: the ARANGO_ERROR code
+        type: integer
+  computed_field:
+    description: ''
+    properties:
+      computeOn:
+        description: |+
+          An array of strings that defines on which write operations the value is
+          computed. The possible values are `"insert"`, `"update"`, and `"replace"`.
+
+        format: string
+        items:
+          type: string
+        type: array
+      expression:
+        description: |+
+          An AQL `RETURN` operation with an expression that computes the desired value.
+
+        type: string
+      failOnWarning:
+        description: |+
+          Whether the write operation fails if the expression produces a warning.
+
+        type: boolean
+      keepNull:
+        description: |+
+          Whether the target attribute is set if the expression evaluates to `null`.
+
+        type: boolean
+      name:
+        description: |+
+          The name of the target attribute.
+
+        type: string
+      overwrite:
+        description: |+
+          Whether the computed value takes precedence over a user-provided or
+          existing attribute.
+
+        type: boolean
+    type: object
+  get_api_control_pregel:
+    description: |2+
+
+    properties:
+      algorithm:
+        description: |+
+          The algorithm used by the job.
+
+        type: string
+      computationTime:
+        description: "The algorithm execution time. Is shown when the computation\
+          \ started. \n\n"
+        format: float
+        type: number
+      created:
+        description: |+
+          The date and time when the job was created.
+
+        type: string
+      detail:
+        $ref: '#/components/schemas/get_api_control_pregel_detail'
+      edgeCount:
+        description: |+
+          The total number of edges processed.
+
+        format: int64
+        type: integer
+      expires:
+        description: |+
+          The date and time when the job results expire. The expiration date is only
+          meaningful for jobs that were completed, canceled or resulted in an error. Such jobs
+          are cleaned up by the garbage collection when they reach their expiration date/time.
+
+        type: string
+      gss:
+        description: |+
+          The number of global supersteps executed.
+
+        format: int64
+        type: integer
+      gssTimes:
+        description: |+
+          Computation time of each global super step. Is shown when the computation started.
+
+        format: number
+        items:
+          type: number
+        type: array
+      id:
+        description: |+
+          The ID of the Pregel job, as a string.
+
+        type: string
+      reports:
+        description: |+
+          This attribute is used by Programmable Pregel Algorithms (`air`, experimental).
+          The value is only populated once the algorithm has finished.
+
+        format: object
+        items:
+          type: object
+        type: array
+      startupTime:
+        description: |+
+          The startup runtime of the execution.
+          The startup time includes the data loading time and can be substantial.
+
+        format: float
+        type: number
+      state:
+        description: "The state of the execution. The following values can be returned:\n\
+          - `\"none\"`: The Pregel run did not yet start.\n- `\"loading\"`: The graph\
+          \ is loaded from the database into memory before the execution of the algorithm.\n\
+          - `\"running\"`: The algorithm is executing normally.\n- `\"storing\"`:\
+          \ The algorithm finished, but the results are still being written\n  back\
+          \ into the collections. Occurs only if the store parameter is set to true.\n\
+          - `\"done\"`: The execution is done. In version 3.7.1 and later, this means\
+          \ that\n  storing is also done. In earlier versions, the results may not\
+          \ be written back\n  into the collections yet. This event is announced in\
+          \ the server log (requires\n  at least info log level for the `pregel` log\
+          \ topic).\n- `\"canceled\"`: The execution was permanently canceled, either\
+          \ by the user or by\n  an error.\n- `\"fatal error\"`: The execution has\
+          \ failed and cannot recover.\n- `\"in error\"`: The execution is in an error\
+          \ state. This can be\n  caused by DB-Servers being not reachable or being\
+          \ non responsive. The execution\n  might recover later, or switch to `\"\
+          canceled\"` if it was not able to recover\n  successfully. \n- `\"recovering\"\
+          ` (currently unused): The execution is actively recovering and\n  switches\
+          \ back to `running` if the recovery is successful.\n\n"
+        type: string
+      storageTime:
+        description: |+
+          The time for storing the results if the job includes results storage.
+          Is shown when the storing started.
+
+        format: float
+        type: number
+      totalRuntime:
+        description: |+
+          The total runtime of the execution up to now (if the execution is still ongoing).
+
+        format: float
+        type: number
+      ttl:
+        description: |+
+          The TTL (time to live) value for the job results, specified in seconds.
+          The TTL is used to calculate the expiration date for the job's results.
+
+        format: float
+        type: number
+      vertexCount:
+        description: |+
+          The total number of vertices processed.
+
+        format: int64
+        type: integer
+    required:
+    - detail
+    type: object
+  get_api_control_pregel_detail:
+    description: |+
+      The Pregel run details.
+
+    properties:
+      aggregatedStatus:
+        $ref: '#/components/schemas/get_api_control_pregel_detail_aggregated'
+      workerStatus:
+        description: |
+          The details of the Pregel for every DB-Server. Each object key is a DB-Server ID,
+          and each value is a nested object similar to the `aggregatedStatus` attribute.
+          In a single server deployment, there is only a single entry with an empty string as key.
+        format: ''
+        type: object
+    required:
+    - aggregatedStatus
+    type: object
+  get_api_control_pregel_detail_aggregated:
+    description: |+
+      The aggregated details of the full Pregel run. The values are totals of all the
+      DB-Server.
+
+    properties:
+      allGssStatus:
+        $ref: '#/components/schemas/get_api_control_pregel_detail_aggregated_gss'
+      graphStoreStatus:
+        $ref: '#/components/schemas/get_api_control_pregel_detail_aggregated_store'
+      timeStamp:
+        description: |+
+          The time at which the status was measured.
+
+        type: string
+    type: object
+  get_api_control_pregel_detail_aggregated_gss:
+    description: |+
+      Information about the global supersteps.
+
+    properties:
+      items:
+        description: |+
+          A list of objects with details for each global superstep.
+
+        format: get_api_control_pregel_detail_aggregated_gss_items
+        items:
+          $ref: '#/components/schemas/get_api_control_pregel_detail_aggregated_gss_items'
+        type: array
+    type: object
+  get_api_control_pregel_detail_aggregated_gss_items:
+    description: ''
+    properties:
+      memoryBytesUsedForMessages:
+        description: |+
+          The number of bytes used in memory for the messages in this step.
+
+        format: int64
+        type: integer
+      messagesReceived:
+        description: |+
+          The number of messages received in this step.
+
+        format: int64
+        type: integer
+      messagesSent:
+        description: |+
+          The number of messages sent in this step.
+
+        format: int64
+        type: integer
+      verticesProcessed:
+        description: |+
+          The number of vertices that have been processed in this step.
+
+        format: int64
+        type: integer
+    type: object
+  get_api_control_pregel_detail_aggregated_store:
+    description: |+
+      The status of the in memory graph.
+
+    properties:
+      edgesLoaded:
+        description: |+
+          The number of edges that are loaded from the database into memory.
+
+        format: int64
+        type: integer
+      memoryBytesUsed:
+        description: |+
+          The number of bytes used in-memory for the loaded graph.
+
+        format: int64
+        type: integer
+      verticesLoaded:
+        description: |+
+          The number of vertices that are loaded from the database into memory.
+
+        format: int64
+        type: integer
+      verticesStored:
+        description: |+
+          The number of vertices that are written back to the database after the Pregel
+          computation finished. It is only set if the `store` parameter is set to `true`.
+
+        format: int64
+        type: integer
+    type: object
+  graph_edge_definition:
+    description: ''
+    properties:
+      collection:
+        description: |+
+          Name of the edge collection, where the edge are stored in.
+
+        type: string
+      from:
+        description: |+
+          List of vertex collection names.
+          Edges in collection can only be inserted if their _from is in any of the collections here.
+
+        format: string
+        items:
+          type: string
+        type: array
+      to:
+        description: |
+          List of vertex collection names.
+          Edges in collection can only be inserted if their _to is in any of the collections here.
+        format: string
+        items:
+          type: string
+        type: array
+    type: object
+  key_generator_type:
+    description: |+
+      A object which contains key generation options
+
+    properties:
+      allowUserKeys:
+        description: |+
+          if set to `true`, then it is allowed to supply
+          own key values in the `_key` attribute of a document. If set to
+          `false`, then the key generator is solely responsible for
+          generating keys and supplying own key values in the `_key` attribute
+          of documents is considered an error.
+
+        type: boolean
+      lastValue:
+        description: |2+
+
+        format: ''
+        type: integer
+      type:
+        description: |+
+          specifies the type of the key generator. The currently
+          available generators are `traditional`, `autoincrement`, `uuid`
+          and `padded`.
+
+        type: string
+    type: object
+  get_api_query_rules:
+    description: ''
+    properties:
+      flags:
+        $ref: '#/components/schemas/get_api_query_rules_flags'
+      name:
+        description: |+
+          The name of the optimizer rule as seen in query explain outputs.
+
+        type: string
+    required:
+    - flags
+    type: object
+  get_api_query_rules_flags:
+    description: |+
+      An object with the properties of the rule.
+
+    properties:
+      canBeDisabled:
+        description: |+
+          Whether users are allowed to disable this rule. A few rules are mandatory.
+
+        type: boolean
+      canCreateAdditionalPlans:
+        description: |+
+          Whether this rule may create additional query execution plans.
+
+        type: boolean
+      clusterOnly:
+        description: |+
+          Whether the rule is applicable in the cluster deployment mode only.
+
+        type: boolean
+      disabledByDefault:
+        description: |+
+          Whether the optimizer considers this rule by default.
+
+        type: boolean
+      enterpriseOnly:
+        description: |+
+          Whether the rule is available in the Enterprise Edition only.
+
+        type: boolean
+      hidden:
+        description: |+
+          Whether the rule is displayed to users. Internal rules are hidden.
+
+        type: boolean
+    type: object
+  api_task_struct:
+    description: |+
+      The function in question
+
+    properties:
+      command:
+        description: |+
+          the javascript function for this task
+
+        type: string
+      created:
+        description: |+
+          The timestamp when this task was created
+
+        format: float
+        type: number
+      database:
+        description: |
+          the database this task belongs to
+        type: string
+      id:
+        description: |+
+          A string identifying the task
+
+        type: string
+      name:
+        description: |+
+          The fully qualified name of the user function
+
+        type: string
+      offset:
+        description: |+
+          time offset in seconds from the created timestamp
+
+        format: float
+        type: number
+      period:
+        description: |+
+          this task should run each `period` seconds
+
+        format: ''
+        type: number
+      type:
+        description: |+
+          What type of task is this [ `periodic`, `timed`]
+            - periodic are tasks that repeat periodically
+            - timed are tasks that execute once at a specific time
+
+        type: string
+    type: object
+  collection_info:
+    description: |2+
+
+    properties:
+      cacheEnabled:
+        description: |+
+          Whether the in-memory hash cache for documents is enabled for this
+          collection.
+
+        type: boolean
+      computedValues:
+        description: |+
+          A list of objects, each representing a computed value.
+
+        format: computed_field
+        items:
+          $ref: '#/components/schemas/computed_field'
+        type: array
+      globallyUniqueId:
+        description: |
+          Unique identifier of the collection
+        type: string
+      id:
+        description: |+
+          unique identifier of the collection; *deprecated*
+
+        type: string
+      isSmart:
+        description: |+
+          Whether the collection is used in a SmartGraph (Enterprise Edition only).
+          _(cluster only)_
+
+        type: boolean
+      isSystem:
+        description: |+
+          true if this is a system collection; usually `name` will start with an underscore.
+
+        type: boolean
+      keyOptions:
+        $ref: '#/components/schemas/key_generator_type'
+      name:
+        description: |+
+          literal name of this collection
+
+        type: string
+      numberOfShards:
+        description: |+
+          The number of shards of the collection. _(cluster only)_
+
+        format: ''
+        type: integer
+      replicationFactor:
+        description: |+
+          contains how many copies of each shard are kept on different DB-Servers.
+          It is an integer number in the range of 1-10 or the string `"satellite"`
+          for a SatelliteCollection (Enterprise Edition only). _(cluster only)_
+
+        format: ''
+        type: integer
+      schema:
+        description: |+
+          The collection level schema for documents.
+
+        format: ''
+        type: object
+      shardKeys:
+        description: |+
+          contains the names of document attributes that are used to
+          determine the target shard for documents. _(cluster only)_
+
+        format: string
+        items:
+          type: string
+        type: array
+      shardingStrategy:
+        description: |+
+          the sharding strategy selected for the collection.
+          One of 'hash' or 'enterprise-hash-smart-edge'. _(cluster only)_
+
+        type: string
+      smartGraphAttribute:
+        description: |+
+          Attribute that is used in SmartGraphs (Enterprise Edition only). _(cluster only)_
+
+        type: string
+      smartJoinAttribute:
+        description: |+
+          Determines an attribute of the collection that must contain the shard key value
+          of the referred-to SmartJoin collection (Enterprise Edition only). _(cluster only)_
+
+        type: string
+      type:
+        description: |+
+          The type of the collection:
+            - `0`: "unknown"
+            - `2`: regular document collection
+            - `3`: edge collection
+
+        format: ''
+        type: integer
+      waitForSync:
+        description: |+
+          If `true` then creating, changing or removing
+          documents will wait until the data has been synchronized to disk.
+
+        type: boolean
+      writeConcern:
+        description: |+
+          determines how many copies of each shard are required to be
+          in sync on the different DB-Servers. If there are less then these many copies
+          in the cluster a shard will refuse to write. Writes to shards with enough
+          up-to-date copies will succeed at the same time however. The value of
+          `writeConcern` cannot be larger than `replicationFactor`. _(cluster only)_
+
+        format: ''
+        type: integer
+    required:
+    - keyOptions
+    type: object
+parameters: []
+securitySchemes: []
+requestBodies: []
+responses: []
+headers: []
+links: []
+callbacks: []

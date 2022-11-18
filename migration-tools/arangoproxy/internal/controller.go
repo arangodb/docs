@@ -28,7 +28,7 @@ func StartController(url string) {
 	http.HandleFunc("/js", JSHandler)
 	http.HandleFunc("/http-spec", HTTPSpecHandler)
 	http.HandleFunc("/api-docs", ApiDocsHandler)
-	http.HandleFunc("/http-example", HTTPExampleHandler)
+	http.HandleFunc("/curl", HTTPExampleHandler)
 	http.HandleFunc("/aql", AQLHandler)
 	http.HandleFunc("/go", TODOHandler)
 	http.HandleFunc("/java", TODOHandler)
