@@ -2,18 +2,24 @@ services:
   arangoproxy:
     container_name: arangoproxy
     image: arangoproxy
+    depends_on:
+      - "arangodb"
     build:
       context: .
       target: arangoproxy
     networks:
       docs_net:
         ipv4_address: 192.168.129.4
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./migration-tools:/home
 
   site:
     container_name: site
     image: site
+    depends_on:
+      - "arangoproxy"
     build:
       context: .
       target: hugo
