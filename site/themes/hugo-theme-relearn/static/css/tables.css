@@ -39,6 +39,7 @@ table>:not(thead) th, table td {
     border-bottom: 1px solid #edf2f7;
 }
 
-td a, td code, th {
+td a, td code, th, td > span > code {
     word-break: break-word;
+    white-space: normal;
 }
