@@ -14,7 +14,8 @@ To backup data in ArangoGraph for an ArangoDB installation, navigate to the
 
 There are two ways to create backups. Create periodic backups using a
 **Backup policy**, or create a backup manually.
-Both ways allow you to create backups in multiple regions as well.
+Both ways allow you to create [backups in multiple regions](#multi-region-backups)
+as well, if your organization belongs to the Enteprise tier.
 
 ### Periodic backups
 
@@ -33,8 +34,9 @@ These backups are not automatically uploaded. To enable this, use the
 **Upload backup to storage** option and choose a retention period that
 specifies how long backups are retained after creation. 
 
-When the **Upload backup to storage** option is enabled for a backup policy,
-you can also create backups in different regions than the default one.
+If your organization belongs to the Enterprise tier and the
+**Upload backup to storage** option is enabled for a backup policy,
+you can then create backups in different regions than the default one.
 The regions where the default backup is copied are shown in the
 **Additional regions** column in the **Policies** section.
 
@@ -46,7 +48,8 @@ It's also possible to create a backup on demand. To do this, click **Back up now
 
 ![Back up Now Dialog](images/arangograph-back-up-now-dialog.png)
 
-If you want to manually copy a backup to a different region than the default
+If your organization belongs to the Enterprise tier and you want to manually
+copy a backup to a different region than the default
 one, first ensure that the **Upload backup to storage** option is enabled.
 Then, highlight the backup row and use the
 **Copy backup to a different region** button from the **Actions** column. 
@@ -96,7 +99,10 @@ Multiple region backup is only available when the
 To restore a database from a backup, highlight the desired backup and click the restore icon.
 
 {% hint 'warning' %}
-All current data will be lost when restoring.
+All current data will be lost when restoring. To make sure that new data that
+has been inserted after the backup creation is also restored, create a new 
+backup before using the **Restore Backup** feature. 
+
 During restore, the deployment is temporarily not available.
 {% endhint %}
 
@@ -113,7 +119,11 @@ During restore, the deployment is temporarily not available.
 {% hint 'info' %}
 The cloned deployment will have the exact same features as the previous
 deployment including node size, model, and cloud provider. The region
-can stay the same or you can select a different one. 
+can stay the same or you can select a different one if your organization belongs
+to the Enterprise tier.
+For restoring a deployment as quick as possible, it is recommended to create a
+deployment in the same region as where the backup resides to avoid cross-region
+data transfer.
 The data contained in the backup will be restored to this new deployment.
 
 The *root password* for this deployment will be different.
