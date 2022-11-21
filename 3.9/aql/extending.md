@@ -43,8 +43,8 @@ Rule of thumb is, the closer the UDF is to your final `RETURN` statement
 
 When used in clusters, UDFs are always executed on the
 [Coordinator](../architecture-deployment-modes-cluster-architecture.html).
-Queries that would push UDF execution to DB-Servers, e.g. if a UDF is used 
-inside a traversal PRUNE condition, will abort with a parse error.
+Queries that would push UDF execution to DB-Servers will abort with a parse error.
+UDFs cannot be used in traversal PRUNE conditions at all.
 
 As UDFs are written in JavaScript, each query that executes a UDF will acquire
 one V8 context to execute the UDFs in it. V8 contexts can be re-used across subsequent
