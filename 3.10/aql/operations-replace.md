@@ -1,8 +1,8 @@
 ---
 layout: default
 description: >-
-  You can use `REPLACE` operations to completely replace documents with all
-  their attributes in a collection
+  You can use `REPLACE` operations to replace documents in a collection by
+  replacing their attributes
 ---
 REPLACE
 =======

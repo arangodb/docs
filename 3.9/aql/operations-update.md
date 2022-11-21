@@ -11,8 +11,9 @@ Each `UPDATE` operation is restricted to a single collection, and the
 [collection name](../appendix-glossary.html#collection-name) must not be dynamic.
 Only a single `UPDATE` statement per collection is allowed per AQL query, and
 it cannot be followed by read or write operations that access the same collection,
-by traversal operations, or AQL functions that can read documents. The system
-attributes `_id`, `_key` and `_rev` cannot be updated, `_from` and `_to` can.
+by traversal operations, or AQL functions that can read documents.
+
+The system attributes `_id`, `_key` and `_rev` cannot be updated, `_from` and `_to` can.
 
 Syntax
 ------
@@ -27,6 +28,7 @@ Both variants can optionally end with an `OPTIONS { … }` clause.
 `collection` must contain the name of the collection in which the documents should
 be updated. `document` must be a document that contains the attributes and values 
 to update. Attributes that don't exist in the stored document yet are added to it.
+The operation leaves other existing attributes not specified in `document` untouched.
 When using the first syntax, `document` must also contain the `_key`
 attribute to identify the document to be updated. 
 
@@ -174,10 +176,8 @@ FOR i IN 1..1000
   } IN users OPTIONS { ignoreErrors: true }
 ```
 
-An update operation will only update the attributes specified in `document` and
-leave other attributes untouched. Internal attributes (such as `_id`, `_key`, `_rev`,
-`_from` and `_to`) cannot be updated and are ignored when specified in `document`.
-Updating a document will modify the document's revision number with a server-generated value.
+You cannot modify the `_id`, `_key`, and `_rev` system attributes, but attempts
+to change them are ignored and not considered errors.
 
 ### `keepNull`
 
