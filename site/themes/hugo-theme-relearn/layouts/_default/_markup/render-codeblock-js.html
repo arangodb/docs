@@ -8,32 +8,31 @@
         "body" .Inner
       )
     }}
-  {{ if $remote }}
-  {{ if $remote.Err }}
+    {{ if $remote }}
+      {{ if $remote.Err }}
           {{ warnf "[JS] ERROR CALLING ENDPOINT %#v" .Position }}
-    {{ else }}
-    {{ $response := unmarshal $remote.Content }}
+      {{ else }}
+        {{ $response := unmarshal $remote.Content }}
         {{ if $response.error }}
           Error found in the example: {{ $response.error }}
         {{ end }}
         {{ if in $response.options.render "input" }}
-        {{ $version := replace $response.options.version "." "" }}
+          {{ $version := replace $response.options.version "." "" }}
             {{ transform.Highlight $response.input "js" }}
         {{ end }}
         {{ if in $response.options.render "output" }}
-        {{ $version := replace $response.options.version "." "" }}
-            {{ $x := transform.Highlight $response.output "" }}
+          {{ $version := replace $response.options.version "." "" }}
+          {{ $x := transform.Highlight $response.output "" }}
           {{- partial "shortcodes/expand.html" (dict
             "context" .
             "content" $x
             "open"    "open"
             "title"   "show output"
           ) }}
-      {{ end }}
         {{ end }}
+      {{ end }}
+    {{ end }}
   {{ else }}
     {{ transform.Highlight .Inner "js" }}
   {{ end }}
-  {{ end }}
-
 {{ end }}
