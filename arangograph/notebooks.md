@@ -14,18 +14,18 @@ subject to change. The beta version is free for all.
 {% endhint %}
 
 The ArangoGraph Notebook is a JupyterLab notebook embedded in the ArangoGraph
-Insights Platform. The notebook integrates seamlessly with the ArangoGraph Insights Platform,
+Insights Platform. The notebook integrates seamlessly with platform,
 automatically connecting to ArangoGraph services, including ArangoDB and the
 ArangoML platform services. This makes it much easier to leverage these
-resources without having to download any data locally or to remember userId's,
-passwords, and endpoint URL's.
+resources without having to download any data locally or to remember user IDs,
+passwords, and endpoint URLs.
 
 ![ArangoGraph Notebooks Architecture](images/arangograph-notebooks-architecture.png)
 
 The ArangoGraph Notebook has built-in [ArangoGraph Magic Commands](notebooks.html#arangograph-magic-commands)
 that answer questions like:
 - What ArangoDB database am I connected to at the moment?
-- What data does does the ArangoDB instance contain?
+- What data does the ArangoDB instance contain?
 - How can I access certain documents?
 - How do I create a graph?
 and many more.
@@ -33,7 +33,7 @@ and many more.
 The ArangoGraph Notebook also pre-installs `python-arango` and ArangoML connectors
 to PyG, DGL, CuGraph, as well as the FastGraphML library, so you can get started
 right away accessing data in ArangoDB to develop GraphML models using your
-favorite GraphML libraries with GPU's.
+favorite GraphML libraries with GPUs.
 
 ## How to create a new notebook
 
@@ -77,9 +77,8 @@ cluster, use the ArangoGraph Getting Started template.
 The ArangoGraph Notebook automatically connects to the ArangoDB service
 endpoint, so you can immediately start interacting with it.
 
-1. Log in into the notebook you have created.
-2. Open the file browser and navigate to the `jovyan` directory.
-3. Select the `GettingStarted.ipynb` file.
+1. Log in to the notebook you have created by using your deployment's root password.
+2. Select the `GettingStarted.ipynb` template from the file browser.
 
 ## ArangoGraph Magic Commands
 
