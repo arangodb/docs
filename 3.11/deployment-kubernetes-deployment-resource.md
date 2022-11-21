@@ -62,6 +62,61 @@ with `<group>` where `<group>` can be any of:
 - `syncmasters` for all syncmasters of a `Cluster`.
 - `syncworkers` for all syncworkers of a `Cluster`.
 
+### `spec.architectures: []string`
+
+This setting specifies a list of CPU architectures for the deployment.
+Possible values are:
+
+- `amd64` (default): Use processors with the x86-64 architecture.
+- `arm64`: Use processors with the 64-bit ARM architecture.
+
+{% hint 'tip' %}
+To use the ARM architecture, you need to enable it in the operator first using
+`--set "operator.architectures={amd64,arm64}"`. See
+[Installation with Helm](deployment-kubernetes-usage.html#installation-with-helm).
+{% endhint 'tip' %}
+
+To let new members as well as recreated members use `arm64` nodes, modify the
+deployment specification as follows:
+
+```diff
+ spec:
+   architectures:
++    - arm64
+     - amd64
+```
+
+Then run the following command:
+
+```bash
+kubectl annotate pod $POD "deployment.arangodb.com/replace=true"
+```
+
+To change an existing member to `arm64`, annotate the pod as follows:
+
+```bash
+kubectl annotate pod $POD "deployment.arangodb.com/arch=arm64"
+```
+
+An `ArchitectureMismatch` condition occurs in the deployment:
+
+```yaml
+members:
+  single:
+    - arango-version: 3.10.0
+      architecture: arm64
+      conditions:
+        reason: Member has a different architecture than the deployment
+        status: "True"
+        type: ArchitectureMismatch
+```
+
+Restart the pod using this command:
+
+```bash
+kubectl annotate pod $POD "deployment.arangodb.com/rotate=true"
+```
+
 ### `spec.mode: string`
 
 This setting specifies the type of deployment you want to create.

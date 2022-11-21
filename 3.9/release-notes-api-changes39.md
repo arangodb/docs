@@ -200,6 +200,8 @@ single servers, Coordinators and DB-Servers:
 
 ### Endpoints augmented
 
+#### Cursor API
+
 The HTTP REST API endpoint `POST /_api/cursor` can now handle an 
 additional sub-attribute `fillBlockCache` for its `options` attribute.
 `fillBlockCache` controls whether the to-be-executed query should
@@ -216,6 +218,8 @@ the default value is 200 on MacOS, and 250 for other platforms.
 Please note that this option is only useful for testing and debugging 
 and normally does not need any adjustment.
 
+#### Log API
+
 The HTTP REST API endpoint `PUT /_admin/log/level` can now handle the
 pseudo log topic `"all"`. Setting the log level for the "all" log topic will
 adjust the log level for **all existing log topics**.
@@ -227,9 +231,13 @@ For example, sending the JSON object to this API
 
 will set all log topics to log level "debug".
 
+#### Authentication API
+
 The HTTP REST API endpoint `POST /_open/auth` now returns JWTs with a shorter
 lifetime of one hour by default. You can adjust the lifetime with the
 `--server.session-timeout` startup option.
+
+#### Analyzers API
 
 Analyzers with a `locale` property use a new syntax. The encoding (`.utf-8`)
 does not need to be set anymore. The `collation` Analyzer supports
@@ -237,6 +245,33 @@ does not need to be set anymore. The `collation` Analyzer supports
 The `text` and `norm` Analyzers support `language[_COUNTRY]`, the `stem`
 Analyzer only `language`. The former syntax is still supported but automatically
 normalized to the new syntax.
+
+#### Views API
+
+Views of the type `arangosearch` support new caching options in the
+Enterprise Edition.
+
+<small>Introduced in: v3.9.5</small>
+
+- A `cache` option for individual View links or fields (boolean, default: `false`).
+- A `cache` option in the definition of a `storedValues` View property
+  (boolean, immutable, default: `false`).
+
+The `POST /_api/view` endpoint accepts these new options for `arangosearch`
+Views, the `GET /_api/view/<view-name>/properties` endpoint may return these
+options, and you can change them with the `PUT /_api/view/<view-name>/properties`
+and `PATCH /_api/view/<view-name>/properties` endpoints (except the immutable one).
+
+See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
+for details.
+
+#### Metrics API
+
+<small>Introduced in: v3.9.5</small>
+
+The `GET /_admin/metrics/v2` and `GET /_admin/metrics`endpoints includes a new
+metrics `arangodb_search_columns_cache_size` which reports the ArangoSearch
+column cache size.
 
 ### Endpoints moved
 
