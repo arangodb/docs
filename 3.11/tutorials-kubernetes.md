@@ -19,14 +19,7 @@ in a Kubernetes cluster.
 
 First, you obviously need a Kubernetes cluster and the right credentials
 to access it. If you already have this, you can immediately skip to the
-next section. Since different cloud providers differ slightly in their
-Kubernetes offering, we have put together detailed tutorials for those
-platforms we officially support, follow the link for detailed setup
-instructions:
-
- - [Amazon Elastic Kubernetes Service (EKS)](tutorials-kubernetes-eks.html)
- - [Google Kubernetes Engine (GKE)](tutorials-kubernetes-gke.html)
- - [Microsoft Azure Kubernetes Service (AKS)](tutorials-kubernetes-aks.html)
+next section.
 
 Note that in particular the details of Role Based Access Control (RBAC)
 matter.
