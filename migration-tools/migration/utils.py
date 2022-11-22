@@ -123,15 +123,17 @@ def migrate_hrefs(paragraph, infos):
     return paragraph
 
 def migrate_headers(paragraph):
+    headersRegex = re.findall(r"\n?.+\n={3,}", paragraph)
+    for header in headersRegex:
+        if '|' in header:
+            continue
+        paragraph = paragraph.replace(header, '')
     headersRegex = re.findall(r"\n?.+\n-{4,}", paragraph)
     for header in headersRegex:
         if '|' in header:
             continue
-        print(f"HEADER {header}\n")
         headerSplit = header.replace('-', '').split("\n")
-        print(f"HEADER SPLIT {headerSplit}\n")
         headerText = f"\n## {headerSplit[len(headerSplit)-2]}"
-        print(f"HEADER TEXT {headerText}\n")
         paragraph = paragraph.replace(header, headerText)
 
     return paragraph
@@ -144,3 +146,8 @@ def migrate_docublock_output(exampleName):
     output = output.replace("&#x27;", "\"").replace("&quot;", "\"")
 
     return output
+
+def clean_line(line):
+    line = line.replace("//", "/").replace("&","").replace(" ", "-")
+    line = re.sub(r"-{2,}", "-", line)
+    return line.replace("#", "sharp").replace(".net", "dotnet")

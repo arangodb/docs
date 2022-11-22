@@ -74,9 +74,9 @@ def create_index(label, item, extendedSection):
 	folderName = item["text"].lower().replace(" ", "-").replace("/", "")
 	label = label + "/" + folderName
 
-	Path(f'{NEW_TOOLCHAIN}/content/{label}'.replace("&","").replace("--","-")).mkdir(parents=True, exist_ok=True)
+	Path(clean_line(f'{NEW_TOOLCHAIN}/content/{label}')).mkdir(parents=True, exist_ok=True)
 
-	indexPath = f'{NEW_TOOLCHAIN}/content/{label}/_index.md'.replace("//", "/").replace("&","").replace("--","-")
+	indexPath = clean_line(f'{NEW_TOOLCHAIN}/content/{label}/_index.md')
 	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'
 	shutil.copyfile(oldFilePath, indexPath)
 	infos[indexPath] = {
@@ -89,7 +89,7 @@ def create_index(label, item, extendedSection):
 def create_files_new(label, item, extendedSection):
 	oldFileName = item["href"].replace(".html", ".md")
 	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'.replace("//", "/")
-	filePath = f'{NEW_TOOLCHAIN}/content/{label}/{oldFileName}'.replace("//", "/").replace("&","").replace("--","-")
+	filePath = clean_line(f'{NEW_TOOLCHAIN}/content/{label}/{oldFileName}')
 
 	try:
 		shutil.copyfile(oldFilePath, filePath)
