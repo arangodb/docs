@@ -42,3 +42,15 @@ blocksFileLocations = {}
 components = {"schemas": {}, "parameters": [], "securitySchemes": [], "requestBodies": [], "responses": [], "headers": [], "links": [], "callbacks": []}
 
 
+static_replacements = {
+    "comments": {
+        "{% comment %}": "{{% comment %}}",
+        "{% endcomment %}": "{{% /comment %}}",
+        "{%- comment %}": "{{% comment %}}",
+        "{%- endcomment %}": "{{% /comment %}}",
+        "<!--": "{{% comment %}}\n",
+        "-->": "\n{{% /comment %}}"
+    }
+}
+
+

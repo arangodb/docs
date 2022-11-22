@@ -3,6 +3,20 @@ import globals
 
 ## TODO: These functions are horrible, refactor with cleaner code
 
+def migrate_title(page, frontMatter, content):
+    fmTitleRegex = re.search(r"(?<=title: ).*", frontMatter)
+    if fmTitleRegex:
+        page.frontMatter.title = fmTitleRegex.group(0)
+
+    paragraphTitleRegex = re.search(r"(?<=---\n)(# .*)|(.*\n(?=={4,}))", content)
+    if paragraphTitleRegex:
+        page.frontMatter.title = paragraphTitleRegex.group(0).replace('#', '').replace(':', '')
+        page.frontMatter.title = re.sub(r"{{ .* }}", '', page.frontMatter.title)
+
+    page.frontMatter.title = page.frontMatter.title.replace("`", "")
+    return
+
+
 def set_page_description(page, buffer, frontMatter):
     paragraphDescRegex = re.search(r"(?<=\n\n)[\w\s\W]+(?={:class=\"lead\"})", buffer)
     if paragraphDescRegex:
@@ -14,7 +28,6 @@ def set_page_description(page, buffer, frontMatter):
             page.frontMatter.description = re.search(r"(?<=description: )(.*?)((?=\n\w)|(?=---))", buffer, re.MULTILINE | re.DOTALL).group(0)
 
 def migrate_hints(paragraph):
-    #Hints TODO: Replace this horrible regex with the lazy capture
     hintRegex = re.findall(r"{% hint .*? %}.*?{% endhint %}", paragraph, re.MULTILINE | re.DOTALL)
     for hint in hintRegex:
         hintSplit = hint.split("\n")
@@ -26,15 +39,18 @@ def migrate_hints(paragraph):
         newHint = f"{{{{% hints/{hintType} %}}}}\n{hintText}\n{{{{% /hints/{hintType} %}}}}"
         paragraph = paragraph.replace(hint, newHint)
 
-    #Capture alternative
+    return paragraph
+
+def migrate_capture_alternative(paragraph):
     captureRE = re.findall(r"(?<={% capture alternative %})(.*?)(?= {% endcapture %})", paragraph, re.MULTILINE | re.DOTALL)
     for capture in captureRE:
         info = f"{{{{% hints/info %}}}}\n{capture}\n{{{{% /hints/info %}}}}"
         paragraph = paragraph.replace(capture, info)
 
     paragraph = paragraph.replace("{% capture alternative %}", "").replace("{% endcapture %}", "")
+    return paragraph
 
-    # Enterprise feature hints
+def migrate_enterprise_tag(paragraph):
     enterpriseFeatureRegex = re.findall(r"{% include hint-ee-arangograph\.md .* %}|{% include hint-ee\.md .* %}", paragraph)
     for tag in enterpriseFeatureRegex:
         feature = re.search(r"(?<=feature=).*\"", tag).group(0)
@@ -43,16 +59,21 @@ def migrate_hints(paragraph):
             arangograph = "true"
 
         paragraph = paragraph.replace(tag, '{{{{% enterprise-tag feature={} arangograph="{}" %}}}}'.format(feature, arangograph))
+    
+    return paragraph
 
+def migrate_comments(paragraph):
+    for key in globals.static_replacements["comments"]:
+        paragraph = paragraph.replace(key, globals.static_replacements["comments"][key])
+    return paragraph
+
+def migrate_details(paragraph):
     detailsRegex = re.search(r"{% details .* %}[\w\n\s\W]*{% enddetails %}", paragraph)
     if detailsRegex:
         detailsTitle = re.search(r"(?<={% details ).*(?= %})", detailsRegex.group(0)).group(0)
         paragraph = paragraph.replace(f"{{% details {detailsTitle} %}}", '{{{{% expand title="{}" %}}}}'.format(detailsTitle))
         paragraph = paragraph.replace(f"{{% enddetails %}}", "{{{{% /expand %}}}}")
-
-    # Comments
-    paragraph = paragraph.replace("{% comment %}", "{{% comment %}}").replace("{% endcomment %}", "{{% /comment %}}").replace("{%- comment %}", "{{% comment %}}").replace("{%- endcomment %}", "{{% /comment %}}")
-
+    
     return paragraph
 
 def migrate_hrefs(paragraph, infos):
@@ -128,6 +149,7 @@ def migrate_headers(paragraph):
         if '|' in header:
             continue
         paragraph = paragraph.replace(header, '')
+
     headersRegex = re.findall(r"\n?.+\n-{4,}", paragraph)
     for header in headersRegex:
         if '|' in header:

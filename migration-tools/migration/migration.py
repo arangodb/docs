@@ -30,10 +30,7 @@ def structure_migration_new(label, document, manual):
 		if "href" in item and (item["href"].startswith("http://") or item["href"].startswith("https://")):
 			continue
 
-		if "subtitle" in item:
-			continue
-
-		if "divider" in item:
+		if "subtitle" in item or "divider" in item:
 			continue
 
 		if "children" in item:
@@ -155,18 +152,10 @@ def _processFrontMatter(page, buffer):
 	frontMatterRegex = re.search(r"---(.*?)---", buffer, re.MULTILINE | re.DOTALL)
 	if not frontMatterRegex:
 		return		# TODO
+
 	frontMatter = frontMatterRegex.group(0)
 
-	fmTitleRegex = re.search(r"(?<=title: ).*", frontMatter)
-	if fmTitleRegex:
-		page.frontMatter.title = fmTitleRegex.group(0)
-
-	paragraphTitleRegex = re.search(r"(?<=---\n)(# .*)|(.*\n(?=={4,}))", buffer)
-	if paragraphTitleRegex:
-		page.frontMatter.title = paragraphTitleRegex.group(0).replace('#', '').replace(':', '')
-		page.frontMatter.title = re.sub(r"{{ .* }}", '', page.frontMatter.title)
-	
-	page.frontMatter.title = page.frontMatter.title.replace("`", "")
+	migrate_title(page, frontMatter, buffer)
 	set_page_description(page, buffer, frontMatter)
 	return page
 
@@ -176,6 +165,7 @@ def _processChapters(page, paragraph):
 	paragraph = re.sub("{+\s?page.description\s?}+", '', paragraph)
 	paragraph = paragraph.replace("{:target=\"_blank\"}", "")
 	paragraph = paragraph.replace("{:style=\"clear: left;\"}", "")
+
 	test = re.search(r"#+ .*|(.*\n={4,})", paragraph)
 	if test:
 		paragraph = paragraph.replace(test.group(0), '', 1)
@@ -185,9 +175,16 @@ def _processChapters(page, paragraph):
 	for versionBlock in versionBlocks:
 		if not "3.10" in versionBlock:
 			paragraph = paragraph.replace(versionBlock, "")
+
 	paragraph = migrate_headers(paragraph)
 	paragraph = migrate_hrefs(paragraph, infos)
+
 	paragraph = migrate_hints(paragraph)
+	paragraph = migrate_capture_alternative(paragraph)
+	paragraph = migrate_enterprise_tag(paragraph)
+	paragraph = migrate_details(paragraph)
+	paragraph = migrate_comments(paragraph)
+
 	paragraph = migrateHTTPDocuBlocks(paragraph)
 	paragraph = migrateInlineDocuBlocks(paragraph)
 	paragraph = paragraph.lstrip("\n")
