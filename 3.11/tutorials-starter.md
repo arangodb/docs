@@ -1,6 +1,7 @@
 ---
 layout: default
 description: Starting an ArangoDB cluster involves starting various servers with different roles (Agents, DB-Servers & Coordinators)
+title: temp, page to be removed
 ---
 # Starting an ArangoDB cluster or database the easy way
 

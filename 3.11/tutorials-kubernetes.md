@@ -1,35 +1,14 @@
 ---
 layout: default
 description: Starting an ArangoDB database (either single server or full blown cluster) on Kubernetes involves a lot of resources
+title: temp, page to be removed
 ---
 # Start ArangoDB on Kubernetes in 5 minutes
-
-Starting an ArangoDB database (either single server or full blown cluster)
-on Kubernetes involves a lot of resources.
-
-The servers need to run in `Pods`, you need `Secrets` for authentication,
-TLS certificates and `Services` to enable communication with the database.
-
-Use `kube-arangodb`, the ArangoDB Kubernetes Operator to greatly simplify
-this process.
-
-In this guide, we will explain what the ArangoDB Kubernetes Operator is,
-how to install it and how use it to deploy your first ArangoDB database
-in a Kubernetes cluster.
-
-First, you obviously need a Kubernetes cluster and the right credentials
-to access it. If you already have this, you can immediately skip to the
-next section.
 
 Note that in particular the details of Role Based Access Control (RBAC)
 matter.
 
 ## What is `kube-arangodb`
-
-`kube-arangodb` is a set of two operators that you deploy in your Kubernetes
-cluster to (1) manage deployments of the ArangoDB database and (2)
-provide `PersistentVolumes` on local storage of your nodes for optimal
-storage performance.
 
 Note that the operator that provides `PersistentVolumes` is not needed to
 run ArangoDB deployments. You can also use `PersistentVolumes` provided
@@ -44,6 +23,7 @@ you have access to this cluster and the rights to deploy resources
 at cluster level.
 
 For now, any recent Kubernetes cluster will do (e.g. `minikube`).
+https://minikube.sigs.k8s.io/
 
 Then run (replace `<version>` with the version of the operator that you want to install):
 
