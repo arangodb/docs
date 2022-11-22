@@ -359,16 +359,16 @@ The operator precedence in AQL is similar as in other familiar languages
 |:---------------------|:-----------
 | `::`                 | scope (user-defined AQL functions)
 | `[*]`                | array expansion
-| `[]`                 | indexed value access
-| `.`                  | member access
+| `[]`                 | indexed value access (of arrays)
+| `.`                  | member access (of objects)
 | `()`                 | function call
-| `!`, `NOT`, `+`, `-` | logical negation, unary plus, unary minus
+| `!`, `NOT`, `+`, `-` | unary not (logical negation), unary plus, unary minus
 | `*`, `/`, `%`        | multiplication, division, modulus
 | `+`, `-`             | addition, subtraction
 | `..`                 | range operator
 | `<`, `<=`, `>=`, `>` | less than, less equal, greater equal, greater than
-| `IN`, `NOT`, `NOT IN`| in operator, not operator, not in operator
-| `==`, `!=`, `LIKE`, `=~`, `!~`  | equality, inequality, wildcard match, regex match, regex non-match
+| `IN`, `NOT IN`       | in operator, not in operator
+| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | equality, inequality, wildcard match, wildcard non-match, regex match, regex non-match
 | `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | graph traversal directions, array comparison operators, question mark operator
 | `&&`, `AND`          | logical and
 | `||`, `OR`           | logical or
