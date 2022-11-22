@@ -7,7 +7,7 @@ title: Upgrading ArangoDB Starter Deployments
 
 The ArangoDB [_Starter_](programs-starter.html) supports an automated procedure
 to perform upgrades, including rolling upgrades
-of a [Cluster](architecture-deployment-modes-cluster.html) setup.
+of a [Cluster](architecture-deployment-modes-cluster-architecture.html) setup.
 
 The upgrade procedure of the _Starter_ described in this _Section_ can be used to
 upgrade to a new hotfix, or to perform an upgrade to a new minor version of ArangoDB.

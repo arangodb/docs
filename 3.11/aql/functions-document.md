@@ -12,15 +12,15 @@ additional language constructs.
 ATTRIBUTES()
 ------------
 
-`ATTRIBUTES(document, removeInternal, sort) → strArray`
+`ATTRIBUTES(document, removeSystemAttrs, sort) → strArray`
 
 Return the top-level attribute keys of the `document` as an array.
 Optionally omit system attributes and sort the array.
 
 - **document** (object): an arbitrary document / object
-- **removeInternal** (bool, *optional*): whether all system attributes (`_key`, `_id` etc.,
-  every attribute key that starts with an underscore) shall be omitted in the result.
-  The default is `false`.
+- **removeSystemAttrs** (bool, *optional*): whether all system attributes
+  (starting with an underscore, such as `_key` and `_id`) shall be omitted in
+  the result. The default is `false`.
 - **sort** (bool, *optional*): optionally sort the resulting array alphabetically.
   The default is `false` and will return the attribute names in any order.
 - returns **strArray** (array): the attribute keys of the input `document` as an
@@ -993,14 +993,15 @@ attribute, like `obj.foo[1].bar` would:
 VALUES()
 --------
 
-`VALUES(document, removeInternal) → anyArray`
+`VALUES(document, removeSystemAttrs) → anyArray`
 
 Return the attribute values of the `document` as an array. Optionally omit
 system attributes.
 
 - **document** (object): a document / object
-- **removeInternal** (bool, *optional*): if set to `true`, then all internal attributes
-  (such as `_id`, `_key` etc.) are removed from the result
+- **removeSystemAttrs** (bool, *optional*): if set to `true`, then all
+  system attributes (starting with an underscore, such as `_id`, `_key` etc.)
+  are removed from the result
 - returns **anyArray** (array): the values of `document` returned in any order
 
 **Examples**
