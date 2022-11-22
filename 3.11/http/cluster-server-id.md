@@ -1,5 +1,6 @@
 ---
 layout: default
 ---
-<!-- js/actions/api-system.js -->
+# HTTP interface for server IDs
+
 {% docublock get_admin_server_id %}

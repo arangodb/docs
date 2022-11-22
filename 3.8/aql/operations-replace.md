@@ -12,6 +12,7 @@ Each `REPLACE` operation is restricted to a single collection, and the
 Only a single `REPLACE` statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
+
 The system attributes `_id`, `_key` and `_rev` cannot be replaced, `_from` and `_to` can.
 
 Syntax
@@ -68,8 +69,8 @@ FOR u IN users
 ```
 
 A replace will fully replace an existing document, but it will not modify the values
-of internal attributes (such as `_id`, `_key`, `_from` and `_to`). Replacing a document
-will modify a document's revision number with a server-generated value.
+of the `_id` and `_key` system attributes. Replacing a document
+will modify a document's revision number (`_rev` attribute) with a server-generated value.
 
 A replace operation may update arbitrary documents:
 

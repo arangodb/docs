@@ -26,7 +26,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Cache   Selectivity   Fields           Stored values   Ranges
-  7   idx_1747223160522014725   geo    germanCity   false    true     false           n/a   [ `geometry` ]   [  ]            (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
+  7   idx_1750109353384345605   geo    germanCity   false    true     false           n/a   [ `geometry` ]   [  ]            (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
 
 Optimization rules applied:
  Id   RuleName
@@ -38,5 +38,5 @@ Optimization rules applied:
   6   remove-unnecessary-calculations-2
   7   reduce-extraction-to-projection
 
-43 rule(s) executed, 1 plan(s) created
+44 rule(s) executed, 1 plan(s) created
 
