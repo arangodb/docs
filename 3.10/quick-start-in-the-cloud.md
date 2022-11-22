@@ -167,4 +167,4 @@ there are a few key differences:
 - Datacenter-to-Datacenter Replication (DC2DC) is not yet available in a
   managed form.
 
-For more information, see the [comparison between ArangoDB Editions](https://www.arangodb.com/subscriptions/){:target="_blank"}.
+For more information, see the [comparison between on-premises editions and the managed cloud service](https://www.arangodb.com/subscriptions/){:target="_blank"}.
