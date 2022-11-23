@@ -925,7 +925,7 @@ $(window).scroll(function(){
     
     // then iterate backwards, on the first match highlight it and break
     for (var i = anchors.length-1; i >= 0; i--){
-        if (scrollTop > $(anchors[i]).offset().top - 75) {
+        if (scrollTop > $(anchors[i]).offset().top - 140) {
             let highlightedHref = $('#TableOfContents ul li a[href="#' + $(anchors[i]).attr('id') + '"]')
             highlightedHref.addClass('is-active');
             break;
