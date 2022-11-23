@@ -82,59 +82,84 @@ def migrate_hrefs(paragraph, infos):
         if 'https://' in href or 'http://' in href:
             continue
 
-        linkContent = re.search(r"(?<=\]\()(.*?)\)", href).group(0).replace(")", "")
-        #print(linkContent)
-
         if href.startswith("!"):
-            newImgName = "images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
-            if ':style' in href:
-                styleRegex = re.search(r"(?<={:style=\").*(?=\"})", href)
-                if styleRegex:
-                    newImgName = newImgName + "?"
-                    styles = styleRegex.group(0).split(";")
-
-                    for style in styles:
-                        style = style.replace(": ", "=").replace(" ", "&")
-                        newImgName = newImgName + style
-                    newHref = href.replace(linkContent, newImgName)
-                    newHref = re.sub(r"{.*}", '', newHref, 0)
-                    paragraph = paragraph.replace(href, newHref)
-            else:
-                label = re.search(r"(?<=\[).*(?=\])", href).group(0)	# Bug with new style regex, to fix
-                if "\"" in label:
-                    label = label.replace('"', '')
-
-                attr = re.search(r"(?<=\]\().*(?=\))", href).group(0).strip('"').strip('()').replace('.html', '')
-                imgWidget = '{{{{< img src="{}" alt="{}" >}}}}'.format(attr, label)
-                paragraph = paragraph.replace(href, imgWidget)
-
+            paragraph = migrate_image(paragraph, href)
             continue
 
-        linksContent = re.findall(r"(?<=\]\()(.*?)\)", href)
-        for linkContent in linksContent:
-            linkContent = linkContent.replace(")", "")
-            anchor = linkContent.split("#")[0].replace(".html", "")
-            filename = anchor.split("/")[len(anchor.split("/"))-1]
+        paragraph = migrate_link(paragraph, href)
 
-            for k in infos.keys():
-                if not "fileID" in infos[k]:
-                    continue
+    return paragraph
 
-                if infos[k]["fileID"] == filename:
-                    newAnchor = re.search(r"(?<=site\/content).*", k).group(0).replace(".md", "")
-                
-                    if newAnchor.endswith("_index"):
-                        newAnchor = "/".join(newAnchor.split("/")[0:len(newAnchor.split("/"))-2])
+def migrate_image(paragraph, href):
+    linkContent = re.search(r"(?<=\]\()(.*?)\)", href).group(0).replace(")", "")
+    newImgName = "images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
 
-                    if "#" in linkContent:
-                        fragment = linkContent.split("#")[1]
-                        newAnchor = f"{newAnchor}#{fragment}"
-                        
-                    newHref = href.replace(linkContent, newAnchor).replace(".html", "")
-                    paragraph = paragraph.replace(href, newHref)
+    if ':style' in href:
+        styleRegex = re.search(r"(?<={:style=\").*(?=\"})", href)
+        if styleRegex:
+            newImgName = newImgName + "?"
+            styles = styleRegex.group(0).split(";")
+
+            for style in styles:
+                style = style.replace(": ", "=").replace(" ", "&")
+                newImgName = newImgName + style
+            newHref = href.replace(linkContent, newImgName)
+            newHref = re.sub(r"{.*}", '', newHref, 0)
+            return paragraph.replace(href, newHref)
+    else:
+        label = re.search(r"(?<=\[).*(?=\])", href).group(0)	# Bug with new style regex, to fix
+        if "\"" in label:
+            label = label.replace('"', '')
+
+        attr = re.search(r"(?<=\]\().*(?=\))", href).group(0).strip('"').strip('()').replace('.html', '')
+        imgWidget = '{{{{< img src="{}" alt="{}" >}}}}'.format(attr, label)
+        return paragraph.replace(href, imgWidget)
+
+def migrate_link(paragraph, href):
+    linksContent = re.findall(r"(?<=\]\()(.*?)\)", href)
+    for linkContent in linksContent:
+        print(f"\nProcessing link {linkContent}")
+        linkContent = linkContent.replace(")", "")
+
+        filenameRE = "([^\/]+)\.html" if "/" in linkContent else ".*\.html"
+        filename = re.search(filenameRE, linkContent)
+        if not filename:
+            continue
+
+        filename = filename.group(0).replace(".html", "").replace("/", "")
+        print(f"link filename {filename}")
+        fragment = re.search(r"#+.*", linkContent)
+
+        relativeCDPath = re.findall(r"\.+\/", linkContent)  # Capture the ../../....
+        relativeCD = "../"
+
+        for relative in relativeCDPath:
+            relativeCD = relativeCD + relative
 
 
-    #Youtube links
+        for k in globals.infos.keys():
+            if not "fileID" in globals.infos[k]:
+                continue
+
+            if globals.infos[k]["fileID"] == filename:
+                newAnchor = re.search(r"(?<=site\/content).*", k).group(0).replace(".md", "")
+                print(f"NEW ANCHOR {newAnchor}")
+            
+                newAnchor = relativeCD + newAnchor
+                newAnchor = newAnchor.replace("//", "/")
+
+                if fragment:
+                    newAnchor = f"{newAnchor}{fragment.group(0)}"
+                    
+                newHref = href.replace(linkContent, newAnchor).replace(".html", "")
+                print(f"{linkContent} FOUND {newHref}")
+
+                paragraph = paragraph.replace(href, newHref)
+           
+
+    return paragraph
+
+def migrate_youtube_links(paragraph):
     youtubeRegex = re.search(r"{% include youtube\.html .* %}", paragraph)
     if youtubeRegex:
         oldYoutube = youtubeRegex.group(0)
@@ -173,3 +198,6 @@ def clean_line(line):
     line = line.replace("//", "/").replace("&","").replace(" ", "-")
     line = re.sub(r"-{2,}", "-", line)
     return line.replace("#", "sharp").replace(".net", "dotnet")
+
+def is_index(filename):
+    return filename.endswith("_index.md")

@@ -203,6 +203,7 @@ def _processChapters(page, paragraph):
 
 	paragraph = migrate_headers(paragraph)
 	paragraph = migrate_hrefs(paragraph, infos)
+	paragraph = migrate_youtube_links(paragraph)
 
 	paragraph = migrate_hints(paragraph)
 	paragraph = migrate_capture_alternative(paragraph)

@@ -48,8 +48,8 @@ static_replacements = {
         "{% endcomment %}": "{{% /comment %}}",
         "{%- comment %}": "{{% comment %}}",
         "{%- endcomment %}": "{{% /comment %}}",
-        "<!--": "{{% comment %}}\n",
-        "-->": "\n{{% /comment %}}"
+        #"<!--": "{{% comment %}}\n",
+        #"-->": "\n{{% /comment %}}"
     }
 }
 
