@@ -192,19 +192,21 @@ for small adjustments, you can put local overrides into a file
 
 It is possible to add suffixes to numeric options that will cause ArangoDB to
 multiply the value by a certain factor. This can be used to conveniently specify
-values in megabytes or gigabytes for example.
+values in megabytes, gigabytes or terabytes for example.
 
 | Suffix               | Factor   | Example |
 |----------------------|----------|---------|
 | `kib`, `KiB`         | 1024     | 512KiB  |
 | `mib`, `MiB`         | 1024 ^ 2 | 64mib   |
 | `gib`, `GiB`         | 1024 ^ 3 | 3gib    |
+| `tib`, `TiB`         | 1024 ^ 4 | 3tib    |
 | `k`, `K`, `kb`, `KB` | 1000     | 3k      |
 | `m`, `M`, `mb`, `MB` | 1000 ^ 2 | 3mb     |
 | `g`, `G`, `gb`, `GB` | 1000 ^ 3 | 3GB     |
+| `t`, `T`, `tb`, `TB` | 1000 ^ 4 | 4TB     |
 | `%`                  | 0.01     | 5%      |
 
-Suffix could be used like this in a configuration file:
+Suffixes can also be used in configuration files like this:
 
 ```conf
 [rocksdb]
