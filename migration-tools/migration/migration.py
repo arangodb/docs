@@ -86,6 +86,9 @@ def create_index(label, item, extendedSection):
 def create_files_new(label, item, extendedSection):
 	oldFileName = item["href"].replace(".html", ".md")
 	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'.replace("//", "/")
+	if label == '':
+		return create_file_no_label(item, extendedSection)
+
 	filePath = clean_line(f'{NEW_TOOLCHAIN}/content/{label}/{oldFileName}')
 
 	try:
@@ -99,6 +102,28 @@ def create_files_new(label, item, extendedSection):
 		"fileID": oldFileName.replace(".md", "")
 		}
 	return label
+
+# To handle analyzers.md etc. case that are root-level pages
+def create_file_no_label(item, extendedSection):
+	oldFileName = item["href"].replace(".html", ".md")
+	oldFilePath = f'{OLD_TOOLCHAIN}/3.10/{extendedSection}{oldFileName}'.replace("//", "/")
+
+	label = oldFileName.replace(".md", "")
+	Path(clean_line(f'{NEW_TOOLCHAIN}/content/{label}')).mkdir(parents=True, exist_ok=True)
+
+	filePath = clean_line(f'{NEW_TOOLCHAIN}/content/{label}/_index.md')
+
+	try:
+		shutil.copyfile(oldFilePath, filePath)
+	except FileNotFoundError:
+		print(f"WARNING! FILE NOT FOUND IN OLD TOOLCHAIN {oldFilePath}")
+		
+	infos[filePath]  = {
+		"title": f'\'{item["text"]}\'' if '@' in item["text"] else item["text"],
+		"weight": get_weight(currentWeight),
+		"fileID": oldFileName.replace(".md", "")
+		}
+	return ''
 
 
 
