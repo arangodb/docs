@@ -191,10 +191,7 @@ def _processChapters(page, paragraph):
 	paragraph = paragraph.replace("{:target=\"_blank\"}", "")
 	paragraph = paragraph.replace("{:style=\"clear: left;\"}", "")
 
-	test = re.search(r"#+ .*|(.*\n={4,})", paragraph)
-	if test:
-		paragraph = paragraph.replace(test.group(0), '', 1)
-
+	paragraph = re.sub(r"^# .*|(.*\n={4,})", "", paragraph, 0, re.MULTILINE)
 	paragraph = re.sub(r"(?<=\n\n)[\w\s\W]+{:class=\"lead\"}", '', paragraph)
 	versionBlocks = re.findall(r"{%- assign ver.*{%- endif %}", paragraph)
 	for versionBlock in versionBlocks:
