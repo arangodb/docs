@@ -48,7 +48,7 @@ helm install $URLPREFIX/kube-arangodb-<version>.tgz --set "operator.architecture
 Use at least version 1.2.20 of the operator to use the ARM architecture.
 {% endhint %}
 
-Note that you need to set [`spec.architectures`](deployment-kubernetes-deployment-resource.html#specarchitectures-string)
+Note that you need to set [`spec.architecture`](deployment-kubernetes-deployment-resource.html#specarchitecture-string)
 in the deployment specification, too, in order to create a deployment that runs
 on ARM chips.
 
