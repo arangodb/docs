@@ -44,8 +44,8 @@ authorization: (a) "roles attribute" and (b) "roles search".
 In method (a) ArangoDB acquires a list of roles the authenticated LDAP
 user has from the LDAP server. The actual access rights to databases
 and collections for these roles are configured in ArangoDB itself.
-The user effectively has the union of all access rights of all roles
-he has. This method is probably the most common one for production use
+Users effectively have the union of all access rights of all roles
+they have. This method is probably the most common one for production use
 cases. It combines the advantages of managing users and roles outside of
 ArangoDB in the LDAP server with the fine grained access control within
 ArangoDB for the individual roles. See [Roles attribute](#roles-attribute)
