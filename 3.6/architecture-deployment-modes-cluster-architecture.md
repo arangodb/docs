@@ -116,7 +116,7 @@ from the _DB-Server_ layer.
 It is a best practice and a recommended approach to run _Agent_ instances
 on different machines than _DB-Server_ instances.
 
-When deploying using the tool [_Starter_](deployment-arango-dbstarter.html)
+When deploying using the tool [_Starter_](programs-starter.html)
 this can be achieved by using the options `--cluster.start-dbserver=false` and
 `--cluster.start-coordinator=false` on the first three machines where the _Starter_
 is started, if the desired _Agency_ _size_ is 3, or on the first 5 machines

@@ -18,50 +18,50 @@
   children:
     - text: Data Modeling
       href: data-model-and-concepts.html
-  children:
-    - text: Databases
-      href: data-modeling-databases.html
       children:
-        - text: Database Methods
-          href: data-modeling-databases-working-with.html
-    - text: Collections
-      href: data-modeling-collections.html
-      children:
-        - text: Collection Methods
-          href: data-modeling-collections-collection-methods.html
-        - text: Database Methods
-          href: data-modeling-collections-database-methods.html
-    - text: Documents
-      href: data-modeling-documents.html
-      children:
-        - text: Basics and Terminology
-          href: data-modeling-documents-document-address.html
-        - text: Collection Methods
-          href: data-modeling-documents-document-methods.html
-        - text: Database Methods
-          href: data-modeling-documents-database-methods.html
-        - text: Schema Validation
-          href: data-modeling-documents-schema-validation.html
-        - text: Computed Values
-          href: data-modeling-documents-computed-values.html
-    - text: Views
-      href: data-modeling-views.html
-      children:
-        - text: Database Methods
-          href: data-modeling-views-database-methods.html
-        - text: View Methods
-          href: data-modeling-views-view-methods.html
-    - text: Naming Conventions
-      href: data-modeling-naming-conventions.html
-      children:
-        - text: Database Names
-          href: data-modeling-naming-conventions-database-names.html
-        - text: Collection and View Names
-          href: data-modeling-naming-conventions-collection-and-view-names.html
-        - text: Document Keys
-          href: data-modeling-naming-conventions-document-keys.html
-        - text: Attribute Names
-          href: data-modeling-naming-conventions-attribute-names.html
+        - text: Databases
+          href: data-modeling-databases.html
+          children:
+            - text: Database Methods
+              href: data-modeling-databases-working-with.html
+        - text: Collections
+          href: data-modeling-collections.html
+          children:
+            - text: Collection Methods
+              href: data-modeling-collections-collection-methods.html
+            - text: Database Methods
+              href: data-modeling-collections-database-methods.html
+        - text: Documents
+          href: data-modeling-documents.html
+          children:
+            - text: Basics and Terminology
+              href: data-modeling-documents-document-address.html
+            - text: Collection Methods
+              href: data-modeling-documents-document-methods.html
+            - text: Database Methods
+              href: data-modeling-documents-database-methods.html
+            - text: Schema Validation
+              href: data-modeling-documents-schema-validation.html
+            - text: Computed Values
+              href: data-modeling-documents-computed-values.html
+        - text: Views
+          href: data-modeling-views.html
+          children:
+            - text: Database Methods
+              href: data-modeling-views-database-methods.html
+            - text: View Methods
+              href: data-modeling-views-view-methods.html
+        - text: Naming Conventions
+          href: data-modeling-naming-conventions.html
+          children:
+            - text: Database Names
+              href: data-modeling-naming-conventions-database-names.html
+            - text: Collection and View Names
+              href: data-modeling-naming-conventions-collection-and-view-names.html
+            - text: Document Keys
+              href: data-modeling-naming-conventions-document-keys.html
+            - text: Attribute Names
+              href: data-modeling-naming-conventions-attribute-names.html
     - text: How to Interact with ArangoDB
       href: how-to-interact-with-arangodb.html
     - text: Setting up a cloud instance
@@ -417,17 +417,17 @@
         - text: Single Instance
           href: architecture-deployment-modes-single-instance.html
           children: 
-            - text: Deploy using the ArangoDB Starter
-              href: deployment-single-instance-using-the-starter.html
             - text: Manual Start
               href: deployment-single-instance-manual-start.html  
+            - text: Using the ArangoDB Starter
+              href: deployment-single-instance-using-the-starter.html
         - text: Active Failover
           href: architecture-deployment-modes-active-failover.html
           children:
-            - text: Deploy using the ArangoDB Starter
-              href: deployment-active-failover-using-the-starter.html
             - text: Manual Start
               href: deployment-active-failover-manual-start.html
+            - text: Using the ArangoDB Starter
+              href: deployment-active-failover-using-the-starter.html
             - text: Administration
               href: administration-active-failover.html  
         - text: Cluster
@@ -436,10 +436,10 @@
             - text: Deployment
               href: deployment-cluster.html
               children:
-                - text: Deploy using the ArangoDB Starter
-                  href: deployment-cluster-using-the-starter.html
                 - text: Manual Start
                   href: deployment-cluster-manual-start.html
+                - text: Using the ArangoDB Starter
+                  href: deployment-cluster-using-the-starter.html
                 - text: Kubernetes
                   href: deployment-cluster-kubernetes.html
             - text: Administration
@@ -606,66 +606,52 @@
           href: installation-compiling-jemalloc.html
 - text: Uninstallation
   href: uninstallation.html
-- text: Deployment
+- text: Deployment options
   href: deployment.html
   children:
-    - text: By Technology
-      href: deployment-technology.html
+    - text: Kubernetes
+      href: deployment-kubernetes.html
       children:
-        - text: Manually
-          href: deployment-manually.html
-        - text: ArangoDB Starter
-          href: deployment-arango-dbstarter.html
-        - text: Docker
-          href: deployment-docker.html
-        - text: Kubernetes
-          href: deployment-kubernetes.html
-          children:
-            - text: Using the Operator
-              href: deployment-kubernetes-usage.html
-            - text: Dashboards
-              href: deployment-kubernetes-dashboards.html
-            - text: Deployment Resource Reference
-              href: deployment-kubernetes-deployment-resource.html
-            - text: Backup Resource
-              href: deployment-kubernetes-backup-resource.html
-            - text: BackupPolicy Resource
-              href: deployment-kubernetes-backup-policy-resource.html
-            - text: Driver Configuration
-              href: deployment-kubernetes-driver-configuration.html
-            - text: Helm
-              href: deployment-kubernetes-helm.html
-            - text: Authentication
-              href: deployment-kubernetes-authentication.html
-            - text: Scaling
-              href: deployment-kubernetes-scaling.html
-            - text: Draining Nodes
-              href: deployment-kubernetes-drain.html
-            - text: Upgrading
-              href: deployment-kubernetes-upgrading.html
-            - text: ArangoDB Configuration & Secrets
-              href: deployment-kubernetes-config-and-secrets.html
-            - text: Metrics
-              href: deployment-kubernetes-metrics.html
-            - text: Services & Load balancer
-              href: deployment-kubernetes-services-and-load-balancer.html
-            - text: Deployment Replication Resource Reference
-              href: deployment-kubernetes-deployment-replication-resource.html
-            - text: Storage
-              href: deployment-kubernetes-storage.html
-            - text: Storage Resource
-              href: deployment-kubernetes-storage-resource.html
-            - text: TLS
-              href: deployment-kubernetes-tls.html
-            - text: Troubleshooting
-              href: deployment-kubernetes-troubleshooting.html
+        - text: Using the Operator
+          href: deployment-kubernetes-usage.html
+        - text: Dashboards
+          href: deployment-kubernetes-dashboards.html
+        - text: Deployment Resource Reference
+          href: deployment-kubernetes-deployment-resource.html
+        - text: Backup Resource
+          href: deployment-kubernetes-backup-resource.html
+        - text: BackupPolicy Resource
+          href: deployment-kubernetes-backup-policy-resource.html
+        - text: Driver Configuration
+          href: deployment-kubernetes-driver-configuration.html
+        - text: Helm
+          href: deployment-kubernetes-helm.html
+        - text: Authentication
+          href: deployment-kubernetes-authentication.html
+        - text: Scaling
+          href: deployment-kubernetes-scaling.html
+        - text: Draining Nodes
+          href: deployment-kubernetes-drain.html
+        - text: Upgrading
+          href: deployment-kubernetes-upgrading.html
+        - text: Configuration & Secrets
+          href: deployment-kubernetes-config-and-secrets.html
+        - text: Metrics
+          href: deployment-kubernetes-metrics.html
+        - text: Services & Load balancer
+          href: deployment-kubernetes-services-and-load-balancer.html
+        - text: Deployment Replication Resource Reference
+          href: deployment-kubernetes-deployment-replication-resource.html
+        - text: Storage
+          href: deployment-kubernetes-storage.html
+        - text: Storage Resource
+          href: deployment-kubernetes-storage-resource.html
+        - text: TLS
+          href: deployment-kubernetes-tls.html
+        - text: Troubleshooting
+          href: deployment-kubernetes-troubleshooting.html
     - text: In the Cloud
       href: deployment-cloud.html
-      children:
-        - text: AWS
-          href: deployment-cloud-aws.html
-        - text: Azure
-          href: deployment-cloud-azure.html
     - text: Production Checklist
       href: deployment-production-checklist.html
     - text: Migrating Single Instance to Cluster
@@ -675,8 +661,6 @@
 - text: Upgrading
   href: upgrading.html
   children:
-    - text: General Upgrade Information
-      href: upgrading-general-info.html
     - text: Community to Enterprise Upgrade
       href: upgrading-community-to-enterprise.html
     - text: OS-specific Information
@@ -701,8 +685,6 @@
       href: upgrading-kubernetes.html
 - text: Downgrading
   href: downgrading.html
-- text: Scaling
-  href: scaling.html
 - text: Administration
   href: administration.html
   children:

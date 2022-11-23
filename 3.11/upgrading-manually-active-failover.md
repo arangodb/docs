@@ -12,7 +12,7 @@ should also stay fairly low.
 
 The manual upgrade procedure described in this section can be used to upgrade
 to a new hotfix version, or to perform an upgrade to a new minor version of ArangoDB.
-Please refer to the [Upgrade Paths](upgrading-general-info.html#upgrade-paths) section
+Please refer to the [Upgrade Paths](upgrading.html#upgrade-paths) section
 for detailed information.
 
 Preparations

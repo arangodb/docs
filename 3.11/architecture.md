@@ -26,8 +26,35 @@ important details about each mode and the included features.
 
 ## Deploying by technology
 
-You can deploy ArangoDB manually, using the ArangoDB Starter tool, in Docker
-containers, or using the ArangoDB Kubernetes Operator.
+There are different ways that can be used to deploy an environment. You can
+manually start all the needed processes localy or in Docker containers. 
+Or use the ArangoDB _Starter_, the _arangodb_ binary program, for
+local setups using processes or Docker containers.
 
-Continue with [Deployment by Technology](deployment-technology.html)
-chapter to learn more about all the available options.
+If you want to deploy in your Kubernetes cluster, you can use the 
+[ArangoDB Kubernetes Operator](deployment-kubernetes.html) (`kube-arangodb`).
+
+The fastest way to get ArangoDB up and running is to run it in the cloud - the
+[ArangoGraph Platform](https://cloud.arangodb.com){:target="_blank"} offers a 
+fully managed cloud service, available on AWS, Microsoft Azure, 
+and Google Cloud Platform.
+
+## Scaling ArangoDB
+
+ArangoDB is a distributed database supporting multiple data models,
+and can thus be scaled horizontally, that is, by using many servers,
+typically based on commodity hardware. This approach not only delivers 
+performance as well as capacity improvements, but also achieves
+resilience by means of replication and automatic fail-over. Furthermore,
+one can build systems that scale their capacity dynamically up and down 
+automatically according to demand.
+
+One can also scale ArangoDB vertically, that is, by using
+ever larger servers. There is no built in limitation in ArangoDB,
+for example, the server will automatically use more threads if
+more CPUs are present. 
+
+However, scaling vertically has the disadvantage that the
+costs grow faster than linear with the size of the server, and
+none of the resilience and dynamical capabilities can be achieved 
+in this way.
