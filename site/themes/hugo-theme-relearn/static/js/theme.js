@@ -992,7 +992,6 @@ $( document ).ready(function() {
 });
 
 function copyURI(evt) {
-    evt.preventDefault();
     navigator.clipboard.writeText(evt.target.closest("a").getAttribute('href')).then(() => {
     }, () => {
       console.log("clipboard copy failed")
