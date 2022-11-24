@@ -3,6 +3,8 @@ languageCode: "en-us"
 title: "ArangoDB Documentation"
 theme: "hugo-theme-relearn"
 timeout: "200000000"
+UglifyURLs: true
+CanonifyURLs: true
 
 menu:
   shortcuts:
@@ -23,6 +25,11 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+      
+    parser:
+      attribute:
+        block: true
+        title: true
 
 outputs:
   home: ["HTML", "RSS", "JSON"]

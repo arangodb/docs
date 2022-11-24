@@ -9,14 +9,8 @@
           {{- $defaultOrdersectionsby := .Site.Params.ordersectionsby | default "weight" }}
           {{- $currentOrdersectionsby := .Site.Home.Params.ordersectionsby | default $defaultOrdersectionsby }}
           {{- $defaultAlwaysopen := .Site.Params.alwaysopen | default false }}
-          {{- if eq $currentOrdersectionsby "title" }}
-            {{- range .Site.Home.Sections.ByTitle }}
-              {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
-            {{- end }}
-          {{- else }}
-            {{- range .Site.Home.Sections.ByWeight }}
-              {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
-            {{- end }}
+          {{- range .Site.Sections.ByWeight }}
+            {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
           {{- end }}
         </ul>
         {{- $siteLanguages := .Site.Languages }}
@@ -76,8 +70,7 @@
         {{- end }}
         {{- $relearnIsHiddenFrom := index ($currentNode.Scratch.Get "relearnIsHiddenFrom") .RelPermalink }}
         {{- $hidden := and $relearnIsHiddenFrom (not $.showhidden) (not $isSelf) (not $isAncestor) }}
-        {{- if $hidden }}
-        {{- else if or .IsSection .IsHome }}
+        {{- if or .IsSection .IsHome }}
           {{- $numberOfVisibleChildren := 0 }}
           {{- range $pages }}
             {{- $isSelfSub := eq .RelPermalink $currentFileRelPermalink }}
@@ -103,22 +96,17 @@
               {{- partial "menu-pre.html" . }}{{ .Title | markdownify }}{{ partial "menu-post.html" . }}
               {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a><ul>
               {{- $defaultAlwaysopen := .Site.Params.alwaysopen | default true }}
-              {{- if eq $currentOrdersectionsby "title" }}
-                {{- range $pages.ByTitle }}
-                  {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
-                {{- end }}
-              {{- else }}
                 {{- range $pages.ByWeight }}
                   {{- template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks "alwaysopen" $defaultAlwaysopen }}
                 {{- end }}
-              {{- end }}</ul></li>
+              </ul></li>
             {{- else }}
-          <li data-nav-id="{{.RelPermalink}}" title="{{.Title | markdownify}}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
+          <li data-nav-id="{{.RelPermalink}}" test1 title="{{.Title | markdownify}}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
                   {{- partial "menu-pre.html" . }}{{.Title | markdownify }}{{ partial "menu-post.html" . }}
                   {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a></li>
             {{- end }}
         {{- else }}
-          <li data-nav-id="{{.RelPermalink}}" title="{{.Title | markdownify}}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
+          <li data-nav-id="{{.RelPermalink}}" test2 title="{{.Title | markdownify}}" class="dd-item{{if $isActive }} active{{end}}"><a href="{{.RelPermalink}}">
               {{- partial "menu-pre.html" . }}{{ .Title | markdownify }}{{ partial "menu-post.html" . }}
               {{- if $showvisitedlinks }}<i class="fas fa-check read-icon"></i>{{ end }}</a></li>
         {{- end }}
