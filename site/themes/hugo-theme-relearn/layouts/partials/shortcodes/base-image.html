@@ -1,0 +1,35 @@
+{{ $image := resources.GetMatch ( .src ) }}
+{{ $class := .class }}
+{{ $style := .style }}
+{{ $size := .size }}
+{{ $alt := .alt }}
+
+{{ $width := 600 }}
+{{ $size := .size | default ""}}
+{{- if eq $size "small" -}}
+  {{- $width = 300 -}}
+{{- else if eq $size "medium" -}}
+    {{- $width = 600 -}}
+{{- else if eq $size "large" -}}
+    {{- $width = 1200 -}}    
+{{- end }}
+
+        <img {{ with $image }}
+                {{ if eq .MediaType.SubType "svg" }} 
+                    src="{{ .RelPermalink }}"
+                {{- else }}
+                    {{ if eq $size "" }}
+                        src="{{ .RelPermalink }}" 
+                    {{- else }}
+                        src="{{ (.Resize (printf "%dx" $width)).RelPermalink }}"
+                    {{ end }}
+                    {{ with $class }}
+                        class="{{.}}"
+                    {{ end }}
+                    {{ with $style }}
+                        x-style="{{.}}"
+                    {{ end }}
+                {{ end }}
+
+                {{ end }}  {{ with $alt }}alt="{{ . }}"
+            {{ end }} />

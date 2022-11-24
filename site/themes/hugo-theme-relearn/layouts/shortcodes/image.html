@@ -1,0 +1,14 @@
+<div class="flex-container">
+    <figure>
+    {{- partial "shortcodes/base-image.html" (dict
+        "src"          (.Get "src")
+        "class"          (.Get "class" | default "" )
+        "style"         (.Get "style" | default "" )
+        "size"          (.Get "size" | default "" )
+        "alt"           (.Get "alt" | default "" )
+    ) }}
+    <figcaption>
+        <div class="caption">{{ .Get "alt" }}</div>
+    </figcaption>
+    </figure>
+</div>

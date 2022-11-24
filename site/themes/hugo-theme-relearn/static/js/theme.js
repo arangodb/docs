@@ -979,13 +979,10 @@ console.log(evt);
 }
 
 $( document ).ready(function() {
-    images = document.querySelectorAll(".x-style");
+    images = document.querySelectorAll("[x-style]");
 
     for (let image of images) {
         styles = image.getAttribute("x-style");
-        styles = styles.replaceAll("\n", "");
-        styles = styles.replaceAll("=", ": ");
-        styles = styles.replaceAll("_", " ");
         image.setAttribute("style", styles)
         image.removeAttribute("x-style")
     }
