@@ -80,39 +80,68 @@ def migrateHTTPDocuBlocks(paragraph):
 
     return paragraph
 
+
 def processHTTPDocuBlock(docuBlock, tag):
     blockExamples = processExamples(docuBlock)
 
     docuBlock = re.sub(r"@EXAMPLES.*", "", docuBlock, 0, re.MULTILINE | re.DOTALL)
-    restBlocks = docuBlock.split("@REST")
     newBlock = {"openapi": "3.0.2", "paths": {}}
     url, verb, currentRetStatus = "", "", 0
 
-    for block in restBlocks:
-        #print(block)
+    blocks = re.findall(r"@RESTHEADER{(.*?)^(?=@)", docuBlock, re.MULTILINE | re.DOTALL)
+    for block in blocks:
         try:
-            if re.search(r"HEADER{", block):
-                url, verb = processHeader(block, newBlock)     
-
-            if block.startswith("DESCRIPTION"):
-                newBlock["paths"][url][verb]["description"] = block.replace("DESCRIPTION\n", "").rstrip("}")
-
-            elif re.search(r".*PARAM{", block):
-                processParameters(block, newBlock["paths"][url][verb])
-
-            if re.search(r"RETURNCODE{", block):
-                currentRetStatus = processResponse(block, newBlock["paths"][url][verb])
-
-            if re.search(r"REPLYBODY{", block):
-                processResponseBody(block, newBlock["paths"][url][verb]["responses"], currentRetStatus)
-
-            if block.startswith("STRUCT"):
-                processComponents(block)
-    
+            url, verb = processHeader(block, newBlock)
         except Exception as ex:
             print(f"Exception occurred for block {block}\n{ex}")
             traceback.print_exc()
             exit(1)
+
+    blocks = re.findall(r"@RESTDESCRIPTION(.*?)^(?=@)", docuBlock, re.MULTILINE | re.DOTALL)
+    for block in blocks:
+        try:
+            newBlock["paths"][url][verb]["description"] = block
+        except Exception as ex:
+            print(f"Exception occurred for block {block}\n{ex}")
+            traceback.print_exc()
+            exit(1)
+
+    blocks = re.findall(r"(URLPARAM|HEADERPARAM|BODYPARAM|QUERYPARAM){(.*?)^(?=@)", docuBlock, re.MULTILINE | re.DOTALL)
+    for block in blocks:
+        try:
+            processParameters(block, newBlock["paths"][url][verb])
+        except Exception as ex:
+            print(f"Exception occurred for block {block}\n{ex}")
+            traceback.print_exc()
+            exit(1)
+
+    blocks = re.findall(r"@RESTRETURNCODE{(.*?)^(?=@)",  docuBlock, re.MULTILINE | re.DOTALL)
+    for block in blocks:
+        try:
+            currentRetStatus = processResponse(block, newBlock["paths"][url][verb])
+        except Exception as ex:
+            print(f"Exception occurred for block {block}\n{ex}")
+            traceback.print_exc()
+            exit(1)
+
+    blocks = re.findall(r"@RESTREPLYBODY{(.*?)^(?=@)",  docuBlock,  re.MULTILINE | re.DOTALL)
+    for block in blocks:
+        try:
+            processResponseBody(block, newBlock["paths"][url][verb]["responses"], currentRetStatus)
+        except Exception as ex:
+            print(f"Exception occurred for block {block}\n{ex}")
+            traceback.print_exc()
+            exit(1)
+
+    blocks = re.findall(r"@RESTSTRUCT{(.*?)^(?=@)", docuBlock, re.MULTILINE | re.DOTALL)
+    for block in blocks:
+        try:
+            processComponents(block)
+        except Exception as ex:
+            print(f"Exception occurred for block {block}\n{ex}")
+            traceback.print_exc()
+            exit(1)
+
     newBlock["paths"][url][verb]["tags"] = [tag]
     yml = render_yaml(newBlock)
 
@@ -154,7 +183,7 @@ def processExamples(docuBlock):
     return blockExamples
 
 def processHeader(docuBlock, newBlock):
-    headerRe = re.search(r"(?<=HEADER){.*}", docuBlock).group(0)
+    headerRe = re.search(r".*}", docuBlock).group(0)
     headerSplit = headerRe.split(",")
     try:
         url, verb, desc = headerSplit[0].split(" ")[1], headerSplit[0].split(" ")[0].strip("{").lower(), headerSplit[1].replace("}", "")
@@ -166,7 +195,10 @@ def processHeader(docuBlock, newBlock):
     return url, verb
 
 def processParameters(docuBlock, newBlock):
-    paramType = re.search(r".*{", docuBlock).group(0).strip("{")
+    print(f"docublock type {type(docuBlock)}\n")
+    print(docuBlock)
+    
+    paramType = docuBlock[0]
 
     if "BODYPARAM" in paramType:
         processRequestBody(docuBlock, newBlock)
@@ -174,9 +206,8 @@ def processParameters(docuBlock, newBlock):
 
     paramBlock = {}
     
-    p = f"(?<={paramType})"
-    paramRe = re.search(r"(?<="+paramType+"{)" + r".*(?=})", docuBlock).group(0)
-    paramSplit = paramRe.split(",")
+    params = docuBlock[1].split("\n")[0].strip("}")
+    paramSplit = params.split(",")
     try:
         paramBlock["name"] = paramSplit[0]
         paramBlock["schema"] = {"type": paramSplit[1]}
@@ -186,8 +217,7 @@ def processParameters(docuBlock, newBlock):
     except IndexError:
         pass
     
-    docuBlock = re.sub(p + r".*}", '', docuBlock)
-    paramBlock["description"] = re.sub(r".*PARAM", '', docuBlock).replace(":", "")
+    paramBlock["description"] = "\n".join(docuBlock[1].split("\n")[1:]).replace(":", "")
 
     if "URLPARAM" in paramType:
         paramBlock["in"] = "path"
@@ -202,8 +232,8 @@ def processParameters(docuBlock, newBlock):
     newBlock["parameters"].append(paramBlock)
 
 def processRequestBody(docuBlock, newBlock):
-    paramRe = re.search(r"(?<=BODYPARAM{).*(?=})", docuBlock).group(0)
-    paramSplit = paramRe.split(",")
+    params = docuBlock[1].split("\n")[0].strip("}")
+    paramSplit = params.split(",")
     name = paramSplit[0]
     paramBlock = {}
     paramBlock[name] = {}
@@ -214,8 +244,7 @@ def processRequestBody(docuBlock, newBlock):
     except IndexError:
         pass
     
-    docuBlock = re.sub(r"BODYPARAM{.*}", '', docuBlock)
-    paramBlock[name]["description"] = re.sub(r".*PARAM", '', docuBlock).replace(":", "")
+    paramBlock[name]["description"] = "\n".join(docuBlock[1].split("\n")[1:]).replace(":", "")
 
     if "requestBody" not in newBlock:
         newBlock["requestBody"] = {"content": {"application/json": {"schema": {"type": "object", "properties": {}, "required": []}}}}
@@ -227,9 +256,10 @@ def processRequestBody(docuBlock, newBlock):
     return
 
 def processResponse(docuBlock, newBlock):
+    print(docuBlock)
     blockSplit = docuBlock.split("\n")
-    status = re.search(r"(?<=RETURNCODE{).*(?=})", blockSplit[0]).group(0)
-    description = "".join(blockSplit[1:]).strip("@endDocuBlock").replace(":", "")
+    status = blockSplit[0].strip("}")
+    description = "".join(blockSplit[1:]).replace(":", "")
 
     retBlock = {"description": description}
 
@@ -242,8 +272,8 @@ def processResponse(docuBlock, newBlock):
 def processResponseBody(docuBlock, newBlock, statusCode):
     replyBlock = {}
     
-    paramRe = re.search(r"(?<=REPLYBODY{).*(?=})", docuBlock).group(0)
-    paramSplit = paramRe.split(",")
+    blocks = docuBlock.split("\n")
+    paramSplit = blocks[0].strip("}").split(",")
     name = paramSplit[0].strip("{")
     try:
         replyBlock["type"] = paramSplit[1]
@@ -252,8 +282,7 @@ def processResponseBody(docuBlock, newBlock, statusCode):
     except IndexError:
         pass
     
-    docuBlock = re.sub(r"(?<=REPLYBODY){.*}", '', docuBlock)
-    replyBlock["description"] = re.sub(r"REPLYBODY", '', docuBlock).replace(":", "")
+    replyBlock["description"] = "\n".join(blocks[1:])
 
     if name == "" and "schema" in replyBlock:
         newBlock[statusCode]["content"] = {"application/json": {"schema": replyBlock["schema"]}}
@@ -269,10 +298,9 @@ def processResponseBody(docuBlock, newBlock, statusCode):
 
 
 def processComponents(block):
-    argsRe = re.search(r"(?<={).*(?=})", block).group(0)
-    args = argsRe.split(",") 
+    args = block.split("\n")[0].strip("}").split(",") 
     
-    description = "".join(block.split("\n")[1:])
+    description = "\n".join(block.split("\n")[1:])
     structName, paramName, paramType, paramRequired, paramSubtype = args[1], args[0], args[2], args[3], args[4]
     structProperty = {
         "type": paramType,
