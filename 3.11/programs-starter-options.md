@@ -412,6 +412,32 @@ this option is overwritten to `false`.
 IF `starter.debug-cluster` is set, the start will record the status codes it receives
 upon "server ready" requests to the log. This option is mainly intended for internal testing.
 
+## Starting and stopping in detached mode
+
+If you want the starter to detach and run as a background process, use the `start`
+command. This is typically used by developers running tests only.
+
+```bash
+arangodb start --starter.local=true [--starter.wait]
+```
+
+This command makes the Starter run another starter process in the background
+(that starts all ArangoDB servers), wait for its HTTP API to be available and
+then exit. The Starter that was started in the background keeps running until
+you stop it.
+
+The `--starter.wait` option makes the `start` command wait until all ArangoDB
+servers are really up, before ending the leader process.
+
+To stop a Starter, use this command:
+
+```bash
+arangodb stop
+```
+
+Make sure to match the arguments given to start the Starter
+(`--starter.port` & `--ssl.*`).
+
 ## Environment variables
 
 It is possible to replace all commandline arguments for the starter with

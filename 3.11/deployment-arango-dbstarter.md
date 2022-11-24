@@ -1,9 +1,31 @@
 ---
 layout: default
-description: Single Instance
+description: >-
+  The ArangoDB Starter is designed to make it easy to start and maintain
+  ArangoDB deployments
 ---
-Deploying using the ArangoDB Starter
-====================================
+# Deploying using the ArangoDB Starter
+
+{{ page.description }}
+{:class="lead"}
+
+Setting up an ArangoDB cluster, for example, involves starting various nodes
+with different roles (Agents, DB-Servers, and Coordinators). The starter
+simplifies this process.
+
+The Starter supports different deployment modes (single server, Active Failover,
+cluster) and it can either use Docker containers or processes (using the
+`arangod` executable).
+
+Besides starting and maintaining ArangoDB deployments, the Starter also provides
+various commands to create TLS certificates and JWT token secrets to secure your
+ArangoDB deployments.
+
+The ArangoDB Starter is an executable called `arangodb` and comes with all
+current distributions of ArangoDB.
+
+If you want a specific version, download the precompiled executable via the
+[GitHub releases page](https://github.com/arangodb-helper/arangodb/releases){:target="_blank"}.
 
 **Single Instance:**
 

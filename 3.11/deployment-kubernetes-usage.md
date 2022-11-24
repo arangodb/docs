@@ -86,11 +86,14 @@ Use this when running on bare-metal or if there is no provisioner for fast
 storage in your Kubernetes cluster.
 
 To use `ArangoDeploymentReplication` resources for ArangoDB
-Datacenter-to-datacenter Replication, also run:
+Datacenter-to-Datacenter Replication, also run:
 
 ```bash
 kubectl apply -f $URLPREFIX/arango-deployment-replication.yaml
 ```
+
+See [ArangoDeploymentReplication Custom Resource](deployment-kubernetes-deployment-replication-resource.html)
+for details and an example.
 
 You can find the latest release of the ArangoDB Kubernetes Operator
 in the [kube-arangodb repository](https://github.com/arangodb/kube-arangodb/releases/latest){:target="_blank"}.

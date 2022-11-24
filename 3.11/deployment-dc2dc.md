@@ -102,4 +102,4 @@ close eye on them, such that you do not lose any alerts due to failures
 of Prometheus.
 
 Please refer to the [Prometheus & Grafana](deployment-dc2dc-prometheus-grafana.html)
-section for more informnation.
+section for more information.
