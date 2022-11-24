@@ -95,25 +95,18 @@ def migrate_image(paragraph, href):
     newImgName = "images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
 
     if ':style' in href:
-        styleRegex = re.search(r"(?<={:style=\").*(?=\"})", href)
+        styleRegex = re.search(r"(?<={:style=).*(?=})", href)
         if styleRegex:
-            newImgName = newImgName + "?"
-            styles = styleRegex.group(0).split(";")
+            label = re.search(r"(?<=\[).*(?=\])", href).group(0)	# Bug with new style regex, to fix
+            if "\"" in label:
+                label = label.replace('"', '')
 
-            for style in styles:
-                style = style.replace(": ", "=").replace(" ", "&")
-                newImgName = newImgName + style
-            newHref = href.replace(linkContent, newImgName)
-            newHref = re.sub(r"{.*}", '', newHref, 0)
-            return paragraph.replace(href, newHref)
+            imgWidget = '{{{{< img src="{}" alt="{}" style={}>}}}}'.format(newImgName, label, styleRegex.group(0))
+
+            return paragraph.replace(href, imgWidget)
     else:
-        label = re.search(r"(?<=\[).*(?=\])", href).group(0)	# Bug with new style regex, to fix
-        if "\"" in label:
-            label = label.replace('"', '')
-
-        attr = re.search(r"(?<=\]\().*(?=\))", href).group(0).strip('"').strip('()').replace('.html', '')
-        imgWidget = '{{{{< img src="{}" alt="{}" >}}}}'.format(attr, label)
-        return paragraph.replace(href, imgWidget)
+        newImg = href.replace(linkContent, newImgName)
+        return paragraph.replace(href, newImg)
 
 def migrate_link(paragraph, href):
     linksContent = re.findall(r"(?<=\]\()(.*?)\)", href)
