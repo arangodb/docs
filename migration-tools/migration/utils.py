@@ -76,7 +76,7 @@ def migrate_details(paragraph):
     
     return paragraph
 
-def migrate_hrefs(paragraph, infos):
+def migrate_hrefs(paragraph, infos, filepath):
     hrefRegex = re.findall(r"[^\s]*\[.*\]\(.*\).*", paragraph)
     for href in hrefRegex:
         if 'https://' in href or 'http://' in href:
@@ -86,7 +86,7 @@ def migrate_hrefs(paragraph, infos):
             paragraph = migrate_image(paragraph, href)
             continue
 
-        paragraph = migrate_link(paragraph, href)
+        paragraph = migrate_link(paragraph, href, filepath)
 
     return paragraph
 
@@ -101,56 +101,43 @@ def migrate_image(paragraph, href):
             if "\"" in label:
                 label = label.replace('"', '')
 
-            imgWidget = '{{{{< img src="{}" alt="{}" style={}>}}}}'.format(newImgName, label, styleRegex.group(0))
+            imgWidget = '{{{{< icon src="{}" alt="{}" style={}>}}}}'.format(newImgName, label, styleRegex.group(0))
 
             return paragraph.replace(href, imgWidget)
     else:
         newImg = href.replace(linkContent, newImgName)
         return paragraph.replace(href, newImg)
 
-def migrate_link(paragraph, href):
-    linksContent = re.findall(r"(?<=\]\()(.*?)\)", href)
-    for linkContent in linksContent:
-        print(f"\nProcessing link {linkContent}")
-        linkContent = linkContent.replace(")", "")
+def migrate_link(paragraph, href, filepath):
+    linkContent = re.search(r"(?<=\]\()(.*?)\)", href).group(0).replace(")", "")
+    filename = re.search("([^\/]+)\.html", linkContent)
+    if not filename:
+        return paragraph
 
-        filenameRE = "([^\/]+)\.html" if "/" in linkContent else ".*\.html"
-        filename = re.search(filenameRE, linkContent)
-        if not filename:
+    filename = filename.group(0).replace(".html", "").replace("/", "")
+    print(f"link filename {filename}")
+    fragment = re.search(r"#+.*", linkContent)
+
+    for k in globals.infos.keys():
+        if not "fileID" in globals.infos[k]:
             continue
 
-        filename = filename.group(0).replace(".html", "").replace("/", "")
-        print(f"link filename {filename}")
-        fragment = re.search(r"#+.*", linkContent)
+        if globals.infos[k]["fileID"] == filename:
+            actualPositionOfReferencing = re.search(r"(?<=site\/content\/).*", filepath).group(0)
+            stepsBehind = actualPositionOfReferencing.count("/")
+            newAnchor = re.search(r"(?<=site\/content\/).*", k).group(0).replace(".md", "").replace("_index", "")  #Adjust link according to new directory-structure
 
-        relativeCDPath = re.findall(r"\.+\/", linkContent)  # Capture the ../../....
-        relativeCD = "../"
-
-        for relative in relativeCDPath:
-            relativeCD = relativeCD + relative
-
-
-        for k in globals.infos.keys():
-            if not "fileID" in globals.infos[k]:
-                continue
-
-            if globals.infos[k]["fileID"] == filename:
-                newAnchor = re.search(r"(?<=site\/content).*", k).group(0).replace(".md", "")
-                print(f"NEW ANCHOR {newAnchor}")
-            
-                newAnchor = relativeCD + newAnchor
-                newAnchor = newAnchor.replace("//", "/")
-
-                if fragment:
-                    newAnchor = f"{newAnchor}{fragment.group(0)}"
-                    
-                newHref = href.replace(linkContent, newAnchor).replace(".html", "")
-                print(f"{linkContent} FOUND {newHref}")
-
-                paragraph = paragraph.replace(href, newHref)
-           
+            newAnchor = "../"*stepsBehind+newAnchor
+            print(newAnchor)
+            if fragment:
+                newAnchor = f"{newAnchor}{fragment.group(0)}"
+                
+            newHref = href.replace(linkContent, newAnchor).replace(".html", "")
+            print(f"{linkContent} FOUND {newHref}")
+            paragraph = paragraph.replace(href, newHref)
 
     return paragraph
+
 
 def migrate_youtube_links(paragraph):
     youtubeRegex = re.search(r"{% include youtube\.html .* %}", paragraph)

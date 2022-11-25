@@ -165,7 +165,7 @@ def processFile(filepath):
 	buffer = re.sub(r"^---\n.*\n---\n", '', buffer, 0, re.MULTILINE | re.DOTALL)
 
 	#Internal content
-	_processChapters(page, buffer)
+	_processChapters(page, buffer, filepath)
 
 	file = open(filepath, "w", encoding="utf-8")
 	file.write(page.toString())
@@ -184,7 +184,7 @@ def _processFrontMatter(page, buffer):
 	set_page_description(page, buffer, frontMatter)
 	return page
 
-def _processChapters(page, paragraph):
+def _processChapters(page, paragraph, filepath):
 	if paragraph is None or paragraph == '':
 		return
 	paragraph = re.sub("{+\s?page.description\s?}+", '', paragraph)
@@ -199,7 +199,7 @@ def _processChapters(page, paragraph):
 			paragraph = paragraph.replace(versionBlock, "")
 
 	paragraph = migrate_headers(paragraph)
-	paragraph = migrate_hrefs(paragraph, infos)
+	paragraph = migrate_hrefs(paragraph, infos, filepath)
 	paragraph = migrate_youtube_links(paragraph)
 
 	paragraph = migrate_hints(paragraph)

@@ -11,21 +11,11 @@
   {{ if $page }}
     {{ $permalink = printf "%s%s" $page.RelPermalink $fragment}}
   {{ else }}
-    {{ $linkSplit := split $path "/"}}
-    {{ $x := sub (len $linkSplit) 1 }}
-    {{ $idSearch := index $linkSplit $x }}
-    {{ range site.Pages }}
-      {{ if eq $path .Params.fileID }}
-        {{ $permalink = .RelPermalink }}
-      {{ end }}
-    {{ end }}
-    {{ if not $permalink }}
       {{ if site.Params.failOnBrokenLinks }}
         {{ errorf "[ERROR] Broken link '%v'" .Destination}}
       {{ else }}
         {{ warnf "Broken link '%v' found in '%v'" .Destination .Page.File }}
       {{ end }}
-    {{ end }}
   {{end}}
 {{ end }}
 <a href="{{ $permalink | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isRemote }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>
