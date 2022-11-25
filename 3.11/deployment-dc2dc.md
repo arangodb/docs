@@ -8,7 +8,7 @@ title: DC2DC Replication Deployment
 {% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 This chapter describes how to deploy all the components needed for
-_Datacenter-to-Datacenter (DC2DC) Replication_.
+_Datacenter-to-Datacenter Replication (DC2DC)_.
 
 ## Deployment steps
 

@@ -21,8 +21,8 @@ Set appropriate privilege on the generated _secret_ file, e.g. on Linux:
 chmod 400 arangodb.secret
 ```
 
-Local Active Failover deployment
---------------------------------
+Local Active Failover test deployment
+-------------------------------------
 
 If you want to start a local _Active Failover_ setup quickly, use the `--starter.local`
 option of the _Starter_. This will start all servers within the context of a single
