@@ -19,7 +19,27 @@ start _Agents_, _Coordinators_ and _DB-Servers_ on these machines.
 The _Starter_ supervises its child tasks (namely _Coordinators_,
 _DB-Servers_ and _Agents_) and restarts them in case of failures.
 
-To start the cluster using a `systemd` unit file use the following:
+Datacenter-to-Datacenter Replication (DC2DC) requires a normal ArangoDB cluster in both datacenters
+and one or more (`arangosync`) syncmasters & syncworkers in both datacenters.
+The Starter enables you to run these syncmasters & syncworkers in combination with your normal
+cluster.
+
+To run a starter with DC2DC support, you set the following arguments in addition to the
+commands to start a cluster with the Starter:
+
+```bash
+--auth.jwt-secret=<path of file containing JWT secret for communication in local cluster>
+--starter.address=<publicly visible address of this machine>
+--starter.sync
+--sync.master.jwt-secret=<path of file containing JWT secret used for communication between local syncmaster & workers>
+--sync.server.keyfile=<path of keyfile containing TLS certificate & key for local syncmaster>
+--sync.server.client-cafile=<path of file containing CA certificate for syncmaster client authentication>
+```
+
+See [Securing Datacenter-to-Datacenter Replication](security-dc2dc.html)
+for instructions how to create all certificates and keyfiles.
+
+To start the cluster using a `systemd` unit file, use the following:
 
 ```text
 [Unit]
