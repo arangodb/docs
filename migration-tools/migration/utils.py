@@ -1,4 +1,5 @@
 import re
+from os.path import relpath
 import globals
 
 ## TODO: These functions are horrible, refactor with cleaner code
@@ -123,16 +124,15 @@ def migrate_link(paragraph, href, filepath):
             continue
 
         if globals.infos[k]["fileID"] == filename:
-            actualPositionOfReferencing = re.search(r"(?<=site\/content\/).*", filepath).group(0)
-            stepsBehind = actualPositionOfReferencing.count("/")
-            newAnchor = re.search(r"(?<=site\/content\/).*", k).group(0).replace(".md", "").replace("_index", "")  #Adjust link according to new directory-structure
+            referencingPath = re.search(r"(?<=site\/content\/).*", filepath).group(0)
+            referencedPath = re.search(r"(?<=site\/content\/).*", k).group(0)  #Adjust link according to new directory-structure
 
-            newAnchor = "../"*stepsBehind+newAnchor
+            newAnchor = relpath(referencedPath, referencingPath).replace("../", "", 1)
             print(newAnchor)
             if fragment:
                 newAnchor = f"{newAnchor}{fragment.group(0)}"
                 
-            newHref = href.replace(linkContent, newAnchor).replace(".html", "")
+            newHref = href.replace(linkContent, newAnchor).replace(".html", "").replace(".md", "").replace("_index", "")
             print(f"{linkContent} FOUND {newHref}")
             paragraph = paragraph.replace(href, newHref)
 
