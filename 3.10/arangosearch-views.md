@@ -1,5 +1,6 @@
 ---
 layout: default
+title: arangosearch Views Reference
 ---
 `arangosearch` Views Reference
 ==============================
