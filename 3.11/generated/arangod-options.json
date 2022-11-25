@@ -31,7 +31,7 @@
     ],
     "default" : 50000,
     "deprecatedIn" : null,
-    "description" : "Keep as many indices before compaction point.",
+    "description" : "Keep as many Agency log entries before compaction point.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -424,6 +424,39 @@
     "section" : "agency",
     "type" : "boolean"
   },
+  "arangosearch.columns-cache-limit" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "The limit (in bytes) for ArangoSearch columns cache (0 = no caching).",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.5"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "arangosearch",
+    "type" : "uint64"
+  },
   "arangosearch.commit-threads" : {
     "base" : 1,
     "category" : "option",
@@ -569,7 +602,7 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "Whether or not retrieval queries on out-of-sync View links and inverted indexes should fail.",
+    "description" : "Whether retrieval queries on out-of-sync View links and inverted indexes should fail.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -637,7 +670,7 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
-    "longDescription" : "From version 3.7.5 on, the commit and consolidation\nthread counts should be set separately via the following options instead:\n\n- `--arangosearch.commit-threads`\n- `--arangosearch.commit-threads-idle`\n- `--arangosearch.consolidation-threads`\n- `--arangosearch.consolidation-threads-idle`\n\nIf either `--arangosearch.commit-threads` or\n`--arangosearch.consolidation-threads` is set, then `--arangosearch.threads` and\n`arangosearch.threads-limit` are ignored. If only the legacy options are set,\nthen the commit and consolidation thread counts are calculated as follows:\n\n- Maximum: The smaller value out of `--arangosearch.threads` and\n  `arangosearch.threads-limit` divided by 2, but at least 1.\n- Minimum: the maximum divided by 2, but at least 1.\\n",
+    "longDescription" : "From version 3.7.5 on, you should set the commit\nand consolidation thread counts separately via the following options instead:\n\n- `--arangosearch.commit-threads`\n- `--arangosearch.commit-threads-idle`\n- `--arangosearch.consolidation-threads`\n- `--arangosearch.consolidation-threads-idle`\n\nIf either `--arangosearch.commit-threads` or\n`--arangosearch.consolidation-threads` is set, then `--arangosearch.threads` and\n`arangosearch.threads-limit` are ignored. If only the legacy options are set,\nthen the commit and consolidation thread counts are calculated as follows:\n\n- Maximum: The smaller value out of `--arangosearch.threads` and\n  `arangosearch.threads-limit` divided by 2, but at least 1.\n- Minimum: the maximum divided by 2, but at least 1.\\n",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
     "minInclusive" : true,
@@ -823,7 +856,7 @@
     "introducedIn" : [
       "v3.9.0"
     ],
-    "longDescription" : "You can control whether the log level is shown in\nthe audit log messages with this option. If you omit it or set it to `false`,\nthe log level is not shown in messages:\n\n`44:2016-10-03 15:47:26 | server1 | audit-authentication | n/a | database1 |\n127.0.0.1:61528 | http basic | credentials wrong | /_api/version`\n\nIf you set the option to `true`, the log level is included in the messages:\n\n`44:2016-10-03 15:47:26 | INFO | server1 | audit-authentication | n/a |\ndatabase1 | 127.0.0.1:61528 | http basic | credentials wrong |\n/_api/version`",
+    "longDescription" : "You can control whether the log level is shown in\nthe audit log messages with this option. If you omit it or set it to `false`,\nthe log level is not shown in messages:\n\n`2016-10-03 15:47:26 | server1 | audit-authentication | n/a | database1 |\n127.0.0.1:61528 | http basic | credentials wrong | /_api/version`\n\nIf you set the option to `true`, the log level is included in the messages:\n\n`2016-10-03 15:47:26 | INFO | server1 | audit-authentication | n/a |\ndatabase1 | 127.0.0.1:61528 | http basic | credentials wrong |\n/_api/version`",
     "obsolete" : false,
     "os" : [
       "linux",
@@ -960,7 +993,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341526528,
+    "default" : 17872713728,
     "deprecatedIn" : null,
     "description" : "The global size limit for all caches (in bytes).",
     "dynamic" : true,
@@ -2445,7 +2478,7 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
-    "longDescription" : "If set to `true`, the Foxx queues are available and\njobs in the queues are executed asynchronously.\n\nIf set to `false`, the queue manager is disabled and any jobs are prevented from\nbeing processed, which may reduce CPU load a bit.",
+    "longDescription" : "If set to `true`, the Foxx queues are available\nand jobs in the queues are executed asynchronously.\n\nIf set to `false`, the queue manager is disabled and any jobs are prevented from\nbeing processed, which may reduce CPU load a bit.",
     "obsolete" : false,
     "os" : [
       "linux",
@@ -2559,7 +2592,7 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
-    "longDescription" : "If you set this option to `true`, the HTTP request\nmethod is optionally fetched from one of the following HTTP request headers if\npresent in the request:\n\n- `x-http-method`\n- `x-http-method-override`\n- `x-method-override`\n\nIf the option is enabled and any of these headers is set, the request method is\noverridden by the value of the header. For example, this allows you to issue an\nHTTP DELETE request which, to the outside world, looks like an HTTP GET request.\nThis allows you to bypass proxies and tools that only let certain request types\npass.\n\nEnabling this option may impose a security risk. You should only used it in\ncontrolled environments.",
+    "longDescription" : "If you set this option to `true`, the HTTP request\nmethod is optionally fetched from one of the following HTTP request headers if\npresent in the request:\n\n- `x-http-method`\n- `x-http-method-override`\n- `x-method-override`\n\nIf the option is enabled and any of these headers is set, the request method is\noverridden by the value of the header. For example, this allows you to issue an\nHTTP DELETE request which, to the outside world, looks like an HTTP GET request.\nThis allows you to bypass proxies and tools that only let certain request types\npass.\n\nEnabling this option may impose a security risk. You should only use it in\ncontrolled environments.",
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6617,7 +6650,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The maximum parallelism usable in a Pregel job.",
     "dynamic" : true,
@@ -6658,7 +6691,7 @@
     "introducedIn" : [
       "v3.10.0"
     ],
-    "longDescription" : "If set to `true`, Pregel jobs store their temporary\ndata in disk-backed memory-mapped files. If set to `false`, the temporary data\nof Pregel jobs is buffered in main memory.\n\nMemory-mapped files are used by default. This has the advantage of a lower RAM\nutilization, which reduces the likelihood of out-of-memory situations. However,\nstoring the files on disk requires a certain disk capacity, so that instead of\nrunning out of RAM, it is possible to run out of a disk space. Make sure to use\na suitable storage location.\n\nYou can override this option for each Pregel job by setting the `useMemoryMaps`\nattribute of the job.",
+    "longDescription" : "If set to `true`, Pregel jobs store their\ntemporary data in disk-backed memory-mapped files. If set to `false`, the\ntemporary data of Pregel jobs is buffered in main memory.\n\nMemory-mapped files are used by default. This has the advantage of a lower RAM\nutilization, which reduces the likelihood of out-of-memory situations. However,\nstoring the files on disk requires a certain disk capacity, so that instead of\nrunning out of RAM, it is possible to run out of a disk space. Make sure to use\na suitable storage location.\n\nYou can override this option for each Pregel job by setting the `useMemoryMaps`\nattribute of the job.",
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6764,7 +6797,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 8,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "The default parallelism to use in a Pregel job if none is specified.",
     "dynamic" : true,
@@ -7001,7 +7034,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 67513589760,
+    "base" : 73638338560,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7009,7 +7042,7 @@
       "agent",
       "single"
     ],
-    "default" : 54686007705,
+    "default" : 59647054233,
     "deprecatedIn" : null,
     "description" : "The memory threshold for all AQL queries combined (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7132,104 +7165,6 @@
     "section" : "query",
     "type" : "uint64"
   },
-  "query.log-failed" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "log failed AQL queries",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.9.5",
-      "v3.10.2",
-      "v3.11.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "query",
-    "type" : "boolean"
-  },
-  "query.log-memory-usage-threshold" : {
-    "base" : 1,
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "agent",
-      "single"
-    ],
-    "default" : 4294967296,
-    "deprecatedIn" : null,
-    "description" : "log queries that have a peak memory usage larger than this threshold",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.9.5",
-      "v3.10.2",
-      "v3.11.0"
-    ],
-    "maxInclusive" : true,
-    "maxValue" : 18446744073709551615,
-    "minInclusive" : true,
-    "minValue" : 0,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "query",
-    "type" : "uint64"
-  },
-  "query.max-artifact-log-length" : {
-    "base" : 1,
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "agent",
-      "single"
-    ],
-    "default" : 4096,
-    "deprecatedIn" : null,
-    "description" : "maximum length of query strings and bind parameter values in logs before they get truncated",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.9.5",
-      "v3.10.2",
-      "v3.11.0"
-    ],
-    "maxInclusive" : true,
-    "maxValue" : 18446744073709551615,
-    "minInclusive" : true,
-    "minValue" : 0,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "query",
-    "type" : "uint64"
-  },
   "query.max-nodes-per-callstack" : {
     "base" : 1,
     "category" : "option",
@@ -7332,7 +7267,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 67513589760,
+    "base" : 73638338560,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7340,7 +7275,7 @@
       "agent",
       "single"
     ],
-    "default" : 40508153856,
+    "default" : 44183003136,
     "deprecatedIn" : null,
     "description" : "The memory threshold per AQL query (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7869,68 +7804,6 @@
     "section" : "rclone",
     "type" : "string"
   },
-  "replicatedlog.threshold-network-batch-size" : {
-    "base" : 1,
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 1048576,
-    "deprecatedIn" : null,
-    "description" : "send a batch of log updates early when threshold (in bytes) is exceeded",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "maxInclusive" : true,
-    "maxValue" : 18446744073709551615,
-    "minInclusive" : true,
-    "minValue" : 1048576,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "replicatedlog",
-    "type" : "uint64"
-  },
-  "replicatedlog.threshold-rocksdb-write-batch-size" : {
-    "base" : 1,
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 1048576,
-    "deprecatedIn" : null,
-    "description" : "write a batch of log updates to RocksDB early when threshold (in bytes) is exceeded",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "maxInclusive" : true,
-    "maxValue" : 18446744073709551615,
-    "minInclusive" : true,
-    "minValue" : 1048576,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "replicatedlog",
-    "type" : "uint64"
-  },
   "replication.active-failover" : {
     "category" : "option",
     "component" : [
@@ -8243,7 +8116,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609831833,
+    "default" : 21447256473,
     "deprecatedIn" : null,
     "description" : "The size of block cache (in bytes).",
     "dynamic" : true,
@@ -8804,7 +8677,7 @@
     ],
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "A Folder containing all possible user encryption keys. All keys are used to decrypt the internal keystore.",
+    "description" : "A folder containing all possible user encryption keys. All keys are used to decrypt the internal keystore.",
     "dynamic" : false,
     "enterpriseOnly" : true,
     "experimental" : false,
@@ -9104,7 +8977,7 @@
       "agent",
       "single"
     ],
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The maximum number of concurrent background jobs (compactions and flushes).",
     "dynamic" : true,
@@ -10553,7 +10426,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146442444,
+    "default" : 28596341964,
     "deprecatedIn" : null,
     "description" : "The maximum total size of in-memory write buffers (0 = unbounded).",
     "dynamic" : true,
@@ -10584,7 +10457,7 @@
       "agent",
       "single"
     ],
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The number of lock stripes to use for transaction locks.",
     "dynamic" : true,
@@ -11119,7 +10992,7 @@
       "agent",
       "single"
     ],
-    "default" : 10,
+    "default" : 0,
     "deprecatedIn" : null,
     "description" : "Cluster metrics polling timeout (in seconds).",
     "dynamic" : false,
@@ -11220,7 +11093,7 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
-    "longDescription" : "You can specify this option multiple times to let\nthe ArangoDB server listen for incoming requests on multiple endpoints.\n\nThe endpoints are normally specified either in ArangoDB's configuration file or\non the command-line with `--server.endpoint`. ArangoDB supports different types\nof endpoints:\n\n- `tcp://ipv4-address:port` - TCP/IP endpoint, using IPv4\n- `tcp://[ipv6-address]:port` - TCP/IP endpoint, using IPv6\n- `ssl://ipv4-address:port` - TCP/IP endpoint, using IPv4, SSL encryption\n- `ssl://[ipv6-address]:port` - TCP/IP endpoint, using IPv6, SSL encryption\n- `unix:///path/to/socket` - Unix domain socket endpoint\n\nIf a TCP/IP endpoint is specified without a port number, then the default port\n(8529) is used.\n\nIf you use SSL-encrypted endpoints, you must also supply the path to a server\ncertificate using the `--ssl.keyfile` option.\n\n```bash\narangod --server.endpoint tcp://127.0.0.1:8529 \\\n        --server.endpoint ssl://127.0.0.1:8530 \\\n        --ssl.keyfile server.pem /tmp/data-dir\n\n2022-11-07T10:39:29Z [1] INFO [e52b0] {general} ArangoDB 3.10.0 [linux] 64bit, using jemalloc, build tags/v3.10.0-0-g207ec6937e4, VPack 0.1.36, RocksDB 7.2.0, ICU 64.2, V8 7.9.317, OpenSSL 1.1.1q  5 Jul 2022\n2022-11-07T10:39:29Z [1] INFO [75ddc] {general} detected operating system: Linux version 4.15.0-140-generic (buildd@lgw01-amd64-054) (gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)) #144-Ubuntu SMP Fri Mar 19 14:12:35 UTC 2021\n2022-11-07T10:39:29Z [1] INFO [25362] {memory} Available physical memory: 67513589760 bytes, available cores: 32\n2022-11-07T10:39:29Z [1] INFO [a1c60] {syscall} file-descriptors (nofiles) hard limit is 1048576, soft limit is 1048576\n2022-11-07T10:39:29Z [1] INFO [3bb7d] {cluster} Starting up with role SINGLE\n2022-11-07T10:39:29Z [1] INFO [f6e0e] {aql} memory limit per AQL query automatically set to 40508153856 bytes. to modify this value, please adjust the startup option `--query.memory-limit`\n2022-11-07T10:39:30Z [1] INFO [fe333] {engines} RocksDB recovery starting, scanning WAL starting from sequence number 91, latest sequence number: 202, files in archive: 0\n2022-11-07T10:39:30Z [1] INFO [a4ec8] {engines} RocksDB recovery finished, WAL entries scanned: 116, recovery start sequence number: 91, latest WAL sequence number: 202, max tick value found in WAL: 24, last HLC value found in WAL: 1748833470939922432\n2022-11-07T10:39:30Z [1] INFO [c1b63] {arangosearch} ArangoSearch maintenance: [5..5] commit thread(s), [5..5] consolidation thread(s)\n2022-11-07T10:39:30Z [1] INFO [6ea38] {general} using endpoint 'http+ssl://0.0.0.0:8530' for ssl-encrypted requests\n2022-11-07T10:39:30Z [1] INFO [6ea38] {general} using endpoint 'http+tcp://0.0.0.0:8529' for non-encrypted requests\n2022-11-07T10:39:31Z [1] INFO [cf3f4] {general} ArangoDB (version 3.10.0 [linux]) is ready for business. Have fun!\n```\n\nOn one specific ethernet interface, each port can only be bound\n**exactly once**. You can look up your available interfaces using the `ifconfig`\ncommand on Linux / macOS, and `ipconfig` on Windows. The general names of the\ninterfaces differ between operating systems and the hardware they run on.\nHowever, every host has typically a so called loopback interface, which is a\nvirtual interface. By convention, it always has the address `127.0.0.1` (IPv4)\nor `::1` (IPv6), and can only be reached from the very same host. Ethernet\ninterfaces usually have names like `eth0`, `wlan0`, `eth1:17`, `le0`, or a\nplain text name in Windows.\n\nTo find out which services already use ports (so ArangoDB can't bind them\nanymore), you can use the `netstat` command. It behaves a little different on\neach platform; run it with `-lnpt` on Linux, `-p tcp` on macOS, or with `-an`\non Windows for valuable information.\n\nArangoDB can also do a so called *broadcast bind* using `tcp://0.0.0.0:8529`.\nThis way, it is reachable on all interfaces of the host. This may be useful on\ndevelopment systems that frequently change their network setup, like laptops.\n\nArangoDB can also listen to IPv6 link-local addresses via adding the zone ID\nto the IPv6 address in the form `[ipv6-link-local-address%zone-id]`. However,\nwhat you probably want instead is to bind to a local IPv6 address. Local IPv6\naddresses start with `fd`. If you only see a `fe80:` IPv6 address in your\ninterface configuration but no IPv6 address starting with `fd`, your interface\nhas no local IPv6 address assigned. You can read more about IPv6 link-local\naddresses here: https://en.wikipedia.org/wiki/Link-local_address#IPv6.\n\nTo bind to a link-local and local IPv6 address, run `ifconfig` or equivalent\ncommand. The command lists all interfaces and assigned IP addresses. The\nlink-local address may be `fe80::6257:18ff:fe82:3ec6%eth0` (IPv6 address plus\ninterface name). A local IPv6 address may be `fd12:3456::789a`.\nTo bind ArangoDB to it, start `arangod` with\n`--server.endpoint tcp://[fe80::6257:18ff:fe82:3ec6%eth0]:8529`.\nUse `telnet` to test the connection.\n\n```bash\n> telnet fe80::6257:18ff:fe82:3ec6%eth0 8529\nTrying fe80::6257:18ff:fe82:3ec6...\nConnected to my-machine.\nEscape character is '^]'.\nGET / HTTP/1.1\n\nHTTP/1.1 301 Moved Permanently\nLocation: /_db/_system/_admin/aardvark/index.html\nContent-Type: text/html\nServer: ArangoDB\nConnection: Keep-Alive\nContent-Length: 197\n\n<html><head><title>Moved</title></head><body><h1>Moved</h1><p>This page has moved to <a href=\"/_db/_system/_admin/aardvark/index.html\">/_db/_system/_admin/aardvark/index.html</a>.</p></body></html>\n```",
+    "longDescription" : "You can specify this option multiple times to let\nthe ArangoDB server listen for incoming requests on multiple endpoints.\n\nThe endpoints are normally specified either in ArangoDB's configuration file or\non the command-line with `--server.endpoint`. ArangoDB supports different types\nof endpoints:\n\n- `tcp://ipv4-address:port` - TCP/IP endpoint, using IPv4\n- `tcp://[ipv6-address]:port` - TCP/IP endpoint, using IPv6\n- `ssl://ipv4-address:port` - TCP/IP endpoint, using IPv4, SSL encryption\n- `ssl://[ipv6-address]:port` - TCP/IP endpoint, using IPv6, SSL encryption\n- `unix:///path/to/socket` - Unix domain socket endpoint\n\nIf a TCP/IP endpoint is specified without a port number, then the default port\n(8529) is used.\n\nIf you use SSL-encrypted endpoints, you must also supply the path to a server\ncertificate using the `--ssl.keyfile` option.\n\n```bash\narangod --server.endpoint tcp://127.0.0.1:8529 \\\n        --server.endpoint ssl://127.0.0.1:8530 \\\n        --ssl.keyfile server.pem /tmp/data-dir\n\n2022-11-07T10:39:29Z [1] INFO [e52b0] {general} ArangoDB 3.10.0 [linux] 64bit, using jemalloc, build tags/v3.10.0-0-g207ec6937e4, VPack 0.1.36, RocksDB 7.2.0, ICU 64.2, V8 7.9.317, OpenSSL 1.1.1q  5 Jul 2022\n2022-11-07T10:39:29Z [1] INFO [75ddc] {general} detected operating system: Linux version 4.15.0-140-generic (buildd@lgw01-amd64-054) (gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)) #144-Ubuntu SMP Fri Mar 19 14:12:35 UTC 2021\n2022-11-07T10:39:29Z [1] INFO [25362] {memory} Available physical memory: 67513589760 bytes, available cores: 32\n2022-11-07T10:39:29Z [1] INFO [a1c60] {syscall} file-descriptors (nofiles) hard limit is 1048576, soft limit is 1048576\n2022-11-07T10:39:29Z [1] INFO [3bb7d] {cluster} Starting up with role SINGLE\n2022-11-07T10:39:29Z [1] INFO [f6e0e] {aql} memory limit per AQL query automatically set to 40508153856 bytes. to modify this value, please adjust the startup option `--query.memory-limit`\n2022-11-07T10:39:30Z [1] INFO [fe333] {engines} RocksDB recovery starting, scanning WAL starting from sequence number 91, latest sequence number: 202, files in archive: 0\n2022-11-07T10:39:30Z [1] INFO [a4ec8] {engines} RocksDB recovery finished, WAL entries scanned: 116, recovery start sequence number: 91, latest WAL sequence number: 202, max tick value found in WAL: 24, last HLC value found in WAL: 1748833470939922432\n2022-11-07T10:39:30Z [1] INFO [c1b63] {arangosearch} ArangoSearch maintenance: [5..5] commit thread(s), [5..5] consolidation thread(s)\n2022-11-07T10:39:30Z [1] INFO [6ea38] {general} using endpoint 'http+ssl://0.0.0.0:8530' for ssl-encrypted requests\n2022-11-07T10:39:30Z [1] INFO [6ea38] {general} using endpoint 'http+tcp://0.0.0.0:8529' for non-encrypted requests\n2022-11-07T10:39:31Z [1] INFO [cf3f4] {general} ArangoDB (version 3.10.0 [linux]) is ready for business. Have fun!\n```\n\nOn one specific ethernet interface, each port can only be bound\n**exactly once**. You can look up your available interfaces using the `ifconfig`\ncommand on Linux / macOS, and `ipconfig` on Windows. The general names of the\ninterfaces differ between operating systems and the hardware they run on.\nHowever, every host has typically a so called loopback interface, which is a\nvirtual interface. By convention, it always has the address `127.0.0.1` (IPv4)\nor `::1` (IPv6), and can only be reached from the very same host. Ethernet\ninterfaces usually have names like `eth0`, `wlan0`, `eth1:17`, `le0`, or a\nplain text name in Windows.\n\nTo find out which services already use ports (so ArangoDB can't bind them\nanymore), you can use the `netstat` command. It behaves a little different on\neach platform; run it with `-lnpt` on Linux, `-p tcp` on macOS, or with `-an`\non Windows for valuable information.\n\nArangoDB can also do a so called *broadcast bind* using `tcp://0.0.0.0:8529`.\nThis way, it is reachable on all interfaces of the host. This may be useful on\ndevelopment systems that frequently change their network setup, like laptops.\n\nArangoDB can also listen to IPv6 link-local addresses via adding the zone ID\nto the IPv6 address in the form `[ipv6-link-local-address%zone-id]`. However,\nwhat you probably want instead is to bind to a local IPv6 address. Local IPv6\naddresses start with `fd`. If you only see a `fe80:` IPv6 address in your\ninterface configuration but no IPv6 address starting with `fd`, your interface\nhas no local IPv6 address assigned. You can read more about IPv6 link-local\naddresses here: https://en.wikipedia.org/wiki/Link-local_address#IPv6.\n\nTo bind to a link-local and local IPv6 address, run `ifconfig` or equivalent\ncommand. The command lists all interfaces and assigned IP addresses. The\nlink-local address may be `fe80::6257:18ff:fe82:3ec6%eth0` (IPv6 address plus\ninterface name). A local IPv6 address may be `fd12:3456::789a`.\nTo bind ArangoDB to it, start `arangod` with\n`--server.endpoint tcp://[fe80::6257:18ff:fe82:3ec6%eth0]:8529`.\nYou can use `telnet` to test the connection.",
     "obsolete" : false,
     "os" : [
       "linux",
@@ -11353,7 +11226,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "The number of threads used to handle I/O.",
     "dynamic" : true,
@@ -11548,7 +11421,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 4,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex).",
     "dynamic" : true,
@@ -11578,7 +11451,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 9,
+    "default" : 10,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for maintenance actions.",
     "dynamic" : true,
@@ -11643,7 +11516,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 64)",
+    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 72)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -12578,35 +12451,6 @@
     "section" : "temp",
     "type" : "boolean"
   },
-  "temp.intermediate-results-encryption-hardware-acceleration" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "use Intel intrinsics-based encryption, requiring a CPU with the AES-NI instruction set. If turned off, then OpenSSL is used, which may use hardware-accelarated encryption too.",
-    "dynamic" : false,
-    "enterpriseOnly" : true,
-    "experimental" : true,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.10.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "temp",
-    "type" : "boolean"
-  },
   "temp.intermediate-results-path" : {
     "category" : "option",
     "component" : [
@@ -12625,7 +12469,7 @@
     "introducedIn" : [
       "v3.10.0"
     ],
-    "longDescription" : "Queries can store intermediate and final results\ntemporarily on disk if a specified threshold is exceeded, to decrease the memory\nusage. Specify a path to a directory for the temporary data to activate the\nspillover feature. The directory must not be located underneath the instance's \ndatabase directory.\n\nThe threshold value to start spilling data onto disk is either a number of rows\nin the query input or an amount of memory used in bytes, which you can set as\nquery options (`spillOverThresholdNumRows` and `spillOverThresholdMemoryUsage`).\n\n**Note**: This feature is experimental and is turned off by default.\nAlso, the query results are still built up entirely in memory on Coordinators\nand single servers for non-streaming queries. To avoid the buildup of the entire\nquery result in RAM, use a streaming query.",
+    "longDescription" : "Queries can store intermediate and final results\ntemporarily on disk if a specified threshold is exceeded, to decrease the memory\nusage. Specify a path to a directory for the temporary data to activate the\nspillover feature. The directory must not be located underneath the instance's \ndatabase directory.\n\nThe threshold value to start spilling data onto disk is either a number of rows\nproduced by a query or an amount of memory used in bytes, which you can set as\nquery options (`spillOverThresholdNumRows` and `spillOverThresholdMemoryUsage`).\n\n**Note**: This feature is experimental and is turned off by default.\nAlso, the query results are still built up entirely in memory on Coordinators\nand single servers for non-streaming queries. To avoid the buildup of the entire\nquery result in RAM, use a streaming query.",
     "obsolete" : false,
     "os" : [
       "linux",
@@ -12746,7 +12590,7 @@
     "introducedIn" : [
       "v3.8.0"
     ],
-    "longDescription" : "Stream transactions automatically expire after\nthis period when no further operations are posted into them. Posting an\noperation into a non-expired Stream Transaction resets the transaction's\ntimeout to the configured idle timeout.",
+    "longDescription" : "Stream Transactions automatically expire after\nthis period when no further operations are posted into them. Posting an\noperation into a non-expired Stream Transaction resets the transaction's\ntimeout to the configured idle timeout.",
     "maxInclusive" : true,
     "maxValue" : 120,
     "minInclusive" : true,
