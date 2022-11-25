@@ -28,4 +28,4 @@ If you prefer to compile ArangoDB from source, please refer to the [Compiling](i
 _Section_.
 
 For detailed information on how to deploy ArangoDB, once it has been installed,
-please refer to the [Deployment](deployment.html) chapter.
+please refer to the [Deployment](architecture-deployment-modes.html) chapter.
