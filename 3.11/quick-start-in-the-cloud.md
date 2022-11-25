@@ -152,7 +152,7 @@ your billing details and at least one payment method. See:
 - [How to add billing details to organizations](arangograph/billing.html#how-to-add-billing-details)
 - [How to add a payment method to an organization](arangograph/billing.html#how-to-add-a-payment-method)
 
-## Cloud vs. On-premises Comparison: Key Differences
+## Managed Cloud Service vs. On-premises Comparison: Key Differences
 
 The ArangoGraph Insights Platform aims to make all features of the ArangoDB
 [Enterprise Edition](features-enterprise-edition.html) available to you, but
