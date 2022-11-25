@@ -112,8 +112,8 @@ FOR u IN users
   RETURN u
 ```
 
-This will return the users *Mariah* and *Mary*. If sorted by age in `DESC` order,
-then the Sophia, Emma and Madison documents are returned. A `FILTER` after a
+This will return the users *Mariah*, *Mary*, and *Isabella*. If sorted by age in
+`DESC` order, then the *Sophia* and *Emma* documents are returned. A `FILTER` after a
 `LIMIT` is not very common however, and you probably want such a query instead:
 
 ```aql
