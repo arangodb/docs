@@ -8,14 +8,13 @@ title: DC2DC Replication Deployment
 {% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
 This chapter describes how to deploy all the components needed for
-_Datacenter-to-Datacenter Replication_.
+_Datacenter-to-Datacenter (DC2DC) Replication_.
 
 ## Deployment steps
 
 ## 1. Cluster
 
-Datacenter-to-Datacenter Replication requires an ArangoDB cluster in both data centers,
-configured with the `rocksdb` storage engine.
+Datacenter-to-Datacenter Replication requires an ArangoDB cluster in both data centers.
 
 Since the _Agents_ are so critical to the availability of both the ArangoDB and
 the ArangoSync cluster, it is recommended to run _Agents_ on dedicated machines.
@@ -40,7 +39,8 @@ more information.
 
 The Sync Master is responsible for managing all synchronization, creating tasks and assigning
 those to workers.
-<br/> At least 2 instances must be deployed in each datacenter.
+
+At least 2 instances must be deployed in each datacenter.
 One instance will be the "leader", the other will be an inactive slave. When the leader
 is gone for a short while, one of the other instances will take over.
 
@@ -63,7 +63,8 @@ section for more information.
 ## 3. ArangoSync Workers
 
 The Sync Worker is responsible for executing synchronization tasks.
-<br/> For optimal performance at least 1 worker instance must be placed on
+
+For optimal performance at least 1 worker instance must be placed on
 every machine that has an ArangoDB DB-Server running. This ensures that tasks
 can be executed with minimal network traffic outside of the machine.
 
