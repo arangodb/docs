@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get install -y ./arangodb3*.deb
 
 WORKDIR /home/arangoproxy/cmd
-CMD ["go", "run", "main.go", "-no-cache"]
+CMD ["go", "run", "main.go"]
 
 # HUGO
 FROM alpine:3.16 AS hugo-clone

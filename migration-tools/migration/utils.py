@@ -87,7 +87,11 @@ def migrate_hrefs(paragraph, infos, filepath):
             paragraph = migrate_image(paragraph, href)
             continue
 
-        paragraph = migrate_link(paragraph, href, filepath)
+    linksRegex = re.findall(r"(?<=\]\()(.*?)\)", paragraph)
+
+    for link in linksRegex:
+        if ".html" in link:
+            paragraph = migrate_link(paragraph, link, filepath)
 
     return paragraph
 
@@ -110,7 +114,7 @@ def migrate_image(paragraph, href):
         return paragraph.replace(href, newImg)
 
 def migrate_link(paragraph, href, filepath):
-    linkContent = re.search(r"(?<=\]\()(.*?)\)", href).group(0).replace(")", "")
+    linkContent = href.replace(")", "")
     filename = re.search("([^\/]+)\.html", linkContent)
     if not filename:
         return paragraph
