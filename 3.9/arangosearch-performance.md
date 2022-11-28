@@ -120,8 +120,43 @@ Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
-The primary sort data is LZ4 compressed by default (`primarySortCompression` is
+The primary sort data is LZ4-compressed by default (`primarySortCompression` is
 `"lz4"`). Set it to `"none"` on View creation to trade space for speed.
+
+You can additionally set the `primarySortCache` option to `true` to always cache
+the primary sort columns in memory, which can improve the query performance:
+
+```json
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "text": {},
+        "date": {}
+      }
+    },
+    "coll2": {
+      "fields": {
+        "text": {}
+      }
+    },
+    "primarySort": [
+      {
+        "field": "date",
+        "direction": "desc"
+      },
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ],
+    "primarySortCache": true
+  }
+}
+```
+
+See the [`primarySortCache` View property](arangosearch-views.html#view-properties)
+for details.
 
 ## Stored Values
 
@@ -147,8 +182,7 @@ this optimization can avoid to access the storage engine entirely.
   ],
   "storedValues": [
     { "fields": [ "title", "categories" ] }
-  ],
-  ...
+  ]
 }
 ```
 
@@ -192,6 +226,27 @@ Optimization rules applied:
   3   handle-arangosearch-views
 ```
 
+The stored values data is LZ4-compressed by default (`"lz4"`).
+Set it to `"none"` on View creation to trade space for speed.
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "primarySort": [
+    { "field": "publishedAt", "direction": "desc" }
+  ],
+  "storedValues": [
+    { "fields": [ "title", "categories" ], "compression": "none" }
+  ]
+}
+```
+
 You can additionally enable the ArangoSearch column cache for stored values by
 setting the `cache` option in the `storedValues` definition to `true`:
 
@@ -209,8 +264,7 @@ setting the `cache` option in the `storedValues` definition to `true`:
   ],
   "storedValues": [
     { "fields": [ "title", "categories" ], "cache": true }
-  ],
-  ...
+  ]
 }
 ```
 
@@ -326,8 +380,7 @@ the index to actual documents:
       }
     }
   },
-  "primaryKeyCache": true,
-  ...
+  "primaryKeyCache": true
 }
 ```
 
