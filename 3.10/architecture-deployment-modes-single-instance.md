@@ -2,12 +2,11 @@
 layout: default
 description: Single Instance
 ---
-Single Instance
-===============
+# Single Instance
 
 Running a single instance of ArangoDB is the most simple way to get started.
 It means to run the ArangoDB Server binary `arangod` stand-alone, without
-replication, without failover opportunity and not as cluster together with
+replication, without failover opportunity, and not as cluster together with
 other nodes.
 
 You may run multiple processes of `arangod` side-by-side on the same machine as
@@ -17,7 +16,16 @@ side-by-side, but you can get archive packages and unpack them manually.
 
 The provided ArangoDB packages run as single instances out of the box.
 
-See also:
+Unlike other setups, like the *Active Failover*, *Cluster*, or *Multiple Datacenters*,
+which require some specific procedure to be started once the ArangoDB package
+has been installed, deploying a single-instance is straightforward.
 
-- [Installation](installation.html)
-- [Single Instance Deployment](deployment-single-instance.html)
+Depending on your operating system, after the installation, the ArangoDB Server
+might be already up and running. *Start*, *stop* and *restart* operations can
+be handled directly by using your *System and Service Manager*.
+
+The following are two additional ways that can be used to start the stand-alone
+instance:
+
+- Using the [ArangoDB Starter tool](deployment-single-instance-using-the-starter.html), or
+- [manually](deployment-single-instance-manual-start.html).

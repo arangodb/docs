@@ -62,6 +62,77 @@ with `<group>` where `<group>` can be any of:
 - `syncmasters` for all syncmasters of a `Cluster`.
 - `syncworkers` for all syncworkers of a `Cluster`.
 
+### `spec.architecture: []string`
+
+This setting specifies a CPU architecture for the deployment.
+Possible values are:
+
+- `amd64` (default): Use processors with the x86-64 architecture.
+- `arm64`: Use processors with the 64-bit ARM architecture.
+
+The setting expects a list of strings, but you should only specify a single
+list item for the architecture, except when you want to migrate from one
+architecture to the other. The first list item defines the new default
+architecture for the deployment that you want to migrate to.
+
+{% hint 'tip' %}
+To use the ARM architecture, you need to enable it in the operator first using
+`--set "operator.architectures={amd64,arm64}"`. See
+[Installation with Helm](deployment-kubernetes-usage.html#installation-with-helm).
+{% endhint 'tip' %}
+
+To create a new deployment with `arm64` nodes, specify the architecture in the
+deployment specification as follows:
+
+```yaml
+spec:
+  architecture:
+    - arm64
+```
+
+To migrate nodes of an existing deployment from `amd64` to `arm64`, modify the
+deployment specification so that both architectures are listed:
+
+```diff
+ spec:
+   architecture:
++    - arm64
+     - amd64
+```
+
+This lets new members as well as recreated members use `arm64` nodes.
+
+Then run the following command:
+
+```bash
+kubectl annotate pod $POD "deployment.arangodb.com/replace=true"
+```
+
+To change an existing member to `arm64`, annotate the pod as follows:
+
+```bash
+kubectl annotate pod $POD "deployment.arangodb.com/arch=arm64"
+```
+
+An `ArchitectureMismatch` condition occurs in the deployment:
+
+```yaml
+members:
+  single:
+    - arango-version: 3.10.0
+      architecture: arm64
+      conditions:
+        reason: Member has a different architecture than the deployment
+        status: "True"
+        type: ArchitectureMismatch
+```
+
+Restart the pod using this command:
+
+```bash
+kubectl annotate pod $POD "deployment.arangodb.com/rotate=true"
+```
+
 ### `spec.mode: string`
 
 This setting specifies the type of deployment you want to create.

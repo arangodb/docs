@@ -74,8 +74,6 @@
 - text: Tutorials
   href: tutorials.html
   children:
-    - text: Reduce Memory Footprint
-      href: tutorials-reduce-memory-footprint.html
     - text: ArangoDB Starter
       href: tutorials-starter.html
     - text: Kubernetes
@@ -97,67 +95,8 @@
       children:
         - text: Options
           href: programs-arangod-options.html
-          children:
-            - text: General
-              href: programs-arangod-general.html
-            - text: Agency
-              href: programs-arangod-agency.html
-            - text: ArangoSearch
-              href: programs-arangod-arangosearch.html
-            - text: Audit
-              href: programs-arangod-audit.html
-            - text: Cache
-              href: programs-arangod-cache.html
-            - text: Backup
-              href: programs-arangod-backup.html
-            - text: Cluster
-              href: programs-arangod-cluster.html
-            - text: Database
-              href: programs-arangod-database.html
-            - text: Encryption
-              href: programs-arangod-encryption.html
-            - text: Foxx
-              href: programs-arangod-foxx.html
-            - text: HTTP
-              href: programs-arangod-http.html
-            - text: JavaScript
-              href: programs-arangod-javascript.html
-            - text: LDAP
-              href: programs-arangod-ldap.html
-            - text: Log
-              href: programs-arangod-log.html
-            - text: Network
-              href: programs-arangod-network.html
-            - text: Nonce
-              href: programs-arangod-nonce.html
-            - text: Pregel
-              href: programs-arangod-pregel.html
-            - text: Query
-              href: programs-arangod-query.html
-            - text: Random
-              href: programs-arangod-random.html
-            - text: Replication
-              href: programs-arangod-replication.html
-            - text: Rclone
-              href: programs-arangod-rclone.html
-            - text: RocksDB
-              href: programs-arangod-rocksdb.html
-            - text: Server
-              href: programs-arangod-server.html
-            - text: SSL
-              href: programs-arangod-ssl.html
-            - text: TCP
-              href: programs-arangod-tcp.html
-            - text: Temp
-              href: programs-arangod-temp.html
-            - text: Transaction
-              href: programs-arangod-transaction.html
-            - text: TTL
-              href: programs-arangod-ttl.html
-            - text: VST
-              href: programs-arangod-vst.html
-            - text: Web Interface
-              href: programs-arangod-web-interface.html
+        - text: LDAP
+          href: programs-arangod-ldap.html
         - text: Environment variables
           href: programs-arangod-env-vars.html
     - text: Web Interface
@@ -413,31 +352,49 @@
 - text: Architecture
   href: architecture.html
   children:
-    - text: ArangoDB Deployment Modes
+    - text: Deployment Modes
       href: architecture-deployment-modes.html
       children:
         - text: Single Instance
           href: architecture-deployment-modes-single-instance.html
+          children: 
+            - text: Deploy using the ArangoDB Starter
+              href: deployment-single-instance-using-the-starter.html
+            - text: Manual Start
+              href: deployment-single-instance-manual-start.html  
         - text: Active Failover
           href: architecture-deployment-modes-active-failover.html
           children:
-            - text: Architecture
-              href: architecture-deployment-modes-active-failover-architecture.html
-            - text: Limitations
-              href: architecture-deployment-modes-active-failover-limitations.html
+            - text: Deploy using the ArangoDB Starter
+              href: deployment-active-failover-using-the-starter.html
+            - text: Manual Start
+              href: deployment-active-failover-manual-start.html
+            - text: Administration
+              href: administration-active-failover.html  
         - text: Cluster
-          href: architecture-deployment-modes-cluster.html
+          href: architecture-deployment-modes-cluster-architecture.html
           children:
-            - text: Architecture
-              href: architecture-deployment-modes-cluster-architecture.html
-            - text: Data Models
-              href: architecture-deployment-modes-cluster-data-models.html
-            - text: Data Sharding
-              href: architecture-deployment-modes-cluster-sharding.html
+            - text: Deployment
+              href: deployment-cluster.html
+              children:
+                - text: Deploy using the ArangoDB Starter
+                  href: deployment-cluster-using-the-starter.html
+                - text: Manual Start
+                  href: deployment-cluster-manual-start.html
+                - text: Kubernetes
+                  href: deployment-cluster-kubernetes.html
+            - text: Administration
+              href: administration-cluster.html      
             - text: Limitations
               href: architecture-deployment-modes-cluster-limitations.html
-    - text: Single Instance vs. Cluster
-      href: architecture-single-instance-vs-cluster.html
+        - text: Single Instance vs. Cluster
+          href: architecture-single-instance-vs-cluster.html      
+        - text: Standalone Agency
+          href: deployment-standalone-agency.html    
+    - text: Scalability
+      href: architecture-deployment-modes-cluster-data-models.html
+    - text: Data Sharding
+      href: architecture-deployment-modes-cluster-sharding.html
     - text: Storage Engine
       href: architecture-storage-engines.html
     - text: Replication
@@ -593,36 +550,6 @@
 - text: Deployment
   href: deployment.html
   children:
-    - text: By ArangoDB Deployment Modes
-      href: deployment-modes.html
-      children:
-        - text: Single Instance
-          href: deployment-single-instance.html
-          children:
-            - text: Using the ArangoDB Starter
-              href: deployment-single-instance-using-the-starter.html
-            - text: Manual Start
-              href: deployment-single-instance-manual-start.html
-        - text: Active Failover
-          href: deployment-active-failover.html
-          children:
-            - text: Using the ArangoDB Starter
-              href: deployment-active-failover-using-the-starter.html
-            - text: Manual Start
-              href: deployment-active-failover-manual-start.html
-        - text: Cluster
-          href: deployment-cluster.html
-          children:
-            - text: Preliminary Information
-              href: deployment-cluster-preliminary-information.html
-            - text: Using the ArangoDB Starter
-              href: deployment-cluster-using-the-starter.html
-            - text: Manual Start
-              href: deployment-cluster-manual-start.html
-            - text: Kubernetes
-              href: deployment-cluster-kubernetes.html
-        - text: Standalone Agency
-          href: deployment-standalone-agency.html
     - text: By Technology
       href: deployment-technology.html
       children:
@@ -731,10 +658,6 @@
       children:
         - text: In arangosh
           href: administration-managing-users-in-arangosh.html
-    - text: Active Failover
-      href: administration-active-failover.html
-    - text: Cluster
-      href: administration-cluster.html
     - text: ArangoDB Starter Administration
       href: administration-starter.html
       children:
@@ -742,6 +665,8 @@
           href: administration-starter-removal.html
         - text: Recovery Procedure
           href: administration-starter-recovery.html
+    - text: Reduce Memory Footprint
+      href: administration-reduce-memory-footprint.html
 - text: Security
   href: security.html
   children:

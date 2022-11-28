@@ -12,7 +12,7 @@ Comparison operators
 --------------------
 
 Comparison (or relational) operators compare two operands. They can be used with
-any input data types, and will return a boolean result value.
+any input data types, and return a boolean result value.
 
 The following comparison operators are supported:
 
@@ -36,14 +36,12 @@ be evaluated and returns *true* if the comparison evaluates to true, and *false*
 otherwise.
 
 The comparison operators accept any data types for the first and second
-operands. However, `IN` and `NOT IN` will only return a meaningful result if
-their right-hand operand is an array. `LIKE` and `NOT LIKE` will only execute
-if both operands are string values. All four operators will not perform
+operands. However, `IN` and `NOT IN` only return a meaningful result if
+their right-hand operand is an array. `LIKE` and `NOT LIKE` only execute
+if both operands are string values. All four operators do not perform
 implicit type casts if the compared operands have different types, i.e.
 they test for strict equality or inequality (`0` is different to `"0"`,
 `[0]`, `false` and `null` for example).
-
-Some examples for comparison operations in AQL:
 
 ```aql
      0  ==  null            // false
@@ -90,8 +88,8 @@ FOR doc IN coll
   RETURN NOT doc.attr LIKE "…"
 ```
 
-The return expression will get transformed into `LIKE(!doc.attr, "…")`,
-giving unexpected results. `NOT(doc.attr LIKE "…")` gets transformed into the
+The return expression gets transformed into `LIKE(!doc.attr, "…")`, leading
+to unexpected results. `NOT(doc.attr LIKE "…")` gets transformed into the
 more reasonable `! LIKE(doc.attr, "…")`.
 
 The regular expression operators `=~` and `!~` expect their left-hand operands to
@@ -113,8 +111,6 @@ You can also combine one of the supported comparison operators with the special
 `AT LEAST (<expression>)` operator to require an arbitrary number of elements
 to satisfy the condition to evaluate to `true`. You can use a static number or
 calculate it dynamically using an expression.
-
-Examples:
 
 ```aql
 [ 1, 2, 3 ]  ALL IN  [ 2, 3, 4 ]  // false
@@ -140,7 +136,7 @@ Examples:
 ["foo", "bar"]  AT LEAST (1+1) ==  "foo"   // false
 ```
 
-Note that these operators will not utilize indexes in regular queries.
+Note that these operators do not utilize indexes in regular queries.
 The operators are also supported in [SEARCH expressions](operations-search.html),
 where ArangoSearch's indexes can be utilized. The semantics differ however, see
 [AQL `SEARCH` operation](operations-search.html#array-comparison-operators).
@@ -163,21 +159,19 @@ AQL also supports the following alternative forms for the logical operators:
 The alternative forms are aliases and functionally equivalent to the regular 
 operators.
 
-The two-operand logical operators in AQL will be executed with short-circuit 
+The two-operand logical operators in AQL are executed with short-circuit 
 evaluation (except if one of the operands is or includes a subquery. In this
-case the subquery will be pulled out an evaluated before the logical operator).
+case the subquery is pulled out an evaluated before the logical operator).
 
 The result of the logical operators in AQL is defined as follows:
 
-- `lhs && rhs` will return `lhs` if it is `false` or would be `false` when converted
-  into a boolean. If `lhs` is `true` or would be `true` when converted to a boolean,
-  `rhs` will be returned.
-- `lhs || rhs` will return `lhs` if it is `true` or would be `true` when converted
-  into a boolean. If `lhs` is `false` or would be `false` when converted to a boolean,
-  `rhs` will be returned.
-- `! value` will return the negated value of `value` converted into a boolean
-
-Some examples for logical operations in AQL:
+- `lhs && rhs` returns `lhs` if it is `false` or would be `false` when converted
+  to a boolean. If `lhs` is `true` or would be `true` when converted to a boolean,
+  `rhs` is returned.
+- `lhs || rhs` returns `lhs` if it is `true` or would be `true` when converted
+  to a boolean. If `lhs` is `false` or would be `false` when converted to a boolean,
+  `rhs` is returned.
+- `! value` returns the negated value of `value` converted to a boolean
 
 ```aql
 u.age > 15 && u.address.city != ""
@@ -187,10 +181,10 @@ NOT u.isInvalid
 ```
 
 Passing non-boolean values to a logical operator is allowed. Any non-boolean operands 
-will be casted to boolean implicitly by the operator, without making the query abort.
+are casted to boolean implicitly by the operator, without making the query abort.
 
 The *conversion to a boolean value* works as follows:
-- `null` will be converted to `false`
+- `null` is converted to `false`
 - boolean values remain unchanged
 - all numbers unequal to zero are `true`, zero is `false`
 - an empty string is `false`, all other strings are `true`
@@ -199,7 +193,7 @@ The *conversion to a boolean value* works as follows:
 The result of *logical and* and *logical or* operations can now have any data 
 type and is not necessarily a boolean value.
 
-For example, the following logical operations will return boolean values:
+For example, the following logical operations return boolean values:
 
 ```aql
 25 > 1  &&  42 != 7                        // true
@@ -207,7 +201,7 @@ For example, the following logical operations will return boolean values:
 25 != 25                                   // false
 ```
 
-… whereas the following logical operations will not return boolean values:
+… whereas the following logical operations do not return boolean values:
 
 ```aql
    1 || 7                                  // 1
@@ -242,11 +236,9 @@ RETURN [-x, +y]
 For exponentiation, there is a [numeric function](functions-numeric.html#pow) *POW()*.
 The syntax `base ** exp` is not supported.
 
-For string concatenation, you must use the [string function](functions-string.html#concat)
-*CONCAT()*. Combining two strings with a plus operator (`"foo" + "bar"`) will not work!
+For string concatenation, you must use the [`CONCAT()` string function](functions-string.html#concat).
+Combining two strings with a plus operator (`"foo" + "bar"`) does not work!
 Also see [Common Errors](common-errors.html).
-
-Some example arithmetic operations:
 
 ```aql
 1 + 1
@@ -259,12 +251,12 @@ Some example arithmetic operations:
 ```
 
 The arithmetic operators accept operands of any type. Passing non-numeric values to an 
-arithmetic operator will cast the operands to numbers using the type casting rules 
+arithmetic operator casts the operands to numbers using the type casting rules 
 applied by the [TO_NUMBER()](functions-type-cast.html#to_number) function:
 
-- `null` will be converted to `0`
-- `false` will be converted to `0`, true will be converted to `1`
-- a valid numeric value remains unchanged, but NaN and Infinity will be converted to `0`
+- `null` is converted to `0`
+- `false` is converted to `0`, `true` is converted to `1`
+- a valid numeric value remains unchanged, but NaN and Infinity are converted to `0`
 - string values are converted to a number if they contain a valid string representation
   of a number. Any whitespace at the start or the end of the string is ignored. Strings
   with any other contents are converted to the number `0`
@@ -274,10 +266,8 @@ applied by the [TO_NUMBER()](functions-type-cast.html#to_number) function:
 - objects / documents are converted to the number `0`.
 
 An arithmetic operation that produces an invalid value, such as `1 / 0`
-(division by zero), will produce a result value of `null`. The query is not
+(division by zero), produces a result value of `null`. The query is not
 aborted, but you may see a warning.
-
-Here are a few examples:
 
 ```aql
    1 + "a"       // 1
@@ -303,23 +293,19 @@ evaluation. The ternary operator expects a boolean condition as its first
 operand, and it returns the result of the second operand if the condition
 evaluates to true, and the third operand otherwise.
 
-*Examples*
-
-The expression gives back `u.userId` if `u.age` is greater than 15 or if
-`u.active` is *true*. Otherwise it returns *null*:
+In the following example, the expression returns `u.userId` if `u.age` is
+greater than 15 or if `u.active` is `true`. Otherwise it returns `null`:
 
 ```aql
 u.age > 15 || u.active == true ? u.userId : null
 ```
 
 There is also a shortcut variant of the ternary operator with just two
-operands. This variant can be used when the expression for the boolean
+operands. This variant can be used if the expression for the boolean
 condition and the return value should be the same.
 
-*Examples*
-
-The expression evaluates to `u.value` if `u.value` is truthy, otherwise a
-fixed string is given back:
+In the following example, the expression evaluates to `u.value` if `u.value` is
+truthy. Otherwise, a fixed string is given back:
 
 ```aql
 u.value ? : 'value is null, 0 or not present'
@@ -332,9 +318,9 @@ in case of `u.value ? u.value : 'value is null'`.
 {% hint 'info' %}
 Subqueries that are used inside expressions are pulled out of these
 expressions and executed beforehand. That means that subqueries do not
-participate in lazy evaluation of operands, for example in the
+participate in lazy evaluation of operands, for example, in the
 ternary operator. Also see
-[evaluation of subqueries](examples-combining-queries.html#evaluation-of-subqueries).
+[evaluation of subqueries](fundamentals-subqueries.html#evaluation-of-subqueries).
 {% endhint %}
 
 Range operator
@@ -344,16 +330,14 @@ AQL supports expressing simple numeric ranges with the `..` operator.
 This operator can be used to easily iterate over a sequence of numeric
 values.
 
-The `..` operator will produce an array of the integer values in the 
+The `..` operator produces an array of the integer values in the 
 defined range, with both bounding values included.
-
-*Examples*
 
 ```aql
 2010..2013
 ```
 
-will produce the following result:
+The above example produces the following result:
 
 ```json
 [ 2010, 2011, 2012, 2013 ]
@@ -361,47 +345,50 @@ will produce the following result:
 
 Using the range operator is equivalent to writing an array with the integer
 values in the range specified by the bounds of the range. If the bounds of
-the range operator are non-integers, they will be converted to integer
-values first.
+the range operator are non-integers, they are converted to integer values first.
 
-There is also a [RANGE() function](functions-numeric.html#range).
+There is also a [`RANGE()` function](functions-numeric.html#range).
 
 Array operators
 ---------------
 
-AQL provides array operators `[*]` for
-[array variable expansion](advanced-array-operators.html#array-expansion) and
-`[**]` for [array contraction](advanced-array-operators.html#array-contraction).
+AQL provides different array operators:
+
+- `[*]` for [array variable expansion](advanced-array-operators.html#array-expansion)
+- `[**]` for [array contraction](advanced-array-operators.html#array-contraction)
+- `[? ...]` known as the [question mark operator](advanced-array-operators.html#question-mark-operator)
+  for nested search
 
 Operator precedence
 -------------------
 
 The operator precedence in AQL is similar as in other familiar languages
-(lowest precedence first):
+(highest precedence first):
 
 | Operator(s)          | Description
 |:---------------------|:-----------
-| `,`                  | comma separator
-| `DISTINCT`           | distinct modifier (RETURN operation)
-| `? :`                | ternary operator
-| `=`                  | variable assignment (LET operation)
-| `WITH`               | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
-| `INTO`               | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
-| `||`                 | logical or
-| `&&`                 | logical and
-| `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | graph traversal directions, array comparison operators
-| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | (in-)equality, wildcard (non-)match, regex (non-)match
-| `IN`, `NOT IN`       | (not) in operator
-| `<`, `<=`, `>=`, `>` | less than, less equal, greater equal, greater than
-| `..`                 | range operator
-| `+`, `-`             | addition, subtraction
-| `*`, `/`, `%`        | multiplication, division, modulus
-| `!`, `+`, `-`        | logical negation, unary plus, unary minus
+| `::`                 | scope (user-defined AQL functions)
+| `[*]`                | array expansion
+| `[]`                 | indexed value access (of arrays)
+| `.`                  | member access (of objects)
 | `()`                 | function call
-| `.`                  | member access
-| `[]`                 | indexed value access
-| `[*]`                | expansion
-| `::`                 | scope
+| `!`, `NOT`, `+`, `-` | unary not (logical negation), unary plus, unary minus
+| `*`, `/`, `%`        | multiplication, division, modulus
+| `+`, `-`             | addition, subtraction
+| `..`                 | range operator
+| `<`, `<=`, `>=`, `>` | less than, less equal, greater equal, greater than
+| `IN`, `NOT IN`       | in operator, not in operator
+| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | equality, inequality, wildcard match, wildcard non-match, regex match, regex non-match
+| `AT LEAST`           | at least modifier (array comparison operator, question mark operator)
+| `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | graph traversal directions, array comparison operators, question mark operator
+| `&&`, `AND`          | logical and
+| `||`, `OR`           | logical or
+| `INTO`               | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operations)
+| `WITH`               | with operator (WITH / UPDATE / REPLACE / COLLECT operations)
+| `=`                  | variable assignment (LET / COLLECT operations, AGGREGATE / PRUNE clauses)
+| `?`, `:`             | ternary operator, object literals
+| `DISTINCT`           | distinct modifier (RETURN operations)
+| `,`                  | comma separator
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.

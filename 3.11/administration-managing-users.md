@@ -350,7 +350,7 @@ There are a few differences to *normal* ArangoDB users:
 To grant access for an LDAP user you will need to create *roles* within the
 ArangoDB server. A role is just a user with the `:role:` prefix in its name.
 Role users cannot login as database users, the `:role:` prefix ensures this.
-Your LDAP users will need to have at least one role, once the user logs in he
-will be automatically granted the union of all access rights of all his roles.
+Your LDAP users will need to have at least one role; once users log in they
+will be automatically granted the union of all access rights of all their roles.
 Note that a lower right grant in one role will be overwritten by a higher
 access grant in a different role.

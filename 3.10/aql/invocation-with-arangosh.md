@@ -270,7 +270,7 @@ the entire query result in RAM, a streaming query should be used.
   (i.e. `FOR i IN 1..100`), each row is one of such temporary values. 
   This feature is experimental and is only enabled if you set a path for the
   directory to store the temporary data in with the
-  [`--temp.intermediate-results-path` startup option](../programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk).
+  [`--temp.intermediate-results-path` startup option](../programs-arangod-options.html#--tempintermediate-results-path).
 
   Default value: `5000000` rows.
 
@@ -280,7 +280,7 @@ the entire query result in RAM, a streaming query should be used.
   is used for decreasing the memory usage during the query execution. This 
   feature is experimental and is only enabled if you set a path for the
   directory to store the temporary data in with the
-  [`--temp.intermediate-results-path` startup option](../programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk).
+  [`--temp.intermediate-results-path` startup option](../programs-arangod-options.html#--tempintermediate-results-path).
 
   Default value: 128 MiB.
 

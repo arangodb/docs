@@ -84,12 +84,9 @@ new syntax.
 
 Views of the type `arangosearch` support three new options:
 
-- You can enable the new `cache` link property to always cache field
-  normalization values in memory. This can improve the performance of scoring
-  and ranking queries.
-- You can enable the new `primarySortCache` View property to always cache the
-  primary sort columns in memory. This can improve the performance of queries
-  that utilize the primary sort order.
+- You can enable the new `cache` option for individual View links or fields
+  to always cache field normalization values in memory. This can improve the
+  performance of scoring and ranking queries.
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
@@ -541,7 +538,11 @@ A new server startup option for setting the language was added. The new
 `--icu-language` option will replace the existing `--default-language` option,
 and only one of the two can be set.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+Also see [ArangoDB Server General Options](programs-arangod-options.html#--icu-language).
+{%- else -%}
 Also see [ArangoDB Server General Options](programs-arangod-general.html#icu-language).
+{% endif %}
 
 ### Logging
 
@@ -580,7 +581,11 @@ should be used.
   The default value for this flag is set to `false` for compatibility with
   previous versions.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+Also see [Logging](programs-arangod-options.html#log).
+{%- else -%}
 Also see [Logging](programs-arangod-log.html).
+{% endif %}
 
 ### Version information
 
