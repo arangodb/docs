@@ -16,7 +16,7 @@ more.
 
 ### Fraud Detection
 
-{{< icon src="images/icon-fraud-detection.png" alt="Fraud Detection icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-fraud-detection.png" alt="Fraud Detection icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Uncover illegal activities by discovering difficult-to-detect patterns.
 ArangoDB lets you look beyond individual data points in disparate data sources,
@@ -27,7 +27,7 @@ complex fraudulent behavior such as fraud rings.
 ### Recommendation Engine
 
 
-{{< icon src="images/icon-recommendation-engine.png" alt="Recommendation Engine icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-recommendation-engine.png" alt="Recommendation Engine icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Suggest products, services, and information to users based on data relationships.
 For example, you can use ArangoDB together with PyTorch Geometric to build a
@@ -38,7 +38,7 @@ with a graph neural network (GNN).
 ### Network Management
 
 
-{{< icon src="images/icon-network-management.png" alt="Network Management icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-network-management.png" alt="Network Management icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Reduce downtime by connecting and visualizing network, infrastructure, and code.
 Network devices and how they interconnect can naturally be modeled as a graph.
@@ -49,7 +49,7 @@ bandwidth into account when path-finding.
 ### Customer 360
 
 
-{{< icon src="images/icon-customer-360.png" alt="Customer 360 icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-customer-360.png" alt="Customer 360 icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Gain a complete understanding of your customers by integrating multiple data
 sources and code. ArangoDB can act as the platform to merge and consolidate
@@ -59,7 +59,7 @@ track data origins using graph features.
 ### Identity and Access Management
 
 
-{{< icon src="images/icon-identity-management.png" alt="Identity Management icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-identity-management.png" alt="Identity Management icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Increase security and compliance by managing data access based on role and
 position. You can map out an organization chart as a graph and use ArangoDB to
@@ -70,7 +70,7 @@ inheritance.
 ### Supply Chain
 
 
-{{< icon src="images/icon-supply-chain.png" alt="Supply Chain icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-supply-chain.png" alt="Supply Chain icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Speed shipments by monitoring and optimizing the flow of goods through a
 supply chain. You can represent your inventory, supplier, and delivery
@@ -88,7 +88,7 @@ and scalable data store.
 ### Content Management
 
 
-{{< icon src="images/icon-content-management.png" alt="Content management icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-content-management.png" alt="Content management icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Store information of any kind without upfront schema declaration. ArangoDB is
 schema-free, storing every data record as a self-contained document, allowing
@@ -98,7 +98,7 @@ content management system on top of ArangoDB.
 ### E-Commerce Systems
 
 
-{{< icon src="images/icon-e-commerce.png" alt="E-commerce icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-e-commerce.png" alt="E-commerce icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 ArangoDB combines data modeling freedom with strong consistency and resilience
 features to power online shops and ordering systems. Handle product catalog data
@@ -108,7 +108,7 @@ checkouts with the necessary transactional guarantees.
 ### Internet of Things
 
 
-{{< icon src="images/icon-internet-of-things.png" alt="Internet of things icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-internet-of-things.png" alt="Internet of things icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Collect sensor readings and other IoT data in ArangoDB for a single view of
 everything. Store all data points in the same system that also lets you run
@@ -117,7 +117,7 @@ aggregation queries using sliding windows for efficient data analysis.
 ## ArangoDB as a Key-Value Database
 
 
-{{< icon src="images/icon-key-value.png" alt="Key value icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-key-value.png" alt="Key value icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 Key-value stores are the simplest kind of database systems. Each record is
 stored as a block of data under a key that uniquely identifies the record.
@@ -142,7 +142,7 @@ For more information about how ArangoDB persists data, see
 ## ArangoDB as a Search Engine
 
 
-{{< icon src="images/icon-search-engine.png" alt="Search engine icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-search-engine.png" alt="Search engine icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
 
 ArangoDB has a natively integrated search engine for a broad range of
 information retrieval needs. It is powered by inverted indexes and can index
@@ -170,4 +170,4 @@ ArangoDB integrates well into existing data infrastructures and provides
 connectors for popular machine learning frameworks and data processing
 ecosystems.
 
-![Machine Learning Architecture of ArangoDB](images/machine-learning-architecture.png)
+![Machine Learning Architecture of ArangoDB](/images/machine-learning-architecture.png)

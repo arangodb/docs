@@ -375,7 +375,7 @@ otherwise.
 
 ## Testing the Effects of Reduced I/O Buffers
 
-![Performance Graph](images/performance_graph.png)
+![Performance Graph](/images/performance_graph.png)
 
 - 15:50 – Start bigger import
 - 16:00 – Start writing documents of ~60 KB size one at a time

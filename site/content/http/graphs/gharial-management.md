@@ -8,7 +8,7 @@ layout: default
 The [graph module](../../graphs/) provides functions dealing with graph structures.
 Examples will explain the REST API on the [social graph](../../graphs/#the-social-graph):
 
-![Social Example Graph](images/social_graph.png)
+![Social Example Graph](/images/social_graph.png)
 ```http-spec
 openapi: 3.0.2
 paths:

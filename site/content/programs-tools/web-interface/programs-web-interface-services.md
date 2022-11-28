@@ -8,7 +8,7 @@ layout: default
 The services section displays all installed Foxx applications. You can create new services
 or go into a detailed view of a chosen service.
 
-![Services](images/servicesView.png)
+![Services](/images/servicesView.png)
 
 ## Create Service
 
@@ -19,13 +19,13 @@ There are four different possibilities to create a new service:
 3. Create service via official ArangoDB store
 4. Create a blank service from scratch
 
-![Create Service](images/installService.png)
+![Create Service](/images/installService.png)
 
 ## Service View
 
 This section offers several information about a specific service. 
 
-![Create Service](images/serviceView.png)
+![Create Service](/images/serviceView.png)
 
 There are four view categories: 
 

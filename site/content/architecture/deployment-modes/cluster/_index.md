@@ -40,7 +40,7 @@ roles:
 
 In the following sections we will shed light on each of them.
 
-![ArangoDB Cluster](images/cluster-topology.png)
+![ArangoDB Cluster](/images/cluster-topology.png)
 
 ### Agents
 
@@ -144,7 +144,7 @@ automatically to the different servers. In many situations one can
 also reap a benefit in data throughput, again because the load can
 be distributed to multiple machines.
 
-![Cluster Sharding](images/cluster_sharding.jpg)
+![Cluster Sharding](/images/cluster_sharding.jpg)
 
 From the outside this process is fully transparent:
 An application may talk to any _Coordinator_  and
@@ -196,7 +196,7 @@ because they need to send and receive data on several connections, build up
 results for collection accesses from the received parts followed by further
 processing.
 
-![OneShard vs. Sharded Cluster Setup](images/cluster-sharded-oneshard.png)
+![OneShard vs. Sharded Cluster Setup](/images/cluster-sharded-oneshard.png)
 
 If the database involved in a query is a OneShard database,
 then the OneShard optimization can be applied to run the query on the 

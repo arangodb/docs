@@ -10,7 +10,7 @@ A lot of these accept a vertex (or edge) example as parameter as defined in the 
 
 Examples will explain the API on the [the city graph](../#the-city-graph):
 
-![Social Example Graph](images/cities_graph.png)
+![Social Example Graph](/images/cities_graph.png)
 
 ## Definition of examples
 

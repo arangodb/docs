@@ -8,7 +8,7 @@ layout: default
 The logs section displays all available log entries. Log entries are filterable by
 their log level types.
 
-![Logs](images/logsView.png)
+![Logs](/images/logsView.png)
 
 Functions:
 

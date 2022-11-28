@@ -19,7 +19,7 @@ path you will get a result in form of a set with two items:
 Let's take a look at a simple example to explain how it works.
 This is the graph that we are going to find a shortest path on:
 
-![traversal graph](images/traversal_graph.png)
+![traversal graph](/images/traversal_graph.png)
 
 Now we use the following parameters for our query:
 
@@ -130,7 +130,7 @@ Please also consider [to use `WITH`](../high-level-operations/operations-with) t
 ## Examples
 We will create a simple symmetric traversal demonstration graph:
 
-![traversal graph](images/traversal_graph.png)
+![traversal graph](/images/traversal_graph.png)
 
 
  {{< version "3.10" >}}

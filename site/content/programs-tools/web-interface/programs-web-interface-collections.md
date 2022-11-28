@@ -9,7 +9,7 @@ The collections section displays all available collections. From here you can
 create new collections and jump into a collection for details (click on a
 collection tile).
 
-![Collections](images/collectionsView.png)
+![Collections](/images/collectionsView.png)
 
 Functions:
 
@@ -27,7 +27,7 @@ Information:
 
 ## Collection
 
-![Collection](images/collectionView.png)
+![Collection](/images/collectionView.png)
 
 There are four view categories: 
 

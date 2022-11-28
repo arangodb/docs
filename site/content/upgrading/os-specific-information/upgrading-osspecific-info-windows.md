@@ -27,7 +27,7 @@ If you have installed via the _Installer_, to upgrade:
   the option "_Automatically update existing ArangoDB database_" so that the database
   files will be upgraded.
 
-![Update Option](images/installer_upgrade.png)
+![Update Option](/images/installer_upgrade.png)
 
 {{% hints/info %}}
 Upgrading via the Installer, when the old data is kept, will keep your 
@@ -38,14 +38,14 @@ password and choice of storage engine as it is.
 - You can uninstall the old one manually (make a copy of your old configuration
 file first).
 
-![Uninstall old version](images/both_installations.png)
+![Uninstall old version](/images/both_installations.png)
 
 {{% hints/danger %}}
 When uninstalling the old package, please make sure the option
 "_Delete databases with unistallation_" is **not** checked.
 {{% /hints/danger %}}
 
-![Delete Option](images/installer_delete.png)
+![Delete Option](/images/installer_delete.png)
 
 {{% hints/danger %}}
 When upgrading, the Windows Installer does not use the old configuration file

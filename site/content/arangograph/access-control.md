@@ -61,7 +61,7 @@ To delete a role binding, click the **Recycle Bin** icon in the **Actions** colu
 Currently, you cannot edit a role binding, you can only delete it.
 {{% /hints/info %}}
 
-![ArangoGraph Project Policy](images/arangograph-policy-page.png)
+![ArangoGraph Project Policy](/images/arangograph-policy-page.png)
 
 ### How to add a role binding to a policy
 
@@ -71,7 +71,7 @@ Currently, you cannot edit a role binding, you can only delete it.
 4. Select one or more roles you want to assign to the specified members.
 5. Click **Create**.
 
-![ArangoGraph New Role Binding](images/arangograph-new-policy-role-binding.png)
+![ArangoGraph New Role Binding](/images/arangograph-new-policy-role-binding.png)
 
 ## Roles
 
@@ -85,7 +85,7 @@ project or deployment policy.
 
 There are predefined roles, but you can also create custom ones.
 
-![ArangoGraph Roles](images/arangograph-access-control-roles.png)
+![ArangoGraph Roles](/images/arangograph-access-control-roles.png)
 
 ### Predefined roles
 
@@ -421,7 +421,7 @@ The roles below are described following this pattern:
 4. Select the required permissions.
 5. Click **Create**.
 
-![ArangoGraph New Role](images/arangograph-create-role.png)
+![ArangoGraph New Role](/images/arangograph-create-role.png)
 
 ### How to view, edit or remove a custom role
 
@@ -597,6 +597,6 @@ projects belonging to that organization.
 
    - **Confirmation** - confirm that logging auditing events increases the price of your deployments.
 
-   ![ArangoGraph audit log](images/arangograph-audit-log.png)
+   ![ArangoGraph audit log](/images/arangograph-audit-log.png)
 
 4. Click **Create** to add the audit log. You can now use it in the projects belonging to your organization.

@@ -60,7 +60,7 @@ Search results can be sorted by their similarity ranking to return the best
 matches first using popular scoring algorithms (Okapi BM25, TF-IDF),
 user-defined relevance boosting and dynamic score calculation.
 
-![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch.png)
+![Conceptual model of ArangoSearch interacting with Collections and Analyzers](/images/arangosearch.png)
 
 Views can be managed in the web interface, via an [HTTP API](../../http/views/) and
 through a [JavaScript API](../../getting-started/data-modeling/views/data-modeling-views-database-methods).

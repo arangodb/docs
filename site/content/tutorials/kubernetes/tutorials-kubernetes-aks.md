@@ -18,15 +18,15 @@ layout: default
 
 ## Cluster basics (version >=1.10)
 
-![basics](images/aks-create-basics.png)
+![basics](/images/aks-create-basics.png)
 
 ## Cluster authentication (Enable RBAC)
 
-![basics](images/aks-create-auth.png)
+![basics](/images/aks-create-auth.png)
 
 ## Wait for cluster to be created
 
-![basics](images/aks-create-valid.png)
+![basics](/images/aks-create-valid.png)
 
 ## Move to control using `kubectl`
 

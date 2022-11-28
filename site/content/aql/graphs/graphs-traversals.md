@@ -563,7 +563,7 @@ you may be interested in documents further down the path.
 
 We will create a simple symmetric traversal demonstration graph:
 
-![traversal graph](images/traversal_graph.png)
+![traversal graph](/images/traversal_graph.png)
 
     
  {{< version "3.10" >}}

@@ -13,7 +13,7 @@ An _Active Failover_ is defined as:
 - At least one _Agency_ acting as a "witness" to determine which server becomes the _leader_
   in a _failure_ situation
 
-![ArangoDB Active Failover](images/leader-follower.png)
+![ArangoDB Active Failover](/images/leader-follower.png)
 
 The advantage of the _Active Failover_ setup is that there is an active third party, the _Agency_,
 which observes and supervises all involved server processes.

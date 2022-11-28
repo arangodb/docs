@@ -43,7 +43,7 @@ cost-effective than pre-provisioning a single large machine. Increased
 complexity in infrastructure can be managed using modern containerization and
 cluster orchestrations tools like [Kubernetes](../deployment/by-technology/kubernetes/).
 
-![Cluster Sharding](images/cluster_sharding.jpg)
+![Cluster Sharding](/images/cluster_sharding.jpg)
 
 To achieve this ArangoDB splits your dataset into so called _shards_. The number
 of shards is something you may choose according to your needs. Proper sharding
@@ -84,7 +84,7 @@ a given document is to be stored. Choosing the right shard key can have
 significant impact on your performance can reduce network traffic and increase
 performance.
 
-![Hash Sharding](images/cluster_sharding_hash.jpg)
+![Hash Sharding](/images/cluster_sharding_hash.jpg)
 
 ArangoDB uses consistent hashing to compute the target shard from the given
 values (as specified via by the `shardKeys` collection property). The ideal set

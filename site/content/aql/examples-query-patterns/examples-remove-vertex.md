@@ -14,7 +14,7 @@ However, as shown in this example based on the
 [knows_graph](../../graphs/#the-knows_graph), a query for this 
 use case can be created.
 
-![Example Graph](images/knows_graph.png)
+![Example Graph](/images/knows_graph.png)
 
 When deleting vertex **eve** from the graph, we also want the edges
 `eve -> alice` and `eve -> bob` to be removed.
@@ -84,7 +84,7 @@ For example, the [city graph](../../graphs/#the-city-graph)
 contains several vertex collections - `germanCity` and `frenchCity` and several 
 edge collections -  `french / german / international Highway`.
 
-![Example Graph2](images/cities_graph.png)
+![Example Graph2](/images/cities_graph.png)
 
 To delete city **Berlin** all edge collections `french / german / international Highway` 
 have to be considered. The **REMOVE** operation has to be applied on all edge

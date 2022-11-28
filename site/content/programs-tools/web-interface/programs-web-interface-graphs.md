@@ -9,7 +9,7 @@ The *Graphs* tab provides a viewer facility for graph data stored in ArangoDB.
 It allows browsing ArangoDB graphs stored in the *_graphs* system collection or
 a graph consisting of an arbitrary vertex and [edge collection](../../appendix/appendix-glossary#edge-collection).
 
-![manage graphs](images/graphsView.png)
+![manage graphs](/images/graphsView.png)
 
 Please note that the graph viewer requires canvas (optional: webgl)  support 
 in your browser. Especially Internet Explorer browsers older than version 9
@@ -17,7 +17,7 @@ are likely to not support this.
 
 ## Graph Viewer
 
-![display graphs](images/graphViewer.png)
+![display graphs](/images/graphViewer.png)
 
 Top Toolbar Functions:
 
@@ -48,7 +48,7 @@ Edge Highlighting (right-mouse-click node):
 
 - Highlight all edges connected to the node (right-click at the background will remove highlighting)
 
-![graph context menu](images/graphViewerContextMenu.png)
+![graph context menu](/images/graphViewerContextMenu.png)
 
 ### Graph Viewer Options
 

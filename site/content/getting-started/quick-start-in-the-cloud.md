@@ -34,7 +34,7 @@ used for multiple accounts.
 2. Click the __Start Free__ button or click the __Sign Up__ link in the top
    right corner.
 
-   ![ArangoGraph Homepage](images/oasis-homepage.png)
+   ![ArangoGraph Homepage](/images/oasis-homepage.png)
 
 3. Review the terms & conditions and privacy policy and click __I accept__.
 4. Select the type of sign up you would like to use (GitHub, Google, or
@@ -43,7 +43,7 @@ used for multiple accounts.
      - For the email address option, type your desired email address in the
        email field and type a strong password in the password field.
 
-     {{< icon src="images/oasis-signup.png" alt="ArangoGraph Sign up" style="max-height: 50vh">}}
+     {{< icon src="/images/oasis-signup.png" alt="ArangoGraph Sign up" style="max-height: 50vh">}}
 
    Click the __Sign up__ button. You will receive a verification email. In that
    mail, click the __Verify my email address__ link or button.
@@ -68,26 +68,26 @@ used for multiple accounts.
    provider and region. Pick one, click __Create deployment__ and accept the
    terms and conditions.
 
-   ![ArangoGraph Dashboard](images/oasis-dashboard.png)
+   ![ArangoGraph Dashboard](/images/oasis-dashboard.png)
 
    You can also [create a deployment](../arangograph/deployments#how-to-create-a-new-deployment)
    manually, if you want fine-grained configuration options.
 2. The new deployment is displayed in the list of deployments for the 
    respective project (here: _Avocado_).
 
-   ![ArangoGraph Deployments Bootstrapping](images/arangograph-deployments-bootstrapping.png)
+   ![ArangoGraph Deployments Bootstrapping](/images/arangograph-deployments-bootstrapping.png)
 
    It takes a couple of minutes before the deployment can be used. The status
    is changed from __Bootstrapping__ to __OK__ eventually and you also
    receive an email when it is ready.
 
-   {{< icon src="images/oasis-deployment-ready-email.png" alt="ArangoGraph Deployment Ready Email" style="max-height: 50vh">}}
+   {{< icon src="/images/oasis-deployment-ready-email.png" alt="ArangoGraph Deployment Ready Email" style="max-height: 50vh">}}
 
 3. Click the name or the **View** button of the deployment card (or the
    __Open deployment details__ link in the email) to view the deployment
    details.
 
-   ![ArangoGraph Deployment Ready](images/arangograph-deployment-ready.png)
+   ![ArangoGraph Deployment Ready](/images/arangograph-deployment-ready.png)
 
 4. You can copy the ArangoDB password for the root user by clicking the second
    button below the label __ROOT PASSWORD__. Then click the __Open endpoint__
@@ -101,9 +101,9 @@ used for multiple accounts.
    Click __Guide__ for instructions on how to access and run queries against
    this data.
 
-   ![ArangoGraph Deployment Examples](images/arangograph-deployment-examples.png)
+   ![ArangoGraph Deployment Examples](/images/arangograph-deployment-examples.png)
 
-   ![ArangoGraph Deployment Examples IMDB Guide](images/arangograph-deployment-examples-imdb-guide.png)
+   ![ArangoGraph Deployment Examples IMDB Guide](/images/arangograph-deployment-examples-imdb-guide.png)
 
 ## General Hierarchy
 
@@ -130,7 +130,7 @@ question mark to bring up the help menu and choose __Start tour__. This guided
 tour walks you through the creation of a deployment and shows you how to load
 example datasets and manage projects and deployments.
 
-![Start tour in menu](images/arangograph-tour-start.png)
+![Start tour in menu](/images/arangograph-tour-start.png)
 
 Alternatively, follow the steps of the linked guides:
 - [Create a new project](../arangograph/projects#how-to-create-a-new-project) (optional)

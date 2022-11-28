@@ -9,7 +9,7 @@ Examples will explain the REST API for [manipulating edges](../../graphs/general
 of the [graph module](../../graphs/)
 on the [knows graph](../../graphs/#the-knows_graph):
 
-![Social Example Graph](images/knows_graph.png)
+![Social Example Graph](/images/knows_graph.png)
 ```http-spec
 openapi: 3.0.2
 paths:
@@ -264,7 +264,7 @@ version: '3.10'
 
 Examples will explain the API on the [social graph](../../graphs/#the-social-graph):
 
-![Social Example Graph](images/social_graph.png)
+![Social Example Graph](/images/social_graph.png)
 ```http-spec
 openapi: 3.0.2
 paths:

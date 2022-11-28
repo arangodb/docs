@@ -17,7 +17,7 @@ In general, as a user of ArangoDB you will use one of the language
 Please note that your ArangoDB comes with an interactive version of
 this documentation using [Swagger](https://swagger.io):
 
-![accessing the documentation via swagger](images/swagger_serverapi_overview.png)
+![accessing the documentation via swagger](/images/swagger_serverapi_overview.png)
 
 We also have a blog post explaining
 [how to work with the Swagger API](https://www.arangodb.com/2018/03/using-arangodb-swaggerio-interactive-api-documentation/).

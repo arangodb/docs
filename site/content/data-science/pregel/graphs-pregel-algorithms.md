@@ -212,7 +212,7 @@ It is probably impossible to discover an efficient algorithm which computes
 them in a distributed way. Fortunately there are scalable substitutions
 available, which should be equally usable for most use cases.
 
-![Illustration of an execution of different centrality measures (Freeman 1977)](images/centrality_visual.png)
+![Illustration of an execution of different centrality measures (Freeman 1977)](/images/centrality_visual.png)
 
 #### Effective Closeness
 
@@ -221,7 +221,7 @@ A common definitions of centrality is the **closeness centrality**
 length of the shortest path between the vertex and all other vertices.
 For vertices *x*, *y* and shortest distance `d(y, x)` it is defined as:
 
-![Vertex Closeness Formula](images/closeness.png)
+![Vertex Closeness Formula](/images/closeness.png)
 
 Effective Closeness approximates the closeness measure. The algorithm works by
 iteratively estimating the number of shortest paths passing through each vertex.
@@ -249,7 +249,7 @@ Another common measure is the [*betweenness* centrality](https://en.wikipedia.or
 It measures the number of times a vertex is part of shortest paths between any
 pairs of vertices. For a vertex *v* betweenness is defined as:
 
-![Vertex Betweenness Formula](images/betweenness.png)
+![Vertex Betweenness Formula](/images/betweenness.png)
 
 Where the &sigma; represents the number of shortest paths between *x* and *y*,
 and &sigma;(v) represents the number of paths also passing through a vertex *v*.

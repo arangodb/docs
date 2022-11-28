@@ -38,7 +38,7 @@ key you will need to be signed into your account at
 [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 Once you are signed in, hover over the profile icon in the top right corner.
 
-![Profile Icon](images/arangograph-my-account-hover.png)
+![Profile Icon](/images/arangograph-my-account-hover.png)
 
 Click _My API keys_.
 
@@ -47,7 +47,7 @@ create, reject, and delete API keys.
 
 Click the _New API key_ button.
 
-![Blank API Screen](images/arangograph-my-api-keys.png)
+![Blank API Screen](/images/arangograph-my-api-keys.png)
 
 The pop-up box that follows has a few options for customizing the access level
 of this API key.
@@ -63,7 +63,7 @@ your API key ID and API key secret. It is very important that you capture the
 API key secret before clicking the close button. There is no way to retrieve
 the API key secret after closing this pop-up window.
 
-![API Secret Key](images/arangograph-api-key-secret.png)
+![API Secret Key](/images/arangograph-api-key-secret.png)
 
 Once you have securely stored your API key ID and secret, click close.
 
@@ -86,7 +86,7 @@ oasisctl login --help
 
 You should see an output similar to this:
 
-![login help output](images/oasisctl-login-help.png)
+![login help output](/images/oasisctl-login-help.png)
 
 This shows two additional flags are available, aside from the help flag.
 
@@ -105,7 +105,7 @@ oasisctl login \
 
 Upon successful login you should receive an authentication token:
 
-![On Successful Login](images/oasisctl-login-success.png)
+![On Successful Login](/images/oasisctl-login-success.png)
 
 Depending on your environment, you could instead store this token for easier
 access. For example:
@@ -164,7 +164,7 @@ oasisctl list --help
 
 This should output a screen similar to:
 
-![List help output](images/oasisctl-list-help.png)
+![List help output](/images/oasisctl-list-help.png)
 
 As you can see you can get information on anything you would need about your
 ArangoGraph organizations, deployments, and access control. To start, let’s take a
@@ -185,7 +185,7 @@ oasisctl list organizations --format json
 Once you have your available organizations you can refer to your desired
 organization using its name or id.
 
-![List organizations output](images/oasisctl-list-org.png)
+![List organizations output](/images/oasisctl-list-org.png)
 
 Note: You may also notice the url attribute, this is for internal use only and
 should not be treated as a publicly accessible path.
@@ -207,7 +207,7 @@ oasisctl list projects \
 This will return information on all projects that the authenticated user has
 access to.
 
-![List projects output](images/oasisctl-list-projects.png)
+![List projects output](/images/oasisctl-list-projects.png)
 
 ### List Deployments
 
@@ -222,7 +222,7 @@ oasisctl list deployments \
   --format json
   ```
 
-![List deployments output](images/oasisctl-list-deployments.png)
+![List deployments output](/images/oasisctl-list-deployments.png)
 
 This provides some basic details for all of the deployments associated with the
 project. Namely, it provides a deployment ID which we can use to start making
@@ -256,7 +256,7 @@ This returns quite a bit more information about the deployment including more
 detailed server information, the endpoint URL where you can access the web interface,
 and optionally the root user password.
 
-![Get deployment details](images/oasisctl-get-deployment.png)
+![Get deployment details](/images/oasisctl-get-deployment.png)
 
 ### Node Size ID
 
@@ -280,7 +280,7 @@ oasisctl list nodesizes \
 
 The output you will see will be similar to this:
 
-![List node size id](images/oasisctl-list-node-size-id.png)
+![List node size id](/images/oasisctl-list-node-size-id.png)
 
 It is important to note that you can scale up with more disk size but you are
 unable to scale down your deployment disk size. The only way to revert back to
@@ -328,7 +328,7 @@ To see all the possible options you can start with the following command:
 oasisctl create --help
 ```
 
-![Create command help output](images/oasisctl-create-help.png)
+![Create command help output](/images/oasisctl-create-help.png)
 
 ### Create a Deployment
 
@@ -339,7 +339,7 @@ best place to start is with our trusty help command.
 oasisctl create deployment --help
 ```
 
-![Create deployment help output](images/oasisctl-create-deployment-help.png)
+![Create deployment help output](/images/oasisctl-create-deployment-help.png)
 
 As you can see there are a lot of default options but also a few that require
 some knowledge of our pre-existing resources. Attempting to create a deployment
@@ -365,7 +365,7 @@ oasisctl create deployment \
 
 If everything went according to play you should see similar output:
 
-![Deployment created successfully](images/oasisctl-create-first-deployment-success.png)
+![Deployment created successfully](/images/oasisctl-create-first-deployment-success.png)
 
 ### Wait on Deployment Status
 
@@ -388,7 +388,7 @@ oasisctl get deployment \
   --deployment-id hmkuedzw9oavvjmjdo0i
 ```
 
-![Get deployment bootstrap status](images/oasisctl-get-first-deployment-bootstrapped.png)
+![Get deployment bootstrap status](/images/oasisctl-get-first-deployment-bootstrapped.png)
 
 Once the deployment is ready you will get two new pieces of information, the
 endpoint URL and Bootstrapped-At will indicate the time it became available.
@@ -435,7 +435,7 @@ oasisctl update deployment --help
 You will see the full list of options available that will allow you to scale
 your deployment as needed.
 
-![Update deployment help output](images/oasisctl-update-deployment-help.png)
+![Update deployment help output](/images/oasisctl-update-deployment-help.png)
 
 ## Delete a Deployment
 

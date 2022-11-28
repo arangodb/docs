@@ -10,7 +10,7 @@ layout: default
 Our first example will locate the start vertex for a graph traversal via [a geo index](../../indexing/working-with-indexes/indexing-geo).
 We use [the city graph](../../graphs/#the-city-graph) and its geo indexes:
 
-![Cities Example Graph](images/cities_graph.png)
+![Cities Example Graph](/images/cities_graph.png)
 
 
  {{< version "3.10" >}}

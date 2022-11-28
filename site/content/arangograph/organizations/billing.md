@@ -15,7 +15,7 @@ layout: default
    to automatically.
 6. Click **Save**.
 
-![ArangoGraph Billing Details](images/arangograph-billing-details.png)
+![ArangoGraph Billing Details](/images/arangograph-billing-details.png)
 
 ## How to add a payment method
 
@@ -25,7 +25,7 @@ layout: default
 4. Fill out the form with your credit card details. Currently, a credit card is the only available payment method.
 5. Click **Save**.
 
-![ArangoGraph Payment Method](images/arangograph-add-payment-method-credit-card.png)
+![ArangoGraph Payment Method](/images/arangograph-add-payment-method-credit-card.png)
 
 {{% comment %}}
 TODO: Need screenshot with invoice

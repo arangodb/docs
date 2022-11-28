@@ -119,7 +119,7 @@ right click on `This PC` in the tree on the left, choose `Properties` in the ope
 in the Popup `Environment Variables`, another popup opens, in the `System Variables` part you click `New`, 
 And variable name: `ICU_DATA` to the value: `c:\\Windows`
 
-![HowtoSetEnv](images/SetEnvironmentVar.png)
+![HowtoSetEnv](/images/SetEnvironmentVar.png)
 
 ## Unit tests (Optional)
 

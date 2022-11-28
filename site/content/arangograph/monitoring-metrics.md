@@ -16,9 +16,9 @@ such as [Grafana](https://grafana.com/oss/grafana/).
 To get started, select an existing deployment from within a project and
 open the **Monitoring** tab. 
 
-![ArangoGraph Monitoring tab](images/arangograph-monitoring-tab.png)
+![ArangoGraph Monitoring tab](/images/arangograph-monitoring-tab.png)
 
-![ArangoGraph Connect Metrics Section](images/oasis-connect-metrics-section.png)
+![ArangoGraph Connect Metrics Section](/images/oasis-connect-metrics-section.png)
 
 ## Metrics tokens
 
@@ -31,7 +31,7 @@ which is required for connecting to Prometheus.
 4. Select the **Lifetime** of the metrics token. 
 5. Click **Create**.
 
-![ArangoGraph Metrics Tokens](images/arangograph-metrics-token.png)
+![ArangoGraph Metrics Tokens](/images/arangograph-metrics-token.png)
 
 ## How to connect Prometheus
 

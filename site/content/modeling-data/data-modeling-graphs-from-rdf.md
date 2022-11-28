@@ -74,7 +74,7 @@ This approach:
 There can be issues that arise with this simple approach, and we discuss them throughout the guide, but this is a good place to start as it shows the 
 potential for mapping the data. 
 
-![arthurGraphViewer](images/arthurGraphViewer.png)
+![arthurGraphViewer](/images/arthurGraphViewer.png)
  Generate this graph for yourself by running the [notebook](https://colab.research.google.com/github/arangodb/interactive_tutorials/blob/master/notebooks/RDF_Import_Example.ipynb).
 
 ## Considerations

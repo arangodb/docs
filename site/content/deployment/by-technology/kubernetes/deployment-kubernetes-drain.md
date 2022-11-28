@@ -87,14 +87,14 @@ risk that the cluster is currently not as resilient as expected.
 One possibility to verify these two things is via the ArangoDB web interface.
 Node health can be monitored in the _Overview_ tab under _NODES_:
 
-![Cluster Health Screen](images/HealthyCluster.png)
+![Cluster Health Screen](/images/HealthyCluster.png)
 
 **Check that all nodes are green** and that there is **no node error** in the
 top right corner.
 
 As to the shards being in sync, see the _Shards_ tab under _NODES_:
 
-![Shard Screen](images/ShardsInSync.png)
+![Shard Screen](/images/ShardsInSync.png)
 
 **Check that all collections have a green check mark** on the right side.
 If any collection does not have such a check mark, you can click on the

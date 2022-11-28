@@ -20,7 +20,7 @@ Every returned path is a JSON object with two attributes:
 
 A visual representation of the example graph:
 
-![Train Connection Map](images/train_map.png)
+![Train Connection Map](/images/train_map.png)
 
 Each ellipse stands for a train station with the name of the city written inside
 of it. They are the vertices of the graph. Arrows represent train connections
@@ -106,7 +106,7 @@ direction for each collection in your path search.
 Load an example graph to get a named graph that reflects some possible
 train connections in Europe and North America:
 
-![Train Connection Map](images/train_map.png)
+![Train Connection Map](/images/train_map.png)
 
 
  {{< version "3.10" >}}

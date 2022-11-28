@@ -186,7 +186,7 @@ have and how often write operations are executed during the process.
 You can also track the progress by checking the **Migration status** section of
 your target deployment in ArangoGraph dashboard.
 
-![ArangoGraph Cloud Migration Progress](images/arangograph-migration-agent.png)
+![ArangoGraph Cloud Migration Progress](/images/arangograph-migration-agent.png)
 
 ### Getting the current status
 

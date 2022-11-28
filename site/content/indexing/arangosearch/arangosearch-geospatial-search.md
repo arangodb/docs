@@ -220,7 +220,7 @@ FOR result IN PUSH(
   RETURN result
 ```
 
-![ArangoSearch geospatial query for points in a polygon](images/arangosearch-geo-points-in-polygon.png)
+![ArangoSearch geospatial query for points in a polygon](/images/arangosearch-geo-points-in-polygon.png)
 
 You do not have to look up the polygon, you can also provide one inline.
 It is also not necessary to return the polygon, you can return the matches only:
@@ -358,7 +358,7 @@ FOR result IN PUSH(
   RETURN result
 ```
 
-![ArangoSearch geosptial query for polygons in a polygon](images/arangosearch-geo-polygons-in-polygon.png)
+![ArangoSearch geosptial query for polygons in a polygon](/images/arangosearch-geo-polygons-in-polygon.png)
 
 Searching for geo features in a rectangle is something you can use together
 with an interactive map that the user can select the area of interest with.
@@ -399,4 +399,4 @@ FOR result IN PUSH(
   RETURN result
 ```
 
-![ArangoSearch geospatial query for polygons intersecting a polygon](images/arangosearch-geo-polygons-intersecting-polygon.png)
+![ArangoSearch geospatial query for polygons intersecting a polygon](/images/arangosearch-geo-polygons-intersecting-polygon.png)

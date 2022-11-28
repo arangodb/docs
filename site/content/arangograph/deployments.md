@@ -17,7 +17,7 @@ you can define.
 In essence, you can create whatever structure fits you for a given organization,
 its projects and deployments.
 
-![ArangoGraph Deployments](images/arangograph-deployments-page.png)
+![ArangoGraph Deployments](/images/arangograph-deployments-page.png)
 
 ## How to create a new deployment
 
@@ -36,7 +36,7 @@ its projects and deployments.
    [ArangoGraph tiers](organizations/#arangograph-tiers) section.
 {{% /hints/info %}}
 
-![ArangoGraph New Deployment](images/arangograph-new-deployment1.png)
+![ArangoGraph New Deployment](/images/arangograph-new-deployment1.png)
 
 {{% hints/info %}}
 Deployments contain exactly **one policy**. Within that policy, you can define
@@ -72,7 +72,7 @@ role bindings to regulate access control on a deployment level.
 For any kind of production deployment we strongly advise to use an IP allowlist.
 {{% /hints/security %}}
 
-![ArangoGraph New Deployment](images/arangograph-new-deployment1.png)
+![ArangoGraph New Deployment](/images/arangograph-new-deployment1.png)
 
 ### In the __Configuration__ section
 
@@ -107,7 +107,7 @@ your deployment runs out of disk space but cannot be resized because it reached
 the upper disk size limit already.
 {{% /hints/info %}}
 
-![ArangoGraph Deployment OneShard](images/arangograph-new-deployment2.png)
+![ArangoGraph Deployment OneShard](/images/arangograph-new-deployment2.png)
 
 #### Sharded
 
@@ -115,7 +115,7 @@ the upper disk size limit already.
   the number of nodes for your deployment. The more nodes you have, the higher
   the replication factor can be.
 
-![ArangoGraph Deployment Sharded](images/arangograph-new-deployment3-sharded.png)
+![ArangoGraph Deployment Sharded](/images/arangograph-new-deployment3-sharded.png)
 
 #### Developer
 
@@ -123,7 +123,7 @@ the upper disk size limit already.
   However note that the sizes you choose are for the entire deployment.
   For OneShard and Sharded deployments the chosen sizes are per node.
 
-![ArangoGraph Deployment Developer](images/arangograph-new-deployment3-developer.png)
+![ArangoGraph Deployment Developer](/images/arangograph-new-deployment3-developer.png)
 
 ### In the __Summary__ section
 
@@ -189,7 +189,7 @@ for how long passwords are valid. The ArangoGraph Insights Platform can automati
 3. In the __Password Settings__ dialog, turn the password rotation on and click the
    __Confirm__ button.
 
-   ![ArangoGraph Deployment Password Rotation](images/arangograph-deployment-password-rotation.png)
+   ![ArangoGraph Deployment Password Rotation](/images/arangograph-deployment-password-rotation.png)
 4. You can expand the __Root password__ panel to see when the password was
    rotated last. The rotation takes place every three months.
 
@@ -286,11 +286,11 @@ that you need during the creation of your Private Endpoint(s).
    icon. If you see a pencil icon and no menu opens, then you are on the
    free-to-try or professional tier. The private endpoint service is only available on the enterprise tier.
 3. Click **Change to private endpoint** in the menu.
-   ![ArangoGraph Deployment Private Endpoint Menu](images/arangograph-gcp-change.png)
+   ![ArangoGraph Deployment Private Endpoint Menu](/images/arangograph-gcp-change.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
 5. Enter one or more Google project names. You can also add them later in the summary view.
    Click **Next**.
-   ![ArangoGraph Deployment Private Endpoint Setup 2](images/arangograph-gcp-private-endpoint.png)
+   ![ArangoGraph Deployment Private Endpoint Setup 2](/images/arangograph-gcp-private-endpoint.png)
 6. Enter one or more alternate DNS names. This step is optional.
    Continue with or without alternate DNS names entered by clicking **Next**.
    The names can be changed later.
@@ -329,12 +329,12 @@ contact support via **Request help** in the help menu.
    icon. If you see a pencil icon and no menu opens, then you are on the
    free-to-try or professional tier. The private endpoint service is only available on the enterprise tier.
 3. Click **Change to private endpoint** in the menu.
-   ![ArangoGraph Deployment Private Endpoint Menu](images/arangograph-deployment-private-endpoint-menu.png)
+   ![ArangoGraph Deployment Private Endpoint Menu](/images/arangograph-deployment-private-endpoint-menu.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
 5. Enter one or more Azure Subscription IDs (GUIDs). They cannot be
    changed anymore once a connection has been established.
    Proceed by clicking **Next**.
-   ![ArangoGraph Deployment Private Endpoint Setup 2](images/arangograph-deployment-private-endpoint-setup2.png)
+   ![ArangoGraph Deployment Private Endpoint Setup 2](/images/arangograph-deployment-private-endpoint-setup2.png)
 6. Enter one or more Alternate DNS names. This step is optional.
    Continue with or without Alternate DNS names entered by clicking **Next**.
    They can be changed later.
@@ -383,7 +383,7 @@ that automatically connects to private endpoints that are created in those princ
    icon. If you see a pencil icon and no menu opens, then you are on the
    free-to-try or professional tier. The private endpoint service is only available on the enterprise tier.
 3. Click **Change to private endpoint** in the menu.
-   ![ArangoGraph Deployment AWS Change to Private Endpoint](images/arangograph-aws-change-to-private-endpoint.png)
+   ![ArangoGraph Deployment AWS Change to Private Endpoint](/images/arangograph-aws-change-to-private-endpoint.png)
 4. In the configuration wizard, click **Next** to enter your configuration details.
 5. Click **Add Principal** to start configuring the AWS principal(s). 
    You need to enter a valid account, which is your 12 digit AWS account ID.
@@ -392,16 +392,16 @@ that automatically connects to private endpoints that are created in those princ
    {{% hints/info %}}
    Principals cannot be changed anymore once a connection has been established.
 {{% /hints/info %}}
-   ![ArangoGraph AWS Private Endpoint Configure Principals](images/arangograph-aws-endpoint-configure-principals.png)
+   ![ArangoGraph AWS Private Endpoint Configure Principals](/images/arangograph-aws-endpoint-configure-principals.png)
 6. Enter one or more Alternate DNS names. This step is optional, you can 
    add or change them later. Click **Next** to continue.
-   ![ArangoGraph AWS Private Endpoint Alternate DNS](images/arangograph-aws-private-endpoint-dns.png)
+   ![ArangoGraph AWS Private Endpoint Alternate DNS](/images/arangograph-aws-private-endpoint-dns.png)
 7. Confirm that you want to use a private endpoint for your deployment by
    clicking **Confirm Settings**.
 8. Back in the **Overview** tab, scroll down to the **Private Endpoint** section
    that is now displayed to see the connection status and change the
    configuration, if needed.
-   ![ArangoGraph AWS Private Endpoint Overview](images/arangograph-aws-private-endpoint-overview.png)
+   ![ArangoGraph AWS Private Endpoint Overview](/images/arangograph-aws-private-endpoint-overview.png)
    {{% hints/tip %}}
    To learn more or request help from the ArangoGraph support team, click **Help**
    in the top right corner of the **Private Endpoint** section.

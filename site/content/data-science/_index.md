@@ -20,7 +20,7 @@ ArangoDB, as the foundation for GraphML, comes with the following key features:
 - **Open Source**: extensibility and community.
 - **NLP Support**: built-in text processing, search, and similarity ranking.
 
-![ArangoDB Machine Learning Architecture](images/machine-learning-architecture.png)
+![ArangoDB Machine Learning Architecture](/images/machine-learning-architecture.png)
 
 ## Graph Analytics vs. GraphML
 
@@ -36,7 +36,7 @@ and then the edge indicates what the next connected vertex will be.
 
 Graph queries can answer questions like _**Who can introduce me to person X**_?
 
-![Graph Query](images/graph-query.png)
+![Graph Query](/images/graph-query.png)
 
 ### Graph Analytics
 
@@ -45,7 +45,7 @@ know aggregate information about your graph, while analyzing the entire graph.
 
 Graph analytics can answer questions like _**Who are the most connected persons**_?
 
-![Graph Analytics](images/graph-analytics.png)
+![Graph Analytics](/images/graph-analytics.png)
 
 ### GraphML
 
@@ -57,7 +57,7 @@ GraphML can answer questions like:
 - _**Will a customer churn?**_ 
 - _**Is this particular transaction Anomalous?**_
 
-![Graph ML](images/graph-ml.png)
+![Graph ML](/images/graph-ml.png)
 
 ## Use Cases
 
@@ -133,7 +133,7 @@ The ArangoFlix demo uses five different recommendation methods:
 - Matrix Factorization
 - Graph Neural Networks 
 
-![ArangoFlix demo](images/data-science-arangoflix.png)
+![ArangoFlix demo](/images/data-science-arangoflix.png)
 
 The ArangoFlix website not only offers an example of how the user recommendations might
 look like in real life, but it also provides information on a recommendation method,

@@ -34,7 +34,7 @@ To edit permissions of members see [Access Control](../access-control).
 
 Members are a list of users that can access an organization.
 
-![ArangoGraph Member Access Control](images/arangograph-access-control-members.png)
+![ArangoGraph Member Access Control](/images/arangograph-access-control-members.png)
 
 ### How to add a new member to the organization
 
@@ -49,7 +49,7 @@ Members are a list of users that can access an organization.
 7. After accepting the invite the person will be added to the organization
    [members](#members).
 
-![ArangoGraph Organization Invites](images/arangograph-new-invite.png)
+![ArangoGraph Organization Invites](/images/arangograph-new-invite.png)
 
 ### How to respond to an organization invite
 
@@ -78,7 +78,7 @@ You cannot delete members who are organization owners.
 A group is a defined set of members. Groups can then be bound to roles. These
 bindings contribute to the respective organization, project or deployment policy.
 
-![ArangoGraph Groups](images/arangograph-groups.png)
+![ArangoGraph Groups](/images/arangograph-groups.png)
 
 ### How to create a new group
 
@@ -88,7 +88,7 @@ bindings contribute to the respective organization, project or deployment policy
 4. Select the members you want to be part of the group.
 5. Press the __Create__ button.
 
-![ArangoGraph New Group](images/arangograph-new-group.png)
+![ArangoGraph New Group](/images/arangograph-new-group.png)
 
 ### How to view, edit or remove a group
 
@@ -101,7 +101,7 @@ bindings contribute to the respective organization, project or deployment policy
 You can also click a group name to view it. There are buttons to __Edit__ and
 __Delete__ the currently viewed group.
 
-![ArangoGraph Group](images/arangograph-group.png)
+![ArangoGraph Group](/images/arangograph-group.png)
 
 {{% hints/info %}}
 The groups __Organization members__ and __Organization owners__ are virtual groups
@@ -124,4 +124,4 @@ See [How to add a new member to the organization](#how-to-add-a-new-member-to-th
 4. You may delete pending invites by clicking the __recycle bin__ icon in the
    __Actions__ column.
 
-![ArangoGraph Organization Invites](images/arangograph-org-invites.png)
+![ArangoGraph Organization Invites](/images/arangograph-org-invites.png)

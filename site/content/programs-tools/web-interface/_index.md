@@ -17,8 +17,8 @@ The interface differs for standalone instances and cluster setups.
 
 Standalone:
 
-![Standalone Web Interface](images/overview.png)
+![Standalone Web Interface](/images/overview.png)
 
 Cluster:
 
-![Cluster Web Interface](images/clusterView.png)
+![Cluster Web Interface](/images/clusterView.png)

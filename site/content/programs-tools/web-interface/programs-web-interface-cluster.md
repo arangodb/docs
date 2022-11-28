@@ -7,7 +7,7 @@ layout: default
 ---
 The cluster section displays statistics about the general cluster performance.
 
-![Cluster](images/clusterView.png)
+![Cluster](/images/clusterView.png)
 
 Statistics:
 
@@ -25,7 +25,7 @@ Statistics:
 
 The overview shows available and missing Coordinators and DB-Servers.
 
-![Nodes](images/nodesView.png)
+![Nodes](/images/nodesView.png)
 
 Functions:
 
@@ -43,7 +43,7 @@ Information (Coordinator / DB-Servers):
 
 The shard section displays all available sharded collections.
 
-![Shards](images/shardsView.png)
+![Shards](/images/shardsView.png)
 
 Functions:
 

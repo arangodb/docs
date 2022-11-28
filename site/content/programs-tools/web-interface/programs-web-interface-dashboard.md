@@ -8,7 +8,7 @@ layout: default
 The *Dashboard* tab provides statistics which are polled regularly from the
 ArangoDB server.
 
-![Nodes](images/dashboardView.png)
+![Nodes](/images/dashboardView.png)
 
 Requests Statistics:
 

@@ -29,7 +29,7 @@ mounting the `.dmg` file. Just drag and drop the `ArangoDB3-CLI` (community) or
 the `ArangoDB3e-CLI` (enterprise) file into the shown `Applications` folder.
 You will be asked if you want to replace the old file with the newer one.
 
-![MacOSUpgrade](images/MacOSUpgrade.png) 
+![MacOSUpgrade](/images/MacOSUpgrade.png) 
 
 Select `Replace` to install the current ArangoDB version.
 

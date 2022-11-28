@@ -19,7 +19,7 @@ number of deployment under one project.
 In essence, you can create whatever structure fits you for a given organization,
 its projects and deployments.
 
-![ArangoGraph Projects Overview](images/arangograph-projects-overview.png)
+![ArangoGraph Projects Overview](/images/arangograph-projects-overview.png)
 
 ## How to create a new project
 
@@ -30,9 +30,9 @@ its projects and deployments.
 5. You will be taken to the project page.
 6. To change the name or description, click either at the top of the page.
 
-![ArangoGraph New Project](images/arangograph-new-project.png)
+![ArangoGraph New Project](/images/arangograph-new-project.png)
 
-![ArangoGraph Project Summary](images/arangograph-project.png)
+![ArangoGraph Project Summary](/images/arangograph-project.png)
 
 {{% hints/info %}}
 Projects contain exactly **one policy**. Within that policy, you can define
@@ -109,9 +109,9 @@ your local machine. This operation will slightly vary between operating systems.
    - The __tag__ icon to make the certificate the new default.
    - The __recycle bin__ icon to delete a certificate.
 
-![ArangoGraph Certificates](images/arangograph-cert-page-with-cert-present.png)
+![ArangoGraph Certificates](/images/arangograph-cert-page-with-cert-present.png)
 
-![ArangoGraph Certificate Install Instructions](images/arangograph-cert-install-instructions.png)
+![ArangoGraph Certificate Install Instructions](/images/arangograph-cert-install-instructions.png)
 
 ### Certificate Rotation
 

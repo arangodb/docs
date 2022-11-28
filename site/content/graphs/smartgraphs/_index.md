@@ -62,7 +62,7 @@ cluster for both scenarios. Let's take a closer look at it.
 The natural distribution of data for graphs that handle large datasets involves
 a series of highly interconnected nodes with many edges running between them.
 
-![Random data distribution](images/SmartGraphs_random_distribution.png)
+![Random data distribution](/images/SmartGraphs_random_distribution.png)
 
 _The orange line indicates an example graph traversal. Notice how it touches nodes on every server._
 
@@ -88,7 +88,7 @@ connecting vertices with identical `smartGraphAttribute` values are stored on
 this machine as well. Sharding with this attribute means that the relevant data
 is now co-located on servers, whenever possible.
 
-![SmartGraphs data distribution](images/SmartGraphs_distribution.png)
+![SmartGraphs data distribution](/images/SmartGraphs_distribution.png)
 
 _The outcome of moving the data like this is that you retain the scalability as well as the performance of graph traversals in ArangoDB._
 
@@ -103,7 +103,7 @@ and (k-)shortest path(s) query can partially be executed locally on each DB-Serv
 This means a larger part of the query can be executed fully local
 whenever data from the SatelliteCollections is required.
 
-![SmartGraphs with SatelliteCollections](images/SmartGraphs-using-SatelliteCollections.png)
+![SmartGraphs with SatelliteCollections](/images/SmartGraphs-using-SatelliteCollections.png)
 
 ## Disjoint SmartGraphs
 
@@ -112,7 +112,7 @@ large forest of graphs, when you have clearly separated subgraphs in your
 graph dataset. Disjoint SmartGraphs enable the automatic sharding of these
 subgraphs and prohibit edges connecting them.
 
-![Disjoint SmartGraphs](images/SmartGraphs-Disjoint.png)
+![Disjoint SmartGraphs](/images/SmartGraphs-Disjoint.png)
 
 _This ensures that graph traversals, shortest path, and k-shortest-paths queries
 can be executed locally on a DB-Server, achieving improved performance for

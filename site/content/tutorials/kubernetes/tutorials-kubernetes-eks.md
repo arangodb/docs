@@ -19,10 +19,10 @@ $ aws --version
 
 ## Create a Kubernetes cluster
 
-![clusters](images/eks-clusters.png)
+![clusters](/images/eks-clusters.png)
 
 ## Wait for cluster to be `ACTIVE`
-![cluster-active](images/eks-cluster-active.png)
+![cluster-active](/images/eks-cluster-active.png)
 
 ## Continue with aws client
 
@@ -88,7 +88,7 @@ and choose `Create Stack` by specifying this S3 template URL:
 https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2018-08-30/amazon-eks-nodegroup.yaml
 ```
 
-![formation-template](images/eks-create-template.png)
+![formation-template](/images/eks-create-template.png)
 
 ### Worker stack details
 
@@ -125,14 +125,14 @@ into your kubernetes cluster.
 **Subnets**: Choose the subnets that you created in Create your Amazon EKS Cluster VPC.
 
 ### Review your stack and submit
-![create-review](images/eks-create-review.png)
+![create-review](/images/eks-create-review.png)
 
 ### Wait for stack to get ready
-![eks-stack](images/eks-stack.png)
+![eks-stack](/images/eks-stack.png)
 
 ### Note down `NodeInstanceRole`
 Once stack is ready, navigate at the bottom to the Outputs pane and note down the `NodeInstanceRole`
-![eks-stack](images/eks-stack-ready.png)
+![eks-stack](/images/eks-stack-ready.png)
 
 ### Integrate worker stack as Kubernetes nodes
 

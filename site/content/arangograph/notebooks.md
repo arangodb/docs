@@ -18,7 +18,7 @@ ArangoML platform services. This makes it much easier to leverage these
 resources without having to download any data locally or to remember user IDs,
 passwords, and endpoint URLs.
 
-![ArangoGraph Notebooks Architecture](images/arangograph-notebooks-architecture.png)
+![ArangoGraph Notebooks Architecture](/images/arangograph-notebooks-architecture.png)
 
 The ArangoGraph Notebook has built-in [ArangoGraph Magic Commands](.#arangograph-magic-commands)
 that answer questions like:
@@ -50,7 +50,7 @@ Depending on the tier your organization belongs to, different limitations apply:
 - Free-to-try tier: you can only create one notebook per deployment.  
 {{% /hints/info %}}
 
-![Notebooks](images/arangograph-notebooks.png)
+![Notebooks](/images/arangograph-notebooks.png)
 
 {{% hints/info %}}
 Notebooks in beta version have a fixed configuration of 10&nbsp;GB of disk size.
