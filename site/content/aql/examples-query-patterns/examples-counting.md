@@ -1,7 +1,7 @@
 ---
 fileID: examples-counting
 title: Counting
-weight: 3975
+weight: 3800
 description: 
 layout: default
 ---

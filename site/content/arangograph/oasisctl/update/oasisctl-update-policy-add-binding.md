@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-policy-add-binding
 title: Oasisctl Update Policy Add Binding
-weight: 3645
+weight: 3465
 description: 
 layout: default
 ---

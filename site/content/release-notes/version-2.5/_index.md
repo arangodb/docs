@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-25
 title: Version 2.5
-weight: 12035
+weight: 11855
 description: 
 layout: default
 ---

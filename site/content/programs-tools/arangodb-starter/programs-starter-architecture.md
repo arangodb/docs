@@ -1,7 +1,7 @@
 ---
 fileID: programs-starter-architecture
 title: ArangoDB Starter Architecture
-weight: 455
+weight: 305
 description: 
 layout: default
 ---
@@ -176,11 +176,11 @@ arangodb --starter.mode=cluster --starter.join=hostA:8528,hostB:8528,hostC:8528
 
 The state of the cluster (of Starters) is stored in a configuration file called
 `setup.json` in the data directory of every Starter and the ArangoDB
-Agency is used to elect a master among all Starters.
+The Agency is used to elect a leader (also called _master_) among all Starters.
 
-The master Starter is responsible for maintaining the list of all Starters
-involved in the cluster and their addresses. The slave Starters (all Starters
-except the elected master) fetch this list from the master Starter on regular
+The leader Starter is responsible for maintaining the list of all Starters
+involved in the cluster and their addresses. The follower Starters (all Starters
+except the elected leader) fetch this list from the leader Starter on regular
 basis and store it to its own `setup.json` config file.
 
 Note: The `setup.json` config file MUST NOT be edited manually.
@@ -201,26 +201,26 @@ from scratch.
 1. The list of `--starter.join` arguments is sorted
 1. All Starters request the unique ID from the first server in the sorted `--starter.join` list,
    and compares the result with its own unique ID.
-1. The Starter that finds its own unique ID, is continuing as `bootstrap master`
-   the other Starters are continuing as `bootstrap slaves`.
-1. The `bootstrap master` waits for at least 2 `bootstrap slaves` to join it.
-1. The `bootstrap slaves` contact the `bootstrap master` to join its cluster of Starters.
-1. Once the `bootstrap master` has received enough (at least 2) requests
+1. The Starter that finds its own unique ID, is continuing as _bootstrap leader_
+   the other Starters are continuing as _bootstrap followers_.
+1. The _bootstrap leader_ waits for at least 2 _bootstrap followers_ to join it.
+1. The _bootstrap followers_ contact the _bootstrap leader_ to join its cluster of Starters.
+1. Once the _bootstrap leader_ has received enough (at least 2) requests
    to join its cluster of Starters, it continues with the `running` phase.
-1. The `bootstrap slaves` keep asking the `bootstrap master` about its state.
+1. The _bootstrap followers_ keep asking the _bootstrap leader_ about its state.
    As soon as they receive confirmation to do so, they also continue with the `running` phase.
 
-In the `running` phase all Starters launch the desired servers and keeps monitoring those
+In the _running_ phase, all Starters launch the desired servers and keeps monitoring those
 servers. Once a functional Agency is detected, all Starters will try to be
-`running master` by trying to write their ID in a well known location in the Agency.
-The first Starter to succeed in doing so wins this master election.
+_running leader_ by trying to write their ID in a well known location in the Agency.
+The first Starter to succeed in doing so wins this leader election.
 
-The `running master` will keep writing its ID in the Agency in order to remaining
-the `running master`. Since this ID is written with a short time-to-live,
-other Starters are able to detect when the current `running master` has been stopped
+The _running leader_ will keep writing its ID in the Agency in order to remaining
+the _running leader_. Since this ID is written with a short time-to-live,
+other Starters are able to detect when the current _running leader_ has been stopped
 or is no longer responsible. In that case the remaining Starters will perform
-another master election to decide who will be the next `running master`.
+another leader election to decide who will be the next _running leader_.
 
 API requests that involve the state of the cluster of Starters are always answered
-by the current `running master`. All other Starters will refer the request to
-the current `running master`.
+by the current _running leader_. All other Starters will refer the request to
+the current _running leader_.

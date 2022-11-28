@@ -1,7 +1,7 @@
 ---
 fileID: deployment-dc2dc-cluster
 title: ArangoDB cluster
-weight: 1015
+weight: 905
 description: 
 layout: default
 ---
@@ -13,7 +13,7 @@ example setup described in this section will have `rocksdb` enabled. If you choo
 to deploy with a different strategy keep in mind to set the storage engine.
 
 For other possibilities to deploy an ArangoDB cluster see
-[Cluster Deployment](../../deployment/by-arangodb-deployment-modes/cluster/).
+[Cluster Deployment](../../architecture/deployment-modes/cluster/deployment/).
 
 The _Starter_ simplifies things for the operator and will coordinate a distributed
 cluster startup across several machines and assign cluster roles automatically.

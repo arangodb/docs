@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-upgrading
 title: Upgrading
-weight: 1480
+weight: 1305
 description: 
 layout: default
 ---

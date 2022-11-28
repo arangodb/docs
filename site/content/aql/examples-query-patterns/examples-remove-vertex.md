@@ -1,7 +1,7 @@
 ---
 fileID: examples-remove-vertex
 title: Remove Vertex
-weight: 4020
+weight: 3840
 description: 
 layout: default
 ---

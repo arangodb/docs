@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-getting-started
 title: Getting Started with the ArangoGraph API and Oasisctl
-weight: 2620
+weight: 2440
 description: 
 layout: default
 ---

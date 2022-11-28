@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-deployment
 title: Oasisctl Delete Deployment
-weight: 2890
+weight: 2710
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: execution-and-performance-query-profiler
 title: Profiling and Hand-Optimizing AQL queries
-weight: 4080
+weight: 3900
 description: 
 layout: default
 ---

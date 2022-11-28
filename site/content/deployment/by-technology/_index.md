@@ -1,7 +1,7 @@
 ---
 fileID: deployment-technology
 title: ArangoDB Deploying Options by _Technology_
-weight: 1405
+weight: 1230
 description: 
 layout: default
 ---

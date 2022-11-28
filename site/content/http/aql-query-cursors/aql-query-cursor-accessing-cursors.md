@@ -1,7 +1,7 @@
 ---
 fileID: aql-query-cursor-accessing-cursors
 title: Accessing Cursors via HTTP
-weight: 2305
+weight: 2125
 description: 
 layout: default
 ---

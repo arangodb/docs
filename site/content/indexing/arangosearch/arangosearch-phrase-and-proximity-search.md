@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-phrase-and-proximity-search
 title: Phrase and Proximity Search with ArangoSearch
-weight: 725
+weight: 575
 description: Search for phrases and nearby words in full-text
 layout: default
 ---

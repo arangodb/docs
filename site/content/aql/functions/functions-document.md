@@ -1,7 +1,7 @@
 ---
 fileID: functions-document
 title: Document functions
-weight: 3885
+weight: 3710
 description: 
 layout: default
 ---
@@ -103,14 +103,15 @@ release: stable
 
 ## VALUES()
 
-`VALUES(document, removeInternal) → anyArray`
+`VALUES(document, removeSystemAttrs) → anyArray`
 
 Return the attribute values of the `document` as an array. Optionally omit
 system attributes.
 
 - **document** (object): a document / object
-- **removeInternal** (bool, *optional*): if set to `true`, then all internal attributes
-  (such as `_id`, `_key` etc.) are removed from the result
+- **removeSystemAttrs** (bool, *optional*): if set to `true`, then all
+  system attributes (starting with an underscore, such as `_id`, `_key` etc.)
+  are removed from the result
 - returns **anyArray** (array): the values of `document` returned in any order
 
 **Examples**

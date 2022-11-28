@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-nodesizes
 title: Oasisctl List Nodesizes
-weight: 3290
+weight: 3110
 description: 
 layout: default
 ---

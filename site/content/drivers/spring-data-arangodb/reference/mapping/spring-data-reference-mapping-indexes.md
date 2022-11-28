@@ -1,14 +1,14 @@
 ---
 fileID: spring-data-reference-mapping-indexes
 title: Indexes
-weight: 4305
+weight: 4125
 description: 
 layout: default
 ---
 Indexes can be ensured using the following annotations. For reference see the
 [indexing](../../../../indexing/) documentation
 and specific aspects that apply to
-[indexes on shards](../../../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-sharding#indexes-on-shards).
+[indexes on shards](../../../../architecture/architecture-deployment-modes-cluster-sharding#indexes-on-shards).
 
 ## Annotation @\<IndexType\>Indexed
 

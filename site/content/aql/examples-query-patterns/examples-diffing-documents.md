@@ -1,7 +1,7 @@
 ---
 fileID: examples-diffing-documents
 title: Diffing Two Documents in AQL
-weight: 4035
+weight: 3855
 description: 
 layout: default
 ---

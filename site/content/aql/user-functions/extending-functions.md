@@ -1,7 +1,7 @@
 ---
 fileID: extending-functions
 title: Registering and Unregistering User Functions
-weight: 4055
+weight: 3875
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-repositories
 title: Repositories
-weight: 4255
+weight: 4075
 description: 
 layout: default
 ---

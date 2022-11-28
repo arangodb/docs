@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides
 title: Guides
-weight: 1070
+weight: 960
 description: 
 layout: default
 ---

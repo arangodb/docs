@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-ipallowlist
 title: Oasisctl Get Ipallowlist
-weight: 3040
+weight: 2860
 description: 
 layout: default
 ---

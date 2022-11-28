@@ -1,7 +1,7 @@
 ---
 fileID: operations-for
 title: FOR Operations in AQL
-weight: 3785
+weight: 3610
 description: 
 layout: default
 ---
@@ -75,9 +75,21 @@ FOR u IN users
 
 In this example, there are two array iterations: an outer iteration over the array
 `users` plus an inner iteration over the array `locations`. The inner array is
-traversed as many times as there are elements in the outer array.  For each
+traversed as many times as there are elements in the outer array. For each
 iteration, the current values of `users` and `locations` are made available for
 further processing in the variable `u` and `l`.
+
+You can also use subqueries, for example, to iterate over a collection
+independently and get the results back as an array, that you can then access in
+an outer `FOR` loop:
+
+```aql
+FOR u IN users
+  LET subquery = (FOR l IN locations RETURN l.location)
+  RETURN { "user": u, "locations": subquery }
+```
+
+Also see [Combining queries with subqueries](../aql-fundamentals/fundamentals-subqueries).
 
 ## Options
 

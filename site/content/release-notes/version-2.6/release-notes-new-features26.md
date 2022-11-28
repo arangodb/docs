@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features26
 title: Features and Improvements in ArangoDB 2.6
-weight: 12025
+weight: 11845
 description: 
 layout: default
 ---

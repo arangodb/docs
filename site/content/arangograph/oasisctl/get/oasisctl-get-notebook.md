@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-notebook
 title: Oasisctl Get Notebook
-weight: 3055
+weight: 2875
 description: 
 layout: default
 ---

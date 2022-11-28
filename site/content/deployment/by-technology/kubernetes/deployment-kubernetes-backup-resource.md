@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-backup-resource
 title: ArangoBackup Custom Resource
-weight: 1445
+weight: 1270
 description: 
 layout: default
 ---

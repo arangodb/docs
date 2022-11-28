@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-queries
 title: Writing queries
-weight: 1085
+weight: 975
 description: 
 layout: default
 ---

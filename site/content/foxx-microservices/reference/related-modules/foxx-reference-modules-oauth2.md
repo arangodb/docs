@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-modules-oauth2
 title: OAuth 2.0
-weight: 1240
+weight: 1130
 description: 
 layout: default
 ---

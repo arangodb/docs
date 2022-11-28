@@ -1,7 +1,7 @@
 ---
 fileID: appendix-java-script-modules-console
 title: Console Module
-weight: 12165
+weight: 11985
 description: 
 layout: default
 ---

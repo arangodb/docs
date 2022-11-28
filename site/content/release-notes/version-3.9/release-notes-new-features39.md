@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features39
 title: Features and Improvements in ArangoDB 3.9
-weight: 11790
+weight: 11610
 description: 
 layout: default
 ---
@@ -369,7 +369,11 @@ A new server startup option for setting the language was added. The new
 `--icu-language` option will replace the existing `--default-language` option,
 and only one of the two can be set.
 
-Also see [ArangoDB Server General Options](../../programs-tools/arangodb-server/options/programs-arangod-general#icu-language).
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+Also see [ArangoDB Server General Options](../../programs-tools/arangodb-server/programs-arangod-options#--icu-language).
+{%- else -%}
+Also see [ArangoDB Server General Options](programs-arangod-general.html#icu-language).
+{% endif %}
 
 ### Logging
 
@@ -408,7 +412,11 @@ should be used.
   The default value for this flag is set to `false` for compatibility with
   previous versions.
 
-Also see [Logging](../../programs-tools/arangodb-server/options/programs-arangod-log).
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+Also see [Logging](../../programs-tools/arangodb-server/programs-arangod-options#log).
+{%- else -%}
+Also see [Logging](programs-arangod-log.html).
+{% endif %}
 
 ### Version information
 
@@ -432,6 +440,14 @@ There are three new startup options to configure how AQL queries are logged:
   which on a warning is logged for AQL queries that exceed it (default: 4 GB)
 - `--query.max-artifact-log-length` for controlling the length of logged query
   strings and bind parameter values. Both are truncated to 4096 bytes by default.
+
+### ArangoSearch column cache limit
+
+<small>Introduced in: v3.9.5</small>
+
+The new `--arangosearch.columns-cache-limit` startup option lets you control how
+much memory (in bytes) the [ArangoSearch column cache](#arangosearch-column-cache-enterprise-edition)
+is allowed to use.
 
 ## Overload control
 

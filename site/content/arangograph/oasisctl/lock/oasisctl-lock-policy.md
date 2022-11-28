@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-lock-policy
 title: Oasisctl Lock Policy
-weight: 3380
+weight: 3200
 description: 
 layout: default
 ---

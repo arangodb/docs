@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-geospatial-search
 title: Geospatial Search with ArangoSearch
-weight: 740
+weight: 590
 description: ArangoSearch supports geospatial queries like finding coordinates and GeoJSON shapes within a radius or area
 layout: default
 ---

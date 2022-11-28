@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features35
 title: Features and Improvements in ArangoDB 3.5
-weight: 11885
+weight: 11705
 description: 
 layout: default
 ---

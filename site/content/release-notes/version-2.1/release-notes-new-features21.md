@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features21
 title: Features and Improvements in ArangoDB 2.1
-weight: 12095
+weight: 11915
 description: 
 layout: default
 ---

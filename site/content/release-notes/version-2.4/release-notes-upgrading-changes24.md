@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-upgrading-changes24
 title: Incompatible changes in ArangoDB 2.4
-weight: 12060
+weight: 11880
 description: 
 layout: default
 ---

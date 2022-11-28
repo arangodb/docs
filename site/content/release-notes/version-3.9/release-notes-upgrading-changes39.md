@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-upgrading-changes39
 title: Incompatible changes in ArangoDB 3.9
-weight: 11800
+weight: 11620
 description: 
 layout: default
 ---
@@ -80,7 +80,11 @@ controls whether collection names are allowed in arbitrary places in AQL
 expressions. The default was *true*, but is now changed to *false* in 3.9.0 to
 make queries like `FOR doc IN collection RETURN collection` fail, where it was
 probably intended to `RETURN doc` instead. Also see
-[ArangoDB Server Query Options](../../programs-tools/arangodb-server/options/programs-arangod-query#allowing-the-usage-of-collection-names-in-aql-expressions)
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+[ArangoDB Server Query Options](../../programs-tools/arangodb-server/programs-arangod-options#--queryallow-collections-in-expressions)
+{%- else -%}
+[ArangoDB Server Query Options](programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
+{% endif %}
 
 Such unintentional usage of collection names in queries now makes the query
 fail with error 1568 ("collection used as expression operand") by default.

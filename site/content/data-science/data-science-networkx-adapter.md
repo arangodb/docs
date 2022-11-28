@@ -1,7 +1,7 @@
 ---
 fileID: data-science-networkx-adapter
 title: NetworkX Adapter
-weight: 905
+weight: 755
 description: >- 
   The ArangoDB-NetworkX Adapter allows you to export graphs from ArangoDB into NetworkX for graph analysis with Python and vice-versa
 layout: default

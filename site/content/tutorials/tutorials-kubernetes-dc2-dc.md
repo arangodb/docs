@@ -1,7 +1,7 @@
 ---
 fileID: tutorials-kubernetes-dc2-dc
 title: Start ArangoDB Cluster to Cluster Synchronization on Kubernetes
-weight: 195
+weight: 190
 description: 
 layout: default
 ---

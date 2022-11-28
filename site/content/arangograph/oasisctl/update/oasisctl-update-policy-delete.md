@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-policy-delete
 title: Oasisctl Update Policy Delete
-weight: 3650
+weight: 3470
 description: 
 layout: default
 ---

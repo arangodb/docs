@@ -1,7 +1,7 @@
 ---
 fileID: data-science-arango-rdf-adapter
 title: ArangoRDF
-weight: 925
+weight: 775
 description: >- 
   ArangoRDF allows you to export graphs from ArangoDB into RDF and vice-versa
 layout: default

@@ -1,7 +1,7 @@
 ---
 fileID: fundamentals-data-types
 title: Data types
-weight: 3735
+weight: 3555
 description: 
 layout: default
 ---

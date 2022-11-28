@@ -1,7 +1,7 @@
 ---
 fileID: upgrading-manually
 title: Upgrading Manual Deployments
-weight: 1595
+weight: 1420
 description: 
 layout: default
 ---

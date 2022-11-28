@@ -1,7 +1,7 @@
 ---
 fileID: extending
 title: Extending AQL with User Functions
-weight: 4045
+weight: 3865
 description: 
 layout: default
 ---
@@ -40,7 +40,7 @@ Rule of thumb is, the closer the UDF is to your final `RETURN` statement
 (or maybe even inside it), the better. 
 
 When used in clusters, UDFs are always executed on the
-[Coordinator](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-architecture).
+[Coordinator](../../architecture/deployment-modes/cluster/).
 
 As UDFs are written in JavaScript, each query that executes a UDF will acquire
 one V8 context to execute the UDFs in it. V8 contexts can be re-used across subsequent
@@ -55,9 +55,9 @@ of these resources, your query may abort with a
 [**cluster backend unavailable**](../../appendix/appendix-error-codes) error.
 
 To overcome these mentioned limitations, you may want to increase the
-[number of available V8 contexts](../../programs-tools/arangodb-server/options/programs-arangod-javascript#v8-contexts)
+[number of available V8 contexts](../../programs-tools/arangodb-server/programs-arangod-options#--javascriptv8-contexts)
 (at the expense of increased memory usage), and the
-[number of available server threads](../../programs-tools/arangodb-server/options/programs-arangod-server#server-threads).
+[number of available server threads](../../programs-tools/arangodb-server/programs-arangod-options#--servermaximal-threads).
 
 In addition, modification of global JavaScript variables from inside UDFs is 
 unsupported, as is reading or changing the data of any collection or running

@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangorestore-examples
 title: _arangorestore_ Examples
-weight: 490
+weight: 340
 description: 
 layout: default
 ---

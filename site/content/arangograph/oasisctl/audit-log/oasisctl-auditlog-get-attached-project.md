@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-auditlog-get-attached-project
 title: Oasisctl Auditlog Get Attached Project
-weight: 2700
+weight: 2520
 description: 
 layout: default
 ---

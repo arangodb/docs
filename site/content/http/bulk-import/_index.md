@@ -1,7 +1,7 @@
 ---
 fileID: bulk-imports
 title: HTTP Interface for Bulk Imports
-weight: 2330
+weight: 2150
 description: 
 layout: default
 ---

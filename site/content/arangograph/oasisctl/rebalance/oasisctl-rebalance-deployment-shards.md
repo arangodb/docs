@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-rebalance-deployment-shards
 title: Oasisctl Rebalance Deployment Shards
-weight: 3420
+weight: 3240
 description: 
 layout: default
 ---

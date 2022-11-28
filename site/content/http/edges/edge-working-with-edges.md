@@ -1,7 +1,7 @@
 ---
 fileID: edge-working-with-edges
 title: Working with Edges using REST
-weight: 2265
+weight: 2085
 description: 
 layout: default
 ---

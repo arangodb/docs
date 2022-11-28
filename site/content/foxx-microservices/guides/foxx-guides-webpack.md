@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-webpack
 title: Using Webpack with Foxx
-weight: 1115
+weight: 1005
 description: 
 layout: default
 ---

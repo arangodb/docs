@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-upgrade
 title: Oasisctl Upgrade
-weight: 3685
+weight: 3505
 description: 
 layout: default
 ---

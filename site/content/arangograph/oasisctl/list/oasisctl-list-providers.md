@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-providers
 title: Oasisctl List Providers
-weight: 3335
+weight: 3155
 description: 
 layout: default
 ---

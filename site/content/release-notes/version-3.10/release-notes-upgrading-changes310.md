@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-upgrading-changes310
 title: Incompatible changes in ArangoDB 3.10
-weight: 11775
+weight: 11595
 description: 
 layout: default
 ---
@@ -172,7 +172,7 @@ in ArangoDB 3.10. The following startup options are available for the configurat
 memory-mapped files: `--pregel.memory-mapped-files` and `--pregel.memory-mapped-files-location-type`.
 {{% /hints/info %}}
 
-For more information on the new options, please refer to [ArangoDB Server Pregel Options](../../programs-tools/arangodb-server/options/programs-arangod-pregel).
+For more information on the new options, please refer to [ArangoDB Server Pregel Options](../../programs-tools/arangodb-server/programs-arangod-options#pregel).
 
 ## Maximum Array / Object Nesting
 

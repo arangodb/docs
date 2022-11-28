@@ -1,7 +1,7 @@
 ---
 fileID: graphs-traversals
 title: Traversals
-weight: 875
+weight: 725
 description: 
 layout: default
 ---

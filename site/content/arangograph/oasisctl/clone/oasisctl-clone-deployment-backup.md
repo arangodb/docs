@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-clone-deployment-backup
 title: Oasisctl Clone Deployment Backup
-weight: 2730
+weight: 2550
 description: 
 layout: default
 ---

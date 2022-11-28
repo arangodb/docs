@@ -1,7 +1,7 @@
 ---
 fileID: installation-mac-osx
 title: Installing ArangoDB on macOS
-weight: 1295
+weight: 1185
 description: 
 layout: default
 ---

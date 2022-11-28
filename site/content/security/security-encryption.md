@@ -1,7 +1,7 @@
 ---
 fileID: security-encryption
 title: Encryption at Rest
-weight: 1695
+weight: 1515
 description: 
 layout: default
 ---
@@ -81,7 +81,7 @@ $ arangod \
 ```
 The file `/mytmpfs/mySecretKey` must contain the encryption key. This
 file must be secured, so that only `arangod` can access it. You should
-also ensure that in case someone steals the hardware, he will not be
+also ensure that in case someone steals the hardware, they will not be
 able to read the file. For example, by encrypting `/mytmpfs` or
 creating an in-memory file-system under `/mytmpfs`.
 

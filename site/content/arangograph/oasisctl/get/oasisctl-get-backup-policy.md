@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-backup-policy
 title: Oasisctl Get Backup Policy
-weight: 3010
+weight: 2830
 description: 
 layout: default
 ---

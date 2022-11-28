@@ -1,7 +1,7 @@
 ---
 fileID: operations-collect
 title: COLLECT
-weight: 3820
+weight: 3645
 description: 
 layout: default
 ---

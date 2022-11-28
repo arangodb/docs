@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-cacertificate
 title: Oasisctl Delete Cacertificate
-weight: 2885
+weight: 2705
 description: 
 layout: default
 ---

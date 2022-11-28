@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-groups
 title: Oasisctl List Groups
-weight: 3270
+weight: 3090
 description: 
 layout: default
 ---

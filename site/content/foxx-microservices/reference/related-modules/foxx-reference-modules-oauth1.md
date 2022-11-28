@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-modules-oauth1
 title: OAuth 1.0a
-weight: 1235
+weight: 1125
 description: 
 layout: default
 ---

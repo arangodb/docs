@@ -1,7 +1,7 @@
 ---
 fileID: graphs-pregel-algorithms
 title: Pregel Algorithms
-weight: 900
+weight: 750
 description: Pregel algorithms can be used for graph exploration, path finding, analytics queries, and much more. 
 layout: default
 ---

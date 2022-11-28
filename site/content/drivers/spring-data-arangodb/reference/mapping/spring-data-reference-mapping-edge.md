@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-mapping-edge
 title: Edge
-weight: 4290
+weight: 4110
 description: 
 layout: default
 ---

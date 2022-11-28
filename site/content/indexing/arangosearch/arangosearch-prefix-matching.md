@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-prefix-matching
 title: Prefix Search with ArangoSearch
-weight: 705
+weight: 555
 description: Search for strings or tokens that start with one or more substrings
 layout: default
 ---

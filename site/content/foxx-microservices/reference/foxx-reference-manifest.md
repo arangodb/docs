@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-manifest
 title: Service manifest
-weight: 1150
+weight: 1040
 description: 
 layout: default
 ---

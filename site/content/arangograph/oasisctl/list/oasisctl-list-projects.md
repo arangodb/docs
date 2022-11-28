@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-projects
 title: Oasisctl List Projects
-weight: 3330
+weight: 3150
 description: 
 layout: default
 ---

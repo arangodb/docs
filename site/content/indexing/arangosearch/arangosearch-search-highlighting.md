@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-search-highlighting
 title: Search highlighting with ArangoSearch
-weight: 745
+weight: 595
 description: >-
   You can retrieve the positions of matches within strings when querying
   Views with ArangoSearch, to highlight what was found in search results

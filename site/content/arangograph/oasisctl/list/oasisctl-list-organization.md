@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-organization
 title: Oasisctl List Organization
-weight: 3305
+weight: 3125
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-22
 title: Version 2.2
-weight: 12080
+weight: 11900
 description: 
 layout: default
 ---

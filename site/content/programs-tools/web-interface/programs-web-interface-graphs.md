@@ -1,7 +1,7 @@
 ---
 fileID: programs-web-interface-graphs
 title: Graphs
-weight: 400
+weight: 250
 description: 
 layout: default
 ---

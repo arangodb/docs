@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-exact-value-matching
 title: Matching Exact Values with ArangoSearch
-weight: 695
+weight: 545
 description: Search for exact strings, numbers or number ranges, as well as booleans without Analyzer transformations applied
 layout: default
 ---

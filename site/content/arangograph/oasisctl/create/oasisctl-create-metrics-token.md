@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-metrics-token
 title: Oasisctl Create Metrics Token
-weight: 2800
+weight: 2620
 description: 
 layout: default
 ---

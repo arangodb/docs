@@ -1,7 +1,7 @@
 ---
 fileID: indexing-multi-dim
 title: Multi-dimensional indexes
-weight: 670
+weight: 520
 description: 
 layout: default
 ---
@@ -75,7 +75,7 @@ FOR p IN points
 ## Example Use Case
 
 If you build a calendar using ArangoDB you could create a collection for each user
-that contains her appointments. The documents would roughly look as follows:
+that contains the appointments. The documents would roughly look as follows:
 
 ```json
 {

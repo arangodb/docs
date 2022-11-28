@@ -1,7 +1,7 @@
 ---
 fileID: replications
 title: HTTP Interface for Replication
-weight: 2425
+weight: 2245
 description: 
 layout: default
 ---

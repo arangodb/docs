@@ -1,7 +1,7 @@
 ---
 fileID: graphs-traversals-example-data
 title: Example Data
-weight: 880
+weight: 730
 description: 
 layout: default
 ---

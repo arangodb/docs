@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-roles
 title: Oasisctl List Roles
-weight: 3345
+weight: 3165
 description: 
 layout: default
 ---

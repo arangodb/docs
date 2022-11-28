@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangoinspect
 title: _arangoinspect_
-weight: 580
+weight: 430
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-auditlogs
 title: Oasisctl List Auditlogs
-weight: 3195
+weight: 3015
 description: 
 layout: default
 ---

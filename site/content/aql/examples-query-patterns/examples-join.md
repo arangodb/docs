@@ -1,7 +1,7 @@
 ---
 fileID: examples-join
 title: Using Joins in AQL
-weight: 4000
+weight: 3820
 description: 
 layout: default
 ---

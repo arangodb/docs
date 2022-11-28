@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-bundled-node-modules
 title: Bundled Node modules
-weight: 1110
+weight: 1000
 description: 
 layout: default
 ---

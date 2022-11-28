@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-collections
 title: Working with collections
-weight: 1080
+weight: 970
 description: 
 layout: default
 ---

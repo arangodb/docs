@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-example-installation
 title: Oasisctl Get Example Installation
-weight: 3030
+weight: 2850
 description: 
 layout: default
 ---

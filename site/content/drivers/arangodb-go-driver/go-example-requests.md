@@ -1,7 +1,7 @@
 ---
 fileID: go-example-requests
 title: ArangoDB GO Driver - Example requests 
-weight: 4190
+weight: 4010
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: fundamentals-limitations
 title: Known limitations for AQL queries
-weight: 3765
+weight: 3590
 description: 
 layout: default
 ---
@@ -37,7 +37,7 @@ The following other limitations are known for AQL queries:
   expressions and executed beforehand. That means that subqueries do not
   participate in lazy evaluation of operands, for example in the
   [ternary operator](../operators#ternary-operator). Also see
-  [evaluation of subqueries](../examples-query-patterns/examples-combining-queries#evaluation-of-subqueries).
+  [evaluation of subqueries](fundamentals-subqueries#evaluation-of-subqueries).
 - It is not possible to use a collection in a read operation after
   it was used for a write operation in the same AQL query.
 - In the cluster, all collections that are accessed **dynamically** by

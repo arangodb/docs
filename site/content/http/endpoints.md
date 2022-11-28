@@ -1,7 +1,7 @@
 ---
 fileID: endpoints
 title: HTTP Interface for Endpoints
-weight: 2465
+weight: 2285
 description: 
 layout: default
 ---
@@ -38,7 +38,7 @@ paths:
       responses:
         '200':
           description: |2+
-             is returned when everything went well.
+            is returned when everything went well.
           content:
             application/json:
               schema:

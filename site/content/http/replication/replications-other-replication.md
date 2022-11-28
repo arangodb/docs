@@ -1,7 +1,7 @@
 ---
 fileID: replications-other-replication
 title: Other Replication Commands
-weight: 2445
+weight: 2265
 description: 
 layout: default
 ---

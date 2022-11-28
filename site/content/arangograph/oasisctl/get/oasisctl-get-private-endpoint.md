@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-private-endpoint
 title: Oasisctl Get Private Endpoint
-weight: 3105
+weight: 2925
 description: 
 layout: default
 ---

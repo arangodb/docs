@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-apikey
 title: Oasisctl Delete Apikey
-weight: 2850
+weight: 2670
 description: 
 layout: default
 ---

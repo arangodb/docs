@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-services-and-load-balancer
 title: Services and load balancer
-weight: 1495
+weight: 1320
 description: 
 layout: default
 ---

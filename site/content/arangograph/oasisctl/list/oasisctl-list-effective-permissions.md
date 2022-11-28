@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-effective-permissions
 title: Oasisctl List Effective Permissions
-weight: 3240
+weight: 3060
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: installation-linux-osconfiguration
 title: Linux Operating System Configuration
-weight: 1285
+weight: 1175
 description: 
 layout: default
 ---
@@ -30,7 +30,7 @@ sudo locale-gen "en_US.UTF-8"
 Your distribution may also provide a frontend for doing so, for instance
 [`dpkg-reconfigure locales` on Debian](https://wiki.debian.org/Locale).
 
-If you don't set a [default language](../../programs-tools/arangodb-server/options/programs-arangod-general#default-language)
+If you don't set a [default language](../../programs-tools/arangodb-server/programs-arangod-options#--default-language)
 for the server explicitly, ArangoDB will use the default locale of your system.
 
 {{% hints/warning %}}

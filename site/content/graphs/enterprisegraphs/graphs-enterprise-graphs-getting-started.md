@@ -1,7 +1,7 @@
 ---
 fileID: graphs-enterprise-graphs-getting-started
 title: Getting Started with EnterpriseGraphs
-weight: 860
+weight: 710
 description: >-
   This chapter walks you through the first steps you need to follow to create an EnterpriseGraph
 layout: default

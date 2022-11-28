@@ -1,7 +1,7 @@
 ---
 fileID: security-auditing-audit-events
 title: Audit Events
-weight: 1710
+weight: 1530
 description: 
 layout: default
 ---

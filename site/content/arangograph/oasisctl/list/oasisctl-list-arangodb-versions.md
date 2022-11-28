@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-arangodb-versions
 title: Oasisctl List Arangodb Versions
-weight: 3175
+weight: 2995
 description: 
 layout: default
 ---

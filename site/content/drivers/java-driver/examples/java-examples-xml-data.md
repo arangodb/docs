@@ -1,7 +1,7 @@
 ---
 fileID: java-examples-xml-data
 title: How to add XML data to ArangoDB?
-weight: 4125
+weight: 3945
 description: 
 layout: default
 ---

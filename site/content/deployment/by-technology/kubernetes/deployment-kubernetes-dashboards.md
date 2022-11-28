@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-dashboards
 title: Operator Dashboards
-weight: 1435
+weight: 1260
 description: 
 layout: default
 ---

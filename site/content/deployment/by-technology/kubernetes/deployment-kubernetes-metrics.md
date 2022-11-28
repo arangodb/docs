@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-metrics
 title: Metrics
-weight: 1490
+weight: 1315
 description: 
 layout: default
 ---

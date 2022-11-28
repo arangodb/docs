@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-storage
 title: Storage
-weight: 1505
+weight: 1330
 description: 
 layout: default
 ---

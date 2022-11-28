@@ -1,7 +1,7 @@
 ---
 fileID: dotnet-collections
 title: Working with Collections
-weight: 4215
+weight: 4035
 description: 
 layout: default
 ---

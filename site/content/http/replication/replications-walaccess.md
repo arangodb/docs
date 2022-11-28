@@ -1,7 +1,7 @@
 ---
 fileID: replications-walaccess
 title: WAL Access API
-weight: 2450
+weight: 2270
 description: 
 layout: default
 ---

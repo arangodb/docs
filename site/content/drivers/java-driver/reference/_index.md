@@ -1,7 +1,7 @@
 ---
 fileID: java-reference
 title: ArangoDB Java Driver - Reference
-weight: 4140
+weight: 3960
 description: 
 layout: default
 ---

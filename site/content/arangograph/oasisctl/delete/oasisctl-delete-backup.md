@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-backup
 title: Oasisctl Delete Backup
-weight: 2875
+weight: 2695
 description: 
 layout: default
 ---

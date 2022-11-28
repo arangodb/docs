@@ -1,7 +1,7 @@
 ---
 fileID: tutorials-starter
 title: Starting an ArangoDB cluster or database the easy way
-weight: 170
+weight: 165
 description: 
 layout: default
 ---
@@ -173,22 +173,22 @@ On host C:
 arangodb --starter.join A,B,C
 ```
 
-This starts a cluster where the starter on host A is chosen to be master during the bootstrap phase.
+This starts a cluster where the starter on host A is chosen to be leader (_master_) during the bootstrap phase.
 
 Note: `arangodb --starter.join A,B,C` is equal to `arangodb --starter.join A --starter.join B --starter.join C`.
 
-During the bootstrap phase of the cluster, the starters will all choose the "master" starter
+During the bootstrap phase of the cluster, the starters will all choose the leader starter
 based on list of given `starter.join` arguments.
 
-The "master" starter is chosen as follows:
+The leader starter is chosen as follows:
 
-- If there are no `starter.join` arguments, the starter becomes a master.
+- If there are no `starter.join` arguments, the starter becomes a leader.
 - If there are multiple `starter.join` arguments, these arguments are sorted. If a starter is the first
   in this sorted list, it becomes a starter.
-- In all other cases, the starter becomes a slave.
+- In all other cases, the starter becomes a follower.
 
 Note: Once the bootstrap phase is over (all arangod servers have started and are running), the bootstrap
-phase ends and the starters use the Arango Agency to elect a master for the runtime phase.
+phase ends and the starters use the Arango Agency to elect a leader for the runtime phase.
 
 ## Starting a local test cluster
 
@@ -311,7 +311,7 @@ This command will make the starter run another starter process in the background
 then exit. The starter that was started in the background will keep running until you stop it.
 
 The `--starter.wait` option makes the `start` command wait until all ArangoDB server
-are really up, before ending the master process.
+are really up, before ending the process of the leader starter.
 
 To stop a starter use this command.
 

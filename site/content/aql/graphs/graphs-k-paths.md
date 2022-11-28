@@ -1,7 +1,7 @@
 ---
 fileID: graphs-k-paths
 title: k Paths in AQL
-weight: 3950
+weight: 3775
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: foxx
 title: Foxx HTTP API
-weight: 2470
+weight: 2290
 description: 
 layout: default
 ---

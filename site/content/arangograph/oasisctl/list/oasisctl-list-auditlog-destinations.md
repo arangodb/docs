@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-auditlog-destinations
 title: Oasisctl List Auditlog Destinations
-weight: 3190
+weight: 3010
 description: 
 layout: default
 ---

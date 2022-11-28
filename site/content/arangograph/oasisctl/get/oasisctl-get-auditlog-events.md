@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-auditlog-events
 title: Oasisctl Get Auditlog Events
-weight: 3000
+weight: 2820
 description: 
 layout: default
 ---

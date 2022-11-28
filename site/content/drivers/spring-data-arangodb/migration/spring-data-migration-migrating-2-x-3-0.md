@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-migration-migrating-2-x-3-0
 title: Migrating Spring Data ArangoDB 2.x to 3.0
-weight: 4335
+weight: 4155
 description: 
 layout: default
 ---

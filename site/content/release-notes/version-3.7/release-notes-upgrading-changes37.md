@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-upgrading-changes37
 title: Incompatible changes in ArangoDB 3.7
-weight: 11850
+weight: 11670
 description: 
 layout: default
 ---

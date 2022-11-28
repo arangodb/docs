@@ -1,7 +1,7 @@
 ---
 fileID: examples-multiple-paths
 title: Multiple Path Search
-weight: 4025
+weight: 3845
 description: 
 layout: default
 ---

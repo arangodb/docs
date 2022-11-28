@@ -1,7 +1,7 @@
 ---
 fileID: replications-replication-applier
 title: Replication Applier Commands
-weight: 2440
+weight: 2260
 description: 
 layout: default
 ---

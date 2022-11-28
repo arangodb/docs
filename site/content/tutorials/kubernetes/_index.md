@@ -1,7 +1,7 @@
 ---
 fileID: tutorials-kubernetes
 title: Start ArangoDB on Kubernetes in 5 minutes
-weight: 175
+weight: 170
 description: 
 layout: default
 ---

@@ -1,15 +1,15 @@
 ---
 fileID: upgrading-osspecific-info-linux
 title: Upgrading on Linux
-weight: 1575
+weight: 1400
 description: 
 layout: default
 ---
 By installing the new ArangoDB package the standalone instance is automatically
 upgraded. In addition to the ArangoDB daemon (_arangod_), also the ArangoDB
 _Starter_ binary is updated. As a result, the procedure described in this _Section_
-is a first step to upgrade more complex deployments such as [Cluster](../../architecture/arangodb-deployment-modes/cluster/)
-or [Active Failover](../../architecture/arangodb-deployment-modes/active-failover/). 
+is a first step to upgrade more complex deployments such as [Cluster](../../architecture/deployment-modes/cluster/)
+or [Active Failover](../../architecture/deployment-modes/active-failover/). 
 
 ## Upgrading via APT (Ubuntu)
 

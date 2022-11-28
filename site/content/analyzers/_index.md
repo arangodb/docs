@@ -1,7 +1,7 @@
 ---
 fileID: analyzers
 title: Transforming data with Analyzers
-weight: 1270
+weight: 1160
 description: >-
   Analyzers allow you to transform data, for sophisticated text processing and
   searching, either standalone or in combination with Views
@@ -932,14 +932,14 @@ release: stable
 Custom tokenization with `collapsePositions` on and off:
 The input string `"A-B-C-D"` is split into an array of strings
 `["A", "B", "C", "D"]`. The position metadata (as used by the `PHRASE()`
-function) is set to 0 for all four strings if `collapsePosition` is enabled.
+function) is set to 0 for all four strings if `collapsePositions` is enabled.
 Otherwise the position is set to the respective array index, 0 for `"A"`,
 1 for `"B"` and so on.
 
-| `collapsePosition` | A | B | C | D |
-|-------------------:|:-:|:-:|:-:|:-:|
-|             `true` | 0 | 0 | 0 | 0 |
-|            `false` | 0 | 1 | 2 | 3 |
+| `collapsePositions` | A | B | C | D |
+|--------------------:|:-:|:-:|:-:|:-:|
+|              `true` | 0 | 0 | 0 | 0 |
+|             `false` | 0 | 1 | 2 | 3 |
 
 
  {{< version "3.10" >}}

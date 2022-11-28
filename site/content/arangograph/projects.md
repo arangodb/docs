@@ -1,7 +1,7 @@
 ---
 fileID: projects
 title: Projects
-weight: 2570
+weight: 2390
 description: 
 layout: default
 ---

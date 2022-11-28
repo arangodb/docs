@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-34
 title: Version 3.4
-weight: 11900
+weight: 11720
 description: 
 layout: default
 ---

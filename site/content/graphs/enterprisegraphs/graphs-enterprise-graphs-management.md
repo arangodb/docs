@@ -1,7 +1,7 @@
 ---
 fileID: graphs-enterprise-graphs-management
 title: EnterpriseGraphs Management
-weight: 865
+weight: 715
 description: 
 layout: default
 ---

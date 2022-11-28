@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features32
 title: Features and Improvements in ArangoDB 3.2
-weight: 11945
+weight: 11765
 description: 
 layout: default
 ---
@@ -112,7 +112,7 @@ layout: default
 
 ## Authentication
 
-* added [LDAP](../../programs-tools/arangodb-server/options/programs-arangod-ldap) authentication (Enterprise Edition only)
+* added [LDAP](../../programs-tools/arangodb-server/programs-arangod-ldap) authentication (Enterprise Edition only)
 
 
 ## Authorization

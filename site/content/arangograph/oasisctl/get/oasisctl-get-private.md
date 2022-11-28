@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-private
 title: Oasisctl Get Private
-weight: 3100
+weight: 2920
 description: 
 layout: default
 ---

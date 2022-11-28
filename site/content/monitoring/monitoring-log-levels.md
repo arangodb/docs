@@ -1,7 +1,7 @@
 ---
 fileID: monitoring-log-levels
 title: Log Levels
-weight: 1725
+weight: 1545
 description: 
 layout: default
 ---

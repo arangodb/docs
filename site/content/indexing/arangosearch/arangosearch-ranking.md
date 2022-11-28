@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-ranking
 title: Ranking View Query Results
-weight: 755
+weight: 605
 description: You can query Views and return the most relevant results first based on their ranking score
 layout: default
 ---

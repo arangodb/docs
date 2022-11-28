@@ -1,7 +1,7 @@
 ---
 fileID: foxx-configuration
 title: Foxx Service configuration / dependencies
-weight: 2480
+weight: 2300
 description: 
 layout: default
 ---

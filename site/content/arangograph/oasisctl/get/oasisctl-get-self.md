@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-self
 title: Oasisctl Get Self
-weight: 3135
+weight: 2955
 description: 
 layout: default
 ---

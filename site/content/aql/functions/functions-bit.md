@@ -1,7 +1,7 @@
 ---
 fileID: functions-bit
 title: Bit functions
-weight: 3875
+weight: 3700
 description: 
 layout: default
 ---

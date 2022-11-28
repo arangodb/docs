@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-context
 title: Foxx service context
-weight: 1155
+weight: 1045
 description: 
 layout: default
 ---

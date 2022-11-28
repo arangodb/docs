@@ -1,7 +1,7 @@
 ---
 fileID: aql-query-cursor
 title: HTTP Interface for AQL Query Cursors
-weight: 2295
+weight: 2115
 description: 
 layout: default
 ---

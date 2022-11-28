@@ -1,7 +1,7 @@
 ---
 fileID: php-getting-started
 title: ArangoDB-PHP - Getting Started
-weight: 4170
+weight: 3990
 description: 
 layout: default
 ---

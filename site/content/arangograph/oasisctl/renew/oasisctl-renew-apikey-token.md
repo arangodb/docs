@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-renew-apikey-token
 title: Oasisctl Renew Apikey Token
-weight: 3450
+weight: 3270
 description: 
 layout: default
 ---

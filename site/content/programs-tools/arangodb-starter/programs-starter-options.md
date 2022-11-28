@@ -1,7 +1,7 @@
 ---
 fileID: programs-starter-options
 title: ArangoDB Starter Options
-weight: 445
+weight: 295
 description: 
 layout: default
 ---
@@ -22,7 +22,7 @@ Different instances of `arangodb` must use different data directories.
 
 - `--starter.join=address`
 
-Join a cluster with master at address `address` (default "").
+Join a cluster with the leader (_master_) Starter at address `address` (default "").
 Address can be an host address or name, followed with an optional port.
 
 E.g. these are valid arguments.
@@ -63,8 +63,8 @@ outside.
 
 Use this option only in the case that `--cluster.agency-size` is set to 1. 
 In a single Agent setup, the sole starter has to start on its own with
-no reliable way to learn its own address. Using this option the master will 
-know under which address it can be reached from the outside. If you specify
+no reliable way to learn its own address. Using this option the leader (_master_)
+Starter will know under which address it can be reached from the outside. If you specify
 `localhost` here, then all instances must run on the local machine.
 
 - `--starter.host=addr`
@@ -366,8 +366,8 @@ Note: The starter will always perform log rotation when it receives a `HUP` sign
 
 - `--starter.unique-port-offsets=bool`
 
-If set to true, all port offsets (of slaves) will be made globally unique.
-By default (value is false), port offsets will be unique per slave address.
+If set to true, all port offsets (of follower Starters) will be made globally unique.
+By default (value is false), port offsets will be unique per follower address.
 
 - `--docker.user=user`
 

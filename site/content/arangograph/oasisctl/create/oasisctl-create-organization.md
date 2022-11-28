@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-organization
 title: Oasisctl Create Organization
-weight: 2810
+weight: 2630
 description: 
 layout: default
 ---

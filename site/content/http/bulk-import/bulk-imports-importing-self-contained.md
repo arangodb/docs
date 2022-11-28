@@ -1,7 +1,7 @@
 ---
 fileID: bulk-imports-importing-self-contained
 title: Importing Self-Contained JSON Documents
-weight: 2335
+weight: 2155
 description: 
 layout: default
 ---

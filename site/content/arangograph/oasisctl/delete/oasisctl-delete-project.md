@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-project
 title: Oasisctl Delete Project
-weight: 2950
+weight: 2770
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features25
 title: Features and Improvements in ArangoDB 2.5
-weight: 12040
+weight: 11860
 description: 
 layout: default
 ---

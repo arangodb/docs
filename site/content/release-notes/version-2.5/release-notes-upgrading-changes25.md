@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-upgrading-changes25
 title: Incompatible changes in ArangoDB 2.5
-weight: 12045
+weight: 11865
 description: 
 layout: default
 ---

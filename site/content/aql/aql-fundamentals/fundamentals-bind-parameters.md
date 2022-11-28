@@ -1,7 +1,7 @@
 ---
 fileID: fundamentals-bind-parameters
 title: Bind parameters
-weight: 3740
+weight: 3560
 description: 
 layout: default
 ---

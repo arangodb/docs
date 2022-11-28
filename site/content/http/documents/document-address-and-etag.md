@@ -1,7 +1,7 @@
 ---
 fileID: document-address-and-etag
 title: Basics and Terminology
-weight: 2245
+weight: 2065
 description: 
 layout: default
 ---
@@ -214,7 +214,7 @@ x-arango-allow-dirty-read: true
 ```
 
 This is in line with the older support to read from followers in the
-Active Failover deployment mode (see [Reading from Followers](../../architecture/arangodb-deployment-modes/active-failover/architecture-deployment-modes-active-failover-architecture#reading-from-followers)).
+Active Failover deployment mode (see [Reading from Followers](../../architecture/deployment-modes/active-failover/#reading-from-followers)).
 
 For single requests, you specify this header in the read request.
 For Stream Transactions, the header has to be set on the request that

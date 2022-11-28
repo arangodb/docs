@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-reject-organization-invite
 title: Oasisctl Reject Organization Invite
-weight: 3435
+weight: 3255
 description: 
 layout: default
 ---

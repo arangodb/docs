@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangosh-options
 title: _arangosh_ Options
-weight: 435
+weight: 285
 description: 
 layout: default
 ---

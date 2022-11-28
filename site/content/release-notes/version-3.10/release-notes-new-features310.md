@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features310
 title: Features and Improvements in ArangoDB 3.10
-weight: 11765
+weight: 11585
 description: 
 layout: default
 ---
@@ -866,7 +866,7 @@ temporary data:
   files written by Pregel. This option is only meaningful, if memory-mapped
   files are used. 
 
-For more information on the new options, please refer to [ArangoDB Server Pregel Options](../../programs-tools/arangodb-server/options/programs-arangod-pregel).
+For more information on the new options, please refer to [ArangoDB Server Pregel Options](../../programs-tools/arangodb-server/programs-arangod-options#pregel).
 
 ### AQL query logging
 
@@ -1041,7 +1041,7 @@ arangod --temp.intermediate-results-path "tempDir"
 --temp.intermediate-results-spillover-threshold-memory-usage 134217728
 ```
 
-For more information, refer to the [Query invocation](../../aql/how-to-invoke-aql/invocation-with-arangosh#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](../../programs-tools/arangodb-server/options/programs-arangod-query#aql-query-with-spilling-input-data-to-disk) topics.
+For more information, refer to the [Query invocation](../../aql/how-to-invoke-aql/invocation-with-arangosh#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](../../programs-tools/arangodb-server/programs-arangod-options#--tempintermediate-results-path) topics.
 
 ## Internal changes
 

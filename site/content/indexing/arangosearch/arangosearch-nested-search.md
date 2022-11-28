@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-nested-search
 title: Nested search with ArangoSearch
-weight: 750
+weight: 600
 description: >-
   You can search for nested objects in arrays that satisfy multiple conditions
   each, and define how often these conditions should be fulfilled for the entire

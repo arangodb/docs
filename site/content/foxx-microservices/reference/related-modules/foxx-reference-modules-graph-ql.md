@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-modules-graph-ql
 title: GraphQL integration
-weight: 1245
+weight: 1135
 description: 
 layout: default
 ---

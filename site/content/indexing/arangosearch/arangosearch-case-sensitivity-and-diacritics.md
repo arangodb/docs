@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-case-sensitivity-and-diacritics
 title: Case-insensitive Search with ArangoSearch
-weight: 710
+weight: 560
 description: You can normalize values for case-insensitive matching and to ignore diacritics, also in combination with other search techniques
 layout: default
 ---

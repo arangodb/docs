@@ -1,11 +1,10 @@
 ---
 fileID: cluster-health
-title: 
-weight: 2530
+title: HTTP interface for cluster health
+weight: 2350
 description: 
 layout: default
 ---
-<!-- js/actions/api-cluster.js -->
 ```http-spec
 openapi: 3.0.2
 paths:
@@ -38,4 +37,5 @@ paths:
       tags:
       - Cluster
 ```
+
 

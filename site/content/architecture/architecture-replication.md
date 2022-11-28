@@ -1,7 +1,7 @@
 ---
 fileID: architecture-replication
 title: Replication
-weight: 995
+weight: 885
 description: 
 layout: default
 ---
@@ -17,7 +17,7 @@ Cluster.
 Asynchronous replication is used:
 
 - between the _Leader_ and the _Follower_ of an ArangoDB
-  [_Active Failover_](arangodb-deployment-modes/active-failover/) setup
+  [_Active Failover_](deployment-modes/active-failover/) setup
 - between multiple ArangoDB [Data Centers](../arangosync/deployment/)
   (inside the same Data Center replication is synchronous)
 

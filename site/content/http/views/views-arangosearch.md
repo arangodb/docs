@@ -1,7 +1,7 @@
 ---
 fileID: views-arangosearch
 title: arangosearch Views HTTP API
-weight: 2400
+weight: 2220
 description: 
 layout: default
 ---
@@ -29,7 +29,7 @@ paths:
                 type:
                   type: string
                   description: |+
-                    The type of the View. Must be equal to *"arangosearch"*.
+                    The type of the View. Must be equal to `"arangosearch"`.
                     This option is immutable.
                 links:
                   type: object

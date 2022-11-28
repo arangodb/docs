@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-30
 title: Version 3.0
-weight: 11975
+weight: 11795
 description: 
 layout: default
 ---

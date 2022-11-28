@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-helm
 title: Using the ArangoDB Kubernetes Operator with Helm
-weight: 1460
+weight: 1285
 description: 
 layout: default
 ---

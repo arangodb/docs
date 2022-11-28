@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-repositories-queries-derived-queries
 title: Derived queries
-weight: 4265
+weight: 4085
 description: 
 layout: default
 ---

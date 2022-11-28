@@ -1,7 +1,7 @@
 ---
 fileID: graphs-enterprise-graphs
 title: EnterpriseGraphs
-weight: 855
+weight: 705
 description: >-
   ArangoDB allows you to create EnterpriseGraphs at scale with automated sharding key selection 
 layout: default

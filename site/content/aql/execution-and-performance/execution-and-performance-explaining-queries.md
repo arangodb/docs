@@ -1,7 +1,7 @@
 ---
 fileID: execution-and-performance-explaining-queries
 title: Explaining queries
-weight: 4075
+weight: 3895
 description: 
 layout: default
 ---

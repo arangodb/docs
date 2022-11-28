@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-deployments
 title: Oasisctl List Deployments
-weight: 3225
+weight: 3045
 description: 
 layout: default
 ---

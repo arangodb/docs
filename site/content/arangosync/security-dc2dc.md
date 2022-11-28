@@ -1,7 +1,7 @@
 ---
 fileID: security-dc2dc
 title: Securing Datacenter-to-Datacenter Replication
-weight: 1045
+weight: 935
 description: 
 layout: default
 ---

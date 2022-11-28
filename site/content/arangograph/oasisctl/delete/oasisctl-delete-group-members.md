@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-group-members
 title: Oasisctl Delete Group Members
-weight: 2910
+weight: 2730
 description: 
 layout: default
 ---

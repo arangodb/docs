@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-storage-resource
 title: ArangoLocalStorage Custom Resource
-weight: 1510
+weight: 1335
 description: 
 layout: default
 ---

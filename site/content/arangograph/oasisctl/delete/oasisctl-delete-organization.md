@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-organization
 title: Oasisctl Delete Organization
-weight: 2935
+weight: 2755
 description: 
 layout: default
 ---

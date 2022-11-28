@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-fulltext-token-search
 title: Searching Full-text with ArangoSearch
-weight: 720
+weight: 570
 description: Search for tokens in full-text that can occur in any order
 layout: default
 ---

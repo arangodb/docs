@@ -1,7 +1,7 @@
 ---
 fileID: execution-and-performance
 title: AQL Execution and Performance
-weight: 4060
+weight: 3880
 description: 
 layout: default
 ---

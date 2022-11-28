@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-repositories-queries-query-methods
 title: Query methods
-weight: 4270
+weight: 4090
 description: 
 layout: default
 ---

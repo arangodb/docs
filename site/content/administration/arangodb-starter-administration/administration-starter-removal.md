@@ -1,7 +1,7 @@
 ---
 fileID: administration-starter-removal
 title: ArangoDB Starter Removal Procedure
-weight: 1670
+weight: 1485
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: architecture-storage-engines
 title: Storage Engine
-weight: 990
+weight: 880
 description: 
 layout: default
 ---
@@ -53,11 +53,11 @@ The entire user transaction will not necessarily have ACID properties in this ca
 The threshold values for transaction sizes can be configured globally using the
 startup options
 
-- [`--rocksdb.intermediate-commit-size`](../programs-tools/arangodb-server/options/programs-arangod-rocksdb#non-pass-through-options)
+- [`--rocksdb.intermediate-commit-size`](../programs-tools/arangodb-server/programs-arangod-options#--rocksdbintermediate-commit-size)
 
-- [`--rocksdb.intermediate-commit-count`](../programs-tools/arangodb-server/options/programs-arangod-rocksdb#non-pass-through-options)
+- [`--rocksdb.intermediate-commit-count`](../programs-tools/arangodb-server/programs-arangod-options#--rocksdbintermediate-commit-count)
 
-- [`--rocksdb.max-transaction-size`](../programs-tools/arangodb-server/options/programs-arangod-rocksdb#non-pass-through-options)
+- [`--rocksdb.max-transaction-size`](../programs-tools/arangodb-server/programs-arangod-options#--rocksdbmax-transaction-size)
 
 It is also possible to override these thresholds per transaction.
 

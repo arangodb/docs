@@ -1,7 +1,7 @@
 ---
 fileID: tutorials-kubernetes-gke
 title: Start ArangoDB on Google Kubernetes Engine (GKE)
-weight: 185
+weight: 180
 description: 
 layout: default
 ---

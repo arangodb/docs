@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangorestore-fast-cluster-restore
 title: Fast Cluster Restore
-weight: 495
+weight: 345
 description: 
 layout: default
 ---

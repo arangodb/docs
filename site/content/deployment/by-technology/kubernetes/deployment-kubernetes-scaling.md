@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-scaling
 title: Scaling
-weight: 1470
+weight: 1295
 description: 
 layout: default
 ---

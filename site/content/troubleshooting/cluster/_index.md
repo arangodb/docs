@@ -1,7 +1,7 @@
 ---
 fileID: troubleshooting-cluster
 title: Cluster Troubleshooting
-weight: 1745
+weight: 1565
 description: 
 layout: default
 ---

@@ -36,7 +36,7 @@ features outlined below. For additional information, see
 - [**SmartJoins**](../../smartjoins/):
   Co-located joins in a cluster using identically sharded collections.
 
-- [**OneShard**](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-architecture#oneshard):
+- [**OneShard**](../../architecture/deployment-modes/cluster/#oneshard):
   Option to store all collections of a database on a single cluster node, to
   combine the performance of a single server and ACID semantics with a
   fault-tolerant cluster setup.
@@ -87,7 +87,7 @@ features outlined below. For additional information, see
 - [**Auditing**](../../security/auditing/):
   Audit log of all server interactions.
 
-- [**LDAP Authentication**](../../programs-tools/arangodb-server/options/programs-arangod-ldap):
+- [**LDAP Authentication**](../../programs-tools/arangodb-server/programs-arangod-ldap):
   ArangoDB user authentication with an LDAP server.
 
 - [**Encryption at Rest**](../../security/security-encryption):
@@ -106,4 +106,4 @@ features outlined below. For additional information, see
 - **Advanced Encryption and Security Configuration**:
   Key rotation for [JWT secrets](../../http/general#hot-reload-of-jwt-secrets)
   and [on-disk encryption](../../http/administration-monitoring/#encryption-at-rest),
-  as well as [Server Name Indication (SNI)](../../programs-tools/arangodb-server/options/programs-arangod-ssl#server-name-indication-sni).
+  as well as [Server Name Indication (SNI)](../../programs-tools/arangodb-server/programs-arangod-options#--sslserver-name-indication).

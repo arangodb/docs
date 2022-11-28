@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-39
 title: Version 3.9
-weight: 11785
+weight: 11605
 description: 
 layout: default
 ---

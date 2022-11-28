@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-organization-email-domain-restrictions
 title: Oasisctl Update Organization Email Domain Restrictions
-weight: 3630
+weight: 3450
 description: 
 layout: default
 ---

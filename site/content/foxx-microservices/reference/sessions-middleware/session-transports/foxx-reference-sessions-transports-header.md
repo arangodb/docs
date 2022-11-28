@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-sessions-transports-header
 title: Header Session Transport
-weight: 1220
+weight: 1110
 description: 
 layout: default
 ---

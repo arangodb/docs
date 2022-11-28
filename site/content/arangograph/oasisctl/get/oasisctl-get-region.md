@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-region
 title: Oasisctl Get Region
-weight: 3125
+weight: 2945
 description: 
 layout: default
 ---

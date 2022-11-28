@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-revoke-apikey
 title: Oasisctl Revoke Apikey
-weight: 3475
+weight: 3295
 description: 
 layout: default
 ---

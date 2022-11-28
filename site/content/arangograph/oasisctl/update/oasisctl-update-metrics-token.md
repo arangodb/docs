@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-metrics-token
 title: Oasisctl Update Metrics Token
-weight: 3595
+weight: 3415
 description: 
 layout: default
 ---

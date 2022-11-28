@@ -1,7 +1,7 @@
 ---
 fileID: deployment-cloud-azure
 title: Deploying ArangoDB on Microsoft Azure
-weight: 1535
+weight: 1360
 description: 
 layout: default
 ---

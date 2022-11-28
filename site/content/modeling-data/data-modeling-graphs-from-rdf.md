@@ -1,7 +1,7 @@
 ---
 fileID: data-modeling-graphs-from-rdf
 title: Mapping RDF data to ArangoDB Graphs
-weight: 615
+weight: 465
 description: 
 layout: default
 ---

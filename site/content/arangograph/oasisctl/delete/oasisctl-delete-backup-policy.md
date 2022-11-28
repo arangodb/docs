@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-backup-policy
 title: Oasisctl Delete Backup Policy
-weight: 2880
+weight: 2700
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-lock-deployment
 title: Oasisctl Lock Deployment
-weight: 3365
+weight: 3185
 description: 
 layout: default
 ---

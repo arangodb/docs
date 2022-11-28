@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-organization
 title: Oasisctl Get Organization
-weight: 3060
+weight: 2880
 description: 
 layout: default
 ---

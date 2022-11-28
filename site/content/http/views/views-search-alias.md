@@ -1,11 +1,78 @@
 ---
 fileID: views-search-alias
 title: search-alias Views HTTP API
-weight: 2395
+weight: 2215
 description: 
 layout: default
 ---
-{% docublock post_api_view_searchalias %}
+```http-spec
+openapi: 3.0.2
+paths:
+  /_api/view#searchalias:
+    post:
+      description: |2+
+        Creates a new View with a given name and properties if it does not
+        already exist.
+      operationId: ' createViewSearchAlias'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: |+
+                    The name of the View.
+                type:
+                  type: string
+                  description: |+
+                    The type of the View. Must be equal to `"search-alias"`.
+                    This option is immutable.
+                indexes:
+                  type: array
+                  schema:
+                    $ref: '#/components/schemas/post_api_view_searchalias_indexes'
+                  description: |+
+                    A list of inverted indexes to add to the View.
+              required:
+              - name
+              - type
+      responses:
+        '400':
+          description: |2+
+            If the *name* or *type* attribute are missing or invalid, then an *HTTP 400*
+            error is returned.
+      tags:
+      - Views
+```
+
+**Examples**
+{{< version "3.10" >}}
+{{< tabs >}}
+{{% tab name="curl" %}}
+```curl
+---
+render: input/output
+name: RestViewPostViewSearchAlias
+release: stable
+version: '3.10'
+---
+    var url = "/_api/view";
+    var body = {
+      name: "testViewBasics",
+      type: "search-alias"
+    };
+    var response = logCurlRequest('POST', url, body);
+    assert(response.code === 201);
+    logJsonResponse(response);
+    db._flushCache();
+    db._dropView("testViewBasics");
+```
+{{% /tab %}}
+{{< /tabs >}}
+{{< /version >}}
+
 
 ```http-spec
 openapi: 3.0.2
@@ -186,9 +253,177 @@ version: '3.10'
 {{< /version >}}
 
 
-{% docublock put_api_view_properties_searchalias %}
+```http-spec
+openapi: 3.0.2
+paths:
+  /_api/view/{view-name}/properties#searchalias:
+    put:
+      description: |2+
+        Replaces the list of indexes of a `search-alias` View.
+      operationId: ' modifyViewSearchAlias'
+      parameters:
+      - name: view-name
+        schema:
+          type: string
+        required: true
+        description: |+
+          The name of the View.
+        in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexes:
+                  type: array
+                  schema:
+                    $ref: '#/components/schemas/put_api_view_searchalias_indexes'
+                  description: |+
+                    A list of inverted indexes for the View.
+              required: []
+      responses:
+        '200':
+          description: |2+
+            On success, an object with the following attributes is returned
+        '400':
+          description: |2+
+            If the *view-name* is missing, then a *HTTP 400* is returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  indexes:
+                    type: array
+                    schema:
+                      $ref: '#/components/schemas/put_api_view_searchalias_indexes_reply'
+                    description: |+
+                      The list of inverted indexes that are part of the View.
+                required:
+                - indexes
+      tags:
+      - Views
+```
 
-{% docublock patch_api_view_properties_searchalias %}
+**Examples**
+{{< version "3.10" >}}
+{{< tabs >}}
+{{% tab name="curl" %}}
+```curl
+---
+render: input/output
+name: RestViewPutPropertiesSearchAlias
+release: stable
+version: '3.10'
+---
+    var viewName = "products";
+    var viewType = "search-alias";
+    var indexName1 = "inv_title";
+    var indexName2 = "inv_descr";
+    var coll = db._create("books");
+    coll.ensureIndex({ type: "inverted", name: indexName1, fields: ["title"] });
+    coll.ensureIndex({ type: "inverted", name: indexName2, fields: ["description"] });
+    var view = db._createView(viewName, viewType, {
+      indexes: [ { collection: coll.name(), index: indexName1 } ] });
+    var url = "/_api/view/"+ view.name() + "/properties";
+    var response = logCurlRequest('PUT', url, {
+      "indexes": [ { collection: coll.name(), index: indexName2 } ] });
+    assert(response.code === 200);
+    logJsonResponse(response);
+    db._dropView(viewName);
+    db._drop(coll.name());
+```
+{{% /tab %}}
+{{< /tabs >}}
+{{< /version >}}
+
+
+```http-spec
+openapi: 3.0.2
+paths:
+  /_api/view/{view-name}/properties#searchalias:
+    patch:
+      description: |2+
+        Updates the list of indexes of a `search-alias` View.
+      operationId: ' modifyViewPartialSearchAlias'
+      parameters:
+      - name: view-name
+        schema:
+          type: string
+        required: true
+        description: |+
+          The name of the View.
+        in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexes:
+                  type: array
+                  schema:
+                    $ref: '#/components/schemas/patch_api_view_searchalias_indexes'
+                  description: |+
+                    A list of inverted indexes to add to or remove from the View.
+              required: []
+      responses:
+        '200':
+          description: |2+
+            On success, an object with the following attributes is returned
+        '400':
+          description: |2+
+            If the *view-name* is missing, then a *HTTP 400* is returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  indexes:
+                    type: array
+                    schema:
+                      $ref: '#/components/schemas/patch_api_view_searchalias_indexes_reply'
+                    description: |+
+                      The list of inverted indexes that are part of the View.
+                required:
+                - indexes
+      tags:
+      - Views
+```
+
+**Examples**
+{{< version "3.10" >}}
+{{< tabs >}}
+{{% tab name="curl" %}}
+```curl
+---
+render: input/output
+name: RestViewPatchPropertiesSearchAlias
+release: stable
+version: '3.10'
+---
+    var viewName = "products";
+    var viewType = "search-alias";
+    var indexName1 = "inv_title";
+    var indexName2 = "inv_descr";
+    var coll = db._create("books");
+    coll.ensureIndex({ type: "inverted", name: indexName1, fields: ["title"] });
+    coll.ensureIndex({ type: "inverted", name: indexName2, fields: ["description"] });
+    var view = db._createView(viewName, viewType, {
+      indexes: [ { collection: coll.name(), index: indexName1 } ] });
+    var url = "/_api/view/"+ view.name() + "/properties";
+    var response = logCurlRequest('PATCH', url, {
+      "indexes": [ { collection: coll.name(), index: indexName2 } ] });
+    assert(response.code === 200);
+    logJsonResponse(response);
+    db._dropView(viewName);
+    db._drop(coll.name());
+```
+{{% /tab %}}
+{{< /tabs >}}
+{{< /version >}}
+
 
 ```http-spec
 openapi: 3.0.2

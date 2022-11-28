@@ -1,7 +1,7 @@
 ---
 fileID: functions-miscellaneous
 title: Miscellaneous functions
-weight: 3900
+weight: 3725
 description: 
 layout: default
 ---

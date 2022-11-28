@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-arangodb
 title: Oasisctl List Arangodb
-weight: 3170
+weight: 2990
 description: 
 layout: default
 ---

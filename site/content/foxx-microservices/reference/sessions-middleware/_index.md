@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-sessions
 title: Session Middleware
-weight: 1190
+weight: 1080
 description: 
 layout: default
 ---

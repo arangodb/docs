@@ -1,7 +1,7 @@
 ---
 fileID: administration-dc2dc
 title: Datacenter-to-Datacenter Replication Administration
-weight: 1035
+weight: 925
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-policy
 title: Oasisctl Update Policy
-weight: 3635
+weight: 3455
 description: 
 layout: default
 ---

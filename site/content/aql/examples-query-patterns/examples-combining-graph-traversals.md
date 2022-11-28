@@ -1,7 +1,7 @@
 ---
 fileID: examples-combining-graph-traversals
 title: Combining Graph Traversals
-weight: 4015
+weight: 3835
 description: 
 layout: default
 ---

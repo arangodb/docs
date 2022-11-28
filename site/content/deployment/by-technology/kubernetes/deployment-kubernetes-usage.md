@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-usage
 title: Using the ArangoDB Kubernetes Operator
-weight: 1430
+weight: 1255
 description: 
 layout: default
 ---
@@ -37,6 +37,21 @@ To use `ArangoLocalStorage` resources, also run:
 ```bash
 helm install $URLPREFIX/kube-arangodb-<version>.tgz --set "operator.features.storage=true"
 ```
+
+The default CPU architecture of the operator is `amd64` (x86-64). To enable ARM
+support (`arm64`) in the operator, overwrite the following setting:
+
+```bash
+helm install $URLPREFIX/kube-arangodb-<version>.tgz --set "operator.architectures={amd64,arm64}"
+```
+
+{{% hints/tip %}}
+Use at least version 1.2.20 of the operator to use the ARM architecture.
+{{% /hints/tip %}}
+
+Note that you need to set [`spec.architecture`](deployment-kubernetes-deployment-resource#specarchitecture-string)
+in the deployment specification, too, in order to create a deployment that runs
+on ARM chips.
 
 For more information on installing with `Helm` and how to customize an installation,
 see [Using the ArangoDB Kubernetes Operator with Helm](deployment-kubernetes-helm).

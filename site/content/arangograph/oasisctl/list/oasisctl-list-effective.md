@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-effective
 title: Oasisctl List Effective
-weight: 3235
+weight: 3055
 description: 
 layout: default
 ---

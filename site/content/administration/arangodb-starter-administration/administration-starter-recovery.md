@@ -1,7 +1,7 @@
 ---
 fileID: administration-starter-recovery
 title: ArangoDB Starter Recovery Procedure
-weight: 1675
+weight: 1490
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-organization-email-domain
 title: Oasisctl Update Organization Email Domain
-weight: 3625
+weight: 3445
 description: 
 layout: default
 ---

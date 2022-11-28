@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-upgrading-changes32
 title: Incompatible changes in ArangoDB 3.2
-weight: 11955
+weight: 11775
 description: 
 layout: default
 ---

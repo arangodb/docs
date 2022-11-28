@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-organization-invite
 title: Oasisctl Create Organization Invite
-weight: 2815
+weight: 2635
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: installation-compiling
 title: Compiling ArangoDB from Source
-weight: 1305
+weight: 1195
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-routers-request
 title: Request objects
-weight: 1180
+weight: 1070
 description: 
 layout: default
 ---

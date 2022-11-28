@@ -1,7 +1,7 @@
 ---
 fileID: fundamentals-query-errors
 title: Errors
-weight: 3760
+weight: 3585
 description: 
 layout: default
 ---

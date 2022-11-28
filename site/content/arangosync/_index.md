@@ -1,7 +1,7 @@
 ---
 fileID: arangosync
 title: ArangoSync
-weight: 1005
+weight: 895
 description: >-
   A detailed guide to deploying datacenter-to-datacenter replicated clusters
 layout: default
@@ -40,7 +40,7 @@ load, network & computer capacity.
 
 _ArangoSync_ performs replication in a **single direction** only. That means that
 you can replicate data from cluster _A_ to cluster _B_ or from cluster _B_ to
-cluster _A_, but never at the same time (one master, one or more slave clusters).
+cluster _A_, but never at the same time (one leader, one or more follower clusters).
 <br/>Data modified in the destination cluster **will be lost!**
 
 Replication is a completely **autonomous** process. Once it is configured it is
@@ -49,14 +49,14 @@ designed to run 24/7 without frequent manual intervention.
 <br/>As with any distributed system some attention is needed to monitor its operation
 and keep it secure (e.g. certificate & password rotation).
 
-In the event of an outage of the master cluster, user intervention is required
-to either bring the master back up or to decide on making a slave cluster the
-new master. There is no automatic failover as slave clusters lag behind the master
-because of network latency etc. and resuming operation with the state of a slave
+In the event of an outage of the leader cluster, user intervention is required
+to either bring the leader back up or to decide on making a follower cluster the
+new leader. There is no automatic failover as follower clusters lag behind the leader
+because of network latency etc. and resuming operation with the state of a follower
 cluster can therefore result in the loss of recent writes. How much can be lost
-largely depends on the data rate of the master cluster and the delay between
-the master and the slaves. Slaves will typically be behind the master by a couple
-of seconds or minutes.
+largely depends on the data rate of the leader cluster and the delay between
+the leader and the follower clusters. Followers will typically be behind the
+leader by a couple of seconds or minutes.
 
 Once configured, _ArangoSync_ will replicate both **structure and data** of an
 **entire cluster**. This means that there is no need to make additional configuration

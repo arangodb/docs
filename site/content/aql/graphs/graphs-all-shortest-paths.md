@@ -1,7 +1,7 @@
 ---
 fileID: graphs-all-shortest-paths
 title: All Shortest Paths in AQL
-weight: 3940
+weight: 3765
 description: >-
   Find all paths of shortest length between a start and target vertex
 layout: default

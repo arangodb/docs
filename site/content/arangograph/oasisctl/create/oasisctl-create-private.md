@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-private
 title: Oasisctl Create Private
-weight: 2820
+weight: 2640
 description: 
 layout: default
 ---

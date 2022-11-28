@@ -1,7 +1,7 @@
 ---
 fileID: indexing-inverted
 title: Inverted indexes
-weight: 655
+weight: 505
 description: >-
   You can use inverted indexes to speed up a broad range of AQL queries,
   from simple to complex, including full-text search

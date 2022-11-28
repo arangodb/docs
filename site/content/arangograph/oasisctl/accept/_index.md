@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-accept
 title: Oasisctl Accept
-weight: 2635
+weight: 2455
 description: 
 layout: default
 ---

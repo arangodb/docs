@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-private
 title: Oasisctl Update Private
-weight: 3660
+weight: 3480
 description: 
 layout: default
 ---

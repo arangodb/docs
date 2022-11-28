@@ -1,7 +1,7 @@
 ---
 fileID: indexing-persistent
 title: Persistent indexes
-weight: 650
+weight: 500
 description: 
 layout: default
 ---
@@ -103,7 +103,7 @@ will match.
 ## Persistent Indexes and Server Language
 
 The order of index entries in persistent indexes adheres to the configured
-[server language](../../programs-tools/arangodb-server/options/programs-arangod-general#default-language).
+[server language](../../programs-tools/arangodb-server/programs-arangod-options#--default-language).
 If, however, the server is restarted with a different language setting as when
 the persistent index was created, not all documents may be returned anymore and
 the sort order of those which are returned can be wrong (whenever the persistent

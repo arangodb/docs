@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-deployment
 title: Oasisctl Update Deployment
-weight: 3575
+weight: 3395
 description: 
 layout: default
 ---

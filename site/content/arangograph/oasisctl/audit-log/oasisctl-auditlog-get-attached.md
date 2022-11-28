@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-auditlog-get-attached
 title: Oasisctl Auditlog Get Attached
-weight: 2695
+weight: 2515
 description: 
 layout: default
 ---

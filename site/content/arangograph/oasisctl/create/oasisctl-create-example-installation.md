@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-example-installation
 title: Oasisctl Create Example Installation
-weight: 2780
+weight: 2600
 description: 
 layout: default
 ---

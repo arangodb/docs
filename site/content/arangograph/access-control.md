@@ -1,7 +1,7 @@
 ---
 fileID: access-control
 title: Security and access control in the ArangoGraph Insights Platform
-weight: 2600
+weight: 2420
 description: 
 layout: default
 ---

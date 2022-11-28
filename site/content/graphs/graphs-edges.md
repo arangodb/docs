@@ -1,7 +1,7 @@
 ---
 fileID: graphs-edges
 title: Edges, Identifiers, Handles
-weight: 885
+weight: 735
 description: 
 layout: default
 ---

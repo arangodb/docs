@@ -1,7 +1,7 @@
 ---
 fileID: graphs-pregel
 title: Distributed Iterative Graph Processing (Pregel)
-weight: 895
+weight: 745
 description: >-
   Pregel enables you to do online analytical processing directly on graphs
   stored in ArangoDB

@@ -1,7 +1,7 @@
 ---
 fileID: operations-sort
 title: SORT
-weight: 3805
+weight: 3630
 description: 
 layout: default
 ---

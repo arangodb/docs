@@ -1,7 +1,7 @@
 ---
 fileID: gharial-vertices
 title: Handling Vertices
-weight: 2280
+weight: 2100
 description: 
 layout: default
 ---

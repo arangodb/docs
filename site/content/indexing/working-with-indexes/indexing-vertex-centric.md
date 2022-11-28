@@ -1,7 +1,7 @@
 ---
 fileID: indexing-vertex-centric
 title: Vertex-Centric Indexes
-weight: 680
+weight: 530
 description: 
 layout: default
 ---

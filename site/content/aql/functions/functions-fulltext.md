@@ -1,7 +1,7 @@
 ---
 fileID: functions-fulltext
 title: Fulltext functions
-weight: 3890
+weight: 3715
 description: 
 layout: default
 ---

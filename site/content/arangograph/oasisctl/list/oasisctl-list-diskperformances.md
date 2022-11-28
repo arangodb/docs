@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-diskperformances
 title: Oasisctl List Diskperformances
-weight: 3230
+weight: 3050
 description: 
 layout: default
 ---

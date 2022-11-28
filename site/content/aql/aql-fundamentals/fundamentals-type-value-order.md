@@ -1,7 +1,7 @@
 ---
 fileID: fundamentals-type-value-order
 title: Type and value order
-weight: 3745
+weight: 3565
 description: 
 layout: default
 ---
@@ -77,7 +77,7 @@ result is defined as follows:
 - boolean: *false* is less than *true*
 - number: numeric values are ordered by their cardinal value
 - string: string values are ordered using a localized comparison, using the configured
-  [server language](../../programs-tools/arangodb-server/options/programs-arangod-general#default-language)
+  [server language](../../programs-tools/arangodb-server/programs-arangod-options#--default-language)
   for sorting according to the alphabetical order rules of that language
 
 Note: unlike in SQL, *null* can be compared to any value, including *null*

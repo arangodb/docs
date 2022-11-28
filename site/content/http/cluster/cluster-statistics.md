@@ -1,11 +1,10 @@
 ---
 fileID: cluster-statistics
-title: 
-weight: 2525
+title: HTTP interface for cluster statistics
+weight: 2345
 description: 
 layout: default
 ---
-<!-- js/actions/api-cluster.js -->
 ```http-spec
 openapi: 3.0.2
 paths:
@@ -22,10 +21,11 @@ paths:
         in: query
       responses:
         '200':
-          description: " \nis returned when everything went well.\n\n"
+          description: |2+
+            is returned when everything went well.
         '400':
-          description: " \nthe parameter DBserver was not given or is not the ID of\
-            \ a DB-Server\n\n"
+          description: |2+
+            the parameter DBserver was not given or is not the ID of a DB-Server
       tags:
       - Cluster
 ```

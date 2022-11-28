@@ -1,7 +1,7 @@
 ---
 fileID: transactions-stream-transactions
 title: Stream Transactions
-weight: 785
+weight: 635
 description: >-
   Stream Transactions allow you start a transaction, run multiple operations
   like AQL queries over a short period of time, and then commit or abort the
@@ -65,7 +65,7 @@ connections were interrupted.
 A given transaction is intended to be used **serially**. No concurrent requests
 using the same transaction ID should be issued by the client. The server can
 make some effort to serialize certain operations (see
-[Streaming Lock Timeout](../programs-tools/arangodb-server/options/programs-arangod-transaction#streaming-lock-timeout)),
+[Streaming Lock Timeout](../programs-tools/arangodb-server/programs-arangod-options#--transactionstreaming-lock-timeout)),
 however, this degrades the server's performance and may lead to sporadic
 errors with code `28` (locked).
 

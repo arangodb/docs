@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-auth
 title: Authentication
-weight: 1120
+weight: 1010
 description: 
 layout: default
 ---

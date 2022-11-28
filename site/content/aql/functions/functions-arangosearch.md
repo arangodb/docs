@@ -1,7 +1,7 @@
 ---
 fileID: functions-arangosearch
 title: ArangoSearch Functions
-weight: 3865
+weight: 3690
 description: ArangoSearch offers various AQL functions for search queries to control the search context, for filtering and scoring
 layout: default
 ---

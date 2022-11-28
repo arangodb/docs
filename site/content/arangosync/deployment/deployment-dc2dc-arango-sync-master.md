@@ -1,7 +1,7 @@
 ---
 fileID: deployment-dc2dc-arango-sync-master
 title: ArangoSync Master
-weight: 1020
+weight: 910
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-policy
 title: Oasisctl Get Policy
-weight: 3095
+weight: 2915
 description: 
 layout: default
 ---

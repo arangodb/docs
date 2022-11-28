@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-organization-invite
 title: Oasisctl Get Organization Invite
-weight: 3090
+weight: 2910
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: graphs-general-graphs
 title: General Graphs
-weight: 810
+weight: 660
 description: 
 layout: default
 ---

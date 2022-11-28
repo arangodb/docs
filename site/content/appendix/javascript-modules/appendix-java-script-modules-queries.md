@@ -1,7 +1,7 @@
 ---
 fileID: appendix-java-script-modules-queries
 title: Queries Module
-weight: 12145
+weight: 11965
 description: 
 layout: default
 ---

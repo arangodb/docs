@@ -1,7 +1,7 @@
 ---
 fileID: graphs-traversals-explained
 title: Traversals explained
-weight: 3925
+weight: 3750
 description: 
 layout: default
 ---

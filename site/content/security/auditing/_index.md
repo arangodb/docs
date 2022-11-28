@@ -1,7 +1,7 @@
 ---
 fileID: security-auditing
 title: Auditing
-weight: 1700
+weight: 1520
 description: 
 layout: default
 ---

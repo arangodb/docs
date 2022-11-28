@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-sessions-storages
 title: Session Storages
-weight: 1195
+weight: 1085
 description: 
 layout: default
 ---

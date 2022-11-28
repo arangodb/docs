@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-getting-started
 title: 
-weight: 4240
+weight: 4060
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: fundamentals-syntax
 title: AQL Syntax
-weight: 3730
+weight: 3550
 description: 
 layout: default
 ---

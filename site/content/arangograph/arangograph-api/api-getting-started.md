@@ -1,7 +1,7 @@
 ---
 fileID: api-getting-started
 title: Getting Started with the ArangoGraph Insights Platform API
-weight: 2615
+weight: 2435
 description: 
 layout: default
 ---

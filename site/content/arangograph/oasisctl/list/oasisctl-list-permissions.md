@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-permissions
 title: Oasisctl List Permissions
-weight: 3325
+weight: 3145
 description: 
 layout: default
 ---

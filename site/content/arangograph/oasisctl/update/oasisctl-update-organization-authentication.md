@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-organization-authentication
 title: Oasisctl Update Organization Authentication
-weight: 3610
+weight: 3430
 description: 
 layout: default
 ---

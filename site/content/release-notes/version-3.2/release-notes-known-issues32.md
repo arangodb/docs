@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-known-issues32
 title: Known Issues in ArangoDB 3.2
-weight: 11950
+weight: 11770
 description: 
 layout: default
 ---

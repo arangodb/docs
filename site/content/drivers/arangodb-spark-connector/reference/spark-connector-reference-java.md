@@ -1,7 +1,7 @@
 ---
 fileID: spark-connector-reference-java
 title: ArangoDB Spark Connector - Java Reference
-weight: 4360
+weight: 4180
 description: 
 layout: default
 ---

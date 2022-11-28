@@ -1,7 +1,7 @@
 ---
 fileID: tutorials-kubernetes-eks
 title: Start ArangoDB on Amazon Elastic Kubernetes Service (EKS)
-weight: 180
+weight: 175
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangoinspect-examples
 title: _arangoinspect_ Examples
-weight: 585
+weight: 435
 description: 
 layout: default
 ---

@@ -72,7 +72,7 @@ replicated on all copies.
 This is organized using a leader/follower model. At all times, one of the
 servers holding replicas for a shard is "the leader" and all others
 are "followers", this configuration is held in the Agency (see 
-[Cluster](../../../architecture/arangodb-deployment-modes/cluster/) for details of the ArangoDB
+[Cluster](../../../architecture/deployment-modes/cluster/) for details of the ArangoDB
 cluster architecture). Every write operation is sent to the leader
 by one of the Coordinators, and then replicated to all followers
 before the operation is reported to have succeeded. The leader keeps

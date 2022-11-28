@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-metrics-token
 title: Oasisctl Delete Metrics Token
-weight: 2925
+weight: 2745
 description: 
 layout: default
 ---

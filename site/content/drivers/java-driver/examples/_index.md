@@ -1,7 +1,7 @@
 ---
 fileID: java-examples
 title: Java Driver Examples
-weight: 4115
+weight: 3935
 description: 
 layout: default
 ---

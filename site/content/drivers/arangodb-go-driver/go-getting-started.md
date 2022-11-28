@@ -1,7 +1,7 @@
 ---
 fileID: go-getting-started
 title: ArangoDB GO Driver - Getting Started
-weight: 4185
+weight: 4005
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: indexing-fulltext
 title: Fulltext indexes
-weight: 665
+weight: 515
 description: 
 layout: default
 ---

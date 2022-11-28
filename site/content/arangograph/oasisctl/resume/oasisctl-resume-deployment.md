@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-resume-deployment
 title: Oasisctl Resume Deployment
-weight: 3460
+weight: 3280
 description: 
 layout: default
 ---

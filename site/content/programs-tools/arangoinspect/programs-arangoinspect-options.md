@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangoinspect-options
 title: _arangoinspect_ Options
-weight: 590
+weight: 440
 description: 
 layout: default
 ---

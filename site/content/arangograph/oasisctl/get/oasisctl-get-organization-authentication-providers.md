@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-organization-authentication-providers
 title: Oasisctl Get Organization Authentication Providers
-weight: 3070
+weight: 2890
 description: 
 layout: default
 ---

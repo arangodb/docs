@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features31
 title: Features and Improvements in ArangoDB 3.1
-weight: 11965
+weight: 11785
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-organization-invites
 title: Oasisctl List Organization Invites
-weight: 3310
+weight: 3130
 description: 
 layout: default
 ---

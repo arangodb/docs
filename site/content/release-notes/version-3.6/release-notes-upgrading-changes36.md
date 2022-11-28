@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-upgrading-changes36
 title: Incompatible changes in ArangoDB 3.6
-weight: 11875
+weight: 11695
 description: 
 layout: default
 ---

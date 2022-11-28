@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-backup-policy
 title: Oasisctl Create Backup Policy
-weight: 2760
+weight: 2580
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-servers
 title: Oasisctl List Servers
-weight: 3350
+weight: 3170
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-accept-organization
 title: Oasisctl Accept Organization
-weight: 2640
+weight: 2460
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-template
 title: Template
-weight: 4250
+weight: 4070
 description: 
 layout: default
 ---

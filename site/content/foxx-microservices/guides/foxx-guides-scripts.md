@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-scripts
 title: Scripts and scheduling
-weight: 1105
+weight: 995
 description: 
 layout: default
 ---

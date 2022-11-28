@@ -1,7 +1,7 @@
 ---
 fileID: functions-type-cast
 title: Type check and cast functions
-weight: 3915
+weight: 3740
 description: 
 layout: default
 ---

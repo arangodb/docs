@@ -1,7 +1,7 @@
 ---
 fileID: batch-request
 title: HTTP Interface for Batch Requests
-weight: 2345
+weight: 2165
 description: 
 layout: default
 ---

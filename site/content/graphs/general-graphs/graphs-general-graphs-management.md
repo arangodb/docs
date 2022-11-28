@@ -1,7 +1,7 @@
 ---
 fileID: graphs-general-graphs-management
 title: Graph Management
-weight: 815
+weight: 665
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: operations-return
 title: RETURN
-weight: 3790
+weight: 3615
 description: 
 layout: default
 ---
@@ -60,7 +60,7 @@ FOR u IN users
 ```
 
 Note: `RETURN` will close the current scope and eliminate all local variables in it.
-This is important to remember when working with [subqueries](../examples-query-patterns/examples-combining-queries).
+This is important to remember when working with [subqueries](../aql-fundamentals/fundamentals-subqueries).
 
 [Dynamic attribute names](../aql-fundamentals/fundamentals-data-types#objects--documents) are
 supported as well:

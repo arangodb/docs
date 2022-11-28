@@ -1,7 +1,7 @@
 ---
 fileID: appendix-java-script-modules-arango-db
 title: ArangoDB Module
-weight: 12130
+weight: 11950
 description: 
 layout: default
 ---

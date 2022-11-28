@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangoimport-examples-json
 title: _arangoimport_ Examples JSON
-weight: 525
+weight: 375
 description: 
 layout: default
 ---

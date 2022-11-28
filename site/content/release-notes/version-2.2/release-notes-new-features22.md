@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features22
 title: Features and Improvements in ArangoDB 2.2
-weight: 12085
+weight: 11905
 description: 
 layout: default
 ---

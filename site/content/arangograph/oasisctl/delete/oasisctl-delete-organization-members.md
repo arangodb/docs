@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-organization-members
 title: Oasisctl Delete Organization Members
-weight: 2945
+weight: 2765
 description: 
 layout: default
 ---

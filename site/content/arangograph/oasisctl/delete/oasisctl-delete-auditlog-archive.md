@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-auditlog-archive
 title: Oasisctl Delete Auditlog Archive
-weight: 2860
+weight: 2680
 description: 
 layout: default
 ---

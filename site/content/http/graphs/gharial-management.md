@@ -1,7 +1,7 @@
 ---
 fileID: gharial-management
 title: Manage your graphs
-weight: 2275
+weight: 2095
 description: 
 layout: default
 ---

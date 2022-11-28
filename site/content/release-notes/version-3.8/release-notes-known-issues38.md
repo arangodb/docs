@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-known-issues38
 title: Known Issues in ArangoDB 3.8
-weight: 11820
+weight: 11640
 description: 
 layout: default
 ---

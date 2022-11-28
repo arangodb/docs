@@ -1,7 +1,7 @@
 ---
 fileID: cloud-migration-tool
 title: Cloud Migration Tool
-weight: 2585
+weight: 2405
 description: >-
   Migrating data from bare metal servers to the cloud with minimal downtime
 layout: default
@@ -249,9 +249,9 @@ Allowed values are `readonly` or `default`.
    is switched into read-only mode automatically.
 2. Wait until all shards are in sync. You can use the `status` or the `start`
    command with the same parameters to track that.
-3. Optional: when all shards are in-sync, you can switch your applications
-   to use the ArangoGraph deployment, but note that it stays in read-only mode
-   until the migration process is fully completed.
+3. Optionally, when all shards are in-sync, you can switch your applications
+   to use the endpoint of the ArangoGraph deployment, but note that it stays in
+   read-only mode until the migration process is fully completed.
 4. Stop the migration using the `stop` subcommand. The following steps are executed:
    - The source data cluster is switched into read-only mode.
    - It waits until all shards are synchronized.

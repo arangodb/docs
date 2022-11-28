@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-known-issues34
 title: Known Issues in ArangoDB 3.4
-weight: 11910
+weight: 11730
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-regions
 title: Oasisctl List Regions
-weight: 3340
+weight: 3160
 description: 
 layout: default
 ---

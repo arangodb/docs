@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-36
 title: Version 3.6
-weight: 11860
+weight: 11680
 description: 
 layout: default
 ---

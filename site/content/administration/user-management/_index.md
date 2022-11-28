@@ -1,7 +1,7 @@
 ---
 fileID: administration-managing-users
 title: Managing Users
-weight: 1645
+weight: 1470
 description: 
 layout: default
 ---
@@ -332,7 +332,7 @@ database. All changes to the access levels must be done using the
 
 ArangoDB supports LDAP as an external authentication system. For detailed
 information please have look into the
-[LDAP configuration guide](../../programs-tools/arangodb-server/options/programs-arangod-ldap).
+[LDAP configuration guide](../../programs-tools/arangodb-server/programs-arangod-ldap).
 
 There are a few differences to *normal* ArangoDB users:
 - ArangoDB does not "*know*" LDAP users before they first authenticate.
@@ -347,7 +347,7 @@ There are a few differences to *normal* ArangoDB users:
 To grant access for an LDAP user you will need to create *roles* within the
 ArangoDB server. A role is just a user with the `:role:` prefix in its name.
 Role users cannot login as database users, the `:role:` prefix ensures this.
-Your LDAP users will need to have at least one role, once the user logs in he
-will be automatically granted the union of all access rights of all his roles.
+Your LDAP users will need to have at least one role; once users log in they
+will be automatically granted the union of all access rights of all their roles.
 Note that a lower right grant in one role will be overwritten by a higher
 access grant in a different role.

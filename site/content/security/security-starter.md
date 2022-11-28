@@ -1,7 +1,7 @@
 ---
 fileID: security-starter
 title: Securing Starter Deployments
-weight: 1715
+weight: 1535
 description: 
 layout: default
 ---

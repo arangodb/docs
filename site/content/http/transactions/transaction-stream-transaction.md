@@ -1,7 +1,7 @@
 ---
 fileID: transaction-stream-transaction
 title: HTTP Interface for Stream Transactions
-weight: 2415
+weight: 2235
 description: 
 layout: default
 ---

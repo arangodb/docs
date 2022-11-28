@@ -1,7 +1,7 @@
 ---
 fileID: advanced-array-operators
 title: Array Operators
-weight: 3960
+weight: 3785
 description: 
 layout: default
 ---

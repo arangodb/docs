@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-group
 title: Oasisctl Get Group
-weight: 3035
+weight: 2855
 description: 
 layout: default
 ---

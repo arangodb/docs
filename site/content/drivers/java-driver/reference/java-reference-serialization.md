@@ -1,7 +1,7 @@
 ---
 fileID: java-reference-serialization
 title: Serialization
-weight: 4150
+weight: 3970
 description: 
 layout: default
 ---

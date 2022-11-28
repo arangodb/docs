@@ -1,7 +1,7 @@
 ---
 fileID: spark-connector-new
 title: ArangoDB Datasource for Apache Spark
-weight: 4340
+weight: 4160
 description: 
 layout: default
 ---

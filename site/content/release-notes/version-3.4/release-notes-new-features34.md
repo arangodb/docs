@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features34
 title: Features and Improvements in ArangoDB 3.4
-weight: 11905
+weight: 11725
 description: 
 layout: default
 ---
@@ -697,4 +697,4 @@ this use-case are served by the follower you need to add a
 `X-Arango-Allow-Dirty-Read: true` header to HTTP requests.
 
 For more information see
-[Active Failover Architecture](../../architecture/arangodb-deployment-modes/active-failover/architecture-deployment-modes-active-failover-architecture).
+[Active Failover Architecture](../../architecture/deployment-modes/active-failover/).

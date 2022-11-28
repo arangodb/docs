@@ -1,7 +1,7 @@
 ---
 fileID: pregel
 title: Pregel HTTP API
-weight: 2290
+weight: 2110
 description: 
 layout: default
 ---

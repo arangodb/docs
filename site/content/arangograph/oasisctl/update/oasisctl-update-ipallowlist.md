@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-ipallowlist
 title: Oasisctl Update Ipallowlist
-weight: 3585
+weight: 3405
 description: 
 layout: default
 ---

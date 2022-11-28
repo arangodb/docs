@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-configuration
 title: Foxx configuration
-weight: 1160
+weight: 1050
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-notebook
 title: Oasisctl Create Notebook
-weight: 2805
+weight: 2625
 description: 
 layout: default
 ---

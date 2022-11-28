@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-cacertificate
 title: Oasisctl Update Cacertificate
-weight: 3570
+weight: 3390
 description: 
 layout: default
 ---

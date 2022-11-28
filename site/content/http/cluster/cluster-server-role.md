@@ -1,11 +1,10 @@
 ---
 fileID: cluster-server-role
-title: 
-weight: 2520
+title: HTTP interface for server roles
+weight: 2340
 description: 
 layout: default
 ---
-<!-- js/actions/api-system.js -->
 ```http-spec
 openapi: 3.0.2
 paths:
@@ -43,4 +42,5 @@ paths:
       tags:
       - Administration
 ```
+
 

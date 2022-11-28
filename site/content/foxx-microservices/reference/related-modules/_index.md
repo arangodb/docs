@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-modules
 title: Related modules
-weight: 1225
+weight: 1115
 description: 
 layout: default
 ---

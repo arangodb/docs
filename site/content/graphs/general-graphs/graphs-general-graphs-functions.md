@@ -1,7 +1,7 @@
 ---
 fileID: graphs-general-graphs-functions
 title: Graph Functions
-weight: 820
+weight: 670
 description: 
 layout: default
 ---

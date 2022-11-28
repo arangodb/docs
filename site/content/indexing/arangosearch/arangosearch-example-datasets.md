@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-example-datasets
 title: Example Datasets for ArangoSearch
-weight: 690
+weight: 540
 description: Datasets you may use for experimenting with ArangoSearch features
 layout: default
 ---

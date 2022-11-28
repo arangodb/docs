@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangodump-examples
 title: _arangodump_ Examples
-weight: 465
+weight: 315
 description: 
 layout: default
 ---

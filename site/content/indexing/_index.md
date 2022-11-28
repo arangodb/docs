@@ -1,7 +1,7 @@
 ---
 fileID: indexing
 title: Handling Indexes
-weight: 625
+weight: 475
 description: 
 layout: default
 ---

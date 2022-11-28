@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-group
 title: Oasisctl Delete Group
-weight: 2905
+weight: 2725
 description: 
 layout: default
 ---

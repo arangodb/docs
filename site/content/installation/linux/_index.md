@@ -1,7 +1,7 @@
 ---
 fileID: installation-linux
 title: Installing ArangoDB on Linux
-weight: 1280
+weight: 1170
 description: 
 layout: default
 ---

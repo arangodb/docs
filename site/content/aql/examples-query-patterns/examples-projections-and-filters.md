@@ -1,7 +1,7 @@
 ---
 fileID: examples-projections-and-filters
 title: Projections and Filters
-weight: 3995
+weight: 3815
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: graphs-smart-graphs-management
 title: SmartGraph Management
-weight: 850
+weight: 700
 description: 
 layout: default
 ---

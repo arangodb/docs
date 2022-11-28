@@ -1,7 +1,7 @@
 ---
 fileID: installation-compiling-debian
 title: Compiling on Debian
-weight: 1310
+weight: 1200
 description: 
 layout: default
 ---

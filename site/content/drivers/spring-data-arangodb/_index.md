@@ -1,7 +1,7 @@
 ---
 fileID: spring-data
 title: Spring Data ArangoDB
-weight: 4235
+weight: 4055
 description: 
 layout: default
 ---

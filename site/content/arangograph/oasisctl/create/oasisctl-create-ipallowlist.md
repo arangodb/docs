@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-ipallowlist
 title: Oasisctl Create Ipallowlist
-weight: 2790
+weight: 2610
 description: 
 layout: default
 ---

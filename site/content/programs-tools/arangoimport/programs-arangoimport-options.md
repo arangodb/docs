@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangoimport-options
 title: _arangoimport_ Options
-weight: 540
+weight: 390
 description: 
 layout: default
 ---

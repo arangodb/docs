@@ -1,7 +1,7 @@
 ---
 fileID: upgrading-osspecific-info-mac-os
 title: Upgrading on macOS
-weight: 1580
+weight: 1405
 description: 
 layout: default
 ---
@@ -37,5 +37,5 @@ Select `Replace` to install the current ArangoDB version.
 
 The procedure described in this _Section_
 is a first step to upgrade more complex deployments such as
-[Cluster](../../architecture/arangodb-deployment-modes/cluster/)
-or [Active Failover](../../architecture/arangodb-deployment-modes/active-failover/). 
+[Cluster](../../architecture/deployment-modes/cluster/)
+or [Active Failover](../../architecture/deployment-modes/active-failover/). 

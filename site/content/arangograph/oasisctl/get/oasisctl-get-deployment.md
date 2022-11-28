@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-deployment
 title: Oasisctl Get Deployment
-weight: 3020
+weight: 2840
 description: 
 layout: default
 ---

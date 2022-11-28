@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-cluster
 title: Foxx in a cluster setup
-weight: 1100
+weight: 990
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features37
 title: Features and Improvements in ArangoDB 3.7
-weight: 11840
+weight: 11660
 description: 
 layout: default
 ---
@@ -349,7 +349,7 @@ See: [HTTP Switching Protocols](../../http/general#switching-protocols)
 
 Sometimes it is desirable to have the same server use different server keys
 and certificates when it is contacted under different names. This is possible
-with the [Server Name Indication](../../programs-tools/arangodb-server/options/programs-arangod-ssl#server-name-indication-sni)
+with the [Server Name Indication](../../programs-tools/arangodb-server/programs-arangod-options#--sslserver-name-indication)
 (SNI) TLS extension. It is now supported by ArangoDB using a new startup option
 `--ssl.server-name-indication`.
 

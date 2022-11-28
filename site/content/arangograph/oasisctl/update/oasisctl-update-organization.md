@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-organization
 title: Oasisctl Update Organization
-weight: 3605
+weight: 3425
 description: 
 layout: default
 ---

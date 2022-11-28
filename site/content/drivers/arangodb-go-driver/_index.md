@@ -1,7 +1,7 @@
 ---
 fileID: go
 title: ArangoDB GO Driver
-weight: 4180
+weight: 4000
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features33
 title: Features and Improvements in ArangoDB 3.3
-weight: 11925
+weight: 11745
 description: 
 layout: default
 ---
@@ -222,7 +222,7 @@ The following options have been added to it:
   - `--ldap.roles-exclude`
   - `--ldap.superuser-role`
 
-  Please refer to [LDAP](../../programs-tools/arangodb-server/options/programs-arangod-ldap) for a detailed
+  Please refer to [LDAP](../../programs-tools/arangodb-server/programs-arangod-ldap) for a detailed
   explanation.
 
 

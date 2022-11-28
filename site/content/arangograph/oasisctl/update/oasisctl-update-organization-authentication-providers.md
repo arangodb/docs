@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-organization-authentication-providers
 title: Oasisctl Update Organization Authentication Providers
-weight: 3615
+weight: 3435
 description: 
 layout: default
 ---

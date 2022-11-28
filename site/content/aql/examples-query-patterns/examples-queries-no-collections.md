@@ -1,7 +1,7 @@
 ---
 fileID: examples-queries-no-collections
 title: Queries without collections
-weight: 4030
+weight: 3850
 description: 
 layout: default
 ---

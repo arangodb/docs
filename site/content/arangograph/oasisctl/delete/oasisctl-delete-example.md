@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-example
 title: Oasisctl Delete Example
-weight: 2895
+weight: 2715
 description: 
 layout: default
 ---

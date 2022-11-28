@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-organization-authentication
 title: Oasisctl Get Organization Authentication
-weight: 3065
+weight: 2885
 description: 
 layout: default
 ---

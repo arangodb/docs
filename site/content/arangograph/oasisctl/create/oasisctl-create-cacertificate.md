@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-cacertificate
 title: Oasisctl Create Cacertificate
-weight: 2765
+weight: 2585
 description: 
 layout: default
 ---

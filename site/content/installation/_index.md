@@ -1,7 +1,7 @@
 ---
 fileID: installation
 title: Installation
-weight: 1275
+weight: 1165
 description: 
 layout: default
 ---

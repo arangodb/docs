@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-sessions-storages-collection
 title: Collection Session Storage
-weight: 1200
+weight: 1090
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-rebalance-deployment
 title: Oasisctl Rebalance Deployment
-weight: 3415
+weight: 3235
 description: 
 layout: default
 ---

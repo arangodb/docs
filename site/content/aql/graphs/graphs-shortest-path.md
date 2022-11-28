@@ -1,7 +1,7 @@
 ---
 fileID: graphs-shortest-path
 title: Shortest Path in AQL
-weight: 3935
+weight: 3760
 description: 
 layout: default
 ---
@@ -183,7 +183,7 @@ db._query("FOR v, e IN OUTBOUND SHORTEST_PATH 'circles/A' TO 'circles/D' edges R
 
 
 We can see our expectations are fulfilled. We find the vertices in the correct ordering and
-the first edge is *null*, because no edge is pointing to the start vertex on t his path.
+the first edge is *null*, because no edge is pointing to the start vertex on this path.
 
 We can also compute shortest paths based on documents found in collections:
 

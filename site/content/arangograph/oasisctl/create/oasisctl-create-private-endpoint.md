@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-private-endpoint
 title: Oasisctl Create Private Endpoint
-weight: 2825
+weight: 2645
 description: 
 layout: default
 ---

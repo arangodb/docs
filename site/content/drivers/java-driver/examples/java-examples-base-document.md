@@ -1,7 +1,7 @@
 ---
 fileID: java-examples-base-document
 title: How to retrieve documents from ArangoDB without knowing the structure?
-weight: 4120
+weight: 3940
 description: 
 layout: default
 ---

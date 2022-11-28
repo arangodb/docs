@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangorestore-options
 title: _arangorestore_ Options
-weight: 500
+weight: 350
 description: 
 layout: default
 ---

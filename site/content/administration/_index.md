@@ -1,7 +1,7 @@
 ---
 fileID: administration
 title: Administration
-weight: 1625
+weight: 1450
 description: 
 layout: default
 ---
@@ -34,8 +34,8 @@ For a full list of tools, please refer to the [Programs & Tools](../programs-too
 
 ## Deployment Administration
 
-- [Active Failover](administration-active-failover)
-- [Cluster](administration-cluster)
+- [Active Failover](../architecture/deployment-modes/active-failover/administration-active-failover)
+- [Cluster](../architecture/deployment-modes/cluster/administration-cluster)
 - [Datacenter-to-Datacenter Replication](../arangosync/administration-dc2dc)
 - [ArangoDB Starter Administration](arangodb-starter-administration/)
 

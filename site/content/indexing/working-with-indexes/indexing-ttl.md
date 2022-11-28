@@ -1,7 +1,7 @@
 ---
 fileID: indexing-ttl
 title: TTL Indexes
-weight: 660
+weight: 510
 description: 
 layout: default
 ---

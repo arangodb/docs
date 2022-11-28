@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-config-and-secrets
 title: Configuration & secrets
-weight: 1485
+weight: 1310
 description: 
 layout: default
 ---

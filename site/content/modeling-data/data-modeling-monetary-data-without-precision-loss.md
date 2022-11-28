@@ -1,7 +1,7 @@
 ---
 fileID: data-modeling-monetary-data-without-precision-loss
 title: Working with monetary data without precision loss in ArangoDB
-weight: 620
+weight: 470
 description: 
 layout: default
 ---

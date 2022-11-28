@@ -1,7 +1,7 @@
 ---
 fileID: administration-configuration
 title: Configuration
-weight: 1630
+weight: 1455
 description: 
 layout: default
 ---
@@ -37,7 +37,7 @@ ArangoDB package can be configured with various _startup options_.
 
 Find the available options and commands in the _Options_ sub-chapters of the
 respective [Programs & Tools](../programs-tools/) sub-chapter, like the
-[ArangoDB Server Options](../programs-tools/arangodb-server/options/).
+[ArangoDB Server Options](../programs-tools/arangodb-server/programs-arangod-options).
 
 The [ArangoDB Starter](../programs-tools/arangodb-starter/) works differently
 to the other programs and tools. It uses `setup.json` files for its own
@@ -249,7 +249,7 @@ i.e. `C:\Users\xxx\AppData\Local\Temp\arango_tmp`.
 Certain startup options accept multiple values. In case of parameters being
 _vectors_ you can specify one or more times the option with varying values.
 Whether this is the case can be seen by looking at the **Type** column of a
-tool's option table (e.g. [ArangoDB Server Options](../programs-tools/arangodb-server/options/))
+tool's option table (e.g. [ArangoDB Server Options](../programs-tools/arangodb-server/programs-arangod-options))
 or the type information provided on a command line in the `--help` output of
 an ArangoDB binary:
 
@@ -269,7 +269,7 @@ arangod --log.level all=warning --log.level queries=trace --log.level startup=in
 This sets a global log level of `warning` and two topic-specific levels
 (`trace` for queries and `info` for startup). Note that `--log.level warning`
 does not set a log level globally for all existing topics, but only the
-`general` topic.
+`general` topic. Use the pseudo-topic `all` to set a global log level.
 
 The same in a configuration file:
 

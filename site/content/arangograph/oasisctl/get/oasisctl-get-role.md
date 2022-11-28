@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-role
 title: Oasisctl Get Role
-weight: 3130
+weight: 2950
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: installation-compiling-windows
 title: Compiling ArangoDB under Windows
-weight: 1315
+weight: 1205
 description: 
 layout: default
 ---

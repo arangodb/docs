@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-project
 title: Oasisctl Get Project
-weight: 3115
+weight: 2935
 description: 
 layout: default
 ---

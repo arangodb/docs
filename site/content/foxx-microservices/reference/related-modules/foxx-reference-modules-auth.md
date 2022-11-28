@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-modules-auth
 title: Authentication
-weight: 1230
+weight: 1120
 description: 
 layout: default
 ---

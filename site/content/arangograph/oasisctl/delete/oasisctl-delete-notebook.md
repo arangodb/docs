@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-notebook
 title: Oasisctl Delete Notebook
-weight: 2930
+weight: 2750
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-browser
 title: Exposing Foxx to the browser
-weight: 1140
+weight: 1030
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangod-env-vars
 title: ArangoDB Server environment variables
-weight: 365
+weight: 215
 description: 
 layout: default
 ---

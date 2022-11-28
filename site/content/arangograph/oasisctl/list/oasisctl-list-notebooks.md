@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-notebooks
 title: Oasisctl List Notebooks
-weight: 3300
+weight: 3120
 description: 
 layout: default
 ---

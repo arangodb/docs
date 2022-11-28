@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-ipallowlist
 title: Oasisctl Delete Ipallowlist
-weight: 2915
+weight: 2735
 description: 
 layout: default
 ---

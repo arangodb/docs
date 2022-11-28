@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-metrics-tokens
 title: Oasisctl List Metrics Tokens
-weight: 3285
+weight: 3105
 description: 
 layout: default
 ---

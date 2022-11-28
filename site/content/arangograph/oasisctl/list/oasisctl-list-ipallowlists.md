@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-ipallowlists
 title: Oasisctl List Ipallowlists
-weight: 3275
+weight: 3095
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: functions-array
 title: Array functions
-weight: 3870
+weight: 3695
 description: 
 layout: default
 ---

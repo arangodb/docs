@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-32
 title: Version 3.2
-weight: 11940
+weight: 11760
 description: 
 layout: default
 ---

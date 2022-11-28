@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-rotate-deployment-server
 title: Oasisctl Rotate Deployment Server
-weight: 3505
+weight: 3325
 description: 
 layout: default
 ---

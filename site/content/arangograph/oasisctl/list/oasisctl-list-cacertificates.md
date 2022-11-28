@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-cacertificates
 title: Oasisctl List Cacertificates
-weight: 3215
+weight: 3035
 description: 
 layout: default
 ---

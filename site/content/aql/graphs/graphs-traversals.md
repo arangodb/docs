@@ -1,7 +1,7 @@
 ---
 fileID: graphs-traversals
 title: Graph traversals in AQL
-weight: 3930
+weight: 3755
 description: 
 layout: default
 ---

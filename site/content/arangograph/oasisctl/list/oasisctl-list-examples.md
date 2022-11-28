@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-examples
 title: Oasisctl List Examples
-weight: 3255
+weight: 3075
 description: 
 layout: default
 ---

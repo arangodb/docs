@@ -1,7 +1,7 @@
 ---
 fileID: graphs-kshortest-paths
 title: k Shortest Paths in AQL
-weight: 3945
+weight: 3770
 description: 
 layout: default
 ---

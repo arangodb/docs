@@ -1,7 +1,7 @@
 ---
 fileID: js
 title: ArangoDB JavaScript Driver
-weight: 4155
+weight: 3975
 description: 
 layout: default
 ---

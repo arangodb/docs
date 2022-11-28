@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-repositories-queries
 title: Queries
-weight: 4260
+weight: 4080
 description: 
 layout: default
 ---

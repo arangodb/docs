@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-modules-queues
 title: Foxx queues
-weight: 1250
+weight: 1140
 description: 
 layout: default
 ---
@@ -19,7 +19,7 @@ Please note that Foxx queues are database-specific. Queues and jobs are always
 relative to the database in which they are created or accessed.
 
 For disabling the Foxx queues feature or adjusting the polling interval see the
-[`foxx.queues` and `foxx.queues-poll-interval` options](../../../programs-tools/arangodb-server/options/programs-arangod-foxx).
+[`foxx.queues` and `foxx.queues-poll-interval` options](../../../programs-tools/arangodb-server/programs-arangod-options#foxx).
 
 For the low-level functionality see the chapter on the
 [task management module](../../../appendix/javascript-modules/appendix-java-script-modules-tasks).

@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-authentication
 title: Authentication
-weight: 1465
+weight: 1290
 description: 
 layout: default
 ---

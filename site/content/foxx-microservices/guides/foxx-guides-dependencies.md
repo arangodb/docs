@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-dependencies
 title: Linking services together
-weight: 1125
+weight: 1015
 description: 
 layout: default
 ---

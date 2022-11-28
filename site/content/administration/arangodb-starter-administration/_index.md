@@ -1,7 +1,7 @@
 ---
 fileID: administration-starter
 title: ArangoDB Starter Administration
-weight: 1665
+weight: 1480
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-project
 title: Oasisctl Update Project
-weight: 3675
+weight: 3495
 description: 
 layout: default
 ---

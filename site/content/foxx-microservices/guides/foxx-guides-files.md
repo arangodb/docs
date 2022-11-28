@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-files
 title: File access in Foxx
-weight: 1130
+weight: 1020
 description: 
 layout: default
 ---

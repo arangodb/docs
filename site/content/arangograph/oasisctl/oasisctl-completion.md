@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-completion
 title: Oasisctl Completion
-weight: 2735
+weight: 2555
 description: 
 layout: default
 ---

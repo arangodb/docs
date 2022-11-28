@@ -1,7 +1,7 @@
 ---
 fileID: installation-windows
 title: Installing ArangoDB on Windows
-weight: 1300
+weight: 1190
 description: 
 layout: default
 ---
@@ -20,7 +20,7 @@ to the hash of the file. For example, you can you run `openssl sha256 <filename>
 or `certutil -hashfile <filename> sha256` in a terminal.
 
 {{% hints/info %}}
-For production environments we highly recommend using Linux.
+Running production environments on Windows is not supported.
 {{% /hints/info %}}
 
 ## Installing using the Installer

@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features36
 title: Features and Improvements in ArangoDB 3.6
-weight: 11865
+weight: 11685
 description: 
 layout: default
 ---
@@ -572,7 +572,7 @@ communication effort for the Coordinator.
 
 An entire cluster, selected databases or selected collections can be made
 eligible for the OneShard optimization. See
-[OneShard cluster architecture](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-architecture#oneshard)
+[OneShard cluster architecture](../../architecture/deployment-modes/cluster/#oneshard)
 for details and usage examples.
 
 ## HTTP API
@@ -646,13 +646,13 @@ collections created in the new database, unless explicitly overridden.
 
 ### Metrics API option
 
-The new [option](../../programs-tools/arangodb-server/options/programs-arangod-server#metrics-api)
+The new [option](../../programs-tools/arangodb-server/programs-arangod-options#--serverexport-metrics-api)
 `--server.export-metrics-api` allows you to disable the metrics API by setting
 it to `false`, which is otherwise turned on by default.
 
 ### OneShard cluster option
 
-The [option](../../programs-tools/arangodb-server/options/programs-arangod-cluster#more-advanced-options)
+The [option](../../programs-tools/arangodb-server/programs-arangod-options#--clusterforce-one-shard)
 `--cluster.force-one-shard` enables the new OneShard feature for the entire
 cluster deployment. It forces the cluster into creating all future collections
 with only a single shard and using the same DB-Server as these collections'
@@ -662,7 +662,7 @@ transactional guarantees.
 
 ### Cluster upgrade option
 
-The new [option](../../programs-tools/arangodb-server/options/programs-arangod-cluster#upgrade) `--cluster.upgrade`
+The new [option](../../programs-tools/arangodb-server/programs-arangod-options#--clusterupgrade) `--cluster.upgrade`
 toggles the cluster upgrade mode for Coordinators. It supports the following
 values:
 
@@ -686,7 +686,7 @@ have any affect on single servers, Agents or DB-Servers.
 
 ### Other cluster options
 
-The following [options](../../programs-tools/arangodb-server/options/programs-arangod-cluster) have been added:
+The following [options](../../programs-tools/arangodb-server/programs-arangod-options#cluster) have been added:
 
 - `--cluster.max-replication-factor`: maximum replication factor for new
   collections. A value of `0` means that there is no restriction.
@@ -713,7 +713,7 @@ Note that the above options only have an effect when set for Coordinators, and
 only for collections that are created after the options have been set. They do
 not affect already existing collections.
 
-Furthermore, the following network related [options](../../programs-tools/arangodb-server/options/programs-arangod-network)
+Furthermore, the following network related [options](../../programs-tools/arangodb-server/programs-arangod-options#network)
 have been added:
 
 - `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal
@@ -753,7 +753,7 @@ For example, to turn off the rule `use-indexes-for-sort`, use
 
     --query.optimizer-rules "-use-indexes-for-sort"
 
-The purpose of this [startup option](../../programs-tools/arangodb-server/options/programs-arangod-query#optimizer-rule-defaults)
+The purpose of this [startup option](../../programs-tools/arangodb-server/programs-arangod-options#--queryoptimizer-rules)
 is to be able to enable potential future experimental optimizer rules, which
 may be shipped in a disabled-by-default state.
 
@@ -777,7 +777,7 @@ may be shipped in a disabled-by-default state.
 
 ## TLS v1.3
 
-Added support for TLS 1.3 for the [arangod server](../../programs-tools/arangodb-server/options/programs-arangod-ssl#ssl-protocol)
+Added support for TLS 1.3 for the [arangod server](../../programs-tools/arangodb-server/programs-arangod-options#--sslprotocol)
 and the client tools (also added to v3.5.1).
 
 The arangod server can be started with option `--ssl.protocol 6` to make it require

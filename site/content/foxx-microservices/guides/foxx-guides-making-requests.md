@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-making-requests
 title: Making requests
-weight: 1135
+weight: 1025
 description: 
 layout: default
 ---

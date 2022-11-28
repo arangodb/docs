@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-revoke-apikey-token
 title: Oasisctl Revoke Apikey Token
-weight: 3480
+weight: 3300
 description: 
 layout: default
 ---

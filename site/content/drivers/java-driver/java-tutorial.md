@@ -1,7 +1,7 @@
 ---
 fileID: java-tutorial
 title: Tutorial Java in 10 Minutes
-weight: 4135
+weight: 3955
 description: 
 layout: default
 ---

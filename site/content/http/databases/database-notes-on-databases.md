@@ -1,7 +1,7 @@
 ---
 fileID: database-notes-on-databases
 title: Notes on Databases
-weight: 2215
+weight: 2035
 description: 
 layout: default
 ---

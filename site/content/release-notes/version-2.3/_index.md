@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-23
 title: Version 2.3
-weight: 12065
+weight: 11885
 description: 
 layout: default
 ---

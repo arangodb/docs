@@ -53,21 +53,21 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
 
 ## Scalability & High Availability
 
-- [**Hash-based sharding**](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-sharding):
+- [**Hash-based sharding**](../../architecture/architecture-deployment-modes-cluster-sharding):
   Spread bigger datasets across multiple servers using consistent hashing on
   the default or custom shard keys.
 
-- [**Synchronous Replication**](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-architecture#synchronous-replication):
+- [**Synchronous Replication**](../../architecture/deployment-modes/cluster/#synchronous-replication):
   Data changes are propagated to other cluster nodes immediately as part of an
   operation, and only considered successful when the configured number of writes
   is reached. Synchronous replication works on a per-shard basis. For each
   collection, you can configure how many copies of each shard are kept in the cluster.
 
-- [**Active Failover**](../../architecture/arangodb-deployment-modes/active-failover/architecture-deployment-modes-active-failover-architecture):
+- [**Active Failover**](../../architecture/deployment-modes/active-failover/):
   Run a single server with asynchronous replication to one or more passive
   single servers for automatic failover.
 
-- [**Automatic Failover Cluster**](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-architecture#automatic-failover):
+- [**Automatic Failover Cluster**](../../architecture/deployment-modes/cluster/#automatic-failover):
   If a nodes goes down, another node takes over to avoid any downtime. <!-- TODO: Can we say that? -->
 
 {{% comment %}}
@@ -229,7 +229,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   microservice framework users can achieve very high security standards
   fitting individual needs.
 
-- [**TLS Encryption**](../../programs-tools/arangodb-server/options/programs-arangod-ssl):
+- [**TLS Encryption**](../../programs-tools/arangodb-server/programs-arangod-options#ssl):
   Internal and external communication over encrypted network connections with
   TLS (formerly SSL).
   [TLS key and certificates rotation](../../release-notes/version-3.7/release-notes-new-features37#tls-key-and-certificate-rotation)

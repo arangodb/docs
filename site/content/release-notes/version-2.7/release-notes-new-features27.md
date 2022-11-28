@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features27
 title: Features and Improvements in ArangoDB 2.7
-weight: 12010
+weight: 11830
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: execution-and-performance-query-statistics
 title: Query statistics
-weight: 4065
+weight: 3885
 description: 
 layout: default
 ---

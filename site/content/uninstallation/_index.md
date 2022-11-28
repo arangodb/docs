@@ -1,7 +1,7 @@
 ---
 fileID: uninstallation
 title: Uninstallation
-weight: 1330
+weight: 1220
 description: 
 layout: default
 ---

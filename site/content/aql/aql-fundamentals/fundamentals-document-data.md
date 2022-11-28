@@ -1,7 +1,7 @@
 ---
 fileID: fundamentals-document-data
 title: Accessing data from collections
-weight: 3750
+weight: 3570
 description: 
 layout: default
 ---

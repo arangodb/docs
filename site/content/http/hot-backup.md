@@ -1,7 +1,7 @@
 ---
 fileID: hot-backup
 title: HTTP Interface for Hot Backup and Restore
-weight: 2500
+weight: 2320
 description: 
 layout: default
 ---

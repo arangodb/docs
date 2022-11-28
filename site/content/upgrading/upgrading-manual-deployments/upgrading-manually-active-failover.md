@@ -1,11 +1,11 @@
 ---
 fileID: upgrading-manually-active-failover
 title: Manually Upgrading an _Active Failover_ Deployment
-weight: 1600
+weight: 1425
 description: 
 layout: default
 ---
-This page will guide you through the process of a manual upgrade of an [_Active Failover_](../../architecture/arangodb-deployment-modes/active-failover/)
+This page will guide you through the process of a manual upgrade of an [_Active Failover_](../../architecture/deployment-modes/active-failover/)
 setup. The different nodes can be upgraded one at a time without
 incurring a _prolonged_ downtime of the entire system. The downtimes of the individual nodes
 should also stay fairly low.
@@ -19,7 +19,7 @@ for detailed information.
 
 The ArangoDB installation packages (e.g. for Debian or Ubuntu) set up a
 convenient standalone instance of `arangod`. During installation, this instance's
-database will be upgraded (see [`--database.auto-upgrade`](../../programs-tools/arangodb-server/options/programs-arangod-database#auto-upgrade))
+database will be upgraded (see [`--database.auto-upgrade`](../../programs-tools/arangodb-server/programs-arangod-options#--databaseauto-upgrade))
 and the service will be (re)started.
 
 You have to make sure that your _Active Failover_ deployment is independent of this

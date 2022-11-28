@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangoexport-examples
 title: _arangoexport_ Examples
-weight: 550
+weight: 400
 description: 
 layout: default
 ---

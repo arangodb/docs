@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-organization-email-domain-restrictions
 title: Oasisctl Get Organization Email Domain Restrictions
-weight: 3085
+weight: 2905
 description: 
 layout: default
 ---

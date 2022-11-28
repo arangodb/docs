@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-range-queries
 title: Range Queries with ArangoSearch
-weight: 700
+weight: 550
 description: Match values that are above, below or between a minimum and a maximum value
 layout: default
 ---

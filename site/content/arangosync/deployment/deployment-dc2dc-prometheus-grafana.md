@@ -1,7 +1,7 @@
 ---
 fileID: deployment-dc2dc-prometheus-grafana
 title: Prometheus & Grafana (optional)
-weight: 1030
+weight: 920
 description: 
 layout: default
 ---

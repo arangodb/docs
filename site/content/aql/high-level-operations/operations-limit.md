@@ -1,7 +1,7 @@
 ---
 fileID: operations-limit
 title: LIMIT
-weight: 3810
+weight: 3635
 description: 
 layout: default
 ---

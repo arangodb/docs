@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-apikeys
 title: Oasisctl List Apikeys
-weight: 3165
+weight: 2985
 description: 
 layout: default
 ---

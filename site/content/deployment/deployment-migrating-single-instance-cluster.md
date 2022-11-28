@@ -1,14 +1,14 @@
 ---
 fileID: deployment-migrating-single-instance-cluster
 title: Migrating from a _Single Instance_ to a _Cluster_
-weight: 1545
+weight: 1370
 description: 
 layout: default
 ---
 {{% hints/info %}}
 Before migrating from a _Single Instance_ to a Cluster,
 please read about
-[**Single Instance vs. Cluster**](../architecture/architecture-single-instance-vs-cluster)
+[**Single Instance vs. Cluster**](../architecture/deployment-modes/architecture-single-instance-vs-cluster)
 {{% /hints/info %}}
 
 To migrate from a _Single Instance_ to a _Cluster_ you will need

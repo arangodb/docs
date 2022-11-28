@@ -1,7 +1,7 @@
 ---
 fileID: execution-and-performance-query-cache
 title: The AQL query results cache
-weight: 4090
+weight: 3910
 description: 
 layout: default
 ---

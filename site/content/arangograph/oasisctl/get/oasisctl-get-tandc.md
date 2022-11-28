@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-tandc
 title: Oasisctl Get Tandc
-weight: 3150
+weight: 2970
 description: 
 layout: default
 ---

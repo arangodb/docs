@@ -1,7 +1,7 @@
 ---
 fileID: troubleshooting-emergency-console
 title: Emergency Console
-weight: 1740
+weight: 1560
 description: 
 layout: default
 ---

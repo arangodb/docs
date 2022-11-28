@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get
 title: Oasisctl Get
-weight: 2985
+weight: 2805
 description: 
 layout: default
 ---

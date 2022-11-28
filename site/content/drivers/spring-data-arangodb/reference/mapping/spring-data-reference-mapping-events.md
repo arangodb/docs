@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-mapping-events
 title: Events
-weight: 4315
+weight: 4135
 description: 
 layout: default
 ---

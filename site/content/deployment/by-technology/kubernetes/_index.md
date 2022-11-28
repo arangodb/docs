@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes
 title: ArangoDB Kubernetes Operator
-weight: 1425
+weight: 1250
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-role
 title: Oasisctl Delete Role
-weight: 2955
+weight: 2775
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: appendix-java-script-modules-crypto
 title: Crypto Module
-weight: 12150
+weight: 11970
 description: 
 layout: default
 ---

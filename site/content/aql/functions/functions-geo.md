@@ -1,7 +1,7 @@
 ---
 fileID: functions-geo
 title: Geo functions
-weight: 3895
+weight: 3720
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-wait-deployment
 title: Oasisctl Wait Deployment
-weight: 3700
+weight: 3520
 description: 
 layout: default
 ---

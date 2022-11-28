@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-backup-policy-resource
 title: ArangoBackupPolicy Custom Resource
-weight: 1450
+weight: 1275
 description: 
 layout: default
 ---

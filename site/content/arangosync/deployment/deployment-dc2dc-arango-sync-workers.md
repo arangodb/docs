@@ -1,7 +1,7 @@
 ---
 fileID: deployment-dc2dc-arango-sync-workers
 title: ArangoSync Workers
-weight: 1025
+weight: 915
 description: 
 layout: default
 ---

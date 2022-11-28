@@ -1,7 +1,7 @@
 ---
 fileID: administration-managing-users-in-arangosh
 title: Managing Users in the ArangoDB Shell
-weight: 1650
+weight: 1475
 description: 
 layout: default
 ---

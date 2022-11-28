@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-cpusizes
 title: Oasisctl List Cpusizes
-weight: 3220
+weight: 3040
 description: 
 layout: default
 ---

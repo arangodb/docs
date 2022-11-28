@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-mapping-reference
 title: Reference
-weight: 4295
+weight: 4115
 description: 
 layout: default
 ---

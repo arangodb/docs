@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-revoke-metrics
 title: Oasisctl Revoke Metrics
-weight: 3485
+weight: 3305
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: smartjoins
 title: SmartJoins
-weight: 1265
+weight: 1155
 description: 
 layout: default
 ---

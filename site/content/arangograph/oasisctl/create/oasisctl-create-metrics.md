@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-metrics
 title: Oasisctl Create Metrics
-weight: 2795
+weight: 2615
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangodump-limitations
 title: _arangodump_ Limitations
-weight: 480
+weight: 330
 description: 
 layout: default
 ---

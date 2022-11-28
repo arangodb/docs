@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-views
 title: arangosearch Views Reference
-weight: 770
+weight: 620
 description: 
 layout: default
 ---
@@ -256,9 +256,7 @@ is used by these writers (in terms of "writers pool") one can use
 
   Maximum memory byte size per writer (segment) before a writer (segment) flush is
   triggered. `0` value turns off this limit for any writer (buffer) and data will
-  be flushed periodically based on the
-  [value defined for the flush thread](../../programs-tools/arangodb-server/options/programs-arangod-server#data-source-flush-synchronization)
-  (ArangoDB server startup option). `0` value should be used carefully due to high
+  be flushed periodically. `0` value should be used carefully due to high
   potential memory consumption.
 
 - **consolidationPolicy** (_optional_; type: `object`; default: `{}`)

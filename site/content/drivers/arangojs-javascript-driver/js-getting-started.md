@@ -1,7 +1,7 @@
 ---
 fileID: js-getting-started
 title: ArangoDB JavaScript Driver - Getting Started
-weight: 4160
+weight: 3980
 description: 
 layout: default
 ---

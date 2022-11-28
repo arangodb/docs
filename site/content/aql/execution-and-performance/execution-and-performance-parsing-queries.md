@@ -1,7 +1,7 @@
 ---
 fileID: execution-and-performance-parsing-queries
 title: Parsing queries
-weight: 4070
+weight: 3890
 description: 
 layout: default
 ---

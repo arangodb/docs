@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-metrics
 title: Oasisctl List Metrics
-weight: 3280
+weight: 3100
 description: 
 layout: default
 ---

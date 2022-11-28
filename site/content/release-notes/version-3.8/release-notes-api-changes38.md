@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-api-changes38
 title: API Changes in ArangoDB 3.8
-weight: 11830
+weight: 11650
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-private-endpoint
 title: Oasisctl Update Private Endpoint
-weight: 3665
+weight: 3485
 description: 
 layout: default
 ---

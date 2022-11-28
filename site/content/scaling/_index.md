@@ -1,7 +1,7 @@
 ---
 fileID: scaling
 title: Scaling ArangoDB
-weight: 1620
+weight: 1445
 description: 
 layout: default
 ---
@@ -28,6 +28,6 @@ in this way.
 Several options are available to scale ArangoDB, each of them has its own pros
 and cons:
 
-- [Active Failover](../architecture/arangodb-deployment-modes/active-failover/)
-- [Cluster](../architecture/arangodb-deployment-modes/cluster/)
+- [Active Failover](../architecture/deployment-modes/active-failover/)
+- [Cluster](../architecture/deployment-modes/cluster/)
 - [Multiple Datacenters](../arangosync/deployment/)

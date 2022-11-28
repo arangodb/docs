@@ -1,7 +1,7 @@
 ---
 fileID: common-errors
 title: Common Errors
-weight: 4095
+weight: 3915
 description: 
 layout: default
 ---
@@ -405,7 +405,7 @@ FOR name IN Names
 You can set the startup option `--query.allow-collections-in-expressions` to
 *false* to disallow collection names in arbitrary places in AQL expressions
 to prevent such mistakes. Also see
-[ArangoDB Server Query Options](../programs-tools/arangodb-server/options/programs-arangod-query#allowing-the-usage-of-collection-names-in-aql-expressions)
+[ArangoDB Server Query Options](../programs-tools/arangodb-server/programs-arangod-options#--queryallow-collections-in-expressions)
 
 {{% comment %}}
 Rename to Error Sources?

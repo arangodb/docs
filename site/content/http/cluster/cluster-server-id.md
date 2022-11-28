@@ -1,11 +1,10 @@
 ---
 fileID: cluster-server-id
-title: 
-weight: 2515
+title: HTTP interface for server IDs
+weight: 2335
 description: 
 layout: default
 ---
-<!-- js/actions/api-system.js -->
 ```http-spec
 openapi: 3.0.2
 paths:
@@ -22,4 +21,5 @@ paths:
       tags:
       - Administration
 ```
+
 

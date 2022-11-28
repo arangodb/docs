@@ -1,7 +1,7 @@
 ---
 fileID: foxx-management
 title: Foxx Service Management
-weight: 2475
+weight: 2295
 description: 
 layout: default
 ---

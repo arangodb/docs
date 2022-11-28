@@ -1,7 +1,7 @@
 ---
 fileID: indexing-index-utilization
 title: Index Utilization
-weight: 640
+weight: 490
 description: 
 layout: default
 ---

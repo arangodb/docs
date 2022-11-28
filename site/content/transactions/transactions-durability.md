@@ -1,7 +1,7 @@
 ---
 fileID: transactions-durability
 title: Durability
-weight: 795
+weight: 645
 description: 
 layout: default
 ---

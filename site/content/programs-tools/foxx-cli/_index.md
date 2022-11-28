@@ -1,7 +1,7 @@
 ---
 fileID: programs-foxx-cli
 title: Foxx CLI
-weight: 595
+weight: 445
 description: 
 layout: default
 ---

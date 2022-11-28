@@ -1,7 +1,7 @@
 ---
 fileID: data-science-pyg-adapter
 title: PyTorch Geometric (PyG) Adapter
-weight: 920
+weight: 770
 description: >- 
   The ArangoDB-PyG Adapter exports Graphs from ArangoDB into PyTorch Geometric (PyG), a PyTorch-based Graph Neural Network library, and vice-versa
 layout: default

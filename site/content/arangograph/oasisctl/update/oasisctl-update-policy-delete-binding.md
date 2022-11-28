@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-policy-delete-binding
 title: Oasisctl Update Policy Delete Binding
-weight: 3655
+weight: 3475
 description: 
 layout: default
 ---

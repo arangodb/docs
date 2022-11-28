@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangosh-examples
 title: _arangosh_ Examples
-weight: 425
+weight: 275
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-example-installations
 title: Oasisctl List Example Installations
-weight: 3250
+weight: 3070
 description: 
 layout: default
 ---

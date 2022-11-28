@@ -1,7 +1,7 @@
 ---
 fileID: appendix-references-cursor-object
 title: Sequential Access and Cursors
-weight: 12120
+weight: 11940
 description: 
 layout: default
 ---

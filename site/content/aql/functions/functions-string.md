@@ -1,7 +1,7 @@
 ---
 fileID: functions-string
 title: String functions
-weight: 3910
+weight: 3735
 description: 
 layout: default
 ---

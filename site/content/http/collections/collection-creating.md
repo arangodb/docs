@@ -1,7 +1,7 @@
 ---
 fileID: collection-creating
 title: Creating and Deleting Collections
-weight: 2225
+weight: 2045
 description: 
 layout: default
 ---
@@ -29,12 +29,12 @@ paths:
                   type: boolean
                   description: |+
                     If `true` then the data is synchronized to disk before returning from a
-                    document create, update, replace or removal operation. (default false)
+                    document create, update, replace or removal operation. (Default `false`)
                 isSystem:
                   type: boolean
                   description: |+
-                    If `true`, create a  system collection. In this case `collection-name`
-                    should start with an underscore. End users should normally create non-system
+                    If `true`, create a system collection. In this case, the `collection-name`
+                    should start with an underscore. End-users should normally create non-system
                     collections only. API implementors may be required to create system
                     collections in very special occasions, but normally a regular collection will do.
                     (The default is `false`)
@@ -43,7 +43,13 @@ paths:
                   description: |+
                     Optional object that specifies the collection level schema for
                     documents. The attribute keys `rule`, `level` and `message` must follow the
-                    rules documented in [Document Schema Validation](https//www.arangodb.com/docs/stable/document-schema-validation.html)
+                    rules documented in [Document Schema Validation](https//www.arangodb.com/docs/stable/documents-schema-validation.html)
+                computedValues:
+                  type: array
+                  schema:
+                    $ref: '#/components/schemas/post_api_collection_computed_field'
+                  description: |+
+                    An optional list of objects, each representing a computed value.
                 keyOptions:
                   type: object
                   schema:
@@ -106,24 +112,13 @@ paths:
                     in the cluster a shard will refuse to write. Writes to shards with enough
                     up-to-date copies will succeed at the same time however. The value of
                     `writeConcern` cannot be larger than `replicationFactor`. _(cluster only)_
-                distributeShardsLike:
-                  type: string
-                  description: |+
-                    (The default is `""`) in an Enterprise Edition cluster, this attribute binds
-                    the specifics of sharding for the newly created collection to follow that of a
-                    specified existing collection.
-                    **Note** Using this parameter has consequences for the prototype
-                    collection. It can no longer be dropped, before the sharding-imitating
-                    collections are dropped. Equally, backups and restores of imitating
-                    collections alone will generate warnings (which can be overridden)
-                    about missing sharding prototype.
                 shardingStrategy:
                   type: string
                   description: |+
                     This attribute specifies the name of the sharding strategy to use for
                     the collection. Since ArangoDB 3.4 there are different sharding strategies
                     to select from when creating a new collection. The selected `shardingStrategy`
-                    value will remain fixed for the collection and cannot be changed afterwards.
+                    value remains fixed for the collection and cannot be changed afterwards.
                     This is important to make the collection keep its sharding settings and
                     always find documents already distributed to shards using the same
                     initial sharding algorithm.
@@ -138,11 +133,49 @@ paths:
                       (excluding smart edge collections)
                     - `enterprise-hash-smart-edge` default sharding used for new
                       smart edge collections starting from version 3.4
-                    If no sharding strategy is specified, the default will be `hash` for
-                    all collections, and `enterprise-hash-smart-edge` for all smart edge
-                    collections (requires the *Enterprise Edition* of ArangoDB).
+                    - `enterprise-hex-smart-vertex` sharding used for vertex collections of
+                      EnterpriseGraphs
+                    If no sharding strategy is specified, the default is `hash` for
+                    all normal collections, `enterprise-hash-smart-edge` for all smart edge
+                    collections, and `enterprise-hex-smart-vertex` for EnterpriseGraph
+                    vertex collections (the latter two require the *Enterprise Edition* of ArangoDB).
                     Manually overriding the sharding strategy does not yet provide a
                     benefit, but it may later in case other sharding strategies are added.
+                distributeShardsLike:
+                  type: string
+                  description: |+
+                    The name of another collection. If this property is set in a cluster, the
+                    collection copies the `replicationFactor`, `numberOfShards` and `shardingStrategy`
+                    properties from the specified collection (referred to as the _prototype collection_)
+                    and distributes the shards of this collection in the same way as the shards of
+                    the other collection. In an Enterprise Edition cluster, this data co-location is
+                    utilized to optimize queries.
+                    You need to use the same number of `shardKeys` as the prototype collection, but
+                    you can use different attributes.
+                    The default is `""`.
+                    **Note** Using this parameter has consequences for the prototype
+                    collection. It can no longer be dropped, before the sharding-imitating
+                    collections are dropped. Equally, backups and restores of imitating
+                    collections alone generate warnings (which can be overridden)
+                    about a missing sharding prototype.
+                isSmart:
+                  type: boolean
+                  description: |+
+                    Whether the collection is for a SmartGraph or EnterpriseGraph
+                    (Enterprise Edition only). This is an internal property.
+                isDisjoint:
+                  type: boolean
+                  description: |+
+                    Whether the collection is for a Disjoint SmartGraph
+                    (Enterprise Edition only). This is an internal property.
+                smartGraphAttribute:
+                  type: string
+                  description: |+
+                    The attribute that is used for sharding vertices with the same value of
+                    this attribute are placed in the same shard. All vertices are required to
+                    have this attribute set and it has to be a string. Edges derive the
+                    attribute from their connected vertices.
+                    This feature can only be used in the *Enterprise Edition*.
                 smartJoinAttribute:
                   type: string
                   description: |+
@@ -166,8 +199,8 @@ paths:
           type: boolean
         required: false
         description: |+
-          Default is `true` which means the server will only report success back to the
-          client if all replicas have created the collection. Set to `false` if you want
+          The default is `true`, which means the server only reports success back to the
+          client when all replicas have created the collection. Set it to `false` if you want
           faster server responses and don't care about full replication.
         in: query
       - name: enforceReplicationFactor
@@ -175,8 +208,8 @@ paths:
           type: boolean
         required: false
         description: |+
-          Default is `true` which means the server will check if there are enough replicas
-          available at creation time and bail out otherwise. Set to `false` to disable
+          The default is `true`, which means the server checks if there are enough replicas
+          available at creation time and bail out otherwise. Set it to `false` to disable
           this extra check.
         in: query
       responses:

@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-37
 title: Version 3.7
-weight: 11835
+weight: 11655
 description: 
 layout: default
 ---

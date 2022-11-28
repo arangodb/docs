@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-organization-email
 title: Oasisctl Get Organization Email
-weight: 3075
+weight: 2895
 description: 
 layout: default
 ---

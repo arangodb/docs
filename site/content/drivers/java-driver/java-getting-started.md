@@ -1,7 +1,7 @@
 ---
 fileID: java-getting-started
 title: ArangoDB Java Driver - Getting Started
-weight: 4110
+weight: 3930
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-auditlog-archive-events
 title: Oasisctl Delete Auditlog Archive Events
-weight: 2865
+weight: 2685
 description: 
 layout: default
 ---

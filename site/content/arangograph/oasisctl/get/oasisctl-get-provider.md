@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-provider
 title: Oasisctl Get Provider
-weight: 3120
+weight: 2940
 description: 
 layout: default
 ---

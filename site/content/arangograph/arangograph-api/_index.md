@@ -1,7 +1,7 @@
 ---
 fileID: api
 title: The ArangoGraph Insights Platform API
-weight: 2610
+weight: 2430
 description: 
 layout: default
 ---

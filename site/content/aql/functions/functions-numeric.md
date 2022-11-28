@@ -1,7 +1,7 @@
 ---
 fileID: functions-numeric
 title: Numeric functions
-weight: 3905
+weight: 3730
 description: 
 layout: default
 ---

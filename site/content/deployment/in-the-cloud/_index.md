@@ -1,7 +1,7 @@
 ---
 fileID: deployment-cloud
 title: ArangoDB Deploying Options in the _Cloud_
-weight: 1525
+weight: 1350
 description: 
 layout: default
 ---

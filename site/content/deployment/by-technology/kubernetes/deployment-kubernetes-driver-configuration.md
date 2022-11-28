@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-driver-configuration
 title: Configuring your driver for ArangoDB access
-weight: 1455
+weight: 1280
 description: 
 layout: default
 ---

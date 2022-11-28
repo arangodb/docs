@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-revoke
 title: Oasisctl Revoke
-weight: 3470
+weight: 3290
 description: 
 layout: default
 ---

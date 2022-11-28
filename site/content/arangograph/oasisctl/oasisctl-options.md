@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-options
 title: Oasisctl
-weight: 2630
+weight: 2450
 description: 
 layout: default
 ---

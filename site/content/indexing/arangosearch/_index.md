@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch
 title: Information Retrieval with ArangoSearch
-weight: 685
+weight: 535
 description: ArangoSearch is ArangoDB's built-in search engine for full-text, complex data structures and more
 layout: default
 ---

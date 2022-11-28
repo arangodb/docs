@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-26
 title: Version 2.6
-weight: 12020
+weight: 11840
 description: 
 layout: default
 ---

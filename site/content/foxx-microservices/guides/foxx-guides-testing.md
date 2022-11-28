@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-testing
 title: Testing Foxx services
-weight: 1095
+weight: 985
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: transactions-locking-and-isolation
 title: Locking and Isolation
-weight: 790
+weight: 640
 description: 
 layout: default
 ---

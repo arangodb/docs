@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-tls
 title: Secure connections (TLS)
-weight: 1515
+weight: 1340
 description: 
 layout: default
 ---

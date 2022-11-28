@@ -1,7 +1,7 @@
 ---
 fileID: aql-query-cursor-query-results
 title: Retrieving query results
-weight: 2300
+weight: 2120
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: collection-getting
 title: Getting Information about a Collection
-weight: 2230
+weight: 2050
 description: 
 layout: default
 ---
@@ -457,12 +457,10 @@ openapi: 3.0.2
 paths:
   /_api/collection/{collection-name}/revision:
     get:
-      description: |2+
-        In addition to the above, the result will also contain the
-        collection's revision id. The revision id is a server-generated
-        string that clients can use to check whether data in a collection
-        has changed since the last revision check.
-        - *revision*: The collection revision id as a string.
+      description: "\nThe response will contain the collection's latest used revision\
+        \ id. \nThe revision id is a server-generated string that clients can use\
+        \ to \ncheck whether data in a collection has changed since the last revision\
+        \ check.\n\n- *revision*: The collection revision id as a string.\n\n"
       operationId: ' handleCommandGet:collectionRevision'
       parameters:
       - name: collection-name

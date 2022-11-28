@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-deployment-replication-resource
 title: ArangoDeploymentReplication Custom Resource
-weight: 1500
+weight: 1325
 description: 
 layout: default
 ---

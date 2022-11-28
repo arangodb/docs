@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-clone-deployment
 title: Oasisctl Clone Deployment
-weight: 2725
+weight: 2545
 description: 
 layout: default
 ---

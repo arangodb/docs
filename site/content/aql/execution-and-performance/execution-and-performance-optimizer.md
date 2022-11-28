@@ -1,7 +1,7 @@
 ---
 fileID: execution-and-performance-optimizer
 title: The AQL query optimizer
-weight: 4085
+weight: 3905
 description: 
 layout: default
 ---

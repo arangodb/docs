@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-metrics
 title: Oasisctl Get Metrics
-weight: 3045
+weight: 2865
 description: 
 layout: default
 ---

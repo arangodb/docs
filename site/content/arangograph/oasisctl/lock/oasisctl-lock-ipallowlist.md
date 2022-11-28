@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-lock-ipallowlist
 title: Oasisctl Lock Ipallowlist
-weight: 3370
+weight: 3190
 description: 
 layout: default
 ---

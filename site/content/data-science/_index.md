@@ -1,7 +1,7 @@
 ---
 fileID: data-science
 title: Data Science
-weight: 890
+weight: 740
 description: >- 
   ArangoDB lets you apply analytics and machine learning to graph data at scale
 layout: default

@@ -1,7 +1,7 @@
 ---
 fileID: tutorials-kubernetes-aks
 title: Start ArangoDB on Azure Kubernetes Service (AKS)
-weight: 190
+weight: 185
 description: 
 layout: default
 ---

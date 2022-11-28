@@ -73,10 +73,10 @@ See all [Enterprise Edition Features](features-enterprise-edition).
 
 You can install ArangoDB on your local machine or run it in a Docker container
 for development purposes. You can deploy it on-premises as a
-[single server](../../architecture/arangodb-deployment-modes/architecture-deployment-modes-single-instance), optionally
+[single server](../../architecture/deployment-modes/single-instance/), optionally
 as a resilient pair with asynchronous replication and automatic failover
-([Active Failover](../../architecture/arangodb-deployment-modes/active-failover/architecture-deployment-modes-active-failover-architecture)),
-or as a [cluster](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-architecture)
+([Active Failover](../../architecture/deployment-modes/active-failover/)),
+or as a [cluster](../../architecture/deployment-modes/cluster/)
 comprised of multiple nodes with synchronous replication and automatic failover
 for high availability and resilience. For the highest level of data safety,
 you can additionally set up off-site replication for your entire cluster

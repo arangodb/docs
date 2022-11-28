@@ -1,11 +1,11 @@
 ---
 fileID: upgrading-manually-cluster
 title: Manually Upgrading a _Cluster_ Deployment
-weight: 1605
+weight: 1430
 description: 
 layout: default
 ---
-This page will guide you through the process of a manual upgrade of a [_cluster_](../../architecture/arangodb-deployment-modes/cluster/)
+This page will guide you through the process of a manual upgrade of a [_cluster_](../../architecture/deployment-modes/cluster/)
 setup. The different nodes in a _cluster_ can be upgraded one at a time without
 incurring downtime of the _cluster_ and very short downtimes of the single nodes.
 
@@ -18,7 +18,7 @@ for detailed information.
 
 The ArangoDB installation packages (e.g. for Debian or Ubuntu) set up a
 convenient standalone instance of `arangod`. During installation, this instance's
-database will be upgraded (see [`--database.auto-upgrade`](../../programs-tools/arangodb-server/options/programs-arangod-database#auto-upgrade))
+database will be upgraded (see [`--database.auto-upgrade`](../../programs-tools/arangodb-server/programs-arangod-options#--databaseauto-upgrade))
 and the service will be (re)started.
 
 You have to make sure that your _cluster_ deployment is independent of this
@@ -29,7 +29,7 @@ modified the init script or systemd unit file for the standalone instance in way
 that it would start or stop your _cluster_ instance instead.
 
 You can read about the details on how to deploy your _cluster_ independently of the
-standalone instance in the [_cluster_ deployment preliminary](../../deployment/by-arangodb-deployment-modes/cluster/deployment-cluster-preliminary-information).
+standalone instance in the [_cluster_ deployment preliminary](../../architecture/deployment-modes/cluster/deployment/).
 
 In the following, we assume that you don't use the standalone instance from the
 package but only a manually started _cluster_ instance, and we will move the

@@ -1,7 +1,7 @@
 ---
 fileID: security-change-root-password
 title: How-to Reset Root Password
-weight: 1690
+weight: 1510
 description: 
 layout: default
 ---

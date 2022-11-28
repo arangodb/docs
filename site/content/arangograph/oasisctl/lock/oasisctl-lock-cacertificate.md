@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-lock-cacertificate
 title: Oasisctl Lock Cacertificate
-weight: 3360
+weight: 3180
 description: 
 layout: default
 ---

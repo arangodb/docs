@@ -1,7 +1,7 @@
 ---
 fileID: administration-and-monitoring
 title: HTTP Interface for Administration and Monitoring
-weight: 2455
+weight: 2275
 description: 
 layout: default
 ---
@@ -253,10 +253,11 @@ paths:
         in: query
       responses:
         '200':
-          description: " \nis returned when everything went well.\n\n"
+          description: |2+
+            is returned when everything went well.
         '400':
-          description: " \nthe parameter DBserver was not given or is not the ID of\
-            \ a DB-Server\n\n"
+          description: |2+
+            the parameter DBserver was not given or is not the ID of a DB-Server
       tags:
       - Cluster
 ```
@@ -303,24 +304,24 @@ openapi: 3.0.2
 paths:
   /_admin/cluster/rebalance:
     get:
-      description: "\nCalculates the current cluster imbalance and returns the result.\
+      description: "\nComputes the current cluster imbalance and returns the result.\
         \ \nIt additionally shows the amount of ongoing and pending move shard operations.\n\
         \n"
       responses:
         '200':
           description: |2+
-            This API will return HTTP 200.
+            This API returns HTTP 200.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  todoMoveShards:
+                  pendingMoveShards:
                     type: number
                     description: |+
-                      Number of planned move shard operations.
+                      The number of pending move shard operations.
                 required:
-                - todoMoveShards
+                - pendingMoveShards
       tags:
       - Administration
 ```
@@ -339,52 +340,17 @@ paths:
             schema:
               type: object
               properties:
-                version:
-                  type: number
-                  description: |+
-                    Must be set to `1`.
-                maximumNumberOfMoves:
-                  type: number
-                  description: |+
-                    Maximum number of moves to be computed. (Default `1000`)
-                leaderChanges:
-                  type: boolean
-                  description: |+
-                    Allow leader changes without moving data. (Default `true`)
-                moveLeaders:
-                  type: boolean
-                  description: |+
-                    Allow moving leaders. (Default `false`)
-                moveFollowers:
-                  type: boolean
-                  description: |+
-                    Allow moving followers. (Default `false`)
-                piFactor:
-                  type: number
-                  description: |+
-                    (Default `256e6`)
-                databasesExcluded:
-                  type: array
-                  description: |+
-                    List of database names that are excluded from the analysis. (Default [])
+                ? ''
+                : type: object
+                  schema:
+                    $ref: '#/components/schemas/rebalance_compute'
+                  description: |2+
               required:
-              - version
+              - ''
       responses:
         '200':
           description: |2+
-            This API will return HTTP 200.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  leader:
-                    type: object
-                    schema:
-                      $ref: '#/components/schemas/leader_imbalance_struct'
-                    description: |2+
-                required:
-                - leader
+            This API returns HTTP 200.
       tags:
       - Administration
 ```
@@ -396,8 +362,9 @@ paths:
   /_admin/cluster/rebalance/execute:
     post:
       description: |2+
-        Execute the given set of move shard operations. Such a set can be calculated using
-        other rebalance apis.
+        Execute the given set of move shard operations. You can use the
+        `POST /_admin/cluster/rebalance` endpoint to calculate these operations to improve
+        the balance of shards, leader shards, and follower shards.
       requestBody:
         content:
           application/json:
@@ -406,21 +373,21 @@ paths:
               properties:
                 version:
                   type: number
-                  description: |
+                  description: |+
                     Must be set to `1`.
                 moves:
                   type: array
                   schema:
                     $ref: '#/components/schemas/move_shard_operation'
                   description: |+
-                    Set of move shard operations to be executed.
+                    A set of move shard operations to execute.
               required:
               - version
               - moves
       responses:
         '200':
-          description: |2
-            This API will return HTTP 200 if no operations were provided.
+          description: |2+
+            This API returns HTTP 200 if no operations are provided.
       tags:
       - Administration
 ```
@@ -432,59 +399,25 @@ paths:
   /_admin/cluster/rebalance:
     put:
       description: |2+
-        Compute a set of move shard operations to improve balance. These moves are then immediately executed.
+        Compute a set of move shard operations to improve balance.
+        These moves are then immediately executed.
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                version:
-                  type: number
-                  description: |+
-                    Must be set to `1`.
-                maximumNumberOfMoves:
-                  type: number
-                  description: |+
-                    Maximum number of moves to be computed. (Default `1000`)
-                leaderChanges:
-                  type: boolean
-                  description: |+
-                    Allow leader changes without moving data. (Default `true`)
-                moveLeaders:
-                  type: boolean
-                  description: |+
-                    Allow moving leaders. (Default `false`)
-                moveFollowers:
-                  type: boolean
-                  description: |+
-                    Allow moving followers. (Default `false`)
-                piFactor:
-                  type: number
-                  description: |+
-                    (Default `256e6`)
-                databasesExcluded:
-                  type: array
-                  description: |+
-                    List of database names that are excluded from the analysis. (Default [])
+                ? ''
+                : type: object
+                  schema:
+                    $ref: '#/components/schemas/rebalance_compute'
+                  description: |2+
               required:
-              - version
+              - ''
       responses:
         '200':
           description: |2+
-            This API will return HTTP 200.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  shards:
-                    type: object
-                    schema:
-                      $ref: '#/components/schemas/shard_imbalance_struct'
-                    description: ''
-                required:
-                - shards
+            This API returns HTTP 200.
       tags:
       - Administration
 ```

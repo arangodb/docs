@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-38
 title: Version 3.8
-weight: 11810
+weight: 11630
 description: 
 layout: default
 ---

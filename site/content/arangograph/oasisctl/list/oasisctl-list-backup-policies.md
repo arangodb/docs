@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-list-backup-policies
 title: Oasisctl List Backup Policies
-weight: 3205
+weight: 3025
 description: 
 layout: default
 ---

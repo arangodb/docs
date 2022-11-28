@@ -1,7 +1,7 @@
 ---
 fileID: data-modeling
 title: Modeling Data for ArangoDB
-weight: 605
+weight: 455
 description: Plan for your data needs and map your conceptual model to the right features, making the most of ArangoDB
 layout: default
 ---

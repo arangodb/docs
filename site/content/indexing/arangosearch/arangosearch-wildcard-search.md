@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-wildcard-search
 title: Wildcard Search with ArangoSearch
-weight: 715
+weight: 565
 description: Search for strings with placeholders that stand for one or many arbitrary characters
 layout: default
 ---

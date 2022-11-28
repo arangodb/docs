@@ -1,7 +1,7 @@
 ---
 fileID: general
 title: HTTP Request Handling in ArangoDB
-weight: 2195
+weight: 2015
 description: 
 layout: default
 ---
@@ -111,7 +111,7 @@ response to the client instantly and thus finish this HTTP request.
 The server will execute the tasks from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
 If the server queue is full (i.e. contains as many tasks as specified by the
-option ["--server.maximal-queue-size"](../programs-tools/arangodb-server/options/#arangodb-server-options)),
+option ["--server.maximal-queue-size"](../programs-tools/arangodb-server/programs-arangod-options#arangodb-server-options)),
 then the request will be rejected instantly with an *HTTP 503* (Service
 unavailable) response.
 
@@ -145,7 +145,7 @@ in client requests. ArangoDB supports authentication via HTTP Basic or JWT.
 Authentication is turned on by default for all internal database APIs but
 turned off for custom Foxx apps. To toggle authentication for incoming
 requests to the internal database APIs, use the option
-[--server.authentication](../programs-tools/arangodb-server/options/programs-arangod-server#enabledisable-authentication).
+[--server.authentication](../programs-tools/arangodb-server/programs-arangod-options#--serverauthentication).
 This option is turned on by default so authentication is required for the
 database APIs.
 
@@ -156,7 +156,7 @@ requests (see [Cross Origin Resource Sharing requests](#cross-origin-resource-sh
 The response to an HTTP OPTIONS request will be generic and not expose any private data.
 
 There is an additional option to control authentication for custom Foxx apps. The option
-[--server.authentication-system-only](../programs-tools/arangodb-server/options/programs-arangod-server#enabledisable-authentication-for-system-api-requests-only)
+[--server.authentication-system-only](../programs-tools/arangodb-server/programs-arangod-options#--serverauthentication-system-only)
 controls whether authentication is required only for requests to the internal
 database APIs and the admin interface. It is turned on by default, meaning that
 other APIs (this includes custom Foxx apps) do not require authentication.

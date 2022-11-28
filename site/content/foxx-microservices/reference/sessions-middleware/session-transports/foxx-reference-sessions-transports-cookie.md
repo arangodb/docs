@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-sessions-transports-cookie
 title: Cookie Session Transport
-weight: 1215
+weight: 1105
 description: 
 layout: default
 ---

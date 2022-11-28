@@ -1,7 +1,7 @@
 ---
 fileID: go-connection-management
 title: ArangoDB GO Driver - Connection Management
-weight: 4195
+weight: 4015
 description: 
 layout: default
 ---

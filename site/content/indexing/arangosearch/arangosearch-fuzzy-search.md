@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-fuzzy-search
 title: Fuzzy Search with ArangoSearch
-weight: 735
+weight: 585
 description: Loosely match strings to find partial congruences and to compensate for typing errors
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features28
 title: Features and Improvements in ArangoDB 2.8
-weight: 11995
+weight: 11815
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-enable-scheduled-root-password-rotation
 title: Oasisctl Enable Scheduled-root-password-rotation
-weight: 2975
+weight: 2795
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-routing
 title: Working with routers
-weight: 1075
+weight: 965
 description: 
 layout: default
 ---

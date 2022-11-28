@@ -1,7 +1,7 @@
 ---
 fileID: graphs-satellite-graphs-management
 title: SatelliteGraph Management
-weight: 830
+weight: 680
 description: 
 layout: default
 ---

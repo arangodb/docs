@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-apikey
 title: Oasisctl Create Apikey
-weight: 2745
+weight: 2565
 description: 
 layout: default
 ---

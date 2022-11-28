@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-metrics
 title: Oasisctl Delete Metrics
-weight: 2920
+weight: 2740
 description: 
 layout: default
 ---

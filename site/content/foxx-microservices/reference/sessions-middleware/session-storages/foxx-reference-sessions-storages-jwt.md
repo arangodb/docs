@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-sessions-storages-jwt
 title: JWT Session Storage
-weight: 1205
+weight: 1095
 description: 
 layout: default
 ---

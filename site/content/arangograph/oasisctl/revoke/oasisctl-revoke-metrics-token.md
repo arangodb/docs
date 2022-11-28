@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-revoke-metrics-token
 title: Oasisctl Revoke Metrics Token
-weight: 3490
+weight: 3310
 description: 
 layout: default
 ---

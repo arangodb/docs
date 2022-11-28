@@ -1,7 +1,7 @@
 ---
 fileID: data-modeling-operational-factors
 title: Data Modeling and Operational Factors
-weight: 610
+weight: 460
 description: 
 layout: default
 ---
@@ -219,7 +219,7 @@ cluster machines. This may be good enough for you, but depending on the kind
 of AQL queries and other operations an application performs, it may leave
 a lot of performance on the table.
 
-See [_Cluster Sharding_](../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-sharding) 
+See [_Cluster Sharding_](../architecture/architecture-deployment-modes-cluster-sharding) 
 for more information.
 
 ### SmartGraphs

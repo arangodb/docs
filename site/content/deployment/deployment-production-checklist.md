@@ -1,7 +1,7 @@
 ---
 fileID: deployment-production-checklist
 title: ArangoDB Production Checklist
-weight: 1540
+weight: 1365
 description: 
 layout: default
 ---
@@ -32,7 +32,7 @@ have been performed on your production system before you go live.
     machine, adjust the [`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](../programs-tools/arangodb-server/programs-arangod-env-vars)
     environment variable accordingly.
   - For versions prior to 3.8, make sure to change the
-    [`--query.memory-limit`](../programs-tools/arangodb-server/options/programs-arangod-query#limiting-memory-usage-of-aql-queries)
+    [`--query.memory-limit`](../programs-tools/arangodb-server/programs-arangod-options#--querymemory-limit)
     query option according to the node size and workload.
   - Disable swap space to avoid slowdown which can result in servers being incorrectly 
     detected as failed.
@@ -59,7 +59,7 @@ have been performed on your production system before you go live.
   _minimal_replication_factor_ of your collections
   are set to a value equal or higher than 2, otherwise you run the risk of
   losing data in case of a node failure. See
-  [cluster startup options](../programs-tools/arangodb-server/options/programs-arangod-cluster).
+  [cluster startup options](../programs-tools/arangodb-server/programs-arangod-options#cluster).
 
 - *Disk Performance considerations*
   - Verify that your **storage performance** is at least 100 IOPS for each

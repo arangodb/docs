@@ -1,7 +1,7 @@
 ---
 fileID: spark-connector-getting-started
 title: ArangoDB Spark Connector - Getting Started
-weight: 4350
+weight: 4170
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: graphs
 title: Graphs in AQL
-weight: 3920
+weight: 3745
 description: 
 layout: default
 ---

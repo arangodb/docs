@@ -1,7 +1,7 @@
 ---
 fileID: index
 title: ArangoGraph Insights Platform
-weight: 2550
+weight: 2370
 description: 
 layout: default
 ---

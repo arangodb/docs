@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-auditlog-detach
 title: Oasisctl Auditlog Detach
-weight: 2685
+weight: 2505
 description: 
 layout: default
 ---

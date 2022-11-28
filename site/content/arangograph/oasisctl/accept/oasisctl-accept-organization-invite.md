@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-accept-organization-invite
 title: Oasisctl Accept Organization Invite
-weight: 2645
+weight: 2465
 description: 
 layout: default
 ---

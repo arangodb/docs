@@ -1,7 +1,7 @@
 ---
 fileID: indexes-multi-dim
 title: Working with multi-dimensional Indexes
-weight: 2375
+weight: 2195
 description: 
 layout: default
 ---
@@ -33,6 +33,13 @@ paths:
                   type: string
                   description: |+
                     must be equal to *"zkd"*.
+                name:
+                  type: string
+                  description: |+
+                    An easy-to-remember name for the index to look it up or refer to it in index hints.
+                    Index names are subject to the same character restrictions as collection names.
+                    If omitted, a name is auto-generated so that it is unique with respect to the
+                    collection, e.g. `idx_832910498`.
                 fields:
                   type: array
                   description: |+

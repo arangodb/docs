@@ -1,7 +1,7 @@
 ---
 fileID: edge-address-and-etag
 title: Address and Etag of an Edge
-weight: 2260
+weight: 2080
 description: 
 layout: default
 ---

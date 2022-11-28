@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-generate-docs
 title: Oasisctl Generate-docs
-weight: 2980
+weight: 2800
 description: 
 layout: default
 ---

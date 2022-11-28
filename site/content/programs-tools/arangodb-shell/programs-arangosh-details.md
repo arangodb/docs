@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangosh-details
 title: _arangosh_ Details
-weight: 430
+weight: 280
 description: 
 layout: default
 ---

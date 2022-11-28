@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-server
 title: Oasisctl Get Server
-weight: 3140
+weight: 2960
 description: 
 layout: default
 ---

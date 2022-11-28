@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-new-features38
 title: Features and Improvements in ArangoDB 3.8
-weight: 11815
+weight: 11635
 description: 
 layout: default
 ---
@@ -246,7 +246,11 @@ value for the option will change to *false* in 3.9. The option will also be
 deprecated in 3.9 and removed in future versions. From then on, unintended
 usage of collection names will always be disallowed.
 
-Also see [ArangoDB Server Query Options](../../programs-tools/arangodb-server/options/programs-arangod-query#allowing-the-usage-of-collection-names-in-aql-expressions)
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+Also see [ArangoDB Server Query Options](../../programs-tools/arangodb-server/programs-arangod-options#--queryallow-collections-in-expressions)
+{%- else -%}
+Also see [ArangoDB Server Query Options](programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
+{% endif %}
 
 ## ArangoSearch
 
@@ -318,7 +322,11 @@ threads for committing and consolidation separately:
 
 They supersede the options `--arangosearch.threads` and
 `--arangosearch.threads-limit`. See
-[ArangoDB Server ArangoSearch Options](../../programs-tools/arangodb-server/options/programs-arangod-arangosearch).
+{% assign ver = "3.10" | version: ">=" %}{% if ver %}
+[ArangoDB Server ArangoSearch Options](../../programs-tools/arangodb-server/programs-arangod-options#arangosearch).
+{%- else -%}
+[ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
+{% endif %}
 
 This feature was also backported to v3.7.5.
 
@@ -1076,7 +1084,7 @@ concurrently as there are worker threads. The default is chosen such
 that it is sensible for most workloads, but in special situations it
 can help to adjust the value.
 
-See [ArangoDB Server _Server_ Options](../../programs-tools/arangodb-server/options/programs-arangod-server#preventing-cluster-overwhelm)
+See [ArangoDB Server _Server_ Options](../../programs-tools/arangodb-server/programs-arangod-options#--serverongoing-low-priority-multiplier)
 for details and hints for configuration.
 
 There have been further improvements, in particular to ensure that

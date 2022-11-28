@@ -1,7 +1,7 @@
 ---
 fileID: satellites
 title: SatelliteCollections
-weight: 1260
+weight: 1150
 description: 
 layout: default
 ---

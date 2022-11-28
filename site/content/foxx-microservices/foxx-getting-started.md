@@ -1,7 +1,7 @@
 ---
 fileID: foxx-getting-started
 title: Getting Started
-weight: 1065
+weight: 955
 description: 
 layout: default
 ---

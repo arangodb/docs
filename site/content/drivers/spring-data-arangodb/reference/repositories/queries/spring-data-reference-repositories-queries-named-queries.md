@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-repositories-queries-named-queries
 title: Named queries
-weight: 4275
+weight: 4095
 description: 
 layout: default
 ---

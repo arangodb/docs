@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-add-auditlog-destination
 title: Oasisctl Add Auditlog Destination
-weight: 2660
+weight: 2480
 description: 
 layout: default
 ---

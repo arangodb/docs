@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-add-auditlog
 title: Oasisctl Add Auditlog
-weight: 2655
+weight: 2475
 description: 
 layout: default
 ---

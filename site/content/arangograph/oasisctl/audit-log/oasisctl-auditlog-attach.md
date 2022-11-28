@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-auditlog-attach
 title: Oasisctl Auditlog Attach
-weight: 2680
+weight: 2500
 description: 
 layout: default
 ---

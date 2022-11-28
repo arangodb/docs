@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-metrics-token
 title: Oasisctl Get Metrics Token
-weight: 3050
+weight: 2870
 description: 
 layout: default
 ---

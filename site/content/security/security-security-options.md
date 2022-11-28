@@ -1,7 +1,7 @@
 ---
 fileID: security-security-options
 title: Server security options
-weight: 1685
+weight: 1505
 description: 
 layout: default
 ---

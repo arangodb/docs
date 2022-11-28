@@ -1,7 +1,7 @@
 ---
 fileID: installation-linux-ostuning-scripts
 title: Linux OS Tuning Script Examples
-weight: 1290
+weight: 1180
 description: 
 layout: default
 ---

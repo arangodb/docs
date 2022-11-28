@@ -1,7 +1,7 @@
 ---
 fileID: graphs-satellite-graphs
 title: SatelliteGraphs
-weight: 825
+weight: 675
 description: 
 layout: default
 ---

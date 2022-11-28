@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-routers-endpoints
 title: Endpoints
-weight: 1170
+weight: 1060
 description: 
 layout: default
 ---

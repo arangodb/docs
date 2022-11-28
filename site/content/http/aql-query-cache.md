@@ -1,7 +1,7 @@
 ---
 fileID: aql-query-cache
 title: HTTP Interface for the AQL query results cache
-weight: 2315
+weight: 2135
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-routers-response
 title: Response objects
-weight: 1185
+weight: 1075
 description: 
 layout: default
 ---

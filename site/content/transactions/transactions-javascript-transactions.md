@@ -1,7 +1,7 @@
 ---
 fileID: transactions-javascript-transactions
 title: JavaScript Transactions
-weight: 780
+weight: 630
 description: >-
   JavaScript Transactions allow you to submit single-request transactions
   that leverage ArangoDB's JavaScript API to run complex operations that can

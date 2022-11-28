@@ -1,7 +1,7 @@
 ---
 fileID: indexing-geo
 title: Geo-Spatial Indexes
-weight: 675
+weight: 525
 description: 
 layout: default
 ---

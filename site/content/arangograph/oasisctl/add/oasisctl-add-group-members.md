@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-add-group-members
 title: Oasisctl Add Group Members
-weight: 2670
+weight: 2490
 description: 
 layout: default
 ---

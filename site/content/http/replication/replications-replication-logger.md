@@ -1,7 +1,7 @@
 ---
 fileID: replications-replication-logger
 title: Replication Logger Commands
-weight: 2435
+weight: 2255
 description: 
 layout: default
 ---

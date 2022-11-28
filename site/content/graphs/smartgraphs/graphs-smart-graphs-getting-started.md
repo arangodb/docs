@@ -1,7 +1,7 @@
 ---
 fileID: graphs-smart-graphs-getting-started
 title: ArangoDB SmartGraphs - Getting Started
-weight: 845
+weight: 695
 description: 
 layout: default
 ---

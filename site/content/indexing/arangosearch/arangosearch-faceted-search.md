@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-faceted-search
 title: Faceted Search with ArangoSearch
-weight: 730
+weight: 580
 description: >-
   Combine aggregation with search queries to retrieve how often values occur
   overall

@@ -1,7 +1,7 @@
 ---
 fileID: bulk-imports-importing-headers-and-values
 title: Importing Headers and Values
-weight: 2340
+weight: 2160
 description: 
 layout: default
 ---
@@ -19,13 +19,14 @@ curl --data-binary @- -X POST --dump - "http://localhost:8529/_api/import?collec
 [ "firstName", "lastName", "age", "gender" ]
 [ "Joe", "Public", 42, "male" ]
 [ "Jane", "Doe", 31, "female" ]
+[ "Robin", "Mayfield", 56, "diverse" ]
 
 HTTP/1.1 201 Created
 Server: ArangoDB
 Connection: Keep-Alive
 Content-type: application/json; charset=utf-8
 
-{"error":false,"created":2,"empty":0,"errors":0}
+{"error":false,"created":3,"empty":0,"errors":0}
 ```
 
 The server will again respond with an HTTP 201 if everything went well. The

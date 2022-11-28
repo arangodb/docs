@@ -1,7 +1,7 @@
 ---
 fileID: arangosearch-views-search-alias
 title: search-alias Views Reference
-weight: 765
+weight: 615
 description: 
 layout: default
 ---

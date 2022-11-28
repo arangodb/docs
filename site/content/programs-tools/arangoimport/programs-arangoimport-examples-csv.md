@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangoimport-examples-csv
 title: _arangoimport_ Examples CSV / TSV
-weight: 530
+weight: 380
 description: 
 layout: default
 ---

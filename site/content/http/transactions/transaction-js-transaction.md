@@ -1,7 +1,7 @@
 ---
 fileID: transaction-js-transaction
 title: HTTP Interface for JavaScript Transactions
-weight: 2420
+weight: 2240
 description: 
 layout: default
 ---

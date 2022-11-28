@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create
 title: Oasisctl Create
-weight: 2740
+weight: 2560
 description: 
 layout: default
 ---

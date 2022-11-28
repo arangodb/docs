@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-organization-invite
 title: Oasisctl Delete Organization Invite
-weight: 2940
+weight: 2760
 description: 
 layout: default
 ---

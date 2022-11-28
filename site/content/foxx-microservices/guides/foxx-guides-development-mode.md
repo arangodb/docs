@@ -1,7 +1,7 @@
 ---
 fileID: foxx-guides-development-mode
 title: Development mode
-weight: 1090
+weight: 980
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-reject-organization
 title: Oasisctl Reject Organization
-weight: 3430
+weight: 3250
 description: 
 layout: default
 ---

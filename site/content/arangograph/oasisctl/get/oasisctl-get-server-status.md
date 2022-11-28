@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-server-status
 title: Oasisctl Get Server Status
-weight: 3145
+weight: 2965
 description: 
 layout: default
 ---

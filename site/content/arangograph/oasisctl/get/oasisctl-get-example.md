@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-example
 title: Oasisctl Get Example
-weight: 3025
+weight: 2845
 description: 
 layout: default
 ---

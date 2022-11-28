@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-troubleshooting
 title: Troubleshooting
-weight: 1520
+weight: 1345
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: troubleshooting-dc2dc
 title: Troubleshooting Datacenter-to-Datacenter Replication
-weight: 1055
+weight: 945
 description: 
 layout: default
 ---

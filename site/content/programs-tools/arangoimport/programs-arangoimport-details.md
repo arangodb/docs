@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangoimport-details
 title: _arangoimport_ Details
-weight: 535
+weight: 385
 description: 
 layout: default
 ---
@@ -103,7 +103,7 @@ Other possible values for *--on-duplicate* are:
   of the existing document, modifying only the attributes that are present in the import
   file and leaving all other attributes untouched.
 
-  The values of system attributes *_id*, *_key*, *_rev*, *_from* and *_to* cannot be
+  The values of system attributes *_id*, *_key*, and *_rev* cannot be
   updated or replaced in existing documents.
 
 - *replace*: each document present in the import file that is also present in the target
@@ -111,7 +111,7 @@ Other possible values for *--on-duplicate* are:
   document entirely, resulting in a document with only the attributes specified in the import
   file.
 
-  The values of system attributes *_id*, *_key*, *_rev*, *_from* and *_to* cannot be
+  The values of system attributes *_id*, *_key*, and *_rev* cannot be
   updated or replaced in existing documents.
 
 - *ignore*: each document present in the import file that is also present in the target

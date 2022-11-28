@@ -1,7 +1,7 @@
 ---
 fileID: indexing-index-basics
 title: Index basics
-weight: 630
+weight: 480
 description: 
 layout: default
 ---

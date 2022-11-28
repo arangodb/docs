@@ -1,7 +1,7 @@
 ---
 fileID: smart-and-satellite-graphs-single-server
 title: SmartGraphs and SatelliteGraphs on a Single Server
-weight: 870
+weight: 720
 description: >-
   ## General Idea
   Simulate a SmartGraph or a SatelliteGraph on a single server and then to port it to an ArangoDB

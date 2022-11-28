@@ -1,7 +1,7 @@
 ---
 fileID: foxx-reference-routers-middleware
 title: Middleware
-weight: 1175
+weight: 1065
 description: 
 layout: default
 ---

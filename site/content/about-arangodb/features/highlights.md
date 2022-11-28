@@ -197,7 +197,7 @@ Also see [What's New in 3.7](../../release-notes/version-3.7/release-notes-new-f
 
 **Enterprise Edition**
 
-- [**OneShard**](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-architecture#oneshard)
+- [**OneShard**](../../architecture/deployment-modes/cluster/#oneshard)
   deployments offer a practicable solution that enables significant performance
   improvements by massively reducing cluster-internal communication. A database
   created with OneShard enabled is limited to a single DB-Server node but still
@@ -353,7 +353,7 @@ Also see [What's New in 3.3](../../release-notes/version-3.3/release-notes-new-f
 
 **Enterprise Edition**
 
-- [**LDAP integration**](../../programs-tools/arangodb-server/options/programs-arangod-ldap): Users and permissions
+- [**LDAP integration**](../../programs-tools/arangodb-server/programs-arangod-ldap): Users and permissions
   can be managed from outside ArangoDB with an LDAP server in different
   authentication configurations.
 
@@ -388,7 +388,7 @@ Also see [What's New in 3.2](../../release-notes/version-3.2/release-notes-new-f
   of your application layer to shard your graph efficiently to your machines
   and let traversals run locally.
 
-- **Encryption Control**: Choose your level of [SSL encryption](../../programs-tools/arangodb-server/options/programs-arangod-ssl)
+- **Encryption Control**: Choose your level of [SSL encryption](../../programs-tools/arangodb-server/programs-arangod-options#ssl)
 
 - [**Auditing**](../../security/auditing/): Keep a detailed log
   of all the important things that happened in ArangoDB.
@@ -397,7 +397,7 @@ Also see [What's New in 3.1](../../release-notes/version-3.1/release-notes-new-f
 
 ## Version 3.0
 
-- [**self-organizing cluster**](../../architecture/arangodb-deployment-modes/cluster/architecture-deployment-modes-cluster-architecture) with
+- [**self-organizing cluster**](../../architecture/deployment-modes/cluster/) with
   synchronous replication, master/master setup, shared nothing
   architecture, cluster management Agency.
 

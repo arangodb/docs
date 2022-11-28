@@ -155,7 +155,7 @@ layout: default
 - [User Management](https://www.arangodb.com/arangodb-user-management/):
   Granting users permissions for databases and collections.
 
-- [Reduce Memory Footprint](tutorials-reduce-memory-footprint):
+- [Reduce Memory Footprint](../administration/administration-reduce-memory-footprint):
   Configuration options to restrict ArangoDB's memory usage and to reduce
   the CPU utilization
 

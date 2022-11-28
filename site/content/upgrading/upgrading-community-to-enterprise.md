@@ -1,7 +1,7 @@
 ---
 fileID: upgrading-community-to-enterprise
 title: Community to Enterprise Upgrade Procedure
-weight: 1565
+weight: 1390
 description: 
 layout: default
 ---

@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-api-changes37
 title: API Changes in ArangoDB 3.7
-weight: 11855
+weight: 11675
 description: 
 layout: default
 ---

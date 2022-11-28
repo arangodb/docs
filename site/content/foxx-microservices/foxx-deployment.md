@@ -1,7 +1,7 @@
 ---
 fileID: foxx-deployment
 title: Deployment
-weight: 1255
+weight: 1145
 description: 
 layout: default
 ---

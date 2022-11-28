@@ -1,7 +1,7 @@
 ---
 fileID: monitoring-dc2dc
 title: Monitoring Datacenter-to-Datacenter Replication
-weight: 1050
+weight: 940
 description: 
 layout: default
 ---

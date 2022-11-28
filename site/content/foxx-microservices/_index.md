@@ -1,7 +1,7 @@
 ---
 fileID: foxx
 title: Foxx Microservices
-weight: 1060
+weight: 950
 description: 
 layout: default
 ---

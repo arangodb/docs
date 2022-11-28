@@ -1,7 +1,7 @@
 ---
 fileID: java-examples-import-graph-data
 title: Import Graph data with Stream Transactions
-weight: 4130
+weight: 3950
 description: 
 layout: default
 ---

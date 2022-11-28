@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-update-metrics
 title: Oasisctl Update Metrics
-weight: 3590
+weight: 3410
 description: 
 layout: default
 ---

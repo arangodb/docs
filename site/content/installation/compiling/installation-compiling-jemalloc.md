@@ -1,7 +1,7 @@
 ---
 fileID: installation-compiling-jemalloc
 title: Jemalloc
-weight: 1325
+weight: 1215
 description: 
 layout: default
 ---

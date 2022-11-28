@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-cacertificate
 title: Oasisctl Get Cacertificate
-weight: 3015
+weight: 2835
 description: 
 layout: default
 ---

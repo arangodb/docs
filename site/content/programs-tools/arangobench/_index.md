@@ -1,7 +1,7 @@
 ---
 fileID: programs-arangobench
 title: arangobench
-weight: 560
+weight: 410
 description: 
 layout: default
 ---

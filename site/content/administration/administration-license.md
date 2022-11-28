@@ -1,7 +1,7 @@
 ---
 fileID: administration-license
 title: Enterprise Edition License Management
-weight: 1635
+weight: 1460
 description: 
 layout: default
 ---

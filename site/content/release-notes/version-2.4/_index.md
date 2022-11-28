@@ -1,7 +1,7 @@
 ---
 fileID: release-notes-24
 title: Version 2.4
-weight: 12050
+weight: 11870
 description: 
 layout: default
 ---

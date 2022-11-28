@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-example-installation
 title: Oasisctl Delete Example Installation
-weight: 2900
+weight: 2720
 description: 
 layout: default
 ---

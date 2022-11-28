@@ -1,7 +1,7 @@
 ---
 fileID: operations-insert
 title: INSERT
-weight: 3845
+weight: 3670
 description: 
 layout: default
 ---

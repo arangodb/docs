@@ -1,7 +1,7 @@
 ---
 fileID: spring-data-reference-mapping-relations
 title: Relations
-weight: 4300
+weight: 4120
 description: 
 layout: default
 ---

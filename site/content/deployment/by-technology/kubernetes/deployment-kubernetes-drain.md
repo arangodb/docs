@@ -1,7 +1,7 @@
 ---
 fileID: deployment-kubernetes-drain
 title: Draining Kubernetes nodes
-weight: 1475
+weight: 1300
 description: 
 layout: default
 ---
@@ -451,7 +451,7 @@ above.
 Finally, it is likely that the shard distribution in the "new" cluster
 is not balanced out. In particular, the new _DB-Server_ is not automatically
 used to store shards. We recommend to
-[re-balance](../../../administration/administration-cluster#movingrebalancing-shards) the shard distribution,
+[re-balance](../../../architecture/deployment-modes/cluster/administration-cluster#movingrebalancing-shards) the shard distribution,
 either manually by moving shards or by using the _Rebalance Shards_
 button in the _Shards_ tab under _NODES_ in the web interface. This redistribution can take
 some time again and progress can be monitored in the UI.

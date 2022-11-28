@@ -1,7 +1,7 @@
 ---
 fileID: upgrading-osspecific-info-windows
 title: Upgrading on Windows
-weight: 1585
+weight: 1410
 description: 
 layout: default
 ---

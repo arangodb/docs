@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-project
 title: Oasisctl Create Project
-weight: 2835
+weight: 2655
 description: 
 layout: default
 ---

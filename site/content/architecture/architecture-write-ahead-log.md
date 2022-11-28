@@ -1,7 +1,7 @@
 ---
 fileID: architecture-write-ahead-log
 title: Write-ahead log
-weight: 1000
+weight: 890
 description: 
 layout: default
 ---
@@ -28,4 +28,4 @@ The RocksDB WAL only contains committed transactions. This means you will never
 see partial transactions in the replication log, but it also means transactions
 are tracked completely in-memory. In practice this causes RocksDB transaction
 sizes to be limited, for more information see the
-[RocksDB Configuration](../programs-tools/arangodb-server/options/programs-arangod-rocksdb)
+[RocksDB Configuration](../programs-tools/arangodb-server/programs-arangod-options#rocksdb)

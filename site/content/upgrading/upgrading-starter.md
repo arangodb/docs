@@ -1,13 +1,13 @@
 ---
 fileID: upgrading-starter
 title: Upgrading _Starter_ Deployments
-weight: 1590
+weight: 1415
 description: 
 layout: default
 ---
 The ArangoDB [_Starter_](../programs-tools/arangodb-starter/) supports an automated procedure
 to perform upgrades, including rolling upgrades
-of a [Cluster](../architecture/arangodb-deployment-modes/cluster/) setup.
+of a [Cluster](../architecture/deployment-modes/cluster/) setup.
 
 The upgrade procedure of the _Starter_ described in this _Section_ can be used to
 upgrade to a new hotfix, or to perform an upgrade to a new minor version of ArangoDB.

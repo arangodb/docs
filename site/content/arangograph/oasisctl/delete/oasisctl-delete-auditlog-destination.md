@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-delete-auditlog-destination
 title: Oasisctl Delete Auditlog Destination
-weight: 2870
+weight: 2690
 description: 
 layout: default
 ---

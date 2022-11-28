@@ -1,7 +1,7 @@
 ---
 fileID: appendix-references-collection-object
 title: The "collection" Object
-weight: 12115
+weight: 11935
 description: 
 layout: default
 ---

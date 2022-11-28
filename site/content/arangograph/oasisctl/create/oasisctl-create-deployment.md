@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-create-deployment
 title: Oasisctl Create Deployment
-weight: 2770
+weight: 2590
 description: 
 layout: default
 ---

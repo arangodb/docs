@@ -1,7 +1,7 @@
 ---
 fileID: administration-and-monitoring-metrics
 title: ArangoDB Server Metrics
-weight: 2460
+weight: 2280
 description: 
 layout: default
 ---

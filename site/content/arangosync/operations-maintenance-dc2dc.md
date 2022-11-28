@@ -1,7 +1,7 @@
 ---
 fileID: operations-maintenance-dc2dc
 title: DC2DC Replication Operations & Maintenance
-weight: 1040
+weight: 930
 description: 
 layout: default
 ---

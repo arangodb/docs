@@ -1,7 +1,7 @@
 ---
 fileID: edge
 title: HTTP Interface for Edges
-weight: 2255
+weight: 2075
 description: 
 layout: default
 ---

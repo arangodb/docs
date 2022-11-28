@@ -1,7 +1,7 @@
 ---
 fileID: graphs-smart-graphs
 title: SmartGraphs
-weight: 840
+weight: 690
 description: 
 layout: default
 ---

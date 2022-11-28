@@ -1,7 +1,7 @@
 ---
 fileID: oasisctl-get-auditlog-archive
 title: Oasisctl Get Auditlog Archive
-weight: 2995
+weight: 2815
 description: 
 layout: default
 ---

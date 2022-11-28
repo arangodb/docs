@@ -1,7 +1,7 @@
 ---
 fileID: deployment-cloud-aws
 title: Deploying ArangoDB on AWS
-weight: 1530
+weight: 1355
 description: 
 layout: default
 ---
