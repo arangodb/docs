@@ -944,7 +944,7 @@ Do not forget to re-generate the examples before publishing.
 
 ### Deprecating a version
 
-When an ArangoDB version reaches [End-of-Life](https://www.arangodb.com/subscriptions/end-of-life-notice/),
+When an ArangoDB version reaches [End-of-Life](https://www.arangodb.com/subscriptions-old/end-of-life-notice/),
 its documentation needs to be marked as such. The respective version needs to
 be added to the `_data/deprecations.yml` file for that:
 
