@@ -1,7 +1,10 @@
 #Arangoproxy
 FROM golang:latest AS arangoproxy
 
-RUN wget https://download.arangodb.com/arangodb310/Community/Linux/arangodb3-client_3.10.1-1_amd64.deb
+ARG BUILDARCH
+RUN echo ${BUILDARCH}
+
+RUN wget https://download.arangodb.com/arangodb310/Community/Linux/arangodb3-client_3.10.1-1_${BUILDARCH}.deb
 RUN apt-get update
 RUN apt-get install -y ./arangodb3*.deb
 

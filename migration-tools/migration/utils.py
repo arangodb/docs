@@ -97,7 +97,7 @@ def migrate_hrefs(paragraph, infos, filepath):
 
 def migrate_image(paragraph, href):
     linkContent = re.search(r"(?<=\]\()(.*?)\)", href).group(0).replace(")", "")
-    newImgName = "images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
+    newImgName = "/images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
 
     if ':style' in href:
         styleRegex = re.search(r"(?<={:style=).*(?=})", href)
