@@ -120,7 +120,6 @@ def migrate_link(paragraph, href, filepath):
         return paragraph
 
     filename = filename.group(0).replace(".html", "").replace("/", "")
-    print(f"link filename {filename}")
     fragment = re.search(r"#+.*", linkContent)
 
     for k in globals.infos.keys():
@@ -132,12 +131,10 @@ def migrate_link(paragraph, href, filepath):
             referencedPath = re.search(r"(?<=site\/content\/).*", k).group(0)  #Adjust link according to new directory-structure
 
             newAnchor = relpath(referencedPath, referencingPath).replace("../", "", 1)
-            print(newAnchor)
             if fragment:
                 newAnchor = f"{newAnchor}{fragment.group(0)}"
                 
             newHref = href.replace(linkContent, newAnchor).replace(".html", "").replace(".md", "").replace("_index", "")
-            print(f"{linkContent} FOUND {newHref}")
             paragraph = paragraph.replace(href, newHref)
 
     return paragraph

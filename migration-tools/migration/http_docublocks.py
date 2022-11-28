@@ -238,7 +238,7 @@ def processRequestBody(docuBlock, newBlock):
     paramBlock = {}
     paramBlock[name] = {}
     try:
-        paramBlock[name]["type"] = paramSplit[1]
+        paramBlock[name]["type"] = "object" if paramSplit[1] == "json" else paramSplit[1]
         if paramSplit[3] != "" and not paramSplit[3] in swaggerBaseTypes:
             paramBlock[name]["schema"] = {"$ref": f"#/components/schemas/{paramSplit[3]}" }
     except IndexError:
@@ -258,8 +258,9 @@ def processRequestBody(docuBlock, newBlock):
 def processResponse(docuBlock, newBlock):
     print(docuBlock)
     blockSplit = docuBlock.split("\n")
-    status = blockSplit[0].strip("}")
-    description = "".join(blockSplit[1:]).replace(":", "")
+    statusRE = re.search(r"\d+}", docuBlock).group(0)
+    description = docuBlock.replace(statusRE, "").replace(":", "")
+    status = statusRE.replace("}", "")
 
     retBlock = {"description": description}
 
