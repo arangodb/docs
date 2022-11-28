@@ -2,8 +2,8 @@ services:
   arangoproxy:
     container_name: arangoproxy
     image: arangoproxy
-    depends_on:
-      - "arangodb"
+    #depends_on:
+    #  - "arangodb"
     build:
       context: .
       target: arangoproxy
@@ -31,16 +31,16 @@ services:
     volumes:
       - ./site:/site
     
-  arangodb:
-    container_name: arangodb
-    image: arangodb/enterprise:latest
-    ports:
-      - "8520:8529"
-    networks:
-      docs_net:
-        ipv4_address: 192.168.129.5
-    environment:
-      - ARANGO_NO_AUTH=1
+  # arangodb:
+  #   container_name: arangodb
+  #   image: arangodb/enterprise:latest
+  #   ports:
+  #     - "8520:8529"
+  #   networks:
+  #     docs_net:
+  #       ipv4_address: 192.168.129.5
+  #   environment:
+  #     - ARANGO_NO_AUTH=1
     
   # arango_3_9:
   #   container_name: arango_maintainer
