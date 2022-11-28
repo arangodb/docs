@@ -65,7 +65,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   is reached. Synchronous replication works on a per-shard basis. For each
   collection, you can configure how many copies of each shard are kept in the cluster.
 
-- [**Active Failover**](architecture-deployment-modes-active-failover-architecture.html):
+- [**Active Failover**](architecture-deployment-modes-active-failover.html):
   Run a single server with asynchronous replication to one or more passive
   single servers for automatic failover.
 
@@ -231,7 +231,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   microservice framework users can achieve very high security standards
   fitting individual needs.
 
-- [**TLS Encryption**](programs-arangod-ssl.html):
+- [**TLS Encryption**](programs-arangod-options.html#ssl):
   Internal and external communication over encrypted network connections with
   TLS (formerly SSL).
   [TLS key and certificates rotation](release-notes-new-features37.html#tls-key-and-certificate-rotation)

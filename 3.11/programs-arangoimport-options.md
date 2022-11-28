@@ -1,6 +1,8 @@
 ---
 layout: default
 description: arangoimport Options
+page-toc:
+  max-headline-level: 2
 ---
 # _arangoimport_ Options
 

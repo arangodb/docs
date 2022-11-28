@@ -41,8 +41,8 @@ more information.
 The Sync Master is responsible for managing all synchronization, creating tasks and assigning
 those to workers.
 <br/> At least 2 instances must be deployed in each datacenter.
-One instance will be the "leader", the other will be an inactive slave. When the leader
-is gone for a short while, one of the other instances will take over.
+One instance will be the leader cluster, the other will be an inactive follower cluster.
+When the leader is gone for a short while, one of the other instances will take over.
 
 With clusters of a significant size, the sync master will require a significant set of resources.
 Therefore it is recommended to deploy sync masters on their own servers, equipped with sufficient

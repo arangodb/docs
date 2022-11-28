@@ -1,5 +1,6 @@
 ---
 layout: default
+title: search-alias Views Reference
 ---
 # `search-alias` Views Reference
 

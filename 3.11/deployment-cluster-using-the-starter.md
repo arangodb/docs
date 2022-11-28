@@ -134,15 +134,16 @@ docker run -it --name=adb --rm -p 8528:8528 \
 
 Under the Hood
 --------------
-The first `arangodb` you ran will become the _master_ of your _Starter_
-setup, the other `arangodb` instances will become the _slaves_ of your _Starter_
-setup. Please do not confuse the terms _master_ and _slave_ above with the Leader/Follower
-("master/slave") technology of ArangoDB. The terms above refers to the _Starter_ setup.
 
-The _Starter_ _master_ determines which ArangoDB server processes to launch on which
-_Starter_ _slave_, and how they should communicate. 
+The first `arangodb` you ran will become the _leader_ of your _Starter_ setup
+(also called _master_), the other `arangodb` instances will become the
+_followers_ of your _Starter_ setup. This is not to be confused with the
+Leader/Follower replication of ArangoDB. The terms above refers to the _Starter_ setup.
+
+The _Starter_ _leader_ determines which ArangoDB server processes to launch on which
+_Starter_ _follower_, and how they should communicate.
 
 It will then launch the server processes and monitor them. Once it has detected
 that the setup is complete you will get the prompt. 
 
-The _Starter_ _master_ will save the setup for subsequent starts. 
+The _Starter_ _leader_ will save the setup for subsequent starts.

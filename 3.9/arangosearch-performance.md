@@ -123,41 +123,6 @@ The View needs to be created via the HTTP or JavaScript API (arangosh) to set it
 The primary sort data is LZ4 compressed by default (`primarySortCompression` is
 `"lz4"`). Set it to `"none"` on View creation to trade space for speed.
 
-You can additionally set the `primarySortCache` option to `true` to always cache
-the primary sort columns in memory, which can improve the query performance:
-
-```json
-{
-  "links": {
-    "coll1": {
-      "fields": {
-        "text": {},
-        "date": {}
-      }
-    },
-    "coll2": {
-      "fields": {
-        "text": {}
-      }
-    },
-    "primarySort": [
-      {
-        "field": "date",
-        "direction": "desc"
-      },
-      {
-        "field": "text",
-        "direction": "asc"
-      }
-    ],
-    "primarySortCache": true
-  }
-}
-```
-
-See the [`primarySortCache` View property](arangosearch-views.html#view-properties)
-for details.
-
 ## Stored Values
 
 It is possible to directly store the values of document attributes in View

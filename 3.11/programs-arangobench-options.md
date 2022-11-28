@@ -1,6 +1,8 @@
 ---
 layout: default
 description: arangobench Startup Options
+page-toc:
+  max-headline-level: 2
 redirect_from:
   - programs-arangobench-examples.html # 3.8 -> 3.8
 ---

@@ -169,7 +169,7 @@ We can use an edge collection to store relations between users and groups. Since
 number of groups, this is an **m:n** relation. The edge collection can be called `UsersInGroups` with i.e. one edge
 with `_from` pointing to `Users/John` and `_to` pointing to `Groups/BowlingGroupHappyPin`. This makes the user **John**
 a member of the group **Bowling Group Happy Pin**. Attributes of this relation may contain qualifiers to this relation,
-like the permissions of **John** in this group, the date when he joined the group etc.
+like the permissions of **John** in this group, the date when John joined the group etc.
 
 ![User in group example](images/graph_user_in_group.png)
 
