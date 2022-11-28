@@ -1,0 +1,24 @@
+---
+fileID: deployment-cloud-azure
+title: Deploying ArangoDB on Microsoft Azure
+weight: 1535
+description: 
+layout: default
+---
+ArangoDB can be deployed on Azure or other cloud platforms. Deploying on a cloud
+provider is common choice and many of the most big ArangoDB installation are running
+on the cloud.
+
+No Azure-specific scripts or tools are needed to deploy on Azure. Deploying on Azure
+is still possible, and again, a quite common scenario.
+
+After having initialized your preferred Azure instance, with one of the ArangoDB supported
+operating systems, using the [ArangoDB Starter](../by-technology/deployment-arango-dbstarter),
+performing a [Manual Deployment](../by-technology/deployment-manually),
+or using [Kubernetes](../by-technology/kubernetes/)
+are all valid options to deploy on Azure. Please refer to the corresponding chapters for further 
+information.
+
+**Important:** In order to deploy on Azure, general guidelines, like using a fast,
+**direct-attached**, SSD disk for the data directory of the ArangoDB processes
+apply.
