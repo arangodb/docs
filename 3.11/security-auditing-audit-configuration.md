@@ -8,5 +8,5 @@ Audit Configuration
 
 {% include hint-ee.md feature="Auditing" %}
 
-For information on the available configuration options, refer to the [arangod audit options](programs-arangod-audit.html).
+For information on the available configuration options, refer to the [arangod audit options](programs-arangod-options.html#audit).
 

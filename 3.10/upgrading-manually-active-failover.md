@@ -20,7 +20,7 @@ Preparations
 
 The ArangoDB installation packages (e.g. for Debian or Ubuntu) set up a
 convenient standalone instance of `arangod`. During installation, this instance's
-database will be upgraded (see [`--database.auto-upgrade`](programs-arangod-database.html#auto-upgrade))
+database will be upgraded (see [`--database.auto-upgrade`](programs-arangod-options.html#--databaseauto-upgrade))
 and the service will be (re)started.
 
 You have to make sure that your _Active Failover_ deployment is independent of this

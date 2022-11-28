@@ -39,7 +39,8 @@ commands to start a cluster with the Starter:
 See [Securing Datacenter-to-Datacenter Replication](security-dc2dc.html)
 for instructions how to create all certificates and keyfiles.
 
-To start the cluster using a `systemd` unit file, use the following:
+To start the cluster using a `systemd` unit file (and start DC2DC replication
+later manually), use the following:
 
 ```text
 [Unit]

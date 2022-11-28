@@ -107,7 +107,7 @@ Note: `arangodb --starter.join A,B,C` is equal to
 `arangodb --starter.join A --starter.join B --starter.join C`.
 
 During the bootstrap phase of the cluster, the Starters all choose the leader
-Starter ("master") based on list of given `--starter.join` arguments.
+Starter ("master") based on the list of the given `--starter.join` arguments.
 
 The leader Starter is chosen as follows:
 
@@ -218,15 +218,15 @@ docker run -it --name=adbN --rm -p 8528:8528 \
 
 ## Under the Hood
 
-The first `arangodb` you run becomes the _master_ of your _Starter_
-setup, the other `arangodb` instances become the _slaves_ of your _Starter_
-setup. Please do not confuse the terms _master_ and _slave_ above with the Leader/Follower
-("master/slave") technology of ArangoDB. The terms above refers to the _Starter_ setup.
+The first `arangodb` you run becomes the _leader_ of your _Starter_ setup
+(also called _master_), the other `arangodb` instances become the
+_followers_ of your _Starter_ setup. This is not to be confused with the
+the Leader/Follower replication of ArangoDB. The terms above refer to the _Starter_ setup.
 
-The _Starter_ _master_ determines which ArangoDB server processes to launch on which
-_Starter_ _slave_, and how they should communicate. 
+The _Starter_ _leader_ determines which ArangoDB server processes to launch on which
+_Starter_ _follower_, and how they should communicate.
 
 It then launches the server processes and monitors them. Once it has detected
 that the setup is complete, you get the prompt.
 
-The _Starter_ _master_ saves the setup for subsequent starts.
+The _Starter_ _leader_ saves the setup for subsequent starts.

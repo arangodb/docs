@@ -23,7 +23,7 @@ documents:
 
 ```aql
 FOR u IN users
-  UPDATE u WITH { gender: TRANSLATE(u.gender, { m: 'male', f: 'female' }) } IN users
+  UPDATE u WITH { gender: TRANSLATE(u.gender, { m: 'male', f: 'female', x: 'diverse' }) } IN users
 ```
 
 To add new attributes to existing documents, we can also use an `UPDATE` query.
@@ -130,10 +130,9 @@ FOR i IN 1..1000
     age: 18 + FLOOR(RAND() * 25),
     name: CONCAT('test', TO_STRING(i)),
     active: false,
-    gender: i % 2 == 0 ? 'male' : 'female'
+    gender: i % 3 == 0 ? 'male' : i % 3 == 1 ? 'female' : 'diverse'
   } IN users
 ```
-
 
 Copying data from one collection into another
 ---------------------------------------------

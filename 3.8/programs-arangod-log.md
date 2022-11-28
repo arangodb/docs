@@ -14,8 +14,10 @@ output files can be adjusted per log topic. For example
 --log.level startup=trace --log.level queries=trace --log.level info
 ```
 
-will log messages concerning startup at trace level, AQL queries at trace level
-and everything else at info level.
+will log messages concerning startup at trace level, AQL queries at trace level,
+and messages with the general topic at info level. Note that `--log.level info`
+does not set a log level globally for all existing topics, but only the
+`general` topic!
 
 In a configuration file, it is written like this:
 

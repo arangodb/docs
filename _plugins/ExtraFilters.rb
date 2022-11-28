@@ -56,7 +56,8 @@ module Jekyll
             return nil if arr.size == 0
             return arr[0] if arr.size == 1
             *a, b = arr
-            a.join(', ') + ' and ' + b
+            return a.join(', ') + ' and ' + b if arr.size == 2
+            a.join(', ') + ', and ' + b
         end
 
         def resolve_symlink(path)

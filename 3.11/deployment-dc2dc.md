@@ -23,12 +23,12 @@ affect the availability of the whole cluster.
 
 _DB-Servers_ are also important and you do not want to lose them, but
 depending on your replication factor, the system can tolerate some
-loss and bad performance will slow things down but not stop things from
+loss and bad performance slows things down but not stop things from
 working.
 
 _Coordinators_ can be deployed on other machines, since they do not hold
 persistent state. They might have some in-memory state about running
-transactions or queries, but losing a Coordinator will not lose any
+transactions or queries, but losing a Coordinator does not lose any
 persisted data. Furthermore, new Coordinators can be added to a cluster
 without much effort.
 
@@ -40,11 +40,11 @@ more information.
 The Sync Master is responsible for managing all synchronization, creating tasks and assigning
 those to workers.
 
-At least 2 instances must be deployed in each datacenter.
-One instance will be the "leader", the other will be an inactive slave. When the leader
-is gone for a short while, one of the other instances will take over.
+At least two instances must be deployed in each datacenter.
+One instance is the leader cluster, the other is an inactive follower cluster.
+When the leader is gone for a short while, one of the other instances takes over.
 
-With clusters of a significant size, the sync master will require a significant set of resources.
+With clusters of a significant size, the sync master requires a significant set of resources.
 Therefore it is recommended to deploy sync masters on their own servers, equipped with sufficient
 CPU power and memory capacity.
 
@@ -68,9 +68,9 @@ For optimal performance at least 1 worker instance must be placed on
 every machine that has an ArangoDB DB-Server running. This ensures that tasks
 can be executed with minimal network traffic outside of the machine.
 
-Since sync workers will automatically stop once their TLS server certificate expires
+Since sync workers automatically stop once their TLS server certificate expires
 (which is set to 2 years by default),
-it is recommended to run at least 2 instances of a worker on every machine in the datacenter.
+it is recommended to run at least two instances of a worker on every machine in the datacenter.
 That way, tasks can still be assigned in the most optimal way, even when a worker in temporarily
 down for a restart.
 

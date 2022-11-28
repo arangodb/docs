@@ -163,7 +163,7 @@ We start with the shortest path from **A** to **D** as above:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 We can see our expectations are fulfilled. We find the vertices in the correct ordering and
-the first edge is *null*, because no edge is pointing to the start vertex on t his path.
+the first edge is *null*, because no edge is pointing to the start vertex on this path.
 
 We can also compute shortest paths based on documents found in collections:
 

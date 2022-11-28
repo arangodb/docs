@@ -402,7 +402,7 @@ Also see [What's New in 3.2](release-notes-new-features32.html).
   of your application layer to shard your graph efficiently to your machines
   and let traversals run locally.
 
-- **Encryption Control**: Choose your level of [SSL encryption](programs-arangod-ssl.html)
+- **Encryption Control**: Choose your level of [SSL encryption](programs-arangod-options.html#ssl)
 
 - [**Auditing**](security-auditing.html): Keep a detailed log
   of all the important things that happened in ArangoDB.

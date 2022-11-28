@@ -53,11 +53,11 @@ The entire user transaction will not necessarily have ACID properties in this ca
 The threshold values for transaction sizes can be configured globally using the
 startup options
 
-- [`--rocksdb.intermediate-commit-size`](programs-arangod-rocksdb.html#non-pass-through-options)
+- [`--rocksdb.intermediate-commit-size`](programs-arangod-options.html#--rocksdbintermediate-commit-size)
 
-- [`--rocksdb.intermediate-commit-count`](programs-arangod-rocksdb.html#non-pass-through-options)
+- [`--rocksdb.intermediate-commit-count`](programs-arangod-options.html#--rocksdbintermediate-commit-count)
 
-- [`--rocksdb.max-transaction-size`](programs-arangod-rocksdb.html#non-pass-through-options)
+- [`--rocksdb.max-transaction-size`](programs-arangod-options.html#--rocksdbmax-transaction-size)
 
 It is also possible to override these thresholds per transaction.
 
