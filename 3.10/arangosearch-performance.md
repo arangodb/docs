@@ -226,11 +226,13 @@ db._createView("myView", "search-alias", { indexes: [
 
 ## Stored Values
 
-It is possible to directly store the values of document attributes in View
-indexes with the View property `storedValues` (not to be confused with
-`storeValues`). You can only set this option on View creation.
+It is possible to directly store the values of document attributes in
+`arangosearch` View indexes and inverted indexes with the `storedValues`
+property (not to be confused with `storeValues`). You can only set this
+option on View and index creation.
 
-View indexes may fully cover `SEARCH` queries for improved performance.
+View indexes and inverted indexes may fully cover search queries by using
+stored values, improving the query performance.
 While late document materialization reduces the amount of fetched documents,
 this optimization can avoid to access the storage engine entirely.
 
@@ -280,7 +282,7 @@ db._createView("articlesView", "search-alias", { indexes: [
 
 In above View definitions, the document attribute `categories` is indexed for
 searching, `publishedAt` is used as primary sort order, and `title` as well as
-`categories` are stored in the View using the new `storedValues` property.
+`categories` are stored in the index using the new `storedValues` property.
 
 ```aql
 FOR doc IN articlesView
