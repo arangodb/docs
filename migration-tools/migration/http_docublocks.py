@@ -232,7 +232,8 @@ def processParameters(docuBlock, newBlock):
     if "parameters" not in newBlock:
         newBlock["parameters"] = []
 
-    newBlock["parameters"].append(paramBlock)
+    if not paramBlock in newBlock["parameters"]:
+        newBlock["parameters"].append(paramBlock)
 
 def processRequestBody(docuBlock, newBlock):
     params = docuBlock[1].split("\n")[0].strip("}")
@@ -240,12 +241,20 @@ def processRequestBody(docuBlock, newBlock):
     name = paramSplit[0]
     paramBlock = {}
     try:
-        paramBlock["type"] = paramSplit[1]
+        paramBlock["type"] = "object" if paramSplit[1] == "json" else paramSplit[1]
         if len(paramSplit) >= 4 and paramSplit[3] != "":
             if paramSplit[3] in swaggerBaseTypes:
-                paramBlock["format"] = paramSplit[3]
+                if paramSplit[3] != "string":
+                    paramBlock["format"] = paramSplit[3]
             else:
                 paramBlock["$ref"] = f"#/components/schemas/{paramSplit[3]}"
+
+        if paramBlock["type"] == "array":
+            paramBlock["items"] = {"type": paramSplit[3] if paramSplit[3] != "" else "string"}
+
+        if "$ref" in paramBlock:
+            del paramBlock["type"]
+
     except IndexError:
         print(f"Exception on block {block}\n")
         traceback.print_exc()
@@ -288,16 +297,22 @@ def processResponseBody(docuBlock, newBlock, statusCode):
     paramSplit = blocks[0].strip("}").split(",")
     name = paramSplit[0].strip("{")
     try:
-        replyBlock["type"] = paramSplit[1]
+        replyBlock["type"] = "object" if paramSplit[1] == "json" else paramSplit[1]
         if paramSplit[3] != "":
             if paramSplit[3] in swaggerBaseTypes:
-                replyBlock["format"] = paramSplit[3]
+                if not paramSplit[3] == "string":
+                    replyBlock["format"] = paramSplit[3]
             else:
                 replyBlock["$ref"] = f"#/components/schemas/{paramSplit[3]}"
+
+        if replyBlock["type"] == "array":
+            replyBlock["items"] = {"type": paramSplit[3] if paramSplit[3] != "" else "string"}
+
+        if "$ref" in replyBlock:
+            del replyBlock["type"]
     except IndexError:
         print(f"Exception on block {block}\n")
         traceback.print_exc()
-        pass
     
     replyBlock["description"] = "\n".join(blocks[1:])
 
@@ -309,7 +324,7 @@ def processResponseBody(docuBlock, newBlock, statusCode):
         newBlock[statusCode]["content"] = {"application/json": {"schema": {"type": "object", "properties": {}, "required": []}}}
 
     newBlock[statusCode]["content"]["application/json"]["schema"]["properties"][name] = replyBlock
-    if paramSplit[2] == "required":
+    if paramSplit[2] == "required" and not name in newBlock[statusCode]["content"]["application/json"]["schema"]["required"]:
             newBlock[statusCode]["content"]["application/json"]["schema"]["required"].append(name)
     return
 
@@ -321,9 +336,20 @@ def processComponents(block):
     structName, paramName, paramType, paramRequired, paramSubtype = args[1], args[0], args[2], args[3], args[4]
     structProperty = {
         "type": paramType,
-        "format": paramSubtype,
         "description": description,
     }    
+
+    if paramSubtype != "string":
+        structProperty["format"] = paramSubtype
+
+    if paramType == "array":
+        structProperty.pop("format", None)
+        key = "type"
+        if not paramSubtype in swaggerBaseTypes:
+            key = "$ref"
+            paramSubtype = "#/components/schemas/" + paramSubtype
+
+        structProperty["items"] = {key: paramSubtype if paramSubtype != "" else "string"}
 
     if structName in globals.components["schemas"]:
         globals.components["schemas"][structName]["properties"][paramName] = structProperty

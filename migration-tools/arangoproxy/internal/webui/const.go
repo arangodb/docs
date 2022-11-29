@@ -12,7 +12,6 @@ const SWAGGER_INITIALIZE = `
 			"name": "Apache License, Version 2.0"
 		}
 	},
-	"basePath": "/",
 	"components": {
 		"schemas": {}
 	},

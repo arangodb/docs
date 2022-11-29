@@ -107,6 +107,33 @@ definitions = {
             ], 
             "type": "object", 
         },
+        "move_shard_operation": {
+            "description": "", 
+            "properties": {
+                "collection": {
+                    "description": "Collection ID of the collection the shard belongs to.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "from": {
+                    "description": "The server name from which to move.\n\n", 
+                    "type": "string"
+                }, 
+                "isLeader": {
+                    "description": "True if this is a leader move shard operation.\n\n", 
+                    "type": "boolean"
+                }, 
+                "shard": {
+                    "description": "Shard ID of the shard to be moved.\n\n", 
+                    "type": "string"
+                }, 
+                "to": {
+                    "description": "The ID of the destination server.\n\n", 
+                    "type": "string"
+                }
+            }, 
+            "type": "object", 
+        }, 
     "get_api_control_pregel": {
         "description": "\n", 
         "properties": {
