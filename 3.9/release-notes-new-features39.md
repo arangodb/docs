@@ -109,6 +109,9 @@ metric.
 [ArangoSearch caching](arangosearch-views.html) is only available in the
 Enterprise Edition.
 
+See [Optimizing View query performance](arangosearch-performance.html)
+for examples.
+
 UI
 --
 
