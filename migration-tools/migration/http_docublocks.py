@@ -24,6 +24,7 @@ swaggerBaseTypes = [
     'int64'
 ]
 
+
 def str_presenter(dumper, data):
     """configures yaml for dumping multiline strings
     Ref: https://stackoverflow.com/questions/8640959/how-can-i-control-what-scalar-form-pyyaml-uses-for-my-data"""
@@ -47,6 +48,9 @@ def initBlocksFileLocations():
             blockName = re.findall(r"(?<=@startDocuBlock ).*", docuBlock)[0]
 
             globals.blocksFileLocations[blockName] = fileLocation
+    globals.components["schemas"] = definitions
+
+    
     return
 
 def migrateHTTPDocuBlocks(paragraph):
@@ -88,6 +92,8 @@ def processHTTPDocuBlock(docuBlock, tag):
     newBlock = {"openapi": "3.0.2", "paths": {}}
     url, verb, currentRetStatus = "", "", 0
 
+    docuBlock = docuBlock + "\n"
+
     blocks = re.findall(r"@RESTHEADER{(.*?)^(?=@)", docuBlock, re.MULTILINE | re.DOTALL)
     for block in blocks:
         try:
@@ -115,7 +121,7 @@ def processHTTPDocuBlock(docuBlock, tag):
             traceback.print_exc()
             exit(1)
 
-    blocks = re.findall(r"@RESTRETURNCODE{(.*?)^(?=@)",  docuBlock, re.MULTILINE | re.DOTALL)
+    blocks = re.findall(r"@RESTRETURNCODE{(.*?)^(?=@|\n)",  docuBlock, re.MULTILINE | re.DOTALL)
     for block in blocks:
         try:
             currentRetStatus = processResponse(block, newBlock["paths"][url][verb])
@@ -195,9 +201,6 @@ def processHeader(docuBlock, newBlock):
     return url, verb
 
 def processParameters(docuBlock, newBlock):
-    print(f"docublock type {type(docuBlock)}\n")
-    print(docuBlock)
-    
     paramType = docuBlock[0]
 
     if "BODYPARAM" in paramType:
@@ -236,27 +239,36 @@ def processRequestBody(docuBlock, newBlock):
     paramSplit = params.split(",")
     name = paramSplit[0]
     paramBlock = {}
-    paramBlock[name] = {}
     try:
-        paramBlock[name]["type"] = "object" if paramSplit[1] == "json" else paramSplit[1]
-        if paramSplit[3] != "" and not paramSplit[3] in swaggerBaseTypes:
-            paramBlock[name]["schema"] = {"$ref": f"#/components/schemas/{paramSplit[3]}" }
+        paramBlock["type"] = paramSplit[1]
+        if len(paramSplit) >= 4 and paramSplit[3] != "":
+            if paramSplit[3] in swaggerBaseTypes:
+                paramBlock["format"] = paramSplit[3]
+            else:
+                paramBlock["$ref"] = f"#/components/schemas/{paramSplit[3]}"
     except IndexError:
-        pass
+        print(f"Exception on block {block}\n")
+        traceback.print_exc()
+    pass
     
-    paramBlock[name]["description"] = "\n".join(docuBlock[1].split("\n")[1:]).replace(":", "")
+    paramBlock["description"] = "\n".join(docuBlock[1].split("\n")[1:])
 
-    if "requestBody" not in newBlock:
-        newBlock["requestBody"] = {"content": {"application/json": {"schema": {"type": "object", "properties": {}, "required": []}}}}
+    if name == "" and "schema" in paramBlock:
+        newBlock["requestBody"]["content"] = {"application/json": {"schema": paramBlock["schema"]}}
+        return
 
+    if not "requestBody" in newBlock:
+        newBlock["requestBody"] = {}
 
-    newBlock["requestBody"]["content"]["application/json"]["schema"]["properties"][name] = paramBlock[name]
+    if not "content" in newBlock["requestBody"]:
+        newBlock["requestBody"]["content"] = {"application/json": {"schema": {"type": "object", "properties": {}, "required": []}}}
+
+    newBlock["requestBody"]["content"]["application/json"]["schema"]["properties"][name] = paramBlock
     if paramSplit[2] == "required":
             newBlock["requestBody"]["content"]["application/json"]["schema"]["required"].append(name)
     return
 
 def processResponse(docuBlock, newBlock):
-    print(docuBlock)
     blockSplit = docuBlock.split("\n")
     statusRE = re.search(r"\d+}", docuBlock).group(0)
     description = docuBlock.replace(statusRE, "").replace(":", "")
@@ -272,15 +284,19 @@ def processResponse(docuBlock, newBlock):
 
 def processResponseBody(docuBlock, newBlock, statusCode):
     replyBlock = {}
-    
     blocks = docuBlock.split("\n")
     paramSplit = blocks[0].strip("}").split(",")
     name = paramSplit[0].strip("{")
     try:
         replyBlock["type"] = paramSplit[1]
         if paramSplit[3] != "":
-            replyBlock["schema"] = {"$ref": f"#/components/schemas/{paramSplit[3]}"}
+            if paramSplit[3] in swaggerBaseTypes:
+                replyBlock["format"] = paramSplit[3]
+            else:
+                replyBlock["$ref"] = f"#/components/schemas/{paramSplit[3]}"
     except IndexError:
+        print(f"Exception on block {block}\n")
+        traceback.print_exc()
         pass
     
     replyBlock["description"] = "\n".join(blocks[1:])
@@ -289,7 +305,7 @@ def processResponseBody(docuBlock, newBlock, statusCode):
         newBlock[statusCode]["content"] = {"application/json": {"schema": replyBlock["schema"]}}
         return
 
-    if not "content" in newBlock:
+    if not "content" in newBlock[statusCode]:
         newBlock[statusCode]["content"] = {"application/json": {"schema": {"type": "object", "properties": {}, "required": []}}}
 
     newBlock[statusCode]["content"]["application/json"]["schema"]["properties"][name] = replyBlock
@@ -355,7 +371,6 @@ def parse_examples(blockExamples):
 
 
 def write_components_to_file():
-    globals.components["schemas"] = definitions
     with open(globals.OAPI_COMPONENTS_FILE, 'w', encoding="utf-8") as outfile:
         yaml.dump(globals.components, outfile, sort_keys=False, default_flow_style=False)
 

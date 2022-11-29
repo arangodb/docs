@@ -60,6 +60,53 @@ definitions = {
         }, 
         "type": "object", 
     },
+    "edge_representation": {
+            "description": "The complete deleted edge document.\nIncludes all attributes stored before this operation.\nWill only be present if returnOld is true.\n\n", 
+            "properties": {
+                "_from": {
+                    "description": "The _from value of the stored data.\n\n", 
+                    "type": "string"
+                }, 
+                "_id": {
+                    "description": "The _id value of the stored data.\n\n", 
+                    "type": "string"
+                }, 
+                "_key": {
+                    "description": "The _key value of the stored data.\n\n", 
+                    "type": "string"
+                }, 
+                "_rev": {
+                    "description": "The _rev value of the stored data.\n\n", 
+                    "type": "string"
+                }, 
+                "_to": {
+                    "description": "The _to value of the stored data.\n\n", 
+                    "type": "string"
+                }
+            }, 
+            "type": "object", 
+        }, 
+    "vertex_representation": {
+            "description": "The internal attributes for the vertex.\n\n", 
+            "properties": {
+                "_id": {
+                    "description": "The _id value of the stored data.\n\n", 
+                    "type": "string"
+                }, 
+                "_key": {
+                    "description": "The _key value of the stored data.\n\n", 
+                    "type": "string"
+                }, 
+                "_rev": {
+                    "description": "The _rev value of the stored data.\n\n", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "vertex"
+            ], 
+            "type": "object", 
+        },
     "get_api_control_pregel": {
         "description": "\n", 
         "properties": {
@@ -525,4 +572,48 @@ definitions = {
         }, 
         "type": "object", 
     }, 
+    "rebalance_compute": {
+            "description": "\n\n", 
+            "properties": {
+                "databasesExcluded": {
+                    "description": "A list of database names to exclude from the analysis. (Default: `[]`)\n\n", 
+                    "format": "string", 
+                    "items": {
+                        "type": "string"
+                    }, 
+                    "type": "array"
+                }, 
+                "leaderChanges": {
+                    "description": "Allow leader changes without moving data. (Default: `true`)\n\n", 
+                    "type": "boolean"
+                }, 
+                "maximumNumberOfMoves": {
+                    "description": "Maximum number of moves to be computed. (Default: `1000`)\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "moveFollowers": {
+                    "description": "Allow moving followers. (Default: `false`)\n\n", 
+                    "type": "boolean"
+                }, 
+                "moveLeaders": {
+                    "description": "Allow moving leaders. (Default: `false`)\n\n", 
+                    "type": "boolean"
+                }, 
+                "piFactor": {
+                    "description": "(Default: `256e6`)\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "version": {
+                    "description": "Must be set to `1`.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }
+            }, 
+            "required": [
+                ""
+            ], 
+            "type": "object", 
+        }
 }

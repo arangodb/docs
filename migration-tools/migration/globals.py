@@ -38,6 +38,8 @@ widgetRegex = r"{% .* %}[\n]+.*[\n]+{% .* %}"
 ALL_COMMENTS_FILE = f"{OLD_TOOLCHAIN}/3.10/generated/allComments.txt"
 OAPI_COMPONENTS_FILE = f"{args.dst}/migration-tools/arangoproxy/cmd/openapi/components.yaml"
 OLD_GENERATED_FOLDER = f"{OLD_TOOLCHAIN}/3.10/generated/Examples"
+
+
 blocksFileLocations = {}
 components = {"schemas": {}, "parameters": [], "securitySchemes": [], "requestBodies": [], "responses": [], "headers": [], "links": [], "callbacks": []}
 
