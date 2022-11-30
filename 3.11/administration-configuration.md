@@ -204,7 +204,7 @@ in megabytes, gigabytes, or terabytes.
 | `m`, `M`, `mb`, `MB` | 1000<sup>2</sup> | 1,000,000         | `3M`      |
 | `g`, `G`, `gb`, `GB` | 1000<sup>3</sup> | 1,000,000,000     | `3GB`     |
 | `t`, `T`, `tb`, `TB` | 1000<sup>4</sup> | 1,000,000,000,000 | `4tb`     |
-| `%`                  | 0.01             |                   | `5%`      |
+| `%`                  | 0.01             | n/a               | `5%`      |
 
 You can also use suffixes in configuration files like this:
 
