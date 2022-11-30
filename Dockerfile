@@ -1,3 +1,16 @@
+#ArangoStub
+FROM openjdk:16-slim-buster AS arangostub
+
+RUN apt-get update; apt-get install -y curl \
+    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs \
+    && curl -L https://www.npmjs.com/install.sh | sh 
+
+RUN
+WORKDIR /home/openapi
+
+RUN npx @openapitools/openapi-generator-cli generate -i api-docs.json -g nodejs-express-server -o arangostub
+
 #Arangoproxy
 FROM golang:latest AS arangoproxy
 
@@ -6,7 +19,7 @@ RUN apt-get update
 RUN apt-get install -y ./arangodb3*.deb
 
 WORKDIR /home/arangoproxy/cmd
-CMD ["go", "run", "main.go"]
+CMD ["go", "run", "main.go", "-no-cache"]
 
 # HUGO
 FROM alpine:3.16 AS hugo-clone
