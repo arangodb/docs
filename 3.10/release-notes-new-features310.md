@@ -1008,6 +1008,18 @@ The previous background thread named `Sha256Thread`, which was responsible for
 calculating the SHA256 hashes and sometimes for high CPU utilization after
 larger write operations, has now been fully removed.
 
+### Traffic accounting metrics
+
+<small>Introduced in: v3.9.6, v3.10.2</small>
+
+The following metrics for traffic accounting were added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_client_user_connection_statistics_bytes_received` | Bytes received for requests, only user traffic. |
+| `arangodb_client_user_connection_statistics_bytes_sent` | Bytes sent for responses, only user traffic.
+| `arangodb_http1_connections_total` | Total number of HTTP/1.1 connections accepted. |
+
 ## Client tools
 
 ### arangobench

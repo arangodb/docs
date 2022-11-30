@@ -275,9 +275,17 @@ for details.
 
 <small>Introduced in: v3.9.5</small>
 
-The `GET /_admin/metrics/v2` and `GET /_admin/metrics`endpoints includes a new
+The `GET /_admin/metrics/v2` and `GET /_admin/metrics` endpoints includes a new
 metrics `arangodb_search_columns_cache_size` which reports the ArangoSearch
 column cache size.
+
+<small>Introduced in: v3.9.6</small>
+
+The metrics endpoints include the following new traffic accounting metrics:
+
+- `arangodb_client_user_connection_statistics_bytes_received`
+- `arangodb_client_user_connection_statistics_bytes_sent`
+- `arangodb_http1_connections_total`
 
 ### Endpoints moved
 
