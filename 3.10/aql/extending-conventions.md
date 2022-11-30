@@ -49,10 +49,10 @@ that existed at the time of declaration. If user function code requires
 access to any external data, it must take care to set up the data by
 itself.
 
-All AQL user function-specific variables should be introduced with the `var`
-or `let` keywords in order to not accidentally access already defined variables from
-outer scopes. Not using the `var` keyword for own variables may cause side
-effects when executing the function.
+All AQL user function-specific variables should be introduced with the `var`,
+`let`, or `const` keywords in order to not accidentally access already defined
+variables from outer scopes. Not using a declaration keyword for own variables
+may cause side effects when executing the function.
 
 Here is an example that may modify outer scope variables `i` and `name`,
 making the function **not** side-effect free:
@@ -69,8 +69,8 @@ function (values) {
 }
 ```
 
-The above function can be made free of side effects by using the `var` or
-`let` keywords, so the variables become function-local variables:
+The above function can be made free of side effects by using the `var`, `let`,
+or `const` keywords, so the variables become function-local variables:
 
 ```js
 function (values) {

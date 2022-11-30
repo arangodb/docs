@@ -41,8 +41,14 @@ to reduce the query result before passing it to your UDF.
 Rule of thumb is, the closer the UDF is to your final `RETURN` statement
 (or maybe even inside it), the better. 
 
-When used in clusters, UDFs are always executed on the
+When used in clusters, UDFs are always executed on a
 [Coordinator](../architecture-deployment-modes-cluster-architecture.html).
+It is not possible to execute UDFs on DB-Servers, as no JavaScript execution
+engine is available on DB-Servers. Queries that would push UDF execution to
+DB-Servers are aborted with a parse error. This includes using UDFs in traversal
+`PRUNE` conditions, as well as `FILTER` conditions that can be moved into the
+traversal execution on a DB-Server. These limitations also apply to the
+single server deployment mode to keep the differences to cluster deployments minimal.
 
 As UDFs are written in JavaScript, each query that executes a UDF will acquire
 one V8 context to execute the UDFs in it. V8 contexts can be re-used across subsequent
@@ -55,12 +61,6 @@ Using UDFs in clusters may thus result in a higher resource allocation
 in terms of used V8 contexts and server threads. If you run out 
 of these resources, your query may abort with a
 [**cluster backend unavailable**](../appendix-error-codes.html) error.
-
-In a cluster, UDFs can only be executed on coordinators. It is not possible to
-execute UDFs on DB-Servers, as no JavaScript execution engine is available on DB-Servers. 
-Thus UDFs cannot be used inside traversal PRUNE conditions nor inside FILTER conditions
-that can be moved into the traversal execution on DB-Servers. This limitation also
-applies to single servers to keep the differences to cluster deployments minimal.
 
 To overcome these mentioned limitations, you may want to increase the
 [number of available V8 contexts](../programs-arangod-options.html#--javascriptv8-contexts)
