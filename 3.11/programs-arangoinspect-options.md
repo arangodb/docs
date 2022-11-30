@@ -1,6 +1,8 @@
 ---
 layout: default
 description: arangoinspect Options
+page-toc:
+  max-headline-level: 2
 ---
 # _arangoinspect_ Options
 

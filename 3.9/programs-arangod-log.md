@@ -8,22 +8,24 @@ description: ArangoDB Server Log Options
 
 ArangoDB's log output is grouped into topics. `--log.level` can be specified
 multiple times at startup, for as many topics as needed. The log verbosity and
-output files can be adjusted per log topic. For example
+output files can be adjusted per log topic.
 
 ```
---log.level startup=trace --log.level queries=trace --log.level info
+arangod --log.level all=warning --log.level queries=trace --log.level startup=trace
 ```
 
-will log messages concerning startup at trace level, AQL queries at trace level
-and everything else at info level.
+This sets a global log level of `warning` and two topic-specific levels
+(`trace` for queries and `info` for startup). Note that `--log.level warning`
+does not set a log level globally for all existing topics, but only the
+`general` topic. Use the pseudo-topic `all` to set a global log level.
 
-In a configuration file, it is written like this:
+The same in a configuration file:
 
 ```
 [log]
-level = startup=trace
+level = all=warning
 level = queries=trace
-level = info
+level = startup=trace
 ```
 
 The available log levels are:
@@ -35,7 +37,7 @@ The available log levels are:
 - `debug`: logs debug and information messages, warnings and errors
 - `trace`: logs trace, debug and information messages, warnings and errors
 
-Note that levels `debug` and `trace` will be very verbose.
+Note that the `debug` and `trace` levels are very verbose.
 
 See [Log Levels](monitoring-log-levels.html) in the Monitoring chapter for a
 detailed description of the different levels.

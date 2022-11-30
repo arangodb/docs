@@ -58,7 +58,7 @@ memory buffers.
 
 Under normal write load, the write buffers will use less than 1 GByte of memory.
 If you are tight on memory, or your usage pattern does not require this, you can
-reduce these [RocksDB settings](programs-arangod-rocksdb.html):
+reduce these [RocksDB settings](programs-arangod-options.html#rocksdb):
 
 ``` 
 --rocksdb.max-total-wal-size 1024000
@@ -125,7 +125,7 @@ Index Caches
 --cache.size 0
 ```
 
-This option disables the in-memory index [caches](programs-arangod-cache.html).
+This option disables the in-memory index [caches](programs-arangod-options.html#cache).
 In versions before v3.9.2, you can limit the size to a minimum of `1048576` (1 MB).
 
 If you do not have a graph use case and do not use edge collections, nor the optional
@@ -176,7 +176,7 @@ Statistics
 ----------
 
 The server collects
-[statistics](programs-arangod-server.html#toggling-server-statistics) regularly,
+[statistics](programs-arangod-options.html#--serverstatistics) regularly,
 which is displayed in the web interface. You will have a light query load every
 few seconds, even if your application is idle, because of the statistics. If required, you can 
 turn it off via:
@@ -195,7 +195,7 @@ done by the statistics gathering.
 JavaScript & Foxx
 -----------------
 
-[JavaScript](programs-arangod-javascript.html) is executed in the ArangoDB
+[JavaScript](programs-arangod-options.html#javascript) is executed in the ArangoDB
 process using the embedded V8 engine:
 
 - Backend parts of the web interface
@@ -274,7 +274,7 @@ The default for this option is 4, which means that a Coordinator with `t`
 scheduler threads can execute up to `4 * t` requests concurrently. The
 minimal value for this option is 1.
 
-Also see [Preventing cluster overwhelm](programs-arangod-server.html#preventing-cluster-overwhelm).
+Also see the [_arangod_ startup options](programs-arangod-options.html#--serverongoing-low-priority-multiplier).
 
 CPU usage
 ---------
