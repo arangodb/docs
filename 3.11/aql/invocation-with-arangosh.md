@@ -12,6 +12,8 @@ how to use bind parameters, counting, statistics and cursors.
 
 ## With `db._query()`
 
+`db._query(<queryString>) → cursor`
+
 You can execute queries with the `_query()` method of the `db` object. 
 This runs the specified query in the context of the currently
 selected database and returns the query results in a cursor.
@@ -31,6 +33,8 @@ You can print the results of the cursor using its `toArray()` method:
 
 ### `db._query()` bind parameters
 
+`db._query(<queryString>, <bindVars>) → cursor`
+
 To pass bind parameters into a query, you can specify a second argument when
 calling the `_query()` method:
 
@@ -47,6 +51,8 @@ calling the `_query()` method:
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### ES6 template strings
+
+`` aql`<queryTemplateString>` ``
 
 It is also possible to use ES6 template strings for generating AQL queries. There is
 a template string generator function named `aql`. 
@@ -96,6 +102,8 @@ operation, the `toArray()` method returns an empty array.
 
 ### Statistics and extra Information
 
+`cursor.getExtra() → queryInfo`
+
 It is always possible to retrieve statistics for a query with the `getExtra()` method:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -115,7 +123,121 @@ The meaning of the statistics values is described in
 Query warnings are also reported here. If you design queries on the shell,
 be sure to check for warnings.
 
-### Setting a memory limit
+### Cursor options
+
+`db._query(<queryString>, <bindVars>, <cursorOptions>, <queryOptions>) → cursor`
+
+You can pass cursor options as the third argument to `db._query()`, but there
+needs to be a fourth argument with the query options for this (can be an empty
+object `{}`).
+
+#### `count`
+
+<!-- TODO: this isn't really a cursor option but it can only be set on the top-level -->
+
+Whether the number of documents in the result set should be calculated on the
+server side and returned in the `count` attribute of the result. Calculating the
+`count` attribute might have a performance impact for some queries so this
+option is turned off by default, and only returned when requested.
+
+If enabled, you can get the count by calling the `count()` method of the cursor.
+You can also count the number of results on the client side, for example, using
+`cursor.toArray().length`.
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline 02_workWithAQL_count
+    @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_count}
+    | var cursor = db._query(
+    |   'FOR i IN 1..42 RETURN i',
+    |   {},
+    |   { count: true },
+    |   {}
+      );
+      cursor.count();
+      cursor.toArray().length;
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock 02_workWithAQL_count
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+#### `batchSize`
+
+<!--
+TODO: In arangosh, we can access .data to show the server response (single batch),
+but in arangod, this isn't exposed (and cursors are only used for the streaming case)
+-->
+
+The maximum number of result documents to be transferred from the server to the
+client in one roundtrip. If this attribute is not set, a server-controlled
+default value is used. A `batchSize` value of `0` is disallowed.
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline 02_workWithAQL_batchSize
+    @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_batchSize}
+    | db._query(
+    |   'FOR i IN 1..3 RETURN i',
+    |   {},
+    |   { batchSize: 2 },
+    |   {}
+      ).toArray(); // full result retrieved in two batches
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock 02_workWithAQL_batchSize
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+#### `ttl`
+
+<!--
+TODO: In arangod, the TTL is set to max and if a user ttl option is handed through,
+we get a "cursor is busy" error
+-->
+
+The time-to-live for the cursor (in seconds). If the result set is small enough
+(less than or equal to `batchSize`), then results are returned right away.
+Otherwise, they are stored in memory and are accessible via the cursor with
+respect to the `ttl`. The cursor is removed on the server automatically after
+the specified amount of time. This is useful to ensure garbage collection of
+cursors that are not fully fetched by clients. If not set, a server-defined
+value is used (default: 30 seconds).
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline 02_workWithAQL_ttl
+    @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_ttl}
+    | db._query(
+    |   'FOR i IN 1..2000 RETURN i',
+    |   {},
+    |   { ttl: 5 },
+    |   {}
+      ).toArray(); // Each batch needs to be fetched within 5 seconds
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock 02_workWithAQL_ttl
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+#### `cache`
+
+<!-- TODO: not really a cursor option -->
+
+Whether the AQL query results cache shall be used. If set to `false`, then any
+query cache lookup is skipped for the query. If set to `true`, it leads to the
+query cache being checked for the query **if** the query cache mode is either
+set to `on` or `demand`.
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline 02_workWithAQL_cache
+    @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_cache}
+    | db._query(
+    |   'FOR i IN 1..2000 RETURN i',
+    |   {},
+    |   { cache: true },
+    |   {}
+      ).toArray(); // result may get taken from cache
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock 02_workWithAQL_cache
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+#### `memoryLimit`
 
 To set a memory limit for the query, pass `options` to the `_query()` method.
 The memory limit specifies the maximum number of bytes that the query is
@@ -134,120 +256,161 @@ effectively a memory limit per query per shard.
       ).toArray(); // xpError(ERROR_RESOURCE_LIMIT)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 02_workWithAQL_memoryLimit
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 If no memory limit is specified, then the server default value (controlled by
 the `--query.memory-limit` startup option) is used for restricting the maximum amount 
 of memory the query can use. A memory limit value of `0` means that the maximum
 amount of memory for the query is not restricted. 
 
-### Setting options
+### Query options
+
+`db._query(<queryString>, <bindVars>, <queryOptions>) → cursor`
 
 There are further options that you can pass in the `options` attribute of the `_query()` method:
 
-- `fullCount`: if set to `true` and if the query contains a `LIMIT` operation, then the
-  result has an extra attribute with the sub-attributes `stats` and `fullCount`, like
-  `{ ... , "extra": { "stats": { "fullCount": 123 } } }`. The `fullCount` attribute
-  contains the number of documents in the result before the last top-level `LIMIT` in the
-  query was applied. It can be used to count the number of documents that match certain
-  filter criteria, but only return a subset of them, in one go. It is thus similar to
-  MySQL's `SQL_CALC_FOUND_ROWS` hint. Note that setting the option disables a few
-  `LIMIT` optimizations and may lead to more documents being processed, and thus make
-  queries run longer. Note that the `fullCount` attribute may only be present in the
-  result if the query has a top-level `LIMIT` operation and the `LIMIT` operation
-  is actually used in the query.
+#### `fullCount`
 
-- `failOnWarning`: when set to `true`, this makes the query throw an exception and
-  abort in case a warning occurs. You should use this option in development to catch
-  errors early. If set to `false`, warnings don't propagate to exceptions and are
-  returned with the query results. There is also a `--query.fail-on-warning`
-  startup options for setting the default value for `failOnWarning`, so that you
-  don't need to set it on a per-query level.
+If you set `fullCount` to `true` and if the query contains a `LIMIT` operation, then the
+result has an extra attribute with the sub-attributes `stats` and `fullCount`, like
+`{ ... , "extra": { "stats": { "fullCount": 123 } } }`. The `fullCount` attribute
+contains the number of documents in the result before the last top-level `LIMIT` in the
+query was applied. It can be used to count the number of documents that match certain
+filter criteria, but only return a subset of them, in one go. It is thus similar to
+MySQL's `SQL_CALC_FOUND_ROWS` hint. Note that setting the option disables a few
+`LIMIT` optimizations and may lead to more documents being processed, and thus make
+queries run longer. Note that the `fullCount` attribute may only be present in the
+result if the query has a top-level `LIMIT` operation and the `LIMIT` operation
+is actually used in the query.
 
-- `cache`: if set to `true`, this puts the query result into the query result cache
-  if the query result is eligible for caching and the query cache is running in demand 
-  mode. If set to `false`, the query result is not inserted into the query result
-  cache. Note that query results are never inserted into the query result cache if
-  the query result cache is disabled, and that they are automatically inserted into
-  the query result cache if it is active in non-demand mode.
+#### `failOnWarning`
+If you set `failOnWarning` to `true`, this makes the query throw an exception and
+abort in case a warning occurs. You should use this option in development to catch
+errors early. If set to `false`, warnings don't propagate to exceptions and are
+returned with the query results. There is also a `--query.fail-on-warning`
+startup options for setting the default value for `failOnWarning`, so that you
+don't need to set it on a per-query level.
 
-- `fillBlockCache`: if set to `true` or not specified, this makes the query store
-  the data it reads via the RocksDB storage engine in the RocksDB block cache. This is
-  usually the desired behavior. You can set the option to `false` for queries that are
-  known to either read a lot of data that would thrash the block cache, or for queries
-  that read data known to be outside of the hot set. By setting the option
-  to `false`, data read by the query does not make it into the RocksDB block cache if
-  it is not already in there, thus leaving more room for the actual hot set.
+#### `cache`
 
-- `profile`: if set to `true` or `1`, returns extra timing information for the query.
-  The timing information is accessible via the `getExtra()` method of the query
-  result. If set to `2`, the query includes execution statistics per query plan
-  execution node in `stats.nodes` sub-attribute of the `extra` return attribute.
-  Additionally, the query plan is returned in the `extra.plan` sub-attribute.
+If you set `cache` to `true`, this puts the query result into the query result cache
+if the query result is eligible for caching and the query cache is running in demand 
+mode. If set to `false`, the query result is not inserted into the query result
+cache. Note that query results are never inserted into the query result cache if
+the query result cache is disabled, and that they are automatically inserted into
+the query result cache if it is active in non-demand mode.
 
-- `maxWarningCount`: limits the number of warnings that are returned by the query if
-  `failOnWarning` is not set to `true`. The default value is `10`.
+#### `fillBlockCache`
 
-- `maxNumberOfPlans`: limits the number of query execution plans the optimizer
-  creates at most. Reducing the number of query execution plans may speed up query plan
-  creation and optimization for complex queries, but normally there is no need to adjust
-  this value.
+If you set `fillBlockCache` to `true` or not specify it, this makes the query store
+the data it reads via the RocksDB storage engine in the RocksDB block cache. This is
+usually the desired behavior. You can set the option to `false` for queries that are
+known to either read a lot of data that would thrash the block cache, or for queries
+that read data known to be outside of the hot set. By setting the option
+to `false`, data read by the query does not make it into the RocksDB block cache if
+it is not already in there, thus leaving more room for the actual hot set.
 
-- `optimizer`: Options related to the query optimizer.
+#### `profile`
 
-  - `rules`: A list of to-be-included or to-be-excluded optimizer rules can be put into
+If you set `profile` to `true` or `1`, extra timing information is returned for the query.
+The timing information is accessible via the `getExtra()` method of the query
+result. If set to `2`, the query includes execution statistics per query plan
+execution node in `stats.nodes` sub-attribute of the `extra` return attribute.
+Additionally, the query plan is returned in the `extra.plan` sub-attribute.
+
+#### `maxWarningCount`
+
+The `maxWarningCount` option limits the number of warnings that are returned by the query if
+`failOnWarning` is not set to `true`. The default value is `10`.
+
+#### `maxNumberOfPlans`
+
+The `maxNumberOfPlans` option limits the number of query execution plans the optimizer
+creates at most. Reducing the number of query execution plans may speed up query plan
+creation and optimization for complex queries, but normally there is no need to adjust
+this value.
+
+#### `optimizer`
+
+Options related to the query optimizer.
+
+- `rules`: A list of to-be-included or to-be-excluded optimizer rules can be put into
   this attribute, telling the optimizer to include or exclude specific rules. To disable
   a rule, prefix its name with a `-`, to enable a rule, prefix it with a `+`. There is also
   a pseudo-rule `all`, which matches all optimizer rules. `-all` disables all rules.
 
-- `stream`: Specify `true` and the query is executed in a **streaming** fashion. The query result is
-  not stored on the server, but calculated on the fly. **Warning**: long-running queries
-  need to hold the collection locks for as long as the query cursor exists. It is advisable
-  to *only* use this option on short-running queries *or* without exclusive locks.
-  When set to `false`, the query is executed right away in its entirety.
-  In that case, the query results are either returned right away (if the result
-  set is small enough), or stored on the arangod instance and can be accessed
-  via the cursor API. 
+#### `stream`
 
-  Please note that the query options `cache`, `count` and `fullCount` don't work on streaming
-  queries. Additionally, query statistics, warnings, and profiling data is only
-  available after the query has finished. The default value is `false`.
+Set `stream` to `true` to execute the query in a **streaming** fashion. The query result is
+not stored on the server, but calculated on the fly.
 
-- `maxRuntime`: The query has to be executed within the given runtime or it is killed.
-  The value is specified in seconds. The default value is `0.0` (no timeout).
+{% hint 'warning' %}
+Long-running queries need to hold the collection locks for as long as the query
+cursor exists. It is advisable to **only** use this option on short-running
+queries **or** without exclusive locks.
+{% endhint %}
 
-- `maxNodesPerCallstack`: The number of execution nodes in the query plan after
-  that stack splitting is performed to avoid a potential stack overflow.
-  Defaults to the configured value of the startup option
-  `--query.max-nodes-per-callstack`.
-  
-  This option is only useful for testing and debugging and normally does not need
-  any adjustment.
+When set to `false`, the query is executed right away in its entirety.
+In that case, the query results are either returned right away (if the result
+set is small enough), or stored on the arangod instance and can be accessed
+via the cursor API. 
 
-- `maxTransactionSize`: The transaction size limit in bytes.
+{% hint 'info' %}
+The query options `cache`, `count` and `fullCount` don't work on streaming
+queries. Additionally, query statistics, warnings, and profiling data is only
+available after the query has finished. The default value is `false`.
+{% endhint %}
 
-- `intermediateCommitSize`: The maximum total size of operations after which an intermediate
-  commit is performed automatically.
+#### `maxRuntime`
 
-- `intermediateCommitCount`: The maximum number of operations after which an intermediate
-  commit is performed automatically.
+The query has to be executed within the given runtime or it is killed.
+The value is specified in seconds. The default value is `0.0` (no timeout).
 
-In the ArangoDB Enterprise Edition, there are additional parameters:
+#### `maxNodesPerCallstack`
 
-- `skipInaccessibleCollections`: Let AQL queries (especially graph traversals) treat
-  collection to which a user has **no access** rights for as if these collections are empty.
-  Instead of returning a *forbidden access* error, your queries execute normally.
-  This is intended to help with certain use-cases: A graph contains several collections
-  and different users execute AQL queries on that graph. You can naturally limit the 
-  accessible results by changing the access rights of users on collections.
+The number of execution nodes in the query plan after
+that stack splitting is performed to avoid a potential stack overflow.
+Defaults to the configured value of the startup option
+`--query.max-nodes-per-callstack`.
 
-- `satelliteSyncWait`: This Enterprise Edition parameter allows to configure how long
-  a DB-Server has time to bring the SatelliteCollections involved in the query
-  into sync. The default value is `60.0` seconds. When the maximal time is reached,
-  the query is stopped.
+This option is only useful for testing and debugging and normally does not need
+any adjustment.
 
-## Additional parameters for spilling data from the query onto disk
+#### `maxTransactionSize`
+
+The transaction size limit in bytes.
+
+#### `intermediateCommitSize`
+
+The maximum total size of operations after which an intermediate
+commit is performed automatically.
+
+#### `intermediateCommitCount`
+
+The maximum number of operations after which an intermediate
+commit is performed automatically.
+
+#### `skipInaccessibleCollections`
+
+Let AQL queries (especially graph traversals) treat collection to which a
+user has **no access** rights for as if these collections are empty.
+Instead of returning a *forbidden access* error, your queries execute normally.
+This is intended to help with certain use-cases: A graph contains several collections
+and different users execute AQL queries on that graph. You can naturally limit the 
+accessible results by changing the access rights of users on collections.
+
+{% include hint-ee-arangograph.md feature="This option" %}
+
+#### `satelliteSyncWait`
+
+Configure how long a DB-Server has time to bring the SatelliteCollections
+involved in the query into sync. The default value is `60.0` seconds.
+When the maximal time is reached, the query is stopped.
+
+{% include hint-ee-arangograph.md feature="SatelliteCollections" plural=true %}
+
+### Additional parameters for spilling data from the query onto disk
 
 Starting from ArangoDB 3.10, there are two additional parameters that allow spilling 
 intermediate data from a query onto a disk to decrease the memory usage.
