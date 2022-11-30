@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Arangobackup Options
+page-toc:
+  max-headline-level: 2
 ---
 Arangobackup Options
 ====================
