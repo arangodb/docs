@@ -438,6 +438,13 @@ The cursor API can now return additional statistics values in its `stats` subatt
 
 These attributes are optional and only useful for detailed performance analyses.
 
+The `POST /_api/cursor` endpoint accepts two new parameters in the `options`
+object to set per-query thresholds for the
+[query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage):
+
+- `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)
+- `spillOverThresholdNumRows` (integer, _optional_): default: `5000000` rows
+
 #### Index API
 
 - The index creation API at POST `/_api/index` now accepts an optional `storedValues`
@@ -544,3 +551,10 @@ For a detailed description of the attributes, see
 The Computed Values feature extends the collection properties with a new
 `computedValues` attribute. See [Computed Values](data-modeling-documents-computed-values.html#javascript-api)
 for details.
+
+The `db._query()` and `db._createStatement()` methods accepts two new query
+options (`options` object) to set per-query thresholds for the
+[query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage):
+
+- `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)
+- `spillOverThresholdNumRows` (integer, _optional_): default: `5000000` rows

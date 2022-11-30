@@ -239,6 +239,8 @@ set to `on` or `demand`.
 
 #### `memoryLimit`
 
+<!-- TODO: not really a cursor option -->
+
 To set a memory limit for the query, pass `options` to the `_query()` method.
 The memory limit specifies the maximum number of bytes that the query is
 allowed to use. When a single AQL query reaches the specified limit value, 
@@ -268,7 +270,10 @@ amount of memory for the query is not restricted.
 
 `db._query(<queryString>, <bindVars>, <queryOptions>) → cursor`
 
-There are further options that you can pass in the `options` attribute of the `_query()` method:
+`db._query(<queryString>, <bindVars>, <cursorOptions>, <queryOptions>) → cursor`
+
+You can pass query options as the third argument to `db._query()` if you don't
+provide cursor options, or as fourth argument if you do.
 
 #### `fullCount`
 
@@ -391,6 +396,55 @@ commit is performed automatically.
 The maximum number of operations after which an intermediate
 commit is performed automatically.
 
+#### `spillOverThresholdMemoryUsage`
+
+<small>Introduced in: v3.10.0</small>
+
+This option allows queries to store intermediate and final results temporarily
+on disk if the amount of memory used (in bytes) exceeds the specified value.
+This is used for decreasing the memory usage during the query execution.
+
+This option only has an effect on queries that use the `SORT` operation but
+without a `LIMIT`, and if you enable the spillover feature by setting a path
+for the directory to store the temporary data in with the
+[`--temp.intermediate-results-path` startup option](../programs-arangod-options.html#--tempintermediate-results-path).
+
+Default value: 128MB.
+
+{% hint 'info' %}
+Spilling data from RAM onto disk is an experimental feature and is turned off 
+by default. The query results are still built up entirely in RAM on Coordinators
+and single servers for non-streaming queries. To avoid the buildup of
+the entire query result in RAM, use a streaming query (see the
+[`stream`](#stream) option).
+{% endhint %}
+
+#### `spillOverThresholdNumRows`
+
+<small>Introduced in: v3.10.0</small>
+  
+This option allows queries to store intermediate and final results temporarily
+on disk if the number of rows produced by the query exceeds the specified value.
+This is used for decreasing the memory usage during the query execution. In a
+query that iterates over a collection that contains documents, each row is a
+document, and in a query that iterates over temporary values 
+(i.e. `FOR i IN 1..100`), each row is one of such temporary values.
+
+This option only has an effect on queries that use the `SORT` operation but
+without a `LIMIT`, and if you enable the spillover feature by setting a path
+for the directory to store the temporary data in with the
+[`--temp.intermediate-results-path` startup option](../programs-arangod-options.html#--tempintermediate-results-path).
+
+Default value: `5000000` rows.
+
+{% hint 'info' %}
+Spilling data from RAM onto disk is an experimental feature and is turned off 
+by default. The query results are still built up entirely in RAM on Coordinators
+and single servers for non-streaming queries. To avoid the buildup of
+the entire query result in RAM, use a streaming query (see the
+[`stream`](#stream) option).
+{% endhint %}
+
 #### `skipInaccessibleCollections`
 
 Let AQL queries (especially graph traversals) treat collection to which a
@@ -409,41 +463,6 @@ involved in the query into sync. The default value is `60.0` seconds.
 When the maximal time is reached, the query is stopped.
 
 {% include hint-ee-arangograph.md feature="SatelliteCollections" plural=true %}
-
-### Additional parameters for spilling data from the query onto disk
-
-Starting from ArangoDB 3.10, there are two additional parameters that allow spilling 
-intermediate data from a query onto a disk to decrease the memory usage.
-  
-{% hint 'info' %}
-The option of spilling data from RAM onto disk is experimental and is turned off 
-by default. This parameter currently only has effect for sorting - 
-for a query that uses the `SORT` operation but without `LIMIT`.
-Also, the query results are still built up entirely in RAM on Coordinators
-and single servers for non-streaming queries. To avoid the buildup of
-the entire query result in RAM, a streaming query should be used.
-{% endhint %}
-
-- `spillOverThresholdNumRows`: This parameter allows for input data and 
-  intermediate results to be spilled onto disk for a query execution
-  after the number of rows reaches the specified value. This is 
-  used for decreasing the memory usage during the query execution. In a query 
-  that iterates over a collection that contains documents, each row is a 
-  document and, in a query that iterates over temporary values 
-  (i.e. `FOR i IN 1..100`), each row is one of such temporary values. 
-  This parameter is experimental and is only taken into account if a path for a
-  directory to store the temporary data is provided with the
-  [`--temp.intermediate-results-path` startup option](../programs-arangod-options.html#--tempintermediate-results-path).
-  Default value: `5000000` rows.
-
-- `spillOverThresholdMemoryUsage`: This parameter allows for input data and 
-  intermediate results to be spilled onto disk for a query execution 
-  after the memory usage reaches the specified value (in bytes). This 
-  is used for decreasing the memory usage during the query execution. This 
-  parameter is experimental and is only taken into account if a path for a 
-  directory to store the temporary data is provided with the
-  [`--temp.intermediate-results-path` startup option](../programs-arangod-options.html#--tempintermediate-results-path).
-  Default value: 128MB.
 
 ## With `db._createStatement()` (ArangoStatement)
 
@@ -657,7 +676,7 @@ produced statistics:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-## Query validation
+## Query validation with `db._parse()`
 
 The `_parse()` method of the `db` object can be used to parse and validate a
 query syntactically, without actually executing it.
