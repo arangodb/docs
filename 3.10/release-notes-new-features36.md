@@ -658,13 +658,13 @@ Startup options
 
 ### Metrics API option
 
-The new [option](programs-arangod-server.html#metrics-api)
+The new [option](programs-arangod-options.html#--serverexport-metrics-api)
 `--server.export-metrics-api` allows you to disable the metrics API by setting
 it to `false`, which is otherwise turned on by default.
 
 ### OneShard cluster option
 
-The [option](programs-arangod-cluster.html#more-advanced-options)
+The [option](programs-arangod-options.html#--clusterforce-one-shard)
 `--cluster.force-one-shard` enables the new OneShard feature for the entire
 cluster deployment. It forces the cluster into creating all future collections
 with only a single shard and using the same DB-Server as these collections'
@@ -674,7 +674,7 @@ transactional guarantees.
 
 ### Cluster upgrade option
 
-The new [option](programs-arangod-cluster.html#upgrade) `--cluster.upgrade`
+The new [option](programs-arangod-options.html#--clusterupgrade) `--cluster.upgrade`
 toggles the cluster upgrade mode for Coordinators. It supports the following
 values:
 
@@ -698,7 +698,7 @@ have any affect on single servers, Agents or DB-Servers.
 
 ### Other cluster options
 
-The following [options](programs-arangod-cluster.html) have been added:
+The following [options](programs-arangod-options.html#cluster) have been added:
 
 - `--cluster.max-replication-factor`: maximum replication factor for new
   collections. A value of `0` means that there is no restriction.
@@ -725,7 +725,7 @@ Note that the above options only have an effect when set for Coordinators, and
 only for collections that are created after the options have been set. They do
 not affect already existing collections.
 
-Furthermore, the following network related [options](programs-arangod-network.html)
+Furthermore, the following network related [options](programs-arangod-options.html#network)
 have been added:
 
 - `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal
@@ -765,7 +765,7 @@ For example, to turn off the rule `use-indexes-for-sort`, use
 
     --query.optimizer-rules "-use-indexes-for-sort"
 
-The purpose of this [startup option](programs-arangod-query.html#optimizer-rule-defaults)
+The purpose of this [startup option](programs-arangod-options.html#--queryoptimizer-rules)
 is to be able to enable potential future experimental optimizer rules, which
 may be shipped in a disabled-by-default state.
 
@@ -791,7 +791,7 @@ Hot Backup
 TLS v1.3
 --------
 
-Added support for TLS 1.3 for the [arangod server](programs-arangod-ssl.html#ssl-protocol)
+Added support for TLS 1.3 for the [arangod server](programs-arangod-options.html#--sslprotocol)
 and the client tools (also added to v3.5.1).
 
 The arangod server can be started with option `--ssl.protocol 6` to make it require

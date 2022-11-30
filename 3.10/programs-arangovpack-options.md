@@ -1,6 +1,8 @@
 ---
 layout: default
 description: arangovpack Options
+page-toc:
+  max-headline-level: 2
 ---
 # _arangovpack_ Options
 

@@ -1,6 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/download</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">&quot;downloadId&quot;</span> : <span class="hljs-string">&quot;67746&quot;</span> 
+  <span class="hljs-string">&quot;downloadId&quot;</span> : <span class="hljs-string">&quot;67740&quot;</span> 
 }
 EOF
 
@@ -21,10 +21,10 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">&quot;result&quot;</span> : { 
-    <span class="hljs-string">&quot;Timestamp&quot;</span> : <span class="hljs-string">&quot;2022-11-11T15:19:28Z&quot;</span>, 
-    <span class="hljs-string">&quot;DownloadId&quot;</span> : <span class="hljs-string">&quot;67746&quot;</span>, 
+    <span class="hljs-string">&quot;Timestamp&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11:07:31Z&quot;</span>, 
+    <span class="hljs-string">&quot;DownloadId&quot;</span> : <span class="hljs-string">&quot;67740&quot;</span>, 
     <span class="hljs-string">&quot;Cancelled&quot;</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">&quot;BackupId&quot;</span> : <span class="hljs-string">&quot;2022-11-11T15.19.12Z_e07f89be-77ac-48ad-a389-988fc49a5e2a&quot;</span>, 
+    <span class="hljs-string">&quot;BackupId&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11.07.15Z_9045f762-f0b1-4d4e-b395-3842d0d4f3a7&quot;</span>, 
     <span class="hljs-string">&quot;DBServers&quot;</span> : { 
       <span class="hljs-string">&quot;SNGL&quot;</span> : { 
         <span class="hljs-string">&quot;Status&quot;</span> : <span class="hljs-string">&quot;STARTED&quot;</span> 
