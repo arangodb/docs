@@ -10,7 +10,6 @@ import (
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/httpapi"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/js"
-	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/webui"
 )
 
 // Dependency Injection
@@ -27,13 +26,10 @@ func StartController(url string) {
 	// Create routes
 	http.HandleFunc("/js", JSHandler)
 	http.HandleFunc("/http-spec", HTTPSpecHandler)
-	http.HandleFunc("/api-docs", ApiDocsHandler)
 	http.HandleFunc("/curl", HTTPExampleHandler)
 	http.HandleFunc("/aql", AQLHandler)
 	http.HandleFunc("/go", TODOHandler)
 	http.HandleFunc("/java", TODOHandler)
-
-	go webui.SpecListener(SpecListenerChannel)
 
 	log.Fatal(http.ListenAndServe(url, nil))
 }
@@ -99,20 +95,6 @@ func HTTPSpecHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(jsonResponse)
-}
-
-// Handler for http-spec codeblocks when building for webUI api-docs
-func ApiDocsHandler(w http.ResponseWriter, r *http.Request) {
-	request, err := httpapi.ParseRequest(r.Body)
-	if err != nil {
-		common.Logger.Printf("[http-spec/CONTROLLER] Error Parsing Request: %s\n", err.Error())
-		x, _ := json.Marshal(httpapi.HTTPResponse{})
-		w.Write(x)
-		return
-	}
-
-	SpecListenerChannel <- request
-	w.WriteHeader(200)
 }
 
 // Handler for aql codeblocks

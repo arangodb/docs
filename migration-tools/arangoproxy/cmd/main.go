@@ -9,14 +9,14 @@ import (
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
-	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/webui"
 )
+
+var configFile string
+var env string
+var help, cleanCache bool
 
 // Pre-Run Setup
 func init() {
-	var configFile string
-	var help, cleanCache bool
-
 	flag.StringVar(&configFile, "config", "./configs/local.json", "path of config file")
 	flag.BoolVar(&help, "help", false, "Display help usage")
 	flag.BoolVar(&cleanCache, "no-cache", false, "Reset cache")
@@ -46,12 +46,11 @@ func init() {
 		internal.CleanCache()
 	}
 
-	webui.InitSwaggerFile()
 	common.Logger.Print("Setup Done\n---------\n")
 }
 
 func main() {
-	common.Logger.Print("Available endpoints:\n - /js\n - /aql\n - /http-spec\n - /http-example\n")
+	common.Logger.Print("Available endpoints:\n - /js\n - /aql\n - /http-spec\n - /curl\n")
 	common.Logger.Printf("Starting Server at %s\n", config.Conf.WebServer)
 
 	internal.StartController(config.Conf.WebServer)
