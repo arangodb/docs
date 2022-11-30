@@ -1010,7 +1010,7 @@ larger write operations, has now been fully removed.
 
 ### Traffic accounting metrics
 
-<small>Introduced in: v3.9.6, v3.10.2</small>
+<small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
 The following metrics for traffic accounting were added:
 

@@ -747,7 +747,7 @@ Recommended alternatives are the Active Failover deployment option and the OneSh
 
 ### Traffic accounting metrics
 
-<small>Introduced in: v3.9.6</small>
+<small>Introduced in: v3.8.9, v3.9.6</small>
 
 The following metrics for traffic accounting were added:
 
