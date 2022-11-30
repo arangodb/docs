@@ -167,7 +167,7 @@ Read from Followers
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="Reading from followers in cluster deployments" %}
+{% include hint-ee-arangograph.md feature="Reading from followers in cluster deployments" %}
 
 In an ArangoDB cluster, all reads and writes are performed via
 the shard leaders. Shard replicas replicate all operations, but are

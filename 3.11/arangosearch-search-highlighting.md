@@ -10,7 +10,7 @@ title: Search Highlighting ArangoSearch Examples
 {{ page.description }}
 {:class="lead"}
 
-{% include hint-ee.md feature="Search highlighting" %}
+{% include hint-ee-arangograph.md feature="Search highlighting" %}
 
 ArangoSearch lets you search for terms and phrases in full-text, and more.
 It only returns matching documents, however. With search highlighting, you can
