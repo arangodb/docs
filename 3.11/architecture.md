@@ -24,6 +24,20 @@ safety, you can additionally set up off-site replication for your entire cluster
 Read more about [deployment modes](architecture-deployment-modes.html) to find out all
 important details about each mode and the included features.
 
+## ArangoDB Components
+
+The full ArangoDB package ships with a set of programs and tools that may
+simplify your workflow, such as:
+- ArangoDB Server or `arangod`, the core component of ArangoDB
+- ArangoDB Shell or `arangosh`, a client tool that you can use for administration
+  of ArangoDB servers
+- ArangoDB Starter or `arangodb`, a tool that helps you deploy ArangoDB in an easy way
+
+and many more.
+
+For more information, including the full list of available tools plus examples,
+read the [Programs & Tools](programs.html) chapter.
+
 ## Deploying by technology
 
 There are different ways that can be used to deploy an environment. You can
