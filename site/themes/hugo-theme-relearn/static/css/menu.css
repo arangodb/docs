@@ -119,7 +119,11 @@
 #sidebar ul.topics > li > label,
 #sidebar ul.topics > li a {
     font-size: 13px;
-    line-height: 2rem;
+    line-height: 1.3rem;
+}
+
+#sidebar ul.topics > li a::first-line {
+    line-height: 1rem;
 }
 
 
@@ -183,7 +187,63 @@
     padding-left: 1rem;
     padding-right: 1rem;
     display: flex;
-    padding: 5px 0;
+    padding: 0.8em 0;
     color: #666;
     transition: 0.5s;
+}
+
+#sidenav li.dd-item.active > a {
+    color: #577138;
+    font-weight: bold;
+    background-color: rgb(215 245 239);
+}
+
+
+#sidenav li.dd-item.active > a::before {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    left: 0px;
+    top: 6px;
+    bottom: 6px;
+    width: 4px;
+    border-radius: 0px 6px 6px 0px;
+    transition: transform 150ms ease-in-out 0s;
+    transform: scaleY(0.3);
+}
+
+#sidenav li.dd-item.active > a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    border-radius: 2px;
+}
+
+#sidebar .collapsible-menu input.toggle + label:after {
+    font-size: .8rem;
+    font-weight: 900;
+}
+
+#sidebar .collapsible-menu input.toggle:checked + label:after {
+    font-size: .8rem;
+    font-weight: 900;
+}
+
+#sidebar .collapsible-menu input.toggle + label + a + ul {
+    display: none;
+}
+
+#sidebar .collapsible-menu input.toggle:checked + label + a + ul {
+	display: inline;
+}
+
+#sidebar ul li li {
+    padding-left: 1rem;
+}
+
+li.active > a {
+    font-weight: bold;
 }
