@@ -25,6 +25,8 @@ the same way.
   or *false* if it's not. The result is undefined (can be *true* or *false*) if
   the specified point is exactly on a boundary of the polygon.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // will check if the point (lat 4, lon 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], [ 4, 7 ] )
@@ -32,6 +34,8 @@ IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], [ 4, 7 ] )
 // will check if the point (lat 4, lon 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 10, 0 ], [ 10, 10 ], [ 0, 10 ] ], [ 7, 4 ], true )
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## GeoJSON Constructors
 
@@ -310,11 +314,15 @@ the query however.
 `NEAR` is a deprecated AQL function from version 3.4.0 on.
 Use [DISTANCE()](#distance) in a query like this instead:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN doc
   SORT DISTANCE(doc.latitude, doc.longitude, paramLatitude, paramLongitude) ASC
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 Assuming there exists a geo-type index on `latitude` and `longitude`, the
 optimizer will recognize it and accelerate the query.
 {{% /hints/warning %}}
@@ -348,6 +356,8 @@ contain the distance value in an attribute of that name.
 `WITHIN` is a deprecated AQL function from version 3.4.0 on.
 Use [DISTANCE()](#distance) in a query like this instead:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN doc
   LET d = DISTANCE(doc.latitude, doc.longitude, paramLatitude, paramLongitude)
@@ -355,6 +365,8 @@ FOR doc IN doc
   SORT d ASC
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Assuming there exists a geo-type index on `latitude` and `longitude`, the
 optimizer will recognize it and accelerate the query.
@@ -387,12 +399,16 @@ value in an attribute of that name.
 `WITHIN_RECTANGLE` is a deprecated AQL function from version 3.4.0 on. Use
 [GEO_CONTAINS](#geo_contains) and a GeoJSON polygon instead:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET rect = {type: "Polygon", coordinates: [[[longitude1, latitude1], ...]]]}
 FOR doc IN doc
   FILTER GEO_CONTAINS(poly, [doc.longitude, doc.latitude])
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 Assuming there exists a geo-type index on `latitude` and `longitude`, the
 optimizer will recognize it and accelerate the query.
 {{% /hints/warning %}}

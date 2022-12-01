@@ -26,18 +26,26 @@ no values present will silently be discarded.
 
 Example:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 "first","last","age","active","dob"
 "John","Connor",25,true
 "Jim","O'Brady"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 With *--ignore-missing* this will produce the following documents:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "first" : "John", "last" : "Connor", "active" : true, "age" : 25 }
 { "first" : "Jim", "last" : "O'Brady" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The cell values can have different data types though. If a cell does not have
 any value, it can be left empty in the file. These values will not be imported
@@ -47,6 +55,8 @@ or the null value, don't enclose the value in quotes in your file.
 
 We will be using the following import for the CSV import:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 "first","last","age","active","dob"
 "John","Connor",25,true,
@@ -55,6 +65,8 @@ We will be using the following import for the CSV import:
 Hans,dos Santos,0123,,
 Wayne,Brewer,null,false,
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The command line to execute the import is:
 
@@ -62,6 +74,8 @@ The command line to execute the import is:
 
 The above data will be imported into 5 documents which will look as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "first" : "John", "last" : "Connor", "active" : true, "age" : 25 }
 { "first" : "Jim", "last" : "O'Brady", "age" : 19 }
@@ -69,6 +83,8 @@ The above data will be imported into 5 documents which will look as follows:
 { "first" : "Hans", "last" : "dos Santos", "age" : 123 }
 { "first" : "Wayne", "last" : "Brewer", "active" : false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As can be seen, values left completely empty in the input file will be treated
 as absent. This is also true for unquoted `null` literals.
@@ -104,6 +120,8 @@ also occur inside values that are enclosed with the quote character.
 
 Here is an example for using literal quotes and newlines inside values:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 "name","password"
 "Foo","r4ndom""123!"
@@ -112,6 +130,8 @@ this is a
 multine password!"
 "Bartholomew ""Bart"" Simpson","Milhouse"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Extra whitespace at the end of each line will be ignored. Whitespace at the
 start of lines or between field values will not be ignored, so please make sure
@@ -160,6 +180,8 @@ the datatypes for certain attributes in CSV/TSV imports. For example, in the
 the following CSV input file, it is unclear if the numeric values should be
 imported as numbers or as stringified numbers for the individual attributes:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 key,price,weight,fk
 123456,200,5,585852
@@ -167,16 +189,22 @@ key,price,weight,fk
 9949,70,11.5,499494
 6939926,2130,5,96962612
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To determine the datatypes for the individual columns, _arangoimport_ can be
 invoked with the `--datatype` startup option, once for each attribute:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --datatype key=string
 --datatype price=number
 --datatype weight=number
 --datatype fk=string
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will turn the numeric-looking values in the `key` attribute into strings
 but treat the attributes `price` and `weight` as numbers. Finally, the values in
@@ -199,11 +227,15 @@ and the automatic conversions applied by the latter. If you want to import
 most fields as strings, then you can use `--convert false` and only override
 the datatype for non-string fields with `--datatype`:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --convert false
 --datatype price=number
 --datatype weight=number
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Merging Attributes
 
@@ -220,9 +252,13 @@ The following example will add a new attribute named `fullName` that consists
 of the values of the `firstName` and `lastName` columns, separated by a colon
 character `:`:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangoimport --merge-attributes fullName=[firstName]:[lastName]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When referring to existing attribute names from the input data, the referred-to
 names need to be enclosed in square brackets (`[` and `]`). Any characters
@@ -240,29 +276,41 @@ Attribute references with empty attribute names (e.g. `[]`) are disallowed too.
 `--merge-attributes` can be specified multiple times to create independent
 additional fields:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangoimport \
   --merge-attributes fullName=[firstName]:[lastName] \
   --merge-attributes dateOfBirth=[month]-[day]-[year] \
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Later merge attributes can build on former merge attributes
 (in left-to-right order), e.g.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangoimport \
   --merge-attributes ids=[id1]-[id2] \
   --merge-attributes nameAndIds=[name]-[ids] \
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that when the `--translate` option is also used, the referred-to attribute
 names for `--merge-attributes` must be the ones before translation, e.g.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangoimport --translate _key=id --merge-attributes idAndName=[id]:[lastName]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `--merge-attributes` is currently supported for CSV/TSV input files only.
 

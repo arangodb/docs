@@ -38,26 +38,42 @@ scope the `RETURN` is placed in can be used for the computations.
 To iterate over all documents of a collection called *users* and return the
 full documents, you can write:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In each iteration of the for-loop, a document of the *users* collection is
 assigned to a variable *u* and returned unmodified in this example. To return
 only one attribute of each document, you could use a different return expression:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN u.name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Or to return multiple attributes, an object can be constructed like this:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN { name: u.name, age: u.age }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 Note: `RETURN` will close the current scope and eliminate all local variables in it.
 This is important to remember when working with [subqueries](../aql-fundamentals/fundamentals-subqueries).
@@ -65,14 +81,20 @@ This is important to remember when working with [subqueries](../aql-fundamentals
 [Dynamic attribute names](../aql-fundamentals/fundamentals-data-types#objects--documents) are
 supported as well:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN { [ u._id ]: u.age }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The document *_id* of every user is used as expression to compute the
 attribute key in this example:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -86,18 +108,26 @@ attribute key in this example:
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The result contains one object per user with a single key/value pair each.
 This is usually not desired. For a single object, that maps user IDs to ages,
 the individual results need to be merged and returned with another `RETURN`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN MERGE(
   FOR u IN users
     RETURN { [ u._id ]: u.age }
 )
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -107,6 +137,8 @@ RETURN MERGE(
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Keep in mind that if the key expression evaluates to the same value multiple
 times, only one of the key/value pairs with the duplicate name will survive
@@ -114,11 +146,21 @@ times, only one of the key/value pairs with the duplicate name will survive
 dynamic attribute names, use static names instead and return all document
 properties as attribute values:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN { name: u.name, age: u.age }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -135,6 +177,8 @@ FOR u IN users
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## `RETURN DISTINCT`
 
@@ -150,10 +194,14 @@ loop preceding it.
 
 Below example returns `["foo", "bar", "baz"]`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR value IN ["foo", "bar", "bar", "baz", "foo"]
   RETURN DISTINCT value
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/tip %}}
 `RETURN DISTINCT` will not change the order of the results it is applied on,
@@ -169,6 +217,8 @@ array or the subquery.
 For example, the following query will apply `DISTINCT` on its subquery results,
 but not inside the subquery:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR what IN 1..2
   RETURN DISTINCT (
@@ -176,21 +226,29 @@ FOR what IN 1..2
       RETURN i
   )
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Here we will have a `FOR` loop with two iterations that each execute a subquery. The
 `DISTINCT` here is applied on the two subquery results. Both subqueries return the
 same result value (that is `[ 1, 2, 3, 4, 1, 3 ]`), so after `DISTINCT` there will
 only be one occurrence of the value `[ 1, 2, 3, 4, 1, 3 ]` left:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [ 1, 2, 3, 4, 1, 3 ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the goal is to apply the `DISTINCT` inside the subquery, it needs to be moved
 there:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR what IN 1..2
   LET sub = (
@@ -199,15 +257,21 @@ FOR what IN 1..2
   ) 
   RETURN sub
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above case, the `DISTINCT` will make the subquery results unique, so that
 each subquery will return a unique array of values (`[ 1, 2, 3, 4 ]`). As the subquery
 is executed twice and there is no `DISTINCT` on the top-level, that array will be
 returned twice:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [ 1, 2, 3, 4 ],
   [ 1, 2, 3, 4 ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}

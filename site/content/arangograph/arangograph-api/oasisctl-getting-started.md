@@ -14,9 +14,13 @@ guide you through the ArangoGraph API as well as Oasisctl and show you how to:
 
 With Oasisctl the general command structure is to execute commands such as:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 oasisctl list deployments
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This command lists all deployments available to the authenticated user and we
 will explore it in more detail later. Most commands also have associated
@@ -80,9 +84,13 @@ followed by the --help flag to see the options available for that command.
 
 Let’s start with doing that for the login command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl login --help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You should see an output similar to this:
 
@@ -97,11 +105,15 @@ These require the values we received when creating the API key. Once you run
 this command you will receive an authentication token that can be used for the
 remainder of the session.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl login \
   --key-id cncApiKeyId \
   --key-secret 873-secret-key-id
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Upon successful login you should receive an authentication token:
 
@@ -112,15 +124,23 @@ access. For example:
 
 With Linux:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export OASIS_TOKEN=$(oasisctl login --key-id cncApiKeyId --key-secret 873-secret-key-id)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Or Windows Powershell:
 
+{{< tabs >}}
+{{% tab name="powershell" %}}
 ```powershell
 setx OASIS_TOKEN (oasisctl login --key-id cncApiKeyId --key-secret 873-secret-key-id)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the coming sections you will see how to authenticate with this token when
 using other commands that require authentication.
@@ -141,9 +161,13 @@ formatting the data received:
 You can define the format of the data by supplying the `--format` flag along
 with your preferred format, like so:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl --format json
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Viewing Information with the List Command
 
@@ -158,9 +182,13 @@ what resources you have available. This is where the list command comes in.
 List serves as a way to retrieve general information, you can see all of the
 available list options by accessing its help output.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl list --help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This should output a screen similar to:
 
@@ -178,9 +206,13 @@ organizations you have access to. This is useful to know because most commands
 require an explicit declaration of the organization you are interacting with.
 To find this, use list to list your available organizations:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl list organizations --format json
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Once you have your available organizations you can refer to your desired
 organization using its name or id.
@@ -198,11 +230,15 @@ following the same command structure as before and instead exchange
 organizations for projects, this time providing the desired organization name
 with the `--organization-id` flag.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl list projects \
   --organization-id "ArangoGraph Organization" \
   --format json
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will return information on all projects that the authenticated user has
 access to.
@@ -215,12 +251,16 @@ Things start getting a bit more interesting with information related to
 deployments. Now that you have obtained an organization iD and a project ID,
 you can list all of the associated deployments for that project.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl list deployments \
   --organization-id "ArangoGraph Organization" \
   --project-id "Getting Started with ArangoGraph" \
   --format json
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ![List deployments output](/images/oasisctl-list-deployments.png)
 
@@ -244,6 +284,8 @@ least:
 To get more information about our example deployment we would need to execute
 the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl get deployment \
   --organization-id "ArangoGraph Organization" \
@@ -251,6 +293,8 @@ oasisctl get deployment \
   --deployment-id "abc123DeploymentID" \
   --format json
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This returns quite a bit more information about the deployment including more
 detailed server information, the endpoint URL where you can access the web interface,
@@ -271,12 +315,16 @@ The command you execute will determine on the available providers and regions
 for your organization but here is an example command that lists the available
 options in the US West region for the Google Cloud Platform:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl list nodesizes \
   --organization-id "ArangoGraph Organization" \
   --provider-id "Google Cloud Platform" \
   --region-id gcp-us-west2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output you will see will be similar to this:
 
@@ -324,9 +372,13 @@ resources, it’s time to start using those skills to start creating your own
 deployment. To create resources with Oasisctl you use the create command.
 To see all the possible options you can start with the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl create --help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ![Create command help output](/images/oasisctl-create-help.png)
 
@@ -335,9 +387,13 @@ oasisctl create --help
 To take a look at all of the options available when creating a deployment the
 best place to start is with our trusty help command.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl create deployment --help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ![Create deployment help output](/images/oasisctl-create-deployment-help.png)
 
@@ -350,6 +406,8 @@ Once you have collected all of the necessary information the command for
 creating a deployment is simply supplying the values along with the appropriate
 flags. This command will create a deployment:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl create deployment \
   --region-id gcp-us-west2 \
@@ -362,6 +420,8 @@ oasisctl create deployment \
   --name "First Oasisctl Deployment" \
   --description "The first deployment created using the awesome Oasisctl utility!"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If everything went according to play you should see similar output:
 
@@ -374,19 +434,27 @@ getting the deployment ready for use. This should happen quickly and to see if
 it is ready for use you can run the wait command using the ID of the newly
 created deployment, shown at the top of the information you received above.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl wait deployment \
   --deployment-id hmkuedzw9oavvjmjdo0i
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Once you receive a response of _Deployment Ready_, your deployment is indeed
 ready to use. You can get some new details by running the get command.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl get deployment \
   --organization-id "ArangoGraph Organization" \
   --deployment-id hmkuedzw9oavvjmjdo0i
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ![Get deployment bootstrap status](/images/oasisctl-get-first-deployment-bootstrapped.png)
 
@@ -416,11 +484,15 @@ just updating the IP Allowlist value, which is currently empty. In order to
 update the IP Allowlist of a deployment you must create a allowlist and then
 you can simply reference its id like so:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl update deployment \
   --deployment-id hmkuedzw9oavvjmjdo0i \
   --ipallowlist-id abc123AllowlistID
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You should receive a response with the deployment information and an indication
 that deployment was updated at the top.
@@ -428,9 +500,13 @@ that deployment was updated at the top.
 You can use the update command to update everything about your deployments as
 well. If you run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl update deployment --help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You will see the full list of options available that will allow you to scale
 your deployment as needed.
@@ -449,19 +525,27 @@ For the final example in this guide we will delete the deployment that has
 been created. This only requires the deployment ID and the permissions to
 delete the deployment.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl delete deployment \
   --deployment-id hmkuedzw9oavvjmjdo0i
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Once the deployment has been deleted you can confirm it is gone by listing
 your deployments.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 oasisctl list deployments \
   --organization-id "ArangoGraph Organization" \
   --format json
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Next Steps
 

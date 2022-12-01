@@ -19,11 +19,15 @@ run the following commands (replace `<version>` with the
 [version of the operator](https://github.com/arangodb/kube-arangodb/releases)
 that you want to install):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export URLPREFIX=https://github.com/arangodb/kube-arangodb/releases/download/<version>
 helm install $URLPREFIX/kube-arangodb-crd-<version>.tgz
 helm install $URLPREFIX/kube-arangodb-<version>.tgz
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This installs operators for the `ArangoDeployment` and `ArangoDeploymentReplication`
 resource types.
@@ -34,16 +38,24 @@ command.
 
 To use `ArangoLocalStorage` resources, also run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 helm install $URLPREFIX/kube-arangodb-<version>.tgz --set "operator.features.storage=true"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The default CPU architecture of the operator is `amd64` (x86-64). To enable ARM
 support (`arm64`) in the operator, overwrite the following setting:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 helm install $URLPREFIX/kube-arangodb-<version>.tgz --set "operator.architectures={amd64,arm64}"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/tip %}}
 Use at least version 1.2.20 of the operator to use the ARM architecture.
@@ -61,23 +73,35 @@ see [Using the ArangoDB Kubernetes Operator with Helm](deployment-kubernetes-hel
 To install the ArangoDB Kubernetes Operator without `Helm`,
 run (replace `<version>` with the version of the operator that you want to install):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export URLPREFIX=https://raw.githubusercontent.com/arangodb/kube-arangodb/<version>/manifests
 kubectl apply -f $URLPREFIX/arango-crd.yaml
 kubectl apply -f $URLPREFIX/arango-deployment.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To use `ArangoLocalStorage` resources, also run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f $URLPREFIX/arango-storage.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To use `ArangoDeploymentReplication` resources, also run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f $URLPREFIX/arango-deployment-replication.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can find the latest release of the ArangoDB Kubernetes Operator
 in the [kube-arangodb repository](https://github.com/arangodb/kube-arangodb/releases/latest).
@@ -86,9 +110,13 @@ in the [kube-arangodb repository](https://github.com/arangodb/kube-arangodb/rele
 
 After deploying the latest ArangoDB Kubernetes operator, use the command below to deploy your [license key](../../../administration/administration-license) as a secret which is required for the Enterprise Edition starting with version 3.9:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl create secret generic arango-license-key --from-literal=token-v2="<license-string>"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Once the operator is running, you can create your ArangoDB database deployment
 by creating a `ArangoDeployment` custom resource and deploying it into your
@@ -96,11 +124,17 @@ Kubernetes cluster.
 
 For example (all examples can be found in the [kube-arangodb repository](https://github.com/arangodb/kube-arangodb/tree/master/examples)):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f examples/simple-cluster.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 Additionally, you can specify the license key required for the Enterprise Edition starting with version 3.9 as seen below:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 spec:
   [...]
@@ -108,6 +142,8 @@ spec:
   license:
     secretName: arango-license-key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Deployment removal
 
@@ -116,9 +152,13 @@ resource. The operator will then delete all created resources.
 
 For example:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl delete -f examples/simple-cluster.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note that this will also delete all data in your ArangoDB deployment!**
 
@@ -129,14 +169,20 @@ If you want to keep your data, make sure to create a backup before removing the 
 To remove the entire ArangoDB Kubernetes Operator, remove all
 clusters first and then remove the operator by running:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 helm delete <release-name-of-kube-arangodb-chart>
 
 helm delete <release-name-of-kube-arangodb-storage-chart>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 or when you used `kubectl` to install the operator, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl delete deployment arango-deployment-operator
 
@@ -144,6 +190,8 @@ kubectl delete deployment -n kube-system arango-storage-operator
 
 kubectl delete deployment arango-deployment-replication-operator
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

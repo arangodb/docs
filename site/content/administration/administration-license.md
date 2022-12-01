@@ -22,17 +22,25 @@ time-wise limited license that allows you to continue testing for two weeks.
 
 This evaluation license is applied after startup via _arangosh_ like so:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 127.0.0.1:8529@_system> db._setLicense("<license-string>");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You will receive a message reporting whether the operation was successful.
 Please be careful to copy the exact string from the email and to put it in
 quotes as shown above.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "error": false, "code": 201 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Your license has now been applied.
 
@@ -40,10 +48,16 @@ Your license has now been applied.
 
 At any point you may check the current state of your license in _arangosh_:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 127.0.0.1:8529@_system> db._getLicense();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "features": {
@@ -55,6 +69,8 @@ At any point you may check the current state of your license in _arangosh_:
   "hash" : "..."
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `status` attribute is the executive summary of your license and
 can have the following values:

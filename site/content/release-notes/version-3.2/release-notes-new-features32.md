@@ -68,16 +68,24 @@ layout: default
   at the beginning of the query.
 
   Example:
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   FOR v,e IN OUTBOUND SHORTEST_PATH @start TO @target edges [...]
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   Now has to be:
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   WITH vertices
   FOR v,e IN OUTBOUND SHORTEST_PATH @start TO @target edges [...]
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   This change is due to avoid deadlock sitations in clustered case.
   An error stating the above is included.

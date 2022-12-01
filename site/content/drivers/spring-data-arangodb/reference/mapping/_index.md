@@ -53,6 +53,8 @@ ArangoDB uses [VelocyPack](https://github.com/arangodb/velocypack) as it's inter
 
 As collections in ArangoDB can contain documents of various types, a mechanism to retrieve the correct Java class is required. The type information of properties declared in a class may not be enough to restore the original class (due to inheritance). If the declared complex type and the actual type do not match, information about the actual type is stored together with the document. This is necessary to restore the correct type when reading from the DB. Consider the following example:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public class Person {
     private String name;
@@ -98,9 +100,13 @@ manager.setWorkAddress(new Address("Main Street",  "223"));
 Company comp = new Company();
 comp.setManager(manager);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The serialized document for the DB looks like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "manager": {
@@ -118,6 +124,8 @@ The serialized document for the DB looks like this:
   "_class": "com.arangodb.Company"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Type hints are written for top-level documents (as a collection can contain different document types) as well as for every value if it's a complex type and a sub-type of the property type declared. `Map`s and `Collection`s are excluded from type mapping. Without the additional information about the concrete classes used, the document couldn't be restored in Java. The type information of the `manager` property is not enough to determine the `Employee` type. The `homeAddress` and `workAddress` properties have the same actual and defined type, thus no type hint is needed.
 
@@ -172,6 +180,8 @@ To deactivate the type mapping process, you can return `null` from the `typeKey(
 In order to invoke entity serialization and deserialization to and from `VPackSlice` manually, you can inject an
 instance of `ArangoConverter` and respectively call the methods `write` and `read` on it, e.g.:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 // ...
 
@@ -184,6 +194,8 @@ ArangoConverter arangoConverter;
   // ...
   MyEntity entity = converter.read(MyEntity.class, vPackSlice);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is useful for cases where you need to use the underlying Java driver directly (accessible from
 `ArangoOperations#driver()`), while keeping Spring Data ArangoDB serialization behavior.

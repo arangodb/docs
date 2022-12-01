@@ -11,12 +11,18 @@ Create a new backup policy
 
 Create a new backup policy
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 oasisctl create backup policy [flags]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --additional-region-ids strings   Add backup to the specified addition regions
       --day-of-the-month int32          Run the backup on the specified day of the month (1-31) (default 1)
@@ -42,14 +48,20 @@ oasisctl create backup policy [flags]
       --upload                          The backup should be uploaded
       --wednesday                       If set, a backup will be created on Wednesdays
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options inherited from parent commands
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

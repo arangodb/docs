@@ -11,25 +11,37 @@ Update which domain restrictions are placed on accessing a specific organization
 
 Update which domain restrictions are placed on accessing a specific organization
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 oasisctl update organization email domain restrictions [flags]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
   -d, --allowed-domain strings   Allowed email domains for users of the organization
   -h, --help                     help for restrictions
   -o, --organization-id string   Identifier of the organization
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options inherited from parent commands
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

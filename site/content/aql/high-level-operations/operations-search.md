@@ -10,10 +10,14 @@ Conceptually, a View is just another document data source,
 similar to an array or a document/edge collection, over which you can iterate
 using a [FOR operation](operations-for) in AQL:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The optional `SEARCH` operation provides the capabilities to:
 
@@ -105,6 +109,8 @@ Also see the [`IN_RANGE()` function](../functions/functions-arangosearch#in_rang
 an alternative to a combination of `<`, `<=`, `>`, `>=` operators for range
 searches.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
@@ -112,6 +118,8 @@ FOR doc IN viewName
   SEARCH ANALYZER(doc.text IN ["quick", "brown"], "text_en")
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/warning %}}
 The alphabetical order of characters is not taken into account by ArangoSearch,
@@ -127,6 +135,8 @@ Also see [Known Issues](../../release-notes/version-3.10/release-notes-known-iss
 [Array comparison operators](../operators#array-comparison-operators) are
 supported (introduced in v3.6.0):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
 FOR doc IN myView SEARCH tokens  ALL IN doc.text RETURN doc // dynamic conjunction
@@ -136,6 +146,8 @@ FOR doc IN myView SEARCH tokens  ALL >  doc.text RETURN doc // dynamic conjuncti
 FOR doc IN myView SEARCH tokens  ANY <= doc.text RETURN doc // dynamic disjunction with comparison
 FOR doc IN myView SEARCH tokens NONE <  doc.text RETURN doc // dynamic negation with comparison
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following operators are equivalent in `SEARCH` expressions:
 - `ALL IN`, `ALL ==`, `NONE !=`, `NONE NOT IN`
@@ -159,11 +171,15 @@ You can use the [Question mark operator](../advanced-features/advanced-array-ope
 to perform [Nested searches with ArangoSearch](../../indexing/arangosearch/arangosearch-nested-search)
 (Enterprise Edition only):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN myView
   SEARCH doc.dimensions[? FILTER CURRENT.type == "height" AND CURRENT.value > 40]
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It allows you to match nested objects in arrays that satisfy multiple conditions
 each, and optionally define how often these conditions should be fulfilled for
@@ -181,13 +197,19 @@ emitted from the View only.
 
 For example, given a collection `myCol` with the following documents:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "someAttr": "One", "anotherAttr": "One" }
 { "someAttr": "Two", "anotherAttr": "Two" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … with an `arangosearch` View where `someAttr` is indexed by the following View `myView`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "type": "arangosearch",
@@ -200,31 +222,49 @@ For example, given a collection `myCol` with the following documents:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … a search on `someAttr` yields the following result:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN myView
   SEARCH doc.someAttr == "One"
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ { "someAttr": "One", "anotherAttr": "One" } ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A search on `anotherAttr` yields an empty result because only `someAttr`
 is indexed by the View:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN myView
   SEARCH doc.anotherAttr == "One"
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 []
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can use the special `includeAllFields`
 [`arangosearch` View property](../../indexing/arangosearch/arangosearch-views#link-properties)
@@ -236,11 +276,15 @@ The documents emitted from a View can be sorted by attribute values with the
 standard [SORT() operation](operations-sort), using one or multiple
 attributes, in ascending or descending order (or a mix thereof).
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SORT doc.text, doc.value DESC
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the (left-most) fields and their sorting directions match up with the
 [primary sort order](../../indexing/arangosearch/arangosearch-performance#primary-sort-order) definition
@@ -259,12 +303,16 @@ Therefore the ArangoSearch scoring functions can work _only_ on documents
 emitted from a View, as both the corresponding `SEARCH` expression and the View
 itself are consulted in order to sort the results.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH ...
   SORT BM25(doc) DESC
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The [BOOST() function](../functions/functions-arangosearch#boost) can be used to
 fine-tune the resulting ranking by weighing sub-expressions in `SEARCH`
@@ -303,11 +351,15 @@ Given a View with three linked collections `coll1`, `coll2` and `coll3` it is
 possible to return documents from the first two collections only and ignore the
 third using the `collections` option:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH true OPTIONS { collections: ["coll1", "coll2"] }
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The search expression `true` matches all View documents. You can use any valid
 expression here while limiting the scope to the chosen source collections.

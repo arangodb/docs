@@ -21,6 +21,8 @@ in an _Active Failover_ setup.
 It is possible to determine the _leader_ by asking any of the involved single-server
 instances. Just send a request to the `/_api/cluster/endpoints` REST API.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 curl http://server.domain.org:8530/_api/cluster/endpoints
 {
@@ -36,6 +38,8 @@ curl http://server.domain.org:8530/_api/cluster/endpoints
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This API will return you all available endpoints, the first endpoint is defined to
 be the current _Leader_. This endpoint is always available and will not be blocked

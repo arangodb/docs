@@ -25,9 +25,13 @@ For Views, there is a special (optional) [`SEARCH` keyword](operations-search):
 {{% hints/info %}}
 Views cannot be used as edge collections in traversals:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v IN 1..3 ANY startVertex viewName /* invalid! */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 {{% /hints/info %}}
 
 All variants can optionally end with an `OPTIONS { … }` clause.
@@ -39,10 +43,14 @@ required that *expression* returns an array in all cases. The empty array is
 allowed, too. The current array element is made available for further processing 
 in the variable specified by *variableName*.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will iterate over all elements from the array `users` (note: this array
 consists of all documents from the collection named "users" in this case) and
@@ -58,20 +66,28 @@ placed in is closed.
 
 Another example that uses a statically declared array of values to iterate over:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR year IN [ 2011, 2012, 2013 ]
   RETURN { "year" : year, "isLeapYear" : year % 4 == 0 && (year % 100 != 0 || year % 400 == 0) }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Nesting of multiple `FOR` statements is allowed, too. When `FOR` statements are
 nested, a cross product of the array elements returned by the individual `FOR`
 statements will be created.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FOR l IN locations
     RETURN { "user" : u, "location" : l }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this example, there are two array iterations: an outer iteration over the array
 `users` plus an inner iteration over the array `locations`. The inner array is
@@ -83,11 +99,15 @@ You can also use subqueries, for example, to iterate over a collection
 independently and get the results back as an array, that you can then access in
 an outer `FOR` loop:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   LET subquery = (FOR l IN locations RETURN l.location)
   RETURN { "user": u, "locations": subquery }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also see [Combining queries with subqueries](../aql-fundamentals/fundamentals-subqueries).
 
@@ -104,13 +124,21 @@ For collections, index hints can be given to the optimizer with the `indexHint`
 option. The value can be a single **index name** or a list of index names in
 order of preference:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR … IN … OPTIONS { indexHint: "byName" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR … IN … OPTIONS { indexHint: ["byName", "byColor"] }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Whenever there is a chance to potentially use an index for this `FOR` loop,
 the optimizer will first check if the specified index can be used. In case of
@@ -127,9 +155,13 @@ Index hints are not enforced by default. If `forceIndexHint` is set to `true`,
 then an error is generated if `indexHint` does not contain a usable index,
 instead of using a fallback index or not using an index at all.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR … IN … OPTIONS { indexHint: … , forceIndexHint: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `disableIndex`
 
@@ -144,11 +176,15 @@ be satisfied from the index data alone.
 Consider the following query and an index on the `value` attribute being
 present:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection 
   FILTER doc.value <= 99 
   RETURN doc.other
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this case, the optimizer will likely pick the index on `value`, because
 it will cover the query's `FILTER` condition. To return the value for the
@@ -163,11 +199,15 @@ even if an index scan turns out to be slower in the end.
 You can force the optimizer to not use an index for any given `FOR`
 loop by using the `disableIndex` hint and setting it to `true`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection OPTIONS { disableIndex: true }
   FILTER doc.value <= 99
   RETURN doc.other
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using `disableIndex: false` has no effect on geo indexes or fulltext indexes.
 
@@ -191,10 +231,14 @@ previously hard-coded default value.
 For example, using a `maxProjections` hint of 7, the following query will
 extract 7 attributes as projections from the original document:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection OPTIONS { maxProjections: 7 } 
   RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Normally it is not necessary to adjust the value of `maxProjections`, but
 there are a few corner cases where it can make sense:
@@ -221,11 +265,15 @@ enabled in-memory caches, but for which it is known that using the cache will
 have a negative performance impact. In this case, you can set the `useCache`
 hint to `false`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection OPTIONS { useCache: false }
   FILTER doc.value == @value
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can set the hint individually per `FOR` loop.
 If you do not set the `useCache` hint, it will implicitly default to `true`.
@@ -244,8 +292,12 @@ Also see [Caching of index values](../../indexing/working-with-indexes/indexing-
 The multi-dimensional index type `zkd` supports an optional index hint for
 tweaking performance:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR … IN … OPTIONS { lookahead: 32 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [Multi-dimensional indexes](../../indexing/working-with-indexes/indexing-multi-dim#lookahead-index-hint).

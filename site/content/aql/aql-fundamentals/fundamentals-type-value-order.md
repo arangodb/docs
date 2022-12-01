@@ -25,6 +25,8 @@ string value, any array (even an empty array) or any object / document. Addition
 string value (even an empty string) will always be greater than any numeric
 value, a boolean value, *true* or *false*.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
     null  <  false
     null  <  true
@@ -68,6 +70,8 @@ value, a boolean value, *true* or *false*.
 
     [ ]  <  { }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the two compared operands have the same data types, then the operands values
 are compared. For the primitive types (null, boolean, number, and string), the
@@ -97,6 +101,8 @@ If an array element is itself a compound value (an array or an object / document
 comparison algorithm will check the element's sub values recursively. The element's
 sub-elements are compared recursively.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 [ ]  <  [ 0 ]
 [ 1 ]  <  [ 2 ]
@@ -105,6 +111,8 @@ sub-elements are compared recursively.
 [ false ]  <  [ true ]
 [ false, 1 ]  <  [ false, '' ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Two object / documents operands are compared by checking attribute names and value. The
 attribute names are compared first. Before attribute names are compared, a
@@ -122,6 +130,8 @@ unambiguous comparison result. If an unambiguous comparison result is found, the
 comparison is finished. If there is no unambiguous comparison result, the two
 compared objects / documents are considered equal.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 { }  ==  { "a" : null }
 
@@ -133,3 +143,5 @@ compared objects / documents are considered equal.
 
 { "a" : 1, "b" : 2 }  ==  { "b" : 2, "a" : 1 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

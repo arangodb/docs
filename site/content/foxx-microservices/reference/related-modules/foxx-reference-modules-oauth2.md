@@ -12,6 +12,8 @@ Facebook, GitHub and Google.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const crypto = require('@arangodb/crypto');
 const router = createRouter();
@@ -95,6 +97,8 @@ router.get('/auth', function (req, res) {
 .queryParam('csrfToken', joi.string().optional())
 .queryParam('code', joi.string().optional());
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating an OAuth 2.0 client
 
@@ -285,7 +289,11 @@ Returns the parsed response object.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const authData = oauth2.exchangeGrantToken(code, redirect_uri);
 const userData = oauth2.fetchActiveUser(authData.access_token);
 ```
+{{% /tab %}}
+{{< /tabs >}}

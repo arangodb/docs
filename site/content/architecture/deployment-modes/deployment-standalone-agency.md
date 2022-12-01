@@ -27,11 +27,15 @@ Typically, one achieves fairly high fault-tolerance with low, odd number of Agen
 
 The below commands start up a 3-host Agency on one physical/logical box with ports 8531, 8541 and 8551 for demonstration purposes. The address of the first instance, port 8531, is known to the other two. After at most 2 rounds of gossipping, the last 2 Agents will have a complete picture of their surroundings and persist it for the next restart.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ./arangod --agency.activate true --agency.size 3 --agency.my-address tcp://localhost:8531 --server.authentication false --server.endpoint tcp://0.0.0.0:8531 agency-8531
 ./arangod --agency.activate true --agency.size 3 --agency.my-address tcp://localhost:8541 --server.authentication false --server.endpoint tcp://0.0.0.0:8541 --agency.endpoint tcp://localhost:8531 agency-8541
 ./arangod --agency.activate true --agency.size 3 --agency.my-address tcp://localhost:8551 --server.authentication false --server.endpoint tcp://0.0.0.0:8551 --agency.endpoint tcp://localhost:8531 agency-8551 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The parameter `agency.endpoint` is the key ingredient for the second and third instances to find the first instance and thus form a complete Agency. Please refer to the shell-script `scripts/startStandaloneAgency.sh` on GitHub or in the source directory.
 
@@ -39,10 +43,16 @@ The parameter `agency.endpoint` is the key ingredient for the second and third i
 
 The Agency should be up and running within a couple of seconds, during which the instances have gossiped their way into knowing the other Agents and elected a leader. The public API can be checked for the state of the configuration:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -s localhost:8531/_api/agency/config
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "term": 1,
@@ -96,6 +106,8 @@ curl -s localhost:8531/_api/agency/config
   "version": "3.4.3"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To highlight some details in the above output look for `"term"` and `"leaderId"`. Both are key information about the current state of the Raft algorithm. You may have noted that the first election term has established a random leader for the Agency, who is in charge of replication of the state machine and for all external read and write requests until such time that the process gets isolated from the other two subsequently losing its leadership.
 
@@ -106,17 +118,27 @@ Generally, all read and write accesses are transactions moreover any read and wr
 ## Read transaction
 
 An Agency started from scratch will deal with the simplest query as follows:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -L localhost:8531/_api/agency/read -d '[["/"]]'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [{}]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above request for an empty key value store will return with an empty document. The inner array brackets will aggregate a result from multiple sources in the key-value-store while the outer array will deliver multiple such aggregated results. Also note the `-L` curl flag, which allows the request to follow redirects to the current leader.
 
 Consider the following key-value-store:
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "baz": 12,
@@ -132,13 +154,21 @@ Consider the following key-value-store:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following array of read transactions will yield:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -L localhost:8531/_api/agency/read -d '[["/foo", "/foo/bar", "/baz"],["/qux"]]'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -154,9 +184,13 @@ curl -L localhost:8531/_api/agency/read -d '[["/foo", "/foo/bar", "/baz"],["/qux
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the result is an array of two results for the first and second read transactions from above accordingly. Also note that the results from the first read transaction are aggregated into
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "baz": 12,
@@ -165,6 +199,8 @@ Note that the result is an array of two results for the first and second read tr
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The aggregation is performed on 2 levels:
 
@@ -179,17 +215,25 @@ Btw, the same transaction on the virgin key-value store would produce `[{},{}]`
 
 The write API must unfortunately be a little more complex. Multiple roads lead to Rome:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -L localhost:8531/_api/agency/write -d '[[{"/foo":{"op":"push","new":"bar"}}]]'
 curl -L localhost:8531/_api/agency/write -d '[[{"/foo":{"op":"push","new":"baz"}}]]'
 curl -L localhost:8531/_api/agency/write -d '[[{"/foo":{"op":"push","new":"qux"}}]]'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 and
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -L localhost:8531/_api/agency/write -d '[[{"foo":["bar","baz","qux"]}]]'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 are equivalent for example and will create and fill an array at `/foo`. Here, again, the outermost array is the container for the transaction arrays.
 

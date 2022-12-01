@@ -27,9 +27,13 @@ is replaced by a service of type `NodePort`.
 
 To inspect the created service, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get services <deployment-name>-ea
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To use the ArangoDB servers from outside the Kubernetes cluster
 you have to add another service as explained below.
@@ -92,6 +96,8 @@ The following example yields a service of type `LoadBalancer` with a specific
 load balancer IP address.
 With this service, the ArangoDB cluster can now be reached on `https://1.2.3.4:8529`.
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 kind: Service
 apiVersion: v1
@@ -108,10 +114,14 @@ spec:
     port: 8529
     targetPort: 8529
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following example yields a service of type `NodePort` with the ArangoDB
 cluster exposed on port 30529 of all nodes of the Kubernetes cluster.
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 kind: Service
 apiVersion: v1
@@ -128,3 +138,5 @@ spec:
     targetPort: 8529
     nodePort: 30529
 ```
+{{% /tab %}}
+{{< /tabs >}}

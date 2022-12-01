@@ -15,6 +15,8 @@ used to define which collections and fields to mask and how.
 
 The general structure of the configuration file looks like this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "<collection-name-1>": {
@@ -30,6 +32,8 @@ The general structure of the configuration file looks like this:
   "*": { ... }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 At the top level, there is an object with collection names. The masking to be
 applied to the respective collection is defined by the `type` sub-attribute.
@@ -64,6 +68,8 @@ Possible values are:
 
 **Example**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "private": {
@@ -95,6 +101,8 @@ Possible values are:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - The collection called _private_ is completely ignored.
 - Only the structure of the collection _log_ is dumped, but not the data itself.
@@ -130,6 +138,8 @@ This will take the intersection of exportable collections.
 `path` defines which field to obfuscate. There can only be a single
 path per masking, but an unlimited amount of maskings per collection.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "collection1": {
@@ -158,6 +168,8 @@ path per masking, but an unlimited amount of maskings per collection.
   ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Top-level **system attributes** (`_key`, `_id`, `_rev`, `_from`, `_to`) are
 never masked.
@@ -165,16 +177,22 @@ never masked.
 To mask a top-level attribute value, the path is simply the attribute
 name, for instance `"name"` to mask the value `"foobar"`:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_key": "1234",
   "name": "foobar"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The path to a nested attribute `name` with a top-level attribute `person`
 as its parent is `"person.name"` (here: `"foobar"`):
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_key": "1234",
@@ -183,9 +201,13 @@ as its parent is `"person.name"` (here: `"foobar"`):
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Example masking definition:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "<collection-name>": {
@@ -198,6 +220,8 @@ Example masking definition:
     ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the path starts with a `.` then it matches any path ending in `name`.
 For example, `.name` will match the field `name` of all leaf attributes
@@ -231,6 +255,8 @@ then you need to quote the name in ticks or backticks to escape it:
 The following configuration will replace the value of the `name`
 attribute with an "xxxx"-masked string:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "type": "xifyFront",
@@ -238,9 +264,13 @@ attribute with an "xxxx"-masked string:
   "unmaskedLength": 2
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "name": "top-level-name",
@@ -251,9 +281,13 @@ The document:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will be changed as follows:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "name": "xxxxxxxxxxxxme",
@@ -264,6 +298,8 @@ The document:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The values `"egon"` and `"superman"` are not replaced, because they
 are not contained in an attribute value of which the attribute name is
@@ -294,6 +330,8 @@ document.
 
 Masking `mail` with the _Xify Front_ function:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "<collection>": {
@@ -307,25 +345,37 @@ Masking `mail` with the _Xify Front_ function:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will convert this document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "mail" : "mail address"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … into:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "mail" : "xxil xxxxxxss"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 because `mail` is a leaf attribute. The document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "mail" : [
@@ -337,9 +387,13 @@ because `mail` is a leaf attribute. The document:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will be converted into:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "mail" : [
@@ -351,10 +405,14 @@ because `mail` is a leaf attribute. The document:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … because the masking is applied to each array element individually
 including the elements of the sub-array. The document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "mail" : {
@@ -362,11 +420,15 @@ including the elements of the sub-array. The document:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will not be masked because `mail` is not a leaf attribute.
 To mask the mail address, you could use the paths `mail.address`
 or `.address` in the masking definition:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "<collection>": {
@@ -380,6 +442,8 @@ or `.address` in the masking definition:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A catch-all `"path": "*"` would apply to the nested `address` attribute too,
 but it would mask all other string attributes as well, which may not be what
@@ -396,6 +460,8 @@ The precedence is determined by the order in which the rules are defined in the
 masking configuration file in such cases, giving priority to the first matching
 rule (i.e. the rule above the other ambiguous ones).
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "<collection>": {
@@ -413,6 +479,8 @@ rule (i.e. the rule above the other ambiguous ones).
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Above masking definition will obfuscate the top-level attribute `address` with
 the `xifyFront` function, whereas all nested attributes with name `address`
@@ -420,6 +488,8 @@ will use the `random` masking function. If the rules are defined in reverse
 order however, then all attributes called `address` will be obfuscated using
 `random`. The second, overlapping rule is effectively ignored:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "<collection>": {
@@ -437,12 +507,16 @@ order however, then all attributes called `address` will be obfuscated using
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This behavior also applies to the catch-all path `"*"`, which means it should
 generally be placed below all other rules for a collection so that it is used
 for all unspecified attribute paths. Otherwise all document attributes will be
 processed by a single masking function, ignoring any other rules below it.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "<collection>": {
@@ -464,6 +538,8 @@ processed by a single masking function, ignoring any other rules below it.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Masking Functions
 
@@ -505,16 +581,22 @@ Masking settings:
 
 **Example**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": ".name",
   "type": "randomString"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Above masking setting applies to all leaf attributes with name `.name`.
 A document like:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_key" : "1234",
@@ -542,9 +624,13 @@ A document like:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will be converted to:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_key": "1234",
@@ -572,6 +658,8 @@ A document like:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Random
 
@@ -592,6 +680,8 @@ Masking settings:
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "collection": {
@@ -605,10 +695,14 @@ Masking settings:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using above masking configuration, all leaf attributes of the documents in
 _collection_ would be randomized. A possible input document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_key" : "1121535",
@@ -640,9 +734,13 @@ _collection_ would be randomized. A possible input document:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … could result in an output like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_key": "1121535",
@@ -674,6 +772,8 @@ _collection_ would be randomized. A possible input document:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Xify Front
 
@@ -695,6 +795,8 @@ Masking settings:
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "<collection>": {
@@ -709,6 +811,8 @@ Masking settings:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will affect attributes with key `"name"` at any level by masking all
 alphanumeric characters of a word except the last two characters. Words of
@@ -716,6 +820,8 @@ length 1 and 2 remain unmasked. If the attribute value is not a string but
 boolean or numeric, then the result will be `"xxxx"` (fixed length).
 `null` values remain `null`.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "name": "This is a test!Do you agree?",
@@ -724,8 +830,12 @@ boolean or numeric, then the result will be `"xxxx"` (fixed length).
   "null": null
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will become:
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "name": "xxis is a xxst Do xou xxxee ",
@@ -734,11 +844,15 @@ boolean or numeric, then the result will be `"xxxx"` (fixed length).
   "null": null
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 There is a catch. If you have an index on the attribute the masking
 might distort the index efficiency or even cause errors in case of a
 unique index.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": ".name",
@@ -747,6 +861,8 @@ unique index.
   "hash": true
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will add a hash at the end of the string.
 
@@ -764,6 +880,8 @@ If you need reproducible results, i.e. hashes that do not change between
 different runs of *arangodump*, you need to specify a secret as seed,
 a number which must not be `0`.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": ".name",
@@ -773,6 +891,8 @@ a number which must not be `0`.
   "seed": 246781478647
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Zip
 
@@ -799,16 +919,22 @@ Masking settings:
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": ".code",
   "type": "zip",
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This replaces real zip codes stored in fields called `code` at any level
 with random ones. `"12345"` is used as fallback value.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": ".code",
@@ -816,6 +942,8 @@ with random ones. `"12345"` is used as fallback value.
   "default": "abcdef"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the original zip code is:
 
@@ -858,6 +986,8 @@ Masking settings:
 
 **Example**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": "eventDate",
@@ -867,6 +997,8 @@ Masking settings:
   "format": "%yyyy-%mm-%dd",
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Above example masks the field `eventDate` by returning a random date time
 string in the range of January 1st and December 31st in 2019 using a format
@@ -887,6 +1019,8 @@ Masking settings:
 
 **Example**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": "count",
@@ -895,6 +1029,8 @@ Masking settings:
   "upper": 100
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This masks the field `count` with a random number between
 -100 and 100 (inclusive).
@@ -916,6 +1052,8 @@ Masking settings:
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": "rating",
@@ -924,6 +1062,8 @@ Masking settings:
   "upper": 0.3
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This masks the field `rating` with a random floating point number between
 -0.3 and +0.3 (inclusive). By default, the decimal has a scale of 2.
@@ -931,6 +1071,8 @@ That means, it has at most 2 digits after the dot.
 
 The configuration:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": "rating",
@@ -940,6 +1082,8 @@ The configuration:
   "scale": 3
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will generate numbers with at most 3 decimal digits.
 
@@ -957,12 +1101,16 @@ Masking settings:
 
 **Example**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": "ccNumber",
   "type": "creditCard"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This generates a random credit card number to mask field `ccNumber`,
 e.g. `4111111414443302`.
@@ -988,16 +1136,22 @@ Masking settings:
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": "phone.landline",
   "type": "phone"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will replace an existing phone number with a random one, for instance
 `"+31 66-77-88-xx"` might get substituted by `"+75 10-79-52-sb"`.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": "phone.landline",
@@ -1005,6 +1159,8 @@ This will replace an existing phone number with a random one, for instance
   "default": "+49 12345 123456789"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This masks a phone number as before, but falls back to a different default
 phone number in case the input value is not a string.
@@ -1023,12 +1179,16 @@ Masking settings:
 
 **Example**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "path": ".email",
   "type": "email"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This masks every leaf attribute `email` with a random email address
 similar to `"EHwG.3AOg@hGU=.invalid"`.

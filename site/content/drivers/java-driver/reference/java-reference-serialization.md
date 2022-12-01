@@ -15,6 +15,8 @@ supporting the Streaming, Data Binding and Tree Model API styles.
 
 To add it to your maven project, add the following to `pom.xml`:
 
+{{< tabs >}}
+{{% tab name="XML" %}}
 ```XML
 <dependencies>
     <dependency>
@@ -24,6 +26,8 @@ To add it to your maven project, add the following to `pom.xml`:
     </dependency>
 </dependencies>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The package also depends on `jackson-core`, `jackson-databind` and
 `jackson-annotations` packages, but when using build tools like Maven or
@@ -33,6 +37,8 @@ to ensure dependency convergence across the entire project, for example in case
 there are in your project other libraries depending on different versions of
 the same Jackson packages.
 
+{{< tabs >}}
+{{% tab name="XML" %}}
 ```XML
 <dependencyManagement>
     <dependencies>
@@ -46,6 +52,8 @@ the same Jackson packages.
     </dependencies>
 </dependencyManagement>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `jackson-dataformat-velocypack` is compatible with Jackson 2.10, 2.11, 2.12, and 2.13.
 
@@ -55,6 +63,8 @@ Create an instance of `ArangoJack`, optionally configure the underlying
 `ObjectMapper` and pass it to the driver through
 `ArangoDB.Builder.serializer(ArangoSerialization)`:
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 ArangoJack arangoJack = new ArangoJack();
 arangoJack.configure((mapper) -> {
@@ -65,6 +75,8 @@ ArangoDB arango = new ArangoDB.Builder()
     // ...
     .build();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 where the lambda argument `mapper` is an instance of `VPackMapper`, subclass
 of `ObjectMapper`. See
@@ -84,6 +96,8 @@ For more advanced customizations refer to [Custom serializer](#custom-serializer
 To use a different serialized name for a field, use the annotation
 `@JsonProperty`.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 public class MyObject {
 
@@ -93,17 +107,23 @@ public class MyObject {
     // ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Ignoring properties
 
 To ignore fields use the annotation `@JsonIgnore`.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 public class Value {
     @JsonIgnore
     public int internalValue;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Custom serializer
 
@@ -112,6 +132,8 @@ Streaming API or the Tree Model API, creating and registering respectively
 `JsonSerializer<T>` and `JsonDeserializer<T>`, as specified by the Jackson API
 for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers).
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 static class PersonSerializer extends JsonSerializer<Person> {
     @Override
@@ -155,6 +177,8 @@ arangoJack.configure((mapper) -> {
 });
 ArangoDB arangoDB = new ArangoDB.Builder().serializer(arangoJack).build();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Jackson datatype and language modules
 
@@ -167,6 +191,8 @@ as well as [Jackson JVM Language modules](https://github.com/FasterXML/jackson#j
 [Kotlin language module](https://github.com/FasterXML/jackson-module-kotlin)
 enables support for Kotlin native types and can be registered in the following way:
 
+{{< tabs >}}
+{{% tab name="kotlin" %}}
 ```kotlin
 val arangoDB = ArangoDB.Builder()
     .serializer(ArangoJack().apply {
@@ -174,12 +200,16 @@ val arangoDB = ArangoDB.Builder()
     })
     .build()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Scala
 
 [Scala language module](https://github.com/FasterXML/jackson-module-scala)
 enables support for Scala native types and can be registered in the following way:
 
+{{< tabs >}}
+{{% tab name="scala" %}}
 ```scala
 val arangoJack = new ArangoJack()
 arangoJack.configure(mapper => mapper.registerModule(DefaultScalaModule))
@@ -188,6 +218,8 @@ val arangoDB = new ArangoDB.Builder()
   .serializer(arangoJack)
   .build()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Java 8 types
 
@@ -204,6 +236,8 @@ Support for Joda data types, such as DateTime, is offered by
 To map Arango metadata fields (like `_id`, `_key`, `_rev`, `_from`, `_to`) in
 your entities, use the annotation `DocumentField`.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 public class MyObject {
 
@@ -213,6 +247,8 @@ public class MyObject {
   // ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Manual serialization
 
@@ -220,12 +256,20 @@ To de-/serialize from and to VelocyPack before or after a database call, use the
 `ArangoUtil` from the method `util()` in `ArangoDB`, `ArangoDatabase`,
 `ArangoCollection`, `ArangoGraph`, `ArangoEdgeCollection`or `ArangoVertexCollection`.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 ArangoDB arangoDB=new ArangoDB.Builder();
         VPackSlice vpack=arangoDB.util(CUSTOM).serialize(myObj);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 ArangoDB arangoDB=new ArangoDB.Builder();
         MyObject myObj=arangoDB.util(CUSTOM).deserialize(vpack,MyObject.class);
 ```
+{{% /tab %}}
+{{< /tabs >}}

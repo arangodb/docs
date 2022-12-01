@@ -42,6 +42,8 @@ implicit type casts if the compared operands have different types, i.e.
 they test for strict equality or inequality (`0` is different to `"0"`,
 `[0]`, `false` and `null` for example).
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
      0  ==  null            // false
      1  >   0               // true
@@ -60,6 +62,8 @@ they test for strict equality or inequality (`0` is different to `"0"`,
  "foo"  =~  "^f[o].$"       // true
  "foo"  !~  "[a-z]+bar$"    // true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `LIKE` operator checks whether its left operand matches the pattern specified
 in its right operand. The pattern can consist of regular characters and wildcards.
@@ -70,11 +74,15 @@ means that two reverse solidus characters need to precede a literal percent sign
 or underscore. In arangosh, additional escaping is required, making it four
 backslashes in total preceding the to-be-escaped character.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
     "abc" LIKE "a%"          // true
     "abc" LIKE "_bc"         // true
 "a_b_foo" LIKE "a\\_b\\_foo" // true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The pattern matching performed by the `LIKE` operator is case-sensitive.
 
@@ -82,10 +90,14 @@ The `NOT LIKE` operator has the same characteristics as the `LIKE` operator
 but with the result negated. It is thus identical to `NOT (… LIKE …)`. Note
 the parentheses, which are necessary for certain expressions:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN coll
   RETURN NOT doc.attr LIKE "…"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The return expression gets transformed into `LIKE(!doc.attr, "…")`, leading
 to unexpected results. `NOT(doc.attr LIKE "…")` gets transformed into the
@@ -110,6 +122,8 @@ You can also combine one of the supported comparison operators with the special
 to satisfy the condition to evaluate to `true`. You can use a static number or
 calculate it dynamically using an expression.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 [ 1, 2, 3 ]  ALL IN  [ 2, 3, 4 ]  // false
 [ 1, 2, 3 ]  ALL IN  [ 1, 2, 3 ]  // true
@@ -133,6 +147,8 @@ calculate it dynamically using an expression.
 [ 1, 2, 3 ]  AT LEAST (2) IN  [ 2, 3, 4 ]  // true
 ["foo", "bar"]  AT LEAST (1+1) ==  "foo"   // false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that these operators do not utilize indexes in regular queries.
 The operators are also supported in [SEARCH expressions](high-level-operations/operations-search),
@@ -170,12 +186,16 @@ The result of the logical operators in AQL is defined as follows:
   `rhs` is returned.
 - `! value` returns the negated value of `value` converted to a boolean
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 u.age > 15 && u.address.city != ""
 true || false
 NOT u.isInvalid
 1 || ! 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Passing non-boolean values to a logical operator is allowed. Any non-boolean operands 
 are casted to boolean implicitly by the operator, without making the query abort.
@@ -192,20 +212,28 @@ type and is not necessarily a boolean value.
 
 For example, the following logical operations return boolean values:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 25 > 1  &&  42 != 7                        // true
 22 IN [ 23, 42 ]  ||  23 NOT IN [ 22, 7 ]  // true
 25 != 25                                   // false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … whereas the following logical operations do not return boolean values:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
    1 || 7                                  // 1
 null || "foo"                              // "foo"
 null && true                               // null
 true && 23                                 // 23
 ```
+{{% /tab %}}
+{{< /tabs >}}
    
 ## Arithmetic operators
 
@@ -222,12 +250,16 @@ AQL supports the following arithmetic operators:
 
 Unary plus and unary minus are supported as well:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET x = -5
 LET y = 1
 RETURN [-x, +y]
 // [5, 1]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For exponentiation, there is a [numeric function](functions/functions-numeric#pow) *POW()*.
 The syntax `base ** exp` is not supported.
@@ -236,6 +268,8 @@ For string concatenation, you must use the [`CONCAT()` string function](function
 Combining two strings with a plus operator (`"foo" + "bar"`) does not work!
 Also see [Common Errors](common-errors).
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 1 + 1
 33 - 99
@@ -245,6 +279,8 @@ Also see [Common Errors](common-errors).
 -15
 +9.99
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The arithmetic operators accept operands of any type. Passing non-numeric values to an 
 arithmetic operator casts the operands to numbers using the type casting rules 
@@ -265,6 +301,8 @@ An arithmetic operation that produces an invalid value, such as `1 / 0`
 (division by zero), produces a result value of `null`. The query is not
 aborted, but you may see a warning.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
    1 + "a"       // 1
    1 + "99"      // 100
@@ -280,6 +318,8 @@ null + 1         // 1
   24 / "12"      // 2
    1 / 0         // null (with a 'division by zero' warning)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Ternary operator
 
@@ -291,9 +331,13 @@ evaluates to true, and the third operand otherwise.
 In the following example, the expression returns `u.userId` if `u.age` is
 greater than 15 or if `u.active` is `true`. Otherwise it returns `null`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 u.age > 15 || u.active == true ? u.userId : null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 There is also a shortcut variant of the ternary operator with just two
 operands. This variant can be used if the expression for the boolean
@@ -302,9 +346,13 @@ condition and the return value should be the same.
 In the following example, the expression evaluates to `u.value` if `u.value` is
 truthy. Otherwise, a fixed string is given back:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 u.value ? : 'value is null, 0 or not present'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The condition (here just `u.value`) is only evaluated once if the second
 operand between `?` and `:` is omitted, whereas it would be evaluated twice
@@ -327,15 +375,23 @@ values.
 The `..` operator produces an array of the integer values in the 
 defined range, with both bounding values included.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 2010..2013
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above example produces the following result:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 2010, 2011, 2012, 2013 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using the range operator is equivalent to writing an array with the integer
 values in the range specified by the bounds of the range. If the bounds of

@@ -18,18 +18,26 @@ for more details.
 Once that lock could be acquired the hot backup itself is most
 readily described as a consistent snapshot on the local file system.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangobackup create --server.endpoint tcp://myserver:8529 --label my-label 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above will create a hot backup with a unique identifier consisting
 of the UTC time according to the local computer clock output and the
 specified label and report the success like below.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 2019-05-15T13:57:11Z [15213] INFO {backup} Server version: 3.5.1
 2019-05-15T14:20:16Z [15397] INFO {backup} Backup succeeded. Generated identifier '2019-05-15T14.20.15Z_my-label'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/tip %}}
 If the `label` marker is omitted then a unique identifier string is
@@ -70,16 +78,24 @@ Datacenter-to-Datacenter Replication (DC2DC) needs to be stopped before
 restoring a Hot Backup.
 {{% /hints/warning %}}
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangobackup restore --server.username root --identifier 2019-05-15T14.36.38Z_my-label 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output will reflect the restore operation's success:
 
+{{< tabs >}}
+{{% tab name="log" %}}
 ```log
 2019-05-15T15:24:14Z [16201] INFO {backup} Server version: 3.5.1
 2019-05-15T15:24:14Z [16201] INFO {backup} Successfully restored '2019-05-15T14.36.38Z_my-label'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that current `arangosearch` Views are not stored in hot backups,
 therefore, after a successful restore operation, all views have to be
@@ -96,16 +112,24 @@ hot backups. Compactions can no longer cover events before the last
 hot backup. Naturally, one may want to be able to free disk space, once
 hot backups become obsolete. 
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangobackup delete --server.username root --identifier <identifier>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The result of the operation is thus delivered:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 2019-05-15T15:34:34Z [16257] INFO {backup} Server version: 3.5.1
 2019-05-15T15:34:34Z [16257] INFO {backup} Successfully deleted '2019-05-15T13.57.03Z'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## List
 
@@ -113,40 +137,60 @@ One may hold a multitude of hot backups. Those would all be available
 to restore from. In order to get a listing of such hot backups, one
 may use the `list` command.
 
+{{< tabs >}}
+{{% tab name="bash " %}}
 ```bash 
 arangobackup list
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output lists all available hot backups:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 2019-05-15T15:28:17Z [16224] INFO {backup} Server version: 3.5.1
 2019-05-15T15:28:17Z [16224] INFO {backup} The following backups are available:
 2019-05-15T15:28:17Z [16224] INFO {backup}  - 2019-05-15T13.57.11Z_my-label
 2019-05-15T15:28:17Z [16224] INFO {backup}  - 2019-05-15T13.57.03Z-other-label
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Upload
 
 Hot backups can be uploaded to a remote repository, here is an example which
 uses the `S3` protocol:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangobackup upload --server.endpoint tcp://myserver:8529 --rclone-config-file /path/to/remote.json --identifier 2019-05-13T07.15.43Z_some-label --remote-path S3://remote-endpoint/remote-directory
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output will look like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 2019-07-30T08:10:10Z [17184] INFO [06792] {backup} Server version: 3.5.1
 2019-07-30T08:10:10Z [17184] INFO [a9597] {backup} Backup initiated, use 
 2019-07-30T08:10:10Z [17184] INFO [4c459] {backup}     arangobackup upload --status-id=114
 2019-07-30T08:10:10Z [17184] INFO [5cd70] {backup}  to query progress.
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This uses a file `remote.json` in the current directory to configure
 credentials for the remote site. Here is an example:
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "my-s3": {
@@ -160,6 +204,10 @@ credentials for the remote site. Here is an example:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 This process may take as long as it needs to upload the data from the
 single server or all of the cluster's DB-Servers to the remote
@@ -170,20 +218,28 @@ to the same remote site.
 
 The status of the process may be acquired at any later time.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangobackup upload --server.endpoint tcp://myserver:8529 --status-id=114
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 where the number given in the `--status-id` option is the one which was
 reported in the original upload command.
 
 The output will look like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 2019-07-30T08:11:09Z [17465] INFO [06792] {backup} Server version: 3.5.1
 2019-07-30T08:11:09Z [17465] INFO [24d75] {backup} SNGL Status: COMPLETED
 2019-07-30T08:11:09Z [17465] INFO [68cc8] {backup} Last progress update 2019-07-30T08:10:10Z: 5/5 files done
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [rclone Configuration](#rclone-configuration) for details about the `remote.json`
 file to configure the remote site for `rclone` for different protocols than S3.
@@ -192,18 +248,26 @@ file to configure the remote site for `rclone` for different protocols than S3.
 
 Hot backups can be downloaded from a remote repository like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangobackup download --server.endpoint tcp://myserver:8529 --rclone-config-file /path/to/remote.json --identifier 2019-05-13T07.15.43Z_some-label --remote-path S3://remote-endpoint/remote-directory
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output will look like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 2019-07-30T08:14:43Z [17621] INFO [06792] {backup} Server version: 3.5.1
 2019-07-30T08:14:43Z [17621] INFO [a9597] {backup} Backup initiated, use 
 2019-07-30T08:14:43Z [17621] INFO [4c459] {backup}     arangobackup download --status-id=250
 2019-07-30T08:14:43Z [17621] INFO [5cd70] {backup}  to query progress.
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This process may take as long as it needs to download the data to
 the single server or all of the cluster's DB-Servers from the remote
@@ -215,17 +279,25 @@ present.
 
 The status of the download process may be acquired at any later time.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangobackup download --server.endpoint tcp://myserver:8529 --status-id=250
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output will look like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 2019-07-30T08:18:07Z [17753] INFO [06792] {backup} Server version: 3.5.1
 2019-07-30T08:18:07Z [17753] INFO [24d75] {backup} SNGL Status: COMPLETED
 2019-07-30T08:18:07Z [17753] INFO [68cc8] {backup} Last progress update 2019-07-30T08:14:43Z: 5/5 files done
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Rclone Configuration
 
@@ -249,6 +321,8 @@ names and values in the [rclone documentation](https://rclone.org/docs/)
 directly translate into attribute/value pairs in the JSON file.
 Note that `"true"` and `"false"` must be enclosed by double quotes.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "my-remote": {
@@ -257,6 +331,8 @@ Note that `"true"` and `"false"` must be enclosed by double quotes.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The remote path can be specified via the `remote-path` startup option.
 The syntax for remote paths is `remote:path`, where `remote` is the
@@ -277,12 +353,20 @@ as a key value pair for the JSON files below, `{ ..., "upload_cutoff": 0, ... }`
 
 ### S3
 
+{{< tabs >}}
+{{% tab name="bash " %}}
 ```bash 
 … --rclone-config-file ~/my-s3.json --remote-path my-s3://remote-endpoint/remote-directory
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The file `my-s3.json` could look like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "my-s3": {
@@ -296,18 +380,28 @@ The file `my-s3.json` could look like this:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 More examples and details for S3 configurations can be found at
 [rclone.org/s3/](https://rclone.org/s3/).
 
 ### Locally mounted local or remote volumes
 
+{{< tabs >}}
+{{% tab name="bash " %}}
 ```bash 
 … --rclone-config-file ~/my-local.json --remote-path my-local://mnt/backup/arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The file `my-local.json` could look like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "my-local": {
@@ -318,18 +412,26 @@ The file `my-local.json` could look like this:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 More examples and details for local configurations can be found at
 [rclone.org/local/](https://rclone.org/local/).
 
 ### WebDAV
 
+{{< tabs >}}
+{{% tab name="bash " %}}
 ```bash 
 … --rclone-config-file ~/my-dav.json --remote-path my-dav://remote-endpoint/remote-directory
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Thie file `my-dav.json` could look like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "my-dav": {
@@ -341,6 +443,8 @@ Thie file `my-dav.json` could look like this:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 More examples and details on WebDAV configurations can be found
 [rclone.org/webdav/](https://rclone.org/webdav/).

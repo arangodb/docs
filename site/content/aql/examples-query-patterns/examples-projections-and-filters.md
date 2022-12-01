@@ -9,12 +9,18 @@ layout: default
 
 To return three complete documents from collection *users*, the following query can be used:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users 
   LIMIT 0, 3
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -49,6 +55,8 @@ FOR u IN users
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that there is a `LIMIT` clause but no `SORT` clause. In this case it is not guaranteed
 which of the user documents are returned. Effectively the document return order is unspecified
@@ -58,6 +66,8 @@ if no `SORT` clause is used, and you should not rely on the order in such querie
 
 To return a projection from the collection *users* use a modified `RETURN` instruction:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users 
   LIMIT 0, 3
@@ -68,7 +78,11 @@ FOR u IN users
     } 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -91,6 +105,8 @@ FOR u IN users
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Filters
 
@@ -98,6 +114,8 @@ To return a filtered projection from collection *users*, you can use the
 `FILTER` keyword. Additionally, a `SORT` clause is used to have the result
 returned in a specific order:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users 
   FILTER u.active == true && u.age >= 30
@@ -108,7 +126,11 @@ FOR u IN users
     "name" : u.name 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -133,3 +155,5 @@ FOR u IN users
   } 
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}

@@ -20,9 +20,13 @@ To recover from this scenario, you must:
 
 E.g.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 echo "192.168.1.25:8528" > $DATADIR/RECOVERY
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 After creating the `RECOVERY` file, start the _Starter_ using all the normal command
 line arguments.

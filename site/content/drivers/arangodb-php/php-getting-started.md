@@ -52,9 +52,13 @@ There are two alternative ways to get the ArangoDB PHP client:
 
 #### Alternative 1: Using Composer
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 composer require triagens/arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Alternative 2: Cloning the git repository
 
@@ -65,9 +69,13 @@ When preferring this alternative, you need to have a git client installed. To cl
 This will create a subdirectory arangodb-php in your current directory. It contains all the files of the client library. It also includes a dedicated autoloader that you can use for autoloading the client libraries class files.
 To invoke this autoloader, add the following line to your PHP files that will use the library:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 require 'arangodb-php/autoload.php';
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The ArangoDB PHP client's autoloader will only care about its own class files and will not handle any other files. That means it is fully nestable with other autoloaders.
 
@@ -75,7 +83,11 @@ The ArangoDB PHP client's autoloader will only care about its own class files an
 
 If you do not wish to include autoload.php to load and setup the autoloader, you can invoke the autoloader directly:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 require 'arangodb-php/lib/ArangoDBClient/autoloader.php';
 \ArangoDBClient\Autoloader::init();
 ```
+{{% /tab %}}
+{{< /tabs >}}

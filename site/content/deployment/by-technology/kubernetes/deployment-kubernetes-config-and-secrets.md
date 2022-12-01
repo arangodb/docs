@@ -33,6 +33,8 @@ the applicable Pods as files, mapped into the Pods filesystem.
 The name of the secret is specified in the custom resource.
 For example:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "cluster.arangodb.com/v1alpha"
 kind: "Cluster"
@@ -43,3 +45,5 @@ spec:
   auth:
     jwtSecretName: <name-of-JWT-token-secret>
 ```
+{{% /tab %}}
+{{< /tabs >}}

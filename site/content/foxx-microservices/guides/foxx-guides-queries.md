@@ -10,6 +10,8 @@ ArangoDB provides the `query` template string handler
 to make it easy to write and execute [AQL queries](../../about-arangodb/)
 in your Foxx services:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { query } = require("@arangodb");
 const max = 13;
@@ -20,6 +22,8 @@ const oddNumbers = query`
 `.toArray();
 console.log(oddNumbers); // 1,3,5,7,9,11,13
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Any values passed via interpolation (i.e. using the `${expression}` syntax)
 are passed to ArangoDB as
@@ -34,6 +38,8 @@ step through the result set using the `next()` method.
 
 You can also consume a cursor with a for-loop:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const cursor = query`
   FOR i IN 1..5
@@ -43,9 +49,13 @@ for (const item of cursor) {
   console.log(item);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is also possible to pass options to the query helper:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const cursor = query({ fullCount: true })`
   FOR i IN 1..1000
@@ -56,6 +66,8 @@ const { fullCount } = cursor.getExtra().stats;
 console.log(`${fullCount} total`);
 console.log(cursor.toArray());
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Using collections
 
@@ -63,6 +75,8 @@ When [working with collections in your service](foxx-guides-collections) you gen
 want to avoid hardcoding exact collection names. But if you pass a
 collection name directly to a query it will be treated as a string:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // THIS DOES NOT WORK
 const users = module.context.collectionName("users");
@@ -73,9 +87,13 @@ const admins = query`
   RETURN user
 `.toArray(); // ERROR
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Instead you need to pass an ArangoDB collection object:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const users = module.context.collection("users");
 // users is now a collection, not a string
@@ -85,6 +103,8 @@ const admins = query`
   RETURN user
 `.toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that you don't need to use any different syntax to use
 a collection in a query, but you do need to make sure the collection is
@@ -96,6 +116,8 @@ In addition to the `query` template tag, ArangoDB also provides
 the `aql` template tag, which only generates a query object
 but doesn't execute it:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { db, aql } = require("@arangodb");
 const max = 7;
@@ -105,10 +127,14 @@ const query = aql`
 `;
 const numbers = db._query(query).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also use the `db._query` method to execute queries using
 plain strings and passing the bind parameters as an object:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Note the lack of a tag, this is a normal string
 const query = `
@@ -123,10 +149,14 @@ const admins = db._query(query, {
   "@users": module.context.collectionName("users")
 }).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that when using plain strings as queries ArangoDB provides
 no safeguards to prevent accidental AQL injections:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Malicious user input where you might expect a number
 const evil = "1 FOR u IN myfoxx_users REMOVE u IN myfoxx_users";
@@ -141,6 +171,8 @@ const numbers = db._query(`
 // REMOVE u IN myfoxx_users
 // RETURN i
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If possible, you should always use the `query` or `aql` template tags
 rather than passing raw query strings to `db._query` directly.
@@ -151,6 +183,8 @@ If you need to insert AQL snippets dynamically, you can still use
 the `query` template tag by using the `aql.literal` helper function to
 mark the snippet as a raw AQL fragment:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const filter = aql.literal(
   adminsOnly ? 'FILTER user.isAdmin' : ''
@@ -161,6 +195,8 @@ const result = query`
   RETURN user
 `.toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Both the `query` and `aql` template tags understand fragments marked
 with the `aql.literal` helper and inline them directly into the query
@@ -170,6 +206,8 @@ Note that because the `aql.literal` helper takes a raw string as argument
 the same security implications apply to it as when writing raw AQL queries
 using plain strings:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Malicious user input where you might expect a condition
 const evil = "true REMOVE u IN myfoxx_users";
@@ -186,6 +224,8 @@ const result = query`
 // REMOVE user IN myfoxx_users
 // RETURN user
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A typical scenario that might result in an exploit like this is taking
 arbitrary strings from a search UI to filter or sort results by a field name.
@@ -196,6 +236,8 @@ Make sure to restrict what values you accept.
 In many cases it may be initially more convenient to perform queries
 right where you use their results:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get("/emails", (req, res) => {
   res.json(query`
@@ -205,11 +247,15 @@ router.get("/emails", (req, res) => {
   `.toArray())
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 However to [help testability](foxx-guides-testing) and make the queries more reusable,
 it's often a good idea to move them out of your request handlers
 into separate functions, e.g.:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in queries/get-user-emails.js
 "use strict";
@@ -231,3 +277,5 @@ router.get("/all-emails", (req, res) => {
   res.json(getUserEmails(false));
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}

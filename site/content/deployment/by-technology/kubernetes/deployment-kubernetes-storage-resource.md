@@ -12,6 +12,8 @@ a `CustomResourceDefinition` created by the operator.
 
 Example minimal storage definition:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "storage.arangodb.com/v1alpha"
 kind: "ArangoLocalStorage"
@@ -23,6 +25,8 @@ spec:
   localPath:
   - /mnt/big-ssd-disk
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This definition results in:
 

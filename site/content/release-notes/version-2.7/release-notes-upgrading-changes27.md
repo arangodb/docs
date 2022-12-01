@@ -24,6 +24,8 @@ indexes together with filters, skip and limit values. Since this issue been fixe
 there is no AQL replacement function for `SKIPLIST`. Queries that use the `SKIPLIST` function 
 can be fixed by using the usual combination of `FOR`, `FILTER` and `LIMIT`, e.g.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     FOR doc IN @@collection 
       FILTER doc.value >= @value 
@@ -31,6 +33,8 @@ can be fixed by using the usual combination of `FOR`, `FILTER` and `LIMIT`, e.g.
       LIMIT 1 
       RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Foxx changes
 
@@ -44,6 +48,8 @@ The properties `setup` and `teardown` have been moved into the `scripts` propert
 
 **Before:**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   ...
@@ -51,9 +57,13 @@ The properties `setup` and `teardown` have been moved into the `scripts` propert
   "teardown": "scripts/teardown.js"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **After:**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   ...
@@ -63,6 +73,8 @@ The properties `setup` and `teardown` have been moved into the `scripts` propert
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Foxx Queues
 
@@ -81,6 +93,8 @@ The `sessionStorageApp` option has been removed in favor of the `sessionStorage`
 
 **Before:**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var Foxx = require('org/arangodb/foxx');
 var ctrl = new Foxx.Controller(applicationContext);
@@ -90,15 +104,21 @@ ctrl.activateSessions({
   type: 'cookie'
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **After:**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 ctrl.activateSessions({
   sessionStorage: applicationContext.dependencies.sessions.sessionStorage,
   cookie: true
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Request module
 

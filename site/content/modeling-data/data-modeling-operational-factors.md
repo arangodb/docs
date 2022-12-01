@@ -81,6 +81,8 @@ items and prices. The total balance of all items in the shopping basket should
 stay in sync with the contained items, then you may put all contained items
 inside the shopping basket document and only update them together:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
     "_id": "basket/123",
@@ -92,6 +94,8 @@ inside the shopping basket document and only update them together:
                { "price": 90, "title": "Vacuum XYZ" } ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This allows you to avoid making lookups via the document keys in
 multiple collections.
@@ -111,23 +115,31 @@ You can specify the revision via the `_rev` field inside the document or via
 the `If-Match: <revision>` HTTP header in the documents REST API.
 In the _arangosh_ you can perform such an operation like this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.basketCollection.update({"_key": "123", "_rev": "_Xv0TA0O--_"}, data)
 // or replace
 db.basketCollection.replace({"_key": "123", "_rev": "_Xv0TA0O--_"}, data)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 An AQL query with the same effect can be written by using the _ignoreRevs_
 option together with a modification operation. Either let ArangoDB compare
 the `_rev` value and  only succeed if they still match, or let ArangoDB
 ignore them (default):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   UPDATE { _key: CONCAT('test', i), _rev: "1287623" }
   WITH { foobar: true } IN users
   OPTIONS { ignoreRevs: false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Indexes
 
@@ -283,12 +295,16 @@ You may use the _exclusive_ query option for modifying AQL queries, to improve t
 This has the downside that no concurrent writes may occur on the collection, but ArangoDB is able
 to use a special fast-path which should improve the performance by up to 50% for large collections.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN mycollection
   UPDATE doc._key
   WITH { foobar: true } IN mycollection
   OPTIONS { exclusive: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The same naturally also applies for queries using _REPLACE_ or _INSERT_. Additionally you may be able to use
 the `intermediateCommitCount` option in the API to subdivide the AQL transaction into smaller batches.

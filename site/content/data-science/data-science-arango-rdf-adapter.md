@@ -42,9 +42,13 @@ is available on Github. Check it out!
 To install the latest release of ArangoRDF,
 run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 pip install arango-rdf
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Quickstart
 
@@ -52,6 +56,8 @@ The following example shows how to get started with ArangoRDF.
 Check also the 
 [interactive tutorial](https://colab.research.google.com/github/ArangoDB-Community/ArangoRDF/blob/main/examples/ArangoRDF.ipynb).
 
+{{< tabs >}}
+{{% tab name="py" %}}
 ```py
 from arango import ArangoClient
 from arango_rdf import ArangoRDF
@@ -105,3 +111,5 @@ config = adb_rdf.get_config_by_latest() # gets the last config saved
 
 adb_graph = adb_rdf.import_rdf(f"./examples/data/rdfExport.xml", format="xml", config=config)
 ```
+{{% /tab %}}
+{{< /tabs >}}

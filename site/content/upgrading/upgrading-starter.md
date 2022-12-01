@@ -53,16 +53,24 @@ The first step is to install the new ArangoDB package.
 
 For example, if you want to upgrade to `3.9.2` on Debian or Ubuntu, either call
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 apt install arangodb=3.9.2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 (`apt-get` on older versions) if you have added the ArangoDB repository. Or
 install a specific package using
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 dpkg -i arangodb3-3.9.2-1_amd64.deb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 after you have downloaded the corresponding file from
 [www.arangodb.com/download/](https://www.arangodb.com/download/)
@@ -81,18 +89,26 @@ stop it now, as otherwise this standalone instance that is started on your machi
 can create some confusion later. As you are using the _Starter_ you do not need
 this standalone instance, and you can hence stop it:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 service arangodb3 stop
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also, you might want to remove the standalone instance from the default
 _runlevels_ to prevent it to start on the next reboot of your machine. How this
 is done depends on your distribution and _init_ system. For example, on older Debian
 and Ubuntu systems using a SystemV-compatible _init_, you can use:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 update-rc.d -f arangodb3 remove
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Stop the _Starter_ without stopping the ArangoDB Server processes
 
@@ -113,15 +129,23 @@ but also the _arangod_ server processes it started because of the
 default setting `KillMode=control-group`.
 {{% /hints/tip %}}
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kill -9 <pid-of-starter>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The _PID_ associated to your _Starter_ can be checked using a command like `ps`:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ps -C arangodb -fww
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output of the command above does not only show the PIDs of all _arangodb_
 processes but also the used commands, which can be useful for the following
@@ -131,6 +155,8 @@ The output below is from a test machine where three instances of a _Starter_ are
 running locally. In a more production-like scenario, you will find only one instance
 of _arangodb_ running:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ps -C arangodb -fww
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -138,16 +164,22 @@ max      29419  3684  0 11:46 pts/1    00:00:00 arangodb --starter.data-dir=./db
 max      29504  3695  0 11:46 pts/2    00:00:00 arangodb --starter.data-dir=./db2 --starter.join 127.0.0.1
 max      29513  3898  0 11:46 pts/4    00:00:00 arangodb --starter.data-dir=./db3 --starter.join 127.0.0.1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can use `pstree` to inspect the _arangod_ server instances launched by one
 of these starters:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 pstree -Tp 29419 
 arangodb(29419)─┬─arangod(30201)
                 ├─arangod(30202)
                 └─arangod(30217)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Restart the _Starter_
 
@@ -170,6 +202,8 @@ restarted in this case. If you forgot, simply do the `kill -9` again.
 After you stopped the _Starter_ make sure the `arangod` processes it spawned
 are still running; they should be re-parented to the systemd or init process:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ps -f -p 30201,30202,30217
 UID          PID    PPID  C STIME TTY          TIME CMD
@@ -177,6 +211,8 @@ root     30201       1  0 13:02 pts/45   00:01:09 usr/sbin/arangod ...
 root     30202       1  0 13:02 pts/45   00:00:55 usr/sbin/arangod ...
 root     30217       1  0 13:02 pts/45   00:01:11 usr/sbin/arangod ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If not, rollback to the old version and restart that _Starter_, or the
 subsequent upgrade procedure will fail.
@@ -196,9 +232,13 @@ actual upgrade procedure can be started.
 Run the following command on any of the cluster nodes for any of the starter 
 endpoints (e.g. `http://localhost:8528`) to upgrade the entire cluster:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb upgrade --starter.endpoint=<endpoint-of-a-starter>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you have connected clusters across multiple datacenter
 (DC2DC deployment), then you need to update each of the clusters.
@@ -254,9 +294,13 @@ has failed, it can be retried.
 
 To retry, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb retry upgrade --starter.endpoint=<endpoint-of-a-starter>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `--starter.endpoint` option can be set to the endpoint of any
 of the starters, e.g. `http://localhost:8528`.
@@ -268,9 +312,13 @@ is in progress or has failed, it can be aborted.
 
 To abort, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb abort upgrade --starter.endpoint=<endpoint-of-a-starter>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `--starter.endpoint` option can be set to the endpoint of any
 of the starters, e.g. `http://localhost:8528`.

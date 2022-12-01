@@ -28,6 +28,8 @@ To configure synchronization, you need the following:
 
 With that information, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync configure sync \
   --master.endpoint=<endpoints of sync masters in target datacenter> \
@@ -37,6 +39,8 @@ arangosync configure sync \
   --auth.user=<username used for authentication of this command> \
   --auth.password=<password of auth.user>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The command will finish quickly. Afterwards it will take some time until
 the clusters in both datacenters are in sync.
@@ -45,6 +49,8 @@ the clusters in both datacenters are in sync.
 
 Use the following command to inspect the status of the synchronization of a datacenter:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync get status \
   --master.endpoint=<endpoints of sync masters in datacenter of interest> \
@@ -52,6 +58,8 @@ arangosync get status \
   --auth.password=<password of auth.user> \
   -v
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that invoking this command on the target datacenter will return different results from
 invoking it on the source datacenter. You need insight in both results to get a "complete picture".
@@ -61,6 +69,8 @@ are more detailed commands to give insight in tasks & registered workers.
 
 Use the following command to get a list of all synchronization tasks in a datacenter:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync get tasks \
   --master.endpoint=<endpoints of sync masters in datacenter of interest> \
@@ -68,9 +78,13 @@ arangosync get tasks \
   --auth.password=<password of auth.user> \
   -v
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Use the following command to get a list of all masters in a datacenter and know which master is the current leader:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync get masters \
   --master.endpoint=<endpoints of sync masters in datacenter of interest> \
@@ -78,9 +92,13 @@ arangosync get masters \
   --auth.password=<password of auth.user> \
   -v
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Use the following command to get a list of all workers in a datacenter:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync get workers \
   --master.endpoint=<endpoints of sync masters in datacenter of interest> \
@@ -88,18 +106,24 @@ arangosync get workers \
   --auth.password=<password of auth.user> \
   -v
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Stopping synchronization
 
 If you no longer want to synchronize data from a source to a target datacenter
 you must stop it. To do so, run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync stop sync \
   --master.endpoint=<endpoints of sync masters in target datacenter> \
   --auth.user=<username used for authentication of this command> \
   --auth.password=<password of auth.user>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The command will first ensure that all shards in the receiving cluster are
 completely in-sync with the shards in the sending cluster.
@@ -118,23 +142,31 @@ argument to the `stop sync` command.
 If the source datacenter is no longer available it is not possible to stop synchronization in
 a graceful manner. If that happens abort the synchronization with the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync abort sync \
   --master.endpoint=<endpoints of sync masters in target datacenter> \
   --auth.user=<username used for authentication of this command> \
   --auth.password=<password of auth.user>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the source datacenter recovers after an `abort sync` has been executed, it is
 needed to "cleanup" ArangoSync in the source datacenter.
 To do so, execute the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync abort outgoing sync \
   --master.endpoint=<endpoints of sync masters in source datacenter> \
   --auth.user=<username used for authentication of this command> \
   --auth.password=<password of auth.user>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Reversing synchronization direction
 

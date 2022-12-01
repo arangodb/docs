@@ -74,11 +74,15 @@ Note: You also have to activate the RocksDB storage engine.
 
 Pass the following option to `arangod`:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ arangod \
     --rocksdb.encryption-keyfile=/mytmpfs/mySecretKey \
     --server.storage-engine=rocksdb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 The file `/mytmpfs/mySecretKey` must contain the encryption key. This
 file must be secured, so that only `arangod` can access it. You should
 also ensure that in case someone steals the hardware, they will not be
@@ -89,11 +93,15 @@ creating an in-memory file-system under `/mytmpfs`.
 
 Pass the following option to `arangod`:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ arangod \
     --rocksdb.encryption-key-generator=path-to-my-generator \
     --server.storage-engine=rocksdb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The program `path-to-my-generator` output the encryption on standard
 output and exit.
@@ -110,9 +118,13 @@ The encryption keyfile must contain 32 bytes of random data.
 
 You can create it with a command line this.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 dd if=/dev/random bs=1 count=32 of=yourSecretKeyFile
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For security, it is best to create these keys offline (away from your database
 servers) and directly store them in your secret management tool.
@@ -134,10 +146,14 @@ To enable smooth rollout of new keys you can use the new option
 `--rocksdb.encryption-keyfolder` to provide a set of secrets.
 _arangod_ will then store the master key encrypted with the provided secrets.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ arangod \
     --rocksdb.encryption-keyfolder=/mytmpfs/mySecrets
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To start an arangod instance only one of the secrets needs to be correct, 
 this should guard against service interruptions during the rotation process.

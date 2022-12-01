@@ -18,6 +18,8 @@ setting.
 This is an example of a `Cluster` deployment that stores its Agent & DB-Server
 data on `PersistentVolumes` that use the `my-local-ssd` `StorageClass`
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "database.arangodb.com/v1alpha"
 kind: "ArangoDeployment"
@@ -30,6 +32,8 @@ spec:
   dbservers:
     storageClassName: my-local-ssd
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The amount of storage needed is configured using the
 `spec.<group>.resources.requests.storage` setting.
@@ -41,6 +45,8 @@ server.
 This is an example of a `Cluster` deployment that requests volumes of 80GB
 for every DB-Server, resulting in a total storage capacity of 240GB (with 3 DB-Servers).
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "database.arangodb.com/v1alpha"
 kind: "ArangoDeployment"
@@ -53,6 +59,8 @@ spec:
       requests:
         storage: 80Gi
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Local storage
 
@@ -67,6 +75,8 @@ This is an example of an `ArangoLocalStorage` resource that will result in
 `PersistentVolumes` created on any node of the Kubernetes cluster
 under the directory `/mnt/big-ssd-disk`.
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "storage.arangodb.com/v1alpha"
 kind: "ArangoLocalStorage"
@@ -78,6 +88,8 @@ spec:
   localPath:
   - /mnt/big-ssd-disk
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that using local storage required `VolumeScheduling` to be enabled in your
 Kubernetes cluster. ON Kubernetes 1.10 this is enabled by default, on version
@@ -95,6 +107,8 @@ capacity needed for each server.
 To select the correct node, add a required node-affinity annotation as shown
 in the example below.
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -122,12 +136,16 @@ spec:
   local:
     path: /mnt/disks/ssd1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For Kubernetes 1.9 and up, you should create a `StorageClass` which is configured
 to bind volumes on their first use as shown in the example below.
 This ensures that the Kubernetes scheduler takes all constraints on a `Pod`
 that into consideration before binding the volume to a claim.
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -136,3 +154,5 @@ metadata:
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
+{{% /tab %}}
+{{< /tabs >}}

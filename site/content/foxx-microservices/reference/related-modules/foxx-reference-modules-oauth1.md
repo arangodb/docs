@@ -12,6 +12,8 @@ Twitter, XING and Tumblr.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const router = createRouter();
 const oauth1 = createOAuth1Client({
@@ -90,6 +92,8 @@ router.get('/auth', function (req, res) {
 .queryParam('oauth_token', joi.string().optional())
 .queryParam('oauth_verifier', joi.string().optional());
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating an OAuth1.0a client
 
@@ -270,6 +274,8 @@ the *authEndpoint*.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const requestToken = oauth1.fetchRequestToken(oauth_callback);
 if (requestToken.oauth_callback_confirmed !== 'true') {
@@ -277,6 +283,8 @@ if (requestToken.oauth_callback_confirmed !== 'true') {
 }
 const authUrl = oauth1.getAuthUrl(requestToken.oauth_token);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Exchange an authenticated request token for an access token
 
@@ -340,10 +348,14 @@ Returns the parsed response object.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const authData = oauth1.exchangeRequestToken(oauth_token, oauth_verifier);
 const userData = oauth1.fetchActiveUser(authData.oauth_token, authData.oauth_token_secret);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Create an authenticated request object
 
@@ -394,6 +406,8 @@ Returns an object with three properties:
 
 Fetch a list of tweets mentioning `@arangodb`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const request = require('@arangodb/request');
 const req = oauth1.createSignedRequest(
@@ -406,9 +420,13 @@ const req = oauth1.createSignedRequest(
 const res = request(req);
 console.log(res.json.statuses);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Signing a more complex request:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const url = 'https://api.example.com/v1/timeline?visible=public';
 const params = {hello: 'world', longcat: 'is long'};
@@ -429,3 +447,5 @@ const res = request.post(url, {
 });
 console.log(res.json);
 ```
+{{% /tab %}}
+{{< /tabs >}}

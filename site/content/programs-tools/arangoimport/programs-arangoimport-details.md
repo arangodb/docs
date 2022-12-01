@@ -29,9 +29,13 @@ valid document IDs in existing collections.
 
 *Example*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "_from" : "users/1234", "_to" : "users/4321", "desc" : "1234 is connected to 4321" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: The edge collection must already exist when the import is started. Using
 the *--create-collection* flag will not work because arangoimport will always try to
@@ -75,9 +79,13 @@ inside *_from* and/or *_to*.
 Importing the following document will then create an edge between *users/1234* and
 *products/4321*:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "_from" : "1234", "_to" : "4321", "desc" : "users/1234 is connected to products/4321" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Updating existing documents
 
@@ -142,12 +150,16 @@ It will show the
 
 *Example*
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 created:          2
 warnings/errors:  0
 updated/replaced: 0
 ignored:          0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For CSV and TSV imports, the total number of input file lines read will also be printed
 (*lines read*).

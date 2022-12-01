@@ -89,6 +89,8 @@ graphs it can return a large number of paths, or perform an expensive
 
 ### Working with named graphs
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR path
   IN OUTBOUND|INBOUND|ANY K_SHORTEST_PATHS
@@ -97,6 +99,8 @@ FOR path
   [OPTIONS options]
   [LIMIT offset, count]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - `FOR`: emits the variable **path** which contains one path as an object containing 
    `vertices`, `edges`, and the `weight` of the path.
@@ -131,6 +135,8 @@ number, then the query is aborted with an error.
 
 ### Working with collection sets
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR path
   IN OUTBOUND|INBOUND|ANY K_SHORTEST_PATHS
@@ -139,6 +145,8 @@ FOR path
   [OPTIONS options]
   [LIMIT offset, count]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Instead of `GRAPH graphName` you can specify a list of edge collections.
 The involved vertex collections are determined by the edges of the given
@@ -153,11 +161,15 @@ has no relevance, but in *edges1* and *edges3* the direction should be taken int
 account. In this case you can use `OUTBOUND` as general search direction and `ANY`
 specifically for *edges2* as follows:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR vertex IN OUTBOUND K_SHORTEST_PATHS
   startVertex TO targetVertex
   edges1, ANY edges2, edges3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All collections in the list that do not specify their own direction will use the
 direction defined after `IN` (here: `OUTBOUND`). This allows to use a different

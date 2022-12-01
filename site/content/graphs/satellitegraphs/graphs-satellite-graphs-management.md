@@ -22,10 +22,14 @@ the sharding and replication properties. The properties `distributeShardsLike`,
 
 The format of the relations is identical.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var graph_module = require("@arangodb/satellite-graph");
 graph_module._create(graphName, edgeDefinitions, orphanCollections);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - `graphName` (string):
   Unique identifier of the graph

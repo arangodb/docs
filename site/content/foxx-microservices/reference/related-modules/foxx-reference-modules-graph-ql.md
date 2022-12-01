@@ -20,6 +20,8 @@ Starting with `graphql` version 0.12 you can use the
 if you include it in the `node_modules` folder of your service bundle and pass
 it to the `graphql` option:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const graphql = require('graphql'); // 0.12 or later
 const graphqlSchema = new graphql.Schema({
@@ -31,6 +33,8 @@ module.context.use(createGraphQLRouter({
   graphql: graphql
 }))
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Foxx also bundles version 0.6 of the
 [`graphql-sync` module](https://www.npmjs.com/package/graphql-sync),
@@ -47,6 +51,8 @@ their own copy of this module: <https://www.npmjs.com/package/graphql>
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const graphql = require('graphql-sync');
 const graphqlSchema = new graphql.GraphQLSchema({
@@ -74,6 +80,8 @@ router.use('/graphql', createGraphQLRouter({
   graphiql: true
 }));
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For more information on `graphql-sync` see the
 [`graphql-js` API reference](http://graphql.org/docs/api-reference-graphql/).

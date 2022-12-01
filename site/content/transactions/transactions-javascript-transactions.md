@@ -26,9 +26,13 @@ in ArangoDB. Instead, a transaction in ArangoDB is started by providing a
 description of the transaction to the `db._executeTransaction()` JavaScript
 function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction(options);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This function automatically starts a transaction, executes all required
 data retrieval and/or modification operations, and automatically
@@ -93,6 +97,8 @@ attribute of the object passed to the `_executeTransaction()` function. The
 `collections` attribute can have the sub-attributes `read`, `write`, and
 `exclusive`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {
@@ -101,6 +107,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `read`, `write`, and `exclusive` are optional attributes, and only need to be
 specified if the operations inside the transactions demand for it.
@@ -108,6 +116,8 @@ specified if the operations inside the transactions demand for it.
 The attribute values can each be lists of collection names or a single
 collection name (as a string):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {
@@ -116,6 +126,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: It is optional to specify collections for read-only access by default.
 Even without specifying them, it is still possible to read from such collections
@@ -126,6 +138,8 @@ In order to make a transaction fail when a non-declared collection is used insid
 for reading, the optional `allowImplicit` sub-attribute of `collections` can be
 set to `false`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {
@@ -140,6 +154,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The default value for `allowImplicit` is `true`. Write-accessing collections that
 have not been declared in the `collections` array is never possible, regardless of
@@ -151,6 +167,8 @@ All data modification and retrieval operations that are to be executed inside
 the transaction need to be specified in a JavaScript function, using the `action`
 attribute:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {
@@ -161,12 +179,16 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Any valid JavaScript code is allowed inside `action` but the code may only
 access the collections declared in `collections`.
 `action` may be a JavaScript function as shown above, or a string representation
 of a JavaScript function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {
@@ -175,6 +197,8 @@ db._executeTransaction({
   action: "function () { doSomething(); }"
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that any operations specified in `action` will be executed on the
 server, in a separate scope. Variables will be bound late. Accessing any JavaScript
@@ -182,6 +206,8 @@ variables defined on the client-side or in some other server context from inside
 a transaction may not work.
 Instead, any variables used inside `action` should be defined inside `action` itself:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {
@@ -193,6 +219,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When the code inside the `action` attribute is executed, the transaction is
 already started and all required locks have been acquired. When the code inside
@@ -202,6 +230,8 @@ There is no explicit commit command.
 To make a transaction abort and roll back all changes, an exception needs to
 be thrown and not caught inside the transaction:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {
@@ -215,6 +245,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 There is no explicit abort or roll back command.
 
@@ -222,6 +254,8 @@ As mentioned earlier, a transaction commits automatically when the end of
 the `action` function is reached and no exception were thrown. In this
 case, the user can return any legal JavaScript value from the function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {
@@ -235,6 +269,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Passing parameters to transactions
 
@@ -244,6 +280,8 @@ same transaction code for multiple calls but with different parameters.
 
 A basic example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: { },
@@ -253,11 +291,15 @@ db._executeTransaction({
   params: [ 1, 2, 3 ]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above example will return `2`.
 
 Some example that uses collections:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: { 
@@ -277,6 +319,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Throwing Exceptions
 
@@ -284,6 +328,8 @@ If you catch errors in your transaction, try to get them solved, but fail
 you may want to mimic original ArangoDB error messages to ease the control flow
 of your invoking environment. This can be done like this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {},
@@ -296,6 +342,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For a complete list of possible ArangoDB errors, see
 [Error codes and meanings](../appendix/appendix-error-codes).
@@ -307,6 +355,8 @@ exception propagate upwards properly, please throw an an instance of base
 JavaScript `Error` class or a derivative. To specify an error number, include it
 as the `errorNumber` field. As an example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: {},
@@ -317,6 +367,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: In previous versions, custom exceptions which did not have an
 `Error`-like form were simply converted to strings and exposed in the
@@ -337,6 +389,8 @@ The `c1` collection needs to be declared in the `write` attribute of the
 The `action` attribute contains the actual transaction code to be executed.
 This code contains all data modification operations (3 in this example).
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // setup
 db._create("c1");
@@ -354,10 +408,14 @@ db._executeTransaction({
 });
     db.c1.count(); // 3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Aborting the transaction by throwing an exception in the `action` function
 will revert all changes, so as if the transaction never happened:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // setup
 db._create("c1");
@@ -378,10 +436,14 @@ db._executeTransaction({
 
 db.c1.count(); // 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The automatic rollback is also executed when an internal exception is thrown
 at some point during transaction execution:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // setup
 db._create("c1");
@@ -401,6 +463,8 @@ db._executeTransaction({
 
 db.c1.count(); // 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As required by the *consistency* principle, aborting or rolling back a
 transaction will also restore secondary indexes to the state at transaction
@@ -412,6 +476,8 @@ There's also the possibility to run a transaction across multiple collections.
 In this case, multiple collections need to be declared in the `collections`
 attribute, e.g.:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // setup
 db._create("c1");
@@ -431,10 +497,14 @@ db._executeTransaction({
 db.c1.count(); // 1
 db.c2.count(); // 1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Again, throwing an exception from inside the `action` function will make the
 transaction abort and roll back all changes in all collections:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // setup
 db._create("c1");
@@ -460,6 +530,8 @@ db._executeTransaction({
 db.c1.count(); // 0
 db.c2.count(); // 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## HTTP API
 

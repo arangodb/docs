@@ -74,11 +74,15 @@ responds with `HTTP 503 (Service unavailable)` and provides the address of
 the current _Leader_. Client applications and drivers can use this information to
 then make a follow-up request to the proper _Leader_:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 HTTP/1.1 503 Service Unavailable
 X-Arango-Endpoint: http://[::1]:8531
 ....
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Client applications can also detect who the current _Leader_ and the _Followers_
 are by calling the `/_api/cluster/endpoints` REST API. This API is accessible

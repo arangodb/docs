@@ -23,9 +23,13 @@ is available on Github. Check it out!
 To install the latest release of the ArangoDB-cuGraph Adapter,
 run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 conda install -c arangodb adbcug-adapter
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Quickstart
 
@@ -33,6 +37,8 @@ The following examples show how to get started with ArangoDB-cuGraph Adapter.
 Check also the 
 [interactive tutorial](https://colab.research.google.com/github/arangoml/cugraph-adapter/blob/master/examples/ArangoDB_cuGraph_Adapter.ipynb).
 
+{{< tabs >}}
+{{% tab name="py" %}}
 ```py
 import cudf
 import cugraph
@@ -86,3 +92,5 @@ edge_definitions = [
 ## 3) Convert cuGraph to ArangoDB
 adb_graph = adbcug_adapter.cugraph_to_arangodb("DivisibilityGraph", cug_graph, edge_definitions)
 ```
+{{% /tab %}}
+{{< /tabs >}}

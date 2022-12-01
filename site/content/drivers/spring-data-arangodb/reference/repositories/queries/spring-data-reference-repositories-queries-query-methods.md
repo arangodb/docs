@@ -12,6 +12,8 @@ can be supplied with the `@Query` annotation on methods.
 
 Instead of writing the collection name statically into the query string, the placeholder `#collection` can be specified.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String>{
 
@@ -21,6 +23,8 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Passing bind parameters
 
@@ -30,6 +34,8 @@ There are three ways of passing bind parameters to the query in the query annota
 
 Using number matching, arguments will be substituted into the query in the order they are passed to the query method.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String>{
 
@@ -38,11 +44,15 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### @Param
 
 With the `@Param` annotation, the argument will be placed in the query at the place corresponding to the value passed to the `@Param` annotation.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String>{
 
@@ -51,11 +61,15 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### @BindVars
 
 In addition you can use a method parameter of type `Map<String, Object>` annotated with `@BindVars` as your bind parameters. You can then fill the map with any parameter used in the query (also see [AQL Bind Parameters](../../../../../aql/aql-fundamentals/fundamentals-bind-parameters#bind-parameters)).
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String>{
 
@@ -64,9 +78,13 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A mixture of any of these methods can be used. Parameters with the same name from an `@Param` annotation will override those in the `bindVars`.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String>{
 
@@ -75,11 +93,15 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Query options
 
 `AqlQueryOptions` can also be passed to the driver, as an argument anywhere in the method signature.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String>{
 
@@ -88,6 +110,8 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Spring Expression support
 
@@ -100,6 +124,8 @@ methods on Spring Beans. In particular:
 - Spring Beans can be referenced with `@myBean` (factory beans with `&myBean`)
 - the SpEL variable `#collection` is automatically set
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String> {
 
@@ -124,3 +150,5 @@ public class FilterGenerator {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

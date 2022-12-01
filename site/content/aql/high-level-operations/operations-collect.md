@@ -40,6 +40,8 @@ This variable contains the group value.
 Here's an example query that find the distinct values in `u.city` and makes
 them available in variable `city`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT city = u.city
@@ -47,6 +49,8 @@ FOR u IN users
     "city" : city 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The second form does the same as the first form, but additionally introduces a
 variable (specified by *groupsVariable*) that contains all elements that fell into the
@@ -60,6 +64,8 @@ on the top level, in which case all variables are taken. Furthermore note
 that it is possible that the optimizer moves `LET` statements out of `FOR`
 statements to improve performance. 
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT city = u.city INTO groups
@@ -68,6 +74,8 @@ FOR u IN users
     "usersInCity" : groups 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above example, the array `users` will be grouped by the attribute
 `city`. The result is a new array of documents, with one element per distinct
@@ -77,6 +85,8 @@ made available in the variable `groups`. This is due to the `INTO` clause.
 `COLLECT` also allows specifying multiple group criteria. Individual group
 criteria can be separated by commas:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups
@@ -86,6 +96,8 @@ FOR u IN users
     "usersInCity" : groups 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above example, the array `users` is grouped by country first and then
 by city, and for each distinct combination of country and city, the users
@@ -96,6 +108,8 @@ will be returned.
 The third form of `COLLECT` allows rewriting the contents of the *groupsVariable* 
 using an arbitrary *projectionExpression*:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups = u.name
@@ -105,6 +119,8 @@ FOR u IN users
     "userNames" : groups 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above example, only the *projectionExpression* is `u.name`. Therefore,
 only this attribute is copied into the *groupsVariable* for each document. 
@@ -113,6 +129,8 @@ the *groupsVariable* as it would happen without a *projectionExpression*.
 
 The expression following `INTO` can also be used for arbitrary computations:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups = { 
@@ -125,6 +143,8 @@ FOR u IN users
     "usersInCity" : groups 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `COLLECT` also provides an optional `KEEP` clause that can be used to control
 which variables will be copied into the variable created by `INTO`. If no 
@@ -137,6 +157,8 @@ The following example limits the variables that are copied into the *groupsVaria
 to just `name`. The variables `u` and `someCalculation` also present in the scope
 will not be copied into *groupsVariable* because they are not listed in the `KEEP` clause:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   LET name = u.name
@@ -147,6 +169,8 @@ FOR u IN users
     "userNames" : groups[*].name 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `KEEP` is only valid in combination with `INTO`. Only valid variable names can
 be used in the `KEEP` clause. `KEEP` supports the specification of multiple 
@@ -160,21 +184,31 @@ determine the number of group members efficiently.
 The simplest form just returns the number of items that made it into the
 `COLLECT`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT WITH COUNT INTO length
   RETURN length
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above is equivalent to, but less efficient than:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN LENGTH(users)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `WITH COUNT` clause can also be used to efficiently count the number
 of items in each group:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT age = u.age WITH COUNT INTO length
@@ -183,6 +217,8 @@ FOR u IN users
     "count" : length 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/info %}}
 The `WITH COUNT` clause can only be used together with an `INTO` clause.
@@ -197,6 +233,8 @@ used as described before.
 For other aggregations, it is possible to run aggregate functions on the `COLLECT`
 results:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT ageGroup = FLOOR(u.age / 5) * 5 INTO g
@@ -206,6 +244,8 @@ FOR u IN users
     "maxAge" : MAX(g[*].u.age)
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above however requires storing all group values during the collect operation for 
 all groups, which can be inefficient. 
@@ -215,6 +255,8 @@ incrementally during the collect operation, and is therefore often more efficien
 
 With the `AGGREGATE` variant the above query becomes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT ageGroup = FLOOR(u.age / 5) * 5 
@@ -225,11 +267,15 @@ FOR u IN users
     maxAge 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `AGGREGATE` keyword can only be used after the `COLLECT` keyword. If used, it 
 must directly follow the declaration of the grouping keys. If no grouping keys 
 are used, it must follow the `COLLECT` keyword directly:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT AGGREGATE minAge = MIN(u.age), maxAge = MAX(u.age)
@@ -238,6 +284,8 @@ FOR u IN users
     maxAge 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Only specific expressions are allowed on the right-hand side of each `AGGREGATE`
 assignment:
@@ -267,16 +315,24 @@ assignment:
 In order to make a result set unique, one can either use `COLLECT` or
 `RETURN DISTINCT`.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN DISTINCT u.age
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT age = u.age
   RETURN age
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Behind the scenes, both variants create a *CollectNode*. However, they use
 different implementations of `COLLECT` that have different properties:
@@ -300,9 +356,13 @@ the *sorted* and the *hash* variant. The `method` option can be used in a
 `COLLECT` statement to inform the optimizer about the preferred method,
 `"sorted"` or `"hash"`.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 COLLECT ... OPTIONS { method: "sorted" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If no method is specified by the user, then the optimizer will create a plan
 that uses the *sorted* method, and an additional plan using the *hash* method
@@ -335,12 +395,16 @@ If the sort order of the `COLLECT` is irrelevant to the user, adding the extra
 instruction `SORT null` after the `COLLECT` will allow the optimizer to remove
 the sorts altogether:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   COLLECT age = u.age
   SORT null  /* note: will be optimized away */
   RETURN age
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Which `COLLECT` variant is used by the optimizer if no preferred method is set
 explicitly depends on the optimizer's cost estimations. The created plans with
@@ -361,6 +425,8 @@ require its input to be sorted.
 Which variant of `COLLECT` will actually be used can be figured out by looking
 at the execution plan of a query, specifically the comment of the *CollectNode*:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType                  Est.   Comment
@@ -371,3 +437,5 @@ Execution plan:
   6   SortNode                     5       - SORT name ASC   /* sorting strategy: standard */
   5   ReturnNode                   5       - RETURN name
 ```
+{{% /tab %}}
+{{< /tabs >}}

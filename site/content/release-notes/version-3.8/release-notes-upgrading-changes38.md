@@ -27,17 +27,25 @@ identifiers/names in AQL queries.
 
 For example, the query:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR status IN Window
   RETURN status.open
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will need to be adjusted to:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR status IN `Window`
   RETURN status.open
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Subqueries
 
@@ -61,14 +69,20 @@ For example, given a collection `test` with an empty document with just key
 `testDoc`, the following query would return different results when running for
 the first time and the second time:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 UPDATE 'testDoc'
 WITH { test: { sub1: true, sub2: null } } IN test
 OPTIONS { keepNull: false, mergeObjects: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On its first run, the query would return:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_key": "testDoc",
@@ -78,10 +92,14 @@ On its first run, the query would return:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 (with the `null` attribute value not being removed). For all subsequent runs,
 the same query would return:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_key": "testDoc",
@@ -90,6 +108,8 @@ the same query would return:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 (with the `null` value removed as requested).
 
@@ -129,9 +149,13 @@ For example, given a collection `test` with an empty document with just key `tes
 the following operation would produce different documents when running for the first
 time and the second time:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.test.update("testDoc", { test: { sub1: true, sub2: null } }, { keepNull: false });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also see [AQL UPDATE queries with `keepNull: false`](#update-queries-with-keepnull-false)
 

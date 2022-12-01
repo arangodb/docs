@@ -18,9 +18,13 @@ E.g. change `spec.dbservers.count` from `3` to `4`.
 
 Then apply the updated resource using:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f yourCustomResourceFile.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Inspect the status of the custom resource to monitor
 the progress of the scaling operation.

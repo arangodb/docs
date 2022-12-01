@@ -33,6 +33,8 @@ attributes (early pruning or document post-filtering) and without using LIMIT.
 The optimization will help in the following situation (in case `subCollection`
 is an edge collection):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR doc IN collection
   LET count = COUNT(
@@ -42,6 +44,8 @@ FOR doc IN collection
   )
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The restrictions are that the subquery result must only be used with the
 `COUNT`/`LENGTH` AQL function and not for anything else. The subquery itself 
@@ -77,10 +81,14 @@ Traversal performance can be further improved by not fetching the visited vertic
 from the storage engine in case the traversal query does not refer to them.
 For example, in the query:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR v, e, p IN 1..3 OUTBOUND 'collection/startVertex' edges
   RETURN e
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 …the vertex variable (`v`) is never accessed, making it unnecessary to fetch the
 vertices from storage. If this optimization is applied, the traversal node will be
@@ -96,11 +104,15 @@ to restrict the traversal to certain vertex or edge collections.
 The use case for `vertexCollections` is to not follow any edges that will point
 to other than the specified vertex collections, e.g.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
   OPTIONS { vertexCollections: [ "bolts", "screws" ] }
   RETURN v 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The traversal's start vertex is always considered valid, even if it not stored
 in any of the collections listed in the `vertexCollections` option.
@@ -108,11 +120,15 @@ in any of the collections listed in the `vertexCollections` option.
 The use case for `edgeCollections` is to not take into consideration any edges
 from edge collections other than the specified ones, e.g.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
   OPTIONS { edgeCollections: [ "productsToBolts", "productsToScrews" ] }
   RETURN v
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is mostly useful in the context of named graphs, when the named graph
 contains many edge collections. Not restricting the edge collections for the
@@ -121,12 +137,16 @@ of the graph, which can be expensive. In case it is known that only certain
 edges from the named graph are needed, the `edgeCollections` option can be a
 handy performance optimization. It can replace less efficient post-filtering:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
   FILTER p.edges[* RETURN IS_SAME_COLLECTION("productsToBolts", CURRENT)
                        OR IS_SAME_COLLECTION("productsToScrews", CURRENT)] ALL == true
   RETURN v
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also see [AQL Traversal Options](../../graphs/traversals/#working-with-named-graphs)
 
@@ -138,12 +158,16 @@ be executed in parallel.
 Traversals have a new option `parallelism` which can be used to specify the
 level of parallelism:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR doc IN outerCollection
   FOR v, e, p IN 1..3 OUTBOUND doc._id GRAPH 'components'
   OPTIONS { parallelism: 4 }
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Traversal parallelism is opt-in. If not specified, the `parallelism` value
 implicitly defaults to 1, which means no parallelism will be used. The maximum
@@ -192,6 +216,8 @@ since there doesn't need to be a distinction between the last element and all
 others just for the comma. That means definitions such as the following are
 now supported:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 [
   1,
@@ -199,7 +225,11 @@ now supported:
   3, // trailing comma
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "a": 1,
@@ -207,6 +237,8 @@ now supported:
   "c": 3, // trailing comma
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Previous versions of ArangoDB did not support trailing commas in AQL queries
 and threw query parse errors when they were used.
@@ -231,6 +263,8 @@ calls into loops in the `remove-unnecessary-calculations` rule.
 
 For example, in the query:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 LET x = NOOPT(1..100)
 LET values = SORTED(x)
@@ -238,6 +272,8 @@ FOR j IN 1..100
   FILTER j IN values
   RETURN j
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … there is only one use of the `values` variable. So the optimizer can remove
 that variable and replace the filter condition with `FILTER j IN SORTED(x)`.
@@ -255,6 +291,8 @@ execution of subqueries for which the results are later discarded.
 
 For example, in the query:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR doc IN collection1
   LET sub1 = FIRST(FOR sub IN collection2 FILTER sub.ref == doc._key RETURN sub)
@@ -264,10 +302,14 @@ FOR doc IN collection1
   LIMIT 10
   RETURN { doc, sub1, sub2 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … the execution of the `sub2` subquery can be delayed to after the SORT and LIMIT.
 The query optimizer will automatically transform this query into the following:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR doc IN collection1
   LET sub1 = FIRST(FOR sub IN collection2 FILTER sub.ref == doc._key RETURN sub)
@@ -277,6 +319,8 @@ FOR doc IN collection1
   LET sub2 = FIRST(FOR sub IN collection3 FILTER sub.ref == doc._key RETURN sub)
   RETURN { doc, sub1, sub2 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Cluster
 
@@ -514,27 +558,37 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
   complexity, but with the additional speedup of the JSON parser you should
   consider to use `JSON.parse(string)` over JavaScript variable declarations
   for complex data:
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   // Parsing a JSON string
   let structuredVar = JSON.parse('{"foo": "bar", …}');
   // instead of using an object literal
   let structuredVar = {foo: "bar", …};
   ```
+{{% /tab %}}
+{{< /tabs >}}
   Also see [Embedding JSON into JavaScript programs with JSON.parse](https://v8.dev/features/subsume-json#embedding-json-parse).
 
 - [BigInt support in formatter](https://v8.dev/features/intl-numberformat):
   Large integer numbers are now supported in number formatters:
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   const formatter = new Intl.NumberFormat('fr');
   formatter.format(12345678901234567890n);
   ```
+{{% /tab %}}
+{{< /tabs >}}
   This no longer throws an `Cannot convert a BigInt value to a number` error.
   Note that ArangoDB does not support BigInt in general but only in JavaScript
   contexts. AQL, JSON etc. do not support BigInt.
 
 - [Object.fromEntries support](https://v8.dev/features/object-fromentries):
   Performs the inverse operation of `Object.entries()`:
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   const object = { x: 42, y: 50 };
   const entries = Object.entries(object);
   // → [['x', 42], ['y', 50]]
@@ -542,15 +596,23 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
   const result = Object.fromEntries(entries);
   // → { x: 42, y: 50 }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - [Underscores for better readability of large numbers](https://v8.dev/features/numeric-separators):
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   1_000_000_000_000 // → equals 1000000000000
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - [matchAll support for strings](https://v8.dev/features/string-matchall):
   A convenient generator for a match object for each match:
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   const string = 'Favorite GitHub repos: tc39/ecma262 v8/v8.dev';
   const regex = /\b(?<owner>[a-z0-9]+)\/(?<repo>[a-z0-9\.]+)\b/g;
   for (const match of string.matchAll(regex)) {
@@ -558,6 +620,8 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
     console.log(`→ owner: ${match.groups.owner}`);
     console.log(`→ repo: ${match.groups.repo}`);
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - ICU supports more languages and characters (Unicode 12.1),
   emoji handling was improved
@@ -571,9 +635,13 @@ Also see:
 The [`query` helper](../../appendix/javascript-modules/appendix-java-script-modules-arango-db#the-query-helper)
 was extended to support passing [query options](../../aql/how-to-invoke-aql/invocation-with-arangosh#setting-options):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb").query( { maxRuntime: 1 } )`RETURN SLEEP(2)`
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Web UI
 

@@ -15,6 +15,8 @@ transports and auto-creation is not explicitly disabled in the session middlewar
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 new() {
   return {
@@ -24,6 +26,8 @@ new() {
   };
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## fromClient
 
@@ -45,11 +49,15 @@ the method should return a `null` value to indicate no matching session.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 fromClient(sid) {
   return db._collection('sessions').firstExample({_key: sid});
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## forClient
 
@@ -69,6 +77,8 @@ of the request object unless that property is empty (e.g. `null`).
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 forClient(session) {
   if (!session._key) {
@@ -79,3 +89,5 @@ forClient(session) {
   return session._key;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

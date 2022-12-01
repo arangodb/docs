@@ -26,11 +26,15 @@ Returns nothing.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 set(res) {
   res.set('x-session-id', value);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## clear
 

@@ -37,6 +37,8 @@ paths by increasing weights.
 The cost of an edge can be read from an attribute which can be specified with
 the `weightAttribute` option.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR x, v, p IN 0..10 OUTBOUND "places/York" GRAPH "kShortestPathsGraph"
   OPTIONS {
@@ -54,6 +56,8 @@ FOR x, v, p IN 0..10 OUTBOUND "places/York" GRAPH "kShortestPathsGraph"
     weights: p.edges[*].travelTime
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `path` | `weight` | `weights`
 :------|:---------|:---------
@@ -83,19 +87,27 @@ paths between a source and a target vertex that match the given path length.
 
 For example, the query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR path IN 2..4 OUTBOUND K_PATHS "v/source" TO "v/target" GRAPH "g"
   RETURN path
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … will yield all paths in the format:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "vertices": ["v/source", ... , "v/target"],
   "edges": ["v/source" -> "v/1", ... , "v/n" -> "v/target"]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … that have length of exactly 2 or 3 or 4, start at `v/source` and end at
 `v/target`. No order is guaranteed for those paths in the result set.
@@ -152,10 +164,14 @@ AQL now also support projections on sub-attributes (e.g. `a.b.c`).
 In previous versions of ArangoDB, projections were only supported on top-level
 attributes. For example, in the query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   RETURN doc.a.b
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … the projection that was used was just `a`. Now the projection will be `a.b`,
 which can help reduce the amount of data to be extracted from documents, when
@@ -168,10 +184,14 @@ it will be used now. Previously, no index could be used for this projection.
 Projections now can also be fed by any attribute in a combined index.
 For example, in the query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   RETURN doc.b
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … the projection can be satisfied by a single-attribute index on attribute `b`,
 but now also by a combined index on attributes `a` and `b` (or `b` and `a`).
@@ -224,9 +244,13 @@ allowed, although using collection names like this is very likely unintended.
 
 For example, consider the query
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection RETURN collection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Here, the collection name is *collection*, and its usage in the `FOR` loop is
 intended and valid. However, *collection* is also used in the `RETURN`
@@ -436,6 +460,8 @@ The per-query limit is introduced via changing the default value of the option
 calculated value. The per-query memory limit defaults are now (depending on the
 amount of available RAM):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
 Available memory:    134217728    (128MiB)  Limit:     33554432     (32MiB), %mem: 25.0
@@ -456,6 +482,8 @@ Available memory: 137438953472 (131072MiB)  Limit:  82463372083  (78643MiB), %me
 Available memory: 274877906944 (262144MiB)  Limit: 164926744167 (157286MiB), %mem: 60.0
 Available memory: 549755813888 (524288MiB)  Limit: 329853488333 (314572MiB), %mem: 60.0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As before, a per-query memory limit value of `0` means no limitation.
 The limit values are per AQL query, so they may still be too high in case
@@ -503,6 +531,8 @@ properly tracked.
 The global query memory limit in option `--query.global-memory-limit` has a
 default value that depends on the amount of available RAM:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
 Available memory:    134217728    (128MiB)  Limit:     33554432     (32MiB), %mem: 25.0
@@ -523,6 +553,8 @@ Available memory: 137438953472 (131072MiB)  Limit: 124038655509 (118292MiB), %me
 Available memory: 274877906944 (262144MiB)  Limit: 248077311017 (236584MiB), %mem: 90.2
 Available memory: 549755813888 (524288MiB)  Limit: 496154622034 (473169MiB), %mem: 90.2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using a global memory limit for all queries by default is a
 downwards-incompatible change in ArangoDB 3.8 and may make queries fail if they
@@ -624,9 +656,13 @@ For any user-defined index of type "persistent", it is now also possible to
 disable index selectivity estimates for the index, by setting the `estimates`
 flag to `false` when creating the index, e.g.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.myCollection.ensureIndex({ type: "persistent", fields: ["value"], estimates: false });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 By default index selectivity estimates are maintained for all newly created
 indexes. Turning them off can have a slightly positive performance impact for
@@ -858,12 +894,18 @@ active:
 
 - [DATE_UTCTOLOCAL()](../../aql/functions/functions-date#date_utctolocal)
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   RETURN DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York")
   // [ "2020-10-14T21:00:00.999" ]
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   RETURN DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York", true)
   /*
     {
@@ -879,15 +921,23 @@ active:
     }
   */
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - [DATE_LOCALTOUTC()](../../aql/functions/functions-date#date_localtoutc)
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   RETURN DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")
   // [ "2020-10-15T01:00:00.999Z" ]
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   RETURN DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")
   /*
     {
@@ -903,6 +953,8 @@ active:
     }
   */
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also some functions have been added to acquire the system timezone ArangoDB is
 running on and to list all valid IANA timezone names including canonical,
@@ -910,15 +962,23 @@ aliases and deprecated ones.
 
 - [DATE_TIMEZONE()](../../aql/functions/functions-date#date_timezone)
 
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   RETURN DATE_TIMEZONE() // [ "Etc/UTC" ]
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - [DATE_TIMEZONES()](../../aql/functions/functions-date#date_timezones)
 
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   RETURN DATE_TIMEZONES() // [ "Africa/Abidjan", ..., "Europe/Berlin", ..., "Zulu" ]
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Client tools
 
@@ -941,18 +1001,26 @@ Also see [_arangodump_ Threads](../../programs-tools/arangodump/programs-arangod
 Since its inception, _arangodump_ wrapped each dumped document into an extra
 JSON envelope, such as follows:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In case a dump taken with v3.8.0 or higher is known to never be used in older
 ArangoDB versions, the JSON envelopes can be turned off with the new startup
 option `--envelope false` to reduce the dump size and use a bit less memory
 and bandwidth:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"_key":"test","_rev":..., ...}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also see [_arangodump_ Dump Output Format](../../programs-tools/arangodump/programs-arangodump-examples#dump-output-format).
 

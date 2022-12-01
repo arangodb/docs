@@ -14,6 +14,8 @@ incoming requests and injecting them into outgoing responses.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Create a session middleware
 const sessions = sessionsMiddleware({
@@ -37,6 +39,8 @@ router.post('/login', function (req, res) {
 });
 .body(['text/plain'], 'Username');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating a session middleware
 

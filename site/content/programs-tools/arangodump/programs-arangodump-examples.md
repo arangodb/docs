@@ -39,6 +39,8 @@ Note that the specified user must have access to the databases.
 Here's an example of dumping data from a non-standard endpoint, using a dedicated
 [database name](../../appendix/appendix-glossary#database-name):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangodump \
   --server.endpoint tcp://192.168.173.13:8531 \
@@ -46,10 +48,14 @@ arangodump \
   --server.database mydb \
   --output-directory "dump"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In contrast to the above call `--server.database` must not be specified when dumping
 all databases using `--all-databases true`:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangodump \
   --server.endpoint tcp://192.168.173.13:8531 \
@@ -57,6 +63,8 @@ arangodump \
   --all-databases true \
   --output-directory "dump-multiple"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When finished, _arangodump_ will print out a summary line with some aggregate
 statistics about what it did, e.g.:
@@ -65,6 +73,8 @@ statistics about what it did, e.g.:
 
 Also, more than one endpoint can be provided, such as:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangodump \
   --server.endpoint tcp://192.168.173.13:8531 \
@@ -73,6 +83,8 @@ arangodump \
   --all-databases true \
   --output-directory "dump-multiple"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 By default, _arangodump_ will dump both structural information and documents from all
 non-system collections. To adjust this, there are the following command-line
@@ -162,9 +174,13 @@ bytes of data (required by the AES block cipher).
 The keyfile can be created by an external program, or, on Linux, by using a command
 like the following:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 dd if=/dev/random bs=1 count=32 of=yourSecretKeyFile
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For security reasons, it is best to create these keys offline (away from your
 database servers) and directly store them in your secret management
@@ -176,9 +192,13 @@ option when invoking _arangodump_, in addition to any other option you
 are already using. The following example assumes that your secret key
 is stored in ~/SECRET-KEY:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangodump --collection "secret-collection" dump --encryption.keyfile ~/SECRET-KEY
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that _arangodump_ will not store the key anywhere. It is the responsibility
 of the user to find a safe place for the key. However, _arangodump_ will store
@@ -188,23 +208,35 @@ encrypted dump or not.
 
 Trying to restore the encrypted dump without specifying the key will fail:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangorestore --collection "secret-collection" dump --create-collection true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 and _arangorestore_ will report the following error:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 the dump data seems to be encrypted with aes-256-ctr, but no key information was specified to decrypt the dump
 it is recommended to specify either `--encryption.keyfile` or `--encryption.key-generator` when invoking arangorestore with an encrypted dump
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is required to use the exact same key when restoring the data. Again this is
 done by providing the `--encryption.keyfile` parameter:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangorestore --collection "secret-collection" dump --create-collection true --encryption.keyfile ~/SECRET-KEY
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using a different key will lead to the backup being non-recoverable.
 
@@ -223,16 +255,24 @@ collection data gets compressed using the Gzip algorithm and for each collection
 a `.data.json.gz` file is written. Metadata files such as `.structure.json` and
 `.view.json` do not get compressed.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangodump --output-directory "dump" --compress-output
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Compressed dumps can be restored with *arangorestore*, which automatically
 detects whether the data is compressed or not based on the file extension.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangorestore --input-directory "dump"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Dump output format
 
@@ -241,9 +281,13 @@ arangorestore --input-directory "dump"
 Since its inception, _arangodump_ wrapped each dumped document into an extra
 JSON envelope, such as follows:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This original dump format was useful when there was the MMFiles storage engine,
 which could use different `type` values in its datafiles.
@@ -261,9 +305,13 @@ If that is not needed, the `--envelope` option can be set to `false`.
 In this case, the dump files will only contain the raw documents, without any
 envelopes around them:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"_key":"test","_rev":..., ...}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Disabling the envelopes can **reduce dump sizes** a lot, especially if documents
 are small on average and the relative cost of the envelopes is high. Omitting
@@ -273,9 +321,13 @@ building up the dump results and sending them over the wire.
 As a bonus, turning off the envelopes turns _arangodump_ into a fast, concurrent
 JSONL exporter for one or multiple collections:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangodump --collection "collection" --threads 8 --envelope false --compress-output false dump
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The JSONL format is also supported by _arangoimport_ natively.
 

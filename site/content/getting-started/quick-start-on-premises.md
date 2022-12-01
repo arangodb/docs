@@ -63,9 +63,13 @@ password during the installation process. Red-Hat based packages
 set a random password. For all other installation packages, you need to
 execute the following:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 shell> arango-secure-installation
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This commands asks for a root password and sets it.
 
@@ -89,17 +93,25 @@ user that has access rights to this database. See
 
 Use the *arangosh* to create a new database and user.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._createDatabase("example");
 arangosh> var users = require("@arangodb/users");
 arangosh> users.save("root@example", "password");
 arangosh> users.grantDatabase("root@example", "example");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can now connect to the new database using the user
 *root@example*.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 shell> arangosh --server.username "root@example" --server.database example
 ```
+{{% /tab %}}
+{{< /tabs >}}
 -->

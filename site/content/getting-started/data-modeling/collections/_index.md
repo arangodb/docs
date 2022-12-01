@@ -32,9 +32,13 @@ A collection is created by a ["db._create"](data-modeling-collections-database-m
 For example: Assume that the [collection identifier](../../../appendix/appendix-glossary#collection-identifier) is `7254820` and the name is
 `demo`, then the collection can be accessed as:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._collection("demo")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If no collection with such a name exists, then `null` is returned.
 

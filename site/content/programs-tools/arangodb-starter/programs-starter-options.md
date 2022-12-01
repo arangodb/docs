@@ -27,12 +27,16 @@ Address can be an host address or name, followed with an optional port.
 
 E.g. these are valid arguments.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 --starter.join=localhost
 --starter.join=localhost:5678
 --starter.join=192.168.23.1:8528
 --starter.join=192.168.23.1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - `--starter.local`
 
@@ -99,10 +103,14 @@ JWT secret (single line) and pass it through the `--auth.jwt-secret` option.
 
 For example:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb create jwt-secret --secret=jwtSecret
 arangodb --auth.jwt-secret=./jwtSecret
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All starters used in the cluster must have the same JWT secret.
 
@@ -120,9 +128,13 @@ server key file (.pem format) or let the starter create one for you.
 
 To use an existing server key file use the `--ssl.keyfile` option like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --ssl.keyfile=myServer.pem
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Use [`arangodb create tls keyfile`](programs-starter-security) to create a
 server key file.
@@ -130,9 +142,13 @@ server key file.
 To let the starter created a self-signed server key file, use the
 `--ssl.auto-key` option like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --ssl.auto-key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All starters used to make a cluster must be using SSL or not.
 You cannot have one starter using SSL and another not using SSL.
@@ -183,9 +199,13 @@ Example:
 To activate HTTP request logging at debug level for all Coordinators, use a
 command like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --args.coordinators.log.level=requests=debug
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Passing through `arangosync` options
 
@@ -208,9 +228,13 @@ Example:
 
 To set a custom token TTL for direct message queue, use a command like this.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --args.syncmasters.mq.direct-token-ttl=12h ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Passing environment variables
 
@@ -227,9 +251,13 @@ default. However, variables can be overridden using arangodb command line option
 
 Example:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --envs.all.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G --envs.coordinators.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=4G --envs.dbservers.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=8G ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Datacenter-to-Datacenter Replication options
 
@@ -422,12 +450,20 @@ underscores and dots are replaced with underscores.
 
 For example,
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ARANGODB_DOCKER_TTY=true arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 is equal to:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --docker.tty=true
 ```
+{{% /tab %}}
+{{< /tabs >}}

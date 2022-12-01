@@ -103,7 +103,9 @@ as a database only. It may have an effect for Foxx applications that use HTTP
   entry per log message. Each log message is returned as an object containing
   the properties of the log message:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   { 
     "total" : 13,
     "messages": [
@@ -124,12 +126,16 @@ as a database only. It may have an effect for Foxx applications that use HTTP
     ]
   }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   The previous API returned an object with 5 attributes at the top-level
   instead, which contained arrays with the attribute values of all log
   messages:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   {
     "totalAmount" : 13,
     "lid" : [
@@ -154,6 +160,8 @@ as a database only. It may have an effect for Foxx applications that use HTTP
     ]
   }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   The old API endpoint GET `/_admin/log` for retrieving log messages is now
   deprecated, although it will stay available for some time.

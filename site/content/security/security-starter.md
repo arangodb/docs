@@ -21,11 +21,15 @@ In order to the change the password of the _root_ user, you can:
 In case you would like to automate the _root_ password change, you might use the 
 _--javascript.execute-string_ option of the _arangosh_ binary, e.g.:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosh --server.endpoint your-server-endpoint \
     --server.password "" \
     --javascript.execute-string 'require("org/arangodb/users").update("root", "mypwd");'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 where "mypwd" is the new password you want to set.
 

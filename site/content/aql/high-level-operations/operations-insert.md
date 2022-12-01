@@ -31,27 +31,39 @@ a `_key` attribute. If no `_key` attribute is provided, ArangoDB will auto-gener
 a value for `_key` value. Inserting a document will also auto-generate a document
 revision number for the document.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..100
   INSERT { value: i } INTO numbers
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 An insert operation can also be performed without a `FOR` loop to insert a
 single document:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 INSERT { value: 1 } INTO numbers
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When inserting into an [edge collection](../../appendix/appendix-glossary#edge-collection),
 it is mandatory to specify the attributes `_from` and `_to` in document:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FOR p IN products
     FILTER u._key == p.recommendedBy
     INSERT { _from: u._id, _to: p._id } INTO recommendations
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Query options
 
@@ -63,6 +75,8 @@ be provided in an `INSERT` operation.
 `ignoreErrors` can be used to suppress query errors that may occur when
 violating unique key constraints:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   INSERT {
@@ -71,12 +85,16 @@ FOR i IN 1..1000
     foobar: true
   } INTO users OPTIONS { ignoreErrors: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `waitForSync`
 
 To make sure data are durable when an insert query returns, there is the
 `waitForSync` query option:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   INSERT {
@@ -85,6 +103,8 @@ FOR i IN 1..1000
     foobar: true
   } INTO users OPTIONS { waitForSync: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `overwrite`
 
@@ -97,6 +117,8 @@ If you want to replace existing documents with documents having the same key
 there is the `overwrite` query option. This will let you safely replace the
 documents instead of raising a "unique constraint violated error":
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   INSERT {
@@ -105,6 +127,8 @@ FOR i IN 1..1000
     foobar: true
   } INTO users OPTIONS { overwrite: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `overwriteMode`
 
@@ -140,6 +164,8 @@ When using the `update` overwrite mode, the `keepNull` and `mergeObjects`
 options control how the update is done.
 See [UPDATE operation](operations-update#query-options).
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   INSERT {
@@ -148,6 +174,8 @@ FOR i IN 1..1000
     foobar: true
   } INTO users OPTIONS { overwriteMode: "update", keepNull: true, mergeObjects: false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `exclusive`
 
@@ -160,11 +188,15 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this effect on a per query basis:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   INSERT { myval: doc.val + 1 } INTO users 
   OPTIONS { exclusive: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Returning the inserted documents
 
@@ -177,13 +209,19 @@ The documents contained in `NEW` will contain all attributes, even those auto-ge
 the database (e.g. `_id`, `_key`, `_rev`).
 
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 INSERT document INTO collection RETURN NEW
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Following is an example using a variable named `inserted` to return the inserted
 documents. For each inserted document, the document key is returned:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..100
   INSERT { value: i }
@@ -191,6 +229,8 @@ FOR i IN 1..100
   LET inserted = NEW
   RETURN inserted._key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Transactionality
 

@@ -29,10 +29,14 @@ will fail with an error at runtime. It doesn't fail when explaining the query ho
 *FULLTEXT()* is not meant to be used as an argument to `FILTER`,
 but rather to be used as the expression of a `FOR` statement:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR oneMail IN FULLTEXT(emails, "body", "banana,-apple")
     RETURN oneMail._id
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 *query* is a comma-separated list of sought words (or prefixes of sought words). To
 distinguish between prefix searches and complete-match searches, each word can optionally be

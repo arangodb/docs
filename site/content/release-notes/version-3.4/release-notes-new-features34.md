@@ -416,6 +416,8 @@ of the cache. For example, to limit the per-database number of cache entries to
 and the maximum size of each individual cache entry to 1MB, the following call
 could be used:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 require("@arangodb/aql/cache").properties({
   maxResults: 256,
@@ -424,13 +426,19 @@ require("@arangodb/aql/cache").properties({
   includeSystem: false
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The contents of the query results cache can now also be inspected at runtime using 
 the cache's new `toArray` function:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 require("@arangodb/aql/cache").toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will show all query results currently stored in the query results cache of
 the current database, along with their query strings, sizes, number of results

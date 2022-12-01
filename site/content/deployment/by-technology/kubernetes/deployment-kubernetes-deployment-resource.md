@@ -12,6 +12,8 @@ a `CustomResourceDefinition` created by the operator.
 
 Example minimal deployment definition of an ArangoDB database cluster:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
@@ -20,9 +22,13 @@ metadata:
 spec:
   mode: Cluster
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Example more elaborate deployment definition:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
@@ -49,6 +55,8 @@ spec:
     count: 3
   image: "arangodb/arangodb:3.9.3"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Specification reference
 
@@ -85,38 +93,56 @@ To use the ARM architecture, you need to enable it in the operator first using
 To create a new deployment with `arm64` nodes, specify the architecture in the
 deployment specification as follows:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 spec:
   architecture:
     - arm64
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To migrate nodes of an existing deployment from `amd64` to `arm64`, modify the
 deployment specification so that both architectures are listed:
 
+{{< tabs >}}
+{{% tab name="diff" %}}
 ```diff
  spec:
    architecture:
 +    - arm64
      - amd64
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This lets new members as well as recreated members use `arm64` nodes.
 
 Then run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl annotate pod $POD "deployment.arangodb.com/replace=true"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To change an existing member to `arm64`, annotate the pod as follows:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl annotate pod $POD "deployment.arangodb.com/arch=arm64"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 An `ArchitectureMismatch` condition occurs in the deployment:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 members:
   single:
@@ -127,12 +153,18 @@ members:
         status: "True"
         type: ArchitectureMismatch
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Restart the pod using this command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl annotate pod $POD "deployment.arangodb.com/rotate=true"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `spec.mode: string`
 
@@ -519,11 +551,15 @@ automatically start monitoring on the available Prometheus feeds. To
 this end, you must configure the `serviceMonitorSelector` in the specs
 of your Prometheus deployment to match these labels. For example:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
   serviceMonitorSelector:
     matchLabels:
       metrics: prometheus
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 would automatically select all pods of all ArangoDB cluster deployments
 which have metrics enabled.
@@ -643,6 +679,8 @@ The ArangoDB deployments need some very minimal access rights. With the
 deployment of the operator, we grant the following rights for the `default`
 service account:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 rules:
   - apiGroups:
@@ -652,6 +690,8 @@ rules:
   verbs:
     - get
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you are using a different service account, please grant these rights
 to that service account.

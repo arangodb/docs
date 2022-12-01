@@ -10,29 +10,45 @@ layout: default
 **foxx-cli** runs on [Node.js](https://nodejs.org) and can be installed with
 [yarn](https://yarnpkg.com):
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 yarn global add foxx-cli
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Or with [npm](https://www.npmjs.com):
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 npm install --global foxx-cli
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: using yarn you can also run **foxx-cli** from your project's
 `devDependencies`:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 yarn add --dev foxx-cli
 yarn foxx help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you're using a recent version of npm you can also use npx:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 npx -p foxx-cli foxx help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Usage
 
@@ -40,12 +56,18 @@ After you've installed **foxx-cli**, you should be able to use the `foxx`
 program. You can learn more about the different commands `foxx` supports by
 using the `--help` flag.
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 foxx --help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also use the `--help` flag with commands to learn more about them, e.g.:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 foxx install --help # Help for the "install" command
 
@@ -53,29 +75,43 @@ foxx server --help # Help for the "server" command
 
 foxx server list --help # Subcommands are supported, too
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you have no prior knowledge of Foxx, you can get started by
 [installing ArangoDB locally](https://www.arangodb.com/download)
 and then creating a new Foxx service in the current directory using the `init` command:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 foxx init -i # answer the interactive questions
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you want an example, you can also let `init` create an example service for you:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 foxx init -e # create an example service please
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also just use `foxx init` to create a minimal service without the example code.
 
 You can inspect the files created by the program and tweak them as necessary.
 Once you're ready, install the service at a _mount path_ using the `install` command:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 foxx install /hello-foxx # installs the current directory
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You should then be able to view the installed service in your browser at the following URL:
 
@@ -84,9 +120,13 @@ You should then be able to view the installed service in your browser at the fol
 If you continue to work on your Foxx service and want to upgrade the installed
 version with your local changes use the `upgrade` command to do so.
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 foxx upgrade /hello-foxx # upgrades the server with the current directory
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Special files
 
@@ -148,20 +188,28 @@ can override this list by creating an empty `.foxxignore` file.
 You can also create a `.foxxignore` file in the current directory using the
 `ignore` command:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 foxx ignore # creates a file pre-populated with the defaults
 
 foxx ignore --force # creates an empty file
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To add individual patterns to the `.foxxignore` file just pass them as
 additional arguments:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 foxx ignore .git/ .svn/ # you can pass multiple patterns at once
 
 foxx ignore '*.swp' # make sure to escape special characters
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### foxxrc
 

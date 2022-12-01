@@ -21,6 +21,8 @@ headers, request bodies, path parameters or query parameters).
 
 Restrict access to ArangoDB-authenticated users:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 module.context.use(function (req, res, next) {
   if (!req.arangoUser) {
@@ -29,9 +31,13 @@ module.context.use(function (req, res, next) {
   next();
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Any truthy argument passed to the `next` function will be thrown as an error:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 module.context.use(function (req, res, next) {
   let err = null;
@@ -41,9 +47,13 @@ module.context.use(function (req, res, next) {
   next(err); // throws if the error was set
 })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Trivial logging middleware:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 module.context.use(function (req, res, next) {
   const start = Date.now();
@@ -54,9 +64,13 @@ module.context.use(function (req, res, next) {
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 More complex example for header-based sessions:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const sessions = module.context.collection('sessions');
 module.context.use({
@@ -85,3 +99,5 @@ module.context.use({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}

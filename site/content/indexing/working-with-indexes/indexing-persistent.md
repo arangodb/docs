@@ -62,42 +62,82 @@ operator.
 An attribute name of the form `a.b` is interpreted as attribute path,
 not as attribute. If you use
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "a" : { "c" : 1 } }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 as example, then you will find all documents, such that the attribute
 `a` contains a document of the form `{ "c" : 1 }`. For example the document
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "a" : { "c" : 1 }, "b" : 1 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 will match, but the document
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "a" : { "c" : 1, "b" : 1 } }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 will not.
 
 However, if you use
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "a.c" : 1 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 then you will find all documents, which contain a sub-document in `a`
 that has an attribute `c` of value `1`. Both the following documents
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "a" : { "c" : 1 }, "b" : 1 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 and
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "a" : { "c" : 1, "b" : 1 } }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 will match.
 
 ## Persistent Indexes and Server Language

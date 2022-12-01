@@ -30,17 +30,23 @@ with an [Analyzer](../../analyzers/), for instance, to tokenize text into words.
 For example, you can create an inverted index for the attributes `value1` and
 `value2` with the following command in arangosh:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
   fields: ["value1", "value2"]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You should give inverted indexes easy-to-remember names because you need to
 refer to them with `indexHint` in queries to
 [utilize inverted indexes](#utilizing-inverted-indexes-in-queries):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   name: "inverted_index_name",
@@ -48,6 +54,8 @@ db.<collection>.ensureIndex({
   fields: ["value1", "value2"]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Processing fields with Analyzers
 
@@ -57,6 +65,8 @@ object with the field settings instead. For example, you can use the default
 Analyzer for `value1` and the built-in `text_en` Analyzer for `value2`.
 You can also overwrite the `features` of an Analyzer:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
@@ -66,11 +76,15 @@ db.<collection>.ensureIndex({
   ]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can define default `analyzer` and `features` value at the top-level of the
 index property. In the following example, both fields are indexed with the
 `text_en` Analyzer:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
@@ -78,6 +92,8 @@ db.<collection>.ensureIndex({
   analyzer: "text_en"
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If no `features` are defined in `fields` nor at the top-level, then the features
 defined by the Analyzer itself are used.
@@ -87,9 +103,13 @@ defined by the Analyzer itself are used.
 To index a sub-attribute, like `{ "attr": { "sub": "value" } }`, use the
 `.` character for the description of the attribute path:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({ type: "inverted", fields: ["attr.sub"] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For `SEARCH` queries using a `search-alias` View, you can also index all
 sub-attribute of an attribute with the `includeAllFields` options. It has no
@@ -97,10 +117,14 @@ effect on `FILTER` queries that use an inverted index directly, however. You can
 enable the option for specific attributes in the `fields` definition, or for the
 entire document by setting the option at the top-level of the index properties:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({ type: "inverted", fields: [ { name: "attr", includeAllFields: true } ] });
 db.<collection>.ensureIndex({ type: "inverted", includeAllFields: true });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 With the `includeAllFields` option enabled at the top-level, the otherwise
 mandatory `fields` property becomes optional.
@@ -115,9 +139,13 @@ indexed individually by using `[*]` in the attribute path. For example, to
 index the string values of a document like
 `{ "arr": [ { "name": "foo" }, { "name": "bar" } ] }`, use `arr[*].name`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({ type: "inverted", fields: ["arr[*].name"] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can only expand one level of arrays.
 
@@ -128,6 +156,8 @@ default using the top-level option with the same name. You may want to combine
 it with the `includeAllFields` option to index sub-objects without explicit
 definition:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
@@ -136,7 +166,11 @@ db.<collection>.ensureIndex({
   ]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
@@ -144,11 +178,15 @@ db.<collection>.ensureIndex({
   searchField: true
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To index array values but preserve the array indexes for a `search-alias` View,
 which you then also need to specify in queries, enable the `trackListPositions`
 option:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
@@ -157,7 +195,11 @@ db.<collection>.ensureIndex({
   ]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
@@ -166,6 +208,8 @@ db.<collection>.ensureIndex({
   trackListPositions: true
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Storing additional values in indexes
 
@@ -179,6 +223,8 @@ index entries is large.
 You can set the `storedValues` option and specify the additional attributes as
 an array of attribute paths when creating a new inverted index:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
@@ -186,6 +232,8 @@ db.<collection>.ensureIndex({
   storedValues: ["value2"]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This indexes the `value1` attribute in the traditional sense, so that the index 
 can be used for looking up by `value1` or for sorting by `value1`. The index also
@@ -245,20 +293,28 @@ differently if an inverted index is used, the results would be inconsistent,
 depending on whether or not the index hint is used. Forcing the hint ensures
 that an error is raised if the index isn't suitable.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN coll OPTIONS { indexHint: "inverted_index_name", forceIndexHint: true }
   FILTER doc.value == 42 AND PHRASE(doc.text, ["meaning", 1, "life"])
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Inverted indexes are eventually consistent. Document changes are not reflected
 instantly, but only near-realtime. There is an internal option to wait for the
 inverted index to update. This option is intended to be used **in unit tests only**:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN coll { indexHint: "inv-idx", forceIndexHint: true, waitForSync: true }
   FILTER doc.value != null ... // an arbitrary expression that the index can cover
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is not necessary if you use a single server deployment and populate a
 collection with documents before creating an inverted index.
@@ -280,6 +336,8 @@ corresponding ArangoSearch examples.
 
 Match exact movie title (case-sensitive, full string):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
 
@@ -287,23 +345,33 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndex
   FILTER doc.title == "The Matrix"
   RETURN KEEP(doc, "title", "tagline")`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Match multiple exact movie titles using `IN`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER doc.title IN ["The Matrix", "The Matrix Reloaded"]
   RETURN KEEP(doc, "title", "tagline")`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Match movies that neither have the title `The Matrix` nor `The Matrix Reloaded`,
 but ignore documents without a title:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact", forceIndexHint: true }
   FILTER doc.title != null AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"]
   RETURN doc.title`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Range queries
 
@@ -311,6 +379,8 @@ Match movies with a runtime over `300` minutes and sort them from longest to
 shortest runtime. You can give the index a primary sort order so that the `SORT`
 operation of the query can be optimized away:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({
   name: "inv-exact-runtime",
@@ -328,9 +398,13 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact-runtime", fo
   SORT doc.runtime DESC
   RETURN KEEP(doc, "title", "runtime")`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Match movies where the name is `>= Wu` and `< Y`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact-name", type: "inverted", fields: [ "name" ] });
 
@@ -338,6 +412,8 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-exact-name", force
   FILTER IN_RANGE(doc.name, "Wu", "Y", true, false)
   RETURN doc.name`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/warning %}}
 The alphabetical order of characters is not taken into account,
@@ -353,6 +429,8 @@ Also see [Known Issues](../../release-notes/version-3.10/release-notes-known-iss
 Match movie titles, ignoring capitalization and using the base characters
 instead of accented characters (full string):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzers = require("@arangodb/analyzers");
 analyzers.save("norm_en", "norm", { locale: "en", accent: false, case: "lower" });
@@ -369,6 +447,8 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-ci", forceIndexHin
   FILTER doc.title == TOKENS("thé mäTRïX", "norm_en")[0]
   RETURN doc.title`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Prefix matching
 
@@ -377,6 +457,8 @@ Match movie titles that start with either `"the matr"` or `"harry pot"`
 utilizing the feature of the `STARTS_WITH()` function that allows you to pass
 multiple possible prefixes as array of strings, of which one must match:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzers = require("@arangodb/analyzers");
 analyzers.save("norm_en", "norm", { locale: "en", accent: false, case: "lower" });
@@ -393,12 +475,16 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-ci", forceIndexHin
   FILTER STARTS_WITH(doc.title, ["the matr", "harry pot"])
   RETURN doc.title`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Wildcard search
 
 Match all titles that starts with `the matr` (case-insensitive) using `LIKE()`,
 where `_` stands for a single wildcard character and `%` for an arbitrary amount:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzers = require("@arangodb/analyzers");
 analyzers.save("norm_en", "norm", { locale: "en", accent: false, case: "lower" });
@@ -415,11 +501,15 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-ci", forceIndexHin
   FILTER LIKE(doc.title, "the matr%")
   RETURN doc.title`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Full-text token search
 
 Search for movies with both `dinosaur` and `park` in their description:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({
   name: "inv-text",
@@ -436,12 +526,16 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-text", forceIndexH
     description: doc.description
   }`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Phrase and proximity search
 
 Search for movies that have the (normalized and stemmed) tokens `biggest` and
 `blockbust` in their description, in this order:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({
   name: "inv-text",
@@ -458,10 +552,14 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-text", forceIndexH
     description: doc.description
   }`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Match movies that contain the phrase `epic <something> film` in their
 description, where `<something>` can be exactly one arbitrary token:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-text", forceIndexHint: true }
   FILTER PHRASE(doc.description, "epic", 1, "film", "text_en")
@@ -470,6 +568,8 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-text", forceIndexH
     description: doc.description
   }`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Fuzzy search
 
@@ -482,6 +582,8 @@ the token `galaxy` as the edit distance to `galxy` is `1`.
 A custom `text` Analyzer with stemming disabled is used to improve the accuracy
 of the Levenshtein distance calculation:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzers = require("@arangodb/analyzers");
 analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] });
@@ -506,6 +608,8 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-text-no-stem", for
     description: doc.description
   }`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Geo-spatial search
 
@@ -513,6 +617,8 @@ Using the Museum of Modern Arts as reference location, find restaurants within
 a 100 meter radius. Return the matches sorted by distance and include how far
 away they are from the reference point in the result:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzers = require("@arangodb/analyzers");
 analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
@@ -535,11 +641,15 @@ FOR doc IN restaurants OPTIONS { indexHint: "inv-rest", forceIndexHint: true }
     distance
   }`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Nested search (Enterprise Edition)
 
 Example data:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._create("exhibits");
 db.exhibits.save([
@@ -557,10 +667,14 @@ db.exhibits.save([
   }
 ]);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Match documents with a `dimensions` array that contains one or two sub-objects
 with a `type` of `"height"` and a `value` greater than `40`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.exhibits.ensureIndex({
   name: "inv-nest",
@@ -581,5 +695,7 @@ db._query(`FOR doc IN exhibits OPTIONS { indexHint: "inv-nest", forceIndexHint: 
   RETURN doc
 `);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Nested search is only available in the Enterprise Edition.

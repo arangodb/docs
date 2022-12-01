@@ -10,6 +10,8 @@ layout: default
 To create a new document, connect to the database and call `PostDocumentAsync()`.
 Specify the collection name and the object/document to be created in ArangoDB.
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Create document in the MyCollection collection using anonymous type
 await db.Document.PostDocumentAsync(
@@ -28,6 +30,8 @@ await db.Document.PostDocumentAsync(
         Description = "Some item"
     });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The document object must not have any value against the property named `_key`, if
 you expect ArangoDB to generate the document key for you.
@@ -43,6 +47,8 @@ To patch or partially update a document, connect to the database and call
 `PatchDocumentAsync()`. Specify the collection name, the document key, and an
 object with properties to patch in the ArangoDB document.
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Partially update document
 await db.Document.PatchDocumentAsync<object, object>(
@@ -50,6 +56,8 @@ await db.Document.PatchDocumentAsync<object, object>(
     item._key,
     new { Description = "More description" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Replacing a Document
 
@@ -57,6 +65,8 @@ To replace or fully update a document, connect to the database and call
 `PutDocumentAsync()`. Specify the collection name, the document key, and the
 object which fully updates/replaces the document in ArangoDB.
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Fully update document
 item.Description = "Some item with some more description";
@@ -64,13 +74,19 @@ await db.Document.PutDocumentAsync(
     $"MyCollection/{item._key}",
     item);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Deleting a Document
 
 To delete a document, connect to the database and call `DeleteDocumentAsync()`,
 passing the ID of the document.
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Deletes a document
 await db.Document.DeleteDocumentAsync($"MyCollection/{item._key}");
 ```
+{{% /tab %}}
+{{< /tabs >}}

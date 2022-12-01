@@ -13,6 +13,8 @@ This library has been deprecated in favor of the new [ArangoDB Datasource for Ap
 
 ### Spark 3.X + 2.4.1 and above
 
+{{< tabs >}}
+{{% tab name="xml" %}}
 ```xml
 <dependencies>
   <dependency>
@@ -23,9 +25,13 @@ This library has been deprecated in favor of the new [ArangoDB Datasource for Ap
 	...
 </dependencies>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Spark 2.4.0 and below
 
+{{< tabs >}}
+{{% tab name="xml" %}}
 ```xml
 <dependencies>
   <dependency>
@@ -36,20 +42,30 @@ This library has been deprecated in favor of the new [ArangoDB Datasource for Ap
 	...
 </dependencies>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## SBT
 
 ### Spark 3.X + 2.4.1 and above
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 libraryDependencies += "com.arangodb" % "arangodb-spark-connector_2.12" % "1.1.0"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Spark 2.4.0 and below
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 libraryDependencies += "com.arangodb" % "arangodb-spark-connector_2.11" % "1.1.0"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Configuration
 
@@ -71,6 +87,8 @@ libraryDependencies += "com.arangodb" % "arangodb-spark-connector_2.11" % "1.1.0
 
 **Scala**
 
+{{< tabs >}}
+{{% tab name="scala" %}}
 ```scala
 val conf = new SparkConf()
     .set("arangodb.hosts", "127.0.0.1:8529")
@@ -80,9 +98,13 @@ val conf = new SparkConf()
 
 val sc = new SparkContext(conf)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Java**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 SparkConf conf = new SparkConf()
     .set("arangodb.hosts", "127.0.0.1:8529")
@@ -92,3 +114,5 @@ SparkConf conf = new SparkConf()
 
 JavaSparkContext sc = new JavaSparkContext(conf);
 ```
+{{% /tab %}}
+{{< /tabs >}}

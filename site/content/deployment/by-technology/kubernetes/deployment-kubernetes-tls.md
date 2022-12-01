@@ -23,9 +23,13 @@ To do so, you first have to fetch the CA certificate from its Kubernetes
 secret.
 
 {% raw %}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get secret <deploy-name>-ca --template='{{index .data "ca.crt"}}' | base64 -D > ca.crt
 ```
+{{% /tab %}}
+{{< /tabs >}}
 {% endraw %}
 
 ### Windows
@@ -37,24 +41,36 @@ To install a CA certificate in Windows, follow the
 
 To install a CA certificate in macOS, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo /usr/bin/security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ca.crt
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To uninstall a CA certificate in macOS, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo /usr/bin/security remove-trusted-cert -d ca.crt
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Linux
 
 To install a CA certificate in Linux, on Ubuntu, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo cp ca.crt /usr/local/share/ca-certificates/<some-name>.crt
 sudo update-ca-certificates
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

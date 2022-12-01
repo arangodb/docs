@@ -24,14 +24,20 @@ In addition to the *request* function convenience shorthands are available for e
 
 These are equivalent to using the *request* function directly, i.e.:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 request[method](url, options)
 // is equivalent to
 request({method, url, ...options});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const request = require('@arangodb/request');
 
@@ -43,6 +49,8 @@ request({
   headers: {'x-session-id': 'keyboardcat'}
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### The request function
 
@@ -84,6 +92,8 @@ The function returns a *Response* object with the following properties:
 
 The request module supports `application/x-www-form-urlencoded` (URL encoded) form uploads:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const request = require('@arangodb/request');
 
@@ -97,6 +107,8 @@ var res = request({
   form: {key: 'value'}
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Form data will be encoded using the [qs](https://www.npmjs.com/package/qs) module by default.
 
@@ -106,6 +118,8 @@ If you want to use the [querystring](http://nodejs.org/api/querystring.html) mod
 
 If you want to submit JSON-serializable values as request bodies, just set the *json* option:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const request = require('@arangodb/request');
 
@@ -120,11 +134,15 @@ var res = request({
   json: true
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### HTTP authentication
 
 The request module supports both *HTTP Basic* authentication. Just pass the credentials via the *auth* option:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const request = require('@arangodb/request');
 
@@ -144,9 +162,13 @@ var res = request({
   auth: {username: 'jcd', password: 'bionicman'}
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Alternatively you can supply the credentials via the URL:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const request = require('@arangodb/request');
 
@@ -160,9 +182,13 @@ var res = request.get(
   '@service.example/secret'
 );
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also use *Bearer* token authentication:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const request = require('@arangodb/request');
 
@@ -182,3 +208,5 @@ var res = request({
   auth: {bearer: 'keyboardcat'}
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}

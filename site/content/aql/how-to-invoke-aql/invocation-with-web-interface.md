@@ -21,11 +21,15 @@ application code.
  
 Here is an example: 
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN @@collection
   FILTER CONTAINS(LOWER(doc.author), @search, false)
   RETURN { "name": doc.name, "descr": doc.description, "author": doc.author }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Bind parameters (table view mode):
 
@@ -36,12 +40,16 @@ Bind parameters (table view mode):
 
 Bind parameters (JSON view mode):
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
     "@collection": "_apps",
     "search": "arango"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 How bind parameters work can be found in [AQL Fundamentals](../aql-fundamentals/fundamentals-bind-parameters).
 

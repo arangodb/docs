@@ -11,13 +11,21 @@ This library has been deprecated in favor of the new [ArangoDB Datasource for Ap
 
 ## ArangoSpark.save
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ArangoSpark.save[T](rdd: JavaRDD[T], collection: String, options: WriteOptions)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ArangoSpark.save[T](dataset: Dataset[T], collection: String, options: WriteOptions)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Save data from rdd into ArangoDB
 
@@ -75,27 +83,39 @@ Save data from rdd into ArangoDB
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 JavaSparkContext sc = ...
 List<MyBean> docs = ...
 JavaRDD<MyBean> documents = sc.parallelize(docs);
 ArangoSpark.save(documents, "myCollection", new WriteOptions().database("myDB"));
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Very Large Datasets**
 
 To prevent errors on very large datasets (over one million objects) use "repartition" for smaller chunks:
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 ArangoSpark.save(allEdges.toJSON.repartition(20000), collection = "mio_edges", options = writeOptions)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## ArangoSpark.saveDF
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ArangoSpark.saveDF(dataframe: DataFrame, collection: String, options: WriteOptions)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Save data from dataframe into ArangoDB
 
@@ -152,6 +172,8 @@ Save data from dataframe into ArangoDB
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 JavaSparkContext sc = ...
 List<MyBean> docs = ...
@@ -160,12 +182,18 @@ SQLContext sql = SQLContext.getOrCreate(sc);
 DataFrame df = sql.createDataFrame(documents, MyBean.class);
 ArangoSpark.saveDF(documents, "myCollection", new WriteOptions().database("myDB"));
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## ArangoSpark.load
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ArangoSparkload[T](sparkContext: JavaSparkContext, collection: String, options: ReadOptions, clazz: Class[T]): ArangoJavaRDD[T]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Load data from ArangoDB into rdd
 
@@ -219,16 +247,24 @@ Load data from ArangoDB into rdd
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 JavaSparkContext sc = ...
 ArangoJavaRDD<MyBean> rdd = ArangoSpark.load(sc, "myCollection", new ReadOptions().database("myDB"), MyBean.class);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## ArangoRDD.filter
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ArangoJavaRDD.filter(condition: String): ArangoJavaRDD[T]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Adds a filter condition. If used multiple times, the conditions will be combined with a logical AND.
 
@@ -240,11 +276,15 @@ Adds a filter condition. If used multiple times, the conditions will be combined
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 JavaSparkContext sc = ...
 ArangoJavaRDD<MyBean> rdd = ArangoSpark.load(sc, "myCollection", new ReadOptions().database("myDB"), MyBean.class);
 ArangoJavaRDD<MyBean> rddFiltered = rdd.filter("doc.test <= 50");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Spark Streaming Integration
 
@@ -253,7 +293,11 @@ RDDs can also be saved to ArangoDB from Spark Streaming using
 
 **Example**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 javaDStream.foreachRDD(rdd -> 
     ArangoSpark.save(rdd, COLLECTION, new WriteOptions().database(DB)));
 ```
+{{% /tab %}}
+{{< /tabs >}}

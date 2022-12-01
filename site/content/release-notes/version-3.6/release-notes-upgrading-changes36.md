@@ -28,9 +28,13 @@ query, which can optionally be escalated to an error and stop the query.
 Any date/time operations that produce date/time outside the valid ranges stated
 above will make the function return `null` and trigger a warning too. Example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years") // null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Startup options
 

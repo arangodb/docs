@@ -23,6 +23,8 @@ For any larger input files, it is recommended to use the JSON Lines format.
 Multiple documents can be stored in standard JSON format in a top-level array
 with objects as members:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 [
   { "_key": "one", "value": 1 },
@@ -31,9 +33,13 @@ with objects as members:
   ...
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This format allows line breaks for formatting (i.e. pretty printing):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 [
   {
@@ -51,6 +57,8 @@ This format allows line breaks for formatting (i.e. pretty printing):
   ...
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It requires parsers to read the entire input in order to verify that the
 array is properly closed at the very end. _arangoimport_ will need to read
@@ -64,12 +72,16 @@ For example, to set the batch size to 32 MB, use the following command:
 
 _JSON Lines_ formatted data allows processing each line individually:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "_key": "one", "value": 1 }
 { "_key": "two", "value": 2 }
 { "_key": "foo", "value": "bar" }
 ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above format can be imported sequentially by _arangoimport_. It will read
 data from the input in chunks and send it in batches to the server. Each batch
@@ -89,9 +101,13 @@ An input with JSON objects in an array, optionally pretty printed, can be
 easily converted into JSONL with one JSON object per line using the
 [**jq** command line tool](http://stedolan.github.io/jq/):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 jq -c ".[]" inputFile.json > outputFile.jsonl
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `-c` option enables compact JSON (as opposed to pretty printed JSON).
 `".[]"` is a filter that unpacks the top-level array and effectively puts each
@@ -102,12 +118,18 @@ making this method unsuitable for large JSON source files. jq v1.5 added
 support for a streaming mode that can perform the conversion on the fly with
 minimal memory usage:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 jq -cn --stream "fromstream(1|truncate_stream(inputs))" inputFile.json > outputFile.jsonl
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 An example `inputFile.json` can look like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -135,13 +157,19 @@ An example `inputFile.json` can look like this:
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The conversion produces the following `outputFile.jsonl`:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"isActive":true,"name":"Evans Wheeler","latitude":-0.119406,"longitude":146.271888,"tags":["amet","qui","velit"]}
 {"isActive":true,"name":"Coffey Barron","latitude":-37.78772,"longitude":131.218935,"tags":["dolore","exercitation","irure","velit"]}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Reading compressed input files
 
@@ -162,11 +190,15 @@ files is available, and that the shell supports pipes.
 
 We will be using these example user records to import:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "name" : { "first" : "John", "last" : "Connor" }, "active" : true, "age" : 25, "likes" : [ "swimming"] }
 { "name" : { "first" : "Jim", "last" : "O'Brady" }, "age" : 19, "likes" : [ "hiking", "singing" ] }
 { "name" : { "first" : "Lisa", "last" : "Jones" }, "dob" : "1981-04-09", "likes" : [ "running" ] }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To import these records, all you need to do is to put them into a file
 (with one line for each record to import), save it as `data.jsonl` and run

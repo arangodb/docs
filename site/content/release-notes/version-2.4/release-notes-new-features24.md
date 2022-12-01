@@ -281,6 +281,8 @@ If this is also undesired, it is also possible to specify a list of collections 
 exclude from the initial synchronization and the continuous replication using the
 `restrictCollections` attribute, e.g.:
       
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("org/arangodb/replication").applier.properties({ 
   includeSystem: true,
@@ -288,4 +290,6 @@ require("org/arangodb/replication").applier.properties({
   restrictCollections: [ "_users", "_graphs", "foo" ] 
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 

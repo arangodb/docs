@@ -12,12 +12,16 @@ operation. It will be used as a hint for the document lookup that is performed
 as part of the `UPSERT` operation, and can help in cases such as `UPSERT` not
 picking the best index automatically.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { a: 1234 }
   INSERT { a: 1234, name: "AB"}
   UPDATE {name: "ABC"} IN myCollection
   OPTIONS { indexHint: "index_name", forceIndexHint: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [`UPSERT` Options](../../aql/high-level-operations/operations-upsert#indexhint)
 
@@ -32,11 +36,15 @@ Added three decay functions to AQL:
 Decay functions calculate a score with a function that decays depending on the
 distance of a numeric value from a user given origin.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
 DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
 DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Vector Functions
 
@@ -48,11 +56,15 @@ distance (named `L2_DISTANCE`):
 - [L1_DISTANCE()](../../aql/functions/functions-numeric#l1_distance)
 - [L2_DISTANCE()](../../aql/functions/functions-numeric#l2_distance)
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 COSINE_SIMILARITY([0,1], [1,0]) // 0
 L1_DISTANCE([-1,-1], [2,2]) // 6
 L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Traversal filtering optimizations
 
@@ -67,11 +79,15 @@ first and only produce the remaining paths.
 
 For example, the query
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
   FILTER v.isRelevant == true
   RETURN p
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 can now be optimized, and the traversal statement will only produce 
 paths for which the last vertex satisfies `isRelevant == true`.
@@ -80,6 +96,8 @@ This optimization is now part of the existing `optimize-traversals` rule and
 you will see the conditions under `Filter / Prune Conditions` in the query
 explain output (`` FILTER (v.`isRelevant` == true) `` in this example):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType          Est.   Comment
@@ -101,6 +119,8 @@ Optimization rules applied:
  Id   RuleName
   1   optimize-traversals
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Traversal partial path buildup
 
@@ -110,15 +130,21 @@ is returned, but only a specific sub-attribute of the path is used later
 
 For example, the query
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v, e, p IN 1..3 OUTBOUND @start GRAPH "myGraph"
   RETURN p.vertices
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 only requires the buildup of the `vertices` sub-attribute of the path result `p`
 but not the buildup of the `edges` sub-attribute. The optimization can be
 observed in the query explain output:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType          Est.   Comment
@@ -140,6 +166,8 @@ Optimization rules applied:
   1   optimize-traversals
   2   remove-redundant-path-var
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `remove-redundant-path-var` optimization rule is applied and the
 TraversalNode's comment indicates that only the `vertices` sub-attribute is
@@ -154,12 +182,16 @@ Added an option to store the `PRUNE` expression as a variable. Now, the `PRUNE`
 condition can be stored in a variable and be used later in the query without
 having to repeat the `PRUNE` condition:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
   PRUNE pruneCondition = v.isRelevant == true
   FILTER pruneCondition
   RETURN p
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `v.isRelevant == true` condition is stored in the `pruneCondition` variable
 and used as a condition for `FILTER` later.
@@ -171,20 +203,28 @@ See [Pruning](../../graphs/traversals/#pruning).
 Invalid use of `OPTIONS` in AQL queries will now raise a warning when the query
 is parsed. This is useful to detect misspelled attribute names in `OPTIONS`, e.g.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 INSERT ... INTO collection
   OPTIONS { overwrightMode: 'ignore' } /* should have been 'overwriteMode' */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is also useful to detect the usage of valid `OPTIONS` attribute names that
 are used at a wrong position in the query, e.g.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   FILTER doc.value == 1234
   INSERT doc INTO other
     OPTIONS { indexHint: 'myIndex' } /* should have been used above for FOR */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In case options are used incorrectly, a warning with code 1575 will be raised
 during query parsing or optimization. By default, warnings are reported but do
@@ -238,11 +278,15 @@ In some rare cases, an AQL query can be executed faster if it ignores indexes.
 You can force the optimizer not use an index for any given `FOR`
 loop by setting the new `disableIndex` hint to `true`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection OPTIONS { disableIndex: true }
   FILTER doc.value <= 99
   RETURN doc.other
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See the [`FOR` Operation Options](../../aql/high-level-operations/operations-for#disableindex) for details.
 
@@ -259,10 +303,14 @@ Such projections are typically faster as long as there are not too many of them
 but it depends on the number of attributes and their size. The new `maxProjections`
 hint lets you adjust the threshold to fine-tune your queries.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection OPTIONS { maxProjections: 7 }
   RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See the [`FOR` Operation Options](../../aql/high-level-operations/operations-for#maxprojections) for details.
 
@@ -507,10 +555,14 @@ features activated.
 There is a new JavaScript API for querying the license status and to set a
 license key (typically run in _arangosh_):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._getLicense();
 db._setLicense("<license-string>");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 There are two new REST API routes to do the same, `GET /_admin/license` and
 `PUT /_admin/license`.
@@ -591,12 +643,16 @@ character `:`, as well as as an additional attribute `nameAndId` that builds on
 the new `fullName` attribute and concatenates it with a hyphen `-` and the value
 of the `id` column:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangoimport \
   --merge-attributes fullName=[firstName]:[lastName] \
   --merge-attributes nameAndId=[fullName]-[id] \
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also see [Merging Attributes](../../programs-tools/arangoimport/programs-arangoimport-examples-csv#merging-attributes).
 
@@ -605,6 +661,8 @@ the datatypes for certain attributes in CSV/TSV imports. For example, in the
 the following CSV input file, it is unclear if the numeric values should be
 imported as numbers or as stringified numbers for the individual attributes:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 key,price,weight,fk
 123456,200,5,585852
@@ -612,16 +670,22 @@ key,price,weight,fk
 9949,70,11.5,499494
 6939926,2130,5,96962612
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To determine the datatypes for the individual columns, _arangoimport_ can be
 invoked with the `--datatype` startup option, once for each attribute:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --datatype key=string
 --datatype price=number
 --datatype weight=number
 --datatype fk=string
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will turn the numeric-looking values in the `key` attribute into strings
 but treat the attributes `price` and `weight` as numbers. Finally, the values in
@@ -644,13 +708,17 @@ the list of test cases.
 _arangobench_ now supports multiple Coordinators. The flag `--server.endpoint`
 can be specified multiple times, as in the example below:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangobench \
   --server.endpoint tcp://[::1]::8529 \
   --server.endpoint tcp://[::1]::8530 \
   --server.endpoint tcp://[::1]::8531 \
   ...
-``` 
+```
+{{% /tab %}}
+{{< /tabs >}} 
 
 This does not compromise the use of the other client tools, that preserve
 the behavior of having one Coordinator and one endpoint.
@@ -662,6 +730,8 @@ Also see [_arangobench_ Options](../../programs-tools/arangobench/#general-confi
 _arangodump_ now supports multiple Coordinators. The flag `--server.endpoint`
 can be used multiple times, as in the example below:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangodump \
   --server.endpoint tcp://[::1]::8529 \
@@ -669,6 +739,8 @@ arangodump \
   --server.endpoint tcp://[::1]::8531 \
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This does not compromise the use of the other client tools that preserve
 the behavior of having one Coordinator and one endpoint.
@@ -680,6 +752,8 @@ Also see [_arangodump_ examples](../../programs-tools/arangodump/programs-arango
 _arangorestore_ now supports multiple Coordinators. The flag `--server.endpoint`
 can be used multiple times, as in the example below:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangorestore \
   --server.endpoint tcp://[::1]::8529 \
@@ -687,6 +761,8 @@ arangorestore \
   --server.endpoint tcp://[::1]::8531 \
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This does not compromise the use of the other client tools that preserve
 the behavior of having one Coordinator and one endpoint.

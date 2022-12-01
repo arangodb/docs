@@ -15,6 +15,8 @@ a `CustomResourceDefinition` created by the operator.
 Example of a minimal replication definition for two ArangoDB clusters with
 sync in the same Kubernetes cluster:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "replication.database.arangodb.com/v1alpha"
 kind: "ArangoDeploymentReplication"
@@ -28,6 +30,8 @@ spec:
   destination:
     deploymentName: cluster-b
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This definition results in:
 
@@ -40,6 +44,8 @@ This definition results in:
 Example replication definition for replicating from a source that is outside the current Kubernetes cluster
 to a destination that is in the same Kubernetes cluster:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "replication.database.arangodb.com/v1alpha"
 kind: "ArangoDeploymentReplication"
@@ -55,6 +61,8 @@ spec:
   destination:
     deploymentName: cluster-b
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This definition results in:
 
@@ -202,16 +210,24 @@ The process for creating and using an access package for authentication at the s
 - Extract the access package from the Kubernetes source cluster using:
 
 {% raw %}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get secret my-access-package --template='{{index .data "accessPackage.yaml"}}' | base64 -D > accessPackage.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 {% endraw %}
 
 - Insert the secrets found in the access package in the Kubernetes destination cluster using:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f accessPackage.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As a result, the destination Kubernetes cluster will have 2 additional `Secrets`. One contains a client authentication certificate
 formatted as a keyfile. Another contains the public key of the TLS CA certificate of the source cluster.

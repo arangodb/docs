@@ -26,6 +26,8 @@ user objects with names and credentials, and a `sessions` collection to store
 the session data. We'll also make sure usernames are unique
 by adding a hash index:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const { db } = require("@arangodb");
@@ -43,11 +45,15 @@ module.context.collection("users").ensureIndex({
   fields: ["username"]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Next you should create a sessions middleware that uses the `sessions`
 collection and the "cookie" transport in a separate file, and add it
 to the service router:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in util/sessions.js
 "use strict";
@@ -58,30 +64,42 @@ const sessions = sessionsMiddleware({
 });
 module.exports = sessions;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in your main file
 // ...
 const sessions = require("./util/sessions");
 module.context.use(sessions);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You'll want to be able to use the authenticator throughout multiple parts
 of your service so it's best to create it in a separate module and export it
 so we can import it anywhere we need it:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const createAuth = require("@arangodb/foxx/auth");
 const auth = createAuth();
 module.exports = auth;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you want, you can now use the authenticator to help create an initial user
 in the setup script. Note we're hardcoding the password here but you could
 make it configurable via a
 [service configuration option](../reference/foxx-reference-configuration):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // ...
 const auth = require("./util/auth");
@@ -93,9 +111,13 @@ if (!users.firstExample({ username: "admin" })) {
   });
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 We can now put the two together to create a login route:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // ...
 const auth = require("./util/auth");
@@ -130,10 +152,14 @@ router
       .required()
   );
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To provide information about the authenticated user we can look up
 the session user:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get("/me", function(req, res) {
   try {
@@ -144,9 +170,13 @@ router.get("/me", function(req, res) {
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To log a user out we can remove the user from the session:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.post("/logout", function(req, res) {
   if (req.session.uid) {
@@ -156,16 +186,22 @@ router.post("/logout", function(req, res) {
   res.status("no content");
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Finally when using the collection-based session storage, it's a good idea to
 clean up expired sessions in a script which we can periodically call via an
 external tool like `cron` or a [Foxx queue](../reference/related-modules/foxx-reference-modules-queues):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const sessions = require("./util/sessions");
 module.exports = sessions.storage.prune();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Using ArangoDB authentication
 
@@ -180,6 +216,8 @@ the HTTP API or the administrative web interface.
 
 Example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get("/me", function(req, res) {
   if (req.arangoUser) {
@@ -189,12 +227,16 @@ router.get("/me", function(req, res) {
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Alternative sessions implementation
 
 If you need more control than the sessions middleware provides,
 you can also create a basic session system with a few lines of code yourself:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const sessions = module.context.collection("sessions");
@@ -241,3 +283,5 @@ module.context.use((req, res, next) => {
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}

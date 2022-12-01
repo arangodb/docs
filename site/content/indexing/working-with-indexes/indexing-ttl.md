@@ -31,15 +31,23 @@ with an attribute that contains the documents' creation or last-updated time.
 Let's assume the index attribute is set to "creationDate", and the `expireAfter`
 attribute of the index was set to 600 seconds (10 minutes).
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.collection.ensureIndex({ type: "ttl", fields: ["creationDate"], expireAfter: 600 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Let's further assume the following document now gets inserted into the collection:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "creationDate" : 1550165973 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This document will be indexed with a reference point in time value of `1550165973`,
 which translates to the human-readable date/time `2019-02-14T17:39:33.000Z`. The document
@@ -61,9 +69,13 @@ date strings without a timezone offset will be interpreted as UTC dates.
 
 The above example document using a date string attribute value would be
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "creationDate" : "2019-02-14T17:39:33.000Z" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now any data-modification access to the document could update the value in the document's
 `creationDate` attribute to the current date/time, which would prolong the existence
@@ -83,16 +95,24 @@ Let's assume the index attribute is set to "expireDate", and the `expireAfter`
 attribute of the index was set to 0 seconds (immediately when wall clock time reaches
 the value specified in `expireDate`).
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.collection.ensureIndex({ type: "ttl", fields: ["expireDate"], expireAfter: 0 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When storing the following document in the collection, it will expire at the point in time
 specified in the document itself:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "expireDate" : "2019-03-28T01:06:00Z" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
  
 As `expireAfter` was set to 0, the document will count as expired when wall clock time 
 has reached the timeout.

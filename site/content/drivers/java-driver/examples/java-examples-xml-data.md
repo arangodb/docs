@@ -26,6 +26,8 @@ string into a JSON string and back to XML again.
 
 Converting XML into JSON with JsonML example:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 String string = "<recipe name=\"bread\" prep_time=\"5 mins\" cook_time=\"3 hours\"> "
         + "<title>Basic bread</title> "
@@ -47,9 +49,13 @@ String string = "<recipe name=\"bread\" prep_time=\"5 mins\" cook_time=\"3 hours
 JSONObject jsonObject = JSONML.toJSONObject(string);
 System.out.println(jsonObject.toString());
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The converted JSON string:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
    "prep_time" : "5 mins",
@@ -146,9 +152,13 @@ The converted JSON string:
    ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Saving the converted JSON to ArangoDB example:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 ArangoDB.Builder arango = new ArangoDB.Builder().build();
 ArangoCollection collection = arango.db().collection("testCollection")
@@ -156,17 +166,25 @@ DocumentCreateEntity<String> entity = collection.insertDocument(
                 jsonObject.toString());
 String key = entity.getKey();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Reading the stored JSON as a string and convert it back to XML example:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 String rawJsonString = collection.getDocument(key, String.class);
 String xml = JSONML.toString(rawJsonString);
 System.out.println(xml);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Example output:
 
+{{< tabs >}}
+{{% tab name="xml" %}}
 ```xml
 <recipe _id="RawDocument/6834407522" _key="6834407522" _rev="6834407522"
          cook_time="3 hours" name="bread" prep_time="5 mins">
@@ -186,12 +204,16 @@ Example output:
   </instructions>
 </recipe>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note:** The [fields mandatory to ArangoDB documents](../../../getting-started/data-modeling/documents/data-modeling-documents-document-address)
 are added; If they break your XML schema you have to remove them.
 
 Query raw data example:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 String queryString = "FOR t IN testCollection FILTER t.cook_time == '3 hours' RETURN t";
 ArangoCursor<String> cursor = arango.db().query(queryString, null, null, String.class);
@@ -201,3 +223,5 @@ while (cursor.hasNext()) {
     System.out.println("XML value: " + xml);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

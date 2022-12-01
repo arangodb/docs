@@ -342,10 +342,14 @@ Both built-in and user-defined functions can be called.
 - **arguments** (array, *optional*): an array with elements of arbitrary type
 - returns **retVal** (any): the return value of the called function
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 APPLY( "SUBSTRING", [ "this is a test", 0, 7 ] )
 // "this is"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### CALL()
 
@@ -362,10 +366,14 @@ Both built-in and user-defined functions can be called.
   multiple arguments, can be omitted
 - returns **retVal** (any): the return value of the called function
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 CALL( "SUBSTRING", "this is a test", 0, 4 )
 // "this"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Other functions
 
@@ -384,10 +392,14 @@ conditions.
 - **message** (string): message that will be used in exception or warning if expression evaluates to false
 - returns **retVal** (bool): returns true if expression evaluates to true
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
 FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### IN_RANGE()
 
@@ -535,12 +547,16 @@ if lazy evaluation / short circuiting is used for instance.
 - **reason** (string): an error message
 - returns nothing, because the query is aborted
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN 1 == 1 ? "okay" : FAIL("error") // "okay"
 RETURN 1 == 1 || FAIL("error") ? true : false // true
 RETURN 1 == 2 && FAIL("error") ? true : false // false
 RETURN 1 == 1 && FAIL("error") ? true : false // aborted with error
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### NOOPT() / NOEVAL()
 
@@ -561,6 +577,8 @@ internal testing.
 - **value** (any): a value of arbitrary type
 - returns **retVal** (any): *value*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // differences in execution plan (explain)
 FOR i IN 1..3 RETURN (1 + 1)       // const assignment
@@ -570,6 +588,8 @@ FOR i IN 1..3 RETURN NOEVAL(1 + 1) // simple expression
 RETURN NOOPT( 123 ) // evaluates 123 at runtime
 RETURN NOOPT( CONCAT("a", "b") ) // evaluates concatenation at runtime
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### PASSTHRU()
 
@@ -591,9 +611,13 @@ specified collection.
 - **collection** (string): name of a collection
 - returns **schema** (object): schema definition object
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN SCHEMA_GET("myColl")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### SCHEMA_VALIDATE()
 
@@ -624,10 +648,14 @@ Wait for a certain amount of time before continuing the query.
 - **seconds** (number): amount of time to wait
 - returns a *null* value
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SLEEP(1)    // wait 1 second
 SLEEP(0.02) // wait 20 milliseconds
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### V8()
 
@@ -640,11 +668,15 @@ testing.
 - **expression** (any): arbitrary expression
 - returns **retVal** (any): the return value of the *expression*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // differences in execution plan (explain)
 FOR i IN 1..3 RETURN (1 + 1)          // const assignment
 FOR i IN 1..3 RETURN V8(1 + 1)        // simple expression
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### VERSION()
 
@@ -655,6 +687,10 @@ of the Coordinator.
 
 - returns **serverVersion** (string): the server version string
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN VERSION()        // e.g. "3.10.0" 
 ```
+{{% /tab %}}
+{{< /tabs >}}

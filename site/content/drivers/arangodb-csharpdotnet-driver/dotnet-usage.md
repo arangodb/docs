@@ -24,10 +24,14 @@ The options are passed as an instance of the `ApiClientSerializationOptions` cla
 
 In addition, the default options can be updated, which affect all subsequent operations that use these options. To set default options, set them on the serializer implementation itself.  For example, if using the supplied `JsonNetApiClientSerialization`:
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 var serializer = new JsonNetApiClientSerialization();
 serializer.DefaultOptions.IgnoreNullValues = false;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## HTTP Request Headers
 
@@ -36,6 +40,8 @@ APIs that support specifying HTTP request headers have an optional method argume
 For example, to specify a Stream Transaction ID when creating a document:
 
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 await adb.Document.PostDocumentAsync(
     "MyCollection",
@@ -49,6 +55,8 @@ await adb.Document.PostDocumentAsync(
         TransactionId = "0123456789"
     });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## API Errors
 
@@ -56,6 +64,8 @@ Any time an endpoint responds with an HTTP status code which is not a "success" 
 
 The `ApiErrorException` object contains the `ApiError` property, which holds an instance of `ApiErrorResponse` with the following structure. ArangoDB has descriptions for the different [`ErrorNum` values](../../appendix/appendix-error-codes).
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 /// <summary>
 /// ArangoDB API error model
@@ -81,6 +91,8 @@ public class ApiErrorResponse
     public HttpStatusCode Code { get; set; }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 ## Project Conventions
 
 The intention of this driver is to expose the ArangoDB REST API as faithfully as possible with a minimal amount of abstraction on top. However:
@@ -100,10 +112,14 @@ The intention of this driver is to expose the ArangoDB REST API as faithfully as
 
 A typical method signature is as follows:
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // This is illustrative, not actually a method in the API
 apiClient.PostEntity(string pathParam, PostEntityBody body, PostEntityQuery query = null);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 - Path parameters are always exposed as string arguments and come first in the argument list. e.g. `pathParam` in the example above.
 - Where an endpoint expects some body content, an API model class is used. An instance of the API model is expected as an argument to the method. This comes after any path arguments. e.g. `PostEntityBody` instance in the example above.
 - Optional parameters are exposed as nullable properties. In cases where the body content is an ArangoDB-specific object, properties with `null` value are ignored and not sent in the request to ArangoDB. In cases where the body content is a user-specified object (e.g. a document or edge document), `null` values are not ignored.
@@ -128,6 +144,8 @@ The `HttpApiTransport` class implements `IApiClientTransport` and is the standar
 
 To create `HttpApiTransport` using Basic Auth, supply the appropriate base path and credentials to the static `UsingBasicAuth` method as follows:
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 var transport = HttpApiTransport.UsingBasicAuth(
     new Uri("http://localhost:8529/"),
@@ -135,20 +153,28 @@ var transport = HttpApiTransport.UsingBasicAuth(
     "username",
     "password");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### JSON Web Token (JWT)
 
 To create `HttpApiTransport` using JWT tokens, supply the appropriate base path and JWT token to the static `UsingJWTAuth` method as follows:
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 var transport = HttpApiTransport.UsingJwtAuth(
     new Uri("http://localhost:8529/"),
     dbName,
     jwtTokenString);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This assumes you already have a JWT token. If you need to get a token from ArangoDB, you need to first setup an `HttpApiTransport` without any credentials, submit a request to ArangoDB to get a JWT token, then call `SetJwtToken` on the transport. e.g.:
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Create HttpApiTransport with no authentication set
 var transport = HttpApiTransport.UsingNoAuth(
@@ -165,6 +191,8 @@ transport.SetJwtToken(jwtTokenResponse.Jwt);
 var databaseApi = new DatabaseApiClient(transport);
 var userDatabasesResponse = await databaseApi.GetUserDatabasesAsync();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Depending on your application's needs, you might want to securely store the token somewhere so you can use it again later. ArangoDB's tokens are valid for a one month duration, so you will need to get a new token at some point. You must handle fetching new tokens and setting them on the transport instance as part of your application.
 
@@ -172,12 +200,18 @@ Depending on your application's needs, you might want to securely store the toke
 
 `ArangoDBClient` is a wrapper around all of the individual API client classes. By instantiating `ArangoDBClient` once, you have access to instances of each API client class.  With an instance of `IApiClientTransport`, create `ArangoDBClient` as follows:
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 var adb = new ArangoDBClient(transport);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now you can access instances of the individual client classes as properties, e.g.:
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Create a new collection named "TestCollection"
 var postCollectionResponse = await adb.Collection.PostCollectionAsync(
@@ -189,3 +223,5 @@ var docResponse = await adb.Document.PostDocumentAsync(
   "TestCollection", 
   new { TestKey = "TestValue" });
 ```
+{{% /tab %}}
+{{< /tabs >}}

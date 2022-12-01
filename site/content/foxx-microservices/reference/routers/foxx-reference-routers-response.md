@@ -274,10 +274,14 @@ Returns the response object.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Send the file "favicon.ico" from this service's folder
 res.sendFile(module.context.fileName('favicon.ico'));
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## sendStatus
 
@@ -429,6 +433,8 @@ Returns the response object.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 res.vary('user-agent');
 res.vary('cookie');
@@ -442,6 +448,8 @@ res.vary('user-agent', 'cookie');
 
 res.vary(['user-agent', 'cookie']);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## write
 

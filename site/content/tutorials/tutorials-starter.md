@@ -36,23 +36,43 @@ Then start the ArangoDB starter of all 3 machines like this:
 
 On host A:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will use port 8528 to wait for colleagues (3 are needed for a
 resilient Agency). On host B (can be the same as A):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.join A
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 This will contact A on port 8528 and register. On host C (can be same
 as A or B):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.join A
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 This will contact A on port 8528 and register.
 
@@ -87,6 +107,8 @@ When running in docker it is important to care about the volume mappings on
 the container. Typically you will start the executable in docker with the following
 commands.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export IP=<IP of docker host>
 docker volume create arangodb1
@@ -96,6 +118,8 @@ docker run -it --name=adb1 --rm -p 8528:8528 \
     arangodb/arangodb-starter \
     --starter.address=$IP
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 The executable will show the commands needed to run the other instances.
@@ -113,6 +137,8 @@ instances using this Docker API, it is mandatory that the ArangoDB
 starter is deployed with the proper certificates handed to it, so that
 the above command is modified as follows: 
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export IP=<IP of docker host>
 export DOCKER_CERT_PATH=/path/to/certificate
@@ -127,6 +153,8 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.address=$IP \
     --starter.join=A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
@@ -134,6 +162,8 @@ directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it
 is mandatory that the certificates are stored in `$HOME/.docker`. So
 the command would then be as follows
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export IP=<IP of docker host>
 docker volume create arangodb
@@ -146,6 +176,8 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.address=$IP \
     --starter.join=A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 The TLS verification above applies equally to all below deployment modes.
@@ -157,21 +189,57 @@ This eases scripting. For example:
 
 On host A:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.join A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 On host B:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.join A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 On host C:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.join A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 This starts a cluster where the starter on host A is chosen to be leader (_master_) during the bootstrap phase.
 
@@ -195,9 +263,13 @@ phase ends and the starters use the Arango Agency to elect a leader for the runt
 If you want to start a local cluster quickly, use the `--starter.local` flag.
 It will start all servers within the context of a single starter process.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.local
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using the starter this way does not provide resilience and high availability of your cluster!
 
@@ -214,6 +286,8 @@ cluster.
 
 To run a starter with DC2DC support you add the following arguments to the starters command line:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 --auth.jwt-secret=<path of file containing JWT secret for communication in local cluster>
 --starter.address=<publicly visible address of this machine>
@@ -223,6 +297,8 @@ To run a starter with DC2DC support you add the following arguments to the start
 --sync.server.keyfile=<path of keyfile containing TLS certificate & key for local syncmaster>
 --sync.server.client-cafile=<path of file containing CA certificate for syncmaster client authentication>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Consult `arangosync` documentation for instructions how to create all certificates & keyfiles.
 
@@ -230,15 +306,21 @@ Consult `arangosync` documentation for instructions how to create all certificat
 
 If you want to start a single database server, use `--starter.mode=single`.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.mode=single
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Starting a single server in Docker
 
 If you want to start a single database server running in a docker container,
 use the normal docker arguments, combined with `--starter.mode=single`.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export IP=<IP of docker host>
 docker volume create arangodb
@@ -249,6 +331,8 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.address=$IP \
     --starter.mode=single
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Starting a resilient single server pair
 
@@ -256,9 +340,13 @@ If you want to start a resilient single database server, use `--starter.mode=act
 In this mode a 3 machine _Agency_ is started as well as 3 single servers that perform
 asynchronous replication an failover if needed.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.mode=activefailover --starter.join A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Run this on machine A, B & C.
 
@@ -267,6 +355,8 @@ Run this on machine A, B & C.
 If you want to start a resilient single database server running in docker containers,
 use the normal docker arguments, combined with `--starter.mode=activefailover`.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export IP=<IP of docker host>
 docker volume create arangodb
@@ -278,6 +368,8 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.mode=activefailover \
     --starter.join=A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Run this on machine A, B & C.
 
@@ -291,9 +383,13 @@ instance should NOT be scheduled.
 If you want to start a local resilient server pair quickly, use the `--starter.local` flag.
 It will start all servers within the context of a single starter process.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.local --starter.mode=activefailover
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note: When you restart the started, it remembers the original `--starter.local` flag.
 
@@ -302,9 +398,13 @@ Note: When you restart the started, it remembers the original `--starter.local` 
 If you want the starter to detach and run as a background process, use the `start`
 command. This is typically used by developers running tests only.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb start --starter.local=true [--starter.wait]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This command will make the starter run another starter process in the background
 (that starts all ArangoDB servers), wait for it's HTTP API to be available and
@@ -315,9 +415,13 @@ are really up, before ending the process of the leader starter.
 
 To stop a starter use this command.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb stop
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to match the arguments given to start the starter (`--starter.port` & `--ssl.*`).
 

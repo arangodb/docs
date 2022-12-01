@@ -19,12 +19,16 @@ pass them through in your router using
 the [context object's `fileName` method](../reference/foxx-reference-context#filename) and
 the [response object's `sendFile` method](../reference/routers/foxx-reference-routers-response#sendfile):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get("/some/filename.png", function(req, res) {
   const filePath = module.context.fileName("some-local-filename.png");
   res.sendFile(filePath);
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 While allowing for greater control of how the file should be sent to
 the client and who should be able to access it,
@@ -34,6 +38,8 @@ Alternatively you can specify file assets that should be served by your
 Foxx service directly in the [service manifest](../reference/foxx-reference-manifest)
 using the `files` attribute:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 "files": {
   "/some/filename.png": {
@@ -45,6 +51,8 @@ using the `files` attribute:
   "/static": "my-assets-folder"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Writing files
 
@@ -91,6 +99,8 @@ modifications.
 To store files in a document you can simply convert the file contents
 as a `Buffer` to a base64-encoded string:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.post('/avatars/:filename', (req, res) => {
   collection.save({
@@ -110,3 +120,5 @@ router.get('/avatars/:filename', (req, res) => {
   res.write(data);
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}

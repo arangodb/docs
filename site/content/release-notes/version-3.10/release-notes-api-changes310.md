@@ -58,9 +58,13 @@ the name of each available rule and its respective flags.
 The JavaScript API was not extended, but you can make a request using a
 low-level method in _arangosh_:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arango.GET("/_api/query/rules")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Shard rebalancing
 
@@ -90,6 +94,8 @@ To query the maintenance status of a DB-Server, use this new endpoint:
 
 An example reply of a DB-Server that is in maintenance mode:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "error": false,
@@ -100,16 +106,22 @@ An example reply of a DB-Server that is in maintenance mode:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the DB-Server is not in maintenance mode, then the `result` attribute is
 omitted:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "error": false,
   "code": 200,
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To put a DB-Server into maintenance mode, use this new endpoint:
 
@@ -117,12 +129,16 @@ To put a DB-Server into maintenance mode, use this new endpoint:
 
 The payload of the request needs to be as follows, with the `timeout` in seconds:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "mode": "maintenance",
   "timeout": 360
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To turn the maintenance mode off, set `mode` to `"normal"` instead, and omit the
 `timeout` attribute or set it to `0`.
@@ -477,6 +493,8 @@ inverted indexes. This information was previously not available for these index
 types. The `withStats` query parameter needs to be set to `true` to retrieve
 figures, and for `arangosearch` Views, `withHidden` needs to be enabled, too:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "figures" : { 
@@ -488,6 +506,8 @@ figures, and for `arangosearch` Views, `withHidden` needs to be enabled, too:
   }, ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Metrics API
 

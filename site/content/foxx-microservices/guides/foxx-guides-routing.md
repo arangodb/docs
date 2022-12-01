@@ -9,12 +9,16 @@ In Foxx [routers](../reference/routers/) are used to define
 the URLs of your API. The easiest way to use a router is to mount it
 directly in the service using the [context](../reference/foxx-reference-context):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const createRouter = require("@arangodb/foxx/router");
 const router = createRouter();
 
 module.context.use(router);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Nested routers
 
@@ -22,6 +26,8 @@ Instead of mounting routers where they are defined, routers can also be
 exported from one module and imported in another. This allows you to
 structure your routes by splitting them across multiple files:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in your main file
 const usersRouter = require("./api/users");
@@ -36,9 +42,13 @@ usersRouter.get("/me", (req, res) => {
   // this will be exposed as /users/me
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also mount routers inside of each other:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in api/users/friends.js
 const createRouter = require("@arangodb/foxx/router");
@@ -49,14 +59,20 @@ module.exports = friendsRouter;
 const friendsRouter = require("./friends");
 usersRouter.use("/friends", friendsRouter);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that you can also mount several routers with the same prefix
 or even without a prefix:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 adminRouter.use(usersAdminRouter);
 adminRouter.use(groupsAdminRouter);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Local middleware
 
@@ -67,6 +83,8 @@ is not shared between multiple routers mounted at the same prefix
 This can be especially useful when restricting access to
 some routes but not others:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const createRouter = require("@arangodb/foxx/router");
 const publicRoutes = createRouter();
@@ -83,6 +101,8 @@ authedRoutes.use((req, res, next) => {
 module.context.use(publicRoutes);
 module.context.use(authedRoutes);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Router factories
 
@@ -93,6 +113,8 @@ or using different collections.
 In these cases it can be useful to return the router from a function that
 takes these differences as arguments instead of exporting the router directly:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in your main file
 const createUsersRouter = require("../util/users-router");
@@ -125,3 +147,5 @@ module.export = (usersCollection, keyField) => {
   return router;
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}

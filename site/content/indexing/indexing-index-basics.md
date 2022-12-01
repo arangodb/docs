@@ -57,10 +57,14 @@ be used from within AQL queries automatically when performing equality lookups o
 There are also dedicated functions to find a document given its `_key` or `_id`
 that will always make use of the primary index:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.collection.document("<document-key>");
 db._document("<document-id>");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The primary index can be used for range queries and sorting as persistent
 indexes are sorted.
@@ -81,6 +85,8 @@ or `_to` values in an edge collections. There are also dedicated functions to
 find edges given their `_from` or `_to` values that will always make use of the 
 edge index:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.collection.edges("<from-value>");
 db.collection.edges("<to-value>");
@@ -89,6 +95,8 @@ db.collection.outEdges("<to-value>");
 db.collection.inEdges("<from-value>");
 db.collection.inEdges("<to-value>");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The edge index stores the union of all `_from` and `_to` attributes.
 It can be used for equality lookups, but not for range queries or for sorting.
@@ -132,17 +140,25 @@ by the optimizer.
 For example, to create a vertex-centric index of the above type, you 
 would simply do
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.edges.ensureIndex({"type": "persistent", "fields": ["_from", "timestamp"]});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 in arangosh. Then, queries like
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v, e, p IN 1..1 OUTBOUND "V/1" edges
   FILTER e.timestamp >= "2018-07-09"
   RETURN p
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will be considerably faster in case there are many edges originating
 from vertex `"V/1"` but only few with a recent timestamp. Note that the
@@ -167,6 +183,8 @@ For example, if a persistent index is created on attributes `value1` and `value2
 following filter conditions can use the index (note: the `<=` and `>=` operators are
 intentionally omitted here for the sake of brevity):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FILTER doc.value1 == ...
 FILTER doc.value1 < ...
@@ -177,6 +195,8 @@ FILTER doc.value1 == ... && doc.value2 == ...
 FILTER doc.value1 == ... && doc.value2 > ...
 FILTER doc.value1 == ... && doc.value2 > ... && doc.value2 < ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In order to use a persistent index for sorting, the index attributes must be specified in
 the `SORT` clause of the query in the same order as they appear in the index definition.
@@ -281,9 +301,13 @@ interpreted as UTC dates.
 For example, if `expireAfter` is set to 600 seconds (10 minutes) and the index
 attribute is "creationDate" and there is the following document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "creationDate" : 1550165973 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This document will be indexed with a creation date time value of `1550165973`,
 which translates to the human-readable date `2019-02-14T17:39:33.000Z`. The document
@@ -315,9 +339,13 @@ without a timezone offset will be interpreted as UTC dates.
 
 The above example document using a date string attribute value would be
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "creationDate" : "2019-02-14T17:39:33.000Z" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In case the index attribute does not contain a numeric value nor a proper date string,
 the document will not be stored in the TTL index and thus will not become a candidate 
@@ -403,19 +431,27 @@ single element (string of the attribute key) to the `fields` parameter of the
 [ensureIndex() method](working-with-indexes/#creating-an-index). To create a
 combined index over multiple fields, simply add more members to the `fields` array:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // { name: "Smith", age: 35 }
 db.posts.ensureIndex({ type: "persistent", fields: [ "name" ] })
 db.posts.ensureIndex({ type: "persistent", fields: [ "name", "age" ] })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To index sub-attributes, specify the attribute path using the dot notation:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // { name: {last: "Smith", first: "John" } }
 db.posts.ensureIndex({ type: "persistent", fields: [ "name.last" ] })
 db.posts.ensureIndex({ type: "persistent", fields: [ "name.last", "name.first" ] })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Indexing array values
 
@@ -432,32 +468,46 @@ when creating the index and when filtering in an AQL query using the `IN` operat
 The following example creates an persistent array index on the `tags` attribute in a collection named
 `posts`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]" ] });
 db.posts.insert({ tags: [ "foobar", "baz", "quux" ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This array index can then be used for looking up individual `tags` values from AQL queries via 
 the `IN` operator:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN posts
   FILTER 'foobar' IN doc.tags
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is possible to add the [array expansion operator](../aql/advanced-features/advanced-array-operators#array-expansion)
 `[*]`, but it is not mandatory. You may use it to indicate that an array index is used,
 it is purely cosmetic however:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN posts
   FILTER 'foobar' IN doc.tags[*]
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following FILTER conditions will **not use** the array index:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FILTER doc.tags ANY == 'foobar'
 FILTER doc.tags ANY IN 'foobar'
@@ -465,23 +515,33 @@ FILTER doc.tags IN 'foobar'
 FILTER doc.tags == 'foobar'
 FILTER 'foobar' == doc.tags
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is also possible to create an index on subattributes of array values. This makes sense
 if the index attribute is an array of objects, e.g.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*].name" ] });
 db.posts.insert({ tags: [ { name: "foobar" }, { name: "baz" }, { name: "quux" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following query will then use the array index (this does require the
 [array expansion operator](../aql/advanced-features/advanced-array-operators#array-expansion)):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN posts
   FILTER 'foobar' IN doc.tags[*].name
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you store a document having the array which does contain elements not having
 the sub-attributes this document will also be indexed with the value `null`, which
@@ -490,17 +550,25 @@ in ArangoDB is equal to attribute not existing.
 ArangoDB supports creating array indexes with a single `[*]` operator per index 
 attribute. For example, creating an index as follows is **not supported**:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*].name[*].value" ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Array values will automatically be de-duplicated before being inserted into an array index.
 For example, if the following document is inserted into the collection, the duplicate array
 value `bar` will be inserted only once:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.posts.insert({ tags: [ "foobar", "bar", "bar" ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is done to avoid redundant storage of the same index value for the same document, which
 would not provide any benefit.
@@ -517,16 +585,22 @@ To turn off the deduplication of array values, it is possible to set the **dedup
 on the array index to `false`. The default value for **deduplicate** is `true` however, so 
 de-duplication will take place if not explicitly turned off.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]" ], deduplicate: false });
 
 // will fail now
 db.posts.insert({ tags: [ "foobar", "bar", "bar" ] }); 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If an array index is declared and you store documents that do not have an array at the specified attribute
 this document will not be inserted in the index. Hence the following objects will not be indexed:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]" ] });
 db.posts.insert({ something: "else" });
@@ -534,11 +608,15 @@ db.posts.insert({ tags: null });
 db.posts.insert({ tags: "this is no array" });
 db.posts.insert({ tags: { content: [1, 2, 3] } });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 An array index is able to index explicit `null` values. When queried for `null`values, it 
 will only return those documents having explicitly `null` stored in the array, it will not 
 return any documents that do not have the array at all.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]" ] });
 db.posts.insert({tags: null}) // Will not be indexed
@@ -546,11 +624,15 @@ db.posts.insert({tags: []})  // Will not be indexed
 db.posts.insert({tags: [null]}); // Will be indexed for null
 db.posts.insert({tags: [null, 1, 2]}); // Will be indexed for null, 1 and 2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Declaring an array index as **sparse** does not have an effect on the array part of the index,
 this in particular means that explicit `null` values are also indexed in the **sparse** version.
 If an index is combined from an array and a normal attribute the sparsity will apply for the attribute e.g.:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]", "name" ], sparse: true });
 db.posts.insert({tags: null, name: "alice"}) // Will not be indexed
@@ -562,6 +644,8 @@ db.posts.insert({tags: [1, 2, 3], name: "alice"})
 db.posts.insert({tags: [null], name: "bob"})
 // Will be indexed for [null, "bob"] 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Please note that filtering using array indexes only works from within AQL queries and
 only if the query filters on the indexed attribute using the `IN` operator. The other
@@ -580,9 +664,13 @@ that the vertex `user/A` is never linked to `user/B` by an edge more than once.
 This can be achieved by adding a unique, non-sparse persistent index for the
 fields `_from` and `_to`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.knows.ensureIndex({ type: "persistent", fields: [ "_from", "_to" ], unique: true });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Creating an edge `{ _from: "user/A", _to: "user/B" }` in `knows` will be accepted,
 but only once. Another attempt to store an edge with the relation **A** → **B** will
@@ -608,6 +696,8 @@ This can be achieved by setting the `inBackground` attribute when creating an in
 To create an index in the background in *arangosh* just specify `inBackground: true`, 
 like in the following examples:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // create the persistent index in the background
 db.collection.ensureIndex({ type: "persistent", fields: [ "value" ], unique: false, inBackground: true });
@@ -618,6 +708,8 @@ db.collection.ensureIndex({ type: "geo", fields: [ "latitude", "longitude"], inB
 db.collection.ensureIndex({ type: "geo", fields: [ "latitude", "longitude"], inBackground: true });
 db.collection.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 4, inBackground: true })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Behavior
 

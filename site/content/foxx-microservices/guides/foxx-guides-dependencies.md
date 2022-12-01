@@ -61,15 +61,21 @@ to other developers using your services.
 A `provides` definition maps each provided dependency's name
 to the provided version:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 "provides": {
   "@example/auth": "1.0.0"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A `dependencies` definition maps the _local alias_ of each consumed dependency
 against a short definition that includes the name and version range:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 "dependencies": {
   "myAuth": {
@@ -81,6 +87,8 @@ against a short definition that includes the name and version range:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The local alias should be a valid JavaScript identifier
 (e.g. a valid variable name). When a dependency has been assigned,
@@ -113,23 +121,33 @@ the service's _main_ file needs to export something other services can use.
 You can do this by assigning a value to the `module.exports` or properties
 of the `exports` object as with any other module export:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 module.exports = "Hello world";
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This also includes collections. In the following example, the collection
 exported by the provider will use the provider's
 [collection prefix](foxx-guides-collections) rather than the consumer's,
 allowing both services to share the same collection:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 module.exports = module.context.collection("shared_documents");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Let's imagine we have a service managing our application's users.
 Rather than allowing any consuming service to access the collection directly,
 we can provide a number of methods to manipulate it:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const auth = require("./util/auth");
 const users = module.context.collection("users");
@@ -147,10 +165,14 @@ exports.setPassword = (user, password) => {
   return user;
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Or you could even export a factory function to create an API that uses a
 custom error type provided by the consumer rather than the producer:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const auth = require("./util/auth");
 const users = module.context.collection("users");
@@ -172,9 +194,13 @@ module.exports = (BadCredentialsError = Error) => {
   };
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Example usage (the consumer uses the local alias `usersApi`):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const createRouter = require("@arangodb/foxx/router");
@@ -223,3 +249,5 @@ router
     })
   );
 ```
+{{% /tab %}}
+{{< /tabs >}}

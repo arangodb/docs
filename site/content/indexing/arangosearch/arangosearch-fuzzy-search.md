@@ -157,6 +157,8 @@ There are the following AQL string functions to calculate the
 - [NGRAM_SIMILARITY()](../../aql/functions/functions-string#ngram_similarity)
 - [NGRAM_POSITIONAL_SIMILARITY()](../../aql/functions/functions-string#ngram_positional_similarity)
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN [
   LEVENSHTEIN_DISTANCE("galaxy", "glaaxy"),           // 1 (with transpositions)
@@ -164,6 +166,8 @@ RETURN [
   NGRAM_POSITIONAL_SIMILARITY("avocado", "vocals", 3) // 0.6 (using trigrams)
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To perform fuzzy searches, there are two ArangoSearch functions:
 - [LEVENSHTEIN_MATCH()](../../aql/functions/functions-arangosearch#levenshtein_match)
@@ -215,13 +219,19 @@ analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "
 
 ##### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en_no_stem" } ] });
 db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ##### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -237,6 +247,8 @@ db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_ve
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### AQL queries
 
@@ -248,6 +260,8 @@ the token `galaxy` as the edit distance to `galxy` is `1`.
 
 _`search-alias` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb_alias
   SEARCH LEVENSHTEIN_MATCH(
@@ -262,9 +276,13 @@ FOR doc IN imdb_alias
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(
@@ -282,6 +300,8 @@ FOR doc IN imdb
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description |
 |:------|:------------|
@@ -328,13 +348,19 @@ analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, st
 
 ##### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-ngram", type: "inverted", fields: [ { name: "name", analyzer: "trigram" } ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-ngram" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ##### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -350,11 +376,15 @@ db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### AQL queries
 
 Search for actor names with an _n_-gram similarity of at least 50%.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH NGRAM_MATCH(
@@ -367,6 +397,8 @@ FOR doc IN imdb
     name: doc.name
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | name |
 |:-----|

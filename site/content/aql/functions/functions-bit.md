@@ -15,6 +15,8 @@ the range 0 to 2<sup>32</sup> - 1 are allowed as input values.
 - **value2** (number): second operand
 - returns **result** (number\|null): xor-combined result
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 BIT_XOR([1, 4, 8, 16]) // 29
 BIT_XOR([3, 7, 63]) // 59
@@ -22,3 +24,5 @@ BIT_XOR([255, 127, null, 63]) // 191
 BIT_XOR(255, 257) // 510
 BIT_XOR("foo") // null
 ```
+{{% /tab %}}
+{{< /tabs >}}

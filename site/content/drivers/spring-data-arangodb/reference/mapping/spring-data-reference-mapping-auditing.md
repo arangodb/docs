@@ -9,14 +9,20 @@ Since version 3.0.0 Spring Data ArangoDB provides basic auditing functionality w
 
 To enable auditing you have to add the annotation `@EnableArangoAuditing` to your configuration class.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 @Configuration
 @EnableArangoAuditing
 public class MyConfiguration implements ArangoConfiguration {
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 We can now add fields to our model classes and annotate them with `@CreateDate`, `@CreatedBy`, `@LastModifiedDate` and `@LastModifiedBy` to store the auditing information. All annotation names should be self-explanatory.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 @Document
 public class MyEntity {
@@ -35,11 +41,15 @@ public class MyEntity {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The annotations `@CreateDate` and `@LastModifiedDate` are working with fields of any kind of Date/Timestamp type which is supported by Spring Data. (i.e. `java.util.Date`, `java.time.Instant`, `java.time.LocalDateTime`).
 
 For `@CreatedBy` and `@LastModifiedBy` we need to provide Spring Data the information of the current auditor (i.e. `User` in our case). We can do so by implementing the `AuditorAware` interface
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 public class AuditorProvider implements AuditorAware<User> {
   @Override
@@ -48,9 +58,13 @@ public class AuditorProvider implements AuditorAware<User> {
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 and add the implementation as a bean to our Spring context.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 @Configuration
 @EnableArangoAuditing(auditorAwareRef = "auditorProvider")
@@ -63,9 +77,13 @@ public class MyConfiguration implements ArangoConfiguration {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you use a type in your `AuditorAware` implementation, which will be also persisted in your database and you only want to save a reference in your entity, just add the [@Ref annotation](spring-data-reference-mapping-reference) to the fields annotated with `@CreatedBy` and `@LastModifiedBy`. Keep in mind that you have to save the `User` in your database first to get a valid reference.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 @Document
 public class MyEntity {
@@ -80,3 +98,5 @@ public class MyEntity {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

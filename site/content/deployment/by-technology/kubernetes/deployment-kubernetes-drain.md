@@ -104,12 +104,18 @@ mind that this has to be done **for each database** separately!
 Obviously, this might be tedious and calls for automation. Therefore, there
 are APIs for this. The first one is [Cluster Health](../../../http/cluster/cluster-health):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 POST /_admin/cluster/health
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … which returns a JSON document looking like this:
 
+{{< tabs >}}
+{{% tab name="JSON" %}}
 ```JSON
 {
   "Health": {
@@ -158,25 +164,37 @@ POST /_admin/cluster/health
   "code": 200
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Check that each instance has a `Status` field with the value `"GOOD"`.
 Here is a shell command which makes this check easy, using the
 [`jq` JSON pretty printer](https://stedolan.github.io/jq/):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 curl -k https://arangodb.9hoeffer.de:8529/_admin/cluster/health --user root: | jq . | grep '"Status"' | grep -v '"GOOD"'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For the shards being in sync there is the
 [Cluster Inventory](../../../http/replication/replications-replication-dump#return-cluster-inventory-of-collections-and-indexes)
 API call:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 POST /_db/_system/_api/replication/clusterInventory
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … which returns a JSON body like this:
 
+{{< tabs >}}
+{{% tab name="JSON" %}}
 ```JSON
 {
   "collections": [
@@ -242,6 +260,8 @@ POST /_db/_system/_api/replication/clusterInventory
   "state": "unused"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Check that for all collections the attributes `"isReady"` and `"allInSync"`
 both have the value `true`. Note that it is necessary to do this for all
@@ -249,9 +269,13 @@ databases!
 
 Here is a shell command which makes this check easy:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 curl -k https://arangodb.9hoeffer.de:8529/_db/_system/_api/replication/clusterInventory --user root: | jq . | grep '"isReady"\|"allInSync"' | sort | uniq -c
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If all these checks are performed and are okay, then it is safe to
 continue with the clean out and drain procedure as described below.
@@ -305,15 +329,23 @@ small grace period and still have a nearly risk-free procedure.
 
 To clean out a _DB-Server_ manually, we have to use this API:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 POST /_admin/cluster/cleanOutServer
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … and send as body a JSON document like this:
 
+{{< tabs >}}
+{{% tab name="JSON" %}}
 ```JSON
 {"server":"DBServer0006"}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The value of the `"server"` attribute should be the name of the DB-Server
 which is the one in the pod which resides on the node that shall be
@@ -322,40 +354,62 @@ drained next. This uses the UI short name (`ShortName` in the
 internal name, which corresponds to the pod name. In our example, the
 pod name is:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 my-arangodb-cluster-prmr-wbsq47rz-5676ed
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … where `my-arangodb-cluster` is the ArangoDB deployment name, therefore
 the internal name of the _DB-Server_ is `PRMR-wbsq47rz`. Note that `PRMR`
 must be all capitals since pod names are always all lower case. So, we
 could use the body:
 
+{{< tabs >}}
+{{% tab name="JSON" %}}
 ```JSON
 {"server":"PRMR-wbsq47rz"}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can use this command line to achieve this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 curl -k https://arangodb.9hoeffer.de:8529/_admin/cluster/cleanOutServer --user root: -d '{"server":"PRMR-wbsq47rz"}'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The API call will return immediately with a body like this:
 
+{{< tabs >}}
+{{% tab name="JSON" %}}
 ```JSON
 {"error":false,"id":"38029195","code":202}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The given `id` in this response can be used to query the outcome or
 completion status of the clean out server job with this API:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 GET /_admin/cluster/queryAgencyJob?id=38029195
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … which will return a body like this:
 
+{{< tabs >}}
+{{% tab name="JSON" %}}
 ```JSON
 {
   "error": false,
@@ -372,16 +426,24 @@ GET /_admin/cluster/queryAgencyJob?id=38029195
   "code": 200
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Use this command line to check progress:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 curl -k https://arangodb.9hoeffer.de:8529/_admin/cluster/queryAgencyJob?id=38029195 --user root:
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It indicates that the job is still ongoing (`"Pending"`). As soon as
 the job has completed, the answer will be:
 
+{{< tabs >}}
+{{% tab name="JSON" %}}
 ```JSON
 {
   "error": false,
@@ -399,6 +461,8 @@ the job has completed, the answer will be:
   "code": 200
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 From this moment on the _DB-Server_ can no longer be used to move
 shards to. At the same time, it will no longer hold any data of the
@@ -413,9 +477,13 @@ After all above [checks before a node drain](#things-to-check-in-arangodb-before
 and the [manual clean out of the DB-Server](#clean-out-a-db-server-manually)
 have been done successfully, it is safe to perform the drain operation, similar to this command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl drain gke-draintest-default-pool-394fe601-glts --delete-local-data --ignore-daemonsets --grace-period=300
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As described above, the options `--delete-local-data` for ArangoDB and
 `--ignore-daemonsets` for other services have been added. A `--grace-period` of

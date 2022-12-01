@@ -61,8 +61,12 @@ the edges of the edge collection reference vertices of a collection called
 `managers`. This collection is declared at the beginning of the query using the
 `WITH` operation:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 WITH managers
 FOR v, e, p IN 1..2 OUTBOUND 'users/1' usersHaveManagers
   RETURN { v, e, p }
 ```
+{{% /tab %}}
+{{< /tabs >}}

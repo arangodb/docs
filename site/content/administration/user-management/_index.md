@@ -11,9 +11,13 @@ make sure that it was not turned off manually however. Check the configuration
 file (normally named `/etc/arangodb.conf`) and make sure it contains the
 following line in the `[server]` section:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 authentication = true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will make ArangoDB require authentication for every request (including
 requests to Foxx apps depending on the option below). If you want to run Foxx
@@ -21,17 +25,25 @@ apps without HTTP authentication, but activate HTTP authentication for the built
 server APIs, you can add the following line in the `[server]` section of the 
 configuration:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 authentication-system-only = true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above will bypass authentication for requests to Foxx apps.
 
 When finished making changes, you need to restart ArangoDB, e.g.:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 service arangodb restart
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 User management is possible in the [web interface](../../programs-tools/web-interface/programs-web-interface-users)
 while logged on to the *\_system* database and in

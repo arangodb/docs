@@ -20,6 +20,8 @@ Any transaction only ever sees a single revision of a document.
 
 Here is an example document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_id" : "myusers/3456789",
@@ -38,6 +40,8 @@ Here is an example document:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All documents contain special attributes: the 
 [document handle](../../appendix/appendix-glossary#document-handle) is stored
@@ -209,9 +213,13 @@ The following APIs do not support reading from followers:
 You need to set the following HTTP header in an API request to ask for reads
 from followers:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 x-arango-allow-dirty-read: true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is in line with the older support to read from followers in the
 Active Failover deployment mode (see [Reading from Followers](../../architecture/deployment-modes/active-failover/#reading-from-followers)).
@@ -223,6 +231,10 @@ creates a read-only transaction.
 Every response to a request that could produce dirty reads has
 the following HTTP header:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 x-arango-potential-dirty-read: true
 ```
+{{% /tab %}}
+{{< /tabs >}}

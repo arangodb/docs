@@ -51,12 +51,16 @@ for a compatible version. If you are following a tutorial written for an older
 version of arangojs, you can install that version using the `<name>@<version>`
 syntax:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 
 yarn add arangojs@6
 
 npm install --save arangojs@6
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can find the documentation for each version by clicking on the corresponding
 date on the left in
@@ -66,11 +70,15 @@ date on the left in
 
 ### With Yarn or NPM
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 yarn add arangojs
 
 npm install --save arangojs
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### With Bower
 
@@ -79,32 +87,46 @@ build is now included in the NPM release (see below).
 
 ### From source
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 git clone https://github.com/arangodb/arangojs.git
 cd arangojs
 npm install
 npm run dist
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### For browsers
 
 For production use arangojs can be installed with Yarn or NPM like any
 other dependency. Just use arangojs like you would in your server code:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 import { Database } from "arangojs";
 // -- or --
 var arangojs = require("arangojs");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Additionally the NPM release comes with a precompiled browser build:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var arangojs = require("arangojs/lib/web");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also use [unpkg](https://unpkg.com) during development:
 
+{{< tabs >}}
+{{% tab name="html" %}}
 ```html
 < !-- note the path includes the version number (e.g. 6.0.0) -- >
 <script src="https://unpkg.com/arangojs@6.0.0/lib/web.js"></script>
@@ -117,6 +139,8 @@ db.listCollections().then(function (collections) {
 });
 </script>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you are targeting browsers older than Internet Explorer 11 you may want to
 use [babel](https://babeljs.io) with a
@@ -125,13 +149,19 @@ functionality needed to use arangojs.
 
 When loading the browser build with a `<script>` tag make sure to load the polyfill first:
 
+{{< tabs >}}
+{{% tab name="html" %}}
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
 <script src="https://unpkg.com/arangojs@6.0.0/lib/web.js"></script>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Basic usage example
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Modern JavaScript
 import { Database, aql } from "arangojs";
@@ -187,6 +217,8 @@ const db = new Database({
   arangoVersion: 20800
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For AQL please check out the
 [aql template tag](http://arangodb.github.io/arangojs/latest/modules/_aql_.aql.html)
@@ -214,6 +246,8 @@ receiving a response, the underlying error will be thrown instead.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Using async/await
 try {
@@ -231,6 +265,8 @@ db.createDatabase("mydb").then(
   err => console.error(err.stack)
 );
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/tip %}}
 The examples in the remainder of this documentation use `async`/`await`

@@ -14,6 +14,8 @@ a `CustomResourceDefinition` created by the operator.
 
 ### Create simple Backup
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "backup.arangodb.com/v1alpha"
 kind: "ArangoBackup"
@@ -24,6 +26,8 @@ spec:
   deployment:
     name: "my-deployment"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Action:
 
@@ -32,6 +36,8 @@ Create Backup on ArangoDeployment named `my-deployment`
 ### Create and upload Backup
 
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "backup.arangodb.com/v1alpha"
 kind: "ArangoBackup"
@@ -45,6 +51,8 @@ spec:
     repositoryURL: "S3://test/kube-test"
     credentialsSecretName: "my-s3-rclone-credentials"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Action:
 
@@ -54,6 +62,8 @@ Create Backup on ArangoDeployment named `my-deployment` and upload it to `S3://t
 ### Download Backup
 
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "backup.arangodb.com/v1alpha"
 kind: "ArangoBackup"
@@ -68,6 +78,8 @@ spec:
     credentialsSecretName: "my-s3-rclone-credentials"
     id: "backup-id"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Download Backup with id `backup-id` from `S3://test/kube-test`  on ArangoDeployment named `my-deployment`
 
@@ -85,6 +97,8 @@ List of custom columns in CRD specification for Kubectl:
 
 ## ArangoBackup Custom Resource Spec:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "backup.arangodb.com/v1alpha"
 kind: "ArangoBackup"
@@ -123,6 +137,8 @@ status:
     numberOfDBServers: 3
   available: true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## `spec: Object`
 
@@ -225,6 +241,8 @@ Field is immutable. Name of the secret used while accessing repository
 
 Secret structure:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: v1
 data:
@@ -234,12 +252,16 @@ metadata:
   name: <name>
 type: Opaque
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `JSON Token` options are described on the [rclone](https://rclone.org/) page.
 We can define more than one protocols at same time in one secret.
 
 This field is defined in json format:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "<protocol>": {
@@ -248,9 +270,13 @@ This field is defined in json format:
     }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 AWS S3 example - based on [rclone S3](https://rclone.org/s3/) documentation and interactive process:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "S3": {
@@ -264,6 +290,8 @@ AWS S3 example - based on [rclone S3](https://rclone.org/s3/) documentation and 
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 and you can from now use `S3://bucket/path`.
 

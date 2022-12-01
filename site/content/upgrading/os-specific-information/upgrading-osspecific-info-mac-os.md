@@ -12,15 +12,23 @@ was installed via Homebrew or via the provided ArangoDB packages (*.dmg).
 
 First update the homebrew repository:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 brew update
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Then use **brew** to install the latest version of arangodb:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 brew upgrade arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Upgrading via Package
 

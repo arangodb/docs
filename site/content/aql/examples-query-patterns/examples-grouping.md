@@ -14,29 +14,41 @@ added in the query if required.
 `COLLECT` can be used to make a result set unique. The following query will return each distinct
 `age` attribute value only once:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     COLLECT age = u.age
     RETURN age
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is grouping without tracking the group values, but just the group criterion (*age*) value.
 
 Grouping can also be done on multiple levels using `COLLECT`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     COLLECT status = u.status, age = u.age
     RETURN { status, age }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Alternatively `RETURN DISTINCT` can be used to make a result set unique.
 `RETURN DISTINCT` supports a single criterion only:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     RETURN DISTINCT u.age
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `RETURN DISTINCT` does not change the order of results. For above query that
 means the order is undefined because no particular order is guaranteed when
@@ -47,6 +59,8 @@ iterating over a collection without explicit `SORT` operation.
 To group users by age, and return the names of the users with the highest ages,
 we'll issue a query like this:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     FILTER u.active == true
@@ -57,7 +71,11 @@ FOR u IN users
         users: usersByAge[*].u.name
     }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "age": 37, "users": [ "John", "Sophia" ] },
@@ -67,6 +85,8 @@ FOR u IN users
   { "age": 32, "users": [ "Alexander" ] }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The query will put all users together by their *age* attribute. There will be one
 result document per distinct *age* value (let aside the `LIMIT`). For each group,
@@ -79,16 +99,24 @@ The *usersByAge* variable contains the full documents found, and as we're only
 interested in user names, we'll use the expansion operator `[*]` to extract just the
 *name* attribute of all user documents in each group:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 usersByAge[*].u.name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `[*]` expansion operator is just a handy short-cut. We could also write
 a subquery:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ( FOR temp IN usersByAge RETURN temp.u.name )
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Grouping by multiple criteria
 
@@ -96,6 +124,8 @@ To group by multiple criteria, we'll use multiple arguments in the `COLLECT` cla
 For example, to group users by *ageGroup* (a derived value we need to calculate first)
 and then by *gender*, we'll do:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     FILTER u.active == true
@@ -107,7 +137,11 @@ FOR u IN users
         gender
     }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "ageGroup": 35, "gender": "f" },
@@ -118,6 +152,8 @@ FOR u IN users
   { "ageGroup": 25, "gender": "m" }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Counting group values
 
@@ -125,6 +161,8 @@ If the goal is to count the number of values in each group, AQL provides the spe
 *COLLECT WITH COUNT INTO* syntax. This is a simple variant for grouping with an additional
 group length calculation:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     FILTER u.active == true
@@ -137,7 +175,11 @@ FOR u IN users
         numUsers
     }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "ageGroup": 35, "gender": "f", "numUsers": 2 },
@@ -148,12 +190,16 @@ FOR u IN users
   { "ageGroup": 25, "gender": "m", "numUsers": 2 }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Aggregation
 
 Adding further aggregation is also simple in AQL by using an `AGGREGATE` clause
 in the `COLLECT`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     FILTER u.active == true
@@ -171,7 +217,13 @@ FOR u IN users
         maxAge
     }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -191,6 +243,10 @@ FOR u IN users
   ...
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 We have used the aggregate functions *LENGTH* here (it returns the length of an array).
 This is the equivalent to SQL's `SELECT g, COUNT(*) FROM ... GROUP BY g`. In addition to
@@ -215,6 +271,8 @@ The same query as before can be turned into a post-aggregation query as shown be
 that this query will build and pass on all group values for all groups inside the variable
 *g*, and perform the aggregation at the latest possible stage:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     FILTER u.active == true
@@ -229,7 +287,13 @@ FOR u IN users
         maxAge: MAX(g[*].u.age)
     }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -249,6 +313,10 @@ FOR u IN users
   ...
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 This is in contrast to the previous query that used an `AGGREGATE` clause to perform
 the aggregation during the collect operation, at the earliest possible stage.
@@ -261,6 +329,8 @@ statement.
 
 For example, to get the 3 *ageGroup*s with the most users in them:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     FILTER u.active == true
@@ -275,7 +345,11 @@ FOR u IN users
         "users": group[*].u.name
     }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -314,6 +388,8 @@ FOR u IN users
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To increase readability, the repeated expression *LENGTH(group)* was put into a variable
 *numUsers*. The `FILTER` on *numUsers* is the equivalent an SQL *HAVING* clause.

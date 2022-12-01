@@ -24,9 +24,13 @@ accepted by various console methods (look for the `format` parameter below):
 
 Example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.log('%s = %i%%', 'value', 20.5) // 'value = 20%'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## console.assert
 
@@ -37,9 +41,13 @@ an exception.
 
 *Examples*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.assert(value === "abc", "expected: value === abc, actual:", value);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## console.debug
 
@@ -51,9 +59,13 @@ server is started with log levels *debug* or *trace*.
 
 *Examples*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.debug("%s", "this is a test");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## console.dir
 
@@ -63,9 +75,13 @@ Logs a listing of all properties of the object.
 
 Example usage:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.dir(myObject);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## console.error
 
@@ -75,9 +91,13 @@ Formats the arguments according to *format* and logs the result as error message
 
 Example usage:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.error("error '%s': %s", type, message);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## console.getline
 
@@ -97,12 +117,16 @@ indented sub messages.
 
 Example usage:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.group("user attributes");
 console.log("name", user.name);
 console.log("id", user.id);
 console.groupEnd();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## console.groupCollapsed
 
@@ -125,9 +149,13 @@ info message.
 
 Example usage:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.info("The %s jumped over %d fences", animal, count);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## console.log
 
@@ -145,11 +173,15 @@ same name to stop the timer and log the time elapsed.
 
 Example usage:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.time("mytimer");
 ...
 console.timeEnd("mytimer"); // this will print the elapsed time
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## console.timeEnd
 

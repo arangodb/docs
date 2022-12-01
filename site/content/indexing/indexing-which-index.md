@@ -69,15 +69,23 @@ different usage scenarios:
   intervals that intersect a given point or interval. For example, if intervals
   are stored in documents like
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   { "from": 12, "to": 45 }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   then you can create an index over `from, to` utilize it with this query:
 
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   FOR i IN intervals FILTER i.from <= t && t <= i.to RETURN i
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   Currently only floating-point numbers (doubles) are supported as underlying
   type for each dimension.
@@ -151,12 +159,16 @@ collection.
 In order to create a sparse index, an object with the attribute `sparse` can be added to
 the index creation commands:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.collection.ensureIndex({ type: "persistent", fields: [ "attributeName" ], sparse: true }); 
 db.collection.ensureIndex({ type: "persistent", fields: [ "attributeName1", "attributeName2" ], sparse: true }); 
 db.collection.ensureIndex({ type: "persistent", fields: [ "attributeName" ], unique: true, sparse: true }); 
 db.collection.ensureIndex({ type: "persistent", fields: [ "attributeName1", "attributeName2" ], unique: true, sparse: true }); 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When not explicitly set, the `sparse` attribute defaults to `false` for new indexes.
 Indexes other than persistent do not support the `sparse` option.
@@ -167,11 +179,15 @@ least one of the indexed attributes has a value of `null`. For example, the foll
 query cannot use a sparse index, even if one was created on attribute `attr`:
 <!-- TODO Remove above statement? -->
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc In collection
   FILTER doc.attr == null
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the lookup value is non-constant, a sparse index may or may not be used, depending on
 the other types of conditions in the query. If the optimizer can safely determine that
@@ -181,18 +197,26 @@ will not make use of a sparse index in a query in order to produce correct resul
 For example, the following queries cannot use a sparse index on `attr` because the optimizer
 will not know beforehand whether the values which are compared to `doc.attr` will include `null`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc In collection 
   FILTER doc.attr == SOME_FUNCTION(...) 
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR other IN otherCollection
   FOR doc In collection
     FILTER doc.attr == other.attr
     RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Sparse persistent indexes can be used for sorting if the optimizer can safely detect that the
 index range does not include `null` for any of the index attributes.

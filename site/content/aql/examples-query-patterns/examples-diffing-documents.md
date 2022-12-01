@@ -8,6 +8,8 @@ layout: default
 There is no built-in AQL function to compare the attributes of two documents,
 but it is easily possible to build a query that does:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // input document 1
 LET doc1 = {
@@ -60,6 +62,8 @@ RETURN {
   "added": added
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The query may look a bit lengthy, but much of that is due to formatting.
 A more terse version can be found below.
@@ -79,6 +83,8 @@ The above query will return a document with three attributes:
 
 For the two example documents it will return:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
  {
@@ -109,6 +115,8 @@ For the two example documents it will return:
  }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You may adjust the query to produce a different output format.
 
@@ -116,6 +124,8 @@ Following is a version of the same query that can be invoked from JavaScript
 easily. It passes the two documents as bind parameters and calls `db._query`.
 The query is now an one-liner (less readable but easier to copy & paste):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 bindVariables = {
   doc1 : { "foo" : "bar", "a" : 1, "b" : 2 },
@@ -126,3 +136,5 @@ query = "LET doc1 = @doc1, doc2 = @doc2, missing = (FOR key IN ATTRIBUTES(doc1) 
 
 result = db._query(query, bindVariables).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}

@@ -23,6 +23,8 @@ since they do not support _Stream Transactions_.
 
 Example for every batch of movies:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 List<Movie> movies = ...;           // movies of this batch
 List<Actor> actors = ...;           // actors who acted in such movies 
@@ -43,6 +45,8 @@ try {
     // handle e
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/warning %}}
 If the batch is too large, you may incur intermediate commits (see

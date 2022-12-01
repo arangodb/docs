@@ -239,16 +239,24 @@ You can create users in a database if no initial user is specified. Switch
 into the new database (username and password must be identical to the current
 session) and add or modify users with the following commands.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/users").save(username, password, true);
 require("@arangodb/users").update(username, password, true);
 require("@arangodb/users").remove(username);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 Alternatively, you can specify user data directly. For example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._createDatabase("newDB", {}, [{ username: "newUser", passwd: "123456", active: true}])
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Those methods can only be used from within the `_system` database.
 

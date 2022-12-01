@@ -17,13 +17,19 @@ tokens may occur between defined tokens for word proximity searches.
 
 ### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en" } ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -39,6 +45,8 @@ db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Phrase Search
 
@@ -47,6 +55,8 @@ db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices
 Search for movies that have the (normalized and stemmed) tokens `biggest` and
 `blockbust` in their description, in this order:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH PHRASE(doc.description, "BIGGEST Blockbuster", "text_en")
@@ -55,6 +65,8 @@ FOR doc IN imdb
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description |
 |:------|:------------|
@@ -64,6 +76,8 @@ FOR doc IN imdb
 The search phrase can be handed in via a bind parameter, but it can also be
 constructed dynamically using a subquery for instance:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET p = (
   FOR word IN ["tale", "of", "a", "woman"]
@@ -78,6 +92,8 @@ FOR doc IN imdb
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You will get different results if you re-run this query multiple times.
 
@@ -92,6 +108,8 @@ one arbitrary word in between the two words, for instance.
 Match movies that contain the phrase `epic <something> film` in their
 description, where `<something>` can be exactly one arbitrary token:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH PHRASE(doc.description, "epic", 1, "film", "text_en")
@@ -100,6 +118,8 @@ FOR doc IN imdb
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description |
 |:------|:------------|
@@ -117,6 +137,8 @@ performs a proximity search for movies with the phrase
 `family <something> business` or `family <something> <something> business` in
 their description:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET title = DOCUMENT("imdb_vertices/39967").title // Family Business
 FOR doc IN imdb
@@ -128,6 +150,8 @@ FOR doc IN imdb
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description |
 |:------|:------------|
@@ -147,11 +171,15 @@ of options.
 Match movies where the title has a token that starts with `Härr` (normalized to
 `harr`), followed by six arbitrary tokens and then a token that contains `eni`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH PHRASE(doc.title, {STARTS_WITH: TOKENS("Härr", "text_en")[0]}, 6, {WILDCARD: "%eni%"}, "text_en")
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|

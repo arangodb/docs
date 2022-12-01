@@ -45,6 +45,8 @@ Using arangosh:
 
 Let's analyse a normal join not involving SatelliteCollections:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh> explain("FOR doc in nonsatellite FOR doc2 in nonsatellite2 RETURN 1")
 
@@ -74,6 +76,8 @@ Optimization rules applied:
   2   scatter-in-cluster
   3   remove-unnecessary-remote-scatter
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All shards involved querying the `nonsatellite` collection will fan out via the
 Coordinator to the shards of `nonsatellite`. In sum 8 shards will open 8 connections
@@ -83,6 +87,8 @@ network traffic.
 
 Let's now have a look at the same using SatelliteCollections:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh> db._query("FOR doc in nonsatellite FOR doc2 in satellite RETURN 1")
 
@@ -109,6 +115,8 @@ Optimization rules applied:
   3   remove-unnecessary-remote-scatter
   4   remove-satellite-joins
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this scenario all shards of nonsatellite will be contacted. However
 as the join is a satellite join all shards can do the join locally

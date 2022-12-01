@@ -52,13 +52,19 @@ escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
 
 #### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -74,17 +80,23 @@ db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### AQL queries
 
 Match all titles that starts with `The Matr` using `LIKE()`,
 where `_` stands for a single wildcard character and `%` for an arbitrary amount:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH LIKE(doc.title, "The Matr%")
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -96,19 +108,27 @@ FOR doc IN imdb
 
 You can achieve the same with the `STARTS_WITH()` function:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH STARTS_WITH(doc.title, "The Matr")
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Match all titles that contain `Mat` using `LIKE()`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH LIKE(doc.title, "%Mat%")
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -126,11 +146,15 @@ FOR doc IN imdb
 
 Match all titles that end with `rix` using `LIKE()`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH LIKE(doc.title, "%rix")
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -146,11 +170,15 @@ Match all titles that have an `H` as first letter, followed by two arbitrary
 characters, followed by `ry` and any amount of characters after that. It will
 match titles starting with `Harry` and `Henry`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH LIKE(doc.title, "H__ry%")
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -164,16 +192,24 @@ FOR doc IN imdb
 Use a bind parameter as input, but escape the characters with special meaning
 and perform a contains-style search by prepending and appending a percent sign:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH LIKE(doc.title, CONCAT("%", SUBSTITUTE(@term, ["_", "%"], ["\\_", "\\%"]), "%"))
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Bind parameters:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "term": "y_" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The query constructs the wildcard string `%y\\_%` and will match `Cry_Wolf`.

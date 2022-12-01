@@ -14,6 +14,8 @@ There are two slightly different syntaxes for traversals in AQL, one for
 
 ### Working with named graphs
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 [WITH vertexCollection1[, vertexCollection2[, ...vertexCollectionN]]]
 FOR vertex[, edge[, path]]
@@ -23,6 +25,8 @@ FOR vertex[, edge[, path]]
   [PRUNE pruneCondition]
   [OPTIONS options]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 - `WITH`: optional for single server instances, but required for
   [graph traversals in a cluster](#graph-traversals-in-a-cluster).
   - **collections** (collection, *repeatable*): list of vertex collections that will
@@ -149,6 +153,8 @@ number, then the query is aborted with an error.
 
 ### Working with collection sets
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 [WITH vertexCollection1[, vertexCollection2[, ...vertexCollectionN]]]
 FOR vertex[, edge[, path]]
@@ -158,6 +164,8 @@ FOR vertex[, edge[, path]]
   [PRUNE pruneCondition]
   [OPTIONS options]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Instead of `GRAPH graphName` you may specify a list of edge collections. Vertex
 collections are determined by the edges in the edge collections. The traversal
@@ -179,11 +187,15 @@ no relevance but in *edges1* and *edges3* the direction should be taken into acc
 In this case you can use `OUTBOUND` as general traversal direction and `ANY`
 specifically for *edges2* as follows:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR vertex IN OUTBOUND
   startVertex
   edges1, ANY edges2, edges3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All collections in the list that do not specify their own direction will use the
 direction defined after `IN`. This allows to use a different direction for each

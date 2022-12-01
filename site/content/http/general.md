@@ -214,32 +214,48 @@ or you can generate it yourself (only if you know the JWT secret).
 ArangoDB offers a RESTful API to generate user tokens for you if you know the
 username and password. To do so send a POST request to:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 /_open/auth
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … containing `username` and `password` JSON-encoded like so:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "username": "root",
   "password": "rootPassword"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Upon success the endpoint will return a **200 OK** and an answer containing
 the JWT in a JSON-encoded object like so:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "jwt": "eyJhbGciOiJIUzI1NiI..x6EfI" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This JWT should then be used within the Authorization HTTP header in subsequent
 requests:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Authorization: bearer eyJhbGciOiJIUzI1NiI..x6EfI
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Please note that the JWT will expire after **one hour** by default and needs to be
 updated. You can configure the token lifetime via the `--server.session-timeout`
@@ -250,6 +266,8 @@ Unix timestamp in seconds.
 Please note that all JWT tokens must contain the `iss` field with string value
 `arangodb`. As an example the decoded JWT body would look like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "exp": 1540381557,
@@ -258,6 +276,8 @@ Please note that all JWT tokens must contain the `iss` field with string value
   "preferred_username": "root"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Superuser JWT-Token
 
@@ -280,6 +300,8 @@ you need to include the correct body. The body must contain the `iss` field
 with string value `arangodb` and the `server_id` field with an arbitrary string
 identifier:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "exp": 1537900279,
@@ -288,15 +310,21 @@ identifier:
   "server_id": "myclient"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For example to generate a token via the
 [jwtgen tool](https://www.npmjs.com/package/jwtgen)
 (note the lifetime of one hour):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 jwtgen -s <my-secret> -e 3600 -v -a "HS256" -c 'iss=arangodb' -c 'server_id=myclient'
 curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 'iss=arangodb' -c 'server_id=myclient')" http://<database-ip>:8529/_api/version
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Hot-Reload of JWT Secrets
 
@@ -377,6 +405,8 @@ paths:
 
 Example result:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "error": false,
@@ -399,6 +429,8 @@ Example result:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Error Handling
 
@@ -538,23 +570,33 @@ requests unless explicitly told to do so:
 - When using the Fetch API you need to set the
   [`credentials` option to `include`](https://fetch.spec.whatwg.org/#cors-protocol-and-credentials).
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   fetch("./", { credentials:"include" }).then(/* … */)
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - When using `XMLHttpRequest` you need to set the
   [`withCredentials` option to `true`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials).
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://example.com/', true);
   xhr.withCredentials = true;
   xhr.send(null);
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - When using jQuery you need to set the `xhrFields` option:
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   $.ajax({
      url: 'https://example.com',
      xhrFields: {
@@ -562,6 +604,8 @@ requests unless explicitly told to do so:
      }
   });
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## HTTP method overriding
 

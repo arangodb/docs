@@ -16,6 +16,8 @@ To use Spring Data ArangoDB in your project, your build automation tool needs to
 be configured to include and use the Spring Data ArangoDB dependency.
 Example with Maven (substitute `x.x.x` with the latest Spring Data ArangoDB version):
 
+{{< tabs >}}
+{{% tab name="xml" %}}
 ```xml
 <dependency>
   <groupId>com.arangodb</groupId>
@@ -23,6 +25,8 @@ Example with Maven (substitute `x.x.x` with the latest Spring Data ArangoDB vers
   <version>x.x.x</version>
 </dependency>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 There is a [demonstration app](https://github.com/arangodb/spring-data-demo), which contains common use cases and examples of how to use Spring Data ArangoDB's functionality.
 
@@ -30,6 +34,8 @@ There is a [demonstration app](https://github.com/arangodb/spring-data-demo), wh
 
 You can use Java to configure your Spring Data environment as show below. Setting up the underlying driver (`ArangoDB.Builder`) with default configuration automatically loads a properties file `arangodb.properties`, if it exists in the classpath.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @Configuration
 @EnableArangoRepositories(basePackages = { "com.company.mypackage" })
@@ -48,6 +54,8 @@ public class MyConfiguration implements ArangoConfiguration {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The driver is configured with some default values:
 
@@ -62,6 +70,8 @@ The driver is configured with some default values:
 
 To customize the configuration, the parameters can be changed in the Java code.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @Override
 public ArangoDB.Builder arango() {
@@ -72,19 +82,27 @@ public ArangoDB.Builder arango() {
   return arango;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In addition you can use the _arangodb.properties_ or a custom properties file to supply credentials to the driver.
 
 _Properties file_
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangodb.hosts=127.0.0.1:8529
 arangodb.user=root
 arangodb.password=
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _Custom properties file_
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @Override
 public ArangoDB.Builder arango() {
@@ -94,3 +112,5 @@ public ArangoDB.Builder arango() {
   return arango;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

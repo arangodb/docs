@@ -34,12 +34,16 @@ Note that the Starter is also included in all binary ArangoDB packages.
 
 To find the versions of you Starters & ArangoDB database, run the following commands:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 
 arangodb --version
 
 arangod --version
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Starter deployment modes
 
@@ -115,6 +119,8 @@ Using the `arangod` configuration file as input for `arangodb` binary is not sup
 The configuration file also supports setting pass-through options. Options with
 same prefixes can be split into sections.
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 
 
@@ -131,10 +137,16 @@ all.default-language = de_DE
 [args.all.rocksdb]
 enable-statistics = true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ./arangodb --configuration=passthrough-example.conf
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Configuration precedence
 
@@ -169,10 +181,14 @@ command line option. You should pass the addresses (`<host>:<port>`) of all Star
 
 For example, a typical command line for a cluster deployment looks like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.mode=cluster --starter.join=hostA:8528,hostB:8528,hostC:8528
 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The state of the cluster (of Starters) is stored in a configuration file called
 `setup.json` in the data directory of every Starter and the ArangoDB

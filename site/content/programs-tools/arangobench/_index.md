@@ -30,13 +30,17 @@ The most important general _arangobench_ options are:
   whether encryption at transit (TLS) should be used. Multiple endpoints can be
   provided. Example:
  
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   arangobench \
     --server.endpoint tcp://[::1]::8529 \
     --server.endpoint tcp://[::1]::8530 \
     --server.endpoint tcp://[::1]::8531 \
     ...
-  ``` 
+  ```
+{{% /tab %}}
+{{< /tabs >}} 
 
 - `--server.username` and `--server.password`: these can be used to authenticate
   with an existing ArangoDB installation.

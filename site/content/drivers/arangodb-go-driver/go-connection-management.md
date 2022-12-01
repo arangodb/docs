@@ -13,6 +13,8 @@ In that case a new endpoint is chosen and the operation is retried.
 
 The following example shows how to connect to a cluster of 3 servers.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 conn, err := http.NewConnection(http.ConnectionConfig{
     Endpoints: []string{"http://server1:8529", "http://server2:8529", "http://server3:8529"},
@@ -27,6 +29,8 @@ if err != nil {
     // Handle error
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that a valid endpoint is an URL to either a standalone server, or a URL to a Coordinator 
 in a cluster.
@@ -73,6 +77,8 @@ The driver supports endpoints that use SSL using the `https` URL scheme.
 The following example shows how to connect to a server that has a secure endpoint using 
 a self-signed certificate.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 conn, err := http.NewConnection(http.ConnectionConfig{
     Endpoints: []string{"https://localhost:8529"},
@@ -88,18 +94,24 @@ if err != nil {
     // Handle error
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Connection Pooling
 
 The driver has a built-in connection pooling and the connection limit
 (`connLimit`) defaults to 32.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 conn, err := http.NewConnection(http.ConnectionConfig{
     Endpoints: []string{"https://localhost:8529"},
     connLimit: 32,
 })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/info %}}
 Opening and closing connections very frequently can exhaust the amount of

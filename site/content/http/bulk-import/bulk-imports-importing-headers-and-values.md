@@ -14,6 +14,8 @@ are needed or allowed in this data section.
 
 *Examples*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 curl --data-binary @- -X POST --dump - "http://localhost:8529/_api/import?collection=test"
 [ "firstName", "lastName", "age", "gender" ]
@@ -28,6 +30,8 @@ Content-type: application/json; charset=utf-8
 
 {"error":false,"created":3,"empty":0,"errors":0}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The server will again respond with an HTTP 201 if everything went well. The
 number of documents imported will be returned in the *created* attribute of the

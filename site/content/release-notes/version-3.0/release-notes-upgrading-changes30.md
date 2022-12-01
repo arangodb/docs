@@ -128,11 +128,15 @@ sub-components, so an attribute named `a.b` was not completely distinguishable f
 attribute `a` with a sub-attribute `b`. This inconsistent behavior sometimes allowed "hacks"
 to work such as passing sub-attributes in a bind parameter as follows:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR doc IN collection
   FILTER doc.@name == 1
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the bind parameter `@name` contained the dot symbol (e.g. `@bind` = `a.b`, it was unclear 
 whether this should trigger sub-attribute access (i.e. `doc.a.b`) or a access to an attribute 
@@ -166,6 +170,8 @@ of the query.
 For example, the following query will refuse to execute as the collection `myCollection`
 is modified in the subquery but also read-accessed in the outer scope:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR doc IN myCollection
   LET changes = (
@@ -175,15 +181,21 @@ FOR doc IN myCollection
   )
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is still possible to write to collections from which data is read in the same query,
 e.g.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR doc IN myCollection
   FILTER doc.value == 1
   REMOVE doc IN myCollection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 and to modify data in different collection via subqueries.
 
@@ -266,15 +278,23 @@ To enable the legacy mode for a Foxx service, add `"engines": {"arangodb": "^2.8
 Modules shipped with ArangoDB can now be required using the pattern `@arangodb/<module>`
 instead of `org/arangodb/<module>`, e.g.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var cluster = require("@arangodb/cluster");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The old format can still be used for compatibility:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var cluster = require("org/arangodb/cluster");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ArangoDB prior to version 3.0 allowed a transparent use of CoffeeScript
 source files with the `require()` function. Files with a file name extension
@@ -298,16 +318,24 @@ when replacing an edge, since `_from` and `_to` values were immutable for existi
 
 For example, the following call worked in ArangoDB 2.8 but will fail in 3.0:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.edgeCollection.replace("myKey", { value: "test" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To make this work in ArangoDB 3.0, `_from` and `_to` need to be added to the replacement
 data:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.edgeCollection.replace("myKey", { _from: "myVertexCollection/1", _to: "myVertexCollection/2", value: "test" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that this only affects the `replace()` function but not `update()`, which will
 only update the specified attributes of the edge and leave all others intact.
@@ -348,6 +376,8 @@ document's meta-data, which includes the document's current revision id.
 Given there is a document with key `test` in collection `myCollection`, then the behavior
 of 3.0 is as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 /* test if document exists. this returned true in 2.8 */
 db.myCollection.exists("test");
@@ -381,6 +411,8 @@ db.myCollection.exists({ _key: "test", _rev: "9758059" });
 db.myCollection.exists({ _key: "test", _rev: "1234" });
 JavaScript exception: ArangoError 1200: conflict
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Cap constraints
 
@@ -451,20 +483,28 @@ Previous versions of ArangoDB allowed passing the revision id of the previous do
 either in the HTTP header `If-Match` or in the URL parameter `rev`. For example, 
 removing a document with a specific revision id could be achieved as follows:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -X DELETE \
      "http://127.0.0.1:8529/_api/document/myCollection/myKey?rev=123"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ArangoDB 3.0 does not support passing the revision id via the "rev" URL parameter
 anymore. Instead the previous revision id must be passed in the HTTP header `If-Match`,
 e.g.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -X DELETE \
      --header "If-Match: '123'" \
      "http://127.0.0.1:8529/_api/document/myCollection/myKey"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The URL parameter "policy" was also usable in previous versions of ArangoDB to
 control revision handling. Using it was redundant to specifying the expected revision
@@ -521,20 +561,28 @@ as `_from` and `_to` values were immutable for existing edges.
 The `_from` and `_to` attributes of edges now also need to be present inside the
 edges objects sent to the server:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -X POST \
      --data '{"value":1,"_from":"myVertexCollection/1","_to":"myVertexCollection/2"}' \
      "http://127.0.0.1:8529/_api/document?collection=myEdgeCollection"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Previous versions of ArangoDB required the `_from` and `_to` attributes of edges be 
 sent separately in URL parameter `from` and `to`:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -X POST \
      --data '{"value":1}' \
      "http://127.0.0.1:8529/_api/edge?collection=e&from=myVertexCollection/1&to=myVertexCollection/2" 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Querying connected edges
 
@@ -612,6 +660,8 @@ and an attribute named `names`. Both contained all available collections, but
 collections again, contained in an object in which the attribute names were the
 collection names, e.g.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 {
   "collections": [
@@ -626,8 +676,12 @@ collection names, e.g.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 This result structure was redundant, and therefore has been simplified to just
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 {
   "result": [
@@ -637,6 +691,8 @@ This result structure was redundant, and therefore has been simplified to just
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 in ArangoDB 3.0.
 
@@ -706,9 +762,13 @@ which CORS requests are treated as "trustworthy".
 
 The option can be specified multiple times, once per trusted origin, e.g.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --http.trusted-origin http://127.0.0.1:8529 --http.trusted-origin https://127.0.0.1:8599
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will make the ArangoDB server respond to CORS requests from these origins with an
 `Access-Control-Allow-Credentials` HTTP header with a value of `true`. Web browsers can
@@ -734,9 +794,13 @@ with the `Origin` HTTP header value sent by clients, and only exact matches will
 There is also the wildcard `all` for enabling CORS access from all origins in a 
 test or development setup:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --http.trusted-origin all
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Setting this option will lead to the ArangoDB server responding with an 
 `Access-Control-Allow-Credentials: true` HTTP header to all incoming CORS requests.
@@ -819,9 +883,13 @@ in 3.0:
 Logging now supports log topics. You can control these by specifying a log
 topic in front of a log level or an output. For example
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
   --log.level startup=trace --log.level info
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will log messages concerning startup at trace level, everything else at info
 level. `--log.level` can be specified multiple times at startup, for as many

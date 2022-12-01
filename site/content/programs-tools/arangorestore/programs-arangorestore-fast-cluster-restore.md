@@ -59,6 +59,8 @@ _Coordinator_ can be used) with a command similar to the following one. Please a
 any additional needed option for your specific use case, e.g. `--create-database`
 if the database where you want to restore does not exist yet:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangorestore
   --server.endpoint <endpoint-of-a-coordinator>
@@ -68,6 +70,8 @@ arangorestore
   --input-directory <dump-directory>
   --replication-factor 1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The option `--import-data false`  tells _arangorestore_ to restore only the
 collection structure and no data.
@@ -82,6 +86,8 @@ When executed (see below for further details), this script will create other scr
 that can be then copied and executed on each _Coordinator_.
 
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 #!/bin/sh
 #
@@ -196,6 +202,8 @@ EOF
 ${ARANGOSH} --javascript.execute /tmp/parallelRestore$$.js -- "$@"
 rm /tmp/parallelRestore$$.js
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To run this script, all _Coordinator_ endpoints of the Cluster have to be
 provided. The script accepts all options of the tool _arangorestore_.
@@ -203,6 +211,8 @@ provided. The script accepts all options of the tool _arangorestore_.
 The command below can for instance be used on a Cluster with three
 _Coordinators_:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ./parallelRestore <dump-directory>
   tcp://<ip-of-coordinator1>:<port of coordinator1>,
@@ -213,6 +223,8 @@ _Coordinators_:
   --server.database <database_name>
   --create-collection false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Notes:** 
 
@@ -243,6 +255,8 @@ Run the following command from exactly one _Coordinator_ (any _Coordinator_ can 
 used). Please adjust the `replicationFactor` value to your specific case (2 in the
 example below):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 echo 'db._collections().filter(function(c) { return c.name()[0] !== "_"; })
 .forEach(function(c) { print("collection:", c.name(), "replicationFactor:",
@@ -253,3 +267,5 @@ c.properties().replicationFactor); c.properties({ replicationFactor: 2 }); });'
   --server.username <user-name>
   --server.password <password>
 ```
+{{% /tab %}}
+{{< /tabs >}}

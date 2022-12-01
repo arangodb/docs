@@ -30,13 +30,19 @@ fields.
 
 #### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact-runtime", type: "inverted", fields: [ "runtime" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact-runtime" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -48,10 +54,14 @@ db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can add a field with an empty object `{}` as shown above, or explicitly set
 no Analyzer using an empty array `[]` as shown below.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -65,11 +75,15 @@ no Analyzer using an empty array `[]` as shown below.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### AQL queries
 
 Match movies with a runtime of exactly `5` minutes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.runtime == 5
@@ -78,6 +92,8 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | runtime |
 |:------|:--------|
@@ -92,6 +108,8 @@ Analyzers at all.
 
 Match movies with a runtime of `12`, `24` or `77` minutes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.runtime IN [12, 24, 77]
@@ -100,6 +118,8 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | runtime |
 |:------|:--------|
@@ -111,6 +131,8 @@ FOR doc IN imdb
 Match movies with a runtime over `300` minutes and sort them from longest to
 shortest runtime:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.runtime > 300
@@ -120,6 +142,8 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | runtime |
 |:------|:--------|
@@ -148,6 +172,8 @@ included or excluded in the range.
 
 Match movies with a runtime of `4` to `6` minutes with the range operator:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.runtime IN 4..6
@@ -156,6 +182,8 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | runtime |
 |:------|:--------|
@@ -173,6 +201,8 @@ matches `4`, `5` and `6`.
 Match movies with a runtime of `4` to `6` minutes with the `IN_RANGE()`
 function (inclusive on both ends):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH IN_RANGE(doc.runtime, 4, 6, true, true)
@@ -181,6 +211,8 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | runtime |
 |:------|:--------|
@@ -200,6 +232,8 @@ Match movies with a runtime of `5` minutes or less, as well as `500` minutes
 or more, but not with a runtime of `0` minutes. Sort the matches by runtime in
 ascending order:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH (doc.runtime <= 5 OR doc.runtime >= 500) AND doc.runtime != 0
@@ -209,6 +243,8 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | runtime |
 |:------|:--------|
@@ -250,13 +286,19 @@ Also see [Known Issues](../../release-notes/version-3.10/release-notes-known-iss
 
 #### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact-name", type: "inverted", fields: [ "name" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact-name" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -270,16 +312,22 @@ db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **AQL queries**
 
 Match movies where the name is `>= Wu` and `< Y`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH IN_RANGE(doc.name, "Wu", "Y", true, false)
   RETURN doc.name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|

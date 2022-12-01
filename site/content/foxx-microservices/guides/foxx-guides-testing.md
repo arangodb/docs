@@ -18,6 +18,8 @@ match multiple files (even if multiple patterns match the same file,
 it will only be executed once):
 
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "tests": [
@@ -28,6 +30,8 @@ it will only be executed once):
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To run a service's tests you can use
 the [web interface](../../programs-tools/web-interface/programs-web-interface-services),
@@ -46,6 +50,8 @@ may result in data loss if the tests involve database access.
 ArangoDB bundles the [`chai` library](http://www.chaijs.com),
 which can be used to define test assertions:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const { expect } = require("chai");
@@ -53,10 +59,14 @@ const { expect } = require("chai");
 // later
 expect("test".length).to.equal(4);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Alternatively ArangoDB also provides an implementation of
 [Node's `assert` module](https://nodejs.org/api/assert.html):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const assert = require("assert");
@@ -64,6 +74,8 @@ const assert = require("assert");
 // later
 assert.equal("test".length, 4);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Test cases can be defined in any of the following ways using helper functions
 injected by Foxx when executing the test file:
@@ -89,6 +101,8 @@ the aliases `setup` and `teardown`.
 **Note**: These functions are automatically injected into the test file and
 don't have to be imported explicitly. The aliases can be used interchangeably.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const { expect } = require("chai");
@@ -130,12 +144,16 @@ context("yet another suite", () => {
   });
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Exports style
 
 Test cases are defined as methods of plain objects assigned to test suite
 properties on the `exports` object:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const { expect } = require("chai");
@@ -146,10 +164,14 @@ exports["this is a test suite"] = {
   }
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Methods named `before`, `after`, `beforeEach` and `afterEach` behave similarly
 to the corresponding functions in the functional style described above:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 exports["a test suite"] = {
   before: () => {
@@ -172,6 +194,8 @@ exports["a test suite"] = {
   }
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Unit testing
 
@@ -179,6 +203,8 @@ The easiest way to make your Foxx service unit-testable is to extract
 critical logic into side-effect-free functions and move these functions into
 modules your tests (and router) can require:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in your router
 const lookupUser = require("../util/users/lookup");
@@ -204,6 +230,8 @@ describe("verifyCredentials", () => {
   });
 })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Integration testing
 
@@ -221,6 +249,8 @@ the path is resolved as relative to the ArangoDB instance.
 Using the `baseUrl` property of the [service context](../reference/foxx-reference-context)
 we can use this to make requests to the service itself:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const { expect } = require("chai");
@@ -240,9 +270,13 @@ describe("this service", () => {
   });
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 An implementation passing the above tests could look like this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const createRouter = require("@arangodb/foxx/router");
@@ -259,3 +293,5 @@ router.get("/:name", (req, res) => {
 })
 .response(["text/plain"]);
 ```
+{{% /tab %}}
+{{< /tabs >}}

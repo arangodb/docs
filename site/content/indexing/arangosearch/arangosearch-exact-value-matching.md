@@ -23,13 +23,19 @@ the entire string is equal (not matching substrings).
 
 #### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -45,16 +51,22 @@ db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### AQL queries
 
 Match exact movie title (case-sensitive, full string):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.title == "The Matrix"
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -66,11 +78,15 @@ However, being explicit about the Analyzer context can help with clarity and it
 also makes it easier to adjust queries if you want to use something other than
 the `identity` Analyzers:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.title == "The Matrix", "identity")
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A common pitfall is to index a field with a certain
 Analyzer, but forgetting to set this Analyzer as context in the query.
@@ -94,11 +110,15 @@ strings that you want to match.
 
 Match multiple exact movie titles using `OR`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.title == "The Matrix" OR doc.title == "The Matrix Reloaded"
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -107,11 +127,15 @@ FOR doc IN imdb
 
 Match multiple exact movie titles using `IN`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.title IN ["The Matrix", "The Matrix Reloaded"]
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -121,14 +145,20 @@ FOR doc IN imdb
 By substituting the array of strings with a bind parameter, it becomes possible
 to use the same query for an arbitrary amount of alternative strings to match:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.title IN @titles
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Bind parameters:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "titles": [
@@ -140,6 +170,8 @@ Bind parameters:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -159,11 +191,15 @@ fulfill the criterion. This is also works with multiple alternatives using the
 
 Match movies that do not have the title `The Matrix`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.title != "The Matrix"
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -188,12 +224,16 @@ with the effect of returning many `null` values in the result.
 Match movies that neither have the title `The Matrix` nor `The Matrix Reloaded`.
 Post-filter the results to exclude implicit `null`s:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.title NOT IN ["The Matrix", "The Matrix Reloaded"]
   FILTER doc.title != null
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|
@@ -215,11 +255,15 @@ to test whether there is a title field or not. For `search-alias` Views, the
 On a single server with this particular dataset, the query is roughly five times
 faster than the previous one without `EXISTS()`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH EXISTS(doc.title) AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"]
   RETURN doc.title
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | Result |
 |:-------|

@@ -59,10 +59,14 @@ installation.
 For unattended installations, you can set the password using the
 [debconf helpers](http://www.microhowto.info/howto/perform_an_unattended_installation_of_a_debian_package.html):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 echo arangodb3 arangodb3/password password NEWPASSWORD | debconf-set-selections
 echo arangodb3 arangodb3/password_again password NEWPASSWORD | debconf-set-selections
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The commands above should be executed prior to the installation.
 
@@ -73,9 +77,13 @@ installation. The generated random password is printed during the installation.
 Please write it down somewhere, or change it to a password of your choice by
 executing:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ARANGODB_DEFAULT_ROOT_PASSWORD=NEWPASSWORD arango-secure-installation
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The command should be executed after the installation.
 

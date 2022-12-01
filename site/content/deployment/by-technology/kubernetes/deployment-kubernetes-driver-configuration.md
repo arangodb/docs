@@ -24,9 +24,13 @@ If your client application is running in the same Kubernetes cluster as
 the ArangoDB deployment, you should configure your driver to use the
 following endpoint:
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 https://<deployment-name>.<namespace>.svc:8529
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Only if your deployment has set `spec.tls.caSecretName` to `None`, should
 you use `http` instead of `https`.
@@ -40,9 +44,13 @@ external-access configuration of your ArangoDB deployment.
 If the external-access of the ArangoDB deployment is of type `LoadBalancer`,
 then use the IP address of that `LoadBalancer` like this:
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 https://<load-balancer-ip>:8529
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the external-access of the ArangoDB deployment is of type `NodePort`,
 then use the IP address(es) of the `Nodes` of the Kubernetes cluster,
@@ -50,23 +58,35 @@ combined with the `NodePort` that is used by the external-access service.
 
 For example:
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 https://<kubernetes-node-1-ip>:30123
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can find the type of external-access by inspecting the external-access `Service`.
 To do so, run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get service -n <namespace-of-deployment> <deployment-name>-ea
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output looks like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 NAME                         TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE       SELECTOR
 example-simple-cluster-ea    LoadBalancer   10.106.175.38    192.168.10.208   8529:31890/TCP   1s        app=arangodb,arango_deployment=example-simple-cluster,role=coordinator
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this case the external-access is of type `LoadBalancer` with a load-balancer IP address
 of `192.168.10.208`.
@@ -91,9 +111,13 @@ set automatically.
 Then fetch the CA secret using the following command (or use a Kubernetes client library to fetch it):
 
 {% raw %}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get secret -n <namespace> <secret-name> --template='{{index .data "ca.crt"}}' | base64 -D > ca.crt
 ```
+{{% /tab %}}
+{{< /tabs >}}
 {% endraw %}
 
 This results in a file called `ca.crt` containing a PEM encoded, x509 CA certificate.

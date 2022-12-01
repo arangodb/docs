@@ -30,6 +30,8 @@ or `Iterable<T>`.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends Repository<Customer, String> {
 
@@ -51,6 +53,8 @@ public interface MyRepository extends Repository<Customer, String> {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Paging and sorting
 
@@ -68,13 +72,19 @@ Sort properties or paths are attributes separated by dots (e.g. `customer.age`).
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 just.`some`.`attributes.that`.`form\``.a path\`.\  is converted to
 `just`.`some`.`attributes.that`.`form\``.`a path\``.`\\`
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Native queries example**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface CustomerRepository extends ArangoRepository<Customer> {
 
@@ -92,9 +102,13 @@ repository.findByNameNative(page, "Matt");
 final Sort sort = Sort.by(Direction.DESC, "c.age");
 repository.findByNameNative(sort, "Tony");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Derived queries example**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface CustomerRepository extends ArangoRepository<Customer> {
 
@@ -110,3 +124,5 @@ repository.findByName(page, "Matt");
 final Sort sort = Sort.by(Direction.DESC, "age");
 repository.findByName(sort, "Tony");
 ```
+{{% /tab %}}
+{{< /tabs >}}

@@ -93,12 +93,16 @@ If the result of the following query is present in the query results cache,
 then either modifying data in collection `users` or in collection `organizations`
 will remove the already computed result from the cache:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR user IN users
   FOR organization IN organizations
     FILTER user.organization == organization._key
     RETURN { user: user, organization: organization }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Modifying data in other collections than the named two will not lead to this
 query result being removed from the cache.
@@ -139,9 +143,13 @@ above.
 
 After the server is started, the cache mode can be changed at runtime as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/cache").properties({ mode: "on" }); 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The maximum number of cached results in the cache for each database can be configured
 at server start using the following configuration parameters:
@@ -156,6 +164,8 @@ results in each database's query cache and thus restrict the cache's memory cons
 
 These value can also be adjusted at runtime as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/cache").properties({ 
   maxResults: 200,
@@ -164,6 +174,8 @@ require("@arangodb/aql/cache").properties({
   includeSystem: false 
 }); 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above will limit the number of cached results in the query results cache to 200
 results per database, and to 8 MB cumulated query result size per database. The maximum
@@ -182,6 +194,8 @@ When the query cache mode is `off`, the executor will not look for the query in 
 
 The `cache` attribute can be set as follows via the `db._createStatement()` function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var stmt = db._createStatement({ 
   query: "FOR doc IN users LIMIT 5 RETURN doc",
@@ -190,15 +204,21 @@ var stmt = db._createStatement({
 
 stmt.execute();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When using the `db._query()` function, the `cache` attribute can be set as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query({ 
   query: "FOR doc IN users LIMIT 5 RETURN doc",
   cache: true  /* cache attribute set here */
 }); 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `cache` attribute can be set via the HTTP REST API `POST /_api/cursor`, too.
 
@@ -212,9 +232,13 @@ this attribute to check if a specific query was served from the cache or not.
 The contents of the query results cache can be checked at runtime using the cache's
 `toArray()` function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/cache").toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will return a list of all query results stored in the current database's query
 results cache.
@@ -222,9 +246,13 @@ results cache.
 The query results cache for the current database can be cleared at runtime using the
 cache's `clear` function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/cache").clear();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## Restrictions

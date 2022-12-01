@@ -41,6 +41,8 @@ or NATed environments.
 
 So in summary these are the commands to start an _Agency_ of size 3:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.endpoint tcp://0.0.0.0:5001 \
   --agency.my-address=tcp://127.0.0.1:5001 \
@@ -72,6 +74,8 @@ arangod --server.endpoint tcp://0.0.0.0:5003 \
   --agency.supervision-grace-period 30 \
   --database.directory agent3 &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that to avoid unnecessary failovers, it may make sense to increase the value for 
 the startup option `--agency.supervision-grace-period` to a value beyond 30 seconds.
@@ -80,6 +84,8 @@ the startup option `--agency.supervision-grace-period` to a value beyond 30 seco
 
 To start the two single server instances, you can use the following commands:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication false \
   --server.endpoint tcp://127.0.0.1:6001 \
@@ -101,6 +107,8 @@ arangod --server.authentication false \
   --replication.automatic-failover true \
   --database.directory singleserver6002 &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Multiple Machines
 
@@ -113,11 +121,15 @@ port numbers on different servers.
 Let's assume that you want to start you Active Failover with 3 _Agents_ and two
 single servers on three different machines with IP addresses:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 192.168.1.1
 192.168.1.2
 192.168.1.3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Let's also suppose that each of the above machines runs an _Agent_, an the first
 and second machine run also the single instance.
@@ -133,6 +145,8 @@ then the commands you have to use are reported in the following subparagraphs.
  
 On 192.168.1.1:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.my-address tcp://192.168.1.1:8531 \
@@ -143,9 +157,13 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.supervision-grace-period 30 \
   --database.directory agent 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.2:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.my-address tcp://192.168.1.2:8531 \
@@ -156,9 +174,13 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.supervision-grace-period 30 \
   --database.directory agent
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.3:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.my-address tcp://192.168.1.3:8531 \
@@ -172,6 +194,8 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.supervision-grace-period 30 \
   --database.directory agent
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that to avoid unnecessary failovers, it may make sense to increase the value for 
 the startup option `--agency.supervision-grace-period` to a value beyond 30 seconds.
@@ -180,6 +204,8 @@ the startup option `--agency.supervision-grace-period` to a value beyond 30 seco
 
 On 192.168.1.1:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8529 \
@@ -191,12 +217,16 @@ arangod --server.authentication=false \
   --replication.automatic-failover true \
   --database.directory singleserver &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.2:
 
 Wait until the previous server is fully started, then start the second single server
 instance:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8529 \
@@ -208,6 +238,8 @@ arangod --server.authentication=false \
   --replication.automatic-failover true \
   --database.directory singleserver &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note:** in the above commands, you can use host names, if they can be resolved,
 instead of IP addresses.
@@ -231,6 +263,8 @@ to enable process intercommunication.
 
 An example configuration might look like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:10000:8529 arangodb/arangodb arangod \
   --server.endpoint tcp://0.0.0.0:8529\
@@ -241,6 +275,8 @@ docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:10000:8529 arangodb/arangodb arang
   --cluster.agency-endpoint tcp://192.168.1.3:9001 \
   --replication.automatic-failover true 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will start a single server within a Docker container with an isolated network. 
 Within the Docker container it will bind to all interfaces (this will be 127.0.0.1:8529

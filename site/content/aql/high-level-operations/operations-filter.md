@@ -23,23 +23,31 @@ true, the current element is not skipped and can be further processed.
 See [Operators](../operators) for a list of comparison operators, logical
 operators etc. that you can use in conditions.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true && u.age < 39
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is allowed to specify multiple `FILTER` statements in a query, even in
 the same block. If multiple `FILTER` statements are used, their results will be
 combined with a logical `AND`, meaning all filter conditions must be true to
 include an element.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
   FILTER u.age < 39
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above example, all array elements of `users` that have an attribute
 `active` with value `true` and that have an attribute `age` with a value less
@@ -55,10 +63,14 @@ for a description of the impact of non-existent or null attributes.
 While `FILTER` typically occurs in combination with `FOR`, it can also be used
 at the top level or in subqueries without a surrounding `FOR` loop.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FILTER false
 RETURN ASSERT(false, "never reached")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Order of operations
 
@@ -66,26 +78,36 @@ Note that the positions of `FILTER` statements can influence the result of a que
 There are 16 active users in the [test data](../examples-query-patterns/#example-data)
 for instance:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 We can limit the result set to 5 users at most:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
   LIMIT 5
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This may return the user documents of Jim, Diego, Anthony, Michael and Chloe for
 instance. Which ones are returned is undefined, since there is no `SORT` statement
 to ensure a particular order. If we add a second `FILTER` statement to only return
 women...
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
@@ -93,6 +115,8 @@ FOR u IN users
   FILTER u.gender == "f"
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ... it might just return the Chloe document, because the `LIMIT` is applied before
 the second `FILTER`. No more than 5 documents arrive at the second `FILTER` block,
@@ -100,6 +124,8 @@ and not all of them fulfill the gender criterion, even though there are more tha
 5 active female users in the collection. A more deterministic result can be achieved
 by adding a `SORT` block:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
@@ -108,11 +134,15 @@ FOR u IN users
   FILTER u.gender == "f"
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will return the users *Mariah*, *Mary*, and *Isabella*. If sorted by age in
 `DESC` order, then the *Sophia* and *Emma* documents are returned. A `FILTER` after a
 `LIMIT` is not very common however, and you probably want such a query instead:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true AND u.gender == "f"
@@ -120,6 +150,8 @@ FOR u IN users
   LIMIT 5
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The significance of where `FILTER` blocks are placed allows that this single
 keyword can assume the roles of two SQL keywords, `WHERE` as well as `HAVING`.

@@ -13,11 +13,15 @@ line-wise.
 
 Example input data:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "_key": "key1", ... }
 { "_key": "key2", ... }
 ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To use this method, the *type* query parameter should be set to *documents*.
 
@@ -27,6 +31,8 @@ be imported.
 
 Example input data for this case:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 [
   { "_key": "key1", ... },
@@ -34,6 +40,8 @@ Example input data for this case:
   ...
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This format does not require each document to be on a separate line, and any
 whitespace in the JSON data is allowed. It can be used to import a
@@ -49,6 +57,8 @@ the data are line-wise JSON documents (type = documents) or a JSON array (type =
 
 *Examples*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 curl --data-binary @- -X POST --dump - "http://localhost:8529/_api/import?type=documents&collection=test"
 { "name" : "test", "gender" : "male", "age" : 39 }
@@ -61,6 +71,8 @@ Content-type: application/json; charset=utf-8
 
 {"error":false,"created":2,"empty":0,"errors":0}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The server will respond with an HTTP 201 if everything went well. The number of
 documents imported will be returned in the *created* attribute of the

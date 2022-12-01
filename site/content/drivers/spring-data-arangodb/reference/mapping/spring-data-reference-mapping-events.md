@@ -17,6 +17,8 @@ The following callback methods are present in `AbstractArangoEventListener`:
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 package my.mapping.events;
 
@@ -29,12 +31,18 @@ public class BeforePersonSavedListener extends AbstractArangoEventListener<Perso
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To register the listener add `@ComponentScan` with the package of your listener to your configuration class.
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 @Configuration
 @ComponentScan("my.mapping.events")
 public class MyConfiguration implements ArangoConfiguration {
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}

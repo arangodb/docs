@@ -10,6 +10,8 @@ layout: default
 To connect to a database, create an instance of `ArangoDBClient` supplying an
 instance of `IApiClientTransport`.
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 var dbName = "_system";
 var username = "-----";
@@ -27,12 +29,16 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
     }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Retrieving a List of All Databases
 
 To retrieve a list of all databases on an ArangoDB server, connect to the
 `_system` database and call `GetDatabasesAsync()`.
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Initiate the transport. The value of dbName must be "_system"
 using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))
@@ -45,12 +51,16 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
     }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating a Database
 
 To create a new database, connect to the `_system` database and call
 `PostDatabaseAsync()`.
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Initiate the transport. The value of dbName must be "_system"
 using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))
@@ -77,6 +87,8 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
     }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Deleting a Database
 
@@ -85,6 +97,8 @@ To delete an existing database, connect to the `_system` database and call
 parameter. The `_system` database cannot be deleted. Make sure to specify
 the correct database name when you are deleting databases.
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, username, password))
 {
@@ -95,3 +109,5 @@ using (var transport = HttpApiTransport.UsingBasicAuth(new Uri(url), dbName, use
     }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

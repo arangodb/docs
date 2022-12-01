@@ -33,6 +33,8 @@ This means instead of using `module.context.collection` to get a
 _collection object_ you need to use `module.context.collectionName`
 to get the prefixed _collection name_ ArangoDB understands:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const { db } = require("@arangodb");
@@ -42,6 +44,8 @@ if (!db._collection(collectionName)) {
   db._createDocumentCollection(collectionName);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Sharing collections
 
@@ -58,6 +62,8 @@ The cleanest approach is to instead decide on a single service which manages
 the collection and set up [explicit dependencies](foxx-guides-dependencies) between
 the different services using the collection:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in the service's main file:
 exports.users = module.context.collection("users");
@@ -65,6 +71,8 @@ exports.users = module.context.collection("users");
 // in a dependent service's code:
 const users = module.dependencies.usersService.users;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This approach not only makes the dependency on an externally managed collection
 explicit but also allows having those services still use different collections

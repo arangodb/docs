@@ -14,9 +14,13 @@ To upgrade a cluster, change the version by changing
 the `spec.image` setting and the apply the updated
 custom resource using:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f yourCustomResourceFile.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The ArangoDB operator will perform an sequential upgrade
 of all servers in your deployment. Only one server is upgraded
@@ -37,9 +41,13 @@ To update the ArangoDB Kubernetes Operator itself to a new version,
 update the image version of the deployment resource
 and apply it using:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f examples/yourUpdatedDeployment.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

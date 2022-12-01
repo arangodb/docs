@@ -10,9 +10,13 @@ layout: default
 Auditing allows you to monitor access to the database in detail. In general
 audit logs are of the form
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 <time-stamp> | <server> | <topic> | <username> | <database> | <client-ip> | <authentication> | <text1> | <text2> | ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The *time-stamp* is in GMT. This allows to easily match log entries from servers
 in different time zones.

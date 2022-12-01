@@ -33,13 +33,19 @@ Token search is covered below. For phrase search see
 
 #### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-text", type: "inverted", fields: [ { name: "description", analyzer: "text_en" } ] });
 db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-text" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -55,6 +61,8 @@ db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_ve
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### AQL queries
 
@@ -64,6 +72,8 @@ Search for movies with `dinosaur` or `park` (or both) in their description.
 
 _`search-alias` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb_alias
   SEARCH doc.description IN TOKENS("dinosaur park", "text_en")
@@ -72,9 +82,13 @@ FOR doc IN imdb_alias
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("dinosaur park", "text_en"), "text_en")
@@ -83,6 +97,8 @@ FOR doc IN imdb
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description |
 |:------|:------------|
@@ -98,6 +114,8 @@ Search for movies with both `dinosaur` and `park` in their description:
 
 _`search-alias` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb_alias
   SEARCH TOKENS("dinosaur park", "text_en") ALL == doc.description
@@ -106,9 +124,13 @@ FOR doc IN imdb_alias
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(TOKENS("dinosaur park", "text_en") ALL == doc.description, "text_en")
@@ -117,6 +139,8 @@ FOR doc IN imdb
     description: doc.description
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description |
 |:------|:------------|

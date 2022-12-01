@@ -180,9 +180,13 @@ This can be achieved by setting the *inBackground* attribute when creating an in
 To create an index in the background in *arangosh* just specify `inBackground: true`, 
 like in the following example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.collection.ensureIndex({ type: "hash", fields: [ "value" ], inBackground: true });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Indexes that are still in the build process will not be visible via the ArangoDB APIs. 
 Nevertheless it is not possible to create the same index twice via the *ensureIndex* API 
@@ -354,6 +358,8 @@ numbers.
 Converting BigInts to strings for storage is preferred because converting a BigInt to a 
 simple number may lead to precision loss.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // will fail with "bad parameter" error:
 value = BigInt("123456789012345678901234567890");
@@ -365,10 +371,14 @@ db.collection.insert({ value: String(value) });
 // will succeed, but lead to precision loss:
 db.collection.insert({ value: Number(value) });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The new V8 version also changes the default timezone of date strings to be conditional 
 on whether a time part is included:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > new Date("2019-04-01");
 Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
@@ -376,16 +386,22 @@ Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 > new Date("2019-04-01T00:00:00");
 Mon Apr 01 2019 00:00:00 GMT+0200 (Central European Summer Time)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the timezone is explicitly set in the date string, then the specified timezone will
 always be honored: 
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > new Date("2019-04-01Z");
 Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 > new Date("2019-04-01T00:00:00Z");
 Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### JavaScript Dependencies
 
@@ -425,6 +441,8 @@ A complete overview of the security options can be found in
 
 Request credentials are now exposed via the `auth` property:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const tokens = context.collection("tokens");
 router.get("/authorized", (req, res) => {
@@ -434,6 +452,8 @@ router.get("/authorized", (req, res) => {
   // ...
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### API improvements
 
@@ -441,19 +461,27 @@ Collections now provide the `documentId` method to derive document ids from keys
 
 Before:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const collection = context.collection("users");
 const documentKey = "my-document-key";
 const documentId = `${collection.name()}/${documentKey}`;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 After:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const collection = context.collection("users");
 const documentKey = "my-document-key";
 const documentId = collection.documentId(documentKey);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Client tools
 

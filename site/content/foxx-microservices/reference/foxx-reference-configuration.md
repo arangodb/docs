@@ -64,6 +64,8 @@ web interface by clicking the *Configuration* button in the service details.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 "configuration": {
   "currency": {
@@ -77,3 +79,5 @@ web interface by clicking the *Configuration* button in the service details.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

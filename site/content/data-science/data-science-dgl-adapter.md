@@ -27,9 +27,13 @@ is available on Github. Check it out!
 To install the latest release of the ArangoDB-DGL Adapter,
 run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 pip install adbdgl-adapter
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Quickstart
 
@@ -37,6 +41,8 @@ The following examples show how to get started with ArangoDB-DGL Adapter.
 Check also the 
 [interactive tutorial](https://colab.research.google.com/github/arangoml/dgl-adapter/blob/master/examples/ArangoDB_DGL_Adapter.ipynb).
 
+{{< tabs >}}
+{{% tab name="py" %}}
 ```py
 from arango import ArangoClient  # Python-Arango driver
 from dgl.data import KarateClubDataset # Sample graph from DGL
@@ -73,3 +79,5 @@ dgl_fraud_graph_3 = adbdgl_adapter.arangodb_to_dgl("fraud-detection", metagraph)
 dgl_karate_graph = KarateClubDataset()[0]
 adb_karate_graph = adbdgl_adapter.dgl_to_arangodb("Karate", dgl_karate_graph)
 ```
+{{% /tab %}}
+{{< /tabs >}}

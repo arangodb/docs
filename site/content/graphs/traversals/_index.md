@@ -31,15 +31,21 @@ This functionality can be exploited to write very simple graph queries in JavaSc
 
 For example, to determine which edges are linked to the `world` vertex, we can use `inEdges()`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.e.inEdges('v/world').forEach(function(edge) { 
   require("@arangodb").print(edge._from, "->", edge.type, "->", edge._to); 
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `inEdges()` will give us all ingoing edges for the specified vertex `v/world`. The result
 is a JavaScript array that we can iterate over and print the results:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 v/continent-africa -> is-in -> v/world
 v/continent-south-america -> is-in -> v/world
@@ -48,15 +54,21 @@ v/continent-australia -> is-in -> v/world
 v/continent-europe -> is-in -> v/world
 v/continent-north-america -> is-in -> v/world
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: `edges()`, `inEdges()`, and `outEdges()` return an array of edges. If we want to retrieve
 the linked vertices, we can use each edges' `_from` and `_to` attributes as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.e.inEdges('v/world').forEach(function(edge) { 
   require("@arangodb").print(db._document(edge._from).name, "->", edge.type, "->", db._document(edge._to).name); 
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 We are using the `document()` method from the `db` object to retrieve the connected vertices now.
 

@@ -43,9 +43,13 @@ operating systems:
 For macOS as well as other Unix-based operating systems, run the following 
 command to make sure you can execute the binary:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 chmod 755 ./arangosync-migration
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Prerequisites 
 
@@ -99,9 +103,13 @@ The `arangosync-migration` tool provides a set of commands that allow you to:
 
 To start the migration process, run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync-migration start
 ```
+{{% /tab %}}
+{{< /tabs >}}
 The `start` command runs some pre-checks. Among other things, it measures
 the disk space which is occupied by your ArangoDB cluster. If you are using the
 same data volume for ArangoDB servers and other data as well, the measurements
@@ -148,6 +156,8 @@ During active migration, the agent HTTPS server is executed on the `$MG_HOST:862
 endpoint. Make sure the host and port are available for the ArangoGraph Insights Platform.
 To change the default port, use the `--agent.master-port` option.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export MG_HOST=<your IP or publicly-available hostname here>
 ./arangosync-migration start \
@@ -160,6 +170,8 @@ export MG_HOST=<your IP or publicly-available hostname here>
   --oasis.deployment-id=$OASIS_DEPLOYMENT_ID \
   --agent.listen-host=$MG_HOST
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### TLS server certificates
 
@@ -174,9 +186,13 @@ the keyfile.
 
 When starting the migration, specify the generated files in the command line:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 --agent.cacert=tls.crt --agent.keyfile=tls.keyfile --agent.client-auth-cacert=client-auth-ca.crt --agent.client-auth-keyfile=client-auth.keyfile
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### How long does it take?
 
@@ -192,12 +208,16 @@ your target deployment in ArangoGraph dashboard.
 
 To print the current status of the migration, run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ./arangosync-migration status --watch \
   --oasis.api-key=$OASIS_API_KEY \
   --oasis.api-secret=$OASIS_API_SECRET \
   --oasis.deployment-id=$OASIS_DEPLOYMENT_ID
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also add the `--watch` option to start monitoring the status in real-time.
 
@@ -211,12 +231,16 @@ in sync. The local cluster is then switched into read-only mode.
 After all shards are in-sync and the migration stopped, the target deployment
 is switched into normal mode (read/write).
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ./arangosync-migration stop \
   --oasis.api-key=$OASIS_API_KEY \
   --oasis.api-secret=$OASIS_API_SECRET \
   --oasis.deployment-id=$OASIS_DEPLOYMENT_ID
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The additional `--abort` option is supported. If specified, the `stop` command 
 will not check anymore if both deployments are in-sync and stops all
@@ -232,6 +256,8 @@ of `1004` (ERROR_READ_ONLY).
 Creating or dropping databases and collections are also going to fail with 
 error code `11` (ERROR_FORBIDDEN).
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 ./arangosync-migration set-server-mode \
   --source.cacert=tls-ca.crt \
@@ -239,7 +265,9 @@ error code `11` (ERROR_FORBIDDEN).
   --source.endpoint=$COORDINATOR_ENDPOINT \
   --source.jwtSecret=clusterSecret \
   --source.server-mode=readonly
-```  
+```
+{{% /tab %}}
+{{< /tabs >}}  
 The `--source.server-mode` option allows you to specify the desired server mode.
 Allowed values are `readonly` or `default`.
 

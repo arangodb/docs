@@ -57,6 +57,8 @@ Under normal write load, the write buffers will use less than 1 GByte of memory.
 If you are tight on memory, or your usage pattern does not require this, you can
 reduce these [RocksDB settings](../programs-tools/arangodb-server/programs-arangod-options#rocksdb):
 
+{{< tabs >}}
+{{% tab name=" " %}}
 ``` 
 --rocksdb.max-total-wal-size 1024000
 --rocksdb.write-buffer-size 2048000
@@ -64,6 +66,8 @@ reduce these [RocksDB settings](../programs-tools/arangodb-server/programs-arang
 --rocksdb.total-write-buffer-size 67108864
 --rocksdb.dynamic-level-bytes false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Above settings will
 
@@ -77,10 +81,14 @@ You should not go below the numbers above.
 
 ## Block Cache
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --rocksdb.block-cache-size 33554432
 --rocksdb.enforce-block-cache-size-limit true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 These settings are the counterpart of the settings from the previous section.
 As soon as the memory buffers have been persisted to disk, answering read
@@ -102,12 +110,16 @@ not count towards the `--rocksdb.block-cache-size` limit. Enable the option
 There are additional options you can enable to avoid that the index and filter
 blocks get evicted from cache.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --rocksdb.cache-index-and-filter-blocks`
 --rocksdb.cache-index-and-filter-blocks-with-high-priority
 --rocksdb.pin-l0-filter-and-index-blocks-in-cache
 --rocksdb.pin-top-level-index-and-filter
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also see:
 - [RocksDB Server Options](../programs-tools/arangodb-server/programs-arangod-options#rocksdb)
@@ -115,9 +127,13 @@ Also see:
 
 ## Index Caches
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --cache.size 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This option disables the in-memory index [caches](../programs-tools/arangodb-server/programs-arangod-options#cache).
 In versions before v3.9.2, you can limit the size to a minimum of `1048576` (1 MB).
@@ -173,14 +189,22 @@ which is displayed in the web interface. You will have a light query load every
 few seconds, even if your application is idle, because of the statistics. If required, you can 
 turn it off via:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --server.statistics false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 This setting will disable both the background statistics gathering and the statistics
 APIs. To only turn off the statistics gathering, you can use
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --server.statistics-history false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 That leaves all statistics APIs enabled but still disables all background work
 done by the statistics gathering.
 
@@ -201,10 +225,14 @@ a thread pool. They are also called *isolates*. Each isolate has a heap of a few
 gigabytes by default. You can restrict V8 if you use no or very little
 JavaScript:
 
+{{< tabs >}}
+{{% tab name=" " %}}
 ``` 
 --javascript.v8-contexts 2
 --javascript.v8-max-heap 512
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will limit the number of V8 isolates to two. All JavaScript related
 requests will be queued up until one of the isolates becomes available for the
@@ -217,10 +245,14 @@ You should not use the following settings unless there are very good reasons,
 like a local development system on which performance is not critical or an
 embedded system with very limited hardware resources!
 
+{{< tabs >}}
+{{% tab name=" " %}}
 ``` 
 --javascript.v8-contexts 1
 --javascript.v8-max-heap 256
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using the settings above, you can reduce the memory usage of V8 to 256 MB and just 
 one thread. There is a chance that some operations will be aborted because they run 
@@ -230,10 +262,14 @@ executed one by one.
 If you are very tight on memory, and you are sure that you do not need V8, you
 can disable it completely:
 
+{{< tabs >}}
+{{% tab name=" " %}}
 ``` 
 --javascript.enabled false
 --foxx.queues false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In consequence, the following features will not be available:
 
@@ -256,9 +292,13 @@ operations being executed on each Coordinator. Reducing the amount of
 concurrent operations can lower the RAM usage on Coordinators. The
 startup option for this is:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --server.ongoing-low-priority-multiplier
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The default for this option is 4, which means that a Coordinator with `t`
 scheduler threads can execute up to `4 * t` requests concurrently. The
@@ -276,6 +316,8 @@ user.
 
 The number of background threads can be limited in the following way:
 
+{{< tabs >}}
+{{% tab name=" " %}}
 ``` 
 --arangosearch.threads-limit 1
 --rocksdb.max-background-jobs 4
@@ -283,6 +325,8 @@ The number of background threads can be limited in the following way:
 --server.maximal-threads 5
 --server.minimal-threads 1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In general, the number of threads is determined automatically to match the 
 capabilities of the target machine. However, each thread requires at least 8 MB 
@@ -294,9 +338,13 @@ memory usage by thread, but will sacrifice throughput.
 In addition, the following option will make logging synchronous, saving one 
 dedicated background thread for the logging:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --log.force-direct true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is not recommended unless you only log errors and warnings.
 

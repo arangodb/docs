@@ -48,6 +48,8 @@ collections (anonymous graph).
 
 ### Working with named graphs
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR vertex[, edge]
   IN OUTBOUND|INBOUND|ANY SHORTEST_PATH
@@ -55,6 +57,8 @@ FOR vertex[, edge]
   GRAPH graphName
   [OPTIONS options]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - `FOR`: emits up to two variables:
   - **vertex** (object): the current vertex on the shortest path
@@ -86,6 +90,8 @@ number, then the query is aborted with an error.
 
 ### Working with collection sets
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR vertex[, edge]
   IN OUTBOUND|INBOUND|ANY SHORTEST_PATH
@@ -93,6 +99,8 @@ FOR vertex[, edge]
   edgeCollection1, ..., edgeCollectionN
   [OPTIONS options]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Instead of `GRAPH graphName` you may specify a list of edge collections (anonymous
 graph). The involved vertex collections are determined by the edges of the given
@@ -107,11 +115,15 @@ has no relevance, but in *edges1* and *edges3* the direction should be taken int
 account. In this case you can use `OUTBOUND` as general search direction and `ANY`
 specifically for *edges2* as follows:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR vertex IN OUTBOUND SHORTEST_PATH
   startVertex TO targetVertex
   edges1, ANY edges2, edges3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All collections in the list that do not specify their own direction will use the
 direction defined after `IN` (here: `OUTBOUND`). This allows to use a different

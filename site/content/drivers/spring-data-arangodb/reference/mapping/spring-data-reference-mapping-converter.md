@@ -11,6 +11,8 @@ The `ArangoConfiguration` provides a convenient way to register Spring `Converte
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 @Configuration
 public class MyConfiguration implements ArangoConfiguration {
@@ -22,6 +24,8 @@ public class MyConfiguration implements ArangoConfiguration {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Implementing a Spring Converter
 
@@ -31,6 +35,8 @@ A `Converter` is used for writing if the target type is of type `VPackSlice`, `D
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 public class MyConverter implements Converter<MyObject, VPackSlice> {
 
@@ -43,5 +49,7 @@ public class MyConverter implements Converter<MyObject, VPackSlice> {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For performance reasons `VPackSlice` should always be used within a converter. If your object is too complex, you can also use `DBDocumentEntity` to simplify the mapping.

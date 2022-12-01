@@ -13,6 +13,8 @@ AQL scope in order to be fed into the filter.
 
 An example query execution plan for such query from ArangoDB 3.5 looks like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Query String (75 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 9 && doc.value2 == 'test854' RETURN doc
@@ -25,6 +27,8 @@ Execution plan:
   4   FilterNode                100000       - FILTER #1
   5   ReturnNode                100000       - RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ArangoDB 3.6 adds an optimizer rule `move-filters-into-enumerate` which allows
 applying the filter condition directly while scanning the documents, so copying
@@ -33,6 +37,8 @@ of any documents that don't match the filter condition can be avoided.
 The query execution plan for the above query from 3.6 with that optimizer rule
 applied looks as follows:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Query String (75 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 9 && doc.value2 == 'test854' RETURN doc
@@ -43,6 +49,8 @@ Execution plan:
   2   EnumerateCollectionNode   100000     - FOR doc IN test   /* full collection scan */   FILTER ((doc.`value1` > 9) && (doc.`value2` == "test854"))   /* early pruning */
   5   ReturnNode                100000       - RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that in this execution plan the scanning and filtering are combined in one
 node, so the copying of all non-matching documents from the storage engine into
@@ -57,6 +65,8 @@ conditions that cannot be satisfied by the index alone. Here is a 3.5 query
 execution plan for a query using a filter on an indexed value plus a filter on
 a non-indexed value:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Query String (101 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 10000 && doc.value1 < 30000 && doc.value2 == 'test854' RETURN
@@ -74,10 +84,14 @@ Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields         Ranges
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In 3.6, the same query will be executed using a combined index scan & filtering
 approach, again avoiding any copies of non-matching documents:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Query String (101 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 10000 && doc.value1 < 30000 && doc.value2 == 'test854' RETURN
@@ -93,6 +107,8 @@ Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields         Ranges
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Subquery Splicing Optimization
 
@@ -116,6 +132,8 @@ unsuitable if it is contained in a (sub)query containing unsuitable parts
 
 Consider the following query to illustrate the difference.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR x IN c1
   LET firstJoin = (
@@ -131,9 +149,13 @@ FOR x IN c1
   )
   RETURN { x, firstJoin, secondJoin }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The execution plan **without** subquery splicing:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 Execution plan:
  Id   NodeType                  Est.   Comment
@@ -159,12 +181,16 @@ Optimization rules applied:
   2   remove-filter-covered-by-index
   3   remove-unnecessary-calculations-2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note in particular the `SubqueryNode`s, followed by a `SingletonNode` in
 both cases.
 
 When using the optimizer rule `splice-subqueries` the plan is as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 Execution plan:
  Id   NodeType                  Est.   Comment
@@ -190,6 +216,8 @@ Optimization rules applied:
   3   remove-unnecessary-calculations-2
   4   splice-subqueries
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The first subquery is unsuitable for the optimization because it contains
 a `LIMIT` statement and is therefore not spliced. The second subquery is
@@ -214,6 +242,8 @@ For the collection case the optimization is possible if and only if:
   or `edge` picked by the optimizer
 - all attribute accesses can be covered by indexed attributes
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Given we have a persistent index on attributes [ "foo", "bar", "baz" ]
 FOR d IN myCollection
@@ -222,6 +252,8 @@ FOR d IN myCollection
   LIMIT 100                   // only 100 documents will be materialized
   RETURN d
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For the ArangoSearch View case the optimization is possible if and only if:
 - all attribute accesses can be covered by attributes stored in the View index
@@ -229,6 +261,8 @@ For the ArangoSearch View case the optimization is possible if and only if:
 - the primary sort order optimization is not applied, because it voids the need
   for late document materialization
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Given primarySort is {"field": "foo", "asc": false}, i.e.
 // field "foo" covered by index but sort optimization not applied
@@ -238,7 +272,11 @@ FOR d IN myView
   LIMIT 100  // only 100 documents will be materialized
   RETURN d
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Given primarySort contains field "foo"
 FOR d IN myView
@@ -247,7 +285,11 @@ FOR d IN myView
   LIMIT 100          // only 100 documents will be materialized
   RETURN d
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Given primarySort contains fields "foo" and "bar", and "bar" is not the
 // first field or at least not sorted by in descending order, i.e. the sort
@@ -258,6 +300,8 @@ FOR d IN myView
   LIMIT 100          // only 100 documents will be materialized
   RETURN d
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The respective optimizer rules are called `late-document-materialization`
 (collection source) and `late-document-materialization-arangosearch`
@@ -275,6 +319,8 @@ for the different shards involved.
 When parallelization is used, one or multiple *GatherNode*s in a query's
 execution plan will be tagged with `parallel` as follows:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
@@ -283,6 +329,8 @@ execution plan will be tagged with `parallel` as follows:
   7   GatherNode                COOR  1000000       - GATHER   /* parallel */
   3   ReturnNode                COOR  1000000       - RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Parallelization is currently restricted to certain types and parts of queries.
 *GatherNode*s will go into parallel mode only if the DB-Server query part
@@ -339,6 +387,8 @@ For example, a query such as:
 
 … is executed as follows in 3.5:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
@@ -352,9 +402,13 @@ For example, a query such as:
   7   RemoteNode                COOR        0       - REMOTE
   8   GatherNode                COOR        0       - GATHER
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In 3.6 the execution plan is streamlined to just:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
  Id   NodeType          Site     Est.   Comment
   1   SingletonNode     DBS         1   * ROOT
@@ -364,6 +418,8 @@ In 3.6 the execution plan is streamlined to just:
   7   RemoteNode        COOR        0       - REMOTE
   8   GatherNode        COOR        0       - GATHER   /* parallel */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As can be seen above, the benefit of applying the optimization is that the extra
 communication between the Coordinator and DB-Server is removed. This will
@@ -373,6 +429,8 @@ eligible for parallel execution. It is only applied in cluster deployments.
 
 The optimization will also work when a filter is involved:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Query String (79 chars, cacheable: false):
  FOR doc IN test FILTER doc.value == 4 UPDATE doc WITH { updated: true } IN test
@@ -388,6 +446,8 @@ Execution plan:
   9   RemoteNode                COOR        0       - REMOTE
  10   GatherNode                COOR        0       - GATHER
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### AQL Date functionality
 
@@ -471,12 +531,18 @@ In addition, ArangoDB 3.6 provides the following new AQL functionality:
 ArangoSearch now accepts [SEARCH expressions](../../aql/high-level-operations/operations-search#syntax)
 with array comparison operators in the form of:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 <array> [ ALL|ANY|NONE ] [ <=|<|==|!=|>|>=|IN ] doc.<attribute>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 i.e. the left-hand side operand is always an array, which can be dynamic.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
 FOR doc IN myView SEARCH tokens  ALL IN doc.title RETURN doc // dynamic conjunction
@@ -485,6 +551,8 @@ FOR doc IN myView SEARCH tokens NONE IN doc.title RETURN doc // dynamic negation
 FOR doc IN myView SEARCH tokens  ALL >  doc.title RETURN doc // dynamic conjunction with comparison
 FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunction with comparison
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In addition, both the `TOKENS()` and the `PHRASE()` functions were
 extended with array support for convenience.
@@ -492,25 +560,35 @@ extended with array support for convenience.
 [TOKENS()](aql/functions-{% assign ver = "3.7" | version: ">=" %}{% if ver %}string{% else %}arangosearch{% endif %}.html#tokens) accepts recursive arrays of
 strings as the first argument:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
 TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
 TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In most cases you will want to flatten the resulting array for further usage,
 because nested arrays are not accepted in `SEARCH` statements such as
 `<array> ALL IN doc.<attribute>`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
 LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
 FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 [PHRASE()](../../aql/functions/functions-arangosearch#phrase) accepts an array as the
 second argument:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", "brown", "fox"], "text_en") RETURN doc
@@ -518,25 +596,39 @@ FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", "brown", "fox"], "text_en")
 LET tokens = TOKENS("quick brown fox", "text_en") // ["quick", "brown", "fox"]
 FOR doc IN myView SEARCH PHRASE(doc.title, tokens, "text_en") RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is equivalent to the more cumbersome and static form:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 0, "brown", 0, "fox", "text_en") RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can optionally specify the number of _skipTokens_ in the array form before
 every string element:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", 1, "fox", "jumps"], "text_en") RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is the same as the following:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### SmartJoins and Views
 

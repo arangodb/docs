@@ -11,12 +11,18 @@ Create a new deployment
 
 Create a new deployment
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 oasisctl create deployment [flags]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --accept                               Accept the current terms and conditions.
   -c, --cacertificate-id string              Identifier of the CA certificate to use for the deployment
@@ -43,14 +49,20 @@ oasisctl create deployment [flags]
   -r, --region-id string                     Identifier of the region to create the deployment in
       --version string                       Version of ArangoDB to use for the deployment
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options inherited from parent commands
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

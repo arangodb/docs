@@ -20,11 +20,15 @@ The general syntax is:
 Example query that is sorting by lastName (in ascending order), then firstName
 (in ascending order), then by id (in descending order):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   SORT u.lastName, u.firstName, u.id DESC
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Specifying the *direction* is optional. The default (implicit) direction for a
 sort expression is the ascending order. To explicitly specify the sort direction, 
@@ -32,23 +36,35 @@ the keywords `ASC` (ascending) and `DESC` can be used. Multiple sort criteria ca
 separated using commas. In this case the direction is specified for each
 expression separately. For example
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SORT doc.lastName, doc.firstName
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will first sort documents by lastName in ascending order and then by
 firstName in ascending order.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SORT doc.lastName DESC, doc.firstName
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will first sort documents by lastName in descending order and then by
 firstName in ascending order.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SORT doc.lastName, doc.firstName DESC
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will first sort documents by lastName in ascending order and then by
 firstName in descending order.
@@ -62,9 +78,13 @@ always **undefined unless an explicit sort order is defined** using `SORT`.
 Constant `SORT` expressions can be used to indicate that no particular
 sort order is desired.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SORT null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Constant `SORT` expressions will be optimized away by the AQL
 optimizer during optimization, but specifying them explicitly may enable further

@@ -11,12 +11,18 @@ Get auditlog events
 
 Get auditlog events
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 oasisctl get auditlog events [flags]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --auditlog-archive-id string   If set, include only events from this AuditLogArchive
   -i, --auditlog-id string           Identifier of the auditlog
@@ -27,14 +33,20 @@ oasisctl get auditlog events [flags]
       --limit int                    Limit the number of audit log events. Defaults to 0, meaning no limit
       --to string                    Request events created before this timestamp
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options inherited from parent commands
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

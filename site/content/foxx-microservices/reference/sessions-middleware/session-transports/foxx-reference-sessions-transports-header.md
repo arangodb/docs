@@ -12,6 +12,8 @@ and response objects.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const sessions = sessionsMiddleware({
   storage: module.context.collection('sessions'),
@@ -19,6 +21,8 @@ const sessions = sessionsMiddleware({
 });
 module.context.use(sessions);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating a transport
 

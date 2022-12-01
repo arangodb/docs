@@ -31,20 +31,28 @@ expression and set the order to descending. Scoring functions expect the
 document emitted by a `FOR … IN` loop that iterates over a View as first
 argument.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH …
   SORT BM25(doc) DESC
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also return the ranking score as part of the result.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH …
   RETURN MERGE(doc, { bm25: BM25(doc), tfidf: TFIDF(doc) })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Scoring functions cannot be used outside of `SEARCH` operations, as the scores
 can only be computed in the context of a View, especially because of the
@@ -58,6 +66,10 @@ inverse document frequency (IDF).
 
 #### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({
   name: "inv-text",
@@ -71,9 +83,17 @@ db._createView("imdb_alias", "search-alias", { indexes: [
   { collection: "imdb_vertices", index: "inv-text" }
 ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 #### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -89,6 +109,10 @@ db._createView("imdb_alias", "search-alias", { indexes: [
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 ### AQL queries
 
@@ -98,6 +122,8 @@ results using the [`BM25()` function](../../aql/functions/functions-arangosearch
 
 _`search-alias` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb_alias
   SEARCH doc.description IN TOKENS("amazing action world alien sci-fi science documental galaxy", "text_en")
@@ -109,9 +135,13 @@ FOR doc IN imdb_alias
     score: BM25(doc)
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("amazing action world alien sci-fi science documental galaxy", "text_en"), "text_en")
@@ -123,6 +153,8 @@ FOR doc IN imdb
     score: BM25(doc)
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description | score |
 |:------|:------------|:------|
@@ -141,6 +173,8 @@ Do the same but with the [`TFIDF()` function](../../aql/functions/functions-aran
 
 _`search-alias` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb_alias
   SEARCH doc.description IN TOKENS("amazing action world alien sci-fi science documental galaxy", "text_en")
@@ -152,9 +186,13 @@ FOR doc IN imdb_alias
     score: TFIDF(doc)
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("amazing action world alien sci-fi science documental galaxy", "text_en"), "text_en")
@@ -166,6 +204,8 @@ FOR doc IN imdb
     score: TFIDF(doc)
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description | score |
 |:------|:------------|:------|
@@ -201,6 +241,10 @@ boosted parts of the search expression will get higher scores.
 
 #### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({
   name: "inv-text",
@@ -214,9 +258,17 @@ db._createView("imdb_alias", "search-alias", { indexes: [
   { collection: "imdb_vertices", index: "inv-text" }
 ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 #### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -232,6 +284,10 @@ db._createView("imdb_alias", "search-alias", { indexes: [
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 ### AQL queries
 
@@ -239,6 +295,8 @@ Prefer `galaxy` over the other keywords:
 
 _`search-alias` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb_alias
   SEARCH doc.description IN TOKENS("amazing action world alien sci-fi science documental", "text_en")
@@ -251,9 +309,13 @@ FOR doc IN imdb_alias
     score: BM25(doc)
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("amazing action world alien sci-fi science documental", "text_en")
@@ -266,6 +328,8 @@ FOR doc IN imdb
     score: BM25(doc)
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description | score |
 |:------|:------------|:------|
@@ -286,6 +350,8 @@ accepts free coefficients as parameters to turn it into BM15 for instance:
 
 _`search-alias` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb_alias
   SEARCH doc.description IN TOKENS("amazing action world alien sci-fi science documental", "text_en")
@@ -299,9 +365,13 @@ FOR doc IN imdb_alias
     score
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View:_
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH ANALYZER(doc.description IN TOKENS("amazing action world alien sci-fi science documental", "text_en")
@@ -315,6 +385,8 @@ FOR doc IN imdb
     score
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | description | score |
 |:------|:------------|:------|
@@ -335,6 +407,8 @@ of the document.
 Match movies with the (normalized) phrase `star war` in the title and calculate
 a custom score based on BM25 and the movie runtime to favor longer movies:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
 /* `search-alias` View:
@@ -350,6 +424,8 @@ FOR doc IN imdb_alias
     score
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | title | runtime | bm25 | score |
 |:------|:--------|:-----|:------|

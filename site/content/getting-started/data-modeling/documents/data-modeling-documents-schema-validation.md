@@ -29,6 +29,8 @@ object with the following attributes: `rule`, `level` and `message`.
 - `level` controls when the validation will be applied.
 - `message` sets the message that will be used when validation fails.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var schema = {
   rule: { 
@@ -46,14 +48,20 @@ db._create("schemaCollection", { "schema": schema });
 /* Update the schema of an existing collection */
 db.schemaCollection.properties({ "schema": schema });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To remove an existing schema from a collection, a schema value of either `null`
 or `{}` (empty object) can be stored:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 /* Remove the schema of an existing collection */
 db.schemaCollection.properties({ "schema": null });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## JSON Schema Rule
 

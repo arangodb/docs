@@ -48,32 +48,48 @@ replace it (`REPLACE`).
 To recap, the syntaxes of AQL `UPSERT` are, depending on whether you want to
 update replace a document:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT <search-expression>
 INSERT <insert-expression>
 UPDATE <update-expression>
 IN <collection> OPTIONS <options>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 or
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT <search-expression>
 INSERT <insert-expression>
 REPLACE <replace-expression>
 IN <collection> OPTIONS <options>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `OPTIONS` part is optional.
 
 An example `UPSERT` operation looks like this:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { page: "index.html" }
 INSERT { page: "index.html", status: "inserted" }
 UPDATE { status: "updated" }
 IN pages
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 This will look for a document in the `pages` collection with the `page`
 attribute having a value of `index.html`. If such document cannot be found, the
@@ -88,12 +104,16 @@ The `UPSERT` AQL operation is sometimes used in combination with
 date/time-keeping. For example, the following query keeps track of when a
 document was first created, and when it was last updated:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { page: "index.html" } 
 INSERT { page: "index.html", created: DATE_NOW() }
 UPDATE { updated: DATE_NOW() }
 IN pages
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `OLD` variable
 
@@ -102,12 +122,16 @@ to the existing document and its values in the `UPDATE`/`REPLACE` part.
 Following is an example that increments a counter on a document whenever the
 `UPSERT` operation is executed:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { page: "index.html" }
 INSERT { page: "index.html", hits: 1 }
 UPDATE { hits: OLD.value + 1 }
 IN pages
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `UPSERT` Caveats
 
@@ -120,12 +144,16 @@ First of all, the `INSERT` part of an `UPSERT` operation should contain all
 attributes that are used in the search expression. Consider the following
 counter-example:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { page: "index.html" }
 INSERT { status: "inserted" } /* page attribute missing here! */
 UPDATE { status: "updated" }
 IN pages
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Forgetting to specify the search attributes in the `INSERT` part introduces a
 problem: The first time the `UPSERT` is executed and does not find a document
@@ -140,12 +168,20 @@ unintentional.
 The problem can easily be avoided by adding the search attributes to the
 `INSERT` part:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { page: "index.html" }
 INSERT { page: "index.html", status: "inserted" }
 UPDATE { status: "updated" }
 IN pages
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that it is not necessary to repeat the search attributes in the `UPDATE`
 part, because `UPDATE` is a partial update. It will only set the attributes that
@@ -156,12 +192,16 @@ what is specified in the `REPLACE` part.
 
 That means when using the `REPLACE` operation, the query should look like:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { page: "index.html" }
 INSERT { page: "index.html", status: "inserted" }
 REPLACE { page: "index.html", status: "updated" }
 IN pages
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Use Indexes for Search Attributes
 
@@ -218,18 +258,26 @@ when the operation is executed, and none of the old values need to be referenced
 
 The general syntax of the `INSERT` AQL operation is:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 INSERT <insert-expression>
 IN <collection> OPTIONS <options>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As we will deal with the `overwriteMode` option here, we are focussing on
 `INSERT` operations with this option set, for example:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 INSERT { _key: "index.html", status: "created" }
 IN pages OPTIONS { overwriteMode: "ignore" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Regardless of the selected `overwriteMode`, the `INSERT` operation will insert
 the document if no document exists in the collection with the specified `_key`.
@@ -280,21 +328,29 @@ previous version of the document in case the document is already present.
 This can be achieved by appending a `RETURN OLD` to the `INSERT` operation,
 e.g.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 INSERT { _key: "index.html", status: "created" }
 IN pages OPTIONS { overwriteMode: "replace" }
 RETURN OLD
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is also possible to return the new version of the document (the inserted
 document if no previous document existed, or the updated/replaced version in
 case a document already existed) by using `RETURN NEW`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 INSERT { _key: "index.html", status: "created" }
 IN pages OPTIONS { overwriteMode: "replace" }
 RETURN NEW
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Insert Operation not Using AQL
 

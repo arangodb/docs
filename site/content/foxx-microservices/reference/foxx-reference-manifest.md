@@ -9,6 +9,8 @@ Every service comes with a `manifest.json` file providing metadata. Typically a
 manifest should at least specify the version of ArangoDB the service supports and
 the `main` JavaScript file which Foxx will use as the entrypoint to your service:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "engines": {
@@ -17,6 +19,8 @@ the `main` JavaScript file which Foxx will use as the entrypoint to your service
   "main": "index.js"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Tooling integration
 
@@ -25,11 +29,15 @@ or validation, you can use the public Foxx manifest schema
 [available at the third-party JSON Schema Store](http://json.schemastore.org/foxx-manifest)
 by adding a `$schema` field to your `manifest.json` file:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "$schema": "http://json.schemastore.org/foxx-manifest"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Visual Studio Code
 
@@ -37,6 +45,8 @@ In [Visual Studio Code](https://code.visualstudio.com) you can also enable the
 Foxx manifest schema for all `manifest.json` files by adding the following to your
 [user or workspace settings](https://code.visualstudio.com/docs/getstarted/settings):
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "json.schemas": [
@@ -49,6 +59,8 @@ Foxx manifest schema for all `manifest.json` files by adding the following to yo
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Structure
 
@@ -67,13 +79,19 @@ The following fields are allowed in manifests:
   If specified, the `/` (root) route of the service will automatically redirect
   to the given relative path, e.g.:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   "defaultDocument": "index.html"
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   This would have the same effect as creating the following route in JavaScript:
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   const createRouter = require("@arangodb/foxx/router");
   const indexRouter = createRouter();
   indexRouter.all("/", function(req, res) {
@@ -81,6 +99,8 @@ The following fields are allowed in manifests:
   });
   module.context.use(indexRouter);
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   **Note**: As of 3.0.0 this field can safely be omitted; the value no longer
   defaults to `"index.html"`.
@@ -122,11 +142,15 @@ The following fields are allowed in manifests:
   An object indicating the [semantic version ranges](http://semver.org) of
   ArangoDB (or compatible environments) the service will be compatible with, e.g.:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   "engines": {
     "arangodb": "^3.0.0"
   }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   This should correctly indicate the minimum version of ArangoDB the service
   has been tested against. Foxx maintains a strict semantic versioning policy
@@ -161,7 +185,9 @@ The following fields are allowed in manifests:
 
   Example serving the `public` folder at `/static` and the `favicon.ico` at `/favicon.ico`:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   "files": {
     "favicon.ico": {
       "path": "public/favicon.ico",
@@ -170,14 +196,20 @@ The following fields are allowed in manifests:
     "static": "public"
   }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - **lib**: `string` (Default: `"."`)
 
   The relative path to the Foxx JavaScript files in the service, e.g.:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   "lib": "lib"
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   This would result in the main entry point (see below) and other JavaScript
   paths being resolved as relative to the `lib` folder inside the service folder.
@@ -187,9 +219,13 @@ The following fields are allowed in manifests:
   The relative path to the main entry point of this service
   (relative to _lib_, see above), e.g.:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   "main": "index.js"
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   This would result in Foxx loading and executing the file `index.js` when
   the service is mounted or started.
@@ -213,12 +249,16 @@ The following fields are allowed in manifests:
 
   One or more patterns to match the paths of test files, e.g.:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   "tests": [
     "**/test_*.js",
     "**/*_test.js"
   ]
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   These patterns can be either relative file paths or "globstar" patterns where
 
@@ -273,6 +313,8 @@ Additionally manifests can provide the following metadata:
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "name": "example-foxx-service",
@@ -306,3 +348,5 @@ Additionally manifests can provide the following metadata:
   "tests": "dist/**.spec.js"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

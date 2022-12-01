@@ -26,10 +26,14 @@ Returns the endpoint.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get(/* ... */)
 .tag('auth', 'restricted');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## securityScheme
 
@@ -106,6 +110,8 @@ Returns the endpoint.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get(/* ... */)
 .securityScheme('basic', 'Basic authentication with username and password.')
@@ -113,6 +119,8 @@ router.get(/* ... */)
   'API key as alternative to password-based authentication.'
 );
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## security
 
@@ -131,6 +139,8 @@ Opts this endpoint in to or out of the security scheme with the given ID.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.securityScheme('basic', {id: 'basic-auth'},
   'Basic authentication used by most endpoints on this router.'
@@ -139,6 +149,8 @@ router.securityScheme('basic', {id: 'basic-auth'},
 router.get(/* ... */)
 .security('basic-auth', false); // Opt this endpoint out
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## securityScope
 
@@ -157,6 +169,8 @@ given ID.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get(/* ... */)
 .securityScheme('oauth2', {
@@ -170,3 +184,5 @@ router.get(/* ... */)
 }, 'OAuth 2 authentication for The Bookface.')
 .securityScope('thebookface-oauth2', 'profile:read');
 ```
+{{% /tab %}}
+{{< /tabs >}}

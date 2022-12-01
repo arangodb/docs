@@ -26,13 +26,19 @@ View instead of a collection.
 
 ### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({ name: "inv-exact", type: "inverted", fields: [ "title" ] });
 db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices", index: "inv-exact" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -48,17 +54,23 @@ db._createView("imdb", "search-alias", { indexes: [ { collection: "imdb_vertices
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## AQL queries
 
 Find out all genre values by grouping by the `genre` attribute and count the
 number of occurrences:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   COLLECT genre = doc.genre WITH COUNT INTO count
   RETURN { genre, count }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 | genre     | count |
 |:----------|------:|
@@ -77,24 +89,34 @@ not need to be indexed for this query.
 To look up a specific genre, the field needs to be indexed. The lookup itself
 utilizes the View index, but the `COLLECT` operation is still a post-operation:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.genre == "Action"
   COLLECT WITH COUNT INTO count
   RETURN count
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   2690
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For above query with a single, simple condition, there is an optimization you
 can enable that can accurately determine the count from index data faster than
 the standard `COLLECT`. Also see
 [Count Approximation](arangosearch-performance#count-approximation).
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   SEARCH doc.genre == "Action"
@@ -102,15 +124,21 @@ FOR doc IN imdb
   COLLECT WITH COUNT INTO count
   RETURN count
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To apply this optimization to the faceted search paradigm over all genres, you
 can run and **cache** the following query that determines all unique genre
 values:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN imdb
   RETURN DISTINCT doc.genre
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You may use the AQL query cache if the data does not change much, or you could
 execute above query periodically and store the result in a separate collection.
@@ -120,6 +148,8 @@ acceptable tradeoff for a faceted search.
 You can then use the genre list to look up each genre and retrieve the count
 while utilizing the count approximation optimization:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET genres = [ "Action", "Adventure", "Animation", /* ... */ ]
 FOR genre IN genres
@@ -132,3 +162,5 @@ FOR genre IN genres
   )
   RETURN { genre, count }
 ```
+{{% /tab %}}
+{{< /tabs >}}

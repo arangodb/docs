@@ -44,16 +44,24 @@ The first step is to install the new ArangoDB package.
 
 For example, if you want to upgrade to `3.7.13` on Debian or Ubuntu, either call
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ apt install arangodb=3.7.13
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 (`apt-get` on older versions) if you have added the ArangoDB repository. Or
 install a specific package using
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ dpkg -i arangodb3-3.7.13-1_amd64.deb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 after you have downloaded the corresponding file from
 [download.arangodb.com](https://download.arangodb.com/).
@@ -65,18 +73,26 @@ stop it now, as otherwise this standalone instance that is started on your machi
 can create some confusion later. As you are starting the _cluster_ processes manually
 you do not need this standalone instance, and you can hence stop it:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ service arangodb3 stop
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also, you might want to remove the standalone instance from the default
 _runlevels_ to prevent it to start on the next reboot of your machine. How this
 is done depends on your distribution and _init_ system. For example, on older Debian
 and Ubuntu systems using a SystemV-compatible _init_, you can use:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ update-rc.d -f arangodb3 remove
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Set supervision in maintenance mode
 
@@ -90,12 +106,16 @@ You might use _curl_ to send the API call.
 `curl -u username:password <coordinator>/_admin/cluster/maintenance -XPUT -d'"on"'`
 
 For Example:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl http://localhost:7002/_admin/cluster/maintenance -XPUT -d'"on"'
 
 {"error":false,"warning":"Cluster supervision deactivated. 
 It will be reactivated automatically in 60 minutes unless this call is repeated until then."}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 **Note:** In case the manual upgrade takes longer than 60 minutes, the API call has to be resend.
 
 ### Deactivate Maintenance mode
@@ -106,11 +126,15 @@ It can be manually reactivated by the following API call:
 `curl -u username:password <coordinator>/_admin/cluster/maintenance -XPUT -d'"off"'`
 
 For example:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl http://localhost:7002/_admin/cluster/maintenance -XPUT -d'"off"'
 
 {"error":false,"warning":"Cluster supervision reactivated."}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Upgrade the _cluster_ processes
 
@@ -121,16 +145,24 @@ upgraded on each node.
 
 In order to stop the _arangod_ processes we will need to use a command like `kill -15`:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 kill -15 <pid-of-arangod-process>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The _pid_ associated to your _cluster_ can be checked using a command like _ps_:
 
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ps -C arangod -fww
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output of the command above does not only show the PID's of all _arangod_ 
 processes but also the used commands, which can be useful for the following
@@ -140,6 +172,8 @@ The output below is from a test machine where three _Agents_, two _DB-Servers_
 and two _Coordinators_ are running locally. In a more production-like scenario,
 you will find only one instance of each one running:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ps -C arangod -fww
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -152,6 +186,8 @@ max      29824 16224  1 13:55 pts/3    00:01:53 arangod --server.authentication=
 max      29938 16224  2 13:56 pts/3    00:02:13 arangod --server.authentication=false --server.endpoint tcp://0.0.0.0:7002 --cluster.my-address tcp://127.0.0.1:7002 --cluster.my-role COORDINATOR --cluster.agency-endpoint tcp://127.0.0.1:5001 --cluster.agency-endpoint tcp://127.0.0.1:5002 --cluster.agency-endpoint tcp://127.0.0.1:5003 --log.file c2 --javascript.app-path /tmp --database.directory coordinator2
 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Upgrade a _cluster_ node
 
@@ -161,18 +197,34 @@ The following procedure is upgrading _Agent_, _DB-Server_ and _Coordinator_ on o
 
 #### Stop the _Agent_
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 kill -15 <pid-of-agent>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Upgrade the _Agent_
 
 The _arangod_ process of the _Agent_ has to be upgraded using the same command that has
 been used before with the additional option:
 
+{{< tabs >}}
+{{% tab name="" %}}
+{{< tabs >}}
+{{% tab name="" %}}
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --database.auto-upgrade=true
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 The _Agent_ will stop automatically after the upgrade.
 
@@ -183,18 +235,34 @@ been used before (without the additional option).
 
 #### Stop the _DB-Server_
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 kill -15 <pid-of-dbserver>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Upgrade the _DB-Server_
 
 The _arangod_ process of the _DB-Server_ has to be upgraded using the same command that has
 been used before with the additional option:
 
+{{< tabs >}}
+{{% tab name="" %}}
+{{< tabs >}}
+{{% tab name="" %}}
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --database.auto-upgrade=true
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 The _DB-Server_ will stop automatically after the upgrade.
 
@@ -205,18 +273,34 @@ been used before (without the additional option).
 
 #### Stop the _Coordinator_
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 kill -15 <pid-of-coordinator>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Upgrade the _Coordinator_
 
 The _arangod_ process of the _Coordinator_ has to be upgraded using the same command that has
 been used before with the additional option:
 
+{{< tabs >}}
+{{% tab name="" %}}
+{{< tabs >}}
+{{% tab name="" %}}
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --database.auto-upgrade=true
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 The _Coordinator_ will stop automatically after the upgrade.
 

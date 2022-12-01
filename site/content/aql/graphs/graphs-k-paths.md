@@ -110,6 +110,8 @@ connected graphs it can return a large number of paths.
 
 ### Working with named graphs
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR path
   IN MIN..MAX OUTBOUND|INBOUND|ANY K_PATHS
@@ -117,6 +119,8 @@ FOR path
   GRAPH graphName
   [OPTIONS options]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - `FOR`: emits the variable **path** which contains one path as an object
   containing `vertices` and `edges` of the path.
@@ -144,6 +148,8 @@ FOR path
 
 ### Working with collection sets
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR path
   IN MIN..MAX OUTBOUND|INBOUND|ANY K_PATHS
@@ -151,6 +157,8 @@ FOR path
   edgeCollection1, ..., edgeCollectionN
   [OPTIONS options]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Instead of `GRAPH graphName` you can specify a list of edge collections.
 The involved vertex collections are determined by the edges of the given
@@ -165,11 +173,15 @@ has no relevance, but in *edges1* and *edges3* the direction should be taken
 into account. In this case you can use `OUTBOUND` as general search direction
 and `ANY` specifically for *edges2* as follows:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR vertex IN OUTBOUND K_PATHS
   startVertex TO targetVertex
   edges1, ANY edges2, edges3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All collections in the list that do not specify their own direction will use the
 direction defined after `IN` (here: `OUTBOUND`). This allows to use a different

@@ -134,18 +134,26 @@ The `kube-arangodb` chart supports deployment into a non-default namespace.
 To install the `kube-arangodb` chart is a non-default namespace, use the `--namespace`
 argument like this.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 helm install --namespace=mynamespace kube-arangodb.tgz
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that since the operators claim exclusive access to a namespace, you can
 install the `kube-arangodb` chart in a namespace once.
 You can install the `kube-arangodb` chart in multiple namespaces. To do so, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 helm install --namespace=namespace1 kube-arangodb.tgz
 helm install --namespace=namespace2 kube-arangodb.tgz
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `kube-arangodb-storage` chart is always installed in the `kube-system` namespace.
 

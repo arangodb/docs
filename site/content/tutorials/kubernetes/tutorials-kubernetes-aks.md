@@ -32,7 +32,9 @@ layout: default
 
 - Login to Azure using CLI
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   $ az login
     [
       {
@@ -49,36 +51,56 @@ layout: default
       }
     ]
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - Get AKS credentials to merge with local config, using resource group and
   cluster names used for above deployment
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
     $ az aks get-credentials --resource-group clifton --name ArangoDB
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - Verify successful merge
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   $ kubectl get svc
     NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
     kubernetes   ClusterIP   10.0.0.1     <none>        443/TCP   38m
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - Initialize `helm`
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   $ kubectl create serviceaccount --namespace kube-system tiller
     serviceaccount/tiller created
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   $ kubectl create clusterrolebinding tiller-cluster-rule \
         --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
     clusterrolebinding.rbac.authorization.k8s.io/tiller-cluster-rule created
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   $ helm init --service-account tiller
     $HELM_HOME has been configured at /home/xxx/.helm.
     ...
@@ -87,10 +109,14 @@ layout: default
     Tiller (the Helm server-side component) has been
     installed into your Kubernetes Cluster.
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - Deploy ArangoDB operator
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   $ helm install \
       github.com/arangodb/kube-arangodb/releases/download/X.X.X/kube-arangodb.tgz
     NAME:   orderly-hydra
@@ -101,9 +127,15 @@ layout: default
     See https://www.arangodb.com/docs/stable/tutorials-kubernetes.html
     for how to get started.
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - Deploy ArangoDB cluster
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   $ kubectl apply -f https://raw.githubusercontent.com/arangodb/kube-arangodb/master/examples/simple-cluster.yaml
   ```
+{{% /tab %}}
+{{< /tabs >}}

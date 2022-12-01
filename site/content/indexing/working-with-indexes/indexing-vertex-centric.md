@@ -21,11 +21,19 @@ To take an example, if we have an attribute called `type` on the edges, we can u
 vertex-centric index on this attribute to find all edges attached to a vertex with a given `type`.
 The following query example could benefit from such an index:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v, e, p IN 3..5 OUTBOUND @start GRAPH @graphName
   FILTER p.edges[*].type ALL == "friend"
   RETURN v
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 Using the built-in edge-index ArangoDB can find the list of all edges attached to the vertex fast,
 but still it has to walk through this list and check if all of them have the attribute `type == "friend"`.
@@ -74,16 +82,28 @@ The AQL optimizer can decide to use a vertex-centric whenever suitable, however 
 index is used, the optimizer may estimate that an other index is assumed to be better.
 The optimizer will consider this type of indexes on explicit filtering of `_from` respectively `_to`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR edge IN collection
   FILTER edge._from == "vertices/123456" AND edge.type == "friend"
   RETURN edge
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 and during pattern matching queries:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v, e, p IN 3..5 OUTBOUND @start GRAPH @graphName
   FILTER p.edges[*].type ALL == "friend"
   RETURN v
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}

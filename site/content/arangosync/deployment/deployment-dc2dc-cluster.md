@@ -26,6 +26,8 @@ _DB-Servers_ and _Agents_) and restart them in case of failure.
 
 To start the cluster using a `systemd` unit file use the following:
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 [Unit]
 Description=Run the ArangoDB Starter
@@ -49,6 +51,8 @@ LimitNOFILE=1048576
 [Install]
 WantedBy=multi-user.target
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that we set `rocksdb` in the unit service file.
 

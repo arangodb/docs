@@ -73,9 +73,13 @@ When invoked via the PUT HTTP verb with an empty JSON object, the REST API
 endpoint at `/_admin/cluster/numberOfServers` will now return with the
 following response body:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"error":false,"code":200}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In previous releases, calling that endpoint with an empty JSON object as
 the request body returned a JSON response that was just `true`.
@@ -221,9 +225,13 @@ The `rotate` function has been removed on the ArangoCollection object. This
 means the following JavaScript code will not work in ArangoDB 3.7, neither in
 the ArangoShell nor in arangod (when using Foxx):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.rotate();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `rotate` function was previously only supported for the MMFiles storage
 engine, but not for the RocksDB storage engine.

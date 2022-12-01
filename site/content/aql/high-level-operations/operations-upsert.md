@@ -48,11 +48,15 @@ The following query will look in the *users* collection for a document with a sp
 by one. If it does not exist, a new document will be inserted, consisting of the
 attributes *name*, *logins*, and *dateCreated*:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { name: 'superuser' } 
 INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() } 
 UPDATE { logins: OLD.logins + 1 } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that in the `UPDATE` case it is possible to refer to the previous version of the
 document using the `OLD` pseudo-value.
@@ -92,6 +96,8 @@ In order to not accidentally update documents that have been written and updated
 you last fetched them you can use the option `ignoreRevs` to either let ArangoDB compare 
 the `_rev` value and only succeed if they still match, or let ArangoDB ignore them (default):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   UPSERT { _key: CONCAT('test', i)}
@@ -99,6 +105,8 @@ FOR i IN 1..1000
     UPDATE {_rev: "1287623", foobar: true }
   IN users OPTIONS { ignoreRevs: false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/info %}}
 You need to add the `_rev` value in the *updateExpression*. It will not be used
@@ -119,6 +127,8 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this effect on a per query basis:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   UPSERT { _key: CONCAT('test', i) }
@@ -126,6 +136,8 @@ FOR i IN 1..1000
   UPDATE { foobar: true }
   IN users OPTIONS { exclusive: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `indexHint`
 
@@ -133,12 +145,16 @@ The `indexHint` option will be used as a hint for the document lookup
 performed as part of the `UPSERT` operation, and can help in cases such as
 `UPSERT` not picking the best index automatically.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { a: 1234 }
   INSERT { a: 1234, name: "AB" }
   UPDATE { name: "ABC" } IN myCollection
   OPTIONS { indexHint: "index_name" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The index hint is passed through to an internal `FOR` loop that is used for the
 lookup. Also see [`indexHint` Option of the `FOR` Operation](operations-for#indexhint).
@@ -149,12 +165,16 @@ Makes the index or indexes specified in `indexHint` mandatory if enabled. The
 default is `false`. Also see
 [`forceIndexHint` Option of the `FOR` Operation](operations-for#forceindexhint).
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { a: 1234 }
   INSERT { a: 1234, name: "AB" }
   UPDATE { name: "ABC" } IN myCollection
   OPTIONS { indexHint: … , forceIndexHint: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Returning documents
 
@@ -172,12 +192,16 @@ update/replace.
 This can also be used to check whether the upsert has performed an insert or an update 
 internally:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPSERT { name: 'superuser' } 
 INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() } 
 UPDATE { logins: OLD.logins + 1 } IN users
 RETURN { doc: NEW, type: OLD ? 'update' : 'insert' }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Transactionality
 

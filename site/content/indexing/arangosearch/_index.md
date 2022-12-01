@@ -84,16 +84,22 @@ logical and comparison operators, as well as
 4. You can toggle the mode of the View definition editor from _Tree_ to _Code_
    to edit the JSON object as text.
 5. Replace `"links": {},` with below configuration, then save the changes:
-   ```js
+   {{< tabs >}}
+{{% tab name="js" %}}
+```js
    "links": {
      "food": {
        "includeAllFields": true
      }
    },
    ```
+{{% /tab %}}
+{{< /tabs >}}
 6. After a few seconds of processing, the editor will show you the updated link
    definition with default settings added:
-   ```js
+   {{< tabs >}}
+{{% tab name="js" %}}
+```js
    "links": {
      "food": {
        "analyzers": [
@@ -106,24 +112,34 @@ logical and comparison operators, as well as
      }
    },
    ```
+{{% /tab %}}
+{{< /tabs >}}
    The View will index all attributes (fields) of the documents in the
    `food` collection from now on (with some delay). The attribute values
    get processed by the default `identity` Analyzer, which means that they
    get indexed unaltered.
 7. Click on _QUERIES_ in the main navigation and try the following query:
-   ```aql
+   {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
    FOR doc IN food_view
      RETURN doc
    ```
+{{% /tab %}}
+{{< /tabs >}}
    The View is used like a collection and simply iterated over to return all
    (indexed) documents. You should see the documents stored in `food` as result.
 8. Now add a search expression. Unlike with regular collections where you would
    use `FILTER`, a `SEARCH` operation is needed to utilize the View index:
-   ```aql
+   {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
    FOR doc IN food_view
      SEARCH doc.name == "avocado"
      RETURN doc
    ```
+{{% /tab %}}
+{{< /tabs >}}
    In this basic example, the ArangoSearch expression looks identical to a
    `FILTER` expression, but this is not always the case. You can also combine
    both, with `FILTER`s after `SEARCH`, in which case the filter criteria will
@@ -149,11 +165,15 @@ with one of the Analyzers that a field was indexed with as per the `arangosearch
 definition - and this happened to be the case. We can rewrite the query to be
 more explicit about the Analyzer context:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.name == "avocado", "identity")
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `ANALYZER(… , "identity")` matches the Analyzer defined in the View
 `"analyzers": [ "identity" ]`. The latter defines how fields are transformed at
@@ -172,6 +192,8 @@ You can test if a field is indexed with particular Analyzer with one of the
 variants of the [`EXISTS()` function](../../aql/functions/functions-arangosearch#exists),
 for example, as shown below:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN LENGTH(
   FOR doc IN food_view
@@ -179,6 +201,8 @@ RETURN LENGTH(
     LIMIT 1
     RETURN true) > 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you use an `arangosearch` View, you need to change the `"storeValues"`
 property in the View definition from `"none"` to `"id"` for the function to work.
@@ -242,48 +266,68 @@ needed. For now, let us use the built-in `text_en` Analyzer for tokenizing
 English text.
 
 1. Replace `"fields": {},` in the `food_view` View definition with below code:
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   "fields": {
     "name": {
       "analyzers": ["text_en", "identity"]
     }
   },
   ```
+{{% /tab %}}
+{{< /tabs >}}
 2. Save the change. After a few seconds, the `name` attribute will be indexed
    with the `text_en` Analyzer in addition to the `identity` Analyzer.
 3. Run below query that sets `text_en` as context Analyzer and searches for
    the word `pepper`:
-   ```aql
+   {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
    FOR doc IN food_view
      SEARCH ANALYZER(doc.name == "pepper", "text_en")
      RETURN doc.name
    ```
+{{% /tab %}}
+{{< /tabs >}}
 4. It matches `chili pepper` because the Analyzer tokenized it into `chili` and
    `pepper` and the latter matches the search criterion. Compare that to the
    `identity` Analyzer:
-   ```aql
+   {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
    FOR doc IN food_view
      SEARCH ANALYZER(doc.name == "pepper", "identity")
      RETURN doc.name
    ```
+{{% /tab %}}
+{{< /tabs >}}
    It does not match because `chili pepper` is indexed as a single token that
    does not match the search criterion.
 5. Switch back to the `text_en` Analyzer but with a different search term:
-   ```aql
+   {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
    FOR doc IN food_view
      SEARCH ANALYZER(doc.name == "PéPPêR", "text_en")
      RETURN doc.name
    ```
+{{% /tab %}}
+{{< /tabs >}}
    This will not match anything, even though this particular Analyzer converts
    characters to lowercase and accented characters to their base characters.
    The problem is that this transformation is applied to the document attribute
    when it gets indexed, but we haven't applied it to the search term.
 6. If we apply the same transformation then we get a match:
-   ```aql
+   {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
    FOR doc IN food_view
      SEARCH ANALYZER(doc.name == TOKENS("PéPPêR", "text_en")[0], "text_en")
      RETURN doc.name
    ```
+{{% /tab %}}
+{{< /tabs >}}
    Note that the [`TOKENS()` functions](../../aql/functions/functions-string#tokens)
    returns an array. We pick the first element with `[0]`, which is the
    normalized search term `"pepper"`.
@@ -298,18 +342,26 @@ expressions.
 ArangoSearch AQL functions take either an expression or a reference of an
 attribute path as first argument.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ANALYZER(<expression>, …)
 STARTS_WITH(doc.attribute, …)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If an expression is expected, it means that search conditions can expressed in
 AQL syntax. They are typically function calls to ArangoSearch search functions,
 possibly nested and/or using logical operators for multiple conditions.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ANALYZER(STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom"), "identity")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The default Analyzer that will be used for searching is `"identity"`.
 While some ArangoSearch functions accept an Analyzer argument, it is sometimes
@@ -320,6 +372,8 @@ which the field was indexed.
 It can be easier and cleaner to use `ANALYZER()` even if you exclusively
 use functions that take an Analyzer argument and leave that argument out:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // Analyzer specified in each function call
 PHRASE(doc.name, "chili pepper", "text_en") OR PHRASE(doc.name, "tomato", "text_en")
@@ -327,6 +381,8 @@ PHRASE(doc.name, "chili pepper", "text_en") OR PHRASE(doc.name, "tomato", "text_
 // Analyzer specified using ANALYZER()
 ANALYZER(PHRASE(doc.name, "chili pepper") OR PHRASE(doc.name, "tomato"), "text_en")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/tip %}}
 The [`PHRASE()` function](../../aql/functions/functions-arangosearch#phrase) applies the
@@ -339,6 +395,8 @@ Certain expressions do not require any ArangoSearch functions, such as basic
 comparisons. However, the Analyzer used for searching will be `"identity"`
 unless `ANALYZER()` is used to set a different one.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // The "identity" Analyzer will be used by default
 SEARCH doc.name == "avocado"
@@ -349,6 +407,8 @@ SEARCH ANALYZER(doc.name == "avocado", "identity")
 // Use the "text_en" Analyzer for searching instead
 SEARCH ANALYZER(doc.name == "avocado", "text_en")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If an attribute path expressions is needed, then you have to reference a
 document object emitted by a View like `FOR doc IN viewName` and then specify
@@ -356,11 +416,15 @@ which attribute you want to test for as an unquoted string literal. For example
 `doc.attr` or `doc.deeply.nested.attr` but not `"doc.attr"`. You can also use
 the bracket notation `doc["attr"]`.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH STARTS_WITH(doc.deeply.nested["attr"], "avoca")
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Ranking results by relevance
 
@@ -375,12 +439,16 @@ available.
 Here is an example that sorts results from high to low BM25 score and also
 returns the score:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.type == "vegetable", "identity")
   SORT BM25(doc) DESC
   RETURN { name: doc.name, type: doc.type, score: BM25(doc) }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As you can see, the variable emitted by the View in the `FOR … IN` loop is
 passed to the [`BM25()` function](../../aql/functions/functions-arangosearch#bm25).
@@ -393,12 +461,16 @@ passed to the [`BM25()` function](../../aql/functions/functions-arangosearch#bm2
 
 The [`TFIDF()` function](../../aql/functions/functions-arangosearch#tfidf) works the same:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.type == "vegetable", "identity")
   SORT TFIDF(doc) DESC
   RETURN { name: doc.name, type: doc.type, score: TFIDF(doc) }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It returns different scores:
 
@@ -434,6 +506,8 @@ as new (nested) attribute are added.
 We already used this feature to index all document attributes above when we
 modified the View definition to this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "links": {
@@ -444,11 +518,15 @@ modified the View definition to this:
   ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 No matter what attributes you add to your documents, they will automatically
 get indexed. To do this for certain attribute paths only, you can specify it
 like shown below and include a list of Analyzers to process the values with:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "links": {
@@ -463,10 +541,14 @@ like shown below and include a list of Analyzers to process the values with:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will index the attribute `value` and its nested attributes. Consider the
 following example document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "value": {
@@ -476,21 +558,31 @@ following example document:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The View will automatically index `apple pie`, processed with the `identity` and
 `text_en` Analyzers, and it can then be queried like this:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.value.nested.deep == "apple pie", "identity")
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN food_view
   SEARCH ANALYZER(doc.value.nested.deep IN TOKENS("pie", "text_en"), "text_en")
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/warning %}}
 Using `includeAllFields` for a lot of attributes in combination with complex
@@ -507,6 +599,8 @@ that defaults to `false`.
 
 Consider the following document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "value": {
@@ -516,40 +610,58 @@ Consider the following document:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A View that is configured to index the field `value` including sub-fields
 will index the individual numbers under the path `value.nested.deep`, which
 you can query for like:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.value.nested.deep == 2
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is different to `FILTER` operations, where you would use an
 [array comparison operator](../../aql/operators#array-comparison-operators)
 to find an element in the array:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   FILTER doc.value.nested.deep ANY == 2
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can set `trackListPositions` to `true` if you want to query for a value
 at a specific array index:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SEARCH doc.value.nested.deep[1] == 2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 With `trackListPositions` enabled there will be **no match** for the document
 anymore if the specification of an array index is left out in the expression:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SEARCH doc.value.nested.deep == 2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Conversely, there will be no match if an array index is specified but
 `trackListPositions` is disabled.
@@ -561,36 +673,64 @@ For example, given the field `text` is analyzed with `"text_en"` and contains
 the string `"a quick brown fox jumps over the lazy dog"`, the following
 expression will be true:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ANALYZER(doc.text == 'fox', "text_en")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the `"text_en"` Analyzer stems the words, so this is also true:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ANALYZER(doc.text == 'jump', "text_en")
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 So a comparison will actually test if a word is contained in the text. With
 `trackListPositions: false`, this means for arrays if the word is contained in
 any element of the array. For example, given:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"text": [ "a quick", "brown fox", "jumps over the", "lazy dog" ] }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … the following will be true:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ANALYZER(doc.text == 'jump', "text_en")
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 With `trackListPositions: true` you would need to specify the index of the
 array element `"jumps over the"` to be true:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ANALYZER(doc.text[2] == 'jump', "text_en")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Arrays of strings are handled similarly. Each array element is treated like a
 token (or possibly multiple tokens if a tokenizing Analyzer is used and
@@ -608,21 +748,29 @@ This mainly has performance reasons.
 If you run a search query shortly after a CRUD operation, then the results may
 be slightly stale, e.g. not include a newly inserted document:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`INSERT { text: "cheese cake" } INTO collection`);
 db._query(`FOR doc IN viewName SEARCH doc.text == "cheese cake" RETURN doc`);
 // May not find the new document
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Re-running the search query a bit later will include the new document, however.
 
 There is an internal option to wait for the View to update and thus include
 changes just made to documents:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`INSERT { text: "pop tart" } INTO collection`);
 db._query(`FOR doc IN viewName SEARCH doc.text == "pop tart" OPTIONS { waitForSync: true } RETURN doc`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is not necessary if you use a single server deployment and populate a
 collection with documents before creating a View.

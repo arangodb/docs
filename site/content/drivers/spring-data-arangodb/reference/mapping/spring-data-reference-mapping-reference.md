@@ -9,6 +9,8 @@ With the annotation `@Ref` applied on a field the nested object isn’t stored a
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @Document(value="persons")
 public class Person {
@@ -24,9 +26,13 @@ public class Address {
   private String street;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The database representation of `Person` in collection _persons_ looks as follow:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 {
   "_key" : "123",
@@ -34,9 +40,13 @@ The database representation of `Person` in collection _persons_ looks as follow:
   "address" : "addresses/456"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 and the representation of `Address` in collection _addresses_:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 {
   "_key" : "456",
@@ -45,9 +55,13 @@ and the representation of `Address` in collection _addresses_:
   "street" : "..."
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Without the annotation `@Ref` at the field `address`, the stored document would look:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 {
   "_key" : "123",
@@ -58,3 +72,5 @@ Without the annotation `@Ref` at the field `address`, the stored document would 
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

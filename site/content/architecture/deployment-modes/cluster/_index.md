@@ -241,6 +241,8 @@ The easiest way to make use of the OneShard feature is to create a database
 with the extra option `{ sharding: "single" }`. As done in the following
 example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._createDatabase("oneShardDB", { sharding: "single" } )
 
@@ -257,9 +259,13 @@ arangosh@oneShardDB> db._properties()
   "path" : ""
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now we can go ahead and create a collection as usual:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh@oneShardDB> db._create("example1")
 
@@ -284,6 +290,8 @@ arangosh@oneShardDB> db.example1.properties()
   "cacheEnabled" : false
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As you can see the `numberOfShards` is set to `1` and `distributeShardsLike`
 is set to `_graphs`. These attributes have been automatically been set
@@ -293,9 +301,13 @@ creating the database.
 To do this manually for individual collections, use `{ "sharding": "flexible" }`
 on the database level and then create a collection in the following way:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._create("example2", { "numberOfShards": 1 , "distributeShardsLike": "_graphs" })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Here we used the `_graphs` collection again, but any other existing
 collection that has not been created with the `distributeShardsLike`
@@ -306,6 +318,8 @@ option itself can be used as well in a flexibly sharded database.
 For this arangosh example, we first insert a few documents into a collection,
 then create a query and explain it to inspect the execution plan.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh@oneShardDB> for (let i = 0; i < 10000; i++) { db.example.insert({ "value" : i }); }
 
@@ -341,12 +355,16 @@ Optimization rules applied:
   7   move-filters-into-enumerate
 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As it can be seen in the explain output almost the complete query is
 executed on the DB-Server (`DBS` for nodes 1-7) and only 10 documents are
 transferred to the Coordinator. In case we do the same with a collection
 that consists of several shards we get a different result:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._createDatabase("shardedDB")
 
@@ -400,6 +418,8 @@ Optimization rules applied:
  10   move-filters-into-enumerate
  11   parallelize-gather
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/tip %}}
 It can be checked whether the OneShard feature is active or not by
@@ -515,13 +535,17 @@ has been implemented in ArangoDB Cluster:
 replicate it to the _follower_.
 6. Only when both were successful the result is reported to be successful:
 
-   ```json
+   {{< tabs >}}
+{{% tab name="json" %}}
+```json
    {
        "_id" : "test/7987",
        "_key" : "7987",
        "_rev" : "7987"
    }
    ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Obviously, synchronous replication comes at the cost of an increased latency for
 write operations, simply because there is one more network hop within the
@@ -618,7 +642,9 @@ has been implemented in ArangoDB Cluster:
 8. The _Coordinator_ tries to contact the new _leader_ (_DBServer002_) and returns
    the result:
 
-    ```json
+    {{< tabs >}}
+{{% tab name="json" %}}
+```json
     {
         "_key" : "100069",
         "_id" : "test/100069",
@@ -626,6 +652,8 @@ has been implemented in ArangoDB Cluster:
         "foo" : "bar"
     }
     ```
+{{% /tab %}}
+{{< /tabs >}}
 9. After a while the _supervision_ declares _DBServer001_ to be completely dead.
 10. A new _follower_ is determined from the pool of _DB-Servers_.
 11. The new _follower_ syncs its data from the _leader_ and order is restored.

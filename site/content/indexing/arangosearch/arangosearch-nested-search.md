@@ -25,6 +25,8 @@ conditions need to be met by a single sub-object instead of across all of them.
 
 Consider the following document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "dimensions": [
@@ -33,10 +35,14 @@ Consider the following document:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You would normally index the `dimensions` field and its sub-fields with an
 `arangosearch` View definition like the following:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -54,9 +60,13 @@ You would normally index the `dimensions` field and its sub-fields with an
   ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Or using an inverted index via a `search-alias` View, in arangosh:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   name: "inv-idx",
@@ -71,15 +81,21 @@ db._createView("viewName", "search-alias", { indexes: [
   { collection: "<collection>", index: "inv-idx" }
 ]});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You might then write a query like the following to find documents where the
 height is greater than 40:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.dimensions.type == "height" AND doc.dimensions.value > 40
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This query matches the above document despite the height only being 35. The reason is
 that each condition is true for at least one of the nested objects. There is no
@@ -87,24 +103,34 @@ check whether both conditions are true for the same object, however. You could
 add a `FILTER` statement to remove false positive matches from the search
 results, but it is cumbersome to check the conditions again, for every sub-object:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.dimensions.type == "height" AND doc.dimensions.value > 40
   FILTER LENGTH(doc.dimensions[* FILTER CURRENT.type == "height" AND CURRENT.value > 40]) > 0
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The nested search feature allows you to condense the query while utilizing the
 View index:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.dimensions[? FILTER CURRENT.type == "height" AND CURRENT.value > 40]
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The required `arangosearch` View definition for this to work is as follows:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -121,6 +147,8 @@ The required `arangosearch` View definition for this to work is as follows:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note the usage of a `nested` property instead of a `fields` property, configuring
 the View to index the objects in the `dimensions` array so that you can use the
@@ -132,6 +160,8 @@ Similarly, the required inverted index definition for using a `search-alias` Vie
 to perform nested searches needs to index the parent `dimensions` field, as well
 as the nested attributes using the `nested` property under the `fields` property:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   name: "inv-nest",
@@ -151,6 +181,8 @@ db._createView("viewName", "search-alias", { indexes: [
   { collection: "<collection>", index: "inv-nest" }
 ]});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Defining how often the conditions need to be true
 
@@ -158,11 +190,15 @@ You can optionally specify a quantifier to define how often the conditions need
 to be true for the entire array. The following query matches documents that have
 one or two nested objects with a height greater than 40:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.dimensions[? 1..2 FILTER CURRENT.type == "height" AND CURRENT.value > 40]
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you leave out the quantifier, it defaults to `ANY`. The conditions need to be
 fulfilled by at least one sub-object, but more than one sub-object may meet the
@@ -187,6 +223,8 @@ fulfill the conditions, you can use `AT LEAST (2)`, and so on.
 You can index and search for multiple levels of objects in arrays.
 Consider the following document:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "dimensions": [
@@ -208,10 +246,14 @@ Consider the following document:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To index the array of dimension objects and the nested array of measurement
 objects, you can use an `arangosearch` View definition like the following:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -238,10 +280,14 @@ objects, you can use an `arangosearch` View definition like the following:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The equivalent `search-alias` View and inverted index definition is as follows,
 using arangosh:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   name: "inv-nest-deep",
@@ -271,6 +317,8 @@ db._createView("viewName", "search-alias", { indexes: [
   { collection: "<collection>", index: "inv-nest-deep" }
 ]});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The default `identity` Analyzer is used for the `type`, `value`, and `part`
 attributes, and the built-in `text_en` is used for the `comments`.
@@ -279,6 +327,8 @@ A possible query is to search for frames with damaged corners that are not wider
 than 80, using a question mark operator to check the `part` and `comments`, and
 a nested question mark operator to check the `type` and `value`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.dimensions[? FILTER CURRENT.part == "frame" AND
@@ -286,6 +336,8 @@ FOR doc IN viewName
          CURRENT.measurements[? FILTER CURRENT.type == "width" AND CURRENT.value <= 80]]
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The conditions of the inner question mark operator need to be satisfied by a
 single measurement object. The conditions of the outer question mark operator

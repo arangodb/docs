@@ -99,26 +99,38 @@ to dedicated functionality for application code:
 The security option to observe the behavior of the pattern matching most easily
 is the masquerading of the startup options:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --javascript.startup-options-allowlist "^server\."
 --javascript.startup-options-allowlist "^log\."
 --javascript.startup-options-denylist "^javascript\."
 --javascript.startup-options-denylist "^endpoint$"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 These sets will resolve internally to the following regular expressions:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --javascript.startup-options-allowlist = "^server\.|^log\."
 --javascript.startup-options-denylist = "^javascript\.|endpoint"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Invoking _arangosh_ with these options will hide the denied commandline
 options from the output of: 
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require('internal').options()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … and an exception will be thrown when trying to access items that are masked
 in the same way as if they weren't there in first place.
@@ -128,10 +140,14 @@ in the same way as if they weren't there in first place.
 Access to environment variables can be restricted to hide sensitive information
 from JavaScript code, for example:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --javascript.environment-variables-allowlist "^ARANGO_"
 --javascript.environment-variables-denylist "PASSWORD"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will allow JavaScript code to only see environment variables that start
 with `ARANGO_` except if they contain `PASSWORD`. It excludes the variables
@@ -144,6 +160,8 @@ exclude environment variables that include `password`. You may use
 You can test the allow-/denylisting in _arangosh_, here using the ArangoDB 3.7
 Docker image:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 docker run --rm -e ARANGO_ROOT_PASSWORD="secret" arangodb:3.7 arangosh --javascript.execute-string "print(process.env)"
 ...
@@ -173,6 +191,8 @@ docker run --rm -e ARANGO_ROOT_PASSWORD="secret" arangodb:3.7 arangosh --javascr
   "ARANGO_SIGNATURE_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64/arangodb3_3.7.15-1_amd64.deb.asc"
 }]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### File access
 
@@ -184,11 +204,15 @@ functions.
 
 For example, when using the following startup options
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --javascript.files-allowlist "^/etc/required/"
 --javascript.files-allowlist "^/etc/mtab/"
 --javascript.files-allowlist "^/etc/issue$"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The file `/etc/issue` will be allowed to accessed and all files in the directories
 `/etc/required` and `/etc/mtab` plus their subdirectories will be accessible,
@@ -209,10 +233,14 @@ JavaScript operations, with the following exceptions:
 
 The endpoint allow-/denylisting limits access to external HTTP resources:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --javascript.endpoints-denylist "<regex>"
 --javascript.endpoints-allowlist "<regex>"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Filtering is done against the full request URL, including protocol, hostname /
 IP address, port, and path.
@@ -279,6 +307,8 @@ Specifying `^https?://arangodb\.org(:80|:443)?(/|$)` will match:
 
 You can test the allow-/denylisting in _arangosh_:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh --javascript.endpoints-allowlist "^https://arangodb\.org(:443)?/"
 127.0.0.1:8529@_system> require('internal').download('http://arangodb.org/file.zip')
@@ -288,6 +318,8 @@ JavaScript exception: ArangoError 11: not allowed to connect to this URL: http:/
 127.0.0.1:8529@_system> require('internal').download('https://arangodb.org/file.zip')
 <request permitted by allowlist>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/warning %}}
 Startup options may require additional escaping in your command line.

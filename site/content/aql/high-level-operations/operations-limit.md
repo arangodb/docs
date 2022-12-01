@@ -22,11 +22,15 @@ the second form with an `offset` value of `0`.
 
 ## Usage
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   LIMIT 5
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Above query returns the first five documents of the `users` collection.
 It could also be written as `LIMIT 0, 5` for the same result.
@@ -38,12 +42,16 @@ The `offset` value specifies how many elements from the result shall be
 skipped. It must be 0 or greater. The `count` value specifies how many
 elements should be at most included in the result.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   SORT u.firstName, u.lastName, u.id DESC
   LIMIT 2, 5
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In above example, the documents of `users` are sorted, the first two results
 get skipped and it returns the next five user documents.
@@ -67,9 +75,13 @@ example, five documents are created, regardless of the `LIMIT 2`. The `LIMIT`
 operation only constrains the number of documents returned by the query (via
 `RETURN`) to the first two:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..5
   INSERT { value: i } INTO coll
   LIMIT 2
   RETURN NEW
 ```
+{{% /tab %}}
+{{< /tabs >}}

@@ -31,6 +31,8 @@ support. Some ArangoDB drivers also let you access arbitrary HTTP endpoints.
 
 Example (Node with arangojs):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const express = require("express");
@@ -48,6 +50,8 @@ app.get("/", async function(req, res) {
 });
 app.listen(9000);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Using a reverse proxy
 
@@ -61,6 +65,8 @@ Similar documentation exists for
 
 Example (nginx):
 
+{{< tabs >}}
+{{% tab name="nginx" %}}
 ```nginx
 location /api/ {
   proxy_pass http://127.0.0.1:8529/_db/_system/my-foxx/;
@@ -69,9 +75,13 @@ location /api/ {
   proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Example (Apache):
 
+{{< tabs >}}
+{{% tab name="apacheconf" %}}
 ```apacheconf
 <Location /api>
   RequestHeader set X-Forwarded-Proto "https" # or "http"
@@ -79,6 +89,8 @@ Example (Apache):
   ProxyPass http://127.0.0.1:8529/_db/_system/my-foxx
 </Location>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The advantage of this approach is that it allows you to expose just the service
 itself without exposing the entire database API.
@@ -92,10 +104,14 @@ request object will reflect the proxy rather than the original request source
 (i.e. the browser). You can tell Foxx to expect to run behind a trusted proxy
 by enabling the `trustProxy` property of the service context:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // in your main entry file, e.g. index.js
 module.context.trustProxy = true;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Foxx will then trust the values of the following request headers:
 

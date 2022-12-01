@@ -38,9 +38,13 @@ requested _shard_ (_numberOfShards_) within the Cluster.
 
 Example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 127.0.0.1:8530@_system> db._create("test", {"replicationFactor": 3})
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above case, any write operation will require 3 replicas to
 report success from now on. 
@@ -56,9 +60,13 @@ available _DB-Servers_ please set the option _enforceReplicationFactor_ to _fals
 when creating the collection from _ArangoShell_ (the option is not available
 from the web interface), e.g.:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._create("test", { replicationFactor: 4 }, { enforceReplicationFactor: false });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The default value for _enforceReplicationFactor_ is true. 
 
@@ -73,15 +81,23 @@ For an introduction about _Sharding_ in Cluster, please refer to the
 Number of _shards_ can be configured at _collection_ creation time, e.g. the UI,
 or the _ArangoDB Shell_:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._create("sharded_collection", {"numberOfShards": 4});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To configure a custom _hashing_ for another attribute (default is __key_):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._create("sharded_collection", {"numberOfShards": 4, "shardKeys": ["country"]});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The example above, where 'country' has been used as _shardKeys_ can be useful
 to keep data of every country in one shard, which would result in better
@@ -97,22 +113,34 @@ key attributes are present in the documents you send, or in case of AQL, that
 you use a document reference or an object for the UPDATE, REPLACE or REMOVE
 operation which includes the shard key attributes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN sharded_collection
   FILTER doc._key == "123"
   UPDATE doc WITH { … } IN sharded_collection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE { _key: "123", country: "…" } WITH { … } IN sharded_collection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using a string with just the document key as key expression instead will be
 processed without shard hints and thus perform slower:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE "123" WITH { … } IN sharded_collection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If custom shard keys are used, you can no longer specify the primary key value
 for a new document, but must let the server generate one automatically. This
@@ -260,6 +288,8 @@ It is basically a countdown to when the process finishes.
 
 Save below code to a file named `serverCleanMonitor.js`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var dblist = db._databases();
 var internal = require("internal");
@@ -296,16 +326,24 @@ do {
     internal.wait(sleep);
 } while (count > 0);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This script has to be executed in the [`arangosh`](../../../programs-tools/arangodb-shell/)
 by issuing the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosh --server.username <username> --server.password <password> --javascript.execute <path/to/serverCleanMonitor.js> -- DBServer<number>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output should be similar to the one below:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosh --server.username root --server.password pass --javascript.execute ~./serverCleanMonitor.js -- DBServer0002
 [7836] INFO Checking shard distribution every 10 seconds...
@@ -314,6 +352,8 @@ arangosh --server.username root --server.password pass --javascript.execute ~./s
 [7836] INFO Shards to be moved away from node DBServer0002: 1
 [7836] INFO Shards to be moved away from node DBServer0002: 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The current status is logged every 10 seconds. You may adjust the
 interval by passing a number after the DB-Server name, e.g.

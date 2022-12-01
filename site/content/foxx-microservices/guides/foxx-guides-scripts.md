@@ -14,12 +14,16 @@ or scheduled and recurring jobs using queues.
 These scripts can be declared in the `scripts` section of
 the [service manifest](../reference/foxx-reference-manifest):
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 "scripts": {
   "setup": "scripts/setup.js",
   "send-mail": "scripts/send-mail.js"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Invoking scripts
 
@@ -53,12 +57,16 @@ the script was invoked:
 
 The following script will use its argument to generate a personal greeting:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 'use strict';
 const { argv } = module.context;
 
 module.exports = `Hello ${argv[0]}!`;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Lifecycle Scripts
 
@@ -89,6 +97,8 @@ As the setup script may be executed more than once it should be treated
 as reentrant: running the setup script again should not result in any errors
 or duplicate data:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { db } = require("@arangodb");
 const users = module.context.collectionName("users");
@@ -107,6 +117,8 @@ if (!db._collection(users)) {
   });
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Teardown Script
 
@@ -135,6 +147,8 @@ migrating existing data can safely be performed in separate scripts.
 Services can schedule scripts of any service mounted in the same database
 using [Foxx queues](../reference/related-modules/foxx-reference-modules-queues):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const queues = require("@arangodb/foxx/queues");
@@ -153,4 +167,6 @@ router.post("/signup", (req, res) => {
   );
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 

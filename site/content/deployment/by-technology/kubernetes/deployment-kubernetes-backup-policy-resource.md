@@ -14,6 +14,8 @@ a `CustomResourceDefinition` created by the operator.
 ### Create schedule for all deployments
 
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "backup.arangodb.com/v1alpha"
 kind: "ArangoBackupPolicy"
@@ -22,6 +24,8 @@ metadata:
 spec:
   schedule: "*/15 * * * *"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Action:
 
@@ -30,6 +34,8 @@ Create an ArangoBackup Custom Resource for each ArangoBackup every 15 minutes
 ### Create schedule for selected deployments
 
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "backup.arangodb.com/v1alpha"
 kind: "ArangoBackupPolicy"
@@ -41,6 +47,8 @@ spec:
     matchLabels:
       labelName: "labelValue"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Action:
 
@@ -49,6 +57,8 @@ Create an ArangoBackup Custom Resource for selected ArangoBackup every 15 minute
 ### Create schedule for all deployments and upload
 
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "backup.arangodb.com/v1alpha"
 kind: "ArangoBackupPolicy"
@@ -61,11 +71,15 @@ spec:
         repositoryURL: "s3:/..."
         credentialsSecretName: "secret-name"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Create an ArangoBackup Custom Resource for each ArangoBackup every 15 minutes and upload to repositoryURL
 
 ## ArangoBackup Custom Resource Spec:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "backup.arangodb.com/v1alpha"
 kind: "ArangoBackupPolicy"
@@ -88,6 +102,8 @@ status:
   scheduled: "time"
   message: "message"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## `spec: Object`
 

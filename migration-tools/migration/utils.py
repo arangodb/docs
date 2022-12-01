@@ -166,6 +166,21 @@ def migrate_headers(paragraph):
 
     return paragraph
 
+def migrate_codeblocks(paragraph):
+    tabsShortcodeStart = "{{< tabs >}}"
+    tabsSortcodeEnd = "{{< /tabs >}}"
+    codeblocks = [x.group() for x in re.finditer(r"\`{3}(.*?)\`{3}", paragraph, re.MULTILINE | re.DOTALL)]
+    for codeblock in codeblocks:
+        lang = codeblock.split("\n")[0].replace("`", "")
+        tabStart = f'{{{{% tab name="{lang}" %}}}}'
+        tabEnd = '{{% /tab %}}'
+
+        newCodeblock = f"{tabsShortcodeStart}\n{tabStart}\n{codeblock}\n{tabEnd}\n{tabsSortcodeEnd}"
+        paragraph = paragraph.replace(codeblock, newCodeblock)
+
+    return paragraph
+
+
 def migrate_docublock_output(exampleName):
     generatedFile = open(f"{globals.OLD_GENERATED_FOLDER}/{exampleName}.generated", 'r', encoding="utf-8")
     output = generatedFile.read()

@@ -60,9 +60,13 @@ you can skip this section.
 
   You can test connectivity using a simple command such as:
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   curl --dump - --user "username:password" -X GET http://127.0.0.1:8529/_api/version && echo
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   (Replace `username` and `password` with the actual credentials.)
 
@@ -113,6 +117,8 @@ variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
 
 An example log output from the crash handler looks like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 2020-05-26T23:26:10Z [16657] FATAL [a7902] {crash} ArangoDB 3.7.1-devel enterprise [linux], thread 22 [Console] caught unexpected signal 11 (SIGSEGV) accessing address 0x0000000000000000: signal handler invoked
 2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 1 [0x00007f9124e93ece]: _ZN12_GLOBAL__N_112crashHandlerEiP9siginfo_tPv (+0x000000000000002e)
@@ -126,6 +132,8 @@ An example log output from the crash handler looks like this:
 2020-05-26T23:26:10Z [16657] INFO [ded81] {crash} available physical memory: 41721995264, rss usage: 294256640, vsz usage: 1217839104, threads: 46
 Segmentation fault (core dumped)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The first line of the crash output will contain the cause of the crash
 (SIGSEGV in this case). The following lines contain information about the

@@ -12,6 +12,8 @@ Learn more about the query language in the [AQL documentation](../aql/).
 You can run an AQL query using the `PostCursorAsync()` method and create a
 cursor that returns objects from ArangoDB:
 
+{{< tabs >}}
+{{% tab name="csharp" %}}
 ```csharp
 // Run AQL query (create a query cursor)
 var response = await adb.Cursor.PostCursorAsync<MyClassDocument>(
@@ -20,3 +22,5 @@ var response = await adb.Cursor.PostCursorAsync<MyClassDocument>(
       RETURN doc");
 MyClassDocument item = response.Result.First();
 ```
+{{% /tab %}}
+{{< /tabs >}}

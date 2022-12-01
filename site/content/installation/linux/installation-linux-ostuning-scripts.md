@@ -24,6 +24,8 @@ boot process can be found below.
 
 **Script:**
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 #!/bin/bash
 
@@ -47,6 +49,8 @@ sudo bash -c "echo madvise > /sys/kernel/mm/transparent_hugepage/defrag"
 
 sudo bash -c "echo 0 > /proc/sys/vm/overcommit_memory"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Installation Instructions:**
 
@@ -79,6 +83,8 @@ the script **must** also be directly executed once.
 
 **Script:**
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 #!/bin/bash
 
@@ -102,6 +108,8 @@ bash -c "echo madvise > /sys/kernel/mm/transparent_hugepage/defrag"
 
 bash -c "echo 0 > /proc/sys/vm/overcommit_memory"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Installation Instructions:**
 
@@ -116,10 +124,14 @@ bash -c "echo 0 > /proc/sys/vm/overcommit_memory"
 3. On CentOS/RedHat, use the following commands to configure your system
    to execute the script during the boot process. As _root_:
 
-   ```
+   {{< tabs >}}
+{{% tab name="" %}}
+```
    chkconfig --add /etc/init.d/arangodb-os-optimization
    chkconfig arangodb-os-optimization on
    ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note:**
 

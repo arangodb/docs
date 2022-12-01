@@ -47,6 +47,8 @@ The queue will be created in the current database.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Create a queue with the default number of workers (i.e. one)
 const queue1 = queues.create("my-queue");
@@ -57,6 +59,8 @@ const queue3 = queues.create("my-queue", 10);
 // queue1 and queue3 refer to the same queue
 assertEqual(queue1, queue3);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### queues.get
 
@@ -77,19 +81,27 @@ The queue will be looked up in the current database.
 
 If the queue does not yet exist an exception is thrown:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 queues.get("some-queue");
 // Error: Queue does not exist: some-queue
 //     at ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Otherwise the queue will be returned:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const queue1 = queues.create("some-queue");
 const queue2 = queues.get("some-queue");
 assertEqual(queue1, queue2);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### queues.delete
 
@@ -111,11 +123,15 @@ Deleting a queue will not delete any jobs on that queue.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const queue = queues.create("my-queue");
 queues.delete("my-queue"); // true
 queues.delete("my-queue"); // false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Queue API
 
@@ -241,6 +257,8 @@ The *success* and *failure* callbacks receive the following arguments:
 
 Let's say we have an service mounted at `/mailer` that provides a script called `send-mail`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 'use strict';
 const queues = require('@arangodb/foxx/queues');
@@ -250,10 +268,14 @@ queue.push(
   {to: 'hello@example.com', body: 'Hello world'}
 );
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will *not* work, because `log` was defined outside the callback function
 (the callback must be serializable to a string):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // WARNING: THIS DOES NOT WORK!
 'use strict';
@@ -268,9 +290,13 @@ queue.push(
   }}
 );
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Here's an example of a job that will be executed every 5 seconds until tomorrow:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 'use strict';
 const queues = require('@arangodb/foxx').queues;
@@ -285,6 +311,8 @@ queue.push(
   }
 );
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### queue.get
 
@@ -304,11 +332,15 @@ fetched whenever they are referenced and can not be modified.
   The id of the job to create a proxy object for.
 
 **Examples**
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const jobId = queue.push({mount: '/logger', name: 'log'}, 'Hello World!');
 const job = queue.get(jobId);
 assertEqual(job.id, jobId);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### queue.delete
 
@@ -350,6 +382,8 @@ The jobs will be looked up in the specified queue in the current database.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const logScript = {mount: '/logger', name: 'log'};
 queue.push(logScript, 'Hello World!', {delayUntil: Date.now() + 50});
@@ -361,6 +395,8 @@ assertEqual(queue.progress(logScript).length, 1);
 assertEqual(queue.progress(logScript).length, 0);
 assertEqual(queue.complete(logScript).length, 1);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### queue.progress
 

@@ -37,6 +37,8 @@ boolean value.
 
 It's also possible to use double negation to cast to boolean:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 !!1 // true
 !!0 // false
@@ -45,6 +47,8 @@ not not 1 // true
 !!"non-empty string" // true
 !!"" // false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `TO_BOOL()` is preferred however, because it states the intention clearer.
 
@@ -68,19 +72,27 @@ Take an input *value* of any type and convert it into a numeric value.
     converted to the number *0*.
   - An object / document is converted to the number *0*.
   - A unary plus will also cast to a number, but `TO_NUMBER()` is the preferred way:
-    ```aql
+    {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
     +'5' // 5
     +[8] // 8
     +[8,9] // 0
     +{} // 0
     ```
+{{% /tab %}}
+{{< /tabs >}}
   - A unary minus works likewise, except that a numeric value is also negated:
-    ```aql
+    {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
     -'5' // -5
     -[8] // -8
     -[8,9] // 0
     -{} // 0
     ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### TO_STRING()
 
@@ -97,6 +109,8 @@ Take an input *value* of any type and convert it into a string value.
   - Arrays and objects / documents are converted to string representations,
     which means JSON-encoded strings with no additional whitespace
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 TO_STRING(null) // ""
 TO_STRING(true) // "true"
@@ -108,6 +122,8 @@ TO_STRING(0.0000002) // "2e-7"
 TO_STRING( [1, 2, 3] ) // "[1,2,3]"
 TO_STRING( { foo: "bar", baz: null } ) // "{\"foo\":\"bar\",\"baz\":null}"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### TO_ARRAY()
 
@@ -124,6 +140,8 @@ Take an input *value* of any type and convert it into an array value.
   - Objects / documents are converted to an array containing their attribute
     **values** as array elements, just like [VALUES()](functions-document#values)
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 TO_ARRAY(null) // []
 TO_ARRAY(false) // [false]
@@ -133,6 +151,8 @@ TO_ARRAY("foo") // ["foo"]
 TO_ARRAY([1, 2, "foo"]) // [1, 2, "foo"]
 TO_ARRAY({foo: 1, bar: 2, baz: [3, 4, 5]}) // [1, 2, [3, 4, 5]]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### TO_LIST()
 

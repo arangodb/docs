@@ -25,6 +25,8 @@ We will be using _arangosh_ to create and query the data. All AQL queries are
 strings and can simply be copied over to the web interface or your favorite
 driver as well.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var actors = db._create("actors");
 var movies = db._create("movies");
@@ -198,6 +200,8 @@ actsIn.save(MegR, WhenHarryMetSally, { roles: ["Sally Albright"], year: 1998 });
 actsIn.save(CarrieF, WhenHarryMetSally, { roles: ["Marie"], year: 1998 });
 actsIn.save(BrunoK, WhenHarryMetSally, { roles: ["Jess"], year: 1998 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Example queries
 
@@ -206,6 +210,8 @@ actsIn.save(BrunoK, WhenHarryMetSally, { roles: ["Jess"], year: 1998 });
 Say we want to find all actors who acted in "TheMatrix" OR "TheDevilsAdvocate".
 First lets try to get all actors for one movie:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN ANY 'movies/TheMatrix' actsIn
@@ -213,8 +219,12 @@ db._query(`
     RETURN x._id
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Result:
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [
@@ -226,10 +236,14 @@ Result:
   ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now we continue to form a `UNION_DISTINCT` of two neighbor queries which will
 be the solution:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN UNION_DISTINCT(
@@ -242,7 +256,11 @@ db._query(`
   ) RETURN x
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [
@@ -256,12 +274,16 @@ db._query(`
   ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### All actors who acted in both "movie1" AND "movie2"
 
 This is almost identical to the question above.
 But this time we are not interested in a `UNION` but in an `INTERSECTION`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN INTERSECTION(
@@ -274,7 +296,11 @@ db._query(`
   ) RETURN x
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [
@@ -282,6 +308,8 @@ db._query(`
   ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### All common movies between "actor1" and "actor2"
 
@@ -289,6 +317,8 @@ This is actually identical to the question about common actors in movie1 and
 movie2. We just have to change the starting vertices. As an example let us find
 all movies where Hugo Weaving and Keanu Reeves are co-starring:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN INTERSECTION(
@@ -301,7 +331,11 @@ db._query(`
   ) RETURN x
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [
@@ -311,6 +345,8 @@ db._query(`
   ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### All actors who acted in 3 or more movies
 
@@ -320,6 +356,8 @@ grouping. The basic idea is to group all edges by their start vertex
 less than 3 movies from the result. Below query also returns the computed
 number of movies an actor has acted in:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN actsIn
@@ -328,7 +366,11 @@ db._query(`
     RETURN { actor: actor, movies: counter }
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -365,12 +407,16 @@ db._query(`
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### All movies where exactly 6 actors acted in
 
 The same idea as in the query before, but with equality filter, however now we
 need the movie instead of the actor, so we return the `_to` attribute:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN actsIn
@@ -379,7 +425,11 @@ db._query(`
     RETURN movie
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   "movies/SleeplessInSeattle",
@@ -387,6 +437,8 @@ db._query(`
   "movies/YouveGotMail"
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### The number of actors by movie
 
@@ -394,6 +446,8 @@ We remember in our dataset `_to` on the edge corresponds to the movie, so we
 count how often the same `_to` appears. This is the number of actors. The query
 is almost identical to the ones before but without the `FILTER` after `COLLECT`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN actsIn
@@ -401,7 +455,11 @@ db._query(`
     RETURN { movie: movie, actors: counter }
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -466,6 +524,8 @@ db._query(`
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### The number of movies by actor
 
@@ -473,6 +533,8 @@ The `_to` attribute on the edge corresponds to the actor, so we group by it and
 count with `COLLECT`. As a bonus, we can add sorting to return the actors with
 the most movies first:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN actsIn
@@ -481,7 +543,11 @@ db._query(`
     RETURN { actor: actor, movies: counter }
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -710,6 +776,8 @@ db._query(`
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### The number of movies acted in between two years by actor
 
@@ -717,12 +785,18 @@ This query is where a multi-model database actually shines.
 First of all we want to use it in production, so we set a persistent index on year.
 This allows as to execute fast range queries like between 1990 and 1995.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.actsIn.ensureIndex({ type: "persistent", fields: ["year"] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now we slightly modify our movies by actor query.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN actsIn
@@ -731,7 +805,11 @@ db._query(`
     RETURN { actor: actor, movies: counter }
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -808,6 +886,8 @@ db._query(`
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### The years and number of movies by actor with actor name
 
@@ -820,6 +900,8 @@ of movies.
 The example query is limited to two actors for simplicity. As an added extra,
 it looks up the actor `name` using the `DOCUMENT()` function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._query(`
   FOR x IN actsIn
@@ -832,7 +914,11 @@ db._query(`
     }`
 ).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -856,3 +942,5 @@ db._query(`
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}

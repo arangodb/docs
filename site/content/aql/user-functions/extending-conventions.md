@@ -16,10 +16,14 @@ qualified to also include the user-defined namespace. The `::` symbol is used
 as the namespace separator. Users can create a multi-level hierarchy of function
 groups if required:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 MYGROUP::MYFUNC()
 MYFUNCTIONS::MATH::RANDOM()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: Adding user functions to the *_aql* namespace is disallowed and will
 fail.
@@ -50,6 +54,8 @@ effects when executing the function.
 Here is an example that may modify outer scope variables `i` and `name`,
 making the function **not** side-effect free:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 function (values) {
   for (i = 0; i < values.length; ++i) {
@@ -61,10 +67,14 @@ function (values) {
   return null;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above function can be made free of side effects by using the `var` or
 `let` keywords, so the variables become function-local variables:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 function (values) {
   for (var i = 0; i < values.length; ++i) {
@@ -76,6 +86,8 @@ function (values) {
   return null;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Input parameters
 
@@ -103,6 +115,8 @@ By default, any user function code will be executed in *sloppy mode*, not
 *strict* or *strong mode*. In order to make a user function run in strict
 mode, use `"use strict"` explicitly inside the user function, e.g.:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 function (values) {
   "use strict"
@@ -116,5 +130,7 @@ function (values) {
   return null;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Any violation of the strict mode will trigger a runtime error.

@@ -11,12 +11,18 @@ Update a deployment the authenticated user has access to
 
 Update a deployment the authenticated user has access to
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 oasisctl update deployment [flags]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
   -c, --cacertificate-id string              Identifier of the CA certificate to use for the deployment
       --coordinator-memory-size int32        Set memory size of coordinators for flexible deployments (GB) (default 4)
@@ -42,14 +48,20 @@ oasisctl update deployment [flags]
   -p, --project-id string                    Identifier of the project
       --version string                       Version of ArangoDB to use for the deployment
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options inherited from parent commands
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

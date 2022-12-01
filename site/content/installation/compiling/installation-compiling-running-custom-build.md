@@ -18,6 +18,8 @@ Note that this guide is for Linux only.
 
 This part shows how to run your custom build with an empty database directory
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 
 mkdir /tmp/arangodb
@@ -27,6 +29,8 @@ bin/arangod \
     --configuration etc/relative/arangod.conf\
      --database.directory /tmp/arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Running with data
 
@@ -45,6 +49,8 @@ installed by the package) in order to have write access to the log, database
 directory etc. Running as root will likely mess up the file permissions - good
 luck fixing that!
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 
 su
@@ -53,3 +59,5 @@ su
 su - arangod
 bin/arangod --configuration /etc/arangodb/arangod.conf
 ```
+{{% /tab %}}
+{{< /tabs >}}

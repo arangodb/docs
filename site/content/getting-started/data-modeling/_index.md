@@ -12,6 +12,8 @@ The hierarchy that data is organized in is **documents** (data records) in
 
 ArangoDB lets you store documents as JSON objects.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "name": "ArangoDB",
@@ -23,6 +25,8 @@ ArangoDB lets you store documents as JSON objects.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 JSON supports the following data types:
 

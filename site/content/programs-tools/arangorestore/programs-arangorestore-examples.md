@@ -56,6 +56,8 @@ The `--force-same-database` option is set to `false` by default to ensure backwa
 Here's an example of reloading data to a non-standard endpoint, using a dedicated
 [database name](../../appendix/appendix-glossary#database-name):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangorestore \
   --server.endpoint tcp://192.168.173.13:8531 \
@@ -63,9 +65,13 @@ arangorestore \
   --server.database mydb \
   --input-directory "dump" \
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also, more than one endpoint can be provided, such as:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangorestore \
   --server.endpoint tcp://192.168.173.13:8531 \
@@ -74,6 +80,8 @@ arangorestore \
   --server.database mydb \
   --input-directory "dump"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To create the target database when restoring, use a command like this:
 

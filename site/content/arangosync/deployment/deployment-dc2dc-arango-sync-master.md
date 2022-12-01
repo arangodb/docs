@@ -18,6 +18,8 @@ on their own servers, equipped with sufficient CPU power and memory capacity.
 
 To start an _ArangoSync Master_ using a `systemd` service, use a unit like this:
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 [Unit]
 Description=Run ArangoSync in master mode
@@ -44,12 +46,16 @@ TimeoutStopSec=60
 [Install]
 WantedBy=multi-user.target
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The _sync master_ needs a TLS server certificate and a
 If you want the service to create a TLS certificate & client authentication
 certificate, for authenticating with _ArangoSync Masters_ in another datacenter,
 for every start, add this to the `Service` section.
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 ExecStartPre=/usr/bin/sh -c "mkdir -p ${CERTIFICATEDIR}"
 ExecStartPre=/usr/sbin/arangosync create tls keyfile \
@@ -61,6 +67,8 @@ ExecStartPre=/usr/sbin/arangosync create tls keyfile \
     --host=${HOST} \
     --host=${CLUSTERDNSNAME}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The _ArangoSync Master_ must be reachable on a TCP port `${MASTERPORT}` (used with `--server.port` option).
 This port must be reachable from inside the datacenter (by sync workers and operations)

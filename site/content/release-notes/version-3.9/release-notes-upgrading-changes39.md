@@ -155,16 +155,24 @@ There was also a `type` attribute for each line, which designated
 the type of object in that line (typically this will have been type `"2300"`,
 meaning "document"). The old, enveloped format looks like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The non-enveloped format which is now enabled by default only contains the
 actual documents, e.g.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"_key":"test","_rev":..., ...}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The change of the default dump format may have an effect on third-party
 backup tools or script. arangorestore will work fine with both formats.

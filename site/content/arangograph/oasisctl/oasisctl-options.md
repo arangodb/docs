@@ -11,18 +11,26 @@ ArangoDB Oasis
 
 ArangoDB Oasis. The Managed Cloud for ArangoDB
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 oasisctl [flags]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
   -h, --help              help for oasisctl
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

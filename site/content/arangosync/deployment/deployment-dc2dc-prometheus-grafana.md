@@ -16,6 +16,8 @@ instructs it about which targets to scrape. For _ArangoSync_ you should configur
 scrape targets for all _sync masters_ and all _sync workers_. To do so, you can
 use a configuration such as this:
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 global:
   scrape_interval:     10s # scrape targets every 10 seconds.
@@ -85,6 +87,8 @@ scrape_configs:
         target_label:  instance
         replacement:   2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/info %}}
 The above example assumes 2 datacenters, with 2 _sync masters_ & 2 _sync workers_

@@ -13,12 +13,18 @@ One can reset the _root_ password in the following way:
   - **Note:** you might need to take any needed precaution to avoid this server can be accessed from outside as currently authentication is temporarily disabled. You might do this by disabling network access or using _localhost_ for the binding (`--server.endpoint tcp://127.0.0.1:8529`)
 -  Change the password using the ArangoDB web interface, or using the following command via `arangosh`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("org/arangodb/users").update("root", "newpassword");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This command should return:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "user" : "root",
@@ -28,6 +34,8 @@ This command should return:
   "code" : 200
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - Set `authentication=true` in the `arangod.conf` file
 - Restart the server

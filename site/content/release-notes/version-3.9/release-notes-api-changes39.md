@@ -149,7 +149,9 @@ single servers, Coordinators and DB-Servers:
 
 - `GET /_admin/license`: Query license information and status.
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   {
     "features": {
       "expires": 1640255734
@@ -159,6 +161,8 @@ single servers, Coordinators and DB-Servers:
     "status": "good"
   }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   - `features`:
     - `expires`: Unix timestamp (seconds since January 1st, 1970 UTC)
@@ -177,7 +181,9 @@ single servers, Coordinators and DB-Servers:
 
   Server reply on success:
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   {
     "result": {
       "error": false,
@@ -185,11 +191,15 @@ single servers, Coordinators and DB-Servers:
     }
   }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   If the new license expires sooner than the current one, an error will be
   returned. The query parameter `?force=true` can be set to update it anyway.
 
-  ```json
+  {{< tabs >}}
+{{% tab name="json" %}}
+```json
   {
     "code": 400,
     "error": true,
@@ -197,6 +207,8 @@ single servers, Coordinators and DB-Servers:
     "errorNum": 9007
   }
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Endpoints augmented
 
@@ -225,9 +237,13 @@ pseudo log topic `"all"`. Setting the log level for the "all" log topic will
 adjust the log level for **all existing log topics**.
 For example, sending the JSON object to this API
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {"all":"debug"}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will set all log topics to log level "debug".
 
@@ -332,9 +348,13 @@ The MMFiles engine is gone since ArangoDB 3.7, and the only remaining
 storage engine since then is RocksDB. For the RocksDB engine, the
 `/_api/export` endpoint internally used a streaming AQL query such as
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN @@collection RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 anyway. To remove API redundancy, the API endpoint has been deprecated
 in ArangoDB 3.8 and is now removed. If the functionality is still required

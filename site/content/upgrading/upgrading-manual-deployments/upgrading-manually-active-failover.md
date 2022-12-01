@@ -37,16 +37,24 @@ The first step is to install the new ArangoDB package.
 
 For example, if you want to upgrade to `3.7.13` on Debian or Ubuntu, either call
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ apt install arangodb=3.7.13-1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 (`apt-get` on older versions) if you have added the ArangoDB repository. Or
 install a specific package using
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ dpkg -i arangodb3-3.7.13-1_amd64.deb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 after you have downloaded the corresponding file from
 [download.arangodb.com](https://download.arangodb.com/).
@@ -60,18 +68,26 @@ starting the _Active Failover_ processes manually
 you will not need the automatically installed and started standalone instance, 
 and you should hence stop it via:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ service arangodb3 stop
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Also, you might want to remove the standalone instance from the default
 _runlevels_ to prevent it from starting on the next reboots of your machine. How this
 is done depends on your distribution and _init_ system. For example, on older Debian
 and Ubuntu systems using a SystemV-compatible _init_, you can use:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 $ update-rc.d -f arangodb3 remove
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Set supervision into maintenance mode
 
@@ -93,12 +109,16 @@ The following examples assume there is an _Active Failover_ node running on `loc
 `curl -u username:password <single-server>/_admin/cluster/maintenance -XPUT -d'"on"'`
 
 For example:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -u "root:" http://localhost:7002/_admin/cluster/maintenance -XPUT -d'"on"'
 
 {"error":false,"warning":"Cluster supervision deactivated. 
 It will be reactivated automatically in 60 minutes unless this call is repeated until then."}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 **Note:** In case the manual upgrade takes longer than 60 minutes, the API call has to be resent.
 
 
@@ -110,11 +130,15 @@ It can be manually reactivated earlier at any point using the following API call
 `curl -u username:password <single-server>/_admin/cluster/maintenance -XPUT -d'"off"'`
 
 For example:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl -u "root:" http://localhost:7002/_admin/cluster/maintenance -XPUT -d'"off"'
 
 {"error":false,"warning":"Cluster supervision reactivated."}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Upgrade the _Active Failover_ processes
 
@@ -125,16 +149,24 @@ upgraded on each node.
 
 In order to stop an _arangod_ process we will need to use a command like `kill -15`:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 kill -15 <pid-of-arangod-process>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The _pid_ associated to your _Active Failover setup_ can be checked using a command like _ps_:
 
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ps -C arangod -fww
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The output of the command above does not only show the process ids of all _arangod_ 
 processes but also the used commands, which is useful for the following
@@ -144,6 +176,8 @@ The output below is from a test machine where three _Agents_ and two _Single-Ser
 were running locally. In a more production-like scenario, you will find only one instance of each 
 type running per machine:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 ps -C arangod -fww
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -153,6 +187,8 @@ max      29329 16224  0 13:51 pts/3    00:00:42 arangod --server.endpoint tcp://
 max      29824 16224  1 13:55 pts/3    00:01:53 arangod --server.authentication=false --server.endpoint tcp://0.0.0.0:7001 --cluster.my-address tcp://127.0.0.1:7001 --cluster.my-role SINGLE --cluster.agency-endpoint tcp://127.0.0.1:5001 --cluster.agency-endpoint tcp://127.0.0.1:5002 --cluster.agency-endpoint tcp://127.0.0.1:5003 --log.file c1 --javascript.app-path /tmp --database.directory single1
 max      29938 16224  2 13:56 pts/3    00:02:13 arangod --server.authentication=false --server.endpoint tcp://0.0.0.0:7002 --cluster.my-address tcp://127.0.0.1:7002 --cluster.my-role SINGLE --cluster.agency-endpoint tcp://127.0.0.1:5001 --cluster.agency-endpoint tcp://127.0.0.1:5002 --cluster.agency-endpoint tcp://127.0.0.1:5003 --log.file c2 --javascript.app-path /tmp --database.directory single2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note:** The start commands of _Agent_ and _Single Server_ are required for restarting the processes later.
 
@@ -163,9 +199,13 @@ instances themselves. When upgrading the _Active Failover_ instances, the follow
 be upgraded first.
 
 To figure out the node containing the followers you can consult the cluster endpoints API:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 curl http://<single-server>:7002/_api/cluster/endpoints
 ```
+{{% /tab %}}
+{{< /tabs >}}
 This will yield a list of endpoints, the _first_ of which is always the leader node.
 
 
@@ -179,16 +219,24 @@ output for an Agent instance first, and note its process id (pid) and start comm
 
 The process can then be stopped using the following command:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 kill -15 <pid-of-agent>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The instance then has to be upgraded using the same command that was used before (in the `ps` output), 
 but with the additional option:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --database.auto-upgrade=true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 After the upgrade procedure has finishing successfully, the instance will remain stopped.
 So it has to be restarted using the command from the `ps` output before

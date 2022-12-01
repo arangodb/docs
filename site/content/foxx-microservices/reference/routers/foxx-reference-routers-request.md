@@ -213,6 +213,8 @@ These methods wrap the corresponding content negotiation methods of the
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 if (req.accepts(['json', 'html']) === 'html') {
   // Client explicitly prefers HTML over JSON
@@ -222,6 +224,8 @@ if (req.accepts(['json', 'html']) === 'html') {
   res.json({success: true});
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## cookie
 
@@ -286,6 +290,8 @@ This method wraps the (request body) content type detection method of the
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const type = req.is('html', 'application/xml', 'application/*+xml');
 if (type === false) { // no match
@@ -296,6 +302,8 @@ if (type === false) { // no match
   handleXml(req.rawBody);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## json
 
@@ -370,12 +378,16 @@ the request range type.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 console.log(req.headers.range); // "bytes=40-80"
 const ranges = req.range(100);
 console.log(ranges); // [{start: 40, end: 80}]
 console.log(ranges.type); // "bytes"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## reverse
 
@@ -397,6 +409,8 @@ Returns the URL of the route for the given parameters.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get('/items/:id', function (req, res) {
   /* ... */
@@ -408,3 +422,5 @@ router.post('/items', function (req, res) {
   res.set('location', req.makeAbsolute(url));
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}

@@ -28,6 +28,8 @@ Make sure that you have already [signed up for ArangoGraph](https://cloud.arango
 
 ## Create an access token with your API key
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 import (
    "context"
@@ -64,6 +66,8 @@ if err != nil {
 }
 token := resp.GetToken()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Make an authenticated API call
 
@@ -74,6 +78,8 @@ The authentication token is passed as standard `bearer` token to the call.
 If Go, there is a helper method (`WithAccessToken`) to create a context using
 an authentication token.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 // Create client for Data service
 datac := data.NewDataServiceClient(conn)
@@ -92,6 +98,8 @@ for _, depl := range list.GetItems() {
 }
 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## API Errors
 
@@ -99,8 +107,12 @@ All API methods return errors as gRPC error codes.
 
 The `github.com/arangodb-managed/apis/common/v1` package contains several helpers to check for common errors.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 if common.IsNotFound(err) {
    // Error is caused by a not-found situation
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

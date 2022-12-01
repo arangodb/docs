@@ -18,6 +18,8 @@ operator is again an array.
 To demonstrate the array expansion operator, let's go on with the following three 
 example *users* documents:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -47,17 +49,25 @@ example *users* documents:
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 With the `[*]` operator it becomes easy to query just the names of the
 friends for each user:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[*].name }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will produce:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "name" : "john", "friends" : [ "tina", "helga", "alfred" ] },
@@ -65,13 +75,19 @@ This will produce:
   { "name" : "sandra", "friends" : [ "bob", "elena" ] }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is a shortcut for the longer, semantically equivalent query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN { name: u.name, friends: (FOR f IN u.friends RETURN f.name) }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Array contraction
 
@@ -87,13 +103,19 @@ so on.
 Let's compare the array expansion operator with an array contraction operator.
 For example, the following query produces an array of friend names per user:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN u.friends[*].name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As we have multiple users, the overall result is a nested array:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [
@@ -111,6 +133,8 @@ As we have multiple users, the overall result is a nested array:
   ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the goal is to get rid of the nested array, we can apply the `[**]` operator on the 
 result. But simply appending `[**]` to the query won't help, because *u.friends*
@@ -119,22 +143,32 @@ the `[**]` can be used if it has access to a multi-dimensional nested result.
 
 We can extend above query as follows and still create the same nested result:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN (
   FOR u IN users RETURN u.friends[*].name
 )
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 By now appending the `[**]` operator at the end of the query...
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN (
   FOR u IN users RETURN u.friends[*].name
 )[**]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ... the query result becomes:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [
@@ -148,6 +182,8 @@ RETURN (
   ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the elements are not de-duplicated. For a flat array with only unique
 elements, a combination of [UNIQUE()](../functions/functions-array#unique) and
@@ -167,21 +203,31 @@ must occur in this order if they are used in combination, and can only occur onc
 
 Example with nested numbers and array contraction:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET arr = [ [ 1, 2 ], 3, [ 4, 5 ], 6 ]
 RETURN arr[** FILTER CURRENT % 2 == 0]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All even numbers are returned in a flat array:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [ 2, 4, 6 ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Complex example with multiple conditions, limit and projection:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     RETURN {
@@ -192,10 +238,14 @@ FOR u IN users
         ]
     }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 No more than two computed strings based on *friends* with an `a` in their name and
 older than 40 years are returned per user:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -217,16 +267,22 @@ older than 40 years are returned per user:
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Inline filter
 
 To return only the names of friends that have an *age* value
 higher than the user herself, an inline `FILTER` can be used:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[* FILTER CURRENT.age > u.age].name }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The pseudo-variable *CURRENT* can be used to access the current array element.
 The `FILTER` condition can refer to *CURRENT* or any variables valid in the
@@ -238,13 +294,19 @@ The number of elements returned can be restricted with `LIMIT`. It works the sam
 as the [limit operation](../high-level-operations/operations-limit). `LIMIT` must come after `FILTER`
 and before `RETURN`, if they are present.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[* LIMIT 1].name }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Above example returns one friend each:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "name": "john", "friends": [ "tina" ] },
@@ -252,17 +314,25 @@ Above example returns one friend each:
   { "name": "yves", "friends": [ "sergei" ] }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A number of elements can also be skipped and up to *n* returned:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN { name: u.name, friends: u.friends[* LIMIT 1,2].name }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The example query skips the first friend and returns two friends at most
 per user:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "name": "john", "friends": [ "helga", "alfred" ] },
@@ -270,19 +340,27 @@ per user:
   { "name": "yves", "friends": [ "tiffany" ] }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Inline projection
 
 To return a projection of the current element, use `RETURN`. If a `FILTER` is
 also present, `RETURN` must come later.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   RETURN u.friends[* RETURN CONCAT(CURRENT.name, " is a friend of ", u.name)]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above will return:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   [
@@ -300,6 +378,8 @@ The above will return:
   ]
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Question mark operator
 
@@ -311,10 +391,14 @@ and it evaluates to `true` or `false`.
 The following example shows how to check whether two of numbers in the array
 are even:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET arr = [ 1, 2, 3, 4 ]
 RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The number `2` after the `?` is the quantifier. It is optional and defaults to
 `ANY`. The following quantifiers are supported:

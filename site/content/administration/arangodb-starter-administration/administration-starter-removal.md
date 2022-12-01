@@ -24,9 +24,13 @@ Note that it is highly recommended to remove a machine while it is still running
 
 To remove a machine from a cluster, run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb remove starter --starter.endpoint=<endpoint> [--starter.id=<id>] [--force]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Where `<endpoint>` is the endpoint of the starter that you want to remove,
 or the endpoint of one of the remaining starters. E.g. `http://localhost:8528`.
@@ -38,6 +42,8 @@ You can find this ID in a `setup.json` file in the data directory of one of
 the remaining ArangoDB _Starters_.
 
 E.g.
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   ...
@@ -55,6 +61,8 @@ E.g.
       ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the machine you want to remove has address `10.21.56.123` and was listening
 on port `8528`, use ID `21e42415`.

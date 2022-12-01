@@ -114,9 +114,13 @@ consider picking multiple shard keys.
 The number of _shards_ can be configured at collection creation time, e.g. in
 the web interface or via _arangosh_:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._create("sharded_collection", {"numberOfShards": 4, "shardKeys": ["country"]});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The example above, where `country` has been used as _shardKeys_ can be useful
 to keep data of every country in one shard, which would result in better
@@ -132,9 +136,13 @@ of the update / replace or removal operation, or in case of AQL, that
 you use a document reference or an object for the UPDATE, REPLACE or REMOVE
 operation which includes the shard key attributes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE { _key: "123", country: "…" } WITH { … } IN sharded_collection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If custom shard keys are used, one can no longer prescribe the primary key value of
 a new document but must use the automatically generated one. This latter

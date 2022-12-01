@@ -33,6 +33,8 @@ In the following sections the `${sparkVersion}` and `${scalaVersion}` placeholde
 
 To import ArangoDB Datasource for Apache Spark in a maven project:
 
+{{< tabs >}}
+{{% tab name="xml" %}}
 ```xml
   <dependencies>
     <dependency>
@@ -42,12 +44,18 @@ To import ArangoDB Datasource for Apache Spark in a maven project:
     </dependency>
   </dependencies>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To use in an external Spark cluster, submit your application with the following parameter:
 
+{{< tabs >}}
+{{% tab name="shell" %}}
 ```shell
     --packages="com.arangodb:arangodb-spark-datasource-${sparkVersion}_${scalaVersion}:x.y.z"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## General Configuration
@@ -82,6 +90,8 @@ The connector can work with a single server, a cluster and active failover deplo
 
 The connector implements support for batch reading from an ArangoDB collection. 
 
+{{< tabs >}}
+{{% tab name="scala" %}}
 ```scala
 val df: DataFrame = spark.read
   .format("com.arangodb.spark")
@@ -89,6 +99,8 @@ val df: DataFrame = spark.read
   .schema(schema) // StructType
   .load()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The connector can read data from:
 - a collection
@@ -100,6 +112,8 @@ When reading data from an **AQL cursor**, the reading job cannot be partitioned 
 
 **Example**
 
+{{< tabs >}}
+{{% tab name="scala" %}}
 ```scala
 val spark: SparkSession = SparkSession.builder()
   .appName("ArangoDBSparkDemo")
@@ -131,6 +145,8 @@ val df: DataFrame = spark.read
 
 usersDF.filter(col("birthday") === "1982-12-15").show()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Read Configuration
 
@@ -185,6 +201,8 @@ The data of each partition is read using an AQL cursor. If any error occurs, the
 
 The connector implements support for batch writing to ArangoDB collection.
 
+{{< tabs >}}
+{{% tab name="scala" %}}
 ```scala
 import org.apache.spark.sql.DataFrame
 
@@ -199,6 +217,8 @@ df.write
   ))
   .save()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Write tasks are load balanced across the available ArangoDB Coordinators. The data saved into the ArangoDB is sharded according to the related target collection definition and is different from the Spark DataFrame partitioning.
 
@@ -320,6 +340,8 @@ The following Spark SQL data types (subtypes of `org.apache.spark.sql.types.Filt
 
 To connect to SSL secured deployments using X.509 Base64 encoded CA certificate (ArangoGraph):
 
+{{< tabs >}}
+{{% tab name="scala" %}}
 ```scala
   val options = Map(
   "database" -> "<dbname>",
@@ -345,6 +367,8 @@ df.write
           .options(options)
           .save()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## Current limitations

@@ -41,20 +41,28 @@ When in doubt about whether and which indexes will be used for executing a given
 click the **Explain** button in the web interface in the **Queries** view or use
 the `explain()` method for the statement as follows (from the ArangoShell):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var query = "FOR doc IN collection FILTER doc.value > 42 RETURN doc";
 var stmt = db._createStatement(query);
 stmt.explain();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `explain()` command will return a detailed JSON representation of the query's execution plan.
 The JSON explain output is intended to be used programmatically. To get a human-readable and much more
 compact explanation of the query, there use `db._explain(query)`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var query = "FOR doc IN collection FILTER doc.value > 42 RETURN doc";
 db._explain(query);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If any of the explain methods shows that a query is not using indexes, the following steps may help:
 
@@ -72,13 +80,21 @@ If any of the explain methods shows that a query is not using indexes, the follo
 - Using indexed attributes as function parameters or in arbitrary expressions will likely lead to the index
   on the attribute not being used. For example, the following queries will not use an index on `value`:
   
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   FOR doc IN collection FILTER TO_NUMBER(doc.value) == 42 RETURN doc
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   FOR doc IN collection FILTER doc.value - 1 == 42 RETURN doc
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   In these cases the queries should be rewritten so that only the index attribute is present on one side of 
   the operator, or additional filters and indexes should be used to restrict the amount of documents otherwise.
@@ -91,17 +107,29 @@ If any of the explain methods shows that a query is not using indexes, the follo
   one index per collection if the `FILTER` condition contains multiple branches combined with logical `OR`.
   For example, the following queries can use indexes:
 
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   FOR doc IN collection FILTER doc.value1 == 42 || doc.value1 == 23 RETURN doc
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   FOR doc IN collection FILTER doc.value1 == 42 || doc.value2 == 23 RETURN doc
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   FOR doc IN collection FILTER doc.value1 < 42 || doc.value2 > 23 RETURN doc
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   The two `OR`s in the first query will be converted to an `IN` lookup, and if there is a suitable index on
   `value1`, it will be used. The second query requires two separate indexes on `value1` and `value2` and
@@ -112,7 +140,9 @@ If any of the explain methods shows that a query is not using indexes, the follo
   For example, when creating an index on `["value1", "value2"]` (in this order), the index can be
   used to satisfy the following `FILTER` conditions:
 
-  ```aql
+  {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
   FILTER doc.value1 == ...
   FILTER doc.value1 > ...
   FILTER doc.value1 >= ...
@@ -135,6 +165,8 @@ If any of the explain methods shows that a query is not using indexes, the follo
   FILTER doc.value1 == ... && doc.value2 >= ... && doc.value2 <= ...
   FILTER doc.value1 == ... && doc.value2 IN ...
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   The index cannot be used to satisfy FILTER conditions on `value2` alone.
 

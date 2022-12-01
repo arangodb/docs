@@ -22,10 +22,14 @@ in AQL queries will not be possible without quoting. For example, the following
 AQL query will still work as it uses a quoted collection name and a quoted
 attribute name:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR doc IN `OUTBOUND`
   RETURN doc.`any`
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Changed behavior
 
@@ -137,6 +141,8 @@ Due to compatibility issues the Model and Repository types are no longer impleme
 
 The pre-2.7 "extend" style subclassing is supported again and will not emit any deprecation warnings.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var Foxx = require('org/arangodb/foxx');
 var MyModel = Foxx.Model.extend({
@@ -144,6 +150,8 @@ var MyModel = Foxx.Model.extend({
   schema: {/* ... */}
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Module resolution
 
@@ -176,12 +184,16 @@ indicated an error.
 The old behavior of not returning bodies for error responses can be restored by
 explicitly setting the option `returnBodyOnError` to `false`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 let response = request({
   //...
   returnBodyOnError: false
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Garbage collection
 

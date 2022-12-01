@@ -14,6 +14,8 @@ However there are a few things you will need to keep in mind.
 Because the ArangoDB JavaScript environment is largely compatible with Node.js,
 the starting point looks fairly similar:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 module.exports = {
@@ -25,6 +27,8 @@ module.exports = {
   externals: [/^@arangodb(\/|$)/]
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## The service context
 
@@ -36,13 +40,19 @@ not be able to access the real `module` object provided by ArangoDB.
 To work around this limitation you can use the `context` provided by the
 [`@arangodb/locals` module](../reference/related-modules/#the-arangodblocals-module):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { context } = require("@arangodb/locals");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This object is identical to `module.context` and can be used as
 a drop-in replacement:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { context } = require("@arangodb/locals");
 const createRouter = require("@arangodb/foxx/router");
@@ -50,6 +60,8 @@ const createRouter = require("@arangodb/foxx/router");
 const router = createRouter();
 context.use(router);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Externals
 
@@ -62,27 +74,37 @@ Most modules that are specific to ArangoDB or Foxx reside in the `@arangodb`
 namespace. This makes it fairly straightforward to tell Webpack to ignore
 them using the `externals` option:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 module.exports = {
   // ...
   externals: [/^@arangodb(\/|$)/]
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also use this to exclude other modules provided by ArangoDB,
 like the `joi` validation library:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 module.exports = {
   // ...
   externals: [/^@arangodb(\/|$)/, "joi"]
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Compiling scripts
 
 As far as Webpack is concerned, scripts are additional entry points:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const path = require("path");
 module.exports = {
@@ -94,6 +116,8 @@ module.exports = {
   }
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: If your scripts are sharing a lot of code with each other or
 the rest of the service this can result in some overhead as the shared code

@@ -13,6 +13,8 @@ The type `T` represents your domain class and type `ID` the type of your field a
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @Document
 public class MyDomainClass {
@@ -25,9 +27,13 @@ public interface MyRepository extends ArangoRepository<MyDomainClass, String> {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Instances of a Repository are created in Spring beans through the auto-wired mechanism of Spring.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public class MySpringBean {
 
@@ -36,3 +42,5 @@ public class MySpringBean {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

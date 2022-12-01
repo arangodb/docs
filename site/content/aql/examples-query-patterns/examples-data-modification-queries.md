@@ -20,33 +20,47 @@ and `REPLACE` completely replaces the found documents with the specified values.
 We'll start with an `UPDATE` query that rewrites the gender attribute in all
 documents:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH { gender: TRANSLATE(u.gender, { m: 'male', f: 'female', x: 'diverse' }) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To add new attributes to existing documents, we can also use an `UPDATE` query.
 The following query adds an attribute *numberOfLogins* for all users with status
 active:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
   UPDATE u WITH { numberOfLogins: 0 } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Existing attributes can also be updated based on their previous value:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
   UPDATE u WITH { numberOfLogins: u.numberOfLogins + 1 } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above query will only work if there was already a *numberOfLogins* attribute
 present in the document. If it is unsure whether there is a *numberOfLogins*
 attribute in the document, the increase must be made conditional:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
@@ -54,9 +68,13 @@ FOR u IN users
     numberOfLogins: HAS(u, 'numberOfLogins') ? u.numberOfLogins + 1 : 1
   } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Updates of multiple attributes can be combined in a single query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
@@ -65,6 +83,8 @@ FOR u IN users
     numberOfLogins: HAS(u, 'numberOfLogins') ? u.numberOfLogins + 1 : 1
   } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note than an update query might fail during execution, for example because a
 document to be updated does not exist. In this case, the query will abort at
@@ -81,10 +101,14 @@ the documents found in collection users. Documents common to both
 collections will be replaced. All other documents will remain unchanged.
 Documents are compared using their *_key* attributes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE u IN backup
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above query will fail if there are documents in collection users that are
 not in collection backup yet. In this case, the query would attempt to replace
@@ -94,10 +118,18 @@ also be rolled back.
 
 To make the query succeed for such case, use the *ignoreErrors* query option:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE u IN backup OPTIONS { ignoreErrors: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## Removing documents
@@ -105,11 +137,15 @@ FOR u IN users
 Deleting documents can be achieved with the `REMOVE` operation.
 To remove all users within a certain age range, we can use the following query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true && u.age >= 35 && u.age <= 37
   REMOVE u IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## Creating documents
@@ -119,6 +155,8 @@ It can also be used to generate copies of existing documents from other collecti
 or to create synthetic documents (e.g. for testing purposes). The following
 query creates 1000 test users in collection users with some attributes set:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   INSERT {
@@ -129,16 +167,22 @@ FOR i IN 1..1000
     gender: i % 3 == 0 ? 'male' : i % 3 == 1 ? 'female' : 'diverse'
   } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Copying data from one collection into another
 
 To copy data from one collection into another, an `INSERT` operation can be
 used:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   INSERT u IN backup
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will copy over all documents from collection users into collection
 backup. Note that both collections must already exist when the query is
@@ -160,10 +204,18 @@ query in case of errors, there is the *ignoreErrors* option.
 To use it, place an *OPTIONS* keyword directly after the data modification
 part of the query, e.g.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE u IN backup OPTIONS { ignoreErrors: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 This will continue execution of the query even if errors occur during the
 `REPLACE` operation. It works similar for `UPDATE`, `INSERT`, and `REMOVE`.
@@ -177,6 +229,8 @@ boolean filter condition to make the query better comprehensible.
 
 First lets create a collection with a sample:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 database = db._create('complexCollection')
 database.save({
@@ -197,9 +251,13 @@ database.save({
   ]
 })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Heres the Query which keeps the *subList* on *alteredList* to update it later:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR document in complexCollection
   LET alteredList = (
@@ -210,9 +268,13 @@ FOR document in complexCollection
        RETURN newItem)
   UPDATE document WITH { subList:  alteredList } IN complexCollection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 While the query as it is is now functional:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.complexCollection.toArray()
 [
@@ -238,12 +300,16 @@ db.complexCollection.toArray()
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It will probably be soonish a performance bottleneck, since it **modifies**
 all documents in the collection **regardless whether the values change or not**.
 Therefore we want to only `UPDATE` the documents if we really change their value.
 Hence we employ a second `FOR` to test whether *subList* will be altered or not:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR document in complexCollection
   LET willUpdateDocument = (
@@ -261,3 +327,5 @@ FOR document in complexCollection
 
   UPDATE document WITH { subList:  alteredList } IN complexCollection
 ```
+{{% /tab %}}
+{{< /tabs >}}

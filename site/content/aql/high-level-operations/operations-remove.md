@@ -29,56 +29,92 @@ document, which must contain a `_key` attribute.
 
 The following queries are thus equivalent:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REMOVE { _key: u._key } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REMOVE u._key IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REMOVE u IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A remove operation can remove arbitrary documents, and the documents
 do not need to be identical to the ones produced by a preceding `FOR` statement:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == false
   REMOVE { _key: u._key } IN backup
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A single document can be removed as well, using a document key string or a
 document with `_key` attribute:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 REMOVE 'john' IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET doc = DOCUMENT('users/john')
 REMOVE doc IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The restriction of a single remove operation per query and collection
 applies. The following query causes an _access after data-modification_
 error because of the third remove operation:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 REMOVE 'john' IN users
 REMOVE 'john' IN backups // OK, different collection
 REMOVE 'mary' IN users   // Error, users collection again
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Query options
 
@@ -88,28 +124,44 @@ REMOVE 'mary' IN users   // Error, users collection again
 remove non-existing documents. For example, the following query will fail if one
 of the to-be-deleted documents does not exist:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 By specifying the `ignoreErrors` query option, these errors can be suppressed so 
 the query completes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users OPTIONS { ignoreErrors: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `waitForSync`
 
 To make sure data has been written to disk when a query returns, there is the `waitForSync` 
 query option:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users OPTIONS { waitForSync: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `ignoreRevs`
 
@@ -117,10 +169,14 @@ In order to not accidentally remove documents that have been updated since you l
 them, you can use the option `ignoreRevs` to either let ArangoDB compare the `_rev` values and 
 only succeed if they still match, or let ArangoDB ignore them (default):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i), _rev: "1287623" } IN users OPTIONS { ignoreRevs: false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `exclusive`
 
@@ -133,12 +189,16 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this  effect on a per query basis:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   REPLACE doc._key
   WITH { replaced: true }
   OPTIONS { exclusive: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Returning the removed documents
 
@@ -147,19 +207,27 @@ The removed documents can also be returned by the query. In this case, the
 statements are allowed, too).`REMOVE` introduces the pseudo-value `OLD` to
 refer to the removed documents:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 REMOVE keyExpression IN collection options RETURN OLD
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Following is an example using a variable named `removed` for capturing the removed
 documents. For each removed document, the document key will be returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REMOVE u IN users 
   LET removed = OLD 
   RETURN removed._key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Transactionality
 

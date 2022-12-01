@@ -37,6 +37,8 @@ You have a collection called users. Users live in city and a city is identified
 by its primary key. In principle you can embedded the city document into the
 users document and be happy with it.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_id" : "users/2151975421",
@@ -51,16 +53,24 @@ users document and be happy with it.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This works well for many use cases. Now assume, that you have additional
 information about the city, like the number of people living in it. It would be
 impractical to change each and every user document if this numbers changes.
 Therefore it is good idea to hold the city information in a separate collection.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db.cities.document("cities/2241300989");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { 
   "population" : 1000, 
@@ -70,14 +80,22 @@ arangosh> db.cities.document("cities/2241300989");
   "_key" : "2241300989" 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now you instead of embedding the city directly in the user document, you can use
 the key of the city.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db.users.document("users/2290649597");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { 
   "name" : { 
@@ -90,9 +108,13 @@ arangosh> db.users.document("users/2290649597");
   "_key" : "2290649597" 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 We can now join these two collections very easily.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query(
 ........>"FOR u IN users " + 
@@ -100,7 +122,11 @@ arangosh> db._query(
 ........>"    FILTER u.city == c._id RETURN { user: u, city: c }"
 ........>).toArray()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -124,6 +150,8 @@ arangosh> db._query(
   } 
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Unlike SQL there is no special `JOIN` keyword. The optimizer ensures that the
 primary index is used in the above query.
@@ -133,6 +161,8 @@ single document would be returned, where the city information is embedded in the
 user document - as in the simple example above.  With AQL there you do not need
 to forgo this simplification.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query(
 ........>"FOR u IN users " + 
@@ -140,7 +170,11 @@ arangosh> db._query(
 ........>"    FILTER u.city == c._id RETURN merge(u, {city: c})"
 ........>).toArray()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -161,6 +195,8 @@ arangosh> db._query(
   } 
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 So you can have both: the convenient representation of the result for your
 client and the flexibility of joins for your data model.
@@ -185,10 +221,16 @@ the "join table" from the relational world.
 If you only want to store the authors of a book, you can embed them as list in
 the book document. There is no need for a separate collection.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db.authors.toArray()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -211,13 +253,21 @@ arangosh> db.authors.toArray()
   } 
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can query books
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query("FOR b IN books RETURN b").toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -232,9 +282,13 @@ arangosh> db._query("FOR b IN books RETURN b").toArray();
   } 
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 and join the authors in a very similar manner given in the one-to-many section.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query(
 ........>"FOR b IN books " +
@@ -243,7 +297,11 @@ arangosh> db._query(
 ........>"   RETURN { book: b, authors: a }"
 ........>).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -280,9 +338,13 @@ arangosh> db._query(
   } 
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … or embed the authors directly:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query(
 ........>"FOR b IN books LET a = (" + 
@@ -291,7 +353,11 @@ arangosh> db._query(
 ........>"  RETURN merge(b, { authors: a })"
 ........>).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { 
@@ -322,6 +388,8 @@ arangosh> db._query(
   } 
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Using Edge Collections
 
@@ -334,18 +402,32 @@ as well. This information can be stored in the edge document.
 
 First create the users
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._create("authors");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 [ArangoCollection 2926807549, "authors" (type document, status loaded)]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db.authors.save({ name: { first: "John", last: "Doe" } })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { 
   "error" : false, 
@@ -354,11 +436,19 @@ arangosh> db.authors.save({ name: { first: "John", last: "Doe" } })
   "_key" : "2935261693" 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db.authors.save({ name: { first: "Maxima", last: "Musterfrau" } })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { 
   "error" : false, 
@@ -367,21 +457,37 @@ arangosh> db.authors.save({ name: { first: "Maxima", last: "Musterfrau" } })
   "_key" : "2938210813" 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now create the books without any author information.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._create("books");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 [ArangoCollection 2928380413, "books" (type document, status loaded)]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db.books.save({ title: "The beauty of JOINS" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { 
   "error" : false, 
@@ -390,23 +496,39 @@ arangosh> db.books.save({ title: "The beauty of JOINS" });
   "_key" : "2980088317" 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 An edge collection is now used to link authors and books.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._createEdgeCollection("written");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 [ArangoCollection 2931132925, "written" (type edge, status loaded)]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db.written.save("authors/2935261693",
 ........>"books/2980088317",
 ........>{ pages: "1-10" })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { 
   "error" : false, 
@@ -415,13 +537,21 @@ arangosh> db.written.save("authors/2935261693",
   "_key" : "3006237181" 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db.written.save("authors/2938210813",
 ........>"books/2980088317",
 ........>{ pages: "11-20" })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { 
   "error" : false, 
@@ -430,10 +560,14 @@ arangosh> db.written.save("authors/2938210813",
   "_key" : "3012856317" 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In order to get all books with their authors you can use a
 [graph traversal](../../graphs/traversals/#working-with-collection-sets)
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query(
 ...> "FOR b IN books " +
@@ -450,7 +584,11 @@ arangosh> db._query(
 ...> "} "
 ...> ).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -503,9 +641,13 @@ arangosh> db._query(
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Or if you want only the information stored in the vertices.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query(
 ...> "FOR b IN books " +
@@ -523,7 +665,11 @@ arangosh> db._query(
 ...> "} "
 ...> ).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -556,9 +702,13 @@ arangosh> db._query(
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Or again embed the authors directly into the book document.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query(
 ...> "FOR b IN books " +
@@ -573,7 +723,11 @@ arangosh> db._query(
 ...> "RETURN MERGE(b, {authors: authors}) "
 ...> ).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -604,9 +758,13 @@ arangosh> db._query(
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you need the authors and their books, simply reverse the direction.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > db._query(
 ...> "FOR a IN authors " +
@@ -621,7 +779,11 @@ If you need the authors and their books, simply reverse the direction.
 ...> "RETURN MERGE(a, {books: booksByAuthor}) "
 ...> ).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -660,6 +822,8 @@ If you need the authors and their books, simply reverse the direction.
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## More examples
 
@@ -716,6 +880,8 @@ can be returned in a horizontal list. This will return each user at most once.
 
 The AQL query for doing so is:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true LIMIT 0, 4
@@ -728,7 +894,11 @@ FOR u IN users
     )
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -761,6 +931,8 @@ FOR u IN users
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this query we are still iterating over the users in the *users* collection
 and for each matching user we are executing a subquery to create the matching
@@ -771,6 +943,8 @@ list of related users.
 To not only return friend ids but also the names of friends, we could "join" the
 *users* collection once more (something like a "self join"):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == true
@@ -786,7 +960,11 @@ FOR u IN users
     )
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -819,6 +997,8 @@ FOR u IN users
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This query will then again in term fetch the clear text name of the
 friend from the users collection. So here we iterate the users collection,
@@ -829,6 +1009,8 @@ users collection.
 
 Lets find the lonely people in our database - those without friends.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 
 FOR user IN users
@@ -840,7 +1022,11 @@ FOR user IN users
   FILTER LENGTH(friendList) == 0
   RETURN { "user" : user.name }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -851,6 +1037,8 @@ FOR user IN users
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 So, for each user we pick the list of their friends and count them. The ones where
 count equals zero are the lonely people. Using *RETURN 1* in the subquery
@@ -873,25 +1061,49 @@ Since we're free of schemata, there is by default no way to tell the format of t
 documents. So, if your documents don't contain an attribute, it defaults to
 null. We can however check our data for accuracy like this:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN LENGTH(FOR u IN users FILTER u.userId == null RETURN 1)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   10000
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN LENGTH(FOR f IN relations FILTER f.friendOf == null RETURN 1)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   10000
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 So if the above queries return 10k matches each, the result of the Join tuples
 query will become 100,000,000 items larger and use much memory plus computation

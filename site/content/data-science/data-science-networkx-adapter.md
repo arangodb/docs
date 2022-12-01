@@ -33,9 +33,13 @@ is available on Github. Check it out!
 To install the latest release of the ArangoDB-NetworkX Adapter,
 run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 pip install adbnx-adapter
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Quickstart
 
@@ -43,6 +47,8 @@ The following examples show how to get started with ArangoDB-NetworkX Adapter.
 Check also the 
 [interactive tutorial](https://colab.research.google.com/github/arangoml/networkx-adapter/blob/master/examples/ArangoDB_NetworkX_Adapter.ipynb).
 
+{{< tabs >}}
+{{% tab name="py" %}}
 ```py
 from arango import ArangoClient # Python-Arango driver
 from networkx import grid_2d_graph # Sample graph from NetworkX
@@ -88,3 +94,5 @@ adb_grid_edge_definitions = [
 ]
 adb_grid_graph = adbnx_adapter.networkx_to_arangodb("Grid", nx_grid_graph, adb_grid_edge_definitions)
 ```
+{{% /tab %}}
+{{< /tabs >}}

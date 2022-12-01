@@ -63,6 +63,8 @@ data-modification queries.
 
 The return value looks like this for a read-only query:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh> stmt = db._createStatement("FOR i IN mycollection RETURN i"); stmt.execute().getExtra()
 { 
@@ -75,9 +77,13 @@ arangosh> stmt = db._createStatement("FOR i IN mycollection RETURN i"); stmt.exe
   "warnings" : [ ] 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For data-modification queries, ArangoDB 2.3 returns a result with the same structure:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh> stmt = db._createStatement("FOR i IN xx REMOVE i IN xx"); stmt.execute().getExtra()
 { 
@@ -90,17 +96,25 @@ arangosh> stmt = db._createStatement("FOR i IN xx REMOVE i IN xx"); stmt.execute
   "warnings" : [ ] 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In ArangoDB 2.2, the return value of `ArangoQueryCursor.getExtra()` was empty for read-only
 queries and contained an attribute `operations` with two sub-attributes for data-modification 
 queries:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh> stmt = db._createStatement("FOR i IN mycollection RETURN i"); stmt.execute().getExtra()
 { 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh> stmt = db._createStatement("FOR i IN mycollection REMOVE i IN mycollection"); stmt.execute().getExtra()
 { 
@@ -110,6 +124,8 @@ arangosh> stmt = db._createStatement("FOR i IN mycollection REMOVE i IN mycollec
   } 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Changed return values in HTTP method `POST /_api/cursor`
 
@@ -118,6 +134,8 @@ HTTP REST API method `POST /_api/cursor`. Previously, the return value contained
 an optional `extra` attribute that was filled only for data-modification queries and in 
 some other cases as follows:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 {
   "result" : [ ],
@@ -130,10 +148,14 @@ some other cases as follows:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 With the changed result structure in ArangoDB 2.3, the `extra` attribute in the result
 will look like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 { 
   "result" : [],
@@ -149,6 +171,8 @@ will look like this:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the query option `fullCount` is requested, the `fullCount` result value will also
 be returned inside the `stats` attribute of the `extra` attribute, and not directly
@@ -184,12 +208,16 @@ safely be ignored by client programs.
 Previous versions of ArangoDB allowed the modification of variables inside AQL 
 queries, e.g.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 LET counter = 0
 FOR i IN 1..10 
   LET counter = counter + 1
   RETURN counter
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 While this is admittedly a convenient feature, the new query optimizer design did not
 allow to keep it. Additionally, updating variables inside a query would prevent a lot

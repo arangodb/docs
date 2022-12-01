@@ -77,6 +77,8 @@ The following example uses the JavaScript API to create a collection with two
 computed values, one to add a timestamp of the document creation, and another
 to maintain an attribute that combines two other attributes:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var coll = db._create("users", {
   computedValues: [
@@ -106,6 +108,8 @@ var doc = db.users.save({ firstName: "Paula", lastName: "Plant" });
   }
 */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [Computed Values](../../getting-started/data-modeling/documents/data-modeling-documents-computed-values) for more
 information and examples.
@@ -121,6 +125,8 @@ wildcard and fuzzy search, nested search, as well as for
 sophisticated full-text search with the ability to search for words, phrases,
 and more.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.imdb_vertices.ensureIndex({
   type: "inverted",
@@ -135,6 +141,8 @@ db._query(`FOR doc IN imdb_vertices OPTIONS { indexHint: "inv-idx", forceIndexHi
   FILTER TOKENS("neo morpheus", "text_en") ALL IN doc.description
   RETURN doc.title`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You need to use an index hint to utilize an inverted index.
 Note that the `FOR` loop uses a collection, not a View, and documents are
@@ -154,6 +162,8 @@ ranking of search results by relevance, and search highlighting, similar to
 `arangosearch` Views. This is on top of the filtering capabilities provided by the
 inverted indexes, including full-text processing with Analyzers and more.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._createView("view", "search-alias", {
   indexes: [
@@ -166,6 +176,8 @@ db._query(`FOR doc IN imdb
   PHRASE(doc.description, "invasion", 2, "machine")
   RETURN doc`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A key difference between `arangosearch` and `search-alias` Views is that you don't
 need to specify an Analyzer context with the `ANALYZER()` function in queries
@@ -188,6 +200,8 @@ You can use the [`SUBSTRING_BYTES()` function](../../aql/functions/functions-str
 together with the [`VALUE()` function](../../aql/functions/functions-document#value) to
 extract a match.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._create("food");
 db.food.save({ name: "avocado", description: { en: "The avocado is a medium-sized, evergreen tree, native to the Americas." } });
@@ -215,7 +229,11 @@ db._query(`FOR doc IN food_view
       }]
     }`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -244,6 +262,8 @@ db._query(`FOR doc IN food_view
 ]
 */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [Search highlighting with ArangoSearch](../../indexing/arangosearch/arangosearch-search-highlighting)
 for details.
@@ -256,6 +276,8 @@ instead of each condition being met by any of the sub-objects.
 
 Consider a document like the following:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "dimensions": [
@@ -264,34 +286,48 @@ Consider a document like the following:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following search query matches the document because the individual conditions
 are satisfied by one of the nested objects:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.dimensions.type == "height" AND doc.dimensions.value > 40
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you only want to find documents where both conditions are true for a single
 nested object, you could post-filter the search results:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.dimensions.type == "height" AND doc.dimensions.value > 40
   FILTER LENGTH(doc.dimensions[* FILTER CURRENT.type == "height" AND CURRENT.value > 40]) > 0
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The new nested search feature allows you to simplify the query and get better
 performance:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.dimensions[? FILTER CURRENT.type == "height" AND CURRENT.value > 40]
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [Nested search with ArangoSearch](../../indexing/arangosearch/arangosearch-nested-search) using Views
 and the nested search example using [Inverted indexes](../../indexing/working-with-indexes/indexing-inverted#nested-search-enterprise-edition)
@@ -354,6 +390,8 @@ In arangosh, you can call `db.<collection>.indexes(true, true);` to get at this
 information. Also see [Listing all indexes of a collection](../../indexing/working-with-indexes/#listing-all-indexes-of-a-collection).
 The information has the following structure:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "figures" : { 
@@ -365,6 +403,8 @@ The information has the following structure:
   }, ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the number of (live) docs may differ from the actual number of
 documents if the nested search feature is used.
@@ -422,11 +462,15 @@ vertices in order of increasing length, you can now use the new
 `ALL_SHORTEST_PATHS` graph traversal algorithm in AQL to get all paths of
 shortest length:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR p IN OUTBOUND ALL_SHORTEST_PATHS 'places/Carlisle' TO 'places/London'
   GRAPH 'kShortestPathsGraph'
     RETURN { places: p.vertices[*].label }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [All Shortest Paths in AQL](../../aql/graphs/graphs-all-shortest-paths) for details.
 
@@ -451,11 +495,15 @@ another. Note that parallelism increases the memory usage of the query due to
 having multiple operations performed simultaneously, instead of one after the
 other.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR startVertex IN ["v/1", "v/2", "v/3", "v/4"]
 FOR v,e,p IN 1..3 OUTBOUND startVertex GRAPH "yourShardedGraph" OPTIONS {parallelism: 3}
 [...]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This feature is only available in the Enterprise Edition.
 
@@ -504,13 +552,19 @@ See also [how to use `maxProjections` with FOR loops](../../aql/high-level-opera
 In the following query, the accessed attributes are the `name` attribute of the
 neighbor vertices and the `vertex` attribute of the edges (via the path variable):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v, e, p IN 1..3 OUTBOUND "persons/alice" GRAPH "knows_graph" OPTIONS { maxProjections: 5 }
   RETURN { name: v.name, vertices: p.edges[*].vertex }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The use of projections is indicated in the query explain output:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType          Est.   Comment
@@ -519,6 +573,8 @@ Execution plan:
   3   CalculationNode      1       - LET #7 = { "name" : v.`name`, "vertex" : p.`edges`[*].`vertex` }   /* simple expression */
   4   ReturnNode           1       - RETURN #7
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This feature is only available in the Enterprise Edition.
 
@@ -531,6 +587,8 @@ profiling output, and it wasn't clear which execution node caused which amount o
 
 For example, consider the following query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc1 IN collection
   FILTER doc1.value1 < 1000  /* uses index */
@@ -540,10 +598,14 @@ FOR doc1 IN collection
     FILTER doc2.value2 != 5  /* post filter */
     RETURN doc2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The profiling output for this query now shows how often the filters were invoked for the 
 different execution nodes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
@@ -561,6 +623,8 @@ Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
            0            0           0        71000               0 / 0      10300          98304         0.13026
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Number of cache hits / cache misses in profiling output
 
@@ -572,6 +636,8 @@ In the following example query, there are in-memory caches present for both inde
 the query. However, only the innermost index node #13 can use the cache, because the outer
 FOR loop does not use an equality lookup.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Query String (270 chars, cacheable: false):
  FOR doc1 IN collection FILTER doc1.value1 < 1000 FILTER doc1.value2 NOT IN [1, 4, 7]  
@@ -593,6 +659,8 @@ Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
            0            0           0        71000            689 / 11      10300          98304         0.15389
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Index Lookup Optimization
 
@@ -605,12 +673,16 @@ that are part of the index.
 For example, if you have a collection with an index on `value1` and `value2`,
 a query like below can only partially utilize the index for the lookup: 
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   FILTER doc.value1 == @value1   /* uses the index */
   FILTER ABS(doc.value2) != @value2   /* does not use the index */
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this case, previous versions of ArangoDB always fetched the full documents
 from the storage engine for all index entries that matched the index lookup
@@ -630,9 +702,13 @@ for details.
 The multi-dimensional index type `zkd` (experimental) now supports an optional
 index hint for tweaking performance:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR … IN … OPTIONS { lookahead: 32 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [Lookahead Index Hint](../../indexing/working-with-indexes/indexing-multi-dim#lookahead-index-hint).
 
@@ -641,6 +717,8 @@ See [Lookahead Index Hint](../../indexing/working-with-indexes/indexing-multi-di
 The new `[? ... ]` array operator is a shorthand for an inline filter with a
 surrounding length check:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET arr = [ 1, 2, 3, 4 ]
 RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
@@ -649,6 +727,8 @@ RETURN arr[? 2 FILTER CURRENT % 2 == 0] // true
 RETURN LENGTH(arr[* FILTER CURRENT % 2 == 0]) == 2
 */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The quantifier can be a number, a range, `NONE`, `ANY`, `ALL`, or `AT LEAST`.
 
@@ -665,10 +745,14 @@ You can now combine one of the supported comparison operators with the special
 to satisfy the condition to evaluate to `true`. You can use a static number or
 calculate it dynamically using an expression:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 [ 1, 2, 3 ]  AT LEAST (2) IN  [ 2, 3, 4 ]  // true
 ["foo", "bar"]  AT LEAST (1+1) ==  "foo"   // false
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [Array Comparison Operators](../../aql/operators#array-comparison-operators).
 
@@ -741,6 +825,8 @@ They cannot be used for index lookups or for sorting, but for projections only.
 You can specify the additional attributes in the new `storedValues` option when
 creating a new persistent index:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "persistent",
@@ -748,6 +834,8 @@ db.<collection>.ensureIndex({
   storedValues: ["value2"]
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [Persistent Indexes](../../indexing/working-with-indexes/indexing-persistent#storing-additional-values-in-indexes).
 
@@ -757,6 +845,8 @@ Persistent indexes now support in-memory caching of index entries, which can be
 used when doing point lookups on the index. You can enable the cache with the
 new `cacheEnabled` option when creating a persistent index:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.<collection>.ensureIndex({
   type: "persistent",
@@ -764,6 +854,8 @@ db.<collection>.ensureIndex({
   cacheEnabled: true
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This can have a great positive effect on index scan performance if the number of
 scanned index entries is large.
@@ -961,12 +1053,16 @@ _arangoexport_ has a new `--custom-query-bindvars` startup option that lets you 
 bind variables that you can now use in the `--custom-query` option
 (renamed from `--query`):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangoexport \
   --custom-query 'FOR book IN @@@@collectionName FILTER book.sold > @@sold RETURN book' \
   --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that you need to escape at signs in command-lines by doubling them (see
 [Environment variables as parameters](../../administration/administration-configuration#environment-variables-as-parameters)).
@@ -975,19 +1071,27 @@ _arangoexport_ now also has a `--custom-query-file` startup option that you can
 use instead of `--custom-query`, to read a query from a file. This allows you to
 store complex queries and no escaping is necessary in the file:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // example.aql
 FOR book IN @@collectionName
   FILTER book.sold > @sold
   RETURN book
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangoexport \
   --custom-query-file example.aql \
   --custom-query-bindvars '{"@@collectionName": "books", "sold": 100}' \
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### arangoimport
 
@@ -1032,6 +1136,8 @@ The new parameters are listed below:
 
 Example:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --temp.intermediate-results-path "tempDir" 
 --database.directory "myDir"
@@ -1040,6 +1146,8 @@ arangod --temp.intermediate-results-path "tempDir"
 --temp.intermediate-results-spillover-threshold-num-rows 50000
 --temp.intermediate-results-spillover-threshold-memory-usage 134217728
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For more information, refer to the [Query invocation](../../aql/how-to-invoke-aql/invocation-with-arangosh#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](../../programs-tools/arangodb-server/programs-arangod-options#--tempintermediate-results-path) topics.
 

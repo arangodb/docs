@@ -41,6 +41,8 @@ and can be combined with filters and other AQL constructs.
 
 As an example one can now find the friends of a friend for a certain user with this AQL statement:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR foaf, e, path IN 2 ANY @startUser GRAPH "relations"
   FILTER path.edges[0].type == "friend"
@@ -48,6 +50,8 @@ FOR foaf, e, path IN 2 ANY @startUser GRAPH "relations"
   FILTER foaf._id != @startUser
   RETURN DISTINCT foaf
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Optimizer rules have been implemented to gain performance of the traversal statement.
 These rules move filter statements into the traversal statement s.t. paths which can never
@@ -67,13 +71,19 @@ expansion operator `[*]` in the index definition.
 
 Example:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 db._create("posts");
 db.posts.ensureHashIndex("tags[*]");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When given the following document
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "tags": [
@@ -83,21 +93,29 @@ When given the following document
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 this index will now contain the individual values `"AQL"`, `"ArangoDB"` and `"Index"`.
 
 Now the index can be used for finding all documents having `"ArangoDB"` somewhere in 
 their `tags` array using the following AQL query:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR doc IN posts
   FILTER "ArangoDB" IN doc.tags[*]
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is also possible to create an index on sub-attributes of array values. This makes 
 sense when the index attribute is an array of objects, e.g.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._drop("posts");
 db._create("posts");
@@ -105,14 +123,20 @@ db.posts.ensureIndex({ type: "hash", fields: [ "tags[*].name" ] });
 db.posts.insert({ tags: [ { name: "AQL" }, { name: "ArangoDB" }, { name: "Index" } ] });
 db.posts.insert({ tags: [ { name: "AQL" }, { name: "2.8" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following query will then use the array index:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR doc IN posts
   FILTER 'AQL' IN doc.tags[*].name
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Array values will automatically be de-duplicated before being inserted into an array index.
 
@@ -132,10 +156,14 @@ For example, the following queries can now use two independent indexes on `value
 (the latter query requires that the indexes are skiplist indexes due to usage of the `<` and `>`
 comparison operators):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR doc IN collection FILTER doc.value1 == 42 || doc.value2 == 23 RETURN doc
 FOR doc IN collection FILTER doc.value1 < 42 || doc.value2 > 23 RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The new optimizer rule "sort-in-values" can now pre-sort the right-hand side operand 
 of `IN` and `NOT IN` operators so the operation can use a binary search with logarithmic 
@@ -146,28 +174,40 @@ consist of solely the `IN` or `NOT IN` operation in order to avoid any side-effe
 
 The rule will kick in for a queries such as the following:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 LET values = /* some runtime expression here */
 FOR doc IN collection
   FILTER doc.value IN values
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It will not be applied for the followig queries, because the right-hand side operand of the
 `IN` is either not a variable, or because the FILTER condition may have side effects:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR doc IN collection
   FILTER doc.value IN /* some runtime expression here */
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 LET values = /* some runtime expression here */
 FOR doc IN collection
   FILTER FUNCTION(doc.values) == 23 && doc.value IN values
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ### AQL functions added

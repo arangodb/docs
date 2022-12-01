@@ -23,6 +23,8 @@ Possible `@<IndexType>Indexed` annotations are:
 
 The following example creates a persistent index on the field `name` and a separate persistent index on the field `age`:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public class Person {
   @PersistentIndexed
@@ -32,11 +34,15 @@ public class Person {
   private int age;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 With the `@<IndexType>Indexed` annotations different indexes can be created on the same field.
 
 The following example creates a TTL index and also a persistent index on the field `name`:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public class Person {
   @TtlIndexed
@@ -44,6 +50,8 @@ public class Person {
   private String name;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Annotation @\<IndexType\>Index
 
@@ -58,6 +66,8 @@ Possible `@<IndexType>Index` annotations are:
 
 The following example creates a single persistent index on the fields `name` and `age`, note that if a field is renamed in the database with @Field, the new field name must be used in the index declaration:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @PersistentIndex(fields = {"fullname", "age"})
 public class Person {
@@ -67,11 +77,15 @@ public class Person {
   private int age;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `@<IndexType>Index` annotations can also be used to create an index on a nested field.
 
 The following example creates a single persistent index on the fields `name` and `address.country`:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @PersistentIndex(fields = {"name", "address.country"})
 public class Person {
@@ -80,11 +94,15 @@ public class Person {
   private Address address;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `@<IndexType>Index` annotations and the `@<IndexType>Indexed` annotations can be used at the same time in one class.
 
 The following example creates a persistent index on the fields `name` and `age` and a separate persistent index on the field `age`:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @PersistentIndex(fields = {"name", "age"})
 public class Person {
@@ -94,11 +112,15 @@ public class Person {
   private int age;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `@<IndexType>Index` annotations can be used multiple times to create more than one index in this way.
 
 The following example creates a persistent index on the fields `name` and `age` and a separate persistent index on the fields `name` and `gender`:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @PersistentIndex(fields = {"name", "age"})
 @PersistentIndex(fields = {"name", "gender"})
@@ -110,3 +132,5 @@ public class Person {
   private Gender gender;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

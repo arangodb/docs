@@ -8,9 +8,13 @@ layout: default
 The JavaScript API can be accessed via the `@arangodb/analyzers` module from
 both server-side and client-side code (arangosh, Foxx):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzers = require("@arangodb/analyzers");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [Analyzers](../../analyzers/) for general information and
 details about the attributes.
@@ -19,9 +23,13 @@ details about the attributes.
 
 ### Create an Analyzer
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzer = analyzers.save(<name>, <type>[, <properties>[, <features>]])
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Create a new Analyzer with custom configuration in the current database.
 
@@ -60,9 +68,13 @@ analyzers.save("csv", "delimiter", { "delimiter": "," }, ["frequency", "norm", "
 
 ### Get an Analyzer
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzer = analyzers.analyzer(<name>)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Get an Analyzer by the name, stored in the current database. The name can be
 prefixed with `_system::` to access Analyzers stored in the `_system` database.
@@ -94,9 +106,13 @@ analyzers.analyzer("text_en");
 
 ### List all Analyzers
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzerArray = analyzers.toArray()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 List all Analyzers available in the current database.
 
@@ -126,9 +142,13 @@ analyzers.toArray();
 
 ### Remove an Analyzer
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 analyzers.remove(<name> [, <force>])
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Delete an Analyzer from the current database.
 
@@ -167,9 +187,13 @@ definition attributes (see [Create an Analyzer](#create-an-analyzer)).
 
 ### Get Analyzer Name
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var name = analyzer.name()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - returns **name** (string): name of the Analyzer
 
@@ -197,9 +221,13 @@ analyzers.analyzer("text_en").name();
 
 ### Get Analyzer Type
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var type = analyzer.type()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - returns **type** (string): type of the Analyzer
 
@@ -227,9 +255,13 @@ analyzers.analyzer("text_en").type();
 
 ### Get Analyzer Properties
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var properties = analyzer.properties()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - returns **properties** (object): *type* dependent properties of the Analyzer
 
@@ -257,9 +289,13 @@ analyzers.analyzer("text_en").properties();
 
 ### Get Analyzer Features
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var features = analyzer.features()
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - returns **features** (array): array of strings with the features of the Analyzer
 

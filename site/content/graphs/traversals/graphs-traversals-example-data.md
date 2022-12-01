@@ -11,6 +11,8 @@ contains connections between continents and countries, and between countries and
 
 To set up the collections and populate them with initial data, the following script was used:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._create("v");
 db._createEdgeCollection("e");
@@ -202,3 +204,5 @@ db.e.save("v/capital-yamoussoukro", "v/country-cote-d-ivoire", { type: "is-in" }
 db.e.save("v/capital-yaounde", "v/country-cameroon", { type: "is-in" });
 db.e.save("v/capital-zagreb", "v/country-croatia", { type: "is-in" });
 ```
+{{% /tab %}}
+{{< /tabs >}}

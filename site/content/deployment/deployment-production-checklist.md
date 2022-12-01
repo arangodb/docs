@@ -43,17 +43,25 @@ have been performed on your production system before you go live.
 - If you use the _Starter_ to deploy, you stopped - and disabled
   automated start of - the ArangoDB _Single Instance_, e.g. on Ubuntu:
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   service arangodb3 stop
   update-rc.d -f arangodb3 remove
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   On Windows in a command prompt with elevated rights:
 
-  ```
+  {{< tabs >}}
+{{% tab name="" %}}
+```
   sc config arangodb start= disabled
   sc stop arangodb
   ```
+{{% /tab %}}
+{{< /tabs >}}
   
 - If you have deployed a Cluster, the _replication factor_  and 
   _minimal_replication_factor_ of your collections

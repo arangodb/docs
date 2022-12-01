@@ -20,11 +20,15 @@ a `Service` is created that serves the dashboard internally in the Kubernetes cl
 To expose a dashboard outside the Kubernetes cluster, run a `kubecty expose`
 command like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl expose service <service-name> --type=LoadBalancer \
   --port=8528 --target-port=8528 \
   --name=<your-exposed-service-name> --namespace=<the-namespace>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Replace `<service-name>` with:
 
@@ -45,17 +49,25 @@ use `--type=NodePort` instead.
 Run the following command to inspect your new service and look for the
 loadbalancer IP/host address (or nodeport).
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get service <your-exposed-service-name> --namespace=<the-namespace>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will result in something like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 $ kubectl get service arango-storage-operator-lb --namespace=kube-system
 NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)          AGE
 arango-storage-operator-lb   LoadBalancer   10.103.30.24   192.168.31.11   8528:30655/TCP   1d
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Authentication
 
@@ -67,12 +79,16 @@ The username+password pair is configured in a generic Kubernetes `Secret` named 
 
 To create such a secret, run this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl create secret generic \
   arangodb-operator-dashboard --namespace=<the-namespace> \
   --from-literal=username=<username> \
   --from-literal=password=<password>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Until such a `Secret` is found, the operator will respond with a status `401`
 to any request related to the dashboard.

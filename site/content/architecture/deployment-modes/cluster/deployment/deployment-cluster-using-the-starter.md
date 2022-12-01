@@ -11,24 +11,36 @@ This section describes how to start a Cluster using the tool [_Starter_](../../.
 As a precondition you should create a _secret_ to activate authentication. The _Starter_ provides a handy
 functionality to generate such a file:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb create jwt-secret --secret=arangodb.secret
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Set appropriate privilege on the generated _secret_ file, e.g. on Linux:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 chmod 400 arangodb.secret
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Local Tests
 
 If you only want a local test Cluster, you can run a single _Starter_ with the 
 `--starter.local` argument. It will start a 3 "machine" Cluster on your local PC:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --starter.local --starter.data-dir=./localdata --auth.jwt-secret=/etc/arangodb.secret
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Please adapt the path to your _secret_ file accordingly.
 
@@ -40,9 +52,13 @@ a single PC will bring down the entire Cluster.
 If you want to start a Cluster using the _Starter_, you need to copy the _secret_ file to every machine
 and start the Cluster using the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb --server.storage-engine=rocksdb --auth.jwt-secret=/etc/arangodb.secret --starter.data-dir=./data --starter.join A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Please adapt the path to your _secret_ file accordingly.
 
@@ -59,6 +75,8 @@ section.
 
 The _Starter_ can also be used to launch Clusters based on _Docker_ containers:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export IP=<IP of docker host>
 docker volume create arangodb
@@ -69,15 +87,21 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.address=$IP \
     --starter.join=A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Run the above command on machine A, B & C.
 
 If you use the Enterprise Edition Docker image, you have to set the license key
 in an environment variable by adding this option to the above `docker` command:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     -e ARANGO_LICENSE_KEY=<thekey>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can get a free evaluation license key by visiting:
 
@@ -95,6 +119,8 @@ As the ArangoDB starter starts the ArangoDB cluster instances using this Docker 
 it is mandatory that the ArangoDB starter is deployed with the proper certificates
 handed to it, so that the above command is modified as follows:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export IP=<IP of docker host>
 export DOCKER_CERT_PATH=/path/to/certificate
@@ -109,6 +135,8 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.address=$IP \
     --starter.join=A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
@@ -116,6 +144,8 @@ directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it
 is mandatory that the certificates are stored in `$HOME/.docker`. So
 the command would then be as follows
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export IP=<IP of docker host>
 docker volume create arangodb
@@ -128,6 +158,8 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.address=$IP \
     --starter.join=A,B,C
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Under the Hood
 

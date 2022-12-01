@@ -27,22 +27,30 @@ Create a `geojson` Analyzer in arangosh to pre-process arbitrary GeoJSON shapes.
 The default properties are usually what you want, therefore an empty object
 is passed:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
 analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See [`geojson` Analyzer](../../analyzers/#geojson) for details.
 
 Create a `geopoint` Analyzer in arangosh to pre-process raw coordinate arrays
 using the default properties, hence passing an empty object:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
 analyzers.save("geo_pair", "geopoint", {}, ["frequency", "norm", "position"]);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Create a `geopoint` Analyzer in arangosh to pre-process raw coordinates with
 latitude and longitude stored in two different attributes. These attributes
@@ -51,11 +59,15 @@ e.g. `{ location: { lat: 40.78, lon: -73.97 } }`. The path relative to the
 parent attribute (here: `location`) needs to be described in the Analyzer
 properties for each of the coordinate attributes:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
 analyzers.save("geo_latlng", "geopoint", { latitude: ["lat"], longitude: ["lng"] }, ["frequency", "norm", "position"]);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Using the example dataset
 
@@ -68,6 +80,8 @@ as described below:
 
 #### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.restaurants.ensureIndex({ name: "inv-rest", type: "inverted", fields: [ { name: "location", analyzer: "geojson" } ] });
 db.neighborhoods.ensureIndex({ name: "inv-hood", type: "inverted", fields: [ "name", { name: "geometry", analyzer: "geojson" } ] });
@@ -76,9 +90,13 @@ db._createView("restaurantsViewAlias", "search-alias", { indexes: [
   { collection: "neighborhoods", index: "inv-hood" }
 ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -108,6 +126,8 @@ db._createView("restaurantsViewAlias", "search-alias", { indexes: [
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Search for points within a radius
 
@@ -117,6 +137,8 @@ away they are from the reference point in the result.
 
 _`search-alias` View_:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
 FOR doc IN restaurantsViewAlias
@@ -128,9 +150,13 @@ FOR doc IN restaurantsViewAlias
     distance
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View_:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
 FOR doc IN restaurantsView
@@ -142,12 +168,16 @@ FOR doc IN restaurantsView
     distance
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Search for restaurants with `Cafe` in their name within a radius of 1000 meters
 and return the ten closest matches:
 
 _`search-alias` View_:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
 FOR doc IN restaurantsViewAlias
@@ -162,9 +192,13 @@ FOR doc IN restaurantsViewAlias
     distance
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View_:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET moma = GEO_POINT(-73.983, 40.764)
 FOR doc IN restaurantsView
@@ -179,6 +213,8 @@ FOR doc IN restaurantsView
     distance
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Search for points within a polygon
 
@@ -188,6 +224,8 @@ in this polygon and return them together with the polygon itself:
 
 _`search-alias` View_:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET upperWestSide = FIRST(
   FOR doc IN restaurantsViewAlias
@@ -202,9 +240,13 @@ FOR result IN PUSH(
 )
   RETURN result
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`arangosearch` View_:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET upperWestSide = FIRST(
   FOR doc IN restaurantsView
@@ -219,12 +261,16 @@ FOR result IN PUSH(
 )
   RETURN result
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ![ArangoSearch geospatial query for points in a polygon](/images/arangosearch-geo-points-in-polygon.png)
 
 You do not have to look up the polygon, you can also provide one inline.
 It is also not necessary to return the polygon, you can return the matches only:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET upperWestSide = {
   "coordinates": [
@@ -323,12 +369,16 @@ FOR doc IN restaurantsViewAlias
   RETURN doc.location
 */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Search for polygons within polygons
 
 Define a GeoJSON polygon that is a rectangle, then search for neighborhoods
 that are fully contained in this area:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET sides = {
   left: -74,
@@ -357,6 +407,8 @@ FOR result IN PUSH(
 )
   RETURN result
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ![ArangoSearch geosptial query for polygons in a polygon](/images/arangosearch-geo-polygons-in-polygon.png)
 
@@ -370,6 +422,8 @@ Take a look at the lunch break video about the
 Define a GeoJSON polygon that is a rectangle, then search for neighborhoods
 that intersect with this area:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET sides = {
   left: -74,
@@ -398,5 +452,7 @@ FOR result IN PUSH(
 )
   RETURN result
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ![ArangoSearch geospatial query for polygons intersecting a polygon](/images/arangosearch-geo-polygons-intersecting-polygon.png)

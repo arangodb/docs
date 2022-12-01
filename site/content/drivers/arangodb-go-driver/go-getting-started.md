@@ -33,53 +33,75 @@ the API, as they are too dangerous.
 Go uses package names as datatypes, and datatypes as qualifiers, to invoke 
 member functions:
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 package.Member()
 var myvariable package.Typename 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Moreover, the package name becomes an object reference to all types and unclassified
 functions defined within it: e.g.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 driver.Function()    // package driver
 fmt.Println("hello") // package fmt
 os.Exit(0)           // package os
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 There are two Go package components needed for the Go driver.
 The main go-driver name contains an illegal character however, so we need to map
 it to an alias, say `driver` for the Arango driver (or something shorter),
 by importing it as
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 import (
 	"github.com/arangodb/go-driver/http"
 	driver "github.com/arangodb/go-driver"
 )
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now we refer to the member functions and types as: 
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 http.NewConnection(..)
 driver.NewClient(..)
 driver.Database
 driver.Collection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Configuration
 
 To use the driver, first fetch the sources into your `GOPATH`.
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 go get github.com/arangodb/go-driver
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using the driver, you always need to create a `Client`.
 The following example shows how to create a `Client` for a single server 
 running on localhost.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 import (
 	"fmt"
@@ -103,6 +125,8 @@ if err != nil {
     // Handle error
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Once you have a `Client` you can access/create databases on the server, 
 access/create collections, graphs, documents and so on.
@@ -122,6 +146,8 @@ Arango using the Go driver are:
 
 These are declared as in the following examples:
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 var err error
 var client driver.Client
@@ -129,11 +155,15 @@ var conn   driver.Connection
 var db     driver.Database
 var col    driver.Collection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 etc. We can now see them in action: the following example shows how to open an
 existing collection in an existing database and create a new document in that
 collection.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 
 // Open a client connection 
@@ -177,6 +207,8 @@ if err != nil {
 }
 fmt.Printf("Created document in collection '%s' in database '%s'\n", col.Name(), db.Name())
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that Go's `:=` operator declares and assigns with the automatic type of the
 function in one operation, so the type returned appear mysterious. It's also
@@ -199,6 +231,8 @@ start with a capital letter to be accessible outside a packaged
 scope. You declare types and their JSON mappings once as in the
 examples below.
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 // A typical document type
 
@@ -234,15 +268,21 @@ type MyEdgeLink struct {
     
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When reading data from ArangoDB with, say, `ReadDocument()`, the API
 asks you to submit a variable of some type, say `MyDocumentType`, by reference
 using the `&` operator:
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
  var variable MyDocumentType
  mycollection.ReadDocument(nil, rawkey, &variable)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This submitted type is not necessarily a fixed type, but it must be a type whose members
 map (at least partially) to the named fields in the database's JSON
@@ -261,6 +301,8 @@ choice.
 
 ## Complete example
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 package main
 
@@ -400,6 +442,8 @@ func PrintCollection(db driver.Database, name string) {
 }
 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## API design 
 
@@ -435,6 +479,8 @@ wrapper library.
 If you for example use [github.com/pkg/errors](https://github.com/pkg/errors),
 you want to initialize to go driver like this:
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 import (
 	driver "github.com/arangodb/go-driver"
@@ -447,6 +493,8 @@ func init() {
 }
 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Context aware 
 
@@ -462,7 +510,11 @@ These can be used with a `With<OptionName>` function.
 E.g. to force a create document call to wait until the data is synchronized to disk, 
 use a prepared context like this:
 
+{{< tabs >}}
+{{% tab name="go" %}}
 ```go
 ctx := driver.WithWaitForSync(parentContext)
 collection.CreateDocument(ctx, yourDocument)
 ```
+{{% /tab %}}
+{{< /tabs >}}

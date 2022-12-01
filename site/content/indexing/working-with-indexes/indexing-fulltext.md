@@ -27,19 +27,27 @@ documents, then searching for `лиса` using the fulltext index would return o
 first document. Searching for the index for the exact string `Fox` would return the first
 two documents, and searching for `prefix:Fox` would return all three documents:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { translations: { en: "fox", de: "Fuchs", fr: "renard", ru: "лиса" } }
 { translations: "Fox is the English translation of the German word Fuchs" }
 { translations: [ "ArangoDB", "document", "database", "Foxx" ] }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that deeper nested objects are ignored. For example, a fulltext index on
 `translations` would index `Fuchs`, but not `fox`, given the following document
 structure:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { translations: { en: { US: "fox" }, de: "Fuchs" } }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you need to search across multiple fields and/or nested objects, you may write
 all the strings into a special attribute, which you then create the index on

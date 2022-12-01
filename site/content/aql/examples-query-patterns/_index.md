@@ -40,6 +40,8 @@ for brevity as well.
 Some of the following example queries are executed on a collection *users*
 with the following initial data:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 
   { "id": 100, "name": "John", "age": 37, "active": true, "gender": "m" },
@@ -64,10 +66,14 @@ with the following initial data:
   { "id": 209, "name": "Mariah", "age": 28, "active": true, "gender": "f" }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For some of the examples, we'll also use a collection *relations* to store
 relationships between users. The example data for *relations* are as follows:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "from": 209, "to": 205, "type": "friend" },
@@ -112,3 +118,5 @@ relationships between users. The example data for *relations* are as follows:
   { "from": 100, "to": 206, "type": "girlfriend" }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}

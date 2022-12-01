@@ -209,18 +209,26 @@ Additionally, the `res.send()` method has been added as a convenience method for
 returning strings, JSON objects or Buffers from a Foxx action. It provides some
 auto-detection based on its parameter value:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 res.send("<p>some HTML</p>");  // returns an HTML string
 res.send({ success: true });   // returns a JSON object
 res.send(new Buffer("some binary data"));  // returns binary data
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The convenience method `res.sendFile()` can now be used to return the contents of
 a file from a Foxx action. They file may contain binary data:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 res.sendFile(applicationContext.foxxFilename("image.png"));
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The filesystem methods `fs.write()` and `fs.readBuffer()` can be used to work 
 with binary data, too:
@@ -228,10 +236,14 @@ with binary data, too:
 `fs.write()` will perform an auto-detection of its second parameter's value so it
 works with Buffer objects:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 fs.write(filename, "some data");  // saves a string value in file
 fs.write(filename, new Buffer("some binary data"));  // saves (binary) contents of a buffer
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `fs.readBuffer()` has been added as a method to read the contents of an
 arbitrary file into a Buffer object.

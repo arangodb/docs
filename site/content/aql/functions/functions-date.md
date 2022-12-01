@@ -29,6 +29,8 @@ The string must be prefixed by a `P`. A separating `T` is only required if
 `H`, `M` and/or `S` are specified. You only need to specify the needed pairs
 of letters and numbers.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 DATE_SUBTRACT(DATE_NOW(), 1, "day") // yesterday
 DATE_SUBTRACT(DATE_TIMESTAMP(DATE_YEAR(DATE_NOW()), 12, 24), 4, "years") // Christmas four years ago
@@ -36,6 +38,8 @@ DATE_SUBTRACT(DATE_ADD("2016-02", "month", 1), 1, "day") // last day of February
 DATE_SUBTRACT(DATE_NOW(), "P4D") // four days ago
 DATE_SUBTRACT(DATE_NOW(), "PT1H3M") // 1 hour and 30 minutes ago
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### DATE_DIFF()
 
@@ -89,6 +93,8 @@ You can refer to the units as:
 - s, second, seconds
 - f, millisecond, milliseconds
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // Compare months and days, true on birthdays if you're born on 4th of April
 DATE_COMPARE("1985-04-04", DATE_NOW(), "months", "days")
@@ -100,6 +106,8 @@ DATE_COMPARE("1984-02-29", DATE_NOW(), "months", "days")
 // compare years, months and days (true, because it's the same day)
 DATE_COMPARE("2001-01-01T15:30:45.678Z", "2001-01-01T08:08:08.008Z", "years", "days")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can directly compare ISO date **strings** if you want to find dates before or
 after a certain date, or in between two dates (`>=`, `>`, `<`, `<=`).
@@ -109,11 +117,15 @@ compare partial date strings, `DATE_COMPARE()` is basically a convenience
 function for that. However, neither is really required to limit a search to a
 certain day as demonstrated here:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN coll
     FILTER doc.date >= "2015-05-15" AND doc.date < "2015-05-16"
     RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Every ISO date on that day is greater than or equal to `2015-05-15` in a string
 comparison (e.g. `2015-05-15T11:30:00.000Z`). Dates before `2015-05-15` are smaller
@@ -129,6 +141,8 @@ and can only occur if inserted manually (you may want to pass dates through
 Leap days in leap years (29th of February) must be always handled manually,
 if you require so (e.g. birthday checks):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET today = DATE_NOW()
 LET noLeapYear = NOT DATE_LEAPYEAR(today)
@@ -147,6 +161,8 @@ FOR user IN users
      */
     RETURN user
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### DATE_UTCTOLOCAL()
 

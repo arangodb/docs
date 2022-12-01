@@ -19,6 +19,8 @@ The minimum required Java version is 1.8+ (since driver version 6.x.x).
 To add the driver to your project with maven, add the following code to your
 pom.xml (substitute `x.x.x` with the latest driver version):
 
+{{< tabs >}}
+{{% tab name="XML" %}}
 ```XML
 <dependencies>
   <dependency>
@@ -28,12 +30,18 @@ pom.xml (substitute `x.x.x` with the latest driver version):
   </dependency>
 </dependencies>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Compile the Java Driver
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 mvn clean install -DskipTests=true -Dgpg.skip=true -Dmaven.javadoc.skip=true -B
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## GraalVM Native Image
 

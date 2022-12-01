@@ -44,10 +44,14 @@ The algorithm stops when at least one of the two conditions is satisfied:
   threshold. The default threshold is  0.00001, a custom value can be set with
   the `threshold` parameter.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var pregel = require("@arangodb/pregel");
 pregel.start("pagerank", "graphname", { maxGSS: 100, threshold: 0.00000001, resultField: "rank" })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Seeded PageRank
 
@@ -57,10 +61,14 @@ your graph. To define these seed ranks / centralities, you can specify a
 set on a document _and_ the value is numeric, then it is used instead of
 the default initial rank of `1 / numVertices`.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var pregel = require("@arangodb/pregel");
 pregel.start("pagerank", "graphname", { maxGSS: 20, threshold: 0.00000001, sourceField: "seed", resultField: "rank" })
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Single-Source Shortest Path
 
@@ -78,10 +86,14 @@ A call of the algorithm requires the `source` parameter whose value is the
 document ID of the source vertex. The result field needs to be
 specified in `_resultField` (note the underscore).
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var pregel = require("@arangodb/pregel");
 pregel.start("sssp", "graphname", { source: "vertices/1337", _resultField: "distance" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Connected Components
 
@@ -127,6 +139,8 @@ written into the specified `resultField`. All vertices from the same component
 obtain the same component ID, every two vertices from different components
 obtain different IDs.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var pregel = require("@arangodb/pregel");
 
@@ -139,6 +153,8 @@ pregel.start("wcc", "graphname", { resultField: "component_weak" });
 // strongly connected components
 pregel.start("scc", "graphname", { resultField: "component_strong" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Hyperlink-Induced Topic Search (HITS)
 
@@ -185,17 +201,25 @@ the `<resultField>_hub` field and the authority score in the `<resultField>_auth
 
 The algorithm can be executed like this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var pregel = require("@arangodb/pregel");
 var handle = pregel.start("hits", "graphname", { threshold:0.00001, resultField: "score" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 for ArangoDB's version and 
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var pregel = require("@arangodb/pregel");
 var handle = pregel.start("hitskleinberg", "graphname", { threshold:0.00001, resultField: "score" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 for the original version.
 
@@ -238,10 +262,14 @@ graph. Each vertex stores a counter for each iteration of the algorithm.
 
 The algorithm can be used like this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const pregel = require("@arangodb/pregel");
 const handle = pregel.start("effectivecloseness", "graphname", { resultField: "closeness" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### LineRank
 
@@ -266,10 +294,14 @@ This can be considered a scalable equivalent to vertex betweenness, which can
 be executed distributedly in ArangoDB. The algorithm is from the paper
 *Centralities in Large Networks: Algorithms and Observations (U Kang et.al. 2011)*.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const pregel = require("@arangodb/pregel");
 const handle = pregel.start("linerank", "graphname", { resultField: "linerank" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Community Detection
 
@@ -326,10 +358,14 @@ graphs, the resulting partition into communities might change, if the number
 of performed steps changes. How strong the dependence is
 may be influenced by the density of the graph.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const pregel = require("@arangodb/pregel");
 const handle = pregel.start("labelpropagation", "graphname", { maxGSS: 100, resultField: "community" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Speaker-Listener Label Propagation
 
@@ -348,19 +384,27 @@ During the run three steps are executed for each vertex:
 3. The listener remembers one of the labels, we always choose the most
    frequently observed label.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const pregel = require("@arangodb/pregel");
 const handle = pregel.start("slpa", "graphname", { maxGSS:100, resultField: "community" });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also execute SLPA with the `maxCommunities` parameter to limit the
 number of output communities. Internally the algorithm still keeps the
 memory of all labels, but the output is reduced to just the `n` most frequently
 observed labels.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const pregel = require("@arangodb/pregel");
 const handle = pregel.start("slpa", "graphname", { maxGSS: 100, resultField: "community", maxCommunities: 1 });
 // check the status periodically for completion
 pregel.status(handle);
 ```
+{{% /tab %}}
+{{< /tabs >}}

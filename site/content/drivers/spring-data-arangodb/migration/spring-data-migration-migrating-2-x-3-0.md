@@ -23,6 +23,8 @@ If you - for some reason - need the value of `_id` within your application, you 
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="Java" %}}
 ```Java
 public class Customer {
   @Id private String id;
@@ -32,6 +34,8 @@ public interface CustomerRepository extends ArangoRepository<Customer, String> {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Annotation @Param
 

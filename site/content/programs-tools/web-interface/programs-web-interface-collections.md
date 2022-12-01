@@ -58,17 +58,25 @@ Upload format:
 
 I. Line-wise
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 { "_key": "key1", ... }
 { "_key": "key2", ... }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 II. JSON documents in a list
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 [
   { "_key": "key1", ... },
   { "_key": "key2", ... }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 

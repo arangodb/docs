@@ -12,6 +12,8 @@ response object.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Pass in a secure secret from the Foxx configuration
 const secret = module.context.configuration.cookieSecret;
@@ -26,6 +28,8 @@ const sessions = sessionsMiddleware({
 });
 module.context.use(sessions);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating a transport
 

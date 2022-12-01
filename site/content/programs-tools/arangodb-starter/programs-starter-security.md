@@ -23,12 +23,16 @@ you need the public key of the CA (`--cacert`), the private key of
 the CA (`--cakey`) and one or more hostnames (or IP addresses).
 Then run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb create tls keyfile \
     --cacert=my-tls-ca.crt --cakey=my-tls-ca.key \
     --host=<hostname> \
     --keyfile=my-tls-cert.keyfile
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to store the generated keyfile (`my-tls-cert.keyfile`) in a safe place.
 
@@ -37,6 +41,8 @@ you need the public key of the CA (`--cacert`), the private key of
 the CA (`--cakey`) and one or more hostnames (or IP addresses).
 Then run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb create tls certificate \
     --cacert=my-tls-ca.crt --cakey=my-tls-ca.key \
@@ -44,6 +50,8 @@ arangodb create tls certificate \
     --cert=my-tls-cert.crt \
     --key=my-tls-cert.key \
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store the generated files (`my-tls-cert.crt` & `my-tls-cert.key`) in a safe place.
 
@@ -54,12 +62,16 @@ you need the public key of the CA (`--cacert`), the private key of
 the CA (`--cakey`) and one or more hostnames (or IP addresses) or email addresses.
 Then run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb create client-auth keyfile \
     --cacert=my-client-auth-ca.crt --cakey=my-client-auth-ca.key \
     [--host=<hostname> | --email=<emailaddress>] \
     --keyfile=my-client-auth-cert.keyfile
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store the generated keyfile (`my-client-auth-cert.keyfile`) in a safe place.
 
@@ -67,10 +79,14 @@ Make sure to protect and store the generated keyfile (`my-client-auth-cert.keyfi
 
 To create a CA certificate used to **sign TLS certificates**, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb create tls ca \
     --cert=my-tls-ca.crt --key=my-tls-ca.key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store both generated files (`my-tls-ca.crt` & `my-tls-ca.key`) in a safe place.
 
@@ -79,10 +95,14 @@ Therefore even more care is needed to store them safely.
 
 To create a CA certificate used to **sign client authentication certificates**, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb create client-auth ca \
     --cert=my-client-auth-ca.crt --key=my-client-auth-ca.key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store both generated files (`my-client-auth-ca.crt` & `my-client-auth-ca.key`)
 in a safe place.
@@ -98,10 +118,14 @@ JWT tokens are used to authenticate servers (within a cluster) with each other.
 
 To create a file containing an JWT token, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb create jwt-secret \
     --secret=my-secret.jwt [--length=32]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store the generated file (`my-secret.jwt`) in a safe place.
 
@@ -117,21 +141,33 @@ Note that uses super-user access for normal database access is NOT advised.
 To create a JWT from the JWT secret file specified using the `--auth.jwt-secret` option,
 use the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb auth token --auth.jwt-secret=<secret-file>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To create a complete HTTP Authorization header that can be passed directly to tools like `curl`,
 use the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangodb auth header --auth.jwt-secret=<secret-file>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using `curl` with this command looks like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 curl -v -H "$(arangodb auth header --auth.jwt-secret=<secret-file>)" http://<database-ip>:8529/_api/version
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note the double quotes around `$(...)`.

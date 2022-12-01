@@ -89,12 +89,16 @@ you need the public key of the CA (`--cacert`), the private key of
 the CA (`--cakey`) and one or more hostnames (or IP addresses).
 Then run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync create tls keyfile \
     --cacert=my-tls-ca.crt --cakey=my-tls-ca.key \
     --host=<hostname> \
     --keyfile=my-tls-cert.keyfile
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to store the generated keyfile (`my-tls-cert.keyfile`) in a safe place.
 
@@ -103,6 +107,8 @@ you need the public key of the CA (`--cacert`), the private key of
 the CA (`--cakey`) and one or more hostnames (or IP addresses).
 Then run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync create tls certificate \
     --cacert=my-tls-ca.crt --cakey=my-tls-ca.key \
@@ -110,6 +116,8 @@ arangosync create tls certificate \
     --cert=my-tls-cert.crt \
     --key=my-tls-cert.key \
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store the generated files (`my-tls-cert.crt` & `my-tls-cert.key`) in a safe place.
 
@@ -120,12 +128,16 @@ you need the public key of the CA (`--cacert`), the private key of
 the CA (`--cakey`) and one or more hostnames (or IP addresses) or email addresses.
 Then run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync create client-auth keyfile \
     --cacert=my-client-auth-ca.crt --cakey=my-client-auth-ca.key \
     [--host=<hostname> | --email=<emailaddress>] \
     --keyfile=my-client-auth-cert.keyfile
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store the generated keyfile (`my-client-auth-cert.keyfile`) in a safe place.
 
@@ -133,19 +145,27 @@ Make sure to protect and store the generated keyfile (`my-client-auth-cert.keyfi
 
 To create a CA certificate used to **sign TLS certificates**, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync create tls ca \
     --cert=my-tls-ca.crt --key=my-tls-ca.key 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store both generated files (`my-tls-ca.crt` & `my-tls-ca.key`) in a safe place.
 
 To create a CA certificate used to **sign client authentication certificates**, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync create client-auth ca \
     --cert=my-client-auth-ca.crt --key=my-client-auth-ca.key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to protect and store both generated files (`my-client-auth-ca.crt` & `my-client-auth-ca.key`)
 in a safe place.

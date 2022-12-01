@@ -33,6 +33,8 @@ values have to be surrounded by double quotes). This will mostly be what you wan
 But if you want to force something to be treated as string, use quotation marks
 for the value:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 123   // interpreted as number
 "123" // interpreted as string
@@ -40,6 +42,8 @@ for the value:
 ["foo", "bar", 123, true] // interpreted as array
 ['foo', 'bar', 123, true] // interpreted as string
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you are used to work with JSON, you may want to switch the bind parameter
 editor to JSON mode by clicking on the upper right toggle button. You can then

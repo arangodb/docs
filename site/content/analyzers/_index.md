@@ -1093,17 +1093,29 @@ attributes:
   removing tokens that contain non-printable characters. To encode UTF-8
   strings to hex strings you can use e.g.
   - AQL:
-    ```aql
+    {{< tabs >}}
+{{% tab name="aql" %}}
+```aql
     FOR token IN ["and","the"] RETURN TO_HEX(token)
     ```
+{{% /tab %}}
+{{< /tabs >}}
   - arangosh / Node.js:
-    ```js
+    {{< tabs >}}
+{{% tab name="js" %}}
+```js
     ["and","the"].map(token => Buffer(token).toString("hex"))
     ```
+{{% /tab %}}
+{{< /tabs >}}
   - Modern browser:
-    ```js
+    {{< tabs >}}
+{{% tab name="js" %}}
+```js
     ["and","the"].map(token => Array.from(new TextEncoder().encode(token), byte => byte.toString(16).padStart(2, "0")).join(""))
     ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Examples**
 
@@ -1335,6 +1347,8 @@ The *properties* allowed for this Analyzer are an object with the following attr
 Create and use a `classification` Analyzer with a stored "cooking" classifier
 to classify items.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzers = require("@arangodb/analyzers");
 var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
@@ -1346,7 +1360,11 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
     }
   `);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -1360,6 +1378,8 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `nearest_neighbors`
 
@@ -1394,6 +1414,8 @@ The *properties* allowed for this Analyzer are an object with the following attr
 Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier
 to find similar terms.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var analyzers = require("@arangodb/analyzers");
 var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
@@ -1405,7 +1427,11 @@ db._query(`LET str = "salt, oil"
     }
   `);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -1422,6 +1448,8 @@ db._query(`LET str = "salt, oil"
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `geojson`
 
@@ -1433,12 +1461,16 @@ indexable tokens for further usage with
 
 GeoJSON object example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 {
   "type": "Point",
   "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:

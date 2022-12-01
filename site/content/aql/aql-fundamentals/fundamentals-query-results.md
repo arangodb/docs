@@ -16,11 +16,17 @@ For example, when returning data from a collection with inhomogeneous documents
 without modification, the result values will as well have an inhomogeneous
 structure. Each result value itself is a document:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "id": 1, "name": "John", "active": false },
@@ -28,16 +34,24 @@ FOR u IN users
   { "friends": [ "John", "Vanessa" ], "id": 3, "name": "Amy" }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 However, if a fixed set of attributes from the collection is queried, then the 
 query result values will have a homogeneous structure. Each result value is
 still a document:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     RETURN { "id": u.id, "name": u.name }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   { "id": 1, "name": "John" },
@@ -45,22 +59,36 @@ FOR u IN users
   { "id": 3, "name": "Amy" }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is also possible to query just scalar values. In this case, the result set
 is an array of scalars, and each result value is a scalar value:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
     RETURN u.id
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ 1, 2, 3 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If a query does not produce any results because no matching data can be
 found, it will produce an empty result array:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ ]
 ```
+{{% /tab %}}
+{{< /tabs >}}

@@ -42,6 +42,8 @@ or NATed environments.
 
 So in summary these are the commands to start an _Agency_ of size 3:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.endpoint tcp://0.0.0.0:5001 \
   --agency.my-address=tcp://127.0.0.1:5001 \
@@ -70,6 +72,8 @@ arangod --server.endpoint tcp://0.0.0.0:5003 \
   --agency.supervision true \
   --database.directory agent3 &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Local Test DB-Servers and Coordinators
 
@@ -83,6 +87,8 @@ The following is a full example of what it might look like.
 
 **DB-Servers:**
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:6001 \
@@ -102,9 +108,13 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://127.0.0.1:5003 \
   --database.directory dbserver2 &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Coordinators:**
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:7001 \
@@ -115,7 +125,11 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://127.0.0.1:5003 \
   --database.directory coordinator1 &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:7002 \
@@ -126,6 +140,8 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://127.0.0.1:5003 \
   --database.directory coordinator2 &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note in particular that the endpoint descriptions given under `--cluster.my-address`
 and `--cluster.agency-endpoint` must not use the IP address `0.0.0.0` because they
@@ -151,11 +167,15 @@ on different servers.
 Let's assume that you want to start your ArangoDB Cluster with 3 _Agents_, 3 _DB-Servers_
 and 3 _Coordinators_ on three different machines with IP addresses:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 192.168.1.1
 192.168.1.2
 192.168.1.3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Let's also suppose that each of the above machines runs an _Agent_, a _DB-Server_
 and a _Coordinator_
@@ -172,6 +192,8 @@ then the commands you have to use are reported in the following subparagraphs.
  
 On 192.168.1.1:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.my-address tcp://192.168.1.1:8531 \
@@ -181,9 +203,13 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.supervision true \
   --database.directory agent 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.2:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.my-address tcp://192.168.1.2:8531 \
@@ -193,9 +219,13 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.supervision true \
   --database.directory agent
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.3:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.my-address tcp://192.168.1.3:8531 \
@@ -208,11 +238,15 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.supervision true \
   --database.directory agent
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### DB-Servers
 
 On 192.168.1.1:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8530 \
@@ -223,9 +257,13 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
   --database.directory dbserver &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.2:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8530 \
@@ -236,9 +274,13 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
   --database.directory dbserver &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.3:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 sudo arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8530 \
@@ -249,11 +291,15 @@ sudo arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
   --database.directory dbserver &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Coordinators
 
 On 192.168.1.1:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8529 \
@@ -264,9 +310,13 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
   --database.directory coordinator &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.2:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8529 \
@@ -277,9 +327,13 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
   --database.directory coordinator &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On 192.168.1.3:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8529 \
@@ -290,6 +344,8 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
   --database.directory coordinator &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note:** in the above commands, you can use host names, if they can be resolved,
 instead of IP addresses.
@@ -300,6 +356,8 @@ machine with IP 192.168.1.4, you can execute the following commands
 
 On 192.168.1.4:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8530 \
@@ -319,6 +377,8 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
   --database.directory coordinator &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Manual Start in Docker
 
@@ -339,6 +399,8 @@ to enable process intercommunication.
 
 An example configuration might look like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:10000:8530 arangodb/arangodb arangod \
   --server.endpoint tcp://0.0.0.0:8530 \
@@ -348,6 +410,8 @@ docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:10000:8530 arangodb/arangodb arang
   --cluster.agency-endpoint tcp://192.168.1.2:9001 \
   --cluster.agency-endpoint tcp://192.168.1.3:9001 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will start a _DB-Server_ within a Docker container with an isolated network. 
 Within the Docker container it will bind to all interfaces (this will be 127.0.0.1:8530

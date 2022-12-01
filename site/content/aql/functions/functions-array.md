@@ -431,11 +431,15 @@ of two arrays.
 This similarity measure is also known as _Intersection over Union_ and could
 be computed (less efficient and more verbose) as follows:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 COUNT(a) == 0 && COUNT(b) == 0
 ? 1 // two empty sets have a similarity of 1 by definition
 : COUNT(INTERSECTION(array1, array2)) / COUNT(UNION_DISTINCT(array1, array2))
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - **array1** (array): array with elements of arbitrary type
 - **array2** (array): array with elements of arbitrary type

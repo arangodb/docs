@@ -28,11 +28,15 @@ For example, the following query will return all documents from the collection
 *users* that have a value of *null* in the attribute *name*, plus all documents
 from *users* that do not have the *name* attribute at all:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.name == null
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Furthermore, *null* is less than any other value (excluding *null* itself). That
 means documents with non-existing attributes may be included in the result
@@ -42,10 +46,14 @@ For example, the following query will return all documents from the collection
 *users* that have an attribute *age* with a value less than *39*, but also all
 documents from the collection that do not have the attribute *age* at all.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.age < 39
   RETURN u
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This behavior should always be taken into account when writing queries.

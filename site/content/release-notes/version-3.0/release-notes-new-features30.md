@@ -36,9 +36,13 @@ code paths for storing and reading documents.
 AQL now provides a `LIKE` operator and can be used to compare strings like this,
 for example inside filter conditions:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 value LIKE search
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This change makes `LIKE` an AQL keyword. Using `LIKE` as an attribute or collection 
 name in AQL thus requires quoting the name from now on.
@@ -59,6 +63,8 @@ of an array operator is an array.
 
 Examples:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 [ 1, 2, 3 ] ALL IN [ 2, 3, 4 ]   // false
 [ 1, 2, 3 ] ALL IN [ 1, 2, 3 ]   // true
@@ -79,6 +85,8 @@ Examples:
 ["foo", "bar"] NONE == "bar"     // false
 ["foo", "bar"] ANY == "foo"      // true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Regular expression string-comparison operators
 
@@ -135,9 +143,13 @@ AQL identifiers can now optionally be enclosed in forward ticks in addition to u
 backward ticks. This allows convenient writing of AQL queries in JavaScript template 
 strings (which are delimited with backticks themselves), e.g.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var q = `FOR doc IN ´collection´ RETURN doc.´name´`;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Functions added
 
@@ -204,6 +216,8 @@ higher, eliminating the subquery completely. This reduces complexity of the
 query's execution plan and will likely enable further optimizations. For
 example, the query
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR i IN (
     FOR j IN [1,2,3]
@@ -211,16 +225,24 @@ FOR i IN (
   )
   RETURN i
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will be transformed by the rule to:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR i IN [1,2,3]
   RETURN i
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The query
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR name IN (
   FOR doc IN _users
@@ -230,15 +252,21 @@ FOR name IN (
   LIMIT 2
   RETURN name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will be transformed into
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FOR tmp IN _users
   FILTER tmp.status == 1
   LIMIT 2
   RETURN tmp.name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The rule will only fire when the subquery is used as an operand to a `FOR` loop,
 and if the subquery does not contain a `COLLECT` with an `INTO` variable.
@@ -317,20 +345,30 @@ The CRUD APIs for documents and edge have been unified. Edges can now be inserte
 and modified via the same APIs as documents. `_from` and `_to` attribute values can
 be passed as regular document attributes now:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.myedges.insert({ _from: "myvertices/some", _to: "myvertices/other", ... });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Passing `_from` and `_to` separately as it was required in earlier versions is not
 necessary anymore but will still work:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.myedges.insert("myvertices/some", "myvertices/other", { ... });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The CRUD operations now also support batch variants that works on arrays of
 documents/edges, e.g.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.myedges.insert([
   { _from: "myvertices/some", _to: "myvertices/other", ... },
@@ -338,6 +376,8 @@ db.myedges.insert([
   { _from: "myvertices/one", _to: "myvertices/two", ... },
 ]);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The batch variants are also available in ArangoDB's HTTP API. They can be used to
 more efficiently carry out operations with multiple documents than their single-document
@@ -355,9 +395,13 @@ The persistent indexes in ArangoDB are based on the RocksDB engine.
 To create a persistent index for a collection, create an index of type "rocksdb" as
 follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.mycollection.ensureIndex({ type: "rocksdb", fields: [ "fieldname" ]});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The persistent indexes are sorted, so they allow equality lookups and range queries.
 Note that the feature is still highly experimental and has some known deficiencies. It 
@@ -402,16 +446,24 @@ the proxy should send a X-Script-Name header containing the path.
 
 A backend configuration for haproxy might look like this:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 reqadd X-Script-Name:\ /arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The frontend will recognize the subpath and produce appropriate links. ArangoDB will only
 accept paths from trusted frontend proxies. Trusted proxies may be added on startup:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --frontend.proxy-request-check true --frontend.trusted-proxy 192.168.1.117
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 --frontend.trusted-proxy may be any address or netmask.
 
@@ -458,13 +510,17 @@ more familiar API. The most notable changes are:
   If you already know express, this should be familiar. Here's a request logger in 
   three lines of code:
 
-  ```js
+  {{< tabs >}}
+{{% tab name="js" %}}
+```js
   router.use(function (req, res, next) {
     var start = Date.now();
     try {next();}
     finally {console.log(`${req.method} ${req.url} ${res.statusCode} ${Date.now() - start}ms`);}
   });
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 * Sessions and auth without dependencies
 
@@ -478,9 +534,13 @@ more familiar API. The most notable changes are:
 ArangoDB's logging is now grouped into topics. The log verbosity and output files can
 be adjusted per log topic. For example
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --log.level startup=trace --log.level queries=trace --log.level info
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 will log messages concerning startup at trace level, AQL queries at trace level and
 everything else at info level. `--log.level` can be specified multiple times at startup,
@@ -501,15 +561,23 @@ Some relevant log topics available in 3.0 are:
 This also allows directing log output to different files based on topics. For
 example, to log all AQL queries to a file "queries.log" one can use the options:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --log.level queries=trace --log.output queries=file:///path/to/queries.log
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To additionally log HTTP request to a file named "requests.log" add the options:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --log.level requests=info --log.output requests=file:///path/to/requests.log
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Build system
 

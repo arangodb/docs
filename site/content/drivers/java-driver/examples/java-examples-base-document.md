@@ -29,6 +29,8 @@ With the latest version of the Java driver of ArangoDB an object called
 
 The structure is very simple: It only has four attributes:
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public class BaseDocument {
 
@@ -39,6 +41,8 @@ public class BaseDocument {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The first three attributes are the system attributes `_id`, `_key` and `_rev`.
 The fourth attribute is a `HashMap`. The key always is a String, the value an
@@ -59,7 +63,11 @@ listed above.
 To retrieve a document is similar to the known procedure, except that you use
 `BaseDocument` as type.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 ArangoDB.Builder arango = new ArangoDB.Builder().builder();
 DocumentEntity<BaseDocument> myObject = arango.db().collection("myCollection").getDocument("myDocumentKey", BaseDocument.class);
 ```
+{{% /tab %}}
+{{< /tabs >}}

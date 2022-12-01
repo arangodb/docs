@@ -55,6 +55,8 @@ For now, any recent Kubernetes cluster will do (e.g. `minikube`).
 
 Then run (replace `<version>` with the version of the operator that you want to install):
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/arangodb/kube-arangodb/<version>/manifests/arango-crd.yaml
 kubectl apply -f https://raw.githubusercontent.com/arangodb/kube-arangodb/<version>/manifests/arango-deployment.yaml
@@ -63,6 +65,8 @@ kubectl apply -f https://raw.githubusercontent.com/arangodb/kube-arangodb/<versi
 
 kubectl apply -f https://raw.githubusercontent.com/arangodb/kube-arangodb/<version>/manifests/arango-deployment-replication.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The first command installs two `CustomResourceDefinitions` in your Kubernetes cluster:
 
@@ -90,6 +94,8 @@ The first database we are going to deploy is a single server database.
 
 Create a file called `single-server.yaml` with the following content.
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "database.arangodb.com/v1alpha"
 kind: "ArangoDeployment"
@@ -98,36 +104,54 @@ metadata:
 spec:
   mode: Single
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now insert this resource in your Kubernetes cluster using:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f single-server.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `ArangoDeployment` operator in `kube-arangodb` will now inspect the
 resource you just deployed and start the process to run a single server database.
 
 To inspect the current status of your deployment, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl describe ArangoDeployment single-server
 
 kubectl describe arango single-server
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To inspect the pods created for this deployment, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get pods --selector=arango_deployment=single-server
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The result will look similar to this:
 
+{{< tabs >}}
+{{% tab name="plain" %}}
 ```plain
 NAME                                 READY     STATUS    RESTARTS   AGE
 single-server-sngl-cjtdxrgl-fe06f0   1/1       Running   0          1m
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Once the pod reports that it is has a `Running` status and is ready,
 your database s available.
@@ -145,9 +169,13 @@ a service of type `NodePort` after a minute.
 
 To see the type of service that has been created, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get service single-server-ea
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When the service is of the `LoadBalancer` type, use the IP address
 listed in the `EXTERNAL-IP` column with port 8529.
@@ -163,9 +191,13 @@ Then login using username `root` and an empty password.
 
 If you want to delete your single server ArangoDB database, just run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl delete ArangoDeployment single-server
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Deploying a full blown ArangoDB cluster database
 
@@ -175,6 +207,8 @@ the `ArangoDeployment` specification.
 
 Create a file called `cluster.yaml` with the following content.
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "database.arangodb.com/v1alpha"
 kind: "ArangoDeployment"
@@ -183,12 +217,18 @@ metadata:
 spec:
   mode: Cluster
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now insert this resource in your Kubernetes cluster using:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f cluster.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The same commands used in the single server deployment can be used
 to inspect your cluster. Just use the correct deployment name (`cluster` instead of `single-server`).

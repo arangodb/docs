@@ -40,19 +40,31 @@ Set:
 Run:
 
 {% raw %}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get secret src-accesspackage --template='{{index .data "accessPackage.yaml"}}' | \
   base64 -D > accessPackage.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 {% endraw %}
 
 ## Step 3: Configure source DNS names
 
 Run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get service
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 Find the IP address contained in the `LoadBalancer` column for the following `Services`:
 
@@ -77,9 +89,13 @@ Set:
 
 Run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f accessPackage.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note: This imports two `Secrets`, containing TLS information about the source cluster,
 into the destination cluster
@@ -88,9 +104,17 @@ into the destination cluster
 
 Run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get service
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 Find the IP address contained in the `LoadBalancer` column for the following `Services`:
 
@@ -103,6 +127,8 @@ The process for configuring DNS names is specific to each DNS provider.
 
 Create a yaml file (e.g. called `src-to-dst-repl.yaml`) with the following content:
 
+{{< tabs >}}
+{{% tab name="yaml" %}}
 ```yaml
 apiVersion: "replication.database.arangodb.com/v1alpha"
 kind: "ArangoDeploymentReplication"
@@ -118,6 +144,8 @@ spec:
   destination:
     deploymentName: <dst-deployment-name>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Step 8: Wait for DNS names to propagate
 
@@ -130,17 +158,25 @@ Depending on your DNS provides this can take a few minutes up to 24 hours.
 
 Run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl apply -f src-to-dst-repl.yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Replication from the source cluster to the destination cluster will now be configured.
 
 Check the status of the replication by inspecting the status of the `ArangoDeploymentReplication` resource using:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl describe ArangoDeploymentReplication replication-src-to-dst
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As soon as the replication is configured, the `Add collection` button in the `Collections`
 page of the web interface (of the destination cluster) will be grayed out.

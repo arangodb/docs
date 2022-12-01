@@ -25,6 +25,8 @@ retrieved the complete result set by checking the *hasMore* attribute of the
 result set. If it is set to *false*, then the client has fetched the complete
 result set from the server. In this case no server side cursor will be created.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
 { "query" : "FOR u IN users LIMIT 2 RETURN u", "count" : true, "batchSize" : 2 }
@@ -53,6 +55,8 @@ Content-type: application/json
   "count" : 2
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Using a cursor
 
@@ -68,6 +72,8 @@ for the client that there are additional results to fetch from the server.
 
 Create and extract first batch:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
 { "query" : "FOR u IN users LIMIT 5 RETURN u", "count" : true, "batchSize" : 2 }
@@ -97,9 +103,13 @@ Content-type: application/json
   "count" : 5
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Extract next batch, still have more:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
 
@@ -128,9 +138,13 @@ Content-type: application/json
   "count" : 5
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Extract next batch, done:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
 
@@ -152,9 +166,13 @@ Content-type: application/json
   "count" : 5
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Do not do this because *hasMore* now has a value of false:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
 
@@ -168,6 +186,8 @@ Content-type: application/json
   "code": 404
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Modifying documents
 
@@ -178,6 +198,8 @@ with key `test` in the collection `documents`. Normal update behavior is to
 replace the attribute completely, and using an update AQL query with the `PUSH()` 
 function allows to append to the array.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 curl --data @- -X POST --dump http://127.0.0.1:8529/_api/cursor
 { "query": "FOR doc IN documents FILTER doc._key == @myKey UPDATE doc._key WITH { arrayValue: PUSH(doc.arrayValue, @value) } IN documents","bindVars": { "myKey": "test", "value": 42 } }
@@ -202,6 +224,8 @@ Content-type: application/json; charset=utf-8
   "code" : 201
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Setting a memory limit
 
@@ -213,6 +237,8 @@ the query will be aborted with a *resource limit exceeded* exception. In a
 cluster, the memory accounting is done per server, so the limit value is 
 effectively a memory limit per query per server.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
 { "query" : "FOR i IN 1..100000 SORT i RETURN i", "memoryLimit" : 100000 }
@@ -225,6 +251,8 @@ Content-Length: 115
 
 {"error":true,"errorMessage":"query would use more memory than allowed (while executing)","code":500,"errorNum":32}
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If no memory limit is specified, then the server default value (controlled by
 startup option *--query.memory-limit* will be used for restricting the maximum amount 

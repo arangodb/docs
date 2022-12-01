@@ -22,6 +22,8 @@ we'll assume it's called the name of your service: `getting-started`.
 First we need to create a manifest. Create a new file called `manifest.json`
 and add the following content:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "engines": {
@@ -29,6 +31,8 @@ and add the following content:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This just tells ArangoDB the service is compatible with versions 3.0.0 and
 later (all the way up to but not including 4.0.0), allowing older versions
@@ -44,6 +48,8 @@ Next we'll need to specify an entry point to our service. This is the
 JavaScript file that will be executed to define our service's HTTP endpoints.
 We can do this by adding a "main" field to our manifest:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "engines": {
@@ -52,6 +58,8 @@ We can do this by adding a "main" field to our manifest:
   "main": "index.js"
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 That's all we need in our manifest for now.
 
@@ -59,6 +67,8 @@ That's all we need in our manifest for now.
 
 Let's next create the `index.js` file:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 'use strict';
 const createRouter = require('@arangodb/foxx/router');
@@ -66,6 +76,8 @@ const router = createRouter();
 
 module.context.use(router);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The first line causes our file to be interpreted using
 [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode).
@@ -84,6 +96,8 @@ its routes to HTTP).
 
 Next let's define a route that prints a generic greeting:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // continued
 router.get('/hello-world', function (req, res) {
@@ -93,6 +107,8 @@ router.get('/hello-world', function (req, res) {
 .summary('Generic greeting')
 .description('Prints a generic greeting.');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `router` provides the methods `get`, `post`, etc corresponding to each
 HTTP verb as well as the catch-all `all`. These methods indicate that the given
@@ -149,6 +165,8 @@ Congratulations! You have just created, installed and used your first Foxx servi
 
 Let's add another route that provides a more personalized greeting:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // continued
 const joi = require('joi');
@@ -161,6 +179,8 @@ router.get('/hello/:name', function (req, res) {
 .summary('Personalized greeting')
 .description('Prints a personalized greeting.');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The first line imports the [`joi` module from npm](https://www.npmjs.com/package/joi)
 which comes bundled with ArangoDB. Joi is a validation library that is used
@@ -187,6 +207,8 @@ a route taking only numeric parameters and one taking any string as a fallback).
 
 Let's take this further and create a route that takes a JSON request body:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // continued
 router.post('/sum', function (req, res) {
@@ -206,6 +228,8 @@ router.post('/sum', function (req, res) {
 .summary('Add up numbers')
 .description('Calculates the sum of an array of number values.');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that we used `post` to define this route instead of `get` (which does not
 support request bodies). Trying to send a GET request to this route's URL
@@ -242,6 +266,8 @@ First create a new folder called "scripts" in the service folder, which will
 be where our scripts are going to live. For simplicity's sake, our setup
 script will live in a file called `setup.js` inside that folder:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // continued
 'use strict';
@@ -252,6 +278,8 @@ if (!db._collection(collectionName)) {
   db._createDocumentCollection(collectionName);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The script uses the [`db` object](../appendix/references/appendix-references-dbobject) from
 the `@arangodb` module, which lets us interact with the database the Foxx
@@ -277,6 +305,8 @@ except it also applies the prefix before looking the collection up.
 
 Next we need to tell our service about the script by adding it to the manifest file:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "engines": {
@@ -288,6 +318,8 @@ Next we need to tell our service about the script by adding it to the manifest f
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The only thing that has changed is that we added a "scripts" field specifying
 the path of the setup script we just wrote.
@@ -300,6 +332,8 @@ collection called "myFoxxCollection".
 
 Let's expand our service by adding a few more routes to our `index.js`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // continued
 const db = require('@arangodb').db;
@@ -333,6 +367,8 @@ router.get('/entries/:key', function (req, res) {
 .summary('Retrieve an entry')
 .description('Retrieves an entry from the "myFoxxCollection" collection by key.');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 We're using the `save` and `document` methods of the collection object to store
 and retrieve documents in the collection we created in our setup script.
@@ -364,6 +400,8 @@ want it to.
 We could extend the post route to support arrays of objects as well, each
 object following a certain schema:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // store schema in variable to make it re-usable, see .body()
 const docSchema = joi.object().required().keys({
@@ -394,6 +432,8 @@ router.post('/entries', function (req, res) {
 .summary('Store entry or entries')
 .description('Store a single entry or multiple entries in the "myFoxxCollection" collection.');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Writing database queries
 
@@ -406,6 +446,8 @@ collection to an array and just return that. But we're only interested in the
 keys and there might potentially be so many entries that first retrieving every
 single document might get unwieldy. Let's write a short AQL query to do this instead:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // continued
 const aql = require('@arangodb').aql;
@@ -423,6 +465,8 @@ router.get('/entries', function (req, res) {
 .summary('List entry keys')
 .description('Assembles a list of keys of entries in the collection.');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Here we're using two new things:
 
@@ -443,12 +487,16 @@ expressions – that's actually all there is to it.
 Alternatively, here's a version without template strings (notice how much
 cleaner the `aql` version will be in comparison when you have multiple variables):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const keys = db._query(
   'FOR entry IN @@coll RETURN entry._key',
   {'@coll': foxxColl.name()}
 );
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Next steps
 

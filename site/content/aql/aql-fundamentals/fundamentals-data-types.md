@@ -44,6 +44,8 @@ They can optionally be signed with the `+` or `-` symbols.
 A decimal point `.` is used as separator for the optional fractional part.
 The scientific notation (*E-notation*) is also supported.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
   1
  +1
@@ -57,15 +59,21 @@ The scientific notation (*E-notation*) is also supported.
  -4.87e103
  -4.87E103
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following notations are invalid and will throw a syntax error:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
  1.
 01.23
 00.23
 00
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All numeric values are treated as 64-bit signed integer or 64-bit
 double-precision floating point values internally. The internal floating-point
@@ -97,6 +105,8 @@ character is to be used itself within the string literal, it must be escaped
 using the backslash symbol. A literal backslash also needs to be escaped with
 a backslash.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 "yikes!"
 "don't know"
@@ -110,6 +120,8 @@ a backslash.
 'this is a longer string.'
 'the path separator on Windows is \\'
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All string literals must be UTF-8 encoded. It is currently not possible to use
 arbitrary binary data if it is not UTF-8 encoded. A workaround to use binary
@@ -140,22 +152,32 @@ tab stops and blanks can be used for formatting.
 
 In the easiest case, an array is empty and thus looks like:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Array elements can be any legal *expression* values. Nesting of arrays is
 supported.
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [ true ]
 [ 1, 2, 3 ]
 [ -99, "yikes!", [ false, ["no"], [] ], 1 ]
 [ [ "fox", "marshal" ] ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A trailing comma after the last element is allowed (introduced in v3.7.0):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 [
   1,
@@ -163,6 +185,8 @@ A trailing comma after the last element is allowed (introduced in v3.7.0):
   3, // trailing comma
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Individual array values can later be accessed by their positions using the `[]`
 accessor. The position of the accessed element must be a numeric
@@ -171,6 +195,8 @@ to access array values starting from the end of the array. This is convenient if
 the length of the array is unknown and access to elements at the end of the array
 is required.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // access 1st array element (elements start at index 0)
 u.friends[0]
@@ -184,6 +210,8 @@ u.friends[-1]
 // access second to last array element
 u.friends[-2]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Objects / Documents
 
@@ -199,9 +227,13 @@ in the declaration, thus line breaks, tab stops and blanks can be used for forma
 
 In the simplest case, an object is empty. Its declaration would then be:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Each attribute in an object is a name/value pair. Name and value of an
 attribute are separated using the colon `:` symbol. The name is always a string,
@@ -210,11 +242,15 @@ whereas the value can be of any type including sub-objects.
 The attribute name is mandatory - there can't be anonymous values in an object.
 It can be specified as a quoted or unquoted string:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 { name: … }    // unquoted
 { 'name': … }  // quoted (apostrophe / "single quote mark")
 { "name": … }  // quoted (quotation mark / "double quote mark")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It must be quoted if it contains whitespace, escape sequences or characters
 other than ASCII letters (`a`-`z`, `A`-`Z`), digits (`0`-`9`),
@@ -224,6 +260,8 @@ letter, underscore or dollar sign.
 If a [keyword](fundamentals-syntax#keywords) is used as an attribute name
 then the attribute name must be quoted or escaped by ticks or backticks:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 { return: … }    // error, return is a keyword!
 { 'return': … }  // quoted
@@ -231,9 +269,13 @@ then the attribute name must be quoted or escaped by ticks or backticks:
 { `return`: … }  // escaped (backticks)
 { ´return´: … }  // escaped (ticks)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 A trailing comma after the last element is allowed (introduced in v3.7.0):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 {
   "a": 1,
@@ -241,63 +283,93 @@ A trailing comma after the last element is allowed (introduced in v3.7.0):
   "c": 3, // trailing comma
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Attribute names can be computed using dynamic expressions, too.
 To disambiguate regular attribute names from attribute name expressions,
 computed attribute names must be enclosed in square brackets `[ … ]`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 { [ CONCAT("test/", "bar") ] : "someValue" }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 There is also shorthand notation for attributes which is handy for
 returning existing variables easily:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET name = "Peter"
 LET age = 42
 RETURN { name, age }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above is the shorthand equivalent for the generic form:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET name = "Peter"
 LET age = 42
 RETURN { name: name, age: age }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Any valid expression can be used as an attribute value. That also means nested
 objects can be used as attribute values:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 { name : "Peter" }
 { "name" : "Vanessa", "age" : 15 }
 { "name" : "John", likes : [ "Swimming", "Skiing" ], "address" : { "street" : "Cucumber lane", "zip" : "94242" } }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Individual object attributes can later be accessed by their names using the
 dot `.` accessor:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 u.address.city.name
 u.friends[0].name.first
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Attributes can also be accessed using the square bracket `[]` accessor:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 u["address"]["city"]["name"]
 u["friends"][0]["name"]["first"]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In contrast to the dot accessor, the square brackets allow for expressions:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET attr1 = "friends"
 LET attr2 = "name"
 u[attr1][0][attr2][ CONCAT("fir", "st") ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/info %}}
 If a non-existing attribute is accessed in one or the other way,

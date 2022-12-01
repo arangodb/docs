@@ -34,16 +34,22 @@ Once your EC2 instance is up, login ad `admin` and `sudo su` to become `root`.
 
 First, we remove the backports and change the primary sources.list
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 rm -rf /etc/apt/sources.list.d
 echo "deb     http://http.debian.net/debian testing main contrib"  > /etc/apt/sources.list
 echo "deb-src http://http.debian.net/debian testing main contrib" >> /etc/apt/sources.list
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Update and upgrade the system. Make sure you don't have any broken/unconfigured
 packages. Sometimes you need to run safe/full upgrade more than once. When you
 are done, reboot.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 apt-get update
 apt-get install aptitude
@@ -52,6 +58,8 @@ aptitude -y safe-upgrade
 aptitude -y full-upgrade
 reboot
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Install build dependencies
 
@@ -61,6 +69,8 @@ Before you can build ArangoDB, you need a few packages pre-installed on your sys
 
 Login again and install them.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo aptitude -y install git-core \
     build-essential \
@@ -70,6 +80,8 @@ sudo aptitude -y install git-core \
     python2.7 \
 sudo aptitude -y install libldap2-dev # Enterprise Edition only
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Download the Source
 
@@ -194,12 +206,16 @@ This will start up the ArangoDB and listen for HTTP requests on port 8529 bound
 to IP address 127.0.0.1. You should see the startup messages similar to the
 following:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 2016-06-01T12:47:29Z [29266] INFO ArangoDB xxx ... 
 2016-06-10T12:47:29Z [29266] INFO using endpoint 'tcp://127.0.0.1.8529' for non-encrypted requests
 2016-06-01T12:47:30Z [29266] INFO Authentication is turned on
 2016-60-01T12:47:30Z [29266] INFO ArangoDB (version xxx) is ready for business. Have fun!
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If it fails with a message about the database directory, please make sure the
 database directory you specified exists and can be written into.

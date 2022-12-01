@@ -31,7 +31,7 @@ paths:
             but not `clientCA`), this field is present and contains a
             JSON string with the SHA256 of the private key.
         This API requires authentication.
-      operationId: ' handleMode:get'
+      operationId: ' handleTLS:get'
       tags:
       - Administration
 ```

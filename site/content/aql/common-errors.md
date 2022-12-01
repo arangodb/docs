@@ -20,11 +20,15 @@ In AQL, strings must be concatenated using the [CONCAT()](functions/functions-st
 function. Joining them together with the `+` operator is not supported. Especially
 as JavaScript programmer it is easy to walk into this trap:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN "foo" + "bar" // [ 0 ]
 RETURN "foo" + 123   // [ 123 ]
 RETURN "123" + 200   // [ 323 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The arithmetic plus operator expects numbers as operands, and will try to implicitly
 cast them to numbers if they are of different type. `"foo"` and `"bar"` are casted
@@ -35,11 +39,15 @@ valid string representation of a number, then it is casted to a number. Thus, ad
 
 To concatenate elements (with implicit casting to string for non-string values), do:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN CONCAT("foo", "bar") // [ "foobar" ]
 RETURN CONCAT("foo", 123)   // [ "foo123" ]
 RETURN CONCAT("123", 200)   // [ "123200" ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Parameter injection vulnerability
 
@@ -68,6 +76,8 @@ that is fed with some dynamic input value, pretending it coming from a web form.
 This could be the case in a Foxx service. The route happily picks up the input
 value, and puts it into a query:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // evil!
 var what = req.params("searchValue");  // user input value from web form
@@ -75,6 +85,8 @@ var what = req.params("searchValue");  // user input value from web form
 var query = "FOR doc IN collection FILTER doc.value == " + what + " RETURN doc";
 db._query(query, params).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above will probably work fine for numeric input values.
 
@@ -94,6 +106,8 @@ potentially unsafe input values before putting them into query strings.
 This may work in some situations, but it is easy to overlook something or get
 it subtly wrong:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // We are sanitizing now, but it is still evil!
 var value = req.params("searchValue").replace(/'/g, '');
@@ -101,6 +115,8 @@ var value = req.params("searchValue").replace(/'/g, '');
 var query = "FOR doc IN collection FILTER doc.value == '" + value + "' RETURN doc";
 db._query(query, params).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above example uses single quotes for enclosing the potentially unsafe user
 input, and also replaces all single quotes in the input value beforehand.
@@ -113,20 +129,28 @@ allowing the user input to break out of the string fence again.
 It gets worse if user input is inserted into the query at multiple places.
 Let us assume we have a query with two dynamic values:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 query = "FOR doc IN collection FILTER doc.value == '" + value +
         "' && doc.type == '" + type + "' RETURN doc";
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If an attacker inserted `\` for parameter `value` and
 ` || true REMOVE doc IN collection //` for parameter `type`, then the effective
 query would become:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   FILTER doc.value == '\' && doc.type == ' || true
   REMOVE doc IN collection //' RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … which is highly undesirable. The backslash escapes the closing single quote,
 turning the `doc.type` condition into a string, which gets compared to
@@ -150,11 +174,15 @@ shouldn't be used. They were simply omitted here for the sake of simplicity.
 Bind parameters in AQL queries are special tokens that act as placeholders for
 actual values. Here's an example:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   FILTER doc.value == @what
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above query, `@what` is a bind parameter. In order to execute this query,
 a value for bind parameter `@what` must be specified. Otherwise query execution will
@@ -170,6 +198,8 @@ To execute a query with bind parameters, the query string (containing the bind
 parameters) and the bind parameter values are specified separately (note that when
 the bind parameter value is assigned, the prefix `@` needs to be omitted):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // query string with bind parameter
 var query = "FOR doc IN collection FILTER doc.value == @what RETURN doc";
@@ -180,16 +210,22 @@ var params = { what: 42 };
 // run query, specifying query string and bind parameter separately
 db._query(query, params).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If a malicious user would set `@what` to a value of `1 || true`, this wouldn't do
 any harm. AQL would treat the contents of `@what` as a single string token, and
 the meaning of the query would remain unchanged. The actually executed query would be:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   FILTER doc.value == "1 || true"
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Thanks to bind parameters it is also impossible to turn a selection (i.e. read-only)
 query into a data deletion query.
@@ -200,6 +236,8 @@ There is also a template string generator function `aql` that can be used to saf
 (and conveniently) built AQL queries using JavaScript variables and expressions. It
 can be invoked as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const aql = require('@arangodb').aql; // not needed in arangosh
 
@@ -209,6 +247,8 @@ var query = aql`FOR doc IN collection
   RETURN doc`;
 var result = db._query(query).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that an ES6 template string is used for populating the `query` variable.
 The string is assembled using the `aql` generator function which is bundled
@@ -220,6 +260,8 @@ bind parameters, and the actual bind parameter values.
 
 Bind parameter names are automatically generated by the `aql` function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var value = "some input value";
 aql`FOR doc IN collection FILTER doc.value == ${value} RETURN doc`;
@@ -231,6 +273,8 @@ aql`FOR doc IN collection FILTER doc.value == ${value} RETURN doc`;
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Using bind parameters in dynamic queries
 
@@ -239,6 +283,8 @@ dynamic values. You can even use them for queries that itself are highly
 dynamic, for example with conditional `FILTER` and `LIMIT` parts.
 Here's how to do this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Note: this example has a slight issue... hang on reading
 var query = "FOR doc IN collection";
@@ -259,6 +305,8 @@ if (useLimit) {
 query += " RETURN doc";
 db._query(query, params).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that in this example we're back to string concatenation, but without the
 problem of the query being vulnerable to arbitrary modifications.
@@ -284,6 +332,8 @@ exceeding a certain threshold.
 
 Here is what you could do in such cases:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var query = "FOR doc IN collection LIMIT @count RETURN doc";
 
@@ -309,6 +359,8 @@ if (params.count < 1 || params.count > 1000) {
 
 db._query(query, params).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is a bit more complex, but that is a price you are likely willing to pay
 for a bit of extra safety. In reality you may want to use a framework for
@@ -359,12 +411,18 @@ it is intended. You should also see a warning if you execute such a query:
 
 For example, instead of:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RETURN coll[* LIMIT 1]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ... with the execution plan ...
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType          Est.   Comment
@@ -372,17 +430,25 @@ Execution plan:
   2   CalculationNode      1     - LET #2 = coll   /* all collection documents */[* LIMIT  0, 1]   /* v8 expression */
   3   ReturnNode           1     - RETURN #2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ... you can use the following equivalent query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN coll
     LIMIT 1
     RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ... with the (better) execution plan:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType                  Est.   Comment
@@ -391,16 +457,22 @@ Execution plan:
   3   LimitNode                    1       - LIMIT 0, 1
   4   ReturnNode                   1       - RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Similarly, make sure you have not confused any variable names with collection
 names by accident:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET names = ["John", "Mary", ...]
 // supposed to refer to variable "names", not collection "Names"
 FOR name IN Names
     ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can set the startup option `--query.allow-collections-in-expressions` to
 *false* to disallow collection names in arbitrary places in AQL expressions

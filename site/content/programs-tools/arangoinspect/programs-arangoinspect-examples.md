@@ -40,6 +40,8 @@ The password can be omitted and entered interactively.
 If _arangoinspect_ succeeds to authenticate, it starts to gather information
 and writes the result to `arangodb-inspector.json`, then exits:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangoinspect --server.endpoint tcp://127.0.0.1:8629
 
@@ -99,10 +101,14 @@ INFO Collecting diagnostics from all servers ...
 INFO ... dignostics collected.
 INFO Report written to arango-inspector.json.
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If _arangoinspect_ cannot connect or authentication/authorization fails, then a fatal error
 will be raised and the tool shuts down:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 Could not connect to endpoint 'http+tcp://127.0.0.1:8529', database: '_system', username: 'root'
 Error message: '401: Unauthorized'
@@ -116,3 +122,5 @@ Error message: '401: Unauthorized'
 
 FATAL cannot connect to server 'http+tcp://127.0.0.1:8529': 401: Unauthorized
 ```
+{{% /tab %}}
+{{< /tabs >}}

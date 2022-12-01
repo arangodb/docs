@@ -12,10 +12,14 @@ starting the needed process.
 
 We will assume that your IP is 127.0.0.1 and that the port 8529 is free:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangod --server.endpoint tcp://0.0.0.0:8529 \
   --database.directory standalone &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Manual Start in Docker
 
@@ -36,10 +40,14 @@ to enable process intercommunication.
 
 An example configuration might look like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:10000:8529 arangodb/arangodb arangod \
   --server.endpoint tcp://0.0.0.0:8529\
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will start a single server within a Docker container with an isolated network. 
 Within the Docker container it will bind to all interfaces (this will be 127.0.0.1:8529

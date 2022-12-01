@@ -11,12 +11,18 @@ List disk performances
 
 List disk performances
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 oasisctl list diskperformances [flags]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --dbserver-disk-size int32   The disk size of dbservers (GB) (default 32)
   -h, --help                       help for diskperformances
@@ -25,14 +31,20 @@ oasisctl list diskperformances [flags]
       --provider-id string         Identifier of the provider
   -r, --region-id string           Identifier of the region
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Options inherited from parent commands
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
       --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## See also
 

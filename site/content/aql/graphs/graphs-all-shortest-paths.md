@@ -45,12 +45,16 @@ variable however, whereas `SHORTEST_PATH` emits a vertex and an edge variable.
 
 ### Working with named graphs
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR path
   IN OUTBOUND|INBOUND|ANY ALL_SHORTEST_PATHS
   startVertex TO targetVertex
   GRAPH graphName
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - `FOR`: emits the variable **path** which contains one shortest path as an
   object, with the `vertices` and `edges` of the path.
@@ -71,12 +75,16 @@ All Shortest Paths traversals do not support edge weights.
 
 ### Working with collection sets
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR path
   IN OUTBOUND|INBOUND|ANY ALL_SHORTEST_PATHS
   startVertex TO targetVertex
   edgeCollection1, ..., edgeCollectionN
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Instead of `GRAPH graphName` you can specify a list of edge collections.
 The involved vertex collections are determined by the edges of the given
@@ -91,11 +99,15 @@ has no relevance, but in *edges1* and *edges3* the direction should be taken int
 account. In this case you can use `OUTBOUND` as a general search direction and `ANY`
 specifically for *edges2* as follows:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR path IN OUTBOUND ALL_SHORTEST_PATHS
   startVertex TO targetVertex
   edges1, ANY edges2, edges3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All collections in the list that do not specify their own direction will use the
 direction defined after `IN` (here: `OUTBOUND`). This allows using a different

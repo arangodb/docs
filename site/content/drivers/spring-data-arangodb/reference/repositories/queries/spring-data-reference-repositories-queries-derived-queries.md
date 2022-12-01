@@ -55,6 +55,8 @@ document in the database
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String> {
 
@@ -73,10 +75,14 @@ public interface MyRepository extends ArangoRepository<Customer, String> {
   ArangoCursor<Customer> findByNameOrAge(String name, int age);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can apply sorting for one or multiple sort criteria by appending `OrderBy`
 to the method and `Asc` or `Desc` for the directions.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String> {
 
@@ -92,6 +98,8 @@ public interface MyRepository extends ArangoRepository<Customer, String> {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Property expression
 
@@ -103,6 +111,8 @@ corresponding property.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @Document("customers")
 public class Customer {
@@ -121,6 +131,8 @@ public interface MyRepository extends ArangoRepository<Customer, String> {
   ArangoCursor<Customer> findByAddressZipCode(ZipCode zipCode);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is possible for the algorithm to select the wrong property if the domain
 class also has a property which matches the first split of the expression.
@@ -129,6 +141,8 @@ method-name to define traversal points.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 @Document("customers")
 public class Customer {
@@ -159,6 +173,8 @@ public interface MyRepository extends ArangoRepository<Customer, String> {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Geospatial queries
 
@@ -183,6 +199,8 @@ coordinates list is the longitude and the second one is the latitude.
 Note that to create a geospatial index on GeoJSON data field, the `geoJson`
 option should be set to `true`, e.g.
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 class MyEntity {
     // ...
@@ -191,6 +209,8 @@ class MyEntity {
     // ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 As a subsection of derived queries, geospatial queries support all the same
 return types, but also support the three return types `GeoPage`, `GeoResult` and
@@ -203,6 +223,8 @@ returning those within the given distance range or shape.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="java" %}}
 ```java
 public interface MyRepository extends ArangoRepository<City, String> {
 
@@ -217,3 +239,5 @@ public interface MyRepository extends ArangoRepository<City, String> {
 
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

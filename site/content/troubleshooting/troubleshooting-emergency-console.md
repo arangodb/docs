@@ -26,6 +26,8 @@ The following command starts an emergency console.
 **Note**: Never start the emergency console for a database which also has a
 server attached to it. In general, the ArangoDB shell is what you want.
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 > ./arangod --console --log error /tmp/vocbase
 ArangoDB shell [V8 version 5.0.71.39, DB version 3.x.x]
@@ -37,6 +39,8 @@ arango> var db = require("@arangodb").db; db.geo.count();
 703
 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The emergency console provides a JavaScript console directly running in the
 arangod server process. This allows to debug and examine collections and

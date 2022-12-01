@@ -38,7 +38,9 @@ which is required for connecting to Prometheus.
 1. In the **Metrics** section, click **Connect Prometheus**.
 2. Create the `prometheus.yml` file with the following content:
 
-    ```yml
+    {{< tabs >}}
+{{% tab name="yml" %}}
+```yml
     global:
     scrape_interval: 60s
     scrape_configs:
@@ -50,14 +52,20 @@ which is required for connecting to Prometheus.
         tls_config:
         insecure_skip_verify: true
     ```
+{{% /tab %}}
+{{< /tabs >}}
 3. Start Prometheus with the following command:
 
-    ```dockerfile
+    {{< tabs >}}
+{{% tab name="dockerfile" %}}
+```dockerfile
     docker run -d \
     -p 9090:9090 -p 3000:3000 --name prometheus \
     -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
     prom/prometheus
     ```
+{{% /tab %}}
+{{< /tabs >}}
     {{% hints/info %}}
     This command also opens a port 3000 for Grafana. In a production environment,
     this is not needed and not recommended to have it open.
@@ -67,11 +75,15 @@ which is required for connecting to Prometheus.
 
 1. Start Grafana with the following command:
 
-    ```dockerfile    
+    {{< tabs >}}
+{{% tab name="dockerfile    " %}}
+```dockerfile    
     docker run -d \
     --network container:prometheus \
     grafana/grafana
-    ```  
+    ```
+{{% /tab %}}
+{{< /tabs >}}  
 2. Go to `localhost:3000` and log in with the following credentials:
    - For username, enter *admin*.
    - For password, enter *admin*. 

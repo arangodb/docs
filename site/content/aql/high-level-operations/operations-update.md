@@ -54,34 +54,54 @@ The following query adds or updates the `name` attribute of the document
 identified by the key `my_key` in the `users` collection. The key is passed via
 the `_key` attribute alongside other attributes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE { _key: "my_key", name: "Jon" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following query is invalid because the object does not contain a `_key`
 attribute and thus it is not possible to determine the document to
 be updated:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE { name: "Jon" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can combine the `UPDATE` operation with a `FOR` loop to determine the
 necessary key attributes, like shown below:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE { _key: u._key, name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the `UPDATE` and `FOR` operations are independent of each other and
 `u` does not automatically define a document for the `UPDATE` statement.
 Thus, the following query is invalid:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE { name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `UPDATE <keyExpression> WITH <document> IN <collection>`
 
@@ -97,9 +117,13 @@ identified by the key `my_key` in the `users` collection. The key is passed as
 a string in the `keyExpression`. The attributes to add or update are passed
 separately as the `document` object:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE "my_key" WITH { name: "Jon" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `document` object may contain a `_key` attribute, but it is ignored.
 
@@ -108,10 +132,14 @@ document identifier as a string (like `"users/john"`). However, you can use
 `PARSE_IDENTIFIER(<id>).key` as `keyExpression` to get the document key as a
 string:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET key = PARSE_IDENTIFIER("users/john").key
 UPDATE key WITH { ... } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Comparison of the syntaxes
 
@@ -124,51 +152,83 @@ You can choose the syntax variant that is the most convenient for you.
 
 The following queries are equivalent:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH { name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u._key WITH { name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE { _key: u._key } WITH { name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE { _key: u._key, name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Dynamic key expressions
 
 An `UPDATE` operation may update arbitrary documents, using either of the two
 syntaxes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   UPDATE { _key: CONCAT("test", i), name: "Paula" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   UPDATE CONCAT("test", i) WITH { name: "Paula" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Target a different collection
 
 The documents an `UPDATE` operation modifies can be in a different collection
 than the ones produced by a preceding `FOR` operation:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == false
   UPDATE u WITH { status: "inactive" } IN backup
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note how documents are read from the `users` collection but updated in another
 collection called `backup`. Both collections need to use matching document keys
@@ -187,39 +247,55 @@ available after `UPDATE`). To access the current attribute value, you can
 usually refer to a document via the variable of the `FOR` loop, which is used
 to iterate over a collection:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN users
   UPDATE doc WITH {
     fullName: CONCAT(doc.firstName, " ", doc.lastName)
   } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If there is no loop, because a single document is updated only, then there
 might not be a variable like above (`doc`), which would let you refer to the
 document which is being updated:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE "john" WITH { ... } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To access the current value in this situation, you need to retrieve the document
 first and store it in a variable:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET doc = FIRST(FOR u IN users FILTER u._key == "john" RETURN u)
 UPDATE doc WITH {
   fullName: CONCAT(doc.firstName, " ", doc.lastName)
 } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can modify an existing attribute based on its current value this way,
 to increment a counter for instance:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE doc WITH {
   karma: doc.karma + 1
 } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the attribute `karma` doesn't exist yet, `doc.karma` evaluates to `null`.
 The expression `null + 1` results in the new attribute `karma` being set to `1`.
@@ -227,11 +303,15 @@ If the attribute does exist, then it is increased by `1`.
 
 Arrays can be mutated, too:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE doc WITH {
   hobbies: PUSH(doc.hobbies, "swimming")
 } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the attribute `hobbies` doesn't exist yet, it is conveniently initialized
 as `[ "swimming" ]` and otherwise extended.
@@ -240,21 +320,29 @@ as `[ "swimming" ]` and otherwise extended.
 
 You can optionally set query options for the `UPDATE` operation:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE ... IN users OPTIONS { ... }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `ignoreErrors`
 
 You can use `ignoreErrors` to suppress query errors that may occur when trying to
 update non-existing documents or when violating unique key constraints:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   UPDATE CONCAT("test", i)
   WITH { foobar: true } IN users
   OPTIONS { ignoreErrors: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You cannot modify the `_id`, `_key`, and `_rev` system attributes, but attempts
 to change them are ignored and not considered errors.
@@ -266,11 +354,15 @@ from the document but stores this `null` value. To remove attributes in an updat
 operation, set them to `null` and set the `keepNull` option to `false`. This removes
 the attributes you specify but not any previously stored attributes with the `null` value:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH { foobar: true, notNeeded: null } IN users
   OPTIONS { keepNull: false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The above query removes the `notNeeded` attribute from the documents and updates
 the `foobar` attribute normally.
@@ -285,6 +377,8 @@ The following query sets the updated document's `name` attribute to the exact
 same value that is specified in the query. This is due to the `mergeObjects` option
 being set to `false`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH {
@@ -292,10 +386,14 @@ FOR u IN users
   } IN users
   OPTIONS { mergeObjects: false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Contrary, the following query merges the contents of the `name` attribute in the
 original document with the value specified in the query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH {
@@ -303,6 +401,8 @@ FOR u IN users
   } IN users
   OPTIONS { mergeObjects: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Attributes in `name` that are present in the to-be-updated document but not in the
 query are preserved. Attributes that are present in both are overwritten
@@ -316,11 +416,15 @@ explicitly.
 To make sure data are durable when an update query returns, there is the `waitForSync` 
 query option:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH { foobar: true } IN users
   OPTIONS { waitForSync: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `ignoreRevs`
 
@@ -328,12 +432,16 @@ In order to not accidentally overwrite documents that have been modified since y
 them, you can use the option `ignoreRevs` to either let ArangoDB compare the `_rev` value and 
 only succeed if they still match, or let ArangoDB ignore them (default):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   UPDATE { _key: CONCAT("test", i), _rev: "1287623" }
   WITH { foobar: true } IN users
   OPTIONS { ignoreRevs: false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `exclusive`
 
@@ -346,12 +454,16 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this effect on a per query basis:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   UPDATE doc
   WITH { updated: true } IN collection
   OPTIONS { exclusive: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Returning the modified documents
 
@@ -364,40 +476,56 @@ refers to the document revisions after the update.
 Both `OLD` and `NEW` contain all document attributes, even those not specified
 in the update expression.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 UPDATE document IN collection options RETURN OLD
 UPDATE document IN collection options RETURN NEW
 UPDATE keyExpression WITH document IN collection options RETURN OLD
 UPDATE keyExpression WITH document IN collection options RETURN NEW
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Following is an example using a variable named `previous` to capture the original
 documents before modification. For each modified document, the document key is returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH { value: "test" } IN users 
   LET previous = OLD
   RETURN previous._key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following query uses the `NEW` pseudo-value to return the updated documents,
 without some of the system attributes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH { value: "test" } IN users
   LET updated = NEW
   RETURN UNSET(updated, "_key", "_id", "_rev")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is also possible to return both `OLD` and `NEW`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   UPDATE u WITH { value: "test" } IN users
   RETURN { before: OLD, after: NEW }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Transactionality
 

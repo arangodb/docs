@@ -74,23 +74,35 @@ This is what you must do in that case:
 
 1. Stop synchronization using:
 
-   ```bash
+   {{< tabs >}}
+{{% tab name="bash" %}}
+```bash
    arangosync stop sync ...
    ```
+{{% /tab %}}
+{{< /tabs >}}
    When the source datacenter is completely unresponsive this will not succeed.
    In that case use:
 
-   ```bash
+   {{< tabs >}}
+{{% tab name="bash" %}}
+```bash
    arangosync abort sync ...
    ```
+{{% /tab %}}
+{{< /tabs >}}
 
    See [Stopping synchronization](administration-dc2dc#stopping-synchronization)
    for how to cleanup the source datacenter when it becomes available again.
 
 2. Verify that synchronization has completely stopped using:
-   ```bash
+   {{< tabs >}}
+{{% tab name="bash" %}}
+```bash
    arangosync get status ... -v
    ```
+{{% /tab %}}
+{{< /tabs >}}
 
 3. Reconfigure your applications to use the target (backup) datacenter.
 
@@ -110,6 +122,8 @@ such that it will hold off re-synchronization for a given period of time.
 
 To do so, on both datacenters, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync set message timeout \
     --master.endpoint=<endpoints of sync masters in the datacenter> \
@@ -117,6 +131,8 @@ arangosync set message timeout \
     --auth.password=<password of auth.user> \
     3h
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The last argument is the period that ArangoSync should hold-off resynchronization for.
 This can be minutes (e.g. `15m`) or hours (e.g. `3h`).
@@ -141,6 +157,8 @@ will no longer be able to synchronize. It will go into a `failed` state.
 To recover from that, first remove the document from the ArangoDB cluster
 in the source datacenter. After that, for each failed shard, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 arangosync reset failed shard \
     --master.endpoint=<endpoints of sync masters in the datacenter> \
@@ -150,6 +168,8 @@ arangosync reset failed shard \
     --collection=<name of the collection> \
     --shard=<index of the shard (starting at 0)>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 After this command, a new set of tasks will be started to synchronize the shard.
 It can take some time for the shard to reach `running` state.

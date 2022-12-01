@@ -11,6 +11,8 @@ However ArangoDB does provide the
 [`@arangodb/request` module](../../appendix/javascript-modules/appendix-java-script-modules-request)
 for making HTTP (or HTTPS) requests:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 "use strict";
 const request = require("@arangodb/request");
@@ -22,6 +24,8 @@ if (response.status < 400) {
   console.log(pikachu);
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/warning %}}
 Because
@@ -35,9 +39,13 @@ By using an absolute path instead of a full URL, you can also use the
 request module to talk to ArangoDB itself,
 for example in [integration tests](foxx-guides-testing#integration-testing):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const response = request.get("/_db/_system/myfoxx/something");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: Although making local requests doesn't create the network overhead
 as making requests to other servers, special care needs to be taken when

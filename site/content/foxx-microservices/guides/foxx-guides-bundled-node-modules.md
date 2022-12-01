@@ -21,12 +21,16 @@ Use a tool like [yarn](https://yarnpkg.com) or
 create a `package.json` file in your service source directory and add node
 dependencies as you would for any other Node.js application or library:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 cd my-foxx-service/
 echo '{"private": true}' > package.json
 yarn add lodash # or:
 npm install --save lodash
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Make sure to include the actual `node_modules` folder in your Foxx service
 bundle as ArangoDB will not automatically install these dependencies for you.
@@ -36,6 +40,8 @@ dependencies may bloat the file size of your Foxx service bundle.
 If you are using the [Foxx CLI](../../programs-tools/foxx-cli/)
 command-line tool, you can exclude individual modules by ignoring them:
 
+{{< tabs >}}
+{{% tab name="sh" %}}
 ```sh
 npm install --save prettier
 foxx ignore '/node_modules/prettier/'
@@ -43,6 +49,8 @@ foxx ignore '/node_modules/prettier/'
 
 foxx install /my-foxx-service
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Keep in mind that both yarn and npm typically also install dependencies of
 your dependencies to the `node_modules` folder which you'll need to ignore as

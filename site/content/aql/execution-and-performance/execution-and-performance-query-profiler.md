@@ -87,9 +87,13 @@ and only had to be called once, because the result size fits within a single bat
 
 Let us add a persistent index on `value` to speed up the query:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.acollection.ensureIndex({type:"persistent", fields:["value"]});
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
  {{< version "3.10" >}}
@@ -239,6 +243,8 @@ mistakes that we see quite often:
 
 Bad example:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET vertices = (
   FOR v IN 1..2 ANY @startVertex GRAPH 'my_graph'
@@ -249,6 +255,8 @@ FOR doc IN collection
   FILTER doc.value == vertices[0].value
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Adding a `LIMIT 1` into the subquery should result in better performance,
 because the traversal can be stopped after the first result instead of
@@ -265,6 +273,8 @@ edge in _purchased_ to zero or more _products_.
 If we want to know all users that have purchased the product _playstation_
 as well as products of `type` _legwarmer_ we could use this query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR prod IN products
   FILTER prod.type == 'legwarmer'
@@ -272,15 +282,21 @@ FOR prod IN products
     FILTER v._key == 'playstation' // <-- last vertex of the path
     RETURN p.vertices[1] // <-- the user
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This query first finds all legwarmer products and then performs a traversal
 for each of them. But we could also inverse the traversal by starting of with
 the known _playstation_ product. This way we only need a single traversal
 to achieve the same result:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v,e,p IN 2..2 OUTBOUND 'product/playstation' purchased
   FILTER v.type == 'legwarmer' // <-- last vertex of the path
   RETURN p.vertices[1] // <-- the user
 ```
+{{% /tab %}}
+{{< /tabs >}}
 

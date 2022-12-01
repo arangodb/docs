@@ -83,6 +83,8 @@ Furthermore the result `SHORTEST_PATH` has changed. The old format returned a li
 Optionally it could include each sub-path for these vertices.
 All of the documents were fully extracted.
 Example:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 [
   {
@@ -137,12 +139,16 @@ Example:
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The new version is more compact.
 Each `SHORTEST_PATH` will only return one document having the attributes `vertices`, `edges`, `distance`.
 The `distance` is computed taking into account the given weight.
 Optionally the documents can be extracted with `includeData: true`
 Example:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 {
   vertices: [
@@ -155,10 +161,14 @@ Example:
   distance: 1
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The next function that returns a different format is `NEIGHBORS`.
 Since 2.5 it returned an object with `edge` and `vertex` for each connected edge.
 Example:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 [
   {
@@ -177,16 +187,22 @@ Example:
   } 
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 With 2.6 it will only return the vertex directly, again using `includeData: true`.
 By default it will return a distinct set of neighbors, using the option `distinct: false` 
 will include the same vertex for each edge pointing to it.
 
 Example:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 [
   "vertex/2"
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Function and API changes
 

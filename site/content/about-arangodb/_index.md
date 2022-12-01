@@ -57,12 +57,16 @@ Depending on your needs, you may mix graphs and unconnected data.
 ArangoDB is designed from the ground up to support multiple data models with a
 single, composable query language.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR book IN Books
   FILTER book.title == "ArangoDB"
   FOR person IN 2..2 INBOUND book Sales, OUTBOUND People
     RETURN person.name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ArangoDB also comes with an integrated search engine for information retrieval,
 such as full-text search with relevance ranking.

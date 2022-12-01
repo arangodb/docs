@@ -32,10 +32,14 @@ is available on Github. Check it out!
 To install the latest release of the ArangoDB-PyG Adapter,
 run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 pip install torch
 pip install adbpyg-adapter
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Quickstart
 
@@ -45,6 +49,8 @@ Check also the
 
 ### Setup
 
+{{< tabs >}}
+{{% tab name="py" %}}
 ```py
 import torch
 import pandas
@@ -70,9 +76,13 @@ db = ArangoClient(hosts="http://localhost:8529").db("_system", username="root", 
 
 adbpyg_adapter = ADBPyG_Adapter(db)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### PyG to ArangoDB
 
+{{< tabs >}}
+{{% tab name="py" %}}
 ```py
 
 adb_g = adbpyg_adapter.pyg_to_arangodb("FakeData", data)
@@ -143,9 +153,13 @@ class Custom_ADBPyG_Controller(ADBPyG_Controller):
 
 adb_g = ADBPyG_Adapter(db, Custom_ADBPyG_Controller()).pyg_to_arangodb("FakeData", data)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### ArangoDB to PyG
 
+{{< tabs >}}
+{{% tab name="py" %}}
 ```py
 
 db.delete_graph("FakeData", drop_collections=True, ignore_missing=True)
@@ -223,3 +237,5 @@ metagraph_v3 = {
 }
 pyg_g = adbpyg_adapter.arangodb_to_pyg("FakeData", metagraph_v3)
 ```
+{{% /tab %}}
+{{< /tabs >}}

@@ -60,9 +60,13 @@ You should now be able to access your cluster using `kubectl`.
 
 To verify try a command like:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get pods --all-namespaces
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Installing `kube-arangodb`
 

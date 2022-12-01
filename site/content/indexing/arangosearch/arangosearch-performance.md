@@ -20,6 +20,8 @@ the data can be read directly from the index without actual sort operation.
 
 `arangosearch` View definition example:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -42,17 +44,25 @@ the data can be read directly from the index without actual sort operation.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 AQL query example:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SORT doc.text
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Execution plan **without** a sorted index being used:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType            Est.   Comment
@@ -62,9 +72,13 @@ Execution plan:
   4   SortNode               1       - SORT #1 ASC   /* sorting strategy: standard */
   5   ReturnNode             1       - RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Execution plan with a the primary sort order of the index being utilized:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType            Est.   Comment
@@ -72,10 +86,14 @@ Execution plan:
   2   EnumerateViewNode      1     - FOR doc IN viewName SORT doc.`text` ASC   /* view query */
   5   ReturnNode             1       - RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To define more than one attribute to sort by, simply provide multiple
 sub-objects in the `primarySort` array:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -103,10 +121,14 @@ sub-objects in the `primarySort` array:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also define a primary sort order for inverted indexes and utilize it
 via a `search-alias` View:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.coll.ensureIndex({
   name: "inv-idx",
@@ -120,18 +142,26 @@ db.coll.ensureIndex({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 AQL query example:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN coll OPTIONS { indexHint: "inv-idx", forceIndexHint: true }
   SORT doc.name
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If you add the inverted index to a `search-alias` View, then the query example
 is the same as for the `arangosearch` View:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._createView("viewName", "search-alias", { indexes: [
   { collection: "coll", index: "inv-idx" }
@@ -141,6 +171,8 @@ db._query(`FOR doc IN viewName
   SORT doc.text
   RETURN doc`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The optimization can be applied to queries which sort by both fields as
 defined (`SORT doc.date DESC, doc.name`), but also if they sort in descending
@@ -172,6 +204,8 @@ this optimization can avoid to access the storage engine entirely.
 
 _`arangosearch` View:_
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -190,9 +224,13 @@ _`arangosearch` View:_
   ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 _`search-alias` View:_
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.articles.ensureIndex({
   name: "inv-idx",
@@ -214,11 +252,15 @@ db._createView("articlesView", "search-alias", { indexes: [
   { collection: "articles", index: "inv-idx" }
 ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In above View definitions, the document attribute *categories* is indexed for
 searching, *publishedAt* is used as primary sort order and *title* as well as
 *categories* are stored in the View using the new `storedValues` property.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN articlesView
   SEARCH doc.categories == "recipes"
@@ -229,6 +271,8 @@ FOR doc IN articlesView
     tags: doc.categories
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The query searches for articles which contain a certain tag in the *categories*
 array and returns title, date and tags. All three values are stored in the View
@@ -237,6 +281,8 @@ no documents need to be fetched from the storage engine to answer the query.
 This is shown in the execution plan as a comment to the *EnumerateViewNode*:
 `/* view query without materialization */`
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType            Est.   Comment
@@ -254,18 +300,24 @@ Optimization rules applied:
   2   move-calculations-up-2
   3   handle-arangosearch-views
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Condition Optimization Options
 
 The `SEARCH` operation in AQL accepts an option `conditionOptimization` to
 give you control over the search criteria optimization:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN myView
   SEARCH doc.val > 10 AND doc.val > 5 /* more conditions */
   OPTIONS { conditionOptimization: "none" }
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 By default, all conditions get converted into disjunctive normal form (DNF).
 Numerous optimizations can be applied, like removing redundant or overlapping
@@ -291,6 +343,8 @@ an approximate result with O(1) complexity. It gives a precise result if the
 (e.g. `SEARCH doc.field == "value"`), the usual eventual consistency
 of Views aside.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN viewName
   SEARCH doc.name == "Carol"
@@ -298,5 +352,7 @@ FOR doc IN viewName
   COLLECT WITH COUNT INTO count
   RETURN count
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!-- TODO: The Analyzer feature "norm" has some performance implications -->

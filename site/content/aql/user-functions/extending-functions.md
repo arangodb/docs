@@ -8,9 +8,13 @@ layout: default
 User-defined functions (UDFs) can be registered in the selected database 
 using the *aqlfunctions* object as follows:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var aqlfunctions = require("@arangodb/aql/functions");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To register a function, the fully qualified function name plus the
 function code must be specified. This can easily be done in
@@ -32,6 +36,8 @@ For testing, it may be sufficient to directly type the function code in the shel
 To manage more complex code, you may write it in the code editor of your choice
 and save it as file. For example:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 /* path/to/file.js */
 'use strict';
@@ -45,13 +51,19 @@ function greeting(name) {
 
 module.exports = greeting;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Then require it in the shell in order to register a user-defined function:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> var func = require("path/to/file.js");
 arangosh> aqlfunctions.register("HUMAN::GREETING", func, true);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that a return value of *false* means that the function `HUMAN::GREETING`
 was newly created, and not that it failed to register. *true* is returned
@@ -86,17 +98,23 @@ when it detects syntactically invalid function code.
 **Examples**
 
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
 function (celsius) {
   return celsius * 1.8 + 32;
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The function code will not be executed in *strict mode* or *strong mode* by 
 default. In order to make a user function being run in strict mode, use
 `use strict` explicitly, e.g.:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
 function (celsius) {
@@ -104,10 +122,14 @@ function (celsius) {
   return celsius * 1.8 + 32;
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can access the name under which the AQL function is registered by accessing
 the `name` property of `this` inside the JavaScript code:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
 function (celsius) {
@@ -119,20 +141,28 @@ function (celsius) {
   return celsius * 1.8 + 32;
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `AQL_WARNING()` is automatically available to the code of user-defined
 functions. The error code and message is retrieved via `@arangodb` module.
 The *argument number mismatch* message has placeholders, which we can substitute
 using [format()](http://nodejs.org/api/util.html):
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 invalid number of arguments for function '%s()', expected number of arguments: minimum: %d, maximum: %d
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the example above, `%s` is replaced by `this.name` (the AQL function name),
 and both `%d` placeholders by `1` (number of expected arguments). If you call
 the function without an argument, you will see this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 arangosh> db._query("RETURN MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT()")
 [object ArangoQueryCursor, count: 1, hasMore: false, warning: 1541 - invalid
@@ -143,6 +173,8 @@ expected number of arguments: minimum: 1, maximum: 1]
   null
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Deleting an existing AQL user function
 
@@ -158,9 +190,13 @@ exception.
 **Examples**
 
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/functions").unregister("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## Unregister Group
@@ -180,11 +216,15 @@ This will return the number of functions unregistered.
 **Examples**
 
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/functions").unregisterGroup("MYFUNCTIONS::TEMPERATURE");
 
 require("@arangodb/aql/functions").unregisterGroup("MYFUNCTIONS");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## Listing all AQL user functions
@@ -204,18 +244,30 @@ by specifying a group prefix:
 
 To list all available user functions:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/functions").toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To list all available user functions in the *MYFUNCTIONS* namespace:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/functions").toArray("MYFUNCTIONS");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To list all available user functions in the *MYFUNCTIONS::TEMPERATURE* namespace:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 require("@arangodb/aql/functions").toArray("MYFUNCTIONS::TEMPERATURE");
 ```
+{{% /tab %}}
+{{< /tabs >}}

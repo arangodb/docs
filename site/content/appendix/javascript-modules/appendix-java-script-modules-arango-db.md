@@ -24,11 +24,15 @@ and run queries. For more information see the [db object reference](../reference
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { db } = require('@arangodb');
 
 const thirteen = db._query('RETURN 5 + 8').next();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## The `aql` template tag
 
@@ -55,6 +59,8 @@ To find out more about AQL see the [AQL documentation](../../about-arangodb/).
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 
 const filterValue = 23;
@@ -75,6 +81,8 @@ const result2 = db._query(aql`
   RETURN d
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## The `aql.literal` helper
 
@@ -92,6 +100,8 @@ nested `aql` queries if possible.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { aql } = require('@arangodb');
 
@@ -102,6 +112,8 @@ const result = db._query(aql`
   RETURN d
 `).toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## The `aql.join` helper
 
@@ -111,6 +123,8 @@ The `aql.join` helper takes an array of queries generated using the `aql` tag
 and combines them into a single query. The optional second argument will be
 used as literal string to combine the queries.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { aql } = require('@arangodb');
 
@@ -155,6 +169,8 @@ const result = db._query(aql`
 //   value0: ["abc123", "def456"]
 //   @value1: "users"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## The `query` helper
 
@@ -165,6 +181,8 @@ you directly pass to `db._query()`. To make this even easier ArangoDB provides
 the `query` template handler, which behaves exactly like `aql` but also directly
 executes the query and returns the result cursor instead of the query object:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { query } = require('@arangodb');
 
@@ -186,10 +204,14 @@ const result2 = query`
   RETURN d
 `.toArray();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is also possible to pass query options to the query helper
 (introduced in v3.7.0):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const { query } = require('@arangodb');
 
@@ -200,6 +222,8 @@ const result = query( { fullCount: true } )`
   RETURN d
 `.data;
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## The `errors` object
 
@@ -216,6 +240,8 @@ For a complete list of the error names and codes you may encounter see the
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const errors = require('@arangodb').errors;
 
@@ -228,6 +254,8 @@ try {
   throw new Error('Something went wrong');
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## The `time` function
 
@@ -241,6 +269,8 @@ is needed.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const time = require('@arangodb').time;
 
@@ -248,3 +278,5 @@ const start = time();
 db._query(someVerySlowQuery);
 console.log(`Elapsed time: ${time() - start} secs`);
 ```
+{{% /tab %}}
+{{< /tabs >}}

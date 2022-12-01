@@ -19,6 +19,8 @@ restart.
 
 To start an _ArangoSync Worker_ using a `systemd` service, use a unit like this:
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 [Unit]
 Description=Run ArangoSync in worker mode
@@ -41,6 +43,8 @@ TimeoutStopSec=60
 [Install]
 WantedBy=multi-user.target
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The _ArangoSync Worker_ must be reachable on a TCP port `${PORT}` (used with `--server.port`
 option). This port must be reachable from inside the datacenter (by _sync masters_).

@@ -51,12 +51,16 @@ You may need to account for characters encoded using multiple bytes.
 
 A collection called `food` with the following documents:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 { "name": "avocado", "description": { "en": "The avocado is a medium-sized, evergreen tree, native to the Americas." } }
 { "name": "carrot", "description": { "en": "The carrot is a root vegetable, typically orange in color, native to Europe and Southwestern Asia." } }
 { "name": "chili pepper", "description": { "en": "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } }
 { "name": "tomato", "description": { "en": "The tomato is the edible berry of the tomato plant." } }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Custom Analyzer
 
@@ -95,6 +99,8 @@ Analyzer features can be overwritten in the inverted index definition.
 
 ##### `search-alias` View
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.food.ensureIndex({
   name: "inv-text-offset",
@@ -106,9 +112,13 @@ db.food.ensureIndex({
 
 db._createView("food_view", "search-alias", { indexes: [ { collection: "food", index: "inv-text-offset" } ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ##### `arangosearch` View
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "links": {
@@ -128,6 +138,8 @@ db._createView("food_view", "search-alias", { indexes: [ { collection: "food", i
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### AQL queries
 

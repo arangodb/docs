@@ -17,6 +17,8 @@ the same document (identified by its handle) can be distinguished by their
 Any transaction only ever sees a single revision of a document.
 For example:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "_id" : "myusers/3456789",
@@ -35,6 +37,8 @@ For example:
   ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 All documents contain special attributes: the 
 [document handle](../../../appendix/appendix-glossary#document-handle) is stored

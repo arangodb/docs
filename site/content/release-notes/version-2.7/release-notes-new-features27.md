@@ -41,9 +41,13 @@ buckets can also be adjusted for existing collections so they can benefit from
 the optimizations. The number of index buckets can be set for a collection at
 any time by using a collection's `properties` function:
  
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
     db.collection.properties({ indexBuckets: 16 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The number of index buckets must be a power of 2.
 
@@ -216,10 +220,14 @@ the already existing `COLLECT` statement.
 For example, the following query only returns distinct (unique) `status`
 attribute values from the collection:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     FOR doc IN collection
       RETURN DISTINCT doc.status
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `RETURN DISTINCT` is not allowed on the top-level of a query if there is no `FOR` 
 loop in front of it. `RETURN DISTINCT` is allowed in subqueries.
@@ -234,20 +242,28 @@ additional `SORT` statement must be added to a query.
 AQL now provides a shorthand notation for object literals in the style of ES6
 object literals:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     LET name = "Peter"
     LET age = 42
     RETURN { name, age }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is equivalent to the previously available canonical form, which is still
 available and supported:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     LET name = "Peter"
     LET age = 42
     RETURN { name : name, age : age }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ### Array expansion improvements
@@ -257,6 +273,8 @@ filtering and projection and limit capabilities.
 
 For example, consider the following example query that filters values from
 an array attribute:
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     FOR u IN users
       RETURN {
@@ -268,13 +286,19 @@ an array attribute:
         )
       }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 With the `[*]` operator, this query can be simplified to
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     FOR u IN users 
       RETURN { name: u.name, friends: u.friends[* FILTER CURRENT.age > u.age].name }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The pseudo-variable *CURRENT* can be used to access the current array element.
 The `FILTER` condition can refer to `CURRENT` or any variables valid in the
@@ -282,13 +306,19 @@ outer scope.
 
 To return a projection of the current element, there can now be an inline `RETURN`: 
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     FOR u IN users 
       RETURN u.friends[* RETURN CONCAT(CURRENT.name, " is a friend of ", u.name)] 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 which is the simplified variant for:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     FOR u IN users 
       RETURN (
@@ -296,6 +326,8 @@ which is the simplified variant for:
           RETURN CONCAT(friend.name, " is a friend of ", u.name)
       ) 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ### Array contraction
@@ -306,20 +338,28 @@ arrays. How many levels are collapsed is determined by the amount of `*` charact
 
 For example, consider the following query that produces a nested result:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     FOR u IN users 
       RETURN u.friends[*].name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `[**]` operator can now be applied to get rid of the nested array and 
 turn it into a flat array. We simply apply the `[**]` on the previous query
 result: 
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     RETURN (
       FOR u IN users RETURN u.friends[*].name
     )[**]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ### Template query strings
@@ -336,6 +376,8 @@ be used to easily and safely assemble AQL queries from JavaScript. JavaScript
 variables and expressions can be used easily using regular ES6 template string 
 substitutions:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
     let name = 'test';
     let attributeName = '_key';
@@ -345,10 +387,14 @@ substitutions:
       RETURN u.${attributeName}`;
     db._query(query);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This is more legible than when using a plain JavaScript string and also does
 not require defining the bind parameter values separately:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
     let name = 'test';
     let attributeName = '_key';
@@ -361,13 +407,19 @@ not require defining the bind parameter values separately:
       attributeName 
     });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `aqlQuery` template string generator will also handle collection objects
 automatically:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
     db._query(aqlQuery`FOR u IN ${ db.users } RETURN u.name`);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that while template strings are available in the JavaScript functions provided
 to build queries, they aren't a feature of AQL itself. AQL could always handle
@@ -416,10 +468,14 @@ that they also iterate over.
 For example, the following query reads documents from a collection in order
 to update them:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
     FOR doc IN collection
       UPDATE doc WITH { newValue: doc.oldValue + 1 } IN collection
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this case, only a single collection is affected by the query, and there is
 no index lookup involved to find the to-be-updated documents. In this case, the
@@ -454,6 +510,8 @@ The `extend` method is still supported at the moment but will become deprecated 
 
 **Before:**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var Foxx = require('org/arangodb/foxx');
 var MyModel = Foxx.Model.extend({
@@ -461,9 +519,13 @@ var MyModel = Foxx.Model.extend({
   schema: {/* ... */}
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **After:**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var Foxx = require('org/arangodb/foxx');
 class MyModel extends Foxx.Model {
@@ -471,6 +533,8 @@ class MyModel extends Foxx.Model {
 }
 MyModel.prototype.schema = {/* ... */};
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Confidential configuration
 
@@ -482,6 +546,8 @@ The syntax for specifying dependencies in manifests has been extended to allow s
 
 **Before:**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   ...
@@ -491,9 +557,13 @@ The syntax for specifying dependencies in manifests has been extended to allow s
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **After:**
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "dependencies": {
@@ -509,6 +579,8 @@ The syntax for specifying dependencies in manifests has been extended to allow s
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ## Replication

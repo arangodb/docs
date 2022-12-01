@@ -20,6 +20,8 @@ For allowed variable names [AQL Syntax](../aql-fundamentals/fundamentals-syntax#
 
 Variables are immutable in AQL, which means they can not be re-assigned:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET a = [1, 2, 3]  // initial assignment
 
@@ -27,10 +29,14 @@ a = PUSH(a, 4)     // syntax error, unexpected identifier
 LET a = PUSH(a, 4) // parsing error, variable 'a' is assigned multiple times
 LET b = PUSH(a, 4) // allowed, result: [1, 2, 3, 4]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `LET` statements are mostly used to declare complex computations and to avoid
 repeated computations of the same value at multiple parts of a query.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   LET numRecommendations = LENGTH(u.recommendations)
@@ -40,6 +46,8 @@ FOR u IN users
     "isPowerUser" : numRecommendations >= 10
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above example, the computation of the number of recommendations is
 factored out using a `LET` statement, thus avoiding computing the value twice in
@@ -48,6 +56,8 @@ the `RETURN` statement.
 Another use case for `LET` is to declare a complex computation in a subquery,
 making the whole query more readable.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   LET friends = (
@@ -67,3 +77,5 @@ FOR u IN users
     "memberShips" : memberships 
   }
 ```
+{{% /tab %}}
+{{< /tabs >}}

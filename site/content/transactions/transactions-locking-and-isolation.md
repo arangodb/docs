@@ -9,6 +9,8 @@ Transactions need to specify from which collections they will read data and whic
 collections they intend to modify. This can be done by setting the *read*, *write*,
 or *exclusive* attributes in the *collections* attribute of the transaction:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: { 
@@ -24,6 +26,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!-- TODO: does write access imply read access in RocksDB? -->
 *write* here means write access to the collection, and also includes any read accesses.
@@ -80,6 +84,8 @@ collections are potentially non-repeatable.
 
 **Examples:**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: { 
@@ -97,6 +103,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This automatic lazy addition of collections to a transaction also introduces the 
 possibility of deadlocks. Deadlocks may occur if there are concurrent transactions 
@@ -106,6 +114,8 @@ In order to make a transaction fail when a non-declared collection is used insid
 a transaction for reading, the optional *allowImplicit* sub-attribute of *collections* 
 can be set to *false*:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: { 
@@ -124,6 +134,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The default value for *allowImplicit* is *true*. Write-accessing collections that
 have not been declared in the *collections* array is never possible, regardless of
@@ -132,6 +144,8 @@ the value of *allowImplicit*.
 If *users/1234* has an edge in *connections*, linking it to another document in
 the *users* collection, then the following explicit declaration will work:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: { 
@@ -140,6 +154,8 @@ db._executeTransaction({
   },
   /* ... */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If the edge points to a document in another collection however, then the query
 will fail, unless that other collection is added to the declaration as well.
@@ -166,6 +182,8 @@ try to access the same collections but that need to wait for each other. In this
 transaction T1 will write to collection `c1`, but will also read documents from
 collection `c2` without announcing it:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: { 
@@ -184,10 +202,14 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Transaction T2 announces to write into collection `c2`, but will also read 
 documents from collection `c1` without announcing it:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db._executeTransaction({
   collections: { 
@@ -206,6 +228,8 @@ db._executeTransaction({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above example, a deadlock will occur if transaction T1 and T2 have both
 acquired their write locks (T1 for collection `c1` and T2 for collection `c2`) and

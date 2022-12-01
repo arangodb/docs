@@ -95,15 +95,21 @@ Returns an [Endpoint](foxx-reference-routers-endpoints) for the route.
 
 Simple index route:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get(function (req, res) {
   res.set('content-type', 'text/plain');
   res.write('Hello World!');
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Restricting access to authenticated ArangoDB users:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.get('/secrets', function (req, res, next) {
   if (req.arangoUser) {
@@ -115,9 +121,13 @@ router.get('/secrets', function (req, res, next) {
   res.download('allOurSecrets.zip');
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Multiple middleware functions:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 function counting (req, res, next) {
   if (!req.counter) req.counter = 0;
@@ -129,6 +139,8 @@ router.get(counting, counting, counting, function (req, res) {
   res.json({counter: req.counter}); // {"counter": 3}
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Mounting child routers and middleware
 
@@ -164,6 +176,8 @@ invoked on each endpoint will only affect routes of that endpoint.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const child = createRouter();
 
@@ -178,7 +192,11 @@ child.get(function (req, res) {
   res.json({number: req.queryParams.number});
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const child = createRouter()
 .queryParam("number", joi.number().required(), "Required number parameter.");
@@ -193,6 +211,8 @@ child.get(function (req, res) {
   res.json({number: req.queryParams.number});
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Additional metadata
 
@@ -202,6 +222,8 @@ router objects and can be used to define shared defaults.
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 router.header(
   'x-common-header',
@@ -216,3 +238,5 @@ router.get('/', function (req, res) {
   // ...
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}

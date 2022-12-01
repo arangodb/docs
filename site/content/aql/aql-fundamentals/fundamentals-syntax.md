@@ -41,6 +41,8 @@ AQL supports two types of comments:
   end with an asterisk and a following forward slash. They can span as many
   lines as necessary.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 /* this is a comment */ RETURN 1
 /* these */ RETURN /* are */ 1 /* multiple */ + /* comments */ 1
@@ -49,6 +51,8 @@ AQL supports two types of comments:
    comment */
 // a single line comment
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Keywords
 
@@ -79,11 +83,15 @@ above operations.
 
 An example AQL query may look like this:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.type == "newbie" && u.active == true
   RETURN u.name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this example query, the terms `FOR`, `FILTER`, and `RETURN` initiate the
 higher-level operation according to their name. These terms are also keywords,
@@ -214,27 +222,39 @@ Variable names can be longer, but are discouraged.
 Keywords must not be used as names. If a reserved keyword should be used as
 a name, the name must be enclosed in backticks or forward ticks.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN `filter`
   RETURN doc.`sort`
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Due to the backticks, `filter` and `sort` are interpreted as names and not as
 keywords here.
 
 The example can alternatively written as:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR f IN ´filter´
   RETURN f.´sort´
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Instead of ticks, you may use the bracket notation for the attribute access:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR f IN `filter`
   RETURN f["sort"]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `sort` is a **quoted** string literal in this alternative and does thus not
 conflict with the reserved word.
@@ -242,10 +262,14 @@ conflict with the reserved word.
 Escaping is also required if special characters such as hyphen minus (`-`) are
 contained in a name:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN `my-coll`
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The collection `my-coll` has a dash in its name, but `-` is an arithmetic
 operator for subtraction in AQL. The backticks escape the collection name to
@@ -273,12 +297,16 @@ allowed to refer to an unqualified attribute name.
 Please refer to the [Naming Conventions in ArangoDB](../../getting-started/data-modeling/naming-conventions/data-modeling-naming-conventions-attribute-names)
 for more information about the attribute naming conventions.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FOR f IN friends
     FILTER u.active == true && f.active == true && u.id == f.userId
     RETURN u.name
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above example, the attribute names `active`, `name`, `id`, and `userId`
 are qualified using the collection names they belong to (`u` and `f`
@@ -291,11 +319,15 @@ variables that are assigned a value must have a name that is unique within the
 context of the query. Variable names must be different from the names of any
 collection name used in the same query.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   LET friends = u.friends
   RETURN { "name" : u.name, "friends" : friends }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above query, `users` is a collection name, and both `u` and `friends` are
 variable names. This is because the `FOR` and `LET` operations need target

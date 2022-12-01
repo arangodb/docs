@@ -70,6 +70,8 @@ creation operations. The boundary used in this example is
 
 *Examples*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > curl -X POST --data-binary @- --header "Content-type: multipart/form-data; boundary=XXXsubpartXXX" http://localhost:8529/_api/batch
 --XXXsubpartXXX
@@ -95,6 +97,8 @@ POST /_api/document?collection=xyz HTTP/1.1
 {"a":1,"b":2,"c":3,"d":4,"e":5}
 --XXXsubpartXXX--
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The server will then respond with one multipart message, containing
 the overall status and the individual results for the part
@@ -113,6 +117,8 @@ operation might also return arbitrary HTTP headers and a body/payload:
 
 *Examples*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 HTTP/1.1 200 OK
 Connection: Keep-Alive
@@ -151,6 +157,8 @@ Content-length: 53
 {"error":false,"_id":"xyz/9645371","_key":"9645371","_rev":"9645371"}
 --XXXsubpartXXX--
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In the above example, the server returned an overall status code of
 200, and each part response contains its own status value (202 in the
@@ -164,6 +172,8 @@ requests that produced errors:
 
 *Examples*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 > curl -X POST --data-binary @- --header "Content-type: multipart/form-data; boundary=XXXsubpartXXX" http://localhost:8529/_api/batch
 --XXXsubpartXXX
@@ -180,6 +190,8 @@ POST /_api/document?collection=xyz
 {"a":1,"b":2,"c":3,"d":4}
 --XXXsubpartXXX--
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In this example, the overall response code is 200, but as some of the
 part request failed (with status code 404), the *x-arango-errors*
@@ -187,6 +199,8 @@ header of the overall response is *1*:
 
 *Examples*
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 HTTP/1.1 200 OK
 x-arango-errors: 1
@@ -212,6 +226,8 @@ Content-length: 53
 {"error":false,"_id":"xyz/9841979","_key":"9841979","_rev":"9841979"}
 --XXXsubpartXXX--
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Please note that the database used for all part operations of a batch
 request is determined by scanning the original URL (the URL that contains

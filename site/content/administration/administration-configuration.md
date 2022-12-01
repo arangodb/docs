@@ -17,18 +17,26 @@ ArangoDB package can be configured with various _startup options_.
   [configuration files](#configuration-file-format),
   using a slightly different syntax:
 
-  ```conf
+  {{< tabs >}}
+{{% tab name="conf" %}}
+```conf
   server.database = myDB
   server.username = Jay
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
   Or more compact like this:
 
-  ```conf
+  {{< tabs >}}
+{{% tab name="conf" %}}
+```conf
   [server]
   database = myDB
   username = Jay
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 - There are also _commands_ that are intended for command line usage only,
   such as `‑‑help` and `‑‑version`.
@@ -66,6 +74,8 @@ It does not matter if you supply it as first or last argument, or between
 any of the named arguments. For _arangod_ it is the `‑‑database.directory`
 option. The following commands are identical:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod my_data_dir
 arangod "my_data_dir"
@@ -74,6 +84,8 @@ arangod --database.directory=my_data_dir
 arangod --database.directory "my_data_dir"
 arangod --database.directory="my_data_dir"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Many options belong to a section as in `‑‑section.param`, e.g.
 `‑‑server.database`, but there can also be options without any section.
@@ -81,9 +93,13 @@ These options are referred to as _general options_.
 
 To list available options, you can run a binary with the `‑‑help` command:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh --help
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To list the options of a certain section only, use `‑‑help‑{section}`,
 like `‑‑help‑server`. To list all options including hidden ones use
@@ -94,47 +110,71 @@ like `‑‑help‑server`. To list all options including hidden ones use
 `.conf` files for ArangoDB binaries are in a simple key-value pair format.
 Each option is specified on a separate line in the form:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 key = value
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It may look like this:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 server.endpoint = tcp://127.0.0.1:8529
 server.authentication = true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Alternatively, a header section can be specified and options pertaining to
 that section can be specified in a shorter form:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 [server]
 endpoint = tcp://127.0.0.1:8529
 authentication = true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 So you see, a command line option `‑‑section.param value` can be easily
 translated to an option in a configuration file:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 [section]
 param = value
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/tip %}}
 Whitespace around `=` is ignored in configuration files.
 This includes whitespace around equality signs in the parameter value:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 log.level = startup = trace
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is the same as without whitespace:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 log.level=startup=trace
 ```
+{{% /tab %}}
+{{< /tabs >}}
 {{% /hints/tip %}}
 
 Comments can be placed in the configuration file by placing one or more
@@ -157,15 +197,23 @@ available to let you specify a path to a `.conf` file. If you want to
 completely ignore a configuration file (likely the default one) without
 necessarily deleting the file, then add the command line option
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 -c none
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 or
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --configuration none
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The value `none` is case-insensitive.
 
@@ -207,6 +255,8 @@ values in megabytes or gigabytes for example.
 
 Suffix could be used like this in a configuration file:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 [rocksdb]
 write-buffer-size=512KiB
@@ -217,6 +267,8 @@ max-bytes-for-level-multiplier=1K
 [cache]
 size=2G
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Environment variables as parameters
 
@@ -227,16 +279,24 @@ For literal at signs in startup option arguments, escape them like `@@`.
 
 Command line example:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --temp.path @TEMP@/arango_tmp
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 In a configuration file:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 [temp]
 path = @TEMP@/arango_tmp
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 On a Windows system, above setting would typically make the ArangoDB Server
 create its folder for temporary files in `%USERPROFILE%\AppData\Local\Temp`,
@@ -253,18 +313,26 @@ tool's option table (e.g. [ArangoDB Server Options](../programs-tools/arangodb-s
 or the type information provided on a command line in the `--help` output of
 an ArangoDB binary:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 --log.level <string...>     the global or topic-specific log level
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Vectors can be identified by the three dots `...` at the end of the data type
 information (in angled brackets). For `log.level` you can set one or more
 strings for different log levels for example. Simply repeat the option to
 do so. On a command line:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangod --log.level all=warning --log.level queries=trace --log.level startup=info
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This sets a global log level of `warning` and two topic-specific levels
 (`trace` for queries and `info` for startup). Note that `--log.level warning`
@@ -273,12 +341,16 @@ does not set a log level globally for all existing topics, but only the
 
 The same in a configuration file:
 
+{{< tabs >}}
+{{% tab name="conf" %}}
 ```conf
 [log]
 level = all=warning
 level = queries=trace
 level = startup=info
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Configuration precedence
 
@@ -296,16 +368,24 @@ If the same option is set multiple times, but only supports a single value,
 then the last occurrence of the option will become the final value.
 For example, if you edit `arangosh.conf` to set:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 server.database = myDB1
 server.database = myDB2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … and start ArangoShell like:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 arangosh --server.database myDB3 --server.database myDB4
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 … then the database it will connect to is `myDB4`, because this startup option
 takes a single value only (i.e. it is not a vector), the built-in default

@@ -123,9 +123,13 @@ If the server started successfully, you should see a line
 You can access the administration web interface by pointing your web browser to
 the following address:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 http://127.0.0.1:8529/
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Advanced Starting
 

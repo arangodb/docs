@@ -65,6 +65,8 @@ executed is a JavaScript string snippet which prints a message to the
 server's logfile:
 
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const tasks = require("@arangodb/tasks");
 
@@ -75,6 +77,8 @@ tasks.register({
   command: "require('console').log('hello from snippet task');"
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 The above has register a task with id *mytask-1*, which will be executed
@@ -83,6 +87,8 @@ it is invoked.
 
 Tasks can also be set up using a JavaScript callback function like this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const tasks = require("@arangodb/tasks");
 
@@ -95,6 +101,8 @@ tasks.register({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is important to note that the callback function is late bound and
 will be executed in a different context than in the creation context.
@@ -107,6 +115,8 @@ registering a task. Note that the parameters are limited to data types
 usable in JSON (meaning no callback functions can be passed as parameters
 into a task):
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const tasks = require("@arangodb/tasks");
 
@@ -122,12 +132,16 @@ tasks.register({
   params: { greeting: "hi", data: "how are you?" }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Registering a one-shot task works the same way, except that the
 *period* attribute must be omitted. If *period* is omitted, then the
 task will be executed just once. The task invocation delay can optionally
 be specified with the *offset* attribute:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const tasks = require("@arangodb/tasks");
 
@@ -140,6 +154,8 @@ tasks.register({
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 **Note**: When specifying an *offset* value of 0, ArangoDB will internally add
 a very small value to the offset so will be slightly greater than zero.
@@ -148,10 +164,14 @@ a very small value to the offset so will be slightly greater than zero.
 
 After a task has been registered, it can be unregistered using its id:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const tasks = require("@arangodb/tasks");
 tasks.unregister("mytask-1");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that unregistering a non-existing task will throw an exception.
 
@@ -162,18 +182,26 @@ To get an overview of which tasks are registered, there is the *get*
 method. If the *get* method is called without any arguments, it will
 return an array of all tasks:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const tasks = require("@arangodb/tasks");
 tasks.get();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 If *get* is called with a task id argument, it will return information
 about this particular task:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 const tasks = require("@arangodb/tasks");
 tasks.get("mytask-3");
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The *created* attribute of a task reveals when a task was created. It is
 returned as a Unix timestamp.

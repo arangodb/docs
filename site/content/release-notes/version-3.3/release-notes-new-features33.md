@@ -66,10 +66,14 @@ Trying to restore the encrypted dump without specifying the key will fail:
 
 arangorestore will complain with:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 the dump data seems to be encrypted with aes-256-ctr, but no key information was specified to decrypt the dump
 it is recommended to specify either `--encryption.keyfile` or `--encryption.key-generator` when invoking arangorestore with an encrypted dump
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It is required to use the exact same key when restoring the data. Again this is
 done by providing the `--encryption.keyfile` parameter:
@@ -105,6 +109,8 @@ master and not just a single one.
 In order to start the replication on the slave and make it replicate all
 databases from a given master, use these commands on the slave:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var replication = require("@arangodb/replication");
 
@@ -115,12 +121,18 @@ replication.setupReplicationGlobal({
   autoStart: true
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To check if the applier is running, also use the `globalApplier` object:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 replication.globalApplier.state().state
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The server-level replication requires both the master and slave servers to 
 ArangoDB version 3.3 or higher.
@@ -150,11 +162,15 @@ always respond with `HTTP 503 (Service unavailable)` and provide the address of
 the current leader. Client applications and drivers can use this information to 
 then make a follow-up request to the proper leader:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 HTTP/1.1 503 Service Unavailable
 X-Arango-Endpoint: http://[::1]:8531
 ....
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Client applications can also detect who the current leader and the followers
 are by calling the `/_api/cluster/endpoints` REST API. This API is accessible

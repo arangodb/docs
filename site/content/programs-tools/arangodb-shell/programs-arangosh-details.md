@@ -39,8 +39,16 @@ use the load command:
     require("internal").load("/tmp/test.js")     // <- Linux / macOS
     require("internal").load("c:\\tmp\\test.js") // <- Windows
 
-Exiting arangosh can be done using the key combination ```<CTRL> + D``` or by
-typing ```quit<CR>```
+Exiting arangosh can be done using the key combination {{< tabs >}}
+{{% tab name="<CTRL> + D" %}}
+```<CTRL> + D```
+{{% /tab %}}
+{{< /tabs >}} or by
+typing {{< tabs >}}
+{{% tab name="quit<CR>" %}}
+```quit<CR>```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Shell Output
 
@@ -207,11 +215,15 @@ So while this code may produce similar results when executed in *arangosh* and
 *arangosh* version will be doing around 100k HTTP requests, and the
 *arangod* version will directly write to the database:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 for (i = 0; i < 100000; i++) {
     db.test.save({ name: { first: "Jan" }, count: i});
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Using `arangosh` via unix shebang mechanisms
 In unix operating systems you can start scripts by specifying the interpreter in the first line of the script.
@@ -245,6 +257,8 @@ You can use this to define your own extra variables and functions that you need 
 For example, you could put the following into the *.arangosh.rc* file in your home
 directory:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // "var" keyword avoided intentionally...
 // otherwise "timed" would not survive the scope of this script
@@ -254,11 +268,15 @@ global.timed = function (cb) {
   console.timeEnd("callback");
 };
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will make a function named *timed* available in _arangosh_ in the global scope.
 
 You can now start _arangosh_ and invoke the function like this:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 timed(function () { 
   for (var i = 0; i < 1000; ++i) {
@@ -266,6 +284,8 @@ timed(function () {
   }
 });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Please keep in mind that, if present, the *.arangosh.rc* file needs to contain valid
 JavaScript code. If you want any variables in the global scope to survive you need to

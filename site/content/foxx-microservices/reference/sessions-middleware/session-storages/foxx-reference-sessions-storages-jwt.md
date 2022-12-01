@@ -12,6 +12,8 @@ The JWT session storage converts sessions to and from
 
 **Examples**
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // Pass in a secure secret from the Foxx configuration
 const secret = module.context.configuration.jwtSecret;
@@ -21,6 +23,8 @@ const sessions = sessionsMiddleware({
 });
 module.context.use(sessions);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating a storage
 

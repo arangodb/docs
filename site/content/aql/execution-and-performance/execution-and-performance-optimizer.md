@@ -465,6 +465,8 @@ Using a cluster, there is a *Site* column if you explain a query.
 Snippets marked with **DBS** are executed on DB-Servers, **COOR** ones are
 executed on the respective Coordinator.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Query String (57 chars, cacheable: false):
  FOR doc IN test UPDATE doc WITH { updated: true } IN test
@@ -478,6 +480,8 @@ Execution plan:
   7   RemoteNode        COOR        0       - REMOTE
   8   GatherNode        COOR        0       - GATHER 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## List of execution nodes
 
@@ -961,15 +965,21 @@ For example, the optimization is applied in the following case:
 
 Example query:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   FILTER doc.value1 == @value1   /* uses the index */
   FILTER ABS(doc.value2) != @value2   /* does not use the index */
   RETURN doc
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This query's execution plan looks as follows:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType        Est.   Comment
@@ -981,6 +991,8 @@ Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields                   Ranges
   8   idx_1737498319258648576   persistent   collection   false    false    false       99.96 %   [ `value1`, `value2` ]   (doc.`value1` == 1)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The first filter condition is transformed to an index lookup, as you can tell
 from the `persistent index scan` comment and the `Indexes used` section that
@@ -1002,18 +1014,24 @@ Note that the optimization can also be combined with regular projections, e.g.
 for the following query that returns a specific attribute from the documents
 only:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   FILTER doc.value1 == @value1   /* uses the index */
   FILTER ABS(doc.value2) != @value2   /* does not use the index */
   RETURN doc.value3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 That query's execution plan combines projections from the index for the
 post-filter condition (`filter projections`) as well as regular projections
 (`projections`) for the processing parts of the query that follow the
 post-filter condition:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 Execution plan:
  Id   NodeType          Est.   Comment
@@ -1026,6 +1044,8 @@ Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields                   Ranges
   9   idx_1737498319258648576   persistent   collection   false    false    false       99.96 %   [ `value1`, `value2` ]   (doc.`value1` == 1)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The optimization is most effective for queries in which many documents would
 be selected by the index lookup condition, but many are filtered out by the 

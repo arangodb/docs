@@ -45,6 +45,8 @@ indexes in case non-existing or optional attributes are indexed.
 In order to create a sparse index, an object with the attribute `sparse` can be added to
 the index creation commands:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.collection.ensureHashIndex(attributeName, { sparse: true }); 
 db.collection.ensureHashIndex(attributeName1, attributeName2, { sparse: true }); 
@@ -56,14 +58,20 @@ db.collection.ensureSkiplist(attributeName1, attributeName2, { sparse: true });
 db.collection.ensureUniqueSkiplist(attributeName, { sparse: true }); 
 db.collection.ensureUniqueSkiplist(attributeName1, attributeName2, { sparse: true }); 
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that in place of the above specialized index creation commands, it is recommended to use
 the more general index creation command `ensureIndex`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 db.collection.ensureIndex({ type: "hash", sparse: true, unique: true, fields: [ attributeName ] });
 db.collection.ensureIndex({ type: "skiplist", sparse: false, unique: false, fields: [ "a", "b" ] });
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When not explicitly set, the `sparse` attribute defaults to `false` for new hash or 
 skiplist indexes.

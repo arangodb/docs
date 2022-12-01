@@ -50,34 +50,54 @@ The following query replaces the document identified by the key `my_key` in the
 `users` collection, only setting a `name` and a `status` attribute. The key is
 passed via the `_key` attribute alongside other attributes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 REPLACE { _key: "my_key", name: "Jon", status: "active" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following query is invalid because the object does not contain a `_key`
 attribute and thus it is not possible to determine the document to
 be replaced:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 REPLACE { name: "Jon" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can combine the `REPLACE` operation with a `FOR` loop to determine the
 necessary key attributes, like shown below:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE { _key: u._key, name: CONCAT(u.firstName, " ", u.lastName), status: u.status } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the `REPLACE` and `FOR` operations are independent of each other and
 `u` does not automatically define a document for the `REPLACE` statement.
 Thus, the following query is invalid:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE { name: CONCAT(u.firstName, " ", u.lastName), status: u.status } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `REPLACE <keyExpression> WITH <document> IN <collection>`
 
@@ -93,9 +113,13 @@ The following query replaces the document identified by the key `my_key` in the
 passed as a string in the `keyExpression`. The attributes to set are passed
 separately as the `document` object:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 REPLACE "my_key" WITH { name: "Jon", status: "active" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `document` object may contain a `_key` attribute, but it is ignored.
 
@@ -104,10 +128,14 @@ document identifier as a string (like `"users/john"`). However, you can use
 `PARSE_IDENTIFIER(<id>).key` as `keyExpression` to get the document key as a
 string:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET key = PARSE_IDENTIFIER("users/john").key
 REPLACE key WITH { ... } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Comparison of the syntaxes
 
@@ -120,51 +148,83 @@ You can choose the syntax variant that is the most convenient for you.
 
 The following queries are equivalent:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE u WITH { name: CONCAT(u.firstName, " ", u.lastName), status: u.status } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE u._key WITH { name: CONCAT(u.firstName, " ", u.lastName), status: u.status } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE { _key: u._key } WITH { name: CONCAT(u.firstName, " ", u.lastName), status: u.status } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE { _key: u._key, name: CONCAT(u.firstName, " ", u.lastName), status: u.status } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Dynamic key expressions
 
 A `REPLACE` operation may replace arbitrary documents, using either of the two
 syntaxes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REPLACE { _key: CONCAT("test", i), name: "Paula", status: "active" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REPLACE CONCAT("test", i) WITH { name: "Paula", status: "active" } IN users
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Target a different collection
 
 The documents a `REPLACE` operation modifies can be in a different collection
 than the ones produced by a preceding `FOR` operation:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   FILTER u.active == false
   REPLACE u WITH { status: "inactive", name: u.name } IN backup
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note how documents are read from the `users` collection but replaced in another
 collection called `backup`. Both collections need to use matching document keys
@@ -180,21 +240,29 @@ original collection (`users`).
 
 You can optionally set query options for the `REPLACE` operation:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 REPLACE ... IN users OPTIONS { ... }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `ignoreErrors`
 
 You can use `ignoreErrors` to suppress query errors that may occur when trying to
 replace non-existing documents or when violating unique key constraints:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REPLACE CONCAT("test", i)
   WITH { foobar: true } IN users
   OPTIONS { ignoreErrors: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You cannot modify the `_id`, `_key`, and `_rev` system attributes, but attempts
 to change them are ignored and not considered errors.
@@ -204,12 +272,16 @@ to change them are ignored and not considered errors.
 To make sure data are durable when a replace query returns, there is the `waitForSync` 
 query option:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REPLACE CONCAT("test", i)
   WITH { foobar: true } IN users
   OPTIONS { waitForSync: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `ignoreRevs`
 
@@ -217,12 +289,16 @@ In order to not accidentally overwrite documents that have been modified since y
 them, you can use the option `ignoreRevs` to either let ArangoDB compare the `_rev` value and only 
 succeed if they still match, or let ArangoDB ignore them (default):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR i IN 1..1000
   REPLACE { _key: CONCAT("test", i), _rev: "1287623" }
   WITH { foobar: true } IN users
   OPTIONS { ignoreRevs: false }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### `exclusive`
 
@@ -235,12 +311,16 @@ Exclusive access can also speed up modification queries, because we avoid confli
 
 Use the `exclusive` option to achieve this effect on a per query basis:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR doc IN collection
   REPLACE doc
   WITH { replaced: true } IN collection
   OPTIONS { exclusive: true }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Returning the modified documents
 
@@ -254,33 +334,45 @@ Both `OLD` and `NEW` contain all document attributes, even those not specified
 in the replace expression.
 
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 REPLACE document IN collection options RETURN OLD
 REPLACE document IN collection options RETURN NEW
 REPLACE keyExpression WITH document IN collection options RETURN OLD
 REPLACE keyExpression WITH document IN collection options RETURN NEW
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Following is an example using a variable named `previous` to return the original
 documents before modification. For each replaced document, the document key is
 returned:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE u WITH { value: "test" } IN users
   LET previous = OLD
   RETURN previous._key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The following query uses the `NEW` pseudo-value to return the replaced
 documents, without some of their system attributes:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR u IN users
   REPLACE u WITH { value: "test" } IN users
   LET replaced = NEW
   RETURN UNSET(replaced, "_key", "_id", "_rev")
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Transactionality
 

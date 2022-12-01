@@ -29,6 +29,8 @@ command line option.
 
 The Prometheus output (`/metrics`) looks like this:
 
+{{< tabs >}}
+{{% tab name="text" %}}
 ```text
 ...
 
@@ -40,9 +42,13 @@ arangosync_master_worker_storage{kind="",op="save",result="success"} 20
 arangosync_master_worker_storage{kind="empty",op="load",result="success"} 1
 ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The JSON output (`/metrics.json`) looks like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   ...
@@ -80,11 +86,17 @@ The JSON output (`/metrics.json`) looks like this:
   ...
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To get a list of a metrics and their help information, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 alias jq='docker run --rm -i realguess/jq jq'
 curl -sk -u "<user>:<password>" https://<syncmaster-IP>:8629/metrics.json | \
   jq 'with_entries({key: .key, value:.value.help})'
 ```
+{{% /tab %}}
+{{< /tabs >}}

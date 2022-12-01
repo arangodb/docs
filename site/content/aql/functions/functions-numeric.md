@@ -17,11 +17,15 @@ Return the absolute part of *value*.
 - **value** (number): any number, positive or negative
 - returns **unsignedValue** (number): the number without + or - sign
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ABS(-5) // 5
 ABS(+5) // 5
 ABS(3.5) // 3.5
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## ACOS()
 
@@ -33,12 +37,16 @@ Return the arccosine of *value*.
 - returns **num** (number\|null): the arccosine of *value*, or *null* if *value* is
   outside the valid range -1 and 1 (inclusive)
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ACOS(-1) // 3.141592653589793
 ACOS(0) // 1.5707963267948966
 ACOS(1) // 0
 ACOS(2) // null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## ASIN()
 
@@ -50,12 +58,16 @@ Return the arcsine of *value*.
 - returns **num** (number\|null): the arcsine of *value*, or *null* if *value* is
   outside the valid range -1 and 1 (inclusive)
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ASIN(1) // 1.5707963267948966
 ASIN(0) // 0
 ASIN(-1) // -1.5707963267948966
 ASIN(2) // null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## ATAN()
 
@@ -66,11 +78,15 @@ Return the arctangent of *value*.
 - **value** (number): the input value
 - returns **num** (number): the arctangent of *value*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ATAN(-1) // -0.7853981633974483
 ATAN(0) // 0
 ATAN(10) // 1.4711276743037347
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## ATAN2()
 
@@ -78,12 +94,16 @@ ATAN(10) // 1.4711276743037347
 
 Return the arctangent of the quotient of *y* and *x*.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ATAN2(0, 0) // 0
 ATAN2(1, 0) // 1.5707963267948966
 ATAN2(1, 1) // 0.7853981633974483
 ATAN2(-10, 20) // -0.4636476090008061
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## AVERAGE()
 
@@ -95,11 +115,15 @@ Return the average (arithmetic mean) of the values in *array*.
 - returns **mean** (number\|null): the average value of *numArray*. If the array is
   empty or contains *null* values only, *null* will be returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 AVERAGE( [5, 2, 9, 2] ) // 4.5
 AVERAGE( [ -3, -5, 2 ] ) // -2
 AVERAGE( [ 999, 80, 4, 4, 4, 3, 3, 3 ] ) // 137.5
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## AVG()
 
@@ -117,12 +141,16 @@ To round to the nearest integer value, see [ROUND()](#round).
 - **value** (number): any number
 - returns **roundedValue** (number): the value rounded to the ceiling
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 CEIL(2.49) // 3
 CEIL(2.50) // 3
 CEIL(-2.50) // -2
 CEIL(-2.51) // -2
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## COS()
 
@@ -133,12 +161,16 @@ Return the cosine of *value*.
 - **value** (number): the input value
 - returns **num** (number): the cosine of *value*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 COS(1) // 0.5403023058681398 
 COS(0) // 1
 COS(-3.141592653589783) // -1
 COS(RADIANS(45)) // 0.7071067811865476
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## COSINE_SIMILARITY()
 
@@ -161,11 +193,15 @@ To calculate the distance, see [L1_DISTANCE()](#l1_distance) and
 
 In case of invalid input values the function returns **null** and produces a warning.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 COSINE_SIMILARITY([0,1], [1,0]) // 0
 COSINE_SIMILARITY([[0,1,0,1],[1,0,0,1],[1,1,1,0],[0,0,0,1]], [1,1,1,1]) // [0.707, 0.707, 0.866, 0.5]
 COSINE_SIMILARITY([-1,0], [1,0]) // -1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## DECAY_GAUSS()
 
@@ -187,11 +223,15 @@ decays depending on the distance of a numeric value from a user-given origin.
 - returns **score** (number\|array): a single score or an array of scores
   depending on the type of the input `value`
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
 DECAY_GAUSS([20, 41], 40, 5, 5, 0.5) // [0.0019531250000000017, 1.0]
 DECAY_GAUSS(49.9889, 49.987, 0.001, 0.001, 0.2) // 0.2715403018822964
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## DECAY_EXP()
 
@@ -213,11 +253,15 @@ that decays depending on the distance of a numeric value from a user-given origi
 - returns **score** (number\|array): a single score or an array of scores
   depending on the type of the input `value`
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 DECAY_EXP(41, 40, 5, 5, 0.7) // 1
 DECAY_EXP(2, 0, 10, 0, 0.2)  // 0.7247796636776955
 DECAY_EXP(49.9889, 50, 0.001, 0.001, 0.2) // 8.717720806626885e-08
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## DECAY_LINEAR()
 
@@ -239,11 +283,15 @@ decays depending on the distance of a numeric value from a user-given origin.
 - returns **score** (number\|array): a single score or an array of scores
   depending on the type of the input `value`
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 DECAY_LINEAR(41, 40, 5, 5, 0.5)   // 1
 DECAY_LINEAR(9.8, 0, 10, 0, 0.2)  // 0.21599999999999994
 DECAY_LINEAR(5..7, 0, 10, 0, 0.2) // [0.6, 0.52, 0.44]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## DEGREES()
 
@@ -254,11 +302,15 @@ Return the angle converted from radians to degrees.
 - **rad** (number): the input value
 - returns **num** (number): the angle in degrees
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 DEGREES(0.7853981633974483) // 45
 DEGREES(0) // 0
 DEGREES(3.141592653589793) // 180
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## EXP()
 
@@ -269,11 +321,15 @@ Return Euler's constant (2.71828...) raised to the power of *value*.
 - **value** (number): the input value
 - returns **num** (number): Euler's constant raised to the power of *value*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 EXP(1) // 2.718281828459045
 EXP(10) // 22026.46579480671
 EXP(0) // 1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## EXP2()
 
@@ -284,11 +340,15 @@ Return 2 raised to the power of *value*.
 - **value** (number): the input value
 - returns **num** (number): 2 raised to the power of *value*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 EXP2(16) // 65536
 EXP2(1) // 2
 EXP2(0) // 1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## FLOOR()
 
@@ -302,12 +362,16 @@ To round to the nearest integer value, see [ROUND()](#round).
 - **value** (number): any number
 - returns **roundedValue** (number): the value rounded downward
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FLOOR(2.49) // 2
 FLOOR(2.50) // 2
 FLOOR(-2.50) // -3
 FLOOR(-2.51) // -3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## LOG()
 
@@ -320,11 +384,15 @@ constant (2.71828...).
 - returns **num** (number\|null): the natural logarithm of *value*, or *null* if *value* is
   equal or less than 0
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LOG(2.718281828459045) // 1
 LOG(10) // 2.302585092994046
 LOG(0) // null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## LOG2()
 
@@ -336,11 +404,15 @@ Return the base 2 logarithm of *value*.
 - returns **num** (number\|null): the base 2 logarithm of *value*, or *null* if *value* is
   equal or less than 0
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LOG2(1024) // 10
 LOG2(8) // 3
 LOG2(0) // null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## LOG10()
 
@@ -352,11 +424,15 @@ Return the base 10 logarithm of *value*.
 - returns **num** (number): the base 10 logarithm of *value*, or *null* if *value* is
   equal or less than 0
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LOG10(10000) // 4
 LOG10(10) // 1
 LOG10(0) // null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## L1_DISTANCE()
 
@@ -378,11 +454,15 @@ To calculate the similarity, see [COSINE_SIMILARITY()](#cosine_similarity).
 
 In case of invalid input values the function returns **null** and produces a warning.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 L1_DISTANCE([-1,-1], [2,2]) // 6
 L1_DISTANCE([[1,2,3],[-1,-2,-3],[3,4,5],[-5,2,1]], [1,1,1]) // [3,9,9,7]
 L1_DISTANCE([1.5], [3]) // 1.5
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## L2_DISTANCE()
 
@@ -404,11 +484,15 @@ To calculate the similarity, see [COSINE_SIMILARITY()](#cosine_similarity).
 
 In case of invalid input values the function returns **null** and produces a warning.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606
 L2_DISTANCE([[1,2,3], [4,5,6], [7,8,9]], [3,2,1]) // [2.8284271247461903, 5.916079783099616, 10.770329614269007]
 L2_DISTANCE([0,1], [1,0]) // 1.4142135623730951
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## MAX()
 
@@ -421,10 +505,14 @@ Also see [type and value order](../aql-fundamentals/fundamentals-type-value-orde
 - returns **max** (any\|null): the element with the greatest value. If the array is
   empty or contains *null* values only, the function will return *null*.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 MAX( [5, 9, -2, null, 1] ) // 9
 MAX( [ null, null ] ) // null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## MEDIAN()
 
@@ -440,12 +528,16 @@ the average value (arithmetic mean).
 - returns **median** (number\|null): the median of *numArray*. If the array is
   empty or contains *null* values only, the function will return *null*.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 MEDIAN( [ 1, 2, 3] ) // 2
 MEDIAN( [ 1, 2, 3, 4 ] ) // 2.5
 MEDIAN( [ 4, 2, 3, 1 ] ) // 2.5
 MEDIAN( [ 999, 80, 4, 4, 4, 3, 3, 3 ] ) // 4
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## MIN()
 
@@ -458,10 +550,14 @@ Also see [type and value order](../aql-fundamentals/fundamentals-type-value-orde
 - returns **min** (any\|null): the element with the smallest value. If the array is
   empty or contains *null* values only, the function will return *null*.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 MIN( [5, 9, -2, null, 1] ) // -2
 MIN( [ null, null ] ) // null
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## PERCENTILE()
 
@@ -476,11 +572,15 @@ Return the *n*th percentile of the values in *numArray*.
   array is empty or only *null* values are contained in it or the percentile
   cannot be calculated
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 PERCENTILE( [1, 2, 3, 4], 50 ) // 2
 PERCENTILE( [1, 2, 3, 4], 50, "rank" ) // 2
 PERCENTILE( [1, 2, 3, 4], 50, "interpolation" ) // 2.5
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## PI()
 
@@ -490,9 +590,13 @@ Return pi.
 
 - returns **pi** (number): the first few significant digits of pi (3.141592653589793)
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 PI() // 3.141592653589793
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## POW()
 
@@ -504,11 +608,15 @@ Return the *base* to the exponent *exp*.
 - **exp** (number): the exponent value
 - returns **num** (number): the exponentiated value
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 POW( 2, 4 ) // 16
 POW( 5, -1 ) // 0.2
 POW( 5, 0 ) // 1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## PRODUCT()
 
@@ -522,11 +630,15 @@ Return the product of the values in *array*.
 - returns **product** (number): the product of all values in *numArray*. If the array
   is empty or only *null* values are contained in the array, *1* will be returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 PRODUCT( [1, 2, 3, 4] ) // 24
 PRODUCT( [null, -5, 6] ) // -30
 PRODUCT( [ ] ) // 1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## RADIANS()
 
@@ -537,11 +649,15 @@ Return the angle converted from degrees to radians.
 - **deg** (number): the input value
 - returns **num** (number): the angle in radians
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RADIANS(180) // 3.141592653589793
 RADIANS(90) // 1.5707963267948966
 RADIANS(0) // 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## RAND()
 
@@ -551,13 +667,19 @@ Return a pseudo-random number between 0 and 1.
 
 - returns **randomNumber** (number): a number greater than 0 and less than 1
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RAND() // 0.3503170117504508
 RAND() // 0.6138226173882478
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Complex example:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 LET coinFlips = (
     FOR i IN 1..100000
@@ -569,9 +691,13 @@ RETURN MERGE(
         RETURN { [f]: count }
 )
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Result:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 [
   {
@@ -580,6 +706,8 @@ Result:
   }
 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## RANGE()
 
@@ -598,6 +726,8 @@ with integer bounds and a step size of 1.
   the default is *1.0*
 - returns **numArray** (array): all numbers in the range as array
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 RANGE(1, 4) // [ 1, 2, 3, 4 ]
 RANGE(1, 4, 2) // [ 1, 3 ]
@@ -607,6 +737,8 @@ RANGE(1.5, 2.5, 1) // [ 1.5, 2.5 ]
 RANGE(1.5, 2.5, 0.5) // [ 1.5, 2, 2.5 ]
 RANGE(-0.75, 1.1, 0.5) // [ -0.75, -0.25, 0.25, 0.75 ]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## ROUND()
 
@@ -617,21 +749,29 @@ Return the integer closest to *value*.
 - **value** (number): any number
 - returns **roundedValue** (number): the value rounded to the closest integer
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 ROUND(2.49) // 2
 ROUND(2.50) // 3
 ROUND(-2.50) // -2
 ROUND(-2.51) // -3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Rounding towards zero, also known as *trunc()* in C/C++, can be achieved with
 a combination of the [ternary operator](../operators#ternary-operator),
 [CEIL()](#ceil)
 and [FLOOR()](#floor):
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 value >= 0 ? FLOOR(value) : CEIL(value)
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## SIN()
 
@@ -642,12 +782,16 @@ Return the sine of *value*.
 - **value** (number): the input value
 - returns **num** (number): the sine of *value*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SIN(3.141592653589783 / 2) // 1
 SIN(0) // 0
 SIN(-3.141592653589783 / 2) // -1
 SIN(RADIANS(270)) // -1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## SQRT()
 
@@ -658,13 +802,19 @@ Return the square root of *value*.
 - **value** (number): a number
 - returns **squareRoot** (number): the square root of *value*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SQRT(9) // 3
 SQRT(2) // 1.4142135623730951
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Other roots can be calculated with [POW()](#pow) like `POW(value, 1/n)`:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 // 4th root of 8*8*8*8 = 4096
 POW(4096, 1/4) // 8
@@ -675,6 +825,8 @@ POW(27, 1/3) // 3
 // square root of 3*3 = 9
 POW(9, 1/2) // 3
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## STDDEV_POPULATION()
 
@@ -687,9 +839,13 @@ Return the population standard deviation of the values in *array*.
   If the array is empty or only *null* values are contained in the array, 
   *null* will be returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 STDDEV_POPULATION( [ 1, 3, 6, 5, 2 ] ) // 1.854723699099141
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## STDDEV_SAMPLE()
 
@@ -702,9 +858,13 @@ Return the sample standard deviation of the values in *array*.
   If the array is empty or only *null* values are contained in the array, 
   *null* will be returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 STDDEV_SAMPLE( [ 1, 3, 6, 5, 2 ] ) // 2.0736441353327724
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## STDDEV()
 
@@ -720,11 +880,15 @@ Return the sum of the values in *array*.
 - returns **sum** (number): the total of all values in *numArray*. If the array
   is empty or only *null* values are contained in the array, *0* will be returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 SUM( [1, 2, 3, 4] ) // 10
 SUM( [null, -5, 6] ) // 1
 SUM( [ ] ) // 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## TAN()
 
@@ -735,11 +899,15 @@ Return the tangent of *value*.
 - **value** (number): the input value
 - returns **num** (number): the tangent of *value*
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 TAN(10) // 0.6483608274590866
 TAN(5) // -3.380515006246586
 TAN(0) // 0
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## VARIANCE_POPULATION()
 
@@ -752,9 +920,13 @@ Return the population variance of the values in *array*.
   If the array is empty or only *null* values are contained in the array, 
   *null* will be returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 VARIANCE_POPULATION( [ 1, 3, 6, 5, 2 ] ) // 3.4400000000000004
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## VARIANCE_SAMPLE()
 
@@ -767,9 +939,13 @@ Return the sample variance of the values in *array*.
   If the array is empty or only *null* values are contained in the array, 
   *null* will be returned.
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 VARIANCE_SAMPLE( [ 1, 3, 6, 5, 2 ] ) // 4.300000000000001
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## VARIANCE()
 

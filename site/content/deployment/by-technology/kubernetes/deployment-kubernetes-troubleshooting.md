@@ -19,19 +19,27 @@ the `get` or `describe` command.
 To get all details of the resource (both specification & status),
 run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get <resource-type> <resource-name> -n <namespace> -o yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For example, to get the entire specification and status
 of an `ArangoDeployment` resource named `my-arangodb` in the `default` namespace,
 run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl get ArangoDeployment my-arango -n default -o yaml
 
 kubectl get arango my-arango -o yaml
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Several types of resources (including all ArangoDB custom resources) support
 events. These events show what happened to the resource over time.
@@ -39,9 +47,13 @@ events. These events show what happened to the resource over time.
 To show the events (and most important resource data) of a resource,
 run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl describe <resource-type> <resource-name> -n <namespace>
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Getting logs
 
@@ -51,11 +63,15 @@ These logs are accessible through the `Pods` that group these containers.
 
 To fetch the logs of the default container running in a `Pod`, run:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 kubectl logs <pod-name> -n <namespace>
 
 kubectl logs <pod-name> -n <namespace> -f
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To inspect the logs of a specific container in `Pod`, add `-c <container-name>`.
 You can find the names of the containers in the `Pod`, using `kubectl describe pod ...`.

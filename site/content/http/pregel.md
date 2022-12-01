@@ -64,7 +64,7 @@ paths:
                     The most important general option is "store", which controls whether the results
                     computed by the Pregel job are written back into the source collections or not.
                     Another important general option is "parallelism", which controls the number of
-                    parallel threads that will work on the Pregel job at most. If "parallelism" is not
+                    parallel threads that work on the Pregel job at most. If "parallelism" is not
                     specified, a default value may be used. In addition, the value of "parallelism"
                     may be effectively capped at some server-specific value.
                     The option "useMemoryMaps" controls whether to use disk based files to store
@@ -153,7 +153,7 @@ paths:
         required: true
         description: |+
           Pregel execution identifier.
-        in: query
+        in: path
       responses:
         '200':
           description: |2+
@@ -270,8 +270,8 @@ paths:
     delete:
       description: |2+
         Cancel an execution which is still running, and discard any intermediate
-        results. This will immediately free all memory taken up by the execution, and
-        will make you lose all intermediary data.
+        results. This immediately frees all memory taken up by the execution, and
+        makes you lose all intermediary data.
         You might get inconsistent results if you requested to store the results and
         then cancel an execution when it is already in its `"storing"` state (or
         `"done"` state in versions prior to 3.7.1). The data is written multi-threaded
@@ -286,11 +286,11 @@ paths:
         required: true
         description: |+
           Pregel execution identifier.
-        in: query
+        in: path
       responses:
         '200':
           description: |2+
-            HTTP 200 will be returned in case the job execution id was valid.
+            HTTP 200 is returned if the job execution ID was valid.
       tags:
       - Pregel
 ```

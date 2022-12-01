@@ -58,19 +58,27 @@ for each algorithm. The `start()` method always returns a unique ID
 
 The following example shows the `start()` method variant for using a named graph:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var pregel = require("@arangodb/pregel");
 var params = {};
 var execution = pregel.start("<algorithm>", "<graphname>", params);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can also specify the vertex and edge collections directly. In this case,
 the second argument must be an object with the keys `vertexCollections`
 and `edgeCollections`:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var execution = pregel.start("<algorithm>", { vertexCollections: ["vertices"], edgeCollections: ["edges"] }, params);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The `params` argument needs to be an object with the algorithm settings as
 described in [Pregel Algorithms](graphs-pregel-algorithms).
@@ -80,10 +88,14 @@ described in [Pregel Algorithms](graphs-pregel-algorithms).
 You can use the ID returned by the `pregel.start(...)` method to track the
 status of your algorithm:
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 var execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
 var status = pregel.status(execution);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 It tells you the current `state` of the execution, the current
 global superstep, the runtime, the global aggregator values as well as the
@@ -105,6 +117,8 @@ The `state` field has one of the following values:
 
 The object returned by the `status()` method looks like this:
 
+{{< tabs >}}
+{{% tab name="json" %}}
 ```json
 {
   "state" : "running",
@@ -119,6 +133,8 @@ The object returned by the `status()` method looks like this:
   "receivedCount" : 3240364975
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Canceling an Execution / Discarding results
 
@@ -126,11 +142,15 @@ To cancel an execution which is still running and discard any intermediate
 results, you can use the `cancel()` method. This immediately frees all
 memory taken up by the execution, and makes you lose all intermediary data.
 
+{{< tabs >}}
+{{% tab name="js" %}}
 ```js
 // start a single source shortest path job
 var execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
 pregel.cancel(execution);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You might get inconsistent results if you requested to store the results and
 then cancel an execution when it is already in its `storing` state (or `done`
@@ -158,11 +178,15 @@ The result field names depend on the algorithm in both cases.
 For example, you might want to query only nodes with the highest rank from the
 result set of a PageRank execution:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v IN PREGEL_RESULT(<handle>)
   FILTER v.result >= 0.01
   RETURN v._key
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 By default, the `PREGEL_RESULT()` AQL function returns the `_key` of each
 vertex plus the result of the computation. In case the computation was done for
@@ -171,11 +195,15 @@ sufficient to tell vertices from different collections apart. In this case,
 `PREGEL_RESULT()` can be given a second parameter `withId`, which makes it
 return the `_id` values of the vertices as well:
 
+{{< tabs >}}
+{{% tab name="aql" %}}
 ```aql
 FOR v IN PREGEL_RESULT(<handle>, true)
   FILTER v.result >= 0.01
   RETURN v._id
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Algorithm Parameters
 

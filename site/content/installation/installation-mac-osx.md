@@ -34,9 +34,13 @@ If you are using [_homebrew_](http://brew.sh/),
 then you can install the latest released stable version of ArangoDB using `brew`
  as follows:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 brew install arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will install the current stable version of ArangoDB and all
 dependencies within your Homebrew tree. The integrity of the homebrew formula
@@ -45,48 +49,76 @@ is automatically verified by a checksum.
 
 The server binary will be installed at:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 /usr/local/Cellar/arangodb/<VERSION>/sbin/arangod
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 `<VERSION>` is a placeholder for the actual version number, e.g. `3.9.0`.
 
 You can start the server by running the command:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 /usr/local/Cellar/arangodb/<VERSION>/sbin/arangod &
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Configuration file is located at:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 /usr/local/etc/arangodb3/arangod.conf
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The ArangoDB shell will be installed as:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 /usr/local/Cellar/arangodb/<VERSION>/bin/arangosh
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can uninstall ArangoDB using:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 brew uninstall arangodb
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 However, in case you started ArangoDB using the _launchctl_, you
 need to unload it before uninstalling the server:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.arangodb.plist
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Then remove the LaunchAgent:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 rm ~/Library/LaunchAgents/homebrew.mxcl.arangodb.plist
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% hints/tip %}}
 If the latest ArangoDB version is not shown in Homebrew, you

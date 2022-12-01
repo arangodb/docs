@@ -11,6 +11,8 @@ In order to use ArangoDB, you need to specify the connection options. We do so
 by creating a PHP array `$connectionOptions`. Put this code into a file named
 `test.php` in your current directory:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // use the following line when using Composer
 // require __DIR__ . '/vendor/composer/autoload.php';
@@ -63,6 +65,8 @@ ArangoException::enableLogging();
 
 $connection = new ArangoConnection($connectionOptions);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will make the client connect to ArangoDB
 
@@ -91,20 +95,28 @@ user, you can select between the following behaviors:
 By default the PHP client will connect to a single endpoint only,
 by specifying a string value for the endpoint in the `ConnectionOptions`, e.g.
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 $connectionOptions = [
     ArangoConnectionOptions::OPTION_ENDPOINT => 'tcp://127.0.0.1:8529'
 ];
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To set up multiple servers to connect to, it is also possible to specify
 an array of servers instead:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 $connectionOptions = [
     ConnectionOptions::OPTION_ENDPOINT    => [ 'tcp://localhost:8531', 'tcp://localhost:8532', 'tcp://localhost:8530' ]
 ];
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Using this option requires ArangoDB 3.3 or higher and the database running
 in active failover mode.
@@ -124,6 +136,8 @@ connection attempts as possible will need to be made.
 In order to use this caching, it is required to install the Memcached module 
 for PHP, and to set up the following relevant options in the `ConnectionOptions`:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 $connectionOptions = [
     // memcached persistent id (will be passed to Memcached::__construct)
@@ -142,6 +156,8 @@ $connectionOptions = [
     ConnectionOptions::OPTION_MEMCACHED_TTL           => 600
 ];
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating a collection
 
@@ -158,6 +174,8 @@ The below code will first set up the collection locally in a variable name
 `$user`, and then push it to the server and return the collection id created by
 the server:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 $collectionHandler = new ArangoCollectionHandler($connection);
 
@@ -180,6 +198,8 @@ var_dump($id);
 $result = $collectionHandler->has('users');
 var_dump($result);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Creating a document
 
@@ -193,6 +213,8 @@ The below code will first set up the document locally in a variable name
 `$user`, and then push it to the server and return the document id created by
 the server:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 $handler = new ArangoDocumentHandler($connection);
 
@@ -218,6 +240,8 @@ var_dump($result);
 var_dump($id);
 var_dump($user->getId());
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Document properties can be set by using the `set()` method, or by directly
 manipulating the document properties.
@@ -233,6 +257,8 @@ numeric value that might or might not fit in a PHP integer.
 The above code will work but it does not check for any errors. To make it work
 in the face of errors, we will wrap it into some basic exception handlers:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 try {
     $handler = new ArangoDocumentHandler($connection);
@@ -265,6 +291,8 @@ try {
     print 'Server error: ' . $e->getServerCode() . ':' . $e->getServerMessage() . ' ' . $e->getMessage() . PHP_EOL;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Retrieving a document
 
@@ -272,6 +300,8 @@ To retrieve a document from the server, the `get()` method of the
 *DocumentHandler* class can be used. It needs the collection name plus a
 document id. There is also the `getById()` method which is an alias for `get()`.
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // get the document back from the server
 $userFromServer = $handler->get('users', $id);
@@ -306,6 +336,8 @@ object(ArangoDBClient\Document)##6 (4) {
 }
 */
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Whenever the document id is yet unknown, but you want to fetch a document from
 the server by any of its other properties, you can use the
@@ -314,11 +346,15 @@ the document that you are looking for. The example should either be a
 *Document* object with the relevant properties set, or, a PHP array with the
 properties that you are looking for:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // get a document list back from the server, using a document example
 $cursor = $collectionHandler->byExample('users', ['name' => 'John']);
 var_dump($cursor->getAll());
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This will return all documents from the specified collection (here: _users_)
 with the properties provided in the example (here: that have an attribute `name`
@@ -338,6 +374,8 @@ class can be used. In this example we want to:
 - set state to `'CA'`
 - change the `likes` array
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // update a document
 $userFromServer->likes = ['fishing', 'swimming'];
@@ -349,11 +387,15 @@ var_dump($result);
 $userFromServer = $handler->get('users', $id);
 var_dump($userFromServer);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To remove an attribute using the `update()` method, an option has to be passed
 telling it to not keep attributes with null values. In this example we want to
 remove the `age`:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // update a document removing an attribute,
 // The 'keepNull'=>false option will cause ArangoDB to
@@ -370,11 +412,15 @@ var_dump($result);
 $userFromServer = $handler->get('users', $id);
 var_dump($userFromServer);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The document that is updated using the previous example must have been fetched
 from the server before. If you want to update a document without having fetched
 it from the server before, use `updateById()`:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // update a document, identified by collection and document id
 $user        = new ArangoDocument();
@@ -389,11 +435,15 @@ var_dump($result);
 $userFromServer = $handler->get('users', $id);
 var_dump($userFromServer);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To completely replace an existing document, the `replace()` method of the
 *DocumentHandler* class can be used. In this example we want to remove the
 `state` attribute:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // replace a document (notice that we are using the previously fetched document)
 // In this example we are removing the state attribute
@@ -405,11 +455,15 @@ var_dump($result);
 $userFromServer = $handler->get('users', $id);
 var_dump($userFromServer);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The document that is replaced using the previous example must have been fetched
 from the server before. If you want to replace a document without having
 fetched it from the server before, use `replaceById()`:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // replace a document, identified by collection and document id
 $user        = new ArangoDocument();
@@ -424,6 +478,8 @@ var_dump($result);
 $userFromServer = $handler->get('users', $id);
 var_dump($userFromServer);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Deleting a document
 
@@ -431,17 +487,23 @@ To remove an existing document on the server, the `remove()` method of the
 *DocumentHandler* class will do. `remove()` just needs the document to be
 removed as a parameter:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // remove a document on the server, using a document object
 $result = $handler->remove($userFromServer);
 var_dump($result);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the document must have been fetched from the server before. If you
 haven't fetched the document from the server before, use the `removeById()`
 method. This requires just the collection name (here: _users_) and the
 document id.
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // remove a document on the server, using a collection id and document id
 // In this example, we are using the id of the document we deleted in the previous example,
@@ -453,6 +515,8 @@ try {
     $e->getMessage();
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Running an AQL query
 
@@ -461,6 +525,8 @@ To run an AQL query, use the *Statement* class.
 The method `Statement::execute` creates a Cursor object which can be used to
 iterate over the query's result set.
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // create a statement to insert 1000 test users
 $statement = new ArangoStatement(
@@ -493,6 +559,8 @@ var_dump($cursor->getAll());
 // to get statistics for the query, use Cursor::getExtra();
 var_dump($cursor->getExtra());
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Note: by default the Statement object will create a Cursor that converts each
 value into a Document object. This is normally the intended behavior for AQL
@@ -503,6 +571,8 @@ In order to suppress the conversion into Document objects, the Statement must
 be given the `_flat` attribute. This allows processing the results of arbitrary
 AQL queries:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // run an AQL query that does not return documents but scalars
 // we need to set the _flat attribute of the Statement in order for this to work
@@ -520,6 +590,8 @@ $cursor = $statement->execute();
 // note that now the results won't be converted into Document objects
 var_dump($cursor->getAll());
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Bulk document handling
 
@@ -527,6 +599,8 @@ The ArangoDB-PHP driver provides a mechanism to easily fetch multiple documents
 from the same collection with a single request. All that needs to be provided
 is an array of document keys:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 $exampleCollection = new ArangoCollection();
 $exampleCollection->setName('example');
@@ -554,6 +628,8 @@ $result = $collectionHandler->removeByKeys('example', $keys);
 
 var_dump($result);
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Dropping a collection
 
@@ -561,6 +637,8 @@ To drop an existing collection on the server, use the `drop()` method of the
 *CollectionHandler* class. `drop()` just needs the name of the collection name
 to be dropped:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // drop a collection on the server, using its name,
 $result = $collectionHandler->drop('users');
@@ -569,6 +647,8 @@ var_dump($result);
 // drop the other one we created, too
 $collectionHandler->drop('example');
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Custom Document class
 
@@ -576,6 +656,8 @@ If you want to use custom document class you can pass its name to
 *DocumentHandler* or *CollectionHandler* using method `setDocumentClass`.
 Remember that Your class must extend `\ArangoDBClient\Document`.
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 $ch = new CollectionHandler($connection);
 $ch->setDocumentClass('\AppBundle\Entity\Product');
@@ -588,6 +670,8 @@ $dh->setDocumentClass('\AppBundle\Entity\Product');
 $product = $dh->get('products', 11231234);
 // Product will be \AppBundle\Entity\Product instance
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See the [`customDocumentClass.php` example](https://github.com/arangodb/arangodb-php/blob/devel/examples/customDocumentClass.php)
 for more details.
@@ -603,24 +687,34 @@ Please consult your `php.ini` settings for further details.
 To turn on exception logging in the driver, set a flag on the driver's
 *Exception* base class, from which all driver exceptions are subclassed:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 use ArangoDBClient\Exception as ArangoException;
 
 ArangoException::enableLogging();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To turn logging off, call its `disableLogging` method:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 use ArangoDBClient\Exception as ArangoException;
 
 ArangoException::disableLogging();
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Putting it all together
 
 Here is the full code that combines all the pieces outlined above:
 
+{{< tabs >}}
+{{% tab name="php" %}}
 ```php
 // use the following line when using Composer
 // require __DIR__ . '/vendor/composer/autoload.php';
@@ -872,3 +966,5 @@ try {
     print 'Server error: ' . $e->getServerCode() . ': ' . $e->getServerMessage() . ' - ' . $e->getMessage() . PHP_EOL;
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}

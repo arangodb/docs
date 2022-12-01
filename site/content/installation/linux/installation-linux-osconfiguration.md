@@ -17,15 +17,23 @@ ready-to-use examples.
 Some systems may miss the required locale to start the server, resulting in an
 error message like the following:
 
+{{< tabs >}}
+{{% tab name="" %}}
 ```
 FATAL [7ef60] {config} specified language 'en_US' does not match previously used language ''
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The locale can be generated with the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo locale-gen "en_US.UTF-8"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Your distribution may also provide a frontend for doing so, for instance
 [`dpkg-reconfigure locales` on Debian](https://wiki.debian.org/Locale).
@@ -63,10 +71,14 @@ ArangoDB. Please consult your operating system's documentation for how to do thi
 
 Execute:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo bash -c "echo madvise >/sys/kernel/mm/transparent_hugepage/enabled"
 sudo bash -c "echo madvise >/sys/kernel/mm/transparent_hugepage/defrag"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 before executing `arangod`.
 
@@ -83,9 +95,13 @@ The Linux kernel default is 0.
 
 You can set it as follows before executing `arangod`:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo bash -c "echo 0 >/proc/sys/vm/overcommit_memory"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 From [www.kernel.org](https://www.kernel.org/doc/Documentation/sysctl/vm.txt):
 
@@ -122,9 +138,13 @@ value for the number of memory mappings.
 
 To set the value once, use the following command before starting arangod:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo bash -c "sysctl -w 'vm.max_map_count=2048000'"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To make the settings durable, it will be necessary to store the adjusted
 settings in /etc/sysctl.conf or other places that the operating system is
@@ -140,9 +160,13 @@ that a process can acquire, neither via using `ulimit`, `cgroups` or systemd.
 
 Execute
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 sudo bash -c "echo 0 >/proc/sys/vm/zone_reclaim_mode"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 before executing `arangod`.
 
@@ -159,9 +183,13 @@ This is value ORed together of
 Multi-processor systems often have non-uniform Access Memory (NUMA). ArangoDB
 should be started with interleave on such system. This can be achieved using
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 numactl --interleave=all arangod ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Open Files Limit
 
@@ -184,9 +212,13 @@ memory pooling.
 
 Execute
 
+{{< tabs >}}
+{{% tab name="bash" %}}
 ```bash
 export GLIBCXX_FORCE_NEW=1
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 before starting `arangod`.
 
