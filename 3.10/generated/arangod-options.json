@@ -313,6 +313,68 @@
     "section" : "agency",
     "type" : "boolean"
   },
+  "agency.supervision-delay-add-follower" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "agent"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "The delay in supervision, before an AddFollower job is executed (in seconds).",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.6",
+      "v3.10.2"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "agency",
+    "type" : "uint64"
+  },
+  "agency.supervision-delay-failed-follower" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "agent"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "The delay in supervision, before a FailedFollower job is executed (in seconds).",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.6",
+      "v3.10.2"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "agency",
+    "type" : "uint64"
+  },
   "agency.supervision-frequency" : {
     "base" : 1,
     "category" : "option",
