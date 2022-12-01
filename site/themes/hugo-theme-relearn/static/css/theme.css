@@ -102,6 +102,11 @@ body header.header-splash-wrap .logo {
     }
 }
 
+ul, ol {
+    margin-bottom: 20px;
+    padding: 0;
+}
+
 a {
     font-weight: 500;
 }
@@ -396,6 +401,12 @@ article.default {
     overflow-x: auto;
 }
 
+article ul li {
+    list-style: disc;
+    margin-left: 20px;
+    line-height: 25px;
+}
+
 #breadcrumbs > ol {
     margin: 5px 0px 0px 18px;
 }
@@ -530,7 +541,9 @@ code, li code, p code {
     overflow: auto;
     word-wrap: break-word;
     background-color: #f7f7f7;
-    margin: 0px 5px 0px 5px;
+    margin: 0;
+    padding: 0;
+    word-break: break-word;
 }
 
 .header-link {

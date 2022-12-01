@@ -253,7 +253,7 @@ function initCodeClipboard(){
         var parent = code.parent();
         var inPre = parent.prop('tagName') == 'PRE';
 
-        if (inPre || text.length > 5) {
+        if (inPre) {
             var clip = new ClipboardJS('.copy-to-clipboard-button', {
                 text: function(trigger) {
                     var text = $(trigger).prev('code').text();
