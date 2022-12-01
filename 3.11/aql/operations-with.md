@@ -48,7 +48,7 @@ vertex collections as part of graph traversals.
 
 You can enable the `--query.require-with` startup option to make single server
 instances require `WITH` declarations like cluster deployments to ease development,
-see [Requiring `WITH` statements](../programs-arangod-query.html#requiring-with-statements).
+see [Requiring `WITH` statements](../programs-arangod-options.html#--queryrequire-with).
 
 Dynamic access via the `DOCUMENT()` function does not require you to list the
 involved collections. Using named graphs in traversals (`GRAPH "graph-name"`)

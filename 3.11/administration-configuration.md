@@ -190,21 +190,23 @@ for small adjustments, you can put local overrides into a file
 
 ## Suffixes for Numeric Options
 
-It is possible to add suffixes to numeric options that will cause ArangoDB to
-multiply the value by a certain factor. This can be used to conveniently specify
-values in megabytes or gigabytes for example.
+You can add suffixes to numeric options to let ArangoDB multiply the value by a
+certain factor. This allows you to conveniently specify values, for example,
+in megabytes, gigabytes, or terabytes.
 
-| Suffix               | Factor   | Example |
-|----------------------|----------|---------|
-| `kib`, `KiB`         | 1024     | 512KiB  |
-| `mib`, `MiB`         | 1024 ^ 2 | 64mib   |
-| `gib`, `GiB`         | 1024 ^ 3 | 3gib    |
-| `k`, `K`, `kb`, `KB` | 1000     | 3k      |
-| `m`, `M`, `mb`, `MB` | 1000 ^ 2 | 3mb     |
-| `g`, `G`, `gb`, `GB` | 1000 ^ 3 | 3GB     |
-| `%`                  | 0.01     | 5%      |
+| Suffix               | Factor           | Bytes             | Example   |
+|----------------------|------------------|-------------------|-----------|
+| `kib`, `KiB`, `KIB`  | 1024             | 1,024             | `512KiB`  |
+| `mib`, `MiB`, `MIB`  | 1024<sup>2</sup> | 1,048,576         | `64mib`   |
+| `gib`, `GiB`, `GIB`  | 1024<sup>3</sup> | 1,073,741,824     | `3GIB`    |
+| `tib`, `TiB`, `TIB`  | 1024<sup>4</sup> | 1,099,511,627,776 | `3tib`    |
+| `k`, `K`, `kb`, `KB` | 1000             | 1,000             | `3k`      |
+| `m`, `M`, `mb`, `MB` | 1000<sup>2</sup> | 1,000,000         | `3M`      |
+| `g`, `G`, `gb`, `GB` | 1000<sup>3</sup> | 1,000,000,000     | `3GB`     |
+| `t`, `T`, `tb`, `TB` | 1000<sup>4</sup> | 1,000,000,000,000 | `4tb`     |
+| `%`                  | 0.01             | n/a               | `5%`      |
 
-Suffix could be used like this in a configuration file:
+You can also use suffixes in configuration files like this:
 
 ```conf
 [rocksdb]
@@ -268,7 +270,7 @@ arangod --log.level all=warning --log.level queries=trace --log.level startup=in
 This sets a global log level of `warning` and two topic-specific levels
 (`trace` for queries and `info` for startup). Note that `--log.level warning`
 does not set a log level globally for all existing topics, but only the
-`general` topic.
+`general` topic. Use the pseudo-topic `all` to set a global log level.
 
 The same in a configuration file:
 
