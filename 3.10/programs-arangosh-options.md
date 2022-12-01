@@ -1,6 +1,8 @@
 ---
 layout: default
 description: arangosh Options
+page-toc:
+  max-headline-level: 2
 ---
 # _arangosh_ Options
 

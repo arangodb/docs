@@ -304,6 +304,56 @@ This new optimization rule brings significant performance improvements by
 allowing you to perform sorting and limiting inside `arangosearch` Views
 enumeration node, if using just scoring for a sort operation.
 
+### ArangoSearch column cache (Enterprise Edition)
+
+[`arangosearch` Views](arangosearch-views.html) support new caching options.
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+- You can enable the new `cache` option for individual View links or fields
+  to always cache field normalization values in memory. This can improve the
+  performance of scoring and ranking queries.
+
+- You can enable the new `cache` option in the definition of a `storedValues`
+  View property to always cache stored values in memory. This can improve the
+  query performance if stored values are involved.
+  
+<small>Introduced in: v3.9.6, v3.10.2</small>
+
+- You can enable the new `primarySortCache` View property to always cache the
+  primary sort columns in memory. This can improve the performance of queries
+  that utilize the primary sort order.
+
+- You can enable the new `primaryKeyCache` View property to always cache the
+  primary key column in memory. This can improve the performance of queries
+  that return many documents.
+
+[Inverted indexes](http/indexes-inverted.html) also support similar new caching
+options.
+
+<small>Introduced in: v3.10.2</small>
+
+- A new `cache` option for inverted indexes as the default or for specific
+  `fields` to always cache field normalization values in memory.
+
+- A new `cache` option per object in the definition of the `storedValues`
+  elements to always cache stored values in memory.
+
+- A new `cache` option in the `primarySort` property to always cache the
+  primary sort columns in memory.
+
+- A new `primaryKeyCache` property for inverted indexes to always cache the
+  primary key column in memory.
+
+The cache size can be controlled with the new `--arangosearch.columns-cache-limit`
+startup option and monitored via the new `arangodb_search_columns_cache_size`
+metric.
+
+ArangoSearch caching is only available in the Enterprise Edition.
+
+See [Optimizing View and inverted index query performance](arangosearch-performance.html)
+for examples.
+
 ### New startup options
 
 With `--arangosearch.skip-recovery`, you can skip data recovery for the specified View links
@@ -343,6 +393,7 @@ The following metrics have been added in ArangoDB 3.10:
 | `arangodb_search_num_live_docs` | Number of live documents for current snapshot.
 | `arangodb_search_num_out_of_sync_links` | Number of out-of-sync arangosearch links/inverted indexes.
 | `arangodb_search_num_segments` | Number of segments for current snapshot.
+| `arangodb_search_columns_cache_size` | Size of all ArangoSearch columns currently loaded into the cache.
 
 These metrics are exposed by single servers and DB-Servers.
 
@@ -866,7 +917,7 @@ temporary data:
   files written by Pregel. This option is only meaningful, if memory-mapped
   files are used. 
 
-For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-pregel.html).
+For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-options.html#pregel).
 
 ### AQL query logging
 
@@ -880,6 +931,14 @@ There are three new startup options to configure how AQL queries are logged:
   which on a warning is logged for AQL queries that exceed it (default: 4 GB)
 - `--query.max-artifact-log-length` for controlling the length of logged query
   strings and bind parameter values. Both are truncated to 4096 bytes by default.
+
+### ArangoSearch column cache limit
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+The new `--arangosearch.columns-cache-limit` startup option lets you control how
+much memory (in bytes) the [ArangoSearch column cache](#arangosearch-column-cache-enterprise-edition)
+is allowed to use.
 
 Read from Followers in Clusters (Enterprise Edition)
 ----------------------------------------------------
@@ -1043,7 +1102,7 @@ arangod --temp.intermediate-results-path "tempDir"
 --temp.intermediate-results-spillover-threshold-memory-usage 134217728
 ```
 
-For more information, refer to the [Query invocation](aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-query.html#aql-query-with-spilling-input-data-to-disk) topics.
+For more information, refer to the [Query invocation](aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-options.html#--tempintermediate-results-path) topics.
 
 ## Internal changes
 

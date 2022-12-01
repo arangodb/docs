@@ -1,19 +1,19 @@
 arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
 arangosh&gt; analyzers.toArray();
 [ 
-  [ArangoAnalyzer <span class="hljs-string">&quot;text_zh&quot;</span> (type text)], 
   [ArangoAnalyzer <span class="hljs-string">&quot;text_sv&quot;</span> (type text)], 
-  [ArangoAnalyzer <span class="hljs-string">&quot;text_ru&quot;</span> (type text)], 
-  [ArangoAnalyzer <span class="hljs-string">&quot;text_no&quot;</span> (type text)], 
-  [ArangoAnalyzer <span class="hljs-string">&quot;text_nl&quot;</span> (type text)], 
   [ArangoAnalyzer <span class="hljs-string">&quot;text_pt&quot;</span> (type text)], 
+  [ArangoAnalyzer <span class="hljs-string">&quot;text_no&quot;</span> (type text)], 
+  [ArangoAnalyzer <span class="hljs-string">&quot;text_zh&quot;</span> (type text)], 
+  [ArangoAnalyzer <span class="hljs-string">&quot;text_nl&quot;</span> (type text)], 
   [ArangoAnalyzer <span class="hljs-string">&quot;text_it&quot;</span> (type text)], 
+  [ArangoAnalyzer <span class="hljs-string">&quot;text_ru&quot;</span> (type text)], 
+  [ArangoAnalyzer <span class="hljs-string">&quot;text_fr&quot;</span> (type text)], 
   [ArangoAnalyzer <span class="hljs-string">&quot;text_fi&quot;</span> (type text)], 
   [ArangoAnalyzer <span class="hljs-string">&quot;text_es&quot;</span> (type text)], 
   [ArangoAnalyzer <span class="hljs-string">&quot;text_en&quot;</span> (type text)], 
   [ArangoAnalyzer <span class="hljs-string">&quot;text_de&quot;</span> (type text)], 
-  [ArangoAnalyzer <span class="hljs-string">&quot;text_fr&quot;</span> (type text)], 
   [ArangoAnalyzer <span class="hljs-string">&quot;identity&quot;</span> (type identity)], 
-  [ArangoAnalyzer <span class="hljs-string">&quot;_system::custom&quot;</span> (type text)], 
-  [ArangoAnalyzer <span class="hljs-string">&quot;_system::delimiter_hyphen&quot;</span> (type delimiter)] 
+  [ArangoAnalyzer <span class="hljs-string">&quot;_system::delimiter_hyphen&quot;</span> (type delimiter)], 
+  [ArangoAnalyzer <span class="hljs-string">&quot;_system::custom&quot;</span> (type text)] 
 ]
