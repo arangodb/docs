@@ -744,7 +744,7 @@ description: >-
 ...
 ```
 
-Similarly, the remark should be added if only a sections is added to an existing
+Similarly, the remark should be added if only a section is added to an existing
 page, as shown below:
 
 ```markdown
