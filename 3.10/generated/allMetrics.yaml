@@ -1203,6 +1203,23 @@
     High heartbeat send times can be a sign of overload or of bad network
     connectivity. Potentially move the Agent instances to separate machines.
 
+- name: arangodb_http1_connections_total
+  introducedIn: "3.9.6"
+  help: |
+    Total number of HTTP/1.1 connections accepted.
+  unit: number
+  type: counter
+  category: Connectivity
+  complexity: medium
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total number of connections accepted for HTTP/1.1. Note that this can 
+    include connections that are negotiated to be upgraded to HTTP/2.
+
 - name: arangodb_http2_connections_total
   introducedIn: "3.7.15"
   help: |
@@ -3696,6 +3713,26 @@
     - single
   description: |
     Average time of few last cleanups.
+
+- name: arangodb_search_columns_cache_size
+  introducedIn: "3.9.5"
+  help: |
+    ArangoSearch columns cache usage.
+  unit: bytes
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Size of all ArangoSearch columns currently loaded into the cache.
+  troubleshoot: |
+    If this metric contains a value close to configured
+    "arangosearch.columns-cache-limit" there might be columns 
+    that are marked to be cached but will not fit into the cache.
+    That may result in query performance degradation. Check the
+    log for pattern "Failed to allocate memory for buffered column"
 
 - name: arangodb_search_commit_time
   introducedIn: "3.10.0"

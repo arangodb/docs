@@ -4,13 +4,13 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">3509</span>
+content-length: <span class="hljs-number">3515</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
 server: ArangoDB
 strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
-x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+x-arango-queue-time-seconds: <span class="hljs-number">0.021000</span>
 x-content-type-options: nosniff
 
 [ 
@@ -18,12 +18,12 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;69640&quot;</span>, 
     <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
     <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;wcc&quot;</span>, 
-    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11:47:50Z&quot;</span>, 
+    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2022-11-30T13:41:10Z&quot;</span>, 
     <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span>, 
     <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;loading&quot;</span>, 
     <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.00013079</span>, 
-    <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.000131281</span>, 
+    <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.021746131</span>, 
+    <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.021746615</span>, 
     <span class="hljs-string">&quot;gssTimes&quot;</span> : [ ], 
     <span class="hljs-string">&quot;aggregators&quot;</span> : { 
     }, 
@@ -35,13 +35,13 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;useMemoryMaps&quot;</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">&quot;detail&quot;</span> : { 
       <span class="hljs-string">&quot;aggregatedStatus&quot;</span> : { 
-        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11:47:50Z&quot;</span>, 
+        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2022-11-30T13:41:10Z&quot;</span>, 
         <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
         } 
       }, 
       <span class="hljs-string">&quot;workerStatus&quot;</span> : { 
         <span class="hljs-string">&quot;&quot;</span> : { 
-          <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11:47:50Z&quot;</span>, 
+          <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2022-11-30T13:41:10Z&quot;</span>, 
           <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
           } 
         } 
@@ -52,27 +52,27 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;69492&quot;</span>, 
     <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
     <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;wcc&quot;</span>, 
-    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11:47:49Z&quot;</span>, 
-    <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11:57:50Z&quot;</span>, 
+    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2022-11-30T13:41:10Z&quot;</span>, 
+    <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2022-11-30T13:51:10Z&quot;</span>, 
     <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span>, 
     <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;done&quot;</span>, 
     <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">11</span>, 
-    <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.056356036</span>, 
-    <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.05501644</span>, 
-    <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.000759997</span>, 
-    <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.000578999</span>, 
+    <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.055188876</span>, 
+    <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.053914544</span>, 
+    <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.000692104</span>, 
+    <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.000581819</span>, 
     <span class="hljs-string">&quot;gssTimes&quot;</span> : [ 
-      <span class="hljs-number">0.00009432</span>, 
-      <span class="hljs-number">0.000081419</span>, 
-      <span class="hljs-number">0.000068875</span>, 
-      <span class="hljs-number">0.000059817</span>, 
-      <span class="hljs-number">0.000060169</span>, 
-      <span class="hljs-number">0.00006831</span>, 
-      <span class="hljs-number">0.000050502</span>, 
-      <span class="hljs-number">0.0000549</span>, 
-      <span class="hljs-number">0.000045032</span>, 
-      <span class="hljs-number">0.000046522</span>, 
-      <span class="hljs-number">0.000041079</span> 
+      <span class="hljs-number">0.000096384</span>, 
+      <span class="hljs-number">0.000098189</span>, 
+      <span class="hljs-number">0.000063057</span>, 
+      <span class="hljs-number">0.000046728</span>, 
+      <span class="hljs-number">0.000043406</span>, 
+      <span class="hljs-number">0.000040777</span>, 
+      <span class="hljs-number">0.00005066</span>, 
+      <span class="hljs-number">0.00004595</span>, 
+      <span class="hljs-number">0.000046544</span>, 
+      <span class="hljs-number">0.000049144</span>, 
+      <span class="hljs-number">0.000042495</span> 
     ], 
     <span class="hljs-string">&quot;aggregators&quot;</span> : { 
     }, 
@@ -84,7 +84,7 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;useMemoryMaps&quot;</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">&quot;detail&quot;</span> : { 
       <span class="hljs-string">&quot;aggregatedStatus&quot;</span> : { 
-        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11:47:50Z&quot;</span>, 
+        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2022-11-30T13:41:10Z&quot;</span>, 
         <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
           <span class="hljs-string">&quot;verticesLoaded&quot;</span> : <span class="hljs-number">36</span>, 
           <span class="hljs-string">&quot;edgesLoaded&quot;</span> : <span class="hljs-number">36</span>, 
@@ -164,7 +164,7 @@ x-content-type-options: nosniff
       }, 
       <span class="hljs-string">&quot;workerStatus&quot;</span> : { 
         <span class="hljs-string">&quot;&quot;</span> : { 
-          <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2022-11-25T11:47:50Z&quot;</span>, 
+          <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2022-11-30T13:41:10Z&quot;</span>, 
           <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
             <span class="hljs-string">&quot;verticesLoaded&quot;</span> : <span class="hljs-number">36</span>, 
             <span class="hljs-string">&quot;edgesLoaded&quot;</span> : <span class="hljs-number">36</span>, 
