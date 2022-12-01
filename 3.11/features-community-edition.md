@@ -232,7 +232,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   microservice framework users can achieve very high security standards
   fitting individual needs.
 
-- [**TLS Encryption**](programs-arangod-ssl.html):
+- [**TLS Encryption**](programs-arangod-options.html#ssl):
   Internal and external communication over encrypted network connections with
   TLS (formerly SSL).
   [TLS key and certificates rotation](release-notes-new-features37.html#tls-key-and-certificate-rotation)

@@ -59,6 +59,11 @@ features outlined below. For additional information, see
   Jaccard similarity approximation for entity resolution, such as for finding
   duplicate records, based on how many elements they have in common
 
+- [**ArangoSerch column cache**](release-notes-new-features310.html#arangosearch-column-cache-enterprise-edition):
+  Always cache field normalization values, stored values, primary sort columns,
+  and primary key columns in memory to improve the performance of Views and
+  inverted indexes.
+
 ## Querying
 
 - [**Pregel in Cluster**](graphs-pregel.html#prerequisites):
@@ -108,4 +113,4 @@ features outlined below. For additional information, see
 - **Advanced Encryption and Security Configuration**:
   Key rotation for [JWT secrets](http/general.html#hot-reload-of-jwt-secrets)
   and [on-disk encryption](http/administration-and-monitoring.html#encryption-at-rest),
-  as well as [Server Name Indication (SNI)](programs-arangod-ssl.html#server-name-indication-sni).
+  as well as [Server Name Indication (SNI)](programs-arangod-options.html#--sslserver-name-indication).
