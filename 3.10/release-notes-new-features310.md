@@ -330,6 +330,8 @@ enumeration node, if using just scoring for a sort operation.
   primary key column in memory. This can improve the performance of queries
   that return many documents.
 
+---
+
 [Inverted indexes](http/indexes-inverted.html) also support similar new caching
 options.
 
