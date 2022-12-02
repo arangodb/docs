@@ -445,6 +445,17 @@ the entire query result in RAM, use a streaming query (see the
 [`stream`](#stream) option).
 {% endhint %}
 
+#### `allowDirtyReads`
+
+<small>Introduced in: v3.10.0</small>
+
+If you set this option to `true` and execute the query against a cluster
+deployment, then the Coordinator is allowed to read from any shard replica and
+not only from the leader. See [Read from Followers](http/document-address-and-etag.html#read-from-followers)
+for details.
+
+{% include hint-ee-arangograph.md feature="Reading from followers in clusters" %}
+
 #### `skipInaccessibleCollections`
 
 Let AQL queries (especially graph traversals) treat collection to which a

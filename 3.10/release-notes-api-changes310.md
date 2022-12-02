@@ -552,9 +552,11 @@ The Computed Values feature extends the collection properties with a new
 `computedValues` attribute. See [Computed Values](data-modeling-documents-computed-values.html#javascript-api)
 for details.
 
-The `db._query()` and `db._createStatement()` methods accepts two new query
+The `db._query()` and `db._createStatement()` methods accepts new query
 options (`options` object) to set per-query thresholds for the
-[query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage):
+[query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage)
+and to [Read from Followers](http/document-address-and-etag.html#read-from-followers):
 
+- `allowDirtyReads` (boolean, _optional_): default: `false`
 - `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)
 - `spillOverThresholdNumRows` (integer, _optional_): default: `5000000` rows
