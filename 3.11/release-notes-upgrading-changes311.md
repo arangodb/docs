@@ -20,6 +20,14 @@ preceding or trailing colon.
 
 ## Startup options
 
+### `--server.disable-authentication` and `--server.disable-authentication-unix-sockets` obsoleted
+
+The `--server.disable-authentication` and `--server.disable-authentication-unix-sockets`
+startup options are now obsolete. Specifying them is still tolerated but has
+no effect anymore. These options were deprecated in v3.0 and mapped to
+`--server.authentication` and  `--server.authentication-unix-sockets`, which
+made them do the opposite of what their names suggest.
+
 ### `--database.force-sync-properties` deprecated
 
 The `--database.force-sync-properties` option was useful with the MMFiles
