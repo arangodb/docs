@@ -317,7 +317,9 @@ enumeration node, if using just scoring for a sort operation.
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
-  
+
+---
+
 <small>Introduced in: v3.9.6, v3.10.2</small>
 
 - You can enable the new `primarySortCache` View property to always cache the
