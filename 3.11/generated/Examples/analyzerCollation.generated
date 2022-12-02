@@ -10,24 +10,24 @@ arangosh&gt; db.test.save([
 ........&gt; ]);
 [ 
   { 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70271&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70271&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fLHaCwa--_&quot;</span> 
+  }, 
+  { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70272&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70272&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fKk57rK--_&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fLHaCwa--A&quot;</span> 
   }, 
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70273&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70273&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fKk57rK--A&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fLHaCwa--B&quot;</span> 
   }, 
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70274&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70274&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fKk57rK--B&quot;</span> 
-  }, 
-  { 
-    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70275&quot;</span>, 
-    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70275&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fKk57rK--C&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fLHaCwa--C&quot;</span> 
   } 
 ]
 arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span class="hljs-string">&quot;view&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>,
