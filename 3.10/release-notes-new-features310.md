@@ -317,7 +317,9 @@ enumeration node, if using just scoring for a sort operation.
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
-  
+
+---
+
 <small>Introduced in: v3.9.6, v3.10.2</small>
 
 - You can enable the new `primarySortCache` View property to always cache the
@@ -1007,6 +1009,18 @@ written, so that no post-processing of .sst files is necessary anymore.
 The previous background thread named `Sha256Thread`, which was responsible for
 calculating the SHA256 hashes and sometimes for high CPU utilization after
 larger write operations, has now been fully removed.
+
+### Traffic accounting metrics
+
+<small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
+
+The following metrics for traffic accounting were added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_client_user_connection_statistics_bytes_received` | Bytes received for requests, only user traffic. |
+| `arangodb_client_user_connection_statistics_bytes_sent` | Bytes sent for responses, only user traffic.
+| `arangodb_http1_connections_total` | Total number of HTTP/1.1 connections accepted. |
 
 ## Client tools
 

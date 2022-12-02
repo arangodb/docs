@@ -308,6 +308,14 @@ as a database only. It may have an effect for Foxx applications that use HTTP
   This is an optional attribute, and its default value is `true`, meaning
   that the block cache will be populated (introduced in v3.8.1).
 
+- The metrics endpoints include the following new traffic accounting metrics:
+
+  <small>Introduced in: v3.8.9</small>
+
+  - `arangodb_client_user_connection_statistics_bytes_received`
+  - `arangodb_client_user_connection_statistics_bytes_sent`
+  - `arangodb_http1_connections_total`
+
 ### Endpoints deprecated
 
 The API endpoints `/_admin/statistics` and `/_admin/statistics-description` are

@@ -550,6 +550,16 @@ metrics for `arangosearch` View links and inverted indexes:
 - `arangodb_search_num_out_of_sync_links`
 - `arangodb_search_num_segments`
 
+---
+
+<small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
+
+The metrics endpoints include the following new traffic accounting metrics:
+
+- `arangodb_client_user_connection_statistics_bytes_received`
+- `arangodb_client_user_connection_statistics_bytes_sent`
+- `arangodb_http1_connections_total`
+
 #### Pregel API
 
 When loading the graph data into memory, a `"loading"` state is now returned by
