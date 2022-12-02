@@ -50,10 +50,10 @@
               </div>
               <div class="container-right">
                 <div class="searchPanel">
-                  {{ partial "search.html" . }}
                   <button class="searchbar-toggle" onclick="showSearchBar()">
-                  <span class="icon-search3 zn-header-icon text-dark"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <span class="icon-search3 zn-header-icon text-dark"><i class="fa fa-search" aria-hidden="true"></i></span>
                   </button>
+                  {{ partial "search.html" . }}
                 </div>
             </header>
             {{- partial "menu.html" . }}
