@@ -466,6 +466,59 @@ data which would lead to the eviction of the hot data from the block cache.
 A new [AQL function](aql/functions-miscellaneous.html#shard_id) is available which allows you to 
 obtain the responsible shard for any document in a collection by specifying its shard keys.
 
+### Edge cache refilling (experimental)
+
+<small>Introduced in: v3.9.6</small>
+
+A new feature to automatically refill the in-memory edge cache is available.
+When edges are added, modified, or removed, these changes are tracked and a
+background thread tries to update the edge cache accordingly if the feature is
+enabled, by adding new, updating existing, or deleting and refilling cache
+entries.
+
+You can enable it for individual `INSERT`, `UPDATE`, `REPLACE`,  and `REMOVE`
+operations in AQL queries, for individual document API requests that insert,
+update, replace, or remove single or multiple edge documents, as well as enable
+it by default using the new `--rocksdb.auto-refill-index-caches-on-modify`
+startup option.
+
+The new `--rocksdb.auto-refill-index-caches-queue-capacity` startup option
+restricts how many edge cache entries the background thread can queue at most.
+This limits the memory usage for the case of the background thread being slower
+than other operations that invalidate edge cache entries.
+
+The background refilling is done on a best-effort basis and not guaranteed to
+succeed, for example, if there is no memory available for the cache subsystem,
+or during cache grow/shrink operations. A background thread is used so that
+foreground write operations are not slowed down by a lot. It may still cause
+additional I/O activity to look up data from the storage engine to repopulate
+the cache.
+
+In addition to refilling the edge cache, the cache can also automatically be
+seeded on server startup. Use the new `--rocksdb.auto-fill-index-caches-on-startup`
+startup option to enable this feature. It may cause additional CPU and I/O load.
+You can limit how many index filling operations can execute concurrently with the
+`--rocksdb.max-concurrent-index-fill-tasks` option. The lower this number, the
+lower the impact of the cache filling, but the longer it takes to complete.
+
+The following metrics are available:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_auto_refill_loaded_total` | Total number of queued items for in-memory index caches refilling.
+| `rocksdb_cache_auto_refill_dropped_total` | Total number of dropped items for in-memory index caches refilling.
+| `rocksdb_cache_full_index_refills_total` | Total number of in-memory index caches refill operations for entire indexes.
+
+This feature is experimental.
+
+Also see:
+- [AQL `INSERT` operation](aql/operations-insert.html#refillindexcaches)
+- [AQL `UPDATE` operation](aql/operations-update.html#refillindexcaches)
+- [AQL `REPLACE` operation](aql/operations-replace.html#refillindexcaches)
+- [AQL `REMOVE` operation](aql/operations-remove.html#refillindexcaches)
+- [Document HTTP API](http/document-working-with-documents.html)
+- [Edge cache refill options](#edge-cache-refill-options)
+
 Multi-dimensional Indexes (experimental)
 ----------------------------------------
 
@@ -649,6 +702,21 @@ without causing any data imbalance:
 
 - `--agency.supervision-delay-failed-follower`:
   The delay in supervision, before a FailedFollower job is executed (in seconds).
+
+### Edge cache refill options
+
+<small>Introduced in: v3.9.6</small>
+
+- `--rocksdb.auto-refill-index-caches-on-modify`: Whether to automatically
+  (re-)fill in-memory edge cache entries on insert/update/replace operations
+  by default. Default: `false`.
+- `--rocksdb.auto-refill-index-caches-queue-capacity`: How many changes can be
+  queued at most for automatically refilling the edge cache. Default: `131072`.
+- `--rocksdb.auto-fill-index-caches-on-startup`: Whether to automatically fill
+  the in-memory edge cache with entries on server startup. Default: `false`.
+- `--rocksdb.max-concurrent-index-fill-tasks`: The maximum number of index fill
+  tasks that can run concurrently on server startup. Default: the number of
+  cores divided by 8, but at least `1`.
 
 Overload control
 ----------------

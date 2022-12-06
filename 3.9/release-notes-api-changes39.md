@@ -271,6 +271,21 @@ endpoints.
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.
 
+#### Document API
+
+<small>Introduced in: v3.9.6</small>
+
+The following endpoints support a new, experimental `refillIndexCaches` query
+parameter to repopulate the edge cache after requests that insert, update,
+replace, or remove single or multiple edge documents:
+
+- `POST /_api/document/{collection}`
+- `PATCH /_api/document/{collection}/{key}`
+- `PUT /_api/document/{collection}/{key}`
+- `DELETE /_api/document/{collection}/{key}`
+
+It is a boolean option and the default is `false`.
+
 #### Metrics API
 
 <small>Introduced in: v3.9.5</small>
@@ -288,6 +303,16 @@ The metrics endpoints include the following new traffic accounting metrics:
 - `arangodb_client_user_connection_statistics_bytes_received`
 - `arangodb_client_user_connection_statistics_bytes_sent`
 - `arangodb_http1_connections_total`
+
+---
+
+<small>Introduced in: v3.9.6</small>
+
+The metrics endpoints include the following new edge cache (re-)filling metrics:
+
+- `rocksdb_cache_auto_refill_loaded_total`
+- `rocksdb_cache_auto_refill_dropped_total`
+- `rocksdb_cache_full_index_refills_total`
 
 ### Endpoints moved
 
