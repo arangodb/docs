@@ -24,8 +24,8 @@ chmod 400 arangodb.secret
 Local Start
 -----------
 
-If you want to start a stand-alone instance of ArangoDB, use the `--starter.mode=single`
-option of the _Starter_: 
+If you want to start a stand-alone instance of ArangoDB (single server), use the
+`--starter.mode=single` option of the _Starter_: 
 
 ```bash
 arangodb --starter.mode=single --auth.jwt-secret=/etc/arangodb.secret

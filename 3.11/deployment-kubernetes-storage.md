@@ -18,7 +18,7 @@ This is an example of a `Cluster` deployment that stores its Agent & DB-Server
 data on `PersistentVolumes` that use the `my-local-ssd` `StorageClass`
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "cluster-using-local-ssh"
@@ -41,7 +41,7 @@ This is an example of a `Cluster` deployment that requests volumes of 80GB
 for every DB-Server, resulting in a total storage capacity of 240GB (with 3 DB-Servers).
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "cluster-using-local-ssh"
@@ -67,7 +67,7 @@ This is an example of an `ArangoLocalStorage` resource that will result in
 under the directory `/mnt/big-ssd-disk`.
 
 ```yaml
-apiVersion: "storage.arangodb.com/v1alpha"
+apiVersion: "storage.arangodb.com/v1"
 kind: "ArangoLocalStorage"
 metadata:
   name: "example-arangodb-storage"
