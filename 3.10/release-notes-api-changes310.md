@@ -550,6 +550,16 @@ metrics for `arangosearch` View links and inverted indexes:
 - `arangodb_search_num_out_of_sync_links`
 - `arangodb_search_num_segments`
 
+---
+
+<small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
+
+The metrics endpoints include the following new traffic accounting metrics:
+
+- `arangodb_client_user_connection_statistics_bytes_received`
+- `arangodb_client_user_connection_statistics_bytes_sent`
+- `arangodb_http1_connections_total`
+
 #### Pregel API
 
 When loading the graph data into memory, a `"loading"` state is now returned by
@@ -581,6 +591,16 @@ Both endpoints return a new `detail` attribute with additional Pregel run detail
 
 For a detailed description of the attributes, see
 [Pregel HTTP API](http/pregel.html#get-pregel-job-execution-status).
+
+#### Log level API
+
+<small>Introduced in: v3.10.2</small>
+
+The `GET /_admin/log/level` and `PUT /_admin/log/level` endpoints support a new
+query parameter `serverId`, to forward log level get and set requests to a
+specific server. This makes it easier to adjust the log levels in clusters
+because DB-Servers require JWT authentication whereas Coordinators also support
+authentication using usernames and passwords.
 
 ## JavaScript API
 
