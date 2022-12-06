@@ -16,4 +16,4 @@ and clusters. It differs between the [Community Edition](features-community-edit
 and [Enterprise Edition](features-enterprise-edition.html).
 
 See [Administration](administration.html) for server configuration
-and [Deployment](deployment.html) for operation mode details.
+and [Deployment](architecture-deployment-modes.html) for operation mode details.

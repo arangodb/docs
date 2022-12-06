@@ -11,8 +11,22 @@ of ArangoDB behave very similarly. However, there are differences due to
 the different nature of these setups. This can lead to a discrepancy in behavior
 between these two configurations. A summary of potential differences follows.
 
-See [Migrating from Single Instance to Cluster](deployment-migrating-single-instance-cluster.html)
-for practical information.
+## Migrating from a _Single Instance_ to a _Cluster_
+
+To migrate from a _Single Instance_ to a _Cluster_ you will need
+to take a backup from the _Single Instance_ and restore it into
+the _Cluster_ with the tools [_arangodump_](programs-arangodump.html)
+and [_arangorestore_](programs-arangorestore.html).
+
+{% hint 'warning' %}
+If you have developed your application using a _Single Instance_
+and you would like to use a _Cluster_ now, before upgrading your production
+system please test your application with the _Cluster_ first.
+
+If both your _Single Instance_ and _Cluster_ are running on the same
+machine, they should have distinct data directories. It is not possible
+to start a _Cluster_ on the data directory of a _Single Instance_.
+{% endhint %}
 
 Locking and dead-lock prevention
 --------------------------------
