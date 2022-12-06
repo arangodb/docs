@@ -1108,7 +1108,7 @@ through command line options, and examples.
 
 ## Query changes for decreasing memory usage
 
-Queries can be executed with storing input and intermediate results temporarily
+Queries can be executed with storing intermediate and final results temporarily
 on disk to decrease memory usage when a specified threshold is reached.
 
 {% hint 'info' %}

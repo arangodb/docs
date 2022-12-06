@@ -23,12 +23,13 @@ body {
   margin-left: 10px;
 }
 
-.arangodb-logo img {
+.arangodb-logo img, .arangodb-logo-small img {
   height: 23px;
 }
 
 .arangodb-logo-small {
   display: none;
+  margin-right: 5px;
 }
 
 .arangodb-version-switcher {
@@ -93,62 +94,36 @@ body {
   background-color: #88A049 !important;
 }
 
-.downloadIcon {
-  margin-right: 10px;
-}
-
 /** simple responsive updates **/
 
 @media screen and (max-width: 1000px) {
-  .arangodb-navmenu li a {
-    padding: 0 6px;
-  }
   .arangodb-logo {
     margin-left: 10px;
-  }
-  .downloadIcon {
-    margin-right: 0;
   }
   .socialIcons {
     display: none !important;
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 640px) {
   .arangodb-navmenu li a {
-    font-size: 15px;
-    padding: 0 7px;
+    font-size: 13px;
+    padding: 0 5px;
   }
   .arangodb-logo {
     display: none;
   }
   .arangodb-logo-small {
     display: inline;
-    margin-left: 10px;
-  }
-  .arangodb-logo-small img {
-    height: 20px;
   }
   .arangodb-version-switcher {
     margin: 0;
   }
 }
 
-@media screen and (max-width: 600px) {
-  .arangodb-navmenu li a {
-    font-size: 15px;
-    padding: 0 7px;
-  }
-  .arangodb-version-switcher,
-  .downloadIcon {
-    display: none !important;
-  }
-}
-
 @media screen and (max-width: 400px) {
-  .arangodb-navmenu li a {
-    font-size: 13px;
-    padding: 0 5px;
+  .arangodb-version-switcher {
+    display: none !important;
   }
 }
 
