@@ -21,8 +21,8 @@ Set appropriate privilege on the generated _secret_ file, e.g. on Linux:
 chmod 400 arangodb.secret
 ```
 
-Local Tests
------------
+Local Active Failover test deployment
+-------------------------------------
 
 If you want to start a local _Active Failover_ setup quickly, use the `--starter.local`
 option of the _Starter_. This will start all servers within the context of a single
@@ -102,14 +102,14 @@ If you use the Enterprise Edition Docker image, you have to set the license key
 in an environment variable by adding this option to the above `docker` command:
 
 ```
-    -e ARANGO_LICENSE_KEY=<thekey>
+    -e ARANGO_LICENSE_KEY=<the-key>
 ```
 
 You can get a free evaluation license key by visiting:
 
 [www.arangodb.com/download-arangodb-enterprise/](https://www.arangodb.com/download-arangodb-enterprise/){:target="_blank"}
 
-Then replace `<thekey>` above with the actual license key. The start
+Then replace `<the-key>` above with the actual license key. The start
 will then hand on the license key to the Docker containers it launches
 for ArangoDB.
 

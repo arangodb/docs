@@ -7,7 +7,7 @@ Programs & Tools
 
 The full ArangoDB package ships with the following programs and tools:
 
-| Binary name     | Brief description |
+| Executable name | Brief description |
 |-----------------|-------------------|
 | `arangod`       | [ArangoDB server](programs-arangod.html). This server program is intended to run as a daemon process / service to serve the various client connections to the server via TCP / HTTP. It also provides a [web interface](programs-web-interface.html).
 | `arangosh`      | [ArangoDB shell](programs-arangosh.html). A client that implements a read-eval-print loop (REPL) and provides functions to access and administrate the ArangoDB server.
@@ -23,15 +23,15 @@ The full ArangoDB package ships with the following programs and tools:
 
 The client package comes with a subset of programs and tools:
 
-- arangosh
-- arangoimport
-- arangoexport
-- arangodump
-- arangorestore
-- arangobackup
-- arangobench
-- arangoinspect
-- arangovpack
+- `arangosh`
+- `arangoimport`
+- `arangoexport`
+- `arangodump`
+- `arangorestore`
+- `arangobackup`
+- `arangobench`
+- `arangoinspect`
+- `arangovpack`
 
 Additional tools which are available separately:
 
