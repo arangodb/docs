@@ -12,7 +12,7 @@ a `CustomResourceDefinition` created by the operator.
 Example minimal storage definition:
 
 ```yaml
-apiVersion: "storage.arangodb.com/v1alpha"
+apiVersion: "storage.arangodb.com/v1"
 kind: "ArangoLocalStorage"
 metadata:
   name: "example-arangodb-storage"

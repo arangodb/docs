@@ -33,7 +33,7 @@ The name of the secret is specified in the custom resource.
 For example:
 
 ```yaml
-apiVersion: "cluster.arangodb.com/v1alpha"
+apiVersion: "cluster.arangodb.com/v1"
 kind: "Cluster"
 metadata:
   name: "example-arangodb-cluster"
