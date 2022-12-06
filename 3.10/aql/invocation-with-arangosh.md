@@ -261,26 +261,28 @@ and single servers for non-streaming queries. To avoid the buildup of
 the entire query result in RAM, a streaming query should be used.
 {% endhint %}
 
-- `spillOverThresholdNumRows`: This parameter allows for input data and 
-  intermediate results to be spilled onto disk for a query execution
-  after the number of rows reaches the specified value. This is 
+- `spillOverThresholdNumRows`: This option allows queries to store intermediate
+  and final results temporarily on disk if the number of rows produced by the
+  query exceeds the specified value. This is
   used for decreasing the memory usage during the query execution. In a query 
   that iterates over a collection that contains documents, each row is a 
-  document and, in a query that iterates over temporary values 
+  document, and, in a query that iterates over temporary values 
   (i.e. `FOR i IN 1..100`), each row is one of such temporary values. 
-  This parameter is experimental and is only taken into account if a path for a
-  directory to store the temporary data is provided with the
+  This feature is experimental and is only enabled if you set a path for the
+  directory to store the temporary data in with the
   [`--temp.intermediate-results-path` startup option](../programs-arangod-options.html#--tempintermediate-results-path).
+
   Default value: `5000000` rows.
 
-- `spillOverThresholdMemoryUsage`: This parameter allows for input data and 
-  intermediate results to be spilled onto disk for a query execution 
-  after the memory usage reaches the specified value (in bytes). This 
+- `spillOverThresholdMemoryUsage`: This option allows queries to store
+  intermediate and final results temporarily on disk if the amount of memory
+  used in bytes exceeds the specified value. This
   is used for decreasing the memory usage during the query execution. This 
-  parameter is experimental and is only taken into account if a path for a 
-  directory to store the temporary data is provided with the
+  feature is experimental and is only enabled if you set a path for the
+  directory to store the temporary data in with the
   [`--temp.intermediate-results-path` startup option](../programs-arangod-options.html#--tempintermediate-results-path).
-  Default value: 128MB.
+
+  Default value: 128 MiB.
 
 ## With `db._createStatement()` (ArangoStatement)
 
