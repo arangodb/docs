@@ -17,6 +17,9 @@ queries which iterate over a View and sort by one or multiple of the
 attributes. If the field(s) and the sorting direction(s) match then the
 the data can be read directly from the index without actual sort operation.
 
+You can only set the `primarySort` option and the related
+`primarySortCompression` and `primarySortCache` options on View creation.
+
 {% include youtube.html id="bKeKzexInm0" %}
 
 View definition example:
@@ -117,14 +120,49 @@ Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
-The primary sort data is LZ4 compressed by default (`primarySortCompression` is
+The primary sort data is LZ4-compressed by default (`primarySortCompression` is
 `"lz4"`). Set it to `"none"` on View creation to trade space for speed.
+
+You can additionally set the `primarySortCache` option to `true` to always cache
+the primary sort columns in memory, which can improve the query performance:
+
+```json
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "text": {},
+        "date": {}
+      }
+    },
+    "coll2": {
+      "fields": {
+        "text": {}
+      }
+    },
+    "primarySort": [
+      {
+        "field": "date",
+        "direction": "desc"
+      },
+      {
+        "field": "text",
+        "direction": "asc"
+      }
+    ],
+    "primarySortCache": true
+  }
+}
+```
+
+See the [`primarySortCache` View property](arangosearch-views.html#view-properties)
+for details.
 
 ## Stored Values
 
 It is possible to directly store the values of document attributes in View
 indexes with the View property `storedValues` (not to be confused with
-`storeValues`).
+`storeValues`). You can only set this option on View creation.
 
 View indexes may fully cover `SEARCH` queries for improved performance.
 While late document materialization reduces the amount of fetched documents,
@@ -144,8 +182,7 @@ this optimization can avoid to access the storage engine entirely.
   ],
   "storedValues": [
     { "fields": [ "title", "categories" ] }
-  ],
-  ...
+  ]
 }
 ```
 
@@ -189,6 +226,27 @@ Optimization rules applied:
   3   handle-arangosearch-views
 ```
 
+The stored values data is LZ4-compressed by default (`"lz4"`).
+Set it to `"none"` on View creation to trade space for speed.
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "primarySort": [
+    { "field": "publishedAt", "direction": "desc" }
+  ],
+  "storedValues": [
+    { "fields": [ "title", "categories" ], "compression": "none" }
+  ]
+}
+```
+
 You can additionally enable the ArangoSearch column cache for stored values by
 setting the `cache` option in the `storedValues` definition to `true`:
 
@@ -206,8 +264,7 @@ setting the `cache` option in the `storedValues` definition to `true`:
   ],
   "storedValues": [
     { "fields": [ "title", "categories" ], "cache": true }
-  ],
-  ...
+  ]
 }
 ```
 
@@ -304,3 +361,28 @@ used. You can create custom Analyzers without this feature to disable the
 normalization and improve the performance. Make sure that the result ranking
 still matches your expectations without normalization. It is recommended to
 use normalization for a good scoring behavior.
+
+## Primary key caching
+
+<small>Introduced in: v3.9.6</small>
+
+You can set the `primaryKeyCache` View property to `true` on View creation to
+always cache the primary key columns in memory. This can improve the performance
+of queries that return many documents, making it faster to map document IDs in
+the index to actual documents:
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "primaryKeyCache": true
+}
+```
+
+See the [`primaryKeyCache` View property](arangosearch-views.html#view-properties)
+for details.

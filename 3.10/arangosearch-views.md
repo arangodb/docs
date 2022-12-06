@@ -116,8 +116,8 @@ During view modification the following directives apply:
   - **id**: Store information about value presence so that you can use the
     `EXISTS()` function.
 
-  Not to be confused with the `storedValues` property, which stores actual
-  attribute values in the View index.
+  The `storeValues` option is not to be confused with the `storedValues` option,
+  which stores attribute values in the View index.
 
 - **inBackground** (_optional_; type: `boolean`; default: `false`)
 
@@ -126,6 +126,24 @@ During view modification the following directives apply:
   `inBackground` is an option that can be set when adding links. It does not get
   persisted as it is not a View property, but only a one-off option. Also see:
   [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
+  
+- **cache** (_optional_; type: `boolean`; default: `false`)
+
+  <small>Introduced in: v3.9.5, v3.10.2</small>
+
+  If you enable this option, then field normalization values are always cached
+  in memory. This can improve the performance of scoring and ranking queries.
+  Otherwise, these values are memory-mapped and it is up to the operating system
+  to load them from disk into memory and to evict them from memory.
+
+  Normalization values are computed for fields which are processed with Analyzers
+  that have the `"norm"` feature enabled. These values are used to score fairer
+  if the same tokens occur repeatedly, to emphasize these documents less.
+  
+  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
+  to control the memory consumption of this cache.
+
+  {% include hint-ee.md feature="ArangoSearch caching" %}
 
 ### View Properties
 
@@ -146,6 +164,35 @@ During view modification the following directives apply:
 
   - `"lz4"` (default): use LZ4 fast compression.
   - `"none"`: disable compression to trade space for speed.
+  
+- **primarySortCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
+
+  <small>Introduced in: v3.9.6, v3.10.2</small>
+
+  If you enable this option, then the primary sort columns are always cached in
+  memory. This can improve the performance of queries that utilize the
+  [primary sort order](arangosearch-performance.html#primary-sort-order).
+  Otherwise, these values are memory-mapped and it is up to the operating system
+  to load them from disk into memory and to evict them from memory.
+
+  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
+  to control the memory consumption of this cache.
+
+  {% include hint-ee.md feature="ArangoSearch caching" %}
+  
+- **primaryKeyCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
+
+  <small>Introduced in: v3.9.6, v3.10.2</small>
+
+  If you enable this option, then the primary key columns are always cached in
+  memory. This can improve the performance of queries that return many documents.
+  Otherwise, these values are memory-mapped and it is up to the operating system
+  to load them from disk into memory and to evict them from memory.
+
+  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
+  to control the memory consumption of this cache.
+
+  {% include hint-ee.md feature="ArangoSearch caching" %}
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
@@ -156,18 +203,28 @@ During view modification the following directives apply:
   taken from the index directly and accessing the storage engine can be
   avoided.
 
-  Each object is expected in the form
-  `{ "fields": [ "attr1", "attr2", ... "attrN" ], "compression": "none" }`,
-  where the required `fields` attribute is an array of strings with one or more
-  document attribute paths. The specified attributes are placed into a single
-  column of the index. A column with all fields that are involved in common
-  search queries is ideal for performance. The column should not include too
-  many unneeded fields however. The optional `compression` attribute defines
-  the compression type used for the internal column-store, which can be `"lz4"`
-  (LZ4 fast compression, default) or `"none"` (no compression).
+  Each object is expected in the following form:
 
-  Not to be confused with *storeValues*, which allows to store meta data
-  about attribute values in the View index.
+  `{ "fields": [ "attr1", "attr2", ... "attrN" ], "compression": "none", "cache": false }`
+  
+  - The required `fields` attribute is an array of strings with one or more
+    document attribute paths. The specified attributes are placed into a single
+    column of the index. A column with all fields that are involved in common
+    search queries is ideal for performance. The column should not include too
+    many unneeded fields, however.
+  
+  - The optional `compression` attribute defines the compression type used for
+    the internal column-store, which can be `"lz4"` (LZ4 fast compression, default)
+    or `"none"` (no compression).
+
+  - The optional `cache` attribute allows you to always cache stored values in
+    memory (introduced in v3.9.5 and v3.10.2, Enterprise Edition only).
+    This can improve the query performance if stored values are involved. See the
+    [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
+    to control the memory consumption of this cache.
+
+  The `storedValues` option is not to be confused with the `storeValues` option,
+  which allows to store meta data about attribute values in the View index.
 
 An inverted index is the heart of `arangosearch` Views.
 The index consists of several independent segments and the index **segment**

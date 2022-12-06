@@ -542,7 +542,7 @@
 - name: arangodb_client_connection_statistics_bytes_received
   introducedIn: "3.8.0"
   help: |
-    Bytes received for a request.
+    Bytes received for requests.
   unit: bytes
   type: histogram
   category: Statistics
@@ -558,7 +558,7 @@
 - name: arangodb_client_connection_statistics_bytes_sent
   introducedIn: "3.8.0"
   help: |
-    Bytes sent for a request.
+    Bytes sent for responses.
   unit: bytes
   type: histogram
   category: Statistics
@@ -681,6 +681,40 @@
     the time required to read the incoming request, the time the request is
     sitting in the queue, the time to actually process the request, and the
     time required to send the response.
+
+- name: arangodb_client_user_connection_statistics_bytes_received
+  introducedIn: "3.10.2"
+  help: |
+    Bytes received for requests, only user traffic.
+  unit: bytes
+  type: histogram
+  category: Statistics
+  complexity: simple
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Histogram of the received request sizes in bytes, only considering user
+    traffic, i.e. traffic authenticated with a real user (or role).
+
+- name: arangodb_client_user_connection_statistics_bytes_sent
+  introducedIn: "3.10.2"
+  help: |
+    Bytes sent for responses, only user traffic.
+  unit: bytes
+  type: histogram
+  category: Statistics
+  complexity: simple
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Histogram of the sent response sizes in bytes, only user traffic, i.e.
+    traffic that has been authenticated with a real user (or role).
 
 - name: arangodb_collection_lock_acquisition_micros_total
   renamedFrom: arangodb_collection_lock_acquisition_micros
@@ -1202,6 +1236,23 @@
   troubleshoot: |
     High heartbeat send times can be a sign of overload or of bad network
     connectivity. Potentially move the Agent instances to separate machines.
+
+- name: arangodb_http1_connections_total
+  introducedIn: "3.10.2"
+  help: |
+    Total number of HTTP/1.1 connections accepted.
+  unit: number
+  type: counter
+  category: Connectivity
+  complexity: medium
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total number of connections accepted for HTTP/1.1. Note that this can 
+    include connections that are negotiated to be upgraded to HTTP/2.
 
 - name: arangodb_http2_connections_total
   introducedIn: "3.7.15"
@@ -3696,6 +3747,26 @@
     - single
   description: |
     Average time of few last cleanups.
+
+- name: arangodb_search_columns_cache_size
+  introducedIn: "3.9.5"
+  help: |
+    ArangoSearch columns cache usage.
+  unit: bytes
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Size of all ArangoSearch columns currently loaded into the cache.
+  troubleshoot: |
+    If this metric contains a value close to configured
+    "arangosearch.columns-cache-limit" there might be columns 
+    that are marked to be cached but will not fit into the cache.
+    That may result in query performance degradation. Check the
+    log for pattern "Failed to allocate memory for buffered column"
 
 - name: arangodb_search_commit_time
   introducedIn: "3.10.0"

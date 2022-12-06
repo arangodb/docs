@@ -119,7 +119,7 @@ During view modification the following directives apply:
   that have the `"norm"` feature enabled. These values are used to score fairer
   if the same tokens occur repeatedly, to emphasize these documents less.
   
-  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-arangosearch.html)
+  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
   to control the memory consumption of this cache.
 
   {% include hint-ee.md feature="ArangoSearch caching" %}
@@ -143,6 +143,35 @@ During view modification the following directives apply:
 
   - `"lz4"` (default): use LZ4 fast compression.
   - `"none"`: disable compression to trade space for speed.
+  
+- **primarySortCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
+
+  <small>Introduced in: v3.9.6</small>
+
+  If you enable this option, then the primary sort columns are always cached in
+  memory. This can improve the performance of queries that utilize the
+  [primary sort order](arangosearch-performance.html#primary-sort-order).
+  Otherwise, these values are memory-mapped and it is up to the operating system
+  to load them from disk into memory and to evict them from memory.
+
+  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
+  to control the memory consumption of this cache.
+
+  {% include hint-ee.md feature="ArangoSearch caching" %}
+  
+- **primaryKeyCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
+
+  <small>Introduced in: v3.9.6</small>
+
+  If you enable this option, then the primary key columns are always cached in
+  memory. This can improve the performance of queries that return many documents.
+  Otherwise, these values are memory-mapped and it is up to the operating system
+  to load them from disk into memory and to evict them from memory.
+
+  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
+  to control the memory consumption of this cache.
+
+  {% include hint-ee.md feature="ArangoSearch caching" %}
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
@@ -170,7 +199,7 @@ During view modification the following directives apply:
   - The optional `cache` attribute allows you to always cache stored values in
     memory (introduced in v3.9.5, Enterprise Edition only). This can improve
     the query performance if stored values are involved. See the
-    [`--arangosearch.columns-cache-limit` startup option](programs-arangod-arangosearch.html)
+    [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
     to control the memory consumption of this cache.
 
   The `storedValues` option is not to be confused with the `storeValues` option,
