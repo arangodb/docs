@@ -634,6 +634,22 @@ The new `--arangosearch.columns-cache-limit` startup option lets you control how
 much memory (in bytes) the [ArangoSearch column cache](#arangosearch-column-cache-enterprise-edition)
 is allowed to use.
 
+### Cluster supervision options
+
+<small>Introduced in: v3.9.6</small>
+
+The following new options allow you to delay supervision actions for a
+configurable amount of time. This is desirable in case DB-Servers are restarted
+or fail and come back quickly because it gives the cluster a chance to get in
+sync and fully resilient without deploying additional shard replicas and thus
+without causing any data imbalance:
+
+- `--agency.supervision-delay-add-follower`:
+  The delay in supervision, before an AddFollower job is executed (in seconds).
+
+- `--agency.supervision-delay-failed-follower`:
+  The delay in supervision, before a FailedFollower job is executed (in seconds).
+
 Overload control
 ----------------
 
