@@ -15,7 +15,7 @@ Example of a minimal replication definition for two ArangoDB clusters with
 sync in the same Kubernetes cluster:
 
 ```yaml
-apiVersion: "replication.database.arangodb.com/v1alpha"
+apiVersion: "replication.database.arangodb.com/v1"
 kind: "ArangoDeploymentReplication"
 metadata:
   name: "replication-from-a-to-b"
@@ -40,7 +40,7 @@ Example replication definition for replicating from a source that is outside the
 to a destination that is in the same Kubernetes cluster:
 
 ```yaml
-apiVersion: "replication.database.arangodb.com/v1alpha"
+apiVersion: "replication.database.arangodb.com/v1"
 kind: "ArangoDeploymentReplication"
 metadata:
   name: "replication-from-a-to-b"
@@ -62,6 +62,131 @@ This definition results in:
   using the client authentication certificate stored in `Secret` `cluster-a-sync-auth`.
   To access `cluster-a`, the keyfile (containing a client authentication certificate) is used.
   To access `cluster-b`, the JWT secret found in the deployment of `cluster-b` is used.
+
+## DC2DC Replication Example
+
+The requirements for setting up Datacenter-to-Datacenter (DC2DC) Replication are:
+
+- You need to have two ArangoDB clusters running in two different Kubernetes clusters.
+- Both Kubernetes clusters are equipped with support for `Services` of type `LoadBalancer`.
+- You can create (global) DNS names for configured `Services` with low propagation times. E.g. use Cloudflare.
+- You have 4 DNS names available:
+  - One for the database in the source ArangoDB cluster, e.g. `src-db.mycompany.com`
+  - One for the ArangoDB syncmasters in the source ArangoDB cluster, e.g. `src-sync.mycompany.com`
+  - One for the database in the destination ArangoDB cluster, e.g. `dst-db.mycompany.com`
+  - One for the ArangoDB syncmasters in the destination ArangoDB cluster, e.g. `dst-sync.mycompany.com`
+
+Follow these steps to configure DC2DC replication between two ArangoDB clusters
+running in Kubernetes:
+
+1. Enable DC2DC Replication support on the source ArangoDB cluster.
+
+   Set your current Kubernetes context to the Kubernetes source cluster.
+
+   Edit the `ArangoDeployment` of the source ArangoDB clusters:
+
+   - Set `spec.tls.altNames` to `["src-db.mycompany.com"]` (can include more names / IP addresses)
+   - Set `spec.sync.enabled` to `true`
+   - Set `spec.sync.externalAccess.masterEndpoint` to `["https://src-sync.mycompany.com:8629"]`
+   - Set `spec.sync.externalAccess.accessPackageSecretNames` to `["src-accesspackage"]`
+
+2. Extract the access package from the source ArangoDB cluster.
+
+   {% raw %}
+   ```bash
+   kubectl get secret src-accesspackage --template='{{index .data "accessPackage.yaml"}}' | \
+     base64 -D > accessPackage.yaml
+   ```
+   {% endraw %}
+
+3. Configure the source DNS names.
+
+   ```bash
+   kubectl get service
+   ```
+
+   Find the IP address contained in the `LoadBalancer` column for the following `Services`:
+   - `<deployment-name>-ea` Use this IP address for the `src-db.mycompany.com` DNS name.
+   - `<deployment-name>-sync` Use this IP address for the `src-sync.mycompany.com` DNS name.
+
+   The process for configuring DNS names is specific to each DNS provider.
+
+   Set your current Kubernetes context to the Kubernetes destination cluster.
+
+   Edit the `ArangoDeployment` of the source ArangoDB clusters:
+
+   - Set `spec.tls.altNames` to `["dst-db.mycompany.com"]` (can include more names / IP addresses)
+   - Set `spec.sync.enabled` to `true`
+   - Set `spec.sync.externalAccess.masterEndpoint` to `["https://dst-sync.mycompany.com:8629"]`
+
+4. Enable DC2DC Replication support on the destination ArangoDB cluster.
+
+5. Import the access package in the destination cluster.
+
+   ```bash
+   kubectl apply -f accessPackage.yaml
+   ```
+
+   Note: This imports two `Secrets`, containing TLS information about the source
+   cluster, into the destination cluster.
+
+6. Configure the destination DNS names.
+
+   ```bash
+   kubectl get service
+   ```
+
+   Find the IP address contained in the `LoadBalancer` column for the following `Services`:
+
+   - `<deployment-name>-ea` Use this IP address for the `dst-db.mycompany.com` DNS name.
+   - `<deployment-name>-sync` Use this IP address for the `dst-sync.mycompany.com` DNS name.
+
+   The process for configuring DNS names is specific to each DNS provider.
+
+7. Create an `ArangoDeploymentReplication` resource.
+
+   Create a yaml file (e.g. called `src-to-dst-repl.yaml`) with the following content:
+
+   ```yaml
+   apiVersion: "replication.database.arangodb.com/v1"
+   kind: "ArangoDeploymentReplication"
+   metadata:
+     name: "replication-src-to-dst"
+   spec:
+     source:
+       masterEndpoint: ["https://src-sync.mycompany.com:8629"]
+       auth:
+         keyfileSecretName: src-accesspackage-auth
+       tls:
+         caSecretName: src-accesspackage-ca
+     destination:
+       deploymentName: <dst-deployment-name>
+   ```
+
+8. Wait for the DNS names to propagate.
+
+   Wait until the DNS names configured in step 3 and 6 resolve to their configured
+   IP addresses.
+
+   Depending on your DNS provides this can take a few minutes up to 24 hours.
+
+9. Activate the replication.
+
+   ```bash
+   kubectl apply -f src-to-dst-repl.yaml
+   ```
+
+   Replication from the source cluster to the destination cluster will now be configured.
+
+   Check the status of the replication by inspecting the status of the
+   `ArangoDeploymentReplication` resource using:
+
+   ```bash
+   kubectl describe ArangoDeploymentReplication replication-src-to-dst
+   ```
+
+   As soon as the replication is configured, the `Add collection` button in the `Collections`
+   page of the web interface (of the destination cluster) will be grayed out.
 
 ## Specification reference
 

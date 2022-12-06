@@ -11,12 +11,12 @@ Query <span class="hljs-built_in">String</span> (<span class="hljs-number">58</s
 Execution plan:
  Id   NodeType        Calls   Items   Runtime [s]   Comment
   <span class="hljs-number">1</span>   SingletonNode       <span class="hljs-number">1</span>       <span class="hljs-number">1</span>       <span class="hljs-number">0.00000</span>   * ROOT
-  <span class="hljs-number">6</span>   IndexNode           <span class="hljs-number">1</span>      <span class="hljs-number">10</span>       <span class="hljs-number">0.00004</span>     - FOR doc IN acollection   <span class="hljs-comment">/* skiplist index scan */</span>    
+  <span class="hljs-number">6</span>   IndexNode           <span class="hljs-number">1</span>      <span class="hljs-number">10</span>       <span class="hljs-number">0.00005</span>     - FOR doc IN acollection   <span class="hljs-comment">/* skiplist index scan */</span>    
   <span class="hljs-number">5</span>   ReturnNode          <span class="hljs-number">1</span>      <span class="hljs-number">10</span>       <span class="hljs-number">0.00000</span>       - RETURN doc
 
 Indexes used:
  By   Name                      Type       Collection    Unique   Sparse   Selectivity   Fields        Ranges
-  <span class="hljs-number">6</span>   idx_1747769123169894401   skiplist   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`value`</span> ]   (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
+  <span class="hljs-number">6</span>   idx_1751090508253364225   skiplist   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`value`</span> ]   (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
 
 Optimization rules applied:
  Id   RuleName
@@ -30,8 +30,8 @@ Query Statistics:
 
 Query Profile:
  Query Stage           Duration [s]
- initializing               <span class="hljs-number">0.00002</span>
- parsing                    <span class="hljs-number">0.00002</span>
+ initializing               <span class="hljs-number">0.00001</span>
+ parsing                    <span class="hljs-number">0.00003</span>
  optimizing ast             <span class="hljs-number">0.00000</span>
  loading collections        <span class="hljs-number">0.00000</span>
  instantiating plan         <span class="hljs-number">0.00001</span>
