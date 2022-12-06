@@ -592,6 +592,16 @@ Both endpoints return a new `detail` attribute with additional Pregel run detail
 For a detailed description of the attributes, see
 [Pregel HTTP API](http/pregel.html#get-pregel-job-execution-status).
 
+#### Log level API
+
+<small>Introduced in: v3.10.2</small>
+
+The `GET /_admin/log/level` and `PUT /_admin/log/level` endpoints support a new
+query parameter `serverId`, to forward log level get and set requests to a
+specific server. This makes it easier to adjust the log levels in clusters
+because DB-Servers require JWT authentication whereas Coordinators also support
+authentication using usernames and passwords.
+
 ## JavaScript API
 
 The Computed Values feature extends the collection properties with a new
