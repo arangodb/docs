@@ -714,12 +714,131 @@ by hypens `-`. Underscores remain, however. Some examples:
 | Insert / Save | `#insert--save` |
 | TO_HEX() | `#to_hex` |
 | `norm` Analyzer | `#norm-analyzer` |
+| `--startup.option-name` | `#--startupoption-name` |
 
 For external links, please add `{:target="_blank"}` so that they open in a new
 tab when clicked:
 
 ```markdown
 This is an [external link](https://www.arangodb.com/){:target="_blank"}
+```
+
+### Version Remarks
+
+The main page about a new feature should indicate the version the feature was
+added in, as shown below:
+
+```markdown
+---
+layout: default
+description: >-
+  Feature summary
+---
+# New feature
+
+<small>Introduced in: v3.10.0</small>
+
+{{ page.description }}
+{:class="lead"}
+
+...
+```
+
+Similarly, the remark should be added if only a section is added to an existing
+page, as shown below:
+
+```markdown
+# Existing feature
+
+...
+
+## New feature section
+
+<small>Introduced in: v3.10.0</small>
+
+...
+```
+
+The value `v3.10.0` implies that all later versions also have this feature
+(3.10.1, 3.10.2, etc., as well as 3.11.0 and later). If this is not the case,
+then also mention the other relevant versions. For example, if a feature is
+added to 3.9.6 and 3.10.2, then write the following in the 3.10 documentation:
+
+```markdown
+<small>Introduced in: v3.9.6, v3.10.2</small>
+```
+
+All later documentation versions should use a copy of the content, as thus the
+3.11 documentation would contain the same.
+
+In the 3.9 documentation, only mention versions up to this documentation version
+(excluding 3.10 and later in this example), pretending no later version exists
+to be consistent with the rest of the 3.9 documentation and to avoid additional
+maintenance burdens:
+
+```markdown
+<small>Introduced in: v3.9.6</small>
+```
+
+New options in the JavaScript and HTTP APIs are covered by the release notes,
+but if new options are added mid-release (not in the `x.x.0` release but a later
+bugfix version), then this should be pointed out as follows:
+
+```markdown
+- `existingOption` (number, _optional_): ...
+- `newOption` (string, _optional_): ... (introduced in v3.9.6, v3.10.2).
+```
+
+You may also add a remark if an existing feature or option is significantly
+extended by a new (sub-)option in a `x.x.0` release.
+
+### Edition Remarks
+
+Pages and sections about Enterprise Edition features should indicate that the
+Enterprise Edition is required using a hint box. Use the following include in
+the general case:
+
+```markdown
+{% include hint-ee-arangograph.md feature="New feature X" %}
+```
+
+This should be placed after version remarks if there are any.
+
+Most Enterprise Edition features are also available in ArangoGraph, but some
+features are not or in a different form (e.g. DC2DC, Hot Backup). If a feature
+is not available in ArangoGraph, use the following include instead:
+
+```markdown
+{% include hint-ee.md feature="New feature X" %}
+```
+
+If the feature name is a plural form of a word, set the `plural` option to
+`true` (this works with both includes):
+
+```markdown
+{% include hint-ee-arangograph.md feature="EnterpriseGraphs" plural=true %}
+```
+
+In the release notes, add the following at the end of a section about a new
+Enterprise Edition feature:
+
+```markdown
+This feature is only available in the Enterprise Edition.
+```
+
+API options that are only available in the Enterprise Edition should have a
+remark as follows:
+
+```markdown
+- `enterpriseOption` (boolean, _optional_): ...
+  (Enterprise Edition only).
+```
+
+If there are both a version remark and an Enterprise Edition remark, use:
+
+```markdown
+- `enterpriseOption` (boolean, _optional_): ...
+  (introduced in v3.9.6 and v3.10.2, Enterprise Edition only).
 ```
 
 ### Adding a Lead Paragraph

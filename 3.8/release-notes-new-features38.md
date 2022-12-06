@@ -744,6 +744,18 @@ The list of renamed metrics can be found under
 For the description of a seamless upgrade path see
 [Incompatible changes in 3.8](release-notes-upgrading-changes38.html#endpoint-return-value-changes).
 
+### Traffic accounting metrics
+
+<small>Introduced in: v3.8.9</small>
+
+The following metrics for traffic accounting were added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_client_user_connection_statistics_bytes_received` | Bytes received for requests, only user traffic. |
+| `arangodb_client_user_connection_statistics_bytes_sent` | Bytes sent for responses, only user traffic.
+| `arangodb_http1_connections_total` | Total number of HTTP/1.1 connections accepted. |
+
 Logging
 -------
 

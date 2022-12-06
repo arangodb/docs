@@ -257,10 +257,16 @@ Enterprise Edition.
 - A `cache` option in the definition of a `storedValues` View property
   (boolean, immutable, default: `false`).
 
+<small>Introduced in: v3.9.6</small>
+
+- A `primarySortCache` View property (boolean, immutable, default: `false`).
+- A `primaryKeyCache` View property (boolean, immutable, default: `false`).
+
 The `POST /_api/view` endpoint accepts these new options for `arangosearch`
 Views, the `GET /_api/view/<view-name>/properties` endpoint may return these
-options, and you can change them with the `PUT /_api/view/<view-name>/properties`
-and `PATCH /_api/view/<view-name>/properties` endpoints (except the immutable one).
+options, and you can change the `cache` View link/field property with the
+`PUT /_api/view/<view-name>/properties` and `PATCH /_api/view/<view-name>/properties`
+endpoints.
 
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.
@@ -269,9 +275,19 @@ for details.
 
 <small>Introduced in: v3.9.5</small>
 
-The `GET /_admin/metrics/v2` and `GET /_admin/metrics`endpoints includes a new
+The `GET /_admin/metrics/v2` and `GET /_admin/metrics` endpoints includes a new
 metrics `arangodb_search_columns_cache_size` which reports the ArangoSearch
 column cache size.
+
+---
+
+<small>Introduced in: v3.8.9, v3.9.6</small>
+
+The metrics endpoints include the following new traffic accounting metrics:
+
+- `arangodb_client_user_connection_statistics_bytes_received`
+- `arangodb_client_user_connection_statistics_bytes_sent`
+- `arangodb_http1_connections_total`
 
 ### Endpoints moved
 
