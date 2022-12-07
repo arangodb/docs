@@ -73,7 +73,7 @@ Save data from rdd or dataset into ArangoDB
 
 **Examples**
 
-```Scala
+```scala
 val sc: SparkContext = ...
 val documents = sc.parallelize((1 to 100).map { i => MyBean(i) })
 ArangoSpark.save(documents, "myCollection", WriteOptions("myDB"))
@@ -140,7 +140,7 @@ Save data from dataframe into ArangoDB
 
 **Examples**
 
-```Scala
+```scala
 val sc: SparkContext = ...
 val documents = sc.parallelize((1 to 100).map { i => MyBean(i) })
 val sql: SQLContext = SQLContext.getOrCreate(sc);
@@ -202,7 +202,7 @@ Load data from ArangoDB into rdd
 
 **Examples**
 
-```Scala
+```scala
 val sc: SparkContext = ...
 val rdd = ArangoSpark.load[MyBean](sc, "myCollection", ReadOptions("myDB"))
 ```
@@ -223,7 +223,7 @@ Adds a filter condition. If used multiple times, the conditions will be combined
 
 **Examples**
 
-```Scala
+```scala
 val sc: SparkContext = ...
 val rdd = ArangoSpark.load[MyBean](sc, "myCollection").filter("doc.name == 'John'")
 ```
@@ -235,7 +235,7 @@ RDDs can also be saved to ArangoDB from Spark Streaming using
 
 **Example**
 
-```Scala
+```scala
 dStream.foreachRDD(rdd =>
   ArangoSpark.save(rdd, COLLECTION, new WriteOptions().database(DB)))
 ```
