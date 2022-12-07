@@ -6,6 +6,11 @@ timeout: "200000000"
 UglifyURLs: true
 CanonifyURLs: true
 
+module:
+  mounts:
+    source: "static/images"
+    target: "assets/images"
+
 menu:
   shortcuts:
     - name: "<i class='fab fa-fw fa-github'></i> GitHub repo"
@@ -58,7 +63,7 @@ params:
   arangoproxyUrl: "http://192.168.129.4:8080"
   pygmentsUseClassic: false
   description: "Documentation for ArangoDB"
-  showVisitedLinks: true
+  showVisitedLinks: false
   alwaysopen: false
   collapsibleMenu: true
   disableBreadcrumb: false
