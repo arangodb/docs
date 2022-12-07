@@ -87,15 +87,42 @@ You can create an allowlist as part of a project.
 
 ## How to manage certificates
 
-Certificates are utilized for encrypted remote administration.
+Certificates are utilized for encrypted remote administration. The communication
+with and between the servers of an ArangoGraph deployment is encrypted using the
+TLS protocol.
 
-Certificates that do have the __Use well known certificate__ option enabled do
+Each ArangoGraph deployment is accessible on two different port numbers:
+- default port (8529)
+- high port (18529)
+
+The distinction between these port numbers is in the certificate used for the
+TLS connection.
+
+On the default port (8529), a **well known X509 certificate** created by
+[Let's Encrypt](https://letsencrypt.org/){:target="_blank"} is being used. This
+certificate has a lifetime of 5 years and is rotated automatically. It is
+recommended to use Well known certificates, as this eases the access of a
+deployment in your browser.
+
+On the high port (18529), a **self-signed X509 certificate** is being used. This
+certificate has a lifetime of one year and it is automatically created by the
+ArangoGraph platform. It is also rotated automatically before the expiration
+date.
+
+When a private endpoint is being used, you can specify alternate DNS names,
+which are added to the self-signed certificate only as Subject Alternative
+Name (SAN).
+
+![ArangoGraph Create New Certificate](images/arangograph-new-certificate.png)
+
+Certificates that have the __Use well known certificate__ option enabled do
 not need any installation and will be supported by almost all web-browsers
 automatically.
 
-Each certificate you create in the ArangoGraph Insights Platform that has the
-__Use well known certificate__ option disabled, you will also need to install on
-your local machine. This operation will slightly vary between operating systems.
+When creating a certificate that has the __Use well known certificate__ option
+disabled, the certificate needs to be installed on
+your local machine as well. This operation slightly varies between operating
+systems.
 
 1. Click a project name in the __Projects__ section of the main navigation.
 2. Click the __Security__ tab.
