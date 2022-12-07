@@ -553,11 +553,12 @@ Useful hint
 </tr>
 <tr>
 <td>Include</td>
-<td><code>{% include hint-ee.md feature="SmartGraphs" plural=true %}</code></td>
-<td><blockquote>ℹ SmartGraphs are only available in the <a href="https://www.arangodb.com/enterprise-server/" target="_blank">Enterprise Edition</a>.</blockquote></td>
+<td><code>{% include hint-ee-arangograph.md feature="SmartGraphs" plural=true %}</code></td>
+<td><blockquote>ℹ SmartGraphs are only available in the <a href="https://www.arangodb.com/enterprise-server/" target="_blank">Enterprise Edition</a>, including the <a href="https://cloud.arangodb.com/home" target="_blank">ArangoGraph Insights Platform</a>.</blockquote></td>
 <td><pre><code>&lt;div class="alert alert-info" …&gt;
 SmartGraphs are only available in the
-&lt;a href="https://www.arangodb.com/enterprise-server/" target="_blank"&gt;Enterprise Edition&lt;/a&gt;.
+&lt;a href="https://www.arangodb.com/enterprise-server/" target="_blank"&gt;Enterprise Edition&lt;/a&gt;,
+including the &lt;a href="https://cloud.arangodb.com/home" target="_blank"&gt;ArangoGraph Insights Platform&lt;/a&gt;.
 &lt;/div&gt;</code></pre></td>
 </tr>
 <tr>
