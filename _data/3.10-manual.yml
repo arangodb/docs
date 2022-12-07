@@ -16,7 +16,7 @@
 - text: Getting Started
   href: quick-start-guide.html
   children:
-    - text: Data Modeling
+    - text: Data Model & Concepts
       href: data-model-and-concepts.html
       children:
         - text: Databases
@@ -69,24 +69,8 @@
     - text: On-premises installation
       href: quick-start-on-premises.html
     - text: Start using AQL
-      href: start-using-aql.html        
+      href: start-using-aql.html
 - subtitle: CORE TOPICS
-- text: Tutorials
-  href: tutorials.html
-  children:
-    - text: ArangoDB Starter
-      href: tutorials-starter.html
-    - text: Kubernetes
-      href: tutorials-kubernetes.html
-      children:
-        - text: Amazon EKS
-          href: tutorials-kubernetes-eks.html
-        - text: Google GKE
-          href: tutorials-kubernetes-gke.html
-        - text: Azure AKS
-          href: tutorials-kubernetes-aks.html
-    - text: DC2DC on Kubernetes
-      href: tutorials-kubernetes-dc2-dc.html
 - text: Programs & Tools
   href: programs.html
   children:
@@ -351,46 +335,7 @@
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html
-  children:
-    - text: Deployment Modes
-      href: architecture-deployment-modes.html
-      children:
-        - text: Single Instance
-          href: architecture-deployment-modes-single-instance.html
-          children: 
-            - text: Deploy using the ArangoDB Starter
-              href: deployment-single-instance-using-the-starter.html
-            - text: Manual Start
-              href: deployment-single-instance-manual-start.html  
-        - text: Active Failover
-          href: architecture-deployment-modes-active-failover.html
-          children:
-            - text: Deploy using the ArangoDB Starter
-              href: deployment-active-failover-using-the-starter.html
-            - text: Manual Start
-              href: deployment-active-failover-manual-start.html
-            - text: Administration
-              href: administration-active-failover.html  
-        - text: Cluster
-          href: architecture-deployment-modes-cluster-architecture.html
-          children:
-            - text: Deployment
-              href: deployment-cluster.html
-              children:
-                - text: Deploy using the ArangoDB Starter
-                  href: deployment-cluster-using-the-starter.html
-                - text: Manual Start
-                  href: deployment-cluster-manual-start.html
-                - text: Kubernetes
-                  href: deployment-cluster-kubernetes.html
-            - text: Administration
-              href: administration-cluster.html      
-            - text: Limitations
-              href: architecture-deployment-modes-cluster-limitations.html
-        - text: Single Instance vs. Cluster
-          href: architecture-single-instance-vs-cluster.html      
-        - text: Standalone Agency
-          href: deployment-standalone-agency.html    
+  children:    
     - text: Scalability
       href: architecture-deployment-modes-cluster-data-models.html
     - text: Data Sharding
@@ -401,6 +346,90 @@
       href: architecture-replication.html
     - text: Write-ahead log
       href: architecture-write-ahead-log.html
+- text: Deployment
+  href: architecture-deployment-modes.html
+  children:
+    - text: Single Instance
+      href: architecture-deployment-modes-single-instance.html
+      children: 
+        - text: Manual Start
+          href: deployment-single-instance-manual-start.html  
+        - text: Using the ArangoDB Starter
+          href: deployment-single-instance-using-the-starter.html
+    - text: Active Failover
+      href: architecture-deployment-modes-active-failover.html
+      children:
+        - text: Manual Start
+          href: deployment-active-failover-manual-start.html
+        - text: Using the ArangoDB Starter
+          href: deployment-active-failover-using-the-starter.html
+        - text: Administration
+          href: administration-active-failover.html  
+    - text: Cluster
+      href: architecture-deployment-modes-cluster-architecture.html
+      children:
+        - text: Deployment
+          href: deployment-cluster.html
+          children:
+            - text: Manual Start
+              href: deployment-cluster-manual-start.html
+            - text: Using the ArangoDB Starter
+              href: deployment-cluster-using-the-starter.html
+            - text: Kubernetes
+              href: deployment-cluster-kubernetes.html
+        - text: Administration
+          href: administration-cluster.html      
+        - text: Limitations
+          href: architecture-deployment-modes-cluster-limitations.html
+    - text: Single Instance vs. Cluster
+      href: architecture-single-instance-vs-cluster.html
+    - text: Standalone Agency
+      href: deployment-standalone-agency.html
+    - text: Kubernetes
+      href: deployment-kubernetes.html
+      children:
+        - text: Using the Operator
+          href: deployment-kubernetes-usage.html
+        - text: Dashboards
+          href: deployment-kubernetes-dashboards.html
+        - text: Deployment Resource Reference
+          href: deployment-kubernetes-deployment-resource.html
+        - text: Backup Resource
+          href: deployment-kubernetes-backup-resource.html
+        - text: BackupPolicy Resource
+          href: deployment-kubernetes-backup-policy-resource.html
+        - text: Driver Configuration
+          href: deployment-kubernetes-driver-configuration.html
+        - text: Helm
+          href: deployment-kubernetes-helm.html
+        - text: Authentication
+          href: deployment-kubernetes-authentication.html
+        - text: Scaling
+          href: deployment-kubernetes-scaling.html
+        - text: Draining Nodes
+          href: deployment-kubernetes-drain.html
+        - text: Upgrading
+          href: deployment-kubernetes-upgrading.html
+        - text: Configuration & Secrets
+          href: deployment-kubernetes-config-and-secrets.html
+        - text: Metrics
+          href: deployment-kubernetes-metrics.html
+        - text: Services & Load balancer
+          href: deployment-kubernetes-services-and-load-balancer.html
+        - text: Deployment Replication Resource Reference
+          href: deployment-kubernetes-deployment-replication-resource.html
+        - text: Storage
+          href: deployment-kubernetes-storage.html
+        - text: Storage Resource
+          href: deployment-kubernetes-storage-resource.html
+        - text: TLS
+          href: deployment-kubernetes-tls.html
+        - text: Troubleshooting
+          href: deployment-kubernetes-troubleshooting.html
+    - text: In the Cloud
+      href: deployment-cloud.html
+    - text: Production Checklist
+      href: deployment-production-checklist.html      
 - text: ArangoSync
   href: arangosync.html
   children:
@@ -547,77 +576,11 @@
           href: installation-compiling-jemalloc.html
 - text: Uninstallation
   href: uninstallation.html
-- text: Deployment
-  href: deployment.html
-  children:
-    - text: By Technology
-      href: deployment-technology.html
-      children:
-        - text: Manually
-          href: deployment-manually.html
-        - text: ArangoDB Starter
-          href: deployment-arango-dbstarter.html
-        - text: Docker
-          href: deployment-docker.html
-        - text: Kubernetes
-          href: deployment-kubernetes.html
-          children:
-            - text: Using the Operator
-              href: deployment-kubernetes-usage.html
-            - text: Dashboards
-              href: deployment-kubernetes-dashboards.html
-            - text: Deployment Resource Reference
-              href: deployment-kubernetes-deployment-resource.html
-            - text: Backup Resource
-              href: deployment-kubernetes-backup-resource.html
-            - text: BackupPolicy Resource
-              href: deployment-kubernetes-backup-policy-resource.html
-            - text: Driver Configuration
-              href: deployment-kubernetes-driver-configuration.html
-            - text: Helm
-              href: deployment-kubernetes-helm.html
-            - text: Authentication
-              href: deployment-kubernetes-authentication.html
-            - text: Scaling
-              href: deployment-kubernetes-scaling.html
-            - text: Draining Nodes
-              href: deployment-kubernetes-drain.html
-            - text: Upgrading
-              href: deployment-kubernetes-upgrading.html
-            - text: ArangoDB Configuration & Secrets
-              href: deployment-kubernetes-config-and-secrets.html
-            - text: Metrics
-              href: deployment-kubernetes-metrics.html
-            - text: Services & Load balancer
-              href: deployment-kubernetes-services-and-load-balancer.html
-            - text: Deployment Replication Resource Reference
-              href: deployment-kubernetes-deployment-replication-resource.html
-            - text: Storage
-              href: deployment-kubernetes-storage.html
-            - text: Storage Resource
-              href: deployment-kubernetes-storage-resource.html
-            - text: TLS
-              href: deployment-kubernetes-tls.html
-            - text: Troubleshooting
-              href: deployment-kubernetes-troubleshooting.html
-    - text: In the Cloud
-      href: deployment-cloud.html
-      children:
-        - text: AWS
-          href: deployment-cloud-aws.html
-        - text: Azure
-          href: deployment-cloud-azure.html
-    - text: Production Checklist
-      href: deployment-production-checklist.html
-    - text: Migrating Single Instance to Cluster
-      href: deployment-migrating-single-instance-cluster.html
 - text: Backup & Restore
   href: backup-restore.html
 - text: Upgrading
   href: upgrading.html
   children:
-    - text: General Upgrade Information
-      href: upgrading-general-info.html
     - text: Community to Enterprise Upgrade
       href: upgrading-community-to-enterprise.html
     - text: OS-specific Information
@@ -642,8 +605,6 @@
       href: upgrading-kubernetes.html
 - text: Downgrading
   href: downgrading.html
-- text: Scaling
-  href: scaling.html
 - text: Administration
   href: administration.html
   children:

@@ -356,7 +356,7 @@ cursor exists. It is advisable to **only** use this option on short-running
 queries **or** without exclusive locks.
 {% endhint %}
 
-When set to `false`, the query is executed right away in its entirety.
+If set to `false`, the query is executed right away in its entirety.
 In that case, the query results are either returned right away (if the result
 set is small enough), or stored on the arangod instance and can be accessed
 via the cursor API. 

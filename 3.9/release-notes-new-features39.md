@@ -80,16 +80,29 @@ new syntax.
 
 ### ArangoSearch column cache (Enterprise Edition)
 
-<small>Introduced in: v3.9.5</small>
+Views of the type `arangosearch` support new caching options.
 
-Views of the type `arangosearch` support three new options:
+<small>Introduced in: v3.9.5</small>
 
 - You can enable the new `cache` option for individual View links or fields
   to always cache field normalization values in memory. This can improve the
   performance of scoring and ranking queries.
+
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
+
+---
+
+<small>Introduced in: v3.9.6</small>
+
+- You can enable the new `primarySortCache` View property to always cache the
+  primary sort columns in memory. This can improve the performance of queries
+  that utilize the primary sort order.
+
+- You can enable the new `primaryKeyCache` View property to always cache the
+  primary key column in memory. This can improve the performance of queries
+  that return many documents.
 
 The cache size can be controlled with the new `--arangosearch.columns-cache-limit`
 startup option and monitored via the new `arangodb_search_columns_cache_size`
@@ -97,6 +110,9 @@ metric.
 
 [ArangoSearch caching](arangosearch-views.html) is only available in the
 Enterprise Edition.
+
+See [Optimizing View query performance](arangosearch-performance.html)
+for examples.
 
 UI
 --
@@ -450,6 +466,55 @@ data which would lead to the eviction of the hot data from the block cache.
 A new [AQL function](aql/functions-miscellaneous.html#shard_id) is available which allows you to 
 obtain the responsible shard for any document in a collection by specifying its shard keys.
 
+### Edge cache refilling (experimental)
+
+<small>Introduced in: v3.9.6</small>
+
+A new feature to automatically refill the in-memory edge cache is available.
+When edges are added, modified, or removed, these changes are tracked and a
+background thread tries to update the edge cache accordingly if the feature is
+enabled, by adding new, updating existing, or deleting and refilling cache
+entries.
+
+You can enable it for individual `INSERT`, `UPDATE`, `REPLACE`,  and `REMOVE`
+operations in AQL queries, for individual document API requests that insert,
+update, replace, or remove single or multiple edge documents, as well as enable
+it by default using the new `--rocksdb.auto-refill-index-caches-on-modify`
+startup option.
+
+The new `--rocksdb.auto-refill-index-caches-queue-capacity` startup option
+restricts how many edge cache entries the background thread can queue at most.
+This limits the memory usage for the case of the background thread being slower
+than other operations that invalidate edge cache entries.
+
+The background refilling is done on a best-effort basis and not guaranteed to
+succeed, for example, if there is no memory available for the cache subsystem,
+or during cache grow/shrink operations. A background thread is used so that
+foreground write operations are not slowed down by a lot. It may still cause
+additional I/O activity to look up data from the storage engine to repopulate
+the cache.
+
+In addition to refilling the edge cache, the cache can also automatically be
+seeded on server startup. Use the new `--rocksdb.auto-fill-index-caches-on-startup`
+startup option to enable this feature. It may cause additional CPU and I/O load.
+You can limit how many index filling operations can execute concurrently with the
+`--rocksdb.max-concurrent-index-fill-tasks` option. The lower this number, the
+lower the impact of the cache filling, but the longer it takes to complete.
+
+The following metrics are available:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_auto_refill_loaded_total` | Total number of queued items for in-memory index caches refilling.
+| `rocksdb_cache_auto_refill_dropped_total` | Total number of dropped items for in-memory index caches refilling.
+| `rocksdb_cache_full_index_refills_total` | Total number of in-memory index caches refill operations for entire indexes.
+
+This feature is experimental.
+
+Also see:
+- [Document HTTP API](http/document-working-with-documents.html)
+- [Edge cache refill options](#edge-cache-refill-options)
+
 Multi-dimensional Indexes (experimental)
 ----------------------------------------
 
@@ -618,6 +683,37 @@ The new `--arangosearch.columns-cache-limit` startup option lets you control how
 much memory (in bytes) the [ArangoSearch column cache](#arangosearch-column-cache-enterprise-edition)
 is allowed to use.
 
+### Cluster supervision options
+
+<small>Introduced in: v3.9.6</small>
+
+The following new options allow you to delay supervision actions for a
+configurable amount of time. This is desirable in case DB-Servers are restarted
+or fail and come back quickly because it gives the cluster a chance to get in
+sync and fully resilient without deploying additional shard replicas and thus
+without causing any data imbalance:
+
+- `--agency.supervision-delay-add-follower`:
+  The delay in supervision, before an AddFollower job is executed (in seconds).
+
+- `--agency.supervision-delay-failed-follower`:
+  The delay in supervision, before a FailedFollower job is executed (in seconds).
+
+### Edge cache refill options
+
+<small>Introduced in: v3.9.6</small>
+
+- `--rocksdb.auto-refill-index-caches-on-modify`: Whether to automatically
+  (re-)fill in-memory edge cache entries on insert/update/replace operations
+  by default. Default: `false`.
+- `--rocksdb.auto-refill-index-caches-queue-capacity`: How many changes can be
+  queued at most for automatically refilling the edge cache. Default: `131072`.
+- `--rocksdb.auto-fill-index-caches-on-startup`: Whether to automatically fill
+  the in-memory edge cache with entries on server startup. Default: `false`.
+- `--rocksdb.max-concurrent-index-fill-tasks`: The maximum number of index fill
+  tasks that can run concurrently on server startup. Default: the number of
+  cores divided by 8, but at least `1`.
+
 Overload control
 ----------------
 
@@ -730,6 +826,18 @@ set up as a leader and follower pair (without any kind of automatic
 failover) was deprecated and removed from the documentation.
 
 Recommended alternatives are the Active Failover deployment option and the OneShard feature in a cluster.
+
+### Traffic accounting metrics
+
+<small>Introduced in: v3.8.9, v3.9.6</small>
+
+The following metrics for traffic accounting were added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_client_user_connection_statistics_bytes_received` | Bytes received for requests, only user traffic. |
+| `arangodb_client_user_connection_statistics_bytes_sent` | Bytes sent for responses, only user traffic.
+| `arangodb_http1_connections_total` | Total number of HTTP/1.1 connections accepted. |
 
 Client tools
 ------------

@@ -170,6 +170,8 @@ Options for creating an index (`POST /_api/index`):
     top-level `searchField` option
   - `trackListPositions` (boolean, _optional_): default: the value of the
     top-level `trackListPositions` option
+  - `cache` (boolean, _optional_): default: the value of the top-level `cache`
+    option (introduced in v3.10.2, Enterprise Edition only)
   - `nested` (array, _optional_): Enterprise Edition only.
     The array elements can be a mix of strings and objects:
     - `name` (string, _required_): an attribute path. Passing a string instead
@@ -185,16 +187,24 @@ Options for creating an index (`POST /_api/index`):
       top-level `searchField` option
     - `nested` (array, _optional_): can be used recursively. See `nested` above
 - `searchField` (boolean, _optional_): default: `false`
+- `cache` (boolean, _optional_): default: `false`
+  (introduced in v3.10.2, Enterprise Edition only)
 - `storedValues` (array, _optional_): an array of objects:
   - `fields` (array, _required_): an array of strings
   - `compression` (string, _optional_): possible values: `"lz4"`, `"none"`.
     Default: `"lz"`
+  - `cache` (boolean, _optional_): default: `false`
+    (introduced in v3.10.2, Enterprise Edition only)
 - `primarySort` (object, _optional_)
   - `fields` (array, _required_): an array of objects:
     - `field` (string, _required_)
     - `direction` (string, _required_): possible values: `"asc"`, `"desc"`
   - `compression` (string, _optional_): possible values: `"lz4"`, `"none"`.
     Default: `"lz4"`
+  - `cache` (boolean, _optional_): default: `false`
+    (introduced in v3.10.2, Enterprise Edition only)
+- `primaryKeyCache` (boolean, _optional_): default: `false`
+  (introduced in v3.10.2, Enterprise Edition only)
 - `analyzer` (string, _optional_): default: `identity`
 - `features` (array, _optional_): an array of strings, possible values:
   `"frequency"`, `"norm"`, `"position"`, `"offset"`. Default: the features as
@@ -236,6 +246,8 @@ Index definition returned by index endpoints:
   - `searchField` (boolean): default: the value defined by the top-level
     `searchField` option
   - `trackListPositions` (boolean): default: omitted
+  - `cache` (boolean): default: omitted
+    (introduced in v3.10.2, Enterprise Edition only)
   - `nested` (array): default: omitted. Enterprise Edition only. An array of objects:
     - `name` (string)
     - `analyzer` (string), default: omitted
@@ -245,16 +257,22 @@ Index definition returned by index endpoints:
     - `searchField` (boolean): default: the value defined by the top-level
       `searchField` option
 - `searchField` (boolean): default: `false`
+- `cache` (boolean): default: omitted
+  (introduced in v3.10.2, Enterprise Edition only)
 - `storedValues` (array): default: `[]`. An array of objects:
   - `fields` (array): an array of strings
   - `compression` (string): possible values: `"lz4"`, `"none"`.
     Default: `"lz"`
+  - `cache` (boolean): default: omitted
+    (introduced in v3.10.2, Enterprise Edition only)
 - `primarySort` (object)
   - `fields` (array): default: `[]`. An array of objects:
     - `field` (string)
     - `direction` (string): possible values: `"asc"`, `"desc"`
   - `compression` (string): possible values: `"lz4"`, `"none"`.
     Default: `"lz4"`
+  - `cache` (boolean): default: omitted
+    (introduced in v3.10.2, Enterprise Edition only)
 - `analyzer` (string): default: `identity`
 - `features` (array): default: the features as defined by the Analyzer itself
 - `includeAllFields` (boolean): default: `false`
@@ -369,6 +387,31 @@ Enterprise Edition:
 - [`nearest_neighbors`](analyzers.html#nearest_neighbors) (experimental):
   It has two properties, `model_location` (string) and `top_k` (number, optional,
   default: `1`).
+
+#### Views API
+
+Views of the type `arangosearch` support new caching options in the
+Enterprise Edition.
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+- A `cache` option for individual View links or fields (boolean, default: `false`).
+- A `cache` option in the definition of a `storedValues` View property
+  (boolean, immutable, default: `false`).
+
+<small>Introduced in: v3.9.6, v3.10.2</small>
+
+- A `primarySortCache` View property (boolean, immutable, default: `false`).
+- A `primaryKeyCache` View property (boolean, immutable, default: `false`).
+
+The `POST /_api/view` endpoint accepts these new options for `arangosearch`
+Views, the `GET /_api/view/<view-name>/properties` endpoint may return these
+options, and you can change the `cache` View link/field property with the
+`PUT /_api/view/<view-name>/properties` and `PATCH /_api/view/<view-name>/properties`
+endpoints.
+
+See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
+for details.
 
 #### Collection truncation markers
 
@@ -514,6 +557,16 @@ metrics for `arangosearch` View links and inverted indexes:
 - `arangodb_search_num_out_of_sync_links`
 - `arangodb_search_num_segments`
 
+---
+
+<small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
+
+The metrics endpoints include the following new traffic accounting metrics:
+
+- `arangodb_client_user_connection_statistics_bytes_received`
+- `arangodb_client_user_connection_statistics_bytes_sent`
+- `arangodb_http1_connections_total`
+
 #### Pregel API
 
 When loading the graph data into memory, a `"loading"` state is now returned by
@@ -545,6 +598,16 @@ Both endpoints return a new `detail` attribute with additional Pregel run detail
 
 For a detailed description of the attributes, see
 [Pregel HTTP API](http/pregel.html#get-pregel-job-execution-status).
+
+#### Log level API
+
+<small>Introduced in: v3.10.2</small>
+
+The `GET /_admin/log/level` and `PUT /_admin/log/level` endpoints support a new
+query parameter `serverId`, to forward log level get and set requests to a
+specific server. This makes it easier to adjust the log levels in clusters
+because DB-Servers require JWT authentication whereas Coordinators also support
+authentication using usernames and passwords.
 
 ## JavaScript API
 

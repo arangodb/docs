@@ -11,7 +11,7 @@ incurring downtime of the _cluster_ and very short downtimes of the single nodes
 
 The manual upgrade procedure described in this _Section_ can be used to upgrade
 to a new hotfix, or to perform an upgrade to a new minor version of ArangoDB.
-Please refer to the [Upgrade Paths](upgrading-general-info.html#upgrade-paths) section
+Please refer to the [Upgrade Paths](upgrading.html#upgrade-paths) section
 for detailed information.
 
 Preparations

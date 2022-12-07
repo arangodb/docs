@@ -24,7 +24,7 @@ the Community package (can be done in a way that the database data are preserved
 and installation of the Enterprise package. The upgrade can be done in a
 [_logical_](#procedure-for-a-logical-upgrade) or 
 [_in-place_](#procedure-for-an-in-place-upgrade) way. Please refer to the
-[Upgrade Methods](upgrading-general-info.html#upgrade-methods) section for a general
+[Upgrade Methods](upgrading.html#upgrade-methods) section for a general
 description of the two methods. Refer to the sections below for a detailed
 procedure.
 
