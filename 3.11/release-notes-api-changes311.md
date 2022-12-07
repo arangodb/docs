@@ -26,6 +26,19 @@ If the graph is not a SmartGraph, the `satellites` property is ignored unless it
 value is an array but its elements are not strings, in which case the error 
 "Invalid parameter type" is returned.
 
+#### Document API
+
+The `refillIndexCaches` option supported by the following endpoints now includes
+in-memory hash caches of persistent indexes in addition to edge caches:
+
+- `POST /_api/document/{collection}`
+- `PATCH /_api/document/{collection}/{key}`
+- `PUT /_api/document/{collection}/{key}`
+- `DELETE /_api/document/{collection}/{key}`
+
+This also applies to the `INSERT`, `UPDATE`, `REPLACE`, and `REMOVE` operations
+in AQL queries, which support a `refillIndexCache` option, too.
+
 ### Privilege changes
 
 
