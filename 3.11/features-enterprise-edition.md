@@ -82,7 +82,7 @@ features outlined below. For additional information, see
   fastText word embedding models.
 {% endcomment %}
 
-- [**Skip inaccessible collections**](aql/invocation-with-arangosh.html#setting-options):
+- [**Skip inaccessible collections**](aql/invocation-with-arangosh.html#skipinaccessiblecollections):
   Let AQL queries like graph traversals pretend that collections are empty if
   the user has no access to them instead of failing the query.
 
