@@ -9,14 +9,17 @@ layout: default
 ---
 ## ArangoDB as a Graph Database
 
+{{< tag "ArangoDB Enterprise" "ArangoGraph" >}}
+
 ArangoDB as a graph database is a great fit for use cases like fraud detection,
 knowledge graphs, recommendation engines, identity and access management,
 network and IT operations, social media management, traffic management, and many
 more.
 
+
 ### Fraud Detection
 
-{{< icon src="/images/icon-fraud-detection.png" alt="Fraud Detection icon" style="float: right; padding: 0 20px; margin-bottom: 20px;">}}
+{{< icon src="/images/icon-fraud-detection.png" alt="Fraud Detection icon" style="float: right; padding: 0 20px; margin-bottom: 20px;" >}}
 
 Uncover illegal activities by discovering difficult-to-detect patterns.
 ArangoDB lets you look beyond individual data points in disparate data sources,
