@@ -5,7 +5,7 @@ weight: 900
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="Datacenter-to-Datacenter Replication" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 This chapter describes how to deploy all the components needed for
 _Datacenter-to-Datacenter Replication_.

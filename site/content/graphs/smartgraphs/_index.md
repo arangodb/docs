@@ -5,7 +5,7 @@ weight: 690
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="SmartGraphs" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 SmartGraphs are specifically targeted at graphs that need scalability and
 high performance. The way SmartGraphs use the ArangoDB cluster sharding makes it

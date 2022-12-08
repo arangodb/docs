@@ -5,7 +5,7 @@ weight: 1150
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="SatelliteCollections" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 When doing joins in an ArangoDB cluster data has to be exchanged between different servers.
 

@@ -5,7 +5,7 @@ weight: 210
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="LDAP authentication" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 ## Basics Concepts
 

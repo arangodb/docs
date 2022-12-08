@@ -7,7 +7,7 @@ description: >-
   Views with ArangoSearch, to highlight what was found in search results
 layout: default
 ---
-{{% enterprise-tag feature="Search highlighting" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 ArangoSearch lets you search for terms and phrases in full-text, and more.
 It only returns matching documents, however. With search highlighting, you can

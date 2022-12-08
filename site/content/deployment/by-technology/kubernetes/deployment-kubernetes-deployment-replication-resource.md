@@ -5,7 +5,7 @@ weight: 1325
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="Datacenter-to-Datacenter Replication" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 The ArangoDB Replication Operator creates and maintains ArangoDB
 `arangosync` configurations in a Kubernetes cluster, given a replication specification.

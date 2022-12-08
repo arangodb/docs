@@ -5,7 +5,7 @@ weight: 925
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="Datacenter-to-Datacenter Replication" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 This section includes information related to the synchronization process
 of the _Datacenter-to-Datacenter Replication_.

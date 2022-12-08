@@ -7,7 +7,7 @@ layout: default
 ---
 <small>Introduced in: v3.7.0</small>
 
-{{% enterprise-tag feature="SatelliteGraphs" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 ## What is a SatelliteGraph?
 

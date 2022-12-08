@@ -5,7 +5,7 @@ weight: 1530
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="Auditing" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 Unless otherwise noted, all events are logged to their respective topics at the
 `info` level. To suppress events from a given topic, set the topic to the `warn`

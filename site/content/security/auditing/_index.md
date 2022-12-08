@@ -5,7 +5,7 @@ weight: 1520
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="Auditing" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 Auditing allows you to monitor access to the database in detail. In general
 audit logs are of the form

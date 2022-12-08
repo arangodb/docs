@@ -39,7 +39,7 @@ In cluster mode, the collections need to be sharded in a specific way to ensure
 correct results: The outgoing edges of a vertex need to be on the same DB-Server
 as the vertex. This is guaranteed by [SmartGraphs](../../graphs/smartgraphs/).
 
-{{% enterprise-tag feature="SmartGraphs (and thus Pregel in cluster deployments)" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 Note that the performance may be better, if the number of your shards /
 collections matches the number of CPU cores.

@@ -5,7 +5,7 @@ weight: 1155
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="SmartJoins" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 SmartJoins allow to execute co-located join operations among identically
 sharded collections.

@@ -7,7 +7,7 @@ layout: default
 ---
 This is an introduction to ArangoDB's HTTP interface for hot backup and restore.
 
-{{% enterprise-tag feature="Hot Backup" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 
 

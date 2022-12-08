@@ -6,7 +6,7 @@ description: >-
   A detailed guide to deploying datacenter-to-datacenter replicated clusters
 layout: default
 ---
-{{% enterprise-tag feature="Datacenter-to-Datacenter Replication" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 This chapter introduces ArangoDB's _Datacenter-to-Datacenter Replication_ (DC2DC).
 

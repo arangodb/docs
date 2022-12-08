@@ -163,7 +163,7 @@ operation is aborted and an *HTTP 412* error is returned.
 
 <small>Introduced in: v3.10.0</small>
 
-{{% enterprise-tag feature="Reading from followers in cluster deployments" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 In an ArangoDB cluster, all reads and writes are performed via
 the shard leaders. Shard replicas replicate all operations, but are

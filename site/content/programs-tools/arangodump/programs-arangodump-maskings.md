@@ -543,7 +543,7 @@ processed by a single masking function, ignoring any other rules below it.
 
 ## Masking Functions
 
-{{% enterprise-tag feature="The following masking functions" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 - [Xify Front](#xify-front)
 - [Zip](#zip)

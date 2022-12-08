@@ -6,7 +6,7 @@ description: >-
   ArangoDB allows you to create EnterpriseGraphs at scale with automated sharding key selection 
 layout: default
 ---
-{{% enterprise-tag feature="Enterprise Graphs" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 This chapter describes the `enterprise-graph` module, a specialized version of
 [SmartGraphs](../smartgraphs/).

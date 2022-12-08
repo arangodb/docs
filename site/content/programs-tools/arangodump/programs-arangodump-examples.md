@@ -166,7 +166,7 @@ more details about restoring the collection.
 
 ## Encryption
 
-{{% enterprise-tag feature="Dump encryption" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 You can encrypt dumps using an encryption keyfile, which must contain exactly 32
 bytes of data (required by the AES block cipher).

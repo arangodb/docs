@@ -1261,7 +1261,7 @@ release: stable
 
 <small>Introduced in: v3.10.0</small>
 
-{{% enterprise-tag feature="The `minhash` Analyzer" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 An Analyzer that computes so called MinHash signatures using a
 locality-sensitive hash function. It applies an Analyzer of your choice before
@@ -1317,7 +1317,7 @@ release: stable
 
 <small>Introduced in: v3.10.0</small>
 
-{{% enterprise-tag feature="The `classification` Analyzer" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 {{% hints/warning %}}
 This feature is experimental and under active development.
@@ -1385,7 +1385,7 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 <small>Introduced in: v3.10.0</small>
 
-{{% enterprise-tag feature="The `nearest_neighbors` Analyzer" arangograph="false" %}}
+{{< tag "ArangoDB Enterprise" >}}
 
 {{% hints/warning %}}
 This feature is experimental and under active development.

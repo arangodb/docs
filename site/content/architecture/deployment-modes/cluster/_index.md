@@ -162,7 +162,7 @@ For further information, please refer to the
 
 ## OneShard
 
-{{% enterprise-tag feature="The OneShard option" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 A OneShard deployment offers a practicable solution that enables significant
 performance improvements by massively reducing cluster-internal communication

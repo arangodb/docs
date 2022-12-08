@@ -5,7 +5,7 @@ weight: 1515
 description: 
 layout: default
 ---
-{{% enterprise-tag feature="Encryption at Rest" arangograph="true" %}}
+{{< tag "ArangoDB Enterprise""ArangoGraph" >}}
 
 When you store sensitive data in your ArangoDB database, you want to protect
 that data under all circumstances. At runtime you will protect it with SSL
