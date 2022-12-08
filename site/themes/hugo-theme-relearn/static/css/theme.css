@@ -410,7 +410,7 @@ article ul li {
 }
 
 #breadcrumbs > ol {
-    margin: 5px 0px 0px 18px;
+    margin: 5px 0px 0px 0px;
 }
 
 .toc {
@@ -639,4 +639,56 @@ rapi-doc {
 
 ol > li {
     line-height: 1.7rem;
+}
+
+.home-link {
+    background: url(/images/home.svg) no-repeat 50% 45%;
+    background-size: 50%;
+    display: block;
+    height: 2.5rem;
+    padding: 0;
+    margin-top: 4px;
+    width: 3rem;
+}
+
+/* Hints */
+
+div.box {
+    border: 1px solid #c6ebfd;
+    border-radius: 7px;
+    margin-bottom: 30px;
+}
+
+div.box.info {
+    border-left: 5px solid #2dc8ed;
+    background: #f0fcff;
+}
+
+div.box.success {
+    border-left: 5px solid #a3ef53;
+    background: #efffeb;
+}
+
+div.box.warning {
+    border-left: 5px solid #e3b03a;
+    background: #fffff3;
+}
+
+div.box.danger {
+    border-left: 5px solid #fd5d1d;
+    background: #ffdede;
+}
+
+div > .box-content {
+    padding: 0px 30px 0px 34px;
+}
+
+div.box > .box-content > .box-text > p {
+    font-size: 0.9rem;
+    /* text-transform: uppercase; */
+    line-height: 1.5rem;
+    letter-spacing: 0.3px;
+    color: inherit;
+    letter-spacing: 0.6px;
+    font-weight: 100;
 }
