@@ -5,12 +5,14 @@
 <div class="tab-panel">
   <div class="tab-nav">
   {{- range $idx, $tab := $tabs }}
+    {{ if ne .name "" }}
     <button
       data-tab-item="{{ .name }}"
       data-tab-group="{{ $groupid }}"
       class="tab-nav-button {{ cond (eq $idx 0) "active" ""}}"
       onclick="switchTab('{{ $groupid }}','{{ .name }}')"
       ><span>{{ .name }}</span></button>
+    {{ end }}
   {{- end }}
   <span class="copy-to-clipboard-button" title="Copy to clipboard"><i class="fas fa-copy"></i></span>
   </div>
