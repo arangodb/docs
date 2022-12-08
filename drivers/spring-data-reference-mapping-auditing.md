@@ -8,7 +8,7 @@ Since version 3.0.0 Spring Data ArangoDB provides basic auditing functionality w
 
 To enable auditing you have to add the annotation `@EnableArangoAuditing` to your configuration class.
 
-```Java
+```java
 @Configuration
 @EnableArangoAuditing
 public class MyConfiguration implements ArangoConfiguration {
@@ -16,7 +16,7 @@ public class MyConfiguration implements ArangoConfiguration {
 
 We can now add fields to our model classes and annotate them with `@CreateDate`, `@CreatedBy`, `@LastModifiedDate` and `@LastModifiedBy` to store the auditing information. All annotation names should be self-explanatory.
 
-```Java
+```java
 @Document
 public class MyEntity {
 
@@ -39,7 +39,7 @@ The annotations `@CreateDate` and `@LastModifiedDate` are working with fields of
 
 For `@CreatedBy` and `@LastModifiedBy` we need to provide Spring Data the information of the current auditor (i.e. `User` in our case). We can do so by implementing the `AuditorAware` interface
 
-```Java
+```java
 public class AuditorProvider implements AuditorAware<User> {
   @Override
   public Optional<User> getCurrentAuditor() {
@@ -50,7 +50,7 @@ public class AuditorProvider implements AuditorAware<User> {
 
 and add the implementation as a bean to our Spring context.
 
-```Java
+```java
 @Configuration
 @EnableArangoAuditing(auditorAwareRef = "auditorProvider")
 public class MyConfiguration implements ArangoConfiguration {
@@ -65,7 +65,7 @@ public class MyConfiguration implements ArangoConfiguration {
 
 If you use a type in your `AuditorAware` implementation, which will be also persisted in your database and you only want to save a reference in your entity, just add the [@Ref annotation](spring-data-reference-mapping-reference.html) to the fields annotated with `@CreatedBy` and `@LastModifiedBy`. Keep in mind that you have to save the `User` in your database first to get a valid reference.
 
-```Java
+```java
 @Document
 public class MyEntity {
 

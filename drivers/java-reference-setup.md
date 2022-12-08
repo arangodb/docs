@@ -7,7 +7,7 @@ description: Driver setup
 Setup with default configuration, this automatically loads a properties file
 `arangodb.properties` if exists in the classpath:
 
-```Java
+```java
 // this instance is thread-safe
 ArangoDB arangoDB = new ArangoDB.Builder().build();
 ```
@@ -28,7 +28,7 @@ The driver is configured with some default values:
 
 To customize the configuration the parameters can be changed in the code...
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .host("192.168.182.50", 8888)
   .build();
@@ -36,7 +36,7 @@ ArangoDB arangoDB = new ArangoDB.Builder()
 
 ... or with a custom properties file (my.properties)
 
-```Java
+```java
 InputStream in = MyClass.class.getResourceAsStream("my.properties");
 ArangoDB arangoDB = new ArangoDB.Builder()
   .loadProperties(in)
@@ -59,7 +59,7 @@ set the configuration `useProtocol` to `Protocol.HTTP_JSON` for HTTP with JSON
 content or `Protocol.HTTP_VPACK` for HTTP with
 [VelocyPack](https://github.com/arangodb/velocypack/blob/master/VelocyPack.md){:target="_blank"} content.
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .useProtocol(Protocol.VST)
   .build();
@@ -68,7 +68,7 @@ ArangoDB arangoDB = new ArangoDB.Builder()
 In addition to set the configuration for HTTP you have to add the
 apache httpclient to your classpath.
 
-```XML
+```xml
 <dependency>
   <groupId>org.apache.httpcomponents</groupId>
   <artifactId>httpclient</artifactId>
@@ -84,7 +84,7 @@ apache httpclient to your classpath.
 To use SSL, you have to set the configuration `useSsl` to `true` and set a `SSLContext`
 (see [example code](https://github.com/arangodb/arangodb-java-driver/blob/master/src/test/java/com/arangodb/example/ssl/SslExample.java){:target="_blank"}).
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .useSsl(true)
   .sslContext(sc)
@@ -101,7 +101,7 @@ The driver supports connection pooling for VelocyStream with a default of 1 and
 HTTP with a default of 20 maximum connections per host. To change this value
 use the method `maxConnections(Integer)` in `ArangoDB.Builder`.
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .maxConnections(8)
   .build();
@@ -111,7 +111,7 @@ The driver does not explicitly release connections. To avoid exhaustion of
 resources when no connection is needed, you can clear the connection pool
 (close all connections to the server) or use [connection TTL](#connection-time-to-live).
 
-```Java
+```java
 arangoDB.shutdown();
 ```
 
@@ -151,7 +151,7 @@ The driver supports configuring multiple hosts. The first host is used to open a
 connection to. When this host is not reachable the next host from the list is used.
 To use this feature just call the method `host(String, int)` multiple times.
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .host("host1", 8529)
   .host("host2", 8529)
@@ -164,7 +164,7 @@ to be able to successfully open a connection to at least one host to get the
 list of hosts. Then it can use this list when fallback is needed. To use this
 feature just pass `true` to the method `acquireHostList(boolean)`.
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .acquireHostList(true)
   .build();
@@ -179,7 +179,7 @@ The first one is a round robin load balancing where the driver iterates
 through a list of known hosts and performs every request on a different
 host than the request before.
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .loadBalancingStrategy(LoadBalancingStrategy.ROUND_ROBIN)
   .build();
@@ -191,7 +191,7 @@ in the cluster. Do so only requires the manually configuration of only one host.
 Because this list is updated frequently it makes load balancing over the whole
 cluster very comfortable.
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .loadBalancingStrategy(LoadBalancingStrategy.ROUND_ROBIN)
   .acquireHostList(true)
@@ -207,7 +207,7 @@ be wanted that every sessions sticks with all its requests to the same host but
 not all sessions should use the same host. This load balancing strategy also
 works together with `acquireHostList`.
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .loadBalancingStrategy(LoadBalancingStrategy.ONE_RANDOM)
   .acquireHostList(true)
@@ -222,7 +222,7 @@ the following way:
   or not set at all, since that would be the default
 - `acquireHostList` should be set to `true`
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .loadBalancingStrategy(LoadBalancingStrategy.NONE)
   .acquireHostList(true)
@@ -234,7 +234,7 @@ ArangoDB arangoDB = new ArangoDB.Builder()
 Since version 4.4 the driver supports setting a TTL (time to life) in milliseconds
 for connections managed by the internal connection pool.
 
-```Java
+```java
 ArangoDB arango = new ArangoDB.Builder()
   .connectionTtl(5 * 60 * 1000)
   .build();
@@ -244,7 +244,7 @@ In this example all connections will be closed/reopened after 5 minutes.
 
 Connection TTL can be disabled setting it to `null`:
 
-```Java
+```java
 .connectionTtl(null)
 ```
 
@@ -262,7 +262,7 @@ operating system, ... ).
 This option can be set using the key `arangodb.connections.keepAlive.interval`
 in the properties file or programmatically from the driver builder:
 
-```Java
+```java
 ArangoDB arangoDB = new ArangoDB.Builder()
   .keepAliveInterval(1800) // 30 minutes
   .build();
