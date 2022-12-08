@@ -28,7 +28,15 @@ which manage the actual data of *c1* need to pull the data from the other collec
 This causes extra roundtrips via the Coordinator, which will then pull the data for *c2* 
 from the responsible shards:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2._key RETURN doc1");
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
     Query String:
      FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2._key RETURN doc1
@@ -68,8 +76,24 @@ refer to the other collection.
 
 Here is an example setup for this, using arangosh:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("c1", {numberOfShards: 4, shardKeys: ["_key"]});
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("c2", {shardKeys: ["_key"], distributeShardsLike: "c1"});
+{{% /tab %}}
+{{< /tabs >}}
 
 Now the collections *c1* and *c2* will not only have the same shard keys, but they
 will also locate their data for the same shard keys values on the same server.
@@ -78,7 +102,11 @@ Let's check how the data actually gets distributed now. We first confirm that th
 two collections have 4 shards each, which in this example are evenly distributed
 across two servers:
  
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db.c1.shards(true)
+{{% /tab %}}
+{{< /tabs >}}
     { 
       "s2011661" : [ 
         "PRMR-64d19f43-3aa0-4abb-81f6-4b9966d32175" 
@@ -94,7 +122,11 @@ across two servers:
       ] 
     }
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db.c2.shards(true)
+{{% /tab %}}
+{{< /tabs >}}
     { 
       "s2011666" : [ 
         "PRMR-64d19f43-3aa0-4abb-81f6-4b9966d32175" 
@@ -113,12 +145,28 @@ across two servers:
 Because we have told both collections that distribute their data alike, their
 shards will now also be populated alike:
     
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> for (i = 0; i < 100; ++i) { 
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
       db.c1.insert({ _key: "test" + i }); 
       db.c2.insert({ _key: "test" + i }); 
     }
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db.c1.count(true);
+{{% /tab %}}
+{{< /tabs >}}
     {
       "s2011664" : 22,
       "s2011661" : 21,
@@ -126,7 +174,11 @@ shards will now also be populated alike:
       "s2011662" : 30
     }
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db.c2.count(true);
+{{% /tab %}}
+{{< /tabs >}}
     {
       "s2011669" : 22,
       "s2011666" : 21,
@@ -150,7 +202,15 @@ that refers from the shard key of the one collection to the shard key of the oth
 and compares the two shard key values by equality is eligible for the query
 optimizer's "smart-joins" optimization:
 
-      arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2._key RETURN doc1");
+  {{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2._key RETURN doc1");
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
       Query String:
        FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2._key RETURN doc1
@@ -171,17 +231,61 @@ less cluster-internal traffic and a faster response time.
 SmartJoins will also work if the shard key of the second collection is not *_key*,
 and even for non-unique shard key values, e.g.:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("c1", {numberOfShards: 4, shardKeys: ["_key"]});
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("c2", {shardKeys: ["parent"], distributeShardsLike: "c1"});
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db.c2.ensureIndex({ type: "hash", fields: ["parent"] });
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> for (i = 0; i < 100; ++i) { 
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
       db.c1.insert({ _key: "test" + i }); 
       for (j = 0; j < 10; ++j) {
         db.c2.insert({ parent: "test" + i });
       }
     }
 
-    arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2.parent RETURN doc1");
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2.parent RETURN doc1")
+{{% /tab %}}
+{{< /tabs >}};
+{{% /tab %}}
+{{< /tabs >}}
     
     Query String:
      FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2.parent RETURN doc1
@@ -217,10 +321,46 @@ and then some other user-defined key component.
 
 The setup thus becomes:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("c1", {numberOfShards: 4, shardKeys: ["_key"]});
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("c2", {shardKeys: ["_key:"], smartJoinAttribute: "parent", distributeShardsLike: "c1"});
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db.c2.ensureIndex({ type: "hash", fields: ["parent"] });
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> for (i = 0; i < 100; ++i) { 
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
       db.c1.insert({ _key: "test" + i }); 
       db.c2.insert({ _key: "test" + i + ":" + "ownKey" + i, parent: "test" + i }); 
     }
@@ -230,15 +370,27 @@ to a document being rejected on insert, update or replace. Similarly, failure to
 prefix a document's *_key* attribute value with the value of the *smartJoinAttribute*
 will also lead to the document being rejected:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db.c2.insert({ parent: 123 });
+{{% /tab %}}
+{{< /tabs >}}
     JavaScript exception in file './js/client/modules/@arangodb/arangosh.js' at 99,7: ArangoError 4008: SmartJoin attribute not given or invalid
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db.c2.insert({ _key: "123:test1", parent: "124" });
+{{% /tab %}}
+{{< /tabs >}}
     JavaScript exception in file './js/client/modules/@arangodb/arangosh.js' at 99,7: ArangoError 4007: shard key value must be prefixed with the value of the SmartJoin attribute
 
 The join can now be performed via the collection's *smartJoinAttribute*:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2.parent RETURN doc1")
+{{% /tab %}}
+{{< /tabs >}}
 
     Query String:
      FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2.parent RETURN doc1
@@ -258,7 +410,11 @@ The join can now be performed via the collection's *smartJoinAttribute*:
 If a FILTER condition is used on one of the shard keys, the optimizer will also try
 to restrict the queries to just the required shards:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == 'test' && doc1._key == doc2.value RETURN doc1");
+{{% /tab %}}
+{{< /tabs >}}
 
     Query String:
      FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == 'test' && doc1._key == doc2.value 

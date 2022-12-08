@@ -39,7 +39,11 @@ starting arangod or arangosh with the appropriate options:
 To activate all these ES6 features in arangod or arangosh, start it with 
 the following options:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh --javascript.v8-options="--harmony --harmony_generators"
+{{% /tab %}}
+{{< /tabs >}}
 
 More details on the available ES6 features can be found in 
 [this blog](https://jsteemann.github.io/blog/2014/12/19/using-es6-features-in-arangodb/).

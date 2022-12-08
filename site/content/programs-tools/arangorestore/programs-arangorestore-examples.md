@@ -12,7 +12,11 @@ ArangoDB provides the _arangorestore_ tool.
 
 _arangorestore_ can be invoked from the command-line as follows:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 This will connect to an ArangoDB server (tcp://127.0.0.1:8529 by default), then restore the
 collection structure and the documents from the files found in the input directory *dump*.
@@ -85,12 +89,20 @@ arangorestore \
 
 To create the target database when restoring, use a command like this:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --server.username backup --server.database newdb --create-database true --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 In contrast to the above calls, when working with multiple databases using `--all-databases true`
 the parameter `--server.database mydb` must not be specified:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --server.username backup --all-databases true --create-database true --input-directory "dump-multiple"
+{{% /tab %}}
+{{< /tabs >}}
     
 _arangorestore_ will print out its progress while running, and will end with a line
 showing some aggregate statistics:
@@ -129,30 +141,50 @@ The following parameters are available to adjust this behavior:
 
 For example, to (re-)create all non-system collections and load document data into them, use:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --create-collection true --import-data true --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 This will drop potentially existing collections in the target database that are also present
 in the input directory.
 
 To include system collections too, use `--include-system-collections true`:
     
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --create-collection true --import-data true --include-system-collections true --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 To (re-)create all non-system collections without loading document data, use:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --create-collection true --import-data false --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 This will also drop existing collections in the target database that are also present in the
 input directory.
 
 To just load document data into existing non-system collections, use:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --create-collection false --import-data true --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 To restrict reloading to just specific collections, there is is the `--collection` option.
 It can be specified multiple times if required:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --collection myusers --collection myvalues --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 Collections will be processed in alphabetical order by _arangorestore_, with all document
 collections being processed before all [edge collections](../../appendix/appendix-glossary#edge-collection).
@@ -172,7 +204,11 @@ To restrict reloading to specific views, there is the `--view` option.
 Should you specify the `--collection` parameter views will not be restored _unless_ you explicitly
 specify them via the `--view` option.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --collection myusers --view myview --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 In the case of an `arangosearch` View you must make sure that the linked collections are either
 also restored or already present on the server.
@@ -191,7 +227,11 @@ collection into another (either on the same server or not). For example, to copy
 a collection *myvalues* in database *mydb* into a collection *mycopyvalues* in database *mycopy*,
 you can start with the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodump --collection myvalues --server.database mydb --output-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 This will create two files, `myvalues.structure.json` and `myvalues.data.json`, in the output 
 directory. To load data from the datafile into an existing collection *mycopyvalues* in database 
@@ -199,7 +239,11 @@ directory. To load data from the datafile into an existing collection *mycopyval
 
 After that, run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --collection mycopyvalues --server.database mycopy --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Enabling revision trees for older dumps
 
@@ -248,7 +292,11 @@ and `--replication-factor`. These options
 can be specified multiple times as well, in order to override the settings
 for dedicated collections, e.g.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --number-of-shards 2 --number-of-shards mycollection=3 --number-of-shards test=4
+{{% /tab %}}
+{{< /tabs >}}
 
 The above will restore all collections except "mycollection" and "test" with
 2 shards. "mycollection" will have 3 shards when restored, and "test" will
@@ -259,7 +307,11 @@ collections not overridden will be determined by looking into the
 
 The `--replication-factor` options works in the same way, e.g.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --replication-factor 2 --replication-factor mycollection=1
+{{% /tab %}}
+{{< /tabs >}}
 
 will set the replication factor to 2 for all collections but "mycollection", which will get a
 replication factor of just 1.
@@ -321,7 +373,11 @@ into account when restoring with _arangorestore_.
 collection whose shard distribution follows a collection which does
 not exist in the cluster and which was not dumped along:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangorestore --collection clonedCollection --server.database mydb --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
     ERROR got error from server: HTTP 500 (Internal Server Error): ArangoError 1486: must not have a distributeShardsLike attribute pointing to an unknown collection
     Processed 0 collection(s), read 0 byte(s) from datafiles, sent 0 batch(es)
@@ -329,7 +385,11 @@ not exist in the cluster and which was not dumped along:
 The collection can be restored by overriding the error message as
 follows:
 
-    arangorestore --collection clonedCollection --server.database mydb --input-directory "dump" --ignore-distribute-shards-like-errors
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangorestore --collection clonedCollection --server.database mydb --input-directory "dump"
+{{% /tab %}}
+{{< /tabs >}} --ignore-distribute-shards-like-errors
 
 ## Restore into an authenticationenabled ArangoDB
 

@@ -22,7 +22,11 @@ command-line options:
 For example, to connect to an ArangoDB server on IP *192.168.173.13* on port
 8530 with the user *foo* and using the database *test*, use:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh --server.endpoint tcp://192.168.173.13:8530 --server.username foo --server.database test --server.authentication true
+{{% /tab %}}
+{{< /tabs >}}
 
 _arangosh_ will then display a password prompt and try to connect to the 
 server after the password was entered.

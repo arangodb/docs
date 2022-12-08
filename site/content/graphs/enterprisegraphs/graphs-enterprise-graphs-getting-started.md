@@ -41,8 +41,16 @@ corresponding edge collection.
 The first step is to export the raw data of those
 collections using `arangoexport`:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoexport --type jsonl --collection  old_vertices --output-directory docOutput --overwrite true
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoexport --type jsonl --collection  old_edges --output-directory docOutput --overwrite true
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the `JSONL` format type is being used in the migration process
 as it is more flexible and can be used with larger datasets.
@@ -100,12 +108,20 @@ The empty collections that are now in the target ArangoDB cluster,
 have to be filled with data.
 All vertices can be imported without any change:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --collection old_vertices --file docOutput/old_vertices.jsonl
+{{% /tab %}}
+{{< /tabs >}}
 
 On the edges, EnterpriseGraphs disallow storing the `_key` value, so this attribute
 needs to be removed on import:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --collection old_edges --file docOutput/old_edges.jsonl --remove-attribute "_key"
+{{% /tab %}}
+{{< /tabs >}}
 
 After this step, the graph has been migrated.
 
@@ -116,7 +132,11 @@ assuming that you have renamed `old_vertices` to `vertices`.
 For the vertex data this change is not relevant, the `_id` values will adjust automatically,
 so you can import the data again, and just target the new collection name:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --collection vertices --file docOutput/old_vertices.jsonl
+{{% /tab %}}
+{{< /tabs >}}
 
 For the edges you need to apply more changes, as they need to be rewired.
 
@@ -135,7 +155,11 @@ This is helpful if your data is not exported by ArangoDB in the first place.
 
 Now that you have everything together, run the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --collection edges --file docOutput/old_edges.jsonl --remove-attribute "_key" --from-collection-prefix "vertices" --to-collection-prefix "vertices" --overwrite-collection-prefix true
+{{% /tab %}}
+{{< /tabs >}}
 
 After this step, the graph has been migrated and also changed to new collection names.
 
@@ -177,7 +201,7 @@ EnterpriseGraphs. To get started, follow the steps outlined below.
      {{% hints/tip %}}
      To define multiple relations, press the **Add relation** button.
      To remove a relation, press the **Remove relation** button.
-{{% /hints/tip %}}
+     {{% /hints/tip %}}
    - For **fromCollections**, insert a list of vertex collections
      that contain the start vertices of the relation.
    - For **toCollections**, insert a list of vertex collections that

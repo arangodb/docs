@@ -273,6 +273,6 @@ if __name__ == "__main__":
 		initBlocksFileLocations()
 		processFiles()
 		write_components_to_file()
-		migrate_media()
+		#migrate_media()
 	except Exception as ex:
 		print(traceback.format_exc())

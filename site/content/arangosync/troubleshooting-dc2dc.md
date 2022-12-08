@@ -76,8 +76,12 @@ This is what you must do in that case:
 
    {{< tabs >}}
 {{% tab name="bash" %}}
-```bash
+```bash{{< tabs >}}
+{{% tab name="bash" %}}
+
    arangosync stop sync ...
+{{% /tab %}}
+{{< /tabs >}}
    ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -86,8 +90,12 @@ This is what you must do in that case:
 
    {{< tabs >}}
 {{% tab name="bash" %}}
-```bash
+```bash{{< tabs >}}
+{{% tab name="bash" %}}
+
    arangosync abort sync ...
+{{% /tab %}}
+{{< /tabs >}}
    ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -98,8 +106,12 @@ This is what you must do in that case:
 2. Verify that synchronization has completely stopped using:
    {{< tabs >}}
 {{% tab name="bash" %}}
-```bash
+```bash{{< tabs >}}
+{{% tab name="bash" %}}
+
    arangosync get status ... -v
+{{% /tab %}}
+{{< /tabs >}}
    ```
 {{% /tab %}}
 {{< /tabs >}}

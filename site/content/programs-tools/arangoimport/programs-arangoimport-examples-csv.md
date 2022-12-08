@@ -70,7 +70,11 @@ Wayne,Brewer,null,false,
 
 The command line to execute the import is:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.csv" --type csv --collection "users"
+{{% /tab %}}
+{{< /tabs >}}
 
 The above data will be imported into 5 documents which will look as follows:
 
@@ -147,11 +151,19 @@ A common use case is to rename an `id` column from the input file into `_key` as
 it is expected by ArangoDB. To do this, specify the following translation when
 invoking arangoimport:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.csv" --type csv --translate "id=_key"
+{{% /tab %}}
+{{< /tabs >}}
 
 Other common cases are to rename columns in the input file to `_from` and `_to`:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.csv" --type csv --translate "from=_from" --translate "to=_to"
+{{% /tab %}}
+{{< /tabs >}}
 
 The `--translate` option can be specified multiple times. The source attribute name
 and the target attribute must be separated with a `=`.
@@ -165,11 +177,19 @@ a sharding attribute other than `_key`: In the cluster this configuration is
 not supported, because ArangoDB needs to guarantee the uniqueness of the `_key`
 attribute in **all** shards of the collection.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.csv" --type csv --remove-attribute "_key"
+{{% /tab %}}
+{{< /tabs >}}
 
 The same thing would apply if your data contains an `_id` attribute:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.csv" --type csv --remove-attribute "_id"
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Overriding data types per attribute
 
@@ -329,14 +349,22 @@ with the `--separator` argument.
 
 An example command line to execute the TSV import is:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.tsv" --type tsv --collection "users"
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Reading compressed input files
 
 *arangoimport* can transparently process gzip-compressed input files
 if they have a ".gz" file extension, e.g.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file data.csv.gz --type csv --collection "users"
+{{% /tab %}}
+{{< /tabs >}}
 
 For other input formats it is possible to decompress the input file using another
 program and piping its output into arangoimport, e.g.
@@ -359,7 +387,11 @@ interpreted as the data to import, without any attribute names.
 
 The `--headers-option` can be used as follows:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.csv" --type csv --headers-file "headers.csv"
+{{% /tab %}}
+{{< /tabs >}}
 
 If the option is used, it is necessary that the file specified via
 `--headers-file` contains one line with the attribute names in CSV/TSV format

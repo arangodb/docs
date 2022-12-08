@@ -74,7 +74,11 @@ inside *_from* and/or *_to*.
 
 *Example*
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --from-collection-prefix users --to-collection-prefix products ...
+{{% /tab %}}
+{{< /tabs >}}
 
 Importing the following document will then create an edge between *users/1234* and
 *products/4321*:

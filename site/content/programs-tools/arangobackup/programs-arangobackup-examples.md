@@ -178,7 +178,11 @@ The output will look like this:
 ```
 2019-07-30T08:10:10Z [17184] INFO [06792] {backup} Server version: 3.5.1
 2019-07-30T08:10:10Z [17184] INFO [a9597] {backup} Backup initiated, use 
-2019-07-30T08:10:10Z [17184] INFO [4c459] {backup}     arangobackup upload --status-id=114
+2019-07-30T08:10:10Z [17184] INFO [4c459] {backup} {{< tabs >}}
+{{% tab name="bash" %}}
+    arangobackup upload --status-id=114
+{{% /tab %}}
+{{< /tabs >}}
 2019-07-30T08:10:10Z [17184] INFO [5cd70] {backup}  to query progress.
 ```
 {{% /tab %}}
@@ -263,7 +267,11 @@ The output will look like this:
 ```
 2019-07-30T08:14:43Z [17621] INFO [06792] {backup} Server version: 3.5.1
 2019-07-30T08:14:43Z [17621] INFO [a9597] {backup} Backup initiated, use 
-2019-07-30T08:14:43Z [17621] INFO [4c459] {backup}     arangobackup download --status-id=250
+2019-07-30T08:14:43Z [17621] INFO [4c459] {backup} {{< tabs >}}
+{{% tab name="bash" %}}
+    arangobackup download --status-id=250
+{{% /tab %}}
+{{< /tabs >}}
 2019-07-30T08:14:43Z [17621] INFO [5cd70] {backup}  to query progress.
 ```
 {{% /tab %}}

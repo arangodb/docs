@@ -68,7 +68,11 @@ If you want to allow your _arangoimport_ instance to use more memory, increase
 the maximum file size by specifying the command-line option `--batch-size`.
 For example, to set the batch size to 32 MB, use the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.json" --type json --collection "users" --batch-size 33554432
+{{% /tab %}}
+{{< /tabs >}}
 
 _JSON Lines_ formatted data allows processing each line individually:
 
@@ -176,7 +180,11 @@ The conversion produces the following `outputFile.jsonl`:
 *arangoimport* can transparently process gzip-compressed input files
 if they have a ".gz" file extension, e.g.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "users.jsonl.gz" --type jsonl --collection "users"
+{{% /tab %}}
+{{< /tabs >}}
 
 For other input formats it is possible to decompress the input file using another
 program and piping its output into arangoimport, e.g.
@@ -204,7 +212,11 @@ To import these records, all you need to do is to put them into a file
 (with one line for each record to import), save it as `data.jsonl` and run
 the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --file "data.jsonl" --type jsonl --collection users
+{{% /tab %}}
+{{< /tabs >}}
 
 This will transfer the data to the server, import the records, and print a
 status summary.
@@ -214,7 +226,11 @@ option `--progress` can be added. This option will show the percentage of the
 input file that has been sent to the server. This will only be useful for big
 import files.
 
-    arangoimport --file "data.jsonl" --type jsonl --collection users --progress true
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangoimport --file "data.jsonl" --type jsonl --collection users
+{{% /tab %}}
+{{< /tabs >}} --progress true
 
 It is also possible to use the output of another command as an input for
 _arangoimport_. For example, the following shell command can be used to pipe
@@ -236,19 +252,31 @@ probably want to specify a database user and password as well. You can do so by
 using the options `--server.username` and `--server.password`. If you do not
 specify a password, you will be prompted for one.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --server.endpoint tcp://127.0.0.1:8529 --server.username root ...
+{{% /tab %}}
+{{< /tabs >}}
 
 Note that the collection (*users* in this case) must already exist or the import
 will fail. If you want to create a new collection with the import data, you need
 to specify the `--create-collection` option. It will create a document collection
 by default and not an edge collection.
 
-    arangoimport --file "data.jsonl" --type jsonl --collection users --create-collection true
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangoimport --file "data.jsonl" --type jsonl --collection users
+{{% /tab %}}
+{{< /tabs >}} --create-collection true
 
 To create an edge collection instead, use the `--create-collection-type` option
 and set it to *edge*:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --collection myedges --create-collection true --create-collection-type edge ...
+{{% /tab %}}
+{{< /tabs >}}
 
 When importing data into an existing collection it is often convenient to first
 remove all data from the collection and then start the import. This can be achieved
@@ -257,7 +285,11 @@ any existing data in the collection will be removed prior to the import. Note
 that any existing index definitions for the collection will be preserved even if
 `--overwrite` is set to true.
 
-    arangoimport --file "data.jsonl" --type jsonl --collection users --overwrite true
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangoimport --file "data.jsonl" --type jsonl --collection users
+{{% /tab %}}
+{{< /tabs >}} --overwrite true
 
 Data gets imported into the specified collection in the default database
 (*_system*). To specify a different database, use the `--server.database`
@@ -268,7 +300,11 @@ The tool also supports parallel imports, with multiple threads. Using multiple
 threads may provide a speedup, especially when using the RocksDB storage engine.
 To specify the number of parallel threads use the `--threads` option:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoimport --threads 4 --file "data.jsonl" --type jsonl --collection users
+{{% /tab %}}
+{{< /tabs >}}
 
 Using multiple threads may lead to a non-sequential import of the input
 data. Data that appears later in the input file may be imported earlier than data

@@ -83,7 +83,19 @@ docker volume create arangodb
 docker run -it --name=adb --rm -p 8528:8528 \
     -v arangodb:/data \
     -v /var/run/docker.sock:/var/run/docker.sock \
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodb/arangodb-starter \
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
     --starter.address=$IP \
     --starter.join=A,B,C
 ```
@@ -131,7 +143,19 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v $DOCKER_CERT_PATH:$DOCKER_CERT_PATH \
     -e DOCKER_TLS_VERIFY=1 \
     -e DOCKER_CERT_PATH=$DOCKER_CERT_PATH \
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodb/arangodb-starter \
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
     --starter.address=$IP \
     --starter.join=A,B,C
 ```
@@ -154,7 +178,19 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /path/to/cert:/root/.docker \
     -e DOCKER_TLS_VERIFY=1 \
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodb/arangodb-starter \
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
     --starter.address=$IP \
     --starter.join=A,B,C
 ```

@@ -34,14 +34,38 @@ to "satellite".
 
 Using arangosh:
 
-    arangosh> db._create("satellite", {"replicationFactor": "satellite"});
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangosh> db._create("satellite", {"replicationFactor": "satellite"})
+{{% /tab %}}
+{{< /tabs >}};
+{{% /tab %}}
+{{< /tabs >}}
 
 ## A full example
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> var explain = require("@arangodb/aql/explainer").explain
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("satellite", {"replicationFactor": "satellite"})
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("nonsatellite", {numberOfShards: 8})
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangosh> db._create("nonsatellite2", {numberOfShards: 8})
+{{% /tab %}}
+{{< /tabs >}}
 
 Let's analyse a normal join not involving SatelliteCollections:
 

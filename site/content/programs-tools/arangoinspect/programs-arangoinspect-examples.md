@@ -24,14 +24,22 @@ Point the tool to an ArangoDB endpoint. In case of a single server, there
 is only one. You can connect to any node in case of a cluster (_DB-Server_,
 _Coordinator_, _Agent_).
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoinspect --server.endpoint tcp://127.0.0.1:8529
+{{% /tab %}}
+{{< /tabs >}}
 
 This will start the tool with a prompt for the JWT secret and try to connect
 to the specified ArangoDB server. You have to type the secret as is used for
 the `arangod` option `--server.jwt-secret`. For non-cluster deployments,
 you may authenticate with a user name and password instead:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangoinspect --server.ask-jwt-secret false --server.username "root" --server.password "foobar"
+{{% /tab %}}
+{{< /tabs >}}
 
 The password can be omitted and entered interactively.
 

@@ -53,8 +53,12 @@ arangod --server.endpoint tcp://0.0.0.0:5001 \
   --agency.supervision true \
   --agency.supervision-grace-period 30 \
   --database.directory agent1 &
+{{< tabs >}}
+{{% tab name="bash" %}}
    
 arangod --server.endpoint tcp://0.0.0.0:5002 \
+{{% /tab %}}
+{{< /tabs >}}
   --agency.my-address=tcp://127.0.0.1:5002 \
   --server.authentication false \
   --agency.activate true \

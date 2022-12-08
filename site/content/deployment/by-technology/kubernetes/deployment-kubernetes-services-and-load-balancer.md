@@ -105,7 +105,15 @@ metadata:
   name: arangodb-cluster-exposed
 spec:
   selector:
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arango_deployment: arangodb-cluster
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
     role: coordinator
   type: LoadBalancer
   loadBalancerIP: 1.2.3.4
@@ -129,7 +137,15 @@ metadata:
   name: arangodb-cluster-exposed
 spec:
   selector:
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arango_deployment: arangodb-cluster
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
     role: coordinator
   type: NodePort
   ports:

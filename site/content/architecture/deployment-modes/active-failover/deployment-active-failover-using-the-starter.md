@@ -95,7 +95,19 @@ docker volume create arangodb
 docker run -it --name=adb --rm -p 8528:8528 \
     -v arangodb:/data \
     -v /var/run/docker.sock:/var/run/docker.sock \
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodb/arangodb-starter \
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
     --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \
@@ -153,7 +165,19 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v arangodb:/data \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /path/to/certificate:/path/to/certificate
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodb/arangodb-starter \
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
     --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \
@@ -178,7 +202,19 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /path/to/cert:/root/.docker \
     -e DOCKER_TLS_VERIFY=1 \
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodb/arangodb-starter \
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
     --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \

@@ -7,7 +7,11 @@ layout: default
 ---
 _arangodump_ can be invoked in a command line by executing the following command:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodump --output-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 This will connect to an ArangoDB server and dump all non-system collections from
 the default database (*_system*) into an output directory named *dump*.
@@ -16,7 +20,11 @@ an intentional security measure to prevent you from accidentally overwriting alr
 dumped data. If you are positive that you want to overwrite data in the output
 directory, you can use the parameter *--overwrite true* to confirm this:
 
-    arangodump --output-directory "dump" --overwrite true
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangodump --output-directory "dump"
+{{% /tab %}}
+{{< /tabs >}} --overwrite true
 
 _arangodump_ will by default connect to the *_system* database using the default
 endpoint. To override the endpoint, or specify a different user, use one of the
@@ -99,12 +107,20 @@ arguments:
 For example, to only dump structural information of all collections (including system
 collections), use:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodump --dump-data false --include-system-collections true --output-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 To restrict the dump to just specific collections, there is is the *--collection* option.
 It can be specified multiple times if required:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodump --collection myusers --collection myvalues --output-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
 Structural information for a collection will be saved in files with name pattern
 `<collection-name>.structure.json`. Each structure file will contains a JSON object
@@ -142,21 +158,33 @@ identical to an existing prototypical collection; i.e. shards are distributed in
 the very same pattern as in the prototype collection. Such collections cannot be
 dumped without the referenced collection or arangodump yields an error.
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodump --collection clonedCollection --output-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
     ERROR Collection clonedCollection's shard distribution is based on a that of collection prototypeCollection, which is not dumped along. You may dump the collection regardless of the missing prototype collection by using the --ignore-distribute-shards-like-errors parameter.
 
 There are two ways to approach that problem.
 Dump the prototype collection as well:
 
+{{< tabs >}}
+{{% tab name="bash" %}}
     arangodump --collection clonedCollection --collection prototypeCollection --output-directory "dump"
+{{% /tab %}}
+{{< /tabs >}}
 
     Processed 2 collection(s), wrote 81920 byte(s) into datafiles, sent 1 batch(es)
 
 Or override that behavior to be able to dump the collection in isolation
 individually:
 
-    arangodump --collection clonedCollection --output-directory "dump" --ignore-distribute-shards-like-errors
+{{< tabs >}}
+{{% tab name="bash" %}}
+    arangodump --collection clonedCollection --output-directory "dump"
+{{% /tab %}}
+{{< /tabs >}} --ignore-distribute-shards-like-errors
 
     Processed 1 collection(s), wrote 34217 byte(s) into datafiles, sent 1 batch(es)
 

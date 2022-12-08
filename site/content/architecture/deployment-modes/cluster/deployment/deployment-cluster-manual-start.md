@@ -53,8 +53,12 @@ arangod --server.endpoint tcp://0.0.0.0:5001 \
   --agency.endpoint tcp://127.0.0.1:5001 \
   --agency.supervision true \
   --database.directory agent1 &
+{{< tabs >}}
+{{% tab name="bash" %}}
    
 arangod --server.endpoint tcp://0.0.0.0:5002 \
+{{% /tab %}}
+{{< /tabs >}}
   --agency.my-address=tcp://127.0.0.1:5002 \
   --server.authentication false \
   --agency.activate true \
@@ -366,9 +370,13 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory dbserver &
+  --database.directory dbserver &{{< tabs >}}
+{{% tab name="bash" %}}
+
   
 arangod --server.authentication=false \
+{{% /tab %}}
+{{< /tabs >}}
   --server.endpoint tcp://0.0.0.0:8529 \
   --cluster.my-address tcp://192.168.1.4:8529 \
   --cluster.my-role COORDINATOR \

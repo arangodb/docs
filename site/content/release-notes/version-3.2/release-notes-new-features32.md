@@ -93,9 +93,13 @@ layout: default
 
 ## Client tools
 
-* added data export tool, arangoexport.
+* added data export tool, arangoexport.{{< tabs >}}
+{{% tab name="bash" %}}
+
 
   arangoexport can be used to export collections to json, jsonl or xml
+{{% /tab %}}
+{{< /tabs >}}
   and export a graph or collections to xgmml.
 
 * added "jsonl" as input file type for arangoimp
@@ -107,7 +111,11 @@ layout: default
   to be executed). The following example renames the "id" column from the input
   file to "_key", and the "from" column to "_from", and the "to" column to "_to":
 
-      arangoimp --type csv --file data.csv --translate "id=_key" --translate "from=_from" --translate "to=_to"
+  {{< tabs >}}
+{{% tab name="bash" %}}
+    arangoimp --type csv --file data.csv --translate "id=_key" --translate "from=_from" --translate "to=_to"
+{{% /tab %}}
+{{< /tabs >}}
 
   `--translate` works for CSV and TSV inputs only.
 
