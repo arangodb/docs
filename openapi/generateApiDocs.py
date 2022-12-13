@@ -31,6 +31,11 @@ apiDocsRes = {
 			"name": "Apache License, Version 2.0"
 		}
 	},
+    "servers": [
+        {
+            "url": "/_db/_system/"
+        }
+    ],
 	"components": {
 		"schemas": {}
 	},
