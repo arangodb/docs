@@ -12,7 +12,7 @@ An _Active Failover_ is defined as:
 - At least one _Agency_ acting as a "witness" to determine which server becomes the _leader_
   in a _failure_ situation
 
-Active Failover behaves different from an [ArangoDB Cluster](architecture-deployment-modes-cluster-architecture.html), please see [limitations section](#limitations) for details.
+Active Failover behaves differently from an [ArangoDB Cluster](architecture-deployment-modes-cluster-architecture.html), please see [limitations section](#limitations) for details.
 
 
 ![ArangoDB Active Failover](images/leader-follower.png)
