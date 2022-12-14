@@ -12,8 +12,7 @@ An _Active Failover_ is defined as:
 - At least one _Agency_ acting as a "witness" to determine which server becomes the _leader_
   in a _failure_ situation
 
-Active Failover behaves differently from an [ArangoDB Cluster](architecture-deployment-modes-cluster-architecture.html), please see [limitations section](#limitations) for details.
-
+An _Active Failover_ behaves differently from an [ArangoDB Cluster](architecture-deployment-modes-cluster-architecture.html), please see the [limitations section](#limitations) for more details.
 
 ![ArangoDB Active Failover](images/leader-follower.png)
 
@@ -110,11 +109,11 @@ You can also deploy an *Active Failover* environment [manually](deployment-activ
 
 The _Active Failover_ setup in ArangoDB has a few limitations.
 
-- In contrast to [the ArangoDB Cluster](architecture-deployment-modes-cluster-architecture.html): 
+- In contrast to the [ArangoDB Cluster](architecture-deployment-modes-cluster-architecture.html): 
   - Active Failover has only asynchronous replication, and hence **no guarantee** on how many database operations may have been lost during a failover.
-  - Active Failover has no global state and hence a failover to a bad follower (see example above), will override all other followers with with that state (including the previous leader, which might have more up to date data). In contrast in a Cluster setup a global state is provided by the agency and hence ArangoDB is aware of the latest state.
+  - Active Failover has no global state and hence a failover to a bad follower (see example above), overrides all other followers with that state (including the previous leader, which might have more up-to-date data). In a Cluster setup, a global state is provided by the agency and hence ArangoDB is aware of the latest state.
 - Should you add more than one _follower_, be aware that during a _failover_ situation
-  the failover attempts to pick the most up to date follower as the new leader on a **best-effort** basis. 
+  the failover attempts to pick the most up-to-date follower as the new leader on a **best-effort** basis. 
 - Should you be using the [ArangoDB Starter](programs-starter.html) 
   or the [Kubernetes Operator](deployment-kubernetes.html) to manage your Active-Failover
   deployment, be aware that upgrading might trigger an unintentional failover between machines.
