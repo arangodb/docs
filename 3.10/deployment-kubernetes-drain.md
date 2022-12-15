@@ -109,7 +109,7 @@ POST /_admin/cluster/health
 
 … which returns a JSON document looking like this:
 
-```JSON
+```json
 {
   "Health": {
     "CRDN-rxtu5pku": {
@@ -176,7 +176,7 @@ POST /_db/_system/_api/replication/clusterInventory
 
 … which returns a JSON body like this:
 
-```JSON
+```json
 {
   "collections": [
     {
@@ -310,7 +310,7 @@ POST /_admin/cluster/cleanOutServer
 
 … and send as body a JSON document like this:
 
-```JSON
+```json
 {"server":"DBServer0006"}
 ```
 
@@ -330,7 +330,7 @@ the internal name of the _DB-Server_ is `PRMR-wbsq47rz`. Note that `PRMR`
 must be all capitals since pod names are always all lower case. So, we
 could use the body:
 
-```JSON
+```json
 {"server":"PRMR-wbsq47rz"}
 ```
 
@@ -342,7 +342,7 @@ curl -k https://arangodb.9hoeffer.de:8529/_admin/cluster/cleanOutServer --user r
 
 The API call will return immediately with a body like this:
 
-```JSON
+```json
 {"error":false,"id":"38029195","code":202}
 ```
 
@@ -355,7 +355,7 @@ GET /_admin/cluster/queryAgencyJob?id=38029195
 
 … which will return a body like this:
 
-```JSON
+```json
 {
   "error": false,
   "id": "38029195",
@@ -381,7 +381,7 @@ curl -k https://arangodb.9hoeffer.de:8529/_admin/cluster/queryAgencyJob?id=38029
 It indicates that the job is still ongoing (`"Pending"`). As soon as
 the job has completed, the answer will be:
 
-```JSON
+```json
 {
   "error": false,
   "id": "38029195",

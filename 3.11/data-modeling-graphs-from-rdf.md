@@ -1,10 +1,15 @@
 ---
 layout: default 
-description: This document serves as a guide to getting started with RDF and ArangoDB. In it, we highlight some potential approaches for working with RDF graphs and then some of the considerations when attempting to bring RDF data into ArangoDB.
+description: >-
+  An overview over how sets of triples, each consisting of a subject, a
+  predicate, and an object, can be mapped to ArangoDB's property graph model
 title: Mapping RDF data to ArangoDB Graphs
 ---
 Mapping RDF data to ArangoDB Graphs
 ====================================
+
+{{ page.description }}
+{:class="lead"}
 
 This document serves as a guide to getting started with 
 [RDF](https://www.w3.org/TR/rdf11-concepts/){:target="_blank"} and ArangoDB. In it 
@@ -31,7 +36,7 @@ RDF graph or to instead represent RDF statements as properties associated
 with a `subject.` For this discussion, it is helpful to have an example; the
 following is a simple RDF graph for Sir Arthur Conan Doyle.
 
-```XML
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -51,7 +56,7 @@ This syntax can be considered the original/standard RDF syntax. However, many
 different serializations exist, and thanks to their readability and ease of
 parsing, has grown in popularity. 
 
-```Turtle
+```turtle
 <http://dbpedia.org/resource/Arthur_Conan_Doyle> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Thing> .
 <http://dbpedia.org/resource/Arthur_Conan_Doyle> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Person> .
 <http://dbpedia.org/resource/Arthur_Conan_Doyle> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Artist> .
@@ -135,7 +140,7 @@ all of the serializations but it is a step that may effect how data is imported.
 ### Ontology, Taxonomy, Class Inheritance, and RDFS
 
 The final consideration is something that for many is the core of RDF and 
-semantic data: *[Ontologies](https://www.w3.org/standards/semanticweb/ontology){:target="_blank"}*.
+semantic data: [Ontologies](https://www.w3.org/standards/semanticweb/ontology){:target="_blank"}.
 Not just ontologies but also class inheritance, and schema validation. One method 
 would be add the ontology in a similar way to what has been suggested for the 
 RDF graphs as ontologies are usually structured in the same way (or can be). 
@@ -167,7 +172,7 @@ option for all organizations.
 
 The benefits of Foxx are the flexibility to program the precise needs of an
 organization and with the potential for high performance. The service would be
-located close to the data and has c++ access as a first class citizen. This has
+located close to the data and has C++ access as a first class citizen. This has
 the potential to reduce any negative performance impact that might normally come
 with abstracting away this functionality.
 
