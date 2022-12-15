@@ -109,6 +109,12 @@ certificate has a lifetime of one year and it is automatically created by the
 ArangoGraph platform. It is also rotated automatically before the expiration
 date.
 
+{% hint 'info' %}
+Unless you switch off the **Use well known certificate** option in the
+certificate generation, both the default and high port serve the same
+self-signed certificate.
+{% endhint %}
+
 When a private endpoint is being used, you can specify alternate DNS names,
 which are added to the self-signed certificate only as Subject Alternative
 Name (SAN).
