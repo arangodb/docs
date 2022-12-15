@@ -18,7 +18,7 @@ The minimum required Java version is 1.8+ (since driver version 6.x.x).
 To add the driver to your project with maven, add the following code to your
 pom.xml (substitute `x.x.x` with the latest driver version):
 
-```XML
+```xml
 <dependencies>
   <dependency>
     <groupId>com.arangodb</groupId>

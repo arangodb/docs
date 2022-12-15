@@ -21,7 +21,7 @@ If you - for some reason - need the value of `_id` within your application, you 
 
 **Examples**
 
-```Java
+```java
 public class Customer {
   @Id private String id;
 }

@@ -14,7 +14,7 @@ supporting the Streaming, Data Binding and Tree Model API styles.
 
 To add it to your maven project, add the following to `pom.xml`:
 
-```XML
+```xml
 <dependencies>
     <dependency>
         <groupId>com.arangodb</groupId>
@@ -32,7 +32,7 @@ to ensure dependency convergence across the entire project, for example in case
 there are in your project other libraries depending on different versions of
 the same Jackson packages.
 
-```XML
+```xml
 <dependencyManagement>
     <dependencies>
         <dependency>
@@ -54,7 +54,7 @@ Create an instance of `ArangoJack`, optionally configure the underlying
 `ObjectMapper` and pass it to the driver through
 `ArangoDB.Builder.serializer(ArangoSerialization)`:
 
-```Java
+```java
 ArangoJack arangoJack = new ArangoJack();
 arangoJack.configure((mapper) -> {
     // your configuration here
@@ -83,7 +83,7 @@ For more advanced customizations refer to [Custom serializer](#custom-serializer
 To use a different serialized name for a field, use the annotation
 `@JsonProperty`.
 
-```Java
+```java
 public class MyObject {
 
     @JsonProperty("title")
@@ -97,7 +97,7 @@ public class MyObject {
 
 To ignore fields use the annotation `@JsonIgnore`.
 
-```Java
+```java
 public class Value {
     @JsonIgnore
     public int internalValue;
@@ -111,7 +111,7 @@ Streaming API or the Tree Model API, creating and registering respectively
 `JsonSerializer<T>` and `JsonDeserializer<T>`, as specified by the Jackson API
 for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers){:target="_blank"}.
 
-```Java
+```java
 static class PersonSerializer extends JsonSerializer<Person> {
     @Override
     public void serialize(Person value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -203,7 +203,7 @@ Support for Joda data types, such as DateTime, is offered by
 To map Arango metadata fields (like `_id`, `_key`, `_rev`, `_from`, `_to`) in
 your entities, use the annotation `DocumentField`.
 
-```Java
+```java
 public class MyObject {
 
   @DocumentField(Type.KEY)
@@ -219,12 +219,12 @@ To de-/serialize from and to VelocyPack before or after a database call, use the
 `ArangoUtil` from the method `util()` in `ArangoDB`, `ArangoDatabase`,
 `ArangoCollection`, `ArangoGraph`, `ArangoEdgeCollection`or `ArangoVertexCollection`.
 
-```Java
+```java
 ArangoDB arangoDB=new ArangoDB.Builder();
         VPackSlice vpack=arangoDB.util(CUSTOM).serialize(myObj);
 ```
 
-```Java
+```java
 ArangoDB arangoDB=new ArangoDB.Builder();
         MyObject myObj=arangoDB.util(CUSTOM).deserialize(vpack,MyObject.class);
 ```
