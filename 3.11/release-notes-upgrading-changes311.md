@@ -44,6 +44,11 @@ version of ArangoDB. Setting the option to anything but the value of
 From v3.11.0 onwards, this option is deprecated, and setting it to a value
 different than the value of `--agency.size` leads to a startup error.
 
+### Pregel options
+
+The `asyinc` option used in algorithms which support an asynchronous mode
+to run without synchronized global iterations has been removed.
+
 ## Client tools
 
 ### arangoexport
