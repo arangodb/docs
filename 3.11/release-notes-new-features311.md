@@ -23,6 +23,14 @@ RETURN DATE_ISOWEEKYEAR("2023-01-01") // { "week": 52, "year": 2022 }
 
 See [AQL Date functions](aql/functions-date.html#date_isoweekyear) for details.
 
+### Index cache refilling
+
+The [edge cache refilling](release-notes-new-features310.html#edge-cache-refilling-experimental)
+feature introduced in v3.9.6 and v3.10.2 is no longer experimental. From v3.11.0
+onward, it is called _**index** cache refilling_ and not limited to edge caches
+anymore, but also supports in-memory hash caches of persistent indexes
+(persistent indexes with the `cacheEnabled` option set to `true`).
+
 Server options
 --------------
 
