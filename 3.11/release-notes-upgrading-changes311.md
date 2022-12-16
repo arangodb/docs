@@ -46,8 +46,8 @@ different than the value of `--agency.size` leads to a startup error.
 
 ### Pregel options
 
-The `asyinc` option used in algorithms which support an asynchronous mode
-to run without synchronized global iterations has been removed.
+The `async` option has been removed. Some algorithms supported an asynchronous mode
+to run without synchronized global iterations. This is no longer supported.
 
 ## Client tools
 
