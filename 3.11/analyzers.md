@@ -469,8 +469,8 @@ attributes:
     token even if its length is less than *min* or greater than *max*
 - `stopwords` (array, _optional_): an array of strings with words to omit
   from result. Default: load words from `stopwordsPath`. To disable stop-word
-  filtering provide an empty array `[]`. If both *stopwords* and
-  *stopwordsPath* are provided then both word sources are combined.
+  filtering provide an empty array `[]`. If both `stopwords` and
+  `stopwordsPath` are provided then both word sources are combined.
 - `stopwordsPath` (string, _optional_): path with a *language* sub-directory
   (e.g. `en` for a locale `en_US`) containing files with words to omit.
   Each word has to be on a separate line. Everything after the first whitespace
@@ -481,9 +481,9 @@ attributes:
   `IRESEARCH_TEXT_STOPWORD_PATH` is used to determine the path, or if it is
   undefined then the current working directory is assumed. If the `stopwords`
   attribute is provided then no stop-words are loaded from files, unless an
-  explicit *stopwordsPath* is also provided.
+  explicit `stopwordsPat` is also provided.
 
-  Note that if the *stopwordsPath* can not be accessed, is missing language
+  Note that if the `stopwordsPath` can not be accessed, is missing language
   sub-directories or has no files for a language required by an Analyzer,
   then the creation of a new Analyzer is refused. If such an issue is 
   discovered for an existing Analyzer during startup then the server will
@@ -851,8 +851,8 @@ An Analyzer capable of removing specified tokens from the input.
 
 It uses binary comparison to determine if an input token should be discarded.
 It checks for exact matches. If the input contains only a substring that
-matches one of the defined stopwords, then it is not discarded. Longer inputs
-such as prefixes of stopwords are also not discarded.
+matches one of the defined stop words, then it is not discarded. Longer inputs
+such as prefixes of stop words are also not discarded.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -879,11 +879,11 @@ attributes:
 
 **Examples**
 
-Create and use a stopword Analyzer that removes the tokens `and` and `the`.
-The stopword array with hex-encoded strings for this looks like
+Create and use a `stopword` Analyzer that removes the tokens `and` and `the`.
+The stop word array with hex-encoded strings for this looks like
 `["616e64","746865"]` (`a` = 0x61, `n` = 0x6e, `d` = 0x64 and so on).
 Note that `a` and `theater` are not removed, because there is no exact match
-with either of the stopwords `and` and `the`:
+with either of the stop words `and` and `the`:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerStopwords
@@ -1350,24 +1350,24 @@ convenience and backward compatibility. They can not be removed.
 
 The `identity` Analyzer has no properties and the `frequency` and `norm`
 features. The Analyzers of type `text` all tokenize strings with stemming
-enabled, no stopwords configured, accent removal and case conversion to
+enabled, no stop words configured, accent removal and case conversion to
 lowercase turned on and the `frequency`, `norm` and `position` features
 
-Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming | Stopwords | Features |
------------|------------|-------------------------|---------|---------|----------|-----------|----------|
-`identity` | `identity` |                         |         |         |          |           | `["frequency", "norm"]`
-`text_de`  | `text`     | `de` (German)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_en`  | `text`     | `en` (English)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_es`  | `text`     | `es` (Spanish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_fi`  | `text`     | `fi` (Finnish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_fr`  | `text`     | `fr` (French)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_it`  | `text`     | `it` (Italian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_nl`  | `text`     | `nl` (Dutch)      | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_no`  | `text`     | `no` (Norwegian)  | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_pt`  | `text`     | `pt` (Portuguese) | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_ru`  | `text`     | `ru` (Russian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_sv`  | `text`     | `sv` (Swedish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_zh`  | `text`     | `zh` (Chinese)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+Name       | Type       | Locale (Language) | Case    | Accent  | Stemming | Stop words | Features |
+-----------|------------|-------------------|---------|---------|----------|------------|----------|
+`identity` | `identity` |                   |         |         |          |            | `["frequency", "norm"]`
+`text_de`  | `text`     | `de` (German)     | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_en`  | `text`     | `en` (English)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_es`  | `text`     | `es` (Spanish)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_fi`  | `text`     | `fi` (Finnish)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_fr`  | `text`     | `fr` (French)     | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_it`  | `text`     | `it` (Italian)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_nl`  | `text`     | `nl` (Dutch)      | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_no`  | `text`     | `no` (Norwegian)  | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_pt`  | `text`     | `pt` (Portuguese) | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_ru`  | `text`     | `ru` (Russian)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_sv`  | `text`     | `sv` (Swedish)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_zh`  | `text`     | `zh` (Chinese)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
 {:class="table-scroll"}
 
 Note that _locale_, _case_, _accent_, _stemming_ and _stopwords_ are Analyzer
