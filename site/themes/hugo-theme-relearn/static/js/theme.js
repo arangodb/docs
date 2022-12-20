@@ -907,7 +907,6 @@ var showSidenav = true;
 
 window.addEventListener("load", () => {
     document.querySelector(".sidebar-toggle-navigation").addEventListener("click", e => {
-        console.log("show sidebar " + showSidenav)
     if (showSidenav) {
         $("#sidebar").removeClass("active");
         showSidenav = false;
@@ -922,9 +921,6 @@ window.addEventListener("load", () => {
 
 function expandSubMenu(e) {
     e.preventDefault();
-console.log("click");
-console.log(evt);
-
     return false;
 }
 
@@ -935,6 +931,16 @@ $( document ).ready(function() {
         styles = image.getAttribute("x-style");
         image.setAttribute("style", styles)
         image.removeAttribute("x-style")
+    }
+});
+
+
+$( document ).ready(function() {
+    labels = document.querySelectorAll(".labels");
+    header = document.querySelector("h1");
+
+    for (let label of labels) {
+        header.insertAdjacentElement('afterend', label);
     }
 });
 

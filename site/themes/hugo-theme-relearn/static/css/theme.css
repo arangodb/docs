@@ -449,8 +449,12 @@ p {
 }
 
 .default > p {
-    font-size: 0.9rem;
+    font-size: 0.9rem important;
     line-height: 1.5rem;
+}
+
+.lead {
+    font-size: 1.4em;
 }
 
 .sidebar-toggle-navigation > span {
