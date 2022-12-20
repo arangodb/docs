@@ -256,7 +256,7 @@ functions cannot be used in the expression:
 - `WITHIN()`
 - `WITHIN_RECTANGLE()`
 - `FULLTEXT()`
-- [User-defined functions (UDFs)](aql/extending.html)
+- [User-defined functions (UDFs)](extending.html)
 {% endhint %}
 
 Examples:

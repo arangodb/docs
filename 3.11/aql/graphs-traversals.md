@@ -64,13 +64,13 @@ FOR vertex[, edge[, path]]
     (they might still be post-filtered or ignored due to depth constraints).
     For example, a traversal over the graph `(A) -> (B) -> (C)` starting at `A`
     and pruning on `B` results in `(A)` and `(A) -> (B)` being valid paths,
-    whereas `(A) -> (B) -> (C)` is not returned because it gets pruned on B.
+    whereas `(A) -> (B) -> (C)` is not returned because it gets pruned on `B`.
 
   You can only use a single `PRUNE` clause per `FOR` traversal operation, but
-  the prune expression can contain an arbitrary number of `AND` and `OR`
-  statements for complex expressions. You can use the variables emitted by the
-  `FOR` operation in the prune expression, as well as all variables defined
-  before the traversal.
+  the prune expression can contain an arbitrary number of conditions using `AND`
+  and `OR` statements for complex expressions. You can use the variables emitted
+  by the `FOR` operation in the prune expression, as well as all variables
+  defined before the traversal.
 
   You can optionally assign the prune expression to a variable like
   `PRUNE var = <expr>` to use the evaluated result elsewhere in the query,
@@ -270,7 +270,8 @@ however. This can be seen in the query result of the example which includes the
 Edmonton vertex at which it stopped.
 
 The following example starts a traversal at **London** (middle right), with a
-depth between 2 and 3, and every station is only visited once:
+depth between 2 and 3, and every station is only visited once. The station names
+as well as the travel times are returned:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphPruneExample2
@@ -300,7 +301,11 @@ The same example with an added prune expression, with vertex and edge conditions
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 If either the **Carlisle** vertex or an edge with a travel time of over three
-hours is encountered, the subsequent paths are pruned.
+hours is encountered, the subsequent paths are pruned. In the example, this
+removes the train connections to **Birmingham**, **Glasgow**, and **York**,
+which come after **Carlisle**, as well as the connections to and via
+**Edinburgh** because of the four hour duration for the section from **York**
+to **Edinburgh**.
 
 If your graph is comprised of multiple vertex or edge collections, you can
 also prune as soon as you reach a certain collection, using a condition like
@@ -308,8 +313,8 @@ also prune as soon as you reach a certain collection, using a condition like
 
 If you want to only return the results of the depth at which the traversal
 stopped due to the prune expression, you can use a `FILTER` in addition. You can
-assign the evaluated result of a prune expression to a variable and use it for
-filtering:
+assign the evaluated result of a prune expression to a variable
+(`PRUNE var = <expr>`) and use it for filtering:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphPruneExample4
@@ -327,7 +332,7 @@ filtering:
 
 Only paths that end at **Carlisle** or with the last edge having a travel time
 of over three hours are returned. This excludes the connection to **Cologne**
-from the results.
+from the results compared to the previous query.
 
 If you want to exclude the depth at which the prune expression stopped the
 traversal, you can assign the expression to a variable and use its negated value
@@ -380,8 +385,7 @@ immediately. This may not be apparent due to the depth constraints.
 {% endhint %}
 
 The following examples shows a graph traversal starting at **London**, with a
-traversal depth between 2 and 3, and every station is only visited once.
-The station names as well as the travel times are returned:
+traversal depth between 2 and 3, and every station is only visited once:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphPruneExample7
@@ -413,7 +417,7 @@ case for a value of `2.5`, for which two paths exist that fulfill the criterion
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-The problem is that `null`, `false`, and `true` are all less than any number
+The problem is that `null`, `false`, and `true` are all less than any number (`< 2.5`)
 because of AQL's [Type and value order](fundamentals-type-value-order.html), and
 because the edge at depth 0 is always `null`. The prune condition is accidentally
 fulfilled at the start vertex, stopping the traversal too early. This similarly
@@ -462,7 +466,7 @@ functions cannot be used in the expression:
 - `WITHIN()`
 - `WITHIN_RECTANGLE()`
 - `FULLTEXT()`
-- [User-defined functions (UDFs)](aql/extending.html)
+- [User-defined functions (UDFs)](extending.html)
 {% endhint %}
 
 ## Using filters
