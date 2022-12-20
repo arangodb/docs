@@ -368,7 +368,7 @@ travel time than the second to last edge of the path:
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% hint 'info' }
+{% hint 'info' %}
 The prune expression is **evaluated at every step of the traversal**. This
 includes any traversal depths below the specified minimum depth, despite not
 becoming part of the result. It also includes depth 0, which is the start vertex
@@ -473,7 +473,7 @@ is possible to prune paths of traversals earlier, hence filtered results are
 not emitted to the variables in the first place. This may significantly
 improve the performance of your query. Whenever a filter is not fulfilled,
 the complete set of `vertex`, `edge` and `path` is skipped. All paths
-with a length greater than *max* are never be computed.
+with a length greater than the `max` depth are never computed.
 
 Filter conditions that are `AND`-combined can be optimized, but `OR`-combined
 conditions cannot.
@@ -542,7 +542,7 @@ The query filters all paths where the first edge has the attribute
 the attribute `theFalse` equal to `false`. The resulting paths are up to
 5 items long.
 
-**Note**: Despite the *min* depth of 1, this only returns results of
+**Note**: Despite the `min` depth of 1, this only returns results of
 depth 2. This is because for all results in depth 1, the second edge does not
 exist and hence cannot fulfill the condition here.
 
@@ -686,8 +686,8 @@ are right behind the fork:
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-As you can see, we can express this in two ways: with or without *max* parameter
-in the expression.
+As you can see, we can express this in two ways: with or without the `max` depth
+parameter.
 
 ### Filter examples
 
@@ -842,7 +842,7 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-We now see two queries: In one we add a variable *localScopeVar*, which is outside
+We now see two queries: In one we add a `localScopeVar` variable, which is outside
 the scope of the traversal itself - it is not known inside of the traverser.
 Therefore, this filter can only be executed after the traversal, which may be
 undesired in large graphs. The second query on the other hand only operates on the
