@@ -8152,7 +8152,7 @@
     "hidden" : true,
     "introducedIn" : [
       "v3.9.6",
-      "v3.10.20"
+      "v3.10.2"
     ],
     "longDescription" : "Enabling this option may cause additional CPU and\nI/O load. You can limit how many index filling operations can execute\nconcurrently with the `--rocksdb.max-concurrent-index-fill-tasks` startup\noption.",
     "obsolete" : false,
@@ -8181,7 +8181,7 @@
     "hidden" : true,
     "introducedIn" : [
       "v3.9.6",
-      "v3.10.20"
+      "v3.10.2"
     ],
     "longDescription" : "When documents are added, modified, or removed,\nthese changes are tracked and a background thread tries to update the edge\ncache accordingly if the feature is enabled, by adding new, updating existing,\nor deleting and refilling cache entries.\n\nYou can enable the feature for individual `INSERT`, `UPDATE`, `REPLACE`,  and\n`REMOVE` operations in AQL queries, for individual document API requests that\ninsert, update, replace, or remove single or multiple edge documents, as well\nas enable it by default using this startup option.\n\nThe background refilling is done on a best-effort basis and not guaranteed to\nsucceed, for example, if there is no memory available for the cache subsystem,\nor during cache grow/shrink operations. A background thread is used so that\nforeground write operations are not slowed down by a lot. It may still cause\nadditional I/O activity to look up data from the storage engine to repopulate\nthe cache.",
     "obsolete" : false,
@@ -8211,7 +8211,7 @@
     "hidden" : true,
     "introducedIn" : [
       "v3.9.6",
-      "v3.10.20"
+      "v3.10.2"
     ],
     "longDescription" : "This option restricts how many cache entries\nthe background thread for (re-)filling the in-memory edge cache can queue at\nmost. This limits the memory usage for the case of the background thread being\nslower than other operations that invalidate cache entries of edge indexes.",
     "maxInclusive" : true,
@@ -9254,7 +9254,7 @@
     "hidden" : true,
     "introducedIn" : [
       "v3.9.6",
-      "v3.10.20"
+      "v3.10.2"
     ],
     "longDescription" : "The lower this number, the lower the impact of the\nedge cache filling, but the longer it takes to complete.",
     "maxInclusive" : true,
