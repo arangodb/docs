@@ -166,10 +166,12 @@ The following *features* are supported:
   [`BM25()`](aql/functions-arangosearch.html#bm25),
   [`TFIDF()`](aql/functions-arangosearch.html#tfidf), and
   [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info).
-- **norm**: write the field length normalization factor that is used to score
-  repeated terms fairer. Required for [`BM25()`](aql/functions-arangosearch.html#bm25)
+- **norm**: calculate and store the field normalization factor that is used to
+  score fairer if the same term is repeated, reducing its importance.
+  Required for [`BM25()`](aql/functions-arangosearch.html#bm25)
   (except BM15) and [`TFIDF()`](aql/functions-arangosearch.html#tfidf)
-  (if called with normalization enabled).
+  (if called with normalization enabled). It is recommended to enable this
+  feature for custom Analyzers.
 - **position**: enumerate the tokens for position-dependent queries. Required
   for [`PHRASE()`](aql/functions-arangosearch.html#phrase),
   [`NGRAM_MATCH()`](aql/functions-arangosearch.html#ngram_match), and
