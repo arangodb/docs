@@ -489,6 +489,27 @@ attributes:
   discovered for an existing Analyzer during startup then the server will
   abort with a fatal error.
 
+The Analyzer uses a fixed order of operations:
+
+1. Tokenization
+2. Case conversion (unless `case` is set to `none`)
+3. Accent removal (if `accent` is set to `false`)
+4. Stop word removal (if any are defined)
+5. Word stemming (if `stemming` is set to `true`)
+
+If you require a different order, consider using a [`pipeline` Analyzer](#pipeline).
+
+Stop words are removed after case/accent operations but before stemming.
+The reason is that stemming could map multiple words to the same one, and you
+would not be able to filter out specific words only.
+
+The case/accent operations are not applied to the stop words for performance
+reasons. You need to pre-process them accordingly, for example, using the
+[`TOKENS()` function](aql/functions-string.html#tokens) with a
+[`text` Analyzer](#text) that has the same `locale`, `case`, and `accent`
+settings as the planned `text` Analyzer, but with `stemming` set to `false` and
+`stopwords` set to `[]`.
+
 **Examples**
 
 The built-in `text_en` Analyzer has stemming enabled (note the word endings):
