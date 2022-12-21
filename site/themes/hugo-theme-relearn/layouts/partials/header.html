@@ -78,6 +78,8 @@
                       {{ .Title }}
                     </span>
                   {{- end }}
+                  <a class="edit-page" aria-label="" href="https://github.com/arangodb/docs/edit/main/site/content/{{ .Path }}" target="_blank"><i class="fab fa-fw fa-github"></i>
+                    Contribute</a>
                   </nav>
                {{- partial "toc.html" . }}
                {{- define "breadcrumb" }}
