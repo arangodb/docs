@@ -58,18 +58,35 @@ Value Handling
 
 While most of the Analyzer functionality is geared towards text processing,
 there is no restriction to strings as input data type when using them through
-Views – your documents could have attributes of any data type after all.
+Views or inverted indexes – your documents may have attributes of any data type
+after all.
 
 Strings are processed according to the Analyzer, whereas other primitive data
-types (`null`, `true`, `false`, numbers) are added to the index unchanged.
+types (`null`, `true`, `false`, numbers) are generally left unchanged.
+Exceptions are Analyzers that specifically work with other data types, like
+geo-spatial or query-based Analyzers.
 
-The elements of arrays are unpacked, processed and indexed individually,
-regardless of the level of nesting. That is, strings are processed by the
-configured Analyzer(s) and other primitive values are indexed as-is.
+The elements of arrays are processed individually, regardless of the level of
+nesting, if you use Analyzers stand-alone. That is, strings are processed by the
+configured Analyzer(s) and other primitive values are returned as-is.
+This also applies if you use Analyzers in `arangosearch` Views, or in
+`search-alias` Views with inverted indexes that have the `searchField` option
+enabled. The array elements are unpacked, processed, and indexed individually.
 
-Objects, including any nested objects, are indexed as sub-attributes.
-This applies to sub-objects as well as objects in arrays. Only primitive values
-are added to the index, arrays and objects can not be searched for.
+If you use inverted indexes with the `searchField` option disabled, optionally
+through `search-alias` Views, array elements are not unpacked by default. Most
+Analyzers do not accept arrays as input in this context. You can unpack one
+array level and let the configured Analyzer process the individual elements by
+using `[*]` as a suffix for a field in the index definition. Primitive values
+other than strings are indexed as-is.
+
+Analyzers can not process objects as a whole. However, you can work with
+individual object attributes. You can use inverted indexes and Views to index
+specific object attributes or sub-attributes, or index all sub-attributes with
+the `includeAllFields` option enabled. Each non-object value is handled as
+described above. Sub-objects in arrays can be indexed, too (with limitations).
+However, only primitive values are added to the index. Arrays and objects can
+not be searched for as a whole.
 
 Also see:
 - [`SEARCH` operation](aql/operations-search.html) on how to query indexed
@@ -141,10 +158,38 @@ Analyzer  /  Capability                   | Tokenization | Stemming | Normalizat
 [`text`](#text)                           |     Yes      |   Yes    |     Yes       | (Yes)
 [`segmentation`](#segmentation)           |     Yes      |    No    |     Yes       |   No
 
-Available normalizations are case conversion and accent removal
-(conversion of characters with diacritical marks to the base characters).
+The available normalizations are case conversion and accents/diacritics removal.
+The `segmentation` Analyzer only supports case conversion.
 
 The `text` Analyzer supports edge _n_-grams but not full _n_-grams.
+
+Tokenization 
+------------
+
+The `text` and `segmentation` Analyzer types tokenize text into words (or a
+comparable concept of a word). See
+[Word Boundaries](https://www.unicode.org/reports/tr29/#Word_Boundaries){:target="_blank"}
+in the Unicode Standard Annex #29 about Unicode text segmentation for details.
+
+These tokenizing Analyzers extract tokens, which removes characters like
+punctuation and whitespace. An exception is the [`segmentation` Analyzer](#segmentation)
+if you select `"graphic"` or `"all"` for the `break` option. They preserve `@`
+and `.` characters of email addresses, for instance. There are also exceptions
+with both Analyzer types for sequences like numbers, for which decimal and
+thousands separators (`.` and `,`) are preserved.
+
+Normalization
+-------------
+
+The `norm`, `text`, and `segmentation` Analyzer types allow you to convert the
+input text to all lowercase or all uppercase for normalization purposes, namely
+case insensitive search. Case folding is not supported. Also see
+[Case Mapping](https://unicode-org.github.io/icu/userguide/transforms/casemappings.html){:target="_blank"}
+in the ICU documentation.
+
+The `norm` and `text` Analyzer types also allow you to convert characters with
+diacritical marks to the base characters. This normalization enables
+accent-insensitive search.
 
 Analyzer Features
 -----------------
@@ -1401,9 +1446,9 @@ Supported Languages
 ### Tokenization and Normalization
 
 Analyzers rely on [ICU](http://site.icu-project.org/){:target="_blank"} for
-language-dependent tokenization and normalization. The ICU data file
-`icudtl.dat` that ArangoDB ships with contains information for a lot of
-languages, which are technically all supported.
+tokenization and normalization, which is language-dependent.
+The ICU data file `icudtl.dat` that ArangoDB ships with contains information for
+a lot of languages, which are technically all supported.
 
 Setting an unsupported or invalid locale does not raise a warning or error.
 ICU will fall back to a locale without the requested variant, country, or

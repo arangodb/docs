@@ -6,10 +6,14 @@ title: The SEARCH operation in AQL
 SEARCH
 ======
 
-The `SEARCH` keyword starts the language construct to filter Views.
+The `SEARCH` keyword starts the language construct to filter Views, accelerated
+by the underlying indexes. It guarantees to use these indexes for an efficient
+execution plan. If you use the `FILTER` keyword for Views, no indexes are
+utilized and the filtering is performed as a post-processing step.
+
 Conceptually, a View is just another document data source,
 similar to an array or a document/edge collection, over which you can iterate
-using a [FOR operation](operations-for.html) in AQL:
+using a [`FOR` operation](operations-for.html) in AQL:
 
 ```aql
 FOR doc IN viewName
