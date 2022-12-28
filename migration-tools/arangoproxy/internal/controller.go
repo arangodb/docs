@@ -24,6 +24,7 @@ var (
 // Start and expose the webserver
 func StartController(url string) {
 	// Create routes
+	http.HandleFunc("/health", HealthHandler)
 	http.HandleFunc("/js", JSHandler)
 	http.HandleFunc("/http-spec", HTTPSpecHandler)
 	http.HandleFunc("/curl", HTTPExampleHandler)
@@ -114,6 +115,11 @@ func AQLHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write(response)
+}
+
+func HealthHandler(w http.ResponseWriter, r *http.Request) {
+	common.Logger.Printf("Health OK\n")
+	w.WriteHeader(http.StatusOK)
 }
 
 // Empty handler

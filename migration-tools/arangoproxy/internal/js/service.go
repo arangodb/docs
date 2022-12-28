@@ -32,12 +32,8 @@ func (service JSService) ExecuteExample(request common.Example) (res common.Exam
 	// Example is not cached, execute it against the arango instance
 	repository, _ := common.GetRepository(request.Options.Release, request.Options.Version)
 
-	commands = service.HandleIgnoreCollections(commands, collectionsToIgnore)
-
 	//commands = utils.TryCatchWrap(commands)
-	common.Logger.Printf("%s CODE %s\n", request.Options.Name, commands)
 	cmdOutput := arangosh.Exec(commands, repository)
-	common.Logger.Printf("%s OUTPUT %s\n\n", request.Options.Name, cmdOutput)
 
 	res = *common.NewExampleResponse(request.Code, cmdOutput, request.Options)
 	service.SaveCachedExampleResponse(res)

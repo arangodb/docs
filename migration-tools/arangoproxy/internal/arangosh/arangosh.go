@@ -2,15 +2,20 @@ package arangosh
 
 import (
 	"bytes"
+	"fmt"
 	"os/exec"
 	"strings"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/config"
+	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/utils"
 	"github.com/dlclark/regexp2"
 )
 
 func Exec(command string, repository config.Repository) (output string) {
+	commonFunctions, _ := utils.GetCommonFunctions()
+	command = fmt.Sprintf("%s\n%s", commonFunctions, command)
+
 	cmdName := "arangosh"
 	cmdArgs := []string{
 		//"--configuration", "none",

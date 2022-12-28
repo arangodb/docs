@@ -30,6 +30,7 @@ func init() {
 
 	internal.InitLog(config.Conf.Log)
 	common.InitRepositories()
+	//internal.RepositoriesHealthCheck()
 	utils.LoadDatasets(config.Conf.Datasets)
 
 	common.Logger.Println(startupBanner)

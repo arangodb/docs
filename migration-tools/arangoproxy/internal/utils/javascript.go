@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 )
 
 /*
@@ -16,16 +17,6 @@ const (
 let db = require('internal').db;
 let examples = require("@arangodb/graph-examples/example-graph.js");
 let user_examples = require("@arangodb/examples/example-users.js");`
-
-	LOGJSONRESPONSE = `
-output = '';
-var rawAppender = function(text) {output += text;};
-var logJsonResponse = internal.appendJsonResponse(rawAppender, rawAppender);
-logJsonResponse.apply(logJsonResponse, [response]);
-print('RESPONSE');
-output;
-print('END RESP');
-`
 
 	REMOVE_ALL_COLLECTIONS = `
 for (let col of db._collections()) {
@@ -98,4 +89,20 @@ func DatasetExists(dataset string) string {
 	  }`, dataset, removeDSCmd, createDSCmd)
 
 	return iff
+}
+
+func GetCommonFunctions() (string, error) {
+	file, err := os.ReadFile("../internal/utils/common.js")
+	return string(file), err
+}
+
+func GetHTTPFunctions() (string, error) {
+	file, err := os.ReadFile("../internal/utils/http.js")
+	return string(file), err
+
+}
+
+func GetSetupFunctions() (string, error) {
+	file, err := os.ReadFile("../internal/utils/setup.js")
+	return string(file), err
 }

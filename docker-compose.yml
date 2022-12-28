@@ -1,32 +1,44 @@
 services:
-  arangostub:
-    container_name: arangostub
-    image: arangostub
-    build:
-      context: .
-      target: arangostub
-    networks:
-      docs_net:
-        ipv4_address: 192.168.129.8
-    volumes:
-      - ./openapi:/home/openapi
-
-  arangodb:
-    container_name: arangodb
-    image: arangodb/enterprise:latest
+  arango_single:
+    container_name: arango_single
+    image: arangodb/arangodb-starter:latest
     ports:
-      - "8520:8529"
+      - 8520:8520
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       docs_net:
-        ipv4_address: 192.168.129.5
+        ipv4_address: 192.168.129.20
+    command: --starter.port=8520 --starter.address=192.168.129.21 --starter.mode=single --docker.image=arangodb/enterprise:latest --docker.container=arango_single --docker.net-mode=docs_docs_net
     environment:
       - ARANGO_NO_AUTH=1
+    healthcheck:
+      test: curl --fail http://192.168.129.2:8521/_api/version || exit 1
+      interval: 3s
+      retries: 5
+      start_period: 3s
+      timeout: 3s
+
+  # arango_cluster:
+  #   container_name: arango_cluster
+  #   image: arangodb/arangodb-starter:latest
+  #   ports:
+  #     - 8530:8530
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   networks:
+  #     docs_net:
+  #       ipv4_address: 192.168.129.30
+  #   command: --starter.port=8530 --starter.address=192.168.129.30 --starter.local --docker.image=arangodb/enterprise:latest --docker.container=arango_cluster --docker.net-mode=docs_docs_net
+  #   environment:
+  #     - ARANGO_NO_AUTH=1
+
 
   arangoproxy:
     container_name: arangoproxy
     image: arangoproxy
     depends_on:
-      - "arangodb"
+      - "arango_single"
     build:
       context: .
       target: arangoproxy
@@ -53,6 +65,12 @@ services:
         ipv4_address: 192.168.129.3
     volumes:
       - ./site:/site
+    healthcheck:
+      test: curl --fail http://192.168.129.4:8080/health || exit 1
+      interval: 3s
+      retries: 5
+      start_period: 3s
+      timeout: 3s
 
     
   # arango_3_9:
@@ -84,4 +102,6 @@ networks:
       config:
         - subnet: 192.168.129.0/24
           gateway: 192.168.129.1
+
+          
 

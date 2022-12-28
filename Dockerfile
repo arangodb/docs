@@ -1,23 +1,3 @@
-#ArangoStub builder
-FROM openjdk:16-slim-buster AS arangostub_base
-
-RUN apt-get update; apt-get install -y curl \
-    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs \
-    && curl -L https://www.npmjs.com/install.sh | sh \
-    && apt-get install -y python3
-
-
-#Arangostub official
-FROM arangostub_base AS arangostub
-
-WORKDIR /home/openapi
-RUN python3 generateApiDocs.py --src ../site/content --dst api-docs.json
-RUN npx @openapitools/openapi-generator-cli generate -i api-docs.json -g nodejs-express-server -o arangostub
-
-
-
-
 #Arangoproxy
 FROM golang:latest AS arangoproxy
 

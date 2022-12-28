@@ -3,7 +3,9 @@ package internal
 import (
 	"io"
 	"log"
+	"net"
 	"os"
+	"time"
 
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/arangosh"
 	"github.com/arangodb/docs/migration-tools/arangoproxy/internal/common"
@@ -20,6 +22,21 @@ func InitLog(logFilepath string) {
 func CleanCache() {
 	os.OpenFile(config.Conf.Cache.RequestsFile, os.O_TRUNC, 0644)
 	os.OpenFile(config.Conf.Cache.ResponsesFile, os.O_TRUNC, 0644)
+	for _, repository := range config.Conf.Repositories {
+		arangosh.Exec(utils.REMOVE_ALL_COLLECTIONS, repository) // FIXME
+		cmd, _ := utils.GetSetupFunctions()
+		arangosh.Exec(cmd, repository)
+	}
+}
 
-	arangosh.Exec(utils.REMOVE_ALL_COLLECTIONS, config.Repository{}) // FIXME
+func RepositoriesHealthCheck() {
+	for _, repository := range config.Conf.Repositories {
+		common.Logger.Printf("HEALTH CHECK %s\n", repository.Type)
+		_, err := net.Dial("tcp", repository.Url)
+		for err != nil {
+			common.Logger.Printf("ERROR HEALTH CHECK ARANGO INTSANCE %s\n", repository.Type)
+			time.Sleep(time.Second * 3)
+			_, err = net.Dial("tcp", repository.Url)
+		}
+	}
 }

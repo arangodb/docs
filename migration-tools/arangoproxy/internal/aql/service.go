@@ -35,16 +35,12 @@ func (service AQLService) Execute(request common.Example) (res AQLResponse) {
 		commands = utils.DATASET_HEADER + "\n" + removeDSCmd + "\n" + createDSCmd + "\n" + commands + "\n" + removeDSCmd
 	}
 
-	commands = service.HandleIgnoreCollections(commands, collectionsToIgnore)
-
 	// If xpError on, don't use try catch wrap
 	//request.Code = utils.TryCatchWrap()
 
 	// Example is not cached, execute it against the arango instance
 	//commands = utils.TryCatchWrap(commands)
-	common.Logger.Printf("%s CODE %s\n", request.Options.Name, commands)
 	cmdOutput := arangosh.Exec(commands, repository)
-	common.Logger.Printf("%s OUTPUT %s\n\n", request.Options.Name, cmdOutput)
 
 	res.ExampleResponse.Input, res.ExampleResponse.Options = request.Code, request.Options
 
