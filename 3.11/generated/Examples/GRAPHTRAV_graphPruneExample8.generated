@@ -1,0 +1,8 @@
+@Q:
+    FOR v,e,p IN <span class="hljs-number">2.</span><span class="hljs-number">.3</span> OUTBOUND <span class="hljs-string">&quot;places/London&quot;</span> GRAPH <span class="hljs-string">&quot;kShortestPathsGraph&quot;</span>
+      PRUNE v.label == <span class="hljs-string">&quot;Glasgow&quot;</span> OR e.travelTime &lt; <span class="hljs-number">2.5</span>
+      OPTIONS { <span class="hljs-attr">uniqueVertices</span>: <span class="hljs-string">&quot;path&quot;</span> }
+      RETURN CONCAT_SEPARATOR(<span class="hljs-string">&quot; -- &quot;</span>, INTERLEAVE(p.vertices[*].label, p.edges[*].travelTime))
+
+@R
+[]

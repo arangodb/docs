@@ -178,28 +178,34 @@ indexes to fully cover more queries and avoid extra document lookups. This can
 have a great positive effect on index scan performance if the number of scanned
 index entries is large.
 
-You can set the `storedValues` option and specify the additional attributes as
-an array of attribute paths when creating a new inverted index:
+You can set the `storedValues` option when creating a new inverted index and
+specify the additional attributes as an array of objects, each with a `fields`
+attribute defining the attribute paths to add to the index: 
 
 ```js
 db.<collection>.ensureIndex({
   type: "inverted",
   fields: ["value1"],
-  storedValues: ["value2"]
+  storedValues: [ { fields: ["value1", "value2"] } ]
 });
 ```
 
 This indexes the `value1` attribute in the traditional sense, so that the index 
-can be used for looking up by `value1` or for sorting by `value1`. The index also
-supports projections on `value1` as usual.
+can be used for looking up by `value1` or for sorting by `value1`.
 
-In addition, due to `storedValues` being used here, the index can now also 
-supply the values for the `value2` attribute for projections without having to
-look up the full document. Non-existing attributes are stored as `null` values.
+In addition, due to `storedValues` being used here, the index can also supply
+the values for the `value1` and `value2` attributes for projections without
+having to look up the document. The values can be read from the index instead.
+Non-existing attributes are stored as `null` values.
 
-You cannot specify the same attribute path in both, the `fields` and the
-`storedValues` option. If there is an overlap, the index creation aborts
-with an error message.
+You may specify the same attribute paths in both the `fields` and the
+`storedValues` option. This is useful if you want to filter by an attribute and
+also return it using an AQL query. The attribute values indexed by `fields`
+cannot be utilized for projections because the index representation does not
+match the original values as stored in the documents.
+
+Attribute paths specified in the `primarySort` option can be utilized for
+projections. Therefore, you don't need to add them to `storedValues`, too.
 
 ### Additional configuration options
 
