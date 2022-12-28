@@ -249,7 +249,7 @@ the `--query.memory-limit` startup option) is used for restricting the maximum a
 of memory the query can use. A memory limit value of `0` means that the maximum
 amount of memory for the query is not restricted. 
 
-### Sub query options
+### Query sub options
 
 `db._query(<queryString>, <bindVars>, <subOptions>) → cursor`
 
