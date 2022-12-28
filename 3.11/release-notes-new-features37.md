@@ -791,7 +791,7 @@ Also see:
 The [`query` helper](appendix-java-script-modules-arango-db.html#the-query-helper)
 was extended to support passing
 {%- assign ver = "3.10" | version ">=" %}{% if ver %}
-[query options](aql/invocation-with-arangosh.html#query-options):
+[query options](aql/invocation-with-arangosh.html#main-query-options):
 {%- else -%}
 [query options](aql/invocation-with-arangosh.html#setting-options):
 {%- endif %}

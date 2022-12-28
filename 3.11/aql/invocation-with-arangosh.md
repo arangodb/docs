@@ -123,17 +123,14 @@ The meaning of the statistics values is described in
 Query warnings are also reported here. If you design queries on the shell,
 be sure to check for warnings.
 
-### Cursor options
+### Main query options
 
-`db._query(<queryString>, <bindVars>, <cursorOptions>, <queryOptions>) → cursor`
+`db._query(<queryString>, <bindVars>, <mainOptions>, <subOptions>) → cursor`
 
-You can pass cursor options as the third argument to `db._query()`, but there
-needs to be a fourth argument with the query options for this (can be an empty
-object `{}`).
+You can pass the main options as the third argument to `db._query()` if you
+also pass a fourth argument with the sub options (can be an empty object `{}`).
 
 #### `count`
-
-<!-- TODO: this isn't really a cursor option but it can only be set on the top-level -->
 
 Whether the number of documents in the result set should be calculated on the
 server side and returned in the `count` attribute of the result. Calculating the
@@ -162,11 +159,6 @@ You can also count the number of results on the client side, for example, using
 
 #### `batchSize`
 
-<!--
-TODO: In arangosh, we can access .data to show the server response (single batch),
-but in arangod, this isn't exposed (and cursors are only used for the streaming case)
--->
-
 The maximum number of result documents to be transferred from the server to the
 client in one roundtrip. If this attribute is not set, a server-controlled
 default value is used. A `batchSize` value of `0` is disallowed.
@@ -186,11 +178,6 @@ default value is used. A `batchSize` value of `0` is disallowed.
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
 #### `ttl`
-
-<!--
-TODO: In arangod, the TTL is set to max and if a user ttl option is handed through,
-we get a "cursor is busy" error
--->
 
 The time-to-live for the cursor (in seconds). If the result set is small enough
 (less than or equal to `batchSize`), then results are returned right away.
@@ -216,8 +203,6 @@ value is used (default: 30 seconds).
 
 #### `cache`
 
-<!-- TODO: not really a cursor option -->
-
 Whether the AQL query results cache shall be used. If set to `false`, then any
 query cache lookup is skipped for the query. If set to `true`, it leads to the
 query cache being checked for the query **if** the query cache mode is either
@@ -238,8 +223,6 @@ set to `on` or `demand`.
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
 #### `memoryLimit`
-
-<!-- TODO: not really a cursor option -->
 
 To set a memory limit for the query, pass `options` to the `_query()` method.
 The memory limit specifies the maximum number of bytes that the query is
@@ -266,14 +249,14 @@ the `--query.memory-limit` startup option) is used for restricting the maximum a
 of memory the query can use. A memory limit value of `0` means that the maximum
 amount of memory for the query is not restricted. 
 
-### Query options
+### Sub query options
 
-`db._query(<queryString>, <bindVars>, <queryOptions>) → cursor`
+`db._query(<queryString>, <bindVars>, <subOptions>) → cursor`
 
-`db._query(<queryString>, <bindVars>, <cursorOptions>, <queryOptions>) → cursor`
+`db._query(<queryString>, <bindVars>, <mainOptions>, <subOptions>) → cursor`
 
-You can pass query options as the third argument to `db._query()` if you don't
-provide cursor options, or as fourth argument if you do.
+You can pass the sub options as the third argument to `db._query()` if you don't
+provide main options, or as fourth argument if you do.
 
 #### `fullCount`
 
