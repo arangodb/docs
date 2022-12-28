@@ -19,7 +19,7 @@ public class Relation {
 
 Spring Data ArangoDB supports the use of SpEL expressions within `@Edge#value`. This feature lets you define a dynamic collection name which can be used to implement multi tenancy applications.
 
-```Java
+```java
 @Component
 public class TenantProvider {
 

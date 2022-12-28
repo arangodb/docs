@@ -249,6 +249,16 @@ FOR doc IN collection
   OPTIONS { exclusive: true }
 ```
 
+### `refillIndexCaches`
+
+Whether to update existing entries in in-memory index caches if documents
+replacements affect the edge index or cache-enabled persistent indexes.
+
+```aql
+REPLACE { _key: "123", _from: "vert/C", _to: "vert/D" } IN edgeColl
+  OPTIONS { refillIndexCaches: true }
+```
+
 Returning the modified documents
 --------------------------------
 

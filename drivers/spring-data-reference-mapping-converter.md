@@ -10,7 +10,7 @@ The `ArangoConfiguration` provides a convenient way to register Spring `Converte
 
 **Examples**
 
-```Java
+```java
 @Configuration
 public class MyConfiguration implements ArangoConfiguration {
 
@@ -30,7 +30,7 @@ A `Converter` is used for writing if the target type is of type `VPackSlice`, `D
 
 **Examples**
 
-```Java
+```java
 public class MyConverter implements Converter<MyObject, VPackSlice> {
 
   @Override

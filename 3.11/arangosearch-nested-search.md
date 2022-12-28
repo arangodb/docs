@@ -64,6 +64,7 @@ Or using an inverted index via a `search-alias` View, in arangosh:
 db.<collection>.ensureIndex({
   name: "inv-idx",
   type: "inverted",
+  searchField: true,
   fields: [
     "dimensions.type",
     "dimensions.value"

@@ -9,24 +9,28 @@ Conventions
 Naming
 ------
 
-Built-in AQL functions that are shipped with ArangoDB reside in the namespace
-`_aql`, which is also the default namespace to look in if an unqualified
-function name is found.
+AQL functions that are implemented with JavaScript are always in a namespace.
+To register a user-defined AQL function, you need to give it a name with a
+namespace. The `::` symbol is used as the namespace separator, for example,
+`MYGROUP::MYFUNC`. You can use one or multiple levels of namespaces to create
+meaningful function groups.
 
-To refer to a user-defined AQL function, the function name must be fully
-qualified to also include the user-defined namespace. The `::` symbol is used
-as the namespace separator. Users can create a multi-level hierarchy of function
-groups if required:
+The names of user-defined functions are case-insensitive, like all function
+names in AQL.
+
+To refer to and call user-defined functions in AQL queries, you need to use the
+fully qualified name with the namespaces:
 
 ```js
 MYGROUP::MYFUNC()
 MYFUNCTIONS::MATH::RANDOM()
 ```
 
-**Note**: Adding user functions to the *_aql* namespace is disallowed and will
-fail.
-
-User function names are case-insensitive like all function names in AQL.
+ArangoDB's built-in AQL functions are all implemented in C++ and are not in a
+namespace, except for the internal `V8()` function, which resides in the `_aql`
+namespace. It is the default namespace, which means that you can use the
+unqualified name of the function (without `_aql::`) to refer to it. Note that
+you cannot add own functions to this namespace.
 
 Variables and side effects
 --------------------------
@@ -45,10 +49,10 @@ that existed at the time of declaration. If user function code requires
 access to any external data, it must take care to set up the data by
 itself.
 
-All AQL user function-specific variables should be introduced with the `var`
-keyword in order to not accidentally access already defined variables from
-outer scopes. Not using the `var` keyword for own variables may cause side
-effects when executing the function.
+All AQL user function-specific variables should be introduced with the `var`,
+`let`, or `const` keywords in order to not accidentally access already defined
+variables from outer scopes. Not using a declaration keyword for own variables
+may cause side effects when executing the function.
 
 Here is an example that may modify outer scope variables `i` and `name`,
 making the function **not** side-effect free:
@@ -65,13 +69,13 @@ function (values) {
 }
 ```
 
-The above function can be made free of side effects by using the `var` or
-`let` keywords, so the variables become function-local variables:
+The above function can be made free of side effects by using the `var`, `let`,
+or `const` keywords, so the variables become function-local variables:
 
 ```js
 function (values) {
-  for (var i = 0; i < values.length; ++i) {
-    var name = values[i];
+  for (let i = 0; i < values.length; ++i) {
+    let name = values[i];
     if (name === "foo") {
       return i;
     }
@@ -96,7 +100,7 @@ and state outside of the user function itself.
 Return values
 -------------
 
-User functions must only return primitive types (i.e. *null*, boolean
+User functions must only return primitive types (i.e. `null`, boolean
 values, numeric values, string values) or aggregate types (arrays or
 objects) composed of these types.
 Returning any other JavaScript object type (Function, Date, RegExp etc.) from
@@ -105,16 +109,16 @@ a user function may lead to undefined behavior and should be avoided.
 Enforcing strict mode
 ---------------------
 
-By default, any user function code will be executed in *sloppy mode*, not
-*strict* or *strong mode*. In order to make a user function run in strict
-mode, use `"use strict"` explicitly inside the user function, e.g.:
+By default, any user function code is executed in *sloppy mode*. In order to
+make a user function run in strict mode, use `"use strict"` explicitly inside
+the user function:
 
 ```js
 function (values) {
   "use strict"
 
-  for (var i = 0; i < values.length; ++i) {
-    var name = values[i];
+  for (let i = 0; i < values.length; ++i) {
+    let name = values[i];
     if (name === "foo") {
       return i;
     }
@@ -123,4 +127,4 @@ function (values) {
 }
 ```
 
-Any violation of the strict mode will trigger a runtime error.
+Any violation of the strict mode triggers a runtime error.

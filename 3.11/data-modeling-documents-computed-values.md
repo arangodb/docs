@@ -60,9 +60,8 @@ Each object represents a computed value and can have the following attributes:
   See [Computed Value Expressions](#computed-value-expressions) for details.
 
 - `overwrite` (boolean, _required_):
-  Whether the target attribute shall be set if the expression evaluates to `null`.
-  You can set the option to `false` to not set (or unset) the target attribute if
-  the expression returns `null`. The default is `true`.
+  Whether the computed value shall take precedence over a user-provided or
+  existing attribute.
 
 - `computeOn` (array, _optional_):
   An array of strings to define on which write operations the value shall be
