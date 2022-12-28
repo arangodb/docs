@@ -431,13 +431,8 @@ In addition, ArangoDB 3.6 provides the following new AQL functionality:
 - a function `GEO_AREA()` for [area calculations](aql/functions-geo.html#geo_area)
   (also added to v3.5.1)
 
-  {% assign ver = "3.10" | version ">=" %}{% if ver -%}
-- a [query option](aql/invocation-with-arangosh.html#maxruntime)
-  {%- else -%}
-- a [query option](aql/invocation-with-arangosh.html#setting-options)
-  {%- endif %}
-  `maxRuntime` to restrict the execution to a given time in seconds
-  (also added to v3.5.4).
+- a [`maxRuntime` query option](aql/invocation-with-arangosh.html#maxruntime)
+  to restrict the execution to a given time in seconds (also added to v3.5.4).
   Also see [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
 
 - a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
