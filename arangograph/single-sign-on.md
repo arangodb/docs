@@ -12,11 +12,11 @@ user access changes by using the dedicated API.
 [SCIM](https://www.rfc-editor.org/rfc/rfc7644){:target="_blank"}, or the System
 for Cross-domain Identity Management [specification](http://www.simplecloud.info/){:target="_blank"},
 is an open standard designed to manage user identity information.
-SCIM provides a defined schema for representing users and groups, and a RESTful
-API to run CRUD operations on these user and group resources.
+SCIM provides a defined schema for representing users, and a RESTful
+API to run CRUD operations on these user resources.
 
 The SCIM specification expects the following operations so that the SSO system
-can sync the information about user and group resources in real-time:
+can sync the information about user resources in real-time:
 
 - `GET /Users` - Lists all users.
 - `GET /Users/:user_id` - Get details for a given user ID.
@@ -32,6 +32,6 @@ manage the user resources.
 To learn how to generate a new API key, see the [API Keys](my-account.html#api-keys) section.
 
 {% hint 'info' %}
-If the organization is not selected when creating an API key, the first
-organization in the list is selected by default.
+When creating an API key, it is required to select an organization from the
+list.
 {% endhint %}
