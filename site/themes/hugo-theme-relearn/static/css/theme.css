@@ -716,4 +716,24 @@ div.box > .box-content > .box-text > p {
 .edit-page {
     margin-left: auto;
     margin-right: 7em;
+    text-transform: uppercase;
+    display: block;
+    height: 50px;
+    padding: 0 15px;
+    border-bottom: none;
+    color: #ccc;
+    text-transform: uppercase;
+    line-height: 50px;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    position: relative;
+    font-size: 14px;
+    transition: 0.5s;
+}
+
+.edit-page:hover {
+    position: relative;
+    text-decoration: none;
+    color: #444;
+    background: 0 0;
 }
