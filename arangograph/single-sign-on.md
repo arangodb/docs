@@ -6,7 +6,7 @@ title: Single Sign-On (SSO)
 # Single Sign-On (SSO)
 
 ArangoGraph provides support to enable Single Sign-On (SSO) authentication using
-SAML with SCIM provisioning. This enables you to propagate to ArangoGraph any
+SAML 2.0 with SCIM provisioning. This enables you to propagate to ArangoGraph any
 user access changes by using the dedicated API.
 
 [SCIM](https://www.rfc-editor.org/rfc/rfc7644){:target="_blank"}, or the System
