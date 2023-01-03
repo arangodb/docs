@@ -869,9 +869,14 @@ attributes:
   `type` and `properties` attributes
   
 {% hint 'info' %}
-Analyzers of types `geopoint` and `geojson` cannot be used in pipelines and
-will make the creation fail. These Analyzers require additional postprocessing
-and can only be applied to document fields directly.
+- You cannot use Analyzers of the types `geopoint` and `geojson` in pipelines.
+  These Analyzers require additional postprocessing and can only be applied to
+  document fields directly.
+- The output data type of an Analyzer needs to be compatible with the input
+  data type of the next Analyzer in the chain. For example, the `aql` Analyzer
+  has a `returnType` property, and if you set it to `number` or `bool`, the
+  subsequent Analyzer in the pipeline needs to support this data type as input.
+  Most Analyzers expect string inputs and are thus incompatible.
 {% endhint %}
 
 **Examples**
