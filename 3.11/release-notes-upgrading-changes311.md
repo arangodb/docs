@@ -9,6 +9,13 @@ upgrading to ArangoDB 3.11, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.11:
 
+## AQL user-defined functions (UDF)
+
+AQL user-defined functions (UDFs) cannot be used inside traversal PRUNE conditions
+nor inside FILTER conditions that can be moved into the traversal execution on DB-Servers. 
+This limitation also applies to single servers to keep the differences to cluster 
+deployments minimal.
+
 ## Restriction of indexable fields
 
 It is now forbidden to create indexes that cover fields whose attribute names

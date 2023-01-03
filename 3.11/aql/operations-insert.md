@@ -168,6 +168,16 @@ FOR doc IN collection
   OPTIONS { exclusive: true }
 ```
 
+### `refillIndexCaches`
+
+Whether to add new entries to in-memory index caches if document insertions
+affect the edge index or cache-enabled persistent indexes.
+
+```aql
+INSERT { _from: "vert/A", _to: "vert/B" } INTO coll
+  OPTIONS { refillIndexCaches: true }
+```
+
 Returning the inserted documents
 --------------------------------
 
