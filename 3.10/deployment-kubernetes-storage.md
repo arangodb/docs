@@ -67,7 +67,7 @@ This is an example of an `ArangoLocalStorage` resource that will result in
 under the directory `/mnt/big-ssd-disk`.
 
 ```yaml
-apiVersion: "storage.arangodb.com/v1"
+apiVersion: "storage.arangodb.com/v1alpha"
 kind: "ArangoLocalStorage"
 metadata:
   name: "example-arangodb-storage"

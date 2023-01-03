@@ -194,9 +194,6 @@ There are a number of general parameters which apply to almost all algorithms:
 - `parallelism` (number): Number of parallel threads to use per worker.
   Does not influence the number of threads used to load or store data from the
   database (this depends on the number of shards).
-- `async` (bool): If enabled, algorithms which support an asynchronous mode run
-  without synchronized global iterations. Might lead to performance increases if
-  you have load imbalances.
 - `resultField` (string): Most algorithms use this as attribute name for the
   result. Some use it as prefix for multiple result attributes. Defaults to
   `"result"`.
