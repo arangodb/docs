@@ -7,8 +7,6 @@
   children:
     - text: Users & Groups
       href: users.html
-    - text: Single Sign-On
-      href: single-sign-on.html  
     - text: Billing
       href: billing.html
 - text: Projects
@@ -25,6 +23,10 @@
   href: monitoring-metrics.html
 - text: Security and Access Control
   href: access-control.html
+  expand: true
+  children:
+    - text: Single Sign-On
+      href: single-sign-on.html
 - text: Backups
   href: backups.html
 - subtitle: API
