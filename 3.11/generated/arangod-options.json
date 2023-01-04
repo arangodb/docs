@@ -8257,6 +8257,33 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.block-cache-jemalloc-allocator" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Use jemalloc-based memory allocator for RocksDB block cache.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "longDescription" : "The jemalloc-based memory allocator for the RocksDB block cache\nwill also exclude the block cache contents from coredumps, potentially making generated \ncoredumps a lot smaller.\nIn order to use this option, the executable needs to be compiled with jemalloc\nsupport (which is the default on Linux).",
+    "obsolete" : false,
+    "os" : [
+      "linux"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.block-cache-shard-bits" : {
     "base" : 1,
     "category" : "option",
