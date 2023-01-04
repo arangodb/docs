@@ -6,7 +6,7 @@ description: How to use cards shortcode
 layout: default
 ---
 
-{{< cards >}}
+{{< cards cardsPerRow="2" >}}
 {{% card title="test" %}}
 custom text in card
 bla bla bla
