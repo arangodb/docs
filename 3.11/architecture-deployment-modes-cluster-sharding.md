@@ -174,8 +174,10 @@ some reason. The data residing on the unavailable shard cannot be accessed,
 however reads on other shards will still succeed.
 
 In a production environment you should always deploy your collections with a
-*replicationFactor* greater than *1* to ensure that the shard stays available
+`replicationFactor` greater than `1` to ensure that the shard stays available
 even when a machine fails.
+
+<!-- Explain replicationFactor here? minReplicationFactor, writeConcern etc. -->
 
 Storage Capacity
 ----------------

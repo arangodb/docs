@@ -447,18 +447,24 @@ unsuitable for the OneShard optimization:
 - The query accesses collections with more than a single shard, different leader
   DB-Servers, or different `distributeShardsLike` prototype collections
 - The query writes into a SatelliteCollection
-- the query accesses an edge collection of a SmartGraph
-- Usage of AQL user-defined functions
+- The query accesses an edge collection of a SmartGraph
 - Usage of AQL functions that can only execute on Coordinators.
   These functions are:
-  - `COLLECTION_COUNT()`
-  - `CURRENT_DATABASE()`
-  - `CURRENT_USER()`
-  - `COLLECTIONS()`
-  - `VERSION()`
-  - `SCHEMA_GET()`
-  - `SCHEMA_VALIDATE()`
-  - `V8()`
+  - `APPLY`
+  - `CALL`
+  - `COLLECTION_COUNT`
+  - `COLLECTIONS`
+  - `CURRENT_DATABASE`
+  - `CURRENT_USER`
+  - `FULLTEXT`
+  - `NEAR`
+  - `SCHEMA_GET`
+  - `SCHEMA_VALIDATE`
+  - `V8`
+  - `VERSION`
+  - `WITHIN`
+  - `WITHIN_RECTANGLE`
+  - User-defined AQL functions (UDFs)
 
 Synchronous replication
 -----------------------
@@ -506,19 +512,13 @@ The following example will give you an idea of how synchronous operation
 has been implemented in ArangoDB Cluster:
 
 1. Connect to a _Coordinator_ via [_arangosh_](programs-arangosh.html)
-2. Create a collection
-
-    127.0.0.1:8530@_system> db._create("test", {"replicationFactor": 2})
-
-3. The _Coordinator_ will figure out a *leader* and one *follower* and create
+2. Create a collection: `db._create("test", {"replicationFactor": 2});`
+3. The _Coordinator_ figures out a *leader* and one *follower* and creates
    one *shard* (as this is the default)
-4. Insert data
-
-    127.0.0.1:8530@_system> db.test.insert({"foo": "bar"})
-
-5. The _Coordinator_ will write the data to the _leader_, which in turn will
-replicate it to the _follower_.
-6. Only when both were successful the result is reported to be successful:
+4. Insert data: `db.test.insert({"foo": "bar"});`
+5. The _Coordinator_ writes the data to the _leader_, which in turn
+   replicates it to the _follower_.
+6. Only when both are successful, the result is reported indicating success:
 
    ```json
    {
@@ -528,7 +528,7 @@ replicate it to the _follower_.
    }
    ```
 
-Obviously, synchronous replication comes at the cost of an increased latency for
+Synchronous replication comes at the cost of an increased latency for
 write operations, simply because there is one more network hop within the
 Cluster for every request. Therefore the user can set the _replicationFactor_
 to 1, which means that only one copy of each shard is kept, thereby
@@ -548,25 +548,25 @@ out of sync.
 
 One of the following two cases can happen:
 
-**a)** If another _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
-       is available in the Cluster, a new _follower_ will automatically
-       be created on this other _DB-Server_ (so the _replication factor_ constraint is
-       satisfied again).
+- If another _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
+  is available in the Cluster, a new _follower_ will automatically
+  be created on this other _DB-Server_ (so the _replication factor_ constraint is
+  satisfied again).
 
-**b)** If no other _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
-       is available, the service continues with one _follower_ less than the number
-       prescribed by the _replication factor_.
+- If no other _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
+  is available, the service continues with one _follower_ less than the number
+  prescribed by the _replication factor_.
 
 If the old _DB-Server_ with the _follower_ copy comes back, one of the following
 two cases can happen:
 
-**a)** If previously we were in case a), the _DB-Server_ recognizes that there is a new
-      _follower_ that was elected in the meantime, so it will no longer be a _follower_
-       for that _shard_.
+-  If previously we were in case a), the _DB-Server_ recognizes that there is a new
+   _follower_ that was elected in the meantime, so it will no longer be a _follower_
+   for that _shard_.
 
-**b)** If previously we were in case b), the _DB-Server_ automatically resynchronizes its
-       data with the _leader_. The _replication factor_ constraint is now satisfied again
-       and order is restored.
+-  If previously we were in case b), the _DB-Server_ automatically resynchronizes its
+   data with the _leader_. The _replication factor_ constraint is now satisfied again
+   and order is restored.
 
 ### Failure of a leader
 
@@ -583,34 +583,33 @@ data with the new _leader_.
 
 In addition to the above, one of the following two cases cases can happen:
 
-a) If another _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
-   is available in the Cluster, a new _follower_ will automatically
-   be created on this other _DB-Server_ (so the _replication factor_ constraint is
-   satisfied again).
-b) If no other _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
-   is available the service continues with one _follower_ less than the number
-   prescribed by the _replication factor_.
+- If another _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
+  is available in the Cluster, a new _follower_ will automatically
+  be created on this other _DB-Server_ (so the _replication factor_ constraint is
+  satisfied again).
+
+- If no other _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
+  is available the service continues with one _follower_ less than the number
+  prescribed by the _replication factor_.
 
 When the _DB-Server_ with the original _leader_ copy comes back, it recognizes
 that a new _leader_ was elected in the meantime, and one of the following
 two cases can happen:
 
-a) If previously we were in case a), since also a new _follower_ was created and
-   the _replication factor_ constraint is satisfied, the _DB-Server_ will no
-   longer be a _follower_ for that _shard_.
-b) If previously we were in case b), the _DB-Server_ notices that it now holds
-   a _follower_ _replica_ of that _shard_ and it resynchronizes its data with the
-   new _leader_. The _replication factor_ constraint is now satisfied again, 
-   and order is restored.
+- If previously we were in case a), since also a new _follower_ was created and
+  the _replication factor_ constraint is satisfied, the _DB-Server_ will no
+  longer be a _follower_ for that _shard_.
+
+- If previously we were in case b), the _DB-Server_ notices that it now holds
+  a _follower_ _replica_ of that _shard_ and it resynchronizes its data with the
+  new _leader_. The _replication factor_ constraint is now satisfied again, 
+  and order is restored.
 
 The following example will give you an idea of how _failover_
 has been implemented in ArangoDB Cluster:
 
 1. The _leader_ of a _shard_ (let's name it _DBServer001_) is going down.
-2. A _Coordinator_ is asked to return a document:
-
-    127.0.0.1:8530@_system> db.test.document("100069")
-
+2. A _Coordinator_ is asked to return a document: `db.test.document("100069");`
 3. The _Coordinator_ determines which server is responsible for this document
    and finds _DBServer001_
 4. The _Coordinator_ tries to contact _DBServer001_ and timeouts because it is

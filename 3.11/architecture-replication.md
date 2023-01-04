@@ -37,11 +37,13 @@ an outage has been detected, without losing any committed data, and
 mostly without even signaling an error condition to the client. 
 
 Synchronous replication is organized such that every _shard_ has a
-_leader_ and `r-1` _followers_, where `r` denoted the replication
+_leader_ and `r-1` _followers_, where `r` denotes the replication
 factor. The number of _followers_ can be controlled using the
 `replicationFactor` parameter whenever you create a _collection_, the
 `replicationFactor` parameter is the total number of copies being
 kept, that is, it is one plus the number of _followers_.
+
+<!-- Add example -->
 
 In addition to the `replicationFactor` there is a `writeConcern` that
 specifies the lowest number of in-sync followers. Specifying the write concern
