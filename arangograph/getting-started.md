@@ -42,7 +42,7 @@ used for multiple accounts.
      - For the email address option, type your desired email address in the
        email field and type a strong password in the password field.
 
-     ![ArangoGraph Sign up](images/oasis-signup.png){:style="max-height: 50vh"}
+     ![ArangoGraph Sign up](images/arangograph-signup.png){:style="max-height: 50vh"}
 
    Click the __Sign up__ button. You will receive a verification email. In that
    mail, click the __Verify my email address__ link or button.
@@ -67,7 +67,7 @@ used for multiple accounts.
    provider and region. Pick one, click __Create deployment__ and accept the
    terms and conditions.
 
-   ![ArangoGraph Dashboard](images/oasis-dashboard.png)
+   ![ArangoGraph Dashboard](images/arangograph-dashboard.png)
 
    You can also [create a deployment](deployments.html#how-to-create-a-new-deployment)
    manually if you want fine-grained configuration options.
