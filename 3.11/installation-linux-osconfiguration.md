@@ -186,26 +186,10 @@ The maximum number of file descriptors can be adjusted using `ulimit`, `cgroups`
 and `systemd`.
 
 
-Environment Variables
----------------------
-
-It is recommended to set the environment variable `GLIBCXX_FORCE_NEW` to 1 on
-systems that use glibc++ in order to disable the memory pooling built into
-glibc++. That memory pooling is unnecessary because Jemalloc will already do
-memory pooling.
-
-Execute
-
-```bash
-export GLIBCXX_FORCE_NEW=1
-```
-
-before starting `arangod`.
-
 32bit
 -----
 
-While it should be possible to compile ArangoDB on 32bit system, this is not a
+While it may be possible to compile ArangoDB on 32bit systems, this is not a
 recommended environment. 64bit systems can address a significantly larger
 memory region. This is also the reason why only 64bit release builds are supplied
 by ArangoDB Inc.
