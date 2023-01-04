@@ -25,7 +25,7 @@ Structure of an ArangoDB Cluster
 
 An ArangoDB Cluster consists of a number of ArangoDB instances
 which talk to each other over the network. They play different roles,
-which will be explained in detail below. 
+which are explained in detail below. 
 
 The current configuration
 of the Cluster is held in the _Agency_, which is a highly-available
@@ -38,8 +38,6 @@ roles:
 - _Agents_
 - _Coordinators_
 - _DB-Servers_.
-
-In the following sections we will shed light on each of them.
 
 ![ArangoDB Cluster](images/cluster-topology.png)
 
@@ -65,9 +63,9 @@ can subscribe to HTTP callbacks for all changes to the tree.
 ### Coordinators
 
 _Coordinators_ should be accessible from the outside. These are the ones
-the clients talk to. They will coordinate cluster tasks like
+the clients talk to. They coordinate cluster tasks like
 executing queries and running Foxx services. They know where the
-data is stored and will optimize where to run user supplied queries or
+data is stored and optimize where to run user-supplied queries or
 parts thereof. _Coordinators_ are stateless and can thus easily be shut down
 and restarted as needed.
 
@@ -151,8 +149,8 @@ be distributed to multiple machines.
 
 From the outside this process is fully transparent:
 An application may talk to any _Coordinator_  and
-it will automatically figure out where the data is currently stored (read-case) 
-or is to be stored (write-case). The information about the _shards_ 
+it automatically figures out where the data is currently stored when reading
+or is to be stored when writing. The information about the _shards_ 
 is shared across all _Coordinators_ using the _Agency_.
 
 _Shards_ are configured per _collection_ so multiple _shards_ of data form
@@ -174,7 +172,7 @@ and allows running transactions with ACID guarantees on shard leaders.
 
 By restricting collections to a single shard and placing them on one DB-Server
 node, whole queries can be pushed to and executed on that server. The
-Coordinator will only get back the final result. This setup is highly
+Coordinator only gets back the final result. This setup is highly
 recommended for most graph use cases and join-heavy queries.
 
 {% hint 'info' %}
@@ -219,11 +217,11 @@ There are two ways to achieve this:
   [startup option](programs-arangod-options.html#cluster)
   `--cluster.force-one-shard`. It sets the immutable `sharding` database
   property to `"single"` for all newly created databases, which in turn
-  enforces the OneShard conditions for collections that will be created in it.
-  The `_graphs` system collection will be used for `distributeShardsLike`.
+  enforces the OneShard conditions for collections that are created in it.
+  The `_graphs` system collection is used for `distributeShardsLike`.
 
 - For individual OneShard databases, set the `sharding` database property to `"single"`
-  to enforce the OneShard condition. The `_graphs` system collection will be used for
+  to enforce the OneShard condition. The `_graphs` system collection is used for
   `distributeShardsLike`. It is not possible to change the `sharding` database
   property afterwards or overwrite this setting for individual collections.
   For non-OneShard databases the value of the `sharding` database property is
@@ -430,7 +428,8 @@ on the leader shards in a cluster, a few things need to be considered:
 - To ensure durability, enable `waitForSync` on query level to wait until data
   modifications have been written to disk.
 - The collection option `writeConcern: 2` makes sure that a transaction is only
-  successful if at least one replica is in sync.
+  successful if at least one follower shard is in sync with the leader shard,
+  for a total of two shard replicas.
 - The RocksDB engine supports intermediate commits for larger document
   operations, potentially breaking the atomicity of transactions. To prevent
   this for individual queries you can increase `intermediateCommitSize`
@@ -438,7 +437,7 @@ on the leader shards in a cluster, a few things need to be considered:
 
 ### Limitations
 
-The OneShard optimization will be used automatically for all eligible AQL queries
+The OneShard optimization is used automatically for all eligible AQL queries
 and Stream Transactions.
 
 For AQL queries, any of the following factors currently makes a query
@@ -472,24 +471,27 @@ Synchronous replication
 In an ArangoDB Cluster, the replication among the data stored by the _DB-Servers_
 is synchronous.
 
-Synchronous replication works on a per-shard basis. Using the option _replicationFactor_,
-one configures for each _collection_ how many copies of each _shard_ are kept in the Cluster.
+Synchronous replication works on a per-shard basis. Using the `replicationFactor`
+option, you can configure for each _collection_ how many copies of each _shard_
+are kept in the Cluster.
 
 {% hint 'danger' %}
-If a collection has a _replication factor_ of 1, its data is **not**
+If a collection has a _replication factor_ of `1`, its data is **not**
 replicated to other _DB-Servers_. This exposes you to a risk of data loss, if
 the machine running the _DB-Server_ with the only copy of the data fails permanently.
 
-The _replication factor_ has to be set to a value equals or higher than 2
+You need to set the _replication factor_ to a value equal or higher than `2`
 to achieve minimal data redundancy via the synchronous replication.
 
-An equal-or-higher-than 2 _replication factor_ has to be set **explicitly**
-when the collection is created, or can be set later at run time if you forgot
-to set it at creation time.
+You need to set a _replication factor_ equal to or higher than `2`
+**explicitly** when creating a collection, or you can adjust it later if you
+forgot to set it at creation time. You can also enforce a
+minimum replication factor for all collections by setting the
+[`--cluster.min-replication-factor` startup option](programs-arangod-options.html#--clustermin-replication-factor).
 
 When using a Cluster, please make sure all the collections that are important
 (and should not be lost in any case) have a _replication factor_ equal or higher
-than 2.
+than `2`.
 {% endhint %}
 
 At any given time, one of the copies is declared to be the _leader_ and
@@ -500,15 +502,15 @@ is considered to be done and reported back to the _Coordinator_.
 Internally, read operations are all served by the _DB-Server_ holding the _leader_ copy,
 this allows to provide snapshot semantics for complex transactions.
 
-Using synchronous replication alone will guarantee consistency and high availability
-at the cost of reduced performance: write requests will have a higher latency
+Using synchronous replication alone guarantees consistency and high availability
+at the cost of reduced performance: write requests have a higher latency
 (due to every write-request having to be executed on the _followers_) and
-read requests will not scale out as only the _leader_ is being asked.
+read requests do not scale out as only the _leader_ is being asked.
 
-In a Cluster, synchronous replication will be managed by the _Coordinators_ for the client. 
-The data will always be stored on the _DB-Servers_.
+In a Cluster, synchronous replication is managed by the _Coordinators_ for the client. 
+The data is always stored on the _DB-Servers_.
 
-The following example will give you an idea of how synchronous operation
+The following example gives you an idea of how synchronous operation
 has been implemented in ArangoDB Cluster:
 
 1. Connect to a _Coordinator_ via [_arangosh_](programs-arangosh.html)
@@ -548,30 +550,30 @@ out of sync.
 
 One of the following two cases can happen:
 
-- If another _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
-  is available in the Cluster, a new _follower_ will automatically
-  be created on this other _DB-Server_ (so the _replication factor_ constraint is
+- **A**: If another _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
+  is available in the Cluster, a new _follower_ is automatically
+  created on this other _DB-Server_ (so the _replication factor_ constraint is
   satisfied again).
 
-- If no other _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
+- **B**: If no other _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
   is available, the service continues with one _follower_ less than the number
   prescribed by the _replication factor_.
 
 If the old _DB-Server_ with the _follower_ copy comes back, one of the following
 two cases can happen:
 
--  If previously we were in case a), the _DB-Server_ recognizes that there is a new
-   _follower_ that was elected in the meantime, so it will no longer be a _follower_
-   for that _shard_.
+- Following case **A**, the _DB-Server_ recognizes that there is a new
+  _follower_ that was elected in the meantime, so it is no longer a _follower_
+  for that _shard_.
 
--  If previously we were in case b), the _DB-Server_ automatically resynchronizes its
-   data with the _leader_. The _replication factor_ constraint is now satisfied again
-   and order is restored.
+- Following case **B**, the _DB-Server_ automatically resynchronizes its
+  data with the _leader_. The _replication factor_ constraint is now satisfied again
+  and order is restored.
 
 ### Failure of a leader
 
 If a _DB-Server_ that holds a _leader_ copy of a shard fails, then the _leader_
-can no longer serve any requests. It will no longer send a heartbeat to
+can no longer serve any requests. It no longer sends a heartbeat to
 the _Agency_. Therefore, a _supervision_ process running in the _Raft_ _leader_
 of the Agency, can take the necessary action (after 15 seconds of missing
 heartbeats), namely to promote one of the _DB-Servers_ that hold in-sync
@@ -583,12 +585,12 @@ data with the new _leader_.
 
 In addition to the above, one of the following two cases cases can happen:
 
-- If another _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
-  is available in the Cluster, a new _follower_ will automatically
-  be created on this other _DB-Server_ (so the _replication factor_ constraint is
+- **A**: If another _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
+  is available in the Cluster, a new _follower_ is automatically
+  created on this other _DB-Server_ (so the _replication factor_ constraint is
   satisfied again).
 
-- If no other _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
+- **B**: If no other _DB-Server_ (that does not hold a _replica_ for this _shard_ already)
   is available the service continues with one _follower_ less than the number
   prescribed by the _replication factor_.
 
@@ -596,16 +598,16 @@ When the _DB-Server_ with the original _leader_ copy comes back, it recognizes
 that a new _leader_ was elected in the meantime, and one of the following
 two cases can happen:
 
-- If previously we were in case a), since also a new _follower_ was created and
-  the _replication factor_ constraint is satisfied, the _DB-Server_ will no
-  longer be a _follower_ for that _shard_.
+- Following case **A**, since also a new _follower_ was created and
+  the _replication factor_ constraint is satisfied, the _DB-Server_ is no
+  longer a _follower_ for that _shard_.
 
-- If previously we were in case b), the _DB-Server_ notices that it now holds
+- Following case **B**, the _DB-Server_ notices that it now holds
   a _follower_ _replica_ of that _shard_ and it resynchronizes its data with the
-  new _leader_. The _replication factor_ constraint is now satisfied again, 
+  new _leader_. The _replication factor_ constraint is satisfied again, 
   and order is restored.
 
-The following example will give you an idea of how _failover_
+The following example gives you an idea of how _failover_
 has been implemented in ArangoDB Cluster:
 
 1. The _leader_ of a _shard_ (let's name it _DBServer001_) is going down.
@@ -614,11 +616,11 @@ has been implemented in ArangoDB Cluster:
    and finds _DBServer001_
 4. The _Coordinator_ tries to contact _DBServer001_ and timeouts because it is
    not reachable.
-5. After a short while the _supervision_ (running in parallel on the _Agency_)
-   will see that _heartbeats_ from _DBServer001_ are not coming in
+5. After a short while, the _supervision_ (running in parallel on the _Agency_)
+   sees that _heartbeats_ from _DBServer001_ are not coming in
 6. The _supervision_ promotes one of the _followers_ (say _DBServer002_), that
    is in sync, to be _leader_ and makes _DBServer001_ a _follower_.
-7. As the _Coordinator_ continues trying to fetch the document it will see that
+7. As the _Coordinator_ continues trying to fetch the document, it sees that
    the _leader_ changed to _DBServer002_
 8. The _Coordinator_ tries to contact the new _leader_ (_DBServer002_) and returns
    the result:
@@ -656,8 +658,8 @@ All these operations can be triggered via a REST/JSON API or via the
 graphical web interface. All fail-over operations are completely handled within
 the ArangoDB Cluster.
 
-Microservices and zero administation
-------------------------------------
+Microservices and zero administration
+-------------------------------------
 
 The design and capabilities of ArangoDB are geared towards usage in
 modern microservice architectures of applications. With the
@@ -693,6 +695,6 @@ Cluster ID
 ----------
 
 Every ArangoDB instance in a Cluster is assigned a unique
-ID during its startup. Using its ID a node is identifiable
-throughout the Cluster. All cluster operations will communicate
+ID during its startup. Using its ID, a node is identifiable
+throughout the Cluster. All cluster operations communicate
 via this ID.
