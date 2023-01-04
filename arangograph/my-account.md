@@ -91,7 +91,7 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
 
 1. Once invited, you will receive an email asking to join your
    ArangoGraph organization.
-   ![ArangoGraph Organization Invite Email](images/oasis-org-invite-email.png)
+   ![ArangoGraph Organization Invite Email](images/arangograph-org-invite-email.png)
 2. Click the __View my organization invite__ link in the email. You will be
    asked to log in or to create a new account.
 3. To sign up for a new account, click the __Start Free__ button or the
@@ -103,7 +103,7 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
    ![ArangoGraph Organization Invite Email Verify](images/oasis-org-invite-email-verify.png)
 6. After successfully logging in, you can accept or reject the invite to
    join your organization.
-   ![ArangoGraph Organization Invite](images/oasis-org-invite.png)
+   ![ArangoGraph Organization Invite](images/arangograph-org-invite.png)
 7. After accepting the invite, you become a member of your organization and
    will be granted access to the organization and its related projects and
    deployments.

@@ -80,7 +80,7 @@ used for multiple accounts.
    will change from __Bootstrapping__ to __OK__ eventually and you will also
    receive an email when it is ready.
 
-   ![ArangoGraph Deployment Ready Email](images/oasis-deployment-ready-email.png){:style="max-height: 50vh"}
+   ![ArangoGraph Deployment Ready Email](images/arangograph-deployment-ready-email.png){:style="max-height: 50vh"}
 
 3. Click the name or the _View_ button of the deployment card (or the
    __Open deployment details__ link in the email) to get to the deployment
