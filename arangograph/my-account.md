@@ -96,7 +96,7 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
    asked to log in or to create a new account.
 3. To sign up for a new account, click the __Start Free__ button or the
    __Sign up__ link in the header navigation.
-   ![ArangoGraph Homepage](images/oasis-homepage.png)
+   ![ArangoGraph Homepage](images/arangograph-homepage.png)
 4. After successfully signing up, you will receive a verification email.
 5. Click the __Verify my email address__ link in the email. It takes you back
    to the ArangoGraph Insights Platform site.

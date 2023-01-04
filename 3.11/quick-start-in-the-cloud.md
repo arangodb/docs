@@ -70,7 +70,7 @@ used for multiple accounts.
    provider and region. Pick one, click __Create deployment__ and accept the
    terms and conditions.
 
-   ![ArangoGraph Dashboard](arangograph/images/oasis-dashboard.png)
+   ![ArangoGraph Dashboard](arangograph/images/arangograph-dashboard.png)
 
    You can also [create a deployment](arangograph/deployments.html#how-to-create-a-new-deployment)
    manually, if you want fine-grained configuration options.

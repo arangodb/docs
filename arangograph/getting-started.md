@@ -33,7 +33,7 @@ used for multiple accounts.
 2. Click the __Start Free__ button or click the __Sign Up__ link in the top
    right corner.
 
-   ![ArangoGraph Homepage](images/oasis-homepage.png)
+   ![ArangoGraph Homepage](images/arangograph-homepage.png)
 
 3. Review the terms & conditions and privacy policy and click __I accept__.
 4. Select the type of sign up you would like to use (GitHub, Google, or
