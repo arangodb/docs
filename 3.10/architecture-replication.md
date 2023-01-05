@@ -60,8 +60,6 @@ followers are available.
 Asynchronous replication
 ------------------------
 
-Any write operation in ArangoDB is logged in the _write-ahead log_.
-
 When using asynchronous replication, _Followers_ connect to a _Leader_ and apply
 all the events from the Leader log in the same order locally. As a result, the
 _Followers_ end up with the same state of data as the _Leader_.
@@ -71,15 +69,15 @@ _Followers_ are only eventually consistent with the _Leader_.
 Transactions are honored in replication, i.e. transactional write operations 
 become visible on _Followers_ atomically.
 
-As all write operations are logged to a Leader database's _write-ahead log_, the 
-replication in ArangoDB cannot be used for write-scaling. The main purposes 
-of the replication are to provide read-scalability and "hot backups"
-of specific databases.
+All write operations are logged to the Leader's _write-ahead log_. Therefore,
+asynchronous replication in ArangoDB cannot be used for write-scaling. The main
+purposes of this type of replication are to provide read-scalability and
+hot standby servers for _Active Failover_ deployments.
 
-It is possible to connect multiple _Follower_ to the same _Leader_. _Followers_ should be used
-as read-only instances, and no user-initiated write operations 
-should be carried out on them. Otherwise, data conflicts may occur that cannot be solved 
-automatically, and this makes the replication stop.
+It is possible to connect multiple _Follower_ to the same _Leader_. _Followers_
+should be used as read-only instances, and no user-initiated write operations 
+should be carried out on them. Otherwise, data conflicts may occur that cannot
+be solved automatically, and this makes the replication stop.
 
 In an asynchronous replication scenario, Followers _pull_ changes
 from the _Leader_. _Followers_ need to know to which _Leader_ they should 
@@ -88,8 +86,6 @@ When the network connection between the _Leader_ and a _Follower_ goes down, wri
 operations on the Leader can continue normally. When the network is up again, _Followers_ 
 can reconnect to the _Leader_ and transfer the remaining changes. This 
 happens automatically, provided _Followers_ are configured appropriately.
-
-Asynchronous replication can be set up to be global or per database.
 
 ### Replication lag
 
@@ -117,8 +113,8 @@ between). Thus, the replication leads to an _eventually consistent_ state of dat
 ### Replication overhead
 
 As the _Leader_ servers are logging any write operation in the _write-ahead-log_
-anyway replication doesn't cause any extra overhead on the _Leader_. However, it
+anyway, replication doesn't cause any extra overhead on the _Leader_. However, it
 causes some overhead for the _Leader_ to serve incoming read
-requests of the _Followers_. Returning the requested data is however a trivial
+requests of the _Followers_. However, returning the requested data is a trivial
 task for the _Leader_ and should not result in a notable performance
 degradation in production.

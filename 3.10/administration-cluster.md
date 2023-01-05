@@ -26,6 +26,13 @@ _collection_, you may specify the number of _replicas_ using the
 is set to `1`, which effectively *disables* synchronous replication among
 _DB-Servers_.
 
+{% hint 'tip' %}
+The number of replicas includes the leader (the master copy) as well as all the
+followers (redundancy copies). For example, a replication factor of `3` means
+that there is one leader replica and two follower replicas, and that the data
+exists three times in total.
+{% endhint %}
+
 Whenever you specify a _replication factor_ greater than `1`, synchronous
 replication is activated for this collection. The Cluster determines suitable
 _leaders_ and _followers_ for every requested _shard_ (`numberOfShards`) within
@@ -40,7 +47,7 @@ db._create("test", { "replicationFactor": 3 })
 ```
 
 The `replicationFactor` value can be between the minimum and maximum
-replication factor defined by the following startup options:
+replication factor (inclusive) as defined by the following startup options:
 
 - [`--cluster.min-replication-factor`](programs-arangod-options.html#--clustermin-replication-factor)
 - [`--cluster.max-replication-factor`](programs-arangod-options.html#--clustermax-replication-factor)
