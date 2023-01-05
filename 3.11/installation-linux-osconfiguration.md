@@ -186,10 +186,10 @@ The maximum number of file descriptors can be adjusted using `ulimit`, `cgroups`
 and `systemd`.
 
 
-32bit
------
+32-bit
+------
 
-While it may be possible to compile ArangoDB on 32bit systems, this is not a
-recommended environment. 64bit systems can address a significantly larger
-memory region. This is also the reason why only 64bit release builds are supplied
-by ArangoDB Inc.
+While it might be possible to compile ArangoDB on 32-bit systems, this is not
+officially supported and not recommended environment. 64-bit systems can address a
+significantly larger memory region. This is also the reason why only 64-bit
+release builds are offered by ArangoDB Inc.
