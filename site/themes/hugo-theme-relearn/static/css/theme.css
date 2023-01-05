@@ -737,3 +737,95 @@ div.box > .box-content > .box-text > p {
     color: #444;
     background: 0 0;
 }
+
+footer {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    color: #ffffff;
+}
+
+.footer-container {
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    max-width: 1024px;
+    padding-top: 32px;
+}
+
+.footer-col {
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    -webkit-flex-basis: 25%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 25%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.footer-col-title {
+    font-family: Akzidenz-Grotesk Std;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 24px;
+    color: #3d443b;
+    margin-top: 0px;
+}
+
+.footer-logo {
+    margin-top: 2rem;
+}
+
+.footer-social {
+    margin: 0;
+}
+
+.footer-social-icon {
+    display: block;
+    color: #868484;
+    line-height: 30px;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    position: relative;
+    font-size: 14px;
+    transition: 0.5s;
+}
+
+.footer-social-icon:hover {
+    position: relative;
+    text-decoration: none;
+    color: #444;
+    background: 0 0;
+}
+
+#footer-trademark {
+    color: #3d443b;
+}
