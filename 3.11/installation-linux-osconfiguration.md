@@ -190,6 +190,6 @@ and `systemd`.
 ------
 
 While it might be possible to compile ArangoDB on 32-bit systems, this is not
-officially supported and not recommended environment. 64-bit systems can address a
-significantly larger memory region. This is also the reason why only 64-bit
+officially supported and not a recommended environment. 64-bit systems can address
+a significantly larger memory space. This is also the reason why only 64-bit
 release builds are offered by ArangoDB Inc.
