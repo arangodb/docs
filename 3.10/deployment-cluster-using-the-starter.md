@@ -74,13 +74,18 @@ Once all the processes started by the _Starter_ are up and running, and joined t
 cluster (this may take a while depending on your system), the _Starter_ informs
 you where to connect to the cluster from a browser, shell, or program.
 
+Additional servers can be added in the same way. For example, on host D, you run
+the above command pointing to the Starter that runs on `A`. This adds another
+DB-Server and Coordinator, but no fourth Agent, as the default Agency size
+(`--cluster.agency-size`) of `3` is already reached. To only add a DB-Server,
+use `--cluster.start-coordinator false`. To only add a Coordinator, use
+`--cluster.start-dbserver false`.
+
 The Starter uses the next few ports above the Starter port for the cluster nodes.
 That is, if you use port 8528 for the Starter, the Coordinator uses 8529
 (=8528+1), the DB-Server 8530 (=8528+2), and the Agent 8531 (=8528+3).
 You can change the default Starter port with the
 [`--starter.port` option](programs-starter-options.html).
-
-Additional servers can be added in the same way.
 
 If two or more of the `arangodb` instances run on the same machine,
 you have to use the `--starter.data-dir` option to let each use a different
