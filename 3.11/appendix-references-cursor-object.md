@@ -17,7 +17,10 @@ If the server has more documents than should be returned in a single batch,
 the server will set the *hasMore* attribute in the result. It will also
 return the id of the server-side cursor in the *id* attribute in the result.
 This id can be used with the cursor API to fetch any outstanding results from
-the server and dispose the server-side cursor afterwards.
+the server and dispose the server-side cursor afterwards. Also, the attribute
+*nextBatchId* is added to the result, so, if on advacing the cursor, for some
+connection issue, the result from the next batch is not returned, the cursor API
+can be used to fetch the result from the last batch without advancing the cursor.
 
 Has Next
 --------

@@ -55,3 +55,21 @@ Example: `arangod --rocksdb.total-write-buffer-size 2TiB`
 
 See [Suffixes for numeric options](administration-configuration.html#suffixes-for-numeric-options)
 for details.
+
+
+Cursor API
+----------
+
+### Retry request for last batch
+
+The cursor API can now receive a retry request to retrieve the response for the
+latest batch. The response object for `_api/_cursor/<cursorId>` now contains a 
+sub-attribute `nextBatchId` which is the id of the next batch that will be 
+fetched when the cursor advances, after executing the current request. Then, on 
+the next run of `_api/_cursor/<cursorId>`, which should output the response object 
+of the batch with `nextBatchId`, if it's unsuccessful because of some connection 
+issue, the user can retry to get the response object for that batch with a POST 
+request to `_api/<cursorId>/<nextBatchId>`. This request does not advance the 
+cursor, and only the latest batch fetched would be cached, meaning requests to 
+retrieve the response for a former already fetched batch would return an error.
+

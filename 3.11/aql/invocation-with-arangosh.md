@@ -210,6 +210,16 @@ There are further options that you can pass in the `options` attribute of the `_
   set is small enough), or stored on the arangod instance and can be accessed
   via the cursor API. 
 
+- `retriable`: Specify `true` and the request to retrieve the result from the latest batch fetched
+  will be retriable. The response object in the cursor API would contain the attribute `nextBatchId`,
+  unless the response object belong to the last batch, meaning no more batches would be fetched. 
+  If a request to the API cursor doesn't return successfuly because of some connection issue, the 
+  batch it should return the response from before advancing to fetch for the next batch can be 
+  retrieved with a request to `_api/cursor/<cursorId>/<nextBatchId>`, being `cursorId` the attribute
+  `id` and `nextBatchId` the attribute with same name given in the previous batch's response. 
+   This is only availabe for the latest batch fetched, as former previously fetched batches would 
+   not be cached. 
+
   Please note that the query options `cache`, `count` and `fullCount` don't work on streaming
   queries. Additionally, query statistics, warnings, and profiling data is only
   available after the query has finished. The default value is `false`.

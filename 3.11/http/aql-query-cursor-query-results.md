@@ -171,6 +171,56 @@ Content-type: application/json
 }
 ```
 
+If the attribute `retriable` is set to true, the response object will contain the attribute `nextBatchId`,
+unless the last batch has already been fetched (meaning `hasMore` is false). 
+This attribute can be used if, upon fetching the next batch before advancing the cursor again, if this 
+request does not return the response successfuly because of some connection issue, it can be retrieved 
+with a request to `_api/cursor/<cursorId>/<nextBatchId>`. This only works for the last batch fetched, as 
+the former batches' responses will not be cached. 
+
+```js
+curl http://127.0.0.1:8529/_api/cursor -d 
+'{"query": "FOR i IN 1..5 RETURN i", "batchSize": 2, "count": true, "retriable": true, "options": {"stream": true}}'
+
+{
+  "result":[1,2],
+  "hasMore":true,
+  "id":"3517",
+  "nextBatchId":2,
+  "cached":false,
+  "error":false,
+  "code":201
+}
+
+> curl -X POST --dump - http://localhost:8529/_api/cursor/3517
+
+{ 
+  "code" : 500, 
+  "error" : true, 
+  "errorNum" : 500, 
+  "errorMessage" : "500 Internal Server Error", 
+}
+
+```
+here, we wouldn't be able to get the next batch response, so we can send a request to retrieve it 
+from the `nextBatchId` of the previous response.
+
+```js
+curl http://127.0.0.1:8529/_api/cursor/3517/2 -X POST
+
+{
+  "result":[3,4],
+  "hasMore":true,
+  "id":"3517",
+  "nextBatchId":3,
+  "cached":false,
+  "error":false,
+  "code":200
+}
+
+```
+
+
 Modifying documents
 -------------------
 
