@@ -20,8 +20,7 @@ func InitLog(logFilepath string) {
 }
 
 func CleanCache() {
-	os.OpenFile(config.Conf.Cache.RequestsFile, os.O_TRUNC, 0644)
-	os.OpenFile(config.Conf.Cache.ResponsesFile, os.O_TRUNC, 0644)
+	os.OpenFile(config.Conf.Cache, os.O_TRUNC, 0644)
 	for _, repository := range config.Conf.Repositories {
 		arangosh.Exec(utils.REMOVE_ALL_COLLECTIONS, repository) // FIXME
 		cmd, _ := utils.GetSetupFunctions()

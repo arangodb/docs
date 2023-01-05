@@ -18,14 +18,6 @@ func (service AQLService) Execute(request common.Example) (res AQLResponse) {
 	defer common.Recover(fmt.Sprintf("AQLService.Execute(%s)", request.Code))
 	commands := service.formatRequestCode(&request)
 
-	// Check example is cached
-	if cached, _ := service.IsCached(request); cached {
-		if cachedResp, err := service.GetCachedExampleResponse(request); err == nil {
-			res.ExampleResponse = cachedResp
-			return
-		}
-	}
-
 	repository, _ := common.GetRepository(request.Options.Release, request.Options.Version)
 
 	// Check if dataset to be used
@@ -50,7 +42,7 @@ func (service AQLService) Execute(request common.Example) (res AQLResponse) {
 
 	common.FormatResponse(&res.ExampleResponse)
 
-	service.SaveCachedExampleResponse(res.ExampleResponse)
+	service.SaveCachedExampleResponse(request, res.ExampleResponse)
 
 	res.BindVars = request.Options.BindVars
 

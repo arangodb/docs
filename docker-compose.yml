@@ -49,6 +49,7 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ./migration-tools:/home
+      - ./site/data:/etc/arangoproxy
 
   site:
     container_name: site

@@ -1,38 +1,27 @@
-
-{{ if and (site.Params.useCodeblockHook) (not site.Params.buildForApiDocs) }}
-
-  {{ if in .Inner "---" }}
-    {{ $endpoint := printf "%s/js" site.Params.arangoproxyUrl }}
-    {{ $remote := resources.GetRemote $endpoint (dict
-        "method" "post"
-        "body" .Inner
-      )
-    }}
-    {{ if $remote }}
-      {{ if $remote.Err }}
-          {{ warnf "[JS] ERROR CALLING ENDPOINT %#v" .Position }}
-      {{ else }}
-        {{ $response := unmarshal $remote.Content }}
-        {{ if $response.error }}
-          Error found in the example: {{ $response.error }}
-        {{ end }}
-        {{ if in $response.options.render "input" }}
-          {{ $version := replace $response.options.version "." "" }}
-            {{ transform.Highlight $response.input "js" }}
-        {{ end }}
-        {{ if in $response.options.render "output" }}
-          {{ $version := replace $response.options.version "." "" }}
-          {{ $x := transform.Highlight $response.output "" }}
-          {{- partial "shortcodes/expand.html" (dict
-            "context" .
-            "content" $x
-            "open"    "open"
-            "title"   "show output"
-          ) }}
-        {{ end }}
-      {{ end }}
+{{ if in .Inner "---" }}
+  {{ $metadata := findRE `(?ms)---.*---` .Inner }}
+  {{ $test := index $metadata 0 | transform.Unmarshal }}
+  {{ $name := $test.name }}
+  {{ $version := $test.version }}
+  {{ $release := $test.release }}
+  {{ $cacheEntry := printf "%s_%s_%s" $name $release $version }}
+  {{ warnf "ESEMPIO '%v'" $cacheEntry }}
+  {{ $cache := index site.Data "cache" }}
+  {{ $cacheFound :=  index $cache $cacheEntry }}
+  {{ with $cacheFound }}
+    {{ $request := .request | base64Decode | transform.Unmarshal  }}
+    {{ $response := .response | base64Decode | transform.Unmarshal }}
+    {{ if in $response.options.render "input" }}
+      {{ transform.Highlight $response.input "js" }}
     {{ end }}
-  {{ else }}
-    {{ transform.Highlight .Inner "js" }}
+    {{ if in $response.options.render "output" }}
+      {{ $x := transform.Highlight $response.output "" }}
+      {{- partial "shortcodes/expand.html" (dict
+        "context" .
+        "content" $x
+        "open"    "open"
+        "title"   "show output"
+      ) }}
+    {{ end }}
   {{ end }}
 {{ end }}

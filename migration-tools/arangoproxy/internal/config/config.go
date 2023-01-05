@@ -8,7 +8,7 @@ import (
 type Config struct {
 	WebServer    string       `json:"webserver"`    // Arangoproxy url+port
 	Repositories []Repository `json:"repositories"` // ArangoDB instances
-	Cache        CacheConfig  `json:"cache"`        // Cache configuration
+	Cache        string       `json:"cache"`        // Cache configuration
 	Log          string       `json:"logFile"`      // Logfile
 	Datasets     string       `json:"datasetsFile"` // Logfile
 	OpenApi      OpenApi      `json:"openapi"`      // OpenApi files configuration

@@ -21,14 +21,6 @@ func (service JSService) ExecuteExample(request common.Example) (res common.Exam
 	defer common.Recover(fmt.Sprintf("JSService.ExecuteExample(%s)", request.Code))
 	commands := formatRequestCode(request.Code)
 
-	// Check example is cached
-	if cached, err := service.IsCached(request); cached {
-		if res, err = service.GetCachedExampleResponse(request); err == nil {
-			//Logger.Print("Returning cached ExampleResponse")
-			return
-		}
-	}
-
 	// Example is not cached, execute it against the arango instance
 	repository, _ := common.GetRepository(request.Options.Release, request.Options.Version)
 
@@ -36,7 +28,7 @@ func (service JSService) ExecuteExample(request common.Example) (res common.Exam
 	cmdOutput := arangosh.Exec(commands, repository)
 
 	res = *common.NewExampleResponse(request.Code, cmdOutput, request.Options)
-	service.SaveCachedExampleResponse(res)
+	service.SaveCachedExampleResponse(request, res)
 
 	return
 }
