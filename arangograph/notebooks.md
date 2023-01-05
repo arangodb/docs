@@ -28,10 +28,14 @@ that answer questions like:
 - What data does the ArangoDB instance contain?
 - How can I access certain documents?
 - How do I create a graph?
-and many more.
 
-The ArangoGraph Notebook also pre-installs `python-arango` and ArangoML connectors
-to PyG, DGL, CuGraph, as well as the FastGraphML library, so you can get started
+The ArangoGraph Notebook also pre-installs [python-arango](https://docs.python-arango.com/en/main/){:target="_blank"}
+and ArangoML connectors
+to [PyG](https://github.com/arangoml/pyg-adapter){:target="_blank"},
+[DGL](https://github.com/arangoml/dgl-adapter){:target="_blank"},
+[CuGraph](https://github.com/arangoml/cugraph-adapter){:target="_blank"}, as well as the
+[FastGraphML](https://github.com/arangoml/fastgraphml){:target="_blank"}
+library, so you can get started
 right away accessing data in ArangoDB to develop GraphML models using your
 favorite GraphML libraries with GPUs.
 

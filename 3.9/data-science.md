@@ -140,3 +140,14 @@ The ArangoFlix demo uses five different recommendation methods:
 The ArangoFlix website not only offers an example of how the user recommendations might
 look like in real life, but it also provides information on a recommendation method, an
 AQL query, a custom graph visualization for each movie, and more.
+## ArangoGraph Notebooks
+
+The ArangoGraph Notebook is a JupyterLab notebook embedded in the
+[ArangoGraph Insights Platform](https://cloud.arangodb.com/){:target="_blank"}.
+The notebook integrates seamlessly with the platform,
+automatically connecting to ArangoGraph services, including ArangoDB and the
+ArangoML platform services. This makes it much easier to leverage these
+resources without having to download any data locally or to remember user IDs,
+passwords, and endpoint URLs.
+
+For more information, see the [Notebooks](../arangograph/notebooks.html) documentation.
