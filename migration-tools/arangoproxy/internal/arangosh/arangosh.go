@@ -16,7 +16,7 @@ func Exec(command string, repository config.Repository) (output string) {
 	commonFunctions, _ := utils.GetCommonFunctions()
 	command = fmt.Sprintf("%s\n%s", commonFunctions, command)
 
-	cmdName := "arangosh"
+	cmdName := fmt.Sprintf("arangosh", repository.Version)
 	cmdArgs := []string{
 		//"--configuration", "none",
 		//"--javascript.startup-directory", "/usr/share/arangodb3/js",

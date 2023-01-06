@@ -28,7 +28,9 @@ func (service JSService) ExecuteExample(request common.Example) (res common.Exam
 	cmdOutput := arangosh.Exec(commands, repository)
 
 	res = *common.NewExampleResponse(request.Code, cmdOutput, request.Options)
-	service.SaveCachedExampleResponse(request, res)
+	if cmdOutput != "" {
+		service.SaveCachedExampleResponse(request, res)
+	}
 
 	return
 }

@@ -29,7 +29,9 @@ func (service HTTPService) ExecuteHTTPExample(request common.Example) (res commo
 
 	res = *common.NewExampleResponse(curlRequest, curlOutput, request.Options)
 
-	service.SaveCachedExampleResponse(request, res)
+	if cmdOutput != "" {
+		service.SaveCachedExampleResponse(request, res)
+	}
 
 	return
 }

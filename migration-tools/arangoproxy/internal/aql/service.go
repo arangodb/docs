@@ -41,8 +41,9 @@ func (service AQLService) Execute(request common.Example) (res AQLResponse) {
 	}
 
 	common.FormatResponse(&res.ExampleResponse)
-
-	service.SaveCachedExampleResponse(request, res.ExampleResponse)
+	if cmdOutput != "" {
+		service.SaveCachedExampleResponse(request, res.ExampleResponse)
+	}
 
 	res.BindVars = request.Options.BindVars
 
