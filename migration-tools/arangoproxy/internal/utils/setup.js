@@ -1,3 +1,5 @@
+db._drop("ignore");
+db._create("ignore");
 db._drop("demo");
 db._create("demo");
 addIgnoreCollection("demo");

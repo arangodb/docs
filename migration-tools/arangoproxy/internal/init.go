@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net"
@@ -25,6 +26,16 @@ func CleanCache() {
 		arangosh.Exec(utils.REMOVE_ALL_COLLECTIONS, repository) // FIXME
 		cmd, _ := utils.GetSetupFunctions()
 		arangosh.Exec(cmd, repository)
+	}
+}
+
+func InitRepositories() {
+	common.Repositories = make(map[string]config.Repository)
+	fmt.Printf("INIT REPOSITORIES CONF %s\n", config.Conf.Repositories)
+	for _, repo := range config.Conf.Repositories {
+		common.Repositories[fmt.Sprintf("%s_%s", repo.Type, repo.Version)] = repo
+		cmd, _ := utils.GetSetupFunctions()
+		arangosh.Exec(cmd, repo)
 	}
 }
 

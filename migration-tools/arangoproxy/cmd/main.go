@@ -29,7 +29,7 @@ func init() {
 	}
 
 	internal.InitLog(config.Conf.Log)
-	common.InitRepositories()
+	internal.InitRepositories()
 	//internal.RepositoriesHealthCheck()
 	utils.LoadDatasets(config.Conf.Datasets)
 

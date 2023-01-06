@@ -1,3 +1,4 @@
+
 var assert = function(condition) {
   if (! condition) {
     throw new Error('assertion failed');

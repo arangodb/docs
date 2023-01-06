@@ -16,19 +16,9 @@ func Exec(command string, repository config.Repository) (output string) {
 	commonFunctions, _ := utils.GetCommonFunctions()
 	command = fmt.Sprintf("%s\n%s", commonFunctions, command)
 
-	cmdName := fmt.Sprintf("arangosh", repository.Version)
-	cmdArgs := []string{
-		//"--configuration", "none",
-		//"--javascript.startup-directory", "/usr/share/arangodb3/js",
-		"--server.endpoint", repository.Url,
-	}
-	if repository.Password == "" {
-		cmdArgs = append(cmdArgs, "--server.authentication", "false")
-	} else {
-		cmdArgs = append(cmdArgs, "--server.password", repository.Password)
-	}
+	arangoSHBin := fmt.Sprintf("/home/arangodb%s/bin/arangosh", repository.Version)
 
-	cmd := exec.Command(cmdName, cmdArgs...)
+	cmd := exec.Command("bash", "-c", arangoSHBin+" --server.endpoint "+repository.Url)
 
 	var out, er bytes.Buffer
 	cmd.Stdin = strings.NewReader(strings.ReplaceAll(command, "~", ""))
@@ -36,6 +26,8 @@ func Exec(command string, repository config.Repository) (output string) {
 	cmd.Stderr = &er
 
 	cmd.Run()
+
+	common.Logger.Printf("RES %s %s", out.String(), er.String())
 
 	// Cut what is not the command output itself from the arangosh command invoke
 	outputRegex := regexp2.MustCompile("(?ms)(?<=Type 'tutorial' for a tutorial or 'help' to see common examples).*(?=\r?\n\r?\n\r?\n)", 0)

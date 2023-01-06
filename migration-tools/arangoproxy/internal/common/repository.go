@@ -9,14 +9,6 @@ import (
 
 var Repositories map[string]config.Repository
 
-func InitRepositories() {
-	Repositories = make(map[string]config.Repository)
-	fmt.Printf("INIT REPOSITORIES CONF %s\n", config.Conf.Repositories)
-	for _, repo := range config.Conf.Repositories {
-		Repositories[fmt.Sprintf("%s_%s", repo.Type, repo.Version)] = repo
-	}
-}
-
 func GetRepository(release, version string) (config.Repository, error) {
 	if repository, exists := Repositories[fmt.Sprintf("%s_%s", release, version)]; exists {
 		return repository, nil
