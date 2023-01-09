@@ -16,12 +16,12 @@
 
         <img {{ with $image }}
                 {{ if eq .MediaType.SubType "svg" }} 
-                    src="{{ .RelPermalink }}"
+                    src="{{ .Permalink }}"
                 {{- else }}
                     {{ if eq $size "" }}
-                        src="{{ .RelPermalink }}" 
+                        src="{{ .Permalink }}" 
                     {{- else }}
-                        src="{{ (.Resize (printf "%dx" $width)).RelPermalink }}"
+                        src="{{ (.Resize (printf "%dx" $width)).Permalink }}"
                     {{ end }}
                     {{ with $class }}
                         class="{{.}}"

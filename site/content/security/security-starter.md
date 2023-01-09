@@ -1,0 +1,42 @@
+---
+fileID: security-starter
+title: Securing Starter Deployments
+weight: 1445
+description: 
+layout: default
+---
+The password that is set for the _root_ user during the installation of the ArangoDB
+package has no effect in case of deployments done with the tool _ArangoDB Starter_,
+as this tool creates new database directories and configuration files that are
+separate from those created by the stand-alone installation.
+
+Assuming you have enabled authentication in your _Starter_ deployment (using `--auth.jwt-secret=<secret-file>`), by default
+the _root_ user will be created with an _empty_ password.
+
+In order to the change the password of the _root_ user, you can:
+
+- Open the ArangoDB web interface and change the password from there. [More information](../programs-tools/web-interface/programs-web-interface-users).
+- Open an ArangoSH shell and use the function _users.replace_. [More information](../administration/user-management/administration-managing-users-in-arangosh#replace).
+
+In case you would like to automate the _root_ password change, you might use the 
+_--javascript.execute-string_ option of the _arangosh_ binary, e.g.:
+
+{{< tabs >}}
+{{% tab name="bash" %}}
+```bash
+arangosh --server.endpoint your-server-endpoint \
+    --server.password "" \
+    --javascript.execute-string 'require("org/arangodb/users").update("root", "mypwd");'
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+where "mypwd" is the new password you want to set.
+
+If your _Starter_ deployment has authentication turned off, it is suggested to
+turn it on using a _JWT secret_ file. For more information on this topic, please
+refer to the _Starter_ [Option](../programs-tools/arangodb-starter/programs-starter-options#authentication-options) page.
+
+Note that you cannot easily turn authentication on/off once your deployment
+has started for the first time. It is possible to stop all _Starters_ and then
+manually modify all the `arangod.conf` files in yor data directory, but this is not recommended.

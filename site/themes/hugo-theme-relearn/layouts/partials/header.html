@@ -50,10 +50,10 @@
               </div>
               <div class="container-right">
                 <div class="searchPanel">
-                  {{ partial "search.html" . }}
                   <button class="searchbar-toggle" onclick="showSearchBar()">
-                  <span class="icon-search3 zn-header-icon text-dark"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <span class="icon-search3 zn-header-icon text-dark"><i class="fa fa-search" aria-hidden="true"></i></span>
                   </button>
+                  {{ partial "search.html" . }}
                 </div>
             </header>
             {{- partial "menu.html" . }}
@@ -65,8 +65,10 @@
                         <span></span>
                         <span></span>
                       </a>
+
                   {{- $showBreadcrumb := (and (not .Params.disableBreadcrumb) (not .Site.Params.disableBreadcrumb)) }}
                   {{- if $showBreadcrumb }}
+                  <a href="{{.Site.BaseURL}}" class="home-link is-current" aria-label="Go to home page"></a>
                     <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
                       <meta itemprop="itemListOrder" content="Descending" />
                       {{- template "breadcrumb" dict "page" . "depth" 0 }}
@@ -76,6 +78,8 @@
                       {{ .Title }}
                     </span>
                   {{- end }}
+                  <a class="edit-page" aria-label="" href="https://github.com/arangodb/docs/edit/main/site/content/{{ .Path }}" target="_blank"><i class="fab fa-fw fa-github"></i>
+                    Contribute</a>
                   </nav>
                {{- partial "toc.html" . }}
                {{- define "breadcrumb" }}
@@ -89,8 +93,17 @@
                  {{- template "breadcrumb" dict "page" $parent "depth" $depth }}
                {{- end }}
                {{- if $ispublished }}
-                           <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="{{ $depth }}" /><a itemprop="item" href="{{ .page.RelPermalink }}"{{if not .depth}} aria-disabled="true"{{end}}><span itemprop="name">{{if .page.Title}}{{ .page.Title | markdownify }}{{else}}{{ .page.Site.Title | markdownify }}{{end}}</span></a>{{ if .depth }} > {{ end }}</li>
-               {{- end }}
+               {{- if .page.IsHome }}
+
+               {{ else }}
+                  <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement">
+                    <meta itemprop="position" content="{{ $depth }}" />
+                    <a itemprop="item" href="{{ .page.RelPermalink }}"{{if not .depth}} aria-disabled="true"{{end}}>
+                      <span itemprop="name">{{ .page.Title | markdownify }}</span>
+                    </a>{{ if .depth }} > {{ end }}
+                  </li>
+                  {{ end }}
+                  {{- end }}
              {{- end }}
 
     

@@ -1,0 +1,15 @@
+{{ $title := .Get "title" }}
+{{ $image := resources.GetMatch ( .Get "icon" ) }}
+
+<div class="card">
+    {{ if $image }}
+        <img src="{{ $image.Permalink}}" class="card-icon" />
+    {{ end }}
+    <h3 class="card-title">
+        {{ $title }}
+    </h3>
+    {{ .Inner }}
+
+</div>
+
+

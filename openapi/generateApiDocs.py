@@ -31,11 +31,6 @@ apiDocsRes = {
 			"name": "Apache License, Version 2.0"
 		}
 	},
-    "servers": [
-        {
-            "url": "/_db/_system/"
-        }
-    ],
 	"components": {
 		"schemas": {}
 	},
@@ -70,7 +65,7 @@ def processFile(filepath):
         print(traceback.format_exc())
         raise ex
 
-    endpoints = re.findall(r"\`{3}http-spec(.*?)\`{3}\n\n", data, re.MULTILINE | re.DOTALL)
+    endpoints = re.findall(r"\`{3}http-spec(.*?)\`{3}", data, re.MULTILINE | re.DOTALL)
     for endpoint in endpoints:
         endpointDict = yaml.safe_load(endpoint)
         path = next(iter(endpointDict["paths"]))
@@ -81,7 +76,7 @@ def processFile(filepath):
         apiDocsRes["paths"][path][method] = endpointDict["paths"][path][method]
 
     dstFile = open(dst, "w")
-    json.dump(apiDocsRes, dstFile, indent=4)
+    json.dump(apiDocsRes, dstFile)
     dstFile.close()
 
 if __name__ == "__main__":

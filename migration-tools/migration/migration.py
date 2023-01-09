@@ -207,6 +207,7 @@ def _processChapters(page, paragraph, filepath):
 	paragraph = migrate_enterprise_tag(paragraph)
 	paragraph = migrate_details(paragraph)
 	paragraph = migrate_comments(paragraph)
+	paragraph = migrate_codeblocks(paragraph)
 
 	paragraph = migrateHTTPDocuBlocks(paragraph)
 	paragraph = migrateInlineDocuBlocks(paragraph)

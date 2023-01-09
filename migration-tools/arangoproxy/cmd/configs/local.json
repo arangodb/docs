@@ -3,18 +3,14 @@
     "logFile": "log.txt",
     "datasetsFile": "../internal/aql/datasets.json",
     "openapi": {
-        "apiDocsFile": "./openapi/api-docs.json",
         "componentsFile": "./openapi/components.yaml"
     },
-    "cache": {
-        "requestsFile": "./cache/requests.txt",
-        "responsesFile": "./cache/responses.txt"
-    },
+    "cache": "/etc/arangoproxy/cache.json",
     "repositories": [
         {
             "type": "stable",
             "version": "3.10",
-            "url": "http+tcp://192.168.129.5:8529",
+            "url": "http+tcp://192.168.129.2:8521",
             "password": ""
         },
         {

@@ -13,8 +13,6 @@
     {{ $oldRequest := .Inner | base64Encode }}
 
     {{ with $cacheFound }}
-      {{ if ne $oldRequest .request }}
-      {{ else }}
         {{ $request := .request | base64Decode | transform.Unmarshal  }}
         {{ $response := .response | base64Decode | transform.Unmarshal }}
         {{ if in $response.options.render "input" }}
@@ -29,7 +27,6 @@
             "title"   "show output"
           ) }}
         {{ end }}
-      {{ end}}
     {{ end }}
   {{ else }}
     {{ warnf "CACHE NOT FOUND" }}

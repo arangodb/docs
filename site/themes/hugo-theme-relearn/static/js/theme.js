@@ -253,7 +253,7 @@ function initCodeClipboard(){
         var parent = code.parent();
         var inPre = parent.prop('tagName') == 'PRE';
 
-        if (inPre || text.length > 5) {
+        if (inPre) {
             var clip = new ClipboardJS('.copy-to-clipboard-button', {
                 text: function(trigger) {
                     var text = $(trigger).prev('code').text();
@@ -648,51 +648,18 @@ function scrollToFragment() {
     }, 10);
 }
 
-function mark(){
-    var value = sessionStorage.getItem(baseUriFull+'search-value');
-    $(".highlightable").highlight(value, { element: 'mark' });
-    $("mark").parents(".expand").addClass("expand-marked");
-    $("mark").parents("li").each( function(){
-        var i = jQuery(this).children("input.toggle:not(.menu-marked)");
-        if( i.length ){
-            e = jQuery(i[0]);
-            e.attr("data-checked", (e.prop('checked')?"true":"false")).addClass("menu-marked");
-            i[0].checked = true;
-        }
-    });
-    psm && psm.update();
-}
-
-function unmark(){
-    sessionStorage.removeItem(baseUriFull+'search-value');
-    $("mark").parents("li").each( function(){
-        var i = jQuery(this).children("input.toggle.menu-marked");
-        if( i.length ){
-            e = jQuery(i[0]);
-            i[0].checked = (e.attr("data-checked")=="true");
-            e.attr("data-checked", null).removeClass("menu-marked");
-        }
-    });
-    $("mark").parents(".expand-marked").removeClass("expand-marked");
-    $(".highlightable").unhighlight({ element: 'mark' })
-    psm && psm.update();
-}
 
 function initSearch() {
     jQuery('[data-search-input]').on('input', function() {
         var input = jQuery(this);
         var value = input.val();
-        unmark();
         if (value.length) {
             sessionStorage.setItem(baseUriFull+'search-value', value);
-            mark();
         }
     });
     jQuery('[data-search-clear]').on('click', function() {
         jQuery('[data-search-input]').val('').trigger('input');
-        unmark();
     });
-    mark();
 
     // custom sizzle case insensitive "contains" pseudo selector
     $.expr[":"].contains = $.expr.createPseudo(function(arg) {
@@ -701,24 +668,7 @@ function initSearch() {
         };
     });
 
-    // set initial search value on page load
-    if (sessionStorage.getItem(baseUriFull+'search-value')) {
-        var searchValue = sessionStorage.getItem(baseUriFull+'search-value')
-        $('[data-search-input]').val(searchValue);
-        $('[data-search-input]').trigger('input');
-        var searchedElem = $('.container-main').find(':contains(' + searchValue + ')').get(0);
-        if (searchedElem) {
-            searchedElem.scrollIntoView(true);
-            var scrolledY = window.scrollY;
-            if(scrolledY){
-                window.scroll(0, scrolledY - 125);
-            }
-        }
-    }
-
-    // mark some additonal stuff as searchable
-    $('#topbar a:not(:has(img)):not(.btn)').addClass('highlight');
-    $('.container-main a:not(:has(img)):not(.btn):not(a[rel="footnote"])').addClass('highlight');
+    
 }
 
 // Get Parameters from some url
@@ -957,7 +907,6 @@ var showSidenav = true;
 
 window.addEventListener("load", () => {
     document.querySelector(".sidebar-toggle-navigation").addEventListener("click", e => {
-        console.log("show sidebar " + showSidenav)
     if (showSidenav) {
         $("#sidebar").removeClass("active");
         showSidenav = false;
@@ -972,9 +921,6 @@ window.addEventListener("load", () => {
 
 function expandSubMenu(e) {
     e.preventDefault();
-console.log("click");
-console.log(evt);
-
     return false;
 }
 
@@ -987,6 +933,23 @@ $( document ).ready(function() {
         image.removeAttribute("x-style")
     }
 });
+
+
+$( document ).ready(function() {
+    labels = document.querySelectorAll(".labels");
+    header = document.querySelector("h1");
+
+    for (let label of labels) {
+        header.insertAdjacentElement('afterend', label);
+    }
+});
+
+$('#search-by').keypress(
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
+  });
 
 function copyURI(evt) {
     navigator.clipboard.writeText(evt.target.closest("a").getAttribute('href')).then(() => {

@@ -1,4 +1,4 @@
 #!/bin/bash
 
 rm -r ../../site/content/*
-rm -r ../../site/assets/images/*
+#m -r ../../site/assets/images/*

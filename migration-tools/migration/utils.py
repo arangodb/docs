@@ -55,11 +55,16 @@ def migrate_enterprise_tag(paragraph):
     enterpriseFeatureRegex = re.findall(r"{% include hint-ee-arangograph\.md .* %}|{% include hint-ee\.md .* %}", paragraph)
     for tag in enterpriseFeatureRegex:
         feature = re.search(r"(?<=feature=).*\"", tag).group(0)
-        arangograph = "false"
+        tags = ["ArangoDB Enterprise"]
         if 'arangograph' in tag:
-            arangograph = "true"
+            tags.append("ArangoGraph")
 
-        paragraph = paragraph.replace(tag, '{{{{% enterprise-tag feature={} arangograph="{}" %}}}}'.format(feature, arangograph))
+        tagShortcode = '{{< tag '
+        for t in tags:
+            tagShortcode = tagShortcode + f'"{t}"'
+        tagShortcode = tagShortcode + ' >}}'
+
+        paragraph = paragraph.replace(tag, tagShortcode)
     
     return paragraph
 
@@ -97,7 +102,7 @@ def migrate_hrefs(paragraph, infos, filepath):
 
 def migrate_image(paragraph, href):
     linkContent = re.search(r"(?<=\]\()(.*?)\)", href).group(0).replace(")", "")
-    newImgName = "images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
+    newImgName = "/images/"+ linkContent.split("/")[len(linkContent.split("/"))-1]
 
     if ':style' in href:
         styleRegex = re.search(r"(?<={:style=).*(?=})", href)
@@ -165,6 +170,30 @@ def migrate_headers(paragraph):
         paragraph = paragraph.replace(header, headerText)
 
     return paragraph
+
+def migrate_codeblocks(paragraph):
+    tabsShortcodeStart = "{{< tabs >}}"
+    tabsSortcodeEnd = "{{< /tabs >}}"
+    codeblocks = [x.group() for x in re.finditer(r"\`{3}(.*?)\`{3}", paragraph, re.MULTILINE | re.DOTALL)]
+    for codeblock in codeblocks:
+        lang = codeblock.split("\n")[0].replace("`", "")
+        tabStart = f'{{{{% tab name="{lang}" %}}}}'
+        tabEnd = '{{% /tab %}}'
+
+        newCodeblock = f"{tabsShortcodeStart}\n{tabStart}\n{codeblock}\n{tabEnd}\n{tabsSortcodeEnd}"
+        paragraph = paragraph.replace(codeblock, newCodeblock)
+
+    ## Codeblock as spaces not backticks
+    codeblocks = [x.group() for x in re.finditer(r"\s{4}arango.*", paragraph)]
+    for codeblock in codeblocks:
+        tabStart = f'{{{{% tab name="bash" %}}}}'
+        tabEnd = '{{% /tab %}}'
+
+        newCodeblock = f"{tabsShortcodeStart}\n{tabStart}\n{codeblock}\n{tabEnd}\n{tabsSortcodeEnd}"
+        paragraph = paragraph.replace(codeblock, newCodeblock)
+
+    return paragraph
+
 
 def migrate_docublock_output(exampleName):
     generatedFile = open(f"{globals.OLD_GENERATED_FOLDER}/{exampleName}.generated", 'r', encoding="utf-8")

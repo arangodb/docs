@@ -1,6 +1,7 @@
         </div>
       </main><!-- #body-inner -->
 {{- partial "custom-comments.html" . }}
+{{- partial "custom-footer.html" . }}  
     </div><!-- #body -->
 {{- partial "back-to-top.html" . }}
     <script src="{{"js/clipboard.min.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" defer></script>
@@ -96,6 +97,6 @@
     <script src="{{"js/theme.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" defer></script>
     <script src="{{"js/annotation.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" defer></script>
     <script src="{{"js/version.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" defer></script>
-    {{- partial "custom-footer.html" . }}   
+   
   </body>
 </html>
