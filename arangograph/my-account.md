@@ -100,7 +100,7 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
 4. After successfully signing up, you will receive a verification email.
 5. Click the __Verify my email address__ link in the email. It takes you back
    to the ArangoGraph Insights Platform site.
-   ![ArangoGraph Organization Invite Email Verify](images/oasis-org-invite-email-verify.png)
+   ![ArangoGraph Organization Invite Email Verify](images/arangograph-org-invite-email-verify.png)
 6. After successfully logging in, you can accept or reject the invite to
    join your organization.
    ![ArangoGraph Organization Invite](images/arangograph-org-invite.png)
