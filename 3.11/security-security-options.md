@@ -158,7 +158,6 @@ docker run --rm -e ARANGO_ROOT_PASSWORD="secret" arangodb:3.7 arangosh --javascr
   "ARANGO_PACKAGE_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64/arangodb3_3.7.15-1_amd64.deb",
   "ARANGO_SIGNATURE_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64/arangodb3_3.7.15-1_amd64.deb.asc",
   "PWD" : "/",
-  "GLIBCXX_FORCE_NEW" : "1",
   "ICU_DATA" : "/usr/share/arangodb3/"
 }
 

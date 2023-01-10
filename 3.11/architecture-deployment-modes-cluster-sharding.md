@@ -52,9 +52,9 @@ is essential to achieve optimal performance. From the outside the process of
 splitting the data and assembling it again is fully transparent and as such we
 achieve the goals of what other systems call "master-master replication".
 
-An application may talk to any _Coordinator_  and it will automatically figure
-out where the data is currently stored (read-case) or is to be stored
-(write-case). The information about the _shards_ is shared across all
+An application may talk to any _Coordinator_  and it automatically figures
+out where the data is currently stored when reading or is to be stored
+when writing. The information about the _shards_ is shared across all
 _Coordinators_ using the _Agency_.
 
 _Shards_ are configured per _collection_ so multiple _shards_ of data form the
@@ -100,7 +100,7 @@ For a custom shard key you should consider a few different properties:
   values has a low cardinality.
 
 - **Frequency**: Consider how often a given shard key value may appear in
-  your data. Having a lot of documents with identical shard keys will lead
+  your data. Having a lot of documents with identical shard keys leads
   to unevenly distributed data. 
 
 This means that a single shard could become a bottleneck in your cluster.
@@ -171,17 +171,25 @@ High Availability
 
 A cluster can still read from a collection if shards become unavailable for
 some reason. The data residing on the unavailable shard cannot be accessed,
-however reads on other shards will still succeed.
+but reads on other shards can still succeed.
 
-In a production environment you should always deploy your collections with a
-*replicationFactor* greater than *1* to ensure that the shard stays available
-even when a machine fails.
+If you enable data redundancy by setting a replication factor of `2` or higher
+for a collection, the collection data remains fully available for reading as
+long as at least one replica of every shard is available.
+In a production environment, you should always deploy your collections with a
+`replicationFactor` greater than `1` to ensure that the shards stay available
+even when a machine fails. 
+
+Collection data also remains available for writing as long as a replica of every
+shard is available. You can optionally increase the write concern to require a
+higher number of in-sync shard replicas for writes. The `writeConcern` can be
+as high as the `replicationFactor`.
 
 Storage Capacity
 ----------------
 
-The cluster will distribute your data across multiple machines in your cluster.
-Every machine will only contain a subset of your data. Thus the cluster now has
+The cluster distributes your data across multiple machines in your cluster.
+Every machine only contains a subset of your data. Thus, the cluster has
 the combined storage capacity of all your machines.
 
 Please note that increasing the replication factor also increases the space
