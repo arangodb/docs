@@ -14,58 +14,72 @@ There is also a detailed
 [Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}
 for download.
 
-Please check the following talks as well:
-
-| Date            | Title                                                                       | Who                                     | Link                                                                                                            |
-|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 10th April 2018 | Fundamentals and Best Practices of ArangoDB Cluster Administration          | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/248996022/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=RQ33fkgUg64){:target="_blank"} |
-| 29th May 2018   | Fundamentals and Best Practices of ArangoDB Cluster Administration: Part II | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/250869684/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=jj7YpTaL3pI){:target="_blank"} |
-
 Enabling synchronous replication
 --------------------------------
 
 For an introduction about _Synchronous Replication_ in Cluster, please refer
 to the [_Cluster Architecture_](architecture-deployment-modes-cluster-architecture.html#synchronous-replication) section. 
 
-Synchronous replication can be enabled per _collection_. When creating a
-_collection_ you may specify the number of _replicas_ using the
-*replicationFactor* parameter. The default value is set to `1` which
-effectively *disables* synchronous replication among _DB-Servers_. 
+You can enable synchronous replication per _collection_. When you create a
+_collection_, you may specify the number of _replicas_ using the
+`replicationFactor` parameter. You can also adjust it later. The default value
+is set to `1`, which effectively *disables* synchronous replication among
+_DB-Servers_.
 
-Whenever you specify a _replicationFactor_ greater than 1 when creating a
-collection, synchronous replication will be activated for this collection. 
-The Cluster will determine suitable _leaders_ and _followers_ for every 
-requested _shard_ (_numberOfShards_) within the Cluster.
+{% hint 'tip' %}
+The number of replicas includes the leader (the master copy) as well as all the
+followers (redundancy copies). For example, a replication factor of `3` means
+that there is one leader replica and two follower replicas, and that the data
+exists three times in total.
+{% endhint %}
 
-Example:
+Whenever you specify a _replication factor_ greater than `1`, synchronous
+replication is activated for this collection. The Cluster determines suitable
+_leaders_ and _followers_ for every requested _shard_ (`numberOfShards`) within
+the Cluster.
+
+An example of creating a collection in _arangosh_ with a replication factor of
+`3`, requiring three replicas to report success for any write operation in this
+collection:
 
 ```js
-127.0.0.1:8530@_system> db._create("test", {"replicationFactor": 3})
+db._create("test", { "replicationFactor": 3 })
 ```
 
-In the above case, any write operation will require 3 replicas to
-report success from now on. 
+The `replicationFactor` value can be between the minimum and maximum
+replication factor (inclusive) as defined by the following startup options:
+
+- [`--cluster.min-replication-factor`](programs-arangod-options.html#--clustermin-replication-factor)
+- [`--cluster.max-replication-factor`](programs-arangod-options.html#--clustermax-replication-factor)
+
+The default replication factor for regular and for system collections is defined
+by the following startup options:
+
+- [`--cluster.default-replication-factor`](programs-arangod-options.html#--clusterdefault-replication-factor)
+- [`--cluster.system-replication-factor`](programs-arangod-options.html#--clustersystem-replication-factor)
 
 Preparing growth
 ----------------
 
-You may create a _collection_ with higher _replication factor_ than
-available _DB-Servers_. When additional _DB-Servers_ become available 
+You may create a _collection_ with a higher _replication factor_ than
+available _DB-Servers_. When additional _DB-Servers_ become available,
 the _shards_ are automatically replicated to the newly available _DB-Servers_. 
 
-To create a _collection_ with higher _replication factor_ than
-available _DB-Servers_ please set the option _enforceReplicationFactor_ to _false_, 
-when creating the collection from _ArangoShell_ (the option is not available
-from the web interface), e.g.:
+You need to set the `enforceReplicationFactor` option to `false` when creating
+a _collection_ with a higher _replication factor_ than available _DB-Servers_
+(the default value is `true`). For example, in _arangosh_ you can pass
+a third argument to the `db._create()` method with this option:
 
 ```js
 db._create("test", { replicationFactor: 4 }, { enforceReplicationFactor: false });
 ```
 
-The default value for _enforceReplicationFactor_ is true. 
+This option is not available in the web interface.
 
-**Note:** multiple _replicas_ of the same _shard_ can never coexist on the same
+{% hint 'info' %}
+Multiple _replicas_ of the same _shard_ can never coexist on the same
 _DB-Server_ instance.
+{% endhint %}
 
 Sharding
 --------
@@ -189,11 +203,11 @@ and resiliency.
 
 Rebalancing might occur, amongst other scenarios, when:
 - There is a change in the number of nodes in the cluster and more (or fewer)
-resources are available to the cluster.
+  resources are available to the cluster.
 - There is a detectable imbalance in the distribution of shards
-(i.e. specific nodes holding high number of shards while others don’t) or in
-the distribution of leaders/followers across the nodes, resulting in
-computational imbalance on the nodes.
+  (i.e. specific nodes holding high number of shards while others don’t) or in
+  the distribution of leaders/followers across the nodes, resulting in
+  computational imbalance on the nodes.
 - There are changes in the number or size of data collections.
 
 A _shard_ can be moved from a _DB-Server_ to another, and the entire shard distribution
