@@ -144,6 +144,13 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   Geographic data encoded in the popular GeoJSON format can be stored and used
   for geo-spatial queries.
 
+{% comment %} Experimental feature
+- [**Query result spillover**](aql/invocation-with-arangosh.html#spilloverthresholdmemoryusage)
+  AQL queries can store intermediate and final results temporarily on disk
+  (also known as external result sets) to decrease memory usage when a specified
+  threshold is reached.
+{% endcomment %}
+
 ## Transactions
 
 - [**AQL Queries**](aql/data-queries.html#transactional-execution):
