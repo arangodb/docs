@@ -481,6 +481,13 @@ The cursor API can now return additional statistics values in its `stats` subatt
 
 These attributes are optional and only useful for detailed performance analyses.
 
+The `POST /_api/cursor` endpoint accepts two new parameters in the `options`
+object to set per-query thresholds for the
+[query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage):
+
+- `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)
+- `spillOverThresholdNumRows` (integer, _optional_): default: `5000000` rows
+
 #### Index API
 
 - The index creation API at POST `/_api/index` now accepts an optional `storedValues`
@@ -532,6 +539,21 @@ figures, and for `arangosearch` Views, `withHidden` needs to be enabled, too:
 }
 ```
 
+#### Document API
+
+<small>Introduced in: v3.9.6, v3.10.2</small>
+
+The following endpoints support a new, experimental `refillIndexCaches` query
+parameter to repopulate the edge cache after requests that insert, update,
+replace, or remove single or multiple edge documents:
+
+- `POST /_api/document/{collection}`
+- `PATCH /_api/document/{collection}/{key}`
+- `PUT /_api/document/{collection}/{key}`
+- `DELETE /_api/document/{collection}/{key}`
+
+It is a boolean option and the default is `false`.
+
 #### Metrics API
 
 The `GET /_admin/metrics/v2` (and `GET /_admin/metrics`) endpoints provide
@@ -559,6 +581,16 @@ The metrics endpoints include the following new traffic accounting metrics:
 - `arangodb_client_user_connection_statistics_bytes_received`
 - `arangodb_client_user_connection_statistics_bytes_sent`
 - `arangodb_http1_connections_total`
+
+---
+
+<small>Introduced in: v3.9.6, v3.10.2</small>
+
+The metrics endpoints include the following new edge cache (re-)filling metrics:
+
+- `rocksdb_cache_auto_refill_loaded_total`
+- `rocksdb_cache_auto_refill_dropped_total`
+- `rocksdb_cache_full_index_refills_total`
 
 #### Pregel API
 
@@ -607,3 +639,12 @@ authentication using usernames and passwords.
 The Computed Values feature extends the collection properties with a new
 `computedValues` attribute. See [Computed Values](data-modeling-documents-computed-values.html#javascript-api)
 for details.
+
+The `db._query()` and `db._createStatement()` methods accepts new query
+options (`options` object) to set per-query thresholds for the
+[query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage)
+and to [Read from Followers](http/document-address-and-etag.html#read-from-followers):
+
+- `allowDirtyReads` (boolean, _optional_): default: `false`
+- `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)
+- `spillOverThresholdNumRows` (integer, _optional_): default: `5000000` rows

@@ -16,7 +16,7 @@ The following callback methods are present in `AbstractArangoEventListener`:
 
 **Examples**
 
-```Java
+```java
 package my.mapping.events;
 
 public class BeforePersonSavedListener extends AbstractArangoEventListener<Person> {
@@ -31,7 +31,7 @@ public class BeforePersonSavedListener extends AbstractArangoEventListener<Perso
 
 To register the listener add `@ComponentScan` with the package of your listener to your configuration class.
 
-```Java
+```java
 @Configuration
 @ComponentScan("my.mapping.events")
 public class MyConfiguration implements ArangoConfiguration {

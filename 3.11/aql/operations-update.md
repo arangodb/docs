@@ -361,6 +361,16 @@ FOR doc IN collection
   OPTIONS { exclusive: true }
 ```
 
+### `refillIndexCaches`
+
+Whether to update existing entries in in-memory index caches if document updates
+affect the edge index or cache-enabled persistent indexes.
+
+```aql
+UPDATE { _key: "123", _from: "vert/C", _to: "vert/D" } IN edgeColl
+  OPTIONS { refillIndexCaches: true }
+```
+
 Returning the modified documents
 --------------------------------
 

@@ -377,6 +377,33 @@
     "section" : "agency",
     "type" : "uint64"
   },
+  "agency.supervision-failed-leader-adds-follower" : {
+    "category" : "option",
+    "component" : [
+      "agent"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Flag indicating whether or not the FailedLeader job adds a new follower.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.7",
+      "v3.10.2"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "agency",
+    "type" : "boolean"
+  },
   "agency.supervision-frequency" : {
     "base" : 1,
     "category" : "option",
@@ -8112,6 +8139,97 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.auto-fill-index-caches-on-startup" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether to automatically fill the in-memory index caches with entries from edge indexes and cache-enabled persistent indexes on server startup.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.6",
+      "v3.10.20"
+    ],
+    "longDescription" : "Enabling this option may cause additional CPU and\nI/O load. You can limit how many index filling operations can execute\nconcurrently with the `--rocksdb.max-concurrent-index-fill-tasks` startup\noption.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.auto-refill-index-caches-on-modify" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether to automatically (re-)fill the in-memory index caches with entries from edge indexes and cache-enabled persistent indexes on insert/update/replace/remove operations by default.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.6",
+      "v3.10.20"
+    ],
+    "longDescription" : "When documents are added, modified, or removed,\nthese changes are tracked and a background thread tries to update the index\ncaches accordingly if the feature is enabled, by adding new, updating existing,\nor deleting and refilling cache entries.\n\nYou can enable the feature for individual `INSERT`, `UPDATE`, `REPLACE`,  and\n`REMOVE` operations in AQL queries, for individual document API requests that\ninsert, update, replace, or remove single or multiple documents, as well\nas enable it by default using this startup option.\n\nThe background refilling is done on a best-effort basis and not guaranteed to\nsucceed, for example, if there is no memory available for the cache subsystem,\nor during cache grow/shrink operations. A background thread is used so that\nforeground write operations are not slowed down by a lot. It may still cause\nadditional I/O activity to look up data from the storage engine to repopulate\nthe cache.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.auto-refill-index-caches-queue-capacity" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 131072,
+    "deprecatedIn" : null,
+    "description" : "How many changes can be queued at most for automatically refilling the index caches.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.6",
+      "v3.10.20"
+    ],
+    "longDescription" : "This option restricts how many cache entries\nthe background thread for (re-)filling the in-memory index caches can queue at\nmost. This limits the memory usage for the case of the background thread being\nslower than other operations that invalidate cache entries of edge indexes\nor cache-enabled persistent indexes.",
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.block-align-data-blocks" : {
     "category" : "option",
     "component" : [
@@ -8133,6 +8251,33 @@
       "linux",
       "macos",
       "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.block-cache-jemalloc-allocator" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Use jemalloc-based memory allocator for RocksDB block cache.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "longDescription" : "The jemalloc-based memory allocator for the RocksDB block cache\nwill also exclude the block cache contents from coredumps, potentially making generated \ncoredumps a lot smaller.\nIn order to use this option, the executable needs to be compiled with jemalloc\nsupport (which is the default on Linux).",
+    "obsolete" : false,
+    "os" : [
+      "linux"
     ],
     "required" : false,
     "requiresValue" : false,
@@ -8200,6 +8345,38 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
+  },
+  "rocksdb.bloom-filter-bits-per-key" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 10,
+    "deprecatedIn" : null,
+    "description" : "The average number of bits to use per key in a Bloom filter.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.3"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "double"
   },
   "rocksdb.cache-index-and-filter-blocks" : {
     "category" : "option",
@@ -8764,7 +8941,7 @@
       "agent",
       "single"
     ],
-    "default" : true,
+    "default" : false,
     "deprecatedIn" : null,
     "description" : "If enabled, strictly enforces the block cache size limit.",
     "dynamic" : false,
@@ -9121,6 +9298,39 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "double"
+  },
+  "rocksdb.max-concurrent-index-fill-tasks" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 4,
+    "deprecatedIn" : null,
+    "description" : "The maximum number of index fill tasks that can run concurrently on server startup.",
+    "dynamic" : true,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.6",
+      "v3.10.20"
+    ],
+    "longDescription" : "The lower this number, the lower the impact of the\nindex cache filling, but the longer it takes to complete.",
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
   },
   "rocksdb.max-parallel-compactions" : {
     "base" : 1,
@@ -12553,7 +12763,7 @@
     ],
     "default" : 134217728,
     "deprecatedIn" : null,
-    "description" : "The memory usage threshold after which a spillover form RAM to disk happens for intermediate results (threshold per query executor).",
+    "description" : "The memory usage threshold (in bytes) after which a spillover from RAM to disk happens for intermediate results (threshold per query executor).",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : true,

@@ -512,6 +512,10 @@ The following metrics are available:
 This feature is experimental.
 
 Also see:
+- [AQL `INSERT` operation](aql/operations-insert.html#refillindexcaches)
+- [AQL `UPDATE` operation](aql/operations-update.html#refillindexcaches)
+- [AQL `REPLACE` operation](aql/operations-replace.html#refillindexcaches)
+- [AQL `REMOVE` operation](aql/operations-remove.html#refillindexcaches)
 - [Document HTTP API](http/document-working-with-documents.html)
 - [Edge cache refill options](#edge-cache-refill-options)
 

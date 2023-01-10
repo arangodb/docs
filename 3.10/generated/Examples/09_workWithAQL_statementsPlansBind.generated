@@ -24,8 +24,8 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">&quot;outVariable&quot;</span> : { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;doc&quot;</span>, 
-          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
-          <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
+          <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">&quot;projections&quot;</span> : [ ], 
         <span class="hljs-string">&quot;filterProjections&quot;</span> : [ ], 
@@ -45,7 +45,7 @@ arangosh&gt; stmt.explain();
           { 
             <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;40&quot;</span>, 
             <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;hash&quot;</span>, 
-            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1751094636610322432&quot;</span>, 
+            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1754636797416046592&quot;</span>, 
             <span class="hljs-string">&quot;fields&quot;</span> : [ 
               <span class="hljs-string">&quot;user&quot;</span> 
             ], 
@@ -116,8 +116,8 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">&quot;inVariable&quot;</span> : { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;doc&quot;</span>, 
-          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
-          <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
+          <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">true</span> 
       } 
@@ -137,14 +137,14 @@ arangosh&gt; stmt.explain();
       { 
         <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">2</span>, 
         <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, 
-        <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
-        <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
       }, 
       { 
         <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;doc&quot;</span>, 
-        <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
+        <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
+        <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
       } 
     ], 
     <span class="hljs-string">&quot;estimatedCost&quot;</span> : <span class="hljs-number">3.04475</span>, 

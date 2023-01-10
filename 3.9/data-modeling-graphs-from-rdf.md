@@ -31,7 +31,7 @@ RDF graph or to instead represent RDF statements as properties associated
 with a `subject.` For this discussion, it is helpful to have an example; the
 following is a simple RDF graph for Sir Arthur Conan Doyle.
 
-```XML
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -51,7 +51,7 @@ This syntax can be considered the original/standard RDF syntax. However, many
 different serializations exist, and thanks to their readability and ease of
 parsing, has grown in popularity. 
 
-```Turtle
+```turtle
 <http://dbpedia.org/resource/Arthur_Conan_Doyle> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Thing> .
 <http://dbpedia.org/resource/Arthur_Conan_Doyle> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Person> .
 <http://dbpedia.org/resource/Arthur_Conan_Doyle> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Artist> .

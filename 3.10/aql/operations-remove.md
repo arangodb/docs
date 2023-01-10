@@ -143,6 +143,16 @@ FOR doc IN collection
   OPTIONS { exclusive: true }
 ```
 
+### `refillIndexCaches`
+
+Whether to delete existing entries from the in-memory edge cache and refill it
+with other edges if edge documents are removed.
+
+```aql
+REMOVE { _key: "123" } IN edgeColl
+  OPTIONS { refillIndexCaches: true }
+```
+
 Returning the removed documents
 -------------------------------
 

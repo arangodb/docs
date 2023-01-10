@@ -42,7 +42,7 @@ In cluster mode, the collections need to be sharded in a specific way to ensure
 correct results: The outgoing edges of a vertex need to be on the same DB-Server
 as the vertex. This is guaranteed by [SmartGraphs](graphs-smart-graphs.html).
 
-{% include hint-ee.md feature="SmartGraphs (and thus Pregel in cluster deployments)" plural=true %}
+{% include hint-ee-arangograph.md feature="SmartGraphs (and thus Pregel in cluster deployments)" plural=true %}
 
 Note that the performance may be better, if the number of your shards /
 collections matches the number of CPU cores.
@@ -194,9 +194,6 @@ There are a number of general parameters which apply to almost all algorithms:
 - `parallelism` (number): Number of parallel threads to use per worker.
   Does not influence the number of threads used to load or store data from the
   database (this depends on the number of shards).
-- `async` (bool): If enabled, algorithms which support an asynchronous mode run
-  without synchronized global iterations. Might lead to performance increases if
-  you have load imbalances.
 - `resultField` (string): Most algorithms use this as attribute name for the
   result. Some use it as prefix for multiple result attributes. Defaults to
   `"result"`.
