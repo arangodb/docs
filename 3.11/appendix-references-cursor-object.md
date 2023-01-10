@@ -21,6 +21,13 @@ the server and dispose the server-side cursor afterwards. Also, the attribute
 *nextBatchId* is added to the result, so, if on advacing the cursor, for some
 connection issue, the result from the next batch is not returned, the cursor API
 can be used to fetch the result from the last batch without advancing the cursor.
+As the value of nextBatchId is deterministic and based on single increment per 
+batch, then the user can either use the nextBatchId value when it's returned in 
+the batch's response object or evaluate it based on the current amount of batches
+that have been retrieved so far in their request execution.
+The first batch's id value is 1, hence, the `nextBatchId` value that would be 
+returned in the first batch's response object if the request executes successfully
+is 2.
 
 Has Next
 --------

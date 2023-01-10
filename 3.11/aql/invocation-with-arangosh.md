@@ -216,9 +216,15 @@ There are further options that you can pass in the `options` attribute of the `_
   If a request to the API cursor doesn't return successfuly because of some connection issue, the 
   batch it should return the response from before advancing to fetch for the next batch can be 
   retrieved with a request to `_api/cursor/<cursorId>/<nextBatchId>`, being `cursorId` the attribute
-  `id` and `nextBatchId` the attribute with same name given in the previous batch's response. 
-   This is only availabe for the latest batch fetched, as former previously fetched batches would 
-   not be cached. 
+ `id` and `nextBatchId` the attribute with same name given in the previous batch's response. 
+  This is only availabe for the latest batch fetched, as former previously fetched batches would 
+  not be cached.
+  As the value of nextBatchId is deterministic and based on single increment per batch, then the 
+  user can either use the nextBatchId value when it's returned in the batch's response object or 
+  evaluate it based on the current amount of batches that have been retrieved so far in their 
+  request execution. The first batch's id value is 1, hence, the `nextBatchId` value that would be
+  returned in the first batch's response object if the request executes successfully is 2.
+ 
 
   Please note that the query options `cache`, `count` and `fullCount` don't work on streaming
   queries. Additionally, query statistics, warnings, and profiling data is only
