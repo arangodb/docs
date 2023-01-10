@@ -41,11 +41,11 @@ used for multiple accounts.
 3. Review the terms & conditions and privacy policy and click __I accept__.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
-     - For GitHub or Google please follow on-screen instructions.
+     - For GitHub, Google, and Microsoft please follow the on-screen instructions.
      - For the email address option, type your desired email address in the
        email field and type a strong password in the password field.
 
-     ![ArangoGraph Sign up](arangograph/images/arangograph-signup.png){:style="max-height: 50vh"}
+     ![ArangoGraph Sign up](arangograph/images/arangograph-create-account.png){:style="max-height: 50vh"}
 
    Click the __Sign up__ button. You will receive a verification email. In that
    mail, click the __Verify my email address__ link or button.
