@@ -417,7 +417,7 @@ FOR doc in complexCollection
 ]
 ```
 
-To improve the query's performance, you can only updating documents if there is
+To improve the query's performance, you can only update documents if there is
 a change to the `subList` to be saved. Instead of comparing the current and the
 altered list directly, you may compare their hash values using the
 [`HASH()` function](functions-miscellaneous.html#hash), which is faster for
