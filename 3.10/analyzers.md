@@ -1056,7 +1056,7 @@ Create different `segmentation` Analyzers to show the behavior of the different
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `minhash` Analyzer" %}
+{% include hint-ee-arangograph.md feature="The `minhash` Analyzer" %}
 
 An Analyzer that computes so called MinHash signatures using a
 locality-sensitive hash function. It applies an Analyzer of your choice before
@@ -1100,7 +1100,7 @@ Create a `minhash` Analyzers:
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `classification` Analyzer" %}
+{% include hint-ee-arangograph.md feature="The `classification` Analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1160,7 +1160,7 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `nearest_neighbors` Analyzer" %}
+{% include hint-ee-arangograph.md feature="The `nearest_neighbors` Analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.

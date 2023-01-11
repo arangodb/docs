@@ -1276,7 +1276,7 @@ FOR doc IN viewName
 Search Highlighting Functions
 -----------------------------
 
-{% include hint-ee.md feature="Search highlighting" %}
+{% include hint-ee-arangograph.md feature="Search highlighting" %}
 
 ### OFFSET_INFO()
 
