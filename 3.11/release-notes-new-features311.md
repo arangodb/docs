@@ -31,6 +31,13 @@ onward, it is called _**index** cache refilling_ and not limited to edge caches
 anymore, but also supports in-memory hash caches of persistent indexes
 (persistent indexes with the `cacheEnabled` option set to `true`).
 
+### Retry request for result batch
+
+You can retry the request for the latest result batch of an AQL query cursor if
+you enable the new `retriable` query option. See
+[API Changes in ArangoDB 3.11](release-notes-api-changes311.html#cursor-api)
+for details.
+
 Server options
 --------------
 
@@ -55,21 +62,3 @@ Example: `arangod --rocksdb.total-write-buffer-size 2TiB`
 
 See [Suffixes for numeric options](administration-configuration.html#suffixes-for-numeric-options)
 for details.
-
-
-Cursor API
-----------
-
-### Retry request for last batch
-
-The cursor API can now receive a retry request to retrieve the response for the
-latest batch. The response object for `_api/_cursor/<cursorId>` now contains a 
-sub-attribute `nextBatchId` which is the id of the next batch that will be 
-fetched when the cursor advances, after executing the current request. Then, on 
-the next run of `_api/_cursor/<cursorId>`, which should output the response object 
-of the batch with `nextBatchId`, if it's unsuccessful because of some connection 
-issue, the user can retry to get the response object for that batch with a POST 
-request to `_api/<cursorId>/<nextBatchId>`. This request does not advance the 
-cursor, and only the latest batch fetched would be cached, meaning requests to 
-retrieve the response for a former already fetched batch would return an error.
-
