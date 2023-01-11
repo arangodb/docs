@@ -344,10 +344,12 @@ In that case, the query results are either returned right away (if the result
 set is small enough), or stored on the arangod instance and can be accessed
 via the cursor API. 
 
+The default value is `false`.
+
 {% hint 'info' %}
 The query options `cache`, `count` and `fullCount` don't work on streaming
 queries. Additionally, query statistics, warnings, and profiling data is only
-available after the query has finished. The default value is `false`.
+available after the query has finished.
 {% endhint %}
 
 #### `maxRuntime`
