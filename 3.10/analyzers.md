@@ -873,10 +873,10 @@ attributes:
   These Analyzers require additional postprocessing and can only be applied to
   document fields directly.
 - The output data type of an Analyzer needs to be compatible with the input
-  data type of the next Analyzer in the chain. For example, the `aql` Analyzer
+  data type of the next Analyzer in the chain. The `aql` Analyzer, in particular,
   has a `returnType` property, and if you set it to `number` or `bool`, the
   subsequent Analyzer in the pipeline needs to support this data type as input.
-  Most Analyzers expect string inputs and are thus incompatible.
+  Most Analyzers expect string inputs and are thus incompatible with such a setup.
 {% endhint %}
 
 **Examples**
