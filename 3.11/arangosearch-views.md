@@ -227,7 +227,7 @@ During view modification the following directives apply:
   an array of objects as described above. The default compression and cache
   settings are used in this case:
 
-  - An array of string, like `["attr1", "attr2"]`, to place each attribute into
+  - An array of strings, like `["attr1", "attr2"]`, to place each attribute into
     a separate column of the index (introduced in v3.10.3).
 
   - An array of arrays of strings, like `[["attr1", "attr2"]]`, to place the
