@@ -25,6 +25,48 @@ reserved for internal use.
 Existing indexes are not affected but you cannot create new indexes with a
 preceding or trailing colon.
 
+## Write-write conflict improvements
+
+Writes to the same document in quick succession can result in write-write
+conflicts, requiring you to retry the operations. In v3.11, single document
+operations via the [HTTP Interface for Documents](http/document.html) try to
+avoid conflicts by locking the key of the document before performing the
+modification. This serializes the write operations on the same document.
+The behavior of AQL queries, Stream Transactions, and multi-document operations
+remains unchanged.
+
+It is still possible for write-write conflicts to occur, and in these cases the
+reported error is now slightly different.
+
+The lock acquisition on the key of the document that is supposed to be
+inserted/modified has a hard-coded timeout of 1 second. If the lock cannot be
+acquire, the error message is as follows:
+
+```
+Timeout waiting to lock key - in index primary of type primary over '_key'; conflicting key: <key>
+```
+
+The `<key>` corresponds to the document key of the write attempt. In addition,
+the error object contains `_key`, `_id`, and `_rev` attributes. The `_key` and
+`_id` correspond to the document of the write attempt, and `_rev` corresponds
+to the current revision of the document as stored in the database (if available,
+otherwise empty).
+
+If the lock cannot be acquired on a unique index entry, the error message is as
+follows:
+
+```
+Timeout waiting to lock key - in index <indexName> of type persistent over '<fields>'; document key: <key>; indexed values: [<values>]
+```
+
+The `<indexName>` is the name of the index in which the write attempt tried to
+lock the entry, `<fields>` is the list of fields included in that index, `<key>`
+corresponds to the document key of the write attempt, and `<values>`
+corresponds to the indexed values of the document. In addition, the error object
+contains `_key`, `_id`, and `_rev` attributes. The `_key` and `_id` correspond
+to the document of the write attempt, and `_rev` corresponds to the current
+revision of the document as stored in the database (if available, otherwise empty).
+
 ## Startup options
 
 ### `--server.disable-authentication` and `--server.disable-authentication-unix-sockets` obsoleted
@@ -32,7 +74,7 @@ preceding or trailing colon.
 The `--server.disable-authentication` and `--server.disable-authentication-unix-sockets`
 startup options are now obsolete. Specifying them is still tolerated but has
 no effect anymore. These options were deprecated in v3.0 and mapped to
-`--server.authentication` and  `--server.authentication-unix-sockets`, which
+`--server.authentication` and `--server.authentication-unix-sockets`, which
 made them do the opposite of what their names suggest.
 
 ### `--database.force-sync-properties` deprecated
