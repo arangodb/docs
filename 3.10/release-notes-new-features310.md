@@ -423,8 +423,7 @@ The information has the following structure:
 Note that the number of (live) docs may differ from the actual number of
 documents if the nested search feature is used.
 
-Analyzers
----------
+## Analyzers
 
 ### `minhash` Analyzer (Enterprise Edition)
 
@@ -901,6 +900,64 @@ single-sharded collections.
 Document keys are still not guaranteed to be truly ascending for collections with
 more than a single shard.
 
+## Read from Followers in Clusters (Enterprise Edition)
+
+You can now allow for reads from followers for a
+number of read-only operations in cluster deployments. In this case, Coordinators
+are allowed to read not only from shard leaders but also from shard replicas.
+This has a positive effect, because the reads can scale out to all DB-Servers
+that have copies of the data. Therefore, the read throughput is higher.
+
+This feature is only available in the Enterprise Edition.
+
+For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
+
+## Improved shard rebalancing
+
+Starting with version 3.10, the shard rebalancing feature introduces an
+automatic shard rebalancing API. 
+
+You can do any of the following by using the API:
+
+- Get an analysis of the current cluster imbalance.
+- Compute a plan of move shard operations to rebalance the cluster and thus improve balance.
+- Execute the given set of move shard operations.
+- Compute a set of move shard operations to improve balance and execute them immediately. 
+
+For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
+section of the HTTP API reference manual.
+
+## Query result spillover to decrease memory usage
+
+Queries can be executed with storing intermediate and final results temporarily
+on disk to decrease memory usage when a specified threshold is reached, either
+based on the memory usage (in bytes) or the number of result rows.
+
+{% hint 'info' %}
+This feature is experimental and is turned off by default. It is currently
+limited to AQL queries that use `SORT` operations but without a `LIMIT`.
+The query results are still built up entirely in memory on Coordinators
+and single servers unless you use streaming queries.
+{% endhint %}
+
+An example of how to configure the spillover feature:
+
+```
+arangod --database.directory "myDir"
+--temp.intermediate-results-path "tempDir" 
+--temp.intermediate-results-encryption
+--temp.intermediate-results-encryption-hardware-acceleration
+--temp.intermediate-results-spillover-threshold-memory-usage 134217728
+--temp.intermediate-results-spillover-threshold-num-rows 50000
+```
+
+You can also set the thresholds per query in the JavaScript and HTTP APIs.
+
+For details, see:
+- [`temp` startup options](programs-arangod-options.html#--tempintermediate-results-path)
+- [Executing queries from _arangosh_](aql/invocation-with-arangosh.html#spilloverthresholdmemoryusage)
+- [Accessing Cursors via HTTP](http/aql-query-cursor-accessing-cursors.html)
+
 ## Server options
 
 ### Responses early during instance startup
@@ -976,6 +1033,17 @@ temporary data:
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-options.html#pregel).
 
+### Query spillover options
+
+The following new options are available to control the
+[Query spillover feature](#query-result-spillover-to-decrease-memory-usage).
+
+- `--temp.intermediate-results-path`
+- `--temp.intermediate-results-encryption` (Enterprise Edition only)
+- `--temp.intermediate-results-encryption-hardware-acceleration` (Enterprise Edition only)
+- `--temp.intermediate-results-spillover-threshold-memory-usage`
+- `--temp.intermediate-results-spillover-threshold-num-rows`
+
 ### AQL query logging
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
@@ -1028,35 +1096,9 @@ without causing any data imbalance:
   tasks that can run concurrently on server startup. Default: the number of
   cores divided by 8, but at least `1`.
 
-Read from Followers in Clusters (Enterprise Edition)
-----------------------------------------------------
+## Miscellaneous changes
 
-You can now allow for reads from followers for a
-number of read-only operations in cluster deployments. In this case, Coordinators
-are allowed to read not only from shard leaders but also from shard replicas.
-This has a positive effect, because the reads can scale out to all DB-Servers
-that have copies of the data. Therefore, the read throughput is higher.
-
-This feature is only available in the Enterprise Edition.
-
-For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
-
-## Improved shard rebalancing
-
-Starting with version 3.10, the shard rebalancing feature introduces an automatic shard rebalancing API. 
-
-You can do any of the following by using the API:
-
-* Get an analysis of the current cluster imbalance.
-* Compute a plan of move shard operations to rebalance the cluster and thus improve balance.
-* Execute the given set of move shard operations.
-* Compute a set of move shard operations to improve balance and execute them immediately. 
-
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
-section of the HTTP API reference manual.
-
-Miscellaneous changes
----------------------
+### Optimizer rules endpoint
 
 Added the `GET /_api/query/rules` REST API endpoint that returns the available
 optimizer rules for AQL queries.
@@ -1173,36 +1215,6 @@ is `arangodb-starter.conf` and can be changed using the `--configuration` option
 See the [Starter configuration file](programs-starter-architecture.html#starter-configuration-file)
 section for more information about the configuration file format, passing
 through command line options, and examples. 
-
-## Query changes for decreasing memory usage
-
-Queries can be executed with storing intermediate and final results temporarily
-on disk to decrease memory usage when a specified threshold is reached.
-
-{% hint 'info' %}
-This feature is experimental and is turned off by default.
-{% endhint %}
-
-The new parameters are listed below:
-
-- `--temp.intermediate-results-path`
-- `--temp.-intermediate-results-encryption-hardware-acceleration`
-- `--temp.intermediate-results-encryption`
-- `--temp.intermediate-results-spillover-threshold-num-rows`
-- `--temp.intermediate-results-spillover-threshold-memory-usage`
-
-Example:
-
-```
-arangod --temp.intermediate-results-path "tempDir" 
---database.directory "myDir"
---temp.-intermediate-results-encryption-hardware-acceleration true
---temp.intermediate-results-encryption true 
---temp.intermediate-results-spillover-threshold-num-rows 50000
---temp.intermediate-results-spillover-threshold-memory-usage 134217728
-```
-
-For more information, refer to the [Query invocation](aql/invocation-with-arangosh.html#additional-parameters-for-spilling-data-from-the-query-onto-disk) and [Query options](programs-arangod-options.html#--tempintermediate-results-path) topics.
 
 ## Internal changes
 
