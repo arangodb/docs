@@ -263,7 +263,16 @@ An Analyzer capable of breaking up delimited text into tokens as per
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `delimiter` (string): the delimiting character(s)
+- `delimiter` (string): the delimiting character(s). The whole string is
+  considered as one delimiter.
+
+You can wrap tokens in the input string in double quote marks to escape the
+delimiter. For example, a `delimiter` Analyzer that uses `,` as delimiter and an
+input string of `foo,"bar,baz"` results in the tokens `foo` and `bar,baz`
+instead of `foo`, `bar`, and `baz`.
+
+You can chain multiple `delimiter` Analyzers with a [`pipeline` Analyzer](#pipeline)
+to split by different delimiters.
 
 **Examples**
 
@@ -537,8 +546,8 @@ attributes:
 The Analyzer uses a fixed order of operations:
 
 1. Tokenization
-2. Case conversion (unless `case` is set to `none`)
-3. Accent removal (if `accent` is set to `false`)
+2. Accent removal (if `accent` is set to `false`)
+3. Case conversion (unless `case` is set to `none`)
 4. Stop word removal (if any are defined)
 5. Word stemming (if `stemming` is set to `true`)
 
