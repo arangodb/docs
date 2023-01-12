@@ -33,7 +33,7 @@ used for multiple accounts.
 2. Click the __Start Free__ button or click the __Sign Up__ link in the top
    right corner.
 
-   ![ArangoGraph Homepage](images/oasis-homepage.png)
+   ![ArangoGraph Homepage](images/arangograph-homepage.png)
 
 3. Review the terms & conditions and privacy policy and click __I accept__.
 4. Select the type of sign up you would like to use (GitHub, Google, or
@@ -42,7 +42,7 @@ used for multiple accounts.
      - For the email address option, type your desired email address in the
        email field and type a strong password in the password field.
 
-     ![ArangoGraph Sign up](images/oasis-signup.png){:style="max-height: 50vh"}
+     ![ArangoGraph Sign up](images/arangograph-signup.png){:style="max-height: 50vh"}
 
    Click the __Sign up__ button. You will receive a verification email. In that
    mail, click the __Verify my email address__ link or button.
@@ -67,7 +67,7 @@ used for multiple accounts.
    provider and region. Pick one, click __Create deployment__ and accept the
    terms and conditions.
 
-   ![ArangoGraph Dashboard](images/oasis-dashboard.png)
+   ![ArangoGraph Dashboard](images/arangograph-dashboard.png)
 
    You can also [create a deployment](deployments.html#how-to-create-a-new-deployment)
    manually if you want fine-grained configuration options.
@@ -80,7 +80,7 @@ used for multiple accounts.
    will change from __Bootstrapping__ to __OK__ eventually and you will also
    receive an email when it is ready.
 
-   ![ArangoGraph Deployment Ready Email](images/oasis-deployment-ready-email.png){:style="max-height: 50vh"}
+   ![ArangoGraph Deployment Ready Email](images/arangograph-deployment-ready-email.png){:style="max-height: 50vh"}
 
 3. Click the name or the _View_ button of the deployment card (or the
    __Open deployment details__ link in the email) to get to the deployment
