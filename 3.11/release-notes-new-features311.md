@@ -34,7 +34,7 @@ anymore, but also supports in-memory hash caches of persistent indexes
 ### Retry request for result batch
 
 You can retry the request for the latest result batch of an AQL query cursor if
-you enable the new `retriable` query option. See
+you enable the new `allowRetry` query option. See
 [API Changes in ArangoDB 3.11](release-notes-api-changes311.html#cursor-api)
 for details.
 

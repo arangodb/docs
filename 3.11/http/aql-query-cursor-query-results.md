@@ -171,7 +171,7 @@ Content-type: application/json
 }
 ```
 
-If the `retriable` query option is set to `true`, then the response object
+If the `allowRetry` query option is set to `true`, then the response object
 contains a `nextBatchId` attribute, except for the last batch (if `hasMore` is
 `false`). If retrieving a result batch fails because of a connection issue, you
 can ask for that batch again using the `POST /_api/cursor/<cursor-id>/<batch-id>`
@@ -182,7 +182,7 @@ You can remember and use this batch ID should retrieving the next batch fail.
 
 ```js
 > curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
-{ "query": "FOR i IN 1..5 RETURN i", "batchSize": 2, "options": { "retriable": true } }
+{ "query": "FOR i IN 1..5 RETURN i", "batchSize": 2, "options": { "allowRetry": true } }
 
 HTTP/1.1 201 Created
 Content-type: application/json

@@ -63,7 +63,7 @@ The cursor API can now return an additional statistics value in its `stats` sub-
   In a cluster, the intermediate commits are tracked per DB server that participates in the query
   and are summed up in the end.
 
-- The `/_api/cursor` endpoint accepts a new `retriable` attribute in the
+- The `/_api/cursor` endpoint accepts a new `allowRetry` attribute in the
   `options` object. Set this option to `true` to make it possible to retry
   fetching the latest batch from a cursor.
 
