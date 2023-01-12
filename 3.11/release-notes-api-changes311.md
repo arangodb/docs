@@ -63,14 +63,20 @@ The cursor API can now return an additional statistics value in its `stats` sub-
   In a cluster, the intermediate commits are tracked per DB server that participates in the query
   and are summed up in the end.
 
-The cursor API can now receive a retry request to retrieve the response for the latest batch. 
-The response object for `_api/_cursor/<cursorId>` now contains a sub-attribute `nextBatchId` which is 
-the id of the next batch that will be fetched when the cursor advances, after executing the current 
-request. Then, on the next run of `_api/_cursor/<cursorId>`, which should output the response object 
-of the batch with `nextBatchId`, if it's unsuccessful because of some connection issue, the user can 
-retry to get the response object for that batch with a POST request to `_api/<cursorId>/<nextBatchId>`.
-This request does not advance the cursor, and only the latest batch fetched would be cached, meaning
-requests to retrieve the response for a former already fetched batch would return an error.
+- The `/_api/cursor` endpoint accepts a new `retriable` attribute in the
+  `options` object. Set this option to `true` to make it possible to retry
+  fetching the latest batch from a cursor.
+
+  If retrieving a result batch fails because of a connection issue, you can ask
+  for that batch again using the new `POST /_api/cursor/<cursor-id>/<batch-id>`
+  endpoint. The first batch has an ID of `1` and the value is incremented by 1
+  with every batch. Every result response except the last one also includes a
+  `nextBatchId` attribute, indicating the ID of the batch after the current.
+  You can remember and use this batch ID should retrieving the next batch fail.
+  Calling the new endpoint does not advance the cursor.
+
+  You can only request the latest batch again. Earlier batches are not kept on
+  the server-side.
 
 #### Restriction of indexable fields
 

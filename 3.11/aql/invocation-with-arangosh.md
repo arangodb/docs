@@ -328,45 +328,25 @@ Options related to the query optimizer.
   a rule, prefix its name with a `-`, to enable a rule, prefix it with a `+`. There is also
   a pseudo-rule `all`, which matches all optimizer rules. `-all` disables all rules.
 
-- `stream`: Specify `true` and the query is executed in a **streaming** fashion. The query result is
-  not stored on the server, but calculated on the fly. **Warning**: long-running queries
-  need to hold the collection locks for as long as the query cursor exists. It is advisable
-  to *only* use this option on short-running queries *or* without exclusive locks.
-  When set to `false`, the query is executed right away in its entirety.
-  In that case, the query results are either returned right away (if the result
-  set is small enough), or stored on the arangod instance and can be accessed
-  via the cursor API. 
+### `retriable`
 
-- `retriable`: Specify `true` and the request to retrieve the result from the latest batch fetched
-  will be retriable. The response object in the cursor API would contain the attribute `nextBatchId`,
-  unless the response object belong to the last batch, meaning no more batches would be fetched. 
-  If a request to the API cursor doesn't return successfuly because of some connection issue, the 
-  batch it should return the response from before advancing to fetch for the next batch can be 
-  retrieved with a request to `_api/cursor/<cursorId>/<nextBatchId>`, being `cursorId` the attribute
- `id` and `nextBatchId` the attribute with same name given in the previous batch's response. 
-  This is only availabe for the latest batch fetched, as former previously fetched batches would 
-  not be cached.
-  As the value of nextBatchId is deterministic and based on single increment per batch, then the 
-  user can either use the nextBatchId value when it's returned in the batch's response object or 
-  evaluate it based on the current amount of batches that have been retrieved so far in their 
-  request execution. The first batch's id value is 1, hence, the `nextBatchId` value that would be
-  returned in the first batch's response object if the request executes successfully is 2.
- 
+Set this option to `true` to make it possible to retry fetching the latest batch
+from a cursor.
 
-  Please note that the query options `cache`, `count` and `fullCount` don't work on streaming
-  queries. Additionally, query statistics, warnings, and profiling data is only
-  available after the query has finished. The default value is `false`.
+If retrieving a result batch fails because of a connection issue, you can ask
+for that batch again using the `POST /_api/cursor/<cursor-id>/<batch-id>`
+endpoint. The first batch has an ID of `1` and the value is incremented by 1
+with every batch. Every result response except the last one also includes a
+`nextBatchId` attribute, indicating the ID of the batch after the current.
+You can remember and use this batch ID should retrieving the next batch fail.
 
-- `maxRuntime`: The query has to be executed within the given runtime or it is killed.
-  The value is specified in seconds. The default value is `0.0` (no timeout).
+You can only request the latest batch again. Earlier batches are not kept on the
+server-side.
 
-- `maxNodesPerCallstack`: The number of execution nodes in the query plan after
-  that stack splitting is performed to avoid a potential stack overflow.
-  Defaults to the configured value of the startup option
-  `--query.max-nodes-per-callstack`.
-  
-  This option is only useful for testing and debugging and normally does not need
-  any adjustment.
+{% hint 'info' %}
+This feature cannot be used on the server-side, like in [Foxx](../foxx.html), as
+there is no client connection and no batching.
+{% endhint %}
 
 #### `stream`
 
@@ -389,25 +369,6 @@ The query options `cache`, `count` and `fullCount` don't work on streaming
 queries. Additionally, query statistics, warnings, and profiling data is only
 available after the query has finished. The default value is `false`.
 {% endhint %}
-
-### `retriable`
-
-Specify `true` as a field of `options` and the request to retrieve the result from
-the latest batch fetched will be retriable. The response object in the cursor API 
-would contain the attribute `nextBatchId`, unless the response object belong to the 
-last batch, meaning no more batches would be fetched. If a request to the API cursor 
-doesn't return successfuly because of some connection issue, the batch it should 
-return the response from before advancing to fetch for the next batch can be retrieved 
-with a request to `_api/cursor/<cursorId>/<nextBatchId>`, being `cursorId` the attribute 
-`id` and `nextBatchId` the attribute with same name given in the previous batch's response.
-This is only availabe for the latest batch fetched, as former previously fetched batches 
-would not be cached.
-As the value of nextBatchId is deterministic and based on single increment per batch, then the
-user can either use the nextBatchId value when it's returned in the batch's response object or
-evaluate it based on the current amount of batches that have been retrieved so far in their
-request execution. The first batch's id value is 1, hence, the `nextBatchId` value that would be
-returned in the first batch's response object if the request executes successfully is 2.
-
 
 #### `maxRuntime`
 
