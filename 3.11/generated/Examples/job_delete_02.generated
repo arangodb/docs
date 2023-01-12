@@ -10,7 +10,7 @@ expires: 0
 pragma: no-cache
 server: ArangoDB
 strict-transport-security: max-age=31536000 ; includeSubDomains
-x-arango-async-id: 83096
+x-arango-async-id: 83123
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
@@ -20,7 +20,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">55</span>
+content-length: <span class="hljs-number">50</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -32,9 +32,9 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-number">1671549002.4876816</span> 
+  <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-number">1673362377.43271</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/expired?stamp=1671549002.4876816</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/expired?stamp=1673362377.43271</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json

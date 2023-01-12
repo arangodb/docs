@@ -117,7 +117,7 @@ Also see [What's New in 3.9](release-notes-new-features39.html).
   [Geo](analyzers.html#geojson)
   [Analyzers](analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
-  A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
+  A new [**Stop words Analyzer**](analyzers.html#stopwords) that
   can be used standalone or in an Analyzer pipeline.
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
@@ -197,7 +197,7 @@ Also see [What's New in 3.7](release-notes-new-features37.html).
   [subquery splicing](release-notes-new-features36.html#subquery-splicing-optimization),
   [late document materialization](release-notes-new-features36.html#late-document-materialization-rocksdb),
   [parallelization](release-notes-new-features36.html#parallelization-of-cluster-aql-queries) for certain cluster queries
-  and more. New server-side [`maxRuntime`](aql/invocation-with-arangosh.html#setting-options)
+  and more. New server-side [`maxRuntime`](aql/invocation-with-arangosh.html#maxruntime)
   option for queries.
 
 - **ArangoSearch**:
@@ -303,7 +303,7 @@ Also see [What's New in 3.5](release-notes-new-features35.html).
   via _arangosh_ with `db._profileQuery(...)` or via the *Profile* button in the
   Query Editor of the web interface.
 
-- [**Streaming Cursors**](aql/invocation-with-arangosh.html#setting-options):
+- [**Streaming Cursors**](aql/invocation-with-arangosh.html#stream):
   Cursors requested with the stream option on make queries calculate results
   on the fly and make them available for the client in a streaming fashion,
   as soon as possible.

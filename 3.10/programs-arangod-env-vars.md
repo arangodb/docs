@@ -61,7 +61,7 @@ title: arangod environment variables
 
 - `IRESEARCH_TEXT_STOPWORD_PATH`
 
-  Path to a directory with stopword files for
+  Path to a directory with stop word files for
   [ArangoSearch Text Analyzers](analyzers.html#text).
 
 <!-- ARANGODB_CONFIG_PATH, ICU_DATA, ... (TRI_GETENV, iresearch::getenv) -->

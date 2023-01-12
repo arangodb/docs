@@ -167,7 +167,7 @@ Read from Followers
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="Reading from followers in cluster deployments" %}
+{% include hint-ee-arangograph.md feature="Reading from followers in cluster deployments" %}
 
 In an ArangoDB cluster, all reads and writes are performed via
 the shard leaders. Shard replicas replicate all operations, but are
@@ -189,14 +189,14 @@ across all of them, and then allow reads from followers.
 You may observe the following data inconsistencies (dirty reads) when
 reading from followers:
 
-- It is possible to see an old, **obsolete revision** of a document. More
-  exactly, it is possible that some document is already updated on the
-  leader, but the update has not yet been replicated to the follower
+- It is possible to see old, **obsolete revisions** of documents. More
+  exactly, it is possible that documents are already updated on the
+  leader, but the updates have not yet been replicated to the follower
   from which you are reading.
 
-- It is also possible to see an update to a document that
-  **has already happened on a replica**, but is not yet officially
-  committed on its leader.
+- It is also possible to see changes to documents that
+  **have already happened on a replica**, but are not yet officially
+  committed on the leader.
 
 When no writes are happening, allowing reading from followers is generally safe.
 
@@ -214,7 +214,7 @@ The following APIs do not support reading from followers:
 - The graph API (`GET /_api/gharial` etc.)
 - JavaScript Transactions (`POST /_api/transaction`)
 
-You need to set the following HTTP header in an API request to ask for reads
+You need to set the following HTTP header in API requests to ask for reads
 from followers:
 
 ```
@@ -227,6 +227,13 @@ Active Failover deployment mode (see [Reading from Followers](../architecture-de
 For single requests, you specify this header in the read request.
 For Stream Transactions, the header has to be set on the request that
 creates a read-only transaction.
+
+The `POST /_api/cursor` endpoint also supports a query option that you can set
+instead of the HTTP header:
+
+```json
+{ "query": "...", "options": { "allowDirtyReads": true } }
+```
 
 Every response to a request that could produce dirty reads has
 the following HTTP header:

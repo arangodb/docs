@@ -58,18 +58,35 @@ Value Handling
 
 While most of the Analyzer functionality is geared towards text processing,
 there is no restriction to strings as input data type when using them through
-Views – your documents could have attributes of any data type after all.
+Views or inverted indexes – your documents may have attributes of any data type
+after all.
 
 Strings are processed according to the Analyzer, whereas other primitive data
-types (`null`, `true`, `false`, numbers) are added to the index unchanged.
+types (`null`, `true`, `false`, numbers) are generally left unchanged.
+Exceptions are Analyzers that specifically work with other data types, like
+geo-spatial or query-based Analyzers.
 
-The elements of arrays are unpacked, processed and indexed individually,
-regardless of the level of nesting. That is, strings are processed by the
-configured Analyzer(s) and other primitive values are indexed as-is.
+The elements of arrays are processed individually, regardless of the level of
+nesting, if you use Analyzers stand-alone. That is, strings are processed by the
+configured Analyzer(s) and other primitive values are returned as-is.
+This also applies if you use Analyzers in `arangosearch` Views, or in
+`search-alias` Views with inverted indexes that have the `searchField` option
+enabled. The array elements are unpacked, processed, and indexed individually.
 
-Objects, including any nested objects, are indexed as sub-attributes.
-This applies to sub-objects as well as objects in arrays. Only primitive values
-are added to the index, arrays and objects can not be searched for.
+If you use inverted indexes with the `searchField` option disabled, optionally
+through `search-alias` Views, array elements are not unpacked by default. Most
+Analyzers do not accept arrays as input in this context. You can unpack one
+array level and let the configured Analyzer process the individual elements by
+using `[*]` as a suffix for a field in the index definition. Primitive values
+other than strings are indexed as-is.
+
+Analyzers can not process objects as a whole. However, you can work with
+individual object attributes. You can use inverted indexes and Views to index
+specific object attributes or sub-attributes, or index all sub-attributes with
+the `includeAllFields` option enabled. Each non-object value is handled as
+described above. Sub-objects in arrays can be indexed, too (with limitations).
+However, only primitive values are added to the index. Arrays and objects can
+not be searched for as a whole.
 
 Also see:
 - [`SEARCH` operation](aql/operations-search.html) on how to query indexed
@@ -141,10 +158,38 @@ Analyzer  /  Capability                   | Tokenization | Stemming | Normalizat
 [`text`](#text)                           |     Yes      |   Yes    |     Yes       | (Yes)
 [`segmentation`](#segmentation)           |     Yes      |    No    |     Yes       |   No
 
-Available normalizations are case conversion and accent removal
-(conversion of characters with diacritical marks to the base characters).
+The available normalizations are case conversion and accents/diacritics removal.
+The `segmentation` Analyzer only supports case conversion.
 
 The `text` Analyzer supports edge _n_-grams but not full _n_-grams.
+
+Tokenization 
+------------
+
+The `text` and `segmentation` Analyzer types tokenize text into words (or a
+comparable concept of a word). See
+[Word Boundaries](https://www.unicode.org/reports/tr29/#Word_Boundaries){:target="_blank"}
+in the Unicode Standard Annex #29 about Unicode text segmentation for details.
+
+These tokenizing Analyzers extract tokens, which removes characters like
+punctuation and whitespace. An exception is the [`segmentation` Analyzer](#segmentation)
+if you select `"graphic"` or `"all"` for the `break` option. They preserve `@`
+and `.` characters of email addresses, for instance. There are also exceptions
+with both Analyzer types for sequences like numbers, for which decimal and
+thousands separators (`.` and `,`) are preserved.
+
+Normalization
+-------------
+
+The `norm`, `text`, and `segmentation` Analyzer types allow you to convert the
+input text to all lowercase or all uppercase for normalization purposes, namely
+case insensitive search. Case folding is not supported. Also see
+[Case Mapping](https://unicode-org.github.io/icu/userguide/transforms/casemappings.html){:target="_blank"}
+in the ICU documentation.
+
+The `norm` and `text` Analyzer types also allow you to convert characters with
+diacritical marks to the base characters. This normalization enables
+accent-insensitive search.
 
 Analyzer Features
 -----------------
@@ -166,10 +211,12 @@ The following *features* are supported:
   [`BM25()`](aql/functions-arangosearch.html#bm25),
   [`TFIDF()`](aql/functions-arangosearch.html#tfidf), and
   [`OFFSET_INFO()`](aql/functions-arangosearch.html#offset_info).
-- **norm**: write the field length normalization factor that is used to score
-  repeated terms fairer. Required for [`BM25()`](aql/functions-arangosearch.html#bm25)
+- **norm**: calculate and store the field normalization factor that is used to
+  score fairer if the same term is repeated, reducing its importance.
+  Required for [`BM25()`](aql/functions-arangosearch.html#bm25)
   (except BM15) and [`TFIDF()`](aql/functions-arangosearch.html#tfidf)
-  (if called with normalization enabled).
+  (if called with normalization enabled). It is recommended to enable this
+  feature for custom Analyzers.
 - **position**: enumerate the tokens for position-dependent queries. Required
   for [`PHRASE()`](aql/functions-arangosearch.html#phrase),
   [`NGRAM_MATCH()`](aql/functions-arangosearch.html#ngram_match), and
@@ -216,7 +263,16 @@ An Analyzer capable of breaking up delimited text into tokens as per
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `delimiter` (string): the delimiting character(s)
+- `delimiter` (string): the delimiting character(s). The whole string is
+  considered as one delimiter.
+
+You can wrap tokens in the input string in double quote marks to escape the
+delimiter. For example, a `delimiter` Analyzer that uses `,` as delimiter and an
+input string of `foo,"bar,baz"` results in the tokens `foo` and `bar,baz`
+instead of `foo`, `bar`, and `baz`.
+
+You can chain multiple `delimiter` Analyzers with a [`pipeline` Analyzer](#pipeline)
+to split by different delimiters.
 
 **Examples**
 
@@ -467,8 +523,8 @@ attributes:
     token even if its length is less than *min* or greater than *max*
 - `stopwords` (array, _optional_): an array of strings with words to omit
   from result. Default: load words from `stopwordsPath`. To disable stop-word
-  filtering provide an empty array `[]`. If both *stopwords* and
-  *stopwordsPath* are provided then both word sources are combined.
+  filtering provide an empty array `[]`. If both `stopwords` and
+  `stopwordsPath` are provided then both word sources are combined.
 - `stopwordsPath` (string, _optional_): path with a *language* sub-directory
   (e.g. `en` for a locale `en_US`) containing files with words to omit.
   Each word has to be on a separate line. Everything after the first whitespace
@@ -479,13 +535,34 @@ attributes:
   `IRESEARCH_TEXT_STOPWORD_PATH` is used to determine the path, or if it is
   undefined then the current working directory is assumed. If the `stopwords`
   attribute is provided then no stop-words are loaded from files, unless an
-  explicit *stopwordsPath* is also provided.
+  explicit `stopwordsPat` is also provided.
 
-  Note that if the *stopwordsPath* can not be accessed, is missing language
+  Note that if the `stopwordsPath` can not be accessed, is missing language
   sub-directories or has no files for a language required by an Analyzer,
   then the creation of a new Analyzer is refused. If such an issue is 
   discovered for an existing Analyzer during startup then the server will
   abort with a fatal error.
+
+The Analyzer uses a fixed order of operations:
+
+1. Tokenization
+2. Accent removal (if `accent` is set to `false`)
+3. Case conversion (unless `case` is set to `none`)
+4. Stop word removal (if any are defined)
+5. Word stemming (if `stemming` is set to `true`)
+
+If you require a different order, consider using a [`pipeline` Analyzer](#pipeline).
+
+Stop words are removed after case/accent operations but before stemming.
+The reason is that stemming could map multiple words to the same one, and you
+would not be able to filter out specific words only.
+
+The case/accent operations are not applied to the stop words for performance
+reasons. You need to pre-process them accordingly, for example, using the
+[`TOKENS()` function](aql/functions-string.html#tokens) with a
+[`text` Analyzer](#text) that has the same `locale`, `case`, and `accent`
+settings as the planned `text` Analyzer, but with `stemming` set to `false` and
+`stopwords` set to `[]`.
 
 **Examples**
 
@@ -801,9 +878,14 @@ attributes:
   `type` and `properties` attributes
   
 {% hint 'info' %}
-Analyzers of types `geopoint` and `geojson` cannot be used in pipelines and
-will make the creation fail. These Analyzers require additional postprocessing
-and can only be applied to document fields directly.
+- You cannot use Analyzers of the types `geopoint` and `geojson` in pipelines.
+  These Analyzers require additional postprocessing and can only be applied to
+  document fields directly.
+- The output data type of an Analyzer needs to be compatible with the input
+  data type of the next Analyzer in the chain. The `aql` Analyzer, in particular,
+  has a `returnType` property, and if you set it to `number` or `bool`, the
+  subsequent Analyzer in the pipeline needs to support this data type as input.
+  Most Analyzers expect string inputs and are thus incompatible with such a setup.
 {% endhint %}
 
 **Examples**
@@ -849,8 +931,8 @@ An Analyzer capable of removing specified tokens from the input.
 
 It uses binary comparison to determine if an input token should be discarded.
 It checks for exact matches. If the input contains only a substring that
-matches one of the defined stopwords, then it is not discarded. Longer inputs
-such as prefixes of stopwords are also not discarded.
+matches one of the defined stop words, then it is not discarded. Longer inputs
+such as prefixes of stop words are also not discarded.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -877,11 +959,11 @@ attributes:
 
 **Examples**
 
-Create and use a stopword Analyzer that removes the tokens `and` and `the`.
-The stopword array with hex-encoded strings for this looks like
+Create and use a `stopword` Analyzer that removes the tokens `and` and `the`.
+The stop word array with hex-encoded strings for this looks like
 `["616e64","746865"]` (`a` = 0x61, `n` = 0x6e, `d` = 0x64 and so on).
 Note that `a` and `theater` are not removed, because there is no exact match
-with either of the stopwords `and` and `the`:
+with either of the stop words `and` and `the`:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerStopwords
@@ -983,7 +1065,7 @@ Create different `segmentation` Analyzers to show the behavior of the different
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `minhash` Analyzer" %}
+{% include hint-ee-arangograph.md feature="The `minhash` Analyzer" %}
 
 An Analyzer that computes so called MinHash signatures using a
 locality-sensitive hash function. It applies an Analyzer of your choice before
@@ -1027,7 +1109,7 @@ Create a `minhash` Analyzers:
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `classification` Analyzer" %}
+{% include hint-ee-arangograph.md feature="The `classification` Analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1087,7 +1169,7 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 <small>Introduced in: v3.10.0</small>
 
-{% include hint-ee.md feature="The `nearest_neighbors` Analyzer" %}
+{% include hint-ee-arangograph.md feature="The `nearest_neighbors` Analyzer" %}
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1348,24 +1430,24 @@ convenience and backward compatibility. They can not be removed.
 
 The `identity` Analyzer has no properties and the `frequency` and `norm`
 features. The Analyzers of type `text` all tokenize strings with stemming
-enabled, no stopwords configured, accent removal and case conversion to
+enabled, no stop words configured, accent removal and case conversion to
 lowercase turned on and the `frequency`, `norm` and `position` features
 
-Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming | Stopwords | Features |
------------|------------|-------------------------|---------|---------|----------|-----------|----------|
-`identity` | `identity` |                         |         |         |          |           | `["frequency", "norm"]`
-`text_de`  | `text`     | `de` (German)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_en`  | `text`     | `en` (English)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_es`  | `text`     | `es` (Spanish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_fi`  | `text`     | `fi` (Finnish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_fr`  | `text`     | `fr` (French)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_it`  | `text`     | `it` (Italian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_nl`  | `text`     | `nl` (Dutch)      | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_no`  | `text`     | `no` (Norwegian)  | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_pt`  | `text`     | `pt` (Portuguese) | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_ru`  | `text`     | `ru` (Russian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_sv`  | `text`     | `sv` (Swedish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
-`text_zh`  | `text`     | `zh` (Chinese)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+Name       | Type       | Locale (Language) | Case    | Accent  | Stemming | Stop words | Features |
+-----------|------------|-------------------|---------|---------|----------|------------|----------|
+`identity` | `identity` |                   |         |         |          |            | `["frequency", "norm"]`
+`text_de`  | `text`     | `de` (German)     | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_en`  | `text`     | `en` (English)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_es`  | `text`     | `es` (Spanish)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_fi`  | `text`     | `fi` (Finnish)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_fr`  | `text`     | `fr` (French)     | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_it`  | `text`     | `it` (Italian)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_nl`  | `text`     | `nl` (Dutch)      | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_no`  | `text`     | `no` (Norwegian)  | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_pt`  | `text`     | `pt` (Portuguese) | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_ru`  | `text`     | `ru` (Russian)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_sv`  | `text`     | `sv` (Swedish)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
+`text_zh`  | `text`     | `zh` (Chinese)    | `lower` | `false` | `true`   | `[ ]`      | `["frequency", "norm", "position"]`
 {:class="table-scroll"}
 
 Note that _locale_, _case_, _accent_, _stemming_ and _stopwords_ are Analyzer
@@ -1378,9 +1460,9 @@ Supported Languages
 ### Tokenization and Normalization
 
 Analyzers rely on [ICU](http://site.icu-project.org/){:target="_blank"} for
-language-dependent tokenization and normalization. The ICU data file
-`icudtl.dat` that ArangoDB ships with contains information for a lot of
-languages, which are technically all supported.
+tokenization and normalization, which is language-dependent.
+The ICU data file `icudtl.dat` that ArangoDB ships with contains information for
+a lot of languages, which are technically all supported.
 
 Setting an unsupported or invalid locale does not raise a warning or error.
 ICU will fall back to a locale without the requested variant, country, or
