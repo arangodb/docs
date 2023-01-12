@@ -25,7 +25,7 @@ member of one _Free-to-try_ tier organization at a time.
 3. The overview will open for the selected organization, showing the number of
    projects, the tier and when it was created.
 
-![ArangoGraph Organization Switcher](images/oasis-organization-switcher.png)
+![ArangoGraph Organization Switcher](images/arangograph-organization-switcher.png)
 
 ![ArangoGraph Organization Overview](images/arangograph-organization-overview.png)
 
