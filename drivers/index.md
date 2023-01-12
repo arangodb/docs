@@ -5,7 +5,7 @@ title: Install Official Drivers, Integrations and Community Drivers
 page-toc:
   disable: true
 ---
-# ArangoDB {{ site.data.versions[page.version.name] }} Drivers Documentation
+# ArangoDB Drivers Documentation
 
 ArangoDB drivers are interfaces between programming languages and ArangoDB,
 which enable programmers to connect to and manipulate ArangoDB deployments from
