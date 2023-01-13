@@ -11,7 +11,7 @@ title: Nested Search ArangoSearch Examples
 {{ page.description }}
 {:class="lead"}
 
-{% include hint-ee.md feature="Nested search" %}
+{% include hint-ee-arangograph.md feature="Nested search" %}
 
 By default, `arangosearch` Views index arrays as if the parent attribute had
 multiple values at once. This is also supported for `search-alias` Views by enabling

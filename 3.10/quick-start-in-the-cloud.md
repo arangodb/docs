@@ -36,16 +36,16 @@ used for multiple accounts.
 2. Click the __Start Free__ button or click the __Sign Up__ link in the top
    right corner.
 
-   ![ArangoGraph Homepage](arangograph/images/oasis-homepage.png)
+   ![ArangoGraph Homepage](arangograph/images/arangograph-homepage.png)
 
 3. Review the terms & conditions and privacy policy and click __I accept__.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
-     - For GitHub or Google please follow on-screen instructions.
+     - For GitHub, Google, and Microsoft please follow the on-screen instructions.
      - For the email address option, type your desired email address in the
        email field and type a strong password in the password field.
 
-     ![ArangoGraph Sign up](arangograph/images/oasis-signup.png){:style="max-height: 50vh"}
+     ![ArangoGraph Sign up](arangograph/images/arangograph-create-account.png){:style="max-height: 50vh"}
 
    Click the __Sign up__ button. You will receive a verification email. In that
    mail, click the __Verify my email address__ link or button.
@@ -70,7 +70,7 @@ used for multiple accounts.
    provider and region. Pick one, click __Create deployment__ and accept the
    terms and conditions.
 
-   ![ArangoGraph Dashboard](arangograph/images/oasis-dashboard.png)
+   ![ArangoGraph Dashboard](arangograph/images/arangograph-dashboard.png)
 
    You can also [create a deployment](arangograph/deployments.html#how-to-create-a-new-deployment)
    manually, if you want fine-grained configuration options.
@@ -83,7 +83,7 @@ used for multiple accounts.
    is changed from __Bootstrapping__ to __OK__ eventually and you also
    receive an email when it is ready.
 
-   ![ArangoGraph Deployment Ready Email](arangograph/images/oasis-deployment-ready-email.png){:style="max-height: 50vh"}
+   ![ArangoGraph Deployment Ready Email](arangograph/images/arangograph-deployment-ready-email.png){:style="max-height: 50vh"}
 
 3. Click the name or the **View** button of the deployment card (or the
    __Open deployment details__ link in the email) to view the deployment

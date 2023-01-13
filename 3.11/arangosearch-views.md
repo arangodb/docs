@@ -38,6 +38,12 @@ During View creation the following directives apply:
 - **type** (string, _immutable_): the value `"arangosearch"`
 - any of the directives from the section [View Properties](#view-properties)
 
+You may want to create the View without links and add them later. The View
+creation with links is not an atomic operation. If errors related to the links
+occur, for example, because of incorrect collection or Analyzers names,
+inaccessible collections, or similar, then the View is still created without
+these links.
+
 During view modification the following directives apply:
 
 - **links** (object, _optional_):
