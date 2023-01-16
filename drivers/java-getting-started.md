@@ -9,7 +9,7 @@ description: Getting started with the ArangoDB Java Driver
 Only the latest version of this driver is maintained to support the most recent
 ArangoDB server features. 
 It is compatible with all supported stable versions of ArangoDB server, see 
-[Product Support End-of-life Announcements](https://www.arangodb.com/eol-notice){:target="_blank"}.
+[Product Support End-of-life Announcements](https://www.arangodb.com/subscriptions/end-of-life-notice){:target="_blank"}.
 
 The minimum required Java version is 1.8+ (since driver version 6.x.x).
 
