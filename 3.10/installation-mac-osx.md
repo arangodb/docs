@@ -6,9 +6,9 @@ title: Installing ArangoDB on macOS
 Installing ArangoDB on macOS
 ============================
 
-You can install ArangoDB on macOS in different ways:
+You can use ArangoDB on macOS in different ways:
 
-- [Homebrew](#homebrew)
+- [Docker image](#docker)
 - [_DMG_ Package](#package-installation)
 - [_tar.gz_ Archive](#installing-using-the-archive)
 
@@ -17,92 +17,16 @@ Starting from version 3.10.0, ArangoDB has native support for the ARM
 architecture and can run on Apple silicon (e.g. M1 chips).
 {% endhint %}
 
-Homebrew
---------
+Docker
+------
 
-{% hint 'info' %}
-When installing ArangoDB via the macOS package manager Homebrew,
-only the Community Edition is available.
-{% endhint %}
+The recommended way of using ArangoDB on macOS is to use
+[Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}
+and the [ArangoDB Docker images](https://www.arangodb.com/download-major/docker/){:target="_blank"}.
 
-{% hint 'warning' %}
-The Homebrew installation is updated a few days after the
-official release of a new version. For more information about
-the installation packages supported on macOS, see the 
-[ArangoDB Homebrew Formulae](https://formulae.brew.sh/formula/arangodb){:target="_blank"}.
-{% endhint %}
-
-If you are using [_homebrew_](http://brew.sh/){:target="_blank"},
-then you can install the latest released stable version of ArangoDB using `brew`
- as follows:
-
-```
-brew install arangodb
-```
-
-This will install the current stable version of ArangoDB and all
-dependencies within your Homebrew tree. The integrity of the homebrew formula
-is automatically verified by a checksum.
-
-
-The server binary will be installed at:
-
-```
-/usr/local/Cellar/arangodb/<VERSION>/sbin/arangod
-```
-
-`<VERSION>` is a placeholder for the actual version number, e.g. `3.9.0`.
-
-You can start the server by running the command:
-
-```
-/usr/local/Cellar/arangodb/<VERSION>/sbin/arangod &
-```
-
-Configuration file is located at:
-
-```
-/usr/local/etc/arangodb3/arangod.conf
-```
-
-The ArangoDB shell will be installed as:
-
-```
-/usr/local/Cellar/arangodb/<VERSION>/bin/arangosh
-```
-
-You can uninstall ArangoDB using:
-
-```
-brew uninstall arangodb
-```
-
-However, in case you started ArangoDB using the _launchctl_, you
-need to unload it before uninstalling the server:
-
-```
-launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.arangodb.plist
-```
-
-Then remove the LaunchAgent:
-
-```
-rm ~/Library/LaunchAgents/homebrew.mxcl.arangodb.plist
-```
-
-{% hint 'tip' %}
-If the latest ArangoDB version is not shown in Homebrew, you
-also need to update Homebrew executing the command `brew update`.
-{% endhint %}
-
-### Known issues
-
-- The command-line argument parsing does not accept blanks in filenames; the CLI version below does.
-- If you need to change server endpoint while starting _homebrew_ version, you can edit arangod.conf 
-  file and uncomment line with endpoint needed, e.g.:
-      
-      [server]
-      endpoint = tcp://0.0.0.0:8529
+See the documentation on [Docker Hub](https://hub.docker.com/_/arangodb){:target="_blank"},
+as well as the [Deployments](architecture-deployment-modes.html) section about
+different deployment modes and methods including Docker containers.
 
 Package Installation
 --------------------

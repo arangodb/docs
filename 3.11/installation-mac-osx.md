@@ -8,7 +8,7 @@ Installing ArangoDB on macOS
 
 You can use ArangoDB on macOS in different ways:
 
-- [Docker container](#docker)
+- [Docker image](#docker)
 - [_DMG_ Package](#package-installation)
 - [_tar.gz_ Archive](#installing-using-the-archive)
 
@@ -20,7 +20,13 @@ architecture and can run on Apple silicon (e.g. M1 chips).
 Docker
 ------
 
+The recommended way of using ArangoDB on macOS is to use
+[Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}
+and the [ArangoDB Docker images](https://www.arangodb.com/download-major/docker/){:target="_blank"}.
 
+See the documentation on [Docker Hub](https://hub.docker.com/_/arangodb){:target="_blank"},
+as well as the [Deployments](architecture-deployment-modes.html) section about
+different deployment modes and methods including Docker containers.
 
 Package Installation
 --------------------
