@@ -17,6 +17,10 @@ Starting from version 3.10.0, ArangoDB has native support for the ARM
 architecture and can run on Apple silicon (e.g. M1 chips).
 {% endhint %}
 
+{% hint 'info' %}
+Running production environments on macOS is not supported.
+{% endhint %}
+
 Docker
 ------
 
