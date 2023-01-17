@@ -1,8 +1,9 @@
 ---
 layout: default
 description: >- 
-  OneShard deployments offer a practicable solution that enables significant
+  A OneShard deployment offers a practicable solution that enables significant
   performance improvements by massively reducing cluster-internal communication
+  and allows running transactions with ACID guarantees on shard leaders
 ---
 # OneShard
 
@@ -10,10 +11,6 @@ description: >-
 {:class="lead"}
 
 {% include hint-ee-arangograph.md feature="The OneShard option" %}
-
-A OneShard deployment offers a practicable solution that enables significant
-performance improvements by massively reducing cluster-internal communication
-and allows running transactions with ACID guarantees on shard leaders.
 
 By restricting collections to a single shard and placing them on one DB-Server
 node, whole queries can be pushed to and executed on that server. The
