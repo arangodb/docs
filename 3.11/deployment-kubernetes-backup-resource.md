@@ -270,6 +270,95 @@ Required: false
 
 Default: ""
 
+##### Use IAM with Amazon EKS
+Instead of creating and distributing your AWS credentials to the containers or using the Amazon EC2 instance's role,
+it is possible to associate an IAM role with a Kubernetes service account and configure pods to use the service account.
+
+1. Create Policy to access S3 bucket:
+    ```bash
+    aws iam create-policy \
+    --policy-name S3-ACCESS_ROLE \
+    --policy-document \
+    '{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "s3:ListAllMyBuckets",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "arn:aws:s3:::MY_BUCKET"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "arn:aws:s3:::MY_BUCKET/*"
+        }
+    ]
+    }'
+    ```
+2. Create an IAM role for service account
+   ```bash
+    eksctl create iamserviceaccount \
+      --name SA_NAME \
+      --namespace NAMESPACE \
+      --cluster CLUSTER_NAME \
+      --attach-policy-arn arn:aws:iam::ACCONT_ID:policy/S3-ACCESS_ROLE \
+      --approve
+    ```
+3. Ensure that you are using that SA in your ArangoDeployment for `dbservers` and `coordinators`
+   ```yaml
+    apiVersion: database.arangodb.com/v1
+    kind: ArangoDeployment
+    metadata:
+      name: cluster
+    spec:
+      image: arangodb/enterprise
+      mode: Cluster
+
+      dbservers:
+        serviceAccountName: SA_NAME
+      coordinators:
+        serviceAccountName: SA_NAME
+    ```
+4. Create a Secret with config for S3
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: arangodb-cluster-backup-credentials
+    type: Opaque
+    stringData:
+      token: |
+        {
+          "s3": {
+            "type": "s3",
+            "provider": "AWS",
+            "env_auth": "true",
+            "location_constraint": "eu-central-1",
+            "region": "eu-central-1",
+            "acl": "private",
+            "no_check_bucket": "true"
+          }
+        }
+    ```
+5. Create ArangoBackup with upload to S3
+    ```yaml
+    apiVersion: "backup.arangodb.com/v1alpha"
+    kind: "ArangoBackup"
+    metadata:
+      name: backup
+    spec:
+      deployment:
+        name: MY_DEPLOYMENT
+      upload:
+        repositoryURL: "s3:MY_BUCKET"
+        credentialsSecretName: arangodb-cluster-backup-credentials
+    ```
+
 #### `spec.download.id: string`
 
 ID of the ArangoBackup to be downloaded.
