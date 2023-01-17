@@ -189,7 +189,8 @@ Options for creating an index (`POST /_api/index`):
 - `searchField` (boolean, _optional_): default: `false`
 - `cache` (boolean, _optional_): default: `false`
   (introduced in v3.10.2, Enterprise Edition only)
-- `storedValues` (array, _optional_): an array of objects:
+- `storedValues` (array, _optional_): an array of objects (or an array of arrays
+  of strings as shorthand, or also an array of strings from v3.10.3 on):
   - `fields` (array, _required_): an array of strings
   - `compression` (string, _optional_): possible values: `"lz4"`, `"none"`.
     Default: `"lz"`
@@ -410,6 +411,12 @@ options, and you can change the `cache` View link/field property with the
 `PUT /_api/view/<view-name>/properties` and `PATCH /_api/view/<view-name>/properties`
 endpoints.
 
+<small>Introduced in: v3.10.3</small>
+
+You may use a shorthand notations on `arangosearch` View creation or the
+`storedValues` option, like `["attr1", "attr2"]`, instead of using an array of
+objects.
+
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.
 
@@ -480,6 +487,13 @@ The cursor API can now return additional statistics values in its `stats` subatt
   and the looked up values are not present in the cache.
 
 These attributes are optional and only useful for detailed performance analyses.
+
+The `POST /_api/cursor` endpoint accepts two new parameters in the `options`
+object to set per-query thresholds for the
+[query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage):
+
+- `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)
+- `spillOverThresholdNumRows` (integer, _optional_): default: `5000000` rows
 
 #### Index API
 
@@ -632,3 +646,12 @@ authentication using usernames and passwords.
 The Computed Values feature extends the collection properties with a new
 `computedValues` attribute. See [Computed Values](data-modeling-documents-computed-values.html#javascript-api)
 for details.
+
+The `db._query()` and `db._createStatement()` methods accepts new query
+options (`options` object) to set per-query thresholds for the
+[query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage)
+and to [Read from Followers](http/document-address-and-etag.html#read-from-followers):
+
+- `allowDirtyReads` (boolean, _optional_): default: `false`
+- `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)
+- `spillOverThresholdNumRows` (integer, _optional_): default: `5000000` rows

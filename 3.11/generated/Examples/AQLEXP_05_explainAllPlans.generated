@@ -21,8 +21,7 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">&quot;outVariable&quot;</span> : { 
             <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
             <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;i&quot;</span>, 
-            <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
-            <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
+            <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
           }, 
           <span class="hljs-string">&quot;projections&quot;</span> : [ 
             <span class="hljs-string">&quot;value&quot;</span> 
@@ -42,9 +41,9 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">&quot;indexCoversProjections&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;indexes&quot;</span> : [ 
             { 
-              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60621&quot;</span>, 
+              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60640&quot;</span>, 
               <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1752746118238699527&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1754908244195672072&quot;</span>, 
               <span class="hljs-string">&quot;fields&quot;</span> : [ 
                 <span class="hljs-string">&quot;value&quot;</span> 
               ], 
@@ -85,7 +84,6 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
                         <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;value&quot;</span>, 
                         <span class="hljs-string">&quot;typeID&quot;</span> : <span class="hljs-number">40</span>, 
                         <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">97</span>, 
-                        <span class="hljs-string">&quot;vType&quot;</span> : <span class="hljs-string">&quot;int&quot;</span>, 
                         <span class="hljs-string">&quot;vTypeID&quot;</span> : <span class="hljs-number">2</span> 
                       } 
                     ] 
@@ -127,8 +125,7 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">&quot;outVariable&quot;</span> : { 
             <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">4</span>, 
             <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;3&quot;</span>, 
-            <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
-            <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
+            <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
           }, 
           <span class="hljs-string">&quot;canThrow&quot;</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">&quot;expressionType&quot;</span> : <span class="hljs-string">&quot;attribute&quot;</span> 
@@ -144,8 +141,7 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">&quot;inVariable&quot;</span> : { 
             <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">4</span>, 
             <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;3&quot;</span>, 
-            <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
-            <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
+            <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
           }, 
           <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">true</span> 
         } 
@@ -173,26 +169,22 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
         { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">6</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;5&quot;</span>, 
-          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
-          <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
         }, 
         { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">4</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;3&quot;</span>, 
-          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
-          <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
         }, 
         { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">2</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, 
-          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
-          <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
         }, 
         { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;i&quot;</span>, 
-          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span>, 
-          <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">false</span> 
         } 
       ], 
       <span class="hljs-string">&quot;estimatedCost&quot;</span> : <span class="hljs-number">212.64385618977474</span>, 

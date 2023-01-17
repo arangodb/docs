@@ -27,7 +27,7 @@ Execution plan:
   3   CalculationNode               1      20          0       0.00001       - LET #5 = (FLOOR((u.`age` / 10)) * 10)   /* simple expression */   /* collections used: u : myusers */
   4   CalculationNode               1      20          0       0.00000       - LET #7 = u.`age`   /* attribute expression */   /* collections used: u : myusers */
   6   CollectNode                   1       8          0       0.00002       - COLLECT ageGroup = #5 AGGREGATE minAge = MIN(#7), maxAge = MAX(#7), len = LENGTH()   /* hash */
-  9   SortNode                      1       8          0       0.00001       - SORT ageGroup ASC   /* sorting strategy: standard */
+  9   SortNode                      1       8          0       0.00006       - SORT ageGroup ASC   /* sorting strategy: standard */
   7   CalculationNode               1       8          0       0.00001       - LET #11 = { &quot;ageGroup&quot; : ageGroup, &quot;minAge&quot; : minAge, &quot;maxAge&quot; : maxAge, &quot;len&quot; : len }   /* simple expression */
   8   ReturnNode                    1       8          0       0.00000       - RETURN #11
 
@@ -45,17 +45,18 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
-           0            0          20            0               0 / 0          0          65536         0.00040
+           0            0          20            0               0 / 0          0          65536         0.00042
 
 Query Profile:
- Query Stage           Duration [s]
- initializing               0.00000
- parsing                    0.00004
- optimizing ast             0.00001
- loading collections        0.00000
- instantiating plan         0.00002
- optimizing plan            0.00024
- executing                  0.00009
- finalizing                 0.00002
+ Query Stage               Duration [s]
+ initializing                   0.00000
+ parsing                        0.00004
+ optimizing ast                 0.00001
+ loading collections            0.00000
+ instantiating plan             0.00002
+ optimizing plan                0.00019
+ instantiating executors        0.00004
+ executing                      0.00014
+ finalizing                     0.00002
 
 

@@ -18,7 +18,7 @@ open the **Monitoring** tab.
 
 ![ArangoGraph Monitoring tab](images/arangograph-monitoring-tab.png)
 
-![ArangoGraph Connect Metrics Section](images/oasis-connect-metrics-section.png)
+![ArangoGraph Connect Metrics Section](images/arangograph-connect-metrics-section.png)
 
 ## Metrics tokens
 
