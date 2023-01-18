@@ -207,6 +207,43 @@ match the original values as stored in the documents.
 Attribute paths specified in the `primarySort` option can be utilized for
 projections. Therefore, you don't need to add them to `storedValues`, too.
 
+For each object in the `storedValues` array, you can additionally set a
+`compression` (`lz4` by default) and `cache` option (`false` by default):
+
+```js
+db.<collection>.ensureIndex({
+  type: "inverted",
+  fields: ["value1"],
+  storedValues: [
+    { fields: ["value1"], compression: "lz4", cache: false },
+    { fields: ["value2"], compression: "none", cache: true }
+  ]
+});
+```
+
+See [Optimizing View and inverted index query performance](arangosearch-performance.html#stored-values)
+for details.
+
+You may use the following shorthand notations on index creation instead of
+an array of objects as described above. The default compression and cache
+settings are used in this case:
+
+- An array of strings, like `["attr1", "attr2"]`, to place each attribute into
+  a separate column of the index (introduced in v3.10.3).
+
+- An array of arrays of strings, like `[["attr1", "attr2"]]`, to place the
+  attributes into a single column of the index, or `[["attr1"], ["attr2"]]`
+  to place each attribute into a separate column. You can also mix it with the
+  the full form:
+  
+  ```json
+  [
+    ["attr1"],
+    ["attr2", "attr3"],
+    { "fields": ["attr4", "attr5"], "cache": true }
+  ]
+  ```
+
 ### Additional configuration options
 
 See the full list of options in the [HTTP API](http/indexes-inverted.html)

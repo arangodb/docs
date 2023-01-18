@@ -189,7 +189,8 @@ Options for creating an index (`POST /_api/index`):
 - `searchField` (boolean, _optional_): default: `false`
 - `cache` (boolean, _optional_): default: `false`
   (introduced in v3.10.2, Enterprise Edition only)
-- `storedValues` (array, _optional_): an array of objects:
+- `storedValues` (array, _optional_): an array of objects (or an array of arrays
+  of strings as shorthand, or also an array of strings from v3.10.3 on):
   - `fields` (array, _required_): an array of strings
   - `compression` (string, _optional_): possible values: `"lz4"`, `"none"`.
     Default: `"lz"`
@@ -409,6 +410,12 @@ Views, the `GET /_api/view/<view-name>/properties` endpoint may return these
 options, and you can change the `cache` View link/field property with the
 `PUT /_api/view/<view-name>/properties` and `PATCH /_api/view/<view-name>/properties`
 endpoints.
+
+<small>Introduced in: v3.10.3</small>
+
+You may use a shorthand notations on `arangosearch` View creation or the
+`storedValues` option, like `["attr1", "attr2"]`, instead of using an array of
+objects.
 
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.
