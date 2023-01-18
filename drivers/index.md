@@ -26,21 +26,75 @@ depends on the capabilities and practices of each language.
 Programming is a powerful way of automating interactions and control of the
 database, as well as to integrate database operations into your own software.
 The drivers listed below are officially maintained and supported by ArangoDB.
+If your programming language or environment is not listed, 
 
 ### Java driver
 
-Name | Language | Repository | &nbsp;
-:----|:---------|:-----------|:------
-[ArangoDB Java driver](java.html) | Java | [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
-[ArangoJS](js.html) | JavaScript | [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"} | [Changelog](https://github.com/arangodb/arangojs/blob/main/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
-[Go driver](go.html) | Go | [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
-[C#/.NET driver](dotnet.html) | C# | [github.com/ArangoDB-Community/arangodb-net-standard](https://github.com/ArangoDB-Community/arangodb-net-standard){:target="_blank"} | [Changelog](https://github.com/ArangoDB-Community/arangodb-net-standard/blob/master/ChangeLog.md){:target="_blank" class="no-wrap"}
-Python-Arango | Python | [github.com/ArangoDB-Community/python-arango](https://github.com/ArangoDB-Community/python-arango){:target="_blank"} | [Releases](https://github.com/ArangoDB-Community/python-arango/releases){:target="_blank" class="no-wrap"}
+The [**ArangoDB Java driver**](java.html) lets you work with ArangoDB in the
+Java programming language.
+
+- Repository: [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"}
+- [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank"}
+
+### Node.js driver
+
+The [**ArangoJS driver**](js.html) lets you work with ArangoDB in Node.js, using
+the JavaScript scripting language. You can also use it in web browsers.
+
+- Repository: [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"}
+- [Changelog](https://github.com/arangodb/arangojs/blob/main/CHANGELOG.md#readme){:target="_blank"}
+
+### Go driver
+
+The [**Go driver**](go.html) lets you work with ArangoDB in the Go programming
+language.
+
+- Repository: [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"}
+- [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank"}
+
+### C#/.NET driver
+
+The [**C#/.NET driver**](dotnet.html) lets you work with ArangoDB using the C#
+programming language and the .NET ecosystem.
+
+- Repository: [github.com/ArangoDB-Community/arangodb-net-standard](https://github.com/ArangoDB-Community/arangodb-net-standard){:target="_blank"}
+- [Changelog](https://github.com/ArangoDB-Community/arangodb-net-standard/blob/master/ChangeLog.md){:target="_blank"}
+
+### Python driver
+
+The **Python-Arango** driver lets you work with ArangoDB in the Python scripting
+language.
+
+- Repository: [github.com/ArangoDB-Community/python-arango](https://github.com/ArangoDB-Community/python-arango){:target="_blank"}
+- [Releases](https://github.com/ArangoDB-Community/python-arango/releases){:target="_blank"}
 
 ## Integrations
 
-Name | Language | Repository | &nbsp;
-:----|:---------|:-----------|:------
-[Spring Data](spring-data.html) | Java | [github.com/arangodb/spring-data](https://github.com/arangodb/spring-data){:target="_blank"} | [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
-[ArangoDB Datasource for Apache Spark](spark-connector-new.html) | Scala, Java, Python, R | [github.com/arangodb/arangodb-spark-datasource](https://github.com/arangodb/arangodb-spark-datasource){:target="_blank" class="no-wrap"} | [Changelog](https://github.com/arangodb/arangodb-spark-datasource/blob/main/ChangeLog.md){:target="_blank" class="no-wrap"}
-[ArangoDB-Spark-Connector](spark-connector.html) | Scala, Java | [github.com/arangodb/arangodb-spark-connector](https://github.com/arangodb/arangodb-spark-connector){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-spark-connector/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
+Database integrations allow applications to work with different database systems
+using a common interface. They are higher-level than database drivers because
+they abstract away the details of specific database systems, especially the
+low-level network communication.
+
+### Spring Data
+
+The [**Spring Data integration**](spring-data.html) for ArangoDB lets you use
+ArangoDB as a database system in Spring-based Java applications.
+
+- Repository: [github.com/arangodb/spring-data](https://github.com/arangodb/spring-data){:target="_blank"}
+- [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank"}
+
+## Apache Spark
+
+The [**ArangoDB Datasource for Apache Spark**](spark-connector-new.html) is a
+library that lets you use Apache Spark with ArangoDB for data processing.
+Apache Spark has first-party support for the Scala, Java, Python, and R language.
+
+- Repository: [github.com/arangodb/arangodb-spark-datasource](https://github.com/arangodb/arangodb-spark-datasource){:target="_blank"}
+- [Changelog](https://github.com/arangodb/arangodb-spark-datasource/blob/main/ChangeLog.md){:target="_blank"}
+
+The [**ArangoDB-Spark-Connector**](spark-connector.html) is the predecessor of
+the ArangoDB Datasource library for the Scala and Java programming languages,
+but it is recommended to use the new library instead.
+
+ - Repository: [github.com/arangodb/arangodb-spark-connector](https://github.com/arangodb/arangodb-spark-connector){:target="_blank"}
+ - [Changelog](https://github.com/arangodb/arangodb-spark-connector/blob/master/ChangeLog.md#readme){:target="_blank"}
