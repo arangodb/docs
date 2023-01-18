@@ -70,7 +70,7 @@ Languages and Integrations
   An online course about the [ArangoDB Java Driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"}.
 
 - [ArangoDB Go driver](https://university.arangodb.com/courses/go-driver-tutorial/){:target="_blank"}:
-  Getting started with the official [Go driver](https://github.com/arangodb/go-driver){:target="_blank"}.
+  An online course about the [Go driver](https://github.com/arangodb/go-driver){:target="_blank"}.
 
 - [C#/.NET Driver Tutorial](https://university.arangodb.com/courses/csharp-dotnet-driver-tutorial/){:target="_blank"}:
   An online course about the [arangodb-net-standard driver](https://github.com/ArangoDB-Community/arangodb-net-standard){:target="_blank"}.
