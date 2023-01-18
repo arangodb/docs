@@ -1,24 +1,33 @@
 ---
 layout: default
-description: Together with the ArangoDB community we provide drivers for many languages. Our official language drivers are Java, JavaScript, PHP and GO.
-title: Install Official Drivers, Integrations and Community Drivers
+description: >-
+  ArangoDB drivers and integrations allow you to use ArangoDB as a database
+  system for your applications
 page-toc:
   disable: true
 ---
 # ArangoDB Drivers Documentation
 
-ArangoDB drivers are interfaces between programming languages and ArangoDB,
-which enable programmers to connect to and manipulate ArangoDB deployments from
-within native language programs. From a language perspective, documents and
-database structures can be integrated with data types and their methods.
-The precise mapping of concepts and methods depends on the capabilities and
-practices of each language.
+{{ page.description }}
+{:class="lead"}
+
+## Drivers
+
+Database drivers, also called connectors, adapters, or client libraries, let you
+access and manage database systems. ArangoDB drivers are interfaces between
+programming languages and ArangoDB, which enable software developers to connect
+to and manipulate ArangoDB deployments from within compiled programs or using
+scripting languages.
+
+From a language perspective, documents and database structures can be integrated
+with data types and their methods. The precise mapping of concepts and methods
+depends on the capabilities and practices of each language.
 
 Programming is a powerful way of automating interactions and control of the
 database, as well as to integrate database operations into your own software.
-The status of the drivers below varies from supported to community contributions.
+The drivers listed below are officially maintained and supported by ArangoDB.
 
-## Official drivers
+### Java driver
 
 Name | Language | Repository | &nbsp;
 :----|:---------|:-----------|:------
