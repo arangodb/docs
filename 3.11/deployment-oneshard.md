@@ -12,10 +12,12 @@ description: >-
 
 {% include hint-ee-arangograph.md feature="The OneShard option" %}
 
-By restricting collections to a single shard and placing them on one DB-Server
-node, whole queries can be pushed to and executed on that server. The
-Coordinator only gets back the final result. This setup is highly
-recommended for most graph use cases and join-heavy queries.
+In an ArangoDB cluster, the OneShard deployment restricts collections to a
+single shard and places them on one DB-Server. This way, whole queries can be
+pushed to and executed on that server. The Coordinator only gets back the final
+result.
+
+This setup is highly recommended for most graph use cases and join-heavy queries.
 
 {% hint 'info' %}
 For graphs larger than what fits on a single DB-Server node, you can use the
