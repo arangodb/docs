@@ -9,9 +9,23 @@ title: Single Sign-On (SSO)
 This feature is only available in ArangoGraph Enterprise.
 {% endhint %}
 
-ArangoGraph provides support to enable Single Sign-On (SSO) authentication using
-SAML 2.0 with SCIM provisioning. This enables you to propagate to ArangoGraph any
-user access changes by using the dedicated API.
+ArangoGraph provides support to enable **Single Sign-On** (SSO) authentication
+using **Security Assertion Markup language 2.0** (SAML 2.0) with the
+**System for Cross-domain Identity Management** (SCIM) provisioning. 
+This enables you to propagate to ArangoGraph any user access changes by using
+the dedicated API.
+
+## About SAML 2.0
+
+The Security Assertion Markup language 2.0 (SAML 2.0) is an open standard created
+to provide cross-domain single sign-on (SSO). It allows you to authenticate in
+multiple web applications by using a single set of login credentials.
+
+SAML SSO works by transferring user authentication data from the identity
+provider (IdP) to the service provider (SP) through an exchange of digitally
+signed XML documents.
+
+## About SCIM
 
 [SCIM](https://www.rfc-editor.org/rfc/rfc7644){:target="_blank"}, or the System
 for Cross-domain Identity Management [specification](http://www.simplecloud.info/){:target="_blank"},
@@ -25,7 +39,7 @@ can sync the information about user resources in real-time:
 - `GET /Users` - Lists all users.
 - `GET /Users/:user_id` - Get details for a given user ID.
 - `POST /Users` - Invite a new user to ArangoGraph.
-- `PATCH /Users/:user_id` - Update a given user ID.
+- `PUT /Users/:user_id` - Update a given user ID.
 - `DELETE /Users/:user_id` - Delete a specified user ID.
 
 Organization administrators can generate an API key for a specific organization.
@@ -39,3 +53,6 @@ To learn how to generate a new API key, see the [API Keys](my-account.html#api-k
 When creating an API key, it is required to select an organization from the
 list.
 {% endhint %}
+
+## Configure SAML 2.0 and SCIM using Okta
+
