@@ -24,9 +24,9 @@ Running production environments on macOS is not supported.
 Docker
 ------
 
-The recommended way of using ArangoDB on macOS is to use
-[Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}
-and the [ArangoDB Docker images](https://www.arangodb.com/download-major/docker/){:target="_blank"}.
+The recommended way of using ArangoDB on macOS is to use the
+[ArangoDB Docker images](https://www.arangodb.com/download-major/docker/){:target="_blank"}
+with, for instance, [Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}.
 
 See the documentation on [Docker Hub](https://hub.docker.com/_/arangodb){:target="_blank"},
 as well as the [Deployments](architecture-deployment-modes.html) section about
