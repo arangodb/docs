@@ -7,7 +7,7 @@ description: The ArangoDB Starter provides a lot of options to control various a
 The ArangoDB Starter provides a lot of options to control various aspects
 of the cluster or database you want to run.
 
-Below you'll find a list of all options and their semantics.
+Below you find a list of all options and their meanings.
 
 ## Common options
 
@@ -22,9 +22,11 @@ Different instances of `arangodb` must use different data directories.
 - `--starter.join=address`
 
 Join a cluster with the leader (_master_) Starter at address `address` (default "").
-Address can be an host address or name, followed with an optional port.
+You can also point to any other Starter that is connected to the initial Starter.
+The address can be a host address or name, optionally followed by a port number
+to match another Starter's `--starter.port` if it is not the default `8528`.
 
-E.g. these are valid arguments.
+These are valid arguments, for example:
 
 ```bash
 --starter.join=localhost
@@ -368,8 +370,8 @@ Note: The starter always performs log rotation when it receives a `HUP` signal.
 
 - `--starter.unique-port-offsets=bool`
 
-If set to true, all port offsets (of follower Starters) are made globally unique.
-By default (value is false), port offsets are unique per follower address.
+If set to `true`, all port offsets (of follower Starters) are made globally unique.
+By default, the value is `false` and port offsets are unique per follower address only.
 
 - `--docker.user=user`
 
