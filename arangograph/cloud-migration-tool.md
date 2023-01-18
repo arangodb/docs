@@ -270,6 +270,12 @@ In general, the most important parameters are:
 
 Both parameters can be retrieved from the ArangoDB Web Interface.
 
+The `arangosync-migration` tool supports migrating large datasets of up to
+5 TB of data and 3800 leader shards, as well as collections as big as 250 GB.
+
+In case you have any questions, please
+[reach out to us](https://www.arangodb.com/contact){:target="_blank"}.
+
 ## Cloud migration workflow for minimal downtime
 
 1. Download and start the `arangosync-migration` tool. The target deployment
