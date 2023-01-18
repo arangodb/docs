@@ -2,7 +2,7 @@
 layout: default
 description: >
   The ArangoGraph changelog covers notable changes in behavior or new 
-  functionality within the ArangoGraph platform.
+  functionality within the ArangoGraph Insights Platform
 title: ArangoGraph Changelog
 ---
 # ArangoGraph Changelog
