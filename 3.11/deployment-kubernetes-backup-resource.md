@@ -311,7 +311,7 @@ Kubernetes service account and configure pods to use the service account.
      --name SA_NAME \
      --namespace NAMESPACE \
      --cluster CLUSTER_NAME \
-     --attach-policy-arn arn:aws:iam::ACCONT_ID:policy/S3-ACCESS_ROLE \
+     --attach-policy-arn arn:aws:iam::ACCOUNT_ID:policy/S3-ACCESS_ROLE \
      --approve
    ```
 
