@@ -2,7 +2,12 @@
 layout: default
 description: The official ArangoDB Java Driver
 redirect_from:
+  - java-examples.html # 3.10 -> 3.10
+  - java-examples-base-document.html # 3.10 -> 3.10
+  - java-examples-import-graph-data.html # 3.10 -> 3.10
+  - java-examples-xml-data.html # 3.10 -> 3.10
   - java-getting-started.html # 3.10 -> 3.10
+  - java-tutorial.html # 3.10 -> 3.10
 ---
 # ArangoDB Java Driver
 

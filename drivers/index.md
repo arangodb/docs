@@ -33,8 +33,27 @@ If your programming language or environment is not listed,
 The [**ArangoDB Java driver**](java.html) lets you work with ArangoDB in the
 Java programming language.
 
+- Online course: [Java Driver v6 Tutorial](https://university.arangodb.com/courses/java-driver-tutorial-v6/){:target="_blank"}
 - Repository: [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"}
 - [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank"}
+
+### Go driver
+
+The [**Go driver**](go.html) lets you work with ArangoDB in the Go programming
+language.
+
+- Tutorial: [Go Driver Tutorial](https://university.arangodb.com/courses/go-driver-tutorial/){:target="_blank"}
+- Repository: [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"}
+- [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank"}
+
+### C#/.NET driver
+
+The [**arangodb-net-standard driver**](dotnet.html) lets you work with ArangoDB
+using the C# programming language and the .NET ecosystem.
+
+- Online course: [C#/.NET Driver Tutorial](https://university.arangodb.com/courses/csharp-dotnet-driver-tutorial/){:target="_blank"}
+- Repository: [github.com/ArangoDB-Community/arangodb-net-standard](https://github.com/ArangoDB-Community/arangodb-net-standard){:target="_blank"}
+- [Changelog](https://github.com/ArangoDB-Community/arangodb-net-standard/blob/master/ChangeLog.md){:target="_blank"}
 
 ### Node.js driver
 
@@ -44,27 +63,12 @@ the JavaScript scripting language. You can also use it in web browsers.
 - Repository: [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"}
 - [Changelog](https://github.com/arangodb/arangojs/blob/main/CHANGELOG.md#readme){:target="_blank"}
 
-### Go driver
-
-The [**Go driver**](go.html) lets you work with ArangoDB in the Go programming
-language.
-
-- Repository: [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"}
-- [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank"}
-
-### C#/.NET driver
-
-The [**C#/.NET driver**](dotnet.html) lets you work with ArangoDB using the C#
-programming language and the .NET ecosystem.
-
-- Repository: [github.com/ArangoDB-Community/arangodb-net-standard](https://github.com/ArangoDB-Community/arangodb-net-standard){:target="_blank"}
-- [Changelog](https://github.com/ArangoDB-Community/arangodb-net-standard/blob/master/ChangeLog.md){:target="_blank"}
-
 ### Python driver
 
-The **Python-Arango** driver lets you work with ArangoDB in the Python scripting
-language.
+The [**Python-Arango**](python.html) driver lets you work with ArangoDB in the
+Python scripting language.
 
+- Online course: [Python Driver Tutorial](https://www.arangodb.com/tutorials/tutorial-python/){:target="_blank"}
 - Repository: [github.com/ArangoDB-Community/python-arango](https://github.com/ArangoDB-Community/python-arango){:target="_blank"}
 - [Releases](https://github.com/ArangoDB-Community/python-arango/releases){:target="_blank"}
 
@@ -80,6 +84,7 @@ low-level network communication.
 The [**Spring Data integration**](spring-data.html) for ArangoDB lets you use
 ArangoDB as a database system in Spring-based Java applications.
 
+- Online course: [Spring Data Tutorial](https://university.arangodb.com/courses/spring-data-tutorial){:target="_blank"}
 - Repository: [github.com/arangodb/spring-data](https://github.com/arangodb/spring-data){:target="_blank"}
 - [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank"}
 

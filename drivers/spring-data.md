@@ -10,6 +10,7 @@ Spring-based Java application. Spring Data provides a consistent interface for
 accessing various types of data sources. Spring Data ArangoDB implements this
 for ArangoDB and provides mapping of Java objects to ArangoDB documents (ODM).
 
+- [Spring Data Tutorial](https://university.arangodb.com/courses/spring-data-tutorial){:target="_blank"}
 - [Reference](spring-data-reference.html)
 - [Migration](spring-data-migration.html)
 
