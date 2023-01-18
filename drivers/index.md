@@ -3,8 +3,6 @@ layout: default
 description: >-
   ArangoDB drivers and integrations allow you to use ArangoDB as a database
   system for your applications
-page-toc:
-  disable: true
 ---
 # ArangoDB Drivers Documentation
 
