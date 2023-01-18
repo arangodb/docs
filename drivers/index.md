@@ -86,7 +86,7 @@ ArangoDB as a database system in Spring-based Java applications.
 - Repository: [github.com/arangodb/spring-data](https://github.com/arangodb/spring-data){:target="_blank"}
 - [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank"}
 
-## Apache Spark
+### Apache Spark
 
 The [**ArangoDB Datasource for Apache Spark**](spark-connector-new.html) is a
 library that lets you use Apache Spark with ArangoDB for data processing.
