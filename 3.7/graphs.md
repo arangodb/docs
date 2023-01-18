@@ -390,5 +390,4 @@ You will find importing scripts etc. in this blogpost.
 More examples
 -------------
 
- - [Retrieving documents from ArangoDB without knowing the structure](drivers/java-examples-base-document.html)
  - [AQL Example Queries on an Actors and Movies Database](aql/examples-actors-and-movies.html)
