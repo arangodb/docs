@@ -1,9 +1,8 @@
 ---
 layout: default
 description: >- 
-  A OneShard deployment offers a practicable solution that enables significant
-  performance improvements by massively reducing cluster-internal communication
-  and allows running transactions with ACID guarantees on shard leaders
+  The OneShard feature offers a practicable solution that enables significantly
+  improved performance and transactional guarantees for cluster deployments
 ---
 # OneShard
 
@@ -12,12 +11,17 @@ description: >-
 
 {% include hint-ee-arangograph.md feature="The OneShard option" %}
 
-In an ArangoDB cluster, the OneShard deployment restricts collections to a
-single shard and places them on one DB-Server. This way, whole queries can be
-pushed to and executed on that server. The Coordinator only gets back the final
-result.
+The OneShard option for ArangoDB clusters restricts databases to a single shard
+and places them on one DB-Server node. This way, whole queries can be pushed to
+and executed on that server, massively reducing cluster-internal communication.
+The Coordinator only gets back the final result.
 
-This setup is highly recommended for most graph use cases and join-heavy queries.
+Queries are always limited to a single database, and with the data of a whole
+database on a single node, the OneShard option allows running transactions with
+ACID guarantees on shard leaders.
+
+A OneShard setup is highly recommended for most graph use cases and join-heavy
+queries.
 
 {% hint 'info' %}
 For graphs larger than what fits on a single DB-Server node, you can use the
