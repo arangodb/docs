@@ -13,14 +13,14 @@ title: arangod environment variables
    amount of RAM present on the system. One can specify a decimal number
    (in bytes). Furthermore, numbers can have the following suffixes:
 
-   - `TB`, `T`, `tb`, `t`: number is multipled by 1,000,000,000,000 (terabytes).
-   - `GB`, `G`, `gb`, `g`: number is multipled by 1,000,000,000 (gigabytes).
-   - `MB`, `M`, `mb`, `m`: number is multipled by 1,000,000 (megabytes).
-   - `KB`, `K`, `kb`, `k`: number is multipled by 1,000 (kilobytes).
-   - `TIB`, `TiB`, `tib`: number is multipled by 1,099,511,627,776 (tebibytes).
-   - `GIB`, `GiB`, `gib`: number is multipled by 1,073,741,824 (gibibytes).
-   - `MIB`, `MiB`, `mib`: number is multipled by 1,048,576 (mebibytes).
-   - `KIB`, `KiB`, `kib`: number is multipled by 1,024 (kibibytes).
+   - `TB`, `T`, `tb`, `t`: the number is multiplied by 1,000,000,000,000 (terabytes).
+   - `GB`, `G`, `gb`, `g`: the number is multiplied by 1,000,000,000 (gigabytes).
+   - `MB`, `M`, `mb`, `m`: the number is multiplied by 1,000,000 (megabytes).
+   - `KB`, `K`, `kb`, `k`: the number is multiplied by 1,000 (kilobytes).
+   - `TIB`, `TiB`, `tib`: the number is multiplied by 1,099,511,627,776 (tebibytes).
+   - `GIB`, `GiB`, `gib`: the number is multiplied by 1,073,741,824 (gibibytes).
+   - `MIB`, `MiB`, `mib`: the number is multiplied by 1,048,576 (mebibytes).
+   - `KIB`, `KiB`, `kib`: the number is multiplied by 1,024 (kibibytes).
    - `B`, `b`: bytes
 
    The total amount of RAM detected is logged as an INFO message at
@@ -41,17 +41,17 @@ title: arangod environment variables
    Note that setting this environment variable mainly affects the default 
    values of startup options that have to do with memory usage. 
    If the values of these startup options are explicitly set anyway, then 
-   setting the environment variable will not have effect.
+   setting the environment variable has no effect.
 
-   For example, the default value for the RocksDB block cache size (option
-   `--rocksdb.block-cache-size`) depends on the amount of available memory.
-   When setting `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=32GB`, the default
-   value for the block cache size will be `(32GB - 2GB) * 0.3 = 9GB`.
-   However, when setting the startup option `--rocksdb.block-cache-size`
-   explicitly via a configuration file or via the command line, then the
-   latter value will be used, but not the option's default value based on
-   `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`.
- 
+   For example, the default value for the RocksDB block cache size
+   (`--rocksdb.block-cache-size` startup option) depends on the amount of
+   available memory. If you set `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=32GB`,
+   the default value for the block cache size is `(32GB - 2GB) * 0.3 = 9GB`.
+   However, if you set the `--rocksdb.block-cache-size` startup option explicitly
+   via a configuration file or via the command-line, then the latter value is
+   used, and not the option's default value based on the
+   `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` environment variable.
+
  - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` _(introduced in v3.7.1)_
    
    This variable can be used to override the automatic detection of the
