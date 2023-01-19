@@ -2,8 +2,6 @@
 layout: default
 description: How to manage your user account
 title: My Account in the ArangoGraph Insights Platform
-redirect_from:
-  - organizational-invite.html # 3.6 -> 3.6
 ---
 # My Account
 
