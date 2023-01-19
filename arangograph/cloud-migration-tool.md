@@ -245,6 +245,37 @@ error code `11` (ERROR_FORBIDDEN).
 The `--source.server-mode` option allows you to specify the desired server mode.
 Allowed values are `readonly` or `default`.
 
+### Supported environment variables
+
+The `arangosync-migration` tool supports the following environment variables:
+
+- `$OASIS_API_KEY`
+- `$OASIS_API_SECRET`
+- `$OASIS_DEPLOYMENT_ID`
+
+Using these environment variables is highly recommended to ensure a secure way
+of providing sensitive data to the application.
+
+### Restrictions and limitations
+
+When running the migration, ensure that your target deployment has the same (or
+bigger) amount of resources (CPU, RAM) than your cluster. Otherwise, the
+migration process might get stuck or require manual intervention. This is closely
+connected to the type of data you have and how it is distributed between shards
+and collections.
+
+In general, the most important parameters are:
+- Total number of leader shards
+- The amount of data in bytes per collection
+
+Both parameters can be retrieved from the ArangoDB Web Interface.
+
+The `arangosync-migration` tool supports migrating large datasets of up to
+5 TB of data and 3800 leader shards, as well as collections as big as 250 GB.
+
+In case you have any questions, please
+[reach out to us](https://www.arangodb.com/contact){:target="_blank"}.
+
 ## Cloud migration workflow for minimal downtime
 
 1. Download and start the `arangosync-migration` tool. The target deployment

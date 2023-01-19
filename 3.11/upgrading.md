@@ -42,24 +42,24 @@ Before upgrading, it is recommended to:
 - It is always possible to upgrade between hot-fixes of the same GA release, i.e
   from X.Y.w to X.Y.z, where z>w.
   - Examples:
-    - Upgrading from 3.6.0 to 3.6.1 or (directly to) 3.6.15 is supported.
-    - Upgrading from 3.7.7 to 3.7.8 or (directly to) 3.7.13 is supported.
+    - Upgrading from 3.9.0 to 3.9.1 or (directly to) 3.9.3 is supported.
+    - Upgrading from 3.9.1 to 3.9.2 or (directly to) 3.9.3 is supported.
 - It is possible to upgrade between two different consecutive GA releases, but it is
   not officially supported to upgrade if the two GA releases are not consecutive
   (in this case, you first have to upgrade to all intermediate releases).
   - Examples:
-    - Upgrading from 3.6 to 3.7 is supported.
-    - Upgrading from 3.7 to 3.8 is supported.
-    - Upgrading from 3.6 to 3.8 directly is not officially supported!
-      The officially supported upgrade path in this case is 3.6 to 3.7, and then
-      3.7 to 3.8.
+    - Upgrading from 3.8 to 3.9 is supported.
+    - Upgrading from 3.9 to 3.10 is supported.
+    - Upgrading from 3.8 directly to 3.10 is not officially supported!
+      The officially supported upgrade path in this case is 3.8 to 3.9, and then
+      3.9 to 3.10.
   - **Important:** before upgrading between two consecutive GA releases it is highly
     recommended to first upgrade the previous GA release to its latest hot-fix version.
     - Examples:
-      - To upgrade from 3.6 to 3.7, first upgrade your 3.6 installation to
-        the latest 3.6 version.
-      - To upgrade from 3.7 to 3.8, first upgrade your 3.7 installation to
-        the latest 3.7 version.
+      - To upgrade from 3.8 to 3.9, first upgrade your 3.8 installation to
+        the latest 3.8 version.
+      - To upgrade from 3.9 to 3.10, first upgrade your 3.9 installation to
+        the latest 3.9 version.
 
 ### Additional Notes Regarding Rolling Upgrades
 

@@ -7,7 +7,7 @@ title: arangod environment variables
 
 `arangod` inspects the following list of environment variables:
 
- - `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` _(introduced in v3.6.3)_
+ - `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`
    
    This variable can be used to override the automatic detection of the total
    amount of RAM present on the system. One can specify a decimal number
