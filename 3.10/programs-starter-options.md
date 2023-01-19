@@ -35,6 +35,10 @@ These are valid arguments, for example:
 --starter.join=192.168.23.1
 ```
 
+You can also supply multiple addresses.
+See [Using multiple join arguments](deployment-cluster-using-the-starter.md#using-multiple-join-arguments)
+for details.
+
 - `--starter.local`
 
 Start a local (test) cluster. Since all servers are running on a single machine

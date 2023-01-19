@@ -66,6 +66,11 @@ IP address of the host):
 arangodb --auth.jwt-secret=/etc/arangodb.secret --starter.data-dir=./data --starter.join A
 ```
 
+The `--server.join` option is for pointing a Starter to an existing Starter.
+If you run Starters on ports other than the default (`8528`) using the
+`--starter.port` option, then you need to append the port to the address
+(e.g. `--starter.join 127.0.0.1:9528`).
+
 The latter two Starters contact the Starter on host A on port 8528 and register
 themselves. From the moment on when three have joined, each fires up an Agent, a
 Coordinator, and a DB-Server.
@@ -75,11 +80,16 @@ cluster (this may take a while depending on your system), the _Starter_ informs
 you where to connect to the cluster from a browser, shell, or program.
 
 Additional servers can be added in the same way. For example, on host D, you run
-the above command pointing to the Starter that runs on `A`. This adds another
-DB-Server and Coordinator, but no fourth Agent, as the default Agency size
-(`--cluster.agency-size`) of `3` is already reached. To only add a DB-Server,
-use `--cluster.start-coordinator false`. To only add a Coordinator, use
-`--cluster.start-dbserver false`.
+the above command pointing to the Starter that runs on `A` (or on `B` or `C`, as
+long as they are connected to `A`). This adds another DB-Server and Coordinator,
+but no fourth Agent, as the default Agency size (`--cluster.agency-size`) of `3`
+is already reached. To only add a DB-Server, use `--cluster.start-coordinator false`.
+To only add a Coordinator, use `--cluster.start-dbserver false`.
+
+You can also set both `--cluster.start-dbserver` and `--cluster.start-coordinator`
+to `false` for the first three Starters to only create the Agency. This lets you
+run the Agents on specific machines. Later, you can add the DB-Servers and
+Coordinators to the cluster using other machines.
 
 The Starter uses the next few ports above the Starter port for the cluster nodes.
 That is, if you use port 8528 for the Starter, the Coordinator uses 8529
