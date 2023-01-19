@@ -38,7 +38,7 @@ features outlined below. For additional information, see
 - [**SmartJoins**](smartjoins.html):
   Co-located joins in a cluster using identically sharded collections.
 
-- [**OneShard**](architecture-deployment-modes-cluster-architecture.html#oneshard):
+- [**OneShard**](deployment-oneshard.html):
   Option to store all collections of a database on a single cluster node, to
   combine the performance of a single server and ACID semantics with a
   fault-tolerant cluster setup.
