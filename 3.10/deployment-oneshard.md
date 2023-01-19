@@ -11,10 +11,10 @@ description: >-
 
 {% include hint-ee-arangograph.md feature="The OneShard option" %}
 
-The OneShard option for ArangoDB clusters restricts databases to a single shard
-and places them on one DB-Server node. This way, whole queries can be pushed to
-and executed on that server, massively reducing cluster-internal communication.
-The Coordinator only gets back the final result.
+The OneShard option for ArangoDB clusters restricts all collections of a
+database to a single shard and places them on one DB-Server node. This way,
+whole queries can be pushed to and executed on that server, massively reducing
+cluster-internal communication. The Coordinator only gets back the final result.
 
 Queries are always limited to a single database, and with the data of a whole
 database on a single node, the OneShard option allows running transactions with
