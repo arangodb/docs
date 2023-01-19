@@ -200,6 +200,7 @@ in megabytes, gigabytes, or terabytes.
 | `mib`, `MiB`, `MIB`  | 1024<sup>2</sup> | 1,048,576         | `64mib`   |
 | `gib`, `GiB`, `GIB`  | 1024<sup>3</sup> | 1,073,741,824     | `3GIB`    |
 | `tib`, `TiB`, `TIB`  | 1024<sup>4</sup> | 1,099,511,627,776 | `3tib`    |
+| `b`, `B`             | 1                | 1                 | `10b`     |
 | `k`, `K`, `kb`, `KB` | 1000             | 1,000             | `3k`      |
 | `m`, `M`, `mb`, `MB` | 1000<sup>2</sup> | 1,000,000         | `3M`      |
 | `g`, `G`, `gb`, `GB` | 1000<sup>3</sup> | 1,000,000,000     | `3GB`     |

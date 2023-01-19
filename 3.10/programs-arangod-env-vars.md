@@ -11,10 +11,14 @@ title: arangod environment variables
    
    This variable can be used to override the automatic detection of the total
    amount of RAM present on the system. One can specify a decimal number
-   (in bytes). Furthermore, if `G` or `g` is appended, the value is multiplied
-   by `2^30`. If `M` or `m` is appended, the value is multiplied by `2^20`.
-   If `K` or `k` is appended, the value is multiplied by `2^10`. That is,
-   `64G` means 64 gigabytes.
+   (in bytes). Furthermore, numbers can have the following suffixes:
+   
+   - `GB`, `G`, `gb`, `g`: number is multipled by 1,000,000,000 (gigabytes).
+   - `MB`, `M`, `mb`, `m`: number is multipled by 1,000,000 (megabytes).
+   - `KB`, `K`, `kb`, `k`: number is multipled by 1,000 (kilobytes).
+   - `GIB`, `GiB`, `gib`: number is multipled by 1,073,741,824 (gibibytes).
+   - `MIB`, `MiB`, `mib`: number is multipled by 1,048,576 (mebibytes).
+   - `KIB`, `KiB`, `kib`: number is multipled by 1,024 (kibibytes).
 
    The total amount of RAM detected is logged as an INFO message at
    server start. If the variable is set, the overridden value is shown.
@@ -30,6 +34,20 @@ title: arangod environment variables
    2. If `arangod` is running alongside other services on the same
       machine and thus sharing the RAM with them, one should limit the
       amount of memory using this environment variable.
+   
+   Note that setting this environment variable mainly affects the default 
+   values of startup options that have to do with memory usage. 
+   If the values of these startup options are explicitly set anyway, then 
+   setting the environment variable will not have effect.
+
+   For example, the default value for the RocksDB block cache size (option
+   `--rocksdb.block-cache-size`) depends on the amount of available memory.
+   When setting `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=32GB`, the default
+   value for the block cache size will be `(32GB - 2GB) * 0.3 = 9GB`.
+   However, when setting the startup option `--rocksdb.block-cache-size`
+   explicitly via a configuration file or via the command line, then the
+   latter value will be used, but not the option's default value based on
+   `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`.
  
  - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` _(introduced in v3.7.1)_
    
