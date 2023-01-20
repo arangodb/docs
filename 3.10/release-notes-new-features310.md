@@ -37,6 +37,8 @@ as SatelliteGraphs in the usual way, using
 the collections will keep all properties that are kept when the graph is already
 created in a cluster.
 
+Also see [SmartGraphs and SatelliteGraphs on a Single Server](smart-and-satellite-graphs-single-server.html).
+
 This feature is only available in the Enterprise Edition.
 
 ### EnterpriseGraphs (Enterprise Edition)
