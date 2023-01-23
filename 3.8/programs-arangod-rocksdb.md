@@ -52,9 +52,8 @@ family (larger values mean that more in-memory data can be used for transaction
 conflict checking (`-1` = use automatic default value, `0` = do not keep
 immutable flushed write buffers, which is the default and usually correct).
 
-The default value `0` restores the memory usage pattern of ArangoDB v3.6.
-This leads to the fact that RocksDB will not keep any flushed immutable
-write-buffers in memory.
+The default value `0`  leads to the fact that RocksDB will not keep any flushed
+immutable write-buffers in memory.
 
 `--rocksdb.min-write-buffer-number-to-merge`
 

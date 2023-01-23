@@ -768,7 +768,7 @@ The following optimizer rules may appear in the `rules` attribute of
   will appear if a RemoveNode can be pushed into the same query part that
   enumerates over the documents of a collection. This saves inter-cluster
   roundtrips between the EnumerateCollectionNode and the RemoveNode.
-  From v3.6.0 on, it includes simple *UPDATE* and *REPLACE* operations
+  It includes simple *UPDATE* and *REPLACE* operations
   that modify multiple documents and do not use *LIMIT*.
 
 - `scatter-satellite-graphs` _(Enterprise Edition only)_:

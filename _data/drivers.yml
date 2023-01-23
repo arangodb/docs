@@ -4,19 +4,6 @@
 - text: Java Driver
   href: java.html
   children:
-    - text: Getting Started
-      href: java-getting-started.html
-    - text: Examples
-      href: java-examples.html
-      children:
-        - text: The BaseDocument object
-          href: java-examples-base-document.html
-        - text: XML data
-          href: java-examples-xml-data.html
-        - text: Import Graph data
-          href: java-examples-import-graph-data.html
-    - text: Tutorial
-      href: java-tutorial.html
     - text: Reference
       href: java-reference.html
       children:
@@ -28,48 +15,18 @@
           href: java-reference-setup.html
         - text: Serialization
           href: java-reference-serialization.html
-- text: ArangoJS - JavaScript Driver
-  href: js.html
-  children:
-    - text: Getting Started
-      href: js-getting-started.html
-    - text: Reference
-      href: http://arangodb.github.io/arangojs/
 - text: ArangoDB Go Driver
   href: go.html
-  children:
-    - text: Getting Started
-      href: go-getting-started.html
-    - text: Example Requests
-      href: go-example-requests.html
-    - text: Connection Management
-      href: go-connection-management.html
-    - text: Reference
-      href: https://godoc.org/github.com/arangodb/go-driver
 - text: ArangoDB C#/.NET Driver
   href: dotnet.html
-  children:
-    - text: Getting Started
-      href: dotnet-getting-started.html
-      children:
-        - text: Databases
-          href: dotnet-databases.html
-        - text: Collections
-          href: dotnet-collections.html
-        - text: Documents
-          href: dotnet-documents.html
-        - text: AQL
-          href: dotnet-aql.html
-    - text: Using the Driver
-      href: dotnet-usage.html
-    - text: Reference
-      href: https://arangodb-community.github.io/arangodb-net-standard/
+- text: ArangoJS - JavaScript Driver
+  href: js.html
+- text: Python-Arango Driver
+  href: python.html
 - subtitle: Integrations
 - text: Spring Data ArangoDB
   href: spring-data.html
   children:
-    - text: Getting Started
-      href: spring-data-getting-started.html
     - text: Reference
       href: spring-data-reference.html
       children:
