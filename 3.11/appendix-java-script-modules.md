@@ -150,6 +150,12 @@ noteworthy however and intended to be used by the user:
   - [**@arangodb/smart-graph**](graphs-smart-graphs-management.html)
     provides management features for SmartGraphs
 
+  - [**@arangodb/satellite-graph**](graphs-satellite-graphs-management.html)
+    provides management features for SatelliteGraphs
+
+  - [**@arangodb/enterprise-graph**](graphs-enterprise-graphs-management.html)
+    provides management features for EnterpriseGraphs
+
   - [**@arangodb/graph-examples/example-graph.js**](graphs.html#example-graphs)
     can load example graphs (creates collections, populates them with documents
     and creates named graphs)
