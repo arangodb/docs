@@ -37,6 +37,8 @@ as SatelliteGraphs in the usual way, using
 the collections will keep all properties that are kept when the graph is already
 created in a cluster.
 
+Also see [SmartGraphs and SatelliteGraphs on a Single Server](smart-and-satellite-graphs-single-server.html).
+
 This feature is only available in the Enterprise Edition.
 
 ### EnterpriseGraphs (Enterprise Edition)
@@ -904,7 +906,7 @@ more than a single shard.
 
 You can now allow for reads from followers for a
 number of read-only operations in cluster deployments. In this case, Coordinators
-are allowed to read not only from shard leaders but also from shard replicas.
+are allowed to read not only from leader shards but also from follower shards.
 This has a positive effect, because the reads can scale out to all DB-Servers
 that have copies of the data. Therefore, the read throughput is higher.
 
