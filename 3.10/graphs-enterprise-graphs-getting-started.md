@@ -26,8 +26,8 @@ and `arangoimport`.
 `arangoexport` allows you to export collections to formats like `JSON`, `JSONL`, or `CSV`.
 For this particular case, it is recommended to export data to `JSONL` format.
 Once the data is exported, you need to exclude
-the *_key* values from edges. The `enterprise-graph` module does not allow
-custom *_key* values on edges. This is necessary for the initial data replication
+the `_key` values from edges. The `enterprise-graph` module does not allow
+custom `_key` values on edges. This is necessary for the initial data replication
 when using `arangoimport` because these values are immutable.
 
 ### Migration by Example
@@ -107,7 +107,7 @@ After this step, the graph has been migrated.
 
 This example describes a scenario in which the collections names have changed,
 assuming that you have renamed `old_vertices` to `vertices`.
-For the vertex data this change is not relevant, the `_id` values will adjust automatically,
+For the vertex data this change is not relevant, the `_id` values is adjust automatically,
 so you can import the data again, and just target the new collection name:
 
     arangoimport --collection vertices --file docOutput/old_vertices.jsonl
@@ -209,10 +209,10 @@ Compared to SmartGraphs, the option `isSmart: true` is required but the
 ### Add vertex collections
 
 The **collections must not exist** when creating the EnterpriseGraph. The EnterpriseGraph
-module will create them for you automatically to set up the sharding for all
+module creates them for you automatically to set up the sharding for all
 these collections correctly. If you create collections via the EnterpriseGraph
 module and remove them from the graph definition, then you may re-add them
-without trouble however, as they will have the correct sharding.
+without trouble however, as they have the correct sharding.
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline enterpriseGraphCreateGraphHowTo2_cluster
@@ -257,13 +257,13 @@ correct sharding already).
 
 When creating a collection, you can decide whether it's a SatelliteCollection
 or not. For example, a vertex collection can be satellite as well. 
-SatelliteCollections don't require sharding as the data will be distributed
+SatelliteCollections don't require sharding as the data is distributed
 globally on all DB-Servers. The `smartGraphAttribute` is also not required.
 
 In addition to the attributes you would set to create a EnterpriseGraph, there is an
 additional attribute `satellites` you can optionally set. It needs to be an array of
 one or more collection names. These names can be used in edge definitions
-(relations) and these collections will be created as SatelliteCollections.
+(relations) and these collections are created as SatelliteCollections.
 However, all vertex collections on one side of the relation have to be of
 the same type - either all satellite or all smart. This is because `_from`
 and `_to` can have different types based on the sharding pattern.
@@ -272,8 +272,8 @@ In this example, both vertex collections are created as SatelliteCollections.
 
 {% hint 'info' %}
 When providing a satellite collection that is not used in a relation,
-it will not be created. If you create the collection in a following
-request, only then the option will count.
+it is not created. If you create the collection in a following
+request, only then the option counts.
 {% endhint %}
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}

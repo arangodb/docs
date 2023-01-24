@@ -16,8 +16,10 @@ for ArangoDB and provides mapping of Java objects to ArangoDB documents (ODM).
 
 ## Supported versions
 
-Spring Data ArangoDB is compatible with all supported stable versions of ArangoDB server, see 
-[Product Support End-of-life Announcements](https://www.arangodb.com/eol-notice){:target="_blank"}.
+Spring Data ArangoDB is compatible with:
+- all the still supported Spring Boot 2.x [versions](https://spring.io/projects/spring-boot#support){:target="_blank"}
+  and related Spring Framework versions
+- all the still supported ArangoDB [versions](https://www.arangodb.com/eol-notice){:target="_blank"}
 
 ## Maven
 
