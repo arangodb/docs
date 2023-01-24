@@ -42,7 +42,7 @@ on startup, all SST files in the `engine-rocksdb` folder in the database
 directory are validated, then the process finishes execution.
 The default value is `false`.
 
-### Support for terabyte and tebibyte suffixes
+### Support for additional value suffixes
 
 Numeric startup options support suffixes like `m` (megabytes) and `GiB` (gibibytes)
 to make it easier to specify values that are expected in bytes. The following
@@ -50,6 +50,7 @@ suffixes are now also supported:
 
 - `tib`, `TiB`, `TIB`: tebibytes (factor 1024<sup>4</sup>)
 - `t`, `tb`, `T`, `TB`: terabytes (factor 1000<sup>4</sup>)
+- `b`, `B`: bytes (factor 1)
 
 Example: `arangod --rocksdb.total-write-buffer-size 2TiB`
 
