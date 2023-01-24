@@ -38,19 +38,24 @@ The main advantages of RocksDB are:
 
 ### Caveats
 
-RocksDB allows concurrent writes. However, when touching the same document a
-write conflict is raised. It is possible to exclusively lock collections when
-executing AQL. This will avoid write conflicts but also inhibits concurrent
-writes.
+RocksDB allows concurrent writes. However, when touching the same document at
+the same time, a write conflict is raised. It is possible to exclusively lock
+collections when executing AQL. This avoids write conflicts, but also inhibits
+concurrent writes.
 
-Another restriction is due to the transaction handling in
-RocksDB. Transactions are limited in total size. If you have a statement
-modifying a lot of documents it is necessary to commit data in-between. This will
-be done automatically for AQL by default. Transactions that get too big (in terms of
-number of operations involved or the total size of data modified by the transaction)
-will be committed automatically. Effectively this means that big user transactions
+ArangoDB uses RocksDB's transactions to implement the ArangoDB transaction
+handling. Therefore, the same restrictions apply for ArangoDB transactions when
+using the RocksDB engine.
+
+RocksDB imposes a limit on the transaction size. It is optimized to
+handle small transactions very efficiently, but is effectively limiting
+the total size of transactions. If you have an operation that modifies a lot of
+documents, it is necessary to commit data in-between. This is done automatically
+for AQL by default. Transactions that get too big (in terms of number of
+operations involved or the total size of data modified by the transaction)
+are committed automatically. Effectively, this means that big user transactions
 are split into multiple smaller RocksDB transactions that are committed individually.
-The entire user transaction will not necessarily have ACID properties in this case.
+The entire user transaction does not necessarily have ACID properties in this case.
 
 The threshold values for transaction sizes can be configured globally using the
 startup options
@@ -76,7 +81,7 @@ a replication setup when Followers need to replay the same sequence of operation
 on the Leader.
 
 The individual RocksDB WAL files are per default about 64 MiB big.
-The size will always be proportionally sized to the value specified via
+The size is always proportionally sized to the value specified via
 `--rocksdb.write-buffer-size`. The value specifies the amount of data to build
 up in memory (backed by the unsorted WAL on disk) before converting it to a
 sorted on-disk file.
@@ -84,10 +89,10 @@ sorted on-disk file.
 Larger values can increase performance, especially during bulk loads.
 Up to `--rocksdb.max-write-buffer-number` write buffers may be held in memory
 at the same time, so you may wish to adjust this parameter to control memory
-usage. A larger write buffer will result in a longer recovery time  the next
+usage. A larger write buffer results in a longer recovery time the next
 time the database is opened.
 
-The RocksDB WAL only contains committed transactions. This means you will never
+The RocksDB WAL only contains committed transactions. This means you never
 see partial transactions in the replication log, but it also means transactions
 are tracked completely in-memory. In practice this causes RocksDB transaction
 sizes to be limited, for more information see the
@@ -102,7 +107,7 @@ found in:
 - [blog.acolyer.org/2014/11/26/the-log-structured-merge-tree-lsm-tree/](https://blog.acolyer.org/2014/11/26/the-log-structured-merge-tree-lsm-tree/){:target="_blank"}
 
 The basic idea is that data is organized in levels were each level is a factor
-larger than the previous. New data will reside in smaller levels while old data
+larger than the previous. New data resides in smaller levels while old data
 is moved down to the larger levels. This allows to support high rate of inserts
 over an extended period. In principle it is possible that the different levels
 reside on different storage media. The smaller ones on fast SSD, the larger ones
@@ -148,38 +153,24 @@ reaches the limit given by
 
     --rocksdb.write-buffer-size
 
-it will converted to an SST file and inserted at level 0.
+it is converted to an SST file and inserted at level 0.
 
-The following option controls the size of each level and the depth.
+The following option controls the size of each level and the depth:
 
     --rocksdb.num-levels N
 
-Limits the number of levels to N. By default it is 7 and there is
+It limits the number of levels to `N`. By default, it is `7` and there is
 seldom a reason to change this. A new level is only opened if there is
 too much data in the previous one.
 
     --rocksdb.max-bytes-for-level-base B
 
-L0 will hold at most B bytes.
+L0 holds at most `B` bytes.
 
     --rocksdb.max-bytes-for-level-multiplier M
 
-Each level is at most M times as much bytes as the previous
-one. Therefore the maximum number of bytes-for-level L can be
-calculated as
+Each level is at most `M` times as much bytes as the previous
+one. Therefore the maximum number of bytes-for-level `L` can be
+calculated as follows:
 
     max-bytes-for-level-base * (max-bytes-for-level-multiplier ^ (L-1))
-
-### Future
-
-RocksDB imposes a limit on the transaction size. It is optimized to
-handle small transactions very efficiently, but is effectively limiting
-the total size of transactions.
-
-ArangoDB currently uses RocksDB's transactions to implement the ArangoDB
-transaction handling. Therefore the same restrictions apply for ArangoDB
-transactions when using the RocksDB engine.
-
-We will improve this by introducing distributed transactions in a future
-version of ArangoDB. This will allow handling large transactions as a
-series of small RocksDB transactions and hence removing the size restriction.

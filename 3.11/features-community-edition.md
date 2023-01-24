@@ -53,6 +53,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   on Linux. ArangoDB is available for the x86-64 architecture (with the
   SSE 4.2 and AVX instruction set extensions), as well as for 64-bit ARM chips
   on macOS (Apple silicon, like M1) and Linux (ARMv8+ with Neon SIMD support).
+  ArangoDB requires systems with Little Endian byte order.
 
 ## Scalability & High Availability
 
