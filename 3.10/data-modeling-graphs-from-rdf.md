@@ -140,7 +140,7 @@ all of the serializations but it is a step that may effect how data is imported.
 ### Ontology, Taxonomy, Class Inheritance, and RDFS
 
 The final consideration is something that for many is the core of RDF and 
-semantic data: *[Ontologies](https://www.w3.org/standards/semanticweb/ontology){:target="_blank"}*.
+semantic data: [Ontologies](https://www.w3.org/standards/semanticweb/ontology){:target="_blank"}.
 Not just ontologies but also class inheritance, and schema validation. One method 
 would be add the ontology in a similar way to what has been suggested for the 
 RDF graphs as ontologies are usually structured in the same way (or can be). 
