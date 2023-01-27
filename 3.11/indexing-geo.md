@@ -95,6 +95,26 @@ details, including the index-identifier, is returned.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
+**Warning:** Due to the fact that GeoJSON data is **not indexed** with
+`geoJson:false`, it can happen that some query has a different result
+with and without such a geo index. For example,
+
+```
+FOR d IN c
+  FILTER GEO_DISTANCE(d.geo, GEO_POINT(10, 10)) >= 0
+  RETURN d
+```
+
+will find all documents which have proper GeoJSON data in the `geo`
+attribute, since `GEO_DISTANCE` will correctly parse the data, take the
+centroid, compute the distance to `GEO_POINT(10, 10)` (which will be
+non-negative regardless of the geo object) and will let the document
+through.
+
+A geo index with `geoJson` set to `false` however, will ignore the
+document and not index it. Therefore, if the same query is executed with
+a geo index, it will not find such a document.
+
 ### Legacy Polygons
 
 See [GeoJSON Interpretation](#geojson-interpretation) for details of the changes
