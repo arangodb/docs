@@ -23,7 +23,7 @@ Query String (186 chars, cacheable: false):
 Execution plan:
  Id   NodeType                  Calls   Items   Runtime [s]   Comment
   1   SingletonNode                 1       1       0.00000   * ROOT
-  2   EnumerateCollectionNode       1      20       0.00003     - FOR u IN myusers   /* full collection scan, projections: `age`  */
+  2   EnumerateCollectionNode       1      20       0.00004     - FOR u IN myusers   /* full collection scan, projections: `age`  */
   3   CalculationNode               1      20       0.00001       - LET #5 = (FLOOR((u.`age` / 10)) * 10)   /* simple expression */   /* collections used: u : myusers */
   4   CalculationNode               1      20       0.00000       - LET #7 = u.`age`   /* attribute expression */   /* collections used: u : myusers */
   6   CollectNode                   1       7       0.00001       - COLLECT ageGroup = #5 AGGREGATE minAge = MIN(#7), maxAge = MAX(#7), len = LENGTH()   /* hash */
@@ -45,17 +45,17 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Peak Mem [b]   Exec Time [s]
-           0            0          20            0          0          32768         0.00036
+           0            0          20            0          0          32768         0.00038
 
 Query Profile:
  Query Stage           Duration [s]
  initializing               0.00000
- parsing                    0.00004
+ parsing                    0.00005
  optimizing ast             0.00001
  loading collections        0.00000
  instantiating plan         0.00001
  optimizing plan            0.00022
- executing                  0.00008
- finalizing                 0.00001
+ executing                  0.00009
+ finalizing                 0.00002
 
 
