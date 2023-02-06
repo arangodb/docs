@@ -328,10 +328,18 @@ extra options are available for locking down JavaScript access to server functio
   The default value is `false`.
 
 - `--javascript.tasks`: This option can be set to `false` to turn off
-  [JavaScript tasks](appendix-java-script-modules-tasks.html).
+  [JavaScript tasks](appendix-java-script-modules-tasks.html). It will
+  disallow the execution of user-defined JavaScript code in the server inside 
+  one-off or periodic tasks.
 
-- `--javascript.transactions`: This option be set to `false` to turn off
-  [JavaScript Transactions](http/transaction-js-transaction.html).
+- `--javascript.transactions`: This option can be set to `false` to turn off
+  [JavaScript Transactions](http/transaction-js-transaction.html). It will 
+  disallow the execution of user-defined JavaScript code in the server inside 
+  JavaScript transactions.
+
+- `--javascript.user-defined-functions`: This option can be set to `false` to turn off
+  [AQL user-defined functions](aql/extending.html). It will disallow the execution of
+  user-defined JavaScript code in the server inside AQL user-defined functions (UDFs).
 
 ## Security options for managing Foxx applications
 
