@@ -15,12 +15,12 @@ title: ArangoGraph Changelog
 ### February 2023
 
 - Adds [ArangoDB 3.10.3](https://raw.githubusercontent.com/arangodb/arangodb/3.10/CHANGELOG){:target="_blank"}
-  as an available version for deployments in ArangoGraph, 3.10.2 has been
+  as an available version for deployments in ArangoGraph; 3.10.2 has been
   removed as a selectable version
 - Adds [ArangoDB 3.9.8](https://raw.githubusercontent.com/arangodb/arangodb/3.9/CHANGELOG){:target="_blank"}
-  as an available version for deployments in ArangoGraph, 3.9.7 has been
+  as an available version for deployments in ArangoGraph; 3.9.7 has been
   removed as a selectable version
-- Fixes an issue updating enterprise tier deployments that had been paid for
+- Fixes an issue updating Enterprise tier deployments that had been paid for
   in advance
 
 ### January 2023
