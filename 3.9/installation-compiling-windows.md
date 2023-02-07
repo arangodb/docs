@@ -32,8 +32,7 @@ Since choco currently fails to alter the environment for
 [Microsoft Visual Studio](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx){:target="_blank"},
 we suggest to download and install Visual Studio by hand.
 
-ArangoDB v3.7 requires Visual Studio 2019 v16.5.0 or later. For ArangoDB
-versions 3.4, 3.5 and 3.6 the only supported option is Visual Studio 2017.
+ArangoDB v3.7 requires Visual Studio 2019 v16.5.0 or later.
 
 {% hint 'warning' %}
 You need to make sure that it installs the **Desktop development with C++** preset,

@@ -177,9 +177,9 @@ transactional guarantees.
 
 If high throughput is more important than consistency and transactional
 guarantees for you, then you may allow for so-called "dirty reads" or
-"read from followers", for certain read-only operations. In this case,
+"reading from followers", for certain read-only operations. In this case,
 Coordinators are allowed to read not only from
-shard leaders but also from shard replicas. This has a positive effect,
+leader shards but also from follower shards. This has a positive effect,
 because the reads can scale out to all DB-Servers which have copies of
 the data. Therefore, the read throughput is higher. Note however, that you
 still have to go through your Coordinators. To get the desired result, you
@@ -190,13 +190,13 @@ You may observe the following data inconsistencies (dirty reads) when
 reading from followers:
 
 - It is possible to see old, **obsolete revisions** of documents. More
-  exactly, it is possible that documents are already updated on the
-  leader, but the updates have not yet been replicated to the follower
+  exactly, it is possible that documents are already updated on the leader shard
+  but the updates have not yet been replicated to the follower shard
   from which you are reading.
 
 - It is also possible to see changes to documents that
   **have already happened on a replica**, but are not yet officially
-  committed on the leader.
+  committed on the leader shard.
 
 When no writes are happening, allowing reading from followers is generally safe.
 
@@ -222,7 +222,8 @@ x-arango-allow-dirty-read: true
 ```
 
 This is in line with the older support to read from followers in the
-Active Failover deployment mode (see [Reading from Followers](../architecture-deployment-modes-active-failover.html#reading-from-followers)).
+[Active Failover](../architecture-deployment-modes-active-failover.html#reading-from-followers)
+deployment mode.
 
 For single requests, you specify this header in the read request.
 For Stream Transactions, the header has to be set on the request that
