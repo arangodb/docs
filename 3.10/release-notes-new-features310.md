@@ -362,20 +362,27 @@ for examples.
 
 ### New startup options
 
-With `--arangosearch.skip-recovery`, you can skip data recovery for the specified View links
-and inverted indexes on startup. 
-Values for this startup option should have the format `<collection-name>/<link-id>`,
-`<collection-name>/<index-id>`, or `<collection-name>/<index-name>`. 
-On DB-Servers, the `<collection-name>` part should contain a shard name.
+- With `--arangosearch.skip-recovery`, you can skip data recovery for the
+  specified View links and inverted indexes on startup.
+  Values for this startup option should have the format `<collection-name>/<link-id>`,
+  `<collection-name>/<index-id>`, or `<collection-name>/<index-name>`.
+  On DB-Servers, the `<collection-name>` part should contain a shard name.
 
-With `arangosearch.fail-queries-on-out-of-sync` startup option you can let
-write operations fail if `arangosearch` View links or inverted indexes are not
-up-to-date with the collection data. The option is set to `false` by default.
-Queries on out-of-sync links/indexes are answered normally, but the return data
-may be incomplete.
-If set to `true`, any data retrieval queries on out-of-sync 
-links/indexes are going to fail with error "collection/view is out of sync"
-(error code 1481).
+- With the `--arangosearch.fail-queries-on-out-of-sync` startup option you can let
+  write operations fail if `arangosearch` View links or inverted indexes are not
+  up-to-date with the collection data. The option is set to `false` by default.
+  Queries on out-of-sync links/indexes are answered normally, but the return data
+  may be incomplete.
+  If set to `true`, any data retrieval queries on out-of-sync 
+  links/indexes are going to fail with error "collection/view is out of sync"
+  (error code 1481).
+
+<small>Introduced in: v3.10.4</small>
+
+- The new `--javascript.user-defined-functions` startup option lets you disable
+  user-defined AQL functions so that no user-defined JavaScript code of
+  [UDFs](aql/extending.html) runs on the server. Also see
+  [Server security options](security-security-options.html).
 
 ### ArangoSearch metrics and figures
 
