@@ -10,7 +10,7 @@ cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: <span class="hljs-string">&quot;_fYp6pxa--A&quot;</span>
+etag: <span class="hljs-string">&quot;_fhD1lh6--A&quot;</span>
 expires: <span class="hljs-number">0</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">69418</span>
 pragma: no-cache
@@ -22,8 +22,8 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/69418&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;69418&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fYp6pxa--A&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fYp6pxa--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fhD1lh6--A&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fhD1lh6--_&quot;</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/69418</span> &lt;&lt;EOF
 { 
@@ -42,7 +42,7 @@ cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: <span class="hljs-string">&quot;_fYp6pxe---&quot;</span>
+etag: <span class="hljs-string">&quot;_fhD1li----&quot;</span>
 expires: <span class="hljs-number">0</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">69418</span>
 pragma: no-cache
@@ -54,8 +54,8 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/69418&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;69418&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fYp6pxe---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fYp6pxa--A&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fhD1li----&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fhD1lh6--A&quot;</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/69418</span>
 
@@ -65,7 +65,7 @@ cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-
 connection: Keep-Alive
 content-length: <span class="hljs-number">141</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: <span class="hljs-string">&quot;_fYp6pxe---&quot;</span>
+etag: <span class="hljs-string">&quot;_fhD1li----&quot;</span>
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
 server: ArangoDB
@@ -76,7 +76,7 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;69418&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/69418&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fYp6pxe---&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fhD1li----&quot;</span>, 
   <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
   <span class="hljs-string">&quot;hello&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
   <span class="hljs-string">&quot;numbers&quot;</span> : { 
@@ -101,7 +101,7 @@ cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: <span class="hljs-string">&quot;_fYp6pxq---&quot;</span>
+etag: <span class="hljs-string">&quot;_fhD1liG---&quot;</span>
 expires: <span class="hljs-number">0</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">69418</span>
 pragma: no-cache
@@ -113,8 +113,8 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/69418&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;69418&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fYp6pxq---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fYp6pxe---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fhD1liG---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fhD1li----&quot;</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/69418</span>
 
@@ -124,7 +124,7 @@ cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-
 connection: Keep-Alive
 content-length: <span class="hljs-number">134</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: <span class="hljs-string">&quot;_fYp6pxq---&quot;</span>
+etag: <span class="hljs-string">&quot;_fhD1liG---&quot;</span>
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
 server: ArangoDB
@@ -135,7 +135,7 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;69418&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/69418&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fYp6pxq---&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fhD1liG---&quot;</span>, 
   <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
   <span class="hljs-string">&quot;numbers&quot;</span> : { 
     <span class="hljs-string">&quot;empty&quot;</span> : <span class="hljs-literal">null</span>, 
