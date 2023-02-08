@@ -348,8 +348,8 @@ The default value is `false`.
 
 {% hint 'info' %}
 The query options `cache`, `count` and `fullCount` don't work on streaming
-queries. Additionally, query statistics and profiling data is only available
-after the query has finished and is delivered as part of the last batch.
+queries. Additionally, query statistics and profiling data are only
+available after the query has finished and are delivered as part of the last batch.
 Every batch can contain query warnings if you use a single server deployment,
 however. In clusters, warnings are also delivered in the last batch.
 {% endhint %}
