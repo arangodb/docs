@@ -19,7 +19,7 @@ expires: 0
 pragma: no-cache
 server: ArangoDB
 strict-transport-security: max-age=31536000 ; includeSubDomains
-x-arango-async-id: 83138
+x-arango-async-id: 83134
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
@@ -39,9 +39,9 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;83138&quot;</span> 
+  <span class="hljs-string">&quot;83134&quot;</span> 
 ]
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/83138</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/83134</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json

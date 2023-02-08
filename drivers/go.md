@@ -1,12 +1,15 @@
 ---
 layout: default
-description: The official ArangoDB GO Driver
+description: The official ArangoDB Go Driver
+redirect_from:
+  - go-connection-management.html # 3.10 -> 3.10
+  - go-example-requests.html # 3.10 -> 3.10
+  - go-getting-started.html # 3.10 -> 3.10
 ---
-# ArangoDB GO Driver
+# ArangoDB Go Driver
 
-The official [ArangoDB](https://arangodb.com){:target="_blank"} GO Driver
+The official ArangoDB Go Driver
 
-- [Getting Started](go-getting-started.html)
-- [Example Requests](go-example-requests.html)
-- [Connection Management](go-connection-management.html)
+- [Go Driver Tutorial](https://university.arangodb.com/courses/go-driver-tutorial/){:target="_blank"}
 - [Reference](https://godoc.org/github.com/arangodb/go-driver){:target="_blank"}
+- [Repository](https://github.com/arangodb/go-driver){:target="_blank"}

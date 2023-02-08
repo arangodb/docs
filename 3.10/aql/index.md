@@ -34,5 +34,5 @@ It is a pure data manipulation language (DML), not a data definition language
 The syntax of AQL queries is different to SQL, even if some keywords overlap.
 Nevertheless, AQL should be easy to understand for anyone with an SQL background.
 
-For some example queries, please refer to the chapters
-[Data Queries](data-queries.html) and [AQL Query Patterns and Examples](examples.html).
+For example queries, see the [Data Queries](data-queries.html) and
+[Examples & Query Patterns](examples.html) chapters.

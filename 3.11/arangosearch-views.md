@@ -166,8 +166,7 @@ During view modification the following directives apply:
   <small>Introduced in: v3.7.1</small>
 
   Defines how to compress the primary sort data (introduced in v3.7.0).
-  ArangoDB v3.5 and v3.6 always compress the index using LZ4.
-
+  
   - `"lz4"` (default): use LZ4 fast compression.
   - `"none"`: disable compression to trade space for speed.
   
@@ -228,6 +227,17 @@ During view modification the following directives apply:
     This can improve the query performance if stored values are involved. See the
     [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
     to control the memory consumption of this cache.
+
+  You may use the following shorthand notations on View creation instead of
+  an array of objects as described above. The default compression and cache
+  settings are used in this case:
+
+  - An array of strings, like `["attr1", "attr2"]`, to place each attribute into
+    a separate column of the index (introduced in v3.10.3).
+
+  - An array of arrays of strings, like `[["attr1", "attr2"]]`, to place the
+    attributes into a single column of the index, or `[["attr1"], ["attr2"]]`
+    to place each attribute into a separate column.
 
   The `storedValues` option is not to be confused with the `storeValues` option,
   which allows to store meta data about attribute values in the View index.
