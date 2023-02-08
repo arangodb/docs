@@ -55,13 +55,14 @@ in AQL queries, which support a `refillIndexCache` option, too.
 
 #### Cursor API
 
-The cursor API can now return an additional statistics value in its `stats` sub-attribute:
-
-- **intermediateCommits**: the total number of intermediate commits the query has performed. 
-  This number can only be greater than zero for data-modification queries that perform modifications 
-  beyond the `--rocksdb.intermediate-commit-count` or `--rocksdb.intermediate-commit-size` thresholds.
-  In a cluster, the intermediate commits are tracked per DB server that participates in the query
-  and are summed up in the end.
+- The `POST /_api/cursor` and `POST /_api/cursor/{cursor-identifier}` endpoints
+  can now return an additional statistics value in the `stats` sub-attribute,
+  `intermediateCommits`. It is the total number of intermediate commits the
+  query has performed. This number can only be greater than zero for
+  data modification queries that perform modifications beyond the
+  `--rocksdb.intermediate-commit-count` or `--rocksdb.intermediate-commit-size`
+  thresholds. In clusters, the intermediate commits are tracked per DB-Server
+  that participates in the query and are summed up in the end.
 
 - The `/_api/cursor` endpoint accepts a new `allowRetry` attribute in the
   `options` object. Set this option to `true` to make it possible to retry
