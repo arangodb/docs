@@ -108,7 +108,7 @@ FOR doc IN coll
   RETURN doc
 ```
 
-The `GEO_DISTANCE()` function correctly parse the data, takes the centroid,
+The `GEO_DISTANCE()` function correctly parses the data, takes the centroid,
 computes the distance to `GEO_POINT(10, 10)` (which is non-negative regardless
 of the `geo` object), and lets the document through.
 
