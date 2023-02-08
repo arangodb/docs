@@ -2,8 +2,6 @@
 layout: default
 description: How to manage your user account
 title: My Account in the ArangoGraph Insights Platform
-redirect_from:
-  - organizational-invite.html # 3.6 -> 3.6
 ---
 # My Account
 
@@ -91,19 +89,19 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
 
 1. Once invited, you will receive an email asking to join your
    ArangoGraph organization.
-   ![ArangoGraph Organization Invite Email](images/oasis-org-invite-email.png)
+   ![ArangoGraph Organization Invite Email](images/arangograph-org-invite-email.png)
 2. Click the __View my organization invite__ link in the email. You will be
    asked to log in or to create a new account.
 3. To sign up for a new account, click the __Start Free__ button or the
    __Sign up__ link in the header navigation.
-   ![ArangoGraph Homepage](images/oasis-homepage.png)
+   ![ArangoGraph Homepage](images/arangograph-homepage.png)
 4. After successfully signing up, you will receive a verification email.
 5. Click the __Verify my email address__ link in the email. It takes you back
    to the ArangoGraph Insights Platform site.
-   ![ArangoGraph Organization Invite Email Verify](images/oasis-org-invite-email-verify.png)
+   ![ArangoGraph Organization Invite Email Verify](images/arangograph-org-invite-email-verify.png)
 6. After successfully logging in, you can accept or reject the invite to
    join your organization.
-   ![ArangoGraph Organization Invite](images/oasis-org-invite.png)
+   ![ArangoGraph Organization Invite](images/arangograph-org-invite.png)
 7. After accepting the invite, you become a member of your organization and
    will be granted access to the organization and its related projects and
    deployments.

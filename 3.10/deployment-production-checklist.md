@@ -13,7 +13,9 @@ Operating System
 ----------------
 
 - Executed the OS optimization scripts if you run ArangoDB on Linux.
-  See [Installing ArangoDB on Linux](installation-linux.html) for details.
+  See [Installing ArangoDB on Linux](installation-linux.html) and its sub pages
+  [Linux Operating System Configuration](installation-linux-osconfiguration.html) and
+  [Linux OS Tuning Script Examples](installation-linux-ostuning-scripts.html) for details.
 
 - OS monitoring is in place
   (most common metrics, e.g. disk, CPU, RAM utilization).

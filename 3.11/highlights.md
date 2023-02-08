@@ -117,7 +117,7 @@ Also see [What's New in 3.9](release-notes-new-features39.html).
   [Geo](analyzers.html#geojson)
   [Analyzers](analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
-  A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
+  A new [**Stop words Analyzer**](analyzers.html#stopwords) that
   can be used standalone or in an Analyzer pipeline.
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
@@ -211,7 +211,7 @@ Also see [What's New in 3.7](release-notes-new-features37.html).
 
 **Enterprise Edition**
 
-- [**OneShard**](architecture-deployment-modes-cluster-architecture.html#oneshard)
+- [**OneShard**](deployment-oneshard.html)
   deployments offer a practicable solution that enables significant performance
   improvements by massively reducing cluster-internal communication. A database
   created with OneShard enabled is limited to a single DB-Server node but still

@@ -18,7 +18,7 @@ run 3.8.x and older versions on these systems via Rosetta 2 emulation, but not
 3.9.x because of its use of AVX instructions, which Rosetta 2 does not emulate.
 3.10.x runs on this hardware again, but now without emulation.
 
-ArangoDB 3.10.x also runs on 64-bit ARM (AArch64) chips under Linux.
+ArangoDB 3.10.x also runs on 64-bit ARM (AArch64, Little Endian) chips under Linux.
 The minimum requirement is an ARMv8 chip with Neon (SIMD extension).
 
 ## SmartGraphs (Enterprise Edition)
@@ -36,6 +36,8 @@ as SatelliteGraphs in the usual way, using
 (with multiple servers) and restore the graphs in the cluster. The graphs and
 the collections will keep all properties that are kept when the graph is already
 created in a cluster.
+
+Also see [SmartGraphs and SatelliteGraphs on a Single Server](smart-and-satellite-graphs-single-server.html).
 
 This feature is only available in the Enterprise Edition.
 
@@ -904,7 +906,7 @@ more than a single shard.
 
 You can now allow for reads from followers for a
 number of read-only operations in cluster deployments. In this case, Coordinators
-are allowed to read not only from shard leaders but also from shard replicas.
+are allowed to read not only from leader shards but also from follower shards.
 This has a positive effect, because the reads can scale out to all DB-Servers
 that have copies of the data. Therefore, the read throughput is higher.
 

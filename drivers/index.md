@@ -1,114 +1,103 @@
 ---
 layout: default
-description: Together with the ArangoDB community we provide drivers for many languages. Our official language drivers are Java, JavaScript, PHP and GO.
-title: Install Official Drivers, Integrations and Community Drivers
-page-toc:
-  disable: true
+description: >-
+  ArangoDB drivers and integrations allow you to use ArangoDB as a database
+  system for your applications
 ---
-# ArangoDB {{ site.data.versions[page.version.name] }} Drivers Documentation
+# ArangoDB Drivers Documentation
 
-ArangoDB drivers are interfaces between programming languages and ArangoDB,
-which enable programmers to connect to and manipulate ArangoDB deployments from
-within native language programs. From a language perspective, documents and
-database structures can be integrated with data types and their methods.
-The precise mapping of concepts and methods depends on the capabilities and
-practices of each language.
+{{ page.description }}
+{:class="lead"}
+
+## Drivers
+
+Database drivers, also called connectors, adapters, or client libraries, let you
+access and manage database systems. ArangoDB drivers are interfaces between
+programming languages and ArangoDB, which enable software developers to connect
+to and manipulate ArangoDB deployments from within compiled programs or using
+scripting languages.
+
+From a language perspective, documents and database structures can be integrated
+with data types and their methods. The precise mapping of concepts and methods
+depends on the capabilities and practices of each language.
 
 Programming is a powerful way of automating interactions and control of the
 database, as well as to integrate database operations into your own software.
-The status of the drivers below varies from supported to community contributions.
+The drivers listed below are officially maintained and supported by ArangoDB.
+If your programming language or environment is not listed, 
 
-## Official drivers
+### Java driver
 
-Name | Language | Repository | &nbsp;
-:----|:---------|:-----------|:------
-[ArangoDB Java driver](java.html) | Java | [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
-[ArangoJS](js.html) | JavaScript | [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"} | [Changelog](https://github.com/arangodb/arangojs/blob/main/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
-[ArangoDB PHP](php.html) | PHP | [github.com/arangodb/arangodb-php](https://github.com/arangodb/arangodb-php){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-php/blob/devel/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
-[Go driver](go.html) | Go | [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
-[C#/.NET driver](dotnet.html) | C# | [github.com/ArangoDB-Community/arangodb-net-standard](https://github.com/ArangoDB-Community/arangodb-net-standard){:target="_blank"} | [Changelog](https://github.com/ArangoDB-Community/arangodb-net-standard/blob/master/ChangeLog.md){:target="_blank" class="no-wrap"}
+The [**ArangoDB Java driver**](java.html) lets you work with ArangoDB in the
+Java programming language.
+
+- Online course: [Java Driver v6 Tutorial](https://university.arangodb.com/courses/java-driver-tutorial-v6/){:target="_blank"}
+- Repository: [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"}
+- [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank"}
+
+### Go driver
+
+The [**Go driver**](go.html) lets you work with ArangoDB in the Go programming
+language.
+
+- Tutorial: [Go Driver Tutorial](https://university.arangodb.com/courses/go-driver-tutorial/){:target="_blank"}
+- Repository: [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"}
+- [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank"}
+
+### C#/.NET driver
+
+The [**arangodb-net-standard driver**](dotnet.html) lets you work with ArangoDB
+using the C# programming language and the .NET ecosystem.
+
+- Online course: [C#/.NET Driver Tutorial](https://university.arangodb.com/courses/csharp-dotnet-driver-tutorial/){:target="_blank"}
+- Repository: [github.com/ArangoDB-Community/arangodb-net-standard](https://github.com/ArangoDB-Community/arangodb-net-standard){:target="_blank"}
+- [Changelog](https://github.com/ArangoDB-Community/arangodb-net-standard/blob/master/ChangeLog.md){:target="_blank"}
+
+### Node.js driver
+
+The [**ArangoJS driver**](js.html) lets you work with ArangoDB in Node.js, using
+the JavaScript scripting language. You can also use it in web browsers.
+
+- Repository: [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"}
+- [Changelog](https://github.com/arangodb/arangojs/blob/main/CHANGELOG.md#readme){:target="_blank"}
+
+### Python driver
+
+The [**Python-Arango**](python.html) driver lets you work with ArangoDB in the
+Python scripting language.
+
+- Online course: [Python Driver Tutorial](https://www.arangodb.com/tutorials/tutorial-python/){:target="_blank"}
+- Repository: [github.com/ArangoDB-Community/python-arango](https://github.com/ArangoDB-Community/python-arango){:target="_blank"}
+- [Releases](https://github.com/ArangoDB-Community/python-arango/releases){:target="_blank"}
 
 ## Integrations
 
-Name | Language | Repository | &nbsp;
-:----|:---------|:-----------|:------
-[Spring Data](spring-data.html) | Java | [github.com/arangodb/spring-data](https://github.com/arangodb/spring-data){:target="_blank"} | [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
-[ArangoDB Datasource for Apache Spark](spark-connector-new.html) | Scala, Java, Python, R | [github.com/arangodb/arangodb-spark-datasource](https://github.com/arangodb/arangodb-spark-datasource){:target="_blank" class="no-wrap"} | [Changelog](https://github.com/arangodb/arangodb-spark-datasource/blob/main/ChangeLog.md){:target="_blank" class="no-wrap"}
-[ArangoDB-Spark-Connector](spark-connector.html) | Scala, Java | [github.com/arangodb/arangodb-spark-connector](https://github.com/arangodb/arangodb-spark-connector){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-spark-connector/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
+Database integrations allow applications to work with different database systems
+using a common interface. They are higher-level than database drivers because
+they abstract away the details of specific database systems, especially the
+low-level network communication.
 
-## Community drivers
+### Spring Data
 
-Please note that this list is not exhaustive.
+The [**Spring Data integration**](spring-data.html) for ArangoDB lets you use
+ArangoDB as a database system in Spring-based Java applications.
 
-Name | Language | Repository
-:----|:---------|:----------
-Arangoex | Elixir | [github.com/austinsmorris/arangoex](https://github.com/austinsmorris/arangoex){:target="_blank"}
-Arangox | Elixir | [github.com/ArangoDB-Community/arangox](https://github.com/ArangoDB-Community/arangox){:target="_blank"}
-aranGO | Go | [github.com/diegogub/aranGO](https://github.com/diegogub/aranGO){:target="_blank"}
-aranGoDriver | Go | [github.com/TobiEiss/aranGoDriver](https://github.com/TobiEiss/aranGoDriver){:target="_blank"}
-arangolite | Go | [github.com/solher/arangolite](https://github.com/solher/arangolite){:target="_blank"}
-pyArango | Python | [github.com/ArangoDB-Community/pyArango](https://github.com/ArangoDB-Community/pyArango){:target="_blank"}
-python-arango | Python | [github.com/ArangoDB-Community/python-arango](https://github.com/ArangoDB-Community/python-arango){:target="_blank"}
-aioarango | Python | [github.com/mirrorrim/aioarango](https://github.com/mirrorrim/aioarango){:target="_blank"}
-aioarangodb | Python | [github.com/getflaps/aioarangodb](https://github.com/getflaps/aioarangodb){:target="_blank"}
-Proteus | Scala | [github.com/CharlesAHunt/proteus](https://github.com/CharlesAHunt/proteus){:target="_blank"}
-avokka | Scala | [github.com/avokka/avokka](https://github.com/avokka/avokka){:target="_blank"}
-arangodb-scala-driver | Scala | [github.com/acme-software/arangodb-scala-driver](https://github.com/acme-software/arangodb-scala-driver){:target="_blank"}
-Scarango | Scala | [github.com/outr/scarango](https://github.com/outr/scarango){:target="_blank"}
-aRango-Driver | R | [gitlab.com/krpack/arango-driver](https://gitlab.com/krpack/arango-driver){:target="_blank"}
-ArangoDB PHP ODM | PHP | [github.com/lucassouzavieira/arangodb-php-odm](https://github.com/lucassouzavieira/arangodb-php-odm){:target="_blank"}
-arangodb-php-client | PHP | [github.com/LaravelFreelancerNL/arangodb-php-client](https://github.com/LaravelFreelancerNL/arangodb-php-client){:target="_blank"}
-dotnet-arangodb | C# / .NET | [github.com/coronabytes/dotnet-arangodb](https://github.com/coronabytes/dotnet-arangodb){:target="_blank"}
-arangoclient.net | C# / .NET | [github.com/ra0o0f/arangoclient.net](https://github.com/ra0o0f/arangoclient.net){:target="_blank"}
-dotnet-arangodb | C# / .NET | [github.com/coronabytes/dotnet-arangodb](https://github.com/coronabytes/dotnet-arangodb){:target="_blank"}
-arango-driver _(fork of ArangoRB)_ | Ruby | [github.com/isomorfeus/arango-driver](https://github.com/isomorfeus/arango-driver){:target="_blank"}
-Perl5 Arango-Tango | Ruby | [gitlab.com/ambs/perl5-arango-tango](https://gitlab.com/ambs/perl5-arango-tango){:target="_blank"}
-arangors | Rust | [github.com/fMeow/arangors](https://github.com/fMeow/arangors){:target="_blank"}
-Tash | C++ | [gitlab.com/neel.basu/tash](https://gitlab.com/neel.basu/tash){:target="_blank"}
-erlArango | Erlang | [github.com/ErlGameWorld/erlArango](https://github.com/ErlGameWorld/erlArango){:target="_blank"}
-eArango | Erlang | [github.com/ErlGameWorld/eArango](https://github.com/ErlGameWorld/eArango){:target="_blank"}
-darango | Dart | [github.com/BastienFerbu/darango](https://github.com/BastienFerbu/darango){:target="_blank"}
-arango-dart | Dart | [github.com/xtyxtyx/arango-dart](https://github.com/xtyxtyx/arango-dart){:target="_blank"}
+- Online course: [Spring Data Tutorial](https://university.arangodb.com/courses/spring-data-tutorial){:target="_blank"}
+- Repository: [github.com/arangodb/spring-data](https://github.com/arangodb/spring-data){:target="_blank"}
+- [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank"}
 
-## Community integrations and libraries
+### Apache Spark
 
-Please note that this list is not exhaustive.
+The [**ArangoDB Datasource for Apache Spark**](spark-connector-new.html) is a
+library that lets you use Apache Spark with ArangoDB for data processing.
+Apache Spark has first-party support for the Scala, Java, Python, and R language.
 
-Name | Environment | Language | Repository
-:----|:------------|:---------|:----------
-Eclipse JNoSQL | Jakarta NoSQL | Java | [github.com/eclipse/jnosql-diana-driver/tree/master/arangodb-driver](https://github.com/eclipse/jnosql-diana-driver/tree/master/arangodb-driver){:target="_blank"}
-arangodb-tinkerpop-provider | Gremlin | Java | [github.com/ArangoDB-Community/arangodb-tinkerpop-provider](https://github.com/ArangoDB-Community/arangodb-tinkerpop-provider){:target="_blank"}
-arangodb-graphql-java | GraphQL | Java | [github.com/ArangoDB-Community/arangodb-graphql-java](https://github.com/ArangoDB-Community/arangodb-graphql-java){:target="_blank"}
-Kafka Connect ArangoDB | Kafka | Java | [github.com/jaredpetersen/kafka-connect-arangodb](https://github.com/jaredpetersen/kafka-connect-arangodb){:target="_blank"}
-ArangoDb Camel | Camel | Java | [camel.apache.org/components/latest/arangodb-component.html](https://camel.apache.org/components/latest/arangodb-component.html){:target="_blank"}
-Micronaut ArangoDB | Mirconaut | Java | [github.com/GoodforGod/micronaut-arangodb](https://github.com/GoodforGod/micronaut-arangodb){:target="_blank"}
-ArangoDB TestContainers | Testcontainers | Java | [github.com/GoodforGod/arangodb-testcontainers](https://github.com/GoodforGod/arangodb-testcontainers){:target="_blank"}
-Write-Ahead-Log Client in Java |  | Java | [github.com/stackmagic/arangodb-wal-client](https://github.com/stackmagic/arangodb-wal-client){:target="_blank"}
-ArangoBee data migration tool |  | Java | [github.com/cmoine/arangobee](https://github.com/cmoine/arangobee){:target=_blank"}
-cruddl | GraphQL | JavaScript | [github.com/AEB-labs/cruddl](https://github.com/AEB-labs/cruddl){:target="_blank"}
-feathers-arangodb | Feathers | JavaScript | [github.com/AnatidaeProject/feathers-arangodb](https://github.com/AnatidaeProject/feathers-arangodb){:target="_blank"}
-orango | Node.js, Foxx, browser | JavaScript | [github.com/roboncode/orango](https://github.com/roboncode/orango){:target="_blank"}
-Hemera-arango-store | Hemera | JavaScript | [github.com/hemerajs/hemera-arango-store](https://github.com/hemerajs/hemera-arango-store){:target="_blank"}
-ArangoDB.Ecto | Ecto | Elixir | [github.com/ArangoDB-Community/arangodb_ecto](https://github.com/ArangoDB-Community/arangodb_ecto){:target="_blank"}
-Python ORM Layer for ArangoDB |  | Python | [github.com/threatify/arango-orm](https://github.com/threatify/arango-orm){:target="_blank"}
-Arangodantic | Pydantic | Python | [github.com/digitalliving/arangodantic](https://github.com/digitalliving/arangodantic){:target="_blank"}
-arangodol |  | Python | [github.com/i2mint/arangodol](https://github.com/i2mint/arangodol){:target="_blank"}
-Aranguent | Laravel | PHP | [github.com/LaravelFreelancerNL/laravel-arangodb](https://github.com/LaravelFreelancerNL/laravel-arangodb){:target="_blank"}
-MopArangoDbBundle | Symfony2 | PHP | [github.com/m0ppers/MopArangoDbBundle](https://github.com/m0ppers/MopArangoDbBundle){:target="_blank"}
-arangoq: a query builder layer |  | Rust | [github.com/element114/arangoq](https://github.com/element114/arangoq){:target="_blank"}
-Aragog: A fully featured ODM and OGM library for ArangoDB |  | Rust | [aragog.rs](https://aragog.rs/){:target="_blank"}
-GORM Arango Driver | GORM | Go | [github.com/joselitofilho/gorm-arango](https://github.com/joselitofilho/gorm-arango){:target="_blank"}
-Apache Spline: Data lineage tracking solution that uses ArangoDB for storage | Apache Spark | Scala | [github.com/AbsaOSS/spline](https://github.com/AbsaOSS/spline){:target="_blank"}
+- Repository: [github.com/arangodb/arangodb-spark-datasource](https://github.com/arangodb/arangodb-spark-datasource){:target="_blank"}
+- [Changelog](https://github.com/arangodb/arangodb-spark-datasource/blob/main/ChangeLog.md){:target="_blank"}
 
-## Community projects
+The [**ArangoDB-Spark-Connector**](spark-connector.html) is the predecessor of
+the ArangoDB Datasource library for the Scala and Java programming languages,
+but it is recommended to use the new library instead.
 
-Please note that this list is not exhaustive.
-
-Name | Environment | Language | Repository
-:----|:------------|:---------|:----------
-Fasty: CMS based on OpenResty / Lapis & ArangoDB | NodeJS | JavaScript | [github.com/solisoft/fasty](https://github.com/solisoft/fasty){:target="_blank"}
-foxxy: Create your app with ArangoDB Foxx RiotJS UIKIT3 Brunch Yarn | Foxx | JavaScript | [github.com/solisoft/foxxy](https://github.com/solisoft/foxxy){:target="_blank"}
-RecallGraph: A versioning data store for time-variant graph data | Foxx | JavaScript | [github.com/RecallGraph/RecallGraph](https://github.com/RecallGraph/RecallGraph){:target="_blank"}
-ArangoDb.Net.Identity: .NET Core Identity library for ArangoDB | .NET | C# | [github.com/endpointsystems/ArangoDB.Net.Identity](https://github.com/endpointsystems/ArangoDB.Net.Identity){:target="_blank"}
-Docker Swarm example configuration | Docker Swarm |  | [github.com/dumstruck/arango-swarm](https://github.com/dumstruck/arango-swarm){:target="_blank"}
-Intellij plugin for AQL, ArangoDB language support | Intellij | Java | [github.com/ArangoDB-Community/aql-intellij-plugin](https://github.com/ArangoDB-Community/aql-intellij-plugin){:target="_blank"}
+ - Repository: [github.com/arangodb/arangodb-spark-connector](https://github.com/arangodb/arangodb-spark-connector){:target="_blank"}
+ - [Changelog](https://github.com/arangodb/arangodb-spark-connector/blob/master/ChangeLog.md#readme){:target="_blank"}

@@ -75,8 +75,7 @@ replicas. This in turn implies, that a complete pristine replication would
 involve 10 shards which need to catch up with their leaders.
 
 Not all use cases require horizontal scalability. In such cases, consider the
-[OneShard](architecture-deployment-modes-cluster-architecture.html#oneshard)
-feature as alternative to flexible sharding.
+[OneShard](deployment-oneshard.html) feature as alternative to flexible sharding.
 
 Shard Keys
 ----------

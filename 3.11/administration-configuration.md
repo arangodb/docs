@@ -173,19 +173,19 @@ Specific to arangod, move to programs detail page?
 Does the resolution order for config files apply to all binaries?
 Linux only? Also macOS? Windows not addressed so far.
 
-If this command is not passed to the server, then by default, the server will
-attempt to first locate a file named *~/.arango/arangod.conf* in the user's home
+If this command is not passed to the server, then by default, the server
+attempts to first locate a file named `~/.arango/arangod.conf` in the user's home
 directory.
 
-If no such file is found, the server will proceed to look for a file
-*arangod.conf* in the system configuration directory. The system configuration
+If no such file is found, the server proceeds to look for a file
+`arangod.conf` in the system configuration directory. The system configuration
 directory is platform-specific, and may be changed when compiling ArangoDB
-yourself. It may default to */etc/arangodb* or */usr/local/etc/arangodb*. This
+yourself. It may default to `/etc/arangodb` or `/usr/local/etc/arangodb`. This
 file is installed when using a package manager like rpm or dpkg. If you modify
 this file and later upgrade to a new version of ArangoDB, then the package
 manager normally warns you about the conflict. In order to avoid these warning
 for small adjustments, you can put local overrides into a file
-*arangod.conf.local*.
+`arangod.conf.local`.
 {% endcomment %}
 
 ## Suffixes for Numeric Options
@@ -200,6 +200,7 @@ in megabytes, gigabytes, or terabytes.
 | `mib`, `MiB`, `MIB`  | 1024<sup>2</sup> | 1,048,576         | `64mib`   |
 | `gib`, `GiB`, `GIB`  | 1024<sup>3</sup> | 1,073,741,824     | `3GIB`    |
 | `tib`, `TiB`, `TIB`  | 1024<sup>4</sup> | 1,099,511,627,776 | `3tib`    |
+| `b`, `B`             | 1                | 1                 | `10b`     |
 | `k`, `K`, `kb`, `KB` | 1000             | 1,000             | `3k`      |
 | `m`, `M`, `mb`, `MB` | 1000<sup>2</sup> | 1,000,000         | `3M`      |
 | `g`, `G`, `gb`, `GB` | 1000<sup>3</sup> | 1,000,000,000     | `3GB`     |
@@ -286,7 +287,7 @@ level = startup=info
 There are built-in defaults, with which all configuration variables are first
 initialized. They can be overridden by configuration files and command line
 options (in this order). Only a fraction of all available options are set in
-the configuration files that ArangoDB ships with. Many options will therefore
+the configuration files that ArangoDB ships with. Many options therefore
 fall back to the built-in defaults unless they are overridden by the user.
 
 It is common to use modified configuration files together with startup
@@ -294,21 +295,21 @@ options on a command line to override specific settings. Command line options
 take precedence over values set in a configuration file.
 
 If the same option is set multiple times, but only supports a single value,
-then the last occurrence of the option will become the final value.
-For example, if you edit `arangosh.conf` to set:
+then the last occurrence of the option becomes the final value.
+For example, if you edit `arangosh.conf` as follows:
 
-```
+```conf
 server.database = myDB1
 server.database = myDB2
 ```
 
-… and start ArangoShell like:
+Then start ArangoShell like this:
 
 ```
 arangosh --server.database myDB3 --server.database myDB4
 ```
 
-… then the database it will connect to is `myDB4`, because this startup option
+The database it connects to is `myDB4`, because this startup option
 takes a single value only (i.e. it is not a vector), the built-in default
 is `_system` but the configuration file overrules the setting. It gets set to
 `myDB1` temporarily before it is replaced by `myDB2`, which in turn gets

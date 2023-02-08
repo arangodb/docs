@@ -189,7 +189,7 @@ vertex collections (the latter two require the *Enterprise Edition* of ArangoDB)
 Manually overriding the sharding strategy does not yet provide a
 benefit, but it may later in case other sharding strategies are added.
 
-The [OneShard](architecture-deployment-modes-cluster-architecture.html#oneshard)
+The [OneShard](deployment-oneshard.html)
 feature does not have its own sharding strategy, it uses `hash` instead.
 
 Moving/Rebalancing _shards_
