@@ -31,6 +31,13 @@ onward, it is called _**index** cache refilling_ and not limited to edge caches
 anymore, but also supports in-memory hash caches of persistent indexes
 (persistent indexes with the `cacheEnabled` option set to `true`).
 
+### Retry request for result batch
+
+You can retry the request for the latest result batch of an AQL query cursor if
+you enable the new `allowRetry` query option. See
+[API Changes in ArangoDB 3.11](release-notes-api-changes311.html#cursor-api)
+for details.
+
 Server options
 --------------
 
