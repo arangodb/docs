@@ -40,15 +40,27 @@ complex relationships and interactions of basically everything.
 
 ![Mary - bought - Book, is friend of - John](images/data-model-graph-relations.png)
 
+Graphs are commonly directed (_digraphs_), which means that each edge goes from
+one vertex to another vertex in a specific direction. This lets you model
+directional relationships, such as cause and effect or the flow of material,
+energy, or information. In undirected graphs, edges don't have a direction and
+the relationship between two vertices is considered to be the same in both
+directions. These two types of graphs have different properties and different
+algorithms exist to analyze the data.
+
+<!--
 Graphs can have different structures, called **topologies**. The topology
 describes how the vertices and edges are arranged by classifying the pattern of
 connections. Some relevant classes are:
 
-- 
+- Cyclic: a graph that contains at least one path that starts and ends at the
+  same node
+- Acyclic: a graph that contains no cycles
+- Dense: a graph with edges between most pairs of vertices
+- Sparse: a graph where only few pairs of vertices are connected by edges
+-->
 
 
-
-topologies
 information extraction (high-level)
 
 ## Graph features in ArangoDB
