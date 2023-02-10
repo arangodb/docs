@@ -130,7 +130,7 @@ Instead of considering only full _n_-gram matches, one can also consider
 partial matches where the characters are in the same positions and counting the
 longest common sequence.
 
-    avocado	  vocals
+    avocado   vocals
 
     avo       voc
     voc       oca

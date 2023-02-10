@@ -38,7 +38,7 @@ which is required for connecting to Prometheus.
 1. In the **Metrics** section, click **Connect Prometheus**.
 2. Create the `prometheus.yml` file with the following content:
 
-    ```yml
+    ```yaml
     global:
     scrape_interval: 60s
     scrape_configs:
@@ -52,7 +52,7 @@ which is required for connecting to Prometheus.
     ```
 3. Start Prometheus with the following command:
 
-    ```dockerfile
+    ```sh
     docker run -d \
     -p 9090:9090 -p 3000:3000 --name prometheus \
     -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
@@ -67,7 +67,7 @@ which is required for connecting to Prometheus.
 
 1. Start Grafana with the following command:
 
-    ```dockerfile    
+    ```sh
     docker run -d \
     --network container:prometheus \
     grafana/grafana
