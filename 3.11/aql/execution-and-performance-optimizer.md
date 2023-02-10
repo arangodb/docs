@@ -290,6 +290,9 @@ The following attributes will be returned in the `stats` attribute of an `explai
 - `rulesExecuted`: number of rules executed (note: an executed rule does not
   indicate a plan was actually modified by a rule)
 - `rulesSkipped`: number of rules skipped by the optimizer
+- `executionTime`: time (wall-clock time) in seconds needed to explain the
+  query
+- `peakMemoryUsage`: maximum memory usage of the query during explain
 
 Warnings
 --------
