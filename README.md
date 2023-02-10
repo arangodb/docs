@@ -644,13 +644,22 @@ Current version is less than or equal to 3.8
   (except if it is at the top of the document, right after the end of the
   frontmatter `---`).
 
-- Use `js` as language in fenced code blocks for highlighting AQL queries.
-  We do not have a highlighter for AQL, but JavaScript code highlighting works
-  reasonably well.
+- Use `aql` as language in fenced code blocks for highlighting AQL queries in
+  version 3.10 and later. Use `js` for 3.9 and older.
+  
+  ```aql
+  FOR i IN 1..3 RETURN CONCAT("a", i)
+  ```
 
-      ```js
-      FOR i IN 1..3 RETURN CONCAT("a", i)
-      ```
+- Use all lowercase languages in fenced code blocks without whitespace before
+  or after the language, and use the following languages in favor of the ones in
+  parentheses for consistency:
+
+  - `` ```py `` (instead of `` ```python ``)
+  - `` ```yaml `` (instead of `` ```yml ``)
+  - `` ```sh `` (instead of `` ```shell ``)
+  - `` ```js `` (instead of `` ```javascript ``)
+  - `` ``` `` (instead of `` ```plain `` or `` ```text ``)
 
 - Use the exact spelling of Enterprise Edition and its features, as well as for
   all other terms coined by ArangoDB:
