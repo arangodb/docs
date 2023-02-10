@@ -1,44 +1,27 @@
 ---
 layout: default
-description: This section describes upgrading an ArangoDB single-server installation, whichwas installed via Homebrew or via the provided ArangoDB packages (*
+description: How to upgrade an ArangoDB single-server installation installed via a DMG package
 ---
-Upgrading on macOS
-==================
+# Upgrading on macOS
 
-This section describes upgrading an ArangoDB single-server installation, which
-was installed via Homebrew or via the provided ArangoDB packages (*.dmg). 
+If you installed ArangoDB on macOS using a _DMG_ package for a single server
+installation, follow the instructions below to upgrade the deployment.
 
-Upgrading via Homebrew
---------------------------
+## Upgrading via Package
 
-First update the homebrew repository:
-
-```
-brew update
-```
-
-Then use **brew** to install the latest version of arangodb:
-
-```
-brew upgrade arangodb
-```
-
-Upgrading via Package
---------------------------
-
-[Download](https://www.arangodb.com/download/){:target="_blank"} the latest ArangoDB macOS package and install it as usual by
-mounting the `.dmg` file. Just drag and drop the `ArangoDB3-CLI` (community) or
-the `ArangoDB3e-CLI` (enterprise) file into the shown `Applications` folder.
-You will be asked if you want to replace the old file with the newer one.
+[Download](https://www.arangodb.com/download/){:target="_blank"} the latest
+ArangoDB macOS package and install it as usual by mounting the `.dmg` file.
+Drag and drop the `ArangoDB3-CLI` (Community Edition) or the `ArangoDB3e-CLI`
+(Enterprise Edition) file onto the shown `Applications` folder.
+You are asked if you want to replace the old file with the newer one.
 
 ![MacOSUpgrade](images/MacOSUpgrade.png) 
 
-Select `Replace` to install the current ArangoDB version.
+Select `Replace` to install the new ArangoDB version.
 
-Upgrading more complex environments
---------------------------
+## Upgrading more complex environments
 
-The procedure described in this _Section_
-is a first step to upgrade more complex deployments such as
+The procedure described above is a first step to upgrade more complex
+deployments such as
 [Cluster](architecture-deployment-modes-cluster-architecture.html)
-or [Active Failover](architecture-deployment-modes-active-failover.html). 
+and [Active Failover](architecture-deployment-modes-active-failover.html).

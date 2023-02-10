@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Head to arangodb
+description: Download an installation package from arangodb.com/download
 ---
 Installation
 ============
@@ -16,6 +16,8 @@ If you installed ArangoDB using homebrew under macOS, start the
 server by running `/usr/local/sbin/arangod`. It is a symlink for
 `/usr/local/Cellar/arangodb/<VERSION>/sbin/arangod`. If it is missing or broken,
 you may regenerate it with `brew link --overwrite arangodb`.
+On newer devices with Apple silicon (M1 and later), it may be located at
+`/opt/homebrew/Cellar/arangodb/<VERSION>/sbin/arangod` instead.
 
 If you installed ArangoDB under Windows as a service, the server is
 automatically started. Otherwise, run the `arangod.exe` located in the
