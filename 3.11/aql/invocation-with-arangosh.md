@@ -343,6 +343,9 @@ You can remember and use this batch ID should retrieving the next batch fail.
 You can only request the latest batch again. Earlier batches are not kept on the
 server-side.
 
+Notice that the cursor will not be automatically deleted because of the need to
+keep the latest batch cached for future use if the option is set to `true`.
+
 {% hint 'info' %}
 This feature cannot be used on the server-side, like in [Foxx](../foxx.html), as
 there is no client connection and no batching.

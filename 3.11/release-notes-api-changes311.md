@@ -79,6 +79,10 @@ in AQL queries, which support a `refillIndexCache` option, too.
   You can only request the latest batch again. Earlier batches are not kept on
   the server-side.
 
+  Notice that the cursor will not be automatically deleted because of the need to
+  keep the latest batch cached for future use if the option is set to `true`.
+
+
 #### Restriction of indexable fields
 
 It is now forbidden to create indexes that cover fields whose attribute names

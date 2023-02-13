@@ -179,6 +179,9 @@ endpoint. The first batch has an ID of `1` and the value is incremented by 1
 with every batch. Every result response except the last one also includes a
 `nextBatchId` attribute, indicating the ID of the batch after the current.
 You can remember and use this batch ID should retrieving the next batch fail.
+Notice that the cursor will not be automatically deleted because of the need to 
+keep the latest batch cached for future use if the option is set to `true`.
+
 
 ```js
 > curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
