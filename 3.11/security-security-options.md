@@ -327,11 +327,20 @@ extra options are available for locking down JavaScript access to server functio
 
   The default value is `false`.
 
-- `--javascript.tasks`: This option can be set to `false` to turn off
-  [JavaScript tasks](appendix-java-script-modules-tasks.html).
+- `--javascript.tasks`: You can set this option to `false` to turn off
+  [JavaScript tasks](appendix-java-script-modules-tasks.html). It disallows the
+  execution of user-defined JavaScript code on the server inside of periodic
+  and one-off tasks.
 
-- `--javascript.transactions`: This option be set to `false` to turn off
-  [JavaScript Transactions](http/transaction-js-transaction.html).
+- `--javascript.transactions`: You can set this option to `false` to turn off
+  [JavaScript Transactions](http/transaction-js-transaction.html). It disallows
+  the execution of user-defined JavaScript code on the server inside of
+  JavaScript Transactions.
+
+- `--javascript.user-defined-functions`: You can set this option to `false` to
+  turn off [user-defined functions](aql/extending.html) (UDFs). It disallows
+  the execution of user-defined JavaScript code on the server inside of
+  user-defined AQL functions (introduced in: v3.10.4).
 
 ## Security options for managing Foxx applications
 
@@ -353,11 +362,9 @@ in an ArangoDB server:
 
 - `--foxx.allow-install-from-remote`:
   When set to `false`, this option prevents installation of Foxx apps from any
-  remote source other than Github and diactivates the **Remote** tab in the **Services**
+  remote source other than GitHub and deactivates the **Remote** tab in the **Services**
   section of the web interface. Installing apps from Github and/or zip files is 
   still possible with this setting, but any other remote sources are blocked.
   When set to `true`, installing Foxx apps from other remote sources via URLs
-  is allowed.
+  is allowed (introduced in: v3.8.5).
   The default value is `false`.
-  Note: this option was introduced in ArangoDB v3.8.5.
-
