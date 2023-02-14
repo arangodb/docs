@@ -351,6 +351,8 @@ options.
 - A new `primaryKeyCache` property for inverted indexes to always cache the
   primary key column in memory.
 
+---
+
 The cache size can be controlled with the new `--arangosearch.columns-cache-limit`
 startup option and monitored via the new `arangodb_search_columns_cache_size`
 metric.
@@ -360,22 +362,36 @@ ArangoSearch caching is only available in the Enterprise Edition.
 See [Optimizing View and inverted index query performance](arangosearch-performance.html)
 for examples.
 
+{% hint 'info' %}
+If you use ArangoSearch caching in supported 3.9 versions and upgrade an
+Active Failover deployment to 3.10, you may need to re-configure the
+cache-related options and thus recreate inverted indexes and Views. See
+[Known Issues in 3.10](release-notes-known-issues310.html#arangosearch).
+{% endhint %}
+
 ### New startup options
 
-With `--arangosearch.skip-recovery`, you can skip data recovery for the specified View links
-and inverted indexes on startup. 
-Values for this startup option should have the format `<collection-name>/<link-id>`,
-`<collection-name>/<index-id>`, or `<collection-name>/<index-name>`. 
-On DB-Servers, the `<collection-name>` part should contain a shard name.
+- With `--arangosearch.skip-recovery`, you can skip data recovery for the
+  specified View links and inverted indexes on startup.
+  Values for this startup option should have the format `<collection-name>/<link-id>`,
+  `<collection-name>/<index-id>`, or `<collection-name>/<index-name>`.
+  On DB-Servers, the `<collection-name>` part should contain a shard name.
 
-With `arangosearch.fail-queries-on-out-of-sync` startup option you can let
-write operations fail if `arangosearch` View links or inverted indexes are not
-up-to-date with the collection data. The option is set to `false` by default.
-Queries on out-of-sync links/indexes are answered normally, but the return data
-may be incomplete.
-If set to `true`, any data retrieval queries on out-of-sync 
-links/indexes are going to fail with error "collection/view is out of sync"
-(error code 1481).
+- With the `--arangosearch.fail-queries-on-out-of-sync` startup option you can let
+  write operations fail if `arangosearch` View links or inverted indexes are not
+  up-to-date with the collection data. The option is set to `false` by default.
+  Queries on out-of-sync links/indexes are answered normally, but the return data
+  may be incomplete.
+  If set to `true`, any data retrieval queries on out-of-sync 
+  links/indexes are going to fail with error "collection/view is out of sync"
+  (error code 1481).
+
+<small>Introduced in: v3.10.4</small>
+
+- The new `--javascript.user-defined-functions` startup option lets you disable
+  user-defined AQL functions so that no user-defined JavaScript code of
+  [UDFs](aql/extending.html) runs on the server. Also see
+  [Server security options](security-security-options.html).
 
 ### ArangoSearch metrics and figures
 
