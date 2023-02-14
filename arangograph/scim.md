@@ -69,10 +69,12 @@ supports the SCIM provisioning feature.
 6. From the **Authentication Mode** menu, select the **Basic Auth** option.
    To authenticate using this mode, you need to provide the username and password
    for the account that handles the SCIM actions - in this case ArangoGraph.
-7. Go to the ArangoGraph Dashboard and get your API key ID and Secret. Use
-   these authentication tokens as username and password when using the
-    **Basic Auth** mode. See also
-   [How to create a new API key](my-account.html#how-to-create-a-new-api-key).
+7. Go to the ArangoGraph Dashboard and create a new API key ID and Secret.
+   
+    ![ArangoGraph Create new API key](images/arangograph-okta-api-key.png)
 
-   ![ArangoGraph Create new API key](images/arangograph-okta-api-key.png)
-8. Click **Save**.
+    Make sure to select one organization from the list and do not set any
+    value in the **Time to live** field. For more information,
+    see [How to create a new API key](my-account.html#how-to-create-a-new-api-key).
+8. Use these authentication tokens as username and password when using the
+    **Basic Auth** mode and click **Save**.
