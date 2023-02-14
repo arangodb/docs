@@ -53,14 +53,23 @@ Provider (IdP). For more information about Okta, please refer to the
    ArangoGraph Dashboard. To find your organization ID, go to the **User Toolbar**
    in the top right corner, which is accessible from every view of the Dashboard,
    and click **My organizations**.
+
+   If, for example, your organization ID is 14587062, here are the values you
+   would use when configuring the SAML settings:
+   - `https://auth.arangodb.com/login/callback?connection=14587062`
+   - `urn:auth0:arangodb:14587062`
    
    ![ArangoGraph Organization ID](images/arangograph-organization-id.png)
-7. In the **Attribute Statements** section, define the following custom attributes:
+7. In the **Attribute Statements** section, add custom attributes as seen in the image below:
    - email: `user.email`
    - first_name: `user.firstName`
    - last_name: `user.lastName`
    - email_verified: `true`
    - picture: `user.profileUrl`
+
+   This step consists of a mapping between the ArangoGraph attribute names and
+   Okta attribute names. The values of these attributes are automatically filled
+   in based on the users list that is defined in Okta.
 
    ![ArangoGraph Okta SAML Attributes](images/arangograph-okta-saml-attributes.png)
 8. Click **Next**.
