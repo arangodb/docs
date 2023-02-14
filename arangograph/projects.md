@@ -121,9 +121,10 @@ certificate generation, both the default and high port serve the same
 self-signed certificate.
 {% endhint %}
 
-When using private endpoints, notebooks, and metrics, you can specify 
+When using [private endpoints](deployments.html#how-to-create-a-private-endpoint-deployment),
+[notebooks](notebooks.html), and [metrics](monitoring-metrics.html), you can specify 
 alternate domain names which are added to the self-signed certificate
-as Subject Alternative Name (SAN).  
+as Subject Alternative Name (SAN). 
 
 The Subject Alternative Name (SAN) is an extension to the X. 509 specification 
 that allows you to specify additional host names for a single SSL certificate.
