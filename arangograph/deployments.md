@@ -260,6 +260,12 @@ The private endpoint feature is only available on the
 Private endpoints on Microsoft Azure can be cross region; in AWS they should be located in the same region.
 {% endhint %}
 
+{% hint 'info' %}
+For more information about the certificates used for private endpoints, please
+refer to the [How to manage certificates](projects.html#how-to-manage-certificates)
+section.
+{% endhint %}
+
 ### Google Cloud Platform
 
 Google Cloud Platform (GCP) offers a feature called
