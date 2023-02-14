@@ -14,7 +14,8 @@ using **Security Assertion Markup language 2.0** (SAML 2.0).
 
 {% hint 'info' %}
 To enable the Single Sign-On (SSO) feature, get in touch with the ArangoGraph
-team via an ArangoGraph Support Ticket.
+team via the **Request Help** form, available in the left sidebar menu of the
+ArangoGraph Dashboard.
 {% endhint %}
 
 ## About SAML 2.0
