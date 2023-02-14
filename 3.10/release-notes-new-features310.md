@@ -351,6 +351,8 @@ options.
 - A new `primaryKeyCache` property for inverted indexes to always cache the
   primary key column in memory.
 
+---
+
 The cache size can be controlled with the new `--arangosearch.columns-cache-limit`
 startup option and monitored via the new `arangodb_search_columns_cache_size`
 metric.
@@ -359,6 +361,13 @@ ArangoSearch caching is only available in the Enterprise Edition.
 
 See [Optimizing View and inverted index query performance](arangosearch-performance.html)
 for examples.
+
+{% hint 'info' %}
+If you use ArangoSearch caching in supported 3.9 versions and upgrade an
+Active Failover deployment to 3.10, you may need to re-configure the
+cache-related options and thus recreate inverted indexes and Views. See
+[Known Issues in 3.10](release-notes-known-issues310.html#arangosearch).
+{% endhint %}
 
 ### New startup options
 

@@ -18,12 +18,12 @@ Single roundtrip
 
 The server will only transfer a certain number of result documents back to the
 client in one roundtrip. This number is controllable by the client by setting
-the *batchSize* attribute when issuing the query.
+the `batchSize` attribute when issuing the query.
 
 If the complete result can be transferred to the client in one go, the client
 does not need to issue any further request. The client can check whether it has
-retrieved the complete result set by checking the *hasMore* attribute of the
-result set. If it is set to *false*, then the client has fetched the complete
+retrieved the complete result set by checking the `hasMore` attribute of the
+result set. If it is set to `false`, then the client has fetched the complete
 result set from the server. In this case no server side cursor will be created.
 
 ```js
@@ -59,14 +59,14 @@ Using a cursor
 --------------
 
 If the result set contains more documents than should be transferred in a single
-roundtrip (i.e. as set via the *batchSize* attribute), the server will return
+roundtrip (i.e. as set via the `batchSize` attribute), the server will return
 the first few documents and create a temporary cursor. The cursor identifier
 will also be returned to the client. The server will put the cursor identifier
-in the *id* attribute of the response object. Furthermore, the *hasMore*
-attribute of the response object will be set to *true*. This is an indication
+in the `id` attribute of the response object. Furthermore, the `hasMore`
+attribute of the response object will be set to `true`. This is an indication
 for the client that there are additional results to fetch from the server.
 
-*Examples*:
+**Examples**
 
 Create and extract first batch:
 
@@ -155,7 +155,7 @@ Content-type: application/json
 }
 ```
 
-Do not do this because *hasMore* now has a value of false:
+Do not do this because `hasMore` now has a value of false:
 
 ```js
 > curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
@@ -168,6 +168,57 @@ Content-type: application/json
   "errorMessage": "cursor not found: disposed or unknown cursor",
   "error": true,
   "code": 404
+}
+```
+
+If the `allowRetry` query option is set to `true`, then the response object
+contains a `nextBatchId` attribute, except for the last batch (if `hasMore` is
+`false`). If retrieving a result batch fails because of a connection issue, you
+can ask for that batch again using the `POST /_api/cursor/<cursor-id>/<batch-id>`
+endpoint. The first batch has an ID of `1` and the value is incremented by 1
+with every batch. Every result response except the last one also includes a
+`nextBatchId` attribute, indicating the ID of the batch after the current.
+You can remember and use this batch ID should retrieving the next batch fail.
+
+```js
+> curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
+{ "query": "FOR i IN 1..5 RETURN i", "batchSize": 2, "options": { "allowRetry": true } }
+
+HTTP/1.1 201 Created
+Content-type: application/json
+
+{
+  "result":[1,2],
+  "hasMore":true,
+  "id":"3517",
+  "nextBatchId":2,
+  "cached":false,
+  "error":false,
+  "code":201
+}
+```
+
+Fetching the second batch would look like this:
+
+```js
+> curl -X POST --dump - http://localhost:8529/_api/cursor/3517
+```
+
+Assuming the above request fails because of a connection issue but advances the
+cursor nonetheless, you can retry fetching the batch using the `nextBatchId` of
+the first request (`2`):
+
+```js
+curl -X POST --dump http://localhost:8529/_api/cursor/3517/2
+
+{
+  "result":[3,4],
+  "hasMore":true,
+  "id":"3517",
+  "nextBatchId":3,
+  "cached":false,
+  "error":false,
+  "code":200
 }
 ```
 
@@ -209,7 +260,7 @@ Content-type: application/json; charset=utf-8
 Setting a memory limit
 ----------------------
 
-To set a memory limit for the query, the *memoryLimit* option can be passed to
+To set a memory limit for the query, the `memoryLimit` option can be passed to
 the server.
 The memory limit specifies the maximum number of bytes that the query is
 allowed to use. When a single AQL query reaches the specified limit value, 
@@ -231,6 +282,6 @@ Content-Length: 115
 ```
 
 If no memory limit is specified, then the server default value (controlled by
-startup option *--query.memory-limit* will be used for restricting the maximum amount 
-of memory the query can use. A memory limit value of *0* means that the maximum
+startup option `--query.memory-limit` will be used for restricting the maximum amount 
+of memory the query can use. A memory limit value of `0` means that the maximum
 amount of memory for the query is not restricted. 
