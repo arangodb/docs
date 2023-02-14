@@ -133,7 +133,7 @@ different usage scenarios:
   Phrase search                     | Yes          | No
   Relevance ranking                 | Yes          | No
   Configurable Analyzers            | Yes          | No
-  AQL composable language construct	| Yes          | No
+  AQL composable language construct | Yes          | No
   Indexed attributes per collection | Unlimited    | 1
   Indexed collections               | Unlimited    | 1
   Consistency                       | Eventual     | Immediate

@@ -233,16 +233,16 @@ For more details about available resources and usage limits, refer to the
    Notice that you cannot switch from **Sharded** back to **OneShard**.
    {% endhint %}
    
-	- AWS deployments have an additional option that allows you to select the
-     **Disk Performance** either with general settings, or optimised for large
+   - AWS deployments have an additional option that allows you to select the
+     **Disk Performance** either with general settings, or optimized for large
      and very large data sets. This option is dependent on the selected memory
-     size. For example, larger deployments have optimised settings by default.
+     size. For example, larger deployments have optimized settings by default.
 
    {% hint 'warning' %}
    When upgrading the memory size, disk size, and/or disk performance in AWS deployments,
    the value gets locked and cannot be changed until the cloud provider rate limit is reset.  
    {% endhint %}
-	
+
 6. All changes are reflected in the **Summary** section. Review the new
    configuration and click **Save**. 
 
