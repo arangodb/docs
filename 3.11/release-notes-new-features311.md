@@ -63,3 +63,10 @@ Example: `arangod --rocksdb.total-write-buffer-size 2TiB`
 
 See [Suffixes for numeric options](administration-configuration.html#suffixes-for-numeric-options)
 for details.
+
+### Disable user-defined AQL functions
+
+The new `--javascript.user-defined-functions` startup option lets you disable
+user-defined AQL functions so that no user-defined JavaScript code of
+[UDFs](aql/extending.html) runs on the server. Also see
+[Server security options](security-security-options.html).
