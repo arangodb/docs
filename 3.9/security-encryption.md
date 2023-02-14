@@ -28,6 +28,12 @@ performance and resistance to side-channel attacks.
 
 The encryption feature is supported by all ArangoDB deployment modes.
 
+{% hint 'info' %}
+The ArangoGraph Insights Platform has encryption at rest as well as in transit
+set on by default and cannot be disabled. For more information, see the
+[ArangoGraph documentation](arangograph/).
+{% endhint %}
+
 ## Limitations
 
 The encryption feature has the following limitations:

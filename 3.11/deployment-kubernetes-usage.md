@@ -259,7 +259,7 @@ minikube kubectl -- get pods --selector=arango_deployment=single-server
 
 The result looks similar to this:
 
-```plain
+```
 NAME                                 READY     STATUS    RESTARTS   AGE
 single-server-sngl-cjtdxrgl-fe06f0   1/1       Running   0          1m
 ```

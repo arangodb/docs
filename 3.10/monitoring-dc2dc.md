@@ -29,7 +29,7 @@ command line option.
 
 The Prometheus output (`/metrics`) looks like this:
 
-```text
+```
 ...
 # HELP arangosync_master_worker_registrations Total number of registrations
 # TYPE arangosync_master_worker_registrations counter
