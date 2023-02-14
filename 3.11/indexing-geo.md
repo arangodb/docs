@@ -95,6 +95,28 @@ details, including the index-identifier, is returned.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
+{% hint 'warning' %}
+If the `geoJson` option is `false`, GeoJSON data is **not indexed**.
+Some queries can have different results with and without such a geo-spatial index.
+
+For example, if you have documents with proper GeoJSON data in an attribute
+called `geo`, then the following query matches all of them:
+
+```aql
+FOR doc IN coll
+  FILTER GEO_DISTANCE(doc.geo, GEO_POINT(10, 10)) >= 0
+  RETURN doc
+```
+
+The `GEO_DISTANCE()` function correctly parses the data, takes the centroid,
+computes the distance to `GEO_POINT(10, 10)` (which is non-negative regardless
+of the `geo` object), and lets the document through.
+
+However, a geo-spatial index with `geoJson` set to `false` doesn't index the
+`geo` attribute if it contains GeoJSON data and ignores these documents. If the
+same query is executed with the geo-spatial index, it doesn't find the documents.
+{% endhint %}
+
 ### Legacy Polygons
 
 See [GeoJSON Interpretation](#geojson-interpretation) for details of the changes

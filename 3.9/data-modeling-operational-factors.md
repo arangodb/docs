@@ -8,9 +8,9 @@ Data Modeling and Operational Factors
 =====================================
 
 Designing the data model of your application is a crucial task that can make or
-break the performance of your application. A well-designed data model will
-allow you to write efficient AQL queries, increase throughput of CRUD operations
-and will make sure your data is distributed in the most effective way.
+break the performance of your application. A well-designed data model
+allows you to write efficient AQL queries, increase throughput of CRUD operations,
+and makes sure your data is distributed in the most effective way.
 
 Whether you design a new application with ArangoDB or port an existing one to
 use ArangoDB, you should always analyze the (expected) data access patterns of
@@ -146,7 +146,7 @@ on `_from` and `_to` (for edge collections).
 Should you decide to create an index you should consider a few things:
 
 - Indexes are a trade-off between storage space, maintenance cost and query speed.
-- Each new index will increase the amount of RAM and the amount of disk space needed.
+- Each new index increases the amount of RAM and the amount of disk space needed.
 - Indexes with [indexed array values](indexing-index-basics.html#indexing-array-values)
   need an extra index entry per array entry
 - Adding indexes increases the write-amplification i.e. it negatively affects
@@ -217,7 +217,7 @@ you should consider a few different properties:
   onto more than _N_ shards. Consider using multiple shard keys, if one of your
   values has a low cardinality.
 - **Frequency**: Consider how often a given shard key value may appear in
-  your data. Having a lot of documents with identical shard keys will lead
+  your data. Having a lot of documents with identical shard keys leads
   to unevenly distributed data. Consider using multiple shard keys or a different
   one that is more suitable.
 
@@ -232,7 +232,7 @@ for more information.
 ### SmartGraphs
 
 SmartGraphs are an Enterprise Edition feature of ArangoDB. It enables you to
-manage graphs at scale, it will give a vast performance benefit for all graphs
+manage graphs at scale. It provides a vast performance benefit for all graphs
 sharded in an ArangoDB Cluster.
 
 To add a SmartGraph you need a SmartGraph attribute that partitions your
@@ -260,19 +260,49 @@ network as well as more copying work required inside the storage engine.
 
 Consider some ways to minimize the required amount of storage space:
 
-- Explicitly set the `_key` field to a custom unique value.
-  This enables you to store information in the `_key` field instead of another
-  field inside the document. The `_key` value is always indexed, setting a
-  custom value means you can use a shorter value than what would have been
-  generated automatically.
-- Shorter field names will reduce the amount of space needed to store documents
-  (this has no effect on index size). ArangoDB is schemaless and needs to store
-  the document structure inside each document. Usually this is a small overhead
-  compared to the overall document size.
+- Use the `_key` attribute to give documents unique identifiers. The `_key`
+  attribute is always present in every document (including edges), and it
+  is always indexed. This means it is the best-suited attribute to store a unique
+  document identifier. Using the `_key` attribute is preferable to storing
+  document identifiers in another attribute and creating a unique index on it.
+  Some limitations apply, see [Document keys](data-modeling-naming-conventions-document-keys.html).
+- Shorter field names reduce the amount of space needed to store documents.
+  ArangoDB is schema-free and needs to store the document structure inside of
+  each document. Usually, this is a small overhead compared to the overall
+  document size. The field name length has no effect on index sizes.
 - Combining many small related documents into one larger one can also
   reduce overhead. Common fields can be stored once and indexes just need to
-  store one entry. This will only be beneficial if the combined documents are
-  regularly retrieved together and not just subsets.
+  store one entry. This is only beneficial if the combined documents are
+  regularly retrieved together and not just subsets of them.
+
+Document Keys
+-------------
+
+- Explicitly set the `_key` attribute to a custom unique value.
+  This enables you to store information in the `_key` attribute instead of another
+  attribute inside of the document. The `_key` attribute is always indexed, so it is
+  preferable to storing the document identifiers in another attribute and
+  creating an extra index on it.
+
+- Try to use short values for the `_key` attribute.
+  The `_key` values are used whenever a document is looked up by its primary
+  key, and shorter key values can improve the lookup performance and reduce the
+  disk usage.
+
+  As the `_key` values are also used as foreign keys in the `_from` and `_to` attributes 
+  of edges, the key length also matters for all graph operations. Again, shorter keys 
+  can improve lookup performance here and reduce memory usage.
+
+  When using hash values as document keys, try to avoid long hash values such as
+  generated by hash functions such as SHA256 (64 characters in the alphabet
+  `[0-9a-f]`) or SHA512 (128 bytes in the alphabet `[0-9a-f]`). Smaller keys are
+  always preferable for performance.
+
+- Try to avoid keys that are randomly distributed.
+  Keys that are randomly distributed are more expensive during larger insert
+  operations than keys that follow a mostly ascending sequential pattern, e.g.
+  `000001`, `000002`, and so on. The storage engine can process sequential keys
+  more efficiently on inserts than randomly distributed keys.
 
 Storage Engine
 --------------
@@ -281,7 +311,7 @@ Large documents and transactions may negatively impact the write performance
 of the RocksDB storage engine.
 
 - Consider a maximum size of 50-75 kB _per document_ as a good rule of thumb.
-  This will allow you to maintain steady write throughput even under very high load.
+  This allows you to maintain steady write throughput even under very high load.
 - Transactions are held in-memory before they are committed.
   This means that transactions have to be split if they become too big, see the
   [limitations section](transactions-limitations.html#rocksdb-storage-engine).
@@ -330,11 +360,11 @@ is being flushed to storage, new writes can continue to the other write buffer.
 The total amount of data to build up in all in-memory buffers when writing into ArangoDB.
 You may wish to adjust this parameter to control memory usage.
 
-Setting this to a low value may limit the RAM that ArangoDB will use but may slow down
-write heavy workloads. Setting this to 0 will not limit the size of the write-buffers.
+Setting this to a low value may limit the RAM that ArangoDB uses but may slow down
+write heavy workloads. Setting this to `0` does not limit the size of the write-buffers.
 
 `--rocksdb.level0-stop-trigger`
 
-When this many files accumulate in level-0, writes will be stopped to allow compaction to catch up.
+When this many files accumulate in level-0, writes are stopped to allow compaction to catch up.
 Setting this value very high may improve write throughput, but may lead to temporarily 
 bad read performance.

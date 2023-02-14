@@ -14,12 +14,12 @@ Execution plan:
  Id   NodeType                  Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode                 1       1          0       0.00000   * ROOT
  12   SubqueryStartNode             1       2          0       0.00001     - LET list = ( /* subquery begin */
-  3   EnumerateCollectionNode      11   10001          0       0.00218       - FOR doc IN acollection   /* full collection scan  */
-  4   CalculationNode              11   10001          0       0.00167         - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
-  5   FilterNode                   10    9910         91       0.00132         - FILTER #5
+  3   EnumerateCollectionNode      11   10001          0       0.00227       - FOR doc IN acollection   /* full collection scan  */
+  4   CalculationNode              11   10001          0       0.00169         - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
+  5   FilterNode                   10    9910         91       0.00136         - FILTER #5
  13   SubqueryEndNode               1       1          0       0.00108         - RETURN  doc ) /* subquery end */
-  8   EnumerateListNode            10    9909          0       0.00111     - FOR a IN list   /* list iteration */
-  9   CalculationNode              10    9909          0       0.00163       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
+  8   EnumerateListNode            10    9909          0       0.00109     - FOR a IN list   /* list iteration */
+  9   CalculationNode              10    9909          0       0.00159       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
  10   FilterNode                    1       0       9909       0.00025       - FILTER #7
  11   ReturnNode                    1       0          0       0.00000       - RETURN a
 
@@ -32,18 +32,18 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
-           0            0       10000            0               0 / 0      10000         720896         0.00946
+           0            0       10000            0               0 / 0      10000         720896         0.00954
 
 Query Profile:
  Query Stage               Duration [s]
  initializing                   0.00001
  parsing                        0.00003
- optimizing ast                 0.00001
+ optimizing ast                 0.00000
  loading collections            0.00000
  instantiating plan             0.00002
  optimizing plan                0.00008
- instantiating executors        0.00004
- executing                      0.00927
+ instantiating executors        0.00005
+ executing                      0.00935
  finalizing                     0.00002
 
 
