@@ -330,8 +330,8 @@ Options related to the query optimizer.
 
 #### `stream`
 
-Set `stream` to `true` to execute the query in a **streaming** fashion. The query result is
-not stored on the server, but calculated on the fly.
+Set `stream` to `true` to execute the query in a **streaming** fashion.
+The query result is not stored on the server, but calculated on the fly.
 
 {% hint 'warning' %}
 Long-running queries need to hold the collection locks for as long as the query
@@ -344,10 +344,12 @@ In that case, the query results are either returned right away (if the result
 set is small enough), or stored on the arangod instance and can be accessed
 via the cursor API. 
 
+The default value is `false`.
+
 {% hint 'info' %}
 The query options `cache`, `count` and `fullCount` don't work on streaming
-queries. Additionally, query statistics, warnings, and profiling data is only
-available after the query has finished. The default value is `false`.
+queries. Additionally, query statistics, profiling data, and warnings are only
+available after the query has finished and are delivered as part of the last batch.
 {% endhint %}
 
 #### `maxRuntime`

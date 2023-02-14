@@ -55,13 +55,29 @@ in AQL queries, which support a `refillIndexCache` option, too.
 
 #### Cursor API
 
-The cursor API can now return an additional statistics value in its `stats` sub-attribute:
+- The `POST /_api/cursor` and `POST /_api/cursor/{cursor-identifier}` endpoints
+  can now return an additional statistics value in the `stats` sub-attribute,
+  `intermediateCommits`. It is the total number of intermediate commits the
+  query has performed. This number can only be greater than zero for
+  data modification queries that perform modifications beyond the
+  `--rocksdb.intermediate-commit-count` or `--rocksdb.intermediate-commit-size`
+  thresholds. In clusters, the intermediate commits are tracked per DB-Server
+  that participates in the query and are summed up in the end.
 
-- **intermediateCommits**: the total number of intermediate commits the query has performed. 
-  This number can only be greater than zero for data-modification queries that perform modifications 
-  beyond the `--rocksdb.intermediate-commit-count` or `--rocksdb.intermediate-commit-size` thresholds.
-  In a cluster, the intermediate commits are tracked per DB server that participates in the query
-  and are summed up in the end.
+- The `/_api/cursor` endpoint accepts a new `allowRetry` attribute in the
+  `options` object. Set this option to `true` to make it possible to retry
+  fetching the latest batch from a cursor.
+
+  If retrieving a result batch fails because of a connection issue, you can ask
+  for that batch again using the new `POST /_api/cursor/<cursor-id>/<batch-id>`
+  endpoint. The first batch has an ID of `1` and the value is incremented by 1
+  with every batch. Every result response except the last one also includes a
+  `nextBatchId` attribute, indicating the ID of the batch after the current.
+  You can remember and use this batch ID should retrieving the next batch fail.
+  Calling the new endpoint does not advance the cursor.
+
+  You can only request the latest batch again. Earlier batches are not kept on
+  the server-side.
 
 #### Restriction of indexable fields
 

@@ -4,7 +4,7 @@ HTTP/1.1 200 OK
 content-type: text/plain
 cache-control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
 connection: Keep-Alive
-content-length: 82387
+content-length: 82391
 content-security-policy: frame-ancestors 'self'; form-action 'self';
 expires: 0
 pragma: no-cache
@@ -56,9 +56,9 @@ arangodb_aql_global_query_memory_limit_reached_total{role="SINGLE"}0
 arangodb_aql_local_query_memory_limit_reached_total{role="SINGLE"}1
 # HELP arangodb_aql_query_time Execution time histogram for all AQL queries [s]
 # TYPE arangodb_aql_query_time histogram
-arangodb_aql_query_time_bucket{role="SINGLE",le="0.000095"}382
-arangodb_aql_query_time_bucket{role="SINGLE",le="0.000191"}423
-arangodb_aql_query_time_bucket{role="SINGLE",le="0.000381"}456
+arangodb_aql_query_time_bucket{role="SINGLE",le="0.000095"}372
+arangodb_aql_query_time_bucket{role="SINGLE",le="0.000191"}421
+arangodb_aql_query_time_bucket{role="SINGLE",le="0.000381"}454
 arangodb_aql_query_time_bucket{role="SINGLE",le="0.000763"}466
 arangodb_aql_query_time_bucket{role="SINGLE",le="0.001526"}467
 arangodb_aql_query_time_bucket{role="SINGLE",le="0.003052"}468
@@ -77,7 +77,7 @@ arangodb_aql_query_time_bucket{role="SINGLE",le="12.500000"}471
 arangodb_aql_query_time_bucket{role="SINGLE",le="25.000000"}471
 arangodb_aql_query_time_bucket{role="SINGLE",le="+Inf"}471
 arangodb_aql_query_time_count{role="SINGLE"}471
-arangodb_aql_query_time_sum{role="SINGLE"}1.849489
+arangodb_aql_query_time_sum{role="SINGLE"}1.850851
 # HELP arangodb_aql_slow_query_time Execution time histogram for slow AQL queries [s]
 # TYPE arangodb_aql_slow_query_time histogram
 arangodb_aql_slow_query_time_bucket{role="SINGLE",le="4.904297"}1
@@ -91,18 +91,18 @@ arangodb_aql_slow_query_time_bucket{role="SINGLE",le="500.750000"}1
 arangodb_aql_slow_query_time_bucket{role="SINGLE",le="1000.500000"}1
 arangodb_aql_slow_query_time_bucket{role="SINGLE",le="+Inf"}1
 arangodb_aql_slow_query_time_count{role="SINGLE"}1
-arangodb_aql_slow_query_time_sum{role="SINGLE"}1.032814
+arangodb_aql_slow_query_time_sum{role="SINGLE"}1.032488
 # HELP arangodb_aql_total_query_time_msec_total Total execution time of all AQL queries [ms]
 # TYPE arangodb_aql_total_query_time_msec_total counter
-arangodb_aql_total_query_time_msec_total{role="SINGLE"}1803
+arangodb_aql_total_query_time_msec_total{role="SINGLE"}1802
 # HELP arangodb_collection_lock_acquisition_micros_total Total amount of collection lock acquisition time [μs]
 # TYPE arangodb_collection_lock_acquisition_micros_total counter
-arangodb_collection_lock_acquisition_micros_total{role="SINGLE"}82
+arangodb_collection_lock_acquisition_micros_total{role="SINGLE"}133
 # HELP arangodb_collection_lock_acquisition_time Collection lock acquisition time histogram [s]
 # TYPE arangodb_collection_lock_acquisition_time histogram
-arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.000000"}2
-arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.000001"}32939
-arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.000010"}32971
+arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.000000"}0
+arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.000001"}32922
+arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.000010"}32968
 arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.000100"}32974
 arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.001000"}32974
 arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="0.010000"}32974
@@ -112,7 +112,7 @@ arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="10.000000"}32
 arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="100.000000"}32974
 arangodb_collection_lock_acquisition_time_bucket{role="SINGLE",le="+Inf"}32974
 arangodb_collection_lock_acquisition_time_count{role="SINGLE"}32974
-arangodb_collection_lock_acquisition_time_sum{role="SINGLE"}0.009908
+arangodb_collection_lock_acquisition_time_sum{role="SINGLE"}0.010392
 # HELP arangodb_collection_lock_sequential_mode_total Number of transactions using sequential locking of collections to avoid deadlocking
 # TYPE arangodb_collection_lock_sequential_mode_total counter
 arangodb_collection_lock_sequential_mode_total{role="SINGLE"}0
@@ -191,7 +191,7 @@ arangodb_ioheartbeat_duration_bucket{role="SINGLE",le="10000.000000"}1
 arangodb_ioheartbeat_duration_bucket{role="SINGLE",le="100000.000000"}1
 arangodb_ioheartbeat_duration_bucket{role="SINGLE",le="+Inf"}1
 arangodb_ioheartbeat_duration_count{role="SINGLE"}1
-arangodb_ioheartbeat_duration_sum{role="SINGLE"}3186.000000
+arangodb_ioheartbeat_duration_sum{role="SINGLE"}2835.000000
 # HELP arangodb_ioheartbeat_failures_total Total number of failures in IO heartbeat
 # TYPE arangodb_ioheartbeat_failures_total counter
 arangodb_ioheartbeat_failures_total{role="SINGLE"}0
@@ -593,7 +593,7 @@ arangodb_request_body_size_http1_bucket{role="SINGLE",le="16432"}33957
 arangodb_request_body_size_http1_bucket{role="SINGLE",le="32800"}33957
 arangodb_request_body_size_http1_bucket{role="SINGLE",le="+Inf"}33957
 arangodb_request_body_size_http1_count{role="SINGLE"}33957
-arangodb_request_body_size_http1_sum{role="SINGLE"}502321
+arangodb_request_body_size_http1_sum{role="SINGLE"}502319
 # HELP arangodb_request_body_size_http2 Body size of HTTP/2 requests
 # TYPE arangodb_request_body_size_http2 histogram
 arangodb_request_body_size_http2_bucket{role="SINGLE",le="191"}0
@@ -627,7 +627,7 @@ arangodb_request_body_size_vst_sum{role="SINGLE"}0
 arangodb_revision_tree_hibernations_total{role="SINGLE"}0
 # HELP arangodb_revision_tree_memory_usage Total memory consumed by all revision trees
 # TYPE arangodb_revision_tree_memory_usage gauge
-arangodb_revision_tree_memory_usage{role="SINGLE"}327680
+arangodb_revision_tree_memory_usage{role="SINGLE"}262144
 # HELP arangodb_revision_tree_rebuilds_failure_total Number of failed revision tree rebuilds
 # TYPE arangodb_revision_tree_rebuilds_failure_total counter
 arangodb_revision_tree_rebuilds_failure_total{role="SINGLE"}0
@@ -651,13 +651,13 @@ arangodb_scheduler_handler_tasks_created_total{role="SINGLE"}33957
 arangodb_scheduler_high_prio_queue_length{role="SINGLE"}0
 # HELP arangodb_scheduler_jobs_dequeued_total Total number of jobs dequeued
 # TYPE arangodb_scheduler_jobs_dequeued_total counter
-arangodb_scheduler_jobs_dequeued_total{role="SINGLE"}33975
+arangodb_scheduler_jobs_dequeued_total{role="SINGLE"}33991
 # HELP arangodb_scheduler_jobs_done_total Total number of queue jobs done
 # TYPE arangodb_scheduler_jobs_done_total counter
-arangodb_scheduler_jobs_done_total{role="SINGLE"}33973
+arangodb_scheduler_jobs_done_total{role="SINGLE"}33990
 # HELP arangodb_scheduler_jobs_submitted_total Total number of jobs submitted to the scheduler
 # TYPE arangodb_scheduler_jobs_submitted_total counter
-arangodb_scheduler_jobs_submitted_total{role="SINGLE"}33975
+arangodb_scheduler_jobs_submitted_total{role="SINGLE"}33991
 # HELP arangodb_scheduler_low_prio_queue_last_dequeue_time Last recorded dequeue time for a low priority queue item [ms]
 # TYPE arangodb_scheduler_low_prio_queue_last_dequeue_time gauge
 arangodb_scheduler_low_prio_queue_last_dequeue_time{role="SINGLE"}0
@@ -672,13 +672,13 @@ arangodb_scheduler_maintenance_prio_queue_length{role="SINGLE"}0
 arangodb_scheduler_medium_prio_queue_length{role="SINGLE"}0
 # HELP arangodb_scheduler_num_awake_threads Number of awake worker threads
 # TYPE arangodb_scheduler_num_awake_threads gauge
-arangodb_scheduler_num_awake_threads{role="SINGLE"}2
+arangodb_scheduler_num_awake_threads{role="SINGLE"}1
 # HELP arangodb_scheduler_num_worker_threads Number of worker threads
 # TYPE arangodb_scheduler_num_worker_threads gauge
 arangodb_scheduler_num_worker_threads{role="SINGLE"}4
 # HELP arangodb_scheduler_num_working_threads Number of working threads
 # TYPE arangodb_scheduler_num_working_threads gauge
-arangodb_scheduler_num_working_threads{role="SINGLE"}2
+arangodb_scheduler_num_working_threads{role="SINGLE"}1
 # HELP arangodb_scheduler_ongoing_low_prio Total number of ongoing RestHandlers coming from the low prio queue
 # TYPE arangodb_scheduler_ongoing_low_prio gauge
 arangodb_scheduler_ongoing_low_prio{role="SINGLE"}0
@@ -756,49 +756,49 @@ rocksdb_prunable_wal_files{role="SINGLE"}0
 rocksdb_wal_pruning_active{role="SINGLE"}0
 # HELP rocksdb_wal_sequence_lower_bound RocksDB WAL sequence number until which background thread has caught up
 # TYPE rocksdb_wal_sequence_lower_bound gauge
-rocksdb_wal_sequence_lower_bound{role="SINGLE"}164031
+rocksdb_wal_sequence_lower_bound{role="SINGLE"}161952
 # HELP arangodb_process_statistics_minor_page_faults_total The number of minor faults the process has made which have not required loading a memory page from disk. This figure is not reported on Windows
 # TYPE arangodb_process_statistics_minor_page_faults_total counter
-arangodb_process_statistics_minor_page_faults_total{}70469
+arangodb_process_statistics_minor_page_faults_total{}70670
 # HELP arangodb_process_statistics_major_page_faults_total On Windows, this figure contains the total number of page faults. On other system, this figure contains the number of major faults the process has made which have required loading a memory page from disk
 # TYPE arangodb_process_statistics_major_page_faults_total counter
 arangodb_process_statistics_major_page_faults_total{}0
 # HELP arangodb_process_statistics_user_time Amount of time that this process has been scheduled in user mode, measured in seconds
 # TYPE arangodb_process_statistics_user_time gauge
-arangodb_process_statistics_user_time{}3.800000
+arangodb_process_statistics_user_time{}3.790000
 # HELP arangodb_process_statistics_system_time Amount of time that this process has been scheduled in kernel mode, measured in seconds
 # TYPE arangodb_process_statistics_system_time gauge
-arangodb_process_statistics_system_time{}0.800000
+arangodb_process_statistics_system_time{}0.900000
 # HELP arangodb_process_statistics_number_of_threads Number of threads in the arangod process
 # TYPE arangodb_process_statistics_number_of_threads gauge
 arangodb_process_statistics_number_of_threads{}89
 # HELP arangodb_process_statistics_resident_set_size The total size of the number of pages the process has in real memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out. The resident set size is reported in bytes
 # TYPE arangodb_process_statistics_resident_set_size gauge
-arangodb_process_statistics_resident_set_size{}324923392
+arangodb_process_statistics_resident_set_size{}327131136
 # HELP arangodb_process_statistics_resident_set_size_percent The relative size of the number of pages the process has in real memory compared to system memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out. The value is a ratio between 0.00 and 1.00
 # TYPE arangodb_process_statistics_resident_set_size_percent gauge
-arangodb_process_statistics_resident_set_size_percent{}0.004412
+arangodb_process_statistics_resident_set_size_percent{}0.004442
 # HELP arangodb_process_statistics_virtual_memory_size On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using
 # TYPE arangodb_process_statistics_virtual_memory_size gauge
-arangodb_process_statistics_virtual_memory_size{}1646583808
+arangodb_process_statistics_virtual_memory_size{}1653243904
 # HELP arangodb_server_statistics_physical_memory Physical memory in bytes
 # TYPE arangodb_server_statistics_physical_memory gauge
 arangodb_server_statistics_physical_memory{}73638338560
 # HELP arangodb_server_statistics_server_uptime_total Number of seconds elapsed since server start
 # TYPE arangodb_server_statistics_server_uptime_total counter
-arangodb_server_statistics_server_uptime_total{}7.210716
+arangodb_server_statistics_server_uptime_total{}7.321234
 # HELP arangodb_server_statistics_cpu_cores Number of CPU cores visible to the arangod process
 # TYPE arangodb_server_statistics_cpu_cores gauge
 arangodb_server_statistics_cpu_cores{}36
 # HELP arangodb_server_statistics_user_percent Percentage of time that the system CPUs have spent in user mode
 # TYPE arangodb_server_statistics_user_percent gauge
-arangodb_server_statistics_user_percent{}0.000000
+arangodb_server_statistics_user_percent{}5.263158
 # HELP arangodb_server_statistics_system_percent Percentage of time that the system CPUs have spent in kernel mode
 # TYPE arangodb_server_statistics_system_percent gauge
 arangodb_server_statistics_system_percent{}0.000000
 # HELP arangodb_server_statistics_idle_percent Percentage of time that the system CPUs have been idle
 # TYPE arangodb_server_statistics_idle_percent gauge
-arangodb_server_statistics_idle_percent{}100.000000
+arangodb_server_statistics_idle_percent{}94.736842
 # HELP arangodb_server_statistics_iowait_percent Percentage of time that the system CPUs have been waiting for I/O
 # TYPE arangodb_server_statistics_iowait_percent gauge
 arangodb_server_statistics_iowait_percent{}0.000000
@@ -826,7 +826,7 @@ arangodb_client_connection_statistics_total_time_bucket{le="15.0"}33948
 arangodb_client_connection_statistics_total_time_bucket{le="30.0"}33948
 arangodb_client_connection_statistics_total_time_bucket{le="+Inf"}33948
 arangodb_client_connection_statistics_total_time_count{}33948
-arangodb_client_connection_statistics_total_time_sum{}2.808915
+arangodb_client_connection_statistics_total_time_sum{}2.854039
 # HELP arangodb_client_connection_statistics_request_time Request time needed to answer a request
 # TYPE arangodb_client_connection_statistics_request_time histogram
 arangodb_client_connection_statistics_request_time_bucket{le="0.01"}33943
@@ -840,7 +840,7 @@ arangodb_client_connection_statistics_request_time_bucket{le="15.0"}33948
 arangodb_client_connection_statistics_request_time_bucket{le="30.0"}33948
 arangodb_client_connection_statistics_request_time_bucket{le="+Inf"}33948
 arangodb_client_connection_statistics_request_time_count{}33948
-arangodb_client_connection_statistics_request_time_sum{}1.947207
+arangodb_client_connection_statistics_request_time_sum{}1.951205
 # HELP arangodb_client_connection_statistics_queue_time Request time needed to answer a request
 # TYPE arangodb_client_connection_statistics_queue_time histogram
 arangodb_client_connection_statistics_queue_time_bucket{le="0.01"}33948
@@ -854,7 +854,7 @@ arangodb_client_connection_statistics_queue_time_bucket{le="15.0"}33948
 arangodb_client_connection_statistics_queue_time_bucket{le="30.0"}33948
 arangodb_client_connection_statistics_queue_time_bucket{le="+Inf"}33948
 arangodb_client_connection_statistics_queue_time_count{}33948
-arangodb_client_connection_statistics_queue_time_sum{}0.172256
+arangodb_client_connection_statistics_queue_time_sum{}0.188837
 # HELP arangodb_client_connection_statistics_io_time Request time needed to answer a request
 # TYPE arangodb_client_connection_statistics_io_time histogram
 arangodb_client_connection_statistics_io_time_bucket{le="0.01"}33948
@@ -868,7 +868,7 @@ arangodb_client_connection_statistics_io_time_bucket{le="15.0"}33948
 arangodb_client_connection_statistics_io_time_bucket{le="30.0"}33948
 arangodb_client_connection_statistics_io_time_bucket{le="+Inf"}33948
 arangodb_client_connection_statistics_io_time_count{}33948
-arangodb_client_connection_statistics_io_time_sum{}0.689452
+arangodb_client_connection_statistics_io_time_sum{}0.713996
 # HELP arangodb_client_connection_statistics_bytes_sent Bytes sent for responses
 # TYPE arangodb_client_connection_statistics_bytes_sent histogram
 arangodb_client_connection_statistics_bytes_sent_bucket{le="250"}0
@@ -878,17 +878,17 @@ arangodb_client_connection_statistics_bytes_sent_bucket{le="5000"}33939
 arangodb_client_connection_statistics_bytes_sent_bucket{le="10000"}33945
 arangodb_client_connection_statistics_bytes_sent_bucket{le="+Inf"}33948
 arangodb_client_connection_statistics_bytes_sent_count{}33948
-arangodb_client_connection_statistics_bytes_sent_sum{}20732477
+arangodb_client_connection_statistics_bytes_sent_sum{}20732369
 # HELP arangodb_client_connection_statistics_bytes_received Bytes received for requests
 # TYPE arangodb_client_connection_statistics_bytes_received histogram
-arangodb_client_connection_statistics_bytes_received_bucket{le="250"}32174
+arangodb_client_connection_statistics_bytes_received_bucket{le="250"}32176
 arangodb_client_connection_statistics_bytes_received_bucket{le="1000"}33948
 arangodb_client_connection_statistics_bytes_received_bucket{le="2000"}33948
 arangodb_client_connection_statistics_bytes_received_bucket{le="5000"}33948
 arangodb_client_connection_statistics_bytes_received_bucket{le="10000"}33948
 arangodb_client_connection_statistics_bytes_received_bucket{le="+Inf"}33948
 arangodb_client_connection_statistics_bytes_received_count{}33948
-arangodb_client_connection_statistics_bytes_received_sum{}7965098
+arangodb_client_connection_statistics_bytes_received_sum{}7965096
 # HELP arangodb_client_user_connection_statistics_bytes_sent Bytes sent for responses, only user traffic
 # TYPE arangodb_client_user_connection_statistics_bytes_sent histogram
 arangodb_client_user_connection_statistics_bytes_sent_bucket{le="250"}0
@@ -898,17 +898,17 @@ arangodb_client_user_connection_statistics_bytes_sent_bucket{le="5000"}33939
 arangodb_client_user_connection_statistics_bytes_sent_bucket{le="10000"}33945
 arangodb_client_user_connection_statistics_bytes_sent_bucket{le="+Inf"}33948
 arangodb_client_user_connection_statistics_bytes_sent_count{}33948
-arangodb_client_user_connection_statistics_bytes_sent_sum{}20732477
+arangodb_client_user_connection_statistics_bytes_sent_sum{}20732369
 # HELP arangodb_client_user_connection_statistics_bytes_received Bytes received for requests, only user traffic
 # TYPE arangodb_client_user_connection_statistics_bytes_received histogram
-arangodb_client_user_connection_statistics_bytes_received_bucket{le="250"}32174
+arangodb_client_user_connection_statistics_bytes_received_bucket{le="250"}32176
 arangodb_client_user_connection_statistics_bytes_received_bucket{le="1000"}33948
 arangodb_client_user_connection_statistics_bytes_received_bucket{le="2000"}33948
 arangodb_client_user_connection_statistics_bytes_received_bucket{le="5000"}33948
 arangodb_client_user_connection_statistics_bytes_received_bucket{le="10000"}33948
 arangodb_client_user_connection_statistics_bytes_received_bucket{le="+Inf"}33948
 arangodb_client_user_connection_statistics_bytes_received_count{}33948
-arangodb_client_user_connection_statistics_bytes_received_sum{}7965098
+arangodb_client_user_connection_statistics_bytes_received_sum{}7965096
 # HELP arangodb_http_request_statistics_async_requests_total Number of asynchronously executed HTTP requests
 # TYPE arangodb_http_request_statistics_async_requests_total counter
 arangodb_http_request_statistics_async_requests_total{}0
@@ -974,11 +974,11 @@ rocksdb_cache_allocated 1355016
 
 # HELP rocksdb_cache_hit_rate_lifetime rocksdb_cache_hit_rate_lifetime
 # TYPE rocksdb_cache_hit_rate_lifetime gauge
-rocksdb_cache_hit_rate_lifetime 15
+rocksdb_cache_hit_rate_lifetime 10
 
 # HELP rocksdb_cache_hit_rate_recent rocksdb_cache_hit_rate_recent
 # TYPE rocksdb_cache_hit_rate_recent gauge
-rocksdb_cache_hit_rate_recent 15
+rocksdb_cache_hit_rate_recent 10
 
 # HELP rocksdb_cache_limit rocksdb_cache_limit
 # TYPE rocksdb_cache_limit gauge
@@ -1010,15 +1010,15 @@ rocksdb_block_cache_capacity 21447256473
 
 # HELP rocksdb_block_cache_pinned_usage rocksdb_block_cache_pinned_usage
 # TYPE rocksdb_block_cache_pinned_usage gauge
-rocksdb_block_cache_pinned_usage 96
+rocksdb_block_cache_pinned_usage 17600
 
 # HELP rocksdb_block_cache_usage rocksdb_block_cache_usage
 # TYPE rocksdb_block_cache_usage gauge
-rocksdb_block_cache_usage 111808
+rocksdb_block_cache_usage 128880
 
 # HELP rocksdb_compaction_pending rocksdb_compaction_pending
 # TYPE rocksdb_compaction_pending gauge
-rocksdb_compaction_pending 4
+rocksdb_compaction_pending 3
 
 # HELP rocksdb_compression_ratio_at_level0 rocksdb_compression_ratio_at_level0
 # TYPE rocksdb_compression_ratio_at_level0 gauge
@@ -1046,7 +1046,7 @@ rocksdb_compression_ratio_at_level5 0
 
 # HELP rocksdb_compression_ratio_at_level6 rocksdb_compression_ratio_at_level6
 # TYPE rocksdb_compression_ratio_at_level6 gauge
-rocksdb_compression_ratio_at_level6 4
+rocksdb_compression_ratio_at_level6 3
 
 # HELP rocksdb_cur_size_active_mem_table rocksdb_cur_size_active_mem_table
 # TYPE rocksdb_cur_size_active_mem_table gauge
@@ -1058,11 +1058,11 @@ rocksdb_cur_size_all_mem_tables 18432
 
 # HELP rocksdb_estimate_live_data_size rocksdb_estimate_live_data_size
 # TYPE rocksdb_estimate_live_data_size gauge
-rocksdb_estimate_live_data_size 1565701
+rocksdb_estimate_live_data_size 1542984
 
 # HELP rocksdb_estimate_num_keys rocksdb_estimate_num_keys
 # TYPE rocksdb_estimate_num_keys gauge
-rocksdb_estimate_num_keys 0
+rocksdb_estimate_num_keys 52
 
 # HELP rocksdb_estimate_pending_compaction_bytes rocksdb_estimate_pending_compaction_bytes
 # TYPE rocksdb_estimate_pending_compaction_bytes gauge
@@ -1070,15 +1070,15 @@ rocksdb_estimate_pending_compaction_bytes 0
 
 # HELP rocksdb_estimate_table_readers_mem rocksdb_estimate_table_readers_mem
 # TYPE rocksdb_estimate_table_readers_mem gauge
-rocksdb_estimate_table_readers_mem 11739
+rocksdb_estimate_table_readers_mem 11738
 
 # HELP rocksdb_free_disk_space rocksdb_free_disk_space
 # TYPE rocksdb_free_disk_space gauge
-rocksdb_free_disk_space 193845583872
+rocksdb_free_disk_space 191651110912
 
 # HELP rocksdb_free_inodes rocksdb_free_inodes
 # TYPE rocksdb_free_inodes gauge
-rocksdb_free_inodes 31300404
+rocksdb_free_inodes 31201604
 
 # HELP rocksdb_is_file_deletions_enabled rocksdb_is_file_deletions_enabled
 # TYPE rocksdb_is_file_deletions_enabled gauge
@@ -1090,7 +1090,7 @@ rocksdb_is_write_stopped 0
 
 # HELP rocksdb_live_sst_files_size rocksdb_live_sst_files_size
 # TYPE rocksdb_live_sst_files_size gauge
-rocksdb_live_sst_files_size 1565701
+rocksdb_live_sst_files_size 1542984
 
 # HELP rocksdb_mem_table_flush_pending rocksdb_mem_table_flush_pending
 # TYPE rocksdb_mem_table_flush_pending gauge
@@ -1178,7 +1178,7 @@ rocksdb_read_only 0
 
 # HELP rocksdb_size_all_mem_tables rocksdb_size_all_mem_tables
 # TYPE rocksdb_size_all_mem_tables gauge
-rocksdb_size_all_mem_tables 69280832
+rocksdb_size_all_mem_tables 69281864
 
 # HELP rocksdb_total_disk_space rocksdb_total_disk_space
 # TYPE rocksdb_total_disk_space gauge
@@ -1190,11 +1190,11 @@ rocksdb_total_inodes 32768000
 
 # HELP rocksdb_total_sst_files_size rocksdb_total_sst_files_size
 # TYPE rocksdb_total_sst_files_size gauge
-rocksdb_total_sst_files_size 1565701
+rocksdb_total_sst_files_size 1542984
 
 # HELP rocksdb_wal_sequence rocksdb_wal_sequence
 # TYPE rocksdb_wal_sequence gauge
-rocksdb_wal_sequence 180274
+rocksdb_wal_sequence 180276
 
 # HELP rocksdb_engine_throttle_bps rocksdb_engine_throttle_bps
 # TYPE rocksdb_engine_throttle_bps gauge

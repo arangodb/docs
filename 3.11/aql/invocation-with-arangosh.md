@@ -328,10 +328,30 @@ Options related to the query optimizer.
   a rule, prefix its name with a `-`, to enable a rule, prefix it with a `+`. There is also
   a pseudo-rule `all`, which matches all optimizer rules. `-all` disables all rules.
 
+### `allowRetry`
+
+Set this option to `true` to make it possible to retry fetching the latest batch
+from a cursor.
+
+If retrieving a result batch fails because of a connection issue, you can ask
+for that batch again using the `POST /_api/cursor/<cursor-id>/<batch-id>`
+endpoint. The first batch has an ID of `1` and the value is incremented by 1
+with every batch. Every result response except the last one also includes a
+`nextBatchId` attribute, indicating the ID of the batch after the current.
+You can remember and use this batch ID should retrieving the next batch fail.
+
+You can only request the latest batch again. Earlier batches are not kept on the
+server-side.
+
+{% hint 'info' %}
+This feature cannot be used on the server-side, like in [Foxx](../foxx.html), as
+there is no client connection and no batching.
+{% endhint %}
+
 #### `stream`
 
-Set `stream` to `true` to execute the query in a **streaming** fashion. The query result is
-not stored on the server, but calculated on the fly.
+Set `stream` to `true` to execute the query in a **streaming** fashion.
+The query result is not stored on the server, but calculated on the fly.
 
 {% hint 'warning' %}
 Long-running queries need to hold the collection locks for as long as the query
@@ -344,10 +364,12 @@ In that case, the query results are either returned right away (if the result
 set is small enough), or stored on the arangod instance and can be accessed
 via the cursor API. 
 
+The default value is `false`.
+
 {% hint 'info' %}
 The query options `cache`, `count` and `fullCount` don't work on streaming
-queries. Additionally, query statistics, warnings, and profiling data is only
-available after the query has finished. The default value is `false`.
+queries. Additionally, query statistics, profiling data, and warnings are only
+available after the query has finished and are delivered as part of the last batch.
 {% endhint %}
 
 #### `maxRuntime`
