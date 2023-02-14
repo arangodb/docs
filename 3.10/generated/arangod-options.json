@@ -3511,6 +3511,33 @@
     "section" : "javascript",
     "type" : "boolean"
   },
+  "javascript.user-defined-functions" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Enable JavaScript user-defined functions (UDFs) in AQL queries.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "javascript",
+    "type" : "boolean"
+  },
   "javascript.v8-contexts" : {
     "base" : 1,
     "category" : "option",
