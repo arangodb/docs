@@ -54,7 +54,14 @@ The server binary will be installed at:
 
 `<VERSION>` is a placeholder for the actual version number, e.g. `3.9.0`.
 
-You can start the server by running the command:
+On newer devices with Apple silicon (M1 and later), it may be located in a
+different place:
+
+```
+/opt/homebrew/Cellar/arangodb/<VERSION>/sbin/arangod
+```
+
+You can start the server by running the following command (note the `&`):
 
 ```
 /usr/local/Cellar/arangodb/<VERSION>/sbin/arangod &

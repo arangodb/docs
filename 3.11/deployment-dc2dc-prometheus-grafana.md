@@ -15,7 +15,7 @@ instructs it about which targets to scrape. For _ArangoSync_ you should configur
 scrape targets for all _sync masters_ and all _sync workers_. To do so, you can
 use a configuration such as this:
 
-```text
+```yaml
 global:
   scrape_interval:     10s # scrape targets every 10 seconds.
 
