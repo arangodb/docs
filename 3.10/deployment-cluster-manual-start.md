@@ -6,7 +6,7 @@ Starting Manually
 =================
 
 An ArangoDB Cluster consists of several running _tasks_ or _processes_ which
-form the Cluster. 
+form the Cluster.
 
 This section describes how to start a Cluster by manually starting all the needed
 processes.
@@ -50,17 +50,21 @@ arangod --server.endpoint tcp://0.0.0.0:5001 \
   --agency.activate true \
   --agency.size 3 \
   --agency.endpoint tcp://127.0.0.1:5001 \
+  --agency.endpoint tcp://127.0.0.1:5002 \
+  --agency.endpoint tcp://127.0.0.1:5003 \
   --agency.supervision true \
-  --database.directory agent1 &
-   
+  --database.directory agent1
+
 arangod --server.endpoint tcp://0.0.0.0:5002 \
   --agency.my-address=tcp://127.0.0.1:5002 \
   --server.authentication false \
   --agency.activate true \
   --agency.size 3 \
   --agency.endpoint tcp://127.0.0.1:5001 \
+  --agency.endpoint tcp://127.0.0.1:5002 \
+  --agency.endpoint tcp://127.0.0.1:5003 \
   --agency.supervision true \
-  --database.directory agent2 &
+  --database.directory agent2
 
 arangod --server.endpoint tcp://0.0.0.0:5003 \
   --agency.my-address=tcp://127.0.0.1:5003 \
@@ -68,8 +72,10 @@ arangod --server.endpoint tcp://0.0.0.0:5003 \
   --agency.activate true \
   --agency.size 3 \
   --agency.endpoint tcp://127.0.0.1:5001 \
+  --agency.endpoint tcp://127.0.0.1:5002 \
+  --agency.endpoint tcp://127.0.0.1:5003 \
   --agency.supervision true \
-  --database.directory agent3 &
+  --database.directory agent3
 ```
 
 ### Local Test DB-Servers and Coordinators
@@ -92,7 +98,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://127.0.0.1:5001 \
   --cluster.agency-endpoint tcp://127.0.0.1:5002 \
   --cluster.agency-endpoint tcp://127.0.0.1:5003 \
-  --database.directory dbserver1 &
+  --database.directory dbserver1
 
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:6002 \
@@ -101,7 +107,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://127.0.0.1:5001 \
   --cluster.agency-endpoint tcp://127.0.0.1:5002 \
   --cluster.agency-endpoint tcp://127.0.0.1:5003 \
-  --database.directory dbserver2 &
+  --database.directory dbserver2
 ```
 
 **Coordinators:**
@@ -114,7 +120,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://127.0.0.1:5001 \
   --cluster.agency-endpoint tcp://127.0.0.1:5002 \
   --cluster.agency-endpoint tcp://127.0.0.1:5003 \
-  --database.directory coordinator1 &
+  --database.directory coordinator1
 ```
 
 ```
@@ -125,7 +131,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://127.0.0.1:5001 \
   --cluster.agency-endpoint tcp://127.0.0.1:5002 \
   --cluster.agency-endpoint tcp://127.0.0.1:5003 \
-  --database.directory coordinator2 &
+  --database.directory coordinator2
 ```
 
 Note in particular that the endpoint descriptions given under `--cluster.my-address`
@@ -171,7 +177,7 @@ If we use:
 then the commands you have to use are reported in the following subparagraphs.
 
 ### Agency
- 
+
 On 192.168.1.1:
 
 ```
@@ -181,7 +187,10 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.activate true \
   --agency.size 3 \
   --agency.supervision true \
-  --database.directory agent 
+  --agency.endpoint tcp://192.168.1.1:8531 \
+  --agency.endpoint tcp://192.168.1.2:8531 \
+  --agency.endpoint tcp://192.168.1.3:8531 \
+  --database.directory agent
 ```
 
 On 192.168.1.2:
@@ -193,6 +202,9 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.activate true \
   --agency.size 3 \
   --agency.supervision true \
+  --agency.endpoint tcp://192.168.1.1:8531 \
+  --agency.endpoint tcp://192.168.1.2:8531 \
+  --agency.endpoint tcp://192.168.1.3:8531 \
   --database.directory agent
 ```
 
@@ -205,7 +217,7 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.activate true \
   --agency.size 3 \
   --agency.endpoint tcp://192.168.1.1:8531 \
-  --agency.endpoint tcp://192.168.1.2:8531 \ 
+  --agency.endpoint tcp://192.168.1.2:8531 \
   --agency.endpoint tcp://192.168.1.3:8531 \
   --agency.supervision true \
   --database.directory agent
@@ -223,7 +235,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory dbserver &
+  --database.directory dbserver
 ```
 
 On 192.168.1.2:
@@ -236,7 +248,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory dbserver &
+  --database.directory dbserver
 ```
 
 On 192.168.1.3:
@@ -249,7 +261,7 @@ sudo arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory dbserver &
+  --database.directory dbserver
 ```
 
 ### Coordinators
@@ -264,7 +276,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory coordinator &
+  --database.directory coordinator
 ```
 
 On 192.168.1.2:
@@ -277,7 +289,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory coordinator &
+  --database.directory coordinator
 ```
 
 On 192.168.1.3:
@@ -290,7 +302,7 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory coordinator &
+  --database.directory coordinator
 ```
 
 **Note:** in the above commands, you can use host names, if they can be resolved,
@@ -310,8 +322,8 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory dbserver &
-  
+  --database.directory dbserver
+
 arangod --server.authentication=false \
   --server.endpoint tcp://0.0.0.0:8529 \
   --cluster.my-address tcp://192.168.1.4:8529 \
@@ -319,16 +331,36 @@ arangod --server.authentication=false \
   --cluster.agency-endpoint tcp://192.168.1.1:8531 \
   --cluster.agency-endpoint tcp://192.168.1.2:8531 \
   --cluster.agency-endpoint tcp://192.168.1.3:8531 \
-  --database.directory coordinator &
+  --database.directory coordinator
+```
+
+**Note 3:** you can easily extend the Cluster, by adding more machines which runs
+an _Agent_. For instance, if you have an additional forth
+machine with IP 192.168.1.5, you can execute the following commands
+
+On 192.168.1.5:
+
+```
+arangod --server.endpoint tcp://0.0.0.0:8531 \
+  --agency.my-address tcp://192.168.1.5:8531 \
+  --server.authentication false \
+  --agency.activate true \
+  --agency.size 4 \
+  --agency.endpoint tcp://192.168.1.1:8531 \
+  --agency.endpoint tcp://192.168.1.2:8531 \
+  --agency.endpoint tcp://192.168.1.3:8531 \
+  --agency.endpoint tcp://192.168.1.5:8531 \
+  --agency.supervision true \
+  --database.directory agent
 ```
 
 Manual Start in Docker
 ----------------------
 
-Manually starting a Cluster via Docker is basically the same as described in the 
-paragraphs above. 
+Manually starting a Cluster via Docker is basically the same as described in the
+paragraphs above.
 
-A bit of extra care has to be invested due to the way in which Docker isolates its network. 
+A bit of extra care has to be invested due to the way in which Docker isolates its network.
 By default it fully isolates the network and by doing so an endpoint like `--server.endpoint tcp://0.0.0.0:8530`
 will only bind to all interfaces inside the Docker container which does not include
 any external interface on the host machine. This may be sufficient if you just want
@@ -343,16 +375,106 @@ to enable process intercommunication.
 An example configuration might look like this:
 
 ```
-docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:10000:8530 arangodb/arangodb arangod \
-  --server.endpoint tcp://0.0.0.0:8530 \
-  --cluster.my-address tcp://192.168.1.1:10000 \
-  --cluster.my-role DBSERVER \
-  --cluster.agency-endpoint tcp://192.168.1.1:9001 \
-  --cluster.agency-endpoint tcp://192.168.1.2:9001 \
-  --cluster.agency-endpoint tcp://192.168.1.3:9001 
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:5001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--agency.my-address tcp://192.168.1.1:5001 \
+	--agency.endpoint tcp://192.168.1.1:5001 \
+	--agency.endpoint tcp://192.168.1.2:5001 \
+	--agency.endpoint tcp://192.168.1.3:5001 \
+	--agency.size 3 \
+	--agency.activate true \
+	--agency.supervision true \
+	--database.directory agent
+
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.2:5001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--agency.my-address tcp://192.168.1.2:5001 \
+	--agency.endpoint tcp://192.168.1.1:5001 \
+	--agency.endpoint tcp://192.168.1.2:5001 \
+	--agency.endpoint tcp://192.168.1.3:5001 \
+	--agency.size 3 \
+	--agency.activate true \
+	--agency.supervision true \
+	--database.directory agent
+
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.3:5001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--agency.my-address tcp://192.168.1.3:5001 \
+	--agency.endpoint tcp://192.168.1.1:5001 \
+	--agency.endpoint tcp://192.168.1.2:5001 \
+	--agency.endpoint tcp://192.168.1.3:5001 \
+	--agency.size 3 \
+	--agency.activate true \
+	--agency.supervision true \
+	--database.directory agent
+
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:6001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--cluster.my-address tcp://192.168.1.1:6001 \
+	--cluster.my-role DBSERVER \
+	--cluster.agency-endpoint tcp://192.168.1.1:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.2:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.3:5001 \
+	--database.directory dbserver
+
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.2:6001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--cluster.my-address tcp://192.168.1.2:6001 \
+	--cluster.my-role DBSERVER \
+	--cluster.agency-endpoint tcp://192.168.1.1:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.2:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.3:5001 \
+	--database.directory dbserver
+
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.3:6001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--cluster.my-address tcp://192.168.1.3:6001 \
+	--cluster.my-role DBSERVER \
+	--cluster.agency-endpoint tcp://192.168.1.1:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.2:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.3:5001 \
+	--database.directory dbserver
+
+
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:7001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--cluster.my-address tcp://192.168.1.1:7001 \
+	--cluster.my-role COORDINATOR \
+	--cluster.agency-endpoint tcp://192.168.1.1:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.2:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.3:5001 \
+	--database.directory coordinator
+
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.2:7001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--cluster.my-address tcp://192.168.1.2:7001 \
+	--cluster.my-role COORDINATOR \
+	--cluster.agency-endpoint tcp://192.168.1.1:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.2:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.3:5001 \
+	--database.directory coordinator
+
+docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.3:7001:8529 -d arangodb arangod \
+  --server.authentication false \
+	--server.endpoint tcp://0.0.0.0:8529 \
+	--cluster.my-address tcp://192.168.1.3:7001 \
+	--cluster.my-role COORDINATOR \
+	--cluster.agency-endpoint tcp://192.168.1.1:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.2:5001 \
+	--cluster.agency-endpoint tcp://192.168.1.3:5001 \
+	--database.directory coordinator
+
 ```
 
-This will start a _DB-Server_ within a Docker container with an isolated network. 
+This will start a _DB-Server_ within a Docker container with an isolated network.
 Within the Docker container it will bind to all interfaces (this will be 127.0.0.1:8530
 and some internal Docker IP on port 8530). By supplying `-p 192.168.1.1:10000:8530`
 we are establishing a port forwarding from our local IP (192.168.1.1 port 10000 in
@@ -373,15 +495,15 @@ options:
 
    Disable authentication completely. Useful for local testing or for operating
    in a trusted network (without a public interface).
-        
+
 2. ARANGO_ROOT_PASSWORD=password
 
    Start ArangoDB with the given password for root.
-        
+
 3. ARANGO_RANDOM_ROOT_PASSWORD=1
 
    Let ArangoDB generate a random root password.
-       
+
 For an in depth guide about Docker and ArangoDB please check the official documentation:
 [hub.docker.com/r/arangodb/arangodb/](https://hub.docker.com/r/arangodb/arangodb/){:target="_blank"}.
 Note that we are using the image `arangodb/arangodb` here which is always the most current one.
