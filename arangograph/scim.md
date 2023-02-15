@@ -16,8 +16,8 @@ This enables you to propagate to ArangoGraph any user access changes by using
 the dedicated API.
 
 {% hint 'info' %}
-To enable the SCIM feature, get in touch with the ArangoGraph team via the
-**Request Help** form, available in the left sidebar menu of the ArangoGraph Dashboard.
+To enable the SCIM feature, get in touch with the ArangoGraph team via
+**Request Help**, available in the left sidebar menu of the ArangoGraph Dashboard.
 {% endhint %}
 
 ## About SCIM

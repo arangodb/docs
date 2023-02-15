@@ -14,7 +14,7 @@ using **Security Assertion Markup language 2.0** (SAML 2.0).
 
 {% hint 'info' %}
 To enable the Single Sign-On (SSO) feature, get in touch with the ArangoGraph
-team via the **Request Help** form, available in the left sidebar menu of the
+team via **Request Help**, available in the left sidebar menu of the
 ArangoGraph Dashboard.
 {% endhint %}
 
@@ -94,10 +94,6 @@ the SSO configuration.
    **Download X.509 certificate** button, and share them with the ArangoGraph
    team via an ArangoGraph Support Ticket in order to complete the SSO
    configuration.
-
-   {% hint 'warning' %}
-   Do not send this information over unencrypted channels, e.g. via normal email.   
-   {% endhint %}
 
 {% hint 'info' %}
 If you would like to enable SCIM provisioning in addition to the SSO SAML
