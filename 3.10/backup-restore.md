@@ -137,20 +137,20 @@ of that of the single server installation.
   aquire a global write transaction lock in order to create the backup in a
   consistent state.
 
-  On a single server instance, this lock is eventually obtained rather quickly
-  and the hot backup is created within a very short amount of time.
+  On a single server instance, this lock is eventually obtained and the hot
+  backup is then created within a very short amount of time.
 
   However, in a cluster, this process is more complex. One Coordinator tries to
   obtain the global write transaction lock on all _DB-Servers_ simultaneously.
-  Depending on the activity on the cluster, this could take some time for the
+  Depending on the activity in the cluster, it can take some time for the
   Coordinator to acquire all the locks the cluster needs. Grabbing all the
-  necessary locks at once might not be always successful, leading to apparent
-  dead times as if the cluster's write operations are suspended.
+  necessary locks at once might not always be successful, leading to times 
+  when it seems like the cluster's write operations are suspended.
 
   This process can happen multiple times until all locks are obtained.
-  The operator has control over the length of the time during which the lock
-  is tried to be obtained each time, prolonging the last wait time by 10% 
-  (which gives more time for the global write transaction lock to resolve).
+  The system administrator has control over the length of the time during which
+  the lock is tried to be obtained each time, prolonging the last wait time by
+  10% (which gives more time for the global write transaction lock to resolve).
 
 - **Agency Lock**
 
