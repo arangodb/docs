@@ -45,8 +45,12 @@ one vertex to another vertex in a specific direction. This lets you model
 directional relationships, such as cause and effect or the flow of material,
 energy, or information. In undirected graphs, edges don't have a direction and
 the relationship between two vertices is considered to be the same in both
-directions. These two types of graphs have different properties and different
-algorithms exist to analyze the data.
+directions. For example, a friendship is a symmetrical relationships. If _Mary_
+is a friend of _John_, then _John_ is equally a friend of _Mary_. On the other
+hand, _Mary_ may subscribe to what _John_' posts online, but this does not
+automatically make _John_ a subscriber of _Mary_'s posts. It is an asymmetrical
+relationship in graph terms. These two types of graphs have different properties
+and different algorithms exist to analyze the data.
 
 <!--
 Graphs can have different structures, called **topologies**. The topology
@@ -61,6 +65,8 @@ connections. Some relevant classes are:
 -->
 
 
+
+
 information extraction (high-level)
 
 ## Graph features in ArangoDB
@@ -68,7 +74,15 @@ information extraction (high-level)
 Graph database systems like ArangoDB can store graphs and provide means to query
 the connected data.
 
+ArangoDB's graph model is that of a **property graph**. Every record, whether
+vertex or edge, can have an arbitrary number of properties. Each document is a
+fully-fledged JSON object and has a unique identifier.
+This is different to the RDF graph model, where triples of a subject,
+a predicate, and an object are stored separately.
+
+directed graphs
 labeled property graph?
+sparse?
 comparison with RDBMS
 properties on vertices and edges
 native graph that can be combined
