@@ -17,7 +17,7 @@ on their own servers, equipped with sufficient CPU power and memory capacity.
 
 To start an _ArangoSync Master_ using a `systemd` service, use a unit like this:
 
-```text
+```conf
 [Unit]
 Description=Run ArangoSync in master mode
 After=network.target
@@ -49,7 +49,7 @@ If you want the service to create a TLS certificate & client authentication
 certificate, for authenticating with _ArangoSync Masters_ in another datacenter,
 for every start, add this to the `Service` section.
 
-```text
+```conf
 ExecStartPre=/usr/bin/sh -c "mkdir -p ${CERTIFICATEDIR}"
 ExecStartPre=/usr/sbin/arangosync create tls keyfile \
     --cacert=${CERTIFICATEDIR}/tls-ca.crt \

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: You can install ArangoDB on macOS via Homebrew, DMG Package or tar.gz Archive
+description: You can use ArangoDB on macOS via Docker images, DMG packages, or tar.gz archives
 title: Installing ArangoDB on macOS
 ---
 Installing ArangoDB on macOS
@@ -8,9 +8,9 @@ Installing ArangoDB on macOS
 
 You can use ArangoDB on macOS in different ways:
 
-- [Docker image](#docker)
-- [_DMG_ Package](#package-installation)
-- [_tar.gz_ Archive](#installing-using-the-archive)
+- [Docker images](#docker)
+- [_DMG_ packages](#package-installation)
+- [_tar.gz_ archives](#installing-using-the-archive)
 
 {% hint 'tip' %}
 Starting from version 3.10.0, ArangoDB has native support for the ARM
@@ -67,10 +67,6 @@ showing you the log-file.
 
 
     2022-10-21T09:37:01Z [13373] INFO ArangoDB (version 3.9.3 [darwin]) is ready for business. Have fun!
-
-Note that it is possible to install both, the _homebrew_ version and the command-line
-app. You should, however, edit the configuration files of one version and change
-the port used.
 
 Installing using the archive
 ----------------------------
