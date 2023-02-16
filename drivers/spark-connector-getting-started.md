@@ -19,7 +19,7 @@ This library has been deprecated in favor of the new [ArangoDB Datasource for Ap
     <artifactId>arangodb-spark-connector_2.12</artifactId>
     <version>1.1.0</version>
   </dependency>
-	...
+  ...
 </dependencies>
 ```
 
@@ -32,7 +32,7 @@ This library has been deprecated in favor of the new [ArangoDB Datasource for Ap
     <artifactId>arangodb-spark-connector_2.11</artifactId>
     <version>1.1.0</version>
   </dependency>
-	...
+  ...
 </dependencies>
 ```
 
