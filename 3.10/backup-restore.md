@@ -130,33 +130,27 @@ of that of the single server installation.
 
 - **The Global Write Transaction Lock**
 
-  The global write transaction lock mentioned above is such a determining factor,
-  that it needs a little detailed attention. 
+  To create a consistent snapshot of an ArangoDB single server or
+  cluster deployment, all transactions need to be suspended in order for the
+  state of a deployment to be consistent. However, there is no way for ArangoDB
+  to know by its own when this time comes. This is why a hot backup needs to
+  aquire a global write transaction lock in order to create the backup in a
+  consistent state.
 
-  It is obvious that in order to be able to create a consistent snapshot of the
-  ArangoDB world on a specific single server or cluster deployment, one must
-  stop all transactional write operations at the next possible time or else
-  consistency would no longer be given.
+  On a single server instance, this lock is eventually obtained and the hot
+  backup is then created within a very short amount of time.
 
-  On the other hand it is also obvious, that there is no way for ArangoDB to
-  known, when that time will come. It might be there with the next attempt a
-  nanosecond away, but it could of course not come for the next 2 minutes.
+  However, in a cluster, this process is more complex. One Coordinator tries to
+  obtain the global write transaction lock on all _DB-Servers_ simultaneously.
+  Depending on the activity in the cluster, it can take some time for the
+  Coordinator to acquire all the locks the cluster needs. Grabbing all the
+  necessary locks at once might not always be successful, leading to times 
+  when it seems like the cluster's write operations are suspended.
 
-  ArangoDB tries to obtain that lock over and over again. On the single server
-  instances these consecutive tries will not be noticeable. At some point the
-  lock is obtained and the hot backup is created then within a very short
-  amount of time.
-
-  In clusters things are a little more complicated and noticeable.
-  A Coordinator, which is trying to obtain the global write transaction
-  lock must try to get local locks
-  on all _DB-Servers_ simultaneously; potentially succeeding on some and not
-  succeeding on others, leading to apparent dead times in the cluster's write
-  operations.
-
-  This process can happen multiple times until success is achieved.
-  One has control over the length of the time during which the lock is tried to
-  be obtained each time prolonging the last wait time by 10%.
+  This process can happen multiple times until all locks are obtained.
+  The system administrator has control over the length of the time during which
+  the lock is tried to be obtained each time, prolonging the last wait time by
+  10% (which gives more time for the global write transaction lock to resolve).
 
 - **Agency Lock**
 

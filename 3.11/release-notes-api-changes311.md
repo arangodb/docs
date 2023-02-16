@@ -79,6 +79,15 @@ in AQL queries, which support a `refillIndexCache` option, too.
   You can only request the latest batch again. Earlier batches are not kept on
   the server-side.
 
+  To allow refetching of the last batch of the query, the server cannot
+  automatically delete the cursor. After the first attempt of fetching the last
+  batch, the server would normally delete the cursor to free up resources. As you
+  might need to reattempt the fetch, it needs to keep the final batch when the
+  `allowRetry` option is enabled. Once you successfully received the last batch,
+  you should call the `DELETE /_api/cursor/<cursor-id>` endpoint so that the
+  server doesn't unnecessary keep the batch until the cursor times out
+  (`ttl` query option).
+
 #### Restriction of indexable fields
 
 It is now forbidden to create indexes that cover fields whose attribute names

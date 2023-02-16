@@ -333,6 +333,11 @@ Options related to the query optimizer.
 Set this option to `true` to make it possible to retry fetching the latest batch
 from a cursor.
 
+{% hint 'info' %}
+This feature cannot be used on the server-side, like in [Foxx](../foxx.html), as
+there is no client connection and no batching.
+{% endhint %}
+
 If retrieving a result batch fails because of a connection issue, you can ask
 for that batch again using the `POST /_api/cursor/<cursor-id>/<batch-id>`
 endpoint. The first batch has an ID of `1` and the value is incremented by 1
@@ -343,10 +348,14 @@ You can remember and use this batch ID should retrieving the next batch fail.
 You can only request the latest batch again. Earlier batches are not kept on the
 server-side.
 
-{% hint 'info' %}
-This feature cannot be used on the server-side, like in [Foxx](../foxx.html), as
-there is no client connection and no batching.
-{% endhint %}
+To allow refetching of the last batch of the query, the server cannot
+automatically delete the cursor. After the first attempt of fetching the last
+batch, the server would normally delete the cursor to free up resources. As you
+might need to reattempt the fetch, it needs to keep the final batch when the
+`allowRetry` option is enabled. Once you successfully received the last batch,
+you should call the `DELETE /_api/cursor/<cursor-id>` endpoint so that the
+server doesn't unnecessary keep the batch until the cursor times out
+(`ttl` query option).
 
 #### `stream`
 
