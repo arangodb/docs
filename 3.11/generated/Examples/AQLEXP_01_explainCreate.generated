@@ -42,9 +42,9 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">&quot;indexCoversProjections&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;indexes&quot;</span> : [ 
           { 
-            <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60636&quot;</span>, 
+            <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60640&quot;</span>, 
             <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1757808821649014784&quot;</span>, 
+            <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1757980033731788806&quot;</span>, 
             <span class="hljs-string">&quot;fields&quot;</span> : [ 
               <span class="hljs-string">&quot;value&quot;</span> 
             ], 
@@ -196,7 +196,9 @@ arangosh&gt; stmt.explain();
   <span class="hljs-string">&quot;stats&quot;</span> : { 
     <span class="hljs-string">&quot;rulesExecuted&quot;</span> : <span class="hljs-number">45</span>, 
     <span class="hljs-string">&quot;rulesSkipped&quot;</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">&quot;plansCreated&quot;</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;plansCreated&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00011271299990767147</span> 
   }, 
   <span class="hljs-string">&quot;cacheable&quot;</span> : <span class="hljs-literal">true</span> 
 }
