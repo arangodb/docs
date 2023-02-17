@@ -32,9 +32,9 @@ Managing queues
 `queues.create(name, [maxWorkers]): Queue`
 
 Returns the queue for the given name. If the queue does not exist, a new queue
-with the given name will be created. If a queue with the given name already exists
-and maxWorkers is set, the queue's maximum number of workers will be updated.
-The queue will be created in the current database.
+with the given name is created. If a queue with the given name already exists
+and `maxWorkers` is set, the queue's maximum number of workers is updated.
+The queue is created in the current database.
 
 **Arguments**
 
@@ -66,7 +66,7 @@ assertEqual(queue1, queue3);
 Returns the queue for the given name. If the queue does not exist an exception
 is thrown instead.
 
-The queue will be looked up in the current database.
+The queue is looked up in the current database.
 
 **Arguments**
 
@@ -84,7 +84,7 @@ queues.get("some-queue");
 //     at ...
 ```
 
-Otherwise the queue will be returned:
+Otherwise, the queue is returned:
 
 ```js
 const queue1 = queues.create("some-queue");
@@ -98,11 +98,11 @@ assertEqual(queue1, queue2);
 
 Returns `true` if the queue was deleted successfully.
 If the queue did not exist, it returns `false` instead.
-The queue will be looked up and deleted in the current database.
+The queue is looked up and deleted in the current database.
 
-When a queue is deleted, jobs on that queue will no longer be executed.
+When a queue is deleted, jobs on that queue are no longer executed.
 
-Deleting a queue will not delete any jobs on that queue.
+Deleting a queue does not delete any jobs on that queue.
 
 **Arguments**
 
@@ -125,7 +125,7 @@ Queue API
 
 `queue.push(script, data, [opts]): string`
 
-The job will be added to the specified queue in the current database.
+The job is added to the specified queue in the current database.
 
 Returns the job id.
 
@@ -137,7 +137,7 @@ Returns the job id.
 
   * **name**: `string`
 
-    Name of the script that will be invoked.
+    Name of the script to invoke.
 
   * **mount**: `string`
 
@@ -154,7 +154,7 @@ Returns the job id.
   * **maxFailures**: `number | Infinity` (Default: `0`):
 
     Number of times a single run of a job will be re-tried before it is marked
-    as `"failed"`. A negative value or `Infinity` means that the job will be
+    as `"failed"`. A negative value or `Infinity` means that the job is
     re-tried on failure indefinitely.
 
   * **schema**: `Schema` (optional)
@@ -188,44 +188,44 @@ Returns the job id.
 
   * **backOff**: `Function | number` (Default: `1000`)
 
-    See *script.backOff*.
+    See `script.backOff`.
 
   * **maxFailures**: `number | Infinity` (Default: `0`):
 
-    See *script.maxFailures*.
+    See `script.maxFailures`.
 
   * **repeatTimes**: `number` (Default: `0`)
 
-    If set to a positive number, the job will be repeated this many times
-    (not counting recovery when using *maxFailures*).
-    If set to a negative number or `Infinity`, the job will be repeated
-    indefinitely. If set to `0` the job will not be repeated.
+    If set to a positive number, the job is repeated this many times
+    (not counting recovery when using `maxFailures`).
+    If set to a negative number or `Infinity`, the job is repeated
+    indefinitely. If set to `0`, the job is not repeated.
 
   * **repeatUntil**: `number | Date` (optional)
 
     If the job is set to automatically repeat, this can be set to a timestamp
-    in milliseconds (or `Date` instance) after which the job will no longer repeat.
+    in milliseconds (or `Date` instance) after which the job no longer repeats.
     Setting this value to zero, a negative value or `Infinity` has no effect.
 
   * **repeatDelay**: `number` (Default: `0`)
 
     If the job is set to automatically repeat, this can be set to a non-negative
-    value to set the number of milliseconds for which the job will be delayed
+    value to set the number of milliseconds for which the job is delayed
     before it is started again.
 
-Note that if you pass a function for the *backOff* calculation, *success*
-callback or *failure* callback options the function will be serialized to
-the database as a string and therefore must not rely on any external scope
+Note that if you pass a function for the `backOff` calculation, `success`
+callback, or `failure` callback options, the function is serialized to
+the database as a string, and therefore must not rely on any external scope
 or external variables.
 
-When the job is set to automatically repeat, the *failure* callback will only
-be executed when a run of the job has failed more than *maxFailures* times.
-Note that if the job fails and *maxFailures* is set, it will be rescheduled
-according to the *backOff* until it has either failed too many times or
-completed successfully before being scheduled according to the *repeatDelay*
-again. Recovery attempts by *maxFailures* do not count towards *repeatTimes*.
+When the job is set to automatically repeat, the `failure` callback is only
+executed when a run of the job has failed more than `maxFailures` times.
+Note that if the job fails and `maxFailures` is set, it is rescheduled
+according to the `backOff` until it has either failed too many times or
+completed successfully before being scheduled according to the `repeatDelay`
+again. Recovery attempts by `maxFailures` do not count towards `repeatTimes`.
 
-The *success* and *failure* callbacks receive the following arguments:
+The `success` and `failure` callbacks receive the following arguments:
 
 * **result**: `any`
 
@@ -253,7 +253,7 @@ queue.push(
 );
 ```
 
-This will *not* work, because `log` was defined outside the callback function
+This does *not* work, because `log` is defined outside the callback function
 (the callback must be serializable to a string):
 
 ```js
@@ -271,7 +271,7 @@ queue.push(
 );
 ```
 
-Here's an example of a job that will be executed every 5 seconds until tomorrow:
+Here's an example of a job that is executed every 5 seconds until tomorrow:
 
 ```js
 'use strict';
@@ -294,9 +294,9 @@ queue.push(
 
 Creates a proxy object representing a job with the given job id.
 
-The job will be looked up in the specified queue in the current database.
+The job is looked up in the specified queue in the current database.
 
-Returns the job for the given jobId. Properties of the job object will be
+Returns the job for the given jobId. Properties of the job object are
 fetched whenever they are referenced and can not be modified.
 
 **Arguments**
@@ -317,7 +317,7 @@ assertEqual(job.id, jobId);
 `queue.delete(jobId): boolean`
 
 Deletes a job with the given job id.
-The job will be looked up and deleted in the specified queue in the current database.
+The job is looked up and deleted in the specified queue in the current database.
 
 **Arguments**
 
@@ -370,7 +370,7 @@ assertEqual(queue.complete(logScript).length, 1);
 
 Returns an array of job ids of jobs in the given queue with the status
 `"progress"`, optionally filtered by the given job type.
-The jobs will be looked up in the specified queue in the current database.
+The jobs is looked up in the specified queue in the current database.
 
 **Arguments**
 
@@ -392,7 +392,7 @@ The jobs will be looked up in the specified queue in the current database.
 
 Returns an array of job ids of jobs in the given queue with the status
 `"complete"`, optionally filtered by the given job type.
-The jobs will be looked up in the specified queue in the current database.
+The jobs is looked up in the specified queue in the current database.
 
 **Arguments**
 
@@ -414,7 +414,7 @@ The jobs will be looked up in the specified queue in the current database.
 
 Returns an array of job ids of jobs in the given queue with the status
 `"failed"`, optionally filtered by the given job type.
-The jobs will be looked up in the specified queue in the current database.
+The jobs is looked up in the specified queue in the current database.
 
 **Arguments**
 
@@ -436,7 +436,7 @@ The jobs will be looked up in the specified queue in the current database.
 
 Returns an array of job ids of all jobs in the given queue,
 optionally filtered by the given job type.
-The jobs will be looked up in the specified queue in the current database.
+The jobs is looked up in the specified queue in the current database.
 
 **Arguments**
 
@@ -462,4 +462,4 @@ Job API
 Aborts a non-completed job.
 
 Sets a job's status to `"failed"` if it is not already `"complete"`,
-without calling the job's *onFailure* callback.
+without calling the job's `onFailure` callback.

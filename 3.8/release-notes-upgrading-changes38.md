@@ -30,7 +30,9 @@ complete the boot sequence faster, and the Foxx services will be synchronized in
 a background operation. Until that operation has completed, any requests to a
 Foxx app may be responded to with an HTTP 503 error and message
 
-    waiting for initialization of Foxx services in this database
+```
+waiting for initialization of Foxx services in this database
+```
 
 This can cause an unavailability window for Foxx apps for the initial requests to
 Foxx apps.
@@ -425,14 +427,14 @@ identifiers/names in AQL queries.
 
 For example, the query:
 
-```js
+```aql
 FOR status IN Window
   RETURN status.open
 ```
 
 … will need to be adjusted to:
 
-```js
+```aql
 FOR status IN `Window`
   RETURN status.open
 ```
@@ -459,7 +461,7 @@ For example, given a collection `test` with an empty document with just key
 `testDoc`, the following query would return different results when running for
 the first time and the second time:
 
-```js
+```aql
 UPDATE 'testDoc'
 WITH { test: { sub1: true, sub2: null } } IN test
 OPTIONS { keepNull: false, mergeObjects: true }

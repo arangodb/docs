@@ -201,9 +201,9 @@ db._executeTransaction({
 
     /* write into c2 (announced) */
     db.c2.insert({ bar: "baz" });
-    
+
     /* some operation here that takes long to execute... */
-    
+
     /* read from c1 (unannounced) */
     db.c1.toArray();
   }

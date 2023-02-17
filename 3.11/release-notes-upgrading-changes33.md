@@ -39,11 +39,12 @@ The following incompatible changes have been made in ArangoDB 3.3:
   value is now eight times higher than in 3.2. The startup warnings will look like
   this (with actual numbers varying):
 
-      WARNING {memory} maximum number of memory mappings per process is 65530, which seems too low. it is recommended to set it to at least 512000
+  ```
+  WARNING {memory} maximum number of memory mappings per process is 65530, which seems too low. it is recommended to set it to at least 512000
+  ```
 
   Please refer to [the Linux kernel documentation](https://www.kernel.org/doc/Documentation/sysctl/vm.txt){:target="_blank"}
   for more information on this setting. This change only affects the Linux version of ArangoDB.
-
 
 Client tools
 ------------

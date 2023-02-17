@@ -1972,7 +1972,7 @@ failed example in `arangosh.examples.js`.
   - ```
     …lib/jekyll/utils.rb:141:in `initialize': No such file or directory @ rb_sysopen - /path/to/file
     ```
-    
+
     Jekyll can't open the specified file. A possible reason is that it is a
     binary file which is not supposed to be in the source tree in the first
     place or which should be excluded via `_config.yml`
@@ -1981,7 +1981,7 @@ failed example in `arangosh.examples.js`.
     …lib/safe_yaml/load.rb:143:in `parse': (/path/to/docs/_data/3.x-manual.yml):
     mapping values are not allowed in this context at line 274 column 15 (Psych::SyntaxError)
     ```
-    
+
     The specified navigation definition file is not valid YAML. Check if the
     indention is correct and that you use `children:` if the following entries
     are child pages.

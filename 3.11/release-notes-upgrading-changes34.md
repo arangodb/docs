@@ -61,7 +61,6 @@ Note that to get even more target-specific optimizations, it is possible for end
 users to compile ArangoDB on their own with compiler optimizations tailored to the
 target environment.
 
-
 Target host requirements
 ------------------------
 
@@ -77,7 +76,6 @@ the local nscd (name-service cache daemon) for this. Effectively this requires
 a running nscd instance on hosts that ArangoDB is installed on and that do store
 the operating system users in a place other than the host-local `/etc/group` and
 `/etc/passwd`.
-
 
 Storage engine
 --------------
@@ -102,14 +100,14 @@ explicitly selected:
 
 * `--server.storage-engine mmfiles`
 
-
 To make users aware of that the RocksDB storage engine was chosen automatically
 due to an explicit other storage engine selection, 3.4 will come up with the following
 startup warning:
 
-    using default storage engine 'rocksdb', as no storage engine was explicitly selected via the `--server.storage-engine` option.
-    please note that default storage engine has changed from 'mmfiles' to 'rocksdb' in ArangoDB 3.4
-
+```
+using default storage engine 'rocksdb', as no storage engine was explicitly selected via the `--server.storage-engine` option.
+please note that default storage engine has changed from 'mmfiles' to 'rocksdb' in ArangoDB 3.4
+```
 
 On upgrade, any existing ArangoDB installation will keep its previously selected
 storage engine. The change of the default storage engine in 3.4 is thus only relevant
@@ -123,7 +121,6 @@ engine throughout the entire cluster, there is now a startup check performed by
 each Coordinator. Each Coordinator will contact all DB-Servers and check if the
 same engine on the DB-Server is the same as its local storage engine. In case 
 there is any discrepancy, the Coordinator will abort its startup.
-
 
 Geo indexes
 -----------
@@ -142,7 +139,6 @@ Geo indexes
   The two previously known geo index types (`geo1`and `geo2`) are **deprecated**. 
   APIs for creating indexes (`ArangoCollection.ensureIndex`) will continue to support 
   `geo1`and `geo2`.
-
 
 RocksDB engine data storage format
 ----------------------------------
@@ -169,7 +165,6 @@ downtime you can alternatively run a second arangod instance in your system,
 that replicates the original data; once the replication has reached completion, 
 you can switch the instances.
 
-
 RocksDB intermediate commits
 -----------------------------
 
@@ -178,7 +173,6 @@ Intermediate commits in the rocksdb engine are now only enabled in standalone AQ
 
 The options `intermediateCommitCount` and `intermediateCommitSize` will have no affect
 anymore on transactions started via `/_api/transaction`, or `db._executeTransaction()`.
-
 
 RocksDB background sync thread
 ------------------------------
@@ -194,7 +188,6 @@ The syncing interval can be configured by adjusting the configuration option
 Note: this option is not supported on Windows platforms. Setting the sync interval to
 to a value greater than 0 will produce a startup warning on Windows.
 
-
 RocksDB write buffer size
 -------------------------
 
@@ -207,7 +200,6 @@ In ArangoDB 3.3 the governing configuration option `--rocksdb.total-write-buffer
 had a default value of `0`, which meant that the memory usage was not limited. ArangoDB
 3.4 now changes the default value to about 40% of available physical RAM, and 512MiB
 for setups with less than 4GiB of RAM.
-
 
 Threading and request handling
 ------------------------------
@@ -234,7 +226,6 @@ The number of server threads is now configured by the following startup options:
 
 The actual number of request processing threads is adjusted dynamically at runtime
 and will float between `--server.minimal-threads` and `--server.maximal-threads`.
-
 
 HTTP REST API
 -------------
@@ -390,7 +381,6 @@ The following APIs have been added or augmented:
   The exception from this is that the HTTP DELETE verb for these APIs does not
   support `returnOld` because that would make the existing API incompatible.
 
-
 AQL
 ---
 
@@ -443,25 +433,33 @@ AQL
 
   For example, the following AQL queries are ok:
  
-      FOR doc IN NEAR(myCollection, 2.5, 3) RETURN doc
-      FOR doc IN NEAR(@@collection, 2.5, 3) RETURN doc
-      FOR doc IN FULLTEXT("myCollection", "body", "foxx") RETURN doc
-      FOR doc IN FULLTEXT(@@collection, @attribute, "foxx") RETURN doc
+  ```aql
+  FOR doc IN NEAR(myCollection, 2.5, 3) RETURN doc
+  FOR doc IN NEAR(@@collection, 2.5, 3) RETURN doc
+  FOR doc IN FULLTEXT("myCollection", "body", "foxx") RETURN doc
+  FOR doc IN FULLTEXT(@@collection, @attribute, "foxx") RETURN doc
+  ```
 
   Contrary, the following queries will fail to execute with 3.4 because of dynamic
   collection/attribute names used in them:
 
+  ```aql
       FOR name IN ["col1", "col2"] FOR doc IN NEAR(name, 2.5, 3) RETURN doc
+  ```
 
-      FOR doc IN collection 
-        FOR match IN FULLTEXT(PARSE_IDENTIFIER(doc).collection, PARSE_IDENTIFIER(doc).key, "foxx") RETURN doc
+  ```aql
+  FOR doc IN collection 
+    FOR match IN FULLTEXT(PARSE_IDENTIFIER(doc).collection, PARSE_IDENTIFIER(doc).key, "foxx") RETURN doc
+  ```
 
 - the AQL warning 1577 ("collection used in expression") will not occur anymore
 
   It was used in previous versions of ArangoDB when the name of a collection was
   used in an expression in an AQL query, e.g.
 
-      RETURN c1 + c2
+  ```aql
+  RETURN c1 + c2
+  ```
 
   Due to internal changes in AQL this is not detected anymore in 3.4, so this 
   particular warning will not be raised.
@@ -490,11 +488,13 @@ AQL
   The change affects arithmetic operations with strings that contain numbers and
   other trailing characters, e.g.
 
-      expression         3.3 result          3.4 result       TO_NUMBER()
-      0 + "1a"           0 + 1 = 1           0 + 0 = 0        TO_NUMBER("1a") = 0
-      0 + "1 "           0 + 1 = 1           0 + 1 = 1        TO_NUMBER("1 ") = 1
-      0 + " 1"           0 + 1 = 1           0 + 1 = 1        TO_NUMBER(" 1") = 1
-      0 + "a1"           0 + 0 = 0           0 + 0 = 0        TO_NUMBER("a1") = 0
+  ```
+  expression         3.3 result          3.4 result       TO_NUMBER()
+  0 + "1a"           0 + 1 = 1           0 + 0 = 0        TO_NUMBER("1a") = 0
+  0 + "1 "           0 + 1 = 1           0 + 1 = 1        TO_NUMBER("1 ") = 1
+  0 + " 1"           0 + 1 = 1           0 + 1 = 1        TO_NUMBER(" 1") = 1
+  0 + "a1"           0 + 0 = 0           0 + 0 = 0        TO_NUMBER("a1") = 0
+  ```
 
 - the AQL function `DATE_NOW` is now marked as deterministic internally, meaning that
   the optimizer may evaluate the function at query compile time and not at query
@@ -552,7 +552,6 @@ AQL
   reflect figures generated during the initial query execution, so especially a
   query's *executionTime* figure may be misleading for a cached query result.
   
-
 Usage of V8
 -----------
 
@@ -589,9 +588,8 @@ require V8 for any operation in 3.4, so the V8 engine is turned off entirely on
 such nodes, regardless of the number of configured V8 contexts there.
 
 The V8 engine is still enabled on Coordinator servers in a cluster and on single
-server instances. Here the numbe of started V8 contexts may actually be reduced
+server instances. Here the number of started V8 contexts may actually be reduced
 in case a lot of the above features are used.
-
 
 Startup option changes
 ----------------------
@@ -648,7 +646,6 @@ For arangod, the following startup options have changed:
   for setups with less than 4GiB of RAM. In ArangoDB 3.3 this option had a default value
   of `0`, which meant that the memory usage for write buffers was not limited.
 
-
 Permissions
 -----------
 
@@ -669,7 +666,6 @@ specified is now:
   * The access level for the current database
   * The access level for the `_system` database
 
-
 SSLv2
 -----
 
@@ -685,7 +681,6 @@ As it is not safe at all to use this protocol, the support for it has also
 been stopped in ArangoDB. End users that use SSLv2 for connecting to ArangoDB
 should change the protocol from SSLv2 to TLSv12 if possible, by adjusting
 the value of the `--ssl.protocol` startup option.
-
 
 Replication
 -----------
@@ -705,7 +700,6 @@ default and writes according errors to the log. Replication can automatically
 be restarted in this case by setting the `autoResync` replication configuration
 option to `true`.
 
-
 Mixed-engine clusters
 ---------------------
 
@@ -715,7 +709,6 @@ Coordinator's startup.
 
 Previous versions of ArangoDB did not detect the usage of different storage
 engines in a cluster, but the runtime behavior of the cluster was undefined.
-
 
 Client tools
 ------------
@@ -747,7 +740,6 @@ which were used for debugging purposes only.
 In the ArangoShell, the undocumented JavaScript functions `reloadAuth` and `routingCache`
 have been removed from the `internal` module.
 
-
 Foxx applications
 -----------------
 
@@ -759,7 +751,6 @@ can easily be replaced by using the `db._version()` instead.
 The `ShapedJson` JavaScript object prototype, a remainder from ArangoDB 2.8 
 for encapsulating database documents, has been removed in ArangoDB 3.4.
 
-
 Miscellaneous changes
 ---------------------
 
@@ -769,7 +760,6 @@ to "MMFilesCompactor".
 This change will be visible only on systems which allow assigning names to
 threads.
 
-
 Deprecated features
 ===================
 
@@ -777,7 +767,7 @@ The following features and APIs are deprecated in ArangoDB 3.4, and will be
 removed in future versions of ArangoDB:
 
 * the JavaScript-based traversal REST API at `/_api/traversal` and the
-  underlaying traversal module `@arangodb/graph/traversal`:
+  underlying traversal module `@arangodb/graph/traversal`:
 
   This API has several limitations (including low result set sizes) and has 
   effectively been unmaintained since the introduction of native AQL traversal.
@@ -840,29 +830,26 @@ removed in future versions of ArangoDB:
 
 * the legacy mode for Foxx applications from ArangoDB 2.8 or earlier.
 
-  {%- assign ver = "3.8" | version: "<" %}
-  {%- if ver %}
-  The legacy mode is described in more detail in the [Foxx manual](foxx-guides-legacy-mode.html).
-  To upgrade an existing Foxx application that still uses the legacy mode, please
-  follow the steps described in [the manual](foxx-migrating2x.html).
-  {%- endif %}
-
 * the AQL geo functions `NEAR`, `WITHIN`, `WITHIN_RECTANGLE` and `IS_IN_POLYGON`:
 
   The special purpose `NEAR` AQL function can be substituted with the
   following AQL (provided there is a geo index present on the `doc.latitude`
   and `doc.longitude` attributes) since ArangoDB 3.2:
 
-      FOR doc in geoSort
-        SORT DISTANCE(doc.latitude, doc.longitude, 0, 0)
-        LIMIT 5
-        RETURN doc
+  ```aql
+  FOR doc in geoSort
+    SORT DISTANCE(doc.latitude, doc.longitude, 0, 0)
+    LIMIT 5
+    RETURN doc
+  ```
 
   `WITHIN` can be substituted with the following AQL since ArangoDB 3.2:
 
-      FOR doc in geoFilter
-        FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) < 2000
-        RETURN doc
+  ```aql
+  FOR doc in geoFilter
+    FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) < 2000
+    RETURN doc
+  ```
 
   Compared to using the special purpose AQL functions this approach has the
   advantage that it is more composable, and will also honor any `LIMIT` values

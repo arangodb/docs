@@ -43,8 +43,10 @@ corresponding edge collection.
 The first step is to export the raw data of those
 collections using `arangoexport`:
 
-    arangoexport --type jsonl --collection  old_vertices --output-directory docOutput --overwrite true
-    arangoexport --type jsonl --collection  old_edges --output-directory docOutput --overwrite true
+```sh
+arangoexport --type jsonl --collection  old_vertices --output-directory docOutput --overwrite true
+arangoexport --type jsonl --collection  old_edges --output-directory docOutput --overwrite true
+```
 
 Note that the `JSONL` format type is being used in the migration process
 as it is more flexible and can be used with larger datasets.
@@ -94,12 +96,16 @@ The empty collections that are now in the target ArangoDB cluster,
 have to be filled with data.
 All vertices can be imported without any change:
 
-    arangoimport --collection old_vertices --file docOutput/old_vertices.jsonl
+```sh
+arangoimport --collection old_vertices --file docOutput/old_vertices.jsonl
+```
 
 On the edges, EnterpriseGraphs disallow storing the `_key` value, so this attribute
 needs to be removed on import:
 
-    arangoimport --collection old_edges --file docOutput/old_edges.jsonl --remove-attribute "_key"
+```
+arangoimport --collection old_edges --file docOutput/old_edges.jsonl --remove-attribute "_key"
+```
 
 After this step, the graph has been migrated.
 
@@ -110,7 +116,9 @@ assuming that you have renamed `old_vertices` to `vertices`.
 For the vertex data this change is not relevant, the `_id` values is adjust automatically,
 so you can import the data again, and just target the new collection name:
 
-    arangoimport --collection vertices --file docOutput/old_vertices.jsonl
+```sh
+arangoimport --collection vertices --file docOutput/old_vertices.jsonl
+```
 
 For the edges you need to apply more changes, as they need to be rewired.
 
@@ -129,7 +137,9 @@ This is helpful if your data is not exported by ArangoDB in the first place.
 
 Now that you have everything together, run the following command:
 
-    arangoimport --collection edges --file docOutput/old_edges.jsonl --remove-attribute "_key" --from-collection-prefix "vertices" --to-collection-prefix "vertices" --overwrite-collection-prefix true
+```
+arangoimport --collection edges --file docOutput/old_edges.jsonl --remove-attribute "_key" --from-collection-prefix "vertices" --to-collection-prefix "vertices" --overwrite-collection-prefix true
+```
 
 After this step, the graph has been migrated and also changed to new collection names.
 

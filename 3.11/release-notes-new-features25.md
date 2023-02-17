@@ -9,7 +9,6 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 2.5. ArangoDB 2.5 also contains several bugfixes that are not listed
 here. For a list of bugfixes, please consult the [CHANGELOG](https://github.com/arangodb/arangodb/blob/devel/CHANGELOG){:target="_blank"}.
 
-
 V8 version upgrade
 ------------------
 
@@ -28,7 +27,6 @@ The following additional ES6 features become available in ArangoDB 2.5 by defaul
 * block scoping with `let` and constant variables using `const` (note: constant 
   variables require using strict mode, too)
 * additional string methods (such as `startsWith`, `repeat` etc.) 
-
 
 Index improvements
 ------------------
@@ -95,9 +93,11 @@ Sparse hash indexes cannot be used to find documents for which at least one of t
 attributes has a value of `null`. For example, the following AQL query cannot use a sparse 
 index, even if one was created on attribute `attr`:
 
-    FOR doc In collection 
-      FILTER doc.attr == null 
-      RETURN doc
+```aql
+FOR doc In collection 
+  FILTER doc.attr == null 
+  RETURN doc
+```
 
 If the lookup value is non-constant, a sparse index may or may not be used, depending on
 the other types of conditions in the query. If the optimizer can safely determine that
@@ -107,18 +107,21 @@ will not make use of a sparse index in a query in order to produce correct resul
 For example, the following queries cannot use a sparse index on `attr` because the optimizer
 will not know beforehand whether the comparison values for `doc.attr` will include `null`:
 
-    FOR doc In collection 
-      FILTER doc.attr == SOME_FUNCTION(...) 
-      RETURN doc
+```aql
+FOR doc In collection 
+  FILTER doc.attr == SOME_FUNCTION(...) 
+  RETURN doc
+```
 
-    FOR other IN otherCollection 
-      FOR doc In collection 
-        FILTER doc.attr == other.attr 
-        RETURN doc
+```aql
+FOR other IN otherCollection 
+  FOR doc In collection 
+    FILTER doc.attr == other.attr 
+    RETURN doc
+```
 
 Sparse skiplist indexes can be used for sorting if the optimizer can safely detect that the 
 index range does not include `null` for any of the index attributes. 
-
 
 ### Selectivity estimates
 
@@ -144,7 +147,6 @@ Currently the following index types can provide selectivity estimates:
 
 No selectivity estimates will be provided for indexes when running in cluster mode.
 
-
 AQL Optimizer improvements
 --------------------------
 
@@ -157,10 +159,12 @@ by the equality lookup conditions.
 For example, in the following query the extra sort on `doc.value` will be optimized away
 provided there is an index on `doc.value`):
 
-    FOR doc IN collection 
-      FILTER doc.value == 1 
-      SORT doc.value 
-      RETURN doc
+```aql
+FOR doc IN collection 
+  FILTER doc.value == 1 
+  SORT doc.value 
+  RETURN doc
+```
 
 The AQL optimizer rule "use-index-for-sort" now also removes sort in case the sort criteria
 excludes the left-most index attributes, but the left-most index attributes are used
@@ -169,11 +173,12 @@ by the index for equality-only lookups.
 For example, in the following query with a skiplist index on `value1`, `value2`, the sort can
 be optimized away:
 
-    FOR doc IN collection 
-      FILTER doc.value1 == 1 
-      SORT doc.value2 
-      RETURN doc
-
+```aql
+FOR doc IN collection 
+  FILTER doc.value1 == 1 
+  SORT doc.value2 
+  RETURN doc
+```
 
 ### Constant attribute propagation
 
@@ -185,12 +190,13 @@ values found in `FILTER`s, too.
 For example, the rule will insert `42` instead of `i.value` in the second `FILTER` of the 
 following query:
 
-    FOR i IN c1 
-      FOR j IN c2 
-        FILTER i.value == 42 
-        FILTER j.value == i.value 
-        RETURN 1
-
+```aql
+FOR i IN c1 
+  FOR j IN c2 
+    FILTER i.value == 42 
+    FILTER j.value == i.value 
+    RETURN 1
+```
 
 ### Interleaved processing
 
@@ -205,7 +211,6 @@ eligible for this optimization, and the optimizer will only apply the optimizati
 safely detect that the data-modification part of the query will not modify data to be found
 by the retrieval part.
 
-
 ### Query execution statistics
 
 The `filtered` attribute was added to AQL query execution statistics. The value of this
@@ -213,7 +218,6 @@ attribute indicates how many documents were filtered by `FilterNode`s in the AQL
 Note that `IndexRangeNode`s can also filter documents by selecting only the required ranges
 from the index. The `filtered` value will not include the work done by `IndexRangeNode`s, 
 but only the work performed by `FilterNode`s.
-
 
 Language improvements
 ---------------------
@@ -226,8 +230,10 @@ attribute names, dynamic attribute names need to be enclosed in brackets (`[` an
 
 Example:
 
-    FOR i IN 1..100
-      RETURN { [ CONCAT('value-of-', i) ] : i }
+```aql
+FOR i IN 1..100
+  RETURN { [ CONCAT('value-of-', i) ] : i }
+```
 
 ### AQL functions
 
@@ -311,4 +317,3 @@ messages to the database. This console also allows to read the error output of o
 ### Foxx requests
 We added `org/arangodb/request` module, which provides a simple API for making HTTP requests
 to external services. This is enables Foxx to be directly part of a micro service architecture.
-

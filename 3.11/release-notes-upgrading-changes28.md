@@ -8,7 +8,6 @@ Incompatible changes in ArangoDB 2.8
 It is recommended to check the following list of incompatible changes **before**
 upgrading to ArangoDB 2.8, and adjust any client programs if necessary.
 
-
 AQL
 ---
 
@@ -29,7 +28,7 @@ in AQL queries will not be possible without quoting. For example, the following
 AQL query will still work as it uses a quoted collection name and a quoted
 attribute name:
 
-```
+```aql
 FOR doc IN `OUTBOUND`
   RETURN doc.`any`
 ```
@@ -40,7 +39,6 @@ The AQL functions `NEAR` and `WITHIN` now have stricter validations
 for their input parameters `limit`, `radius` and `distance`. They may now throw
 exceptions when invalid parameters are passed that may have not led
 to exceptions in previous versions.
-
 
 Additionally, the expansion (`[*]`) operator in AQL has changed its behavior when
 handling non-array values:
@@ -63,35 +61,44 @@ explicitly or by using the `[*]` at the correct position.
 
 The following example query will change its result in 2.8 compared to 2.7:
 
-    LET values = "foo" RETURN values[*]    
+```aql
+LET values = "foo" RETURN values[*]    
+```
 
 In 2.7 the query has returned the array `[ "foo" ]`, but in 2.8 it will return an
 empty array `[ ]`. To make it return the array `[ "foo" ]` again, an explicit
 `TO_ARRAY` function call is needed in 2.8 (which in this case allows the removal
 of the `[*]` operator altogether). This also works in 2.7:
 
-    LET values = "foo" RETURN TO_ARRAY(values)
+```aql
+LET values = "foo" RETURN TO_ARRAY(values)
+```
 
 Another example:
 
-    LET values = [ { name: "foo" }, { name: "bar" } ]
-    RETURN values[*].name[*]
+```aql
+LET values = [ { name: "foo" }, { name: "bar" } ]
+RETURN values[*].name[*]
+```
 
 The above returned `[ [ "foo" ], [ "bar" ] ] in 2.7. In 2.8 it will return 
 `[ [ ], [ ] ]`, because the value of `name` is not an array. To change the results
 to the 2.7 style, the query can be changed to
 
-    LET values = [ { name: "foo" }, { name: "bar" } ]
-    RETURN values[* RETURN TO_ARRAY(CURRENT.name)]
+```aql
+LET values = [ { name: "foo" }, { name: "bar" } ]
+RETURN values[* RETURN TO_ARRAY(CURRENT.name)]
+```
 
 The above also works in 2.7. 
 The following types of queries won't change:
 
-    LET values = [ 1, 2, 3 ] RETURN values[*] 
-    LET values = [ { name: "foo" }, { name: "bar" } ] RETURN values[*].name
-    LET values = [ { names: [ "foo", "bar" ] }, { names: [ "baz" ] } ] RETURN values[*].names[*]
-    LET values = [ { names: [ "foo", "bar" ] }, { names: [ "baz" ] } ] RETURN values[*].names[**]
-
+```aql
+LET values = [ 1, 2, 3 ] RETURN values[*] 
+LET values = [ { name: "foo" }, { name: "bar" } ] RETURN values[*].name
+LET values = [ { names: [ "foo", "bar" ] }, { names: [ "baz" ] } ] RETURN values[*].names[*]
+LET values = [ { names: [ "foo", "bar" ] }, { names: [ "baz" ] } ] RETURN values[*].names[**]
+```
 
 ### Deadlock handling
 
@@ -102,7 +109,6 @@ failed.
 
 The error can only occur for AQL queries or user transactions that involve 
 more than a single collection.
-
 
 ### Optimizer
 
@@ -121,7 +127,6 @@ The query optimizer rule `remove-collect-into` was renamed to `remove-collect-va
 This affects explain output that can be retrieved via `require("org/arangodb/aql/explainer").explain(query)`,
 `db._explain(query)`, and the HTTP query explain API.
 
-
 HTTP API
 --------
 
@@ -135,7 +140,6 @@ which is the opposite of what is desired when a job should be canceled.
 
 Therefore ArangoDB will return HTTP status code 410 (gone) for canceled operations
 from version 2.8 on.
-
 
 Foxx
 ----
