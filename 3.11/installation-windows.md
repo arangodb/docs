@@ -12,6 +12,7 @@ You can install ArangoDB on Windows (64-bit) using different methods:
   - [attended](#installing-using-the-installer) (GUI)
   - [unattended](#unattended-installation-using-the-installer) (command line)
 - Manually, using a [ZIP archive](#installing-using-the-zip-archive)
+- Using a [Docker image](#docker)
 
 Visit the official [Download](https://www.arangodb.com/download){:target="_blank"}
 page of the ArangoDB web site.
@@ -23,6 +24,17 @@ or `certutil -hashfile <filename> sha256` in a terminal.
 {% hint 'info' %}
 Running production environments on Windows is not supported.
 {% endhint %}
+
+Docker
+------
+
+The recommended way of using ArangoDB on Windows is to use the
+[ArangoDB Docker images](https://www.arangodb.com/download-major/docker/){:target="_blank"}
+with, for instance, [Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}.
+
+See the documentation on [Docker Hub](https://hub.docker.com/_/arangodb){:target="_blank"},
+as well as the [Deployments](architecture-deployment-modes.html) section about
+different deployment modes and methods including Docker containers.
 
 Installing using the Installer
 ------------------------------
