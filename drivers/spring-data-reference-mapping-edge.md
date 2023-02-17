@@ -23,9 +23,9 @@ Spring Data ArangoDB supports the use of SpEL expressions within `@Edge#value`. 
 @Component
 public class TenantProvider {
 
-	public String getId() {
-		// threadlocal lookup
-	}
+  public String getId() {
+    // threadlocal lookup
+  }
 
 }
 ```
