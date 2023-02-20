@@ -155,7 +155,7 @@ To just load document data into existing non-system collections, use:
 arangorestore --create-collection false --import-data true --input-directory "dump"
 ```
 
-To restrict reloading to just specific collections, there is is the `--collection` option.
+To restrict reloading to just specific collections, use the `--collection` option.
 It can be specified multiple times if required:
 
 ```

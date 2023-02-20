@@ -110,8 +110,8 @@ Other possible values for `--on-duplicate` are:
   The values of system attributes `_id`, `_key`, and `_rev` cannot be
   updated or replaced in existing documents.
 
-- `replace`: each document present in the import file that is also present in the target
-  collection already is replace by arangoimport. `replace` replaces the existing
+- `replace`: each document present in the import file that is already present in the
+  target collection is replaced by arangoimport. `replace` replaces the existing
   document entirely, resulting in a document with only the attributes specified in the import
   file.
 
@@ -129,7 +129,7 @@ When set to another value, `ignored` is always zero.
 
 It is possible to perform a combination of inserts and updates/replaces with a single
 arangoimport run. When `--on-duplicate` is set to `update` or `replace`, all documents present
-in the import file is inserted into the target collection provided they are valid
+in the import file are inserted into the target collection provided they are valid
 and do not already exist with the specified `_key`. Documents that are already present
 in the target collection (identified by `_key` attribute) are instead updated/replaced.
 

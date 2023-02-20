@@ -115,7 +115,7 @@ If we need a user to read in LDAP here is the example for it:
 --ldap.bindpasswd=supersecretpassword
 ```
 
-The connection is identical but the searches is executed with the
+The connection is identical but the searches are executed with the
 given distinguished name in `binddn`.
 
 Note here:

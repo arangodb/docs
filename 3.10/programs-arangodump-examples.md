@@ -96,7 +96,7 @@ collections), use:
 arangodump --dump-data false --include-system-collections true --output-directory "dump"
 ```
 
-To restrict the dump to just specific collections, there is is the `--collection` option.
+To restrict the dump to just specific collections, use the `--collection` option.
 It can be specified multiple times if required:
 
 ```

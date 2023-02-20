@@ -370,7 +370,7 @@ assertEqual(queue.complete(logScript).length, 1);
 
 Returns an array of job ids of jobs in the given queue with the status
 `"progress"`, optionally filtered by the given job type.
-The jobs is looked up in the specified queue in the current database.
+The jobs are looked up in the specified queue in the current database.
 
 **Arguments**
 
@@ -392,7 +392,7 @@ The jobs is looked up in the specified queue in the current database.
 
 Returns an array of job ids of jobs in the given queue with the status
 `"complete"`, optionally filtered by the given job type.
-The jobs is looked up in the specified queue in the current database.
+The jobs are looked up in the specified queue in the current database.
 
 **Arguments**
 
@@ -414,7 +414,7 @@ The jobs is looked up in the specified queue in the current database.
 
 Returns an array of job ids of jobs in the given queue with the status
 `"failed"`, optionally filtered by the given job type.
-The jobs is looked up in the specified queue in the current database.
+The jobs are looked up in the specified queue in the current database.
 
 **Arguments**
 
@@ -436,7 +436,7 @@ The jobs is looked up in the specified queue in the current database.
 
 Returns an array of job ids of all jobs in the given queue,
 optionally filtered by the given job type.
-The jobs is looked up in the specified queue in the current database.
+The jobs are looked up in the specified queue in the current database.
 
 **Arguments**
 
