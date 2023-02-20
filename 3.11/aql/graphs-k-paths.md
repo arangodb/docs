@@ -130,7 +130,7 @@ FOR path
   - **max** (number, *optional*): paths returned by this query will
     have at most a length of *max* many edges.
     If omitted, *max* defaults to *min*. Thus only the vertices and edges in
-    the range of *min* are returned. *max* can not be specified without *min*.
+    the range of *min* are returned. *max* cannot be specified without *min*.
 - `OUTBOUND|INBOUND|ANY`: defines in which direction
   edges are followed (outgoing, incoming, or both)
 - `K_PATHS`: the keyword to compute all Paths

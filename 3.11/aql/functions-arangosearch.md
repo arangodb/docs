@@ -139,7 +139,7 @@ FOR doc IN viewName
   RETURN doc
 ```
 
-Despite the wrapping `ANALYZER()` function, the Analyzer name can not be
+Despite the wrapping `ANALYZER()` function, the Analyzer name cannot be
 omitted in calls to the `TOKENS()` function. Both occurrences of `text_en`
 are required, to set the Analyzer for the expression `doc.text IN ...` and
 for the `TOKENS()` function itself. This is because the `TOKENS()` function

@@ -95,7 +95,7 @@ Execution plan:
   5   ReturnNode             1       - RETURN doc
 ```
 
-Note that the `primarySort` option is immutable: it can not be changed after
+Note that the `primarySort` option is immutable: it cannot be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 

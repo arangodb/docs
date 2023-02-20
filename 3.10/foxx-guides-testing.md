@@ -10,7 +10,7 @@ installed service using an API similar to
 the [Mocha test runner](https://mochajs.org){:target="_blank"}.
 
 Test files have full access to the [service context](foxx-reference-context.html)
-and all ArangoDB APIs but can not define Foxx routes.
+and all ArangoDB APIs but cannot define Foxx routes.
 
 Test files can be specified in the [service manifest](foxx-reference-manifest.html)
 using either explicit paths of each individual file or patterns that can

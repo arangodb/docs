@@ -297,7 +297,7 @@ Creates a proxy object representing a job with the given job id.
 The job is looked up in the specified queue in the current database.
 
 Returns the job for the given jobId. Properties of the job object are
-fetched whenever they are referenced and can not be modified.
+fetched whenever they are referenced and cannot be modified.
 
 **Arguments**
 

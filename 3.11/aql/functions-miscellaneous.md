@@ -613,7 +613,7 @@ to `false`, then nothing will match. If *low* is greater than *high* nothing wil
 match either.
 
 {% hint 'info' %}
-The regular `IN_RANGE()` function can not utilize indexes, unlike its
+The regular `IN_RANGE()` function cannot utilize indexes, unlike its
 ArangoSearch counterpart which can use the View index.
 {% endhint %}
 

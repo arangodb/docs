@@ -45,7 +45,7 @@ Usage
 -----
 
 The `SEARCH` statement, in contrast to `FILTER`, is treated as a part of the
-`FOR` operation, not as an individual statement. It can not be placed freely
+`FOR` operation, not as an individual statement. It cannot be placed freely
 in a query nor multiple times in the body of a `FOR` loop. `FOR ... IN` must be
 followed by the name of a View, not a collection. The `SEARCH` operation has to
 follow next, other operations before `SEARCH` such as `FILTER`, `COLLECT` etc.

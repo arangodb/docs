@@ -258,7 +258,7 @@ FOR d IN myView
 ```aql
 // Given primarySort contains fields "foo" and "bar", and "bar" is not the
 // first field or at least not sorted by in descending order, i.e. the sort
-// optimization can not be applied but the late document materialization instead
+// optimization cannot be applied but the late document materialization instead
 FOR d IN myView
   SEARCH d.foo == "someValue"
   SORT d.bar DESC    // field "bar" will be read from the View

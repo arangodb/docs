@@ -507,7 +507,7 @@ example as parameter for vertexExample.
     If an edge does not have the attribute named as defined in option `weight` this default
     is used as weight.
     If no default is supplied the default would be positive infinity so the path and
-    hence the eccentricity can not be calculated.
+    hence the eccentricity cannot be calculated.
 
 **Examples**
 
@@ -623,7 +623,7 @@ example as parameter for `vertexExample`.
     If an edge does not have the attribute named as defined in option `weight` this default
     is used as weight.
     If no default is supplied the default would be positive infinity so the path and
-    hence the closeness can not be calculated.
+    hence the closeness cannot be calculated.
 
 **Examples**
 
@@ -746,7 +746,7 @@ of all vertices in the graph.
     If an edge does not have the attribute named as defined in option `weight` this default
     is used as weight.
     If no default is supplied the default would be positive infinity so the path and
-    hence the betweenness can not be calculated.
+    hence the betweenness cannot be calculated.
 
 **Examples**
 
@@ -865,7 +865,7 @@ of a graph.
     If an edge does not have the attribute named as defined in option `weight` this default
     is used as weight.
     If no default is supplied the default would be positive infinity so the path and
-    hence the radius can not be calculated.
+    hence the radius cannot be calculated.
 
 **Examples**
 
@@ -929,7 +929,7 @@ of a graph.
     If an edge does not have the attribute named as defined in option `weight` this default
     is used as weight.
     If no default is supplied the default would be positive infinity so the path and
-    hence the radius can not be calculated.
+    hence the radius cannot be calculated.
 
 **Examples**
 

@@ -315,7 +315,7 @@ final value `myDB4`.
 
 ## Change configuration at runtime
 
-In general, supplied startup options can not be changed nor can configuration
+In general, supplied startup options cannot be changed nor can configuration
 files be reloaded once an executable is started, other than by restarting the
 executable with different options. However, some of the startup options
 define default values which can be overridden on a per-query basis for

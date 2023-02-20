@@ -172,7 +172,7 @@ Returns the JSON Web Token.
 * **noVerify**: `boolean` (Default: `false`)
 
   Whether verification should be skipped. If this is set to `true` the signature of the token will not be verified.
-  Otherwise the function will raise an error if the signature can not be verified using the given key.
+  Otherwise the function will raise an error if the signature cannot be verified using the given key.
 
 Returns the decoded JSON message or `null` if no token is provided.
 

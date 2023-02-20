@@ -231,7 +231,7 @@ Compression
 `--compress-output`
 
 Data can optionally be dumped in a compressed format to save space on disk.
-The `--compress-output` option can not be used together with [Encryption](#encryption).
+The `--compress-output` option cannot be used together with [Encryption](#encryption).
 
 If compression is enabled, no `.data.json` files are written. Instead, the
 collection data gets compressed using the Gzip algorithm and for each collection
