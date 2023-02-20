@@ -60,7 +60,7 @@ to sort by. This leads to an undefined order when sorting equal documents.
 
 To achieve stable pagination, you must meet the following requirements: 
 - the dataset should not be changed
-- the `SORT` operation must have at least one field with an unique to sort by
+- the `SORT` operation must have at least one field with an unique value to sort by
 
 When stable sort is required, you can use a tiebreaker field. If the application
 has a preferred field that indicates the order of documents with the same score,
