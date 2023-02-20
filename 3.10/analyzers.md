@@ -1077,7 +1077,7 @@ attributes:
 - `analyzer` (object, _required_): an Analyzer definition-like objects with
   `type` and `properties` attributes
 - `numHashes` (number, _required_): the size of the MinHash signature. Must be
-  greater or equal to `1`. The signature size defines the probalistic error
+  greater or equal to `1`. The signature size defines the probabilistic error
   (`err = rsqrt(numHashes)`). For an error amount that does not exceed 5%
   (`0.05`), use a size of `1 / (0.05 * 0.05) = 400`.
 

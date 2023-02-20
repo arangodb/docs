@@ -146,7 +146,7 @@ Memory management
   that have been there already. Performance may therefore suffer a bit for the
   initial requests sent to ArangoDB or when there are only few but performance-
   critical situations in which new V8 contexts need to be created. If this is a
-  concern, it can easily be fixed by setting `--javascipt.v8-contexts-minimum`
+  concern, it can easily be fixed by setting `--javascript.v8-contexts-minimum`
   and `--javascript.v8-contexts` to a relatively high value, which will guarantee
   that many number of V8 contexts to be created at startup and kept around even
   when unused.
@@ -289,7 +289,7 @@ AQL
   When set to *true*, this will make an AQL query throw an exception and
   abort in case a warning occurs. This option should be used in development to catch
   errors early. If set to *false*, warnings will not be propagated to exceptions and
-  will be returned with the query results. The startup option can also be overriden
+  will be returned with the query results. The startup option can also be overridden
   on a per query-level.
 
 * the slow query list now contains the values of bind variables used in the

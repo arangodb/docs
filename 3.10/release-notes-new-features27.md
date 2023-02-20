@@ -339,36 +339,36 @@ variables and expressions can be used easily using regular ES6 template string
 substitutions:
 
 ```js
-    let name = 'test';
-    let attributeName = '_key';
+let name = 'test';
+let attributeName = '_key';
 
-    let query = aqlQuery`FOR u IN users 
-      FILTER u.name == ${name} 
-      RETURN u.${attributeName}`;
-    db._query(query);
+let query = aqlQuery`FOR u IN users 
+  FILTER u.name == ${name} 
+  RETURN u.${attributeName}`;
+db._query(query);
 ```
 
 This is more legible than when using a plain JavaScript string and also does
 not require defining the bind parameter values separately:
 
 ```js
-    let name = 'test';
-    let attributeName = '_key';
+let name = 'test';
+let attributeName = '_key';
 
-    let query = "FOR u IN users " +
-      "FILTER u.name == @name " + 
-      "RETURN u.@attributeName";
-    db._query(query, { 
-      name, 
-      attributeName 
-    });
+let query = "FOR u IN users " +
+  "FILTER u.name == @name " + 
+  "RETURN u.@attributeName";
+db._query(query, { 
+  name, 
+  attributeName 
+});
 ```
 
 The `aqlQuery` template string generator will also handle collection objects
 automatically:
 
 ```js
-    db._query(aqlQuery`FOR u IN ${ db.users } RETURN u.name`);
+db._query(aqlQuery`FOR u IN ${ db.users } RETURN u.name`);
 ```
 
 Note that while template strings are available in the JavaScript functions provided
@@ -377,7 +377,6 @@ multiline query strings and provided bind parameters (`@...`) for separating
 the query string and the parameter values. The `aqlQuery` template string
 generator function will take care of this separation, too, but will do it
 *behind the scenes*.
-
 
 ### AQL query result cache
 
@@ -406,7 +405,6 @@ complex.
 If the query cache is operated in `demand` mode, it can be controlled per query
 if the cache should be checked for a result.
 
-
 ### Miscellaneous AQL changes
 
 ### Optimizer
@@ -418,9 +416,9 @@ that they also iterate over.
 For example, the following query reads documents from a collection in order
 to update them:
 
-```
-    FOR doc IN collection
-      UPDATE doc WITH { newValue: doc.oldValue + 1 } IN collection
+```aql
+FOR doc IN collection
+  UPDATE doc WITH { newValue: doc.oldValue + 1 } IN collection
 ```
 
 In this case, only a single collection is affected by the query, and there is
@@ -436,7 +434,6 @@ not being copied but being passed by reference. This may speed up calls to
 functions with bigger argument values or queries that call AQL functions a lot 
 of times.
 
-
 Web Admin Interface
 -------------------
   
@@ -446,7 +443,6 @@ The "Applications" tab in the web interfaces has been renamed to "Services".
 
 The ArangoDB API documentation has been moved from the "Tools" menu to the "Links" menu. 
 The new documentation is based on Swagger 2.0 and opens in a separate web page.
-
 
 Foxx improvements
 -----------------
@@ -514,7 +510,6 @@ The syntax for specifying dependencies in manifests has been extended to allow s
 }
 ```
 
-
 Replication
 -----------
 
@@ -534,7 +529,6 @@ Finally, restarting the replication applier on a slave server has been made more
 robust in case the applier was stopped while there were pending transactions on 
 the master server, and re-starting the replication applier needs to restore the
 state of these transactions.
-
 
 Client tools
 ------------
@@ -556,7 +550,6 @@ second collection would have overwritten the files of the first. arangodump in
 value to the collection name in all case. These filenames will be unambiguous 
 even in case-insensitive filesystems.
 
-
 Miscellaneous changes
 ---------------------
 
@@ -572,7 +565,6 @@ objects which span multiple input lines.
 CTRL-C support has been added to the ArangoShell versions built with Readline-support 
 (Linux and macOS only). The Windows version of ArangoDB uses a different library for 
 handling input, and support for CTRL-C has not been added there yet. 
-
 
 ### Start / stop
 
@@ -595,7 +587,6 @@ the main program will still return with exit code 0 in order to not block any
 scripts. The limit of 10 seconds is arbitrary because the time required for an 
 arangod startup is not known in advance.
 
-
 ### Non-sparse logfiles
 
 WAL logfiles and datafiles created by arangod are now non-sparse. This prevents 
@@ -606,4 +597,3 @@ because the disk ran out of space.
 arangod now always fully allocates the disk space required for a logfile or datafile
 when it creates one, so the memory region can always be backed by disk, and memory
 can be accessed without SIGBUS being raised.
-

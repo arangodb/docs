@@ -869,7 +869,7 @@ query results cache, there now exist the following extra options:
   that involve system collections should be stored in the query results cache
 
 These options allow more effective control of the amount of memory used by the
-query results cache, and can be used to better utilitize the cache memory.
+query results cache, and can be used to better utilize the cache memory.
 
 The cache configuration can be changed at runtime using the `properties` function
 of the cache. For example, to limit the per-database number of cache entries to
@@ -958,7 +958,7 @@ Depending on the storage engine used this has different consequences:
   was started. Writing however will happen during working with the cursor.
   Thus be prepared for possible conflicts if you have other writes on the collections,
   and probably overrule them by `ignoreErrors: True`, else the query
-  will abort by the time the conflict happenes.
+  will abort by the time the conflict happens.
 
 Taking into account the above consequences, you shouldn't use streaming
 cursors light-minded for data modification queries.

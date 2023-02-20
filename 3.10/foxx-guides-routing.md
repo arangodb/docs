@@ -1,6 +1,6 @@
 ---
 layout: default
-description: In Foxx routers are used to definethe URLs of your API
+description: In Foxx routers are used to define the URLs of your API
 ---
 Working with routers
 ====================

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The ArangoDB server (arangod) comes with a built-in web interface foradministration
+description: The ArangoDB server (arangod) comes with a built-in web interface for administration
 ---
 Web Interface
 =============

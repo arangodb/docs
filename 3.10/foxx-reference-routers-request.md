@@ -38,13 +38,13 @@ The request object specifies the following properties:
 * **baseUrl**: `string`
 
   Root-relative base URL of the service, i.e. the prefix `"/_db/"` followed
-  by the value of *database*.
+  by the value of `database`.
 
 * **body**: `any`
 
   The processed and validated request body for the current route.
-  If no body has been defined for the current route, the value will be
-  identical to *rawBody*.
+  If no body has been defined for the current route, the value is
+  identical to `rawBody`.
 
   For details on how request bodies can be processed and validated by Foxx
   see the [body method of the endpoint object](foxx-reference-routers-endpoints.html#body).
@@ -78,7 +78,7 @@ The request object specifies the following properties:
 
 * **originalUrl**: `string`
 
-  Root-relative URL of the request, i.e. *path* followed by the raw query
+  Root-relative URL of the request, i.e. `path` followed by the raw query
   parameters, if any.
 
 * **path**: `string`
@@ -99,10 +99,10 @@ The request object specifies the following properties:
 
   Defaults to the port portion (i.e. excluding the hostname) of the `Host`
   header and falls back to the listening port or the appropriate default
-  port (`443` for HTTPS or `80` for HTTP, depending on *secure*) if the
+  port (`443` for HTTPS or `80` for HTTP, depending on `secure`) if the
   header only indicates a hostname.
 
-  If the request was made using a trusted proxy (see *trustProxy*),
+  If the request was made using a trusted proxy (see `trustProxy`),
   this is set to the port portion of the `X-Forwarded-Host` header
   (or appropriate default port) if present.
 
@@ -113,7 +113,7 @@ The request object specifies the following properties:
   Defaults to `"https"` or `"http"` depending on whether ArangoDB is
   configured to use SSL or not.
 
-  If the request was made using a trusted proxy (see *trustProxy*),
+  If the request was made using a trusted proxy (see `trustProxy`),
   this is set to the value of the `X-Forwarded-Proto` header if present.
 
 * **queryParams**: `object`
@@ -132,39 +132,39 @@ The request object specifies the following properties:
 
   The IP of the client that made the request.
 
-  If the request was made using a trusted proxy (see *trustProxy*),
+  If the request was made using a trusted proxy (see `trustProxy`),
   this is set to the first IP listed in the `X-Forwarded-For` header if present.
 
 * **remoteAddresses**: `Array<string>`
 
   A list containing the IP addresses used to make the request.
 
-  Defaults to the value of *remoteAddress* wrapped in an array.
+  Defaults to the value of `remoteAddress` wrapped in an array.
 
-  If the request was made using a trusted proxy (see *trustProxy*),
+  If the request was made using a trusted proxy (see `trustProxy`),
   this is set to the list of IPs specified in the `X-Forwarded-For` header if present.
 
 * **remotePort**: `number`
 
   The listening port of the client that made the request.
 
-  If the request was made using a trusted proxy (see *trustProxy*),
+  If the request was made using a trusted proxy (see `trustProxy`),
   this is set to the port specified in the `X-Forwarded-Port` header if present.
 
 * **secure**: `boolean`
 
   Whether the request was made over a secure connection (i.e. HTTPS).
 
-  This is set to `false` when *protocol* is `"http"` and `true` when
-  *protocol* is `"https"`.
+  This is set to `false` when `protocol` is `"http"` and `true` when
+  `protocol` is `"https"`.
 
 * **suffix**: `string`
 
   The trailing path relative to the current route if the current route ends
   in a wildcard (e.g. `/something/*`).
 
-  **Note**: Starting with ArangoDB 3.2 is passed into the service as-is, i.e.
-  percentage escape sequences like `%2F` will no longer be unescaped.
+  **Note**: The value is passed into the service as-is, i.e.
+  percentage escape sequences like `%2F` are not unescaped.
   Also note that the suffix may contain path segments like `..` which may have
   special meaning if the suffix is used to build filesystem paths.
 
@@ -173,7 +173,7 @@ The request object specifies the following properties:
   Indicates whether the request was made using a trusted proxy.
   If the origin server's address was specified in the ArangoDB configuration
   using `--web interface.trusted-proxy` or the service's `trustProxy` setting is
-  enabled, this will be `true`, otherwise it will be `false`.
+  enabled, this is `true`, otherwise it is `false`.
 
 * **url**: `string`
 
@@ -247,14 +247,14 @@ Gets the value of a cookie by name.
 
     If a secret is specified, the cookie's signature is expected to be present
     in a second cookie with the same name and the suffix `.sig`.
-    Otherwise the signature (if present) will be ignored.
+    Otherwise, the signature (if present) is ignored.
 
   * **algorithm**: `string` (Default: `"sha256"`)
 
     Algorithm that was used to sign the cookie.
 
-If a string is passed instead of an options object it will be interpreted as
-the *secret* option.
+If a string is passed instead of an options object, it is interpreted as
+the `secret` option.
 
 Returns the value of the cookie or `null` if the cookie is not set or its
 signature is invalid.
@@ -326,7 +326,7 @@ to a full URL.
 
 * **path**: `string`
 
-  The path to resovle.
+  The path to resolve.
 
 * **query**: `string | object`
 
@@ -365,14 +365,14 @@ This method wraps the range header parsing method of the
 * **size**: `number` (Default: `Infinity`)
 
   Length of the satisfiable range (e.g. number of bytes in the full response).
-  If present, ranges exceeding the size will be considered unsatisfiable.
+  If present, ranges exceeding the size are considered unsatisfiable.
 
 Returns `undefined` if the `Range` header is absent, `-2` if the header is
 present but malformed, `-1` if the range is invalid (e.g. start offset is
 larger than end offset) or unsatisfiable for the given size.
 
-Otherwise returns an array of objects with the properties *start* and *end*
-values for each range. The array has an additional property *type* indicating
+Otherwise returns an array of objects with the properties `start` and `end`
+values for each range. The array has an additional property `type` indicating
 the request range type.
 
 **Examples**

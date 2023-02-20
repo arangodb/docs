@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Foxx provides out of the box support for running tests against aninstalled service using an API similar tothe Mocha test runner
+description: Foxx provides out of the box support for running tests against an installed service using an API similar to the Mocha test runner
 ---
 Testing Foxx services
 =====================

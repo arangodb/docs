@@ -257,7 +257,7 @@ Until 2.4 Foxx apps were stored in the following folder structure:
 This caused some trouble as apps where cached based on name and version and updates did not apply.
 Also the path on filesystem and the app's access URL had no relation to one another.
 Now the path on filesystem is identical to the URL (except the appended APP):
-`<app-path>/_db/<dbname>/<mointpoint>/APP`
+`<app-path>/_db/<dbname>/<mountpoint>/APP`
 
 ### Rewrite of Foxx routing
 

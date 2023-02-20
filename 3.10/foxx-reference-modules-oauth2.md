@@ -143,72 +143,72 @@ Returns an OAuth 2.0 client for the given provider.
 
 If you want to use Facebook as the OAuth 2.0 provider, use the following options:
 
-* *authEndpoint*: `https://www.facebook.com/dialog/oauth`
-* *tokenEndpoint*: `https://graph.facebook.com/oauth/access_token`
-* *activeUserEndpoint*: `https://graph.facebook.com/v2.0/me`
+- `authEndpoint`: `https://www.facebook.com/dialog/oauth`
+- `tokenEndpoint`: `https://graph.facebook.com/oauth/access_token`
+- `activeUserEndpoint`: `https://graph.facebook.com/v2.0/me`
 
 You also need to obtain a client ID and client secret from Facebook:
 
 1. Create a regular account at [Facebook](https://www.facebook.com){:target="_blank"} or use an
    existing account you own.
 2. Visit the [Facebook Developers](https://developers.facebook.com){:target="_blank"} page.
-3. Click on *Apps* in the menu, then select *Register as a Developer*
+3. Click on **Apps** in the menu, then select **Register as a Developer**
    (the only option) and follow the instructions provided. You may need to
    verify your account by phone.
-4. Click on *Apps* in the menu, then select *Create a New App* and follow
+4. Click on **Apps** in the menu, then select **Create a New App** and follow
    the instructions provided.
-5. Open the app dashboard, then note down the *App ID* and *App Secret*.
+5. Open the app dashboard, then note down the **App ID** and **App Secret**.
    The secret may be hidden by default.
-6. Click on *Settings*, then *Advanced* and enter one or more
-   *Valid OAuth redirect URIs*. At least one of them must match your
-   *redirect_uri* later. Don't forget to save your changes.
-7. Set the option *clientId* to the *App ID* and the option *clientSecret*
-   to the *App Secret*.
+6. Click on **Settings**, then **Advanced** and enter one or more
+   **Valid OAuth redirect URIs**. At least one of them must match your
+   `redirect_uri` later. Don't forget to save your changes.
+7. Set the `clientId` option to the **App ID** and the `clientSecret` option
+   to the **App Secret**.
 
 ### Setting up OAuth 2.0 for GitHub
 
 If you want to use GitHub as the OAuth 2.0 provider, use the following options:
 
-* *authEndpoint*: `https://github.com/login/oauth/authorize?scope=user`
-* *tokenEndpoint*: `https://github.com/login/oauth/access_token`
-* *activeUserEndpoint*: `https://api.github.com/user`
+- `authEndpoint`: `https://github.com/login/oauth/authorize?scope=user`
+- `tokenEndpoint`: `https://github.com/login/oauth/access_token`
+- `activeUserEndpoint`: `https://api.github.com/user`
 
 You also need to obtain a client ID and client secret from GitHub:
 
 1. Create a regular account at [GitHub](https://github.com){:target="_blank"} or use an
    existing account you own.
-2. Go to [Account Settings > Applications > Register new application](https://github.com/settings/applications/new){:target="_blank"}.
-3. Provide an *authorization callback URL*. This must match your
+2. Go to [**Account Settings > Applications > Register new application**](https://github.com/settings/applications/new){:target="_blank"}.
+3. Provide an **authorization callback URL**. This must match your
    *redirect_uri* later.
 4. Fill in the other required details and follow the instructions provided.
-5. Open the application page, then note down the *Client ID* and *Client Secret*.
-6. Set the option *clientId* to the *Client ID* and the option *clientSecret*
-   to the *Client Secret*.
+5. Open the application page, then note down the **Client ID** and **Client Secret**.
+6. Set the `clientId` option to the **Client ID** and the option `clientSecret`
+   to the **Client Secret**.
 
 ### Setting up OAuth 2.0 for Google
 
 If you want to use Google as the OAuth 2.0 provider, use the following options:
 
-* *authEndpoint*: `https://accounts.google.com/o/oauth2/auth?access_type=offline&scope=profile`
-* *tokenEndpoint*: `https://accounts.google.com/o/oauth2/token`
-* *activeUserEndpoint*: `https://www.googleapis.com/plus/v1/people/me`
+- `*authEndpoint`: `https://accounts.google.com/o/oauth2/auth?access_type=offline&scope=profile`
+- `*tokenEndpoint`: `https://accounts.google.com/o/oauth2/token`
+- `*activeUserEndpoint`: `https://www.googleapis.com/plus/v1/people/me`
 
 You also need to obtain a client ID and client secret from Google:
 
 1. Create a regular account at [Google](https://www.google.com){:target="_blank"} or use an
    existing account you own.
 2. Visit the [Google Developers Console](https://console.developers.google.com){:target="_blank"}.
-3. Click on *Create Project*, then follow the instructions provided.
+3. Click on **Create Project**, then follow the instructions provided.
 4. When your project is ready, open the project dashboard, then click on
-   *Enable an API*.
-5. Enable the *Google+ API* to allow your app to distinguish between different users.
-6. Open the *Credentials* page and click *Create new Client ID*, then follow
-   the instructions provided. At least one *Authorized Redirect URI* must match
-   your *redirect_uri* later. At least one *Authorized JavaScript Origin* must
+   **Enable an API**.
+5. Enable the **Google+ API** to allow your app to distinguish between different users.
+6. Open the **Credentials** page and click **Create new Client ID**, then follow
+   the instructions provided. At least one **Authorized Redirect URI** must match
+   your `redirect_uri` later. At least one **Authorized JavaScript Origin** must
    match your app's fully-qualified domain.
-7. When the Client ID is ready, note down the *Client ID* and *Client secret*.
-8. Set the option *clientId* to the *Client ID* and the option *clientSecret*
-   to the *Client secret*.
+7. When the Client ID is ready, note down the **Client ID** and **Client secret**.
+8. Set the `clientId` option to the **Client ID** and the `clientSecret` option
+   to the **Client secret**.
 
 Get the authorization URL
 -------------------------
@@ -232,8 +232,8 @@ Generates the authorization URL for the authorization endpoint.
   See [RFC 6749](http://tools.ietf.org/html/rfc6749){:target="_blank"}.
 
 Returns a fully-qualified URL for the authorization endpoint of the provider
-by appending the client ID and any additional arguments from *args* to the
-*authEndpoint*.
+by appending the client ID and any additional arguments from `args` to the
+`authEndpoint`.
 
 Exchange a grant code for an access token
 -----------------------------------------
@@ -242,7 +242,7 @@ Exchange a grant code for an access token
 
 Exchanges a grant code for an access token.
 
-Performs a *POST* response to the *tokenEndpoint*.
+Performs a `POST` response to the `tokenEndpoint`.
 
 Throws an exception if the remote server responds with an empty response body.
 
@@ -273,17 +273,17 @@ Fetch the active user
 
 Fetches details of the active user.
 
-Performs a *GET* response to the *activeUserEndpoint*.
+Performs a `GET` response to the `activeUserEndpoint`.
 
 Throws an exception if the remote server responds with an empty response body.
 
-Returns `null` if the *activeUserEndpoint* is not configured.
+Returns `null` if the `activeUserEndpoint` is not configured.
 
 **Arguments**
 
 * **access_token**: `string`
 
-  An OAuth 2.0 access token as returned by *exchangeGrantToken*.
+  An OAuth 2.0 access token as returned by `exchangeGrantToken`.
 
 Returns the parsed response object.
 

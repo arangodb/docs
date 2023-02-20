@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This section describes how to start an ArangoDB stand-alone instance by manuallystarting the needed process
+description: This section describes how to start an ArangoDB stand-alone instance by manually starting the needed process
 ---
 Starting Manually
 =================

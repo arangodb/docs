@@ -153,7 +153,7 @@ FOR doc IN collection
   RETURN doc
 ```
 
-It will not be applied for the followig queries, because the right-hand side operand of the
+It will not be applied for the following queries, because the right-hand side operand of the
 `IN` is either not a variable, or because the FILTER condition may have side effects:
 
 ```aql
@@ -264,7 +264,7 @@ have been backported to ArangoDB 2.7 as well):
   These parameters can be used to control the minimum and maximum wait time the
   slave will (intentionally) idle and not poll for master log changes in case the 
   master had sent the full logs already.
-  The `idleMaxWaitTime` value will only be used when `adapativePolling` is set
+  The `idleMaxWaitTime` value will only be used when `adaptivePolling` is set
   to `true`. When `adaptivePolling` is disabled, only `idleMinWaitTime` will be
   used as a constant time span in which the slave will not poll the master for
   further changes. The default values are 0.5 seconds for `idleMinWaitTime` and
@@ -289,7 +289,7 @@ have been backported to ArangoDB 2.7 as well):
   the regular replication status check APIs.
 
 * added `async` attribute for `sync` and `syncCollection` operations called from
-  the ArangoShell. Setthing this attribute to `true` will make the synchronization 
+  the ArangoShell. Setting this attribute to `true` will make the synchronization 
   job on the server go into the background, so that the shell does not block. The
   status of the started asynchronous synchronization job can be queried from the 
   ArangoShell like this:
@@ -335,7 +335,7 @@ The following improvements have been made for the web admin interface:
   for debugging compaction issues.
 
 * unloading a collection via the web interface will now trigger garbage collection
-  in all v8 contexts and force a WAL flush. This increases the chances of perfoming
+  in all v8 contexts and force a WAL flush. This increases the chances of performing
   the unload faster.
 
 * the status terminology for collections for which an unload request has been issued 

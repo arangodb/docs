@@ -84,18 +84,18 @@ Get all neighbors of the vertices defined by the example.
 
 The function accepts an id, an example, a list of examples or even an empty
 example as parameter for vertexExample.
-The complexity of this method is **O(n\*m^x)** with *n* being the vertices defined by the
-parameter vertexExamplex, *m* the average amount of neighbors and *x* the maximal depths.
-Hence the default call would have a complexity of **O(n\*m)**;
+The complexity of this method is `O(n * m^x)` with `n` being the vertices defined by the
+`vertexExample` parameter, the average amount of neighbors `m`, and the maximal depths `x`.
+Hence, the default call has a complexity of `O(n * m)`;
 
 - `vertexExample` (optional): See [Definition of examples](#definition-of-examples)
 - `options` (optional): An object defining further options. Can have the following values:
   - `direction`: The direction of the edges. Possible values are `"outbound"`, `"inbound"`, and `"any"` (default).
   - `edgeExamples`: Filter the edges, see [Definition of examples](#definition-of-examples)
   - `neighborExamples`: Filter the neighbor vertices, see [Definition of examples](#definition-of-examples)
-  - `edgeCollectionRestriction` : One or a list of edge-collection names that should be
+  - `edgeCollectionRestriction`: One or a list of edge-collection names that should be
     considered to be on the path.
-  - `vertexCollectionRestriction` : One or a list of vertex-collection names that should be
+  - `vertexCollectionRestriction`: One or a list of vertex-collection names that should be
     considered on the intermediate vertex steps.
   - `minDepth`: Defines the minimal number of intermediate steps to neighbors (default is 1).
   - `maxDepth`: Defines the maximal number of intermediate steps to neighbors (default is 1).

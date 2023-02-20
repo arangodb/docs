@@ -31,9 +31,9 @@ following attribute naming constraints are not violated:
   Overall it might be better to use attribute names which don't require any 
   quoting/escaping in all languages used. This includes languages used by the 
   client (e.g. Ruby, PHP) if the attributes are mapped to object members there.
-* Attribute names starting with an at-mark (`@`) need to be enclosed in
+* Attribute names starting with an at sign (`@`) need to be enclosed in
   backticks when used in an AQL query to tell them apart from bind variables.
-  Therefore, we do not encourage the use of attributes starting with at-marks,
+  Therefore, we do not encourage the use of attributes starting with at sign,
   even though they work when used properly.
 * ArangoDB does not enforce a length limit for attribute names. However, long
   attribute names may use more memory in result sets etc. Therefore the use

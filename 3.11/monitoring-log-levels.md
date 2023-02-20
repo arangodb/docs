@@ -1,6 +1,6 @@
 ---
 layout: default
-description: In this section we define and describe the meaning of the log levelsin ArangoDB's log messages
+description: In this section we define and describe the meaning of the log levels in ArangoDB's log messages
 ---
 Log Levels
 ==========

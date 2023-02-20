@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Transactions need to specify from which collections they will read data and whichcollections they intend to modify
+description: Transactions need to specify from which collections they will read data and which collections they intend to modify
 ---
 Locking and Isolation
 =====================

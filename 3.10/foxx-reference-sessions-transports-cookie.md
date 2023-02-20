@@ -53,12 +53,12 @@ Creates a [Transport](foxx-reference-sessions-transports.html) that can be used 
   * **algorithm**: `string` (optional)
 
     The algorithm used to sign and verify the cookie. If no algorithm is
-    specified, the cookie will not be signed or verified.
+    specified, the cookie is not signed or verified.
     See the [cookie method on the response object](foxx-reference-routers-response.html).
 
   * **secret**: `string` (optional)
 
-    Secret to use for the signed cookie. Will be ignored if no algorithm is provided.
+    Secret to use for the signed cookie. Ignored if no algorithm is provided.
 
   * **path**: `string` (optional)
 
@@ -77,5 +77,5 @@ Creates a [Transport](foxx-reference-sessions-transports.html) that can be used 
     Whether the cookie should be marked as HTTP-only (rather than also
     exposing it to client-side code).
 
-If a string is passed instead of an options object, it will be interpreted
-as the *name* option.
+If a string is passed instead of an options object, it is interpreted
+as the `name` option.

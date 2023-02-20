@@ -105,7 +105,7 @@ metagraph = {
     },
     "edgeTypes": {
         ("v0", "e0", "v0"): {
-            # 3) you can specify a list of strings for tensor dissasembly (if you know the number of node/edge features in advance)
+            # 3) you can specify a list of strings for tensor disassembly (if you know the number of node/edge features in advance)
             "edge_attr": [ "a", "b"]  
         },
     },

@@ -85,7 +85,7 @@ at this point.
 
 Please follow the instructions on how to create an EnterpriseGraph
 [using the Web Interface](#create-an-enterprisegraph-using-the-web-interface)
-or [using *arangosh*](#create-an-enteprisegraph-using-arangosh).
+or [using _arangosh_](#create-an-enterprisegraph-using-arangosh).
 
 **Import data while keeping collection names**
 
@@ -199,7 +199,7 @@ EnterpriseGraphs. To get started, follow the steps outlined below.
 
 ![Create EnterpriseGraph](images/graphs-create-enterprise-graph-dialog.png)
    
-## Create an EntepriseGraph using *arangosh*
+## Create an EnterpriseGraph using *arangosh*
 
 Compared to SmartGraphs, the option `isSmart: true` is required but the
 `smartGraphAttribute` is forbidden. 

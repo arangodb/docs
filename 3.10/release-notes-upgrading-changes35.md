@@ -16,7 +16,9 @@ ID values in log messages
 By default, ArangoDB and its client tools now show a 5 digit unique ID value in
 any of their log messages, e.g.
 
-    2019-03-25T21:23:19Z [8144] INFO [cf3f4] ArangoDB (version 3.5.0 enterprise [linux]) is ready for business. Have fun!.
+```
+2019-03-25T21:23:19Z [8144] INFO [cf3f4] ArangoDB (version 3.5.0 enterprise [linux]) is ready for business. Have fun!.
+```
 
 In this message, the `cf3f4` is the message's unique ID value. ArangoDB users can
 use this ID to build custom monitoring or alerting based on specific log ID values.
@@ -31,12 +33,13 @@ of the ID values. The ID values are always 5 byte strings, consisting of the cha
 general log messages that do not contain a log topic, and directly behind the log
 topic for messages that contain a topic, e.g. 
 
-    2019-03-25T21:23:19Z [8144] INFO [cf3f4] ArangoDB (version 3.5.0 enterprise [linux]) is ready for business. Have fun!.
-    2019-03-25T21:23:16Z [8144] INFO {authentication} [3844e] Authentication is turned on (system only), authentication for unix sockets is turned on
+```
+2019-03-25T21:23:19Z [8144] INFO [cf3f4] ArangoDB (version 3.5.0 enterprise [linux]) is ready for business. Have fun!.
+2019-03-25T21:23:16Z [8144] INFO {authentication} [3844e] Authentication is turned on (system only), authentication for unix sockets is turned on
+```
 
 Alternatively, the log IDs can be suppressed in all log messages by setting the startup
 option `--log.ids false` when starting arangod or any of the client tools.
-
 
 Startup options
 ---------------
@@ -91,7 +94,6 @@ same often confused end users. We opted for keeping "persistent" because from th
 candidates "hash", "skiplist" and "persistent" only "persistent" is actually a valid
 description of the index capabilities/implementation.
 
-
 AQL
 ---
 
@@ -99,20 +101,22 @@ AQL
 COLLECT statements as documented. The documentation for variable invalidation claims
 that
 
-    The COLLECT statement will eliminate all local variables in the current scope. 
-    After COLLECT only the variables introduced by COLLECT itself are available.
+> The COLLECT statement will eliminate all local variables in the current scope. 
+> After COLLECT only the variables introduced by COLLECT itself are available.
 
 However, the described behavior was not enforced when a COLLECT was preceded by a
 FOR loop that was itself preceded by a COLLECT. In the following query the final
 RETURN statement accesses variable `key1` though the variable should have been 
 invalidated by the COLLECT directly before it:
 
-    FOR x1 IN 1..2 
-      COLLECT key1 = x1 
-      FOR x2 IN 1..2 
-        COLLECT key2 = x2 
-        RETURN [key2, key1] 
-  
+```aql
+FOR x1 IN 1..2 
+  COLLECT key1 = x1 
+  FOR x2 IN 1..2 
+    COLLECT key2 = x2 
+    RETURN [key2, key1] 
+```
+
 In previous releases, this query was
 parsed ok, but the contents of variable `key1` in the final RETURN statement were
 undefined. 
@@ -130,7 +134,6 @@ Tailing of recent server operations via `/_api/wal/tail` gets a new parameter
 `syncerId`, which helps in tracking the WAL tick of each client. If set, this
 supersedes the parameter `serverId` for this purpose. The API stays backwards
 compatible.
-
 
 Miscellaneous
 -------------

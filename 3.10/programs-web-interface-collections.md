@@ -51,7 +51,7 @@ There are four view categories:
  - Delete collection 
  - Truncate collection 
  - Unload/Load collection 
- - Save modifed properties (name, journal size, index buckets, wait for sync) 
+ - Save modified properties (name, journal size, index buckets, wait for sync) 
 
 Additional information:
 

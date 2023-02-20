@@ -60,7 +60,7 @@ Returns the generated number.
 
 `crypto.genRandomAlphaNumbers(length): string`
 
-Generates a string of random alpabetical characters and digits.
+Generates a string of random alphabetical characters and digits.
 
 **Arguments**
 

@@ -5,7 +5,7 @@ title: arangodump Data Masking
 ---
 # _arangodump_ Data Maskings
 
-*--maskings path-of-config*
+`--maskings path-of-config`
 
 This feature allows you to define how sensitive data shall be dumped.
 It is possible to exclude collections entirely, limit the dump to the
@@ -106,25 +106,25 @@ Possible values are:
   - It also masks fields with the name _security_id_ anywhere in the document.
   - The masking function is of type [_xifyFront_](#xify-front) in both cases.
     The additional setting `unmaskedLength` is specific so _xifyFront_.
-- All additional collections that might exist in the targeted database will
-  be ignored (like the collection _private_), as there is no attribute key
+- All additional collections that might exist in the targeted database is
+  ignored (like the collection _private_), as there is no attribute key
   `"*"` to specify a different default type for the remaining collections.
 
 ### Masking vs. dump-data option
 
-*arangodump* also supports a very coarse masking with the option
+_arangodump_ also supports a very coarse masking with the option
 `--dump-data false`, which leaves out all data for the dump.
 
 You can either use `--maskings` or `--dump-data false`, but not both.
 
 ### Masking vs. collection option
 
-*arangodump* also supports a very coarse masking with the option
-`--collection`. This will restrict the collections that are
+_arangodump_ also supports a very coarse masking with the option
+`--collection`. This restricts the collections that are
 dumped to the ones explicitly listed.
 
 It is possible to combine `--maskings` and `--collection`.
-This will take the intersection of exportable collections.
+This takes the intersection of exportable collections.
 
 Path
 ----
@@ -198,18 +198,19 @@ Example masking definition:
         "type": "<masking-function>"
       }
     ]
+  }
 }
 ```
 
 If the path starts with a `.` then it matches any path ending in `name`.
-For example, `.name` will match the field `name` of all leaf attributes
+For example, `.name` matches the field `name` of all leaf attributes
 in the document. Leaf attributes are attributes whose value is `null`,
 `true`, `false`, or of data type `string`, `number` or `array`.
 That means, it matches `name` at the top level as well as at any nested level
 (e.g. `foo.bar.name`), but not nested objects themselves.
 
-On the other hand, `name` will only match leaf attributes
-at top level. `person.name` will match the attribute `name` of a leaf
+On the other hand, `name` only matches leaf attributes
+at top level. `person.name` matches the attribute `name` of a leaf
 in the top-level object `person`. If `person` was itself an object,
 then the masking settings for this path would be ignored, because it
 is not a leaf attribute.
@@ -230,7 +231,7 @@ then you need to quote the name in ticks or backticks to escape it:
 
 **Example**
 
-The following configuration will replace the value of the `name`
+The following configuration replaces the value of the `name`
 attribute with an "xxxx"-masked string:
 
 ```json
@@ -254,7 +255,7 @@ The document:
 }
 ```
 
-… will be changed as follows:
+… is changed as follows:
 
 ```json
 {
@@ -284,8 +285,8 @@ leaf attribute.
 {% hint 'tip' %}
 If some documents have an attribute `mail` with a string as value, but other
 documents store a nested object under the same attribute name, then make sure
-to set up proper masking for the latter case, in which sub-attributes will not
-get masked if there is only a masking configured for the attribute `mail`
+to set up proper masking for the latter case, in which sub-attributes are not
+masked if there is only a masking configured for the attribute `mail`
 but not its nested attributes.
 
 You can use the special path `"*"` to **match all leaf attributes** in the
@@ -310,7 +311,7 @@ Masking `mail` with the _Xify Front_ function:
 }
 ```
 
-… will convert this document:
+… converts this document:
 
 ```json
 {
@@ -340,7 +341,7 @@ because `mail` is a leaf attribute. The document:
 }
 ```
 
-… will be converted into:
+… is converted into:
 
 ```json
 {
@@ -365,7 +366,7 @@ including the elements of the sub-array. The document:
 }
 ```
 
-… will not be masked because `mail` is not a leaf attribute.
+… is not masked because `mail` is not a leaf attribute.
 To mask the mail address, you could use the paths `mail.address`
 or `.address` in the masking definition:
 
@@ -416,10 +417,10 @@ rule (i.e. the rule above the other ambiguous ones).
 }
 ```
 
-Above masking definition will obfuscate the top-level attribute `address` with
+Above masking definition obfuscates the top-level attribute `address` with
 the `xifyFront` function, whereas all nested attributes with name `address`
 will use the `random` masking function. If the rules are defined in reverse
-order however, then all attributes called `address` will be obfuscated using
+order however, then all attributes called `address` are obfuscated using
 `random`. The second, overlapping rule is effectively ignored:
 
 ```json
@@ -442,7 +443,7 @@ order however, then all attributes called `address` will be obfuscated using
 
 This behavior also applies to the catch-all path `"*"`, which means it should
 generally be placed below all other rules for a collection so that it is used
-for all unspecified attribute paths. Otherwise all document attributes will be
+for all unspecified attribute paths. Otherwise, all document attributes are
 processed by a single masking function, ignoring any other rules below it.
 
 ```json
@@ -490,15 +491,15 @@ The masking functions:
 
 ### Random String
 
-This masking type will replace all values of attributes whose values are strings
+This masking type replaces all values of attributes whose values are strings
 with key `name` with an anonymized string. It is not guaranteed that the
-string will be of the same length. Attribute whose values are not strings
+string is of the same length. Attribute whose values are not strings
 are not modified.
 
 A hash of the original string is computed. If the original string is
-shorter then the hash will be used. This will result in a longer
-replacement string. If the string is longer than the hash then
-characters will be repeated as many times as needed to reach the full
+shorter, then the hash is used. This results in a longer
+replacement string. If the string is longer than the hash, then
+characters are repeated as many times as needed to reach the full
 original string length.
 
 Masking settings:
@@ -546,7 +547,7 @@ A document like:
 }
 ```
 
-… will be converted to:
+… is converted to:
 
 ```json
 {
@@ -713,10 +714,10 @@ Masking settings:
 }
 ```
 
-This will affect attributes with key `"name"` at any level by masking all
+This affects attributes with key `"name"` at any level by masking all
 alphanumeric characters of a word except the last two characters. Words of
 length 1 and 2 remain unmasked. If the attribute value is not a string but
-boolean or numeric, then the result will be `"xxxx"` (fixed length).
+boolean or numeric, then the result is `"xxxx"` (fixed length).
 `null` values remain `null`.
 
 ```json
@@ -728,7 +729,8 @@ boolean or numeric, then the result will be `"xxxx"` (fixed length).
 }
 ```
 
-… will become:
+… becomes:
+
 ```json
 {
   "name": "xxis is a xxst Do xou xxxee ",
@@ -751,20 +753,24 @@ unique index.
 }
 ```
 
-This will add a hash at the end of the string.
+This adds a hash at the end of the string.
 
-    "This is a test!Do you agree?"
+```
+"This is a test!Do you agree?"
+```
 
-… will become
+… becomes
 
-    "xxis is a xxst Do xou xxxee  NAATm8c9hVQ="
+```
+"xxis is a xxst Do xou xxxee  NAATm8c9hVQ="
+```
 
 Note that the hash is based on a random secret that is different for
 each run. This avoids dictionary attacks which could be used to guess
 values based pre-computations on dictionaries.
 
 If you need reproducible results, i.e. hashes that do not change between
-different runs of *arangodump*, you need to specify a secret as seed,
+different runs of _arangodump_, you need to specify a secret as seed,
 a number which must not be `0`.
 
 ```json
@@ -782,13 +788,13 @@ a number which must not be `0`.
 This masking type replaces a zip code with a random one.
 It uses the following rules:
 
-- If a character of the original zip code is a digit it will be replaced
+- If a character of the original zip code is a digit, it is replaced
   by a random digit.
-- If a character of the original zip code is a letter it
-  will be replaced by a random letter keeping the case.
+- If a character of the original zip code is a letter, it
+  is replaced by a random letter keeping the case.
 - If the attribute value is not a string then the default value is used.
 
-Note that this will generate random zip codes. Therefore there is a
+Note that this generates random zip codes. Therefore there is a
 chance that the same zip code value is generated multiple times, which can
 cause unique constraint violations if a unique index is or will be
 used on the zip code attribute.
@@ -822,22 +828,30 @@ with random ones. `"12345"` is used as fallback value.
 
 If the original zip code is:
 
-    50674
+```
+50674
+```
 
-… it will be replaced by e.g.:
+… it is replaced by e.g.:
 
-    98146
+```
+98146
+```
 
 If the original zip code is:
 
-    SA34-EA
+```
+SA34-EA
+```
 
-… it will be replaced by e.g.:
+… it is replaced by e.g.:
 
-    OW91-JI
+```
+OW91-JI
+```
 
 If the original zip code is `null`, `true`, `false` or a number, then the
-user-defined default value of `"abcdef"` will be used.
+user-defined default value of `"abcdef"` is used.
 
 ### Datetime
 
@@ -857,7 +871,7 @@ Masking settings:
   The default value is the current system date and time.
 - `format` (string, _default: `""`_): the formatting string format is
   described in [DATE_FORMAT()](aql/functions-date.html#date_format).
-  If no format is specified, then the result will be an empty string.
+  If no format is specified, then the result is an empty string.
 
 **Example**
 
@@ -878,7 +892,7 @@ like `2019-06-17`.
 ### Integer Number
 
 This masking type replaces the value of the attribute with a random
-integer number. It will replace the value even if it is a string,
+integer number. It replaces the value even if it is a string,
 Boolean, or `null`.
 
 Masking settings:
@@ -905,7 +919,7 @@ This masks the field `count` with a random number between
 ### Decimal Number
 
 This masking type replaces the value of the attribute with a random
-floating point number. It will replace the value even if it is a string,
+floating point number. It replaces the value even if it is a string,
 Boolean, or `null`.
 
 Masking settings:
@@ -944,7 +958,7 @@ The configuration:
 }
 ```
 
-… will generate numbers with at most 3 decimal digits.
+… generates numbers with at most 3 decimal digits.
 
 ### Credit Card Number
 
@@ -976,7 +990,7 @@ This masking type replaces a phone number with a random one.
 It uses the following rule:
 
 - If a character of the original number is a digit
-  it will be replaced by a random digit.
+  it is replaced by a random digit.
 - If it is a letter it is replaced by a random letter.
 - All other characters are left unchanged.
 - If the attribute value is not a string it is replaced by the
@@ -998,7 +1012,7 @@ Masking settings:
 }
 ```
 
-This will replace an existing phone number with a random one, for instance
+This replaces an existing phone number with a random one, for instance
 `"+31 66-77-88-xx"` might get substituted by `"+75 10-79-52-sb"`.
 
 ```json

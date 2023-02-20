@@ -597,7 +597,7 @@ Specifies a maximum for the count of servers. If set, a specification is invalid
 
 ### `spec.<group>.args: []string`
 
-This setting specifies additional commandline arguments passed to all servers of this group.
+This setting specifies additional command-line arguments passed to all servers of this group.
 The default value is an empty array.
 
 ### `spec.<group>.resources: ResourceRequirements`
@@ -625,7 +625,7 @@ and `iops` is not forwarded to the pods resource requirements.
 
 ### `spec.<group>.pvcResizeMode: string`
 
-Specifies a resize mode used by operator to resuze PVC's and PV's.
+Specifies a resize mode used by operator to resize PVCs and PVs.
 
 Supported modes:
 - runtime (default) - PVC will be resized in Pod runtime (EKS, GKE)

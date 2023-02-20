@@ -654,7 +654,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 
 - `splice-subqueries`:
   will appear when a subquery has been spliced into the surrounding query.
-  This will be performed on all subqueries and canot be switched off.
+  This will be performed on all subqueries and cannot be switched off.
   This optimization is applied after all other optimizations, and reduces
   overhead for executing subqueries by inlining the execution. This mainly
   benefits queries which execute subqueries very often that only return a

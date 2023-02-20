@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The Dashboard tab provides statistics which are polled regularly from theArangoDB server
+description: The Dashboard tab provides statistics which are polled regularly from the ArangoDB server
 ---
 Dashboard
 =========

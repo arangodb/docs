@@ -469,11 +469,11 @@ calculation:
 
 ```aql
 LET target = "the quick brown fox jumps over the lazy dog"
-LET targetSingature = TOKENS(target, "myMinHash")
+LET targetSignature = TOKENS(target, "myMinHash")
 
 FOR doc IN viewName
   SEARCH MINHASH_MATCH(doc.text, target, 0.5, "myMinHash") // approximation
-  LET jaccard = JACCARD(targetSingature, TOKENS(doc.text, "myMinHash"))
+  LET jaccard = JACCARD(targetSignature, TOKENS(doc.text, "myMinHash"))
   FILTER jaccard > 0.75
   SORT jaccard DESC
   RETURN doc.text

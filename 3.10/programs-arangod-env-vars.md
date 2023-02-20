@@ -22,7 +22,7 @@ title: arangod environment variables
 
    The total amount of RAM detected is logged as an INFO message at
    server start. If the variable is set, the overridden value is shown.
-   Various default sizes are calculated based on this value (e.g.
+   Various default sizes are calculated based on this value (e.g. the
    RocksDB buffer cache size).
 
    Setting this option can in particular be useful in two cases:

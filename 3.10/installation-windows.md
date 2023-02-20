@@ -29,7 +29,7 @@ Installing using the Installer
 
 The default installation directory is `%PROGRAMFILES%\ArangoDB-3.x.x`
 (multi-user) or `%LOCALAPPDATA%\ArangoDB-3.x.x\` (single-user). You may change
-it during the installation process. In the following description, we will assume
+it during the installation process. In the following description, we assume
 that ArangoDB has been installed in the location `<ROOTDIR>`.
 
 You have to be careful when choosing an installation directory. You need either
@@ -42,8 +42,8 @@ directory have to be writable by the user.
 There are two main modes for the installer of ArangoDB.
 The installer lets you select:
 
-- multi-user installation (default; admin privileges required)
-  Will install ArangoDB as service.
+- multi-user installation (default; admin privileges required).
+  Installs ArangoDB as service.
 - single-user installation
   Allow to install ArangoDB as normal user.
   Requires manual starting of the database server.
@@ -87,14 +87,14 @@ avoids the data being synced to the windows domain controller.
 
 #### Automatic Upgrade
 
-If this checkbox is selected the installer will attempt to perform an automatic
+If this checkbox is selected, the installer attempts to perform an automatic
 update. For more information please see
 [Upgrading on Windows](upgrading-osspecific-info-windows.html).
 
 #### Keep Backup
 
 Select this to create a backup of your database directory during automatic upgrade.
-The backup will be created next to your current database directory suffixed by
+The backup is created next to your current database directory suffixed by
 a time stamp.
 
 #### Add to Path
@@ -154,8 +154,8 @@ use different connection settings etc.
 
 To uninstall the Arango server application you can use the windows control panel
 (as you would normally uninstall an application). Note however, that any data
-files created by the ArangoDB server will remain as well as the `<ROOTDIR>`
-directory. To complete the uninstallation process, remove the data files and
+files created by the ArangoDB server as well as the `<ROOTDIR>` directory
+remain. To complete the uninstallation process, remove the data files and
 the `<ROOTDIR>` directory manually.
 
 Unattended installation using the installer
@@ -165,11 +165,15 @@ The NSIS-based installer requires user interaction by default, but it also
 offers a [Silent Mode](https://nsis.sourceforge.io/Docs/Chapter4.html#silent){:target="_blank"}
 which allows you to run it non-interactively from the command line:
 
-    ArangoDB3-3.x.x_win64.exe /S ...
+```
+ArangoDB3-3.x.x_win64.exe /S ...
+```
 
 You can run the uninstaller in Silent Mode:
 
-    Uninstall.exe /S ...
+```
+Uninstall.exe /S ...
+```
 
 All choices available in the GUI can be passed as arguments. The options can
 be specified like `/OPTIONNAME=value`.
@@ -179,7 +183,7 @@ be specified like `/OPTIONNAME=value`.
 *For Installation*:
 
 - `/PASSWORD` - Set the password for the `root` user. If this option is not set
-  but a persistent environment variable `PASSWORD` is, then its value will be
+  but a persistent environment variable `PASSWORD` is, then its value is
   used as password.
 - `/INSTDIR` - Installation directory. A directory that you have access to.
 - `/DATABASEDIR` - Database directory. A directory that you have access to
@@ -208,8 +212,8 @@ be specified like `/OPTIONNAME=value`.
 *For Uninstallation*:
 
 - `/PURGE_DB`
-  - `0` - Database files will remain on the system
-  - `1` - Database files ArangoDB created during its lifetime will be removed, too.
+  - `0` - Database files remain on the system
+  - `1` - Database files ArangoDB created during its lifetime are removed, too.
 
 Installing using the ZIP archive
 --------------------------------
@@ -222,7 +226,7 @@ you might want to install using the _ZIP_ archive ([XCOPY deployment](http://en.
 ### Unzip the archive
 
 Open an explorer, choose a place where you would like ArangoDB to be, and extract the
-archive there. It will create its own top-level directory with the version number in the name.
+archive there. It creates its own top-level directory with the version number in the name.
 
 ### Edit the configuration
 

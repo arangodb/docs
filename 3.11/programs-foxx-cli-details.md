@@ -104,7 +104,7 @@ If you want to exclude files from the service bundle that will uploaded to
 ArangoDB you can create a file called `.foxxignore` in the root directory of
 your service. Each line should specify one pattern you wish to ignore:
 
-* Patterns starting with `!` will be treated as an explicit whitelist. Paths
+* Patterns starting with `!` will be treated as an explicit allowlist. Paths
   matching these patterns will not be ignored even if they would match any of
   the other patterns.
 
