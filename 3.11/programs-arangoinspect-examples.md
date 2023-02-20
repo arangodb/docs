@@ -101,7 +101,7 @@ INFO Collecting diagnostics from all servers ...
 2018-06-05T19:40:11Z [19858] INFO Connected to ArangoDB 'http+tcp://[::1]:8630', version 3.4.devel [server], database '_system', username: 'root'
 2018-06-05T19:40:11Z [19858] INFO Connected to ArangoDB 'http+tcp://[::1]:8530', version 3.4.devel [server], database '_system', username: 'root'
 2018-06-05T19:40:11Z [19858] INFO Connected to ArangoDB 'http+tcp://[::1]:4001', version 3.4.devel [server], database '_system', username: 'root'
-INFO ... dignostics collected.
+INFO ... diagnostics collected.
 INFO Report written to arango-inspector.json.
 ```
 
