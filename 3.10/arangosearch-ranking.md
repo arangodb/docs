@@ -53,26 +53,26 @@ Scoring functions cannot be used outside of `SEARCH` operations, as the scores
 can only be computed in the context of a View, especially because of the
 inverse document frequency (IDF).
 
-### Stable Pagination Results
+### Stable pagination for results
 
-The SORT operation does not guarantee a stable sort if there is no unique value
+The `SORT` operation does not guarantee a stable sort if there is no unique value
 to sort by. This leads to an undefined order when sorting equal documents.
 
 To achieve stable pagination, you must meet the following requirements: 
-- the Dataset should not be changed
-- the SORT operation must have at least one unique field to sort by
+- the dataset should not be changed
+- the `SORT` operation must have at least one field with an unique to sort by
 
 When stable sort is required, you can use a tiebreaker field. If the application
 has a preferred field that indicates the order of documents with the same score,
-then this field should be used in the SORT operation as a tiebreaker. If there
-is no such field, you can use the `_id` system field as it is unique and
+then this field should be used in the `SORT` operation as a tiebreaker. If there
+is no such field, you can use the `_id` system attribute as it is unique and
 present in every document. 
 
 ```aql
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc._fulltext, 'movie name'), 'text_en')
   SORT BM25(doc) DESC, doc._id
-  LIMIT 10,20
+  LIMIT 10, 20
   RETURN doc
 ```
 
