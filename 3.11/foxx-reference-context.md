@@ -97,11 +97,11 @@ apiDocumentation
 
 `module.context.apiDocumentation([options]): Function`
 
-{{% hint 'warning' %}}
+{% hint 'warning' %}
 This method has been deprecated in ArangoDB 3.1 and replaced with
 the more straightforward `createDocumentationRouter()` method providing the
 same functionality.
-{{% endhint %}}
+{% endhint %}
 
 Creates a request handler that serves the API documentation.
 
