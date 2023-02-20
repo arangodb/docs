@@ -1,6 +1,8 @@
 ---
 layout: default
 description: In this section we define and describe the meaning of the log levelsin ArangoDB's log messages
+redirect_from:
+  - monitoring-log-levels.html # 3.10 -> 3.10
 ---
 Log Levels
 ==========
