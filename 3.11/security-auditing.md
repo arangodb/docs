@@ -7,18 +7,25 @@ description: >-
 redirect_from:
   - security-auditing-audit-configuration.html # 3.10 -> 3.10
   - security-auditing-audit-events.html # 3.10 -> 3.10
+page-toc:
+  max-headline-level: 3
 ---
 # Audit logging
 
 {{ page.description }}
 {:class="lead"}
 
-{% include hint-ee.md feature="Audit logging" %}
+{% capture arangograph %}
+
+A similar feature is also available in the
+[ArangoGraph Insights Platform](arangograph/access-control.html#using-an-audit-log).
+{% endcapture %}
+{% include hint-ee.md feature="Audit logging" extra=arangograph %}
 
 ## Configuration
 
 To enable audit logging, set the `--audit.output` startup option to either a
-file path (`file://<path-to-file>`) or a syslog server (`syslog://<facilit>`).
+file path (`file://<path-to-file>`) or a syslog server (`syslog://<facility>`).
 
 For information about the startup options for audit logging, see
 [ArangoDB Server Options](programs-arangod-options.html#audit).
