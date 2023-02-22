@@ -31,7 +31,7 @@ oasisctl auditlog [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl auditlog attach](oasisctl-auditlog-attach.html)	 - Attach a project to an audit log
 * [oasisctl auditlog detach](oasisctl-auditlog-detach.html)	 - Detach a project from an auditlog
 * [oasisctl auditlog get](oasisctl-auditlog-get.html)	 - Audit log get resources

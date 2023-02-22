@@ -31,6 +31,6 @@ oasisctl accept [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl accept organization](oasisctl-accept-organization.html)	 - Accept organization related invites
 

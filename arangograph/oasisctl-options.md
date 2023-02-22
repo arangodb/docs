@@ -5,11 +5,11 @@ title: ArangoGraph Shell oasisctl
 ---
 # Oasisctl
 
-ArangoDB Oasis
+ArangoGraph Insights Platform
 
 ## Synopsis
 
-ArangoDB Oasis. The Managed Cloud for ArangoDB
+ArangoGraph Insights Platform (formerly called Oasis): The Managed Cloud for ArangoDB
 
 ```
 oasisctl [flags]

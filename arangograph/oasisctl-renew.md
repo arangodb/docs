@@ -31,6 +31,6 @@ oasisctl renew [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl renew apikey](oasisctl-renew-apikey.html)	 - Renew API keys & tokens
 
