@@ -12,7 +12,7 @@ The `fields` attribute describes which fields are used as dimensions.
 The value of each dimension has to be a numeric (double) value.
 
 {% hint 'warning' %}
-`zkd` indexes are an **experimental** feature in ArangoDB 3.9.
+`zkd` indexes are an **experimental** feature.
 {% endhint %}
 
 ## Querying documents within a 3D box
