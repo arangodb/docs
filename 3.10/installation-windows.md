@@ -1,13 +1,14 @@
 ---
 layout: default
-description: This is a walkthrough to install ArangoDB on Windows. You will find two possible methods to do so, automatically or manually. 
+description: This is a walkthrough to install ArangoDB on Windows. You can find different methods to do so, automatically or manually. 
 title: Installing ArangoDB on Windows
 ---
 Installing ArangoDB on Windows
 ==============================
 
-You can install ArangoDB on Windows (64-bit) using different methods:
+You can use ArangoDB on Windows (64-bit) in different ways:
 
+- [Docker image](#docker)
 - Automated, using an installation wizard ("installer")
   - [attended](#installing-using-the-installer) (GUI)
   - [unattended](#unattended-installation-using-the-installer) (command line)
@@ -17,19 +18,35 @@ Visit the official [Download](https://www.arangodb.com/download){:target="_blank
 page of the ArangoDB web site.
 
 You may verify the download by comparing the SHA256 hash listed on the website
-to the hash of the file. For example, you can you run `openssl sha256 <filename>`
+to the hash of the file. For example, you can run `openssl sha256 <filename>`
 or `certutil -hashfile <filename> sha256` in a terminal.
 
 {% hint 'info' %}
 Running production environments on Windows is not supported.
 {% endhint %}
 
+Docker
+------
+
+The recommended way of using ArangoDB on Windows is to use the ArangoDB Docker
+images with, for instance, [Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}. 
+
+You can choose one of the following:
+- [`arangodb` official Docker images](https://hub.docker.com/_/arangodb){:target="_blank"},
+  verified and published by Docker.
+- [`arangodb/arangodb` Docker images](https://hub.docker.com/r/arangodb/arangodb){:target="_blank"}, 
+  maintained and directly published by ArangoDB on a regular basis.
+
+See the documentation on [Docker Hub](https://hub.docker.com/_/arangodb){:target="_blank"},
+as well as the [Deployments](architecture-deployment-modes.html) section about
+different deployment modes and methods including Docker containers.
+
 Installing using the Installer
 ------------------------------
 
 The default installation directory is `%PROGRAMFILES%\ArangoDB-3.x.x`
 (multi-user) or `%LOCALAPPDATA%\ArangoDB-3.x.x\` (single-user). You may change
-it during the installation process. In the following description, we will assume
+it during the installation process. In the following description, it is assumed
 that ArangoDB has been installed in the location `<ROOTDIR>`.
 
 You have to be careful when choosing an installation directory. You need either
@@ -43,14 +60,14 @@ There are two main modes for the installer of ArangoDB.
 The installer lets you select:
 
 - multi-user installation (default; admin privileges required)
-  Will install ArangoDB as service.
+  Installs ArangoDB as service.
 - single-user installation
-  Allow to install ArangoDB as normal user.
+  Allows to install ArangoDB as normal user.
   Requires manual starting of the database server.
 
 ### Installation Options
 
-The checkboxes allow you to chose weather you want to:
+The checkboxes allow you to chose whether you want to:
 
 - chose custom install paths
 - do an automatic upgrade
@@ -62,7 +79,7 @@ or not.
 
 #### Custom Install Paths
 
-This checkbox controls if you will be able to override
+This checkbox controls if you are able to override
 the default paths for the installation in subsequent steps.
 
 The default installation paths are:
@@ -87,14 +104,14 @@ avoids the data being synced to the windows domain controller.
 
 #### Automatic Upgrade
 
-If this checkbox is selected the installer will attempt to perform an automatic
-update. For more information please see
+If this checkbox is selected, the installer attempts to perform an automatic
+update. For more information, please see
 [Upgrading on Windows](upgrading-osspecific-info-windows.html).
 
 #### Keep Backup
 
 Select this to create a backup of your database directory during automatic upgrade.
-The backup will be created next to your current database directory suffixed by
+The backup is created next to your current database directory suffixed by
 a time stamp.
 
 #### Add to Path
@@ -115,7 +132,7 @@ Select if you want the installer to create Desktop Icons that let you:
 If you installed ArangoDB for multiple users (as a service), it is automatically
 started. Otherwise you need to use the shortcut that was created on your desktop
 (depending on the installer settings) or by running the executable `arangod.exe`
-located in `<ROOTDIR>\usr\bin`. It will use the configuration file `arangod.conf`
+located in `<ROOTDIR>\usr\bin`. It uses the configuration file `arangod.conf`
 located in `<ROOTDIR>\etc\arangodb3`, which you can adjust to your needs.
 
 Please check the output of the `arangod.exe` executable before continuing.
@@ -146,7 +163,7 @@ Note that `arangosh.exe` does NOT start a separate server, it only starts the
 shell. To use it you must have a server running somewhere, e.g. by using
 the `arangod.exe` executable.
 
-`arangosh.exe` uses configuration from the file `arangosh.conf` located in
+`arangosh.exe` uses the configuration from the file `arangosh.conf` located in
 `<ROOTDIR>\etc\arangodb3\`. Please adjust this to your needs if you want to
 use different connection settings etc.
 
@@ -222,7 +239,7 @@ you might want to install using the _ZIP_ archive ([XCOPY deployment](http://en.
 ### Unzip the archive
 
 Open an explorer, choose a place where you would like ArangoDB to be, and extract the
-archive there. It will create its own top-level directory with the version number in the name.
+archive there. It creates its own top-level directory with the version number in the name.
 
 ### Edit the configuration
 
