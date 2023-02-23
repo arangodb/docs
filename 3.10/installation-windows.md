@@ -29,8 +29,8 @@ Docker
 ------
 
 The recommended way of using ArangoDB on Windows is to use the
-[ArangoDB Docker images](https://hub.docker.com/_/arangodb){:target="_blank"}
-with, for instance, [Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}.
+[ArangoDB Official Docker images](https://hub.docker.com/_/arangodb){:target="_blank"}
+with, for instance, [Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}. You can also use the [Docker images](https://hub.docker.com/r/arangodb/arangodb){:target="_blank"} that are directly published by ArangoDB on a regular basis.
 
 See the documentation on [Docker Hub](https://hub.docker.com/_/arangodb){:target="_blank"},
 as well as the [Deployments](architecture-deployment-modes.html) section about
