@@ -28,9 +28,14 @@ Running production environments on Windows is not supported.
 Docker
 ------
 
-The recommended way of using ArangoDB on Windows is to use the
-[ArangoDB Official Docker images](https://hub.docker.com/_/arangodb){:target="_blank"}
-with, for instance, [Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}. You can also use the [Docker images](https://hub.docker.com/r/arangodb/arangodb){:target="_blank"} that are directly published by ArangoDB on a regular basis.
+The recommended way of using ArangoDB on Windows is to use the ArangoDB Docker
+images with, for instance, [Docker Desktop](https://www.docker.com/products/docker-desktop/){:target="_blank"}. 
+
+You can choose one of the following:
+- [`arangodb` official Docker images](https://hub.docker.com/_/arangodb){:target="_blank"},
+  verified and published by Docker.
+- [`arangodb/arangodb` Docker images](https://hub.docker.com/r/arangodb/arangodb){:target="_blank"}, 
+  maintained and directly published by ArangoDB on a regular basis.
 
 See the documentation on [Docker Hub](https://hub.docker.com/_/arangodb){:target="_blank"},
 as well as the [Deployments](architecture-deployment-modes.html) section about
