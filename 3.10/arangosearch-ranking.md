@@ -76,6 +76,44 @@ FOR doc IN viewName
   RETURN doc
 ```
 
+Based on the [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+and using a [View definition](arangosearch-fulltext-token-search.html#view-definition),
+you can run this query:
+
+```aql
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.description IN TOKENS("ninja", "text_en"), "text_en")
+  LET score = BM25(doc)
+  SORT score DESC
+  LIMIT 0, 5
+  RETURN { title: doc.title, score }
+```
+
+| title | score |
+|:------|:-------|
+| Red Shadow: Akakage | 8.882122039794922 |
+| Beverly Hills Ninja | 7.128915786743164 | 
+| Naruto the Movie: Ninja Clash in the Land of Snow | 7.041049957275391 | 
+| TMNT | 7.002012729644775 | 
+| Batman Begins | 6.30634880065918 | 
+
+If you change the query to `LIMIT 5, 5`, then you get:
+
+| title | score |
+|:------|:-------|
+| Batman Begins | 6.30634880065918 | 
+| Shogun Assassin  | 5.8539886474609375 | 
+| Scooby-Doo and the Samurai Sword | 5.736422538757324 | 
+| Revenge of the Ninja | 5.212964057922363 | 
+| Winners & Sinners 2: My Lucky Stars | 5.165824890136719 | 
+
+Note how the position of Batman Begins is changed. It has the same score as
+Teenage Mutant Ninja Turtles II: The Secret of the Ooze.
+
+If you change the query to `SORT score DESC, doc._id`, then the 
+Teenage Mutant Ninja Turtles II: The Secret of the Ooze is displayed as the 5th
+result and Batman Begins as the 6th result.
+
 ### Dataset
 
 [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
