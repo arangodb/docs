@@ -63,12 +63,6 @@ Logical backups can be created and restored with the tools
 [_arangodump_](programs-arangodump.html) and
 [_arangorestore_](programs-arangorestore.html).
 
-{% hint 'tip' %}
-In order to speed up the _arangorestore_ performance in a Cluster environment,
-the [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html)
-procedure is recommended.
-{% endhint %}
-
 Hot Backups
 -----------
 
