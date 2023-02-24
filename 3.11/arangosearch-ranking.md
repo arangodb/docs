@@ -58,9 +58,12 @@ inverse document frequency (IDF).
 The `SORT` operation does not guarantee a stable sort if there is no unique value
 to sort by. This leads to an undefined order when sorting equal documents.
 
-To achieve stable pagination, you must meet the following requirements: 
-- the dataset should not be changed
-- the `SORT` operation must have at least one field with an unique value to sort by
+If you run a query multiple times with varying `LIMIT` offsets for pagination,
+you can miss results or get duplicate results if the sort order is undefined.
+To achieve stable pagination, you must meet the following requirements:
+
+- The dataset should not change between query runs.
+- The `SORT` operation must have at least one field with a unique value to sort by.
 
 When stable sort is required, you can use a tiebreaker field. If the application
 has a preferred field that indicates the order of documents with the same score,
@@ -69,16 +72,41 @@ is no such field, you can use the `_id` system attribute as it is unique and
 present in every document. 
 
 ```aql
-FOR doc IN viewName
-  SEARCH ANALYZER(STARTS_WITH(doc._fulltext, 'movie name'), 'text_en')
-  SORT BM25(doc) DESC, doc._id
-  LIMIT 10, 20
-  RETURN doc
+// sort by score and break ties using the unique document identifiers
+SORT BM25(doc) DESC, doc._id
 ```
 
-Based on the [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
-and using a [View definition](arangosearch-fulltext-token-search.html#view-definition),
-you can run this query:
+**Example**
+
+You can use the [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+and create a [View](arangosearch-fulltext-token-search.html#view-definition) for
+the `imdb_vertices` collection and call it `imdb`. Index the `description`
+attribute with the built-in `text-en` Analyzer. Then, you can run the following
+query to find movies that contain the token `ninja` in the description, sorted
+by best matching according to the Okapi BM25 scoring scheme:
+
+```aql
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.description IN TOKENS("ninja", "text_en"), "text_en")
+  LET score = BM25(doc)
+  SORT score DESC
+  RETURN { title: doc.title, score }
+```
+
+Note the 5th and 6th result, which both have the same score of `6.30634880065918`:
+
+| title | score |
+|:------|:------|
+| Red Shadow: Akakage | 8.882122039794922 |
+| Beverly Hills Ninja | 7.128915786743164 |
+| Naruto the Movie: Ninja Clash in the Land of Snow | 7.041049957275391 |
+| TMNT | 7.002012729644775 |
+| Teenage Mutant Ninja Turtles II: The Secret of the Ooze | 6.30634880065918 |
+| Batman Begins | 6.30634880065918 |
+| ... | ... |
+
+If you add a `LIMIT` operation for pagination and fetch the first 5 results,
+you may get the Batman movie as the 5th result:
 
 ```aql
 FOR doc IN imdb
@@ -90,29 +118,36 @@ FOR doc IN imdb
 ```
 
 | title | score |
-|:------|:-------|
+|:------|:------|
 | Red Shadow: Akakage | 8.882122039794922 |
 | Beverly Hills Ninja | 7.128915786743164 | 
 | Naruto the Movie: Ninja Clash in the Land of Snow | 7.041049957275391 | 
 | TMNT | 7.002012729644775 | 
 | Batman Begins | 6.30634880065918 | 
 
-If you change the query to `LIMIT 5, 5`, then you get:
+If you change the query to `LIMIT 5, 5` to get the second batch of results, then
+you may see the Batman movie again (as the 6th result overall) instead of the
+Ninja Turtles movie:
 
 | title | score |
-|:------|:-------|
+|:------|:------|
 | Batman Begins | 6.30634880065918 | 
 | Shogun Assassin  | 5.8539886474609375 | 
 | Scooby-Doo and the Samurai Sword | 5.736422538757324 | 
 | Revenge of the Ninja | 5.212964057922363 | 
 | Winners & Sinners 2: My Lucky Stars | 5.165824890136719 | 
 
-Note how the position of Batman Begins is changed. It has the same score as
-Teenage Mutant Ninja Turtles II: The Secret of the Ooze.
+The problem is the undefined order of results with the same score. There is no
+guarantee whether the Batman or the Ninja Turtle movie comes first, and as a
+result, both batches may include the same movie and miss the other entirely.
+As the order is undefined, you can randomly encounter this problem, even if it
+seems to work at first, because it may work some of the time.
 
-If you change the query to `SORT score DESC, doc._id`, then the 
-Teenage Mutant Ninja Turtles II: The Secret of the Ooze is displayed as the 5th
-result and Batman Begins as the 6th result.
+To establish a stable order, you change the query to `SORT score DESC, doc._id`.
+This still ranks movies by the score, but matches with the same score are
+consistently sorted by the document identifier to break ties. This guarantees
+that either the Batman or the Ninja Turtles movie is included in the first batch
+and the other movie in the second batch.
 
 ### Dataset
 
