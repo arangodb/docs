@@ -16,7 +16,7 @@ installation by setting the startup option `--database.extended-names-databases`
 to `true`.
 
 {% hint 'info' %}
-The extended naming convention is an **experimental** feature in ArangoDB 3.9,
+The extended naming convention is an **experimental** feature
 but will become the norm in a future version. Drivers and client applications
 should be prepared for this feature.
 {% endhint %}
