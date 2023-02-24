@@ -271,6 +271,9 @@ The roles below are described following this pattern:
 - `notification.deployment-notification.mark-as-read`
 - `notification.deployment-notification.mark-as-unread`
 
+**Deployment Profile Viewer** (`deploymentprofile-viewer`):
+- `deploymentprofile.deploymentprofile.list`
+
 **Example Datasets Viewer** (`exampledataset-viewer`):
 - `example.exampledataset.get`
 - `example.exampledataset.list`
@@ -411,6 +414,17 @@ The roles below are described following this pattern:
 - `iam.role.get`
 - `iam.role.list`
 
+**SCIM Administrator** (`scim-admin`):
+- `scim.user.add`
+- `scim.user.delete`
+- `scim.user.get`
+- `scim.user.list`
+- `scim.user.update`
+
+**User Administrator** (`user-admin`):
+- `iam.user.get-personal-data`
+- `iam.user.update`
+
 {% enddetails %}
 
 ### How to create a custom role
@@ -446,51 +460,54 @@ Retrieved with the below command, with manual adjustments:
 oasisctl list permissions
 {% endcomment %}
 
-| API               | Kind                         | Verbs
-|:------------------|:-----------------------------|:-------------------------------------------
-| `audit`           | `auditlogarchive`            | `delete`, `get`, `list`
-| `audit`           | `auditlogattachment`         | `create`, `delete`, `get`
-| `audit`           | `auditlogevents`             | `get`
-| `audit`           | `auditlogevent`              | `delete`
-| `audit`           | `auditlog`                   | `create`, `delete`, `get`, `list`, `set-default`, `test-https-post-destination`, `update`
-| `backup`          | `backuppolicy`               | `create`, `delete`, `get`, `list`, `update`
-| `backup`          | `backup`                     | `copy`, `create`, `delete`, `download`, `get`, `list`, `restore`, `update`
-| `backup`          | `feature`                    | `get`
-| `billing`         | `config`                     | `get`, `set`
-| `billing`         | `invoice`                    | `get`, `get-preliminary`, `get-statistics`, `list`
-| `billing`         | `organization`               | `get`
-| `billing`         | `paymentmethod`              | `create`, `delete`, `get`, `get-default`, `list`, `set-default`, `update`
-| `billing`         | `paymentprovider`            | `list`
-| `crypto`          | `cacertificate`              | `create`, `delete`, `get`, `list`, `set-default`, `update`
-| `data`            | `cpusize`                    | `list`
-| `data`            | `deploymentcredentials`      | `get`
-| `data`            | `deploymentfeatures`         | `get`
-| `data`            | `deploymentprice`            | `calculate`
-| `data`            | `deployment`                 | `create`, `create-test-database`, `delete`, `get`, `list`, `rebalance-shards`, `restore-backup`, `resume`, `rotate-server`, `update`, `update-scheduled-root-password-rotation`
-| `data`            | `diskperformance`            | `list`
-| `data`            | `limits`                     | `get`
-| `data`            | `nodesize`                   | `list`
-| `data`            | `presets`                    | `list`
-| `example`         | `exampledatasetinstallation` | `create`, `delete`, `get`, `list`, `update`
-| `example`         | `exampledataset`             | `get`, `list`
-| `iam`             | `group`                      | `create`, `delete`, `get`, `list`, `update`
-| `iam`             | `policy`                     | `get`, `update`
-| `iam`             | `role`                       | `create`, `delete`, `get`, `list`, `update`
-| `metrics`         | `endpoint`                   | `get`
-| `metrics`         | `token`                      | `create`, `delete`, `get`, `list`, `revoke`, `update`
-| `monitoring`      | `logs`                       | `get`
-| `network`         | `privateendpointservice`     | `create`, `get`, `get-by-deployment-id`, `get-feature`, `update`
-| `notebook`        | `model`                      | `list`
-| `notebook`        | `notebook`                   | `create`, `delete`, `get`, `list`, `pause`, `resume`, `update`
-| `notification`    | `deployment-notification`    | `list`, `mark-as-read`, `mark-as-unread`
-| `prepaid`         | `prepaiddeployment`          | `get`, `list`
-| `replication`     | `deploymentreplication`      | `get`, `update`
-| `replication`     | `deployment`                 | `clone-from-backup`
-| `resourcemanager` | `organization-invite`        | `create`, `delete`, `get`, `list`, `update`
-| `resourcemanager` | `organization`               | `delete`, `get`, `update`
-| `resourcemanager` | `project`                    | `create`, `delete`, `get`, `list`, `update`
-| `security`        | `iamprovider`                | `create`, `delete`, `get`, `list`, `set-default`, `update`
-| `security`        | `ipallowlist`                | `create`, `delete`, `get`, `list`, `update`
+| API                 | Kind                         | Verbs
+|:--------------------|:-----------------------------|:-------------------------------------------
+| `audit`             | `auditlogarchive`            | `delete`, `get`, `list`
+| `audit`             | `auditlogattachment`         | `create`, `delete`, `get`
+| `audit`             | `auditlogevents`             | `get`
+| `audit`             | `auditlogevent`              | `delete`
+| `audit`             | `auditlog`                   | `create`, `delete`, `get`, `list`, `set-default`, `test-https-post-destination`, `update`
+| `backup`            | `backuppolicy`               | `create`, `delete`, `get`, `list`, `update`
+| `backup`            | `backup`                     | `copy`, `create`, `delete`, `download`, `get`, `list`, `restore`, `update`
+| `backup`            | `feature`                    | `get`
+| `billing`           | `config`                     | `get`, `set`
+| `billing`           | `invoice`                    | `get`, `get-preliminary`, `get-statistics`, `list`
+| `billing`           | `organization`               | `get`
+| `billing`           | `paymentmethod`              | `create`, `delete`, `get`, `get-default`, `list`, `set-default`, `update`
+| `billing`           | `paymentprovider`            | `list`
+| `crypto`            | `cacertificate`              | `create`, `delete`, `get`, `list`, `set-default`, `update`
+| `data`              | `cpusize`                    | `list`
+| `data`              | `deploymentcredentials`      | `get`
+| `data`              | `deploymentfeatures`         | `get`
+| `data`              | `deploymentprice`            | `calculate`
+| `data`              | `deployment`                 | `create`, `create-test-database`, `delete`, `get`, `list`, `rebalance-shards`, `restore-backup`, `resume`, `rotate-server`, `update`, `update-scheduled-root-password-rotation`
+| `data`              | `diskperformance`            | `list`
+| `data`              | `limits`                     | `get`
+| `data`              | `nodesize`                   | `list`
+| `data`              | `presets`                    | `list`
+| `deploymentprofile` | `deploymentprofile`          | `list`
+| `example`           | `exampledatasetinstallation` | `create`, `delete`, `get`, `list`, `update`
+| `example`           | `exampledataset`             | `get`, `list`
+| `iam`               | `group`                      | `create`, `delete`, `get`, `list`, `update`
+| `iam`               | `policy`                     | `get`, `update`
+| `iam`               | `role`                       | `create`, `delete`, `get`, `list`, `update`
+| `iam`               | `user`                       | `get-personal-data`, `update`
+| `metrics`           | `endpoint`                   | `get`
+| `metrics`           | `token`                      | `create`, `delete`, `get`, `list`, `revoke`, `update`
+| `monitoring`        | `logs`                       | `get`
+| `network`           | `privateendpointservice`     | `create`, `get`, `get-by-deployment-id`, `get-feature`, `update`
+| `notebook`          | `model`                      | `list`
+| `notebook`          | `notebook`                   | `create`, `delete`, `get`, `list`, `pause`, `resume`, `update`
+| `notification`      | `deployment-notification`    | `list`, `mark-as-read`, `mark-as-unread`
+| `prepaid`           | `prepaiddeployment`          | `get`, `list`
+| `replication`       | `deploymentreplication`      | `get`, `update`
+| `replication`       | `deployment`                 | `clone-from-backup`
+| `resourcemanager`   | `organization-invite`        | `create`, `delete`, `get`, `list`, `update`
+| `resourcemanager`   | `organization`               | `delete`, `get`, `update`
+| `resourcemanager`   | `project`                    | `create`, `delete`, `get`, `list`, `update`
+| `scim`              | `user`                       | `add`, `delete`, `get`, `list`, `update`
+| `security`          | `iamprovider`                | `create`, `delete`, `get`, `list`, `set-default`, `update`
+| `security`          | `ipallowlist`                | `create`, `delete`, `get`, `list`, `update`
 
 ### Permission inheritance
 
@@ -541,7 +558,6 @@ Deployment X of project ABC                 | ✓ | ✓ | ✓
 Deployment Y of project ABC                  | ✓ | ✓ | —
 Deployment Z of project DEF                  | ✓ | — | —
 
-
 ## Restricting access to organizations
 
 To enhance security, you can implement the following restrictions via [Oasisctl](oasisctl.html):
@@ -585,15 +601,15 @@ projects belonging to that organization.
    - **Description** - enter an optional description for your audit log.
    - **Destinations** - specify one or several destinations to which you want to upload the audit log. If you choose **Upload to cloud**, the log will be available on the **Audit logs** tab of your organization. To send the log entries to your custom destination, specify a destination URL with authentication parameters (the **HTTP destination** option).
 
-    {% hint 'info' %}
-    The **Upload to cloud** option is not available for the free-to-try tier.
-    {% endhint %}
+     {% hint 'info' %}
+     The **Upload to cloud** option is not available for the free-to-try tier.
+     {% endhint %}
 
    - **Excluded topics** - select topics that will not be included in the log. Please note, that some are excluded by default (for example, `audit-document`).
 
-    {% hint 'warning' %}
-    Enabling the audit log for all events will have a negative impact on performance.
-    {% endhint %}
+     {% hint 'warning' %}
+     Enabling the audit log for all events will have a negative impact on performance.
+     {% endhint %}
 
    - **Confirmation** - confirm that logging auditing events increases the price of your deployments.
 
