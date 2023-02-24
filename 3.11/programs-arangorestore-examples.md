@@ -305,12 +305,6 @@ The following factors affect speed of _arangorestore_ in a Cluster:
   option `--envelope false`. arangorestore can automatically parallelize
   the restore of such dumps even for individual collections.
 
-{% hint 'tip' %}
-See [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html)
-for further operative details on how to take the three factors described above
-into account when restoring with _arangorestore_.
-{% endhint %}
-
 ### Restoring collections with sharding prototypes
 
 *arangorestore* will yield an error when trying to restore a
