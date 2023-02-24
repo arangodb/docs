@@ -31,6 +31,6 @@ oasisctl pause [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl pause notebook](oasisctl-pause-notebook.html)	 - Pause a notebook
 

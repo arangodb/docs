@@ -31,7 +31,7 @@ oasisctl get [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl get auditlog](oasisctl-get-auditlog.html)	 - Get auditlog archive
 * [oasisctl get backup](oasisctl-get-backup.html)	 - Get a backup
 * [oasisctl get cacertificate](oasisctl-get-cacertificate.html)	 - Get a CA certificate the authenticated user has access to

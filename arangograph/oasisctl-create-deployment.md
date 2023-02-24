@@ -26,6 +26,7 @@ oasisctl create deployment [flags]
       --dbserver-disk-size int32             Set disk size of dbservers for flexible deployments (GB) (default 32)
       --dbserver-memory-size int32           Set memory size of dbservers for flexible deployments (GB) (default 4)
       --dbservers int32                      Set number of dbservers for flexible deployments (default 3)
+      --deployment-profile-id string         Set the Deployment Profile to use for this deployment.
       --description string                   Description of the deployment
       --disable-foxx-authentication          Disable authentication of requests to Foxx application.
       --disk-performance-id string           Set the disk performance to use for this deployment.

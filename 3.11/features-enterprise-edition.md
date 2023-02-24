@@ -92,7 +92,7 @@ features outlined below. For additional information, see
   Datacenter-to-Datacenter Replication for disaster recovery.
 
 - [**Auditing**](security-auditing.html):
-  Audit log of all server interactions.
+  Audit logs of all server interactions.
 
 - [**LDAP Authentication**](programs-arangod-ldap.html):
   ArangoDB user authentication with an LDAP server.

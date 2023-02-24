@@ -31,6 +31,6 @@ oasisctl disable [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl disable scheduled-root-password-rotation](oasisctl-disable-scheduled-root-password-rotation.html)	 - Disable scheduled root password rotation
 

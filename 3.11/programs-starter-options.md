@@ -117,11 +117,11 @@ for details.
 
 ## SSL options
 
-The arango starter by default creates a cluster that uses no unencrypted
-connections (no SSL).
+The ArangoDB Starter creates a cluster that uses unencrypted connections by
+default (no SSL/TLS).
 
 To create a cluster that uses encrypted connections, you can use an existing
-server key file (.pem format) or let the starter create one for you.
+server key file (`.pem` format) or let the starter create one for you.
 
 To use an existing server key file use the `--ssl.keyfile` option like this:
 
