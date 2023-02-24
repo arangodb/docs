@@ -231,12 +231,12 @@ Note the 5th and 6th result, which both have the same score of `6.30634880065918
 | Beverly Hills Ninja | 7.128915786743164 |
 | Naruto the Movie: Ninja Clash in the Land of Snow | 7.041049957275391 |
 | TMNT | 7.002012729644775 |
-| Teenage Mutant Ninja Turtles II: The Secret of the Ooze | 6.30634880065918 |
-| Batman Begins | 6.30634880065918 |
+| Teenage Mutant Ninja Turtles II: The Secret of the Ooze | **6.30634880065918** |
+| Batman Begins | **6.30634880065918** |
 | ... | ... |
 
 If you add a `LIMIT` operation for pagination and fetch the first 5 results,
-you may get the Batman movie as the 5th result:
+you may get the **Batman movie** as the 5th result:
 
 ```aql
 FOR doc IN imdb
@@ -253,15 +253,15 @@ FOR doc IN imdb
 | Beverly Hills Ninja | 7.128915786743164 | 
 | Naruto the Movie: Ninja Clash in the Land of Snow | 7.041049957275391 | 
 | TMNT | 7.002012729644775 | 
-| Batman Begins | 6.30634880065918 | 
+| **Batman Begins** | 6.30634880065918 | 
 
 If you change the query to `LIMIT 5, 5` to get the second batch of results, then
-you may see the Batman movie again (as the 6th result overall) instead of the
-Ninja Turtles movie:
+you may see the **Batman movie again** (as the 6th result overall) instead of
+the **Ninja Turtles movie**:
 
 | title | score |
 |:------|:------|
-| Batman Begins | 6.30634880065918 | 
+| **Batman Begins** | 6.30634880065918 | 
 | Shogun Assassin  | 5.8539886474609375 | 
 | Scooby-Doo and the Samurai Sword | 5.736422538757324 | 
 | Revenge of the Ninja | 5.212964057922363 | 
@@ -278,6 +278,40 @@ This still ranks movies by the score, but matches with the same score are
 consistently sorted by the document identifier to break ties. This guarantees
 that either the Batman or the Ninja Turtles movie is included in the first batch
 and the other movie in the second batch.
+
+```aql
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.description IN TOKENS("ninja", "text_en"), "text_en")
+  LET score = BM25(doc)
+  SORT score DESC, doc._id
+  LIMIT 0, 5  // first batch
+  RETURN { title: doc.title, score }
+```
+
+| title | score |
+|:------|:------|
+| Red Shadow: Akakage | 8.882122039794922 |
+| Beverly Hills Ninja | 7.128915786743164 | 
+| Naruto the Movie: Ninja Clash in the Land of Snow | 7.041049957275391 | 
+| TMNT | 7.002012729644775 | 
+| **Teenage Mutant Ninja Turtles II: The Secret of the Ooze** | 6.30634880065918 | 
+
+```aql
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.description IN TOKENS("ninja", "text_en"), "text_en")
+  LET score = BM25(doc)
+  SORT score DESC, doc._id
+  LIMIT 5, 5  // second batch
+  RETURN { title: doc.title, score }
+```
+
+| title | score |
+|:------|:------|
+| **Batman Begins** | 6.30634880065918 | 
+| Shogun Assassin  | 5.8539886474609375 | 
+| Scooby-Doo and the Samurai Sword | 5.736422538757324 | 
+| Revenge of the Ninja | 5.212964057922363 | 
+| Winners & Sinners 2: My Lucky Stars | 5.165824890136719 | 
 
 ## Query Time Relevance Tuning
 
