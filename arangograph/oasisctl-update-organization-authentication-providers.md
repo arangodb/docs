@@ -20,6 +20,7 @@ oasisctl update organization authentication providers [flags]
 ```
       --enable-github              If set, allow access from user accounts authentication through Github
       --enable-google              If set, allow access from user accounts authentication through Google
+      --enable-microsoft           If set, allow access from user accounts authentication through Microsoft
       --enable-username-password   If set, allow access from user accounts authentication through username-password
   -h, --help                       help for providers
   -o, --organization-id string     Identifier of the organization

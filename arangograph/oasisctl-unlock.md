@@ -31,7 +31,7 @@ oasisctl unlock [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl unlock cacertificate](oasisctl-unlock-cacertificate.html)	 - Unlock a CA certificate, so it can be deleted
 * [oasisctl unlock deployment](oasisctl-unlock-deployment.html)	 - Unlock a deployment, so it can be deleted
 * [oasisctl unlock ipallowlist](oasisctl-unlock-ipallowlist.html)	 - Unlock an IP allowlist, so it can be deleted
