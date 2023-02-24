@@ -612,6 +612,11 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   Appears when a `SORT RAND() LIMIT 1` construct is removed by moving the
   random iteration into an `EnumerateCollectionNode`.
 
+  The RocksDB storage engine doesn't allow to seek random documents efficiently.
+  This optimization picks a pseudo-random document based on a limited number of
+  seeks within the collection's key range, selecting a random start key in the
+  key range, and then going a few steps before or after that.
+
 - `remove-unnecessary-calculations`:
   Appears if `CalculationNode`s are removed from the query. The rule
   removes all calculations whose result is not referenced in the query (note
