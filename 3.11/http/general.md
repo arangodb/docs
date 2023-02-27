@@ -12,27 +12,32 @@ ArangoDB exposes its API via HTTP, making the server accessible easily with
 a variety of clients and tools (e.g. browsers, curl, telnet). The communication
 can optionally be SSL-encrypted.
 
-Additionally there is a custom binary protocol called
+Additionally, there is a custom binary protocol called
 [VelocyStream](https://github.com/arangodb/velocystream){:target="_blank"}
 which can be used for better throughput. HTTP requests are easily mappable
 to VelocyStream and no separate documentation exists as the API is essentially
 the same for both network protocols.
 
-ArangoDB uses the standard HTTP methods (e.g. *GET*, *POST*, *PUT*, *DELETE*) plus
-the *PATCH* method described in [RFC 5789](http://tools.ietf.org/html/rfc5789){:target="_blank"}.
+ArangoDB uses the standard HTTP methods (e.g. `GET`, `POST`, `PUT`, `DELETE`) plus
+the `PATCH` method described in [RFC 5789](http://tools.ietf.org/html/rfc5789){:target="_blank"}.
 
 Most server APIs expect clients to send any payload data in [JSON](http://www.json.org){:target="_blank"}
 format or ArangoDB's custom [VelocyPack](https://github.com/arangodb/velocypack)
 binary format. Details on the expected format and JSON attributes can be found
 in the documentation of the individual API endpoints.
 
-Clients sending requests to ArangoDB must use either HTTP 1.1, HTTP 2
-or VelocyStream. Other HTTP versions or protocols are not supported by ArangoDB.
+Clients sending requests to ArangoDB must use either of the following protocols:
+
+- HTTP 1.1
+- HTTP 2
+- VelocyStream
+
+Other HTTP versions or protocols are not supported by ArangoDB.
 
 Clients are required to include the `Content-Length` HTTP header with the
-correct content length in every request that can have a body (e.g. *POST*,
-*PUT* or *PATCH*) request. ArangoDB will not process requests without a
-*Content-Length* header - thus chunked transfer encoding for POST-documents
+correct content length in every request that can have a body (e.g. `POST`,
+`PUT` or `PATCH`) request. ArangoDB will not process requests without a
+`Content-Length` header - thus chunked transfer encoding for POST-documents
 is not supported.
 
 HTTP Keep-Alive
@@ -48,11 +53,11 @@ the request.
 The default Keep-Alive timeout can be specified at server start using the
 `--http.keep-alive-timeout` startup option.
 
-Establishing TCP connections is expensive, since it takes several roundtrips
+Establishing TCP connections is expensive, since it takes several round-trips
 between the communication parties. Therefore you can use connection keep-alive
 to send several HTTP request over one TCP-connection;
 each request is treated independently by definition. You can use this feature
-to build up a so called *connection pool* with several established
+to build up a so called **connection pool** with several established
 connections in your client application, and dynamically re-use
 one of those then idle connections for subsequent requests.
 
@@ -140,206 +145,6 @@ result of the request they send.
 
 For details on the subsequent processing read on under
 [Async Result handling](async-results-management.html).
-
-Authentication
---------------
-
-Client authentication can be achieved by using the *Authorization* HTTP header
-in client requests. ArangoDB supports authentication via HTTP Basic or JWT.
-
-Authentication is turned on by default for all internal database APIs but
-turned off for custom Foxx apps. To toggle authentication for incoming
-requests to the internal database APIs, use the option
-[--server.authentication](../programs-arangod-options.html#--serverauthentication).
-This option is turned on by default so authentication is required for the
-database APIs.
-
-Please note that requests using the HTTP OPTIONS method will be answered by
-ArangoDB in any case, even if no authentication data is sent by the client or if
-the authentication data is wrong. This is required for handling CORS preflight
-requests (see [Cross Origin Resource Sharing requests](#cross-origin-resource-sharing-cors-requests)).
-The response to an HTTP OPTIONS request will be generic and not expose any private data.
-
-There is an additional option to control authentication for custom Foxx apps. The option
-[--server.authentication-system-only](../programs-arangod-options.html#--serverauthentication-system-only)
-controls whether authentication is required only for requests to the internal
-database APIs and the admin interface. It is turned on by default, meaning that
-other APIs (this includes custom Foxx apps) do not require authentication.
-
-The default values allow exposing a public custom Foxx API built with ArangoDB
-to the outside world without the need for HTTP authentication, but still
-protecting the usage of the internal database APIs (i.e. `/_api/`, `/_admin/`)
-with HTTP authentication.
-
-If the server is started with the `--server.authentication-system-only`
-option set to *false*, all incoming requests will need HTTP authentication
-if the server is configured to require HTTP authentication
-(i.e. `--server.authentication true`). Setting the option to *true* will
-make the server require authentication only for requests to the internal
-database APIs and will allow unauthenticated requests to all other URLs.
-
-Here's a short summary:
-
-- `--server.authentication true --server.authentication-system-only true`:
-  This will require authentication for all requests to the internal database
-  APIs but not custom Foxx apps. This is the default setting.
-- `--server.authentication true --server.authentication-system-only false`:
-  This will require authentication for all requests (including custom Foxx apps).
-- `--server.authentication false`: authentication disabled for all requests
-
-Whenever authentication is required and the client has not yet authenticated,
-ArangoDB will return *HTTP 401* (Unauthorized). It will also send the
-`Www-Authenticate` response header, indicating that the client should prompt
-the user for username and password if supported. If the client is a browser,
-then sending back this header will normally trigger the display of the
-browser-side HTTP authentication dialog. As showing the browser HTTP
-authentication dialog is undesired in AJAX requests, ArangoDB can be told to
-not send the *Www-Authenticate* header back to the client. Whenever a client
-sends the `X-Omit-Www-Authenticate` HTTP header (with an arbitrary value) to
-ArangoDB, ArangoDB will only send status code 401, but no `Www-Authenticate`
-header. This allows clients to implement credentials handling and bypassing
-the browser's built-in dialog.
-
-### Authentication via JWT
-
-ArangoDB uses a standard JWT-based authentication method.
-To authenticate via JWT, you must first obtain a JWT token with a signature
-generated via HMAC with SHA-256. The secret may either be set using
-`--server.jwt-secret` or will be randomly generated upon server startup.
-
-For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){:target="_blank"}.
-
-#### User JWT-Token
-
-To authenticate with a specific user you need to supply a JWT token containing
-the `preferred_username` field with the username.
-You can either let ArangoDB generate this token for you via an API call
-or you can generate it yourself (only if you know the JWT secret).
-
-ArangoDB offers a RESTful API to generate user tokens for you if you know the
-username and password. To do so send a POST request to:
-
-```
-/_open/auth
-```
-
-… containing `username` and `password` JSON-encoded like so:
-
-```json
-{
-  "username": "root",
-  "password": "rootPassword"
-}
-```
-
-Upon success the endpoint will return a **200 OK** and an answer containing
-the JWT in a JSON-encoded object like so:
-
-```json
-{ "jwt": "eyJhbGciOiJIUzI1NiI..x6EfI" }
-```
-
-This JWT should then be used within the Authorization HTTP header in subsequent
-requests:
-
-```
-Authorization: bearer eyJhbGciOiJIUzI1NiI..x6EfI
-```
-
-Please note that the JWT will expire after **one hour** by default and needs to be
-updated. You can configure the token lifetime via the `--server.session-timeout`
-startup option.
-
-You can find the expiration date of the JWT token in the `exp` field, encoded as
-Unix timestamp in seconds.
-Please note that all JWT tokens must contain the `iss` field with string value
-`arangodb`. As an example the decoded JWT body would look like this:
-
-```json
-{
-  "exp": 1540381557,
-  "iat": 1537789.55727901,
-  "iss": "arangodb",
-  "preferred_username": "root"
-}
-```
-
-#### Superuser JWT-Token
-
-To access specific internal APIs as well as Agency and DB-Server instances a
-token generated via `POST /open/auth` is not good enough. For these special
-APIs you will need to generate a special JWT token which grants superuser
-access. Note that using superuser access for normal database operations is
-**NOT advised**.
-
-{% hint 'security' %}
-It is only possible to generate this JWT token with the knowledge of the
-JWT secret.
-{% endhint %}
-
-For your convenience it is possible to generate this token via the
-[ArangoDB starter CLI](../programs-starter-security.html#using-authentication-tokens).
-
-Should you wish to generate the JWT token yourself with a tool of your choice,
-you need to include the correct body. The body must contain the `iss` field
-with string value `arangodb` and the `server_id` field with an arbitrary string
-identifier:
-
-```json
-{
-  "exp": 1537900279,
-  "iat": 1537800279,
-  "iss": "arangodb",
-  "server_id": "myclient"
-}
-```
-
-For example to generate a token via the
-[jwtgen tool](https://www.npmjs.com/package/jwtgen){:target="_blank"}
-(note the lifetime of one hour):
-
-```
-jwtgen -s <my-secret> -e 3600 -v -a "HS256" -c 'iss=arangodb' -c 'server_id=myclient'
-curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 'iss=arangodb' -c 'server_id=myclient')" http://<database-ip>:8529/_api/version
-```
-
-#### Hot-Reload of JWT Secrets
-
-<small>Introduced in: v3.7.0</small>
-
-{% include hint-ee.md feature="Hot-reloading of secrets" %}
-
-To reload the JWT secrets of a local arangod process without a restart, you
-may use the following RESTful API. A **POST** request reloads the secret, a
-**GET** request may be used to load information about the currently used secrets.
-
-{% docublock get_admin_server_jwt %}
-{% docublock post_admin_server_jwt %}
-
-Example result:
-
-```json
-{
-  "error": false,
-  "code": 200,
-  "result": {
-    "active": {
-      "sha256": "c6c1021286dfe870b7050f9e704df93c7f1de3c89dbdadc3fb30394bebd81e97"
-    },
-    "passive": [
-      {
-        "sha256": "6d2fe32dc4249ef7e7359c6d874fffbbf335e832e49a2681236e1b686af78794"
-      },
-      {
-        "sha256": "448a28491967ea4f7599f454af261a685153c27a7d5748456022565947820fb9"
-      },
-      {
-        "sha256": "6745d49264bdfc2e89d4333fe88f0fce94615fdbdb8990e95b5fda0583336da8"
-      }
-    ]
-  }
-}
-```
 
 Error Handling
 --------------
