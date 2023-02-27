@@ -92,25 +92,27 @@ with and between the servers of an ArangoGraph deployment is encrypted using the
 TLS protocol.
 
 Each ArangoGraph deployment is accessible on two different port numbers:
-- default port (8529)
-- high port (18529)
+- default port `8529`
+- high port `18529`
 
-Each ArangoGraph Notebook is accessible on the following port number:
-- default port (8840)
+Each ArangoGraph Notebook is accessible on two different port numbers:
+- default port `8840`
+- high port `18840`
 
-Metrics are accessible on the following port number:
-- default port (8829)
+Metrics are accessible on two different port numbers:
+- default port `8829`
+- high port `18829`
 
 The distinction between these port numbers is in the certificate used for the
 TLS connection.
 
-On the default port (8529), a **well known X509 certificate** created by
+On the default ports, a **well known X509 certificate** created by
 [Let's Encrypt](https://letsencrypt.org/){:target="_blank"} is being used. This
 certificate has a lifetime of 5 years and is rotated automatically. It is
 recommended to use Well known certificates, as this eases the access of a
 deployment in your browser.
 
-On the high port (18529), a **self-signed X509 certificate** is being used. This
+On the high ports, a **self-signed X509 certificate** is being used. This
 certificate has a lifetime of one year and it is automatically created by the
 ArangoGraph platform. It is also rotated automatically before the expiration
 date.
@@ -123,7 +125,7 @@ self-signed certificate.
 
 When using [private endpoints](deployments.html#how-to-create-a-private-endpoint-deployment),
 [notebooks](notebooks.html), and [metrics](monitoring-metrics.html), you can specify 
-alternate domain names which are added to the self-signed certificate
+alternate domain names which are added only to the self-signed certificate
 as Subject Alternative Name (SAN). 
 
 The Subject Alternative Name (SAN) is an extension to the X. 509 specification 
