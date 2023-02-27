@@ -105,7 +105,7 @@ Database names containing Unicode must be properly
 [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms){:target="_blank"}.
 Non-NFC-normalized names are rejected by the server.
 
-## Database management API
+## Database API
 
 The HTTP interface for databases provides operations to create and drop
 individual databases. These are mapped to the standard `POST` and `DELETE`

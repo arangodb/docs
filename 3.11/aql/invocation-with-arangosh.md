@@ -465,7 +465,7 @@ the entire query result in RAM, use a streaming query (see the
 
 If you set this option to `true` and execute the query against a cluster
 deployment, then the Coordinator is allowed to read from any shard replica and
-not only from the leader. See [Read from Followers](../http/document-address-and-etag.html#read-from-followers)
+not only from the leader. See [Read from Followers](../http/document.html#read-from-followers)
 for details.
 
 {% include hint-ee-arangograph.md feature="Reading from followers in clusters" %}

@@ -25,17 +25,16 @@ This will automatically cause these operations to use the specified transaction.
 
 Supported transactional API operations include:
 
-1. All operations in the [Document API](document-working-with-documents.html)
-2. Number of documents via the [Collection API](collection-getting.html#return-number-of-documents-in-a-collection)
-3. Truncate a collection via the [Collection API](collection-creating.html#truncate-collection)
-4. Create an AQL cursor via the [Cursor API](aql-query-cursor-accessing-cursors.html)
-5. Handle [vertices](gharial-vertices.html) and [edges](gharial-edges.html)
-   of managed graphs (_General Graph_ / _Gharial_ API)
+- All operations in the [Document API](document.html#document-api)
+- Number of documents via the [Collection API](collection.html#return-number-of-documents-in-a-collection)
+- Truncate a collection via the [Collection API](collection.html#truncate-collection)
+- Create an AQL cursor via the [Cursor API](aql-query-cursor-accessing-cursors.html)
+- Handle [vertices](gharial-vertices.html) and [edges](gharial-edges.html)
+  of managed graphs (_General Graph_ / _Gharial_ API)
 
 Begin a Transaction
 -------------------
 
-<!-- RestTransactionHandler.cpp -->
 {% docublock post_api_transaction_begin %}
 
 Check Status of a Transaction
@@ -47,14 +46,12 @@ Commit or Abort a Transaction
 -----------------------------
 
 Committing or aborting a running transaction must be done by the client.
-It is *bad practice* to not commit or abort a transaction once you are done
+It is bad practice to not commit or abort a transaction once you are done
 using it. It will force the server to keep resources and collection locks 
 until the entire transaction times out.
 
-<!-- RestTransactionHandler.cpp -->
 {% docublock put_api_transaction %}
 
-<!-- RestTransactionHandler.cpp -->
 {% docublock delete_api_transaction %}
 
 List currently ongoing Transactions

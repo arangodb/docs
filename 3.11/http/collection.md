@@ -94,7 +94,7 @@ the collection name is *demo*, then the URL of that collection is:
 http://localhost:8529/_api/collection/demo
 ```
 
-## Collection management API
+## Collection API
 
 ### Get information about collections
 

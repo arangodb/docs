@@ -577,7 +577,7 @@ There are now new APIs and startup options for JWT secrets. The new option
 JWT secret file.
 
 Additionally the `/_admin/server/jwt` API can be used to
-[reload the JWT secrets](http/general.html#hot-reload-of-jwt-secrets)
+[reload the JWT secrets](http/authentication.html#hot-reload-of-jwt-secrets)
 of a local arangod process without having to restart it (hot-reload).
 This may be used to roll out new JWT secrets throughout an ArangoDB cluster.
 
@@ -637,7 +637,7 @@ primary keys during the insert.
 
 The query options are available in [AQL](aql/operations-insert.html#query-options),
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
-[HTTP API](http/document-working-with-documents.html#create-document).
+[HTTP API](http/document.html#create-document).
 
 ### Override detected total memory and CPU cores
 

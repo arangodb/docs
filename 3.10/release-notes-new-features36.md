@@ -587,7 +587,7 @@ HTTP API
 
 The following APIs have been expanded / changed:
 
-- [Database creation API](http/database-database-management.html#create-database),<br>
+- [Database creation API](http/database.html#create-database),<br>
   HTTP route `POST /_api/database`
 
   The database creation API now handles the `replicationFactor`, `writeConcern`
@@ -609,7 +609,7 @@ The following APIs have been expanded / changed:
   that database via the web UI, arangosh or drivers (unless the startup option
   `--cluster.force-one-shard` is enabled).
 
-- [Database properties API](http/database-database-management.html#information-of-the-database),<br>
+- [Database properties API](http/database.html#information-of-the-database),<br>
   HTTP route `GET /_api/database/current`
 
   The database properties endpoint returns the new additional attributes

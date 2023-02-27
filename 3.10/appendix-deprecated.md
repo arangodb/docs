@@ -53,7 +53,7 @@ replace the old features with:
 - **Batch Requests API**:
   The [batch request REST API](http/batch-request.html) is deprecated and will be 
   removed in a future version. Instead of using this API, please use the 
-  [HTTP Interface for Documents](http/document-working-with-documents.html#bulk-document-operations)
+  [HTTP interface for documents](http/document.html#multiple-document-operations)
   that can insert, update, replace or remove arrays of documents.
 
 - **PUT method in Cursor API**:

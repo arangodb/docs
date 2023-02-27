@@ -18,7 +18,7 @@ world wide web. All interactions with a server are ultimately carried out via
 this HTTP API.
 
 You can use the API by sending HTTP requests to the server directly, but the
-more common way of communicating with the server is via a [database driver](drivers/).
+more common way of communicating with the server is via a [database driver](../drivers/).
 A driver abstracts the complexity of the API away by providing a simple
 interface for your programming language or environment and handling things like
 authentication, connection pooling, asynchronous requests, and multi-part replies

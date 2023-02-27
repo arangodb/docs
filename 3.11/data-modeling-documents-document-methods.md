@@ -248,7 +248,7 @@ client.
 If you pass `options` as the second argument, it must be an object. If this
 object has the `allowDirtyReads` attribute set to `true`, then the
 Coordinator is allowed to read from any shard replica and not only from
-the leader shard. See [Read from Followers](http/document-address-and-etag.html#read-from-followers)
+the leader shard. See [Read from Followers](http/document.html#read-from-followers)
 for details.
 
 ---
@@ -388,7 +388,7 @@ request is performed.
 If you pass `options` as the second argument, it must be an object. If this
 object has the `allowDirtyReads` attribute set to `true`, then the
 Coordinator is allowed to read from any shard replica and not only from
-the leader shard. See [Read from Followers](http/document-address-and-etag.html#read-from-followers)
+the leader shard. See [Read from Followers](http/document.html#read-from-followers)
 for details.
 
 ---

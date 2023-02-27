@@ -9,8 +9,8 @@ HTTP Interface for Batch Requests
 The batch request API is deprecated from version 3.8.0 on.
 This endpoint should no longer be used.
 To send multiple documents at once to an ArangoDB instance, please use the
-[HTTP Interface for Documents](document-working-with-documents.html#bulk-document-operations)
-that can insert, update, replace or remove arrays of documents.
+[HTTP interface for documents](document.html#multiple-document-operations)
+that can insert, update, replace, or remove arrays of documents.
 {% endhint %}
 
 Clients normally send individual operations to ArangoDB in individual

@@ -9,8 +9,8 @@ HTTP Interface for Batch Requests
 The batch request API is deprecated from version 3.8.0 on.
 This endpoint should no longer be used.
 To send multiple documents at once to an ArangoDB instance, please use the
-[HTTP Interface for Documents](document-working-with-documents.html#bulk-document-operations)
-that can insert, update, replace or remove arrays of documents.
+[HTTP interface for documents](document.html#multiple-document-operations)
+that can insert, update, replace, or remove arrays of documents.
 {% endhint %}
 
 Clients normally send individual operations to ArangoDB in individual
@@ -125,7 +125,7 @@ Content-Id: 1
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8
-Etag: "9514299"
+ETag: "9514299"
 Content-length: 53
 
 {"error":false,"_id":"xyz/9514299","_key":"9514299","_rev":"9514299"}
@@ -135,7 +135,7 @@ Content-Id: 2
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8
-Etag: "9579835"
+ETag: "9579835"
 Content-length: 53
 
 {"error":false,"_id":"xyz/9579835","_key":"9579835","_rev":"9579835"}
@@ -145,7 +145,7 @@ Content-Id: 3
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8
-Etag: "9645371"
+ETag: "9645371"
 Content-length: 53
 
 {"error":false,"_id":"xyz/9645371","_key":"9645371","_rev":"9645371"}
@@ -206,7 +206,7 @@ Content-type: application/x-arango-batchpart
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8
-Etag: "9841979"
+ETag: "9841979"
 Content-length: 53
 
 {"error":false,"_id":"xyz/9841979","_key":"9841979","_rev":"9841979"}

@@ -19,7 +19,7 @@ It is possible to use the Agency API for a variety of use-cases, for example:
 - Distributed Lock-Manager
 
 *Note 1*: To access the Agency API with authentication enabled, you need to include an authorization header
-with every request. The authorization header _must_ contain a *superuser JWT Token*; For more information see the [authentication section](general.html#authentication).
+with every request. The authorization header _must_ contain a *superuser JWT Token*; For more information see the [authentication section](authentication.html).
 
 *Note 2*: The key-prefix `/arango` contains ArangoDBs internal configuration. You should _never_ change any values below the _arango_ key.
 
