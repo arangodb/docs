@@ -900,9 +900,9 @@ DATE_FORMAT("2016-03-01", "%xxx%") // "063", trailing % ignored
   @EXAMPLE_AQL{dateFormat}
     FOR format IN @formats
     RETURN CONCAT(
-      format.eqaulTo,
-      '("',format.date,'") = ',
-      DATE_FORMAT(format.date, format.placeholder)
+      format.equalTo,
+      "('",format.date,"') = ",
+      DATE_FORMAT (format.date, format.placeholder)
     )
   @BV {
     "formats": [
@@ -932,8 +932,8 @@ DATE_FORMAT("2016-03-01", "%xxx%") // "063", trailing % ignored
   @EXAMPLE_AQL{dateFormatTimezoned}
     FOR format IN @formats
     RETURN CONCAT(
-      format.eqaulTo,
-      '("',format.date,'") = ',
+      format.equalTo,
+      "('",format.date,"') = ",
       DATE_FORMAT(format.date, format.placeholder, format.timezone)
     )
   @BV {
@@ -943,7 +943,7 @@ DATE_FORMAT("2016-03-01", "%xxx%") // "063", trailing % ignored
       {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%m", "equalTo": "DATE_MONTH", "timezone": "Europe/Berlin" },
       {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%d", "equalTo": "DATE_DAY", "timezone": "Europe/Berlin" },
       {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%h", "equalTo": "DATE_HOUR", "timezone": "Europe/Berlin" },
-      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%i", "equalTo": "DATE_MINUTE", "timezone": "Asia/Kathmandu" }
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%i", "equalTo": "DATE_MINUTE", "timezone": "Asia/Kathmandu" },
       {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%x", "equalTo": "DATE_DAYOFYEAR", "timezone": "Europe/Berlin" },
       {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%k", "equalTo": "DATE_ISOWEEK", "timezone": "Europe/Berlin" },
       {  "date": "2016-12-31T23:00:00.000Z", "placeholder": "%l", "equalTo": "DATE_LEAPYEAR", "timezone": "Europe/Berlin" },
