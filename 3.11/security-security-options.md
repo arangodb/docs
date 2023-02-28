@@ -347,6 +347,16 @@ extra options are available for locking down JavaScript access to server functio
 The following options are available for controlling the installation of Foxx applications
 in an ArangoDB server:
 
+- `--foxx.enable`:
+  If set to `false`, this option disables access to any user-defined Foxx apps.
+  Accessing the URL of any (existing or potentially existing) Foxx app will produce an
+  HTTP 403 Forbidden error with this setting.
+  ArangoDB's built-in web interface and all built-in REST APIs will remain accessible,
+  except the Foxx service management API, which will make it impossible to install and 
+  uninstall Foxx applications. Setting the option to `false` will also deactivate the 
+  "Services" section in the web interface (introduced in: v3.10.5).
+  The default value is `true`, meaning that Foxx apps can be accessed. 
+
 - `--foxx.api`:
   If set to `false`, this option disables the Foxx management API, which will make it
   impossible to install and uninstall Foxx applications. Setting the option to `false`
