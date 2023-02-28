@@ -15,22 +15,26 @@ in client requests. ArangoDB supports authentication via HTTP Basic or JWT.
 
 Authentication is turned on by default for all internal database APIs but
 turned off for custom Foxx apps. To toggle authentication for incoming
-requests to the internal database APIs, use the option
-[--server.authentication](../programs-arangod-options.html#--serverauthentication).
-This option is turned on by default so authentication is required for the
-database APIs.
+requests to the internal database APIs, use the
+[`--server.authentication`](../programs-arangod-options.html#--serverauthentication)
+startup option. This option is turned on by default so authentication is
+required for the database APIs.
 
-Please note that requests using the HTTP OPTIONS method will be answered by
+{% hint 'security' %}
+Requests using the HTTP `OPTIONS` method are answered by
 ArangoDB in any case, even if no authentication data is sent by the client or if
 the authentication data is wrong. This is required for handling CORS preflight
 requests (see [Cross Origin Resource Sharing requests](general.html#cross-origin-resource-sharing-cors-requests)).
-The response to an HTTP OPTIONS request will be generic and not expose any private data.
+The response to an HTTP `OPTIONS` request is generic and doesn't expose any
+private data.
+{% endhint %}
 
-There is an additional option to control authentication for custom Foxx apps. The option
-[--server.authentication-system-only](../programs-arangod-options.html#--serverauthentication-system-only)
-controls whether authentication is required only for requests to the internal
-database APIs and the admin interface. It is turned on by default, meaning that
-other APIs (this includes custom Foxx apps) do not require authentication.
+There is an additional option to control authentication for custom Foxx apps. The
+[`--server.authentication-system-only`](../programs-arangod-options.html#--serverauthentication-system-only)
+startup option controls whether authentication is required only for requests to
+the internal database APIs and the admin interface. It is turned on by default,
+meaning that other APIs (this includes custom Foxx apps) do not require
+authentication.
 
 The default values allow exposing a public custom Foxx API built with ArangoDB
 to the outside world without the need for HTTP authentication, but still
@@ -38,31 +42,31 @@ protecting the usage of the internal database APIs (i.e. `/_api/`, `/_admin/`)
 with HTTP authentication.
 
 If the server is started with the `--server.authentication-system-only`
-option set to `false`, all incoming requests will need HTTP authentication
+option set to `false`, all incoming requests need HTTP authentication
 if the server is configured to require HTTP authentication
-(i.e. `--server.authentication true`). Setting the option to `true` will
-make the server require authentication only for requests to the internal
-database APIs and will allow unauthenticated requests to all other URLs.
+(i.e. `--server.authentication true`). Setting the option to `true`
+makes the server require authentication only for requests to the internal
+database APIs and allows unauthenticated requests to all other URLs.
 
-Here's a short summary:
+Here is a short summary:
 
 - `--server.authentication true --server.authentication-system-only true`:
-  This will require authentication for all requests to the internal database
+  This requires authentication for all requests to the internal database
   APIs but not custom Foxx apps. This is the default setting.
 - `--server.authentication true --server.authentication-system-only false`:
-  This will require authentication for all requests (including custom Foxx apps).
-- `--server.authentication false`: authentication disabled for all requests
+  This requires authentication for all requests (including custom Foxx apps).
+- `--server.authentication false`: Authentication is disabled for all requests.
 
 Whenever authentication is required and the client has not yet authenticated,
-ArangoDB will return **HTTP 401** (Unauthorized). It will also send the
+ArangoDB returns **HTTP 401** (Unauthorized). It also sends the
 `Www-Authenticate` response header, indicating that the client should prompt
 the user for username and password if supported. If the client is a browser,
-then sending back this header will normally trigger the display of the
+then sending back this header normally triggers the display of the
 browser-side HTTP authentication dialog. As showing the browser HTTP
 authentication dialog is undesired in AJAX requests, ArangoDB can be told to
 not send the `Www-Authenticate` header back to the client. Whenever a client
 sends the `X-Omit-Www-Authenticate` HTTP header (with an arbitrary value) to
-ArangoDB, ArangoDB will only send status code 401, but no `Www-Authenticate`
+the server, ArangoDB only sends status code 401, but no `Www-Authenticate`
 header. This allows clients to implement credentials handling and bypassing
 the browser's built-in dialog.
 
@@ -76,16 +80,16 @@ Authorization: Basic <base64(<username>:<password>)>
 Security warning
 -->
 
-## Authentication via JWT
+## Bearer Token Authentication
 
 ArangoDB uses a standard JWT-based authentication method.
 To authenticate via JWT, you must first obtain a JWT token with a signature
 generated via HMAC with SHA-256. The secret may either be set using
-`--server.jwt-secret` or will be randomly generated upon server startup.
+`--server.jwt-secret` or it is randomly generated on server startup.
 
 For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){:target="_blank"}.
 
-### User JWT Token
+### JWT User Token
 
 To authenticate with a specific user you need to supply a JWT token containing
 the `preferred_username` field with the username.
@@ -108,7 +112,7 @@ username and password. To do so send a POST request to:
 }
 ```
 
-Upon success the endpoint will return a **200 OK** and an answer containing
+On success, the endpoint returns a **200 OK** and an answer containing
 the JWT in a JSON-encoded object like so:
 
 ```json
@@ -122,9 +126,11 @@ requests:
 Authorization: bearer eyJhbGciOiJIUzI1NiI..x6EfI
 ```
 
-Please note that the JWT will expire after **one hour** by default and needs to be
-updated. You can configure the token lifetime via the `--server.session-timeout`
+{% hint 'security' %}
+The JWT token expires after **one hour** by default and needs to be updated.
+You can configure the token lifetime via the `--server.session-timeout`
 startup option.
+{% endhint %}
 
 You can find the expiration date of the JWT token in the `exp` field, encoded as
 Unix timestamp in seconds.
@@ -140,13 +146,13 @@ Please note that all JWT tokens must contain the `iss` field with string value
 }
 ```
 
-### Superuser JWT Token
+### JWT Superuser Token
 
 To access specific internal APIs as well as Agency and DB-Server instances a
 token generated via `POST /open/auth` is not good enough. For these special
-APIs you will need to generate a special JWT token which grants superuser
+APIs, you need to generate a special JWT token which grants superuser
 access. Note that using superuser access for normal database operations is
-**NOT advised**.
+**not advised**.
 
 {% hint 'security' %}
 It is only possible to generate this JWT token with the knowledge of the
@@ -179,7 +185,7 @@ jwtgen -s <my-secret> -e 3600 -v -a "HS256" -c 'iss=arangodb' -c 'server_id=mycl
 curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 'iss=arangodb' -c 'server_id=myclient')" http://<database-ip>:8529/_api/version
 ```
 
-### Hot-Reload of JWT Secrets
+## Hot-Reload of JWT Secrets
 
 <small>Introduced in: v3.7.0</small>
 

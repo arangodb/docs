@@ -28,12 +28,14 @@ queries need to be parsed and planned, and thus have an overhead. On the other
 hand, AQL is far more powerful, letting you perform graph traversals, for
 instance.
 
-## Addresses of edges
+## Edge API
+
+### Addresses of edges
 
 Edges are a special variation of documents and you can access them like any
 document. See [Addresses of documents](document.html#addresses-of-documents)
 for details.
 
-## Edge API
+### Manage edges
 
-{% docublock get_read_in_out_edges %}
+{% docublock get_read_in_out_edges, h4 %}

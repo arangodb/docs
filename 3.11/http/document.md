@@ -1,7 +1,8 @@
 ---
 layout: default
 description: >-
-
+  The HTTP API for documents lets you create, read, update, and delete documents
+  in collections, either one or multiple at a time
 redirect_from:
   - document-address-and-etag.html # 3.10 -> 3.10
   - document-working-with-documents.html # 3.10 -> 3.10
@@ -90,7 +91,6 @@ values.
 
 {% docublock documentRevision %}
 
-
 ### Document ETags
 
 ArangoDB tries to adhere to the existing HTTP standard as far as
@@ -104,7 +104,9 @@ for documents are mapped to the standard HTTP methods (`POST`, `GET`,
 If you modify a document, you can use the `If-Match` field to detect conflicts.
 The revision of a document can be checking using the HTTP method `HEAD`.
 
-## Addresses of documents
+## Document API
+
+### Addresses of documents
 
 Any document can be retrieved using its unique URI:
 
@@ -150,7 +152,63 @@ If you want to query, replace, update or delete a document, then you
 can use the `If-Match` header. If the document has changed, then the
 operation is aborted and an **HTTP 412** error is returned.
 
-## Read from Followers
+### Multiple documents in a single request
+
+The document API can handle not only single documents but multiple documents in
+a single request. This is crucial for performance, in particular in the cluster
+situation, in which a single request can involve multiple network hops
+within the cluster. Another advantage is that it reduces the overhead of
+the HTTP protocol and individual network round trips between the client
+and the server. The general idea to perform multiple document operations
+in a single request is to use a JSON array of objects in the place of a
+single document. As a consequence, document keys, identifiers and revisions
+for preconditions have to be supplied embedded in the individual documents
+given. Multiple document operations are restricted to a single collection
+(document collection or edge collection).
+
+<!-- TODO: The spec has been changed long ago and payloads are allowed, but there is still a lot of incompatible software -->
+Note that the `GET`, `HEAD` and `DELETE` HTTP operations generally do
+not allow to pass a message body. Thus, they cannot be used to perform
+multiple document operations in one request. However, there are alternative
+endpoints to request and delete multiple documents in one request.
+
+### Single document operations
+
+{% docublock get_read_document, h4 %}
+{% docublock head_read_document_header, h4 %}
+{% docublock post_create_document, h4 %}
+{% docublock put_replace_document, h4 %}
+{% docublock patch_update_document, h4 %}
+{% docublock delete_remove_document, h4 %}
+
+### Multiple document operations
+
+ArangoDB supports working with documents in bulk. Bulk operations affect a
+*single* collection. Using this API variant allows clients to amortize the
+overhead of single requests over an entire batch of documents. Bulk operations
+are **not guaranteed** to be executed serially, ArangoDB _may_ execute the
+operations in parallel. This can translate into large performance improvements
+especially in a cluster deployment.
+
+ArangoDB continues to process the remaining operations should an error
+occur during the processing of one operation. Errors are returned _inline_ in
+the response body as an error document (see below for more details).
+Additionally, the `X-Arango-Error-Codes` header contains a map of the
+error codes that occurred together with their multiplicities, like
+`1205:10,1210:17` which means that in 10 cases the error 1205
+(illegal document handle) and in 17 cases the error 1210
+(unique constraint violated) has happened.
+
+Generally, the bulk operations expect an input array and the result body
+contains a JSON array of the same length.
+
+{% docublock get_read_document_MULTI, h4 %}
+{% docublock post_create_document_MULTI, h4 %}
+{% docublock put_replace_document_MULTI, h4 %}
+{% docublock patch_update_document_MULTI, h4 %}
+{% docublock delete_remove_document_MULTI, h4 %}
+
+### Read from followers
 
 <small>Introduced in: v3.10.0</small>
 
@@ -229,61 +287,3 @@ the following HTTP header:
 ```
 x-arango-potential-dirty-read: true
 ```
-
-## Document API
-
-### Multiple documents in a single request
-
-The document API can handle not only single documents but multiple documents in
-a single request. This is crucial for performance, in particular in the cluster
-situation, in which a single request can involve multiple network hops
-within the cluster. Another advantage is that it reduces the overhead of
-the HTTP protocol and individual network round trips between the client
-and the server. The general idea to perform multiple document operations
-in a single request is to use a JSON array of objects in the place of a
-single document. As a consequence, document keys, identifiers and revisions
-for preconditions have to be supplied embedded in the individual documents
-given. Multiple document operations are restricted to a single collection
-(document collection or edge collection).
-
-<!-- TODO: The spec has been changed long ago and payloads are allowed, but there is still a lot of incompatible software -->
-Note that the `GET`, `HEAD` and `DELETE` HTTP operations generally do
-not allow to pass a message body. Thus, they cannot be used to perform
-multiple document operations in one request. However, there are alternative
-endpoints to request and delete multiple documents in one request.
-
-### Single document operations
-
-{% docublock get_read_document %}
-{% docublock head_read_document_header %}
-{% docublock post_create_document %}
-{% docublock put_replace_document %}
-{% docublock patch_update_document %}
-{% docublock delete_remove_document %}
-
-### Multiple document operations
-
-ArangoDB supports working with documents in bulk. Bulk operations affect a
-*single* collection. Using this API variant allows clients to amortize the
-overhead of single requests over an entire batch of documents. Bulk operations
-are **not guaranteed** to be executed serially, ArangoDB _may_ execute the
-operations in parallel. This can translate into large performance improvements
-especially in a cluster deployment.
-
-ArangoDB continues to process the remaining operations should an error
-occur during the processing of one operation. Errors are returned _inline_ in
-the response body as an error document (see below for more details).
-Additionally, the `X-Arango-Error-Codes` header contains a map of the
-error codes that occurred together with their multiplicities, like
-`1205:10,1210:17` which means that in 10 cases the error 1205
-(illegal document handle) and in 17 cases the error 1210
-(unique constraint violated) has happened.
-
-Generally, the bulk operations expect an input array and the result body
-contains a JSON array of the same length.
-
-{% docublock get_read_document_MULTI %}
-{% docublock post_create_document_MULTI %}
-{% docublock put_replace_document_MULTI %}
-{% docublock patch_update_document_MULTI %}
-{% docublock delete_remove_document_MULTI %}

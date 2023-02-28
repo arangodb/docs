@@ -918,7 +918,7 @@ single-sharded collections.
 Document keys are still not guaranteed to be truly ascending for collections with
 more than a single shard.
 
-## Read from Followers in Clusters (Enterprise Edition)
+## Read from followers in Clusters (Enterprise Edition)
 
 You can now allow for reads from followers for a
 number of read-only operations in cluster deployments. In this case, Coordinators
@@ -928,7 +928,7 @@ that have copies of the data. Therefore, the read throughput is higher.
 
 This feature is only available in the Enterprise Edition.
 
-For more information, see [Read from Followers](http/document.html#read-from-followers).
+For more information, see [Read from followers](http/document.html#read-from-followers).
 
 ## Improved shard rebalancing
 

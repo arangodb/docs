@@ -448,12 +448,12 @@ attribute is returned inside the `serverInfo` object with the following subattri
 
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
 
-#### Read from Followers
+#### Read from followers
 
 A number of read-only APIs now observe the `x-arango-allow-dirty-read`
 header, which was previously only used in Active Failover deployments.
 This header allows reading from followers or "dirty reads". See
-[Read from Followers](http/document.html#read-from-followers)
+[Read from followers](http/document.html#read-from-followers)
 for details.
 
 The following APIs are affected:
@@ -650,7 +650,7 @@ for details.
 The `db._query()` and `db._createStatement()` methods accepts new query
 options (`options` object) to set per-query thresholds for the
 [query spillover feature](release-notes-new-features310.html#query-result-spillover-to-decrease-memory-usage)
-and to [Read from Followers](http/document.html#read-from-followers):
+and to [Read from followers](http/document.html#read-from-followers):
 
 - `allowDirtyReads` (boolean, _optional_): default: `false`
 - `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)

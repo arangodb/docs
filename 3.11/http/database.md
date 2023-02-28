@@ -9,6 +9,9 @@ redirect_from:
 ---
 # HTTP Interface for Databases
 
+{{ page.description }}
+{:class="lead"}
+
 ## Databases
 
 ArangoDB can handle multiple databases in the same server instance. Databases
@@ -74,7 +77,19 @@ Also see [Database Naming Conventions](../data-modeling-naming-conventions-datab
   applications shipped with ArangoDB (mainly the web interface). You need to
   explicitly install other Foxx applications.
 
-## Addresses of databases
+## Database API
+
+The HTTP interface for databases provides operations to create and drop
+individual databases. These are mapped to the standard `POST` and `DELETE`
+HTTP methods. There is also the `GET` method to retrieve an array of existing
+databases.
+
+{% hint 'info' %}
+All database management operations can only be accessed via the default
+`_system` database and none of the other databases.
+{% endhint %}
+
+### Addresses of databases
 
 Any operation triggered via ArangoDB's RESTful HTTP API is executed in the
 context of exactly one database. To explicitly specify the database in a request,
@@ -105,20 +120,10 @@ Database names containing Unicode must be properly
 [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms){:target="_blank"}.
 Non-NFC-normalized names are rejected by the server.
 
-## Database API
+### Manage databases
 
-The HTTP interface for databases provides operations to create and drop
-individual databases. These are mapped to the standard `POST` and `DELETE`
-HTTP methods. There is also the `GET` method to retrieve an array of existing
-databases.
-
-{% hint 'info' %}
-All database management operations can only be accessed via the default
-`_system` database and none of the other databases.
-{% endhint %}
-
-{% docublock get_api_database_current %}
-{% docublock get_api_database_user %}
-{% docublock get_api_database_list %}
-{% docublock get_api_database_new %}
-{% docublock get_api_database_delete %}
+{% docublock get_api_database_current, h4 %}
+{% docublock get_api_database_user, h4 %}
+{% docublock get_api_database_list, h4 %}
+{% docublock get_api_database_new, h4 %}
+{% docublock get_api_database_delete, h4 %}

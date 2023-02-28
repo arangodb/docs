@@ -73,7 +73,9 @@ if inserts fails.
 The basic operations (create, read, update, delete) for documents are mapped
 to the standard HTTP methods (*POST*, *GET*, *PUT*, *DELETE*).
 
-## Addresses of collections
+## Collection API
+
+### Addresses of collections
 
 All collections in ArangoDB have a unique identifier and a unique
 name. ArangoDB internally uses the collection's unique identifier to
@@ -87,39 +89,37 @@ collection name should be used, i.e.:
 http://server:port/_api/collection/collection-name
 ```
 
-For example, assume that the collection identifier is *7254820* and
-the collection name is *demo*, then the URL of that collection is:
+For example, assume that the collection identifier is `7254820` and
+the collection name is `demo`, then the URL of that collection is:
 
 ```
 http://localhost:8529/_api/collection/demo
 ```
 
-## Collection API
-
 ### Get information about collections
 
-{% docublock get_api_collection_name %}
-{% docublock get_api_collection_properties %}
-{% docublock get_api_collection_count %}
-{% docublock get_api_collection_figures %}
-{% docublock get_api_collection_getResponsibleShard %}
-{% docublock get_api_collection_shards %}
-{% docublock get_api_collection_revision %}
-{% docublock get_api_collection_checksum %}
-{% docublock get_api_collections %}
+{% docublock get_api_collection_name, h4 %}
+{% docublock get_api_collection_properties, h4 %}
+{% docublock get_api_collection_count, h4 %}
+{% docublock get_api_collection_figures, h4 %}
+{% docublock get_api_collection_getResponsibleShard, h4 %}
+{% docublock get_api_collection_shards, h4 %}
+{% docublock get_api_collection_revision, h4 %}
+{% docublock get_api_collection_checksum, h4 %}
+{% docublock get_api_collections, h4 %}
 
 ### Create and delete collections
 
-{% docublock post_api_collection %}
-{% docublock delete_api_collection %}
-{% docublock put_api_collection_truncate %}
+{% docublock post_api_collection, h4 %}
+{% docublock delete_api_collection, h4 %}
+{% docublock put_api_collection_truncate, h4 %}
 
 ### Modify collections
 
-{% docublock put_api_collection_load %}
-{% docublock put_api_collection_unload %}
-{% docublock put_api_collection_load_indexes_into_memory %}
-{% docublock put_api_collection_properties %}
-{% docublock put_api_collection_rename %}
-{% docublock put_api_collection_recalculate_count %}
-{% docublock put_api_collection_compact %}
+{% docublock put_api_collection_load, h4 %}
+{% docublock put_api_collection_unload, h4 %}
+{% docublock put_api_collection_load_indexes_into_memory, h4 %}
+{% docublock put_api_collection_properties, h4 %}
+{% docublock put_api_collection_rename, h4 %}
+{% docublock put_api_collection_recalculate_count, h4 %}
+{% docublock put_api_collection_compact, h4 %}
