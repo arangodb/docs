@@ -203,8 +203,6 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.size 3 \
   --agency.supervision true \
   --agency.endpoint tcp://192.168.1.1:8531 \
-  --agency.endpoint tcp://192.168.1.2:8531 \
-  --agency.endpoint tcp://192.168.1.3:8531 \
   --database.directory agent
 ```
 
@@ -217,8 +215,6 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.activate true \
   --agency.size 3 \
   --agency.endpoint tcp://192.168.1.1:8531 \
-  --agency.endpoint tcp://192.168.1.2:8531 \
-  --agency.endpoint tcp://192.168.1.3:8531 \
   --agency.supervision true \
   --database.directory agent
 ```
@@ -334,26 +330,6 @@ arangod --server.authentication=false \
   --database.directory coordinator
 ```
 
-**Note 3:** you can easily extend the Cluster, by adding more machines which runs
-an _Agent_. For instance, if you have an additional forth
-machine with IP 192.168.1.5, you can execute the following commands
-
-On 192.168.1.5:
-
-```
-arangod --server.endpoint tcp://0.0.0.0:8531 \
-  --agency.my-address tcp://192.168.1.5:8531 \
-  --server.authentication false \
-  --agency.activate true \
-  --agency.size 4 \
-  --agency.endpoint tcp://192.168.1.1:8531 \
-  --agency.endpoint tcp://192.168.1.2:8531 \
-  --agency.endpoint tcp://192.168.1.3:8531 \
-  --agency.endpoint tcp://192.168.1.5:8531 \
-  --agency.supervision true \
-  --database.directory agent
-```
-
 Manual Start in Docker
 ----------------------
 
@@ -395,8 +371,6 @@ docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:6001:8529 -d arangodb arangod \
   --cluster.my-address tcp://192.168.1.1:6001 \
   --cluster.my-role DBSERVER \
   --cluster.agency-endpoint tcp://192.168.1.1:5001 \
-  --cluster.agency-endpoint tcp://192.168.1.2:5001 \
-  --cluster.agency-endpoint tcp://192.168.1.3:5001 \
   --database.directory dbserver
 
 docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.1:7001:8529 -d arangodb arangod \
@@ -415,11 +389,8 @@ On 192.168.1.2:
 docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.2:5001:8529 -d arangodb arangod \
   --server.authentication false \
   --server.endpoint tcp://0.0.0.0:8529 \
-  --agency.my-address tcp://192.168.1.2:5001 \
-  --agency.endpoint tcp://192.168.1.1:5001 \
+  --agency.my-address tcp://192.168.2.2:5001 \
   --agency.endpoint tcp://192.168.1.2:5001 \
-  --agency.endpoint tcp://192.168.1.3:5001 \
-  --agency.size 3 \
   --agency.activate true \
   --agency.supervision true \
   --database.directory agent
@@ -451,10 +422,7 @@ docker run -e ARANGO_NO_AUTH=1 -p 192.168.1.3:5001:8529 -d arangodb arangod \
   --server.authentication false \
   --server.endpoint tcp://0.0.0.0:8529 \
   --agency.my-address tcp://192.168.1.3:5001 \
-  --agency.endpoint tcp://192.168.1.1:5001 \
-  --agency.endpoint tcp://192.168.1.2:5001 \
   --agency.endpoint tcp://192.168.1.3:5001 \
-  --agency.size 3 \
   --agency.activate true \
   --agency.supervision true \
   --database.directory agent
