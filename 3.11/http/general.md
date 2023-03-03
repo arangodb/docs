@@ -2,11 +2,9 @@
 layout: default
 description: ArangoDB exposes its API via HTTP, making the server accessible easily with a variety of clients and tools
 ---
-HTTP Request Handling in ArangoDB
-=================================
+# HTTP request handling in ArangoDB
 
-Protocol
---------
+## Protocol
 
 ArangoDB exposes its API via HTTP, making the server accessible easily with
 a variety of clients and tools (e.g. browsers, curl, telnet). The communication
@@ -40,8 +38,7 @@ correct content length in every request that can have a body (e.g. `POST`,
 `Content-Length` header - thus chunked transfer encoding for POST-documents
 is not supported.
 
-HTTP Keep-Alive
----------------
+## HTTP Keep-Alive
 
 ArangoDB supports HTTP keep-alive. If the client does not send a `Connection`
 header in its request, ArangoDB will assume the client wants to keep alive the 
@@ -61,8 +58,7 @@ to build up a so called **connection pool** with several established
 connections in your client application, and dynamically re-use
 one of those then idle connections for subsequent requests.
 
-Switching Protocols
--------------------
+## Switch protocols
 
 Connections are initialized expecting the HTTP 1.1 protocol by default. To use
 other protocols the client must indicate this to the server so that the
@@ -93,8 +89,7 @@ An upgrade to the VelocyStream protocol may happen by sending `VST/1.1\r\n\r\n`
 (11 octets) to the server _before_ sending anything else. The server will then
 start using VelocyStream 1.1. Sending anything else is an error.
 
-Blocking vs. Non-blocking HTTP Requests
----------------------------------------
+## Blocking vs. non-blocking HTTP requests
 
 ArangoDB supports both blocking and non-blocking HTTP requests.
 
@@ -146,8 +141,7 @@ result of the request they send.
 For details on the subsequent processing read on under
 [Async Result handling](async-results-management.html).
 
-Error Handling
---------------
+## Error handling
 
 The following should be noted about how ArangoDB handles client errors in its
 HTTP layer:
@@ -203,10 +197,9 @@ HTTP layer:
 
   Clients may retry requests but they might not be idempotent.
 
-Cross-Origin Resource Sharing (CORS) requests
----------------------------------------------
+## Cross-Origin Resource Sharing (CORS) requests
 
-ArangoDB will automatically handle CORS requests as follows:
+ArangoDB automatically handles CORS requests as described below.
 
 ### Preflight
 
@@ -311,8 +304,7 @@ requests unless explicitly told to do so:
   });
   ```
 
-HTTP method overriding
-----------------------
+## HTTP method overriding
 
 {% hint 'warning' %}
 HTTP method overriding is deprecated from version 3.9.0 on and should no longer
@@ -336,8 +328,7 @@ controlled environments. Thus the default value for this option is *false* (no m
 overriding allowed). You need to enable it explicitly if you want to use this
 feature.
 
-Load-balancer support
----------------------
+## Load-balancer support
 
 When running in cluster mode, ArangoDB exposes some APIs which store request
 state data on specific Coordinator nodes, and thus subsequent requests which
@@ -370,8 +361,7 @@ Note: some endpoints which return "global" data, such as `GET /_api/tasks` will
 only return data corresponding to the server on which the request is executed.
 These endpoints will generally not work well with load-balancers.
 
-Overload control
-----------------
+## Overload control
 
 <small>Introduced in: v3.9.0</small>
 
@@ -417,8 +407,7 @@ Apart from that, the header will not be included in cluster-internal requests
 executed by the Coordinator, e.g. when the Coordinator issues sub-requests
 to DB-Servers or Agency instances.
 
-Responding to Liveliness Probes
--------------------------------
+## Respond to liveliness probes
 
 <small>Introduced in: v3.10.0</small>
 

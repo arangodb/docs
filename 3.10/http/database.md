@@ -7,7 +7,7 @@ redirect_from:
   - database-notes-on-databases.html # 3.10 -> 3.10
   - database-database-management.html # 3.10 -> 3.10
 ---
-# HTTP Interface for Databases
+# HTTP interface for databases
 
 {{ page.description }}
 {:class="lead"}

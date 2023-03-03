@@ -560,7 +560,7 @@ and modern cloud platforms like Kubernetes.
 We also expect improved request throughput in cases where there are many
 concurrent requests.
 
-See: [HTTP Switching Protocols](http/general.html#switching-protocols)
+See: [HTTP Switching Protocols](http/general.html#switch-protocols)
 
 ### Server Name Indication (Enterprise Edition)
 
@@ -577,7 +577,7 @@ There are now new APIs and startup options for JWT secrets. The new option
 JWT secret file.
 
 Additionally the `/_admin/server/jwt` API can be used to
-[reload the JWT secrets](http/authentication.html#hot-reload-of-jwt-secrets)
+[reload the JWT secrets](http/authentication.html#hot-reload-jwt-secrets)
 of a local arangod process without having to restart it (hot-reload).
 This may be used to roll out new JWT secrets throughout an ArangoDB cluster.
 

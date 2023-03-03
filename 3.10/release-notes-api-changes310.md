@@ -30,7 +30,7 @@ The following APIs can reply early with an HTTP 200 status:
   This API returns information about the instance's status, now also including
   recovery progress and information about which server feature is currently starting.
   
-See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more details.
+See [Respond to liveliness probes](http/general.html#respond-to-liveliness-probes) for more details.
 
 ### Endpoint return value changes
 
@@ -446,7 +446,7 @@ attribute is returned inside the `serverInfo` object with the following subattri
   recovery. If the instance is already past the recovery, this attribute contains 
   the last handled recovery sequence number.
 
-See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more information.
+See [Respond to liveliness probes](http/general.html#respond-to-liveliness-probes) for more information.
 
 #### Read from followers
 

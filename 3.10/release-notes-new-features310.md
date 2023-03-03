@@ -988,7 +988,7 @@ You can set the new `--server.early-connections` startup option to `true` to
 let the instance respond to the `/_api/version`, `/_admin/version`, and
 `/_admin/status` REST APIs early.
 
-See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
+See [Respond to liveliness probes](http/general.html#respond-to-liveliness-probes).
 
 ### RocksDB startup options
 

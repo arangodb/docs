@@ -9,7 +9,7 @@ redirect_from:
   - collection-getting.html # 3.10 -> 3.10
   - collection-modifying.html # 3.10 -> 3.10
 ---
-# HTTP Interface for Collections
+# HTTP interface for collections
 
 {{ page.description }}
 {:class="lead"}
@@ -25,7 +25,7 @@ Collections have a type that is specified by the user when the collection
 is created. There are currently two types: document and edge. The default
 type is document.
 
-### Collection Identifiers
+### Collection identifiers
 
 A collection identifier lets you refer to a collection in a database.
 It is a string value and is unique within the database. Clients should use
@@ -37,7 +37,7 @@ clipped by clients that do not support big integers. Clients should treat
 the collection IDs returned by ArangoDB as opaque strings when they store
 or use them locally.
 
-### Collection Names
+### Collection names
 
 A collection name identifies a collection in a database. It is a string
 and is unique within the database. Unlike the collection identifier it is
@@ -45,7 +45,7 @@ supplied by the creator of the collection. The collection name must consist
 of letters, digits, and the underscore (`_`) and dash (`-`) characters only.
 Also see [Naming conventions](../data-modeling-naming-conventions-collection-and-view-names.html).
 
-### Key Generator
+### Key generators
 
 ArangoDB allows using key generators for each collection. Key generators
 have the purpose of auto-generating values for the _key attribute of a document

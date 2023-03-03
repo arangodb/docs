@@ -98,7 +98,7 @@ The following REST API endpoints have been added in 3.7:
   TLS keyfile (secret key as well as public certificates) at run time. The API
   basically makes the `arangod` server reload the keyfile from disk.
 - HTTP POST `/_admin/server/jwt`: can be used to
-  [reload the JWT secrets](http/authentication.html#hot-reload-of-jwt-secrets)
+  [reload the JWT secrets](http/authentication.html#hot-reload-jwt-secrets)
   of a local arangod process without having to restart it (hot-reload).
   This may be used to roll out new JWT secrets throughout an ArangoDB cluster.
   This endpoint is available only in the Enterprise Edition.

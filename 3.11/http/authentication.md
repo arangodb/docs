@@ -89,7 +89,7 @@ generated via HMAC with SHA-256. The secret may either be set using
 
 For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){:target="_blank"}.
 
-### JWT User Token
+### JWT user tokens
 
 To authenticate with a specific user you need to supply a JWT token containing
 the `preferred_username` field with the username.
@@ -146,7 +146,7 @@ Please note that all JWT tokens must contain the `iss` field with string value
 }
 ```
 
-### JWT Superuser Token
+### JWT superuser tokens
 
 To access specific internal APIs as well as Agency and DB-Server instances a
 token generated via `POST /open/auth` is not good enough. For these special
@@ -185,7 +185,7 @@ jwtgen -s <my-secret> -e 3600 -v -a "HS256" -c 'iss=arangodb' -c 'server_id=mycl
 curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 'iss=arangodb' -c 'server_id=myclient')" http://<database-ip>:8529/_api/version
 ```
 
-## Hot-Reload of JWT Secrets
+## Hot-reload JWT secrets
 
 <small>Introduced in: v3.7.0</small>
 
