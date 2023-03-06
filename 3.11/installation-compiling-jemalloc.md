@@ -13,7 +13,7 @@ or Debian testing
 On more modern linux systems (development/floating at the time of this writing)
 you may get compile / link errors with ArangoDB regarding jemalloc.
 This is due to compilers switching their default behavior regarding the
-`PIC` - Position Independend Code. It seems common that jemalloc remains in a
+`PIC` - Position Independent Code. It seems common that jemalloc remains in a
 stage where this change isn't followed and causes ArangoDB to error out during
 the linking phase.
 

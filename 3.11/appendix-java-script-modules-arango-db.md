@@ -13,7 +13,7 @@ This module should not be confused with the
 [`arangojs` JavaScript driver](https://github.com/arangodb/arangojs){:target="_blank"}
 which can be used to access ArangoDB from outside the database. Although the
 APIs share similarities and the functionality overlaps, the two are not
-compatible with each other and can not be used interchangeably.
+compatible with each other and cannot be used interchangeably.
 {% endhint %}
 
 The `db` object

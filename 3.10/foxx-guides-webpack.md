@@ -1,6 +1,6 @@
 ---
 layout: default
-description: You can use Webpack to compile your Foxx servicesthe same way you would compile any other JavaScript code
+description: You can use Webpack to compile your Foxx services the same way you would compile any other JavaScript code
 ---
 Using Webpack with Foxx
 =======================

@@ -26,7 +26,7 @@ a transport returns a session identifier.
 
   [Request object](foxx-reference-routers-request.html) to extract a session identifier from.
 
-Returns the session identifier or `null` if the transport can not find a
+Returns the session identifier or `null` if the transport cannot find a
 session identifier in the request.
 
 **Examples**

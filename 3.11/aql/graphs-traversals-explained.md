@@ -1,6 +1,6 @@
 ---
 layout: default
-description: A traversal starts at one specific document (startVertex) and follows alledges connected to this document
+description: A traversal starts at one specific document (startVertex) and follows all edges connected to this document
 ---
 Traversals explained
 ====================
@@ -21,7 +21,7 @@ set with three items:
 1. The visited vertex.
 2. The edge pointing to it.
 3. The complete path from startVertex to the visited vertex as object with an
-  attribute *edges* and an attribute *vertices*, each a list of the coresponding
+  attribute *edges* and an attribute *vertices*, each a list of the corresponding
   elements. These lists are sorted, which means the first element in *vertices*
   is the *startVertex* and the last is the visited vertex, and the n-th element
   in *edges* connects the n-th element with the (n+1)-th element in *vertices*.

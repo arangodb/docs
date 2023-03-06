@@ -63,14 +63,17 @@ migration from SQL. The old syntax is still fully supported and will be:
 AQL now has a dedicated `NOT IN` operator.
 
 Previously, a `NOT IN` was only achievable by writing a negated `IN` condition:
-   
-    FOR i IN ... FILTER ! (i IN [ 23, 42 ]) ...
+
+```aql
+FOR i IN ... FILTER ! (i IN [ 23, 42 ]) ...
+```
 
 In ArangoDB 2.3, the same result can now alternatively be achieved by writing
 the more intuitive variant:
 
-    FOR i IN ... FILTER i NOT IN [ 23, 42 ] ...
-
+```aql
+FOR i IN ... FILTER i NOT IN [ 23, 42 ] ...
+```
 
 #### Improvements of built-in functions
 
@@ -99,12 +102,13 @@ The following other AQL functions have been added:
 The already existing functions `CONCAT` and `CONCAT_SEPARATOR` now support
 array arguments, e.g.:
 
-    /* "foobarbaz" */
-    CONCAT([ 'foo', 'bar', 'baz'])
+```aql
+/* "foobarbaz" */
+CONCAT([ 'foo', 'bar', 'baz'])
 
-    /* "foo,bar,baz" */
-    CONCAT_SEPARATOR(", ", [ 'foo', 'bar', 'baz'])
-
+/* "foo,bar,baz" */
+CONCAT_SEPARATOR(", ", [ 'foo', 'bar', 'baz'])
+```
 
 #### AQL queries throw less exceptions
 
@@ -120,15 +124,19 @@ from users, and a lot of more-verbose-than-necessary queries. For example, the
 following query failed when there were documents that did not have a `topics` 
 attribute at all:
 
-    FOR doc IN mycollection
-      FILTER doc.topics IN [ "something", "whatever" ]
-      RETURN doc
+```aql
+FOR doc IN mycollection
+  FILTER doc.topics IN [ "something", "whatever" ]
+  RETURN doc
+```
 
 This forced users to rewrite the query as follows:
-    
-    FOR doc IN mycollection
-      FILTER IS_LIST(doc.topics) && doc.topics IN [ "something", "whatever" ]
-      RETURN doc
+
+```aql    
+FOR doc IN mycollection
+  FILTER IS_LIST(doc.topics) && doc.topics IN [ "something", "whatever" ]
+  RETURN doc
+```
 
 In ArangoDB 2.3 this has been changed to make AQL easier to use. The change
 provides an extra benefit, and that is that non-throwing operators allow the
@@ -157,7 +165,6 @@ Here is a summary of changes:
   exception in most cases, but may produce runtime warnings. Built-in AQL functions that 
   receive invalid arguments will then return `null`.
 
-
 Performance improvements
 ------------------------
 
@@ -180,10 +187,12 @@ allows several queries to run faster than in previous versions of ArangoDB.
 
 For example, the following AQL query can now use the index on `doc.value`:
 
-    FOR doc IN mycollection
-      FILTER doc.value > 23
-      SORT doc.values DESC
-      RETURN doc
+```aql
+FOR doc IN mycollection
+  FILTER doc.value > 23
+  SORT doc.values DESC
+  RETURN doc
+```
 
 Previous versions of ArangoDB did not use the index because of the descending
 (`DESC`) sort. 
@@ -191,7 +200,6 @@ Previous versions of ArangoDB did not use the index because of the descending
 Additionally, the new AQL optimizer can use an index for sorting now even
 if the AQL query does not contain a `FILTER` statement. This optimization was
 not available in previous versions of ArangoDB.
-
 
 ### Added basic support for handling binary data in Foxx
 
@@ -238,13 +246,11 @@ fs.write(filename, new Buffer("some binary data"));  // saves (binary) contents 
 `fs.readBuffer()` has been added as a method to read the contents of an
 arbitrary file into a Buffer object.
 
-
 ### Web interface
 
 Batch document removal and move functionality has been added to the web interface,
 making it easier to work with multiple documents at once. Additionally, basic 
 JSON import and export tools have been added.
-
 
 ### Command-line options added
 
@@ -269,12 +275,10 @@ The command-line option `--log.use-local-time` was added to print dates and
 times in ArangoDB's log in the server-local timezone instead of UTC. If it
 is not set, the timezone will default to UTC.
 
-    
 The option `--backslash-escape` has been added to arangoimp. Specifying this
 option will use the backslash as the escape character for literal quotes when 
 parsing CSV files. The escape character for literal quotes is still the
 double quote character.
-
 
 Miscellaneous improvements
 --------------------------

@@ -80,13 +80,13 @@ array level and let the configured Analyzer process the individual elements by
 using `[*]` as a suffix for a field in the index definition. Primitive values
 other than strings are indexed as-is.
 
-Analyzers can not process objects as a whole. However, you can work with
+Analyzers cannot process objects as a whole. However, you can work with
 individual object attributes. You can use inverted indexes and Views to index
 specific object attributes or sub-attributes, or index all sub-attributes with
 the `includeAllFields` option enabled. Each non-object value is handled as
 described above. Sub-objects in arrays can be indexed, too (with limitations).
-However, only primitive values are added to the index. Arrays and objects can
-not be searched for as a whole.
+However, only primitive values are added to the index. Arrays and objects
+cannot be searched for as a whole.
 
 Also see:
 - [`SEARCH` operation](aql/operations-search.html) on how to query indexed
@@ -117,7 +117,7 @@ The names get prefixed with the database name and two colons, e.g.
 Custom Analyzers stored in the `_system` database can be referenced in queries
 against other databases by specifying the prefixed name, e.g.
 `_system::customGlobalAnalyzer`. Analyzers stored in databases other than
-`_system` can not be accessed from within another database however.
+`_system` cannot be accessed from within another database however.
 
 Analyzer Types
 --------------
@@ -537,7 +537,7 @@ attributes:
   attribute is provided then no stop-words are loaded from files, unless an
   explicit `stopwordsPat` is also provided.
 
-  Note that if the `stopwordsPath` can not be accessed, is missing language
+  Note that if the `stopwordsPath` cannot be accessed, is missing language
   sub-directories or has no files for a language required by an Analyzer,
   then the creation of a new Analyzer is refused. If such an issue is 
   discovered for an existing Analyzer during startup then the server will
@@ -1077,7 +1077,7 @@ attributes:
 - `analyzer` (object, _required_): an Analyzer definition-like objects with
   `type` and `properties` attributes
 - `numHashes` (number, _required_): the size of the MinHash signature. Must be
-  greater or equal to `1`. The signature size defines the probalistic error
+  greater or equal to `1`. The signature size defines the probabilistic error
   (`err = rsqrt(numHashes)`). For an error amount that does not exceed 5%
   (`0.05`), use a size of `1 / (0.05 * 0.05) = 400`.
 
@@ -1426,7 +1426,7 @@ Built-in Analyzers
 ------------------
 
 There is a set of built-in Analyzers which are available by default for
-convenience and backward compatibility. They can not be removed.
+convenience and backward compatibility. They cannot be removed.
 
 The `identity` Analyzer has no properties and the `frequency` and `norm`
 features. The Analyzers of type `text` all tokenize strings with stemming

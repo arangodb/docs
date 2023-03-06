@@ -114,7 +114,7 @@ Computed value expressions have the following properties:
 - You cannot access the result of another computed value that is generated on
   the same `computeOn` event.
   
-  For example, two computed values that are generated on `insert` can not see
+  For example, two computed values that are generated on `insert` cannot see
   the result of the other. Referencing the attributes results in an implicit
   `null` value. Computed values that are generated on `update` or `replace` can
   see the results of the previous `insert` computations, however. They cannot

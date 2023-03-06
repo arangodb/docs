@@ -270,7 +270,7 @@ any relation (i.e. after the deletion of the edge definition):
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Keep in mind that you can not drop the `vertices` collection until no other
+Keep in mind that you cannot drop the `vertices` collection until no other
 collection references it anymore (`distributeShardsLike` collection property).
 
 Remove a Graph

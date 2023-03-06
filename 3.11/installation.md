@@ -1,6 +1,6 @@
 ---
 layout: default
-description: To install ArangoDB, as first step, please download the package for your OperatingSystem from the official Download page of theArangoDB web site
+description: To install ArangoDB, as first step, please download the package for your OperatingSystem from the official Download page of the ArangoDB web site
 ---
 Installation
 ============

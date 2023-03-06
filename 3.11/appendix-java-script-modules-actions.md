@@ -44,11 +44,11 @@ If *false*, then only use the action for exact matches. The default is
 `options.callback(request, response)`
 
 The request argument contains a description of the request. A request
-parameter *foo* is accessible as *request.parametrs.foo*. A request
+parameter *foo* is accessible as *request.parameters.foo*. A request
 header *bar* is accessible as *request.headers.bar*. Assume that
 the action is defined for the url */foo/bar* and the request url is
 */foo/bar/hugo/egon*. Then the suffix parts *[ "hugo", "egon" ]*
-are availible in *request.suffix*.
+are available in *request.suffix*.
 
 The callback must define fill the *response*.
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: These guides provide solutions to common problems when buildingapplications with Foxx services
+description: These guides provide solutions to common problems when building applications with Foxx services
 ---
 Guides
 ======

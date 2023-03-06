@@ -88,7 +88,7 @@ In unique indexes, only the index attributes in `fields` are checked for
 uniqueness. The index attributes in `storedValues` are not checked for their
 uniqueness.
 
-You can not create multiple persistent indexes with the same `fields` attributes
+You cannot create multiple persistent indexes with the same `fields` attributes
 and uniqueness option but different `storedValues` settings. That means the
 value of `storedValues` is not considered by calls to `ensureIndex()` when
 checking if an index is already present or needs to be created.

@@ -12,17 +12,17 @@ comes handy when the data at hand is in CSV format already and you don't want to
 spend time converting them to JSON for the import.
 
 To import data from a CSV file, make sure your file contains the attribute names
-in the first row. All the following lines in the file will be interpreted as
-data records and will be imported.
+in the first row. All the following lines in the file are interpreted as
+data records and are imported.
 
 The CSV import requires the data to have a homogeneous structure. All records
 must have exactly the same amount of columns as there are headers. By default,
-lines with a different number of values will not be imported and there will be 
-warnings for them. To still import lines with less values than in the header,
-there is the `--ignore-missing` option. If set to true, lines that have a
-different amount of fields will be imported. In this case only those attributes
-will be populated for which there are values. Attributes for which there are
-no values present will silently be discarded.
+lines with a different number of values are not imported and you get warnings
+about them. To still import lines with less values than in the header,
+there is the `--ignore-missing` option. If set to `true`, lines that have a
+different amount of fields are imported. In this case, only those attributes
+are populated for which there are values. Attributes for which there are
+no values present are silently discarded.
 
 Example:
 
@@ -32,7 +32,7 @@ Example:
 "Jim","O'Brady"
 ```
 
-With *--ignore-missing* this will produce the following documents:
+With `--ignore-missing` this produces the following documents:
 
 ```js
 { "first" : "John", "last" : "Connor", "active" : true, "age" : 25 }
@@ -40,12 +40,12 @@ With *--ignore-missing* this will produce the following documents:
 ```
 
 The cell values can have different data types though. If a cell does not have
-any value, it can be left empty in the file. These values will not be imported
-so the attributes will not "be there" in document created. Values enclosed in
-quotes will be imported as strings, so to import numeric values, boolean values
-or the null value, don't enclose the value in quotes in your file.
+any value, it can be left empty in the file. These values are not imported,
+omitting the attributes in the created document. Values enclosed in
+quotes are imported as strings, so to import numeric values, boolean values,
+or the `null` value, don't enclose the value in quotes in your file.
 
-We will be using the following import for the CSV import:
+We use the following import for the CSV import:
 
 ```
 "first","last","age","active","dob"
@@ -58,9 +58,11 @@ Wayne,Brewer,null,false,
 
 The command line to execute the import is:
 
-    arangoimport --file "data.csv" --type csv --collection "users"
+```
+arangoimport --file "data.csv" --type csv --collection "users"
+```
 
-The above data will be imported into 5 documents which will look as follows:
+The above data is imported into 5 documents which look as follows:
 
 ```js
 { "first" : "John", "last" : "Connor", "active" : true, "age" : 25 }
@@ -70,22 +72,22 @@ The above data will be imported into 5 documents which will look as follows:
 { "first" : "Wayne", "last" : "Brewer", "active" : false }
 ```
 
-As can be seen, values left completely empty in the input file will be treated
+As you can see, values left completely empty in the input file are treated
 as absent. This is also true for unquoted `null` literals.
 
-The literals `true` and `false` will be treated as booleans if they are not
+The literals `true` and `false` are treated as booleans if they are not
 enclosed in quotes.
 
-Numeric values not enclosed in quotes will be treated as numbers.
-Note that leading zeros in numeric values will be removed. To import numbers
+Numeric values not enclosed in quotes are treated as numbers.
+Note that leading zeros in numeric values are removed. To import numbers
 with leading zeros, please use strings (e.g. `"012"` instead of `012` or
 [override the datatype](#overriding-data-types-per-attribute)).
 
 You can set `--convert` to `false` if you want to treat all unquoted literals
 and numbers as strings instead. `--convert` is enabled by default.
 
-Other values not enclosed in quotes will be treated as strings. Any values
-enclosed in quotes will be treated as strings, too.
+Other values not enclosed in quotes are treated as strings. Any values
+enclosed in quotes are treated as strings, too.
 
 String values containing the quote character or the separator must be enclosed
 with quote characters. Within a string, the quote character itself must be
@@ -113,8 +115,8 @@ multine password!"
 "Bartholomew ""Bart"" Simpson","Milhouse"
 ```
 
-Extra whitespace at the end of each line will be ignored. Whitespace at the
-start of lines or between field values will not be ignored, so please make sure
+Extra whitespace at the end of each line is ignored. Whitespace at the
+start of lines or between field values is not ignored, so please make sure
 that there is no extra whitespace in front of values or between them.
 
 Attribute Name Translation
@@ -128,11 +130,15 @@ A common use case is to rename an `id` column from the input file into `_key` as
 it is expected by ArangoDB. To do this, specify the following translation when
 invoking arangoimport:
 
-    arangoimport --file "data.csv" --type csv --translate "id=_key"
+```
+arangoimport --file "data.csv" --type csv --translate "id=_key"
+```
 
 Other common cases are to rename columns in the input file to `_from` and `_to`:
 
-    arangoimport --file "data.csv" --type csv --translate "from=_from" --translate "to=_to"
+```
+arangoimport --file "data.csv" --type csv --translate "from=_from" --translate "to=_to"
+```
 
 The `--translate` option can be specified multiple times. The source attribute name
 and the target attribute must be separated with a `=`.
@@ -147,11 +153,15 @@ a sharding attribute other than `_key`: In the cluster this configuration is
 not supported, because ArangoDB needs to guarantee the uniqueness of the `_key`
 attribute in **all** shards of the collection.
 
-    arangoimport --file "data.csv" --type csv --remove-attribute "_key"
+```
+arangoimport --file "data.csv" --type csv --remove-attribute "_key"
+```
 
 The same thing would apply if your data contains an `_id` attribute:
 
-    arangoimport --file "data.csv" --type csv --remove-attribute "_id"
+```
+arangoimport --file "data.csv" --type csv --remove-attribute "_id"
+```
 
 Overriding data types per attribute
 -----------------------------------
@@ -181,9 +191,9 @@ invoked with the `--datatype` startup option, once for each attribute:
 --datatype fk=string
 ```
 
-This will turn the numeric-looking values in the `key` attribute into strings
-but treat the attributes `price` and `weight` as numbers. Finally, the values in
-attribute `fk` will be treated as strings again.
+This turns the numeric-looking values in the `key` attribute into strings
+but treats the attributes `price` and `weight` as numbers. Finally, the values in
+attribute `fk` are treated as strings again.
 
 The possible values for `--datatype` are:
 - `null`: unconditionally treats all input values as `null`, effectively
@@ -220,7 +230,7 @@ string literals/separators.
 Such attributes can be added in CSV/TSV imports by specifying the option 
 `--merge-attributes` for each new attribute.
 
-The following example will add a new attribute named `fullName` that consists
+The following example adds a new attribute named `fullName` that consists
 of the values of the `firstName` and `lastName` columns, separated by a colon
 character `:`:
 
@@ -230,12 +240,12 @@ arangoimport --merge-attributes fullName=[firstName]:[lastName]
 
 When referring to existing attribute names from the input data, the referred-to
 names need to be enclosed in square brackets (`[` and `]`). Any characters
-outside the brackets will be interpreted as literals, and will be added to the
+outside the brackets are interpreted as literals, and are added to the
 new attribute as-is. 
 
 If an attribute name that is enclosed in brackets does not exist in the input
-data, the import will emit a warning message and continue. Non-existing
-attributes will be replaced with an empty string in the resulting value.
+data, then the import emits a warning message and continues. Non-existing
+attributes are replaced with an empty string in the resulting value.
 
 The `--merge-attribute` option does not support using the brackets (`[` or `]`)
 or the equal sign (`=`) in any of the literals, or inside an attribute reference.
@@ -286,20 +296,26 @@ with the `--separator` argument.
 
 An example command line to execute the TSV import is:
 
-    arangoimport --file "data.tsv" --type tsv --collection "users"
+```
+arangoimport --file "data.tsv" --type tsv --collection "users"
+```
 
 Reading compressed input files
 ------------------------------
 
-*arangoimport* can transparently process gzip-compressed input files
+_arangoimport_ can transparently process gzip-compressed input files
 if they have a ".gz" file extension, e.g.
 
-    arangoimport --file data.csv.gz --type csv --collection "users"
+```
+arangoimport --file data.csv.gz --type csv --collection "users"
+```
 
 For other input formats it is possible to decompress the input file using another
 program and piping its output into arangoimport, e.g.
 
-    bzcat users.csv.bz2 | arangoimport --file "-" --type csv --collection "users"
+```
+bzcat users.csv.bz2 | arangoimport --file "-" --type csv --collection "users"
+```
 
 This example requires that a `bzcat` utility for decompressing bzip2-compressed
 files is available, and that the shell supports pipes.
@@ -310,15 +326,17 @@ Reading headers from a separate file
 For the CSV and TSV input formats it is sometimes required to read raw data
 files that do not contain a first line with all attributes names.
 
-For these cases, *arangoimport* supports a `--headers-file` option to specify
+For these cases, _arangoimport_ supports a `--headers-file` option to specify
 a separate input file just for the header line with all the attribute names.
-The contents of this file will be interpreted as CSV/TSV line with attribute
-names, and the contents of the regular input file (`--file`) will be
+The contents of this file are interpreted as CSV/TSV line with attribute
+names, and the contents of the regular input file (`--file`) are
 interpreted as the data to import, without any attribute names.
 
 The `--headers-option` can be used as follows:
 
-    arangoimport --file "data.csv" --type csv --headers-file "headers.csv"
+```
+arangoimport --file "data.csv" --type csv --headers-file "headers.csv"
+```
 
 If the option is used, it is necessary that the file specified via
 `--headers-file` contains one line with the attribute names in CSV/TSV format

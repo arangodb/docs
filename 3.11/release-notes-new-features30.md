@@ -154,7 +154,7 @@ The following AQL functions have been added in 3.0:
 - *HASH(value)*: Calculates a hash value for *value*. *value* is not required to be a 
   string, but can have any data type. The calculated hash value will take the data type
   of *value* into account, so for example the number *1* and the string *"1"* will have 
-  different hash values. For arrays the hash values will be creared if the arrays contain
+  different hash values. For arrays the hash values will be created if the arrays contain
   exactly the same values (including value types) in the same order. For objects the same 
   hash values will be created if the objects have exactly the same attribute names and 
   values (including value types). The order in which attributes appear inside objects

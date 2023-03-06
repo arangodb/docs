@@ -101,20 +101,24 @@ These two above date functions accept the following input values:
 The following calls to `DATE_TIMESTAMP` are equivalent and will all return 
 `1399472349522`:
 
-    DATE_TIMESTAMP("2014-05-07T14:19:09.522")
-    DATE_TIMESTAMP("2014-05-07T14:19:09.522Z")
-    DATE_TIMESTAMP("2014-05-07 14:19:09.522")
-    DATE_TIMESTAMP("2014-05-07 14:19:09.522Z")
-    DATE_TIMESTAMP(2014, 5, 7, 14, 19, 9, 522)
-    DATE_TIMESTAMP(1399472349522)
+```aql
+DATE_TIMESTAMP("2014-05-07T14:19:09.522")
+DATE_TIMESTAMP("2014-05-07T14:19:09.522Z")
+DATE_TIMESTAMP("2014-05-07 14:19:09.522")
+DATE_TIMESTAMP("2014-05-07 14:19:09.522Z")
+DATE_TIMESTAMP(2014, 5, 7, 14, 19, 9, 522)
+DATE_TIMESTAMP(1399472349522)
+```
 
 The same is true for calls to `DATE_ISO8601` that also accepts variable input 
 formats:
 
-    DATE_ISO8601("2014-05-07T14:19:09.522Z")
-    DATE_ISO8601("2014-05-07 14:19:09.522Z")
-    DATE_ISO8601(2014, 5, 7, 14, 19, 9, 522)
-    DATE_ISO8601(1399472349522)
+```aql
+DATE_ISO8601("2014-05-07T14:19:09.522Z")
+DATE_ISO8601("2014-05-07 14:19:09.522Z")
+DATE_ISO8601(2014, 5, 7, 14, 19, 9, 522)
+DATE_ISO8601(1399472349522)
+```
 
 The above functions are all equivalent and will return `"2014-05-07T14:19:09.522Z"`.
 
@@ -160,19 +164,27 @@ The following other AQL functions have been added in ArangoDB 2.1:
 
   Example:
 
-      FLATTEN([ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ])
+  ```aql
+  FLATTEN([ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ])
+  ```
 
   will expand the sub-arrays on the first level and produce:
 
-      [ 1, 2, 3, 4, 5, 6, 7, 8, [ 9, 10 ] ]
+  ```json
+  [ 1, 2, 3, 4, 5, 6, 7, 8, [ 9, 10 ] ]
+  ```
 
   To fully flatten the array, the maximum depth can be specified (e.g. with a value of `2`):
-      
-      FLATTEN([ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ], 2)
+
+  ```aql    
+  FLATTEN([ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ], 2)
+  ```
 
   This will fully expand the sub-arrays and produce:
-      
-      [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+
+  ```json
+  [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+  ```
 
 - `CURRENT_DATABASE`: this function will return the name of the database the current
   query is executed in.
@@ -261,7 +273,7 @@ Miscellaneous Improvements
 - Cancelable asynchronous jobs: several potentially long-running jobs can now be
   canceled via an explicit cancel operation. This allows stopping long-running
   queries, traversals or scripts without shutting down the complete ArangoDB
-  process. Job cancelation is provided for asynchronously executed jobs as is
+  process. Job cancellation is provided for asynchronously executed jobs as is
   described in @ref HttpJobCancel.
 
 - Server-side periodic task management: an ArangoDB server now provides
@@ -276,18 +288,20 @@ Miscellaneous Improvements
   - require("org/arangodb/tasks").get(): retrieves a specific tasks or all existing tasks
 
   An example task (to be executed every 15 seconds) can be registered like this:
-    
-      var tasks = require("org/arangodb/tasks");
-      tasks.register({
-        name: "this is an example task with parameters",
-        period: 15,
-        command: function (params) {
-          var greeting = params.greeting;
-          var data = JSON.stringify(params.data);
-          require('console').log('%s from parameter task: %s', greeting, data);
-        },
-        params: { greeting: "hi", data: "how are you?" }
-      });
+
+  ```js
+  var tasks = require("org/arangodb/tasks");
+  tasks.register({
+    name: "this is an example task with parameters",
+    period: 15,
+    command: function (params) {
+      var greeting = params.greeting;
+      var data = JSON.stringify(params.data);
+      require('console').log('%s from parameter task: %s', greeting, data);
+    },
+    params: { greeting: "hi", data: "how are you?" }
+  });
+  ```
 
   Please refer to the section @ref Tasks for more details.
 
@@ -310,5 +324,7 @@ Miscellaneous Improvements
 
   ArangoDB now supports both versions:
 
-      db._createStatement(queryString);
-      db._createStatement({ query: queryString });
+  ```js
+  db._createStatement(queryString);
+  db._createStatement({ query: queryString });
+  ```

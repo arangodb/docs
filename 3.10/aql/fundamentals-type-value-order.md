@@ -15,7 +15,9 @@ data values if the operands have the same data types.
 
 The following type order is used when comparing data types:
 
-    null  <  bool  <  number  <  string  <  array/list  <  object/document
+```
+null  <  bool  <  number  <  string  <  array/list  <  object/document
+```
 
 This means *null* is the smallest type in AQL and *document* is the type with
 the highest order. If the compared operands have a different type, then the
@@ -27,47 +29,47 @@ string value (even an empty string) will always be greater than any numeric
 value, a boolean value, *true* or *false*.
 
 ```aql
-    null  <  false
-    null  <  true
-    null  <  0
-    null  <  ''
-    null  <  ' '
-    null  <  '0'
-    null  <  'abc'
-    null  <  [ ]
-    null  <  { }
+null  <  false
+null  <  true
+null  <  0
+null  <  ''
+null  <  ' '
+null  <  '0'
+null  <  'abc'
+null  <  [ ]
+null  <  { }
 
-    false  <  true
-    false  <  0
-    false  <  ''
-    false  <  ' '
-    false  <  '0'
-    false  <  'abc'
-    false  <  [ ]
-    false  <  { }
+false  <  true
+false  <  0
+false  <  ''
+false  <  ' '
+false  <  '0'
+false  <  'abc'
+false  <  [ ]
+false  <  { }
 
-    true  <  0
-    true  <  ''
-    true  <  ' '
-    true  <  '0'
-    true  <  'abc'
-    true  <  [ ]
-    true  <  { }
+true  <  0
+true  <  ''
+true  <  ' '
+true  <  '0'
+true  <  'abc'
+true  <  [ ]
+true  <  { }
 
-    0  <  ''
-    0  <  ' '
-    0  <  '0'
-    0  <  'abc'
-    0  <  [ ]
-    0  <  { }
+0  <  ''
+0  <  ' '
+0  <  '0'
+0  <  'abc'
+0  <  [ ]
+0  <  { }
 
-    ''  <  ' '
-    ''  <  '0'
-    ''  <  'abc'
-    ''  <  [ ]
-    ''  <  { }
+''  <  ' '
+''  <  '0'
+''  <  'abc'
+''  <  [ ]
+''  <  { }
 
-    [ ]  <  { }
+[ ]  <  { }
 ```
 
 If the two compared operands have the same data types, then the operands values
