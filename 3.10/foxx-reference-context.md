@@ -64,7 +64,7 @@ The service context specifies the following properties:
 
 * **collectionPrefix**: `string`
 
-  The prefix that will be used by *collection* and *collectionName* to derive
+  The prefix that is used by `collection` and `collectionName` to derive
   the names of service-specific collections. This is derived from the
   service's mount point, e.g. `/my-foxx` becomes `my_foxx`.
 
@@ -82,7 +82,7 @@ The service context specifies the following properties:
 
 * **isProduction**: `boolean`
 
-  The inverse of *isDevelopment*.
+  The inverse of `isDevelopment`.
 
 * **manifest**: `Object`
 
@@ -97,17 +97,17 @@ apiDocumentation
 
 `module.context.apiDocumentation([options]): Function`
 
-**DEPRECATED**
+{% hint 'warning' %}
+This method has been deprecated in ArangoDB 3.1 and replaced with
+the more straightforward `createDocumentationRouter()` method providing the
+same functionality.
+{% endhint %}
 
 Creates a request handler that serves the API documentation.
 
-**Note**: This method has been deprecated in ArangoDB 3.1 and replaced with
-the more straightforward `createDocumentationRouter` method providing the
-same functionality.
-
 **Arguments**
 
-See `createDocumentationRouter` below.
+See [`createDocumentationRouter()`](#createdocumentationrouter).
 
 **Examples**
 
@@ -145,23 +145,23 @@ Creates a router that serves the API documentation.
 
   * **swaggerRoot**: `string` (optional)
 
-    Full path of the folder containing the Swagger assets and the *indexFile*.
+    Full path of the folder containing the Swagger assets and the `indexFile`.
     Defaults to the Swagger assets used by the web interface.
 
   * **before**: `Function` (optional)
 
-    A function that will be executed before a request is handled.
+    A function that is executed before a request is handled.
 
-    If the function returns `false` the request will not be processed any further.
+    If the function returns `false`, the request is not processed any further.
 
-    If the function returns an object, its attributes will be used to override
-    the *options* for the current request.
+    If the function returns an object, its attributes are used to override
+    the `options` for the current request.
 
-    Any other return value will be ignored.
+    Any other return value is ignored.
 
-If *options* is a function it will be used as the *before* option.
+If `options` is a function, it is used as the `before` option.
 
-If *options* is a string it will be used as the *swaggerRoot* option.
+If `options` is a string, it is used as the `swaggerRoot` option.
 
 Returns a Foxx router.
 
@@ -193,7 +193,7 @@ collection
 
 `module.context.collection(name): ArangoCollection | null`
 
-Passes the given name to *collectionName*, then looks up the collection with
+Passes the given name to `collectionName`, then looks up the collection with
 the prefixed name.
 
 **Arguments**
@@ -209,7 +209,7 @@ collectionName
 
 `module.context.collectionName(name): string`
 
-Prefixes the given name with the *collectionPrefix* for this service.
+Prefixes the given name with the `collectionPrefix` for this service.
 
 **Arguments**
 
@@ -231,7 +231,7 @@ file
 
 `module.context.file(name, [encoding]): Buffer | string`
 
-Passes the given name to *fileName*, then loads the file with the resulting name.
+Passes the given name to `fileName`, then loads the file with the resulting name.
 
 **Arguments**
 
@@ -241,7 +241,7 @@ Passes the given name to *fileName*, then loads the file with the resulting name
 
 * **encoding**: `string` (optional)
 
-  Encoding of the file, e.g. `utf-8`. If omitted the file will be loaded as a
+  Encoding of the file, e.g. `utf-8`. If omitted, the file is loaded as a
   raw buffer instead of a string.
 
 Returns the file's contents.

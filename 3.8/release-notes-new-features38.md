@@ -888,12 +888,12 @@ active:
 
 - [DATE_UTCTOLOCAL()](aql/functions-date.html#date_utctolocal)
 
-  ```js
+  ```aql
   RETURN DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York")
   // [ "2020-10-14T21:00:00.999" ]
   ```
 
-  ```js
+  ```aql
   RETURN DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York", true)
   /*
     {
@@ -912,12 +912,12 @@ active:
 
 - [DATE_LOCALTOUTC()](aql/functions-date.html#date_localtoutc)
 
-  ```js
+  ```aql
   RETURN DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")
   // [ "2020-10-15T01:00:00.999Z" ]
   ```
 
-  ```js
+  ```aql
   RETURN DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")
   /*
     {

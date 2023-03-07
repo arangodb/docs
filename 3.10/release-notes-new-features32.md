@@ -9,7 +9,6 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.2. ArangoDB 3.2 also contains several bugfixes that are not listed
 here.
 
-
 Storage engines
 ---------------
 
@@ -123,7 +122,6 @@ that of a single instance.
 [SatelliteCollections](satellites.html)
 are available in the *Enterprise Edition*.
 
-
 Memory management
 -----------------
 
@@ -148,7 +146,7 @@ Memory management
   that have been there already. Performance may therefore suffer a bit for the
   initial requests sent to ArangoDB or when there are only few but performance-
   critical situations in which new V8 contexts need to be created. If this is a
-  concern, it can easily be fixed by setting `--javascipt.v8-contexts-minimum`
+  concern, it can easily be fixed by setting `--javascript.v8-contexts-minimum`
   and `--javascript.v8-contexts` to a relatively high value, which will guarantee
   that many number of V8 contexts to be created at startup and kept around even
   when unused.
@@ -173,7 +171,6 @@ Memory management
   indexes and maps documents to RAM automatically via mmap when documents are
   accessed. The RocksDB engine has its own mechanism for caching accessed documents.
 
-
 Communication Layer
 -------------------
 
@@ -195,7 +192,6 @@ Communication Layer
 * Internal JavaScript REST actions will now hide their stack traces to the client
   unless in HTTP responses. Instead they will always log to the logfile.
 
-
 JavaScript
 ----------
 
@@ -214,7 +210,6 @@ JavaScript
 * the `@arangodb` module now provides a `time` function which returns the current time
   in seconds as a floating point value with microsecond precision.
 
-
 Foxx
 ----
 
@@ -226,7 +221,6 @@ Foxx
   if your service requires no configuration, additional files or setup.
   A minimal manifest will be generated automatically upon installation and the
   uploaded file will be used as the service's main entry point.
-
 
 Distributed Graph Processing
 ----------------------------
@@ -258,17 +252,20 @@ AQL
   following AQL (provided there is a geo index present on the `doc.latitude`
   and `doc.longitude` attributes):
 
-      FOR doc in geoSort
-        SORT DISTANCE(doc.latitude, doc.longitude, 0, 0)
-        LIMIT 5
-        RETURN doc
+  ```aql
+  FOR doc in geoSort
+    SORT DISTANCE(doc.latitude, doc.longitude, 0, 0)
+    LIMIT 5
+    RETURN doc
+  ```
 
   `WITHIN` can be substituted with the following AQL:
 
-      FOR doc in geoFilter
-        FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) < 2000
-        RETURN doc
-
+  ```aql
+  FOR doc in geoFilter
+    FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) < 2000
+    RETURN doc
+  ```
 
 ### Miscellaneous improvements
 
@@ -292,7 +289,7 @@ AQL
   When set to *true*, this will make an AQL query throw an exception and
   abort in case a warning occurs. This option should be used in development to catch
   errors early. If set to *false*, warnings will not be propagated to exceptions and
-  will be returned with the query results. The startup option can also be overriden
+  will be returned with the query results. The startup option can also be overridden
   on a per query-level.
 
 * the slow query list now contains the values of bind variables used in the
@@ -307,20 +304,20 @@ AQL
   at the beginning of the query.
 
   Example:
-  ```
+
+  ```aql
   FOR v,e IN OUTBOUND SHORTEST_PATH @start TO @target edges [...]
   ```
 
   Now has to be:
 
-  ```
+  ```aql
   WITH vertices
   FOR v,e IN OUTBOUND SHORTEST_PATH @start TO @target edges [...]
   ```
 
-  This change is due to avoid deadlock sitations in clustered case.
+  This change is due to avoid deadlock situations in clustered case.
   An error stating the above is included.
-
 
 Client tools
 ------------
@@ -333,13 +330,15 @@ Client tools
 * added "jsonl" as input file type for arangoimp
 
 * added `--translate` option for arangoimp to translate attribute names from
-  the input files to attriubte names expected by ArangoDB
+  the input files to attribute names expected by ArangoDB
 
   The `--translate` option can be specified multiple times (once per translation
   to be executed). The following example renames the "id" column from the input
   file to "_key", and the "from" column to "_from", and the "to" column to "_to":
 
-      arangoimp --type csv --file data.csv --translate "id=_key" --translate "from=_from" --translate "to=_to"
+  ```
+  arangoimp --type csv --file data.csv --translate "id=_key" --translate "from=_from" --translate "to=_to"
+  ```
 
   `--translate` works for CSV and TSV inputs only.
 
@@ -349,12 +348,10 @@ Client tools
   to 256 MB. this allows transferring bigger result sets from the server without the
   client tools rejecting them as invalid.
 
-
 Authentication
 --------------
 
 * added [LDAP](programs-arangod-ldap.html) authentication (Enterprise Edition only)
-
 
 Authorization
 --------------
@@ -363,7 +360,6 @@ Authorization
 * collection level authorization rights
 
 Read more in the [overview](administration-managing-users.html).
-
 
 Foxx and authorization
 ----------------------
@@ -374,7 +370,6 @@ Foxx and authorization
 * it's now possible to provide your own version of the `graphql-sync` module when using the [GraphQL extensions for Foxx](foxx-reference-modules-graph-ql.html) by passing a copy of the module using the new _graphql_ option.
 
 * custom API endpoints can now be tagged using the [tag method](foxx-reference-routers-endpoints.html#tag) to generate a cleaner Swagger documentation.
-
 
 Miscellaneous Changes
 ---------------------
@@ -389,16 +384,18 @@ Miscellaneous Changes
   duplicate index values from the same document into a unique array index will lead to
   an error or not:
 
-      // with deduplicate = true, which is the default value:
-      db._create("test");
-      db.test.ensureIndex({ type: "hash", fields: ["tags[*]"], deduplicate: true });
-      db.test.insert({ tags: ["a", "b"] });
-      db.test.insert({ tags: ["c", "d", "c"] }); // will work, because deduplicate = true
-      db.test.insert({ tags: ["a"] }); // will fail
+  ```js
+  // with deduplicate = true, which is the default value:
+  db._create("test");
+  db.test.ensureIndex({ type: "hash", fields: ["tags[*]"], deduplicate: true });
+  db.test.insert({ tags: ["a", "b"] });
+  db.test.insert({ tags: ["c", "d", "c"] }); // will work, because deduplicate = true
+  db.test.insert({ tags: ["a"] }); // will fail
 
-      // with deduplicate = false
-      db._create("test");
-      db.test.ensureIndex({ type: "hash", fields: ["tags[*]"], deduplicate: false });
-      db.test.insert({ tags: ["a", "b"] });
-      db.test.insert({ tags: ["c", "d", "c"] }); // will not work, because deduplicate = false
-      db.test.insert({ tags: ["a"] }); // will fail
+  // with deduplicate = false
+  db._create("test");
+  db.test.ensureIndex({ type: "hash", fields: ["tags[*]"], deduplicate: false });
+  db.test.insert({ tags: ["a", "b"] });
+  db.test.insert({ tags: ["c", "d", "c"] }); // will not work, because deduplicate = false
+  db.test.insert({ tags: ["a"] }); // will fail
+  ```

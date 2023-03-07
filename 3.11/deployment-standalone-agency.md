@@ -177,7 +177,7 @@ The aggregation is performed on 2 levels:
 
 The word transaction means here that it is guaranteed that all aggregations happen in quasi-realtime and that no write access could have happened in between.
 
-Btw, the same transaction on the virgin key-value store would produce `[{},{}]`
+By the way, the same transaction on the virgin key-value store would produce `[{},{}]`
 
 Write API
 ---------

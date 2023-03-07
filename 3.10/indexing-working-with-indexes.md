@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Learn how to use different indexes efficiently by going through theArangoDB Performance Course
+description: Learn how to use different indexes efficiently by going through the ArangoDB Performance Course
 ---
 Working with Indexes
 ====================

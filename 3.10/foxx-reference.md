@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Each Foxx service is defined by a JSON manifestspecifying the entry point, any scripts defined by the service,possible configuration options and Foxx dependencies,as well as other metadata
+description: Each Foxx service is defined by a JSON manifest specifying the entry point, any scripts defined by the service, possible configuration options and Foxx dependencies, as well as other metadata
 ---
 Foxx reference
 ==============

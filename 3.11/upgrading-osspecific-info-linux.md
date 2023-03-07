@@ -1,6 +1,6 @@
 ---
 layout: default
-description: By installing the new ArangoDB package the standalone instance is automaticallyupgraded
+description: By installing the new ArangoDB package the standalone instance is automatically upgraded
 ---
 Upgrading on Linux
 ==================

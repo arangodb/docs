@@ -15,7 +15,7 @@ To backup data in ArangoGraph for an ArangoDB installation, navigate to the
 There are two ways to create backups. Create periodic backups using a
 **Backup policy**, or create a backup manually.
 Both ways allow you to create [backups in multiple regions](#multi-region-backups)
-as well, if your organization belongs to the Enteprise tier.
+as well, if your organization belongs to the Enterprise tier.
 
 ### Periodic backups
 

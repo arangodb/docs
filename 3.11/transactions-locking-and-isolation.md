@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Transactions need to specify from which collections they will read data and whichcollections they intend to modify
+description: Transactions need to specify from which collections they will read data and which collections they intend to modify
 ---
 Locking and Isolation
 =====================
@@ -201,9 +201,9 @@ db._executeTransaction({
 
     /* write into c2 (announced) */
     db.c2.insert({ bar: "baz" });
-    
+
     /* some operation here that takes long to execute... */
-    
+
     /* read from c1 (unannounced) */
     db.c1.toArray();
   }

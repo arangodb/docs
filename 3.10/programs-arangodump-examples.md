@@ -6,18 +6,22 @@ description: arangodump can be invoked in a command line by executing the follow
 
 _arangodump_ can be invoked in a command line by executing the following command:
 
-    arangodump --output-directory "dump"
+```
+arangodump --output-directory "dump"
+```
 
-This will connect to an ArangoDB server and dump all non-system collections from
-the default database (*_system*) into an output directory named *dump*.
-Invoking _arangodump_ will fail if the output directory already exists. This is
+This connects to an ArangoDB server and dump all non-system collections from
+the default database (`_system`) into an output directory named `dump`.
+Invoking _arangodump_ fails if the output directory already exists. This is
 an intentional security measure to prevent you from accidentally overwriting already
 dumped data. If you are positive that you want to overwrite data in the output
-directory, you can use the parameter *--overwrite true* to confirm this:
+directory, you can use the parameter `--overwrite true` to confirm this:
 
-    arangodump --output-directory "dump" --overwrite true
+```
+arangodump --output-directory "dump" --overwrite true
+```
 
-_arangodump_ will by default connect to the *_system* database using the default
+_arangodump_ connects to the `_system` database by default using the default
 endpoint. To override the endpoint, or specify a different user, use one of the
 following startup options:
 
@@ -57,10 +61,12 @@ arangodump \
   --output-directory "dump-multiple"
 ```
 
-When finished, _arangodump_ will print out a summary line with some aggregate
+When finished, _arangodump_ prints out a summary line with some aggregate
 statistics about what it did, e.g.:
 
-    Processed 43 collection(s), wrote 408173500 byte(s) into datafiles, sent 88 batch(es)
+```
+Processed 43 collection(s), wrote 408173500 byte(s) into datafiles, sent 88 batch(es)
+```
 
 Also, more than one endpoint can be provided, such as:
 
@@ -73,47 +79,51 @@ arangodump \
   --output-directory "dump-multiple"
 ```
 
-By default, _arangodump_ will dump both structural information and documents from all
+By default, _arangodump_ dumps both structural information and documents from all
 non-system collections. To adjust this, there are the following command-line
 arguments:
 
-- `--dump-data <bool>`: set to *true* to include documents in the dump. Set to *false*
-  to exclude documents. The default value is *true*.
+- `--dump-data <bool>`: set to `true` to include documents in the dump. Set to `false`
+  to exclude documents. The default value is `true`.
 - `--include-system-collections <bool>`: whether or not to include system collections
-  in the dump. The default value is *false*. **Set to _true_ if you are using named
+  in the dump. The default value is `false`. **Set to _true_ if you are using named
   graphs that you are interested in restoring.**
 
 For example, to only dump structural information of all collections (including system
 collections), use:
 
-    arangodump --dump-data false --include-system-collections true --output-directory "dump"
+```
+arangodump --dump-data false --include-system-collections true --output-directory "dump"
+```
 
-To restrict the dump to just specific collections, there is is the *--collection* option.
+To restrict the dump to just specific collections, use the `--collection` option.
 It can be specified multiple times if required:
 
-    arangodump --collection myusers --collection myvalues --output-directory "dump"
+```
+arangodump --collection myusers --collection myvalues --output-directory "dump"
+```
 
-Structural information for a collection will be saved in files with name pattern
-`<collection-name>.structure.json`. Each structure file will contains a JSON object
+Structural information for a collection is saved in files with name pattern
+`<collection-name>.structure.json`. Each structure file contains a JSON object
 with these attributes:
-- *parameters*: contains the collection properties
-- *indexes*: contains the collection indexes
+- `parameters`: contains the collection properties
+- `indexes`: contains the collection indexes
 
-Document data for a collection will be saved in files with name pattern
+Document data for a collection is saved in files with name pattern
 `<collection-name>.data.json`. Each line in a data file is a document insertion/update or
 deletion marker, alongside with some meta data.
 
 Cluster Backup
 --------------
 
-The *arangodump* tool supports sharding and can be used to backup data from a Cluster.
+The _arangodump_ tool supports sharding and can be used to backup data from a Cluster.
 Simply point it to one of the _Coordinators_ and it
-will behave exactly as described above, working on sharded collections
+behaves exactly as described above, working on sharded collections
 in the Cluster.
 
 Please see the [Limitations](programs-arangodump-limitations.html).
 
-As above, the output will be one structure description file and one data
+As above, the output is one structure description file and one data
 file per sharded collection. Note that the data in the data file is
 sorted first by shards and within each shard by ascending timestamp. The
 structural information of the collection contains the number of shards
@@ -130,23 +140,29 @@ identical to an existing prototypical collection; i.e. shards are distributed in
 the very same pattern as in the prototype collection. Such collections cannot be
 dumped without the referenced collection or arangodump yields an error.
 
-    arangodump --collection clonedCollection --output-directory "dump"
+```
+arangodump --collection clonedCollection --output-directory "dump"
 
-    ERROR Collection clonedCollection's shard distribution is based on a that of collection prototypeCollection, which is not dumped along. You may dump the collection regardless of the missing prototype collection by using the --ignore-distribute-shards-like-errors parameter.
+ERROR Collection clonedCollection's shard distribution is based on a that of collection prototypeCollection, which is not dumped along. You may dump the collection regardless of the missing prototype collection by using the --ignore-distribute-shards-like-errors parameter.
+```
 
 There are two ways to approach that problem.
 Dump the prototype collection as well:
 
-    arangodump --collection clonedCollection --collection prototypeCollection --output-directory "dump"
+```
+arangodump --collection clonedCollection --collection prototypeCollection --output-directory "dump"
 
-    Processed 2 collection(s), wrote 81920 byte(s) into datafiles, sent 1 batch(es)
+Processed 2 collection(s), wrote 81920 byte(s) into datafiles, sent 1 batch(es)
+```
 
 Or override that behavior to be able to dump the collection in isolation
 individually:
 
-    arangodump --collection clonedCollection --output-directory "dump" --ignore-distribute-shards-like-errors
+```
+arangodump --collection clonedCollection --output-directory "dump" --ignore-distribute-shards-like-errors
 
-    Processed 1 collection(s), wrote 34217 byte(s) into datafiles, sent 1 batch(es)
+Processed 1 collection(s), wrote 34217 byte(s) into datafiles, sent 1 batch(es)
+```
 
 Note that in consequence, restoring such a collection without its prototype is
 affected. See documentation on [arangorestore](programs-arangorestore.html) for
@@ -181,21 +197,18 @@ is stored in ~/SECRET-KEY:
 arangodump --collection "secret-collection" dump --encryption.keyfile ~/SECRET-KEY
 ```
 
-Note that _arangodump_ will not store the key anywhere. It is the responsibility
-of the user to find a safe place for the key. However, _arangodump_ will store
+Note that _arangodump_ does not store the key anywhere. It is the responsibility
+of the user to find a safe place for the key. However, _arangodump_ stores
 the used encryption method in a file named `ENCRYPTION` in the dump directory.
 That way _arangorestore_ can later find out whether it is dealing with an
 encrypted dump or not.
 
-Trying to restore the encrypted dump without specifying the key will fail:
+Trying to restore the encrypted dump without specifying the key fails
+and _arangorestore_ reports an error:
 
 ```
 arangorestore --collection "secret-collection" dump --create-collection true
-```
-
-and _arangorestore_ will report the following error:
-
-```
+...
 the dump data seems to be encrypted with aes-256-ctr, but no key information was specified to decrypt the dump
 it is recommended to specify either `--encryption.keyfile` or `--encryption.key-generator` when invoking arangorestore with an encrypted dump
 ```
@@ -207,7 +220,7 @@ done by providing the `--encryption.keyfile` parameter:
 arangorestore --collection "secret-collection" dump --create-collection true --encryption.keyfile ~/SECRET-KEY
 ```
 
-Using a different key will lead to the backup being non-recoverable.
+Using a different key leads to the backup being non-recoverable.
 
 Note that encrypted backups can be used together with the already existing
 RocksDB encryption-at-rest feature.
@@ -218,7 +231,7 @@ Compression
 `--compress-output`
 
 Data can optionally be dumped in a compressed format to save space on disk.
-The `--compress-output` option can not be used together with [Encryption](#encryption).
+The `--compress-output` option cannot be used together with [Encryption](#encryption).
 
 If compression is enabled, no `.data.json` files are written. Instead, the
 collection data gets compressed using the Gzip algorithm and for each collection
@@ -229,7 +242,7 @@ a `.data.json.gz` file is written. Metadata files such as `.structure.json` and
 arangodump --output-directory "dump" --compress-output
 ```
 
-Compressed dumps can be restored with *arangorestore*, which automatically
+Compressed dumps can be restored with _arangorestore_, which automatically
 detects whether the data is compressed or not based on the file extension.
 
 ```
@@ -257,11 +270,11 @@ compatibility with older versions of ArangoDB.
 In case a dump taken with v3.8.0 or higher is known to never be used in older
 ArangoDB versions, the JSON envelopes can be turned off. The startup option
 `--envelope` controls this. The option defaults to `true`, meaning dumped
-documents will be wrapped in envelopes, which makes new dumps compatible with
+documents are wrapped in envelopes, which makes new dumps compatible with
 older versions of ArangoDB.
 
 If that is not needed, the `--envelope` option can be set to `false`.
-In this case, the dump files will only contain the raw documents, without any
+In this case, the dump files only contain the raw documents, without any
 envelopes around them:
 
 ```json
@@ -303,8 +316,8 @@ number of available CPU cores.
 
 For example:
 
-- If a system has 8 cores, then max(2,8) = 8, i.e. 8 threads will be used.
-- If it has 1 core, then max(2,1) = 2, i.e. 2 threads will be used.
+- If a system has 8 cores, then max(2,8) = 8, i.e. 8 threads are used.
+- If it has 1 core, then max(2,1) = 2, i.e. 2 threads are used.
 
 _arangodump_ versions prior to v3.8.0 distribute dump jobs for individual
 collections to concurrent worker threads, which is optimal for dumping many
@@ -315,9 +328,9 @@ Since v3.8.0, _arangodump_ can also dispatch dump jobs for individual shards of
 each collection, allowing higher parallelism if there are many shards to dump
 but only few collections. Keep in mind that even when concurrently dumping the
 data from multiple shards of the same collection in parallel, the individual
-shards' results will still be written into a single result file for the collection.
+shards' results are still written into a single result file for the collection.
 With a massive number of concurrent dump threads, some contention on that shared
 file should be expected. Also note that when dumping the data of multiple shards
-from the same collection, each thread's results will be written to the result 
+from the same collection, each thread's results are written to the result 
 file in a non-deterministic order. This should not be a problem when restoring
 such dump, as _arangorestore_ does not assume any order of input.

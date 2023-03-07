@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The SORT statement will force a sort of the array of already producedintermediate results in the current block
+description: The SORT statement will force a sort of the array of already produced intermediate results in the current block
 ---
 
 SORT

@@ -330,15 +330,14 @@ has been implemented in ArangoDB Cluster:
    the _leader_ changed to _DBServer002_
 8. The _Coordinator_ tries to contact the new _leader_ (_DBServer002_) and returns
    the result:
-
-    ```json
-    {
-        "_key" : "100069",
-        "_id" : "test/100069",
-        "_rev" : "513",
-        "foo" : "bar"
-    }
-    ```
+   ```json
+   {
+       "_key" : "100069",
+       "_id" : "test/100069",
+       "_rev" : "513",
+       "foo" : "bar"
+   }
+   ```
 9. After a while the _supervision_ declares _DBServer001_ to be completely dead.
 10. A new _follower_ is determined from the pool of _DB-Servers_.
 11. The new _follower_ syncs its data from the _leader_ and order is restored.

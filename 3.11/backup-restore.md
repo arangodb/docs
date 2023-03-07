@@ -128,7 +128,7 @@ of that of the single server installation.
   cluster deployment, all transactions need to be suspended in order for the
   state of a deployment to be consistent. However, there is no way for ArangoDB
   to know by its own when this time comes. This is why a hot backup needs to
-  aquire a global write transaction lock in order to create the backup in a
+  acquire a global write transaction lock in order to create the backup in a
   consistent state.
 
   On a single server instance, this lock is eventually obtained and the hot

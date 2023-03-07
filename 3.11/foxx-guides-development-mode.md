@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Development mode allows developers to make changes to deployed servicesin-place directly on the database server's file system without downloadingand re-uploading the service bundle
+description: Development mode allows developers to make changes to deployed services in-place directly on the database server's file system without downloading and re-uploading the service bundle
 ---
 Development mode
 ================

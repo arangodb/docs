@@ -86,7 +86,7 @@ details is returned.
     db.example.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 3 });
     db.example.save({ text : "the quick brown", b : { c : 1 } });
     db.example.save({ text : "quick brown fox", b : { c : 2 } });
-    db.example.save({ text : "brown fox jums", b : { c : 3 } });
+    db.example.save({ text : "brown fox jumps", b : { c : 3 } });
     db.example.save({ text : "fox jumps over", b : { c : 4 } });
     db.example.save({ text : "jumps over the", b : { c : 5 } });
     db.example.save({ text : "over the lazy", b : { c : 6 } });

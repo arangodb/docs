@@ -23,9 +23,9 @@ not allowed.
 Whitespace
 ----------
 
-Whitespaces (blanks, carriage returns, line feeds, and tab stops) can be used
+Whitespace (blanks, carriage returns, line feeds, and tab stops) can be used
 in the query text to increase its readability. Tokens have to be separated by
-any number of whitespaces. Whitespace within strings or names must be enclosed
+any number of whitespace. Whitespace within strings or names must be enclosed
 in quotes in order to be preserved.
 
 Comments

@@ -127,12 +127,16 @@ Performance reports for the storage engine can be found here:
 ArangoDB has a cache for the persistent indexes in RocksDB. The total size
 of this cache is controlled by the option
 
-    --cache.size
+```
+--cache.size
+```
 
 RocksDB also has a cache for the blocks stored on disk. The size of
 this cache is controlled by the option
 
-    --rocksdb.block-cache-size
+```
+--rocksdb.block-cache-size
+```
 
 ArangoDB distributes the available memory equally between the two
 caches by default.
@@ -140,37 +144,49 @@ caches by default.
 ArangoDB chooses a size for the various levels in RocksDB that is
 suitable for general purpose applications.
 
-RocksDB log strutured data levels have increasing size
+RocksDB log structured data levels have increasing size
 
-    MEM: --
-    L0:  --
-    L1:  -- --
-    L2:  -- -- -- --
-    ...
+```
+MEM: --
+L0:  --
+L1:  -- --
+L2:  -- -- -- --
+...
+```
 
 New or updated Documents are first stored in memory. If this memtable
 reaches the limit given by
 
-    --rocksdb.write-buffer-size
+```
+--rocksdb.write-buffer-size
+```
 
 it is converted to an SST file and inserted at level 0.
 
 The following option controls the size of each level and the depth:
 
-    --rocksdb.num-levels N
+```
+--rocksdb.num-levels N
+```
 
 It limits the number of levels to `N`. By default, it is `7` and there is
 seldom a reason to change this. A new level is only opened if there is
 too much data in the previous one.
 
-    --rocksdb.max-bytes-for-level-base B
+```
+--rocksdb.max-bytes-for-level-base B
+```
 
 L0 holds at most `B` bytes.
 
-    --rocksdb.max-bytes-for-level-multiplier M
+```
+--rocksdb.max-bytes-for-level-multiplier M
+```
 
 Each level is at most `M` times as much bytes as the previous
 one. Therefore the maximum number of bytes-for-level `L` can be
 calculated as follows:
 
-    max-bytes-for-level-base * (max-bytes-for-level-multiplier ^ (L-1))
+```
+max-bytes-for-level-base * (max-bytes-for-level-multiplier ^ (L-1))
+```

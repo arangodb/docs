@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Clients normally send individual operations to ArangoDB in individualHTTP requests
+description: Clients normally send individual operations to ArangoDB in individual HTTP requests
 ---
 HTTP Interface for Batch Requests
 =================================
@@ -41,7 +41,9 @@ parts as well.
 The server expects each part message to start with exactly the
 following "header": 
 
-    Content-type: application/x-arango-batchpart
+```
+Content-type: application/x-arango-batchpart
+```
 
 You can optionally specify a *Content-Id* "header" to uniquely
 identify each part message. The server will return the *Content-Id* in

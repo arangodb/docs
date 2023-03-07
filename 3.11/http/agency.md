@@ -368,9 +368,12 @@ The notifying POST requests are submitted immediately with any complete array of
 
 ### Configuration
 
-At all times, i.e. regardless of the state of the Agents and the current health of the RAFT consensus, one can invoke the configuration API:
+At all times, i.e. regardless of the state of the Agents and the current health
+of the RAFT consensus, one can invoke the configuration API:
 
-    curl http://$SERVER:$PORT/_api/agency/config
+```sh
+curl http://$SERVER:$PORT/_api/agency/config
+```
 
 Here, and in all subsequent calls, we assume that `$SERVER` is
 replaced by the server name and `$PORT` is replaced by the port

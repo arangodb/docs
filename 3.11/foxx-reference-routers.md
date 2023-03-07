@@ -40,7 +40,7 @@ Request handlers
 `router.all([path], [...middleware], handler, [name]): Endpoint`
 
 These methods let you specify routes on the router.
-The `all` method defines a route that will match any supported HTTP verb, the
+The `all` method defines a route that matches any supported HTTP verb. The
 other methods define routes that only match the HTTP verb with the same name.
 
 **Arguments**
@@ -48,7 +48,7 @@ other methods define routes that only match the HTTP verb with the same name.
 * **path**: `string` (Default: `"/"`)
 
   The path of the request handler relative to the base path the Router is mounted at.
-  If omitted, the request handler will handle requests to the base path of the Router.
+  If omitted, the request handler handles requests to the base path of the Router.
   For information on defining dynamic routes see the section on
   [path parameters in the chapter on router endpoints](foxx-reference-routers-endpoints.html#pathparam).
 
@@ -69,9 +69,9 @@ other methods define routes that only match the HTTP verb with the same name.
     A callback that passes control over to the next middleware function
     and returns when that function has completed.
 
-    If a truthy argument is passed, that argument will be thrown as an error.
+    If a truthy argument is passed, that argument is thrown as an error.
 
-    If there is no next middleware function, the `handler` will be
+    If there is no next middleware function, the `handler` is
     invoked instead (see below).
 
 * **handler**: `Function`
@@ -144,7 +144,7 @@ The `use` method lets you mount a child router or middleware at a given path.
 * **path**: `string` (optional)
 
   The path of the middleware relative to the base path the Router is mounted at.
-  If omitted, the middleware will handle requests to the base path of the Router.
+  If omitted, the middleware handles requests to the base path of the Router.
   For information on defining dynamic routes see the section on
   [path parameters in the chapter on router endpoints](foxx-reference-routers-endpoints.html#pathparam).
 
@@ -156,13 +156,13 @@ The `use` method lets you mount a child router or middleware at a given path.
 
   A name that can be used to generate URLs for endpoints of this router.
   For more information see the `reverse` method of the [request object](foxx-reference-routers-request.html).
-  Has no effect if *handler* is a Middleware.
+  Has no effect if `handler` is a Middleware.
 
 Returns an [Endpoint](foxx-reference-routers-endpoints.html) for the middleware or child router.
 
 {% hint 'warning' %}
 When mounting child routers at multiple paths, effects of methods
-invoked on each endpoint will only affect routes of that endpoint.
+invoked on each endpoint only affect routes of that endpoint.
 {% endhint %}
 
 **Examples**

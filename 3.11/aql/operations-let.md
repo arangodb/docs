@@ -20,7 +20,7 @@ For allowed variable names [AQL Syntax](fundamentals-syntax.html#names).
 Usage
 -----
 
-Variables are immutable in AQL, which means they can not be re-assigned:
+Variables are immutable in AQL, which means they cannot be re-assigned:
 
 ```aql
 LET a = [1, 2, 3]  // initial assignment

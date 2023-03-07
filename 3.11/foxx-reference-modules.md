@@ -1,6 +1,6 @@
 ---
 layout: default
-description: These are some of the modules outside of Foxx you will find useful whenwriting Foxx services
+description: These are some of the modules outside of Foxx you will find useful when writing Foxx services
 ---
 Related modules
 ===============

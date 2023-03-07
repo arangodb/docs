@@ -100,7 +100,7 @@ http://localhost:8529/_db/mydb/...
 ```
 
 The `...` placeholder is the actual path to the accessed resource. In the example,
-the resource is accessed in the context of the `mydb` database . Actual URLs in
+the resource is accessed in the context of the `mydb` database. Actual URLs in
 the context of `mydb` could look like this:
 
 ```

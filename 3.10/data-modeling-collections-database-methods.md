@@ -193,7 +193,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   attribute determines how many copies of each shard are required
   to be in sync on the different DB-Servers. If there are less then these
   many copies in the cluster, a shard refuses to write. The value of
-  `writeConcern` can not be larger than `replicationFactor`.
+  `writeConcern` cannot be larger than `replicationFactor`.
   Please note: during server failures this might lead to writes
   not being possible until the failover is sorted out and might cause
   write slow downs in trade for data durability.

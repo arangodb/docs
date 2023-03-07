@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Examples will explain the REST API for manipulating edgesof the graph moduleon the knows graph
+description: Examples will explain the REST API for manipulating edges of the graph module on the knows graph
 ---
 Handling Edges
 ==============

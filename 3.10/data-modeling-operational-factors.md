@@ -213,7 +213,7 @@ By default ArangoDB uses the `_key` field as a shard key. For a custom shard key
 you should consider a few different properties:
 
 - **Cardinality**: The cardinality of a set is the number of distinct values
-  that it contains. A shard key with only _N_ distinct values can not be hashed
+  that it contains. A shard key with only _N_ distinct values cannot be hashed
   onto more than _N_ shards. Consider using multiple shard keys, if one of your
   values has a low cardinality.
 - **Frequency**: Consider how often a given shard key value may appear in

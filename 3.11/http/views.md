@@ -15,8 +15,8 @@ This is an introduction to ArangoDB's HTTP interface for Views.
 A View consists of documents. It is uniquely identified by its
 identifier.
 It also has a unique name that clients should
-use to identify and access it. View can be renamed. This will
-change the View name, but not the View identifier.
+use to identify and access it. View can be renamed. This
+changes the View name, but not the View identifier.
 Views have a type that is specified by the user when the View
 is created. 
 
@@ -30,7 +30,7 @@ A View identifier lets you refer to a View in a database.
 It is a string value and is unique within the database.
 ArangoDB currently uses 64bit unsigned integer values to maintain
 View ids internally. When returning View ids to clients,
-ArangoDB will put them into a string to ensure the View id is not
+ArangoDB puts them into a string to ensure the View identifier is not
 clipped by clients that do not support big integers. Clients should treat
 the View ids returned by ArangoDB as opaque strings when they store
 or use them locally.
@@ -55,9 +55,13 @@ their own names, each View also has a unique name, which is specified
 by the user. To access a View from the user perspective, the
 View name should be used, i.e.:
 
-    http://server:port/_api/view/<view-name>
+```
+http://server:port/_api/view/<view-name>
+```
 
-For example: Assume that the View identifier is *7254820* and
-the View name is *demo*, then the URL of that View is:
+For example: Assume that the View identifier is `7254820` and
+the View name is `demo`, then the URL of that View is:
 
-    http://localhost:8529/_api/view/demo
+```
+http://localhost:8529/_api/view/demo
+```

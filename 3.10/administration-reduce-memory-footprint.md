@@ -151,9 +151,9 @@ has to work with collections at the cost of main memory.
 In ArangoDB version 3.4 we introduced
 [streaming cursors](release-notes-new-features34.html#streaming-aql-cursors) with
 somewhat inverted properties: less peak memory usage, longer access to the
-collections. Streaming is possible on document level, which means that it can not
+collections. Streaming is possible on document level, which means that it cannot
 be applied to all query parts. For example, a *MERGE()* of all results of a
-subquery can not be streamed (the result of the operation has to be built up fully).
+subquery cannot be streamed (the result of the operation has to be built up fully).
 Nonetheless, the surrounding query may be eligible for streaming.
 
 Aside from streaming cursors, ArangoDB offers the possibility to specify a
@@ -218,7 +218,7 @@ JavaScript:
 This will limit the number of V8 isolates to two. All JavaScript related
 requests will be queued up until one of the isolates becomes available for the
 new task. It also restricts the heap size to 512 MByte, so that both V8 contexts
-combined can not use more than 1 GByte of memory in the worst case.
+combined cannot use more than 1 GByte of memory in the worst case.
 
 ### V8 for the Desperate
 
@@ -279,7 +279,7 @@ Also see the [_arangod_ startup options](programs-arangod-options.html#--servero
 CPU usage
 ---------
 
-We can not really reduce CPU usage, but the number of threads running in parallel.
+We cannot really reduce CPU usage, but the number of threads running in parallel.
 Again, you should not do this unless there are very good reasons, like an
 embedded system. Note that this will limit the performance for concurrent
 requests, which may be okay for a local development system with you as only 

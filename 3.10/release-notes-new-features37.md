@@ -19,7 +19,7 @@ in AQL. This allows to check whether the given search pattern is contained in
 specified attribute using wildcard matching (`_` for any single character and
 `%` for any sequence of characters including none):
 
-```js
+```aql
 FOR doc IN viewName
   SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
   // or
@@ -63,7 +63,7 @@ In above View definition, the document attribute *categories* is indexed for
 searching, *publishedAt* is used as primary sort order and *title* as well as
 *categories* are stored in the View using the new `storedValues` property.
 
-```js
+```aql
 FOR doc IN articlesView
   SEARCH doc.categories == "recipes"
   SORT doc.publishedAt DESC
@@ -81,7 +81,7 @@ no documents need to be fetched from the storage engine to answer the query.
 This is shown in the execution plan as a comment to the *EnumerateViewNode*:
 `/* view query without materialization */`
 
-```js
+```aql
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
@@ -140,14 +140,14 @@ db._query(`RETURN TOKENS("αυτοκινητουσ πρωταγωνιστούσ�
 // [ [ "αυτοκινητ", "πρωταγωνιστ" ] ]
 ```
 
-Also see [Analyzers: Supported Languages]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#supported-languages)
+Also see [Analyzers: Supported Languages](analyzers.html#supported-languages)
 
 ### Condition Optimization Option
 
 The `SEARCH` operation in AQL accepts a new option `conditionOptimization` to
 give users control over the search criteria optimization:
 
-```js
+```aql
 FOR doc IN myView
   SEARCH doc.val > 10 AND doc.val > 5 /* more conditions */
   OPTIONS { conditionOptimization: "none" }
@@ -248,7 +248,7 @@ attributes (early pruning or document post-filtering) and without using LIMIT.
 The optimization will help in the following situation (in case `subCollection`
 is an edge collection):
 
-```js
+```aql
 FOR doc IN collection
   LET count = COUNT(
     FOR sub IN subCollection
@@ -292,7 +292,7 @@ Traversal performance can be further improved by not fetching the visited vertic
 from the storage engine in case the traversal query does not refer to them.
 For example, in the query:
 
-```js
+```aql
 FOR v, e, p IN 1..3 OUTBOUND 'collection/startVertex' edges
   RETURN e
 ```
@@ -311,7 +311,7 @@ to restrict the traversal to certain vertex or edge collections.
 The use case for `vertexCollections` is to not follow any edges that will point
 to other than the specified vertex collections, e.g.
 
-```js
+```aql
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
   OPTIONS { vertexCollections: [ "bolts", "screws" ] }
   RETURN v 
@@ -323,7 +323,7 @@ in any of the collections listed in the `vertexCollections` option.
 The use case for `edgeCollections` is to not take into consideration any edges
 from edge collections other than the specified ones, e.g.
 
-```js
+```aql
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
   OPTIONS { edgeCollections: [ "productsToBolts", "productsToScrews" ] }
   RETURN v
@@ -336,7 +336,7 @@ of the graph, which can be expensive. In case it is known that only certain
 edges from the named graph are needed, the `edgeCollections` option can be a
 handy performance optimization. It can replace less efficient post-filtering:
 
-```js
+```aql
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
   FILTER p.edges[* RETURN IS_SAME_COLLECTION("productsToBolts", CURRENT)
                        OR IS_SAME_COLLECTION("productsToScrews", CURRENT)] ALL == true
@@ -353,7 +353,7 @@ be executed in parallel.
 Traversals have a new option `parallelism` which can be used to specify the
 level of parallelism:
 
-```js
+```aql
 FOR doc IN outerCollection
   FOR v, e, p IN 1..3 OUTBOUND doc._id GRAPH 'components'
   OPTIONS { parallelism: 4 }
@@ -446,7 +446,7 @@ calls into loops in the `remove-unnecessary-calculations` rule.
 
 For example, in the query:
 
-```js
+```aql
 LET x = NOOPT(1..100)
 LET values = SORTED(x)
 FOR j IN 1..100 
@@ -470,7 +470,7 @@ execution of subqueries for which the results are later discarded.
 
 For example, in the query:
 
-```js
+```aql
 FOR doc IN collection1
   LET sub1 = FIRST(FOR sub IN collection2 FILTER sub.ref == doc._key RETURN sub)
   LET sub2 = FIRST(FOR sub IN collection3 FILTER sub.ref == doc._key RETURN sub)
@@ -483,7 +483,7 @@ FOR doc IN collection1
 … the execution of the `sub2` subquery can be delayed to after the SORT and LIMIT.
 The query optimizer will automatically transform this query into the following:
 
-```js
+```aql
 FOR doc IN collection1
   LET sub1 = FIRST(FOR sub IN collection2 FILTER sub.ref == doc._key RETURN sub)
   SORT sub1

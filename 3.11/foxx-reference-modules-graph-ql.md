@@ -99,22 +99,22 @@ This returns a new router object with POST and GET routes for serving GraphQL re
 
   * **context**: `any` (optional)
 
-    The GraphQL context that will be passed to the `graphql()` function from
+    The GraphQL context that is passed to the `graphql()` function from
     `graphql-sync` to handle GraphQL queries.
 
   * **rootValue**: `object` (optional)
 
-    The GraphQL root value that will be passed to the `graphql()` function
+    The GraphQL root value that is passed to the `graphql()` function
     from `graphql-sync` to handle GraphQL queries.
 
   * **pretty**: `boolean` (Default: `false`)
 
-    If `true`, JSON responses will be pretty-printed.
+    If `true`, JSON responses are pretty-printed.
 
   * **formatError**: `Function` (optional)
 
-    A function that will be used to format errors produced by `graphql-sync`.
-    If omitted, the `formatError` function from `graphql-sync` will be used instead.
+    A function that is used to format errors produced by `graphql-sync`.
+    If omitted, the `formatError` function from `graphql-sync` is used instead.
 
   * **validationRules**: `Array<any>` (optional)
 
@@ -131,8 +131,8 @@ This returns a new router object with POST and GET routes for serving GraphQL re
     If you need to use your own copy of the `graphql-sync` module instead of
     the one bundled with ArangoDB, here you can pass it in directly.
 
-If a GraphQL Schema object is passed instead of an options object it will be
-interpreted as the *schema* option.
+If a GraphQL Schema object is passed instead of an options object, it is
+interpreted as the `schema` option.
 
 Generated routes
 ----------------
@@ -143,7 +143,7 @@ as the POST request body:
 
 * **query**: `string`
 
-  A GraphQL query that will be executed.
+  A GraphQL query to execute.
 
 * **variables**: `object | string` (optional)
 
@@ -157,9 +157,9 @@ as the POST request body:
 
 * **raw**: `boolean` (Default: `false`)
 
-  Forces a JSON response even if *graphiql* is enabled and the request was
+  Forces a JSON response even if `graphiql` is enabled and the request was
   made using a browser.
 
 The POST request body can be provided as JSON or as query string using
 `application/x-www-form-urlencoded`. A request body passed as
-`application/graphql` will be interpreted as the `query` parameter.
+`application/graphql` is interpreted as the `query` parameter.

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Foxx provides the auth module to implementbasic password verification and hashing but is not very secure unless usingthe (very slow) PBKDF2 algorithm
+description: Foxx provides the auth module to implement basic password verification and hashing but is not very secure unless using the (very slow) PBKDF2 algorithm
 ---
 Authentication
 ==============

@@ -42,7 +42,7 @@ and can be combined with filters and other AQL constructs.
 
 As an example one can now find the friends of a friend for a certain user with this AQL statement:
 
-```
+```aql
 FOR foaf, e, path IN 2 ANY @startUser GRAPH "relations"
   FILTER path.edges[0].type == "friend"
   FILTER path.edges[1].type == "friend"
@@ -109,7 +109,7 @@ db.posts.insert({ tags: [ { name: "AQL" }, { name: "2.8" } ] });
 
 The following query will then use the array index:
 
-```
+```aql
 FOR doc IN posts
   FILTER 'AQL' IN doc.tags[*].name
   RETURN doc
@@ -122,7 +122,6 @@ only if the query filters on the indexed attribute using the `IN` operator. The 
 comparison operators (`==`, `!=`, `>`, `>=`, `<`, `<=`) currently do not use array
 indexes.
 
-
 ### Optimizer improvements
 
 The AQL query optimizer can now use indexes if multiple filter conditions on attributes of
@@ -133,7 +132,7 @@ For example, the following queries can now use two independent indexes on `value
 (the latter query requires that the indexes are skiplist indexes due to usage of the `<` and `>`
 comparison operators):
 
-```
+```aql
 FOR doc IN collection FILTER doc.value1 == 42 || doc.value2 == 23 RETURN doc
 FOR doc IN collection FILTER doc.value1 < 42 || doc.value2 > 23 RETURN doc
 ```
@@ -147,29 +146,28 @@ consist of solely the `IN` or `NOT IN` operation in order to avoid any side-effe
 
 The rule will kick in for a queries such as the following:
 
-```
+```aql
 LET values = /* some runtime expression here */
 FOR doc IN collection
   FILTER doc.value IN values
   RETURN doc
 ```
 
-It will not be applied for the followig queries, because the right-hand side operand of the
+It will not be applied for the following queries, because the right-hand side operand of the
 `IN` is either not a variable, or because the FILTER condition may have side effects:
 
-```
+```aql
 FOR doc IN collection
   FILTER doc.value IN /* some runtime expression here */
   RETURN doc
 ```
 
-```
+```aql
 LET values = /* some runtime expression here */
 FOR doc IN collection
   FILTER FUNCTION(doc.values) == 23 && doc.value IN values
   RETURN doc
 ```
-
 
 ### AQL functions added
 
@@ -183,14 +181,15 @@ The following AQL functions have been added in 2.8:
   Multiple attribute names can be specified by either passing multiple individual string argument 
   names, or by passing an array of attribute names:
 
-      UNSET_RECURSIVE(doc, '_id', '_key', 'foo', 'bar')
-      UNSET_RECURSIVE(doc, [ '_id', '_key', 'foo', 'bar' ])
+  ```aql
+  UNSET_RECURSIVE(doc, '_id', '_key', 'foo', 'bar')
+  UNSET_RECURSIVE(doc, [ '_id', '_key', 'foo', 'bar' ])
+  ```
 
 * `IS_DATESTRING(value)`: returns true if *value* is a string that can be used in a date function. 
   This includes partial dates such as *2015* or *2015-10* and strings containing
   invalid dates such as *2015-02-31*. The function will return false for all
   non-string values, even if some of them may be usable in date functions.
-
 
 ### Miscellaneous improvements
 
@@ -206,9 +205,11 @@ The following AQL functions have been added in 2.8:
 * improved performance of skipping over many documents in an AQL query when no
   indexes and no filters are used, e.g.
 
-      FOR doc IN collection
-        LIMIT 1000000, 10
-        RETURN doc
+  ```aql
+  FOR doc IN collection
+    LIMIT 1000000, 10
+    RETURN doc
+  ```
 
 * added cluster execution site info in execution plan explain output for AQL queries
 
@@ -216,7 +217,6 @@ The following AQL functions have been added in 2.8:
   the need for internal data conversion when the function is called
 
 * the AQL editor in the web interface now supports using bind parameters
-
 
 Deadlock detection
 ------------------
@@ -238,7 +238,6 @@ Client code (AQL queries, user transactions) that accesses more than one collect
 should be aware of the potential of deadlocks and should handle the error 29
 (`deadlock detected`) properly, either by passing the exception to the caller or 
 retrying the operation.
-
 
 Replication
 -----------
@@ -265,7 +264,7 @@ have been backported to ArangoDB 2.7 as well):
   These parameters can be used to control the minimum and maximum wait time the
   slave will (intentionally) idle and not poll for master log changes in case the 
   master had sent the full logs already.
-  The `idleMaxWaitTime` value will only be used when `adapativePolling` is set
+  The `idleMaxWaitTime` value will only be used when `adaptivePolling` is set
   to `true`. When `adaptivePolling` is disabled, only `idleMinWaitTime` will be
   used as a constant time span in which the slave will not poll the master for
   further changes. The default values are 0.5 seconds for `idleMinWaitTime` and
@@ -290,22 +289,24 @@ have been backported to ArangoDB 2.7 as well):
   the regular replication status check APIs.
 
 * added `async` attribute for `sync` and `syncCollection` operations called from
-  the ArangoShell. Setthing this attribute to `true` will make the synchronization 
+  the ArangoShell. Setting this attribute to `true` will make the synchronization 
   job on the server go into the background, so that the shell does not block. The
   status of the started asynchronous synchronization job can be queried from the 
   ArangoShell like this:
 
-      /* starts initial synchronization */
-      var replication = require("org/arangodb/replication");
-      var id = replication.sync({
-        endpoint: "tcp://master.domain.org:8529",
-        username: "myuser",
-        password: "mypasswd",
-        async: true
-      });
+  ```js
+  /* starts initial synchronization */
+  var replication = require("org/arangodb/replication");
+  var id = replication.sync({
+    endpoint: "tcp://master.domain.org:8529",
+    username: "myuser",
+    password: "mypasswd",
+    async: true
+  });
 
-      /* now query the id of the returned async job and print the status */
-      print(replication.getSyncResult(id));
+  /* now query the id of the returned async job and print the status */
+  print(replication.getSyncResult(id));
+  ```
 
   The result of `getSyncResult()` will be `false` while the server-side job
   has not completed, and different to `false` if it has completed. When it has
@@ -313,7 +314,6 @@ have been backported to ArangoDB 2.7 as well):
 
 * the web admin interface dashboard now shows a server's replication status
   at the bottom of the page
-
 
 Web Admin Interface
 -------------------
@@ -335,14 +335,13 @@ The following improvements have been made for the web admin interface:
   for debugging compaction issues.
 
 * unloading a collection via the web interface will now trigger garbage collection
-  in all v8 contexts and force a WAL flush. This increases the chances of perfoming
+  in all v8 contexts and force a WAL flush. This increases the chances of performing
   the unload faster.
 
 * the status terminology for collections for which an unload request has been issued 
   via the web interface was changed from `in the process of being unloaded` to 
   `will be unloaded`. This is more accurate as the actual unload may be postponed
   until later if there are still references pointing to data in the collection.
-
 
 Foxx improvements
 -----------------
@@ -352,7 +351,6 @@ Foxx improvements
 * the `org/arangodb/request` module now returns response bodies for error responses
   by default. The old behavior of not returning bodies for error responses can be
   re-enabled by explicitly setting the option `returnBodyOnError` to `false`
-
 
 Miscellaneous changes
 ---------------------
@@ -371,4 +369,3 @@ arangoimp now provides an option `--create-collection-type` to specify the type 
 the collection to be created when `--create-collection` is set to `true`. Previously
 `--create-collection` always created document collections and the creation of edge
 collections was not possible. 
-

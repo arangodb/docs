@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Please refer to the Upgrading Kubernetespage in the Deployment section
+description: Please refer to the Upgrading Kubernetes page in the Deployment section
 ---
 Upgrading Kubernetes Deployments
 ================================

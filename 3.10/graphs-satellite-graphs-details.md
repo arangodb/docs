@@ -67,10 +67,10 @@ Adding vertex collections is analogous to General Graphs:
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
 If the collection `"aVertexCollection"` doesn't exist yet, then the
-SatelliteGraph module will create it automatically with the correct
+SatelliteGraph module creates it automatically with the correct
 properties. If it exists already, then its properties must be suitable for a
 SatelliteGraph (see [prototype collection](#the-prototype-collection)).
-Otherwise it will not be added.
+Otherwise, it is not added.
 
 ### Define relations
 
@@ -163,9 +163,9 @@ prototype collection.
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-The prototype collection can and also will be automatically selected during the
+The prototype collection can and also is automatically selected during the
 graph creation process if at least one document (vertex) collection is supplied
-directly. If more then one are available, they will be chosen randomly as well,
+directly. If more then one are available, they are chosen randomly as well,
 regardless whether they are set inside the edge definition itself or set as a
 vertex/orphan collection.
 
@@ -218,7 +218,7 @@ and a SatelliteGraph traversal query:
        {% include arangoshexample.html id=examplevar script=script result=result %}
 
    You can see that the `TraversalNode` is executed on a Coordinator, and only
-   the `EnumerateCollectionNode` is executed on DB-Servers. This will happen for
+   the `EnumerateCollectionNode` is executed on DB-Servers. This happens for
    each of the 8 shards in `collection`.
 
 3. Let us now have a look at the same query using a SatelliteGraph:
