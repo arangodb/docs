@@ -19,7 +19,8 @@ for both. For Windows, _Installers_ and `zip` archives are available.
 
 {% hint 'tip' %}
 You can also use the official [Docker images](https://hub.docker.com/_/arangodb/){:target="_blank"}
-to run ArangoDB in containers on Linux, macOS, and Windows.
+to run ArangoDB in containers on Linux, macOS, and Windows. For more information,
+see the [Docker](install-with-docker.html) section.
 {% endhint %}
 
 If you prefer to compile ArangoDB from source, please refer to the [Compiling](installation-compiling.html)
