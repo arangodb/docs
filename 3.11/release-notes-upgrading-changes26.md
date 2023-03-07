@@ -85,55 +85,57 @@ The AQL functions supporting this additional option are:
 Furthermore the result `SHORTEST_PATH` has changed. The old format returned a list of all vertices on the path.
 Optionally it could include each sub-path for these vertices.
 All of the documents were fully extracted.
+
 Example:
-```
+
+```json
 [
   {
-    vertex: {
-      _id: "vertex/1",
-      _key: "1",
-      _rev: "1234"
-      name: "Alice"
+    "vertex": {
+      "_id": "vertex/1",
+      "_key": "1",
+      "_rev": "1234",
+      "name": "Alice"
     },
-    path: {
-      vertices: [
+    "path": {
+      "vertices": [
         {
-          _id: "vertex/1",
-          _key: "1",
-          _rev: "1234"
-          name: "Alice"
+          "_id": "vertex/1",
+          "_key": "1",
+          "_rev": "1234",
+          "name": "Alice"
         }
       ],
-      edges: []
+      "edges": []
     }
   },
   {
-    vertex: {
-      _id: "vertex/2",
-      _key: "2",
-      _rev: "5678"
-      name: "Bob"
+    "vertex": {
+      "_id": "vertex/2",
+      "_key": "2",
+      "_rev": "5678",
+      "name": "Bob"
     },
-    path: {
-      vertices: [
+    "path": {
+      "vertices": [
         {
-          _id: "vertex/1",
-          _key: "1",
-          _rev: "1234"
-          name: "Alice"
+          "_id": "vertex/1",
+          "_key": "1",
+          "_rev": "1234",
+          "name": "Alice"
         }, {
-          _id: "vertex/2",
-          _key: "2",
-          _rev: "5678"
-          name: "Bob"
+          "_id": "vertex/2",
+          "_key": "2",
+          "_rev": "5678",
+          "name": "Bob"
         }
       ],
-      edges: [
+      "edges": [
         {
-          _id: "edge/1",
-          _key: "1",
-          _rev: "9876",
-          type: "loves"
+          "_id": "edge/1",
+          "_key": "1",
+          "_rev": "9876",
+          "type": "loves"
         }
       ]
     }
@@ -145,47 +147,53 @@ The new version is more compact.
 Each `SHORTEST_PATH` will only return one document having the attributes `vertices`, `edges`, `distance`.
 The `distance` is computed taking into account the given weight.
 Optionally the documents can be extracted with `includeData: true`
+
 Example:
-```
+
+```json
 {
-  vertices: [
+  "vertices": [
     "vertex/1",
     "vertex/2"
   ],
-  edges: [
+  "edges": [
     "edge/1"
   ],
-  distance: 1
+  "distance": 1
 }
 ```
 
 The next function that returns a different format is `NEIGHBORS`.
 Since 2.5 it returned an object with `edge` and `vertex` for each connected edge.
+
 Example:
-```
+
+```json
 [
   {
-    vertex: {
-      _id: "vertex/2",
-      _key: "2",
-      _rev: "5678"
-      name: "Bob"
+    "vertex": {
+      "_id": "vertex/2",
+      "_key": "2",
+      "_rev": "5678",
+      "name": "Bob"
     },
-    edge: {
-      _id: "edge/1",
-      _key: "1",
-      _rev: "9876",
-      type: "loves"
+    "edge": {
+      "_id": "edge/1",
+      "_key": "1",
+      "_rev": "9876",
+      "type": "loves"
     }
   } 
 ]
 ```
+
 With 2.6 it will only return the vertex directly, again using `includeData: true`.
 By default it will return a distinct set of neighbors, using the option `distinct: false` 
 will include the same vertex for each edge pointing to it.
 
 Example:
-```
+
+```json
 [
   "vertex/2"
 ]
@@ -270,20 +278,28 @@ This also lead to the following REST API methods being deprecated from now on:
 It is recommended to replace calls to these functions or APIs with equivalent AQL queries, 
 which are more flexible because they can be combined with other operations:
 
-    FOR doc IN NEAR(@@collection, @latitude, @longitude, @limit) 
-      RETURN doc
+```aql
+FOR doc IN NEAR(@@collection, @latitude, @longitude, @limit) 
+  RETURN doc
+```
 
-    FOR doc IN WITHIN(@@collection, @latitude, @longitude, @radius, @distanceAttributeName)
-      RETURN doc
+```aql
+FOR doc IN WITHIN(@@collection, @latitude, @longitude, @radius, @distanceAttributeName)
+  RETURN doc
+```
 
-    FOR doc IN FULLTEXT(@@collection, @attributeName, @queryString, @limit) 
-      RETURN doc
-  
-    FOR doc IN @@collection 
-      FILTER doc.value >= @left && doc.value < @right 
-      LIMIT @skip, @limit 
-      RETURN doc`
-  
+```aql
+FOR doc IN FULLTEXT(@@collection, @attributeName, @queryString, @limit) 
+  RETURN doc
+```
+
+```aql
+FOR doc IN @@collection 
+  FILTER doc.value >= @left && doc.value < @right 
+  LIMIT @skip, @limit 
+  RETURN doc`
+```
+
 The above simple query functions and REST API methods may be removed in future versions 
 of ArangoDB.
 
@@ -299,12 +315,13 @@ retrieve data from a skiplist index using a `LIMIT` clause.
 
 Since 2.3 the same goal can be achieved by using regular AQL constructs, e.g. 
 
-    FOR doc IN @@collection 
-      FILTER doc.value >= @value 
-      SORT doc.value
-      LIMIT 1 
-      RETURN doc
-
+```aql
+FOR doc IN @@collection 
+  FILTER doc.value >= @value 
+  SORT doc.value
+  LIMIT 1 
+  RETURN doc
+```
 
 Startup option changes
 ----------------------

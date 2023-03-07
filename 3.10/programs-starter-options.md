@@ -169,7 +169,7 @@ the `--ssl.auto-key` option.
 Options for `arangod` that are not supported by the starter can still be passed to
 the DB-Servers using a pass through option.
 Every option that start with a pass through prefix is passed through to the
-commandline of one or more server instances.
+command-line of one or more server instances.
 
 - `--args.all.<section>.<key>=<value>` is passed as
   `--<section>.<key>=<value>` to all servers started by this starter.
@@ -197,7 +197,7 @@ arangodb --args.coordinators.log.level=requests=debug
 Options for `arangosync` that are not supported by the starter can still be
 passed to the syncmasters & syncworkers using a pass through option.
 Every option that start with a pass through prefix is passed through to the
-commandline of one or more `arangosync` instances.
+command-line of one or more `arangosync` instances.
 
 - `--args.sync.<section>.<key>=<value>` is passed as
   `--<section>.<key>=<value>` to all arangosync instances started by this starter.
@@ -449,7 +449,7 @@ Make sure to match the arguments given to start the Starter
 
 ## Environment variables
 
-It is possible to replace all commandline arguments for the starter with
+It is possible to replace all command-line arguments for the starter with
 environment variables. To do so, set an environment variable named
 `ARANGODB_` + `<name of command line option in uppercase>`, where all dashes,
 underscores and dots are replaced with underscores.

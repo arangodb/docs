@@ -49,7 +49,7 @@ During view modification the following directives apply:
 - **links** (object, _optional_):
   a mapping of `collection-name` / `collection-identifier` to one of:
   - link creation - link definition as per the section [Link properties](#link-properties)
-  - link removal - JSON keyword *null* (i.e. nullify a link if present)
+  - link removal - JSON keyword `null` (i.e. nullify a link if present)
 - any of the directives from the section [View Properties](#view-properties)
 
 ### Link Properties
@@ -75,7 +75,7 @@ During view modification the following directives apply:
 
   If set to `true`, then process all document attributes. Otherwise, only
   consider attributes mentioned in `fields`. Attributes not explicitly
-  specified in `fields` will be processed with default link properties, i.e.
+  specified in `fields` are processed with default link properties, i.e.
   `{}`.
 
   {% hint 'warning' %}
@@ -256,9 +256,9 @@ of removing unused segments after release of internal resources.
 
   ArangoSearch waits at least this many commits between removing unused files in
   its data directory for the case where the consolidation policies merge
-  segments often (i.e. a lot of commit+consolidate). A lower value will cause a
+  segments often (i.e. a lot of commit+consolidate). A lower value causes a
   lot of disk space to be wasted for the case where the consolidation policies
-  rarely merge segments (i.e. few inserts/deletes). A higher value will impact
+  rarely merge segments (i.e. few inserts/deletes). A higher value impacts
   performance without any added benefits.
 
   > With every **commit** or **consolidate** operation a new state of the view
@@ -274,21 +274,21 @@ of removing unused segments after release of internal resources.
   changes and making documents visible to queries.
 
   For the case where there are a lot of inserts/updates, a lower value, until
-  commit, will cause the index not to account for them and memory usage would
-  continue to grow.
-  For the case where there are a few inserts/updates, a higher value will impact
-  performance and waste disk space for each commit call without any added
+  commit, causes the index not to account for them and memory usage continues
+  to grow.
+  For the case where there are a few inserts/updates, a higher value impacts
+  performance and wastes disk space for each commit call without any added
   benefits.
 
   > For data retrieval `arangosearch` Views follow the concept of
-  > "eventually-consistent", i.e. eventually all the data in ArangoDB will be
+  > "eventually-consistent", i.e. eventually all the data in ArangoDB is
   > matched by corresponding query expressions.
   > The concept of `arangosearch` View "commit" operation is introduced to
   > control the upper-bound on the time until document addition/removals are
   > actually reflected by corresponding query expressions.
-  > Once a "commit" operation is complete all documents added/removed prior to
-  > the start of the "commit" operation will be reflected by queries invoked in
-  > subsequent ArangoDB transactions, in-progress ArangoDB transactions will
+  > Once a "commit" operation is complete, all documents added/removed prior to
+  > the start of the "commit" operation are reflected by queries invoked in
+  > subsequent ArangoDB transactions. In-progress ArangoDB transactions
   > still continue to return a repeatable-read state.
 
 - **consolidationIntervalMsec** (_optional_; type: `integer`; default: `1000`;
@@ -300,7 +300,7 @@ of removing unused segments after release of internal resources.
   For the case where there are a lot of data modification operations, a higher
   value could potentially have the data store consume more space and file handles.
   For the case where there are a few data modification operations, a lower value
-  will impact performance due to no segment candidates available for
+  impacts performance due to no segment candidates available for
   consolidation.
 
   > For data modification `arangosearch` Views follow the concept of a
@@ -340,8 +340,8 @@ is used by these writers (in terms of "writers pool") one can use
 
   > With each ArangoDB transaction that inserts documents, one or more
   > ArangoSearch internal segments gets created. Similarly, for removed
-  > documents the segments containing such documents will have these documents
-  > marked as "deleted". Over time this approach causes a lot of small and
+  > documents the segments containing such documents have these documents
+  > marked as "deleted". Over time, this approach causes a lot of small and
   > sparse segments to be created. A **consolidation** operation selects one or
   > more segments and copies all of their valid documents into a single new
   > segment, thereby allowing the search algorithm to perform more optimally and
@@ -378,11 +378,11 @@ is used by these writers (in terms of "writers pool") one can use
 
   - **segmentsMin** (_optional_; type: `integer`; default: `1`)
 
-    The minimum number of segments that will be evaluated as candidates for consolidation.
+    The minimum number of segments that are evaluated as candidates for consolidation.
 
   - **segmentsMax** (_optional_; type: `integer`; default: `10`)
 
-    The maximum number of segments that will be evaluated as candidates for consolidation.
+    The maximum number of segments that are evaluated as candidates for consolidation.
 
   - **segmentsBytesMax** (_optional_; type: `integer`; default: `5368709120`)
 

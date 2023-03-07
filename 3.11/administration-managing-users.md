@@ -282,7 +282,7 @@ Database `shop2`, collection `reviews` does not match a defined access
 level. However, database `shop2` matches and the wildcard in this
 database for collection level is *Read-Only*.
 
-Database `somehing`, collection `else` does not match a defined access
+Database `something`, collection `else` does not match a defined access
 level. The database `something` also does have a direct matches.
 Therefore the wildcard is selected. The level is *Read/Write*.
 

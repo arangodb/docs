@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's HTTP interface for administration andmonitoring of the server
+description: This is an introduction to ArangoDB's HTTP interface for administration and monitoring of the server
 ---
 HTTP Interface for Administration and Monitoring
 ================================================

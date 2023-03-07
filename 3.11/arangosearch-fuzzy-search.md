@@ -10,7 +10,7 @@ title: Fuzzy Search ArangoSearch Examples
 
 Fuzzy search is an umbrella term for various approximate matching algorithms.
 What they allow you to do is to find matches even if the search terms are not
-spelled exactly like the words in the stored text. This will include terms that
+spelled exactly like the words in the stored text. This includes terms that
 are similar, alternatively spelled, or mistyped but potentially relevant for
 the search request as well.
 
@@ -44,27 +44,35 @@ to the other. The allowed operations are:
 The lowest possible number of the required operations is the Levenshtein
 distance. Consider the following two strings:
 
-    galaxy
-    galxy
+```
+galaxy
+galxy
+```
 
 The latter word is misspelled (it is missing the second `a`). We can correct it
 by adding an `a`. One operation in total means that the Levenshtein distance is
 `1`. It also is for the following pair of strings, but this time requiring the
 removal of a character (an extra `l`):
 
-    galaxy
-    gallaxy
+```
+galaxy
+gallaxy
+```
 
 In the following example, the `e` needs to be replaced with an `a`:
 
-    galaxy
-    gelaxy
+```
+galaxy
+gelaxy
+```
 
 This is again one operation, so the edit distance is `1`. Here is an example that
 requires more than one operation:
 
-    galaxy
-    glaaxy
+```
+galaxy
+glaaxy
+```
 
 The first `a` and the `l` are in the wrong order, perhaps cause the latter
 string was entered hastily. We can remove the `l` from the second position and
@@ -78,8 +86,10 @@ The Damerau-Levenshtein distance is like the [Levenshtein distance](#levenshtein
 but with transpositions as additional operation. Consider the following example
 where the latter string has the `a` and `l` in the wrong order:
 
-    galaxy
-    glaaxy
+```
+galaxy
+glaaxy
+```
 
 This can be corrected by shifting the `l` one character to the right. Hence,
 the Damerau-Levenshtein distance is only `1`. The pure Levenshtein distance
@@ -94,13 +104,15 @@ _trigrams_.
 
 Here is an example for the word `avocado` that has three trigrams:
 
-    avocado
+```
+avocado
 
-    avo
-     voc
-      oca
-       cad
-        ado
+avo
+ voc
+  oca
+   cad
+    ado
+```
 
 To compare the similarity of two sets of _n_-grams, one can simply count how
 many _n_-grams of the target string match the source string (the target string
@@ -111,13 +123,15 @@ matching _n_-grams count.
 Consider the following example with `avocado` as source string and `vocals` as
 target string:
 
-    avocado   vocals
+```
+avocado   vocals
 
-    avo       voc
-     voc       oca
-      oca       cal
-       cad       als
-        ado
+avo       voc
+ voc       oca
+  oca       cal
+   cad       als
+    ado
+```
 
 We find the trigrams `voc` and `oca` from the right side also on the left side.
 The other two do not have a corresponding trigram on the left side. That means,
@@ -130,23 +144,27 @@ Instead of considering only full _n_-gram matches, one can also consider
 partial matches where the characters are in the same positions and counting the
 longest common sequence.
 
-    avocado   vocals
+```
+avocado   vocals
 
-    avo       voc
-    voc       oca
-    oca       cal
-    cad       als
-    ado
+avo       voc
+voc       oca
+oca       cal
+cad       als
+ado
+```
 
 In above example, `voc` and `oca` on the right side have a fully matching
 trigram on the left side. `cal` and `als` do not, but there is `cad` which has
 a `c` in the first position and an `a` in the second position, and both `avo`
 and `ado` have a matching `a` in the first position.
 
-    voc   voc   3 / 3 = 1
-    oca   oca   3 / 3 = 1
-    cad   cal   2 / 3 = 0.666…
-    ado   als   1 / 3 = 0.333…
+```
+voc   voc   3 / 3 = 1
+oca   oca   3 / 3 = 1
+cad   cal   2 / 3 = 0.666…
+ado   als   1 / 3 = 0.333…
+```
 
 We sum up the highest similarity we found for each trigram and divide by the
 total _n_-gram count, which ever of the two is higher (here the left side with
@@ -233,8 +251,8 @@ db._createView("imdb_alias", "search-alias", { indexes: [ { collection: "imdb_ve
 
 Search for the token `galxy` in the movie descriptions with some fuzziness.
 The maximum allowed Levenshtein distance is set to `1`. Everything with a
-Levenshtein distance equal to or lower than this value will be a match and the
-respective documents will be included in the search result. The query will find
+Levenshtein distance equal to or lower than this value is a match and the
+respective documents are included in the search result. The query finds
 the token `galaxy` as the edit distance to `galxy` is `1`.
 
 _`search-alias` View:_

@@ -63,7 +63,6 @@ improve general performance slightly.
 
 Authentication is now supported within the cluster.
 
-
 Document revisions cache
 ------------------------
 
@@ -90,7 +89,6 @@ chunks are allocated and not fully used. The latter will be the case if there ex
 many small collections which all allocate their own chunks but not fully utilize them
 because of the low number of documents.
 
-
 AQL
 ---
 
@@ -98,17 +96,16 @@ AQL
 
 The following AQL functions have been added in 3.1:
 
-- *OUTERSECTION(array1, array2, ..., arrayn)*: returns the values that occur
+- `OUTERSECTION(array1, array2, ..., arrayn)`: returns the values that occur
   only once across all arrays specified.
 
-- *DISTANCE(lat1, lon1, lat2, lon2)*: returns the distance between the two
-  coordinates specified by *(lat1, lon1)* and *(lat2, lon2)*. The distance is
+- `DISTANCE(lat1, lon1, lat2, lon2)`: returns the distance between the two
+  coordinates specified by `(lat1, lon1)` and `(lat2, lon2)`. The distance is
   calculated using the haversine formula.
 
-- *JSON_STRINGIFY(value)*: returns a JSON string representation of the value.
+- `JSON_STRINGIFY(value)`: returns a JSON string representation of the value.
 
-- *JSON_PARSE(value)*: converts a JSON-encoded string into a regular object
-
+- `JSON_PARSE(value)`: converts a JSON-encoded string into a regular object
 
 ### Index usage in traversals
 
@@ -116,13 +113,14 @@ The following AQL functions have been added in 3.1:
 Traversals with filters on edges can now make use of more specific indexes. For
 example, the query
 
-    FOR v, e, p IN 2 OUTBOUND @start @@edge
-      FILTER p.edges[0].foo == "bar"
-      RETURN [v, e, p]
+```aql
+FOR v, e, p IN 2 OUTBOUND @start @@edge
+  FILTER p.edges[0].foo == "bar"
+  RETURN [v, e, p]
+```
 
 may use a hash index on `["_from", "foo"]` instead of the edge index on just
 `["_from"]`.
-
 
 ### Optimizer improvements
 
@@ -130,11 +128,13 @@ Make the AQL query optimizer inject filter condition expressions referred to
 by variables during filter condition aggregation. For example, in the following
 query
 
-    FOR doc IN collection
-      LET cond1 = (doc.value == 1)
-      LET cond2 = (doc.value == 2)
-      FILTER cond1 || cond2
-      RETURN { doc, cond1, cond2 }
+```aql
+FOR doc IN collection
+  LET cond1 = (doc.value == 1)
+  LET cond2 = (doc.value == 2)
+  FILTER cond1 || cond2
+  RETURN { doc, cond1, cond2 }
+```
 
 the optimizer will now inject the conditions for `cond1` and `cond2` into the
 filter condition `cond1 || cond2`, expanding it to `(doc.value == 1) || (doc.value == 2)`
@@ -144,10 +144,12 @@ Note that the optimizer previously already injected some conditions into other
 conditions, but only if the variable that defined the condition was not used elsewhere.
 For example, the filter condition in the query
 
-    FOR doc IN collection
-      LET cond = (doc.value == 1)
-      FILTER cond
-      RETURN { doc }
+```aql
+FOR doc IN collection
+  LET cond = (doc.value == 1)
+  FILTER cond
+  RETURN { doc }
+```
 
 already got optimized before because `cond` was only used once in the query and the
 optimizer decided to inject it into the place where it was used.
@@ -155,14 +157,15 @@ optimizer decided to inject it into the place where it was used.
 This only worked for variables that were referred to once in the query. When a variable
 was used multiple times, the condition was not injected as in the following query
 
-    FOR doc IN collection
-      LET cond = (doc.value == 1)
-      FILTER cond
-      RETURN { doc, cond }
+```aql
+FOR doc IN collection
+  LET cond = (doc.value == 1)
+  FILTER cond
+  RETURN { doc, cond }
+```
 
 3.1 allows using this condition so that the query can use an index on `doc.value`
 (if such index exists).
-
 
 ### Miscellaneous improvements
 
@@ -183,7 +186,7 @@ Audit logging has been added, see [Auditing](security-auditing.html).
 Client tools
 ------------
 
-Added option `--skip-lines` for arangoimp
+Added option `--skip-lines` for arangoimp.
 This allows skipping the first few lines from the import file in case the CSV or TSV
 import are used and some initial lines should be skipped from the input.
 

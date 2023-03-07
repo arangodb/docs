@@ -173,26 +173,26 @@ Specific to arangod, move to programs detail page?
 Does the resolution order for config files apply to all binaries?
 Linux only? Also macOS? Windows not addressed so far.
 
-If this command is not passed to the server, then by default, the server will
-attempt to first locate a file named *~/.arango/arangod.conf* in the user's home
+If this command is not passed to the server, then by default, the server
+attempts to first locate a file named `~/.arango/arangod.conf` in the user's home
 directory.
 
-If no such file is found, the server will proceed to look for a file
-*arangod.conf* in the system configuration directory. The system configuration
+If no such file is found, the server proceeds to look for a file
+`arangod.conf` in the system configuration directory. The system configuration
 directory is platform-specific, and may be changed when compiling ArangoDB
-yourself. It may default to */etc/arangodb* or */usr/local/etc/arangodb*. This
+yourself. It may default to `/etc/arangodb` or `/usr/local/etc/arangodb`. This
 file is installed when using a package manager like rpm or dpkg. If you modify
 this file and later upgrade to a new version of ArangoDB, then the package
 manager normally warns you about the conflict. In order to avoid these warning
 for small adjustments, you can put local overrides into a file
-*arangod.conf.local*.
+`arangod.conf.local`.
 {% endcomment %}
 
 ## Suffixes for Numeric Options
 
-It is possible to add suffixes to numeric options that will cause ArangoDB to
-multiply the value by a certain factor. This can be used to conveniently specify
-values in megabytes or gigabytes for example.
+You can add suffixes to numeric options to let ArangoDB multiply the value by a
+certain factor. This allows you to conveniently specify values, for example,
+in megabytes or gigabytes.
 
 | Suffix               | Factor   | Example |
 |----------------------|----------|---------|
@@ -204,7 +204,7 @@ values in megabytes or gigabytes for example.
 | `g`, `G`, `gb`, `GB` | 1000 ^ 3 | 3GB     |
 | `%`                  | 0.01     | 5%      |
 
-Suffix could be used like this in a configuration file:
+You can also use suffixes in configuration files like this:
 
 ```conf
 [rocksdb]
@@ -284,7 +284,7 @@ level = startup=info
 There are built-in defaults, with which all configuration variables are first
 initialized. They can be overridden by configuration files and command line
 options (in this order). Only a fraction of all available options are set in
-the configuration files that ArangoDB ships with. Many options will therefore
+the configuration files that ArangoDB ships with. Many options therefore
 fall back to the built-in defaults unless they are overridden by the user.
 
 It is common to use modified configuration files together with startup
@@ -292,21 +292,21 @@ options on a command line to override specific settings. Command line options
 take precedence over values set in a configuration file.
 
 If the same option is set multiple times, but only supports a single value,
-then the last occurrence of the option will become the final value.
-For example, if you edit `arangosh.conf` to set:
+then the last occurrence of the option becomes the final value.
+For example, if you edit `arangosh.conf` as follows:
 
-```
+```conf
 server.database = myDB1
 server.database = myDB2
 ```
 
-… and start ArangoShell like:
+Then start ArangoShell like this:
 
 ```
 arangosh --server.database myDB3 --server.database myDB4
 ```
 
-… then the database it will connect to is `myDB4`, because this startup option
+The database it connects to is `myDB4`, because this startup option
 takes a single value only (i.e. it is not a vector), the built-in default
 is `_system` but the configuration file overrules the setting. It gets set to
 `myDB1` temporarily before it is replaced by `myDB2`, which in turn gets
@@ -315,7 +315,7 @@ final value `myDB4`.
 
 ## Change configuration at runtime
 
-In general, supplied startup options can not be changed nor can configuration
+In general, supplied startup options cannot be changed nor can configuration
 files be reloaded once an executable is started, other than by restarting the
 executable with different options. However, some of the startup options
 define default values which can be overridden on a per-query basis for

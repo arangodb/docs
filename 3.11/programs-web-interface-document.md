@@ -13,7 +13,7 @@ Functions:
 
  - Edit document 
  - Save document
- - Delete docment
+ - Delete document
  - Switch between Tree/Code - Mode
  - Create a new document
 

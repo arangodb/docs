@@ -149,7 +149,7 @@ single servers, Coordinators and DB-Servers:
 
 - `GET /_admin/license`: Query license information and status.
 
-  ```js
+  ```json
   {
     "features": {
       "expires": 1640255734

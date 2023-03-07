@@ -29,21 +29,27 @@ the set of documents to operate on. For example, the following query
 will find all documents in collection *users* that match a specific 
 condition and set their *status* variable to *inactive*:
 
-    FOR u IN users
-      FILTER u.status == 'not active'
-      UPDATE u WITH { status: 'inactive' } IN users
+```aql
+FOR u IN users
+  FILTER u.status == 'not active'
+  UPDATE u WITH { status: 'inactive' } IN users
+```
 
 The following query copies all documents from collection *users* into
 collection *backup*:
 
-    FOR u IN users
-      INSERT u IN backup
+```aql
+FOR u IN users
+  INSERT u IN backup
+```
 
 And this query removes documents from collection *backup*:
 
-    FOR doc IN backup
-      FILTER doc.lastModified < DATE_NOW() - 3600
-      REMOVE doc IN backup
+```aql
+FOR doc IN backup
+  FILTER doc.lastModified < DATE_NOW() - 3600
+  REMOVE doc IN backup
+```
 
 For more information on data-modification queries, please refer to
 [Data modification queries](aql/data-queries.html#data-modification-queries).
@@ -54,11 +60,13 @@ Previously, the value of a variable assigned in an AQL query with the `LET` keyw
 was not updatable in an AQL query. This prevented statements like the following from 
 being executable:
 
-    LET sum = 0
-    FOR v IN values
-      SORT v.year
-      LET sum = sum + v.value
-      RETURN { year: v.year, value: v.value, sum: sum }
+```aql
+LET sum = 0
+FOR v IN values
+  SORT v.year
+  LET sum = sum + v.value
+  RETURN { year: v.year, value: v.value, sum: sum }
+```
 
 ### Other AQL improvements
 
@@ -66,12 +74,15 @@ being executable:
 
   This function can be used to perform lookups from static objects, e.g.
 
-      LET countryNames = { US: "United States", UK: "United Kingdom", FR: "France" }
-      RETURN TRANSLATE("FR", countryNames) 
+  ```aql
+  LET countryNames = { US: "United States", UK: "United Kingdom", FR: "France" }
+  RETURN TRANSLATE("FR", countryNames)
+  ```
 
-      LET lookup = { foo: "foo-replacement", bar: "bar-replacement", baz: "baz-replacement" }
-      RETURN TRANSLATE("foobar", lookup, "not contained!")
-
+  ```aql
+  LET lookup = { foo: "foo-replacement", bar: "bar-replacement", baz: "baz-replacement" }
+  RETURN TRANSLATE("foobar", lookup, "not contained!")
+  ```
 
 Write-ahead log
 ---------------
@@ -141,19 +152,23 @@ Miscellaneous improvements
 
 * Added `insert` method as an alias for `save`. Documents can now be inserted into
   a collection using either method:
-  
-      db.test.save({ foo: "bar" }); 
-      db.test.insert({ foo: "bar" }); 
+
+  ```js
+  db.test.save({ foo: "bar" });
+  db.test.insert({ foo: "bar" });
+  ```
 
 * Cleanup of options for data-modification operations
 
   Many of the data-modification operations had signatures with many optional 
   bool parameters, e.g.:
 
-      db.test.update("foo", { bar: "baz" }, true, true, true)
-      db.test.replace("foo", { bar: "baz" }, true, true)
-      db.test.remove("foo", true, true)
-      db.test.save({ bar: "baz" }, true)
+  ```js
+  db.test.update("foo", { bar: "baz" }, true, true, true)
+  db.test.replace("foo", { bar: "baz" }, true, true)
+  db.test.remove("foo", true, true)
+  db.test.save({ bar: "baz" }, true)
+  ```
 
   Such long parameter lists were unintuitive and hard to use when only one of
   the optional parameters should have been set.
@@ -161,17 +176,21 @@ Miscellaneous improvements
   To make the APIs more usable, the operations now understand the following 
   alternative signature:
 
-      collection.update(key, update-document, options)
-      collection.replace(key, replacement-document, options)
-      collection.remove(key, options)
-      collection.save(document, options)
+  ```js
+  collection.update(key, update-document, options)
+  collection.replace(key, replacement-document, options)
+  collection.remove(key, options)
+  collection.save(document, options)
+  ```
 
   Examples:
 
-      db.test.update("foo", { bar: "baz" }, { overwrite: true, keepNull: true, waitForSync: true })
-      db.test.replace("foo", { bar: "baz" }, { overwrite: true, waitForSync: true })
-      db.test.remove("foo", { overwrite: true, waitForSync: true })
-      db.test.save({ bar: "baz" }, { waitForSync: true })
+  ```js
+  db.test.update("foo", { bar: "baz" }, { overwrite: true, keepNull: true, waitForSync: true })
+  db.test.replace("foo", { bar: "baz" }, { overwrite: true, waitForSync: true })
+  db.test.remove("foo", { overwrite: true, waitForSync: true })
+  db.test.save({ bar: "baz" }, { waitForSync: true })
+  ```
 
 * Added `--overwrite` option to arangoimp
 
@@ -188,12 +207,16 @@ Miscellaneous improvements
 * Disallow storing of JavaScript objects that contain JavaScript native objects
   of type `Date`, `Function`, `RegExp` or `External`, e.g.
 
-      db.test.save({ foo: /bar/ });
-      db.test.save({ foo: new Date() });
+  ```js
+  db.test.save({ foo: /bar/ });
+  db.test.save({ foo: new Date() });
+  ```
 
   This will now print
 
-      Error: <data> cannot be converted into JSON shape: could not shape document
+  ```
+  Error: <data> cannot be converted into JSON shape: could not shape document
+  ```
 
   Previously, objects of these types were silently converted into an empty object
   (i.e. `{ }`) and no warning was issued.
@@ -201,9 +224,10 @@ Miscellaneous improvements
   To store such objects in a collection, explicitly convert them into strings 
   like this:
 
-      db.test.save({ foo: String(/bar/) });
-      db.test.save({ foo: String(new Date()) });
-
+  ```js
+  db.test.save({ foo: String(/bar/) });
+  db.test.save({ foo: String(new Date()) });
+  ```
 
 Removed features
 ----------------

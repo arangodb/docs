@@ -9,7 +9,6 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 2.4. ArangoDB 2.4 also contains several bugfixes that are not listed
 here. For a list of bugfixes, please consult the [CHANGELOG](https://github.com/arangodb/arangodb/blob/devel/CHANGELOG){:target="_blank"}.
 
-
 V8 version upgrade
 ------------------
 
@@ -40,11 +39,12 @@ starting arangod or arangosh with the appropriate options:
 To activate all these ES6 features in arangod or arangosh, start it with 
 the following options:
 
-    arangosh --javascript.v8-options="--harmony --harmony_generators"
+```
+arangosh --javascript.v8-options="--harmony --harmony_generators"
+```
 
 More details on the available ES6 features can be found in 
 [this blog](https://jsteemann.github.io/blog/2014/12/19/using-es6-features-in-arangodb/){:target="_blank"}.
-
 
 FoxxGenerator
 -------------
@@ -80,19 +80,24 @@ indexes if the filter conditions refer to the same indexed attribute.
 
 Here are a few examples of queries that can now use indexes but couldn't before:
 
-    FOR doc IN collection
-      FILTER doc.indexedAttribute == 1 || doc.indexedAttribute > 99
-      RETURN doc
-    
-    FOR doc IN collection
-      FILTER doc.indexedAttribute IN [ 3, 42 ] || doc.indexedAttribute > 99
-      RETURN doc
+```aql
+FOR doc IN collection
+  FILTER doc.indexedAttribute == 1 || doc.indexedAttribute > 99
+  RETURN doc
+```
 
-    FOR doc IN collection
-      FILTER (doc.indexedAttribute > 2 && doc.indexedAttribute < 10) ||
-             (doc.indexedAttribute > 23 && doc.indexedAttribute < 42)
-      RETURN doc
+```aql
+FOR doc IN collection
+  FILTER doc.indexedAttribute IN [ 3, 42 ] || doc.indexedAttribute > 99
+  RETURN doc
+```
 
+```aql
+FOR doc IN collection
+  FILTER (doc.indexedAttribute > 2 && doc.indexedAttribute < 10) ||
+          (doc.indexedAttribute > 23 && doc.indexedAttribute < 42)
+  RETURN doc
+```
 
 Additionally, the optimizer rule `remove-filter-covered-by-index` has been
 added. This rule removes FilterNodes and CalculationNodes from an execution 
@@ -103,7 +108,6 @@ up query execution because the query requires less computation.
 Furthermore, the new optimizer rule `remove-sort-rand` will remove a `SORT RAND()`
 statement and move the random iteration into the appropriate `EnumerateCollectionNode`.
 This is usually more efficient than individually enumerating and sorting.
-
 
 ### Data-modification queries returning documents
 
@@ -117,16 +121,22 @@ immediately be immediately followed by a `LET` statement that assigns either the
 pseudo-value `NEW` or `OLD` to a variable. This `LET` statement must be followed 
 by a `RETURN` statement that returns the variable introduced by `LET`:
 
-    FOR i IN 1..100
-      INSERT { value: i } IN test LET inserted = NEW RETURN inserted
+```aql
+FOR i IN 1..100
+  INSERT { value: i } IN test LET inserted = NEW RETURN inserted
+```
 
-    FOR u IN users
-      FILTER u.status == 'deleted'
-      REMOVE u IN users LET removed = OLD RETURN removed
+```aql
+FOR u IN users
+  FILTER u.status == 'deleted'
+  REMOVE u IN users LET removed = OLD RETURN removed
+```
 
-    FOR u IN users
-      FILTER u.status == 'not active'
-      UPDATE u WITH { status: 'inactive' } IN users LET updated = NEW RETURN updated
+```aql
+FOR u IN users
+  FILTER u.status == 'not active'
+  UPDATE u WITH { status: 'inactive' } IN users LET updated = NEW RETURN updated
+```
 
 `NEW` refers to the inserted or modified document revision, and `OLD` refers
 to the document revision before update or removal. `INSERT` statements can 
@@ -136,7 +146,6 @@ only refer to the `NEW` pseudo-value, and `REMOVE` operations only to `OLD`.
 In all cases the full documents will be returned with all their attributes,
 including the potentially auto-generated attributes such as `_id`, `_key`, or `_rev`
 and the attributes not specified in the update expression of a partial update.
-
 
 ### Language improvements
 
@@ -148,30 +157,35 @@ clause allows for more efficient counting of values.
 In previous versions of ArangoDB one had to write the following to count
 documents:
 
-    RETURN LENGTH (
-      FOR doc IN collection
-      FILTER ...some condition...
-      RETURN doc
-    )
+```aql
+RETURN LENGTH (
+  FOR doc IN collection
+  FILTER ...some condition...
+  RETURN doc
+)
+```
 
 With the `COUNT` clause, the query can be modified to
-        
-    FOR doc IN collection
-      FILTER ...some condition...
-      COLLECT WITH COUNT INTO length
-      RETURN length
+
+```aql        
+FOR doc IN collection
+  FILTER ...some condition...
+  COLLECT WITH COUNT INTO length
+  RETURN length
+```
 
 The latter query will be much more efficient because it will not produce any
 intermediate results with need to be shipped from a subquery into the `LENGTH`
 function.
 
 The `COUNT` clause can also be used to count the number of items in each group:
-    
-    FOR doc IN collection
-      FILTER ...some condition...
-      COLLECT group = doc.group WITH COUNT INTO length
-      return { group: group, length: length }
 
+```aql
+FOR doc IN collection
+  FILTER ...some condition...
+  COLLECT group = doc.group WITH COUNT INTO length
+  return { group: group, length: length }
+```
 
 #### `COLLECT` modifications
 
@@ -184,24 +198,27 @@ It can be used for projections.
 The following query only copies the `dateRegistered` attribute of each document
 into the groups, potentially saving a lot of memory and computation time 
 compared to copying `doc` completely:
-    
-    FOR doc IN collection
-      FILTER ...some condition...
-      COLLECT group = doc.group INTO dates = doc.dateRegistered
-      return { group: group, maxDate: MAX(dates) }
+
+```aql
+FOR doc IN collection
+  FILTER ...some condition...
+  COLLECT group = doc.group INTO dates = doc.dateRegistered
+  RETURN { group: group, maxDate: MAX(dates) }
+```
 
 Compare this to the following variant of the query, which was the only way
 to achieve the same result in previous versions of ArangoDB:
 
-    FOR doc IN collection
-      FILTER ...some condition...
-      COLLECT group = doc.group INTO dates
-      return { group: group, maxDate: MAX(dates[*].doc.dateRegistered) }
+```aql
+FOR doc IN collection
+  FILTER ...some condition...
+  COLLECT group = doc.group INTO dates
+  RETURN { group: group, maxDate: MAX(dates[*].doc.dateRegistered) }
+```
 
 The above query will need to copy the full `doc` attribute into the `lengths`
 variable, whereas the new variant will only copy the `dateRegistered`
 attribute of each `doc`.
-
 
 #### Subquery syntax
 
@@ -209,19 +226,22 @@ In previous versions of ArangoDB, subqueries required extra parentheses
 around them, and this caused confusion when subqueries were used as function
 parameters. For example, the following query did not work:
 
-    LET values = LENGTH(
-      FOR doc IN collection RETURN doc
-    )
+```aql
+LET values = LENGTH(
+  FOR doc IN collection RETURN doc
+)
+```
 
 but had to be written as follows:    
-    
-    LET values = LENGTH((
-      FOR doc IN collection RETURN doc
-    ))
+
+```aql    
+LET values = LENGTH((
+  FOR doc IN collection RETURN doc
+))
+```
 
 This was unintuitive and is fixed in version 2.4 so that both variants of 
 the query are accepted and produce the same result.
-
 
 ### Web interface
 
@@ -251,7 +271,6 @@ features already available in the `foxx-manager` console application plus some m
   The generated Foxx app can either be downloaded as a zip file or 
   be installed on the server. Starting with a new Foxx app has never been easier.
 
-
 Miscellaneous improvements
 --------------------------
 
@@ -264,7 +283,6 @@ measure that has been requested as a feature a lot of times.
 
 If you are the development option `--enable-relative`, the endpoint will still
 be `0.0.0.0`.
-
 
 ### System collections in replication
   
@@ -292,4 +310,3 @@ require("org/arangodb/replication").applier.properties({
   restrictCollections: [ "_users", "_graphs", "foo" ] 
 });
 ```
-

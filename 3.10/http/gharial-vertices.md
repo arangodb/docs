@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Examples will explain the REST API to the graph moduleon the social graph
+description: Examples will explain the REST API to the graph module on the social graph
 ---
 Handling Vertices
 =================

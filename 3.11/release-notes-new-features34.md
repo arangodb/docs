@@ -22,7 +22,6 @@ view in ArangoDB.
   - [SEARCH operation](aql/operations-search.html)
   - [ArangoSearch functions](aql/functions-arangosearch.html)
 
-
 New geo index implementation
 ----------------------------
 
@@ -44,7 +43,6 @@ for querying and comparing GeoJSON objects.
 
 As a feature on top, the web ui embedded AQL editor now supports also displaying all
 GeoJSON supported data. 
-
 
 RocksDB storage engine
 ----------------------
@@ -120,7 +118,8 @@ speed up point-lookups significantly, especially if collection have a subset of 
 accessed documents.
 
 The option can be enabled for a collection as follows:
-```
+
+```js
 db.<collection>.properties({ cacheEnabled: true });
 ```
 
@@ -167,8 +166,10 @@ per-query/per-transaction basis.
 
 For AQL queries, all data-modification operations now support the `exclusive` option, e.g.
 
-    FOR doc IN collection
-      UPDATE doc WITH { updated: true } IN collection OPTIONS { exclusive: true }
+```aql
+FOR doc IN collection
+  UPDATE doc WITH { updated: true } IN collection OPTIONS { exclusive: true }
+```
 
 JavaScript-based transactions can specify which collections to lock exclusively in the
 `exclusive` sub-attribute of their `collections` attribute:
@@ -192,7 +193,6 @@ The version of the bundled RocksDB library was upgraded from 5.6 to 5.16.
 
 The version of the bundled Snappy compression library used by RocksDB was upgraded from
 1.1.3 to 1.1.7.
-
 
 Collection and document operations
 ----------------------------------
@@ -253,7 +253,7 @@ INSERT it supports returning the OLD and the NEW document on disk to i.e. inspec
 the revision or the previous content of the document.
 AQL INSERT is switched to  REPSERT by setting the option `overwrite` for it:
 
-```
+```aql
 INSERT {
  _key: "someKey",
  value1: 123,
@@ -265,7 +265,6 @@ RETURN OLD
 Please note that in a cluster setup the Repsert operation requires the collection
 to be sharded by `_key`.
 
-
 ### Graph API extensions
 
 The REST APIs for modifying graphs at endpoint `/_api/gharial` now support returning
@@ -276,8 +275,8 @@ single-document functionality provided at endpoint `/_api/document`.
 The old/new revisions can be accessed by passing the URL parameters `returnOld` and
 `returnNew` to the following endpoints:
 
-* /_api/gharial/&lt;graph>/vertex/&lt;collection>
-* /_api/gharial/&lt;graph>/edge/&lt;collection>
+* `/_api/gharial/<graph>/vertex/<collection>`
+* `/_api/gharial/<graph>/edge/<collection>`
 
 The exception from this is that the HTTP DELETE verb for these APIs does not
 support `returnOld` because that would make the existing API incompatible.
@@ -301,7 +300,8 @@ generators:
 
 Generators may be chosen with the creation of collections; here an example for
 the *padded* key generator:
-```
+
+```js
 db._create("padded", { keyOptions: { type: "padded" } });
 
 db.padded.insert({});
@@ -320,6 +320,7 @@ db.padded.insert({});
 ```
 
 Example for the *uuid* key generator:
+
 ```js
 db._create("uuid", { keyOptions: { type: "uuid" } });
 
@@ -345,7 +346,6 @@ The command `db.<collection>.indexes()` was added as an alias for the already ex
 `db.<collection>.getIndexes()` method for retrieving all indexes of a collection. The
 alias name is more consistent with the already existing method names for retrieving
 all databases and collections.
-
 
 Cluster improvements
 --------------------
@@ -442,7 +442,6 @@ When starting a _DB-Server_, the value `DBSERVER` can now be specified (as alias
 
 All REST APIs that currently return "PRIMARY" as _role_, will continue to return
 "PRIMARY".
-
 
 AQL
 ---
@@ -670,22 +669,24 @@ into a single FILTER condition where possible, allowing to save some runtime reg
 In a cluster, the cost of setting up a distributed query can be considerable for
 trivial AQL queries that will only access a single document, e.g.
 
-    FOR doc IN collection FILTER doc._key == ... RETURN doc
-    FOR doc IN collection FILTER doc._key == ... RETURN 1
+```aql
+FOR doc IN collection FILTER doc._key == ... RETURN doc
+FOR doc IN collection FILTER doc._key == ... RETURN 1
 
-    FOR doc IN collection FILTER doc._key == ... REMOVE doc IN collection
-    FOR doc IN collection FILTER doc._key == ... REMOVE doc._key IN collection
-    REMOVE... IN collection
+FOR doc IN collection FILTER doc._key == ... REMOVE doc IN collection
+FOR doc IN collection FILTER doc._key == ... REMOVE doc._key IN collection
+REMOVE... IN collection
 
-    FOR doc IN collection FILTER doc._key == ... UPDATE doc WITH { ... } IN collection
-    FOR doc IN collection FILTER doc._key == ... UPDATE doc._key WITH { ... } IN collection
-    UPDATE ... WITH { ... } IN collection
+FOR doc IN collection FILTER doc._key == ... UPDATE doc WITH { ... } IN collection
+FOR doc IN collection FILTER doc._key == ... UPDATE doc._key WITH { ... } IN collection
+UPDATE ... WITH { ... } IN collection
 
-    FOR doc IN collection FILTER doc._key == ... REPLACE doc WITH { ... } IN collection
-    FOR doc IN collection FILTER doc._key == ... REPLACE doc._key WITH { ... } IN collection
-    REPLACE ... WITH { ... } IN collection
+FOR doc IN collection FILTER doc._key == ... REPLACE doc WITH { ... } IN collection
+FOR doc IN collection FILTER doc._key == ... REPLACE doc._key WITH { ... } IN collection
+REPLACE ... WITH { ... } IN collection
 
-    INSERT { ... } INTO collection
+INSERT { ... } INTO collection
+```
 
 All of the above queries will affect at most a single document, identified by its
 primary key. The AQL query optimizer can now detect this, and use a specialized
@@ -712,22 +713,26 @@ The new optimizer rule `optimize-subqueries` will fire in the following situatio
 
   For example, the unbounded subquery
 
-      LET docs = (
-        FOR doc IN collection
-          FILTER ...
-          RETURN doc
-      )
-      RETURN docs[0]
+  ```aql
+  LET docs = (
+    FOR doc IN collection
+      FILTER ...
+      RETURN doc
+  )
+  RETURN docs[0]
+  ```
 
   will be turned into a subquery that only produces a single result value:
 
-      LET docs = (
-        FOR doc IN collection
-          FILTER ...
-          LIMIT 1
-          RETURN doc
-      )
-      RETURN docs[0]
+  ```aql
+  LET docs = (
+    FOR doc IN collection
+      FILTER ...
+      LIMIT 1
+      RETURN doc
+  )
+  RETURN docs[0]
+  ```
 
 * in case the result returned by a subquery is not used later but only the number
   of subquery results, the optimizer will modify the result value of the subquery
@@ -736,19 +741,23 @@ The new optimizer rule `optimize-subqueries` will fire in the following situatio
 
   For example, the following subquery returning entire documents
 
-        RETURN LENGTH(
-          FOR doc IN collection
-            FILTER ...
-            RETURN doc
-        )
+  ```aql
+  RETURN LENGTH(
+    FOR doc IN collection
+      FILTER ...
+      RETURN doc
+  )
+  ```
 
-    will be turned into a subquery that returns only simple boolean values:
+  will be turned into a subquery that returns only simple boolean values:
 
-        RETURN LENGTH(
-          FOR doc IN collection
-            FILTER ...
-            RETURN true
-        )
+  ```aql
+  RETURN LENGTH(
+    FOR doc IN collection
+      FILTER ...
+      RETURN true
+  )
+  ```
 
   This saves fetching the document data from disk in first place, and copying it
   from the subquery to the outer scope.
@@ -763,18 +772,22 @@ the COLLECT statement then if possible.
     
 For example, the query
 
-    FOR doc1 IN collection1
-      FOR doc2 IN collection2
-        COLLECT x = doc1.x INTO g
-        RETURN { x, all: g[*].doc1.y }
-    
+```aql
+FOR doc1 IN collection1
+  FOR doc2 IN collection2
+    COLLECT x = doc1.x INTO g
+    RETURN { x, all: g[*].doc1.y }
+```
+
 will automatically be turned into
 
-    FOR doc1 IN collection1
-      FOR doc2 IN collection2
-        COLLECT x = doc1.x INTO g KEEP doc1
-        RETURN { x, all: g[*].doc1.y }
-   
+```aql
+FOR doc1 IN collection1
+  FOR doc2 IN collection2
+    COLLECT x = doc1.x INTO g KEEP doc1
+    RETURN { x, all: g[*].doc1.y }
+```
+
 This prevents variable `doc2` from being temporarily stored in the variable `g`,
 which saves processing time and memory, especially for big result sets.
 
@@ -799,9 +812,11 @@ The `offset` and `count` values used in an AQL LIMIT clause can now be expressio
 long as the expressions can be resolved at query compile time.
 For example, the following query will now work:
 
-    FOR doc IN collection
-      LIMIT 0, CEIL(@percent * @count / 100) 
-      RETURN doc
+```aql
+FOR doc IN collection
+  LIMIT 0, CEIL(@percent * @count / 100) 
+  RETURN doc
+```
 
 Previous versions of ArangoDB required the `offset` and `count` values to be
 either number literals or numeric bind parameter values.
@@ -817,19 +832,23 @@ attribute to be non-null.
 For example, if for the following query there is a sparse index on `value` in any
 of the collections, the optimizer cannot prove that `value` can never be `null`:
 
-    FOR doc1 IN collection1
-      FOR doc2 IN collection2
-        FILTER doc1.value == doc2.value
-        RETURN [doc1, doc2]
+```aql
+FOR doc1 IN collection1
+  FOR doc2 IN collection2
+    FILTER doc1.value == doc2.value
+    RETURN [doc1, doc2]
+```
 
 By adding an extra filter condition to the query that excludes `null` values explicitly,
 the optimizer in 3.4 will now be able to use a sparse index on `value`:
 
-    FOR doc1 IN collection1
-      FOR doc2 IN collection2
-        FILTER doc1.value == doc2.value
-        FILTER doc2.value != null
-        RETURN [doc1, doc2]
+```aql
+FOR doc1 IN collection1
+  FOR doc2 IN collection2
+    FILTER doc1.value == doc2.value
+    FILTER doc2.value != null
+    RETURN [doc1, doc2]
+```
 
 The optimizer in 3.3 was not able to detect this, and refused to use sparse indexes
 for such queries.
@@ -850,7 +869,7 @@ query results cache, there now exist the following extra options:
   that involve system collections should be stored in the query results cache
 
 These options allow more effective control of the amount of memory used by the
-query results cache, and can be used to better utilitize the cache memory.
+query results cache, and can be used to better utilize the cache memory.
 
 The cache configuration can be changed at runtime using the `properties` function
 of the cache. For example, to limit the per-database number of cache entries to
@@ -858,7 +877,7 @@ of the cache. For example, to limit the per-database number of cache entries to
 and the maximum size of each individual cache entry to 1MB, the following call
 could be used:
 
-```
+```js
 require("@arangodb/aql/cache").properties({
   maxResults: 256,
   maxResultsSize: 64 * 1024 * 1024,
@@ -870,7 +889,7 @@ require("@arangodb/aql/cache").properties({
 The contents of the query results cache can now also be inspected at runtime using 
 the cache's new `toArray` function:
 
-```
+```js
 require("@arangodb/aql/cache").toArray();
 ```
 
@@ -879,7 +898,6 @@ the current database, along with their query strings, sizes, number of results
 and original query run times.
 
 The functionality is also available via HTTP REST APIs.
-
 
 ### Miscellaneous changes
 
@@ -898,7 +916,6 @@ in this stage, as it is used for rough cost estimates only. It is possible howev
 that when explaining an execution plan, the "number of documents" estimated for
 a collection is using a cached stale value, and that the estimates change slightly
 over time even if the underlying collection is not modified.
-
 
 Streaming AQL Cursors
 ---------------------
@@ -941,7 +958,7 @@ Depending on the storage engine used this has different consequences:
   was started. Writing however will happen during working with the cursor.
   Thus be prepared for possible conflicts if you have other writes on the collections,
   and probably overrule them by `ignoreErrors: True`, else the query
-  will abort by the time the conflict happenes.
+  will abort by the time the conflict happens.
 
 Taking into account the above consequences, you shouldn't use streaming
 cursors light-minded for data modification queries.
@@ -996,7 +1013,6 @@ many V8 contexts as previous versions of ArangoDB.
 This should reduce problems with servers running out of available V8 contexts or
 using a lot of memory just for keeping V8 contexts around.
 
-
 Foxx
 ----
 
@@ -1006,7 +1022,6 @@ The functions `hexSlice`, `hexWrite` have been added to the `Buffer` object.
 
 The functions `Buffer.from`, `Buffer.of`, `Buffer.alloc` and `Buffer.allocUnsafe`
 have been added to the `Buffer` object for improved compatibility with node.js.
-
 
 Security
 --------
@@ -1024,7 +1039,6 @@ The same mechanism is also in place for the following APIs:
 - jobs created via the endpoint `/_api/job`
 - tasks created via the endpoint `/_api/tasks`
 
-
 ### Dropped support for SSLv2
 
 ArangoDB 3.4 will not start when attempting to bind the server to a Secure Sockets
@@ -1038,7 +1052,6 @@ Clients that use SSLv2 with ArangoDB should change the protocol from SSLv2 to TL
 if possible, by adjusting the value of the `--ssl.protocol` startup option for the
 `arangod` server and all client tools.
 
-
 Distribution Packages
 ---------------------
 
@@ -1047,7 +1060,6 @@ Debian, NSIS installer for Windows etc.) starting from 3.4.0 new `tar.gz` archiv
 are available for Linux and Mac. They correspond to the `.zip` packages for Windows,
 which can be used for portable installations, and to easily run different ArangoDB
 versions on the same machine (e.g. for testing).
-
 
 Client tools
 ------------
@@ -1108,7 +1120,6 @@ Finally, _arangoimport_ got an option `--latency` which can be used to print mic
 latency statistics on 10 second intervals for import runs. This can be used to get
 additional information about the import run performance and performance development.
 
-
 Miscellaneous features
 ----------------------
 
@@ -1134,7 +1145,6 @@ often undesired in logs anyway.
 Another positive side effect of turning off the escaping is that it will slightly
 reduce the CPU overhead for logging. However, this will only be noticable when the
 logging is set to a very verbose level (e.g. log levels debug or trace).
-
 
 ### Active Failover
 

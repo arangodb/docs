@@ -2524,6 +2524,34 @@
     "section" : "foxx",
     "type" : "boolean"
   },
+  "foxx.enable" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Enable Foxx.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.5"
+    ],
+    "longDescription" : "If set to `false`, access to any custom Foxx \nservices in the deployment will be forbidden. Access to ArangoDB's built-in\nweb interface will still be possible though.\n\n**Note**: when setting this option to `false`, the management API for Foxx\nservices will automatically be disabled as well. This is the same as manually\nsetting the startup option `--foxx.api false`.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "foxx",
+    "type" : "boolean"
+  },
   "foxx.force-update-on-startup" : {
     "category" : "option",
     "component" : [
@@ -3550,7 +3578,7 @@
     "default" : 0,
     "deprecatedIn" : null,
     "description" : "The maximum number of V8 contexts that are created for executing JavaScript actions.",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
@@ -7281,6 +7309,38 @@
     "section" : "query",
     "type" : "uint64"
   },
+  "query.max-dnf-condition-members" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : 786432,
+    "deprecatedIn" : null,
+    "description" : "Maximum number of OR sub-nodes in internal representation of an AQL FILTER condition.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "longDescription" : "This option can be used to limit the computation\ntime and memory usage when converting complex AQL FILTER conditions into the\ninternal DNF (disjunctive normal form) format. FILTER conditions with a lot of\nlogical branches (AND, OR, NOT) can take a large amount of processing time and\nmemory. This startup option can be used to limit the computation time and memory\nusage for such conditions. Once the threshold value is reached during the DNF\nconversion of a FILTER condition, the conversion will be aborted, and the query\nwill continue with a simplified internal representation of the condition, which\ncannot be used for index lookups.\"",
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
   "query.max-nodes-per-callstack" : {
     "base" : 1,
     "category" : "option",
@@ -8257,6 +8317,130 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.blob-compression-type" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "lz4",
+    "deprecatedIn" : null,
+    "description" : "The compression algorithm to use for blob data in the documents column family. Requires `--rocksdb.enable-blob-files`.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "string",
+    "values" : "Possible values: \"lz4\", \"lz4hc\", \"none\", \"snappy\""
+  },
+  "rocksdb.blob-file-size" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 268435456,
+    "deprecatedIn" : null,
+    "description" : "The size limit for blob files in the documents column family (in bytes). Requires `--rocksdb.enable-blob-files`.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.blob-garbage-collection-age-cutoff" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0.25,
+    "deprecatedIn" : null,
+    "description" : "The age cutoff for garbage collecting blob files in the documents column family (percentage value from 0 to 1 determines how many blob files are garbage collected during compaction). Requires `--rocksdb.enable-blob-files` and `--rocksdb.enable-blob-garbage-collection`.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 1,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "double"
+  },
+  "rocksdb.blob-garbage-collection-force-threshold" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "The garbage ratio threshold for scheduling targeted compactions for the oldest blob files in the documents column family (percentage value between 0 and 1). Requires `--rocksdb.enable-blob-files` and `--rocksdb.enable-blob-garbage-collection`.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 1,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "double"
+  },
   "rocksdb.block-align-data-blocks" : {
     "category" : "option",
     "component" : [
@@ -8702,6 +8886,62 @@
     "hidden" : true,
     "introducedIn" : [
       "v3.6.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.enable-blob-files" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Enable blob files for the documents column family.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.enable-blob-garbage-collection" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Enable blob garbage collection during compaction in the documents column family. Requires `--rocksdb.enable-blob-files`.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -9813,6 +10053,38 @@
     "section" : "rocksdb",
     "type" : "int64"
   },
+  "rocksdb.min-blob-size" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "The size threshold for storing documents in blob files (in bytes, 0 = store all documents in blob files). Requires `--rocks.enable-blob-files`.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.min-write-buffer-number-to-merge" : {
     "base" : 1,
     "category" : "option",
@@ -9950,7 +10222,9 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
     "longDescription" : "The recommended value is to set this equal to\n`max-background-flushes`. The default value is `number of processors / 2`.",
     "maxInclusive" : true,
     "maxValue" : 64,
@@ -10188,7 +10462,7 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "If enabled and `--rocksdb.cache-index-and-filter-blocks` is also enabled, the top-level index of partitioned filter and index blocks are pinned and only evicted from cache when the table reader is freed",
+    "description" : "If enabled and `--rocksdb.cache-index-and-filter-blocks` is also enabled, the top-level index of partitioned filter and index blocks are pinned and only evicted from cache when the table reader is freed.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,

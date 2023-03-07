@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The following helper functions can use geo indexes, but do not have to inall cases
+description: The following helper functions can use geo indexes, but do not have to in all cases
 ---
 Geo functions
 =============

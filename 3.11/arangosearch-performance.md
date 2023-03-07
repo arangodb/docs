@@ -156,7 +156,7 @@ by `date` first. This is similar to persistent indexes, but inverted sorting
 directions are not covered by the View index
 (e.g. `SORT doc.date, doc.name DESC`).
 
-Note that the `primarySort` option is immutable: it can not be changed after
+Note that the `primarySort` option is immutable: it cannot be changed after
 View creation. Index definitions are generally immutable, so it cannot be
 changed for inverted indexes after creation either.
 

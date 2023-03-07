@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The most important suggestions listed in the sectionLinux Operating System Configurationcan be easily applied by making use of a script and init
+description: The most important suggestions listed in the sectionLinux Operating System Configuration can be easily applied by making use of a script and init
 ---
 Linux OS Tuning Script Examples
 ===============================

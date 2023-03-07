@@ -47,12 +47,16 @@ It works in single server and cluster mode.
 Example for non-encrypted backup (everyone with access to the backup will be
 able to read it):
 
-    arangodump --collection "secret" dump 
+```
+arangodump --collection "secret" dump 
+```
 
 In order to create an encrypted backup, add the `--encryption.keyfile`
 option when invoking _arangodump_:
 
-    arangodump --collection "secret" dump --encryption.keyfile ~/SECRET-KEY
+```
+arangodump --collection "secret" dump --encryption.keyfile ~/SECRET-KEY
+```
 
 The key must be exactly 32 bytes long (required by the AES block cipher).
 
@@ -64,7 +68,9 @@ encrypted dump or not.
 
 Trying to restore the encrypted dump without specifying the key will fail:
 
-    arangorestore --collection "secret-collection" dump --create-collection true
+```
+arangorestore --collection "secret-collection" dump --create-collection true
+```
 
 arangorestore will complain with:
 
@@ -76,7 +82,9 @@ it is recommended to specify either `--encryption.keyfile` or `--encryption.key-
 It is required to use the exact same key when restoring the data. Again this is
 done by providing the `--encryption.keyfile` parameter:
 
-    arangorestore --collection "secret-collection" dump --create-collection true --encryption.keyfile ~/SECRET-KEY
+```
+arangorestore --collection "secret-collection" dump --create-collection true --encryption.keyfile ~/SECRET-KEY
+```
 
 Using a different key will lead to the backup being non-recoverable.
 
@@ -266,13 +274,15 @@ Miscellaneous features
   following extra substitutions can be used for the arangosh prompt:
   
   - '%t': current time as timestamp
-  - '%a': elpased time since ArangoShell start in seconds
+  - '%a': elapsed time since ArangoShell start in seconds
   - '%p': duration of last command in seconds
  
   For example, to show the execution time of the last command executed in arangosh
   in the shell's prompt, start arangosh using:
 
-      arangosh --console.prompt "%E@%d %p> "
+  ```
+  arangosh --console.prompt "%E@%d %p> "
+  ```
 
 - There are new startup options for the logging to aid debugging and error reporting:
 
@@ -298,8 +308,9 @@ Miscellaneous features
   is first accessed. This fixes the following problem when working with the shell while
   in another shell or by another process a new collection is added:
 
-      arangosh1> db._collections();  // shell1 lists all collections
-      arangosh2> db._create("test"); // shell2 now creates a new collection 'test'
-      arangosh1> db.test.insert({}); // shell1 is not aware of the collection created
-                                     // in shell2, so the insert will fail
-
+  ```js
+  arangosh1> db._collections();  // shell1 lists all collections
+  arangosh2> db._create("test"); // shell2 now creates a new collection 'test'
+  arangosh1> db.test.insert({}); // shell1 is not aware of the collection created
+                                 // in shell2, so the insert will fail
+  ```

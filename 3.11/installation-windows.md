@@ -59,23 +59,21 @@ directory have to be writable by the user.
 There are two main modes for the installer of ArangoDB.
 The installer lets you select:
 
-- multi-user installation (default; admin privileges required)
+- **Multi-user installation** (default; admin privileges required).
   Installs ArangoDB as service.
-- single-user installation
+- **Single-user installation**.
   Allows to install ArangoDB as normal user.
   Requires manual starting of the database server.
 
 ### Installation Options
 
-The checkboxes allow you to chose whether you want to:
+You can tick or untick the following checkboxes:
 
-- chose custom install paths
-- do an automatic upgrade
-- keep an backup of your data
-- add executables to path
-- create a desktop icon
-
-or not.
+- Choose custom install paths
+- Do an automatic upgrade
+- Keep an backup of your data
+- Add executables to path
+- Create a desktop icon
 
 #### Custom Install Paths
 
@@ -171,8 +169,8 @@ use different connection settings etc.
 
 To uninstall the Arango server application you can use the windows control panel
 (as you would normally uninstall an application). Note however, that any data
-files created by the ArangoDB server will remain as well as the `<ROOTDIR>`
-directory. To complete the uninstallation process, remove the data files and
+files created by the ArangoDB server as well as the `<ROOTDIR>` directory
+remain. To complete the uninstallation process, remove the data files and
 the `<ROOTDIR>` directory manually.
 
 Unattended installation using the installer
@@ -182,11 +180,15 @@ The NSIS-based installer requires user interaction by default, but it also
 offers a [Silent Mode](https://nsis.sourceforge.io/Docs/Chapter4.html#silent){:target="_blank"}
 which allows you to run it non-interactively from the command line:
 
-    ArangoDB3-3.x.x_win64.exe /S ...
+```
+ArangoDB3-3.x.x_win64.exe /S ...
+```
 
 You can run the uninstaller in Silent Mode:
 
-    Uninstall.exe /S ...
+```
+Uninstall.exe /S ...
+```
 
 All choices available in the GUI can be passed as arguments. The options can
 be specified like `/OPTIONNAME=value`.
@@ -196,7 +198,7 @@ be specified like `/OPTIONNAME=value`.
 *For Installation*:
 
 - `/PASSWORD` - Set the password for the `root` user. If this option is not set
-  but a persistent environment variable `PASSWORD` is, then its value will be
+  but a persistent environment variable `PASSWORD` is, then its value is
   used as password.
 - `/INSTDIR` - Installation directory. A directory that you have access to.
 - `/DATABASEDIR` - Database directory. A directory that you have access to
@@ -225,8 +227,8 @@ be specified like `/OPTIONNAME=value`.
 *For Uninstallation*:
 
 - `/PURGE_DB`
-  - `0` - Database files will remain on the system
-  - `1` - Database files ArangoDB created during its lifetime will be removed, too.
+  - `0` - Database files remain on the system
+  - `1` - Database files ArangoDB created during its lifetime are removed, too.
 
 Installing using the ZIP archive
 --------------------------------

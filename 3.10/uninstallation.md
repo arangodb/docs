@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Uninstallation depends on the method used to install ArangoDB, and on theoperating system in use, and typically consists of the following high-level steps
+description: Uninstallation depends on the method used to install ArangoDB, and on the operating system in use, and typically consists of the following high-level steps
 ---
 Uninstallation
 ==============

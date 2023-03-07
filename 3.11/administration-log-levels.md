@@ -36,7 +36,7 @@ The meaning of each log level is described below.
 ## FATAL
 
 _Fatal_ errors are the most severe errors and only occur if a service or application
-can not recover safely from an abnormal state, which forces it to shut down.
+cannot recover safely from an abnormal state, which forces it to shut down.
 
 Typically, a fatal error only occurs once in the process lifetime,
 so if the log file is tied to the process, this is typically

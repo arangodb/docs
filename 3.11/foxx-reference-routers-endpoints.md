@@ -21,10 +21,10 @@ header
 `endpoint.header(name, [schema], [description]): this`
 
 Defines a request header recognized by the endpoint.
-Any additional non-defined headers will be treated as optional string values.
-The definitions will also be shown in the route details in the API documentation.
+Any additional non-defined headers are treated as optional string values.
+The definitions is also shown in the route details in the API documentation.
 
-If the endpoint is a child router, all routes of that router will use this
+If the endpoint is a child router, all routes of that router use this
 header definition unless overridden.
 
 
@@ -40,13 +40,13 @@ header definition unless overridden.
   A schema describing the format of the header value. This can be a joi schema
   or anything that has a compatible `validate` method.
 
-  The value of this header will be set to the `value` property of the
-  validation result. A validation failure will result in an automatic 400
+  The value of this header is set to the `value` property of the
+  validation result. A validation failure results in an automatic 400
   (Bad Request) error response.
 
 * **description**: `string` (optional)
 
-  A human readable string that will be shown in the API documentation.
+  A human-readable string that is shown in the API documentation.
 
 Returns the endpoint.
 
@@ -64,11 +64,11 @@ pathParam
 
 Defines a path parameter recognized by the endpoint.
 Path parameters are expected to be filled as part of the endpoint's mount path.
-Any additional non-defined path parameters will be treated as optional
-string values. The definitions will also be shown in the route details in
+Any additional non-defined path parameters are treated as optional
+string values. The definitions are also shown in the route details in
 the API documentation.
 
-If the endpoint is a child router, all routes of that router will use this
+If the endpoint is a child router, all routes of that router use this
 parameter definition unless overridden.
 
 **Arguments**
@@ -82,14 +82,14 @@ parameter definition unless overridden.
   A schema describing the format of the parameter. This can be a joi schema
   or anything that has a compatible `validate` method.
 
-  The value of this parameter will be set to the `value` property of the
-  validation result. A validation failure will result in the route failing to
+  The value of this parameter is set to the `value` property of the
+  validation result. A validation failure results in the route failing to
   match and being ignored (resulting in a 404 (Not Found) error response if no
   other routes match).
 
 * **description**: `string` (optional)
 
-  A human readable string that will be shown in the API documentation.
+  A human readable string that is shown in the API documentation.
 
 Returns the endpoint.
 
@@ -106,11 +106,11 @@ queryParam
 `endpoint.queryParam(name, [schema], [description]): this`
 
 Defines a query parameter recognized by the endpoint.
-Any additional non-defined query parameters will be treated as optional
-string values. The definitions will also be shown in the route details in
+Any additional non-defined query parameters are treated as optional
+string values. The definitions are also shown in the route details in
 the API documentation.
 
-If the endpoint is a child router, all routes of that router will use this
+If the endpoint is a child router, all routes of that router use this
 parameter definition unless overridden.
 
 **Arguments**
@@ -124,13 +124,13 @@ parameter definition unless overridden.
   A schema describing the format of the parameter. This can be a joi schema or
   anything that has a compatible `validate` method.
 
-  The value of this parameter will be set to the `value` property of the
-  validation result. A validation failure will result in an automatic 400
+  The value of this parameter is set to the `value` property of the
+  validation result. A validation failure results in an automatic 400
   (Bad Request) error response.
 
 * **description**: `string` (optional)
 
-  A human readable string that will be shown in the API documentation.
+  A human-readable string that is shown in the API documentation.
 
 Returns the endpoint.
 
@@ -147,60 +147,60 @@ body
 `endpoint.body([model], [mimes], [description]): this`
 
 Defines the request body recognized by the endpoint.
-There can only be one request body definition per endpoint. The definition will
-also be shown in the route details in the API documentation.
+There can only be one request body definition per endpoint. The definition is
+also shown in the route details in the API documentation.
 
-In the absence of a request body definition, the request object's *body*
-property will be initialized to the unprocessed *rawBody* buffer.
+In the absence of a request body definition, the request object's `body`
+property is initialized to the unprocessed `rawBody` buffer.
 
-If the endpoint is a child router, all routes of that router will use this body
+If the endpoint is a child router, all routes of that router use this body
 definition unless overridden. If the endpoint is a middleware, the request body
-will only be parsed once (i.e. the MIME types of the route matching the same
-request will be ignored but the body will still be validated again).
+is only parsed once (i.e. the MIME types of the route matching the same
+request is ignored but the body is still validated again).
 
 **Arguments**
 
 * **model**: `Model | Schema | null` (optional)
 
-  A model or joi schema describing the request body. A validation failure will
-  result in an automatic 400 (Bad Request) error response.
+  A model or joi schema describing the request body. A validation failure
+  results in an automatic 400 (Bad Request) error response.
 
-  If the value is a model with a `fromClient` method, that method will be
+  If the value is a model with a `fromClient` method, that method is
   applied to the parsed request body.
 
-  If the value is a schema or a model with a schema, the schema will be used
-  to validate the request body and the `value` property of the validation
-  result of the parsed request body will be used instead of the parsed request
+  If the value is a schema or a model with a schema, the schema is used
+  to validate the request body, and the `value` property of the validation
+  result of the parsed request body is used instead of the parsed request
   body itself.
 
   If the value is a model or a schema and the MIME type has been omitted,
-  the MIME type will default to JSON instead.
+  the MIME type defaults to JSON instead.
 
-  If the value is explicitly set to `null`, no request body will be expected.
+  If the value is explicitly set to `null`, no request body is expected.
 
   If the value is an array containing exactly one model or schema, the request
-  body will be treated as an array of items matching that model or schema.
+  body is treated as an array of items matching that model or schema.
 
 * **mimes**: `Array<string>` (optional)
 
   An array of MIME types the route supports.
 
-  Common non-mime aliases like "json" or "html" are also supported and will be
+  Common non-mime aliases like "json" or "html" are also supported and are
   expanded to the appropriate MIME type (e.g. "application/json" and "text/html").
 
-  If the MIME type is recognized by Foxx the request body will be parsed into
-  the appropriate structure before being validated. Currently only JSON,
-  `application/x-www-form-urlencoded` and multipart formats are supported in this way.
+  If the MIME type is recognized by Foxx, the request body is parsed into
+  the appropriate structure before being validated. Only JSON,
+  `application/x-www-form-urlencoded`, and multipart formats are supported in this way.
 
   If the MIME type indicated in the request headers does not match any of the
-  supported MIME types, the first MIME type in the list will be used instead.
+  supported MIME types, the first MIME type in the list is used instead.
 
-  Failure to parse the request body will result in an automatic 400
+  Failure to parse the request body results in an automatic 400
   (Bad Request) error response.
 
 * **description**: `string` (optional)
 
-  A human readable string that will be shown in the API documentation.
+  A human-readable string that is shown in the API documentation.
 
 Returns the endpoint.
 
@@ -227,10 +227,10 @@ response
 
 Defines a response body for the endpoint. When using the response object's
 `send` method in the request handler of this route, the definition with the
-matching status code will be used to generate the response body.
-The definitions will also be shown in the route details in the API documentation.
+matching status code is used to generate the response body.
+The definitions are also shown in the route details in the API documentation.
 
-If the endpoint is a child router, all routes of that router will use this
+If the endpoint is a child router, all routes of that router use this
 response definition unless overridden. If the endpoint is a middleware,
 this method has no effect.
 
@@ -239,43 +239,43 @@ this method has no effect.
 * **status**: `number | string` (Default: `200` or `204`)
 
   HTTP status code the response applies to. If a string is provided instead of
-  a numeric status code it will be used to look up a numeric status code using
+  a numeric status code, it is used to look up a numeric status code using
   the [statuses](https://github.com/jshttp/statuses){:target="_blank"} module.
 
 * **model**: `Model | Schema | null` (optional)
 
   A model or joi schema describing the response body.
 
-  If the value is a model with a `forClient` method, that method will be
+  If the value is a model with a `forClient` method, that method is
   applied to the data passed to `response.send` within the route if the
   response status code matches (but also if no status code has been set).
 
-  If the value is a schema or a model with a schema, the actual schema will
-  not be used to validate the response body and only serves to document the
+  If the value is a schema or a model with a schema, the actual schema is
+  not used to validate the response body and only serves to document the
   response in more detail in the API documentation.
 
   If the value is a model or a schema and the MIME type has been omitted,
-  the MIME type will default to JSON instead.
+  the MIME type defaults to JSON instead.
 
   If the value is explicitly set to `null` and the status code has been omitted,
-  the status code will default to `204` ("no content") instead of `200`.
+  the status code defaults to `204` ("no content") instead of `200`.
 
   If the value is an array containing exactly one model or schema, the response
-  body will be an array of items matching that model or schema.
+  body is an array of items matching that model or schema.
 
 * **mimes**: `Array<string>` (optional)
 
   An array of MIME types the route might respond with for this status code.
 
-  Common non-mime aliases like "json" or "html" are also supported and will be
+  Common non-mime aliases like "json" or "html" are also supported and are
   expanded to the appropriate MIME type (e.g. "application/json" and "text/html").
 
-  When using the `response.send` method the response body will be converted to
+  When using the `response.send()` method, the response body is converted to
   the appropriate MIME type if possible.
 
 * **description**: `string` (optional)
 
-  A human-readable string that briefly describes the response and will be shown
+  A human-readable string that briefly describes the response and is shown
   in the endpoint's detailed documentation.
 
 Returns the endpoint.
@@ -291,7 +291,7 @@ router.get(/* ... */)
   'A list of doodad identifiers.'
 );
 
-// No response body will be expected here.
+// No response body is expected here.
 router.delete(/* ... */)
 .response(null, 'The doodad no longer exists.');
 
@@ -302,7 +302,7 @@ router.post(/* ... */)
 .response('found', 'The doodad is located elsewhere.')
 .response(201, ['text/plain'], 'The doodad was created so here is a haiku.');
 
-// Here the response body will be set to
+// Here, the response body is set to
 // the querystring-encoded result of
 // FormModel.forClient({some: 'data'})
 // because the status code defaults to 200.
@@ -312,7 +312,7 @@ router.patch(function (req, res) {
 })
 .response(FormModel, ['application/x-www-form-urlencoded'], 'OMG.');
 
-// In this case the response body will be set to
+// In this case, the response body is set to
 // SomeModel.forClient({some: 'data'}) because
 // the status code has been set to 201 before.
 router.put(function (req, res) {
@@ -330,7 +330,7 @@ error
 
 Documents an error status for the endpoint.
 
-If the endpoint is a child router, all routes of that router will use this
+If the endpoint is a child router, all routes of that router use this
 error description unless overridden. If the endpoint is a middleware,
 this method has no effect.
 
@@ -342,13 +342,13 @@ effect within the service itself.
 * **status**: `number | string`
 
   HTTP status code for the error (e.g. `400` for "bad request"). If a string is
-  provided instead of a numeric status code it will be used to look up a numeric
+  provided instead of a numeric status code it is used to look up a numeric
   status code using the [statuses](https://github.com/jshttp/statuses){:target="_blank"} module.
 
 * **description**: `string` (optional)
 
-  A human-readable string that briefly describes the error condition and will
-  be shown in the endpoint's detailed documentation.
+  A human-readable string that briefly describes the error condition and is
+  shown in the endpoint's detailed documentation.
 
 Returns the endpoint.
 
@@ -369,7 +369,7 @@ summary
 
 Adds a short description to the endpoint's API documentation.
 
-If the endpoint is a child router, all routes of that router will use this
+If the endpoint is a child router, all routes of that router use this
 summary unless overridden. If the endpoint is a middleware, this method has no effect.
 
 This method only affects the generated API documentation and has no other
@@ -379,7 +379,7 @@ effect within the service itself.
 
 * **summary**: `string`
 
-  A human-readable string that briefly describes the endpoint and will appear
+  A human-readable string that briefly describes the endpoint and appears
   next to the endpoint's path in the documentation.
 
 Returns the endpoint.
@@ -398,7 +398,7 @@ description
 
 Adds a long description to the endpoint's API documentation.
 
-If the endpoint is a child router, all routes of that router will use
+If the endpoint is a child router, all routes of that router use
 this description unless overridden. If the endpoint is a middleware,
 this method has no effect.
 
@@ -435,7 +435,7 @@ deprecated
 
 Marks the endpoint as deprecated.
 
-If the endpoint is a child router, all routes of that router will also be
+If the endpoint is a child router, all routes of that router are also
 marked as deprecated. If the endpoint is a middleware, this method has no effect.
 
 This method only affects the generated API documentation and has no other
@@ -445,8 +445,8 @@ effect within the service itself.
 
 * **deprecated**: `boolean` (Default: `true`)
 
-  Whether the endpoint should be marked as deprecated. If set to `false` the
-  endpoint will be explicitly marked as *not* deprecated.
+  Whether the endpoint should be marked as deprecated. If set to `false`, the
+  endpoint is explicitly marked as *not* deprecated.
 
 Returns the endpoint.
 
@@ -463,10 +463,10 @@ tag
 
 `endpoint.tag(...tags): this`
 
-Marks the endpoint with the given tags that will be used to group related
+Marks the endpoint with the given tags that are used to group related
 routes in the generated API documentation.
 
-If the endpoint is a child router, all routes of that router will also be
+If the endpoint is a child router, all routes of that router are also
 marked with the tags. If the endpoint is a middleware, this method has no effect.
 
 This method only affects the generated API documentation and has no other
@@ -476,7 +476,7 @@ effect within the service itself.
 
 * **tags**: `string`
 
-  One or more strings that will be used to group the endpoint's routes.
+  One or more strings that are used to group the endpoint's routes.
 
 Returns the endpoint.
 

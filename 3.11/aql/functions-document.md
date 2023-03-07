@@ -108,14 +108,14 @@ HAS( { name: null }, "name" ) // true
 HAS( { }, "name" )            // false
 ```
 
-Note that `HAS()` can not utilize indexes. If it is not necessary to distinguish
+Note that `HAS()` cannot utilize indexes. If it is not necessary to distinguish
 between explicit and implicit *null* values in your query, you may use an equality
 comparison to test for *null* and create a non-sparse index on the attribute you
 want to test against:
 
 ```aql
-FILTER !HAS(doc, "name")    // can not use indexes
-FILTER IS_NULL(doc, "name") // can not use indexes
+FILTER !HAS(doc, "name")    // cannot use indexes
+FILTER IS_NULL(doc, "name") // cannot use indexes
 FILTER doc.name == null     // can utilize non-sparse indexes
 ```
 
@@ -450,7 +450,7 @@ documents accidentally. For example, the [arangojs](../drivers/js.html) driver
 skips attributes with a value of `undefined`, turning `{attr: undefined}` into `{}`.
 
 {% hint 'info' %}
-`MATCHES()` can not utilize indexes. You may use plain `FILTER` conditions instead
+`MATCHES()` cannot utilize indexes. You may use plain `FILTER` conditions instead
 to potentially benefit from existing indexes:
 
 ```aql

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: When using multiple services (or multiple copies of the same service) in thesame database, sometimes you may want to share collections or methods betweenthose services
+description: When using multiple services (or multiple copies of the same service) in the same database, sometimes you may want to share collections or methods between those services
 ---
 Linking services together
 =========================

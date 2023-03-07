@@ -162,7 +162,7 @@ replace the old features with:
     special HTTP headers `x-http-method`, `x-method-override` or 
     `x-http-method-override`. This was originally intended for very restricted
     callers, which only supported HTTP GET and HTTP POST, but seems very
-    unnecessary nowadways.
+    unnecessary nowadays.
   - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
     header in all responses served by arangod.
   - `--network.protocol`: network protocol to use for cluster-internal 
