@@ -38,6 +38,37 @@ you enable the new `allowRetry` query option. See
 [API Changes in ArangoDB 3.11](release-notes-api-changes311.html#cursor-api)
 for details.
 
+### `COLLECT ... INTO` can use `hash` method
+
+Grouping with the `COLLECT` operation supports two different methods, `hash` and
+`sorted`. For `COLLECT` operations with an `INTO` clause, only the `sorted` method
+was previously supported, but the `hash` variant has been extended to now support
+`INTO` clauses as well.
+
+```aql
+FOR i IN 1..10
+  COLLECT v = i % 2 INTO group // OPTIONS { method: "hash" }
+  SORT null
+  RETURN { v, group }
+```
+
+```aql
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   CalculationNode        1     - LET #3 = 1 .. 10   /* range */   /* simple expression */
+  3   EnumerateListNode     10     - FOR i IN #3   /* list iteration */
+  4   CalculationNode       10       - LET #5 = (i % 2)   /* simple expression */
+  5   CollectNode            8       - COLLECT v = #5 INTO group KEEP i   /* hash */
+  8   CalculationNode        8       - LET #9 = { "v" : v, "group" : group }   /* simple expression */
+  9   ReturnNode             8       - RETURN #9
+```
+
+The query optimizer automatically chooses the `hash` method for the above
+example query, but you can also specify your preferred method explicitly.
+
+See the [`COLLECT` options](aql/operations-collect.html#method) for details.
+
 Server options
 --------------
 
