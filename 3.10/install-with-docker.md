@@ -25,7 +25,7 @@ In order to start an ArangoDB instance, run:
 unix> docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 -d --name arangodb-instance arangodb
 ```
 
-Thhis creates and launches the ArangoDB Docker instance as a background process.
+This creates and launches the ArangoDB Docker instance as a background process.
 The identifier of the process is printed. By default, ArangoDB listens on port
 `8529` for requests and the image includes `EXPOSE 8529`. If you link an
 application container, it is automatically available in the linked container.
