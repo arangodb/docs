@@ -17,6 +17,11 @@ You can choose one of the following:
 - [`arangodb/arangodb` Docker images](https://hub.docker.com/r/arangodb/arangodb){:target="_blank"}, 
   maintained and directly published by ArangoDB on a regular basis.
 
+Check also the following resources:
+- [Manually starting a stand-alone instance via Docker](deployment-single-instance-manual-start.html#manual-start-in-docker)
+- [Manually starting an Active Failover deployment via Docker](deployment-active-failover-manual-start.html#manual-start-in-docker)
+- [Manually starting a Cluster via Docker](deployment-cluster-manual-start.html#manual-start-in-docker)  
+
 ## Start an ArangoDB instance
 
 In order to start an ArangoDB instance, run:
