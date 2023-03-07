@@ -115,7 +115,7 @@ Creates an OAuth1.0a client.
 
     The fully-qualified URL of the provider's
     [Resource Owner Authorization endpoint](https://tools.ietf.org/html/rfc5849#section-2.2){:target="_blank"}.
-    This is the URL the user will be redirected to in order to authorize the
+    This is the URL the user is redirected to in order to authorize the
     OAuth consumer (i.e. your service).
 
   * **accessTokenEndpoint**: `string`
@@ -133,19 +133,19 @@ Creates an OAuth1.0a client.
 
   * **clientId**: `string`
 
-    The application's *Client ID* (or *Consumer Key*) for the provider.
+    The application's *Client ID* (or `Consumer Key`) for the provider.
 
   * **clientSecret**: `string`
 
-    The application's *Client Secret* (or *Consumer Secret*) for the provider.
+    The application's *Client Secret* (or `Consumer Secret`) for the provider.
 
   * **signatureMethod**: `string` (Default: `"HMAC-SHA1"`)
 
-    The cryptographic method that will be used to sign OAuth 1.0a requests.
+    The cryptographic method that is used to sign OAuth 1.0a requests.
     Only `"HMAC-SHA1-"` and `"PLAINTEXT"` are supported at this time.
 
     Note that many providers may not implement `"PLAINTEXT"` as it exposes the
-    *Client Secret* and `oauth_token_secret` instead of generating a signature.
+    `Client Secret` and `oauth_token_secret` instead of generating a signature.
 
 Returns an OAuth 1.0a client for the given provider.
 
@@ -153,10 +153,10 @@ Returns an OAuth 1.0a client for the given provider.
 
 If you want to use Twitter as the OAuth 1.0a provider, use the following options:
 
-* *requestTokenEndpoint*: `https://api.twitter.com/oauth/request_token`
-* *authEndpoint*: `https://api.twitter.com/oauth/authorize`
-* *accessTokenEndpoint*: `https://api.twitter.com/oauth/access_token`
-* *activeUserEndpoint*: `https://api.twitter.com/1.1/account/verify_credentials.json`
+- `requestTokenEndpoint`: `https://api.twitter.com/oauth/request_token`
+- `authEndpoint`: `https://api.twitter.com/oauth/authorize`
+- `accessTokenEndpoint`: `https://api.twitter.com/oauth/access_token`
+- `activeUserEndpoint`: `https://api.twitter.com/1.1/account/verify_credentials.json`
 
 You also need to obtain a client ID and client secret from Twitter:
 
@@ -164,16 +164,16 @@ You also need to obtain a client ID and client secret from Twitter:
    existing account you own.
 2. Visit the [Twitter Application Management](https://apps.twitter.com){:target="_blank"}
    dashboard and sign in with your Twitter account.
-3. Click on *Create New App* and follow the instructions provided.
-   The *Callback URL* should match your *oauth_callback* later. You may be
+3. Click on **Create New App** and follow the instructions provided.
+   The **Callback URL** should match your `oauth_callback` later. You may be
    prompted to add a mobile phone number to your account and verify it.
-4. Open the *Keys and Access Tones* tab, then note down the *Consumer Key*
-   and *Consumer Secret*.
-5. Set the option *clientId* to the *Consumer Key* and the option
-   *clientSecret* to the *Consumer Secret*.
+4. Open the **Keys and Access Tones** tab, then note down the **Consumer Key**
+   and **Consumer Secret**.
+5. Set the option `clientId` to the **Consumer Key** and the option
+   `clientSecret` to the **Consumer Secret**.
 
 Note that if you only need read-only access to public information, you can also
-[use the *clientId* and *clientSecret* directly](https://dev.twitter.com/oauth/application-only){:target="_blank"}
+[use the `clientId` and `clientSecret` directly](https://dev.twitter.com/oauth/application-only){:target="_blank"}
 without OAuth 1.0a.
 
 See [Twitter REST API Reference Documentation](https://dev.twitter.com/rest/reference){:target="_blank"}.
@@ -182,10 +182,10 @@ See [Twitter REST API Reference Documentation](https://dev.twitter.com/rest/refe
 
 If you want to use XING as the OAuth 1.0a provider, use the following options:
 
-* *requestTokenEndpoint*: `https://api.xing.com/v1/request_token`
-* *authEndpoint*: `https://api.xing.com/v1/authorize`
-* *accessTokenEndpoint*: `https://api.xing.com/v1/access_token`
-* *activeUserEndpoint*: `https://api.xing.com/v1/users/me`
+  `requestTokenEndpoint`: `https://api.xing.com/v1/request_token`
+  `authEndpoint`: `https://api.xing.com/v1/authorize`
+  `accessTokenEndpoint`: `https://api.xing.com/v1/access_token`
+  `activeUserEndpoint`: `https://api.xing.com/v1/users/me`
 
 You also need to obtain a client ID and client secret from XING:
 
@@ -193,9 +193,9 @@ You also need to obtain a client ID and client secret from XING:
    account you own.
 2. Visit the [XING Developer](https://dev.xing.com){:target="_blank"} page and sign in with
    your XING account.
-3. Click on *Create app* and note down the *Consumer key* and *Consumer secret*.
-4. Set the option *clientId* to the *Consumer key* and the option
-   *clientSecret* to the *Consumer secret*.
+3. Click on **Create app** and note down the **Consumer key** and **Consumer secret**.
+4. Set the `clientId` option to the **Consumer key** and the
+   `clientSecret` option to the **Consumer secret**.
 
 See [XING Developer Documentation](https://dev.xing.com/docs){:target="_blank"}.
 
@@ -203,22 +203,22 @@ See [XING Developer Documentation](https://dev.xing.com/docs){:target="_blank"}.
 
 If you want to use Tumblr as the OAuth 1.0a provider, use the following options:
 
-* *requestTokenEndpoint*: `https://www.tumblr.com/oauth/request_token`
-* *authEndpoint*: `https://www.tumblr.com/oauth/authorize`
-* *accessTokenEndpoint*: `https://www.tumblr.com/oauth/access_token`
-* *activeUserEndpoint*: `https://api.tumblr.com/v2/user/info`
+- `requestTokenEndpoint`: `https://www.tumblr.com/oauth/request_token`
+- `authEndpoint`: `https://www.tumblr.com/oauth/authorize`
+- `accessTokenEndpoint`: `https://www.tumblr.com/oauth/access_token`
+- `activeUserEndpoint`: `https://api.tumblr.com/v2/user/info`
 
 You also need to obtain a client ID and client secret from Tumblr:
 
 1. Create a regular account at [Tumblr](https://www.tumblr.com){:target="_blank"} or use an
    existing account you own.
 2. Visit the [Tumblr Applications](https://www.tumblr.com/oauth/apps){:target="_blank"} dashboard.
-3. Click on *Register application*, then follow the instructions provided.
-   The *Default callback URL* should match your *oauth_callback* later.
-4. Note down the *OAuth Consumer Key* and *Secret Key*. The secret may be
+3. Click on **Register application**, then follow the instructions provided.
+   The **Default callback URL** should match your `oauth_callback` later.
+4. Note down the **OAuth Consumer Key** and **Secret Key**. The secret may be
    hidden by default.
-5. Set the option *clientId* to the *OAuth Consumer Key* and the option
-   *clientSecret* to the *Secret Key*.
+5. Set the `clientId` option to the **OAuth Consumer Key** and the
+   `clientSecret` option to the **Secret Key**.
 
 See [Tumblr API Documentation](https://www.tumblr.com/docs/en/api/v2){:target="_blank"}.
 
@@ -230,7 +230,7 @@ Fetch an unauthenticated request token
 Fetches an `oauth_token` that can be used to create an authorization URL that
 redirects to the given `oauth_callback` on confirmation.
 
-Performs a *POST* response to the *requestTokenEndpoint*.
+Performs a `POST` response to the `requestTokenEndpoint`.
 
 Throws an exception if the remote server responds with an empty response body.
 
@@ -268,8 +268,8 @@ Generates the authorization URL for the authorization endpoint.
   See [RFC 5849](https://tools.ietf.org/html/rfc5849){:target="_blank"}.
 
 Returns a fully-qualified URL for the authorization endpoint of the provider
-by appending the `oauth_token` and any additional arguments from *opts* to
-the *authEndpoint*.
+by appending the `oauth_token` and any additional arguments from `opts` to
+the `authEndpoint`.
 
 **Examples**
 
@@ -290,7 +290,7 @@ Takes a pair of authenticated temporary credentials passed to the callback URL
 by the provider and exchanges it for an `oauth_token` and `oauth_token_secret`
 than can be used to perform authenticated requests to the OAuth 1.0a provider.
 
-Performs a *POST* response to the *accessTokenEndpoint*.
+Performs a `POST` response to the `accessTokenEndpoint`.
 
 Throws an exception if the remote server responds with an empty response body.
 
@@ -319,21 +319,21 @@ Fetch the active user
 
 Fetches details of the active user.
 
-Performs a *GET* response to the *activeUserEndpoint*.
+Performs a `GET` response to the `activeUserEndpoint`.
 
 Throws an exception if the remote server responds with an empty response body.
 
-Returns `null` if the *activeUserEndpoint* is not configured.
+Returns `null` if the `activeUserEndpoint` is not configured.
 
 **Arguments**
 
 * **oauth_token**: `string`
 
-  An OAuth 1.0a access token as returned by *exchangeRequestToken*.
+  An OAuth 1.0a access token as returned by `exchangeRequestToken`.
 
 * **oauth_token_secret**: `string`
 
-  An OAuth 1.0a access token secret as returned by *exchangeRequestToken*.
+  An OAuth 1.0a access token secret as returned by `exchangeRequestToken`.
 
 * **opts**: `Object` (optional)
 
@@ -362,32 +362,32 @@ provider with the provided token credentials.
 
 * **method**: `string`
 
-  HTTP method the request will use, e.g. `"POST"`.
+  HTTP method to use for the request, e.g. `"POST"`.
 
 * **url**: `string`
 
-  The fully-qualified URL of the provider the request will be performed against.
+  The fully-qualified URL of the provider the request is performed against.
 
   The URL may optionally contain any number of query parameters.
 
 * **parameters**: `string | Object | null`
 
   An additional object or query string containing query parameters or body
-  parameters that will be part of the signed request.
+  parameters to be part of the signed request.
 
 * **oauth_token**: `string`
 
-  An OAuth 1.0a access token as returned by *exchangeRequestToken*.
+  An OAuth 1.0a access token as returned by `exchangeRequestToken`.
 
 * **oauth_token_secret**: `string`
 
-  An OAuth 1.0a access token secret as returned by *exchangeRequestToken*.
+  An OAuth 1.0a access token secret as returned by `exchangeRequestToken`.
 
 Returns an object with three properties:
 
  * **url**: The normalized URL without any query parameters.
 
- * **qs**: A normalized query string containing all *parameters* and query parameters.
+ * **qs**: A normalized query string containing all `parameters` and query parameters.
 
  * **headers**: An object containing the following properties:
 

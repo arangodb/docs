@@ -2899,6 +2899,22 @@
   description: |
     Number of log entries processed by the follower.
 
+- name: arangodb_replication_clients
+  introducedIn: "3.10.5"
+  help: |
+    Number of currently connected/active replication clients.
+  unit: number
+  type: gauge
+  category: Replication
+  complexity: medium
+  exposedBy:
+    - single
+    - dbserver
+  description: |
+    This metric contains the number of currently active/connected replication clients
+    that have started or are currently receiving data from this server for replication
+    purposes.
+
 - name: arangodb_replication_cluster_inventory_requests_total
   renamedFrom: arangodb_replication_cluster_inventory_requests
   introducedIn: "3.8.0"
@@ -6226,6 +6242,6 @@
   description: |
     This metric exposes the RocksDB WAL sequence number until which the
     ArangoDB background sync thread has fully caught up to. The value exposed
-    here should be monotically increasing and always progress if there are
+    here should be monotonically increasing and always progress if there are
     write operations executing.
 

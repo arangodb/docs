@@ -1,6 +1,6 @@
 ---
 layout: default
-description: AQL offers the following functions to filter data based onfulltext indexes
+description: AQL offers the following functions to filter data based on fulltext indexes
 ---
 Fulltext functions
 ==================

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: An ArangoDB Cluster consists of several running tasks or processes whichform the Cluster
+description: An ArangoDB Cluster consists of several running tasks or processes which form the Cluster
 ---
 Starting Manually
 =================

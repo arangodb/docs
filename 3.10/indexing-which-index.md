@@ -10,7 +10,7 @@ is no need to index this attribute separately. Please note that a document's
 `_id` attribute is derived from the `_key` attribute, and is thus implicitly
 indexed, too.
 
-ArangoDB will also automatically create an index on `_from` and `_to` in any
+ArangoDB also automatically creates an index on `_from` and `_to` in any
 edge collection, meaning incoming and outgoing connections can be determined
 efficiently.
 
@@ -87,14 +87,15 @@ different usage scenarios:
   within a radius around a two-dimensional earth coordinate (point), or to
   find documents with are closest to a point. Document coordinates can either 
   be specified in two different document attributes or in a single attribute, e.g.
-
-      { "latitude": 50.9406645, "longitude": 6.9599115 }
-
+  ```json
+  { "latitude": 50.9406645, "longitude": 6.9599115 }
+  ```
   or
+  ```json
+  { "coords": [ 50.9406645, 6.9599115 ] }
+  ```
 
-      { "coords": [ 50.9406645, 6.9599115 ] }
-
-  Geo indexes will be invoked via special functions or AQL optimization. The
+  Geo indexes are invoked via special functions or AQL optimization. The
   optimization can be triggered when a collection with geo index is enumerated
   and a SORT or FILTER statement is used in conjunction with the distance
   function.
@@ -112,7 +113,7 @@ different usage scenarios:
   the selected language provided at server start.
 
   The index supports complete match queries (full words) and prefix queries.
-  Fulltext indexes will only be invoked via special functions.
+  Fulltext indexes are invoked via special functions.
 
   Please note that the fulltext index type is deprecated from version 3.10 onwards
   and is superseded by [ArangoSearch](arangosearch.html).
@@ -178,10 +179,10 @@ FOR doc In collection
 If the lookup value is non-constant, a sparse index may or may not be used, depending on
 the other types of conditions in the query. If the optimizer can safely determine that
 the lookup value cannot be `null`, a sparse index may be used. When uncertain, the optimizer
-will not make use of a sparse index in a query in order to produce correct results.
+does not make use of a sparse index in a query in order to produce correct results.
 
 For example, the following queries cannot use a sparse index on `attr` because the optimizer
-will not know beforehand whether the values which are compared to `doc.attr` will include `null`:
+does not know beforehand whether the values which are compared to `doc.attr` include `null`:
 
 ```aql
 FOR doc In collection 
@@ -201,4 +202,4 @@ index range does not include `null` for any of the index attributes.
 
 Note that if you intend to use [joins](aql/examples-join.html) it may be clever
 to use non-sparsity and maybe even uniqueness for that attribute, else all items containing
-the `null` value will match against each other and thus produce large results.
+the `null` value match against each other and thus produce large results.

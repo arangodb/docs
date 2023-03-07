@@ -94,11 +94,11 @@ possible. To this end, results of single document queries have the HTTP
 header `Etag` set to the document revision enclosed in double quotes.
 
 The basic operations (create, read, exists, replace, update, delete)
-for documents are mapped to the standard HTTP methods (*POST*, *GET*,
-*HEAD*, *PUT*, *PATCH* and *DELETE*).
+for documents are mapped to the standard HTTP methods (`POST`, `GET`,
+`HEAD`, `PUT`, `PATCH` and `DELETE`).
 
-If you modify a document, you can use the *If-Match* field to detect conflicts. 
-The revision of a document can be checking using the HTTP method *HEAD*.
+If you modify a document, you can use the `If-Match` field to detect conflicts. 
+The revision of a document can be checking using the HTTP method `HEAD`.
 
 
 Multiple Documents in a single Request
@@ -117,7 +117,7 @@ given. Multiple document operations are restricted to a single document
 or edge collections. 
 See the [API descriptions](document-working-with-documents.html) for details.
 
-Note that the *GET*, *HEAD* and *DELETE* HTTP operations generally do
+Note that the `GET`, `HEAD` and `DELETE` HTTP operations generally do
 not allow to pass a message body. Thus, they cannot be used to perform
 multiple document operations in one request. However, there are other
 endpoints to request and delete multiple documents in one request.
@@ -128,13 +128,17 @@ URI of a Document
 
 Any document can be retrieved using its unique URI:
 
-    http://server:port/_api/document/<document-handle>
+```
+http://server:port/_api/document/<document-handle>
+```
 
 For example, assuming that the document handle
 is `demo/362549736`, then the URL of that document
 is:
 
-    http://localhost:8529/_api/document/demo/362549736
+```
+http://localhost:8529/_api/document/demo/362549736
+```
 
 The above URL schema does not specify a 
 [database name](../appendix-glossary.html#database-name) 
@@ -142,24 +146,28 @@ explicitly, so the default `_system` database is used.
 To explicitly specify the database context, use
 the following URL schema:
 
-    http://server:port/_db/<database-name>/_api/document/<document-handle>
+```
+http://server:port/_db/<database-name>/_api/document/<document-handle>
+```
 
 Example:
 
-    http://localhost:8529/_db/mydb/_api/document/demo/362549736
+```
+http://localhost:8529/_db/mydb/_api/document/demo/362549736
+```
 
 **Note**: The following examples use the short URL format for brevity.
 
 The [document revision](../appendix-glossary.html#document-revision) 
 is returned in the "Etag" HTTP header when requesting a document.
 
-If you obtain a document using *GET* and you want to check whether a 
+If you obtain a document using `GET` and you want to check whether a 
 newer revision
-is available, then you can use the *If-None-Match* header. If the document is
+is available, then you can use the `If-None-Match` header. If the document is
 unchanged, a *HTTP 412* (precondition failed) error is returned.
 
 If you want to query, replace, update or delete a document, then you
-can use the *If-Match* header. If the document has changed, then the
+can use the `If-Match` header. If the document has changed, then the
 operation is aborted and an *HTTP 412* error is returned.
 
 Read from Followers

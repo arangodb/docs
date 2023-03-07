@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoDB users are globally stored in the _system database and can only bemananged while logged on to this database
+description: ArangoDB users are globally stored in the _system database and can only be mananged while logged on to this database
 ---
 Managing Users in the Web Interface
 ===================================

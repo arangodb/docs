@@ -1,6 +1,6 @@
 ---
 layout: default
-description: In addition to the main entry point which defines your service'sroutes andexports you can define scriptsthat need to be invoked directly and can be used to implement one-off tasksor scheduled and recurring jobs using queues
+description: You can define scripts that need to be invoked directly and can be used to implement one-off tasks or scheduled and recurring jobs using queues
 ---
 Scripts and scheduling
 ======================

@@ -687,7 +687,7 @@ The following optimizer rules may appear in the `rules` attribute of
   for queries that only involve collection(s) with a single shard (and identical
   sharding in case of multiple collections, e.g. via `distributeShardsLike`).
   Queries involving V8 / JavaScript (e.g. user-defined AQL functions) or
-  SmartGraphs can not be optimized.
+  SmartGraphs cannot be optimized.
 
   Offloads the entire query to the DB-Server (except the client communication
   via a Coordinator). This saves all the back and forth that normally exists

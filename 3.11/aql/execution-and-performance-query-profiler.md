@@ -97,7 +97,7 @@ db.acollection.ensureIndex({type:"persistent", fields:["value"]});
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 This results in replacing the collection scan and filter block with an
-`IndexNode`. The execution pipeleine of the AQL query has become much shorter.
+`IndexNode`. The execution pipeline of the AQL query has become much shorter.
 Also the number of rows processed by each pipeline block is only 10, because
 we no longer need to look at all documents.
 

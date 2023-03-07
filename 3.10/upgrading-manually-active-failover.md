@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This page will guide you through the process of a manual upgrade of an Active Failoversetup
+description: This page will guide you through the process of a manual upgrade of an Active Failover setup
 ---
 Manually Upgrading an _Active Failover_ Deployment
 =========================================

@@ -18,12 +18,12 @@ Single roundtrip
 
 The server will only transfer a certain number of result documents back to the
 client in one roundtrip. This number is controllable by the client by setting
-the *batchSize* attribute when issuing the query.
+the `batchSize` attribute when issuing the query.
 
 If the complete result can be transferred to the client in one go, the client
 does not need to issue any further request. The client can check whether it has
-retrieved the complete result set by checking the *hasMore* attribute of the
-result set. If it is set to *false*, then the client has fetched the complete
+retrieved the complete result set by checking the `hasMore` attribute of the
+result set. If it is set to `false`, then the client has fetched the complete
 result set from the server. In this case no server side cursor will be created.
 
 ```js
@@ -59,14 +59,14 @@ Using a cursor
 --------------
 
 If the result set contains more documents than should be transferred in a single
-roundtrip (i.e. as set via the *batchSize* attribute), the server will return
+roundtrip (i.e. as set via the `batchSize` attribute), the server will return
 the first few documents and create a temporary cursor. The cursor identifier
 will also be returned to the client. The server will put the cursor identifier
-in the *id* attribute of the response object. Furthermore, the *hasMore*
-attribute of the response object will be set to *true*. This is an indication
+in the `id` attribute of the response object. Furthermore, the `hasMore`
+attribute of the response object will be set to `true`. This is an indication
 for the client that there are additional results to fetch from the server.
 
-*Examples*:
+**Examples**
 
 Create and extract first batch:
 
@@ -155,7 +155,7 @@ Content-type: application/json
 }
 ```
 
-Do not do this because *hasMore* now has a value of false:
+Do not do this because `hasMore` now has a value of false:
 
 ```js
 > curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
@@ -209,7 +209,7 @@ Content-type: application/json; charset=utf-8
 Setting a memory limit
 ----------------------
 
-To set a memory limit for the query, the *memoryLimit* option can be passed to
+To set a memory limit for the query, the `memoryLimit` option can be passed to
 the server.
 The memory limit specifies the maximum number of bytes that the query is
 allowed to use. When a single AQL query reaches the specified limit value, 
@@ -231,6 +231,6 @@ Content-Length: 115
 ```
 
 If no memory limit is specified, then the server default value (controlled by
-startup option *--query.memory-limit* will be used for restricting the maximum amount 
-of memory the query can use. A memory limit value of *0* means that the maximum
+startup option `--query.memory-limit` will be used for restricting the maximum amount 
+of memory the query can use. A memory limit value of `0` means that the maximum
 amount of memory for the query is not restricted. 

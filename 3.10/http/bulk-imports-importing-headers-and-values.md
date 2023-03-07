@@ -1,6 +1,6 @@
 ---
 layout: default
-description: When using this type of import, the attribute names of the documents to beimported are specified separate from the actual document value data
+description: When using this type of import, the attribute names of the documents to be imported are specified separate from the actual document value data
 ---
 Importing Headers and Values
 ============================

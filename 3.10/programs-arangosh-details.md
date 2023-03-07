@@ -24,8 +24,10 @@ opening brace:
 To load your own JavaScript code into the current JavaScript interpreter context,
 use the load command:
 
-    require("internal").load("/tmp/test.js")     // <- Linux / macOS
-    require("internal").load("c:\\tmp\\test.js") // <- Windows
+```js
+require("internal").load("/tmp/test.js")     // <- Linux / macOS
+require("internal").load("c:\\tmp\\test.js") // <- Windows
+```
 
 You can exit arangosh using the key combination `<CTRL> + D` or by
 typing `quit<ENTER>`.
@@ -33,7 +35,7 @@ typing `quit<ENTER>`.
 Shell Output
 ------------
 
-The ArangoDB shell will print the output of the last evaluated expression
+The ArangoDB shell prints the output of the last evaluated expression
 by default:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
@@ -84,12 +86,12 @@ printed. This ensures documents are printed in a human-readable way:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-While the pretty-printer produces nice looking results, it will need a lot of
+While the pretty-printer produces nice looking results, it needs a lot of
 screen space for each document. Sometimes a more dense output might be better.
 In this case, the pretty printer can be turned off using the command
-*stop_pretty_print()*.
+`stop_pretty_print()`.
 
-To turn on pretty printing again, use the *start_pretty_print()* command.
+To turn on pretty printing again, use the `start_pretty_print()` command.
 
 Escaping
 --------
@@ -100,22 +102,26 @@ _arangosh_ requires another level of escaping, also with the backslash character
 It adds up to four backslashes that need to be written in _arangosh_ for a single
 literal backslash (`c:\tmp\test.js`):
 
-    db._query('RETURN "c:\\\\tmp\\\\test.js"')
+```js
+db._query('RETURN "c:\\\\tmp\\\\test.js"')
+```
 
 You can use [bind variables](aql/invocation-with-arangosh.html) to
 mitigate this:
 
-    var somepath = "c:\\tmp\\test.js"
-    db._query(aql`RETURN ${somepath}`)
+```js
+var somepath = "c:\\tmp\\test.js"
+db._query(aql`RETURN ${somepath}`)
+```
 
 Database Wrappers
 -----------------
 
-_arangosh_ provides the *db* object by default, and this object can
+_arangosh_ provides the `db` object by default, and this object can
 be used for switching to a different database and managing collections inside the
 current database.
 
-For a list of available methods for the *db* object, type
+For a list of available methods for the `db` object, type
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline shellHelp
@@ -126,17 +132,17 @@ For a list of available methods for the *db* object, type
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}  
 
-The [`db` object](appendix-references-dbobject.html) is available in *arangosh*
-as well as on *arangod* i.e. if you're using [Foxx](foxx.html). While its
-interface is persistent between the *arangosh* and the *arangod* implementations,
-its underpinning is not. The *arangod* implementation are JavaScript wrappers
-around ArangoDB's native C++ implementation, whereas the *arangosh* implementation
+The [`db` object](appendix-references-dbobject.html) is available in _arangosh_
+as well as on _arangod_ i.e. if you're using [Foxx](foxx.html). While its
+interface is persistent between the _arangosh_ and the _arangod_ implementations,
+its underpinning is not. The _arangod_ implementation are JavaScript wrappers
+around ArangoDB's native C++ implementation, whereas the _arangosh_ implementation
 wraps HTTP accesses to ArangoDB's [RESTful API](http/index.html).
 
-So while this code may produce similar results when executed in *arangosh* and
-*arangod*, the CPU usage and time required will be really different since the
-*arangosh* version will be doing around 100k HTTP requests, and the
-*arangod* version will directly write to the database:
+So while this code may produce similar results when executed in _arangosh_ and
+_arangod_, the CPU usage and time required differs since the
+_arangosh_ version performs around 100k HTTP requests, and the
+_arangod_ version directly writes to the database:
 
 ```js
 for (i = 0; i < 100000; i++) {
@@ -144,38 +150,43 @@ for (i = 0; i < 100000; i++) {
 }
 ```
 
-Using `arangosh` via unix shebang mechanisms
+Using `arangosh` via Unix shebang mechanisms
 --------------------------------------------
-In unix operating systems you can start scripts by specifying the interpreter in the first line of the script.
+In Unix operating systems, you can start scripts by specifying the interpreter in the first line of the script.
 This is commonly called `shebang` or `hash bang`. You can also do that with `arangosh`, i.e. create `~/test.js`:
 
-    #!/usr/bin/arangosh --javascript.execute 
-    require("internal").print("hello world")
-    db._query("FOR x IN test RETURN x").toArray()
+```sh
+#!/usr/bin/arangosh --javascript.execute 
+require("internal").print("hello world")
+db._query("FOR x IN test RETURN x").toArray()
+```
 
 Note that the first line has to end with a blank in order to make it work.
 Mark it executable to the OS: 
 
-    #> chmod a+x ~/test.js
+```sh
+> chmod a+x ~/test.js
+```
 
-and finaly try it out:
+and finally try it out:
 
-    #> ~/test.js
-
+```sh
+> ~/test.js
+```
 
 Shell Configuration
 -------------------
 
-_arangosh_ will look for a user-defined startup script named *.arangosh.rc* in the
-user's home directory on startup. The home directory will likely be `/home/<username>/`
+_arangosh_ looks for a user-defined startup script named `.arangosh.rc` in the
+user's home directory on startup. The home directory is likely at `/home/<username>/`
 on Unix/Linux, and is determined on Windows by peeking into the environment variables
 `%HOMEDRIVE%` and `%HOMEPATH%`. 
 
-If the file *.arangosh.rc* is present in the home directory, _arangosh_ will execute
+If the file `.arangosh.rc` is present in the home directory, _arangosh_ executes
 the contents of this file inside the global scope.
 
 You can use this to define your own extra variables and functions that you need often.
-For example, you could put the following into the *.arangosh.rc* file in your home
+For example, you could put the following into the `.arangosh.rc` file in your home
 directory:
 
 ```js
@@ -188,7 +199,7 @@ global.timed = function (cb) {
 };
 ```
 
-This will make a function named *timed* available in _arangosh_ in the global scope.
+This makes a function named `timed` available in _arangosh_ in the global scope.
 
 You can now start _arangosh_ and invoke the function like this:
 
@@ -200,7 +211,7 @@ timed(function () {
 });
 ```
 
-Please keep in mind that, if present, the *.arangosh.rc* file needs to contain valid
+Please keep in mind that, if present, the `.arangosh.rc` file needs to contain valid
 JavaScript code. If you want any variables in the global scope to survive you need to
-omit the *var* keyword for them. Otherwise the variables will only be visible inside
+omit the `var` keyword for them. Otherwise, the variables are only visible inside
 the script itself, but not outside.

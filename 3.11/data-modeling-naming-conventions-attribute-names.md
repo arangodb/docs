@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Users can pick attribute names for document attributes as desired, provided thefollowing attribute naming constraints are not violated
+description: Users can pick attribute names for document attributes as desired, provided the following attribute naming constraints are not violated
 ---
 Attribute Names
 ===============
@@ -11,14 +11,12 @@ following attribute naming constraints are not violated:
 - Attribute names starting with an underscore are considered to be system
   attributes for ArangoDB's internal use. Such attribute names are already used
   by ArangoDB for special purposes:
-  - *_id* is used to contain a document's handle
-  - *_key* is used to contain a document's user-defined key
-  - *_rev* is used to contain the document's revision number
-  - In edge collections, the
-    - *_from*
-    - *_to*
-
-    attributes are used to reference other documents.
+  - `_id` is used to contain a document's handle
+  - `_key` is used to contain a document's user-defined key
+  - `_rev` is used to contain the document's revision number
+  - In edge collections, the following attributes are used to reference other documents:
+    - `_from`
+    - `_to`
 
   More system attributes may be added in the future without further notice so
   end users should try to avoid using their own attribute names starting with
@@ -33,10 +31,10 @@ following attribute naming constraints are not violated:
   Overall it might be better to use attribute names which don't require any 
   quoting/escaping in all languages used. This includes languages used by the 
   client (e.g. Ruby, PHP) if the attributes are mapped to object members there.
-* Attribute names starting with an at-mark (*@*) will need to be enclosed in
+* Attribute names starting with an at sign (`@`) need to be enclosed in
   backticks when used in an AQL query to tell them apart from bind variables.
-  Therefore we do not encourage the use of attributes starting with at-marks,
-  though they will work when used properly.
+  Therefore, we do not encourage the use of attributes starting with at sign,
+  even though they work when used properly.
 * ArangoDB does not enforce a length limit for attribute names. However, long
   attribute names may use more memory in result sets etc. Therefore the use
   of long attribute names is discouraged.

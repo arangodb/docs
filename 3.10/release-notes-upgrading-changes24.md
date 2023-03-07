@@ -8,7 +8,6 @@ Incompatible changes in ArangoDB 2.4
 It is recommended to check the following list of incompatible changes **before** 
 upgrading to ArangoDB 2.4, and adjust any client programs if necessary.
 
-
 Changed behavior
 ----------------
 
@@ -22,20 +21,26 @@ in the execution of JavaScript code.
 The following code, though nonsense, runs without error in 2.3 and 2.4 when 
 strict mode is not enabled: 
 
-    (function () { 
-      a = true; 
-      a.foo = 1; 
-    })();
+```js
+(function () { 
+  a = true; 
+  a.foo = 1; 
+})();
+```
 
 When enabling strict mode, the function will throw an error in 2.4 but not in 2.3:
 
-    (function () { 
-      "use strict"; 
-      a = true; 
-      a.foo = 1; 
-    })();
+```js
+(function () { 
+  "use strict"; 
+  a = true; 
+  a.foo = 1; 
+})();
+```
 
-    TypeError: Cannot assign to read only property 'foo' of true
+```
+TypeError: Cannot assign to read only property 'foo' of true
+```
 
 Though this is a change in behavior it can be considered an improvement. The new version actually 
 uncovers an error that went undetected in the old version.
@@ -79,11 +84,13 @@ If this is also undesired, it is also possible to specify a list of collections 
 exclude from the initial synchronization and the continuous replication using the
 `restrictCollections` attribute, e.g.:
 
-    require("org/arangodb/replication").applier.properties({ 
-      includeSystem: true,
-      restrictType: "exclude",
-      restrictCollections: [ "_users", "_graphs", "foo" ] 
-    });
+```js
+require("org/arangodb/replication").applier.properties({ 
+  includeSystem: true,
+  restrictType: "exclude",
+  restrictCollections: [ "_users", "_graphs", "foo" ] 
+});
+```
 
 The above example will in general include system collections, but will exclude the
 specified three collections from continuous replication.
@@ -113,11 +120,13 @@ When building ArangoDB from source in a directory that already contained a pre-2
 version, it will be necessary to run a `make superclean` command once and a full
 rebuild afterwards:
 
-    git pull
-    make superclean
-    make setup
-    ./configure <options go here>
-    make
+```sh
+git pull
+make superclean
+make setup
+./configure <options go here>
+make
+```
 
 Miscellaneous changes
 ---------------------
@@ -134,12 +143,15 @@ optional URL parameter `mergeArrays` for the option has been renamed to `mergeOb
 The AQL `UPDATE` statement is also affected, as its option `mergeArrays` has also
 been renamed to `mergeObjects`. The 2.3 query
 
-    UPDATE doc IN collection WITH { ... } IN collection OPTIONS { mergeArrays: false }
+```aql
+UPDATE doc IN collection WITH { ... } IN collection OPTIONS { mergeArrays: false }
+```
 
 should thus be rewritten to the following in 2.4:
 
-    UPDATE doc IN collection WITH { ... } IN collection OPTIONS { mergeObjects: false }
-
+```aql
+UPDATE doc IN collection WITH { ... } IN collection OPTIONS { mergeObjects: false }
+```
 
 Deprecated features
 -------------------
@@ -173,7 +185,6 @@ Please use module `org/arangodb/general-graph` instead.
 The HTTP REST API `_api/graph` and all its methods are deprecated. Please use 
 the general graph API `_api/gharial` instead.
 
-
 Removed features
 ----------------
 
@@ -194,4 +205,3 @@ The REST API methods for these functions have also been removed in ArangoDB 2.4:
 Client applications that call one of these methods should be adjusted by removing
 the calls to these methods. This shouldn't be problematic as these methods have
 been no-ops since ArangoDB 2.2 anyway.
-

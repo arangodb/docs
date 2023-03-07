@@ -715,7 +715,7 @@ to the parent folder of a file.
 You can also link to headlines within a page like `[label](#anchor-id)`.
 The anchor ID is the headline text but with the characters converted to Latin
 base characters, all lower-case, spaces and other special characters replaced
-by hypens `-`. Underscores remain, however. Some examples:
+by hyphens `-`. Underscores remain, however. Some examples:
 
 | Headline | Anchor |
 |:---------|:-------|
@@ -1605,7 +1605,7 @@ Description.
 
 If an endpoint supports query parameters (like `?param1=aaa&param2=bbb` after
 the URL path), then a `@RESTQUERYPARAMETERS` section with `@RESTQUERYPARAM`
-elements for every query paramter is needed:
+elements for every query parameter is needed:
 
 ```
 @RESTQUERYPARAMETERS
@@ -1808,7 +1808,7 @@ section. An HTTP API example needs to be wrapped by `@EXAMPLE_ARANGOSH_RUN` and
 
 - `name`: The name of the example. Will be used as file name
   `Documentation/Examples/<name>.generated`. The convention for Rest DocuBlocks
-  is to use PascalCase, `Rest` as prefix, the endpoint name, and succint
+  is to use PascalCase, `Rest` as prefix, the endpoint name, and succinct
   description of what the example is about, e.g. `RestCollectionCreateKeyopt`.
 
 Unlike arangosh examples (`@EXAMPLE_ARANGOSH_OUTPUT`), requests and responses
@@ -1972,7 +1972,7 @@ failed example in `arangosh.examples.js`.
   - ```
     …lib/jekyll/utils.rb:141:in `initialize': No such file or directory @ rb_sysopen - /path/to/file
     ```
-    
+
     Jekyll can't open the specified file. A possible reason is that it is a
     binary file which is not supposed to be in the source tree in the first
     place or which should be excluded via `_config.yml`
@@ -1981,7 +1981,7 @@ failed example in `arangosh.examples.js`.
     …lib/safe_yaml/load.rb:143:in `parse': (/path/to/docs/_data/3.x-manual.yml):
     mapping values are not allowed in this context at line 274 column 15 (Psych::SyntaxError)
     ```
-    
+
     The specified navigation definition file is not valid YAML. Check if the
     indention is correct and that you use `children:` if the following entries
     are child pages.

@@ -54,7 +54,9 @@ object if specified. Right now only one option is available for it:
   any effect. Setting it to `true` will modify the result, such that also the connected
   vertices are returned along with the edges:
 
-      { vertex: <vertexDocument>, edge: <edgeDocument> } 
+  ```json
+  { "vertex": <vertexDocument>, "edge": <edgeDocument> }
+  ```
 
 ### Subquery optimizations for AQL queries
 
@@ -117,12 +119,13 @@ A blog post on the new `COLLECT` implementation can be found here:
 ArangoDB 2.4 since version allows to return results from data-modification AQL queries. The
 syntax for this was quite limited and verbose:
 
-```
+```aql
 FOR i IN 1..10
   INSERT { value: i } IN test
   LET inserted = NEW
   RETURN inserted
 ```
+
 The `LET inserted = NEW RETURN inserted` was required literally to return the inserted
 documents. No calculations could be made using the inserted documents.
 
@@ -132,7 +135,7 @@ refer to the pseudo-values `OLD` and `NEW` that are created by the data-modifica
 
 This allows returning projections of inserted or updated documents, e.g.:
 
-```
+```aql
 FOR i IN 1..10
   INSERT { value: i } IN test
   RETURN { _key: NEW._key, value: i }
@@ -151,7 +154,7 @@ This adds an `UPSERT` statement to AQL that is a combination of both `INSERT` an
 If no document matches the example, the *insert* part of the `UPSERT` statement will be
 executed. If there is a match, the *update* / *replace* part will be carried out:
 
-```
+```aql
 UPSERT { page: 'index.html' }               /* search example */
 INSERT { page: 'index.html', pageViews: 1 } /* insert part */
 UPDATE { pageViews: OLD.pageViews + 1 }     /* update part */
@@ -168,7 +171,7 @@ attribute `found` will return the found document before the `UPDATE` was applied
 document was found, `found` will contain a value of `null`. The `updated` result attribute will
 contain the inserted / updated document:
 
-```
+```aql
 UPSERT { page: 'index.html' }               /* search example */
 INSERT { page: 'index.html', pageViews: 1 } /* insert part */
 UPDATE { pageViews: OLD.pageViews + 1 }     /* update part */
@@ -320,15 +323,17 @@ Miscellaneous changes
   For example, with a fulltext index present on the `translations` attribute, the following text
   values will now be indexed:
 
-      var c = db._create("example");
-      c.ensureFulltextIndex("translations");
-      c.insert({ translations: { en: "fox", de: "Fuchs", fr: "renard", ru: "лиса" } });
-      c.insert({ translations: "Fox is the English translation of the German word Fuchs" });
-      c.insert({ translations: [ "ArangoDB", "document", "database", "Foxx" ] });
+  ```js
+  var c = db._create("example");
+  c.ensureFulltextIndex("translations");
+  c.insert({ translations: { en: "fox", de: "Fuchs", fr: "renard", ru: "лиса" } });
+  c.insert({ translations: "Fox is the English translation of the German word Fuchs" });
+  c.insert({ translations: [ "ArangoDB", "document", "database", "Foxx" ] });
 
-      c.fulltext("translations", "лиса").toArray();       // returns only first document
-      c.fulltext("translations", "Fox").toArray();        // returns first and second documents
-      c.fulltext("translations", "prefix:Fox").toArray(); // returns all three documents
+  c.fulltext("translations", "лиса").toArray();       // returns only first document
+  c.fulltext("translations", "Fox").toArray();        // returns first and second documents
+  c.fulltext("translations", "prefix:Fox").toArray(); // returns all three documents
+  ```
 
 * Added configuration option `--server.foxx-queues-poll-interval`
 

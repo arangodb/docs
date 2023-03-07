@@ -26,7 +26,7 @@ curl -kH"$AUTH" https://<any-coordinator>:<port>/_api/cluster/agency-dump > agen
 ```
 
 Or using username and password like below, where one is prompted to
-type in the password. It is best practices to not specifiy the root
+type in the password. It is best practices to not specify the root
 password on command line considering the risks associated with finding
 passwords in the shell history. The jwt secret method or username
 password method if done like above leaves no such traces.

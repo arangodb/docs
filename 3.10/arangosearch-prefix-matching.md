@@ -187,7 +187,7 @@ FOR doc IN imdb_alias
   RETURN doc.title
 ```
 
-_AranogSearch View:_
+_ArangoSearch View:_
 
 ```aql
 FOR doc IN imdb
@@ -212,7 +212,7 @@ FOR doc IN imdb_alias
   RETURN doc.title
 ```
 
-_AranogSearch View:_
+_ArangoSearch View:_
 
 ```aql
 LET prefixes = TOKENS("Brot Blu", "text_en")
@@ -347,7 +347,7 @@ FOR doc IN imdb_alias
   RETURN doc.title
 ```
 
-_AranogSearch View:_
+_ArangoSearch View:_
 
 ```aql
 FOR doc IN imdb
@@ -378,7 +378,7 @@ FOR doc IN imdb_alias
   RETURN doc.title
 ```
 
-_AranogSearch View:_
+_ArangoSearch View:_
 
 ```aql
 FOR doc IN imdb
@@ -398,7 +398,7 @@ FOR doc IN imdb_alias
   RETURN doc.title
 ```
 
-_AranogSearch View:_
+_ArangoSearch View:_
 
 ```aql
 FOR doc IN imdb
