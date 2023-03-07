@@ -195,8 +195,8 @@ See [_arangodump_](programs-arangodump-examples.html#encryption) for details.
 Reloading Data into a different Collection
 ------------------------------------------
 
-_arangorestore_ restores document and edges data with the exact same `_key`, `_rev`, `_from`
-and `_to` values as found in the input directory.
+_arangorestore_ restores documents and edges with the exact same `_key`,
+`_from`, and `_to` values as found in the input directory.
 
 With some creativity you can also use _arangodump_ and _arangorestore_ to transfer data from one
 collection into another (either on the same server or not). For example, to copy data from
