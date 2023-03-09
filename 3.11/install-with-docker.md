@@ -217,8 +217,8 @@ docker run -d --name arangodb-persist -v /var/lib/arangodb3 busybox true
 
 ## Using as a base image
 
-If you are using the image as a base image, make sure to wrap any CMD in the
-[exec](https://docs.docker.com/engine/reference/builder/#cmd){:target="_blank"} form. 
+If you use the image as a base image, make sure to write any `CMD` instructions in the
+[*exec* form](https://docs.docker.com/engine/reference/builder/#cmd){:target="_blank"}.
 Otherwise, the default entry point will not do its bootstrapping work.
 
 When deriving the image, you can control the instantiation via putting files
