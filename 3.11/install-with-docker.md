@@ -27,7 +27,7 @@ Check also the following resources:
 In order to start an ArangoDB instance, run:
 
 ```
-unix> docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 -d --name arangodb-instance arangodb
+docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 -d --name arangodb-instance arangodb
 ```
 
 This creates and launches the ArangoDB Docker instance as a background process.
@@ -38,7 +38,7 @@ application container, it is automatically available in the linked container.
 In order to get the IP ArangoDB listens on, run:
 
 ```
-unix> docker inspect --format '{{ .NetworkSettings.IPAddress }}' arangodb-instance
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' arangodb-instance
 ```
 
 ## Using the instance
@@ -46,7 +46,7 @@ unix> docker inspect --format '{{ .NetworkSettings.IPAddress }}' arangodb-instan
 To use the running instance from an application, link the container:
 
 ```
-unix> docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 --name my-app --link arangodb-instance:db-link arangodb
+docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 --name my-app --link arangodb-instance:db-link arangodb
 ```
 
 This uses the instance named `arangodb-instance` and links it into the
@@ -66,7 +66,7 @@ DB_LINK_NAME=/naughty_ardinghelli/db-link
 If you want to expose the port to the outside world, run:
 
 ```
-unix> docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 -p 8529:8529 -d arangodb
+docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 -p 8529:8529 -d arangodb
 ```
 
 ArangoDB listens on port `8529` for requests and the image includes `EXPOSE 8529`.
@@ -107,7 +107,7 @@ You can pass arguments to the ArangoDB server by appending them at the end of
 the Docker command.
 
 ```
-unix> docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 arangodb --help
+docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 arangodb --help
 ```
 
 The entry point script starts the `arangod` binary by default and forwards
@@ -116,7 +116,7 @@ your arguments.
 You may also start other binaries, such as the ArangoDB Shell (`arangosh`):
 
 ```
-unix> docker run -it arangodb arangosh --server.database myDB ...
+docker run -it arangodb arangosh --server.database myDB ...
 ```
 
 Note that you need to set up networking for containers if `arangod` runs in one
@@ -125,7 +125,7 @@ It is easier to execute it in the same container instead.
 Use `docker ps` to find out the container ID or the name of a running container:
 
 ```
-unix> docker ps
+docker ps
 CONTAINER ID   IMAGE     COMMAND                 CREATED      STATUS      PORTS                   NAMES
 1234567890ab   arangodb  "/entrypoint.sh aran…"  2 hours ago  Up 2 hours  0.0.0.0:8529->8529/tcp  jolly_joker
 ```
@@ -134,7 +134,7 @@ Then, use `docker exec` and the ID or name to run something inside of the
 existing container:
 
 ```
-unix> docker exec -it jolly_joker arangosh
+docker exec -it jolly_joker arangosh
 ```
 
 For more information, see the [Configuration](administration-configuration.html) section.
@@ -185,10 +185,10 @@ You can map the container's volumes to a directory on the host, so that the data
 is kept between the runs of the container.
 
 ```
-unix> mkdir /tmp/arangodb
-unix> docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 -p 8529:8529 -d \
-          -v /tmp/arangodb:/var/lib/arangodb3 \
-          arangodb
+mkdir /tmp/arangodb
+docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 -p 8529:8529 -d \
+    -v /tmp/arangodb:/var/lib/arangodb3 \
+    arangodb
 ```
 
 This uses the `/tmp/arangodb directory` of the host as database directory for
@@ -200,11 +200,11 @@ Alternatively, you can create a container holding the data and use this data
 container in your ArangoDB container.
 
 ```
-unix> docker create --name arangodb-persist arangodb true
+docker create --name arangodb-persist arangodb true
 ```
 
 ```
-unix> docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 --volumes-from arangodb-persist -p 8529:8529 arangodb
+docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 --volumes-from arangodb-persist -p 8529:8529 arangodb
 ```
 
 If you want to save a few bytes, you can alternatively use [busybox](https://hub.docker.com/_/busybox){:target="_blank"}
@@ -212,7 +212,7 @@ or [alpine](https://hub.docker.com/_/alpine){:target="_blank"} for creating the 
 Note that you need to provide the used volumes in this case.
 
 ```
-unix> docker run -d --name arangodb-persist -v /var/lib/arangodb3 busybox true
+docker run -d --name arangodb-persist -v /var/lib/arangodb3 busybox true
 ```
 
 ## Using as a base image
