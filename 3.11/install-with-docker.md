@@ -79,21 +79,21 @@ specified via environment variables (-e) when using `docker run`.
 
 1. `ARANGO_RANDOM_ROOT_PASSWORD=1`
 
-    Generates a random root password when starting. The password is printed to
-    `stdout` (and may be inspected later using `docker logs`).
+   Generates a random root password when starting. The password is printed to
+   `stdout` (and may be inspected later using `docker logs`).
 
 2. `ARANGO_NO_AUTH=1`
     
-    Disables authentication. Useful for testing.
+   Disables authentication. Useful for testing.
 
-    {% hint 'warning' %}
-    Disabling authentication in production environments exposes all your data.
-    Make sure that ArangoDB is not directly accessible from the internet.
-    {% endhint %}
+   {% hint 'warning' %}
+   Disabling authentication in production environments exposes all your data.
+   Make sure that ArangoDB is not directly accessible from the internet.
+   {% endhint %}
 
 3. `ARANGO_ROOT_PASSWORD=somepassword`
 
-    Specify your own root password.
+   Specify your own root password.
 
 {% hint 'note' %}
 These authentication methods only apply to single server installations. For
@@ -146,38 +146,38 @@ restrict how much memory and how many CPU cores it should use.
 
 - `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` *(introduced in v3.6.3)*
 
-    This variable can be used to override the automatic detection of the total
-    amount of RAM present in the system. You can specify a decimal number
-    (in bytes). Furthermore, if `G` or `g` is appended, the value is multiplied
-    by `2^30`. If `M` or `m` is appended, the value is multiplied by `2^20`.
-    If `K` or `k` is appended, the value is multiplied by `2^10`. That is, `64G`
-    meaning 64 gigabytes.
+  This variable can be used to override the automatic detection of the total
+  amount of RAM present in the system. You can specify a decimal number
+  (in bytes). Furthermore, if `G` or `g` is appended, the value is multiplied
+  by `2^30`. If `M` or `m` is appended, the value is multiplied by `2^20`.
+  If `K` or `k` is appended, the value is multiplied by `2^10`. That is, `64G`
+  meaning 64 gigabytes.
 
-    The total amount of RAM detected is logged as an INFO message at server start.
-    If the variable is set, the overridden value is shown. Various default sizes
-    are calculated based on this value (i.e. RocksDB buffer cache size).
+  The total amount of RAM detected is logged as an INFO message at server start.
+  If the variable is set, the overridden value is shown. Various default sizes
+  are calculated based on this value (i.e. RocksDB buffer cache size).
 
-    Setting this option can be useful in two cases:
+  Setting this option can be useful in two cases:
 
-    1. If `arangod` is running in a container and its cgroup has a RAM limitation,
+  - If `arangod` is running in a container and its cgroup has a RAM limitation,
     then you should specify this limitation in this environment variable, since
     it is currently not automatically detected.
 
-    2. If `arangod` is running alongside other services on the same machine and
+  - If `arangod` is running alongside other services on the same machine and
     thus sharing the RAM with them, you should limit the amount of memory using
     this environment variable.
 
 - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` *(introduced in v3.7.1)*
 
-    This variable can be used to override the automatic detection of the number
-    of CPU cores present on the system.
+  This variable can be used to override the automatic detection of the number
+  of CPU cores present on the system.
 
-    The number of CPU cores detected is logged as an INFO message at server start.
-    If the variable is set, the overridden value is shown. Various default values
-    for threading are calculated based on this value.
+  The number of CPU cores detected is logged as an INFO message at server start.
+  If the variable is set, the overridden value is shown. Various default values
+  for threading are calculated based on this value.
 
-    Setting this option is useful if `arangod` is running in a container or alongside
-    other services on the same machine and shall not use all available CPUs.
+  Setting this option is useful if `arangod` is running in a container or alongside
+  other services on the same machine and shall not use all available CPUs.
 
 ## Using host directories
 
