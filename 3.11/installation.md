@@ -33,6 +33,10 @@ please refer to the [Deployment](architecture-deployment-modes.html) chapter.
 
 Work with ArangoDB on Linux, macOS, and Windows, and run it in production on Linux.
 
+{% hint 'info' %}
+ArangoDB requires systems with Little Endian byte order.
+{% endhint %}
+
 {% hint 'tip' %}
 [ArangoGraph Insights Platform](https://cloud.arangodb.com/){:target="_blank"}
 is a fully-managed service and requires no installation. It's the easiest way
@@ -47,8 +51,7 @@ ArangoDB is available for the following architectures:
   **SSE 4.2** and **AVX** instruction set extensions (Intel Sandy Bridge or better,
   AMD Bulldozer or better, etc.).
 - **ARM**: The processor(s) must be 64-bit ARM chips (**AArch64**). The minimum
-  requirement is **ARMv8** with **Neon** (SIMD extension). A system with Little
-  Endian byte order is required.
+  requirement is **ARMv8** with **Neon** (SIMD extension).
 
 ## macOS
 
