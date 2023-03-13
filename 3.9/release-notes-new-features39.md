@@ -666,6 +666,22 @@ A pseudo log topic `"all"` was added. Setting the log level for the "all" log
 topic will adjust the log level for **all existing log topics**. For example,
 `--log.level all=debug` will set all log topics to log level "debug".
 
+### Cluster option for shard synchronization timeout
+
+<small>Introduced in: v3.9.2</small>
+
+A `--cluster.shard-synchronization-attempt-timeout` startup option has been
+added, letting you limit the amount of time to spend in shard synchronization
+attempts (in seconds).
+
+The default timeout value is 20 minutes. Running into the timeout does not lead
+to a synchronization failure, but continues the synchronization shortly after.
+Setting a timeout can help to split the synchronization of large shards into
+smaller chunks and release snapshots and archived WAL files on the leader earlier.
+
+This change also introduces a new `arangodb_sync_timeouts_total` metric that
+counts the number of timed-out shard synchronization attempts.
+
 ### AQL query logging
 
 <small>Introduced in: v3.9.5</small>
