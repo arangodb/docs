@@ -805,6 +805,14 @@ without causing any data imbalance:
   tasks that can run concurrently on server startup. Default: the number of
   cores divided by 8, but at least `1`.
 
+---
+
+<small>Introduced in: v3.9.10</small>
+
+- `--rocksdb.auto-refill-index-caches-on-followers`: Control whether automatic
+  refilling of in-memory caches should happen on followers or only leaders.
+  The default value is `true`, i.e. refilling happens on followers, too.
+
 ### Agency option to control whether a failed leader adds a shard follower
 
 <small>Introduced in: v3.9.7</small>
