@@ -704,6 +704,17 @@ Note that it is not guaranteed that all truncate operations use a RangeDelete
 operation. For collections containing a low number of documents, the O(n)
 truncate method may still be used.
 
+### RocksDB periodic compaction TTL
+
+<small>Introduced in: v3.9.3</small>
+
+A `--rocksdb.periodic-compaction-ttl` startup option has been added to control
+the time-to-live (in seconds) for periodic compaction of .sst files in RocksDB,
+based on the .sst file age.
+
+The default value from RocksDB is ~30 days. You can set the option to `0` to
+avoid periodic auto-compaction.
+
 ### AQL query logging
 
 <small>Introduced in: v3.9.5</small>
