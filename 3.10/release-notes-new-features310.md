@@ -1139,6 +1139,21 @@ follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
 for the case that the server comes back quickly. If the server has permanently
 failed, an `AddFollower` job is created anyway eventually.
 
+### Option to disable Foxx
+
+<small>Introduced in: v3.10.5</small>
+
+A `--foxx.enable` startup option has been added to let you configure whether
+access to user-defined Foxx services is possible for the instance. It defaults
+to `true`.
+
+If you set the option to `false`, access to Foxx services is forbidden and is
+responded with an HTTP `403 Forbidden` error. Access to the management APIs for
+Foxx services are also disabled as if you set `--foxx.api false` manually.
+
+Access to ArangoDB's built-in web interface, which is also a Foxx service, is
+still possible even with the option set to `false`.
+
 ## Miscellaneous changes
 
 ### Optimizer rules endpoint

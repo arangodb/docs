@@ -13,6 +13,8 @@ integrations for ArangoDB 3.10.
 
 ### Behavior changes
 
+#### Early connections
+
 The HTTP interface of _arangod_ instances can now optionally be started earlier
 during the startup process, so that ping probes from monitoring tools can
 already be responded to when the instance has not fully started.
@@ -31,6 +33,15 @@ The following APIs can reply early with an HTTP 200 status:
   recovery progress and information about which server feature is currently starting.
   
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more details.
+
+#### Disabled Foxx APIs
+
+<small>Introduced in: v3.10.5</small>
+
+A `--foxx.enable` startup option has been added to _arangod_. It defaults to `true`.
+If the option is set to `false`, access to Foxx services is forbidden and is
+responded with an HTTP `403 Forbidden` error. Access to the management APIs for
+Foxx services are also disabled as if `--foxx.api false` is set manually.
 
 ### Endpoint return value changes
 
