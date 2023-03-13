@@ -1222,6 +1222,17 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 | `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
 | `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
 
+### Number of replication clients metric
+
+The following metric for the number of replication clients for a server has
+been added:
+
+<small>Introduced in: v3.10.5</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_replication_clients` | Number of currently connected/active replication clients. |
+
 ## Client tools
 
 ### arangobench
