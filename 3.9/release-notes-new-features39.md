@@ -503,10 +503,11 @@ enabled, by adding new, updating existing, or deleting and refilling cache
 entries.
 
 You can enable it for individual `INSERT`, `UPDATE`, `REPLACE`,  and `REMOVE`
-operations in AQL queries, for individual document API requests that insert,
-update, replace, or remove single or multiple edge documents, as well as enable
-it by default using the new `--rocksdb.auto-refill-index-caches-on-modify`
-startup option.
+operations in AQL queries (using `OPTIONS { refillIndexCaches: true }`), for
+individual document API requests that insert, update, replace, or remove single
+or multiple edge documents (by setting `refillIndexCaches=true` as query
+parameter), as well as enable it by default using the new
+`--rocksdb.auto-refill-index-caches-on-modify` startup option.
 
 The new `--rocksdb.auto-refill-index-caches-queue-capacity` startup option
 restricts how many edge cache entries the background thread can queue at most.
