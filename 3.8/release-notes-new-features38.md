@@ -1046,6 +1046,21 @@ batch (1000).
 _arangoexport_ now has a `--query-max-runtime` option to limit the runtime of
 queries it executes.
 
+### _arangorestore_ option to enable revision trees
+
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+A new `--enable-revision-trees` option has been added to _arangorestore_, which
+adds the `syncByRevision` and `usesRevisionsAsDocumentIds` attributes to the
+collection structure if they are missing. As a consequence, these collections
+created by arangorestore are able to use revision trees and a faster
+getting-in-sync procedure after a restart.
+
+The option defaults to `true`, meaning that the attributes are added if they are
+missing. If you set the option to `false`, the attributes are not added to the
+collection structure. If the attributes are already present in the dump data, they
+are not modified by arangorestore, irrespective of the setting of this option.
+
 Miscellaneous
 -------------
 
