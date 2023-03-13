@@ -994,6 +994,19 @@ variable to the string `true` or `false` before starting ArangoDB.
 See [ArangoDB Server environment variables](programs-arangod-env-vars.html)
 for details.
 
+### WAL file tracking metrics
+
+<small>Introduced in: v3.9.10</small>
+
+The following metrics for write-ahead log (WAL) file tracking have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_live_wal_files` | Number of live RocksDB WAL files. |
+| `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
+| `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
+| `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
+
 Client tools
 ------------
 
