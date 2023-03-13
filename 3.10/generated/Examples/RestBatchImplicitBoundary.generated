@@ -2,12 +2,12 @@
 --SomeBoundaryValue
 Content-Type: application/x-arango-batchpart
 
-DELETE /_api/collection/notexisting1 HTTP/1.1
+DELETE /_api/collection/nonexistent1 HTTP/1.1
 
 --SomeBoundaryValue
 Content-Type: application/x-arango-batchpart
 
-DELETE _api/collection/notexisting2 HTTP/1.1
+DELETE _api/collection/nonexistent2 HTTP/1.1
 --SomeBoundaryValue--
 
 EOF
@@ -55,7 +55,7 @@ Content-Length: 101
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">404</span>, 
   <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">404</span>, 
-  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;unknown path &#x27;_api/collection/notexisting2&#x27;&quot;</span> 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;unknown path &#x27;_api/collection/nonexistent2&#x27;&quot;</span> 
 }&#x21A9;
 
 --SomeBoundaryValue--
