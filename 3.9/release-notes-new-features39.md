@@ -466,6 +466,32 @@ data which would lead to the eviction of the hot data from the block cache.
 A new [AQL function](aql/functions-miscellaneous.html#shard_id) is available which allows you to 
 obtain the responsible shard for any document in a collection by specifying its shard keys.
 
+### Improved query explanation for index scans
+
+<small>Introduced in: v3.9.3</small>
+
+The AQL query explainer now displays `index scan + document lookup` comments for
+queries that use an index for filtering, but need to fetch more document data
+from the storage engine.
+
+```aql
+ FOR doc IN coll
+   FILTER doc.attr == 42 // indexed attribute
+   RETURN doc
+```
+
+```aql
+Execution plan:
+ Id   NodeType        Est.   Comment
+  1   SingletonNode      1   * ROOT
+  6   IndexNode          1     - FOR doc IN coll   /* persistent index scan, index scan + document lookup */    
+  5   ReturnNode         1       - RETURN doc
+```
+
+Previously, it was labeled as `index scan` only, obfuscating the fact that
+there are document lookups needed. Covering index queries are still labeled
+`index scan, index only` as before.
+
 ### Edge cache refilling (experimental)
 
 <small>Introduced in: v3.9.6</small>
