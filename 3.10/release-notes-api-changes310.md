@@ -683,6 +683,18 @@ specific server. This makes it easier to adjust the log levels in clusters
 because DB-Servers require JWT authentication whereas Coordinators also support
 authentication using usernames and passwords.
 
+#### Explain API
+
+<small>Introduced in: v3.10.4</small>
+
+The `POST /_api/explain` endpoint for explaining AQL queries includes the
+following two new statistics in the `stats` attribute of the response now:
+
+- `peakMemoryUsage` (number): The maximum memory usage of the query during
+  explain (in bytes)
+- `executionTime` (number): The (wall-clock) time in seconds needed to explain
+  the query.
+
 ## JavaScript API
 
 The Computed Values feature extends the collection properties with a new

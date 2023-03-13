@@ -848,6 +848,42 @@ Also see:
 - [Document HTTP API](http/document-working-with-documents.html)
 - [Edge cache refill options](#edge-cache-refill-options)
 
+### Extended query explain statistics
+
+<small>Introduced in: v3.10.4</small>
+
+The query explain result now includes the peak memory usage and execution time.
+This helps finding queries that use a lot of memory or take long to build the
+execution plan.
+
+The additional statistics are displayed at the end of the output in the
+web interface (using the **Explain** button in the **QUERIES** section) and in
+_arangosh_ (using `db._explain()`):
+
+```
+44 rule(s) executed, 1 plan(s) created, peak mem [b]: 32768, exec time [s]: 0.00214
+```
+
+The HTTP API returns the extended statistics in the `stats` attribute when you
+use the `POST /_api/explain` endpoint:
+
+```json
+{
+  ...
+  "stats": {
+    "rulesExecuted": 44,
+    "rulesSkipped": 0,
+    "plansCreated": 1,
+    "peakMemoryUsage": 32768,
+    "executionTime": 0.00241307167840004
+  }
+}
+```
+
+Also see:
+- [API Changes in ArangoDB 3.10](release-notes-api-changes310.html#explain-api)
+- [The AQL query optimizer](aql/execution-and-performance-optimizer.html#optimizer-statistics)
+
 ## Indexes
 
 ### Parallel index creation (Enterprise Edition)
