@@ -1139,6 +1139,16 @@ follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
 for the case that the server comes back quickly. If the server has permanently
 failed, an `AddFollower` job is created anyway eventually.
 
+### RocksDB Bloom filter option
+
+<small>Introduced in: v3.10.3</small>
+
+A new `--rocksdb.bloom-filter-bits-per-key` startup option has been added to
+configure the number of bits to use per key in a Bloom filter.
+
+The default value is `10`, which is downwards-compatible to the previously
+hard-coded value.
+
 ### Option to disable Foxx
 
 <small>Introduced in: v3.10.5</small>
