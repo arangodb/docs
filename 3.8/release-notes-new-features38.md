@@ -1049,6 +1049,8 @@ queries it executes.
 Miscellaneous
 -------------
 
+### Cluster support for two APIs
+
 - Added cluster support for the JavaScript API method `collection.checksum()`
   and the REST HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
   which calculate CRC checksums for collections.
@@ -1056,6 +1058,25 @@ Miscellaneous
 - Added cluster support for the JavaScript API method `db._engineStats()`
   and the REST HTTP API endpoint `GET /_api/engine/stats`, which provide
   runtime information about the storage engine state.
+
+### I/O heartbeat
+
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+An I/O heartbeat has been added which checks that the underlying volume is
+writable with reasonable performance. The test is done every 15 seconds and can
+be switched off.
+
+Use the accompanying new metrics to check for test failures:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_ioheartbeat_delays_total` | Total number of delayed I/O heartbeats. |
+| `arangodb_ioheartbeat_duration` | Histogram of execution times in microseconds. |
+| `arangodb_ioheartbeat_failures_total` | Total number of failures. |
+
+These metrics are only populated if the new `--database.io-heartbeat` startup
+option is set to `true` (which is the default).
 
 Internal changes
 ----------------

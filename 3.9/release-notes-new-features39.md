@@ -843,6 +843,25 @@ The following metrics for traffic accounting were added:
 | `arangodb_client_user_connection_statistics_bytes_sent` | Bytes sent for responses, only user traffic.
 | `arangodb_http1_connections_total` | Total number of HTTP/1.1 connections accepted. |
 
+### I/O heartbeat
+
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+An I/O heartbeat has been added which checks that the underlying volume is
+writable with reasonable performance. The test is done every 15 seconds and can
+be switched off.
+
+Use the accompanying new metrics to check for test failures:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_ioheartbeat_delays_total` | Total number of delayed I/O heartbeats. |
+| `arangodb_ioheartbeat_duration` | Histogram of execution times in microseconds. |
+| `arangodb_ioheartbeat_failures_total` | Total number of failures. |
+
+These metrics are only populated if the new `--database.io-heartbeat` startup
+option is set to `true` (which is the default).
+
 Client tools
 ------------
 
