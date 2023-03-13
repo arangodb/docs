@@ -34,6 +34,24 @@ The following APIs can reply early with an HTTP 200 status:
   
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more details.
 
+#### Validation of collections in named graphs
+
+The `/_api/gharial` endpoints for named graphs have changed:
+
+- If you reference a vertex collection in the `_from` or `_to` attribute of an
+  edge that doesn't belong to the graph, an error with the number `1947` is
+  returned. The HTTP status code of such an `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error has been changed from `400` to `404`. This change aligns the behavior to
+  the similar `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED` error (number `1930`).
+
+- Write operations now check if the specified vertex or edge collection is part
+  of the graph definition. If you try to create a vertex via
+  `POST /_api/gharial/{graph}/vertex/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error is returned. If you try to create an edge via
+  `POST /_api/gharial/{graph}/edge/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the error is `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED`.
+
 #### Disabled Foxx APIs
 
 <small>Introduced in: v3.10.5</small>

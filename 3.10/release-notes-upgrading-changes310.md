@@ -192,20 +192,36 @@ For more information on the new options, please refer to [ArangoDB Server Pregel
 HTTP RESTful API
 ----------------
 
-### Endpoint return value changes
+### Validation of collections in named graphs
 
-- Changed the encoding of revision IDs returned by the below listed REST APIs.
+The `/_api/gharial` endpoints for named graphs have changed:
 
-  <small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+- If you reference a vertex collection in the `_from` or `_to` attribute of an
+  edge that doesn't belong to the graph, an error with the number `1947` is
+  returned. The HTTP status code of such an `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error has been changed from `400` to `404`. This change aligns the behavior to
+  the similar `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED` error (number `1930`).
 
-  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
-    previously returned as numeric value, and now it is returned as
-    a string value with either numeric encoding or HLC-encoding inside.
-  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
-    the `revision` attribute was previously encoded as a numeric value
-    in single server, and as a string in cluster. This is now unified so
-    that the `revision` attribute always contains a string value with
-    either numeric encoding or HLC-encoding inside.
+- Write operations now check if the specified vertex or edge collection is part
+  of the graph definition. If you try to create a vertex via
+  `POST /_api/gharial/{graph}/vertex/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error is returned. If you try to create an edge via
+  `POST /_api/gharial/{graph}/edge/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the error is `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED`.
+
+### Encoding of revision IDs
+
+<small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+
+- `GET /_api/collection/<collection-name>/revision`: The revision ID was
+  previously returned as numeric value, and now it is returned as
+  a string value with either numeric encoding or HLC-encoding inside.
+- `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+  the `revision` attribute was previously encoded as a numeric value
+  in single server, and as a string in cluster. This is now unified so
+  that the `revision` attribute always contains a string value with
+  either numeric encoding or HLC-encoding inside.
 
 Client Tools
 ------------
