@@ -715,6 +715,18 @@ based on the .sst file age.
 The default value from RocksDB is ~30 days. You can set the option to `0` to
 avoid periodic auto-compaction.
 
+### Option for file copying method on Linux
+
+<small>Introduced in: v3.9.4</small>
+
+A Linux-specific `--use-splice-syscall` startup option has been added to control
+whether the Linux-specific `splice()` syscall should be used for copying file
+contents. Set it to `false` to use a less efficient, but more portable user-space
+file copying method, which should work on all file systems.
+
+See [ArangoDB Server Options](programs-arangod-options.html#--use-splice-syscall)
+for details.
+
 ### AQL query logging
 
 <small>Introduced in: v3.9.5</small>
