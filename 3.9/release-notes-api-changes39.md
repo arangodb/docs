@@ -113,13 +113,26 @@ checked on the receiving Coordinator, before any request forwarding.
 
 ### Endpoint return value changes
 
-All collections in ArangoDB are now always in the "loaded" state. APIs return
-return a collection's status will now return it as "loaded", unconditionally.
+- All collections in ArangoDB are now always in the `loaded` state. APIs return
+  return a collection's status will now return it as `loaded`, unconditionally.
 
-The HTTP endpoints for loading and unloading collections (i.e. HTTP PUT
-`/_api/collection/<collection>/load` and HTTP PUT `/_api/collection/<collection>/unload`)
-have been turned into no-ops. They still exist in ArangoDB 3.9, but do not
-serve any purpose and are deprecated.
+- The HTTP endpoints for loading and unloading collections (i.e. HTTP PUT
+  `/_api/collection/<collection>/load` and HTTP PUT `/_api/collection/<collection>/unload`)
+  have been turned into no-ops. They still exist in ArangoDB 3.9, but do not
+  serve any purpose and are deprecated.
+
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8, v3.9.4</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
 
 ### Endpoints added
 

@@ -72,6 +72,17 @@ and older. This can mean that old polygon GeoJSON data in the database is
 suddenly interpreted in a different way. See
 [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
 
+Maximum Array / Object Nesting
+------------------------------
+
+When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
+VelocyPack, there is a maximum recursion depth for nested arrays and objects, which is slightly 
+below 200. Arrays or objects with higher nesting than this will cause `Too deep nesting in Array/Object`
+exceptions. 
+The limit is also enforced when converting any server data to JavaScript in Foxx, or
+when sending JavaScript input data from Foxx to a server API.
+This maximum recursion depth is hard-coded in arangod and all client tools.
+
 Startup Options
 ---------------
 
@@ -178,16 +189,23 @@ memory-mapped files: `--pregel.memory-mapped-files` and `--pregel.memory-mapped-
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-options.html#pregel).
 
-Maximum Array / Object Nesting
-------------------------------
+HTTP RESTful API
+----------------
 
-When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
-VelocyPack, there is a maximum recursion depth for nested arrays and objects, which is slightly 
-below 200. Arrays or objects with higher nesting than this will cause `Too deep nesting in Array/Object`
-exceptions. 
-The limit is also enforced when converting any server data to JavaScript in Foxx, or
-when sending JavaScript input data from Foxx to a server API.
-This maximum recursion depth is hard-coded in arangod and all client tools.
+### Endpoint return value changes
+
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
 
 Client Tools
 ------------
