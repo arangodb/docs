@@ -682,6 +682,28 @@ smaller chunks and release snapshots and archived WAL files on the leader earlie
 This change also introduces a new `arangodb_sync_timeouts_total` metric that
 counts the number of timed-out shard synchronization attempts.
 
+### RocksDB range delete operations in cluster
+
+<small>Introduced in: v3.9.3</small>
+
+The new `--rocksdb.use-range-delete-in-wal` startup option controls whether the
+collection truncate operation in a cluster can use RangeDelete operations in
+RocksDB. Using RangeDeletes is fast and reduces the algorithmic complexity of
+the truncate operation to O(1), compared to O(n) when this option is turned off
+(with n being the number of documents in the collection/shard).
+
+Previous versions of ArangoDB used RangeDeletes only on a single server, but
+never in a cluster.
+
+The default value for this startup option is `true`, and the option should only
+be changed in case of emergency. This option is only honored in the cluster.
+Single server and Active Failover deployments use RangeDeletes regardless of the
+value of this option.
+
+Note that it is not guaranteed that all truncate operations use a RangeDelete
+operation. For collections containing a low number of documents, the O(n)
+truncate method may still be used.
+
 ### AQL query logging
 
 <small>Introduced in: v3.9.5</small>
