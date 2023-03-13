@@ -301,6 +301,18 @@ It is a boolean option and the default is `false`.
 
 #### Metrics API
 
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+I/O heartbeat metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_ioheartbeat_delays_total` | Total number of delayed I/O heartbeats. |
+| `arangodb_ioheartbeat_duration` | Histogram of execution times in microseconds. |
+| `arangodb_ioheartbeat_failures_total` | Total number of failures. |
+
+---
+
 <small>Introduced in: v3.9.5</small>
 
 The `GET /_admin/metrics/v2` and `GET /_admin/metrics` endpoints includes a new
@@ -326,6 +338,19 @@ The metrics endpoints include the following new edge cache (re-)filling metrics:
 - `rocksdb_cache_auto_refill_loaded_total`
 - `rocksdb_cache_auto_refill_dropped_total`
 - `rocksdb_cache_full_index_refills_total`
+
+---
+
+<small>Introduced in: v3.9.10</small>
+
+The following metrics for write-ahead log (WAL) file tracking have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_live_wal_files` | Number of live RocksDB WAL files. |
+| `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
+| `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
+| `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
 
 ### Endpoints moved
 

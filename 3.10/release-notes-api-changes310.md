@@ -641,6 +641,30 @@ The metrics endpoints include the following new edge cache (re-)filling metrics:
 - `rocksdb_cache_auto_refill_dropped_total`
 - `rocksdb_cache_full_index_refills_total`
 
+---
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+The following metrics for write-ahead log (WAL) file tracking have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_live_wal_files` | Number of live RocksDB WAL files. |
+| `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
+| `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
+| `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
+
+---
+
+The following metric for the number of replication clients for a server has
+been added:
+
+<small>Introduced in: v3.10.5</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_replication_clients` | Number of currently connected/active replication clients. |
+
 #### Pregel API
 
 When loading the graph data into memory, a `"loading"` state is now returned by
