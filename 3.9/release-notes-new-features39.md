@@ -492,6 +492,45 @@ Previously, it was labeled as `index scan` only, obfuscating the fact that
 there are document lookups needed. Covering index queries are still labeled
 `index scan, index only` as before.
 
+### Number of cluster requests in profiling output
+
+<small>Introduced in: v3.9.5</small>
+
+The query profiling output in the web interface and _arangosh_ now shows the
+number of HTTP `Requests` for queries that you run against cluster deployments
+in the `Query Statistics`:
+
+```aql
+Query String (33 chars, cacheable: false):
+ FOR doc IN coll
+   RETURN doc._key
+
+Execution plan:
+ Id   NodeType          Site  Calls   Items   Filtered   Runtime [s]   Comment
+  1   SingletonNode     DBS       3       3          0       0.00024   * ROOT
+  9   IndexNode         DBS       3       0          0       0.00060     - FOR doc IN coll   /* primary index scan, index only (projections: `_key`), 3 shard(s) */    
+  3   CalculationNode   DBS       3       0          0       0.00025       - LET #1 = doc.`_key`   /* attribute expression */   /* collections used: doc : coll */
+  7   RemoteNode        COOR      6       0          0       0.00227       - REMOTE
+  8   GatherNode        COOR      2       0          0       0.00209       - GATHER   /* parallel, unsorted */
+  4   ReturnNode        COOR      2       0          0       0.00008       - RETURN #1
+
+Indexes used:
+ By   Name      Type      Collection   Unique   Sparse   Cache   Selectivity   Fields       Stored values   Ranges
+  9   primary   primary   coll         true     false    false      100.00 %   [ `_key` ]   [  ]            *
+
+Optimization rules applied:
+ Id   RuleName
+  1   scatter-in-cluster
+  2   distribute-filtercalc-to-cluster
+  3   remove-unnecessary-remote-scatter
+  4   reduce-extraction-to-projection
+  5   parallelize-gather
+
+Query Statistics:
+ Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Requests   Peak Mem [b]   Exec Time [s]
+           0            0           0            0               0 / 0          0          9          32768         0.00564
+```
+
 ### Edge cache refilling (experimental)
 
 <small>Introduced in: v3.9.6</small>
