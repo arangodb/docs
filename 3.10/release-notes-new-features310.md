@@ -1120,6 +1120,17 @@ without causing any data imbalance:
   tasks that can run concurrently on server startup. Default: the number of
   cores divided by 8, but at least `1`.
 
+### Agency option to control whether a failed leader adds a shard follower
+
+<small>Introduced in: v3.9.7, v3.10.2</small>
+
+A `--agency.supervision-failed-leader-adds-follower` startup option has been
+added with a default of `true` (behavior as before). If you set this option to
+`false`, a `FailedLeader` job does not automatically configure a new shard
+follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
+for the case that the server comes back quickly. If the server has permanently
+failed, an `AddFollower` job is created anyway eventually.
+
 ## Miscellaneous changes
 
 ### Optimizer rules endpoint
