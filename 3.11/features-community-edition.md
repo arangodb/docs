@@ -48,10 +48,12 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   Persistent document attributes that are generated when documents are created
   or modified, using an AQL expression.
 
-- [**Platform Support**](installation.html#supported-platforms-and-architectures):
+- [**Multiple Environments**](installation.html#supported-platforms-and-architectures):
+  Use ArangoDB as a [managed service](https://cloud.arangodb.com){:target="_blank"},
+  in your own cloud, or on-premises.
   Develop and test with ArangoDB on Linux, macOS, and Windows, and run it in
-  production on Linux. ArangoDB is available for the x86-64 architecture as
-  well as for 64-bit ARM chips on macOS and Linux.
+  production on Linux. ArangoDB is available for 64-bit ARM chips on macOS and
+  Linux as well as for the x86-64 architecture.
 
 ## Scalability & High Availability
 
