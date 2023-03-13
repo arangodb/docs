@@ -862,6 +862,17 @@ Use the accompanying new metrics to check for test failures:
 These metrics are only populated if the new `--database.io-heartbeat` startup
 option is set to `true` (which is the default).
 
+### Lock stripes option for RocksDB transactions
+
+<small>Introduced in: v3.9.2</small>
+
+The new `--rocksdb.transaction-lock-stripes` option controls the number of lock
+stripes to use for RocksDB's transaction lock manager. Higher values can be used
+to reduce a potential contention in the lock manager.
+
+The option defaults to the number of available cores, but is increased to a
+value of `16` if the number of cores is lower.
+
 Client tools
 ------------
 
