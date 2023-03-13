@@ -72,6 +72,23 @@ title: arangod environment variables
    for Linux builds, and it can be turned off by setting this environment
    variable to an empty string, the value of `0` or `off`.
 
+- `CACHE_OBLIVIOUS` _(introduced in v3.9.7, v3.10.3)_
+
+  If set to the string `true`, jemalloc allocates one additional page
+  (4096 bytes) for every allocation of 16384 or more bytes to change the
+  base address if it is not divisible by 4096. This can help the CPU caches if
+  the beginning of such blocks are accessed a lot.
+
+  On the other hand, it increases the memory usage because of the page alignment.
+  The RocksDB buffer cache does most of its allocations for 16384 bytes,
+  increasing the RAM usage by 25%. Setting the option to `false` disables the
+  optimization but the performance is expected to be the same for ArangoDB.
+
+  The default is `true` in 3.9 and 3.10 up to v3.10.3. From v3.10.4 onwards,
+  the default is `false`.
+
+  Also see the [jemalloc documentation](http://jemalloc.net/jemalloc.3.html#opt.cache_oblivious){:target="_blank"}.
+
 - `TZ_DATA` _(introduced in v3.8.0)_
 
    This variable can be used to specify the path to the directory containing

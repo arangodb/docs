@@ -1185,6 +1185,22 @@ The following metrics for traffic accounting were added:
 | `arangodb_client_user_connection_statistics_bytes_sent` | Bytes sent for responses, only user traffic.
 | `arangodb_http1_connections_total` | Total number of HTTP/1.1 connections accepted. |
 
+### Configurable `CACHE_OBLIVIOUS` option for jemalloc
+
+<small>Introduced in: v3.9.7, v3.10.3</small>
+
+The jemalloc memory allocator supports an option to toggle cache-oblivious large
+allocation alignment. It is enabled by default up to v3.10.3, but disabled from
+v3.10.4 onwards. Disabling it helps to save 4096 bytes of memory for every
+allocation which is at least 16384 bytes large. This is particularly beneficial
+for the RocksDB buffer cache.
+
+You can now configure the option by setting a `CACHE_OBLIVIOUS` environment
+variable to the string `true` or `false` before starting ArangoDB.
+
+See [ArangoDB Server environment variables](programs-arangod-env-vars.html)
+for details.
+
 ## Client tools
 
 ### arangobench

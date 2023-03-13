@@ -971,6 +971,21 @@ to reduce a potential contention in the lock manager.
 The option defaults to the number of available cores, but is increased to a
 value of `16` if the number of cores is lower.
 
+### Configurable `CACHE_OBLIVIOUS` option for jemalloc
+
+<small>Introduced in: v3.9.7</small>
+
+The jemalloc memory allocator supports an option to toggle cache-oblivious large
+allocation alignment. It is enabled by default, but disabling it helps to save
+4096 bytes of memory for every allocation which is at least 16384 bytes large.
+This is particularly beneficial for the RocksDB buffer cache.
+
+You can now configure the option by setting a `CACHE_OBLIVIOUS` environment
+variable to the string `true` or `false` before starting ArangoDB.
+
+See [ArangoDB Server environment variables](programs-arangod-env-vars.html)
+for details.
+
 Client tools
 ------------
 
