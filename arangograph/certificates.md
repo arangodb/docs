@@ -124,7 +124,7 @@ well. This operation slightly varies between operating systems.
 
 ## How to connect to your application
 
-[ArangoDB drivers](drivers/index.html), also called connectors, allow you to
+[ArangoDB drivers](../drivers/index.html), also called connectors, allow you to
 easily connect and manipulate ArangoGraph deployments right from within your
 application. 
 
