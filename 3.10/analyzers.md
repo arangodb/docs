@@ -145,7 +145,9 @@ The following Analyzer types are available:
 - [`nearest_neighbors`](#nearest_neighbors): finds the nearest neighbors of the
   input text using a word embedding model (Enterprise Edition only)
 - [`geojson`](#geojson): breaks up a GeoJSON object into a set of indexable tokens
-- [`geopoint`](#geopoint): breaks up a JSON object describing a coordinate into
+- [`geo_s2`](#geo_s2): like `geojson` but offers more efficient formats for
+  indexing geo-spatial data (Enterprise Edition only)
+- [`geopoint`](#geopoint): breaks up JSON data describing a coordinate into
   a set of indexable tokens
 
 The following table compares the Analyzers for **text processing**:
@@ -878,7 +880,7 @@ attributes:
   `type` and `properties` attributes
   
 {% hint 'info' %}
-- You cannot use Analyzers of the types `geopoint` and `geojson` in pipelines.
+- You cannot use Analyzers of the types `geopoint`, `geojson`, and `geo_s2` in pipelines.
   These Analyzers require additional postprocessing and can only be applied to
   document fields directly.
 - The output data type of an Analyzer needs to be compatible with the input
@@ -1231,18 +1233,26 @@ db._query(`LET str = "salt, oil"
 
 <small>Introduced in: v3.8.0</small>
 
-An Analyzer capable of breaking up a GeoJSON object into a set of
-indexable tokens for further usage with
-[ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+An Analyzer capable of breaking up a GeoJSON object or coordinate array in
+`[longitude, latitude]` order into a set of indexable tokens for further usage
+with [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
-GeoJSON object example:
+The Analyzer can be used for two different coordinate representations:
 
-```js
-{
-  "type": "Point",
-  "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
-}
-```
+- a GeoJSON feature like a Point or Polygon, using a JSON object like the following:
+
+  ```js
+  {
+    "type": "Point",
+    "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
+  }
+  ```
+
+- a coordinate array with two numbers as elements in the following format:
+
+  ```js
+  [ -73.97, 40.78 ] // [ longitude, latitude ]
+  ```
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -1302,19 +1312,143 @@ longitude, latitude order:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### `geo_s2`
+
+<small>Introduced in: v3.10.5</small>
+
+{% include hint-ee-arangograph.md feature="The `geo_s2` Analyzer" %}
+
+An Analyzer capable of breaking up a GeoJSON object or coordinate array in
+`[longitude, latitude]` order into a set of indexable tokens for further usage
+with [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+
+The Analyzer is similar to the `geojson` Analyzer, but it internally uses a
+format for storing the geo-spatial data that is more efficient. You can choose
+between different formats to make a tradeoff between the size on disk, the
+precision, and query performance.
+
+The Analyzer can be used for two different coordinate representations:
+
+- a GeoJSON feature like a Point or Polygon, using a JSON object like the following:
+
+  ```js
+  {
+    "type": "Point",
+    "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
+  }
+  ```
+
+- a coordinate array with two numbers as elements in the following format:
+
+  ```js
+  [ -73.97, 40.78 ] // [ longitude, latitude ]
+  ```
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `format` (string, _optional_): the internal binary representation to use for
+  storing the geo-spatial data in an index
+  - `"latLngDouble"` (default): store each latitude and longitude value as an
+    8-byte floating-point value (16 bytes per coordinate). This format preserves
+    numeric values exactly and is more compact than the VelocyPack format used
+    by the `geojson` Analyzer.
+  - `"latLngInt"`: store each latitude and longitude value as an 4-byte integer
+    value (8 bytes per coordinate). This is the most compact format but the
+    precision is limited to approximately 1 to 10 centimeters.
+  - `"s2Point"`: store each longitude-latitude pair in the native format of
+    Google S2 which is used for geo-spatial calculations (24 bytes per coordinate).
+    This is not a particular compact format but it reduces the number of
+    computations necessary when you execute geo-spatial queries.
+    This format preserves numeric values exactly.
+- `type` (string, _optional_):
+  - `"shape"` (default): index all GeoJSON geometry types (Point, Polygon etc.)
+  - `"centroid"`: compute and only index the centroid of the input geometry
+  - `"point"`: only index GeoJSON objects of type Point, ignore all other
+    geometry types
+- `options` (object, _optional_): options for fine-tuning geo queries.
+  These options should generally remain unchanged
+  - `maxCells` (number, _optional_): maximum number of S2 cells (default: 20)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
+
+**Examples**
+
+Create a collection with GeoJSON Points stored in an attribute `location`, a
+`geo_s2` Analyzer with the `latLngInt` format, and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point
+and return the matched documents, including the calculated distance in meters.
+The stored coordinates and the `GEO_POINT()` arguments are expected in
+longitude, latitude order:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerGeoS2
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoS2}
+      var analyzers = require("@arangodb/analyzers");
+      var a = analyzers.save("geo_efficient", "geo_s2", { format: "latLngInt" }, ["frequency", "norm", "position"]);
+      db._create("geo");
+    | db.geo.save([
+    |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
+    |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
+    |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
+      ]);
+    | db._createView("geo_view", "arangosearch", {
+    |   links: {
+    |     geo: {
+    |       fields: {
+    |         location: {
+    |           analyzers: ["geo_efficient"]
+    |         }
+    |       }
+    |     }
+    |   }
+      });
+    ~ assert(db._query(`FOR d IN geo_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 3);
+    | db._query(`LET point = GEO_POINT(6.93, 50.94)
+    |   FOR doc IN geo_view
+    |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_efficient")
+          RETURN MERGE(doc, { distance: GEO_DISTANCE(doc.location, point) })`).toArray();
+    ~ db._dropView("geo_view");
+    ~ analyzers.remove("geo_efficient", true);
+    ~ db._drop("geo");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerGeoS2
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+The calculated distance between the reference point and the coordiante stored in
+the second document is `1825.1307…`. If you change the search condition to
+`< 1825.1303`, then the document is still returned despite the distance being
+higher than this value. This is due to the precision limitations of the
+`latLngInt` format. The returned distance is unaffected because it is calculated
+independent of the Analyzer. If you use either of the other two formats which
+preserve the exact coordinate values, then the document is filtered out as
+expected.
+
 ### `geopoint`
 
 <small>Introduced in: v3.8.0</small>
 
-An Analyzer capable of breaking up JSON object describing a coordinate into a
-set of indexable tokens for further usage with
+An Analyzer capable of breaking up a coordinate array in `[latitude, longitude]`
+order or a JSON object describing a coordinate using two separate attributes
+into a set of indexable tokens for further usage with
 [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
 The Analyzer can be used for two different coordinate representations:
-- an array with two numbers as elements in the format
-  `[<latitude>, <longitude>]`, e.g. `[40.78, -73.97]`.
-- two separate number attributes, one for latitude and one for
-  longitude, e.g. `{ location: { lat: 40.78, lon: -73.97 } }`.
+
+- an array with two numbers as elements in the following format:
+
+  ```js
+  [ 40.78, -73.97 ] // [ latitude, longitude ]
+  ```
+
+- two separate numeric attributes, one for latitude and one for longitude, as
+  shown below:
+
+  ```js
+  { "location": { "lat": 40.78, "lon": -73.97 } }
+  ```
+
   The attributes cannot be at the top level of the document, but must be nested
   like in the example, so that the Analyzer can be defined for the field
   `location` with the Analyzer properties
