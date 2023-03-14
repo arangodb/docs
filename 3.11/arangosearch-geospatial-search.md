@@ -38,6 +38,13 @@ analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
 
 See [`geojson` Analyzer](analyzers.html#geojson) for details.
 
+{% hint 'tip' %}
+In the Enterprise Edition, you can use the `geo_s2` Analyzer instead of the
+`geojson` Analyzer to more efficiently index geo-spatial data. It is mostly a
+drop-in replacement, but you can choose between different binary formats. See
+[Analyzers](analyzers.html#geo_s2) for details.
+{% endhint %}
+
 Create a `geopoint` Analyzer in arangosh to pre-process raw coordinate arrays
 using the default properties, hence passing an empty object:
 

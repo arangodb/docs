@@ -145,7 +145,8 @@ The following Analyzer types are available:
 - [`nearest_neighbors`](#nearest_neighbors): finds the nearest neighbors of the
   input text using a word embedding model (Enterprise Edition only)
 - [`geojson`](#geojson): breaks up a GeoJSON object into a set of indexable tokens
-- [`geo_s2`](#geo_s2): like `geojson` but more efficient (Enterprise Edition only)
+- [`geo_s2`](#geo_s2): like `geojson` but offers more efficient formats for
+  indexing geo-spatial data (Enterprise Edition only)
 - [`geopoint`](#geopoint): breaks up JSON data describing a coordinate into
   a set of indexable tokens
 
@@ -1333,15 +1334,17 @@ attributes:
 - `format` (string, _optional_): the internal binary representation to use for
   storing the geo-spatial data
   - `"latLngDouble"` (default): store each latitude and longitude value as an
-    8-byte floating-point value. This format preserves numeric values exactly
-    and is more compact than the VelocyPack format used by the `geojson` Analyzer.
+    8-byte floating-point value (16 bytes per coordinate). This format preserves
+    numeric values exactly and is more compact than the VelocyPack format used
+    by the `geojson` Analyzer.
   - `"latLngInt"`: store each latitude and longitude value as an 4-byte integer
-    value. This is the most compact format but the precision is limited to
-    approximately 1 to 10 centimeters.
+    value (8 bytes per coordinate). This is the most compact format but the
+    precision is limited to approximately 1 to 10 centimeters.
   - `"s2Point"`: store each longitude-latitude pair in the native format of
-    Google S2 which is used for geo-spatial calculations. This is not a compact
-    format but it reduces the number of computations necessary when you execute
-    geo-spatial queries. This format preserves numeric values exactly.
+    Google S2 which is used for geo-spatial calculations (24 bytes per coordinate).
+    This is not a particular compact format but it reduces the number of
+    computations necessary when you execute geo-spatial queries.
+    This format preserves numeric values exactly.
 - `type` (string, _optional_):
   - `"shape"` (default): index all GeoJSON geometry types (Point, Polygon etc.)
   - `"centroid"`: compute and only index the centroid of the input geometry
@@ -1396,6 +1399,15 @@ longitude, latitude order:
     @endDocuBlock analyzerGeoS2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+The calculated distance between the reference point and the coordiante stored in
+the second document is `1825.1307…`. If you change the search condition to
+`< 1825.1303`, then the document is still returned despite the distance being
+higher than this value. This is due to the precision limitations of the
+`latLngInt` format. The returned distance is unaffected because it is calculated
+independent of the Analyzer. If you use either of the other two formats which
+preserve the exact coordinate values, then the document is filtered out as
+expected.
 
 ### `geopoint`
 
