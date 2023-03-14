@@ -1240,6 +1240,29 @@ Foxx services are also disabled as if you set `--foxx.api false` manually.
 Access to ArangoDB's built-in web interface, which is also a Foxx service, is
 still possible even with the option set to `false`.
 
+### RocksDB auto-flushing
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+A new feature for automatically flushing RocksDB Write-Ahead Log (WAL) files and
+in-memory column family data has been added.
+
+An auto-flush occurs if the number of live WAL files exceeds a certain threshold.
+This ensures that WAL files are moved to the archive when there are a lot of
+live WAL files present, for example, after a restart. In this case, RocksDB does
+not count any previously existing WAL files when calculating the size of WAL
+files and comparing its `max_total_wal_size`. Auto-flushing fixes this problem,
+but may prevent WAL files from being moved to the archive quickly.
+
+You can configure the feature via the following new startup options:
+- `--rocksdb.auto-flush-min-live-wal-files`:
+  The minimum number of live WAL files that triggers an auto-flush. Defaults to `10`.
+- `--rocksdb.auto-flush-check-interval`:
+  The interval (in seconds) in which auto-flushes are executed. Defaults to `3600`.
+  Note that an auto-flush is only executed if the number of live WAL files
+  exceeds the configured threshold and the last auto-flush is longer ago than
+  the configured auto-flush check interval. This avoids too frequent auto-flushes.
+
 ## Miscellaneous changes
 
 ### Optimizer rules endpoint
