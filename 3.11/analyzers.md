@@ -145,7 +145,8 @@ The following Analyzer types are available:
 - [`nearest_neighbors`](#nearest_neighbors): finds the nearest neighbors of the
   input text using a word embedding model (Enterprise Edition only)
 - [`geojson`](#geojson): breaks up a GeoJSON object into a set of indexable tokens
-- [`geopoint`](#geopoint): breaks up a JSON object describing a coordinate into
+- [`geo_s2`](#geo_s2): like `geojson` but more efficient (Enterprise Edition only)
+- [`geopoint`](#geopoint): breaks up JSON data describing a coordinate into
   a set of indexable tokens
 
 The following table compares the Analyzers for **text processing**:
@@ -878,7 +879,7 @@ attributes:
   `type` and `properties` attributes
   
 {% hint 'info' %}
-- You cannot use Analyzers of the types `geopoint` and `geojson` in pipelines.
+- You cannot use Analyzers of the types `geopoint`, `geojson`, and `geo_s2` in pipelines.
   These Analyzers require additional postprocessing and can only be applied to
   document fields directly.
 - The output data type of an Analyzer needs to be compatible with the input
@@ -1299,6 +1300,100 @@ longitude, latitude order:
     ~ db._drop("geo");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerGeoJSON
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `geo_s2`
+
+<small>Introduced in: v3.10.5</small>
+
+{% include hint-ee-arangograph.md feature="The `geo_s2` Analyzer" %}
+
+An Analyzer capable of breaking up a GeoJSON object into a set of
+indexable tokens for further usage with
+[ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+
+The Analyzer is similar to the `geojson` Analyzer, but it internally uses a
+format for storing the geo-spatial data that is more efficient. You can choose
+between different formats to make a tradeoff between the size on disk, the
+precision, and query performance.
+
+GeoJSON object example:
+
+```js
+{
+  "type": "Point",
+  "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
+}
+```
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `format` (string, _optional_): the internal binary representation to use for
+  storing the geo-spatial data
+  - `"latLngDouble"` (default): store each latitude and longitude value as an
+    8-byte floating-point value. This format preserves numeric values exactly
+    and is more compact than the VelocyPack format used by the `geojson` Analyzer.
+  - `"latLngInt"`: store each latitude and longitude value as an 4-byte integer
+    value. This is the most compact format but the precision is limited to
+    approximately 1 to 10 centimeters.
+  - `"s2Point"`: store each longitude-latitude pair in the native format of
+    Google S2 which is used for geo-spatial calculations. This is not a compact
+    format but it reduces the number of computations necessary when you execute
+    geo-spatial queries. This format preserves numeric values exactly.
+- `type` (string, _optional_):
+  - `"shape"` (default): index all GeoJSON geometry types (Point, Polygon etc.)
+  - `"centroid"`: compute and only index the centroid of the input geometry
+  - `"point"`: only index GeoJSON objects of type Point, ignore all other
+    geometry types
+- `options` (object, _optional_): options for fine-tuning geo queries.
+  These options should generally remain unchanged
+  - `maxCells` (number, _optional_): maximum number of S2 cells (default: 20)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
+
+**Examples**
+
+Create a collection with GeoJSON Points stored in an attribute `location`, a
+`geo_s2` Analyzer with the `latLngInt` format, and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point
+and return the matched documents, including the calculated distance in meters.
+The stored coordinates and the `GEO_POINT()` arguments are expected in
+longitude, latitude order:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerGeoS2
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoS2}
+      var analyzers = require("@arangodb/analyzers");
+      var a = analyzers.save("geo_efficient", "geo_s2", { format: "latLngInt" }, ["frequency", "norm", "position"]);
+      db._create("geo");
+    | db.geo.save([
+    |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
+    |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
+    |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
+      ]);
+    | db._createView("geo_view", "arangosearch", {
+    |   links: {
+    |     geo: {
+    |       fields: {
+    |         location: {
+    |           analyzers: ["geo_efficient"]
+    |         }
+    |       }
+    |     }
+    |   }
+      });
+    ~ assert(db._query(`FOR d IN geo_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 3);
+    | db._query(`LET point = GEO_POINT(6.93, 50.94)
+    |   FOR doc IN geo_view
+    |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_efficient")
+          RETURN MERGE(doc, { distance: GEO_DISTANCE(doc.location, point) })`).toArray();
+    ~ db._dropView("geo_view");
+    ~ analyzers.remove("geo_efficient", true);
+    ~ db._drop("geo");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerGeoS2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
