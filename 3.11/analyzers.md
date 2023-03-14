@@ -1233,18 +1233,26 @@ db._query(`LET str = "salt, oil"
 
 <small>Introduced in: v3.8.0</small>
 
-An Analyzer capable of breaking up a GeoJSON object into a set of
-indexable tokens for further usage with
-[ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+An Analyzer capable of breaking up a GeoJSON object or coordinate array in
+`[longitude, latitude]` order into a set of indexable tokens for further usage
+with [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
-GeoJSON object example:
+The Analyzer can be used for two different coordinate representations:
 
-```js
-{
-  "type": "Point",
-  "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
-}
-```
+- a GeoJSON feature like a Point or Polygon, using a JSON object like the following:
+
+  ```js
+  {
+    "type": "Point",
+    "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
+  }
+  ```
+
+- a coordinate array with two numbers as elements in the following format:
+
+  ```js
+  [ -73.97, 40.78 ] // [ longitude, latitude ]
+  ```
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -1310,29 +1318,37 @@ longitude, latitude order:
 
 {% include hint-ee-arangograph.md feature="The `geo_s2` Analyzer" %}
 
-An Analyzer capable of breaking up a GeoJSON object into a set of
-indexable tokens for further usage with
-[ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+An Analyzer capable of breaking up a GeoJSON object or coordinate array in
+`[longitude, latitude]` order into a set of indexable tokens for further usage
+with [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
 The Analyzer is similar to the `geojson` Analyzer, but it internally uses a
 format for storing the geo-spatial data that is more efficient. You can choose
 between different formats to make a tradeoff between the size on disk, the
 precision, and query performance.
 
-GeoJSON object example:
+The Analyzer can be used for two different coordinate representations:
 
-```js
-{
-  "type": "Point",
-  "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
-}
-```
+- a GeoJSON feature like a Point or Polygon, using a JSON object like the following:
+
+  ```js
+  {
+    "type": "Point",
+    "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
+  }
+  ```
+
+- a coordinate array with two numbers as elements in the following format:
+
+  ```js
+  [ -73.97, 40.78 ] // [ longitude, latitude ]
+  ```
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `format` (string, _optional_): the internal binary representation to use for
-  storing the geo-spatial data
+  storing the geo-spatial data in an index
   - `"latLngDouble"` (default): store each latitude and longitude value as an
     8-byte floating-point value (16 bytes per coordinate). This format preserves
     numeric values exactly and is more compact than the VelocyPack format used
@@ -1413,15 +1429,26 @@ expected.
 
 <small>Introduced in: v3.8.0</small>
 
-An Analyzer capable of breaking up JSON object describing a coordinate into a
-set of indexable tokens for further usage with
+An Analyzer capable of breaking up a coordinate array in `[latitude, longitude]`
+order or a JSON object describing a coordinate using two separate attributes
+into a set of indexable tokens for further usage with
 [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
 The Analyzer can be used for two different coordinate representations:
-- an array with two numbers as elements in the format
-  `[<latitude>, <longitude>]`, e.g. `[40.78, -73.97]`.
-- two separate number attributes, one for latitude and one for
-  longitude, e.g. `{ location: { lat: 40.78, lon: -73.97 } }`.
+
+- an array with two numbers as elements in the following format:
+
+  ```js
+  [ 40.78, -73.97 ] // [ latitude, longitude ]
+  ```
+
+- two separate numeric attributes, one for latitude and one for longitude, as
+  shown below:
+
+  ```js
+  { "location": { "lat": 40.78, "lon": -73.97 } }
+  ```
+
   The attributes cannot be at the top level of the document, but must be nested
   like in the example, so that the Analyzer can be defined for the field
   `location` with the Analyzer properties

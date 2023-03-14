@@ -47,9 +47,11 @@ fully contains `geoJsonB` (every point in B is also in A). The object `geoJsonA`
 has to be of type _Polygon_ or _MultiPolygon_. For other types containment is
 not well-defined because of numerical stability problems.
 
-- **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
-- **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
-- returns **bool** (bool): true if every point in B is also contained in A, false otherwise
+- **geoJsonA** (object): first GeoJSON object
+- **geoJsonB** (object): second GeoJSON object, or a coordinate array in
+  `[longitude, latitude]` order
+- returns **bool** (bool): true if every point in B is also contained in A,
+  false otherwise
 
 {% hint 'info' %}
 ArangoDB follows and exposes the same behavior as the underlying
@@ -88,8 +90,10 @@ Return the distance between two GeoJSON objects, measured from the **centroid**
 of each shape. For a list of supported types see the
 [geo index page](../indexing-geo.html#geojson).
 
-- **geoJsonA** (object): first GeoJSON object
-- **geoJsonB** (object): second GeoJSON object
+- **geoJsonA** (object): first GeoJSON object, or a coordinate array in
+  `[longitude, latitude]` order
+- **geoJsonB** (object): second GeoJSON object, or a coordinate array in
+  `[longitude, latitude]` order
 - **ellipsoid** (string, *optional*): reference ellipsoid to use.
   Supported are `"sphere"` (default) and `"wgs84"`.
 - returns **distance** (number): the distance between the centroid points of
@@ -146,7 +150,7 @@ see the [geo index page](../indexing-geo.html#geojson).
 - **geoJson** (object): a GeoJSON object
 - **ellipsoid** (string, *optional*): reference ellipsoid to use.
   Supported are `"sphere"` (default) and `"wgs84"`.
-- returns **area** (number): the area in square meters of the polygon
+- returns **area** (number): the area of the polygon in square meters
 
 ```aql
 LET polygon = {
@@ -163,9 +167,9 @@ RETURN GEO_AREA(polygon, "wgs84")
 Checks whether two GeoJSON objects are equal or not. For a list of supported
 types see the [geo index page](../indexing-geo.html#geojson).
 
-- **geoJsonA** (object): first GeoJSON object
+- **geoJsonA** (object): first GeoJSON object.
 - **geoJsonB** (object): second GeoJSON object.
-- returns **bool** (bool): true for equality.
+- returns **bool** (bool): `true` if they are equal, otherwise `false`.
 
 ```aql
 LET polygonA = GEO_POLYGON([
@@ -192,10 +196,11 @@ RETURN GEO_EQUALS(polygonA, polygonB) // false
 `GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
 
 Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
-intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa).
+intersects with `geoJsonB` (i.e. at least one point in B is also in A or vice-versa).
 
 - **geoJsonA** (object): first GeoJSON object
-- **geoJsonB** (object): second GeoJSON object.
+- **geoJsonB** (object): second GeoJSON object, or a coordinate array in
+  `[longitude, latitude]` order
 - returns **bool** (bool): true if B intersects A, false otherwise
 
 You can optimize queries that contain a `FILTER` expression of the following
@@ -225,10 +230,10 @@ Checks whether the distance between two [GeoJSON objects](../indexing-geo.html#g
 lies within a given interval. The distance is measured from the **centroid** of
 each shape.
 
-- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
-  (in longitude, latitude order)
+- **geoJsonA** (object\|array): first GeoJSON object, or a coordinate array
+  in `[longitude, latitude]` order
+- **geoJsonB** (object\|array): second GeoJSON object, or a coordinate array
+  in `[longitude, latitude]` order
 - **low** (number): minimum value of the desired range
 - **high** (number): maximum value of the desired range
 - **includeLow** (bool, optional): whether the minimum value shall be included
@@ -244,24 +249,24 @@ each shape.
 Determine whether a coordinate is inside a polygon.
 
 {% hint 'warning' %}
-The *IS_IN_POLYGON* AQL function is **deprecated** as of ArangoDB 3.4.0 in
-favor of the new `GEO_CONTAINS` AQL function, which works with
+The `IS_IN_POLYGON()` AQL function is **deprecated** as of ArangoDB 3.4.0 in
+favor of the new [`GEO_CONTAINS()` AQL function](#geo_contains), which works with
 [GeoJSON](https://tools.ietf.org/html/rfc7946){:target="_blank"} Polygons and MultiPolygons.
 {% endhint %}
 
 `IS_IN_POLYGON(polygon, latitude, longitude) → bool`
 
 - **polygon** (array): an array of arrays with 2 elements each, representing the
-  points of the polygon in the format *[lat, lon]*
+  points of the polygon in the format `[latitude, longitude]`
 - **latitude** (number): the latitude portion of the search coordinate
 - **longitude** (number): the longitude portion of the search coordinate
-- returns **bool** (bool): *true* if the point (*latitude*, *longitude*) is
-  inside the *polygon* or *false* if it's not. The result is undefined (can be
-  *true* or *false*) if the specified point is exactly on a boundary of the
+- returns **bool** (bool): `true` if the point (`[latitude, longitude]`) is
+  inside the `polygon` or `false` if it's not. The result is undefined (can be
+  `true` or `false`) if the specified point is exactly on a boundary of the
   polygon.
 
 ```aql
-// will check if the point (lat 4, lon 7) is contained inside the polygon
+// checks if the point (latitude 4, longitude 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], 4, 7 )
 ```
 
@@ -271,27 +276,27 @@ IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], 4, 7 )
 
 The 2nd parameter can alternatively be specified as an array with two values.
 
-By default, each array element in *polygon* is expected to be in the format
-*[lat, lon]*. This can be changed by setting the 3rd parameter to *true* to
-interpret the points as *[lon, lat]*. *coord* will then also be interpreted in
+By default, each array element in `polygon` is expected to be in the format
+`[latitude, longitude]`. This can be changed by setting the 3rd parameter to `true` to
+interpret the points as `[longitude, latitude]`. `coord` is then also interpreted in
 the same way.
 
 - **polygon** (array): an array of arrays with 2 elements each, representing the
   points of the polygon
 - **coord** (array): the search coordinate as a number array with two elements
-- **useLonLat** (bool, *optional*): if set to *true*, the coordinates in
-  *polygon* and the search coordinate *coord* will be interpreted as
-  *[lon, lat]* (GeoJSON). The default is *false* and the format *[lat, lon]* is
-  expected.
-- returns **bool** (bool): *true* if the point *coord* is inside the *polygon*
-  or *false* if it's not. The result is undefined (can be *true* or *false*) if
+- **useLonLat** (bool, *optional*): if set to `true`, the coordinates in
+  `polygon` and the search coordinate `coord` are interpreted as
+  `[longitude, latitude]` (like in GeoJSON). The default is `false` and the
+  format `[latitude, longitude]` is expected.
+- returns **bool** (bool): `true` if the point `coord` is inside the `polygon`
+  or `false` if it's not. The result is undefined (can be `true` or `false`) if
   the specified point is exactly on a boundary of the polygon.
 
 ```aql
-// will check if the point (lat 4, lon 7) is contained inside the polygon
+// checks if the point (lat 4, lon 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], [ 4, 7 ] )
 
-// will check if the point (lat 4, lon 7) is contained inside the polygon
+// checks if the point (lat 4, lon 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 10, 0 ], [ 10, 10 ], [ 0, 10 ] ], [ 7, 4 ], true )
 ```
 
@@ -309,7 +314,7 @@ will help you to make all your AQL queries shorter and easier to read.
 Construct a GeoJSON LineString.
 Needs at least two longitude/latitude pairs.
 
-- **points** (array): number array of longitude/latitude pairs
+- **points** (array): an array of `[longitude, latitude]` pairs
 - returns **geoJson** (object): a valid GeoJSON LineString
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -351,7 +356,7 @@ RETURN GEO_MULTILINESTRING([
 
 Construct a GeoJSON LineString. Needs at least two longitude/latitude pairs.
 
-- **points** (array): number array of longitude/latitude pairs
+- **points** (array): an array of `[longitude, latitude]` pairs
 - returns **geoJson** (object): a valid GeoJSON Point
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -395,7 +400,7 @@ any subsequent linear ring will be interpreted as holes.
 
 For details about the rules, see [GeoJSON polygons](../indexing-geo.html#polygon).
 
-- **points** (array): array of (arrays of) longitude/latitude pairs
+- **points** (array): an array of (arrays of) `[longitude, latitude]` pairs
 - returns **geoJson** (object\|null): a valid GeoJSON Polygon
 
 A validation step is performed using the S2 geometry library. If the
@@ -436,7 +441,7 @@ RETURN GEO_POLYGON([
 Construct a GeoJSON MultiPolygon. Needs at least two Polygons inside.
 See [GEO_POLYGON()](#geo_polygon) and [GeoJSON MultiPolygons](../indexing-geo.html#multipolygon) for the rules of Polygon and MultiPolygon construction.
 
-- **polygons** (array): array of arrays of array of longitude/latitude pairs
+- **polygons** (array): an array of arrays of arrays of `[longitude, latitude]` pairs
 - returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon
 
 A validation step is performed using the S2 geometry library, if the
