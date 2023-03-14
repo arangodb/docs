@@ -37,9 +37,11 @@ application container, it is automatically available in the linked container.
 
 In order to get the IP ArangoDB listens on, run:
 
+{% raw %}
 ```
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' arangodb-instance
 ```
+{% endraw %}
 
 ## Using the instance
 
