@@ -137,7 +137,7 @@ example datasets and manage projects and deployments.
 Alternatively, follow the steps of the linked guides:
 - [Create a new project](arangograph/projects.html#how-to-create-a-new-project) (optional)
 - [Create a new deployment](arangograph/deployments.html#how-to-create-a-new-deployment)
-- [Install a new certificate](arangograph/projects.html#how-to-manage-certificates) (optional)
+- [Install a new certificate](arangograph/certificates.html) (optional)
 - [Access your deployment](arangograph/deployments.html#how-to-access-your-deployment)
 - [Delete your deployment](arangograph/deployments.html#how-to-delete-a-deployment)
 
