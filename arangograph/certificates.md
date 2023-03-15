@@ -24,7 +24,7 @@ certificate's expiration date. An X.509 certificate can be signed by a
 certificate authority (CA) or self-signed.
 
 ArangoGraph is using:
-- **well known X.509 certificates** created by
+- **well-known X.509 certificates** created by
 [Let's Encrypt](https://letsencrypt.org/){:target="_blank"}
 - **self-signed X.509 certificates** created by ArangoGraph platform
 
@@ -68,7 +68,7 @@ TLS connection.
 default ports, i.e. `8529`.
 
 This type of certificate has a lifetime of 5 years and is rotated automatically.
-It is recommended to use well known certificates, as this eases the access of a
+It is recommended to use well-known certificates, as this eases access of a
 deployment in your browser.
 
 ### Self-signed X.509 certificates
