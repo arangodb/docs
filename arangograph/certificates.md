@@ -42,7 +42,7 @@ checks the chain of trust to verify the authenticity of the digital certificate.
 The browser checks to see if the root certificate is trusted, and if it is, it
 trusts the chain of certificates that lead to the end-entity certificate.
 If any of the certificates in the chain are invalid, expired, or revoked, the
-browser will not trust the digital certificate.
+browser does not trust the digital certificate.
 
 ## X.509 certificates in ArangoGraph
 
@@ -74,7 +74,7 @@ deployment in your browser.
 ### Self-signed X.509 certificates
 
 **Self-signed X.509 certificates** are used on the high ports, i.e. `18529`.
-This type of certificate has a lifetime of one year and it is created by the
+This type of certificate has a lifetime of 1 year, and it is created by the
 ArangoGraph platform. It is also rotated automatically before the expiration
 date.
 
@@ -111,7 +111,7 @@ as Subject Alternative Name (SAN).
 ![ArangoGraph Create New Certificate](images/arangograph-new-certificate.png)
 
 Certificates that have the **Use well known certificate** option enabled do
-not need any installation and will be supported by almost all web browsers
+not need any installation and are supported by almost all web browsers
 automatically.
 
 When creating a self-signed certificate that has the **Use well known certificate**
