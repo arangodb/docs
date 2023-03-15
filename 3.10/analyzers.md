@@ -1416,7 +1416,7 @@ longitude, latitude order:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-The calculated distance between the reference point and the coordiante stored in
+The calculated distance between the reference point and the coordinate stored in
 the second document is `1825.1307…`. If you change the search condition to
 `< 1825.1303`, then the document is still returned despite the distance being
 higher than this value. This is due to the precision limitations of the

@@ -50,8 +50,8 @@ not well-defined because of numerical stability problems.
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object, or a coordinate array in
   `[longitude, latitude]` order
-- returns **bool** (bool): true if every point in B is also contained in A,
-  false otherwise
+- returns **bool** (bool): `true` if every point in B is also contained in A,
+  otherwise `false`
 
 {% hint 'info' %}
 ArangoDB follows and exposes the same behavior as the underlying
