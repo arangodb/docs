@@ -85,7 +85,7 @@ ArangoGraph platform. It is also rotated automatically before the expiration
 date.
 
 {% hint 'info' %}
-Unless you switch off the **Use well known certificate** option in the
+Unless you switch off the **Use well-known certificate** option in the
 certificate generation, both the default and high port serve the same
 self-signed certificate.
 {% endhint %}
@@ -115,11 +115,11 @@ the self-signed certificate as Subject Alternative Name (SAN).
 
 ![ArangoGraph Create New Certificate](images/arangograph-new-certificate.png)
 
-Certificates that have the **Use well known certificate** option enabled do
+Certificates that have the **Use well-known certificate** option enabled do
 not need any installation and are supported by almost all web browsers
 automatically.
 
-When creating a self-signed certificate that has the **Use well known certificate**
+When creating a self-signed certificate that has the **Use well-known certificate**
 option disabled, the certificate needs to be installed on your local machine as
 well. This operation slightly varies between operating systems.
 
