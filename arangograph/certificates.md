@@ -11,7 +11,7 @@ description: >-
 {:class="lead"}
 
 X.509 certificates are digital certificates that are used to verify the
-authenticity of a website, user, or organization in a public key infrastructure
+authenticity of a website, user, or organization using a public key infrastructure
 (PKI). They are used in various applications, including SSL/TLS encryption,
 which is the basis for HTTPS - the primary protocol for securing communication
 and data transfer over a network.
@@ -61,15 +61,21 @@ Metrics are accessible on two different port numbers:
 The distinction between these port numbers is in the certificate used for the
 TLS connection.
 
-### Well known X.509 certificates
+### Well-known X.509 certificates
 
-**Well known X.509 certificates** created by
+**Well-known X.509 certificates** created by
 [Let's Encrypt](https://letsencrypt.org/){:target="_blank"} are used on the
 default ports, i.e. `8529`.
 
 This type of certificate has a lifetime of 5 years and is rotated automatically.
 It is recommended to use well-known certificates, as this eases access of a
 deployment in your browser.
+
+{% hint 'info' %}
+The well-known certificate is a wildcard certificate and cannot contain
+Subject Alternative Names (SANs). To include a SAN field, which is needed
+for private endpoints, please use the self-signed certificate.
+{% endhint %}
 
 ### Self-signed X.509 certificates
 
@@ -90,9 +96,8 @@ The Subject Alternative Name (SAN) is an extension to the X.509 specification
 that allows you to specify additional host names for a single SSL certificate.
 
 When using [private endpoints](deployments.html#how-to-create-a-private-endpoint-deployment),
-[notebooks](notebooks.html), and [metrics](monitoring-metrics.html), you can specify 
-alternate domain names. Note that these are added **only** to the self-signed certificate
-as Subject Alternative Name (SAN).
+you can specify alternate domain names. Note that these are added **only** to
+the self-signed certificate as Subject Alternative Name (SAN).
 
 ## How to create a new certificate
 
@@ -125,14 +130,14 @@ well. This operation slightly varies between operating systems.
 ## How to connect to your application
 
 [ArangoDB drivers](../drivers/index.html), also called connectors, allow you to
-easily connect and manipulate ArangoGraph deployments right from within your
-application. 
+easily connect ArangoGraph deployments to your application. 
 
 1. Navigate to the **Deployments** tab and click the **View** button to show the
    deployment page.
 2. In the Quick start section, click the **Connecting drivers** button.
 3. Select your programming language, i.e. Go, Java, Python, etc.
-4. Use the code examples to connect a driver to your deployment.
+4. Follow the examples to connect a driver to your deployment. They include
+   code examples on how to use certificates in your application.
 
 ![ArangoGraph Connecting Drivers](images/arangograph-connecting-drivers.png)
 
@@ -141,10 +146,10 @@ application.
 Every certificate has a self-signed root certificate that is going to expire.
 When certificates that are used in existing deployments are about to expire,
 an automatic rotation of the certificates is triggered. This means that the
-certificate is cloned and all affected deployments then start using
-the cloned certificate. 
+certificate is cloned (all existing settings are copied over to a new certificate)
+and all affected deployments then start using the cloned certificate. 
 
 Based on the type of certificate used, you may also need to install the new
-certificate on your local machine. To prevent any downtime, it is recommended to
-manually create a new certificate and apply the required changes prior
-to the expiration date.
+certificate on your local machine. For example, self-signed certificates require
+installation. To prevent any downtime, it is recommended to manually create a
+new certificate and apply the required changes prior to the expiration date.
