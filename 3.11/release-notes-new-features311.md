@@ -19,10 +19,10 @@ storing the geo-spatial data that is more efficient.
 You can choose between different formats to make a tradeoff between the size on
 disk, the precision, and query performance:
 
-- 8 bytes per coordinate using 4-byte integer values, with limited precision.
-- 16 bytes per coordinate using 8-byte floating-point values, which is still
+- 8 bytes per coordinate pair using 4-byte integer values, with limited precision.
+- 16 bytes per coordinate pair using 8-byte floating-point values, which is still
   more compact than the VelocyPack format used by the `geojson` Analyzer
-- 24 bytes per coordinate using the native Google S2 format to reduce the number
+- 24 bytes per coordinate pair using the native Google S2 format to reduce the number
   of computations necessary when you execute geo-spatial queries.
 
 This feature is only available in the Enterprise Edition.
