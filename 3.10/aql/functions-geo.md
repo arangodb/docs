@@ -17,16 +17,16 @@ see [Geo Indexing](../indexing-geo.html).
 
 `DISTANCE(latitude1, longitude1, latitude2, longitude2) → distance`
 
-Calculate the distance between two arbitrary coordinates in meters (as birds
+Calculate the distance between two arbitrary points in meters (as birds
 would fly). The value is computed using the haversine formula, which is based
 on a spherical Earth model. It's fast to compute and is accurate to around 0.3%,
 which is sufficient for most use cases such as location-aware services.
 
-- **latitude1** (number): the latitude portion of the first coordinate
-- **longitude1** (number): the longitude portion of the first coordinate
-- **latitude2** (number): the latitude portion of the second coordinate
-- **longitude2** (number): the longitude portion of the second coordinate
-- returns **distance** (number): the distance between both coordinates in **meters**
+- **latitude1** (number): the latitude of the first point
+- **longitude1** (number): the longitude of the first point
+- **latitude2** (number): the latitude of the second point
+- **longitude2** (number): the longitude of the second point
+- returns **distance** (number): the distance between both points in **meters**
 
 ```aql
 // Distance from Brandenburg Gate (Berlin) to ArangoDB headquarters (Cologne)
@@ -246,7 +246,7 @@ each shape.
 
 ### IS_IN_POLYGON()
 
-Determine whether a coordinate is inside a polygon.
+Determine whether a point is inside a polygon.
 
 {% hint 'warning' %}
 The `IS_IN_POLYGON()` AQL function is **deprecated** as of ArangoDB 3.4.0 in
@@ -258,8 +258,8 @@ favor of the new [`GEO_CONTAINS()` AQL function](#geo_contains), which works wit
 
 - **polygon** (array): an array of arrays with 2 elements each, representing the
   points of the polygon in the format `[latitude, longitude]`
-- **latitude** (number): the latitude portion of the search coordinate
-- **longitude** (number): the longitude portion of the search coordinate
+- **latitude** (number): the latitude of the point to search
+- **longitude** (number): the longitude of the point to search
 - returns **bool** (bool): `true` if the point (`[latitude, longitude]`) is
   inside the `polygon` or `false` if it's not. The result is undefined (can be
   `true` or `false`) if the specified point is exactly on a boundary of the
@@ -283,9 +283,9 @@ the same way.
 
 - **polygon** (array): an array of arrays with 2 elements each, representing the
   points of the polygon
-- **coord** (array): the search coordinate as a number array with two elements
+- **coord** (array): the point to search as a numeric array with two elements
 - **useLonLat** (bool, *optional*): if set to `true`, the coordinates in
-  `polygon` and the search coordinate `coord` are interpreted as
+  `polygon` and the coordinate pair `coord` are interpreted as
   `[longitude, latitude]` (like in GeoJSON). The default is `false` and the
   format `[latitude, longitude]` is expected.
 - returns **bool** (bool): `true` if the point `coord` is inside the `polygon`
@@ -502,21 +502,21 @@ optimizer will recognize it and accelerate the query.
 Return at most *limit* documents from collection *coll* that are near
 *latitude* and *longitude*. The result contains at most *limit* documents,
 returned sorted by distance, with closest distances being returned first.
-Optionally, the distances in meters between the specified coordinate
-(*latitude* and *longitude*) and the document coordinates can be returned as
+Optionally, the distances in meters between the specified coordinate pair
+(*latitude* and *longitude*) and the stored coordinate pairs can be returned as
 well. To make use of that, the desired attribute  name for the distance result
 has to be specified in the *distanceName* argument. The result documents will
 contain the distance value in an attribute of that name.
 
 - **coll** (collection): a collection
-- **latitude** (number): the latitude portion of the search coordinate
-- **longitude** (number): the longitude portion of the search coordinate
+- **latitude** (number): the latitude of the point to search
+- **longitude** (number): the longitude of the point to search
 - **limit** (number, *optional*): cap the result to at most this number of
   documents. The default is 100. If more documents than *limit* are found,
   it is undefined which ones will be returned.
-- **distanceName** (string, *optional*): include the distance to the search
-  coordinate in each document in the result (in meters), using the attribute
-  name *distanceName*
+- **distanceName** (string, *optional*): include the distance (in meters)
+  between the reference point and the stored point in the result, using the
+  attribute name *distanceName*
 - returns **docArray** (array): an array of documents, sorted by distance
   (shortest distance first)
 
@@ -541,21 +541,21 @@ optimizer will recognize it and accelerate the query.
 `WITHIN(coll, latitude, longitude, radius, distanceName) → docArray`
 
 Return all documents from collection *coll* that are within a radius of *radius*
-around the specified coordinate (*latitude* and *longitude*). The documents
-returned are sorted by distance to the search coordinate, with the closest
-distances being returned first. Optionally, the distance in meters between the
-search coordinate and the document coordinates can be returned as well. To make
+around the specified coordinate pair (*latitude* and *longitude*). The documents
+returned are sorted by distance to the reference point, with the closest
+distances being returned first. Optionally, the distance (in meters) between the
+reference point and the stored point can be returned as well. To make
 use of that, an attribute name for the distance result has to be specified in
 the *distanceName* argument. The result documents will contain the distance
 value in an attribute of that name.
 
 - **coll** (collection): a collection
-- **latitude** (number): the latitude portion of the search coordinate
-- **longitude** (number): the longitude portion of the search coordinate
+- **latitude** (number): the latitude of the point to search
+- **longitude** (number): the longitude of the point to search
 - **radius** (number): radius in meters
-- **distanceName** (string, *optional*): include the distance to the search
-  coordinate in each document in the result (in meters), using the attribute
-  name *distanceName*
+- **distanceName** (string, *optional*): include the distance (in meters)
+  between the reference point and stored point in the result, using the
+  attribute name *distanceName*
 - returns **docArray** (array): an array of documents, sorted by distance
   (shortest distance first)
 
@@ -582,12 +582,8 @@ bounding rectangle with the points (*latitude1*, *longitude1*) and (*latitude2*,
 *longitude2*). There is no guaranteed order in which the documents are returned.
 
 - **coll** (collection): a collection
-- **latitude1** (number): the bottom-left latitude portion of the search
-  coordinate
-- **longitude1** (number): the bottom-left longitude portion of the search
-  coordinate
-- **latitude2** (number): the top-right latitude portion of the search
-  coordinate
-- **longitude2** (number): the top-right longitude portion of the search
-  coordinate
+- **latitude1** (number): the latitude of the bottom-left point to search
+- **longitude1** (number): the longitude of the bottom-left point to search
+- **latitude2** (number): the latitude of the top-right point to search
+- **longitude2** (number): the longitude of the top-right point to search
 - returns **docArray** (array): an array of documents, in random order

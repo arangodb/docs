@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoSearch supports geospatial queries like finding coordinates and GeoJSON shapes within a radius or area
+description: ArangoSearch supports geospatial queries like finding locations and GeoJSON shapes within a radius or area
 title: Geospatial Search ArangoSearch Examples
 ---
 # Geospatial Search with ArangoSearch
@@ -64,7 +64,7 @@ You need to create Geo Analyzers manually. There are no pre-configured
 - The data needs to be pre-processed with a `geojson` or `geo_s2` Analyzer in
   case of GeoJSON or coordinate arrays in `[longitude, latitude]` order.
 
-- For coordinate arrays in `[latitude, longitude]` order coordinates using
+- For coordinate arrays in `[latitude, longitude]` order or coordinate pairs using
   separate attributes, you need to use a `geopoint` Analyzer.
 
 **Custom Analyzers:**
@@ -89,8 +89,8 @@ drop-in replacement, but you can choose between different binary formats. See
 [Analyzers](analyzers.html#geo_s2) for details.
 {% endhint %}
 
-Create a `geopoint` Analyzer in arangosh to pre-process raw coordinate arrays
-using the default properties, hence passing an empty object:
+Create a `geopoint` Analyzer in arangosh using the default properties
+(empty object) to pre-process coordinate arrays in `[latitude, longitude]` order:
 
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
@@ -98,7 +98,7 @@ var analyzers = require("@arangodb/analyzers");
 analyzers.save("geo_pair", "geopoint", {}, ["frequency", "norm", "position"]);
 ```
 
-Create a `geopoint` Analyzer in arangosh to pre-process raw coordinates with
+Create a `geopoint` Analyzer in arangosh to pre-process coordinates with
 latitude and longitude stored in two different attributes. These attributes
 cannot be at the top-level of the document, but must be nested in an object,
 e.g. `{ location: { lat: 40.78, lon: -73.97 } }`. The path relative to the

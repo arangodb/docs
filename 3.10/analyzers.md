@@ -147,7 +147,7 @@ The following Analyzer types are available:
 - [`geojson`](#geojson): breaks up a GeoJSON object into a set of indexable tokens
 - [`geo_s2`](#geo_s2): like `geojson` but offers more efficient formats for
   indexing geo-spatial data (Enterprise Edition only)
-- [`geopoint`](#geopoint): breaks up JSON data describing a coordinate into
+- [`geopoint`](#geopoint): breaks up JSON data describing a coordinate pair into
   a set of indexable tokens
 
 The following table compares the Analyzers for **text processing**:
@@ -1274,7 +1274,7 @@ Create a collection with GeoJSON Points stored in an attribute `location`, a
 `geojson` Analyzer with default properties, and a View using the Analyzer.
 Then query for locations that are within a 3 kilometer radius of a given point
 and return the matched documents, including the calculated distance in meters.
-The stored coordinates and the `GEO_POINT()` arguments are expected in
+The stored coordinate pairs and the `GEO_POINT()` arguments are expected in
 longitude, latitude order:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -1350,14 +1350,14 @@ attributes:
 - `format` (string, _optional_): the internal binary representation to use for
   storing the geo-spatial data in an index
   - `"latLngDouble"` (default): store each latitude and longitude value as an
-    8-byte floating-point value (16 bytes per coordinate). This format preserves
+    8-byte floating-point value (16 bytes per coordinate pair). This format preserves
     numeric values exactly and is more compact than the VelocyPack format used
     by the `geojson` Analyzer.
   - `"latLngInt"`: store each latitude and longitude value as an 4-byte integer
-    value (8 bytes per coordinate). This is the most compact format but the
+    value (8 bytes per coordinate pair). This is the most compact format but the
     precision is limited to approximately 1 to 10 centimeters.
   - `"s2Point"`: store each longitude-latitude pair in the native format of
-    Google S2 which is used for geo-spatial calculations (24 bytes per coordinate).
+    Google S2 which is used for geo-spatial calculations (24 bytes per coordinate pair).
     This is not a particular compact format but it reduces the number of
     computations necessary when you execute geo-spatial queries.
     This format preserves numeric values exactly.
@@ -1378,7 +1378,7 @@ Create a collection with GeoJSON Points stored in an attribute `location`, a
 `geo_s2` Analyzer with the `latLngInt` format, and a View using the Analyzer.
 Then query for locations that are within a 3 kilometer radius of a given point
 and return the matched documents, including the calculated distance in meters.
-The stored coordinates and the `GEO_POINT()` arguments are expected in
+The stored coordinate pairs and the `GEO_POINT()` arguments are expected in
 longitude, latitude order:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -1416,7 +1416,7 @@ longitude, latitude order:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-The calculated distance between the reference point and the coordinate stored in
+The calculated distance between the reference point and the point stored in
 the second document is `1825.1307…`. If you change the search condition to
 `< 1825.1303`, then the document is still returned despite the distance being
 higher than this value. This is due to the precision limitations of the
@@ -1430,7 +1430,7 @@ expected.
 <small>Introduced in: v3.8.0</small>
 
 An Analyzer capable of breaking up a coordinate array in `[latitude, longitude]`
-order or a JSON object describing a coordinate using two separate attributes
+order or a JSON object describing a coordinate pair using two separate attributes
 into a set of indexable tokens for further usage with
 [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
@@ -1471,10 +1471,10 @@ attributes:
 
 **Examples**
 
-Create a collection with coordinates pairs stored in an attribute `location`,
+Create a collection with coordinate pairs stored in an attribute `location`,
 a `geopoint` Analyzer with default properties, and a View using the Analyzer.
 Then query for locations that are within a 3 kilometer radius of a given point.
-The stored coordinates are in latitude, longitude order, but `GEO_POINT()` and
+The stored coordinate pairs are in latitude, longitude order, but `GEO_POINT()` and
 `GEO_DISTANCE()` expect longitude, latitude order:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -1512,7 +1512,7 @@ The stored coordinates are in latitude, longitude order, but `GEO_POINT()` and
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Create a collection with coordinates stored in an attribute `location` as
+Create a collection with coordinate pairs stored in an attribute `location` as
 separate nested attributes `lat` and `lng`, a `geopoint` Analyzer that
 specifies the attribute paths to the latitude and longitude attributes
 (relative to `location` attribute), and a View using the Analyzer.
