@@ -102,7 +102,7 @@ user-defined AQL functions so that no user-defined JavaScript code of
 [UDFs](aql/extending.html) runs on the server. Also see
 [Server security options](security-security-options.html).
 
-### Configurable error code if write concern not fulfilled
+### Configurable status code if write concern not fulfilled
 
 In cluster deployments, you can use a replication factor greater than `1` for
 collections. This creates additional shard replicas for redundancy. For write
@@ -113,7 +113,7 @@ write concern cannot be fulfilled. An error with the HTTP `403 Forbidden`
 status code is returned immediately in this case.
 
 You can now change the status code via the new
-`--cluster.failed-write-concern-error-code` startup option. It defaults to `403`
+`--cluster.failed-write-concern-status-code` startup option. It defaults to `403`
 but you can set it to `503` to use an HTTP `503 Service Unavailable` status code
 instead. This better signals client applications that it is a temporary error.
 

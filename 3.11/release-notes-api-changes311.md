@@ -13,9 +13,9 @@ integrations for ArangoDB 3.11.
 
 ### Behavior changes
 
-#### Error code if write concern not fulfilled
+#### Status code if write concern not fulfilled
 
-The new `--cluster.failed-write-concern-error-code` startup option can be used
+The new `--cluster.failed-write-concern-status-code` startup option can be used
 to change the default `403` status code to `503` when the write concern cannot
 be fulfilled for a write operation to a collection in a cluster deployment.
 This better signals client applications that it is a temporary error. Only the
