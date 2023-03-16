@@ -115,7 +115,7 @@ status code is returned immediately in this case.
 You can now change the status code via the new
 `--cluster.failed-write-concern-status-code` startup option. It defaults to `403`
 but you can set it to `503` to use an HTTP `503 Service Unavailable` status code
-instead. This better signals client applications that it is a temporary error.
+instead. This signals client applications that it is a temporary error.
 
 Note that no automatic retry of the operation is attempted by the cluster if you
 set the startup option to `503`. It only changes the status code to one that
