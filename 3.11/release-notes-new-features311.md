@@ -2,15 +2,34 @@
 layout: default
 description: ArangoDB v3.11 Release Notes New Features
 ---
-Features and Improvements in ArangoDB 3.11
-==========================================
+# Features and Improvements in ArangoDB 3.11
 
 The following list shows in detail which features have been added or improved in
 ArangoDB 3.11. ArangoDB 3.11 also contains several bug fixes that are not listed
 here.
 
-AQL
----
+## Analyzers
+
+### `geo_s2` Analyzer (Enterprise Edition)
+
+This new Analyzer lets you index GeoJSON data with inverted indexes or Views
+similar to the existing `geojson` Analyzer, but it internally uses a format for
+storing the geo-spatial data that is more efficient.
+
+You can choose between different formats to make a tradeoff between the size on
+disk, the precision, and query performance:
+
+- 8 bytes per coordinate pair using 4-byte integer values, with limited precision.
+- 16 bytes per coordinate pair using 8-byte floating-point values, which is still
+  more compact than the VelocyPack format used by the `geojson` Analyzer
+- 24 bytes per coordinate pair using the native Google S2 format to reduce the number
+  of computations necessary when you execute geo-spatial queries.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#geo_s2) for details.
+
+## AQL
 
 ### Added AQL functions
 
@@ -69,8 +88,7 @@ example query, but you can also specify your preferred method explicitly.
 
 See the [`COLLECT` options](aql/operations-collect.html#method) for details.
 
-Server options
---------------
+## Server options
 
 ### Verify `.sst` files
 
@@ -121,3 +139,26 @@ Note that no automatic retry of the operation is attempted by the cluster if you
 set the startup option to `503`. It only changes the status code to one that
 doesn't signal a permanent error like `403` does.
 It is up to client applications to retry the operation.
+
+### RocksDB auto-flushing
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+A new feature for automatically flushing RocksDB Write-Ahead Log (WAL) files and
+in-memory column family data has been added.
+
+An auto-flush occurs if the number of live WAL files exceeds a certain threshold.
+This ensures that WAL files are moved to the archive when there are a lot of
+live WAL files present, for example, after a restart. In this case, RocksDB does
+not count any previously existing WAL files when calculating the size of WAL
+files and comparing its `max_total_wal_size`. Auto-flushing fixes this problem,
+but may prevent WAL files from being moved to the archive quickly.
+
+You can configure the feature via the following new startup options:
+- `--rocksdb.auto-flush-min-live-wal-files`:
+  The minimum number of live WAL files that triggers an auto-flush. Defaults to `10`.
+- `--rocksdb.auto-flush-check-interval`:
+  The interval (in seconds) in which auto-flushes are executed. Defaults to `3600`.
+  Note that an auto-flush is only executed if the number of live WAL files
+  exceeds the configured threshold and the last auto-flush is longer ago than
+  the configured auto-flush check interval. This avoids too frequent auto-flushes.

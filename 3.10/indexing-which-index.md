@@ -84,7 +84,7 @@ different usage scenarios:
   type for each dimension.
 
 - **Geo index**: the geo index provided by ArangoDB allows searching for documents
-  within a radius around a two-dimensional earth coordinate (point), or to
+  within a radius around a two-dimensional location (point) on Earth, or to
   find documents with are closest to a point. Document coordinates can either 
   be specified in two different document attributes or in a single attribute, e.g.
   ```json

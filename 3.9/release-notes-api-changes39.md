@@ -113,13 +113,26 @@ checked on the receiving Coordinator, before any request forwarding.
 
 ### Endpoint return value changes
 
-All collections in ArangoDB are now always in the "loaded" state. APIs return
-return a collection's status will now return it as "loaded", unconditionally.
+- All collections in ArangoDB are now always in the `loaded` state. APIs return
+  return a collection's status will now return it as `loaded`, unconditionally.
 
-The HTTP endpoints for loading and unloading collections (i.e. HTTP PUT
-`/_api/collection/<collection>/load` and HTTP PUT `/_api/collection/<collection>/unload`)
-have been turned into no-ops. They still exist in ArangoDB 3.9, but do not
-serve any purpose and are deprecated.
+- The HTTP endpoints for loading and unloading collections (i.e. HTTP PUT
+  `/_api/collection/<collection>/load` and HTTP PUT `/_api/collection/<collection>/unload`)
+  have been turned into no-ops. They still exist in ArangoDB 3.9, but do not
+  serve any purpose and are deprecated.
+
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8, v3.9.4</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
 
 ### Endpoints added
 
@@ -288,6 +301,18 @@ It is a boolean option and the default is `false`.
 
 #### Metrics API
 
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+I/O heartbeat metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_ioheartbeat_delays_total` | Total number of delayed I/O heartbeats. |
+| `arangodb_ioheartbeat_duration` | Histogram of execution times in microseconds. |
+| `arangodb_ioheartbeat_failures_total` | Total number of failures. |
+
+---
+
 <small>Introduced in: v3.9.5</small>
 
 The `GET /_admin/metrics/v2` and `GET /_admin/metrics` endpoints includes a new
@@ -313,6 +338,19 @@ The metrics endpoints include the following new edge cache (re-)filling metrics:
 - `rocksdb_cache_auto_refill_loaded_total`
 - `rocksdb_cache_auto_refill_dropped_total`
 - `rocksdb_cache_full_index_refills_total`
+
+---
+
+<small>Introduced in: v3.9.10</small>
+
+The following metrics for write-ahead log (WAL) file tracking have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_live_wal_files` | Number of live RocksDB WAL files. |
+| `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
+| `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
+| `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
 
 ### Endpoints moved
 

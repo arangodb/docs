@@ -106,6 +106,15 @@ reserved for internal use.
 Existing indexes are not affected but you cannot create new indexes with a
 preceding or trailing colon using the `POST /_api/index` endpoint.
 
+#### Analyzer types
+
+The `/_api/analyzer` endpoint supports a new Analyzer type in the
+Enterprise Edition:
+
+- [`geo_s2`](analyzers.html#geo_s2) (introduced in v3.10.5):
+  Like the existing `geojson` Analyzer, but with an additional `format` property
+  that can be set to `"latLngDouble"` (default), `"latLngInt"`, or `"s2Point"`.
+
 ### Endpoints moved
 
 

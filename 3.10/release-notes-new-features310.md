@@ -480,6 +480,27 @@ This feature is only available in the Enterprise Edition.
 
 See [Analyzers](analyzers.html#nearest_neighbors) for details.
 
+### `geo_s2` Analyzer (Enterprise Edition)
+
+<small>Introduced in: v3.10.5</small>
+
+This new Analyzer lets you index GeoJSON data with inverted indexes or Views
+similar to the existing `geojson` Analyzer, but it internally uses a format for
+storing the geo-spatial data that is more efficient.
+
+You can choose between different formats to make a tradeoff between the size on
+disk, the precision, and query performance:
+
+- 8 bytes per coordinate pair using 4-byte integer values, with limited precision.
+- 16 bytes per coordinate pair using 8-byte floating-point values, which is still
+  more compact than the VelocyPack format used by the `geojson` Analyzer
+- 24 bytes per coordinate pair using the native Google S2 format to reduce the number
+  of computations necessary when you execute geo-spatial queries.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#geo_s2) for details.
+
 ## Web Interface
 
 The 3.10 release of ArangoDB introduces a new Web UI for **Views** that allows
@@ -666,6 +687,45 @@ Query Statistics:
            0            0           0        71000            689 / 11      10300          98304         0.15389
 ```
 
+### Number of cluster requests in profiling output
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+The query profiling output in the web interface and _arangosh_ now shows the
+number of HTTP requests for queries that you run against cluster deployments in
+the `Query Statistics`:
+
+```aql
+Query String (33 chars, cacheable: false):
+ FOR doc IN coll
+   RETURN doc._key
+
+Execution plan:
+ Id   NodeType          Site  Calls   Items   Filtered   Runtime [s]   Comment
+  1   SingletonNode     DBS       3       3          0       0.00024   * ROOT
+  9   IndexNode         DBS       3       0          0       0.00060     - FOR doc IN coll   /* primary index scan, index only (projections: `_key`), 3 shard(s) */    
+  3   CalculationNode   DBS       3       0          0       0.00025       - LET #1 = doc.`_key`   /* attribute expression */   /* collections used: doc : coll */
+  7   RemoteNode        COOR      6       0          0       0.00227       - REMOTE
+  8   GatherNode        COOR      2       0          0       0.00209       - GATHER   /* parallel, unsorted */
+  4   ReturnNode        COOR      2       0          0       0.00008       - RETURN #1
+
+Indexes used:
+ By   Name      Type      Collection   Unique   Sparse   Cache   Selectivity   Fields       Stored values   Ranges
+  9   primary   primary   coll         true     false    false      100.00 %   [ `_key` ]   [  ]            *
+
+Optimization rules applied:
+ Id   RuleName
+  1   scatter-in-cluster
+  2   distribute-filtercalc-to-cluster
+  3   remove-unnecessary-remote-scatter
+  4   reduce-extraction-to-projection
+  5   parallelize-gather
+
+Query Statistics:
+ Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Requests   Peak Mem [b]   Exec Time [s]
+           0            0           0            0               0 / 0          0          9          32768         0.00564
+```
+
 ### Index Lookup Optimization
 
 ArangoDB 3.10 features a new optimization for index lookups that can help to
@@ -805,10 +865,11 @@ enabled, by adding new, updating existing, or deleting and refilling cache
 entries.
 
 You can enable it for individual `INSERT`, `UPDATE`, `REPLACE`,  and `REMOVE`
-operations in AQL queries, for individual document API requests that insert,
-update, replace, or remove single or multiple edge documents, as well as enable
-it by default using the new `--rocksdb.auto-refill-index-caches-on-modify`
-startup option.
+operations in AQL queries (using `OPTIONS { refillIndexCaches: true }`), for
+individual document API requests that insert, update, replace, or remove single
+or multiple edge documents (by setting `refillIndexCaches=true` as query
+parameter), as well as enable it by default using the new
+`--rocksdb.auto-refill-index-caches-on-modify` startup option.
 
 The new `--rocksdb.auto-refill-index-caches-queue-capacity` startup option
 restricts how many edge cache entries the background thread can queue at most.
@@ -846,6 +907,42 @@ Also see:
 - [AQL `REMOVE` operation](aql/operations-remove.html#refillindexcaches)
 - [Document HTTP API](http/document-working-with-documents.html)
 - [Edge cache refill options](#edge-cache-refill-options)
+
+### Extended query explain statistics
+
+<small>Introduced in: v3.10.4</small>
+
+The query explain result now includes the peak memory usage and execution time.
+This helps finding queries that use a lot of memory or take long to build the
+execution plan.
+
+The additional statistics are displayed at the end of the output in the
+web interface (using the **Explain** button in the **QUERIES** section) and in
+_arangosh_ (using `db._explain()`):
+
+```
+44 rule(s) executed, 1 plan(s) created, peak mem [b]: 32768, exec time [s]: 0.00214
+```
+
+The HTTP API returns the extended statistics in the `stats` attribute when you
+use the `POST /_api/explain` endpoint:
+
+```json
+{
+  ...
+  "stats": {
+    "rulesExecuted": 44,
+    "rulesSkipped": 0,
+    "plansCreated": 1,
+    "peakMemoryUsage": 32768,
+    "executionTime": 0.00241307167840004
+  }
+}
+```
+
+Also see:
+- [API Changes in ArangoDB 3.10](release-notes-api-changes310.html#explain-api)
+- [The AQL query optimizer](aql/execution-and-performance-optimizer.html#optimizer-statistics)
 
 ## Indexes
 
@@ -990,7 +1087,7 @@ let the instance respond to the `/_api/version`, `/_admin/version`, and
 
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
 
-### RocksDB startup options
+### Cache RocksDB index and filter blocks by default
 
 The default value of the `--rocksdb.cache-index-and-filter-blocks` startup option was changed
 from `false` to `true`. This makes RocksDB track all loaded index and filter blocks in the 
@@ -1014,19 +1111,25 @@ It is possible to opt out of these changes and get back the memory and performan
 of previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
 and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
-The new `--rocksdb.use-range-delete-in-wal` startup option controls whether the collection 
-truncate operation in a cluster can use RangeDelete operations in RocksDB. Using RangeDeletes
-is fast and reduces the algorithmic complexity of the truncate operation to O(1), compared to
-O(n) when this option is turned off (with n being the number of documents in the 
-collection/shard).
-Previous versions of ArangoDB used RangeDeletes only on a single server, but never in a cluster. 
+### RocksDB range delete operations in cluster
 
-The default value for this startup option is `true`, and the option should only be changed in
-case of emergency. This option is only honored in the cluster. Single server and active failover
-deployments will use RangeDeletes regardless of the value of this option.
+The new `--rocksdb.use-range-delete-in-wal` startup option controls whether the
+collection truncate operation in a cluster can use RangeDelete operations in
+RocksDB. Using RangeDeletes is fast and reduces the algorithmic complexity of
+the truncate operation to O(1), compared to O(n) when this option is turned off
+(with n being the number of documents in the collection/shard).
 
-Note that it is not guaranteed that all truncate operations will use a RangeDelete operation. 
-For collections containing a low number of documents, the O(n) truncate method may still be used.
+Previous versions of ArangoDB used RangeDeletes only on a single server, but
+never in a cluster.
+
+The default value for this startup option is `true`, and the option should only
+be changed in case of emergency. This option is only honored in the cluster.
+Single server and Active Failover deployments use RangeDeletes regardless of the
+value of this option.
+
+Note that it is not guaranteed that all truncate operations use a RangeDelete
+operation. For collections containing a low number of documents, the O(n)
+truncate method may still be used.
 
 ### Pregel configuration options
 
@@ -1114,6 +1217,73 @@ without causing any data imbalance:
   tasks that can run concurrently on server startup. Default: the number of
   cores divided by 8, but at least `1`.
 
+---
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+- `--rocksdb.auto-refill-index-caches-on-followers`: Control whether automatic
+  refilling of in-memory caches should happen on followers or only leaders.
+  The default value is `true`, i.e. refilling happens on followers, too.
+
+### Agency option to control whether a failed leader adds a shard follower
+
+<small>Introduced in: v3.9.7, v3.10.2</small>
+
+A `--agency.supervision-failed-leader-adds-follower` startup option has been
+added with a default of `true` (behavior as before). If you set this option to
+`false`, a `FailedLeader` job does not automatically configure a new shard
+follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
+for the case that the server comes back quickly. If the server has permanently
+failed, an `AddFollower` job is created anyway eventually.
+
+### RocksDB Bloom filter option
+
+<small>Introduced in: v3.10.3</small>
+
+A new `--rocksdb.bloom-filter-bits-per-key` startup option has been added to
+configure the number of bits to use per key in a Bloom filter.
+
+The default value is `10`, which is downwards-compatible to the previously
+hard-coded value.
+
+### Option to disable Foxx
+
+<small>Introduced in: v3.10.5</small>
+
+A `--foxx.enable` startup option has been added to let you configure whether
+access to user-defined Foxx services is possible for the instance. It defaults
+to `true`.
+
+If you set the option to `false`, access to Foxx services is forbidden and is
+responded with an HTTP `403 Forbidden` error. Access to the management APIs for
+Foxx services are also disabled as if you set `--foxx.api false` manually.
+
+Access to ArangoDB's built-in web interface, which is also a Foxx service, is
+still possible even with the option set to `false`.
+
+### RocksDB auto-flushing
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+A new feature for automatically flushing RocksDB Write-Ahead Log (WAL) files and
+in-memory column family data has been added.
+
+An auto-flush occurs if the number of live WAL files exceeds a certain threshold.
+This ensures that WAL files are moved to the archive when there are a lot of
+live WAL files present, for example, after a restart. In this case, RocksDB does
+not count any previously existing WAL files when calculating the size of WAL
+files and comparing its `max_total_wal_size`. Auto-flushing fixes this problem,
+but may prevent WAL files from being moved to the archive quickly.
+
+You can configure the feature via the following new startup options:
+- `--rocksdb.auto-flush-min-live-wal-files`:
+  The minimum number of live WAL files that triggers an auto-flush. Defaults to `10`.
+- `--rocksdb.auto-flush-check-interval`:
+  The interval (in seconds) in which auto-flushes are executed. Defaults to `3600`.
+  Note that an auto-flush is only executed if the number of live WAL files
+  exceeds the configured threshold and the last auto-flush is longer ago than
+  the configured auto-flush check interval. This avoids too frequent auto-flushes.
+
 ## Miscellaneous changes
 
 ### Optimizer rules endpoint
@@ -1167,6 +1337,46 @@ The following metrics for traffic accounting were added:
 | `arangodb_client_user_connection_statistics_bytes_received` | Bytes received for requests, only user traffic. |
 | `arangodb_client_user_connection_statistics_bytes_sent` | Bytes sent for responses, only user traffic.
 | `arangodb_http1_connections_total` | Total number of HTTP/1.1 connections accepted. |
+
+### Configurable `CACHE_OBLIVIOUS` option for jemalloc
+
+<small>Introduced in: v3.9.7, v3.10.3</small>
+
+The jemalloc memory allocator supports an option to toggle cache-oblivious large
+allocation alignment. It is enabled by default up to v3.10.3, but disabled from
+v3.10.4 onwards. Disabling it helps to save 4096 bytes of memory for every
+allocation which is at least 16384 bytes large. This is particularly beneficial
+for the RocksDB buffer cache.
+
+You can now configure the option by setting a `CACHE_OBLIVIOUS` environment
+variable to the string `true` or `false` before starting ArangoDB.
+
+See [ArangoDB Server environment variables](programs-arangod-env-vars.html)
+for details.
+
+### WAL file tracking metrics
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+The following metrics for write-ahead log (WAL) file tracking have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_live_wal_files` | Number of live RocksDB WAL files. |
+| `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
+| `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
+| `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
+
+### Number of replication clients metric
+
+The following metric for the number of replication clients for a server has
+been added:
+
+<small>Introduced in: v3.10.5</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_replication_clients` | Number of currently connected/active replication clients. |
 
 ## Client tools
 
