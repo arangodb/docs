@@ -32,6 +32,12 @@ considered obsolete and may get removed in a future release. They are currently
 kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
+- **Custom Pregel**:
+  The experimental feature "Custom Pregel" has been removed.
+  
+- **Pregel Algorithm DMID**:
+  The Pregel Algorithm "DMID" has been deprecated and will be removed in a future release.
+
 - **Leader/Follower Deployment Mode**:
   The Leader/Follower deployment type is deprecated and already removed from
   documentation. Active Failover and OneShard databases in clusters are better
