@@ -54,7 +54,7 @@ Documents which are expired are eventually removed by a background thread.
 ### Geo-spatial index
 
 A geo-spatial index can accelerate queries that filter and sort by the distance
-between stored coordinates and coordinates provided in a query.
+between stored points and points provided in a query.
 
 ### Multi-dimensional index
 

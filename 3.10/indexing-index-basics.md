@@ -343,7 +343,7 @@ Geo Index
 Users can create additional geo indexes on one or multiple attributes in collections. 
 A geo index is used to find places on the surface of the earth fast. 
 
-The geo index stores two-dimensional coordinates. It can be created on either two 
+The geo index stores two-dimensional coordinate pairs. It can be created on either two 
 separate document attributes (latitude and longitude) or a single array attribute that
 contains both latitude and longitude. Latitude and longitude must be numeric values.
 
@@ -353,9 +353,9 @@ GeoJSON uses the JSON syntax to describe geometric objects on the surface
 of the Earth. It supports points, lines, and polygons.
 See [Geo-Spatial Indexes](indexing-geo.html).
 
-The geo index provides operations to find documents with coordinates nearest to a given 
-comparison coordinate, and to find documents with coordinates that are within a specifiable
-radius around a comparison coordinate.
+The geo index provides operations to find documents with locations nearest to a given 
+comparison location, and to find documents with locations that are within a specifiable
+radius around a comparison location.
 
 The geo index is used via dedicated functions in AQL
 and it is implicitly applied when a `SORT` or `FILTER` is used with

@@ -324,7 +324,7 @@ data about geographic shapes on the Earth surface. GeoJSON uses a geographic
 coordinate reference system, World Geodetic System 1984 (WGS 84), and units of decimal
 degrees.
 
-Internally ArangoDB maps all coordinates onto a unit sphere. Distances are
+Internally ArangoDB maps all coordinate pairs onto a unit sphere. Distances are
 projected onto a sphere with the Earth's *Volumetric mean radius* of *6371
 km*. ArangoDB implements a useful subset of the GeoJSON format
 [(RFC 7946)](https://tools.ietf.org/html/rfc7946){:target="_blank"}.
@@ -355,7 +355,7 @@ violation of the GeoJSON standard, but serving a practical purpose.
 
 Note in particular that this can sometimes lead to unexpected results.
 Consider the following polygon (remember that GeoJSON has
-**longitude before latitude** in coordinates):
+**longitude before latitude** in coordinate pairs):
 
 ```json
 { "type": "Polygon", "coordinates": [[
@@ -479,8 +479,8 @@ an array of LineString coordinate arrays:
 
 A [GeoJSON Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6){:target="_blank"} consists
 of a series of closed `LineString` objects (ring-like). These *Linear Ring*
-objects consist of four or more vertices with the first and last
-coordinate pairs being equal. Coordinates of a Polygon are an array of
+objects consist of four or more coordinate pairs with the first and last
+coordinate pair being equal. Coordinate pairs of a Polygon are an array of
 linear ring coordinate arrays. The first element in the array represents
 the exterior ring. Any subsequent elements represent interior rings
 (holes within the surface).
@@ -506,15 +506,13 @@ parser):
 - A polygon must contain at least one linear ring, i.e., it must not be
   empty.
 - A linear ring may not be empty, it needs at least three _distinct_
-  coordinates, that is, at least 4 coordinate pairs (since the first and
+  coordinate pairs, that is, at least 4 coordinate pairs (since the first and
   last must be the same).
 - No two edges of linear rings in the polygon must intersect, in
   particular, no linear ring may be self-intersecting.
-- Within the same linear ring consecutive coordinates may be the same,
-  otherwise (except the first and last one) all coordinates need to be
-  distinct.
-- Linear rings of a polygon must not share edges, they may however share
-  vertices.
+- Within the same linear ring, consecutive coordinate pairs may be the same,
+  otherwise all coordinate pairs need to be distinct (except the first and last one).
+- Linear rings of a polygon must not share edges, but they may share coordinate pairs.
 - A linear ring defines two regions on the sphere. ArangoDB will always
   interpret the region that lies to the left of the boundary ring (in
   the direction of its travel on the surface of the Earth) as the
@@ -587,8 +585,8 @@ MultiPolygons:
 
 - No two edges in the linear rings of the polygons of a MultiPolygon
   may intersect.
-- Polygons in the same MultiPolygon may not share edges, they may share
-  coordinates.
+- Polygons in the same MultiPolygon may not share edges, but they may share
+  coordinate pairs.
 
 Example with two polygons, the second one with a hole:
 
@@ -644,14 +642,14 @@ A geo index is implicitly sparse, and there is no way to control its
 sparsity.
 
 The index does not provide a `unique` option because of its limited usability.
-It would prevent identical coordinates from being inserted only, but even a
+It would prevent identical coordinate pairs from being inserted only, but even a
 slightly different location (like 1 inch or 1 cm off) would be unique again and
 not considered a duplicate, although it probably should. The desired threshold
 for detecting duplicates may vary for every project (including how to calculate
 the distance even) and needs to be implemented on the application layer as
 needed. You can write a [Foxx service](foxx.html) for this purpose and
 make use of the AQL [geo functions](aql/functions-geo.html) to find nearby
-coordinates supported by a geo index.
+locations supported by a geo index.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.

@@ -373,7 +373,7 @@ search highlighting capabilities for Views.
 
 #### Analyzer types
 
-The `/_api/analyzer` endpoint supports three new Analyzer types in the
+The `/_api/analyzer` endpoint supports new Analyzer types in the
 Enterprise Edition:
 
 - [`minhash`](analyzers.html#minhash):
@@ -388,6 +388,10 @@ Enterprise Edition:
 - [`nearest_neighbors`](analyzers.html#nearest_neighbors) (experimental):
   It has two properties, `model_location` (string) and `top_k` (number, optional,
   default: `1`).
+
+- [`geo_s2`](analyzers.html#geo_s2) (introduced in v3.10.5):
+  Like the existing `geojson` Analyzer, but with an additional `format` property
+  that can be set to `"latLngDouble"` (default), `"latLngInt"`, or `"s2Point"`.
 
 #### Views API
 

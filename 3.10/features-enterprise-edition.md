@@ -59,6 +59,10 @@ features outlined below. For additional information, see
   Jaccard similarity approximation for entity resolution, such as for finding
   duplicate records, based on how many elements they have in common
 
+- [**`geo_s2` Analyzer**](analyzers.html#geo_s2):
+  Efficiently index geo-spatial data using different binary formats, tuning the
+  size on disk, the precision, and query performance.
+
 - [**ArangoSearch column cache**](release-notes-new-features310.html#arangosearch-column-cache-enterprise-edition):
   Always cache field normalization values, stored values, primary sort columns,
   and primary key columns in memory to improve the performance of Views and
@@ -92,7 +96,7 @@ features outlined below. For additional information, see
   Datacenter-to-Datacenter Replication for disaster recovery.
 
 - [**Auditing**](security-auditing.html):
-  Audit log of all server interactions.
+  Audit logs of all server interactions.
 
 - [**LDAP Authentication**](programs-arangod-ldap.html):
   ArangoDB user authentication with an LDAP server.

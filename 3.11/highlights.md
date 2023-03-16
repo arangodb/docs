@@ -17,7 +17,9 @@ grouped by version
 
 **Enterprise Edition**
 
-- 
+- [**`geo_s2` Analyzer**](analyzers.html#geo_s2):
+  Efficiently index geo-spatial data using different binary formats, tuning the
+  size on disk, the precision, and query performance.
 
 Also see [What's New in 3.11](release-notes-new-features311.html).
 

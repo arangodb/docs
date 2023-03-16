@@ -201,7 +201,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   Time-based removal of expired documents.
 
 - [**Geo-spatial Indexes**](indexing-index-basics.html#geo-index):
-  Accelerated geo-spatial queries for coordinates and GeoJSON objects, based on
+  Accelerated geo-spatial queries for locations and GeoJSON objects, based on
   the S2 library. <!-- TODO: list supported queries? Centroid-limitations? -->
   Support for composable, distance-based geo-queries ("geo cursors").
 
