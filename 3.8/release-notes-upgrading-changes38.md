@@ -370,6 +370,19 @@ as a database only. It may have an effect for Foxx applications that use HTTP
   names and the new, corrected format of the output. Over time, you can
   then retire your old metrics collection process and dashboards.
 
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
+
 ### Optional lockdown of `/_admin/cluster` REST API
 
 ArangoDB 3.8 provides a new startup option `--cluster.api-jwt-policy` that

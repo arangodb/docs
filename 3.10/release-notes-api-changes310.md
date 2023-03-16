@@ -13,6 +13,8 @@ integrations for ArangoDB 3.10.
 
 ### Behavior changes
 
+#### Early connections
+
 The HTTP interface of _arangod_ instances can now optionally be started earlier
 during the startup process, so that ping probes from monitoring tools can
 already be responded to when the instance has not fully started.
@@ -32,20 +34,60 @@ The following APIs can reply early with an HTTP 200 status:
   
 See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes) for more details.
 
+#### Validation of collections in named graphs
+
+The `/_api/gharial` endpoints for named graphs have changed:
+
+- If you reference a vertex collection in the `_from` or `_to` attribute of an
+  edge that doesn't belong to the graph, an error with the number `1947` is
+  returned. The HTTP status code of such an `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error has been changed from `400` to `404`. This change aligns the behavior to
+  the similar `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED` error (number `1930`).
+
+- Write operations now check if the specified vertex or edge collection is part
+  of the graph definition. If you try to create a vertex via
+  `POST /_api/gharial/{graph}/vertex/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error is returned. If you try to create an edge via
+  `POST /_api/gharial/{graph}/edge/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the error is `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED`.
+
+#### Disabled Foxx APIs
+
+<small>Introduced in: v3.10.5</small>
+
+A `--foxx.enable` startup option has been added to _arangod_. It defaults to `true`.
+If the option is set to `false`, access to Foxx services is forbidden and is
+responded with an HTTP `403 Forbidden` error. Access to the management APIs for
+Foxx services are also disabled as if `--foxx.api false` is set manually.
+
 ### Endpoint return value changes
 
-Since ArangoDB 3.8, there have been two APIs for retrieving the metrics in two
-different formats: `/_admin/metrics` and `/_admin/metrics/v2`.
-The metrics API v1 (`/_admin/metrics`) was deprecated in 3.8 and the usage of
-`/_admin/metrics/v2` was encouraged.
+- Since ArangoDB 3.8, there have been two APIs for retrieving the metrics in two
+  different formats: `/_admin/metrics` and `/_admin/metrics/v2`.
+  The metrics API v1 (`/_admin/metrics`) was deprecated in 3.8 and the usage of
+  `/_admin/metrics/v2` was encouraged.
 
-In ArangoDB 3.10, `/_admin/metrics` and `/_admin/metrics/v2` now behave
-identically and return the same output in a fully Prometheus-compatible format.
-The old metrics format is not available anymore.
+  In ArangoDB 3.10, `/_admin/metrics` and `/_admin/metrics/v2` now behave
+  identically and return the same output in a fully Prometheus-compatible format.
+  The old metrics format is not available anymore.
 
-For the metrics APIs at `/_admin/metrics` and `/_admin/metrics/v2`, unnecessary
-spaces have been removed between the `}` delimiting the labels and the value of
-the metric.
+  For the metrics APIs at `/_admin/metrics` and `/_admin/metrics/v2`, unnecessary
+  spaces have been removed between the `}` delimiting the labels and the value of
+  the metric.
+
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
 
 ### Endpoints added
 
@@ -373,7 +415,7 @@ search highlighting capabilities for Views.
 
 #### Analyzer types
 
-The `/_api/analyzer` endpoint supports three new Analyzer types in the
+The `/_api/analyzer` endpoint supports new Analyzer types in the
 Enterprise Edition:
 
 - [`minhash`](analyzers.html#minhash):
@@ -388,6 +430,10 @@ Enterprise Edition:
 - [`nearest_neighbors`](analyzers.html#nearest_neighbors) (experimental):
   It has two properties, `model_location` (string) and `top_k` (number, optional,
   default: `1`).
+
+- [`geo_s2`](analyzers.html#geo_s2) (introduced in v3.10.5):
+  Like the existing `geojson` Analyzer, but with an additional `format` property
+  that can be set to `"latLngDouble"` (default), `"latLngInt"`, or `"s2Point"`.
 
 #### Views API
 
@@ -599,6 +645,30 @@ The metrics endpoints include the following new edge cache (re-)filling metrics:
 - `rocksdb_cache_auto_refill_dropped_total`
 - `rocksdb_cache_full_index_refills_total`
 
+---
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+The following metrics for write-ahead log (WAL) file tracking have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_live_wal_files` | Number of live RocksDB WAL files. |
+| `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
+| `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
+| `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
+
+---
+
+The following metric for the number of replication clients for a server has
+been added:
+
+<small>Introduced in: v3.10.5</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_replication_clients` | Number of currently connected/active replication clients. |
+
 #### Pregel API
 
 When loading the graph data into memory, a `"loading"` state is now returned by
@@ -640,6 +710,18 @@ query parameter `serverId`, to forward log level get and set requests to a
 specific server. This makes it easier to adjust the log levels in clusters
 because DB-Servers require JWT authentication whereas Coordinators also support
 authentication using usernames and passwords.
+
+#### Explain API
+
+<small>Introduced in: v3.10.4</small>
+
+The `POST /_api/explain` endpoint for explaining AQL queries includes the
+following two new statistics in the `stats` attribute of the response now:
+
+- `peakMemoryUsage` (number): The maximum memory usage of the query during
+  explain (in bytes)
+- `executionTime` (number): The (wall-clock) time in seconds needed to explain
+  the query.
 
 ## JavaScript API
 

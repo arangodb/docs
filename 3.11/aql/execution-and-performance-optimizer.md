@@ -611,7 +611,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `remove-sort-rand-limit-1`:
   Appears when a `SORT RAND() LIMIT 1` construct is removed by moving the
   random iteration into an `EnumerateCollectionNode`.
-  
+
   The RocksDB storage engine doesn't allow to seek random documents efficiently.
   This optimization picks a pseudo-random document based on a limited number of
   seeks within the collection's key range, selecting a random start key in the
