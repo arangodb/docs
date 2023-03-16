@@ -1,6 +1,8 @@
 ---
 layout: default
 description: ArangoDB Server Options
+page-toc:
+  max-headline-level: 2
 ---
 ArangoDB Server Options
 =======================
