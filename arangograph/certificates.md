@@ -74,7 +74,7 @@ deployment in your browser.
 {% hint 'info' %}
 The well-known certificate is a wildcard certificate and cannot contain
 Subject Alternative Names (SANs). To include a SAN field, which is needed
-for private endpoints, please use the self-signed certificate.
+for private endpoints, please use the self-signed certificate option.
 {% endhint %}
 
 ### Self-signed X.509 certificates
@@ -121,7 +121,7 @@ automatically.
 
 When creating a self-signed certificate that has the **Use well-known certificate**
 option disabled, the certificate needs to be installed on your local machine as
-well. This operation slightly varies between operating systems.
+well. This operation varies between operating systems.
 
 ![ArangoGraph Certificates](images/arangograph-cert-page-with-cert-present.png)
 
