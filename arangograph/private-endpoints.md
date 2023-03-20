@@ -23,7 +23,7 @@ located in the same region.
 
 {% hint 'info' %}
 For more information about the certificates used for private endpoints, please
-refer to the [How to manage certificates](projects.html#how-to-manage-certificates)
+refer to the [How to manage certificates](certificates.html)
 section.
 {% endhint %}
 
