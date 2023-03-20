@@ -95,6 +95,8 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichDatabase` - returns the database name you are connected to.
 - `%createDatabase databaseName` - creates a database.
 - `%selectDatabase databaseName` - selects a database as the current database.
+- `%useDatabase databasename` - uses a database as the current database; shares
+  the same function with `%selectDatabase`.
 - `%getDatabase databaseName` - gets a database. Used for assigning a database,
    e.g. `studentDB` = `getDatabase student_database`.
 - `%deleteDatabase databaseName` - deletes the database.
@@ -105,6 +107,8 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichGraph` - returns the graph name that is currently selected.
 - `%createGraph graphName` - creates a named graph.
 - `%selectGraph graphName` - selects the graph as the current graph.
+- `%useGraph graphName` - uses the graph as the current graph; shares the same
+  function with `%selectGraph`.
 - `%getGraph graphName` - gets the graph for variable assignment, 
   e.g. `studentGraph` = `%getGraph student-graph`.
 - `%deleteGraph graphName` - deletes a graph.
@@ -115,8 +119,10 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichCollection` - returns the collection name that is currently selected.
 - `%createCollection collectionName` - creates a collection.
 - `%selectCollection collectionName` - selects a collection as the current collection.
+- `%useCollection collectionName` - 
 - `%getCollection collectionName` - gets a collection for variable assignment,
   e.g. `student` = `% getCollection Student`.
+- `%createEdge` - creates an edge collection.    
 - `%deleteCollection collectionName` - deletes the collection.
 - `%truncateCollection collectionName` - truncates the collection.
 - `%sampleCollection collectionName` - returns a random document from the collection.
@@ -152,3 +158,8 @@ You can also create your own variable assignments, such as:
 - `schoolDB` = `%getDatabase schoolDB`
 - `school_graph` = `%getGraph school_graph`
 - `student` = `%getCollection Student`
+
+**Reset environment**
+
+In the event that any of the above variables have been unintentionally changed,
+you can revert all of them to the default state with `reset_environment()`.
