@@ -262,8 +262,7 @@ Private endpoints on Microsoft Azure can be cross region; in AWS they should be 
 
 {% hint 'info' %}
 For more information about the certificates used for private endpoints, please
-refer to the [How to manage certificates](projects.html#how-to-manage-certificates)
-section.
+refer to the [Certificates](certificates.html) page.
 {% endhint %}
 
 ### Google Cloud Platform
