@@ -42,6 +42,8 @@ minor version, then the deployment is initially using ArangoDB `3.10.3`.
 Each minor version’s availability within ArangoGraph is based on the end of
 life date of that particular minor version of ArangoDB, as published in the
 [ArangoDB EoL policy](https://www.arangodb.com/master-services-agreement-inc-august-2019/#eolpolicy){:target="_blank"}.
+You can refer to the upcoming EoL versions on the
+[end of life announcements](https://www.arangodb.com/subscriptions/end-of-life-notice/) page.
 
 You can create new deployments of ArangoDB using a minor version up to one
 month before the planned end of life date.
