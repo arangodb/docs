@@ -165,14 +165,15 @@ At this point your ArangoDB deployment is available for you to use — **Have fu
 {% hint 'info' %}
 Each deployment is accessible on two ports:
 
-- Port 8529 is the standard port recommended for use by web-browsers.
-- Port 18529 is the alternate port that is recommended for use by automated services.
+- Port `8529` is the standard port recommended for use by web-browsers.
+- Port `18529` is the alternate port that is recommended for use by automated services.
 
 The difference between these ports is the certificate used. If you enable
-__Use well known certificate__, the certificates used on port 8529 is well known
+__Use well-known certificate__, the certificates used on port `8529` is well-known
 and automatically accepted by most web browsers. The certificate used on port
-18529 is a self-signed certificate. For securing automated services, the use of
-a self-signed certificate is recommended.
+`18529` is a self-signed certificate. For securing automated services, the use of
+a self-signed certificate is recommended. Read more on the
+[Certificates](certificates.html) page.
 {% endhint %}
 
 ## How to enable the root user password rotation
@@ -215,7 +216,7 @@ For more details about available resources and usage limits, refer to the
 2. Open the deployment you want to change. 
 3. On the **Overview** tab, click the **Edit** button. 
 4. In the **Version and Security** section, you can do the following:
-   - Modify the DB version that is currently being used.
+   - Upgrade the ArangoDB version that is currently being used.
    - Select a different CA certificate.
    - Add or remove an IP allowlist.
 5. In the **Configuration** section, you can do the following:
