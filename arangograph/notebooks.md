@@ -119,7 +119,8 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichCollection` - returns the collection name that is currently selected.
 - `%createCollection collectionName` - creates a collection.
 - `%selectCollection collectionName` - selects a collection as the current collection.
-- `%useCollection collectionName` - 
+- `%useCollection collectionName` - uses the collection as the current collection;
+  shares the same function with `%selectCollection`.
 - `%getCollection collectionName` - gets a collection for variable assignment,
   e.g. `student` = `% getCollection Student`.
 - `%createEdge` - creates an edge collection.    
