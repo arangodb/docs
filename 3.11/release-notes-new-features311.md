@@ -99,11 +99,14 @@ Modification queries were also not allowed to use parallel gather unless the
 `--query.parallelize-gather-writes` option was enabled, which defaulted to false.
 
 From v3.11.0 onward these limitations are removed so that parallel gather can be
-used in almost all queries. This can not only speed up queries quite significantly,
-but also overcomes issues with the previous serial processing within gather nodes,
-which could lead to high memory usage on coordinators caused by buffering of
-documents for other shards, and timeouts on some DB-Servers because query parts
-were idle for too long.
+used in almost all queries. As a result the `--query.parallelize-gather-writes`
+option is now also obsolete.
+
+This optimization can not only speed up queries quite significantly, but also
+overcomes issues with the previous serial processing within gather nodes, which
+could lead to high memory usage on coordinators caused by buffering of documents
+for other shards, and timeouts on some DB-Servers because query parts were idle
+for too long.
 
 The only case where we cannot yet use parallel gather is when using traversals,
 although there are some exceptions for disjoint SmartGraphs where the traversal
