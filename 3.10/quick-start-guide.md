@@ -13,10 +13,11 @@ This chapter introduces ArangoDB's core concepts and covers the following:
   documentation
 
 You can also find examples on how to interact with the database system
-using [arangosh](programs-arangosh.html), e.g. how to create and
-drop databases / collections, or how to save, update, replace and remove
-documents. You can do all this using the [web interface](getting-started-web-interface.html)
-as well.
+using ArangoDB's command-line tool called [arangosh](programs-arangosh.html).
+To learn more about the ways you can use and communicate with ArangoDB servers,
+see [How to Interact With ArangoDB](how-to-interact-with-arangodb.html).
+For example, you can create and drop databases/collections as well as save,
+update, replace, and remove documents using ArangoDB's web interface or a driver.
 
 Learn more about ArangoDB's [data model and concepts](data-model-and-concepts.html).
 
