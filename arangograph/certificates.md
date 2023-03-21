@@ -95,7 +95,7 @@ self-signed certificate.
 The Subject Alternative Name (SAN) is an extension to the X.509 specification 
 that allows you to specify additional host names for a single SSL certificate.
 
-When using [private endpoints](deployments.html#how-to-create-a-private-endpoint-deployment),
+When using [private endpoints](private-endpoints.html),
 you can specify alternate domain names. Note that these are added **only** to
 the self-signed certificate as Subject Alternative Name (SAN).
 
