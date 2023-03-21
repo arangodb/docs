@@ -13,6 +13,12 @@
   href: projects.html
 - text: Deployments
   href: deployments.html
+  expand: true
+  children: 
+    - text: Private endpoints
+      href: private-endpoints.html
+    - text: Upgrades and Versioning
+      href: upgrades-versioning.html
 - text: Notebooks
   href: notebooks.html  
 - text: Migrate to the cloud
@@ -25,6 +31,8 @@
   href: access-control.html
   expand: true
   children:
+    - text: X.509 Certificates
+      href: certificates.html
     - text: Single Sign-On
       href: single-sign-on.html
       children:

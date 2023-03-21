@@ -35,6 +35,6 @@ example datasets and manage projects and deployments.
 Alternatively, follow the steps of the linked guides:
 - [Create a new project](projects.html#how-to-create-a-new-project) (optional)
 - [Create a new deployment](deployments.html#how-to-create-a-new-deployment)
-- [Install a new certificate](projects.html#how-to-manage-certificates) (optional)
+- [Install a new certificate](certificates.html) (optional)
 - [Access your deployment](deployments.html#how-to-access-your-deployment)
 - [Delete your deployment](deployments.html#how-to-delete-a-deployment)
