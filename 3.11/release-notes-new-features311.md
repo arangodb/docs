@@ -88,6 +88,27 @@ example query, but you can also specify your preferred method explicitly.
 
 See the [`COLLECT` options](aql/operations-collect.html#method) for details.
 
+### Parallel Gather
+
+Previously, a cluster AQL query could only parallelize a GatherNode if if the
+DB-Server query part above it (in terms of query execution plan layout) was a
+terminal part of the query. That means that it was not allowed for other nodes of
+type `ScatterNode`, `GatherNode` or `DistributeNode` to be present in the query.
+
+Modification queries were also not allowed to use parallel gather unless the
+`--query.parallelize-gather-writes` option was enabled, which defaulted to false.
+
+From v3.11.0 onward these limitations are removed so that parallel gather can be
+used in almost all queries. This can not only speed up queries quite significantly,
+but also overcomes issues with the previous serial processing within gather nodes,
+which could lead to high memory usage on coordinators caused by buffering of
+documents for other shards, and timeouts on some DB-Servers because query parts
+were idle for too long.
+
+The only case where we cannot yet use parallel gather is when using traversals,
+although there are some exceptions for disjoint SmartGraphs where the traversal
+can run completely on the local DB-server (only available in Enterprise Edition).
+
 ## Server options
 
 ### Verify `.sst` files
