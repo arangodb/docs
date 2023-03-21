@@ -10,7 +10,7 @@ description: >-
 {:class="lead"}
 
 {% hint 'info' %}
-Please note that this policy comes into effect in April.
+Please note that this policy comes into effect in April 2023.
 {% endhint %}
 
 ## Release Definitions
@@ -25,12 +25,10 @@ The following definitions are used for release types of ArangoDB within ArangoGr
 
 ## Release Channels
 
-When creating a deployment in ArangoGraph, you can to select the minor version
+When creating a deployment in ArangoGraph, you can select the minor version
 of ArangoDB that your deployment is going to use. This minor version is in the
 format `Major.Minor` and indicates the major and minor version of ArangoDB that
 is used in this deployment, for example `3.10` or `3.9`.
-
-![ArangoGraph Version and Security](images/arangograph-version-security.png)
 
 To provide secure and reliable service, databases are deployed on the latest
 available patch version in the selected version. For example, if `3.10` is
