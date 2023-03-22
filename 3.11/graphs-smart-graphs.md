@@ -43,7 +43,7 @@ Do the hands-on
 [ArangoDB SmartGraphs Tutorial](https://www.arangodb.com/using-smartgraphs-arangodb/){:target="_blank"}
 to learn more.
 
-## How SmartGraphs work?
+## How SmartGraphs work
 
 Typically, when you shard your data with ArangoDB the goal is to have an even
 distribution of data across multiple servers. This approach allows you to scale
