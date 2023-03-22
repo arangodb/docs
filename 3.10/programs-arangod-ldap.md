@@ -187,7 +187,7 @@ the following options are available:
     As default no file path is configured. This certificate
     is used to validate the server response.
 - `--ldap.tls-cacert-dir`: a directory path to certificate authority certificates in
-    [c_rehash](https://www.openssl.org/docs/man1.0.2/apps/c_rehash.html){:target="_blank"}
+    [c_rehash](https://www.openssl.org/docs/man1.1.1/man1/c_rehash.html){:target="_blank"}
     format. As default no directory path is configured.
 
 Assuming you have the TLS CAcert file that is given to the server at
