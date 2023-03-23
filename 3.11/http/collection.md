@@ -104,8 +104,8 @@ http://localhost:8529/_api/collection/demo
 {% docublock get_api_collection_collection_count, h4 %}
 {% docublock get_api_collection_collection_figures, h4 %}
 {% docublock put_api_collection_collection_responsibleShard, h4 %}
-{% docublock get_api_collection_shards, h4 %}
 {% docublock get_api_collection_collection_shards, h4 %}
+{% docublock get_api_collection_collection_revision, h4 %}
 {% docublock get_api_collection_collection_checksum, h4 %}
 {% docublock get_api_collection, h4 %}
 
