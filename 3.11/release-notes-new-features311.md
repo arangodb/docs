@@ -2,15 +2,34 @@
 layout: default
 description: ArangoDB v3.11 Release Notes New Features
 ---
-Features and Improvements in ArangoDB 3.11
-==========================================
+# Features and Improvements in ArangoDB 3.11
 
 The following list shows in detail which features have been added or improved in
 ArangoDB 3.11. ArangoDB 3.11 also contains several bug fixes that are not listed
 here.
 
-AQL
----
+## Analyzers
+
+### `geo_s2` Analyzer (Enterprise Edition)
+
+This new Analyzer lets you index GeoJSON data with inverted indexes or Views
+similar to the existing `geojson` Analyzer, but it internally uses a format for
+storing the geo-spatial data that is more efficient.
+
+You can choose between different formats to make a tradeoff between the size on
+disk, the precision, and query performance:
+
+- 8 bytes per coordinate pair using 4-byte integer values, with limited precision.
+- 16 bytes per coordinate pair using 8-byte floating-point values, which is still
+  more compact than the VelocyPack format used by the `geojson` Analyzer
+- 24 bytes per coordinate pair using the native Google S2 format to reduce the number
+  of computations necessary when you execute geo-spatial queries.
+
+This feature is only available in the Enterprise Edition.
+
+See [Analyzers](analyzers.html#geo_s2) for details.
+
+## AQL
 
 ### Added AQL functions
 
@@ -38,8 +57,38 @@ you enable the new `allowRetry` query option. See
 [API Changes in ArangoDB 3.11](release-notes-api-changes311.html#cursor-api)
 for details.
 
-Server options
---------------
+### `COLLECT ... INTO` can use `hash` method
+
+Grouping with the `COLLECT` operation supports two different methods, `hash` and
+`sorted`. For `COLLECT` operations with an `INTO` clause, only the `sorted` method
+was previously supported, but the `hash` variant has been extended to now support
+`INTO` clauses as well.
+
+```aql
+FOR i IN 1..10
+  COLLECT v = i % 2 INTO group // OPTIONS { method: "hash" }
+  SORT null
+  RETURN { v, group }
+```
+
+```aql
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   CalculationNode        1     - LET #3 = 1 .. 10   /* range */   /* simple expression */
+  3   EnumerateListNode     10     - FOR i IN #3   /* list iteration */
+  4   CalculationNode       10       - LET #5 = (i % 2)   /* simple expression */
+  5   CollectNode            8       - COLLECT v = #5 INTO group KEEP i   /* hash */
+  8   CalculationNode        8       - LET #9 = { "v" : v, "group" : group }   /* simple expression */
+  9   ReturnNode             8       - RETURN #9
+```
+
+The query optimizer automatically chooses the `hash` method for the above
+example query, but you can also specify your preferred method explicitly.
+
+See the [`COLLECT` options](aql/operations-collect.html#method) for details.
+
+## Server options
 
 ### Verify `.sst` files
 
@@ -70,3 +119,46 @@ The new `--javascript.user-defined-functions` startup option lets you disable
 user-defined AQL functions so that no user-defined JavaScript code of
 [UDFs](aql/extending.html) runs on the server. Also see
 [Server security options](security-security-options.html).
+
+### Configurable status code if write concern not fulfilled
+
+In cluster deployments, you can use a replication factor greater than `1` for
+collections. This creates additional shard replicas for redundancy. For write
+operations to these collections, you can define how many replicas need to
+acknowledge the write for the operation to succeed. This option is called the
+write concern. If there are not enough in-sync replicas available, the
+write concern cannot be fulfilled. An error with the HTTP `403 Forbidden`
+status code is returned immediately in this case.
+
+You can now change the status code via the new
+`--cluster.failed-write-concern-status-code` startup option. It defaults to `403`
+but you can set it to `503` to use an HTTP `503 Service Unavailable` status code
+instead. This signals client applications that it is a temporary error.
+
+Note that no automatic retry of the operation is attempted by the cluster if you
+set the startup option to `503`. It only changes the status code to one that
+doesn't signal a permanent error like `403` does.
+It is up to client applications to retry the operation.
+
+### RocksDB auto-flushing
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+A new feature for automatically flushing RocksDB Write-Ahead Log (WAL) files and
+in-memory column family data has been added.
+
+An auto-flush occurs if the number of live WAL files exceeds a certain threshold.
+This ensures that WAL files are moved to the archive when there are a lot of
+live WAL files present, for example, after a restart. In this case, RocksDB does
+not count any previously existing WAL files when calculating the size of WAL
+files and comparing its `max_total_wal_size`. Auto-flushing fixes this problem,
+but may prevent WAL files from being moved to the archive quickly.
+
+You can configure the feature via the following new startup options:
+- `--rocksdb.auto-flush-min-live-wal-files`:
+  The minimum number of live WAL files that triggers an auto-flush. Defaults to `10`.
+- `--rocksdb.auto-flush-check-interval`:
+  The interval (in seconds) in which auto-flushes are executed. Defaults to `3600`.
+  Note that an auto-flush is only executed if the number of live WAL files
+  exceeds the configured threshold and the last auto-flush is longer ago than
+  the configured auto-flush check interval. This avoids too frequent auto-flushes.

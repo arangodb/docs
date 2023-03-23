@@ -13,6 +13,15 @@ integrations for ArangoDB 3.11.
 
 ### Behavior changes
 
+#### Status code if write concern not fulfilled
+
+The new `--cluster.failed-write-concern-status-code` startup option can be used
+to change the default `403` status code to `503` when the write concern cannot
+be fulfilled for a write operation to a collection in a cluster deployment.
+This signals client applications that it is a temporary error. Only the
+HTTP status code changes in this case, no automatic retry of the operation is
+attempted by the cluster.
+
 #### Graph API (Gharial)
 
 The `POST /_api/gharial/` endpoint for creating named graphs validates the
@@ -96,6 +105,15 @@ reserved for internal use.
 
 Existing indexes are not affected but you cannot create new indexes with a
 preceding or trailing colon using the `POST /_api/index` endpoint.
+
+#### Analyzer types
+
+The `/_api/analyzer` endpoint supports a new Analyzer type in the
+Enterprise Edition:
+
+- [`geo_s2`](analyzers.html#geo_s2) (introduced in v3.10.5):
+  Like the existing `geojson` Analyzer, but with an additional `format` property
+  that can be set to `"latLngDouble"` (default), `"latLngInt"`, or `"s2Point"`.
 
 ### Endpoints moved
 

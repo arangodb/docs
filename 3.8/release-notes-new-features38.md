@@ -1046,8 +1046,25 @@ batch (1000).
 _arangoexport_ now has a `--query-max-runtime` option to limit the runtime of
 queries it executes.
 
+### _arangorestore_ option to enable revision trees
+
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+A new `--enable-revision-trees` option has been added to _arangorestore_, which
+adds the `syncByRevision` and `usesRevisionsAsDocumentIds` attributes to the
+collection structure if they are missing. As a consequence, these collections
+created by arangorestore are able to use revision trees and a faster
+getting-in-sync procedure after a restart.
+
+The option defaults to `true`, meaning that the attributes are added if they are
+missing. If you set the option to `false`, the attributes are not added to the
+collection structure. If the attributes are already present in the dump data, they
+are not modified by arangorestore, irrespective of the setting of this option.
+
 Miscellaneous
 -------------
+
+### Cluster support for two APIs
 
 - Added cluster support for the JavaScript API method `collection.checksum()`
   and the REST HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
@@ -1056,6 +1073,25 @@ Miscellaneous
 - Added cluster support for the JavaScript API method `db._engineStats()`
   and the REST HTTP API endpoint `GET /_api/engine/stats`, which provide
   runtime information about the storage engine state.
+
+### I/O heartbeat
+
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+An I/O heartbeat has been added which checks that the underlying volume is
+writable with reasonable performance. The test is done every 15 seconds and can
+be switched off.
+
+Use the accompanying new metrics to check for test failures:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_ioheartbeat_delays_total` | Total number of delayed I/O heartbeats. |
+| `arangodb_ioheartbeat_duration` | Histogram of execution times in microseconds. |
+| `arangodb_ioheartbeat_failures_total` | Total number of failures. |
+
+These metrics are only populated if the new `--database.io-heartbeat` startup
+option is set to `true` (which is the default).
 
 Internal changes
 ----------------

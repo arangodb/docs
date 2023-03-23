@@ -63,14 +63,32 @@ and thus enable the new polygon parsing.
 
 Note that linear rings are not normalized automatically from version 3.10 onward,
 following the [GeoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
-The 'interior' of a polygon strictly conforms to the GeoJSON standard:
+The "interior" of a polygon strictly conforms to the GeoJSON standard:
 it lies to the left of the boundary line (in the direction of travel along the
 boundary line on the surface of the Earth). This can be the "larger" connected
 component of the surface, or the smaller one. Note that this differs from the
-[interpretation of GeoJSON polygons in version 3.9](../3.9/indexing-geo.html#polygon)
-and older. This can mean that old polygon GeoJSON data in the database is
+interpretation of GeoJSON polygons in version 3.9 and older:
+
+| `legacyPolygons` enabled | `legacyPolygons` disabled |
+|:-------------------------|:--------------------------|
+| The smaller of the two regions defined by a linear ring is interpreted as the interior of the ring. | The area to the left of the boundary ring's path is considered to be the interior. |
+| A ring can at most enclose half the Earth's surface | A ring can enclose the entire surface of the Earth |
+
+This can mean that old polygon GeoJSON data in the database is
 suddenly interpreted in a different way. See
 [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
+Also see the definition of [Polygons](indexing-geo.html#polygon).
+
+Maximum Array / Object Nesting
+------------------------------
+
+When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
+VelocyPack, there is a maximum recursion depth for nested arrays and objects, which is slightly 
+below 200. Arrays or objects with higher nesting than this will cause `Too deep nesting in Array/Object`
+exceptions. 
+The limit is also enforced when converting any server data to JavaScript in Foxx, or
+when sending JavaScript input data from Foxx to a server API.
+This maximum recursion depth is hard-coded in arangod and all client tools.
 
 Startup Options
 ---------------
@@ -178,16 +196,39 @@ memory-mapped files: `--pregel.memory-mapped-files` and `--pregel.memory-mapped-
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-options.html#pregel).
 
-Maximum Array / Object Nesting
-------------------------------
+HTTP RESTful API
+----------------
 
-When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
-VelocyPack, there is a maximum recursion depth for nested arrays and objects, which is slightly 
-below 200. Arrays or objects with higher nesting than this will cause `Too deep nesting in Array/Object`
-exceptions. 
-The limit is also enforced when converting any server data to JavaScript in Foxx, or
-when sending JavaScript input data from Foxx to a server API.
-This maximum recursion depth is hard-coded in arangod and all client tools.
+### Validation of collections in named graphs
+
+The `/_api/gharial` endpoints for named graphs have changed:
+
+- If you reference a vertex collection in the `_from` or `_to` attribute of an
+  edge that doesn't belong to the graph, an error with the number `1947` is
+  returned. The HTTP status code of such an `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error has been changed from `400` to `404`. This change aligns the behavior to
+  the similar `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED` error (number `1930`).
+
+- Write operations now check if the specified vertex or edge collection is part
+  of the graph definition. If you try to create a vertex via
+  `POST /_api/gharial/{graph}/vertex/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error is returned. If you try to create an edge via
+  `POST /_api/gharial/{graph}/edge/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the error is `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED`.
+
+### Encoding of revision IDs
+
+<small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+
+- `GET /_api/collection/<collection-name>/revision`: The revision ID was
+  previously returned as numeric value, and now it is returned as
+  a string value with either numeric encoding or HLC-encoding inside.
+- `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+  the `revision` attribute was previously encoded as a numeric value
+  in single server, and as a string in cluster. This is now unified so
+  that the `revision` attribute always contains a string value with
+  either numeric encoding or HLC-encoding inside.
 
 Client Tools
 ------------

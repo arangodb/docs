@@ -1186,6 +1186,23 @@
     Usually, drop-follower events should only happen if servers are
     restarted or if there are real problems on followers.
 
+- name: arangodb_flush_subscriptions
+  introducedIn: "3.9.10"
+  help: |
+    Number of currently active flush subscriptions.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exposes the number of currently active flush subscriptions.
+    Flush subscriptions can be created by arangosearch links and by background
+    index creation.
+
 - name: arangodb_heartbeat_failures_total
   renamedFrom: arangodb_heartbeat_failures
   introducedIn: "3.8.0"
@@ -5298,6 +5315,23 @@
     It shows the total size in bytes of all SST files belonging to the latest
     LSM tree, summed over all column families.
 
+- name: rocksdb_live_wal_files
+  introducedIn: "3.9.10"
+  help: |
+    Number of live RocksDB WAL files.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exhibits the total number of live RocksDB WAL files. These are
+    WAL files that cannot be garbage-collected until they are moved over to the
+    archive.
+
 - name: rocksdb_mem_table_flush_pending
   introducedIn: "3.6.1"
   help: |
@@ -5781,6 +5815,48 @@
     an instance is started, so that other instances in the cluster can start
     replicating from the instance before all archived WAL files are deleted.
     The value should flip from 0 to 1 a few minutes after server start.
+
+- name: rocksdb_wal_released_tick_flush
+  introducedIn: "3.9.10"
+  help: |
+    Lower bound sequence number from which WAL files need to be kept because
+    of external flushing needs.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exposes the RocksDB WAL sequence number from which onwards 
+    WAL files have to be kept because the WAL data could be used by external
+    flushing needs. WAL files with sequence numbers higher than this value
+    will not be garbage-collected.
+    The candidates that can keep WAL files from being garbage-collected are
+    arangosearch links or inverted indexes that are still syncing data,
+    and background index creation.
+
+- name: rocksdb_wal_released_tick_replication
+  introducedIn: "3.9.10"
+  help: |
+    Lower bound sequence number from which WAL files need to be kept because
+    of replication.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exposes the RocksDB WAL sequence number from which onwards 
+    WAL files have to kept in the archive because the WAL data could be used
+    by the replication.
+    WAL files with sequence numbers higher than this value will not be 
+    garbage-collected.
 
 - name: rocksdb_wal_sequence
   introducedIn: "3.8.5"

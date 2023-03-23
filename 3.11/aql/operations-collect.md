@@ -320,8 +320,8 @@ If the method is explicitly set to *sorted*, then the optimizer will always use
 the *sorted* variant of `COLLECT` and not even create a plan using the *hash*
 variant. If it is explicitly set to *hash*, then the optimizer will create a
 plan using the *hash* method **only if the `COLLECT` statement qualifies**.
-Not all `COLLECT` statements can use the *hash* method, in particular ones with
-an `INTO` clause are not eligible. In case the `COLLECT` statement qualifies,
+Not all `COLLECT` statements can use the *hash* method, in particular ones that
+do not perform any grouping. In case the `COLLECT` statement qualifies,
 there will only be one plan that uses the *hash* method. Otherwise, the
 optimizer will default to the *sorted* method.
 
