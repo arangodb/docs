@@ -10,12 +10,12 @@ of the [graph module](../graphs.html)
 on the [knows graph](../graphs.html#the-knows_graph):
 
 ![Social Example Graph](../images/knows_graph.png)
-{% docublock general_graph_edge_create_http_examples %}
-{% docublock general_graph_edge_get_http_examples %}
+{% docublock post_api_gharial_graph_edge_collection %}
+{% docublock get_api_gharial_graph_edge_collection_edge %}
 
 Examples will explain the API on the [social graph](../graphs.html#the-social-graph):
 
 ![Social Example Graph](../images/social_graph.png)
-{% docublock general_graph_edge_modify_http_examples %}
-{% docublock general_graph_edge_replace_http_examples %}
-{% docublock general_graph_edge_delete_http_examples %}
+{% docublock patch_api_gharial_graph_edge_collection_edge %}
+{% docublock put_api_gharial_graph_edge_collection_edge %}
+{% docublock delete_api_gharial_graph_edge_collection_edge %}

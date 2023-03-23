@@ -43,5 +43,5 @@ details about documents that could not be imported. If *details* is *true*, then
 the result will also contain a *details* attribute which is an array of detailed
 error messages. If the *details* is set to *false* or omitted, no details will be
 returned.
-{% docublock import_document %}
-{% docublock import_json %}
+
+{% docublock post_api_import %}

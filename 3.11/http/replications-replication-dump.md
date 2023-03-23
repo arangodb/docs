@@ -12,14 +12,14 @@ to either start a full or a partial synchronization of data, e.g. to initiate a 
 or the incremental data synchronization.
 
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
-{% docublock put_api_replication_inventory %}
+{% docublock get_api_replication_inventory %}
 
 The *batch* method will create a snapshot of the current state that then can be
 dumped. A batchId is required when using the dump API with RocksDB.
 
-{% docublock post_batch_replication %}
-{% docublock delete_batch_replication %}
-{% docublock put_batch_replication %}
+{% docublock post_api_replication_batch %}
+{% docublock delete_replication_batch_batch %}
+{% docublock put_api_replication_batch_batch %}
 
 The *dump* method can be used to fetch data from a specific collection. As the
 results of the dump command can be huge, *dump* may not return all data from a collection
@@ -45,7 +45,7 @@ parts of the dump results in the same order as they are provided.
 {% docublock put_api_replication_revisions_documents %}
 
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
-{% docublock put_api_replication_synchronize %}
+{% docublock put_api_replication_sync %}
 
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
-{% docublock get_api_replication_cluster_inventory %}
+{% docublock get_api_replication_clusterInventory %}

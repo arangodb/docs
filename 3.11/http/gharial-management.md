@@ -9,14 +9,14 @@ The [graph module](../graphs.html) provides functions dealing with graph structu
 Examples will explain the REST API on the [social graph](../graphs.html#the-social-graph):
 
 ![Social Example Graph](../images/social_graph.png)
-{% docublock general_graph_list_http_examples %}
-{% docublock general_graph_create_http_examples %}
-{% docublock general_graph_get_http_examples %}
-{% docublock general_graph_drop_http_examples %}
-{% docublock general_graph_list_vertex_http_examples %}
-{% docublock general_graph_vertex_collection_add_http_examples %}
-{% docublock general_graph_vertex_collection_remove_http_examples %}
-{% docublock general_graph_list_edge_http_examples %}
-{% docublock general_graph_edge_definition_add_http_examples %}
-{% docublock general_graph_edge_definition_modify_http_examples %}
-{% docublock general_graph_edge_definition_remove_http_examples %}
+{% docublock get_api_gharial %}
+{% docublock post_api_gharial %}
+{% docublock get_api_gharial_graph %}
+{% docublock delete_api_gharial_graph %}
+{% docublock get_api_gharial_graph_vertex %}
+{% docublock post_api_gharial_graph_vertex %}
+{% docublock delete_api_gharial_graph_vertex_collection %}
+{% docublock get_api_gharial_graph_edge %}
+{% docublock post_api_gharial_graph_edge %}
+{% docublock put_api_gharial_graph_edge_definition %}
+{% docublock delete_api_gharial_graph_edge_definition %}

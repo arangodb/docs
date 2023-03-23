@@ -9,16 +9,16 @@ title: arangosearch Views HTTP API
 
 {% docublock post_api_view_arangosearch %}
 
-{% docublock get_api_view_name %}
+{% docublock get_api_view_view %}
 
-{% docublock get_api_view_properties %}
+{% docublock get_api_view_view_properties %}
 
-{% docublock get_api_views %}
+{% docublock get_api_view %}
 
-{% docublock put_api_view_properties_arangosearch %}
+{% docublock put_api_view_view_properties_arangosearch %}
 
-{% docublock patch_api_view_properties_arangosearch %}
+{% docublock patch_api_view_view_properties_arangosearch %}
 
-{% docublock put_api_view_rename %}
+{% docublock put_api_view_view_rename %}
 
-{% docublock delete_api_view %}
+{% docublock delete_api_view_view %}

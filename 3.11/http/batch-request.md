@@ -221,4 +221,4 @@ request is determined by scanning the original URL (the URL that contains
 [database name](../appendix-glossary.html#database-name) in
 part operations of a batch. When doing so, any other database name used 
 in a batch part will be ignored.
-{% docublock batch_processing %}
+{% docublock post_api_batch %}

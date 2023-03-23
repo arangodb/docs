@@ -52,8 +52,8 @@ Cluster
 {% docublock get_admin_server_availability %}
 
 <!-- js/actions/api-cluster.js -->
-{% docublock get_cluster_statistics %}
-{% docublock get_cluster_health %}
+{% docublock get_admin_cluster_statistics %}
+{% docublock get_admin_cluster_health %}
 
 <!-- arangod/Cluster/AutoRebalance.cpp -->
 {% docublock get_admin_cluster_rebalance %}
@@ -70,4 +70,4 @@ Other
 {% docublock put_admin_compact %}
 
 <!-- js/actions/api-system.js -->
-{% docublock get_admin_routing_reloads %}
+{% docublock post_admin_routing_reload %}

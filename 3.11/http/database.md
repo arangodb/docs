@@ -124,6 +124,6 @@ Non-NFC-normalized names are rejected by the server.
 
 {% docublock get_api_database_current, h4 %}
 {% docublock get_api_database_user, h4 %}
-{% docublock get_api_database_list, h4 %}
-{% docublock get_api_database_new, h4 %}
-{% docublock get_api_database_delete, h4 %}
+{% docublock get_api_database, h4 %}
+{% docublock post_api_database, h4 %}
+{% docublock delete_api_database_database, h4 %}

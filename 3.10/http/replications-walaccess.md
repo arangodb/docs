@@ -14,7 +14,7 @@ as a user is not supported. This API replaces some of the APIs in `/_api/replica
 
 <!-- arangod/RestHandler/RestWALHandler.cpp -->
 {% docublock get_api_wal_access_range %}
-{% docublock get_api_wal_access_last_tick %}
+{% docublock get_api_wal_lastTick %}
 {% docublock get_api_wal_access_tail %}
 
 Operation Types

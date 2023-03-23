@@ -16,8 +16,8 @@ inspect it and return meta information about it.
 You can also retrieve a list of all query optimizer rules and their properties.
 
 {% docublock post_api_explain %}
-{% docublock PostApiQueryProperties %}
-{% docublock GetApiQueryRules %}
+{% docublock post_api_query %}
+{% docublock get_api_query_rules %}
 
 ## Track queries
 
@@ -26,11 +26,11 @@ executing AQL queries and the list of slow AQL queries. In order to make meaning
 use of these APIs, query tracking needs to be enabled in the database the HTTP 
 request is executed for.
 
-{% docublock GetApiQueryProperties %}
-{% docublock PutApiQueryProperties %}
-{% docublock GetApiQueryCurrent %}
-{% docublock GetApiQuerySlow %}
-{% docublock DeleteApiQuerySlow %}
+{% docublock get_api_query_properties %}
+{% docublock put_api_query_properties %}
+{% docublock get_api_query_current %}
+{% docublock get_api_query_slow %}
+{% docublock delete_api_query_slow %}
 
 ## Kill queries
 
@@ -39,4 +39,4 @@ via an HTTP interface. To kill a running query, its id (as returned for the quer
 list of currently running queries) must be specified. The kill flag of the query will
 then be set, and the query will be aborted as soon as it reaches a cancelation point.
 
-{% docublock DeleteApiQueryKill %}
+{% docublock delete_api_query_query %}

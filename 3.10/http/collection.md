@@ -99,28 +99,28 @@ http://localhost:8529/_api/collection/demo
 
 ### Get information about collections
 
-{% docublock get_api_collection_name, h4 %}
-{% docublock get_api_collection_properties, h4 %}
-{% docublock get_api_collection_count, h4 %}
-{% docublock get_api_collection_figures, h4 %}
-{% docublock get_api_collection_getResponsibleShard, h4 %}
+{% docublock get_api_collection_collection, h4 %}
+{% docublock get_api_collection_collection_properties, h4 %}
+{% docublock get_api_collection_collection_count, h4 %}
+{% docublock get_api_collection_collection_figures, h4 %}
+{% docublock put_api_collection_collection_responsibleShard, h4 %}
 {% docublock get_api_collection_shards, h4 %}
-{% docublock get_api_collection_revision, h4 %}
-{% docublock get_api_collection_checksum, h4 %}
-{% docublock get_api_collections, h4 %}
+{% docublock get_api_collection_collection_shards, h4 %}
+{% docublock get_api_collection_collection_checksum, h4 %}
+{% docublock get_api_collection, h4 %}
 
 ### Create and delete collections
 
 {% docublock post_api_collection, h4 %}
-{% docublock delete_api_collection, h4 %}
-{% docublock put_api_collection_truncate, h4 %}
+{% docublock delete_api_collection_collection, h4 %}
+{% docublock put_api_collection_collection_truncate, h4 %}
 
 ### Modify collections
 
-{% docublock put_api_collection_load, h4 %}
-{% docublock put_api_collection_unload, h4 %}
-{% docublock put_api_collection_load_indexes_into_memory, h4 %}
-{% docublock put_api_collection_properties, h4 %}
-{% docublock put_api_collection_rename, h4 %}
-{% docublock put_api_collection_recalculate_count, h4 %}
-{% docublock put_api_collection_compact, h4 %}
+{% docublock put_api_collection_collection_load, h4 %}
+{% docublock put_api_collection_collection_unload, h4 %}
+{% docublock put_api_collection_collection_loadIndexesIntoMemory, h4 %}
+{% docublock put_api_collection_collection_properties, h4 %}
+{% docublock put_api_collection_collection_rename, h4 %}
+{% docublock put_api_collection_collection_recalculateCount, h4 %}
+{% docublock put_api_collection_collection_compact, h4 %}

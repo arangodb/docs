@@ -174,12 +174,12 @@ endpoints to request and delete multiple documents in one request.
 
 ### Single document operations
 
-{% docublock get_read_document, h4 %}
-{% docublock head_read_document_header, h4 %}
-{% docublock post_create_document, h4 %}
-{% docublock put_replace_document, h4 %}
-{% docublock patch_update_document, h4 %}
-{% docublock delete_remove_document, h4 %}
+{% docublock get_api_document_collection_key, h4 %}
+{% docublock head_api_document_collection_key, h4 %}
+{% docublock post_api_document_collection, h4 %}
+{% docublock put_api_document_collection_key, h4 %}
+{% docublock patch_api_document_collection_key, h4 %}
+{% docublock delete_api_document_collection_key, h4 %}
 
 ### Multiple document operations
 
@@ -202,11 +202,11 @@ error codes that occurred together with their multiplicities, like
 Generally, the bulk operations expect an input array and the result body
 contains a JSON array of the same length.
 
-{% docublock get_read_document_MULTI, h4 %}
-{% docublock post_create_document_MULTI, h4 %}
-{% docublock put_replace_document_MULTI, h4 %}
-{% docublock patch_update_document_MULTI, h4 %}
-{% docublock delete_remove_document_MULTI, h4 %}
+{% docublock get_api_document_collection, h4 %}
+{% docublock post_api_document_collection_multiple, h4 %}
+{% docublock put_api_document_collection, h4 %}
+{% docublock patch_api_document_collection, h4 %}
+{% docublock delete_api_document_collection, h4 %}
 
 ### Read from followers
 

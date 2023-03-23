@@ -40,7 +40,7 @@ Begin a Transaction
 Check Status of a Transaction
 -----------------------------
 
-{% docublock get_api_transaction %}
+{% docublock get_api_transaction_transaction %}
 
 Commit or Abort a Transaction
 -----------------------------
@@ -50,11 +50,11 @@ It is bad practice to not commit or abort a transaction once you are done
 using it. It will force the server to keep resources and collection locks 
 until the entire transaction times out.
 
-{% docublock put_api_transaction %}
+{% docublock put_api_transaction_transaction %}
 
-{% docublock delete_api_transaction %}
+{% docublock delete_api_transaction_transaction %}
 
 List currently ongoing Transactions
 -----------------------------------
 
-{% docublock get_api_transactions %}
+{% docublock get_api_transaction %}

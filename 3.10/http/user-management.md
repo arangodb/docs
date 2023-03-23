@@ -15,16 +15,16 @@ This specialized interface intentionally does not provide all functionality that
 is available in the regular document REST API.
 
 Please note that user operations are not included in ArangoDB's replication.
-{% docublock UserHandling_create %}
-{% docublock UserHandling_grantDatabase %}
-{% docublock UserHandling_grantCollection %}
-{% docublock UserHandling_revokeDatabase %}
-{% docublock UserHandling_revokeCollection %}
-{% docublock UserHandling_fetchDatabaseList %}
-{% docublock UserHandling_fetchDatabasePermission %}
-{% docublock UserHandling_fetchCollectionPermission %}
-{% docublock UserHandling_replace %}
-{% docublock UserHandling_modify %}
-{% docublock UserHandling_delete %}
-{% docublock UserHandling_fetch %}
-{% docublock UserHandling_fetchProperties %}
+{% docublock post_api_user %}
+{% docublock put_api_user_user_database_database %}
+{% docublock put_api_user_user_database_database_collection %}
+{% docublock delete_api_user_user_database_database %}
+{% docublock delete_api_user_user_database_database_collection %}
+{% docublock get_api_user_user_database %}
+{% docublock get_api_user_user_database_database %}
+{% docublock get_api_user_user_database_database_collection %}
+{% docublock put_api_user_user %}
+{% docublock patch_api_user_user %}
+{% docublock delete_api_user_user %}
+{% docublock get_api_user_user %}
+{% docublock get_api_user %}

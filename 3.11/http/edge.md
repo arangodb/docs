@@ -38,4 +38,4 @@ for details.
 
 ### Manage edges
 
-{% docublock get_read_in_out_edges, h4 %}
+{% docublock get_api_edges_collection, h4 %}

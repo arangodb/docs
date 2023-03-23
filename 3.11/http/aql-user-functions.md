@@ -25,7 +25,7 @@ be accessed directly, but only via the dedicated interfaces.
 {% docublock post_api_aqlfunction %}
 
 <!-- js/actions/api-aqlfunction.js -->
-{% docublock delete_api_aqlfunction %}
+{% docublock delete_api_aqlfunction_function %}
 
 <!-- js/actions/api-aqlfunction.js -->
 {% docublock get_api_aqlfunction %}

@@ -14,7 +14,7 @@ You can query the current state of the logger and fetch the latest changes
 written by the logger. The operations return the state and data from the
 write-ahead log.
 
-{% docublock get_api_replication_logger_return_state %}
+{% docublock get_api_replication_logger_state %}
 
 To query the latest changes logged by the replication logger, the HTTP interface
 also provides the `logger-follow` method.

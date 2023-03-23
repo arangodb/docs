@@ -16,6 +16,6 @@ Analyzer Operations
 -------------------
 
 {% docublock post_api_analyzer %}
+{% docublock get_api_analyzer_analyzer %}
 {% docublock get_api_analyzer %}
-{% docublock get_api_analyzers %}
-{% docublock delete_api_analyzer %}
+{% docublock delete_api_analyzer_analyzer %}
