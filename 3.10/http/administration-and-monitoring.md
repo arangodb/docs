@@ -64,6 +64,8 @@ Cluster
 Other
 -----
 
+{% docublock get_admin_support_info %}
+
 <!-- arangod/RocksDBEngine/RocksDBRestHandlers.cpp -->
 {% docublock put_admin_compact %}
 
