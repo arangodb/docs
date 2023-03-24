@@ -583,7 +583,7 @@ Also see:
 - [AQL `REPLACE` operation](aql/operations-replace.html#refillindexcaches)
 - [AQL `REMOVE` operation](aql/operations-remove.html#refillindexcaches)
 {% assign ver = "3.10" | version: ">=" %}{% if ver -%}
-- [Document HTTP API](http/document.html#document-api)
+- [Document HTTP API](http/document.html)
 {% else -%}
 - [Document HTTP API](http/document-working-with-documents.html)
 {% endif -%}

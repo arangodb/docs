@@ -17,7 +17,7 @@ Edges are documents with two additional system attributes that you set, a
 form [graphs](../graphs.html) together with documents stored in document
 collections, which are then referred to as vertices.
 
-You can use the general [Document API](document.html#document-api) to create,
+You can use the general [Document API](document.html) to create,
 read, modify, and delete edge documents. The only difference to working with
 vertex documents is that the `_from` and `_to` attributes are mandatory and
 must contain document identifiers.

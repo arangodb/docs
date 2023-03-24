@@ -905,7 +905,7 @@ Also see:
 - [AQL `UPDATE` operation](aql/operations-update.html#refillindexcaches)
 - [AQL `REPLACE` operation](aql/operations-replace.html#refillindexcaches)
 - [AQL `REMOVE` operation](aql/operations-remove.html#refillindexcaches)
-- [Document HTTP API](http/document.html#document-api)
+- [Document HTTP API](http/document.html)
 - [Edge cache refill options](#edge-cache-refill-options)
 
 ### Extended query explain statistics

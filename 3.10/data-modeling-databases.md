@@ -58,7 +58,7 @@ refused. In DC2DC setups it is also required to use the same database naming
 convention for both datacenters to avoid incompatibilities.
 {% endhint %}
 
-Also see [Database Naming Conventions](../data-modeling-naming-conventions-database-names.html).
+Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
 ## Notes
 

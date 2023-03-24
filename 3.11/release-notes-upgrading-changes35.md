@@ -67,7 +67,7 @@ The following APIs have been expanded:
 
 The following documentation has been enhanced:
 
-- the documentation for [collection creation and fetching its properties](http/collection.html#collection-api) has been made more precise
+- the documentation for [collection creation and fetching its properties](http/collection.html) has been made more precise
 
 Web interface
 -------------

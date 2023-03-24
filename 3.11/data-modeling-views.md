@@ -19,9 +19,9 @@ See [ArangoSearch](arangosearch.html) for details.
 
 Available View types:
 
-- The traditional [`arangosearch` Views](../arangosearch-views.html) to which
+- The traditional [`arangosearch` Views](arangosearch-views.html) to which
   you link collections to.
-- The modern [`search-alias` Views](../arangosearch-views-search-alias.html)
+- The modern [`search-alias` Views](arangosearch-views-search-alias.html)
   that can reference inverted indexes that are defined on the collection-level.
 
 You need to specify the type when you create the View.

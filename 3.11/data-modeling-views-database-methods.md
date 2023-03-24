@@ -67,7 +67,7 @@ Creates a new View.
 
 `name` is a string and the name of the View. No View or collection with the
 same name may already exist in the current database. For information about the
-naming constraints for Views, see [View names](../data-modeling-views.html#view-names).
+naming constraints for Views, see [View names](data-modeling-views.html#view-names).
 
 `type` must be the string `"arangosearch"`, as it is currently the only
 supported View type.

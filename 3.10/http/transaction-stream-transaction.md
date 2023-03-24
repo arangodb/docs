@@ -25,7 +25,7 @@ This will automatically cause these operations to use the specified transaction.
 
 Supported transactional API operations include:
 
-- All operations in the [Document API](document.html#document-api)
+- All operations in the [Document API](document.html)
 - Number of documents via the [Collection API](collection.html#return-number-of-documents-in-a-collection)
 - Truncate a collection via the [Collection API](collection.html#truncate-collection)
 - Create an AQL cursor via the [Cursor API](aql-query-cursor-accessing-cursors.html)
