@@ -64,7 +64,7 @@ The format of the revision values stored in the `_rev` attribute of documents
 has been changed in 3.1. Up to 3.0 they were strings containing largish decimal numbers. With 3.1, revision values are still strings, but are actually encoded time stamps of the creation date of the revision of the document. The time stamps are acquired using a hybrid logical clock (HLC) on the DB-Server that holds the
 revision (for the concept of a hybrid logical clock see
 [this paper](http://www.cse.buffalo.edu/tech-reports/2014-04.pdf){:target="_blank"}).
-See [this manual section](data-modeling-documents-document-address.html#document-revision) for details.
+See [this manual section](data-modeling-documents.html#document-revisions) for details.
 
 ArangoDB >= 3.1 can ArangoDB 3.0 database directories and will simply continue
 to use the old `_rev` attribute values. New revisions will be written with

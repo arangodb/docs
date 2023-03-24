@@ -1,7 +1,9 @@
 - text: Introduction
   href: index.html
-- text: Authentication
+- text: Authentication # TODO
   href: authentication.html
+- text: User Management # TODO
+  href: user-management.html
 - text: General request handling
   href: general.html
 - text: Databases
@@ -10,8 +12,6 @@
   href: collection.html
 - text: Documents
   href: document.html
-- text: Edges
-  href: edge.html
 - text: Graphs
   href: gharial.html
   children:
@@ -21,8 +21,8 @@
       href: gharial-vertices.html
     - text: Edges
       href: gharial-edges.html
-- text: Pregel
-  href: pregel.html
+    - text: Edge API
+      href: edge.html
 - text: Queries
   href: aql-query.html
   children:
@@ -36,17 +36,15 @@
       href: aql-query-cache.html
     - text: User-defined AQL functions
       href: aql-user-functions.html
-- text: Async Result Handling
-  href: async-results-management.html
-- text: Bulk Import
-  href: bulk-imports.html
+- text: Pregel
+  href: pregel.html
+- text: Transactions
+  href: transaction.html
   children:
-    - text: JSON Documents
-      href: bulk-imports-importing-self-contained.html
-    - text: Headers & Values
-      href: bulk-imports-importing-headers-and-values.html
-    - text: Batch Requests
-      href: batch-request.html
+    - text: Stream Transactions
+      href: transaction-stream-transaction.html
+    - text: JavaScript Transactions
+      href: transaction-js-transaction.html
 - text: Indexes
   href: indexes.html
   children:
@@ -73,13 +71,28 @@
       href: views-arangosearch.html
 - text: Analyzers
   href: analyzers.html
-- text: Transactions
-  href: transaction.html
+- text: Import
+  href: bulk-imports.html
   children:
-    - text: Stream Transactions
-      href: transaction-stream-transaction.html
-    - text: JavaScript Transactions
-      href: transaction-js-transaction.html
+    - text: JSON Documents
+      href: bulk-imports-importing-self-contained.html
+    - text: Headers & Values
+      href: bulk-imports-importing-headers-and-values.html
+- text: Foxx Services
+  href: foxx.html
+  children:
+    - text: Management
+      href: foxx-management.html
+    - text: Configuration
+      href: foxx-configuration.html
+    - text: Miscellaneous
+      href: foxx-miscellaneous.html
+- text: Jobs
+  href: async-results-management.html
+- text: Tasks
+  href: tasks.html
+- text: Batch Requests
+  href: batch-request.html
 - text: Replication
   href: replications.html
   children:
@@ -93,30 +106,11 @@
       href: replications-other-replication.html
     - text: Write-Ahead Log
       href: replications-walaccess.html
-- text: Administration & Monitoring
+- text: Administration & Monitoring # TODO
   href: administration-and-monitoring.html
   children:
     - text: Metrics
       href: administration-and-monitoring-metrics.html
-- text: Endpoints
-  href: endpoints.html
-- text: Foxx Services
-  href: foxx.html
-  children:
-    - text: Management
-      href: foxx-management.html
-    - text: Configuration
-      href: foxx-configuration.html
-    - text: Miscellaneous
-      href: foxx-miscellaneous.html
-- text: User Management
-  href: user-management.html
-- text: License Management
-  href: license.html
-- text: Hot Backup
-  href: hot-backup.html
-- text: Tasks
-  href: tasks.html
 - text: Cluster
   href: cluster.html
   children:
@@ -132,5 +126,11 @@
       href: cluster-maintenance.html
     - text: Agency
       href: agency.html
-- text: Miscellaneous functions
+- text: Hot Backups
+  href: hot-backup.html
+- text: License Management
+  href: license.html
+- text: Endpoints # TODO
+  href: endpoints.html
+- text: Miscellaneous functions # TODO
   href: miscellaneous-functions.html

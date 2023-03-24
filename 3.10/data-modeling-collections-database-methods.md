@@ -63,8 +63,8 @@ Create a new document or edge collection:
 
 Creates a new document collection named `collection-name`.
 If the collection name already exists or if the name format is invalid, an
-error is thrown. For more information on valid collection names please refer
-to the [naming conventions](data-modeling-naming-conventions.html).
+error is thrown. For information about the naming constraints for collections, see
+[Collection names](../data-modeling-collections.html#collection-names).
 
 ---
 

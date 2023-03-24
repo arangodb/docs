@@ -49,7 +49,7 @@ Primary Index
 -------------
 
 For each collection there will always be a *primary index* which is a persistent index
-for the [document keys](appendix-glossary.html#document-key) (`_key` attribute)
+for the [document keys](data-modeling-documents.html#document-keys) (`_key` attribute)
 of all documents in the collection. The primary index allows quick selection
 of documents in the collection using either the `_key` or `_id` attributes. It will
 be used from within AQL queries automatically when performing equality lookups on

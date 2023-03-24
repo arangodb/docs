@@ -6,27 +6,6 @@ title: ArangoDB Glossary
 Glossary
 ========
 
-Collection
-----------
-
-A collection consists of documents. It is uniquely identified by its collection identifier. 
-It also has a unique name that clients should use to identify and access it. 
-Collections can be renamed. It will change the collection name, but not the collection identifier. 
-Collections contain documents of a specific type. There are currently two types: document (default) and edge. The type is specified by the user when the collection is created, and cannot be changed later.
-
-Collection Identifier
----------------------
-
-A collection identifier identifies a collection in a database. It is a string value and is unique within the database. Clients should use a collection's unique name to access a collection instead of its identifier.
-
-ArangoDB currently uses 64bit unsigned integer values to maintain collection ids internally. When returning collection ids to clients, ArangoDB will put them into a string to ensure the collection id is not clipped by clients that do not support big integers. Clients should treat the collection ids returned by ArangoDB as
-opaque strings when they store or use it locally.
-
-Collection Name
----------------
-
-A collection name identifies a collection in a database. It is a string and is unique within the database. Unlike the collection identifier it is supplied by the creator of the collection. The collection name must consist of letters, digits, and the _ (underscore) and - (dash) characters only. Please refer to [NamingConventions](data-modeling-naming-conventions-collection-and-view-names.html) for more information on valid collection names.
-
 Database
 --------
 
@@ -86,50 +65,6 @@ apps/                   # the instance's application directory
 
 The name of `<database-dir>` will be the database's original name or the
 database's ID if its name contains special characters.
-
-Document
---------
-
-Documents in ArangoDB are JSON objects. These objects can be nested (to any depth) and may contain arrays. Each document is uniquely identified by its document handle.
-
-Document Etag
--------------
-
-The document revision (`_rev` value) enclosed in double quotes. The revision is returned by several HTTP API methods in the Etag HTTP header.
-
-Document Handle
----------------
-
-A document handle uniquely identifies a document in the database. It is a string and consists of the collection's name and the document key (`_key` attribute) separated by /. The document handle is stored in a document's `_id` attribute.
-
-Document Key
-------------
-
-A document key is a string that uniquely identifies a document in a
-given collection. It can and should be used by clients when specific
-documents are searched. Document keys are stored in the `_key` attribute
-of documents. The key values are automatically indexed by ArangoDB in
-a collection's primary index. Thus looking up a document by its key is
-regularly a fast operation. The `_key` value of a document is immutable
-once the document has been created.
-
-By default, ArangoDB will auto-generate a document key if no `_key`
-attribute is specified, and use the user-specified `_key` value
-otherwise.
-
-This behavior can be changed on a per-collection level by creating
-collections with the `keyOptions` attribute.
-
-Using `keyOptions` it is possible to disallow user-specified keys completely, or to force a specific regime for auto-generating the `_key` values.
-
-There are some restrictions for user-defined
-keys (see 
-[NamingConventions for document keys](data-modeling-naming-conventions-document-keys.html)).
-
-Document Revision
------------------
-
-{% docublock documentRevision %}
 
 Edge
 ----
@@ -215,43 +150,3 @@ Anonymous Graphs
 
 You may use edge collections with vertex collections without the graph management facilities. However, graph consistency is not enforced by these. If you remove vertices, you have to ensure by yourselves edges pointing to this vertex are removed. Anonymous graphs may not be browsed using graph viewer in the webinterface. This may be faster in some scenarios.
 
-View
-----
-
-A view is conceptually a transformation function over documents from zero or
-more collections. It is uniquely identified by its view identifier. It also has
-a unique name that clients should use to identify and access it. Views can be
-renamed. Renaming a view will change the view name, but not the view identifier.
-The conceptual transformation function employed by a view type is implementation
-specific. The type is specified by the user when the view is created, and cannot
-be changed later. The following view types are currently supported:
-* [`arangosearch`](arangosearch-views.html)
-
-View Identifier
----------------
-
-A view identifier identifies a view in a database. It is a string value and is
-unique within the database. Clients should use a view's unique name to access a
-view instead of its identifier.
-
-ArangoDB currently uses 64bit unsigned integer values to maintain view ids
-internally. When returning view ids to clients, ArangoDB will put them into a
-string to ensure the view id is not clipped by clients that do not support big
-integers. Clients should treat the view ids returned by ArangoDB as opaque
-strings when they store or use them locally.
-
-View Name
----------
-
-A view name identifies a view in a database. It is a string and is unique within
-the database. Unlike the view identifier it is supplied by the creator of the
-view. The view name must consist of letters, digits, and the _ (underscore)
-and - (dash) characters only. Please refer to
-[Naming Conventions](data-modeling-naming-conventions-collection-and-view-names.html) for
-more information on valid view names, which follow the same guidelines as
-collection names.
-
-IFF
----
-
-Short form of [if and only if](https://en.m.wikipedia.org/wiki/If_and_only_if){:target="_blank"}.

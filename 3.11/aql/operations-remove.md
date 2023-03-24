@@ -9,7 +9,7 @@ REMOVE
 The `REMOVE` keyword can be used to remove documents from a collection.
 
 Each `REMOVE` operation is restricted to a single collection, and the 
-[collection name](../appendix-glossary.html#collection-name) must not be dynamic.
+[collection name](../data-modeling-collections.html#collection-names) must not be dynamic.
 Only a single `REMOVE` statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
@@ -26,7 +26,7 @@ It can optionally end with an `OPTIONS { … }` clause.
 `collection` must contain the name of the collection to remove the documents 
 from. `keyExpression` must be an expression that contains the document identification.
 This can either be a string (which must then contain the
-[document key](../appendix-glossary.html#document-key)) or a
+[document key](../data-modeling-documents.html#document-keys)) or a
 document, which must contain a `_key` attribute.
 
 The following queries are thus equivalent:

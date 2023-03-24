@@ -832,7 +832,7 @@ Miscellaneous
   if all sharding keys are specified. Should the sharding keys not match the
   values in the actual document, a not found error will be returned.
 
-- [Collection names](data-modeling-naming-conventions-collection-and-view-names.html)
+- [Collection names](data-modeling-collections.html#collection-names)
   in ArangoDB can now be up to 256 characters long, instead of 64 characters in
   previous versions.
 

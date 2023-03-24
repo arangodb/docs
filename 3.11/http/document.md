@@ -12,101 +12,16 @@ redirect_from:
 {{ page.description }}
 {:class="lead"}
 
-## Basics and terminology
+The basic operations for documents are mapped to the standard HTTP methods:
 
-**Documents** in ArangoDB are JSON objects. These objects can be nested (to
-any depth) and may contain lists. Each document has a unique
-[**document key**](../appendix-glossary.html#document-key) (or _primary key_)
-which identifies it within its collection. Furthermore, each document is
-uniquely identified
-by its [**document identifier**](../appendix-glossary.html#document-handle)
-(also called a _document handle_)
-across all collections in the same database. Different revisions of
-the same document (identified by its identifier) can be distinguished by their
-[**document revision**](../appendix-glossary.html#document-revision).
-Any transaction only ever sees a single revision of a document.
+- Create: `POST`
+- Read: `GET`
+- Update: `PATCH` (partially modify)
+- Replace: `PUT`
+- Delete: `DELETE`
+- Check: `HEAD` (test for existence and get document metadata)
 
-Here is an example document:
-
-```json
-{
-  "_id" : "myusers/3456789",
-  "_key" : "3456789",
-  "_rev" : "14253647",
-  "firstName" : "John",
-  "lastName" : "Doe",
-  "address" : {
-    "street" : "Road To Nowhere 1",
-    "city" : "Gotham"
-  },
-  "hobbies" : [
-    {"name": "swimming", "howFavorite": 10},
-    {"name": "biking", "howFavorite": 6},
-    {"name": "programming", "howFavorite": 4}
-  ]
-}
-```
-
-All documents contain special attributes that start with an underscore, known
-as **system attributes**:
-
-- The [document identifier](../appendix-glossary.html#document-handle) is stored
-  as a string in `_id` attribute.
-- The [document key](../appendix-glossary.html#document-key) is stored as a
-  string in the `_key` attribute.
-- The [document revision](../appendix-glossary.html#document-revision) is stored
-  as a string in the `_rev` attribute.
-
-You can specify a value for the `_key` attribute when creating a document.
-The `_id` and `_key` values are immutable once the document has been created.
-The `_rev` value is maintained by ArangoDB automatically.
-
-### Document identifiers
-
-A document identifier (or document handle) uniquely identifies a document in the
-database. It consists of the collection's name and the document key
-(`_key` attribute) separated by `/`, like `collection-name/document-key`.
-
-### Document keys
-
-A document key uniquely identifies a document in the collection it is
-stored in. It can and should be used by clients when specific documents
-are queried. The document key is stored in the `_key` attribute of
-each document. The key values are automatically indexed by ArangoDB in
-a collection's primary index. Thus looking up a document by its
-key is a fast operation. The _key value of a document is
-immutable once the document has been created. By default, ArangoDB generates
-a document key automatically if no `_key` attribute is specified, and uses
-the user-specified `_key` otherwise.
-
-This behavior can be changed on a per-collection level by creating
-collections with the `keyOptions` attribute.
-
-Using `keyOptions` it is possible to disallow user-specified keys
-completely, or to force a specific regime for auto-generating the `_key`
-values.
-
-
-### Document revisions
-
-{% docublock documentRevision %}
-
-### Document ETags
-
-ArangoDB tries to adhere to the existing HTTP standard as far as
-possible. To this end, results of single document queries have the HTTP
-header `ETag` set to the document revision enclosed in double quotes.
-
-The basic operations (create, read, exists, replace, update, delete)
-for documents are mapped to the standard HTTP methods (`POST`, `GET`,
-`HEAD`, `PUT`, `PATCH` and `DELETE`).
-
-If you modify a document, you can use the `If-Match` field to detect conflicts.
-The revision of a document can be checking using the HTTP method `HEAD`.
-
-## Document API
-
-### Addresses of documents
+## Addresses of documents
 
 Any document can be retrieved using its unique URI:
 
@@ -140,18 +55,6 @@ Many examples in the documentation use the short URL format (and thus the
 `_system` database) for brevity.
 {% endhint %}
 
-The [document revision](../appendix-glossary.html#document-revision)
-is returned in the `ETag` HTTP header when requesting a document.
-
-If you obtain a document using `GET` and you want to check whether a
-newer revision
-is available, then you can use the `If-None-Match` header. If the document is
-unchanged, a **HTTP 412** (precondition failed) error is returned.
-
-If you want to query, replace, update or delete a document, then you
-can use the `If-Match` header. If the document has changed, then the
-operation is aborted and an **HTTP 412** error is returned.
-
 ### Multiple documents in a single request
 
 The document API can handle not only single documents but multiple documents in
@@ -180,6 +83,25 @@ endpoints to request and delete multiple documents in one request.
 {% docublock put_api_document_collection_key, h4 %}
 {% docublock patch_api_document_collection_key, h4 %}
 {% docublock delete_api_document_collection_key, h4 %}
+
+#### Document ETags
+
+ArangoDB tries to adhere to the existing HTTP standard as far as
+possible. To this end, results of single document queries have the `ETag`
+HTTP header set to the [document revision](../data-modeling-documents.html#document-revisions)
+(the value of `_rev` document attribute) enclosed in double quotes.
+
+You can check the revision of a document using the `HEAD` HTTP method.
+
+If you want to query, replace, update, replace, or delete a document, then you
+can use the `If-Match` header to detect conflicts. If the document has changed,
+the operation is aborted and an HTTP `412 Precondition failed` status code is
+returned.
+
+If you obtain a document using `GET` and you want to check whether a newer
+revision is available, then you can use the `If-None-Match` HTTP header. If the
+document is unchanged (same document revision), an HTTP `412 Precondition failed`
+status code is returned.
 
 ### Multiple document operations
 

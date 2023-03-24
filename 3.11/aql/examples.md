@@ -21,7 +21,7 @@ Things to consider when running queries on collections
 Note that all documents created in any collections will automatically get the
 following server-generated attributes:
 
-- *_id*: A unique id, consisting of [collection name](../appendix-glossary.html#collection-name)
+- *_id*: A unique id, consisting of [collection name](../data-modeling-collections.html#collection-names)
   and a server-side sequence value
 - *_key*: The server sequence value
 - *_rev*: The document's revision id

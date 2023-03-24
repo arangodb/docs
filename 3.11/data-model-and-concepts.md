@@ -30,21 +30,8 @@ ArangoDB lets you store documents as JSON objects.
 }
 ```
 
-JSON supports the following data types:
-
-- `null` to represent the absence of a value, also known as _nil_ or _none_ type.
-- `true` and `false`, the Boolean values, to represent _yes_ and
-  _no_, _on_ and _off_, etc.
-- **numbers** to store integer and floating-point values.
-- **strings** to store character sequences for text, encoded as UTF-8.
-- **arrays** to store lists that can contain any of the supported data types
-  as elements, including nested arrays and objects.
-- **objects** to map keys to values like a dictionary, also known as
-  associative arrays or hash maps. The keys are strings and the values can be
-  any of the supported data types, including arrays and nested objects.
-
 Each record that you store is a JSON object at the top-level, also referred to
-as a [**document**](data-modeling-documents-document-address.html).
+as a [**document**](data-modeling-documents.html).
 Each key-value pair is called an **attribute**, comprised
 of the attribute name and the attribute value. Attributes can also be called
 *properties* or *fields*.

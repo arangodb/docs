@@ -8,7 +8,7 @@ INSERT
 The `INSERT` keyword can be used to insert new documents into a collection.
 
 Each `INSERT` operation is restricted to a single collection, and the
-[collection name](../appendix-glossary.html#collection-name) must not be dynamic.
+[collection name](../data-modeling-collections.html#collection-names) must not be dynamic.
 Only a single `INSERT` statement per collection is allowed per AQL query, and
 it cannot be followed by read or write operations that access the same
 collection, by traversal operations, or AQL functions that can read documents.
