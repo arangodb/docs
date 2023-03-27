@@ -27,7 +27,7 @@ Coming from the Community Edition?
 See [how to migrate](graphs-enterprise-graphs-getting-started.html#migrating-from-community-edition)
 from a `general-graph` to an `enterprise-graph`.
 
-## How EnterpriseGraphs work?
+## How EnterpriseGraphs work
 
 The creation and usage of EnterpriseGraphs are similar to [SmartGraphs](graphs-smart-graphs-getting-started.html).
 However, the latter requires the selection of an appropriate sharding key.

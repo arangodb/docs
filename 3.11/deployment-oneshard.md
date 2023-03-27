@@ -54,7 +54,7 @@ responsible DB-Server node like on a single server. However, it still being
 a cluster setup means collections can be replicated synchronously to ensure
 resilience etc.
 
-### How to use the OneShard feature?
+### How to use the OneShard feature
 
 The OneShard feature is enabled by default if you use the ArangoDB
 Enterprise Edition and if the database is sharded as `"single"`. In this case the
