@@ -120,6 +120,26 @@ user-defined AQL functions so that no user-defined JavaScript code of
 [UDFs](aql/extending.html) runs on the server. Also see
 [Server security options](security-security-options.html).
 
+### Configurable status code if write concern not fulfilled
+
+In cluster deployments, you can use a replication factor greater than `1` for
+collections. This creates additional shard replicas for redundancy. For write
+operations to these collections, you can define how many replicas need to
+acknowledge the write for the operation to succeed. This option is called the
+write concern. If there are not enough in-sync replicas available, the
+write concern cannot be fulfilled. An error with the HTTP `403 Forbidden`
+status code is returned immediately in this case.
+
+You can now change the status code via the new
+`--cluster.failed-write-concern-status-code` startup option. It defaults to `403`
+but you can set it to `503` to use an HTTP `503 Service Unavailable` status code
+instead. This signals client applications that it is a temporary error.
+
+Note that no automatic retry of the operation is attempted by the cluster if you
+set the startup option to `503`. It only changes the status code to one that
+doesn't signal a permanent error like `403` does.
+It is up to client applications to retry the operation.
+
 ### RocksDB auto-flushing
 
 <small>Introduced in: v3.9.10, v3.10.5</small>

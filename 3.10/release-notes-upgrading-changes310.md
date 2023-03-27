@@ -63,14 +63,21 @@ and thus enable the new polygon parsing.
 
 Note that linear rings are not normalized automatically from version 3.10 onward,
 following the [GeoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
-The 'interior' of a polygon strictly conforms to the GeoJSON standard:
+The "interior" of a polygon strictly conforms to the GeoJSON standard:
 it lies to the left of the boundary line (in the direction of travel along the
 boundary line on the surface of the Earth). This can be the "larger" connected
 component of the surface, or the smaller one. Note that this differs from the
-[interpretation of GeoJSON polygons in version 3.9](../3.9/indexing-geo.html#polygon)
-and older. This can mean that old polygon GeoJSON data in the database is
+interpretation of GeoJSON polygons in version 3.9 and older:
+
+| `legacyPolygons` enabled | `legacyPolygons` disabled |
+|:-------------------------|:--------------------------|
+| The smaller of the two regions defined by a linear ring is interpreted as the interior of the ring. | The area to the left of the boundary ring's path is considered to be the interior. |
+| A ring can at most enclose half the Earth's surface | A ring can enclose the entire surface of the Earth |
+
+This can mean that old polygon GeoJSON data in the database is
 suddenly interpreted in a different way. See
 [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
+Also see the definition of [Polygons](indexing-geo.html#polygon).
 
 Maximum Array / Object Nesting
 ------------------------------
