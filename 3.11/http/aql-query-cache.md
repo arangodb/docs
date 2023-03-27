@@ -1,13 +1,14 @@
 ---
 layout: default
-description: This section describes the API methods for controlling the AQL query results cache
+description: >-
+  The query cache HTTP API lets you control the cache for AQL query results 
 ---
-HTTP Interface for the AQL query results cache
-==============================================
+# HTTP interface for the query cache
 
-This section describes the API methods for controlling the AQL query results cache.
-{% docublock get_api_query_cache_entries %}
-{% docublock delete_api_query_cache %}
-{% docublock get_api_query_cache_properties %}
-{% docublock put_api_query_cache_properties %}
+{{ page.description }}
+{:class="lead"}
 
+{% docublock get_api_query_cache_entries, h2 %}
+{% docublock delete_api_query_cache, h2 %}
+{% docublock get_api_query_cache_properties, h2 %}
+{% docublock put_api_query_cache_properties, h2 %}

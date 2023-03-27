@@ -1,6 +1,8 @@
 ---
 layout: default
 description: ArangoDB exposes its API via HTTP, making the server accessible easily with a variety of clients and tools
+redirect_from:
+  - async-results-management.html # 3.10 -> 3.10
 ---
 # HTTP request handling in ArangoDB
 
@@ -89,35 +91,57 @@ An upgrade to the VelocyStream protocol may happen by sending `VST/1.1\r\n\r\n`
 (11 octets) to the server _before_ sending anything else. The server will then
 start using VelocyStream 1.1. Sending anything else is an error.
 
-## Blocking vs. non-blocking HTTP requests
+## Request execution
 
 ArangoDB supports both blocking and non-blocking HTTP requests.
+Clients can choose the appropriate method on a per-request level based on their
+throughput, control flow, and durability requirements.
+
+### Blocking execution
 
 ArangoDB is a multi-threaded server, allowing the processing of multiple
-client requests at the same time. Request/response handling and the actual
-work are performed on the server in parallel by multiple worker threads.
+client requests at the same time. Communication handling and the actual work can
+be performed by multiple worker threads in parallel.
 
 Still, clients need to wait for their requests to be processed by the server,
 and thus keep one connection of a pool occupied.
-By default, the server will fully process an incoming request and then return
-the result to the client when the operation is finished. The client must
+By default, the server fully processes an incoming request and then returns
+the result to the client when the operation has finished. The client must
 wait for the server's HTTP response before it can send additional requests over
-the same connection. For clients that are single-threaded and/or are
-blocking on I/O themselves, waiting idle for the server response may be
-non-optimal.
+the same connection. For clients that are single-threaded, or blocking on I/O
+themselves, or both, it may not be optimal to wait idle for the full server response.
 
-To reduce blocking on the client side, ArangoDB offers a generic mechanism for
-non-blocking, asynchronous execution: clients can add the
-HTTP header `x-arango-async: true` to any of their requests, marking
-them as to be executed asynchronously on the server. ArangoDB will put such
-requests into an in-memory task queue and return an *HTTP 202* (accepted)
-response to the client instantly and thus finish this HTTP request.
-The server will execute the tasks from the queue asynchronously as fast
+Furthermore, note that even if the client closes the HTTP connection, the request
+running on the server still continues until it completes and only then notices
+that the client no longer listens for the result.
+Thus closing the connection does not help to abort a long running query.
+
+### Non-blocking execution
+
+You can let ArangoDB execute requests asynchronously in two different ways:
+
+- Submit requests for async execution, without the ability to cancel requests
+  or access the results ("Fire and forget")
+
+- Submit requests for async execution and let the server store the results for
+  later retrieval
+
+### Fire and forget
+
+To reduce blocking on the client-side, ArangoDB offers a generic mechanism for
+non-blocking, asynchronous execution: clients can add a `x-arango-async: true`
+HTTP header to any of their requests, marking them as to be executed
+asynchronously on the server.
+
+ArangoDB puts asynchronous requests into an in-memory job queue and instantly
+returns an HTTP `202 Accepted` status code to the client and thus finishes this
+HTTP request. The server executes the jobs from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
-If the server queue is full (i.e. contains as many tasks as specified by the
-option ["--server.maximal-queue-size"](../programs-arangod-options.html#arangodb-server-options)),
-then the request will be rejected instantly with an *HTTP 503* (Service
-unavailable) response.
+
+If the server queue is full (i.e. contains as many jobs as specified by the
+[`--server.maximal-queue-size`](../programs-arangod-options.html#arangodb-server-options)
+startup option), then the request is rejected instantly with an HTTP
+`503 Service Unavailable` status code.
 
 Asynchronous execution decouples the request/response handling from the actual
 work to be performed, allowing fast server responses and greatly reducing wait
@@ -125,21 +149,78 @@ time for clients. Overall this allows for much higher throughput than if
 clients would always wait for the server's response.
 
 Keep in mind that the asynchronous execution is just "fire and forget".
-Clients will get any of their asynchronous requests answered with a generic
-HTTP 202 response. At the time the server sends this response, it does not
-know whether the requested operation can be carried out successfully (the
-actual operation execution will happen at some later point). Clients therefore
+Clients get any of their asynchronous requests answered with a generic
+HTTP `202 Accepted` response. At the time the server sends this response, it does
+not know whether the requested operation can be carried out successfully, as the
+actual operation execution happens at some later point. Therefore, clients
 cannot make a decision based on the server response and must rely on their
 requests being valid and processable by the server.
 
-Additionally, the server's asynchronous task queue is an in-memory data
-structure, meaning not-yet processed tasks from the queue might be lost in
-case of a crash. Clients should therefore not use the asynchronous feature
-when they have strict durability requirements or if they rely on the immediate
-result of the request they send.
+Additionally, the server's asynchronous job queue is an in-memory data
+structure, meaning not-yet processed jobs from the queue are lost in
+case of a crash. Client will not know whether they were processed or not and
+should therefore not use the asynchronous feature when they have strict
+durability requirements or if they rely on the immediate result of the request
+they send.
 
-For details on the subsequent processing read on under
-[Async Result handling](async-results-management.html).
+Finally, note that it is not possible to cancel such a fire and forget job,
+since you don't get any handle to identify it later on. If you need to cancel
+requests, use
+[Async execution and later result retrieval](#async-execution-and-later-result-retrieval).
+
+### Async execution and later result retrieval
+
+By adding a `x-arango-async: store` HTTP header to a request, clients can instruct
+the ArangoDB server to execute the operation asynchronously but also store the
+operation result in memory for a later retrieval. The server returns a job ID in
+the `x-arango-async-id` HTTP response header. The client can use this ID in
+conjunction with the `/_api/job` endpoint to access the result. See the
+[HTTP interface for jobs](jobs.html) for details.
+
+Clients can ask the ArangoDB server via the async jobs API which results are
+ready for retrieval, and which are not. Clients can also use the async jobs API to
+retrieve the original results of an already executed async job by passing it the
+originally returned job ID. The server then returns the job result as if the job was 
+executed normally. Furthermore, clients can cancel running async jobs by
+their job ID.
+
+ArangoDB keeps all results of jobs initiated with the `x-arango-async: store`
+header. Results are removed from the server only if a client explicitly asks the
+server for a specific result.
+
+The async jobs API also provides methods for garbage collection that clients can
+use to get rid of "old", not fetched results. Clients should call this method periodically
+because ArangoDB does not artificially limit the number of not-yet-fetched results.
+
+It is thus a client responsibility to store only as many results as needed and to fetch
+available results as soon as possible, or at least to clean up not fetched results
+from time to time.
+
+The job queue and the results are kept in-memory only on the server, which means
+they are lost in case of a crash.
+
+#### Canceling asynchronous jobs
+
+A running async query can internally be executed by C++ code or by JavaScript
+code. For example, CRUD operations are executed directly in C++, whereas AQL
+queries and transactions may be executed by JavaScript code, depending on the
+AQL functions and the transaction type you use. The job cancelation only works
+for JavaScript code, since the mechanism used is simply to trigger an uncatchable
+exception in the JavaScript thread, which is caught on the C++ level, which in
+turn leads to the cancelation of the job. No result can be retrieved later
+because all data about the request is discarded.
+
+If you cancel a job running on a Coordinator of a cluster, then only the code
+running on the Coordinator is stopped. There may remain tasks within the cluster
+which have already been distributed to the DB-Servers and it is not possible to
+cancel them as well.
+
+#### Async execution and authentication
+
+If a request requires authentication, the authentication procedure is run before 
+queueing. The request is only queued if the authentication is successful. If the
+Otherwise, it is not queued but rejected instantly in the same way as a regular,
+non-queued request.
 
 ## Error handling
 

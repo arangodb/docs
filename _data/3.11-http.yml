@@ -1,11 +1,11 @@
 - text: Introduction
   href: index.html
-- text: Authentication # TODO
-  href: authentication.html
-- text: User Management # TODO
-  href: user-management.html
 - text: General request handling
   href: general.html
+- text: Authentication
+  href: authentication.html
+- text: Users
+  href: user-management.html
 - text: Databases
   href: database.html
 - text: Collections
@@ -13,26 +13,18 @@
 - text: Documents
   href: document.html
 - text: Graphs
-  href: gharial.html
+  href: graphs.html
   children:
-    - text: Management
-      href: gharial-management.html
-    - text: Vertices
-      href: gharial-vertices.html
+    - text: Named graphs
+      href: gharial.html
     - text: Edges
-      href: gharial-edges.html
-    - text: Edge API
       href: edge.html
 - text: Queries
-  href: aql-query.html
+  href: queries.html
   children:
-    - text: AQL Query Cursors
-      href: aql-query-cursor.html
-    - text: Query Results
-      href: aql-query-cursor-query-results.html
-    - text: Accessing Cursors
-      href: aql-query-cursor-accessing-cursors.html
-    - text: AQL Query Results Cache
+    - text: AQL queries
+      href: aql-query.html
+    - text: AQL query results cache
       href: aql-query-cache.html
     - text: User-defined AQL functions
       href: aql-user-functions.html
@@ -48,8 +40,6 @@
 - text: Indexes
   href: indexes.html
   children:
-    - text: Working with Indexes
-      href: indexes-working-with.html
     - text: Persistent
       href: indexes-persistent.html
     - text: Inverted
@@ -73,22 +63,10 @@
   href: analyzers.html
 - text: Import
   href: bulk-imports.html
-  children:
-    - text: JSON Documents
-      href: bulk-imports-importing-self-contained.html
-    - text: Headers & Values
-      href: bulk-imports-importing-headers-and-values.html
-- text: Foxx Services
+- text: Foxx
   href: foxx.html
-  children:
-    - text: Management
-      href: foxx-management.html
-    - text: Configuration
-      href: foxx-configuration.html
-    - text: Miscellaneous
-      href: foxx-miscellaneous.html
 - text: Jobs
-  href: async-results-management.html
+  href: jobs.html
 - text: Tasks
   href: tasks.html
 - text: Batch Requests
@@ -106,31 +84,15 @@
       href: replications-other-replication.html
     - text: Write-Ahead Log
       href: replications-walaccess.html
-- text: Administration & Monitoring # TODO
-  href: administration-and-monitoring.html
-  children:
-    - text: Metrics
-      href: administration-and-monitoring-metrics.html
+- text: Monitoring
+  href: monitoring.html
+- text: Security
+  href: security.html
+- text: Administration
+  href: administration.html
 - text: Cluster
   href: cluster.html
-  children:
-    - text: Server ID
-      href: cluster-server-id.html
-    - text: Server Role
-      href: cluster-server-role.html
-    - text: Cluster Statistics
-      href: cluster-statistics.html
-    - text: Cluster Health
-      href: cluster-health.html
-    - text: Cluster Maintenance
-      href: cluster-maintenance.html
-    - text: Agency
-      href: agency.html
+- text: Agency
+  href: agency.html
 - text: Hot Backups
   href: hot-backup.html
-- text: License Management
-  href: license.html
-- text: Endpoints # TODO
-  href: endpoints.html
-- text: Miscellaneous functions # TODO
-  href: miscellaneous-functions.html

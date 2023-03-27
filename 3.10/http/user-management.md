@@ -1,21 +1,38 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's HTTP interface for managing users
+description: >-
+  The HTTP API for user management lets you create, modify, delete, and list
+  ArangoDB user accounts, as well as grant and revoke permissions for databases
+  and collections
 ---
-HTTP Interface for User Management
-==================================
+# HTTP interface for user management
 
-This is an introduction to ArangoDB's HTTP interface for managing users.
+{{ page.description }}
+{:class="lead"}
 
-The interface provides a simple means to add, update, and remove users.  All
-users managed through this interface will be stored in the system collection
-*_users*. You should never manipulate the *_users* collection directly.
+The interface provides the means to manage database system users. All
+users managed through this interface are stored in the protected `_users`
+system collection.
 
-This specialized interface intentionally does not provide all functionality that
-is available in the regular document REST API.
+You should never manipulate the `_users` collection directly. The specialized
+endpoints intentionally have limited functionality compared to the regular
+Document API.
 
-Please note that user operations are not included in ArangoDB's replication.
+{% hint 'info' %}
+User management operations are not included in ArangoDB's replication.
+{% endhint %}
+
+## Manage users
+
 {% docublock post_api_user %}
+{% docublock put_api_user_user %}
+{% docublock patch_api_user_user %}
+{% docublock delete_api_user_user %}
+{% docublock get_api_user_user %}
+{% docublock get_api_user %}
+
+## Manage permissions
+
 {% docublock put_api_user_user_database_database %}
 {% docublock put_api_user_user_database_database_collection %}
 {% docublock delete_api_user_user_database_database %}
@@ -23,8 +40,3 @@ Please note that user operations are not included in ArangoDB's replication.
 {% docublock get_api_user_user_database %}
 {% docublock get_api_user_user_database_database %}
 {% docublock get_api_user_user_database_database_collection %}
-{% docublock put_api_user_user %}
-{% docublock patch_api_user_user %}
-{% docublock delete_api_user_user %}
-{% docublock get_api_user_user %}
-{% docublock get_api_user %}

@@ -1,10 +1,13 @@
 ---
 layout: default
-description: HTTP interface for managing ArangoSearch Analyzers
-title: Analyzers HTTP API
+description: >-
+  The HTTP API for Analyzers lets you create and delete Analyzers, as well as
+  list all or get specific Analyzers with all their settings
 ---
-HTTP Interface for Analyzers
-============================
+# HTTP interface for Analyzers
+
+{{ page.description }}
+{:class="lead"}
 
 The RESTful API for managing ArangoSearch Analyzers is accessible via the
 `/_api/analyzer` endpoint.
@@ -12,10 +15,7 @@ The RESTful API for managing ArangoSearch Analyzers is accessible via the
 See the description of [Analyzers](../analyzers.html) for an
 introduction and the available types, properties and features.
 
-Analyzer Operations
--------------------
-
-{% docublock post_api_analyzer %}
-{% docublock get_api_analyzer_analyzer %}
-{% docublock get_api_analyzer %}
-{% docublock delete_api_analyzer_analyzer %}
+{% docublock post_api_analyzer, h2 %}
+{% docublock get_api_analyzer_analyzer, h2 %}
+{% docublock get_api_analyzer, h2 %}
+{% docublock delete_api_analyzer_analyzer, h2 %}

@@ -734,8 +734,12 @@ dashboard with all metrics, neatly sorted into categories. In 3.8,
 we have over 200 metrics and nearly 300 graphs in the complete
 dashboard.
 
-The complete list of metrics together with documentation can be found
-in the [Metrics HTTP API](http/administration-and-monitoring-metrics.html)
+The complete list of metrics together with documentation can be found in the
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+[Metrics HTTP API](http/monitoring.html#metrics)
+{% else -%}
+[Metrics HTTP API](http/administration-and-monitoring-metrics.html)
+{% endif -%}
 documentation.
 
 The list of renamed metrics can be found under

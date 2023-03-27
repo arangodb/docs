@@ -1,8 +1,12 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's HTTP interface for views
+description: >-
+  The HTTP API for Views lets you manage Views of any type
 ---
 # HTTP interface for Views
+
+{{ page.description }}
+{:class="lead"}
 
 ## Addresses of Views
 

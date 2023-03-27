@@ -395,7 +395,7 @@ cache-related options and thus recreate inverted indexes and Views. See
 
 ### ArangoSearch metrics and figures
 
-The [Metrics HTTP API](http/administration-and-monitoring-metrics.html) has been
+The [Metrics HTTP API](http/monitoring.html#metrics) has been
 extended with metrics for ArangoSearch for monitoring `arangosearch` View links
 and inverted indexes.
 
@@ -1039,8 +1039,8 @@ You can do any of the following by using the API:
 - Execute the given set of move shard operations.
 - Compute a set of move shard operations to improve balance and execute them immediately. 
 
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
-section of the HTTP API reference manual.
+For more information, see the [Cluster](http/cluster.html#compute-the-current-cluster-imbalance) 
+section of the HTTP API documentation.
 
 ## Query result spillover to decrease memory usage
 
@@ -1071,7 +1071,7 @@ You can also set the thresholds per query in the JavaScript and HTTP APIs.
 For details, see:
 - [`temp` startup options](programs-arangod-options.html#--tempintermediate-results-path)
 - [Executing queries from _arangosh_](aql/invocation-with-arangosh.html#spilloverthresholdmemoryusage)
-- [Accessing Cursors via HTTP](http/aql-query-cursor-accessing-cursors.html)
+- [HTTP interfaces for AQL queries](http/aql-query.html#create-cursor)
 
 ## Server options
 

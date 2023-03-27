@@ -1,12 +1,7 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's interface for indexes in general
 ---
-Handling Indexes
-================
-
-This is an introduction to ArangoDB's interface for indexes in general.
-There are special sections for 
+# Handling Indexes
 
 - [Index Basics](indexing-index-basics.html): Introduction to all index types
 - [Which index to use when](indexing-which-index.html): Index type and options adviser

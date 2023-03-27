@@ -1,9 +1,13 @@
 ---
 layout: default
-description: Clients normally send individual operations to ArangoDB in individual HTTP requests
+description: >-
+  The HTTP API for batch requests lets you send multiple operations in a single
+  HTTP request
 ---
-HTTP Interface for Batch Requests
-=================================
+# HTTP interface for batch requests
+
+{{ page.description }}
+{:class="lead"}
 
 {% hint 'warning' %}
 The batch request API is deprecated from version 3.8.0 on.

@@ -63,7 +63,7 @@ The following APIs have been expanded:
 - Indexes can now have user-defined names
 - The new "ttl" index type has been added to the [index creation API](http/indexes.html)
 - [Collection creation API now provides the `smartJoinAttribute` parameter](data-modeling-collections-collection-methods.html)
-- [`filter` foxx-tests](http/foxx-miscellaneous.html) for testing
+- [`filter` foxx-tests](http/foxx.html#miscellaneous) for testing
 
 The following documentation has been enhanced:
 

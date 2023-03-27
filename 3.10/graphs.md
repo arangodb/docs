@@ -200,7 +200,7 @@ and [_arangorestore_](programs-arangorestore.html) to restore a backup into a ne
 Managing graphs
 ---------------
 
-By default you should use [the interface your driver provides to manage graphs](http/gharial-management.html).
+By default you should use [the interface your driver provides to manage graphs](http/gharial.html#management).
 
 This is i.e. documented [in Graphs-Section of the ArangoDB Java driver](https://github.com/arangodb/arangodb-java-driver#graphs){:target="_blank"}.
 

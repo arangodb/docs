@@ -50,7 +50,11 @@ If an EdgeDefinition contains a collection name that is also contained in the
 `satellites` option, the collection will be created as a SatelliteCollection.
 Otherwise, it will be ignored. This option only takes effect using SmartGraphs.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Graph Management](http/gharial.html#management).
+{% else -%}
 Also see [Graph Management](http/gharial-management.html).
+{% endif %}
 
 ### Extended naming convention for databases
 

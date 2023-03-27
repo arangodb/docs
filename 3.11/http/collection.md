@@ -20,7 +20,7 @@ All collections in ArangoDB have a unique identifier and a unique
 name. To access a collection, use the collection name to refer to it:
 
 ```
-http://server:port/_api/collection/collection-name
+http://server:port/_api/collection/<collection-name>
 ```
 
 For example, assume that the collection identifier is `7254820` and

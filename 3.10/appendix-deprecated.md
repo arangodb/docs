@@ -40,7 +40,7 @@ replace the old features with:
 - **Skiplist and hash indexes**:
   Skiplist and hash indexes have been deprecated in 3.9 and will be removed in a 
   future version of ArangoDB. Currently, they are an alias for a
-  [persistent index](http/indexes.html#persistent-index).
+  [persistent index](indexing-index-basics.html#persistent-index).
 
 - **Bundled NPM modules**:
   The bundled NPM modules `aqb`, `chai`, `dedent`, `error-stack-parser`,
@@ -58,7 +58,7 @@ replace the old features with:
 
 - **PUT method in Cursor API**:
   The HTTP endpoint `PUT /_api/cursor/<cursor-id>` in the
-  [Cursor REST API](http/aql-query-cursor.html) is deprecated and will be
+  [Cursor REST API](http/aql-query.html) is deprecated and will be
   removed in a future version. Please use the drop-in replacement
   `POST /_api/cursor/<cursor-id>` instead. The POST endpoint is functionally
   equivalent to the PUT endpoint, but does not violate idempotency requirements

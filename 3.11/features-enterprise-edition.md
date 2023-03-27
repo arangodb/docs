@@ -116,5 +116,5 @@ features outlined below. For additional information, see
 
 - **Advanced Encryption and Security Configuration**:
   Key rotation for [JWT secrets](http/authentication.html#hot-reload-jwt-secrets)
-  and [on-disk encryption](http/administration-and-monitoring.html#encryption-at-rest),
+  and [on-disk encryption](http/security.html#encryption-at-rest),
   as well as [Server Name Indication (SNI)](programs-arangod-options.html#--sslserver-name-indication).

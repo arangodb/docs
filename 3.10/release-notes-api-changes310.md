@@ -114,8 +114,8 @@ move shard operations and improve balance in the cluster.
 - `POST /_admin/cluster/rebalance_execute`
 - `PUT /_admin/cluster/rebalance`
   
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
-section of the HTTP API reference manual. 
+For more information, see the [Cluster](http/cluster.html#compute-the-current-cluster-imbalance) 
+section of the HTTP API documentation. 
 
 #### Maintenance mode for DB-Servers
 
@@ -174,7 +174,7 @@ to extend the timeout.
 
 The maintenance mode ends automatically after the defined timeout.
 
-Also see the [HTTP interface for cluster maintenance](http/cluster-maintenance.html#query-the-maintenance-status-of-a-db-server).
+Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-the-maintenance-status-of-a-db-server).
 
 ### Endpoints augmented
 

@@ -441,7 +441,7 @@ In addition, ArangoDB 3.6 provides the following new AQL functionality:
 
 - a [`maxRuntime` query option](aql/invocation-with-arangosh.html#maxruntime)
   to restrict the execution to a given time in seconds (also added to v3.5.4).
-  Also see [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
+  Also see [HTTP interfaces for AQL queries](http/aql-query.html#create-cursor).
 
 - a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
   rules off (or on) by default. This can be used to turn off certain optimizations
@@ -622,7 +622,7 @@ The following APIs have been expanded / changed:
   `replicationFactor`, `writeConcern` and `sharding` in a cluster.
   A description of these attributes can be found above.
 
-- [Collection](http/collection.html) / [Graph APIs](http/gharial-management.html),<br>
+- [Collection](http/collection.html) / [Graph APIs](http/gharial.html#management),<br>
   HTTP routes `POST /_api/collection`, `GET /_api/collection/{collection-name}/properties`
   and various `/_api/gharial/*` endpoints
 
@@ -634,7 +634,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/administration-and-monitoring-metrics.html#read-the-metrics),<br>
+- New [Metrics API](http/monitoring.html#metrics-api-deprecated),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned

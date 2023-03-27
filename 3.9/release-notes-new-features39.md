@@ -961,7 +961,11 @@ There are two new REST API routes to do the same, `GET /_admin/license` and
 `PUT /_admin/license`.
 
 See [License Management](administration-license.html) and the
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+[License Management HTTP API](http/administration.html#license).
+{% else -%}
 [License Management HTTP API](http/license.html).
+{% endif -%}
 
 Miscellaneous changes
 ---------------------

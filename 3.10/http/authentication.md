@@ -123,7 +123,7 @@ This JWT should then be used within the Authorization HTTP header in subsequent
 requests:
 
 ```
-Authorization: bearer eyJhbGciOiJIUzI1NiI..x6EfI
+Authorization: Bearer eyJhbGciOiJIUzI1NiI..x6EfI
 ```
 
 {% hint 'security' %}
@@ -145,6 +145,8 @@ Please note that all JWT tokens must contain the `iss` field with string value
   "preferred_username": "root"
 }
 ```
+
+{% docublock post_open_auth, h4 %}
 
 ### JWT superuser tokens
 

@@ -1,14 +1,18 @@
 ---
 layout: default
-description: Stream Transactions allow you to perform a multi-document transaction with individual begin and commit / abort commands
+description: >-
+  Stream Transactions allow you to perform a multi-document transaction with
+  individual begin and commit/abort commands
 ---
-HTTP Interface for Stream Transactions
-======================================
+# HTTP interface for Stream Transactions
+
+{{ page.description }}
+{:class="lead"}
 
 For an introduction to this transaction type, see
 [Stream Transactions](../transactions-stream-transactions.html).
 
-To use a Stream Transaction, a client first sends the [configuration](#begin-a-transaction)
+To use a Stream Transaction, a client first sends the [configuration](#begin-transaction)
 of the transaction to the ArangoDB server.
 
 {% hint 'info' %}
@@ -28,33 +32,12 @@ Supported transactional API operations include:
 - All operations in the [Document API](document.html)
 - Number of documents via the [Collection API](collection.html#return-number-of-documents-in-a-collection)
 - Truncate a collection via the [Collection API](collection.html#truncate-collection)
-- Create an AQL cursor via the [Cursor API](aql-query-cursor-accessing-cursors.html)
-- Handle [vertices](gharial-vertices.html) and [edges](gharial-edges.html)
+- Create an AQL cursor via the [Cursor API](aql-query.html#create-cursor)
+- Handle [vertices](gharial.html#vertices) and [edges](gharial.html#edges)
   of managed graphs (_General Graph_ / _Gharial_ API)
 
-Begin a Transaction
--------------------
-
-{% docublock post_api_transaction_begin %}
-
-Check Status of a Transaction
------------------------------
-
-{% docublock get_api_transaction_transaction %}
-
-Commit or Abort a Transaction
------------------------------
-
-Committing or aborting a running transaction must be done by the client.
-It is bad practice to not commit or abort a transaction once you are done
-using it. It will force the server to keep resources and collection locks 
-until the entire transaction times out.
-
-{% docublock put_api_transaction_transaction %}
-
-{% docublock delete_api_transaction_transaction %}
-
-List currently ongoing Transactions
------------------------------------
-
-{% docublock get_api_transaction %}
+{% docublock post_api_transaction_begin, h2 %}
+{% docublock get_api_transaction_transaction, h2 %}
+{% docublock put_api_transaction_transaction, h2 %}
+{% docublock delete_api_transaction_transaction, h2 %}
+{% docublock get_api_transaction, h2 %}

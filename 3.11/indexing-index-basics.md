@@ -43,8 +43,6 @@ For potentially long running index creation operations the _RocksDB_ storage-eng
 creating indexes in "background". The collection remains (mostly) available during the index creation, 
 see the section [Creating Indexes in Background](#creating-indexes-in-background) for more information.
 
-ArangoDB provides the following index types:
-
 Primary Index
 -------------
 
@@ -341,7 +339,8 @@ Geo Index
 ---------
 
 Users can create additional geo indexes on one or multiple attributes in collections. 
-A geo index is used to find places on the surface of the earth fast. 
+A geo-spatial index can accelerate queries that filter and sort by the distance
+between stored points and points provided in a query.
 
 The geo index stores two-dimensional coordinate pairs. It can be created on either two 
 separate document attributes (latitude and longitude) or a single array attribute that
