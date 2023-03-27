@@ -1,10 +1,14 @@
 ---
 layout: default
 description: >-
-  Views can index documents of one or multiple collections and enable
-  sophisticated information retrieval possibilities
+  Views can index documents of multiple collections and enable sophisticated
+  information retrieval possibilities, like full-text search with ranking by
+  relevance
 ---
 # Views
+
+{{ page.description }}
+{:class="lead"}
 
 Views allows you to perform complex searches at high performance. They are
 accelerated by inverted indexes that are updated near real-time.
@@ -13,6 +17,7 @@ A View is conceptually a transformation function over documents from zero or
 more collections. The transformation depends on the View type and the View
 configuration.
 
+Views are powered by ArangoDB's built-in search engine.
 See [ArangoSearch](arangosearch.html) for details.
 
 ## View types
