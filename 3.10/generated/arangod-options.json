@@ -8229,7 +8229,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 3600,
+    "default" : 1800,
     "deprecatedIn" : null,
     "description" : "The interval (in seconds) in which auto-flushes of WAL and column family data is executed.",
     "dynamic" : false,
@@ -8260,7 +8260,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 10,
+    "default" : 20,
     "deprecatedIn" : null,
     "description" : "The minimum number of live WAL files that triggers an auto-flush of WAL and column family data.",
     "dynamic" : false,
@@ -11095,7 +11095,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 180,
+    "default" : 60,
     "deprecatedIn" : null,
     "description" : "The initial timeout (in seconds) after which unused WAL files deletion kicks in after server start.",
     "dynamic" : false,
