@@ -126,7 +126,7 @@ You can let ArangoDB execute requests asynchronously in two different ways:
 - Submit requests for async execution and let the server store the results for
   later retrieval
 
-### Fire and forget
+#### Fire and forget
 
 To reduce blocking on the client-side, ArangoDB offers a generic mechanism for
 non-blocking, asynchronous execution: clients can add a `x-arango-async: true`
@@ -168,7 +168,7 @@ since you don't get any handle to identify it later on. If you need to cancel
 requests, use
 [Async execution and later result retrieval](#async-execution-and-later-result-retrieval).
 
-### Async execution and later result retrieval
+#### Async execution and later result retrieval
 
 By adding a `x-arango-async: store` HTTP header to a request, clients can instruct
 the ArangoDB server to execute the operation asynchronously but also store the
@@ -199,7 +199,7 @@ from time to time.
 The job queue and the results are kept in-memory only on the server, which means
 they are lost in case of a crash.
 
-#### Canceling asynchronous jobs
+##### Canceling asynchronous jobs
 
 A running async query can internally be executed by C++ code or by JavaScript
 code. For example, CRUD operations are executed directly in C++, whereas AQL
@@ -215,7 +215,7 @@ running on the Coordinator is stopped. There may remain tasks within the cluster
 which have already been distributed to the DB-Servers and it is not possible to
 cancel them as well.
 
-#### Async execution and authentication
+##### Async execution and authentication
 
 If a request requires authentication, the authentication procedure is run before 
 queueing. The request is only queued if the authentication is successful. If the

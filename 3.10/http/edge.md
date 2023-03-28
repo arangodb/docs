@@ -29,6 +29,4 @@ Edges are a special variation of documents and you can access them like any
 document. See [Addresses of documents](document.html#addresses-of-documents)
 for details.
 
-## List edges
-
-{% docublock get_api_edges_collection %}
+{% docublock get_api_edges_collection, h2 %}

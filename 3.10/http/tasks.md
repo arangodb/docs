@@ -1,7 +1,7 @@
 ---
 layout: default
 description: >-
-  The HTTP API for tasks lets you can manage the periodic execution of
+  The HTTP API for tasks lets you can manage the periodic or timed execution of
   server-side JavaScript code
 ---
 # HTTP interface for tasks
