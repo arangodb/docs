@@ -214,15 +214,8 @@ Pregel algorithms in ArangoDB store temporary vertex and edge data in
 main memory by default. For large datasets, this can cause 
 problems, as servers may run out of memory while loading the data.
 
-To avoid running out of memory, you can start Pregel jobs with the
-`useMemoryMaps` attribute set to `true`. This makes the algorithms use
-memory-mapped files as a backing storage in case of huge
-datasets. Falling back to memory-mapped files might make the computation
-disk-bound, but may be the only way to complete the computation at all.
-
 Parts of the Pregel temporary results (aggregated messages) may also be
-stored in the main memory, and currently the aggregation cannot fall back to
-memory-mapped files. That means, if algorithms need to store a lot of
+stored in the main memory. That means, if algorithms need to store a lot of
 result messages temporarily, they may consume a lot of the main memory.
 
 In general, it is also recommended to set the `store` attribute of Pregel jobs
