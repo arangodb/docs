@@ -258,8 +258,6 @@ This operation is not atomic, therefore some documents could be successfully wri
   - `ignore`
   - `update` with `keep.null=true`
 
-These configurations are also compatible with speculative execution of tasks.
-
 A failing batch-saving request is retried once for every Coordinator. After that, if still failing, the write task for the related partition is aborted. According to the Spark configuration, the task can be retried and rescheduled on a different executor, if the provided write configuration allows idempotent requests (as described above).
 
 If a task ultimately fails and is aborted, the entire write job will be aborted as well. Depending on the `SaveMode` configuration, the following cleanup operations will be performed:
@@ -281,6 +279,7 @@ When writing to an edge collection (`table.type=edge`), the schema of the Datafr
 - Writing records with the `_key` attribute is only allowed on collections sharded by `_key`. 
 - In case of the `Append` save mode, failed jobs cannot be rolled back and the underlying data source may require manual cleanup.
 - Speculative execution of tasks would only work for idempotent write configurations. See [Write Resiliency](#write-resiliency) for more details.
+- Speculative execution of tasks could cause concurrent writes of same documents, resulting in write-write conflicts or lock timeouts
 
 ## Mapping Configuration
 
