@@ -72,13 +72,39 @@ the browser's built-in dialog.
 
 ## HTTP Basic Authentication
 
-<!-- TODO:
-curl -u <username>:<password> http://...
+ArangoDB supports basic authentication with a user name and password. The name
+and the password of an ArangoDB user account need to be separated by a colon and
+the entire string needs to be Base64-encoded. The resulting value can be used
+in the `Authorization` header of an HTTP request, indicating that the
+authorization scheme is `Basic`.
 
-Authorization: Basic <base64(<username>:<password>)>
+For example, if the name is `user` and the password `pass`, the temporary string
+that needs to be encoded is `user:pass`. The Base64-encoded value is
+`dXNlcjpwYXNz` (e.g. using the `btoa()` JavaScript function in a browser).
+The HTTP request header to authenticate is a follows:
 
-Security warning
--->
+```
+Authorization: Basic dXNlcjpwYXNz
+```
+
+If you use a tool like cURL, you can manually specify this header as follows:
+
+```
+curl -H 'Authorization: Basic dXNlcjpwYXNz' ...
+```
+
+However, cURL can also take care of the authentication for you:
+
+```
+curl -u user:pass ...
+```
+
+{% hint 'security' %}
+Encoding credentials using the Base64 scheme does not encrypt them.
+Base64-encoded strings can easily be decoded. Be careful not to expose the
+encoded credentials by accident. It is recommended to secure connections with
+ArangoDB servers using TLS for encryption in transit.
+{% endhint %}
 
 ## Bearer Token Authentication
 
