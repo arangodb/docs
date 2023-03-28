@@ -8,6 +8,7 @@ redirect_from:
   - data-modeling-graphs-vertices-edges.html # 3.9 -> 3.10
   - data-modeling-concepts.html # 3.9 -> 3.10
   - appendix-glossary.html # 3.10 -> 3.10
+  - data-modeling-naming-conventions.html # 3.10 -> 3.10
 ---
 # How Data is Structured in ArangoDB
 
