@@ -233,7 +233,6 @@ Distributed Graph Processing
   * Shortest Paths
   * Centrality Measures (Centrality and Betweenness)
   * Community Detection (via Label Propagation or Speakers-Listeners Label Propagation)
-* Users can contribute their own algorithms
 
 AQL
 ---
