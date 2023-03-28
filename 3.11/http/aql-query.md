@@ -265,68 +265,6 @@ curl -X DELETE --dump http://localhost:8529/_api/cursor/3517
 }
 ```
 
-### Modifying documents
-
-The `/_api/cursor` endpoint can also be used to execute modifying queries.
-
-The following example appends a value into the array `arrayValue` of the document
-with key `test` in the collection `documents`. Normal update behavior is to
-replace the attribute completely, and using an update AQL query with the `PUSH()` 
-function allows to append to the array.
-
-```js
-curl --data @- -X POST --dump http://127.0.0.1:8529/_api/cursor
-{ "query": "FOR doc IN documents FILTER doc._key == @myKey UPDATE doc._key WITH { arrayValue: PUSH(doc.arrayValue, @value) } IN documents","bindVars": { "myKey": "test", "value": 42 } }
-
-HTTP/1.1 201 Created
-Content-type: application/json; charset=utf-8
-
-{
-  "result" : [],
-  "hasMore" : false,
-  "extra" : {
-    "stats" : {
-      "writesExecuted" : 1,
-      "writesIgnored" : 0,
-      "scannedFull" : 0,
-      "scannedIndex" : 1,
-      "filtered" : 0
-    },
-    "warnings" : []
-  },
-  "error" : false,
-  "code" : 201
-}
-```
-
-### Setting a memory limit
-
-To set a memory limit for the query, the `memoryLimit` option can be passed to
-the server.
-The memory limit specifies the maximum number of bytes that the query is
-allowed to use. When a single AQL query reaches the specified limit value, 
-the query is aborted with a *resource limit exceeded* exception. In a 
-cluster, the memory accounting is done per server, so the limit value is 
-effectively a memory limit per query per server.
-
-```js
-> curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
-{ "query" : "FOR i IN 1..100000 SORT i RETURN i", "memoryLimit" : 100000 }
-
-HTTP/1.1 500 Internal Server Error
-Server: ArangoDB
-Connection: Keep-Alive
-Content-Type: application/json; charset=utf-8
-Content-Length: 115
-
-{"error":true,"errorMessage":"query would use more memory than allowed (while executing)","code":500,"errorNum":32}
-```
-
-If no memory limit is specified, then the server default value (controlled by
-startup option `--query.memory-limit`) is used for restricting the maximum amount
-of memory the query can use. A memory limit value of `0` means that the maximum
-amount of memory for the query is not restricted.
-
 ## Execute AQL queries
 
 {% docublock post_api_cursor %}
