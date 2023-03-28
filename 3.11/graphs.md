@@ -106,7 +106,7 @@ This gives you more freedom than the strict *named graphs*.
   - [AQL Traversals](aql/graphs-traversals.html)
   - [AQL Shortest Path](aql/graphs-shortest-path.html)
 
-### When to choose anonymous or named graphs?
+### When to choose anonymous or named graphs
 
 As noted above, named graphs ensure graph integrity, both when inserting or removing edges or vertices.
 So you won't encounter dangling edges, even if you use the same vertex collection in several named graphs.
