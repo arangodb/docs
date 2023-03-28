@@ -98,6 +98,10 @@ different than the value of `--agency.size` leads to a startup error.
 The `async` option has been removed. Some algorithms supported an asynchronous mode
 to run without synchronized global iterations. This is no longer supported.
 
+The experimental feature "Custom Pregel" has been removed.
+
+The Pregel Algorithm "DMID" has been deprecated and will be removed in a future release.
+
 ## Client tools
 
 ### arangoexport
