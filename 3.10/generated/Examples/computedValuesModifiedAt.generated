@@ -13,20 +13,20 @@ arangosh&gt; doc = db.users.update(<span class="hljs-string">&quot;123&quot;</sp
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/123&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;123&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fwZvJMS---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fwZvJMO--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fwigQLC---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fwigQL---_&quot;</span> 
 }
 arangosh&gt; db.users.toArray();
 [ 
   { 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;123&quot;</span>, 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/123&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fwZvJMS---&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fwigQLC---&quot;</span>, 
     <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Paula Plant&quot;</span>, 
     <span class="hljs-string">&quot;email&quot;</span> : <span class="hljs-string">&quot;gardener@arangodb.com&quot;</span>, 
     <span class="hljs-string">&quot;modifiedAt&quot;</span> : { 
       <span class="hljs-string">&quot;date&quot;</span> : <span class="hljs-string">&quot;2023-03-28&quot;</span>, 
-      <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-string">&quot;06:39:12.613Z&quot;</span> 
+      <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-string">&quot;16:52:05.457Z&quot;</span> 
     } 
   } 
 ]
@@ -34,15 +34,15 @@ arangosh&gt; doc = db.users.update(<span class="hljs-string">&quot;123&quot;</sp
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/123&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;123&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fwZvJMW---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fwZvJMS---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fwigQLC--_&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_fwigQLC---&quot;</span> 
 }
 arangosh&gt; db.users.toArray();
 [ 
   { 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;123&quot;</span>, 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/123&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fwZvJMW---&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_fwigQLC--_&quot;</span>, 
     <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Paula Plant&quot;</span>, 
     <span class="hljs-string">&quot;email&quot;</span> : <span class="hljs-string">&quot;greenhouse@arangodb.com&quot;</span>, 
     <span class="hljs-string">&quot;modifiedAt&quot;</span> : { 

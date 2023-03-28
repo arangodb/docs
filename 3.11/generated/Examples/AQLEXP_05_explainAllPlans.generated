@@ -41,9 +41,9 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">&quot;indexCoversProjections&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;indexes&quot;</span> : [ 
             { 
-              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60643&quot;</span>, 
+              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;60639&quot;</span>, 
               <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
-              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1761594394591363072&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1761633600458981380&quot;</span>, 
               <span class="hljs-string">&quot;fields&quot;</span> : [ 
                 <span class="hljs-string">&quot;value&quot;</span> 
               ], 
@@ -198,6 +198,6 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
     <span class="hljs-string">&quot;rulesSkipped&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;plansCreated&quot;</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0001831590197980404</span> 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00010109499999089167</span> 
   } 
 }
