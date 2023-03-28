@@ -40,7 +40,7 @@ use the following startup options:
 Note that the specified user must have access to the databases.
 
 Here's an example of dumping data from a non-standard endpoint, using a dedicated
-[database name](appendix-glossary.html#database-name):
+[database name](data-modeling-databases.html#database-names):
 
 ```
 arangodump \

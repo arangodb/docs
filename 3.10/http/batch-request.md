@@ -222,7 +222,7 @@ Content-length: 53
 Please note that the database used for all part operations of a batch
 request is determined by scanning the original URL (the URL that contains
 */_api/batch*). It is not possible to override the
-[database name](../appendix-glossary.html#database-name) in
+[database name](../data-modeling-databases.md#database-names) in
 part operations of a batch. When doing so, any other database name used 
 in a batch part will be ignored.
 {% docublock post_api_batch %}

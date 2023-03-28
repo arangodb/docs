@@ -145,7 +145,7 @@ Create a new database:
 
 Creates a new database with the name specified by `name`.
 There are restrictions for database names
-(see [DatabaseNames](data-modeling-naming-conventions-database-names.html)).
+(see [Database names](data-modeling-databases.html#database-names)).
 
 Note that even if the database is created successfully, there will be no
 change into the current database to the new database. Changing the current

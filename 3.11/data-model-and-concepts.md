@@ -7,8 +7,8 @@ title: ArangoDB Data Model & Concepts
 redirect_from:
   - data-modeling-graphs-vertices-edges.html # 3.9 -> 3.10
   - data-modeling-concepts.html # 3.9 -> 3.10
+  - appendix-glossary.html # 3.10 -> 3.10
 ---
-
 # How Data is Structured in ArangoDB
 
 The hierarchy that data is organized in is **documents** (data records) in
@@ -137,6 +137,13 @@ Aside from basic graph traversal, ArangoDB offers
 or multiple shortest paths between two vertices, can return a specified amount
 of paths between two vertices in order of increasing length, and supports
 distributed graph processing based on the Pregel framework.
+
+You can perform operations directly on the documents of graphs and run graph
+traversals using ad-hoc sets of vertex and edge collections. These are called
+**anonymous graphs**. However, no graph consistency is enforced. You can create
+**named graphs** and use the interfaces for named graphs, which ensure graph
+consistency. For example, removing a vertex removes all connected edges, too.
+Low-level operations can still cause dangling edges, nonetheless.
 
 <!--
 - [Graphs in data modeling - is the emperor naked?](https://medium.com/@neunhoef/graphs-in-data-modeling-is-the-emperor-naked-2e65e2744413#.x0a5z66ji){:target="_blank"}

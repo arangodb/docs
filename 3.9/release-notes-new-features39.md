@@ -667,7 +667,11 @@ Coordinators and DB-Servers of the cluster. Otherwise the startup will be
 refused. In DC2DC setups it is also required to use the same database naming
 convention for both datacenters to avoid incompatibilities.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Database names](data-modeling-databases.html#database-names).
+{% else -%}
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+{% endif %}
 
 ### ICU Language
 

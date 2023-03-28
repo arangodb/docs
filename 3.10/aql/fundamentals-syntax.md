@@ -274,11 +274,11 @@ This limit applies to the sum of all involved document and edge collections.
 
 When referring to attributes of documents from a collection, the fully qualified
 attribute name must be used. This is because multiple collections with ambiguous
-attribute names may be used in a query.  To avoid any ambiguity, it is not
+attribute names may be used in a query. To avoid any ambiguity, it is not
 allowed to refer to an unqualified attribute name.
 
-Please refer to the [Naming Conventions in ArangoDB](../data-modeling-naming-conventions-attribute-names.html)
-for more information about the attribute naming conventions.
+Also see the naming restrictions for
+[Attribute names](../data-modeling-documents.html#attribute-names).
 
 ```aql
 FOR u IN users

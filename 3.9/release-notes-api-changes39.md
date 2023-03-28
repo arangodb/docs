@@ -84,7 +84,11 @@ but will become the norm in a future version. Drivers and client applications
 should be prepared for this feature.
 {% endhint %}
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Database names](data-modeling-databases.html#database-names).
+{% else -%}
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+{% endif %}
 
 ### Overload control
 

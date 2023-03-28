@@ -53,6 +53,12 @@ only be included in the index if it is a string. When indexing the contents of a
 attribute, an object member value will only be included in the index if it is a string.
 Other data types are ignored and not indexed.
 
+Word tokenization is performed using the word boundary analysis provided by
+[ICU](http://site.icu-project.org/){:target="_blank"}, which takes the selected
+server language into account.
+
+Words are indexed in all lower-case. Only words with a (specifiable) minimum
+length are indexed.
 
 Accessing Fulltext Indexes from the Shell
 -----------------------------------------

@@ -36,7 +36,7 @@ of that document is:
 http://localhost:8529/_api/document/demo/362549736
 ```
 
-The above URL schema does not specify a [database name](../appendix-glossary.html#database-name)
+The above URL schema does not specify a [database name](../data-modeling-databases.html#database-names)
 explicitly, so the default `_system` database is used. To explicitly specify the
 database context, use the following URL schema:
 
