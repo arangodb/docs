@@ -67,6 +67,18 @@ contains `_key`, `_id`, and `_rev` attributes. The `_key` and `_id` correspond
 to the document of the write attempt, and `_rev` corresponds to the current
 revision of the document as stored in the database (if available, otherwise empty).
 
+## Deprecated and removed Pregel features
+
+- The experimental _Custom Pregel_ feature, also known as
+  _programmable Pregel algorithms_ (PPA), has been removed.
+
+- The built-in _DMID_ Pregel algorithm has been deprecated and will be removed
+  in a future release.
+
+- The `async` option for Pregel jobs has been removed. Some algorithms supported
+  an asynchronous mode to run without synchronized global iterations. This is no
+  longer supported.
+
 ## Startup options
 
 ### `--server.disable-authentication` and `--server.disable-authentication-unix-sockets` obsoleted
@@ -92,15 +104,6 @@ version of ArangoDB. Setting the option to anything but the value of
 
 From v3.11.0 onwards, this option is deprecated, and setting it to a value
 different than the value of `--agency.size` leads to a startup error.
-
-### Pregel options
-
-The `async` option has been removed. Some algorithms supported an asynchronous mode
-to run without synchronized global iterations. This is no longer supported.
-
-The experimental feature "Custom Pregel" has been removed.
-
-The Pregel Algorithm "DMID" has been deprecated and will be removed in a future release.
 
 ## Client tools
 
