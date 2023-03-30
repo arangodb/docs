@@ -95,8 +95,8 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichDatabase` - returns the database name you are connected to.
 - `%createDatabase databaseName` - creates a database.
 - `%selectDatabase databaseName` - selects a database as the current database.
-- `%useDatabase databasename` - uses a database as the current database; shares
-  the same function with `%selectDatabase`.
+- `%useDatabase databasename` - uses a database as the current database;
+  alias for `%selectDatabase`.
 - `%getDatabase databaseName` - gets a database. Used for assigning a database,
    e.g. `studentDB` = `getDatabase student_database`.
 - `%deleteDatabase databaseName` - deletes the database.
@@ -107,8 +107,8 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichGraph` - returns the graph name that is currently selected.
 - `%createGraph graphName` - creates a named graph.
 - `%selectGraph graphName` - selects the graph as the current graph.
-- `%useGraph graphName` - uses the graph as the current graph; shares the same
-  function with `%selectGraph`.
+- `%useGraph graphName` - uses the graph as the current graph;
+  alias for `%selectGraph`.
 - `%getGraph graphName` - gets the graph for variable assignment, 
   e.g. `studentGraph` = `%getGraph student-graph`.
 - `%deleteGraph graphName` - deletes a graph.
@@ -120,10 +120,12 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%createCollection collectionName` - creates a collection.
 - `%selectCollection collectionName` - selects a collection as the current collection.
 - `%useCollection collectionName` - uses the collection as the current collection;
-  shares the same function with `%selectCollection`.
+  alias for `%selectCollection`.
 - `%getCollection collectionName` - gets a collection for variable assignment,
   e.g. `student` = `% getCollection Student`.
-- `%createEdge` - creates an edge collection.    
+- `&createEdgeCollection` - creates an edge collection.
+- `&createVertexCollection` - creates a vertex collection.
+- `%createEdgeDefinition` - creates an edge definition.
 - `%deleteCollection collectionName` - deletes the collection.
 - `%truncateCollection collectionName` - truncates the collection.
 - `%sampleCollection collectionName` - returns a random document from the collection.
