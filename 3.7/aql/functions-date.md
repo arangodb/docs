@@ -18,7 +18,7 @@ at every point on earth. The date functions use millisecond precision for timest
 Time unit definitions:
 
 - **millisecond**: 1/1000 of a second
-- **second**: one [SI second](https://www.bipm.org/en/publications/si-brochure/second.html){:target="_blank"}
+- **second**: one [SI second](https://www.bipm.org/en/si-base-units/second){:target="_blank"}
 - **minute**: one minute is defined as 60 seconds
 - **hour**: one hour is defined as 60 minutes
 - **day**: one day is defined as 24 hours
