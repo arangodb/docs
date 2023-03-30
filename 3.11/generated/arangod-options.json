@@ -1082,7 +1082,7 @@
       "agent",
       "single"
     ],
-    "default" : 16338174976,
+    "default" : 16338173952,
     "deprecatedIn" : null,
     "description" : "The global size limit for all caches (in bytes).",
     "dynamic" : true,
@@ -7128,7 +7128,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 67500183552,
+    "base" : 67500179456,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7136,7 +7136,7 @@
       "agent",
       "single"
     ],
-    "default" : 54675148677,
+    "default" : 54675145359,
     "deprecatedIn" : null,
     "description" : "The memory threshold for all AQL queries combined (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7393,7 +7393,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 67500183552,
+    "base" : 67500179456,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7401,7 +7401,7 @@
       "agent",
       "single"
     ],
-    "default" : 40500110131,
+    "default" : 40500107673,
     "deprecatedIn" : null,
     "description" : "The memory threshold per AQL query (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7515,35 +7515,6 @@
     "requiresValue" : true,
     "section" : "query",
     "type" : "string..."
-  },
-  "query.parallelize-gather-writes" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "Whether to enable write parallelization for gather nodes.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "query",
-    "type" : "boolean"
   },
   "query.parallelize-traversals" : {
     "category" : "option",
@@ -8212,7 +8183,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 3600,
+    "default" : 1800,
     "deprecatedIn" : null,
     "description" : "The interval (in seconds) in which auto-flushes of WAL and column family data is executed.",
     "dynamic" : false,
@@ -8243,7 +8214,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 10,
+    "default" : 20,
     "deprecatedIn" : null,
     "description" : "The minimum number of live WAL files that triggers an auto-flush of WAL and column family data.",
     "dynamic" : false,
@@ -8574,7 +8545,7 @@
       "agent",
       "single"
     ],
-    "default" : 19605809971,
+    "default" : 19605808742,
     "deprecatedIn" : null,
     "description" : "The size of block cache (in bytes).",
     "dynamic" : true,
@@ -11039,7 +11010,7 @@
       "agent",
       "single"
     ],
-    "default" : 26141079961,
+    "default" : 26141078323,
     "deprecatedIn" : null,
     "description" : "The maximum total size of in-memory write buffers (0 = unbounded).",
     "dynamic" : true,
@@ -11374,7 +11345,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 180,
+    "default" : 60,
     "deprecatedIn" : null,
     "description" : "The initial timeout (in seconds) after which unused WAL files deletion kicks in after server start.",
     "dynamic" : false,
@@ -12493,7 +12464,7 @@
     ],
     "default" : "admin",
     "deprecatedIn" : null,
-    "description" : "The policy for exposing the support info API.",
+    "description" : "The policy for exposing the support info and also the telemetrics API.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -12511,6 +12482,66 @@
     "section" : "server",
     "type" : "string",
     "values" : "Possible values: \"admin\", \"disabled\", \"jwt\", \"public\""
+  },
+  "server.telemetrics-api" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Whether to enable the telemetrics API.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
+  "server.telemetrics-api-max-requests" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : 3,
+    "deprecatedIn" : null,
+    "description" : "Maximum number of requests from the arangosh that the telemetrics API will respond without rate-limiting.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "longDescription" : "This option controls the maximum \nnumber of requests that the telemetrics API will respond to before\nit rate-limits. Note that only requests from the arangosh to the\ntelemetrics API will be rate-limited, but not any other requests\nto the telemetrics API.\nRequests to the telemetrics API will be counted for every 2 hour\ninterval, and then resetted. That means after a period of at most\n2 hours, the telemetrics API will become usable again.\nThe purpose of this option is to keep a deployment from being\noverwhelmed by too many telemetrics requests, issued by arangosh\ninstances that are used for batch processing.",
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "uint64"
   },
   "server.uid" : {
     "category" : "option",

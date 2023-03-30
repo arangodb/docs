@@ -23,6 +23,7 @@ redirect_from:
   - architecture-deployment-modes-leader-follower.html # 3.8 -> 3.9
   - deployment-leader-follower-manual-start.html # 3.8 -> 3.9
   - deployment-leader-follower.html # 3.8 -> 3.9
+  - graph-analytics-custom-pregel.html # 3.10 -> 3.11
 ---
 Deprecated
 ==========
@@ -32,9 +33,20 @@ considered obsolete and may get removed in a future release. They are currently
 kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
-- **Pregel Memory-Mapped Files**:
-  The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
-  backing storage for large datasets has been removed.
+- **Pregel features**:
+
+  The following features have been deprecated or removed from Pregel in v3.11:
+
+  - The experimental _Custom Pregel_ feature, also known as
+    _programmable Pregel algorithms_ (PPA), has been removed.
+
+  - The built-in _DMID_ Pregel algorithm has been deprecated and will be removed
+    in a future release.
+
+  - The `async` option for Pregel jobs has been removed.
+
+  - The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
+    backing storage for large datasets has been removed.
 
 - **Leader/Follower Deployment Mode**:
   The Leader/Follower deployment type is deprecated and already removed from
