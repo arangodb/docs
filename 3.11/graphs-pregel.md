@@ -197,10 +197,6 @@ There are a number of general parameters which apply to almost all algorithms:
 - `resultField` (string): Most algorithms use this as attribute name for the
   result. Some use it as prefix for multiple result attributes. Defaults to
   `"result"`.
-- `useMemoryMaps` (bool): Use disk based files to store temporary results.
-  This might make the computation disk-bound, but allows you to run computations
-  which would not fit into main memory. It is recommended to set this flag for
-  larger datasets.
 - `shardKeyAttribute` (string): shard key that edge collections are sharded
   after (default: `"vertex"`)
 - `ttl` (number): The time to live (TTL) defines for how long (in seconds) the Pregel run

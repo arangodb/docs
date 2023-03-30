@@ -33,7 +33,8 @@ kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
 - **Pregel Memory-Mapped Files**:
-  The option to use memory-mapped files as a backing storage for large datasets has been removed.
+  The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
+  backing storage for large datasets has been removed.
 
 - **Leader/Follower Deployment Mode**:
   The Leader/Follower deployment type is deprecated and already removed from
