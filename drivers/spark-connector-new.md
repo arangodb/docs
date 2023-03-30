@@ -278,8 +278,8 @@ When writing to an edge collection (`table.type=edge`), the schema of the Datafr
 - Batch writes are not performed atomically, so sometimes (i.e. in case of `overwrite.mode: conflict`) several documents in the batch may be written and others may return an exception (i.e. due to a conflicting key). 
 - Writing records with the `_key` attribute is only allowed on collections sharded by `_key`. 
 - In case of the `Append` save mode, failed jobs cannot be rolled back and the underlying data source may require manual cleanup.
-- Speculative execution of tasks would only work for idempotent write configurations. See [Write Resiliency](#write-resiliency) for more details.
-- Speculative execution of tasks could cause concurrent writes of same documents, resulting in write-write conflicts or lock timeouts
+- Speculative execution of tasks only works for idempotent write configurations. See [Write Resiliency](#write-resiliency) for more details.
+- Speculative execution of tasks can cause concurrent writes to the same documents, resulting in write-write conflicts or lock timeouts
 
 ## Mapping Configuration
 
