@@ -79,6 +79,10 @@ revision of the document as stored in the database (if available, otherwise empt
   an asynchronous mode to run without synchronized global iterations. This is no
   longer supported.
 
+- The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
+  backing storage for large datasets has been removed. Memory paging/swapping
+  provided by the operating system is equally effective.
+
 ## Startup options
 
 ### `--server.disable-authentication` and `--server.disable-authentication-unix-sockets` obsoleted
@@ -104,6 +108,18 @@ version of ArangoDB. Setting the option to anything but the value of
 
 From v3.11.0 onwards, this option is deprecated, and setting it to a value
 different than the value of `--agency.size` leads to a startup error.
+
+### `--pregel.memory-mapped-files*` obsoleted
+
+Pregel no longer supports use memory-mapped files as a backing storage.
+The following startup options have therefore been removed:
+
+- `--pregel.memory-mapped-files`
+- `--pregel.memory-mapped-files-custom-path`
+- `--pregel.memory-mapped-files-location-type`
+
+You can still specify them on startup without raising errors but they have no
+effect anymore.
 
 ## Client tools
 

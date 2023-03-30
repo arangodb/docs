@@ -45,6 +45,9 @@ replace the old features with:
 
   - The `async` option for Pregel jobs has been removed.
 
+  - The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
+    backing storage for large datasets has been removed.
+
 - **Leader/Follower Deployment Mode**:
   The Leader/Follower deployment type is deprecated and already removed from
   documentation. Active Failover and OneShard databases in clusters are better
