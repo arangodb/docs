@@ -1,10 +1,10 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/control_pregel/70710</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/control_pregel/70717</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">2887</span>
+content-length: <span class="hljs-number">2891</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -14,30 +14,30 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70710&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70717&quot;</span>, 
   <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
   <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;wcc&quot;</span>, 
-  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-03-28T17:32:38Z&quot;</span>, 
-  <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2023-03-28T17:42:38Z&quot;</span>, 
+  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-03-30T12:44:03Z&quot;</span>, 
+  <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2023-03-30T12:54:03Z&quot;</span>, 
   <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span>, 
   <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;done&quot;</span>, 
   <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">11</span>, 
-  <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.002727277</span>, 
-  <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.000309834</span>, 
-  <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.001846727</span>, 
-  <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.000524258</span>, 
+  <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.004625105</span>, 
+  <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.000524819</span>, 
+  <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.002983841</span>, 
+  <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.001012178</span>, 
   <span class="hljs-string">&quot;gssTimes&quot;</span> : [ 
-    <span class="hljs-number">0.000098098</span>, 
-    <span class="hljs-number">0.000086331</span>, 
-    <span class="hljs-number">0.000065758</span>, 
-    <span class="hljs-number">0.000080678</span>, 
-    <span class="hljs-number">0.000083613</span>, 
-    <span class="hljs-number">0.000062754</span>, 
-    <span class="hljs-number">0.000076418</span>, 
-    <span class="hljs-number">0.000058034</span>, 
-    <span class="hljs-number">0.000059094</span>, 
-    <span class="hljs-number">0.000086814</span>, 
-    <span class="hljs-number">0.000060954</span> 
+    <span class="hljs-number">0.000124187</span>, 
+    <span class="hljs-number">0.000131656</span>, 
+    <span class="hljs-number">0.000136438</span>, 
+    <span class="hljs-number">0.000102848</span>, 
+    <span class="hljs-number">0.000130746</span>, 
+    <span class="hljs-number">0.000100039</span>, 
+    <span class="hljs-number">0.0000963</span>, 
+    <span class="hljs-number">0.000093785</span>, 
+    <span class="hljs-number">0.000094839</span>, 
+    <span class="hljs-number">0.000078542</span>, 
+    <span class="hljs-number">0.00009954</span> 
   ], 
   <span class="hljs-string">&quot;aggregators&quot;</span> : { 
   }, 
@@ -45,12 +45,12 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;receivedCount&quot;</span> : <span class="hljs-number">370</span>, 
   <span class="hljs-string">&quot;vertexCount&quot;</span> : <span class="hljs-number">36</span>, 
   <span class="hljs-string">&quot;edgeCount&quot;</span> : <span class="hljs-number">36</span>, 
-  <span class="hljs-string">&quot;parallelism&quot;</span> : <span class="hljs-number">9</span>, 
+  <span class="hljs-string">&quot;parallelism&quot;</span> : <span class="hljs-number">8</span>, 
   <span class="hljs-string">&quot;masterContext&quot;</span> : { 
   }, 
   <span class="hljs-string">&quot;detail&quot;</span> : { 
     <span class="hljs-string">&quot;aggregatedStatus&quot;</span> : { 
-      <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-03-28T17:32:38Z&quot;</span>, 
+      <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-03-30T12:44:03Z&quot;</span>, 
       <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
       }, 
       <span class="hljs-string">&quot;allGssStatus&quot;</span> : { 
@@ -126,7 +126,7 @@ x-content-type-options: nosniff
     }, 
     <span class="hljs-string">&quot;workerStatus&quot;</span> : { 
       <span class="hljs-string">&quot;&quot;</span> : { 
-        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-03-28T17:32:38Z&quot;</span>, 
+        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-03-30T12:44:03Z&quot;</span>, 
         <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
         }, 
         <span class="hljs-string">&quot;allGssStatus&quot;</span> : { 

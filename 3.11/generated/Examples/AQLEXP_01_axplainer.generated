@@ -1,5 +1,5 @@
 arangosh&gt; db._create(&quot;test&quot;);
-[ArangoCollection 60433, &quot;test&quot; (type document, status loaded)]
+[ArangoCollection 60437, &quot;test&quot; (type document, status loaded)]
 arangosh&gt; for (i = 0; i &lt; 100; ++i) { db.test.save({ value: i }); }
 arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot;value&quot; ] });
 { 
@@ -9,9 +9,9 @@ arangosh&gt; db.test.ensureIndex({ type: &quot;persistent&quot;, fields: [ &quot
   &quot;fields&quot; : [ 
     &quot;value&quot; 
   ], 
-  &quot;id&quot; : &quot;test/60639&quot;, 
+  &quot;id&quot; : &quot;test/60643&quot;, 
   &quot;isNewlyCreated&quot; : true, 
-  &quot;name&quot; : &quot;idx_1761633600458981380&quot;, 
+  &quot;name&quot; : &quot;idx_1761796636250472448&quot;, 
   &quot;selectivityEstimate&quot; : 1, 
   &quot;sparse&quot; : false, 
   &quot;type&quot; : &quot;persistent&quot;, 
@@ -32,7 +32,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type         Collection   Unique   Sparse   Cache   Selectivity   Fields        Stored values   Ranges
-  9   idx_1761633600458981380   persistent   test         false    false    false      100.00 %   [ `value` ]   [  ]            (i.`value` &gt; 97)
+  9   idx_1761796636250472448   persistent   test         false    false    false      100.00 %   [ `value` ]   [  ]            (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName
@@ -48,6 +48,6 @@ Optimization rules applied:
  10   remove-unnecessary-calculations-2
  11   reduce-extraction-to-projection
 
-45 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00015
+45 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00021
 
 
