@@ -115,6 +115,11 @@ Enterprise Edition:
   Like the existing `geojson` Analyzer, but with an additional `format` property
   that can be set to `"latLngDouble"` (default), `"latLngInt"`, or `"s2Point"`.
 
+#### Query API
+
+The `GET /_api/query/current` and `GET /_api/query/slow` endpoints include a
+new numeric `peakMemoryUsage` attribute.
+
 ### Endpoints moved
 
 
