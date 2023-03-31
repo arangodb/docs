@@ -26,8 +26,7 @@ repository.
 
 ## Demo Geo S2 Dataset
 
-This is a New York restaurants and neighborhoods dataset taken from
-[opendata.city](http://catalog.opendata.city/dataset/pediacities-nyc-neighborhoods){:target="_blank"}.
+This is a New York restaurants and neighborhoods dataset taken from OpenData.city.
 Also see the
 [arangodb-foxx/demo-geo-s2](https://github.com/arangodb-foxx/demo-geo-s2){:target="_blank"}
 repository.

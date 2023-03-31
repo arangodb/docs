@@ -23,6 +23,7 @@ redirect_from:
   - architecture-deployment-modes-leader-follower.html # 3.8 -> 3.9
   - deployment-leader-follower-manual-start.html # 3.8 -> 3.9
   - deployment-leader-follower.html # 3.8 -> 3.9
+  - graph-analytics-custom-pregel.html # 3.10 -> 3.11
 ---
 Deprecated
 ==========
@@ -31,6 +32,21 @@ Features listed in this section should no longer be used, because they are
 considered obsolete and may get removed in a future release. They are currently
 kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
+
+- **Pregel features**:
+
+  The following features have been deprecated or removed from Pregel in v3.11:
+
+  - The experimental _Custom Pregel_ feature, also known as
+    _programmable Pregel algorithms_ (PPA), has been removed.
+
+  - The built-in _DMID_ Pregel algorithm has been deprecated and will be removed
+    in a future release.
+
+  - The `async` option for Pregel jobs has been removed.
+
+  - The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
+    backing storage for large datasets has been removed.
 
 - **Leader/Follower Deployment Mode**:
   The Leader/Follower deployment type is deprecated and already removed from
@@ -44,7 +60,7 @@ replace the old features with:
 
 - **Bundled NPM modules**:
   The bundled NPM modules `aqb`, `chai`, `dedent`, `error-stack-parser`,
-  `graphql-sync`, ` highlight.js`, `i` (inflect), `iconv-lite`, `joi`,
+  `graphql-sync`, `highlight.js`, `i` (inflect), `iconv-lite`, `joi`,
   `js-yaml`, `lodash`, `minimatch`, `qs`, `semver`, `sinon`, and `timezone`
   have been deprecated in 3.9 and will be removed in a future version of ArangoDB.
   If you want to use NPM modules in your Foxx service, please refer to the
@@ -196,7 +212,7 @@ replace the old features with:
   While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
   removed in a future version of ArangoDB.
 
-- **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
+- **HTTP and JavaScript traversal APIs**: The HTTP traversal API
   is deprecated since version 3.4.0. The JavaScript traversal module
   `@arangodb/graph/traversal` is also deprecated since then. The preferred way
   to traverse graphs is via AQL.

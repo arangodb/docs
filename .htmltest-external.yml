@@ -28,6 +28,12 @@ CheckMetaRefresh: false
 IgnoreURLs:
   - ^https?://github\.com/arangodb/(backlog|release-qa|planning) # private repos
   - ^https?://localhost\b
+  - ^https://github\.com/arangodb/docs/edit/ # Contribute links
+  - ^https://github\.com/ArangoDB/ArangoDB/issues$ # Social link
+  - ^http://stackoverflow\.com/questions/tagged/arangodb$ # Social link
+  - ^https://groups\.google\.com/forum/#!forum/arangodb$ # Social link
+  - ^https://slack.arangodb.com$ # Social link
+  - ^https://arangodb\.com/$ # Logo link
 #IgnoreDirs:
 #IgnoreInternalEmptyHash: false
 #IgnoreEmptyHref: false
@@ -35,15 +41,15 @@ IgnoreURLs:
 #IgnoreExternalBrokenLinks: false
 IgnoreAltMissing: true
 IgnoreDirectoryMissingTrailingSlash: true
-#IgnoreSSLVerify: false
+IgnoreSSLVerify: true
 #IgnoreTagAttribute: data-proofer-ignore
 #HTTPHeaders: { Range: "bytes=0-0", Accept: "*/*" }
-TestFilesConcurrently: true
+TestFilesConcurrently: false # avoid hammering sites, might help with rate limiting
 #DocumentConcurrencyLimit: 128
 #HTTPConcurrencyLimit: 16
 #LogLevel: 2
 #LogSort: document
-#ExternalTimeout: 15
+ExternalTimeout: 60
 #StripQueryString: true
 #OutputDir: tmp/.htmltest
 #OutputCacheFile: refcache.json

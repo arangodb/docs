@@ -1080,7 +1080,7 @@
       "agent",
       "single"
     ],
-    "default" : 17872713728,
+    "default" : 16338173952,
     "deprecatedIn" : null,
     "description" : "The global size limit for all caches (in bytes).",
     "dynamic" : true,
@@ -6793,7 +6793,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The maximum parallelism usable in a Pregel job.",
     "dynamic" : true,
@@ -6940,7 +6940,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "The default parallelism to use in a Pregel job if none is specified.",
     "dynamic" : true,
@@ -7177,7 +7177,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 73638338560,
+    "base" : 67500179456,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7185,7 +7185,7 @@
       "agent",
       "single"
     ],
-    "default" : 59647054233,
+    "default" : 54675145359,
     "deprecatedIn" : null,
     "description" : "The memory threshold for all AQL queries combined (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7410,7 +7410,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 73638338560,
+    "base" : 67500179456,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7418,7 +7418,7 @@
       "agent",
       "single"
     ],
-    "default" : 44183003136,
+    "default" : 40500107673,
     "deprecatedIn" : null,
     "description" : "The memory threshold per AQL query (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -8229,7 +8229,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 3600,
+    "default" : 1800,
     "deprecatedIn" : null,
     "description" : "The interval (in seconds) in which auto-flushes of WAL and column family data is executed.",
     "dynamic" : false,
@@ -8260,7 +8260,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 10,
+    "default" : 20,
     "deprecatedIn" : null,
     "description" : "The minimum number of live WAL files that triggers an auto-flush of WAL and column family data.",
     "dynamic" : false,
@@ -8440,7 +8440,7 @@
       "agent",
       "single"
     ],
-    "default" : 21447256473,
+    "default" : 19605808742,
     "deprecatedIn" : null,
     "description" : "The size of block cache (in bytes).",
     "dynamic" : true,
@@ -9333,7 +9333,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The maximum number of concurrent background jobs (compactions and flushes).",
     "dynamic" : true,
@@ -10787,7 +10787,7 @@
       "agent",
       "single"
     ],
-    "default" : 28596341964,
+    "default" : 26141078323,
     "deprecatedIn" : null,
     "description" : "The maximum total size of in-memory write buffers (0 = unbounded).",
     "dynamic" : true,
@@ -10818,7 +10818,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The number of lock stripes to use for transaction locks.",
     "dynamic" : false,
@@ -11095,7 +11095,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 180,
+    "default" : 60,
     "deprecatedIn" : null,
     "description" : "The initial timeout (in seconds) after which unused WAL files deletion kicks in after server start.",
     "dynamic" : false,
@@ -11560,7 +11560,7 @@
       "agent",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "The number of threads used to handle I/O.",
     "dynamic" : true,
@@ -11755,7 +11755,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex).",
     "dynamic" : true,
@@ -11785,7 +11785,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 10,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for maintenance actions.",
     "dynamic" : true,
@@ -11850,7 +11850,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 72)",
+    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,

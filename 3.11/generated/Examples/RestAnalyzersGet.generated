@@ -18,10 +18,10 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">&quot;result&quot;</span> : [ 
     { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_en&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_fr&quot;</span>, 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
       <span class="hljs-string">&quot;properties&quot;</span> : { 
-        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;en&quot;</span>, 
+        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;fr&quot;</span>, 
         <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
         <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
         <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -34,10 +34,20 @@ x-content-type-options: nosniff
       ] 
     }, 
     { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_es&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;identity&quot;</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;identity&quot;</span>, 
+      <span class="hljs-string">&quot;properties&quot;</span> : { 
+      }, 
+      <span class="hljs-string">&quot;features&quot;</span> : [ 
+        <span class="hljs-string">&quot;frequency&quot;</span>, 
+        <span class="hljs-string">&quot;norm&quot;</span> 
+      ] 
+    }, 
+    { 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_it&quot;</span>, 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
       <span class="hljs-string">&quot;properties&quot;</span> : { 
-        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;es&quot;</span>, 
+        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;it&quot;</span>, 
         <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
         <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
         <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -66,22 +76,6 @@ x-content-type-options: nosniff
       ] 
     }, 
     { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_de&quot;</span>, 
-      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
-      <span class="hljs-string">&quot;properties&quot;</span> : { 
-        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;de&quot;</span>, 
-        <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
-        <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
-        <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
-        <span class="hljs-string">&quot;stemming&quot;</span> : <span class="hljs-literal">true</span> 
-      }, 
-      <span class="hljs-string">&quot;features&quot;</span> : [ 
-        <span class="hljs-string">&quot;frequency&quot;</span>, 
-        <span class="hljs-string">&quot;position&quot;</span>, 
-        <span class="hljs-string">&quot;norm&quot;</span> 
-      ] 
-    }, 
-    { 
       <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_nl&quot;</span>, 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
       <span class="hljs-string">&quot;properties&quot;</span> : { 
@@ -98,36 +92,10 @@ x-content-type-options: nosniff
       ] 
     }, 
     { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_sv&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_en&quot;</span>, 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
       <span class="hljs-string">&quot;properties&quot;</span> : { 
-        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;sv&quot;</span>, 
-        <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
-        <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
-        <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
-        <span class="hljs-string">&quot;stemming&quot;</span> : <span class="hljs-literal">true</span> 
-      }, 
-      <span class="hljs-string">&quot;features&quot;</span> : [ 
-        <span class="hljs-string">&quot;frequency&quot;</span>, 
-        <span class="hljs-string">&quot;position&quot;</span>, 
-        <span class="hljs-string">&quot;norm&quot;</span> 
-      ] 
-    }, 
-    { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;identity&quot;</span>, 
-      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;identity&quot;</span>, 
-      <span class="hljs-string">&quot;properties&quot;</span> : { 
-      }, 
-      <span class="hljs-string">&quot;features&quot;</span> : [ 
-        <span class="hljs-string">&quot;frequency&quot;</span>, 
-        <span class="hljs-string">&quot;norm&quot;</span> 
-      ] 
-    }, 
-    { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_fr&quot;</span>, 
-      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
-      <span class="hljs-string">&quot;properties&quot;</span> : { 
-        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;fr&quot;</span>, 
+        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;en&quot;</span>, 
         <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
         <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
         <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -156,10 +124,10 @@ x-content-type-options: nosniff
       ] 
     }, 
     { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_ru&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_pt&quot;</span>, 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
       <span class="hljs-string">&quot;properties&quot;</span> : { 
-        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;ru&quot;</span>, 
+        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;pt&quot;</span>, 
         <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
         <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
         <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -172,10 +140,10 @@ x-content-type-options: nosniff
       ] 
     }, 
     { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_pt&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_ru&quot;</span>, 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
       <span class="hljs-string">&quot;properties&quot;</span> : { 
-        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;pt&quot;</span>, 
+        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;ru&quot;</span>, 
         <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
         <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
         <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -204,10 +172,42 @@ x-content-type-options: nosniff
       ] 
     }, 
     { 
-      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_it&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_es&quot;</span>, 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
       <span class="hljs-string">&quot;properties&quot;</span> : { 
-        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;it&quot;</span>, 
+        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;es&quot;</span>, 
+        <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
+        <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
+        <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">&quot;stemming&quot;</span> : <span class="hljs-literal">true</span> 
+      }, 
+      <span class="hljs-string">&quot;features&quot;</span> : [ 
+        <span class="hljs-string">&quot;frequency&quot;</span>, 
+        <span class="hljs-string">&quot;position&quot;</span>, 
+        <span class="hljs-string">&quot;norm&quot;</span> 
+      ] 
+    }, 
+    { 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_de&quot;</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
+      <span class="hljs-string">&quot;properties&quot;</span> : { 
+        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;de&quot;</span>, 
+        <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
+        <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
+        <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">&quot;stemming&quot;</span> : <span class="hljs-literal">true</span> 
+      }, 
+      <span class="hljs-string">&quot;features&quot;</span> : [ 
+        <span class="hljs-string">&quot;frequency&quot;</span>, 
+        <span class="hljs-string">&quot;position&quot;</span>, 
+        <span class="hljs-string">&quot;norm&quot;</span> 
+      ] 
+    }, 
+    { 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;text_sv&quot;</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>, 
+      <span class="hljs-string">&quot;properties&quot;</span> : { 
+        <span class="hljs-string">&quot;locale&quot;</span> : <span class="hljs-string">&quot;sv&quot;</span>, 
         <span class="hljs-string">&quot;case&quot;</span> : <span class="hljs-string">&quot;lower&quot;</span>, 
         <span class="hljs-string">&quot;stopwords&quot;</span> : [ ], 
         <span class="hljs-string">&quot;accent&quot;</span> : <span class="hljs-literal">false</span>, 

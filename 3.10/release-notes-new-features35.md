@@ -467,7 +467,7 @@ transactions is enforced on the coordinator to ensure that transactions cannot b
 cluster from operating properly:
 
 - Maximum idle timeout of **10 seconds** between operations
-- Maximum transaction size of **128 MB** per DBServer
+- Maximum transaction size of **128 MB** per DB-Server
 
 These limits are also enforced for stream transactions on single servers.
 
@@ -653,7 +653,7 @@ Also see:
 - [_arangodump_](programs-arangodump.html)
 - [_arangorestore_](programs-arangorestore.html)
 
-### Warning if connected to DBServer
+### Warning if connected to DB-Server
 
 Under normal circumstances there should be no need to connect to a 
 database server in a cluster with one of the client tools, and it is 
