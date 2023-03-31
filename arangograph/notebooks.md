@@ -123,8 +123,8 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
   alias for `%selectCollection`.
 - `%getCollection collectionName` - gets a collection for variable assignment,
   e.g. `student` = `% getCollection Student`.
-- `&createEdgeCollection` - creates an edge collection.
-- `&createVertexCollection` - creates a vertex collection.
+- `%createEdgeCollection` - creates an edge collection.
+- `%createVertexCollection` - creates a vertex collection.
 - `%createEdgeDefinition` - creates an edge definition.
 - `%deleteCollection collectionName` - deletes the collection.
 - `%truncateCollection collectionName` - truncates the collection.
