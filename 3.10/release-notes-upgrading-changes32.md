@@ -88,7 +88,7 @@ Foxx
 
 * ArangoDB Coordinators in a cluster now perform a self-healing step during startup to ensure installed services are consistent across all Coordinators. We recommend backing up your services and configuration before upgrading to ArangoDB 3.2, especially if you have made use of the development mode.
 
-* Services installed before upgrading to 3.2 (including services installed on alpha releases of ArangoDB 3.2) are **NOT** picked up by the Coordinator self-healing watchdog. This can be solved by either upgrading/replacing these services or by using the ["commit" route of the Foxx service management HTTP API](http/foxx-miscellaneous.html), which commits the exact services installed on a given Coordinator to the cluster. New services will be picked up automatically.
+* Services installed before upgrading to 3.2 (including services installed on alpha releases of ArangoDB 3.2) are **NOT** picked up by the Coordinator self-healing watchdog. This can be solved by either upgrading/replacing these services or by using the ["commit" route of the Foxx service management HTTP API](http/foxx.html#miscellaneous), which commits the exact services installed on a given Coordinator to the cluster. New services will be picked up automatically.
 
 * The format used by Foxx to store internal service metadata in the database has been simplified and existing documents will be updated to the new format. If you have made any changes to the data stored in the `_apps` system collection, you may wish to export these changes as they will be overwritten.
 

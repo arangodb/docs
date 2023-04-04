@@ -28,7 +28,7 @@ or use authentication, you can use the following command-line options:
 - `--server.authentication <bool>`: whether or not to use authentication
 
 Here is an example of exporting data from a non-standard endpoint, using a dedicated
-[database name](appendix-glossary.html#database-name):
+[database name](data-modeling-databases.html#database-names):
 
 ```bash
 arangoexport \

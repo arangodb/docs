@@ -301,7 +301,7 @@ RETURN NEW
 ## Insert Operation not Using AQL
 
 There is the option to execute an insert operation with `overwriteMode` outside
-of AQL. The [`POST /_api/document/{collection}`](../http/document-working-with-documents.html#create-multiple-documents)
+of AQL. The [`POST /_api/document/{collection}`](../http/document.html#create-multiple-documents)
 endpoint is a dedicated REST API for insert operations, which can handle one
 document, or multiple documents at once.
 
