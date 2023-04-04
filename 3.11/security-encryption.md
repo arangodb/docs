@@ -132,7 +132,7 @@ master key can be generated from random characters if the startup option
 `--rocksdb.encryption-gen-internal-key` is set to `true`.
 
 It is possible to change the user supplied encryption at rest key via the
-[HTTP API](http/administration-and-monitoring.html#encryption-at-rest). This API
+[HTTP API](http/security.html#encryption-at-rest). This API
 is disabled by default, but can be turned on by setting the startup option
 `--rocksdb.encryption-key-rotation` to `true`.
 

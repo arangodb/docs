@@ -1,24 +1,19 @@
 ---
 layout: default
-description: HTTP interface to manage Views of type arangosearch
-title: arangosearch Views HTTP API
+description: >-
+  The HTTP API for Views lets you manage `arangosearch` Views, including
+  handling the general View properties and View links
 ---
-# `arangosearch` Views HTTP API
+# HTTP interface for `arangosearch` Views
 
-<!-- js/actions/api-view.js -->
+{{ page.description }}
+{:class="lead"}
 
-{% docublock post_api_view_arangosearch %}
-
-{% docublock get_api_view_name %}
-
-{% docublock get_api_view_properties %}
-
-{% docublock get_api_views %}
-
-{% docublock put_api_view_properties_arangosearch %}
-
-{% docublock patch_api_view_properties_arangosearch %}
-
-{% docublock put_api_view_rename %}
-
-{% docublock delete_api_view %}
+{% docublock post_api_view_arangosearch, h2 %}
+{% docublock get_api_view_view, h2 %}
+{% docublock get_api_view_view_properties, h2 %}
+{% docublock get_api_view, h2 %}
+{% docublock put_api_view_view_properties_arangosearch, h2 %}
+{% docublock patch_api_view_view_properties_arangosearch, h2 %}
+{% docublock put_api_view_view_rename, h2 %}
+{% docublock delete_api_view_view, h2 %}

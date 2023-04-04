@@ -226,7 +226,12 @@ migration-related processes as soon as possible.
 
 ### Switching the local cluster to read-only mode
 
-The `arangosync-migration set-server-mode` command allows switching [read-only mode](../http/administration-and-monitoring.html#update-whether-or-not-a-server-is-in-read-only-mode)
+The `arangosync-migration set-server-mode` command allows switching
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+[read-only mode](../http/administration.html#update-whether-or-not-a-server-is-in-read-only-mode)
+{% else -%}
+[read-only mode](../http/administration-and-monitoring.html#update-whether-or-not-a-server-is-in-read-only-mode)
+{% endif -%}
 for your local cluster on and off.
 
 In a read-only mode, all write operations are going to fail with an error code

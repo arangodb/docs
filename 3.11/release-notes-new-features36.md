@@ -441,7 +441,7 @@ In addition, ArangoDB 3.6 provides the following new AQL functionality:
 
 - a [`maxRuntime` query option](aql/invocation-with-arangosh.html#maxruntime)
   to restrict the execution to a given time in seconds (also added to v3.5.4).
-  Also see [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
+  Also see [HTTP interfaces for AQL queries](http/aql-query.html#create-cursor).
 
 - a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
   rules off (or on) by default. This can be used to turn off certain optimizations
@@ -593,7 +593,7 @@ HTTP API
 
 The following APIs have been expanded / changed:
 
-- [Database creation API](http/database-database-management.html#create-database),<br>
+- [Database creation API](http/database.html#create-database),<br>
   HTTP route `POST /_api/database`
 
   The database creation API now handles the `replicationFactor`, `writeConcern`
@@ -615,14 +615,14 @@ The following APIs have been expanded / changed:
   that database via the web UI, arangosh or drivers (unless the startup option
   `--cluster.force-one-shard` is enabled).
 
-- [Database properties API](http/database-database-management.html#information-of-the-database),<br>
+- [Database properties API](http/database.html#information-of-the-database),<br>
   HTTP route `GET /_api/database/current`
 
   The database properties endpoint returns the new additional attributes
   `replicationFactor`, `writeConcern` and `sharding` in a cluster.
   A description of these attributes can be found above.
 
-- [Collection](http/collection.html) / [Graph APIs](http/gharial-management.html),<br>
+- [Collection](http/collection.html) / [Graph APIs](http/gharial.html#management),<br>
   HTTP routes `POST /_api/collection`, `GET /_api/collection/{collection-name}/properties`
   and various `/_api/gharial/*` endpoints
 
@@ -634,7 +634,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/administration-and-monitoring-metrics.html#read-the-metrics),<br>
+- New [Metrics API](http/monitoring.html#metrics-api-deprecated),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned
@@ -832,7 +832,7 @@ Miscellaneous
   if all sharding keys are specified. Should the sharding keys not match the
   values in the actual document, a not found error will be returned.
 
-- [Collection names](data-modeling-naming-conventions-collection-and-view-names.html)
+- [Collection names](data-modeling-collections.html#collection-names)
   in ArangoDB can now be up to 256 characters long, instead of 64 characters in
   previous versions.
 

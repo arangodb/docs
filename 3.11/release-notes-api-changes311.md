@@ -94,10 +94,15 @@ the graph due to internally used hidden collections.
   You can remember and use this batch ID should retrieving the next batch fail.
   Calling the new endpoint does not advance the cursor.
 
-  You can only request the latest batch again. Earlier batches are not kept on
-  the server-side.
+  You can only request the latest batch again (or the next batch).
+  Earlier batches are not kept on the server-side.
 
-  To allow refetching of the last batch of the query, the server cannot
+  You can also call this endpoint with the next batch identifier, i.e. the value
+  returned in the `nextBatchId` attribute of a previous request. This advances the
+  cursor and returns the results of the next batch. This is only supported if there
+  are more results in the cursor (i.e. `hasMore` is `true` in the latest batch).
+
+  To allow refetching of the very last batch of the query, the server cannot
   automatically delete the cursor. After the first attempt of fetching the last
   batch, the server would normally delete the cursor to free up resources. As you
   might need to reattempt the fetch, it needs to keep the final batch when the
