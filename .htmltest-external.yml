@@ -32,7 +32,7 @@ IgnoreURLs:
   - ^https://github\.com/ArangoDB/ArangoDB/issues$ # Social link
   - ^http://stackoverflow\.com/questions/tagged/arangodb$ # Social link
   - ^https://groups\.google\.com/forum/#!forum/arangodb$ # Social link
-  - ^https://slack.arangodb.com$ # Social link
+  - ^https://arangodb-community\.slack\.com$ # Social link
   - ^https://arangodb\.com/$ # Logo link
 #IgnoreDirs:
 #IgnoreInternalEmptyHash: false
@@ -41,7 +41,7 @@ IgnoreURLs:
 #IgnoreExternalBrokenLinks: false
 IgnoreAltMissing: true
 IgnoreDirectoryMissingTrailingSlash: true
-#IgnoreSSLVerify: false
+IgnoreSSLVerify: true
 #IgnoreTagAttribute: data-proofer-ignore
 #HTTPHeaders: { Range: "bytes=0-0", Accept: "*/*" }
 TestFilesConcurrently: false # avoid hammering sites, might help with rate limiting
@@ -49,9 +49,10 @@ TestFilesConcurrently: false # avoid hammering sites, might help with rate limit
 #HTTPConcurrencyLimit: 16
 #LogLevel: 2
 #LogSort: document
-#ExternalTimeout: 15
+ExternalTimeout: 60
 #StripQueryString: true
 #OutputDir: tmp/.htmltest
 #OutputCacheFile: refcache.json
 #OutputLogFile: htmltest.log
 #CacheExpires: 336h
+#RedirectLimit: 0 # Requires htmltest version 0.18.0+ (currently unreleased)

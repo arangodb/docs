@@ -48,6 +48,15 @@ in-memory hash caches of persistent indexes in addition to edge caches:
 This also applies to the `INSERT`, `UPDATE`, `REPLACE`, and `REMOVE` operations
 in AQL queries, which support a `refillIndexCache` option, too.
 
+#### Collection API
+
+The edge collections of EnterpriseGraphs and SmartGraphs (including
+Disjoint SmartGraphs and SmartGraphs using SatelliteCollections but excluding
+the edge collections of the SatelliteCollections) previously reported a
+value of `0` as the `numberOfShards`. They now return the actual number of
+shards. This value can be higher than the configured `numberOfShards` value of
+the graph due to internally used hidden collections.
+
 ### Privilege changes
 
 
