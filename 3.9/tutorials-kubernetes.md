@@ -90,7 +90,7 @@ The first database we are going to deploy is a single server database.
 Create a file called `single-server.yaml` with the following content.
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "single-server"
@@ -175,7 +175,7 @@ the `ArangoDeployment` specification.
 Create a file called `cluster.yaml` with the following content.
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "cluster"

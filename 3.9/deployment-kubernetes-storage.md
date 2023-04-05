@@ -21,7 +21,7 @@ The amount of storage needed is configured using the
 `spec.<group>.resources.requests.storage` setting.
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "cluster-using-local-ssh"
