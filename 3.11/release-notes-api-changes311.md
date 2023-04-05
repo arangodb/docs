@@ -57,6 +57,12 @@ value of `0` as the `numberOfShards`. They now return the actual number of
 shards. This value can be higher than the configured `numberOfShards` value of
 the graph due to internally used hidden collections.
 
+#### Log API
+
+Setting the log level for the `graphs` log topic to `TRACE` now logs detailed
+information about AQL graph traversals. Some new log messages are also logged
+for the `DEBUG` level.
+
 ### Privilege changes
 
 
