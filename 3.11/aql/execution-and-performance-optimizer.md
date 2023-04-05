@@ -718,10 +718,11 @@ The following optimizer rules may appear in the `rules` attribute of
   directly works with the documents on the DB-Servers.
 
 - `parallelize-gather`:
-  Appear if an optimization to execute Coordinator `GatherNodes` in
-  parallel is applied. At the moment `GatherNodes`s cannot be parallelized
-  if they depend on a traversal node, except for certain disjoint SmartGraph
-  traversals (only available in Enterprise Edition).
+  Appears if an optimization to execute Coordinator `GatherNode`s in
+  parallel is applied. `GatherNodes`s cannot be parallelized if they depend on a
+  `TraversalNode`, except for certain Disjoint SmartGraph traversals where the
+  traversal can run completely on the local DB-Server (only available in the
+  Enterprise Edition).
 
 - `push-subqueries-to-dbserver` _(Enterprise Edition only)_:
   Appears if a subquery is determined to be executable entirely on a database
