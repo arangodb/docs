@@ -47,13 +47,14 @@ favorite GraphML libraries with GPUs.
 4. Enter a name and optionally a description for your new notebook. 
 5. Select a configuration model from the dropdown menu. Click **Save**.
 6. The notebook's phase is set to **Initializing**. Once the phase changes to
-**Running**, the notebook's endpoint is accessible.
-1. Click the **Open notebook** button to access your notebook. 
-2. To access your notebook, you need to be signed into ArangoGraph as a user with
-the `notebook.execute.execute` permission in your project. Organization
-owners have this permission enabled by default. The `notebook-executor` permission
-can also be granted to other members of the organization via roles.
-See how to create a [role binding](access-control.html#how-to-view-edit-or-remove-role-bindings-of-a-policy).
+   **Running**, the notebook's endpoint is accessible.
+7. Click the **Open notebook** button to access your notebook. 
+8. To access your notebook, you need to be signed into ArangoGraph as a user with
+   the `notebook.notebook.execute` permission in your project. Organization
+   owners have this permission enabled by default. The `notebook-executor` role
+   which contains the permission can also be granted to other members of the
+   organization via roles. See how to create a
+   [role binding](access-control.html#how-to-view-edit-or-remove-role-bindings-of-a-policy).
 
 {% hint 'info' %}
 Depending on the tier your organization belongs to, different limitations apply:
