@@ -88,6 +88,25 @@ example query, but you can also specify your preferred method explicitly.
 
 See the [`COLLECT` options](aql/operations-collect.html#method) for details.
 
+### Faster bulk `INSERT` operations
+
+AQL `INSERT` operations in cluster deployments are now faster by avoiding the
+previously present setup ceremony that was carried out for each document.
+Instead, the setup is now only done once for all the documents to be inserted.
+
+This improvement also decreases the number of HTTP requests to the DB-Servers.
+Instead of batching the array of documents (with a default batch size of `1000`),
+the whole thing is sent to the server (e.g. inserting 9k docs into a collection with 3 shards with a 3-node cluster means that 3k docs are sent to each DB-Server, using only 3 HTTP requests, one per DB-Server, representing each batch).
+
+For example, 
+```aql
+FOR doc IN @docs
+  INSERT doc INTO collection
+```
+
+The new `optimize-cluster-multiple-document-operations` optimizer rule that
+enables the optimization is only applied if there is no `RETURN` operation. <!-- TODO: that belongs to INSERT? Top-level? Any? -->
+
 ## Server options
 
 ### Verify `.sst` files
