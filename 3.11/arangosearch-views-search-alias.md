@@ -45,21 +45,21 @@ You can add or remove inverted indexes from the View definition:
     the stored `indexes` property of the View. Possible values: `"add"`, `"del"`.
     The default is `"add"`
 
-## Create `search-alias` Views using the Web Interface
+## Create `search-alias` Views using the web interface
 
-You can create and manage a `search-alias` View through the Web Interface.
+You can create and manage a `search-alias` View through the web interface.
 To get started, follow the steps outlined below.
 
 1. In the main page of the web interface, go to the left sidebar menu and select
-  the **Views** tab.
+   the **Views** tab.
 2. To add a new View, click **Add View**.
 3. Fill in the required fields:
-  - For **Name**, enter a name for the View.
-  - For **Type**, select `search-alias` from the dropdown menu.
+   - For **Name**, enter a name for the View.
+   - For **Type**, select `search-alias` from the dropdown menu.
 4. Select an existing collection from the dropdown menu. You can also add it
-  later via the Views editor.
+   later via the Views editor.
 5. Select an existing inverted index of the collection that you previously
-  selected. You can also add it later via the Views editor.
+   selected. You can also add it later via the Views editor.
 6. To define multiple indexes, click the **Add index** button.
 7. Click **Create**.    
 

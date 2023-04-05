@@ -29,26 +29,29 @@ This feature is only available in the Enterprise Edition.
 
 See [Analyzers](analyzers.html#geo_s2) for details.
 
-## Web Interface
+## Web interface
 
 ### `search-alias` Views
 
-The 3.11 release of ArangoDB introduces a new Web Interface for Views that lets
+The 3.11 release of ArangoDB introduces a new web interface for Views that lets
 you to create and manage [`search-alias` Views](arangosearch-views-search-alias.html).
 
 Through this dialog, you can easily create a new View and add to it one or more
 inverted indexes from your collections that you could otherwise do via the HTTP
-or JavaScript API. 
+or JavaScript API.
 
 When opening your newly created View, you can copy mutable properties from
 previously created `search-alias` Views, allowing for much more flexibility if
 you have to work with similar configurations and data. In addition, the JSON
 editor offers a way to directly write the definition of your View in JSON format.
 
-### `arango-search` Views
+For more information, see the
+[detailed guide](arangosearch-views-search-alias.html#create-search-alias-views-using-the-web-interface).
 
-The existing way of creating and managing `arango-search` Views through the Web
-Interface has been redesigned, offering a more straightforward approach to add
+### `arangosearch` Views
+
+The existing way of creating and managing `arango-search` Views through the web
+interface has been redesigned, offering a more straightforward approach to add
 or modify the definition of your View. The settings, links, and JSON editor have
 been merged into a single page, allowing for a much quicker workflow.
 
