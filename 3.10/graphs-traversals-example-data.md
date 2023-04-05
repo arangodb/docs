@@ -5,7 +5,7 @@ description: The following examples all use a vertex collection v and an edge co
 Example Data
 ============
 
-The following examples all use a vertex collection `v` and an [edge collection](appendix-glossary.html#edge-collection) `e`. The vertex
+The following examples all use a vertex collection `v` and an [edge collection](data-model-and-concepts.html#graph-model) `e`. The vertex
 collection `v` contains continents, countries, and capitals. The edge collection `e` 
 contains connections between continents and countries, and between countries and capitals.
 

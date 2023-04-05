@@ -56,7 +56,7 @@ aborts instantly.
 The `--force-same-database` option is set to `false` by default to ensure backwards-compatibility.
 
 Here's an example of reloading data to a non-standard endpoint, using a dedicated
-[database name](appendix-glossary.html#database-name):
+[database name](data-modeling-databases.html#database-names):
 
 ```
 arangorestore \
@@ -163,7 +163,7 @@ arangorestore --collection myusers --collection myvalues --input-directory "dump
 ```
 
 Collections are processed in alphabetical order by _arangorestore_, with all document
-collections being processed before all [edge collections](appendix-glossary.html#edge-collection).
+collections being processed before all [edge collections](data-model-and-concepts.html#graph-model).
 This remains valid also when multiple threads are in use.
 
 Note however that when restoring an edge collection no internal checks are made in order to validate that

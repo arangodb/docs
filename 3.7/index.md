@@ -65,7 +65,7 @@ If you have questions regarding ArangoDB, Foxx, drivers, or this documentation d
   and misbehavior or [pull requests](https://www.arangodb.com/community/){:target="_blank"}
 - [Google Groups](https://groups.google.com/forum/?hl=de#!forum/arangodb){:target="_blank"} for discussions about ArangoDB in general or to announce your new Foxx App
 - [StackOverflow](http://stackoverflow.com/questions/tagged/arangodb){:target="_blank"} for questions about AQL, usage scenarios etc.
-- [Slack](http://slack.arangodb.com){:target="_blank"}, our community chat
+- [Slack](https://arangodb-community.slack.com){:target="_blank"}, our community chat
 
 When reporting issues, please describe:
 

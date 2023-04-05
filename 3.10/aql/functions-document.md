@@ -643,11 +643,11 @@ PARSE_IDENTIFIER()
 
 `PARSE_IDENTIFIER(documentHandle) → parts`
 
-Parse a [document handle](../appendix-glossary.html#document-handle) and return its
-individual parts as separate attributes.
+Parse a [document ID](../data-modeling-documents.html#document-identifiers) and
+return its individual parts as separate attributes.
 
 This function can be used to easily determine the
-[collection name](../appendix-glossary.html#collection-name) and key of a given document.
+[collection name](../data-modeling-collections.html#collection-names) and key of a given document.
 
 - **documentHandle** (string\|object): a document identifier string (e.g. `_users/1234`)
   or a regular document from a collection. Passing either a non-string or a non-document
