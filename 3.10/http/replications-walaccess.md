@@ -1,24 +1,20 @@
 ---
 layout: default
-description: WAL Access API
 ---
-WAL Access API
-===========================
+# HTTP interface for WAL access
 
 The WAL Access API is used to facilitate faster and
 more reliable asynchronous replication. The API offers access to the 
 write-ahead log or operations log of the ArangoDB server. As a public
-API it is only supported to access these REST endpoints on a single-server
+API, it is only supported to access these REST endpoints on a single-server
 instance. While these APIs are also available on DB-Server instances, accessing them
 as a user is not supported. This API replaces some of the APIs in `/_api/replication`.
 
-<!-- arangod/RestHandler/RestWALHandler.cpp -->
-{% docublock get_api_wal_access_range %}
-{% docublock get_api_wal_access_last_tick %}
-{% docublock get_api_wal_access_tail %}
+{% docublock get_api_wal_access_range, h2 %}
+{% docublock get_api_wal_lastTick, h2 %}
+{% docublock get_api_wal_access_tail, h2 %}
 
-Operation Types
-----------------
+## Operation Types
 
 There are several different operation types thar an ArangoDB server might print. 
 All operations include a `tick` value which identified their place in the operations log.

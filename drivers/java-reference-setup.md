@@ -82,7 +82,7 @@ apache httpclient to your classpath.
 ## SSL
 
 To use SSL, you have to set the configuration `useSsl` to `true` and set a `SSLContext`
-(see [example code](https://github.com/arangodb/arangodb-java-driver/blob/master/src/test/java/com/arangodb/example/ssl/SslExample.java){:target="_blank"}).
+(see [example code](https://github.com/arangodb/arangodb-java-driver/blob/master/src/test/java/com/arangodb/example/ssl/SslExampleTest.java){:target="_blank"}).
 
 ```java
 ArangoDB arangoDB = new ArangoDB.Builder()

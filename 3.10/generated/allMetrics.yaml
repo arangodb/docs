@@ -39,10 +39,10 @@
     has registered.
     This metric was named `arangodb_agency_cache_callback_count` in
     previous versions of ArangoDB.
-    Note that on single servers this metrics will only have a non-zero value
-    in "active failover" deployment mode.
+    Note that on single servers this metric only has a non-zero value
+    in the Active Failover deployment mode.
   threshold: |
-    This number will usually be very low, something like 2 or 3.
+    This number is usually very low, something like `2` or `3`.
   troubleshoot: |
     If this number is considerably higher, this should be investigated.
     Please contact support.
@@ -65,10 +65,10 @@
     registered, including Agency cache callbacks.
     This metric was named `arangodb_agency_callback_count` in previous versions
     of ArangoDB.
-    Note that on single servers this metrics will only have a non-zero value
-    in "active failover" deployment mode.
+    Note that on single servers this metric only has a non-zero value
+    in the Active Failover deployment mode.
   threshold: |
-    This number will usually be very low, something like 2 or 3.
+    This number is usually very low, something like `2` or `3`.
   troubleshoot: |
     If this number is considerably higher, this should be investigated.
     Please contact support.
@@ -89,8 +89,8 @@
   description: |
     This metric was named `arangodb_agency_callback_registered` in previous versions
     of ArangoDB.
-    Note that on single servers this metrics will only have a non-zero value
-    in "active failover" deployment mode.
+    Note that on single servers this metric only has a non-zero value
+    in the Active Failover deployment mode.
 
 - name: arangodb_agency_client_lookup_table_size
   introducedIn: "3.6.11"
@@ -167,9 +167,9 @@
     - agent
   description: |
     Size of the Agency's in-memory part of replicated log in bytes.
-    The replicated log will grow in memory until a certain number of
-    log entries have been accumulated. Then the in-memory log will
-    be compacted. The number of in-memory log entries to keep before
+    The replicated log grows in memory until a certain number of
+    log entries have been accumulated. Then the in-memory log is
+    compacted. The number of in-memory log entries to keep before
     log compaction kicks in can be controlled via the startup option
     `--agency.compaction-keep-size`.
 
@@ -209,7 +209,7 @@
     Number of Agency read operations which were successful (i.e. completed
     without any error). Successful reads can only be executed on the leader, so
     this metric is supposed to increase only on Agency leaders, but not on
-    followers. Read requests that are executed on followers will be rejected
+    followers. Read requests that are executed on followers are rejected
     and can be tracked via the metric `arangodb_agency_read_no_leader_total`.
     This metric was named `arangodb_agency_read_ok` in previous
     versions of ArangoDB.
@@ -266,8 +266,8 @@
     - agent
   description: |
     Agency supervision replication time histogram. Whenever the Agency
-    supervision carries out changes, it will write them to the leader's log
-    and replicate the changes to followers. This metric provides a histogram
+    supervision carries out changes, it writes them to the leader's log
+    and replicates the changes to followers. This metric provides a histogram
     of the time it took to replicate the supervision changes to followers.
 
 - name: arangodb_agency_term
@@ -342,7 +342,7 @@
     Number of Agency write operations which were successful (i.e. completed
     without any error). Successful writes can only be executed on the leader, so
     this metric is supposed to increase only on Agency leaders, but not on
-    followers. Write requests that are executed on followers will be rejected
+    followers. Write requests that are executed on followers are rejected
     and can be tracked via the metric `arangodb_agency_write_no_leader_total`.
     This metric was named `arangodb_agency_write_ok` in previous
     versions of ArangoDB.
@@ -437,11 +437,11 @@
   description: |
     Total memory usage of all AQL queries currently executing.
     The granularity of this metric is steps of 32768 bytes. The current
-    memory usage of all AQL queries will be compared against the configured
+    memory usage of all AQL queries is compared against the configured
     limit in the `--query.global-memory-limit` startup option.
     If the startup option has a value of `0`, then no global memory limit
-    will be enforced. If the startup option has a non-zero value, queries
-    will be aborted once the total query memory usage goes above the configured
+    are enforced. If the startup option has a non-zero value, queries
+    are aborted once the total query memory usage goes above the configured
     limit.
 
 - name: arangodb_aql_global_query_memory_limit_reached_total
@@ -461,7 +461,7 @@
     Total number of times the global query memory limit threshold was reached.
     This can happen if all running AQL queries in total try to use more memory than
     configured via the `--query.global-memory-limit` startup option.
-    Every time this counter will increase, an AQL query will have aborted with a
+    Every time this counter increases, an AQL query aborted with a
     "resource limit exceeded" error.
 
 - name: arangodb_aql_local_query_memory_limit_reached_total
@@ -482,7 +482,7 @@
     a single query tried to allocate more memory than configured in the query's
     `memoryLimit` attribute or the value configured via the startup option
     `--query.memory-limit`.
-    Every time this counter will increase, an AQL query will have aborted with a
+    Every time this counter increases, an AQL query aborted with a
     "resource limit exceeded" error.
 
 - name: arangodb_aql_query_time
@@ -519,7 +519,7 @@
     Execution time histogram for slow AQL queries, in seconds.
     Queries are considered "slow" if their execution time is above the
     threshold configured in the startup options `--query.slow-threshold`
-    or `--query.slow-streaming-threshold`, resp.
+    or `--query.slow-streaming-threshold`, respectively.
 
 - name: arangodb_aql_total_query_time_msec_total
   renamedFrom: arangodb_aql_total_query_time_msec
@@ -731,14 +731,14 @@
     - single
   description: |
     Total amount of time it took to acquire collection/shard locks for
-    write operations, summed up for all collections/shards. Will not be increased
+    write operations, summed up for all collections/shards. Does not increase
     for any read operations.
     The value is measured in microseconds.
   troubleshoot: |
     In case this value is considered too high, check if there are AQL queries
     or transactions that use exclusive locks on collections, and try to reduce them.
     Operations using exclusive locks may lock out other queries/transactions temporarily,
-    which will lead to an increase in lock acquisition time.
+    which leads to an increase in lock acquisition time.
 
 - name: arangodb_collection_lock_acquisition_time
   introducedIn: "3.6.11"
@@ -753,14 +753,14 @@
     - agent
     - single
   description: |
-    Histogram of the collection/shard lock acquisition times. Locks will be acquired for
+    Histogram of the collection/shard lock acquisition times. Locks are acquired for
     all write operations, but not for read operations.
     The values here are measured in seconds.
   troubleshoot: |
     In case these values are considered too high, check if there are AQL queries
     or transactions that use exclusive locks on collections, and try to reduce them.
     Operations using exclusive locks may lock out other queries/transactions temporarily,
-    which will lead to an increase in lock acquisition times.
+    which leads to an increase in lock acquisition times.
 
 - name: arangodb_collection_lock_sequential_mode_total
   renamedFrom: arangodb_collection_lock_sequential_mode
@@ -775,16 +775,16 @@
     - coordinator
   description: |
     Number of transactions using sequential locking of collections to avoid deadlocking.
-    By default, a Coordinator will try to lock all shards of a collection in parallel.
+    By default, a Coordinator tries to lock all shards of a collection in parallel.
     This approach is normally fast but can cause deadlocks with other transactions that
     lock the same shards in a different order. In case such a deadlock is detected, the
-    Coordinator will abort the lock round and start a new one that locks all shards in
-    sequential order. This will avoid deadlocks, but has a higher setup overhead.
+    Coordinator aborts the lock round and starts a new one that locks all shards in
+    sequential order. This avoids deadlocks, but has a higher setup overhead.
   troubleshoot: |
     In case this value is increasing, check if there are AQL queries or transactions that
     use exclusive locks on collections, and try to reduce them.
     Operations using exclusive locks may lock out other queries/transactions temporarily,
-    which will lead can lead to (temporary) deadlocks in case the queries/transactions
+    which can lead to (temporary) deadlocks in case the queries/transactions
     are run on multiple shards on different servers.
 
 - name: arangodb_collection_lock_timeouts_exclusive_total
@@ -802,7 +802,7 @@
     - single
   description: |
     Number of timeouts when trying to acquire collection exclusive locks.
-    This counter will be increased whenever an exclusive collection lock
+    This counter increases whenever an exclusive collection lock
     cannot be acquired within the configured lock timeout.
   troubleshoot: |
     In case this value is considered too high, check if there are AQL queries
@@ -825,7 +825,7 @@
     - single
   description: |
     Number of timeouts when trying to acquire collection write locks.
-    This counter will be increased whenever a collection write lock
+    This counter increases whenever a collection write lock
     cannot be acquired within the configured lock timeout.
     This can only happen if writes on a collection are locked out by
     other operations on the collection that use an exclusive lock. Writes
@@ -908,7 +908,7 @@
     `ClusterComm`.
   threshold: |
     Because of idle timeouts, the total number of connections ever created
-    will grow. However, under high load, most connections should usually
+    grows. However, under high load, most connections should usually
     be reused and a fast growth of this number can indicate underlying
     connectivity issues.
 
@@ -1027,10 +1027,9 @@
     - single
   description: |
     Total number of read-only transactions, which allow for dirty reads
-    (read from followers). This metric will only be collected for
+    (read from followers). This metric is only collected for
     transactions on Coordinators in a cluster. Other instances may expose
-    the value as 0.
-  
+    the value as `0`.
 
 - name: arangodb_document_insert_time
   introducedIn: "3.8.0"
@@ -1200,7 +1199,7 @@
     - single
   description: |
     This metric exposes the number of currently active flush subscriptions.
-    Flush subscriptions can be created by arangosearch links and by background
+    Flush subscriptions can be created by `arangosearch` View links and by background
     index creation.
 
 - name: arangodb_heartbeat_failures_total
@@ -1221,7 +1220,7 @@
     Servers in a cluster periodically send their heartbeats to
     the Agency to report their own liveliness. This counter gets
     increased whenever sending such a heartbeat fails. In the single
-    server, this counter is only used in active failover mode.
+    server, this counter is only used in the Active Failover deployment mode.
   threshold: |
     It is a bad sign for health if heartbeat transmissions fail. This can
     lead to failover actions which are ultimately bad for the service.
@@ -1244,7 +1243,8 @@
   description: |
     Histogram of times required to send heartbeats. For every heartbeat
     sent the time is measured and an event is put into the histogram.
-    In the single server, this counter is only used in active failover mode.
+    In the single server, this counter is only used in the Active Failover
+    deployment mode.
   threshold: |
     It is a bad sign for health if heartbeat transmissions are not fast.
     If there are heartbeats which frequently take longer than a few hundred
@@ -1844,9 +1844,9 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. Actions are created, registered, queued and executed.
-    Once they are done they will eventually be removed.
+    Once they are done, they are eventually removed.
   
     This metric counts the number of actions that are done and have been removed.
 
@@ -1862,9 +1862,9 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. Actions are created, registered, queued and executed.
-    Once they are done they will eventually be removed.
+    Once they are done, they are eventually removed.
   
     This metric counts the number of actions that have been created but found to
     be a duplicate of a already queued action.
@@ -1881,9 +1881,9 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. Actions are created, registered, queued and executed.
-    Once they are done they will eventually be removed.
+    Once they are done, they are eventually removed.
   
     Those action can fail for different reasons. This metric counts the failed
     actions and can thus provide hints to investigate a malfunction.
@@ -1899,9 +1899,9 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. Actions are created, registered, queued and executed.
-    Once they are done they will eventually be removed.
+    Once they are done, they are eventually removed.
   
     This metric tracks the time actions spend waiting in the queue in a histogram.
 
@@ -1917,9 +1917,9 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. Actions are created, registered, queued and executed.
-    Once they are done they will eventually be removed.
+    Once they are done, they are eventually removed.
   
     This metric counts the number of actions that are queued or active.
 
@@ -1934,9 +1934,9 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. Actions are created, registered, queued and executed.
-    Once they are done they will eventually be removed.
+    Once they are done, they are eventually removed.
   
     This metric tracks the time actions spend executing in a histogram.
 
@@ -1951,7 +1951,7 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. To identify the target state differences in the meta
     data store provided by the Agency are investigated and local changes are
     reported. This process is called Agency sync and is executed in regular
@@ -1972,7 +1972,7 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. To identify the target state differences in the meta
     data store provided by the Agency are investigated and local changes are
     reported. This process is called Agency sync and is executed in regular
@@ -1992,7 +1992,7 @@
   exposedBy:
     - dbserver
   description: |
-    Database servers execute reconciliation actions to let the cluster converge
+    DB-Servers execute reconciliation actions to let the cluster converge
     to the desired state. To identify the target state differences in the meta
     data store provided by the Agency are investigated and local changes are
     reported. This process is called Agency sync and is executed in regular
@@ -2035,7 +2035,7 @@
   description: |
     Histogram providing the round-trip time of internal requests as a percentage
     of the respective request timeout.
-    This metric will provide values between 0 and 100.
+    This metric provides values between `0` and `100`.
   troubleshoot: |
     High values indicate problems with requests that have timed out or have not been
     far away from running into timeouts. If many requests timeout, this is normally
@@ -2084,7 +2084,7 @@
     connection pool, and is decreased whenever a response for such a request is
     received or the request runs into a timeout.
     This metric provides an estimate of the fan-out of operations. For example,
-    a user operation on a collection with a single shard will normally lead to
+    a user operation on a collection with a single shard normally leads to
     a single internal request (plus replication), whereas an operation on a
     collection with 10 shards may lead to a fan-out of 10 (plus replication).
 
@@ -2472,10 +2472,9 @@
     - agent
     - single
   description: |
-    Total number of read-only transactions. In the cluster, this metric will
-    be collected separately for transactions on Coordinators and the
+    Total number of read-only transactions. In the cluster, this metric is
+    collected separately for transactions on Coordinators and the
     transaction counterparts on leaders and followers.
-  
 
 - name: arangodb_refused_followers_total
   renamedFrom: arangodb_refused_followers_count
@@ -2490,12 +2489,12 @@
     - dbserver
   description: |
     Number of refusal answers from a follower during synchronous replication.
-    A refusal answer will only be sent by a follower if the follower is under
+    A refusal answer is only sent by a follower if the follower is under
     the impression that the replication request was not sent by the current
     shard leader. This can happen if replication requests to the follower are
     delayed or the follower is slow to process incoming requests and there was
     a leader change for the shard.
-    If such a refusal answer is received by the shard leader, it will drop the
+    If such a refusal answer is received by the shard leader, it drops the
     follower from the list of followers.
     This metrics was named `arangodb_refused_followers_count` in previous
     versions of ArangoDB.
@@ -2554,7 +2553,7 @@
     - dbserver
   description: |
     Measures the time required to clone the existing leader copy of the data onto a new replica shard.
-    Will only be measured on the follower server. This time is expected to increase whenever new followers
+    It is only measured on the follower server. This time is expected to increase whenever new followers
     are created, e.g. increasing replication factor, shard redistribution.
   troubleshoot: |
     This metric measures as typical operation to keep the cluster resilient, so no reaction is required.
@@ -2639,7 +2638,7 @@
   description: |
     During initial replication the existing data from the leader is copied asynchronously
     over to new shards. Whenever there is a communication issue between the follower and
-    the leader of the shard it will be counted here for the follower. This communication
+    the leader of the shard, it is counted here for the follower. This communication
     issues cover failed connections or http errors, but they also cover invalid or
     unexpected data formats received on the follower.
   threshold: |
@@ -2656,10 +2655,10 @@
     * First thing to check: Network connectivity, make sure all servers are online
       and the machines can communicate to one-another.
     * Second: Check ArangoDB logs of this server for more details, most likely
-      you will see WARN or ERROR messages in "replication" log topic. If you contact
-      ArangoDB support for this issue, it will help to include this servers logs as well.
+      you see `WARN` or `ERROR` messages in the `replication` log topic. If you contact
+      ArangoDB support for this issue, it helps to include these servers logs as well.
     * Third: (Unlikely) If the logs contain unexpected format or value entries
-      please check if you are running all ArangoDB Database servers within the same
+      please check if you are running all ArangoDB DB-Servers within the same
       version of ArangoDB. Only upgrades of one minor version at a time are supported
       in general, so if you are running one server with a much newer / older version
       please upgrade all servers to the newest version.
@@ -3255,8 +3254,8 @@
     in RAM in an uncompressed state. However, to reduce the memory
     usage of keeping all revision trees in RAM at the same time, 
     revision trees can be put into "hibernation" mode. Any inactive
-    revision tree will automatically be hibernated by ArangoDB after
-    a while. For the hibernation step, a revision tree will be 
+    revision tree is automatically hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree is 
     compressed in RAM, and only the compressed version is then kept.
     Later accesses of a compressed revision tree require uncompressing
     the tree again. 
@@ -3281,8 +3280,8 @@
     in RAM in an uncompressed state. However, to reduce the memory
     usage of keeping all revision trees in RAM at the same time, 
     revision trees can be put into "hibernation" mode. Any inactive
-    revision tree will automatically be hibernated by ArangoDB after
-    a while. For the hibernation step, a revision tree will be 
+    revision tree is automatically hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree is 
     compressed in RAM, and only the compressed version is then kept.
     Later accesses of a compressed revision tree require uncompressing
     the tree again. 
@@ -3305,8 +3304,8 @@
     Number of failed background revision tree rebuilds.
     Ideally this value stays at 0, because if a revision tree rebuild
     fails, the system may stall and not be able to make progress in
-    terms of WAL file collection. In case the counter is increased,
-    an error message will also be logged to the arangod logfile.
+    terms of WAL file collection. When the counter increases,
+    an error message is also logged to the server logfile.
 
 - name: arangodb_revision_tree_rebuilds_success_total
   introducedIn: "3.8.2"
@@ -3343,8 +3342,8 @@
     in RAM in an uncompressed state. However, to reduce the memory
     usage of keeping all revision trees in RAM at the same time, 
     revision trees can be put into "hibernation" mode. Any inactive
-    revision tree will automatically be hibernated by ArangoDB after
-    a while. For the hibernation step, a revision tree will be 
+    revision tree is automatically hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree is
     compressed in RAM, and only the compressed version is then kept.
     Later accesses of a compressed revision tree require uncompressing
     the tree again. 
@@ -3438,7 +3437,7 @@
     Total number of REST handler tasks that were created for execution
     via the scheduler. This counter is increased for each incoming
     request for which a REST handler mapping exists and that does not
-    need to be forwarded to another coordinator in the cluster.
+    need to be forwarded to another Coordinator in the cluster.
 
 - name: arangodb_scheduler_high_prio_queue_length
   introducedIn: "3.8.0"
@@ -3534,7 +3533,7 @@
   description: |
     Last recorded dequeue time for a low priority queue item, i.e., the amount of
     time the job was sitting in the queue. If there is nothing to do for a long
-    time, this metric will be reset to zero.
+    time, this metric is reset to zero.
     A large value for this metric indicates that the server is under heavy load
     and low priority jobs cannot be dequeued in a timely manner
   threshold: Normally this time should be clearly sub-second.
@@ -3719,17 +3718,16 @@
     - single
   description: |
     Number of tasks/requests dropped because the client-specified queue time
-    requirements, as indicated by client applications in the request header
-    "x-arango-queue-time-seconds" could not be satisfied by the receiving 
-    server instance. This happens when the actual time need to queue/dequeue
-    requests on the scheduler queue exceeds the maximum time value that the
-    client has specified in the request. 
-    Whenever this happens, the client application will get an HTTP 412 error 
+    requirements, as indicated by client applications in the
+    `x-arango-queue-time-seconds` HTTP request header could not be satisfied by
+    the receiving server instance. This happens when the actual time needed to
+    queue/dequeue requests on the scheduler queue exceeds the maximum time value
+    that the client has specified in the request.
+    Whenever this happens, the client application gets an HTTP 412 error 
     response back with error code 21004 ("queue time violated").
-    Although the metric is exposed on all instance types, it will very likely
-    always be 0 on DB servers, simply because coordinators do not forward the
-    "x-arango-queue-time-seconds" when they send internal requests to DB
-    servers.
+    Although the metric is exposed on all instance types, it is likely
+    always `0` on DB-Servers, simply because Coordinators do not forward the
+    `x-arango-queue-time-seconds` when they send internal requests to DB-Servers.
 
 - name: arangodb_scheduler_threads_started_total
   renamedFrom: arangodb_scheduler_threads_started
@@ -3796,8 +3794,8 @@
     Size of all ArangoSearch columns currently loaded into the cache.
   troubleshoot: |
     If this metric contains a value close to configured
-    "arangosearch.columns-cache-limit" there might be columns 
-    that are marked to be cached but will not fit into the cache.
+    `--arangosearch.columns-cache-limit`, there might be columns 
+    that are marked to be cached but do not fit into the cache.
     That may result in query performance degradation. Check the
     log for pattern "Failed to allocate memory for buffered column"
 
@@ -3939,7 +3937,7 @@
     - dbserver
     - single
   description: |
-    Number of arangosearch links and inverted indexes that are
+    Number of `arangosearch` View links and inverted indexes that are
     currently out of sync. A link or inverted index is out of sync
     if the recovery for it is intentionally skipped or a commit
     operation on the link/index has failed.
@@ -3979,7 +3977,7 @@
   description: |
     Number of CPU cores visible to the arangod process, unless the
     environment variable `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES`
-    is set. In that case, the environment variable's value will be reported.
+    is set. In that case, the environment variable's value is reported.
 
 - name: arangodb_server_statistics_idle_percent
   introducedIn: "3.8.0"
@@ -3996,7 +3994,7 @@
     - single
   description: |
     Percentage of time that the system CPUs have been idle, as
-    a value between 0 and 100, and as reported by the operating system.
+    a value between `0` and `100`, and as reported by the operating system.
     This metric is only reported on some operating systems.
 
 - name: arangodb_server_statistics_iowait_percent
@@ -4014,7 +4012,7 @@
     - single
   description: |
     Percentage of time that the system CPUs have been waiting for I/O, as
-    a value between 0 and 100, and as reported by the operating system.
+    a value between `0` and `100`, and as reported by the operating system.
     This metric is only reported on some operating systems.
 
 - name: arangodb_server_statistics_physical_memory
@@ -4033,7 +4031,7 @@
   description: |
     Physical memory of the system in bytes, as reported by the operating system
     unless the environment variable `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`
-    is set. In that case, the environment variable's value will be reported.
+    is set. In that case, the environment variable's value is reported.
 
 - name: arangodb_server_statistics_server_uptime_total
   renamedFrom: arangodb_server_statistics_server_uptime
@@ -4070,7 +4068,7 @@
     - single
   description: |
     Percentage of time that the system CPUs have spent in kernel mode, as
-    a value between 0 and 100, and as reported by the operating system.
+    a value between `0` and `100`, and as reported by the operating system.
     This metric is only reported on some operating systems.
 
 - name: arangodb_server_statistics_user_percent
@@ -4088,7 +4086,7 @@
     - single
   description: |
     Percentage of time that the system CPUs have spent in user mode, as
-    a value between 0 and 100, and as reported by the operating system.
+    a value between `0` and `100`, and as reported by the operating system.
     This metric is only reported on some operating systems.
 
 - name: arangodb_shards_leader_number
@@ -4116,8 +4114,8 @@
     If you have few databases in a one-shard deployment, then an uneven
     distribution of leader shards is natural.
     
-    You can either move shards manually, use the "Rebalance shards" button
-    in the UI, or use the
+    You can either move shards manually, use the **Rebalance shards** button
+    in the ArangoDB web interface, or use the
     [cluster maintenance tools](https://github.com/arangodb/cluster-maintenance)
     (`create-move-plan` and `execute-move-plan` specifically). In the latter
     case, contact ArangoDB customer support.
@@ -4168,8 +4166,8 @@
     Since both leader and follower shards use memory and disk space,
     the total number of shards should be approximately balanced
     evenly across the DB-Servers. To achieve this, you can either
-    move shards manually, use the "Rebalance shards" button in the
-    UI, or use the
+    move shards manually, use the **Rebalance shards** button in the
+    ArangoDB web interface, or use the
     [cluster maintenance tools](https://github.com/arangodb/cluster-maintenance)
     (`create-move-plan` and `execute-move-plan` specifically). In the latter
     case, contact ArangoDB customer support.
@@ -4224,7 +4222,7 @@
     completely rebuilt from leader data, in order to increase its
     chances of getting in sync.
   troubleshoot: |
-    This number will always be 0 from version 3.9.3 onwards. If it is
+    This number is always `0` from version 3.9.3 onwards. If it is
     non-zero in previous versions, then something is wrong, please 
     contact ArangoDB customer support in this case.
 
@@ -4246,7 +4244,7 @@
     individual shard synchronization attempts to a certain maximum runtime.
     When it happens, the shard synchronization attempt is aborted by the
     follower, but immediately retried afterwards. This abort-and-retry
-    operation allows the leader DB servers to purge their archived WAL files
+    operation allows the leader DB-Servers to purge their archived WAL files
     for the aborted snapshots timely, so that long-running shard synchronization
     aborts do not lead to overly long WAL file retention periods on leaders.
 
@@ -4270,7 +4268,7 @@
     precaution. If this checksum differs between leader an follower, the
     incremental resync process starts from scratch.
   troubleshoot: |
-    Normally, this number will always be 0. If it is not, then usually
+    Normally, this number is always `0`. If it is not, then usually
     something is wrong, please contact ArangoDB customer support in this
     case.
 
@@ -4289,8 +4287,8 @@
     - agent
     - single
   description: |
-    Total number of transactions aborted. In the cluster, this metric will
-    be collected separately for transactions on Coordinators and the
+    Total number of transactions aborted. In the cluster, this metric is
+    collected separately for transactions on Coordinators and the
     transaction counterparts on leaders and followers.
     This metric was named `arangodb_transactions_aborted` in previous
     versions of ArangoDB.
@@ -4310,8 +4308,8 @@
     - agent
     - single
   description: |
-    Total number of transactions committed. In the cluster, this metric will
-    be collected separately for transactions on Coordinators and the
+    Total number of transactions committed. In the cluster, this metric is
+    collected separately for transactions on Coordinators and the
     transaction counterparts on leaders and followers.
     This metric was named `arangodb_transactions_committed` in previous
     versions of ArangoDB.
@@ -4334,7 +4332,7 @@
     Total number of expired transactions, i.e. transactions that have
     been begun but that were automatically garbage-collected due to
     inactivity within the transactions' time-to-live (TTL) period.
-    In the cluster, this metric will be collected separately for transactions
+    In the cluster, this metric is collected separately for transactions
     on Coordinators and the transaction counterparts on leaders and followers.
     This metric was named `arangodb_transactions_expired` in previous
     versions of ArangoDB.
@@ -4354,8 +4352,8 @@
     - agent
     - single
   description: |
-    Total number of transactions started/begun. In the cluster, this metric will
-    be collected separately for transactions on Coordinators and the
+    Total number of transactions started/begun. In the cluster, this metric is
+    collected separately for transactions on Coordinators and the
     transaction counterparts on leaders and followers.
     This metric was named `arangodb_transactions_started` in previous
     versions of ArangoDB.
@@ -4567,7 +4565,7 @@
     - single
   description: |
     This gauge reflects the number of V8 contexts that are currently free.
-    If this number drops to 0 there might be a shortage of V8 contexts.
+    If this number drops to `0` there might be a shortage of V8 contexts.
 
 - name: arangodb_v8_context_max
   introducedIn: "3.6.7"
@@ -4635,8 +4633,8 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-actual-delayed-write-rate".
-    It shows the current actual delayed write rate. The value 0 means no delay.
+    This metric exhibits the RocksDB metric `rocksdb-actual-delayed-write-rate`.
+    It shows the current actual delayed write rate. The value `0` means no delay.
 
 - name: rocksdb_archived_wal_files
   introducedIn: "3.8.2"
@@ -4653,8 +4651,26 @@
   description: |
     This metric exhibits the total number of RocksDB WAL files in the
     "archive" subdirectory. These are WAL files that can be garbage-collected
-    eventually, when they are not used anymore by replication or other WAL
-    tailing.
+    eventually, when they are not used anymore by replication, WAL tailing
+    or other purposes.
+
+- name: rocksdb_archived_wal_files_size
+  introducedIn: "3.10.6"
+  help: |
+    Cumulated size of RocksDB WAL files in the archive.
+  unit: bytes
+  type: gauge
+  category: RocksDB
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exhibits the cumulated size of RocksDB WAL files in the
+    "archive" subdirectory on disk. These are WAL files that can be 
+    garbage-collected eventually, when they are not used anymore by 
+    replication, WAL tailing or other purposes.
 
 - name: rocksdb_background_errors
   introducedIn: "3.6.1"
@@ -4669,7 +4685,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "background-errors". It shows
+    This metric exhibits the RocksDB metric `background-errors`. It shows
     the accumulated number of background errors.
 
 - name: rocksdb_base_level
@@ -4685,9 +4701,8 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-base-level".
-    It shows the number of the level to which L0 data will be
-    compacted.
+    This metric exhibits the RocksDB metric `rocksdb-base-level`.
+    It shows the number of the level to which L0 data is compacted.
 
 - name: rocksdb_block_cache_capacity
   introducedIn: "3.6.1"
@@ -4702,7 +4717,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-block-cache-capacity".
+    This metric exhibits the RocksDB metric `rocksdb-block-cache-capacity`.
     It shows the block cache capacity in bytes. This can be configured with
     the `--rocksdb.block-cache-size` startup option.
 
@@ -4719,7 +4734,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-block-cache-pinned-usage".
+    This metric exhibits the RocksDB metric `rocksdb-block-cache-pinned-usage`.
     It shows the memory size for the RocksDB block cache for the entries
     which are pinned, in bytes.
 
@@ -4736,7 +4751,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-block-cache-usage".
+    This metric exhibits the RocksDB metric `rocksdb-block-cache-usage`.
     It shows the total memory size for the entries residing in the block cache,
     in bytes.
 
@@ -4868,7 +4883,7 @@
   description: |
     This metric reflects the lifetime hit rate of the ArangoDB in-memory
     cache which is sitting in front of RocksDB. For example, the edge
-    cache is a part of this. The value will be a ratio between 0 and 1.
+    cache is a part of this. The value is a ratio between `0` and `1`.
     "Lifetime" means here that accounting is done from the most recent
     start of the `arangod` instance.
     If the hit rate is too low, you might have to little RAM available
@@ -4889,7 +4904,7 @@
   description: |
     This metric reflects the recent hit rate of the ArangoDB in-memory
     cache which is sitting in front of RocksDB. For example, the edge
-    cache is a part of this. The value will be a ratio between 0 and 1.
+    cache is a part of this. The value is a ratio between `0` and `1`.
     If the hit rate is too low, you might have to little RAM available
     for the in-memory caches.
 
@@ -4928,7 +4943,7 @@
     used by the in-memory cache which sits in front of RocksDB. Unused tables 
     can be kept as backups to provide new, readily initialized tables for new 
     caches. The overall memory usage of unused tables is capped by the system,
-    so it will not grow overly large.
+    so it does not grow overly large.
 
 - name: rocksdb_cache_unused_tables
   introducedIn: "3.10.0"
@@ -4962,7 +4977,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "compaction-pending".
+    This metric exhibits the RocksDB metric `compaction-pending`.
     It shows the number of column families for which at least one compaction
     is pending.
 
@@ -4982,7 +4997,7 @@
     This metric exhibits the compression ratio of data at level 0 in RocksDB's
     log structured merge tree. Here, compression
     ratio is defined as uncompressed data size / compressed file size.
-    Returns "-1.0" if there are no open files at level 0.
+    Returns `-1.0` if there are no open files at level 0.
 
 - name: rocksdb_compression_ratio_at_level1
   introducedIn: "3.6.1"
@@ -5000,7 +5015,7 @@
     This metric exhibits the compression ratio of data at level 1 in RocksDB's
     log structured merge tree. Here, compression
     ratio is defined as uncompressed data size / compressed file size.
-    Returns "-1.0" if there are no open files at level 1.
+    Returns `-1.0` if there are no open files at level 1.
 
 - name: rocksdb_compression_ratio_at_level2
   introducedIn: "3.6.1"
@@ -5018,7 +5033,7 @@
     This metric exhibits the compression ratio of data at level 2 in RocksDB's
     log structured merge tree. Here, compression
     ratio is defined as uncompressed data size / compressed file size.
-    Returns "-1.0" if there are no open files at level 2.
+    Returns `-1.0` if there are no open files at level 2.
 
 - name: rocksdb_compression_ratio_at_level3
   introducedIn: "3.6.1"
@@ -5036,7 +5051,7 @@
     This metric exhibits the compression ratio of data at level 3 in RocksDB's
     log structured merge tree. Here, compression
     ratio is defined as uncompressed data size / compressed file size.
-    Returns "-1.0" if there are no open files at level 3.
+    Returns `-1.0` if there are no open files at level 3.
 
 - name: rocksdb_compression_ratio_at_level4
   introducedIn: "3.6.1"
@@ -5054,7 +5069,7 @@
     This metric exhibits the compression ratio of data at level 4 in RocksDB's
     log structured merge tree. Here, compression
     ratio is defined as uncompressed data size / compressed file size.
-    Returns "-1.0" if there are no open files at level 4.
+    Returns `-1.0` if there are no open files at level 4.
 
 - name: rocksdb_compression_ratio_at_level5
   introducedIn: "3.6.1"
@@ -5072,7 +5087,7 @@
     This metric exhibits the compression ratio of data at level 5 in RocksDB's
     log structured merge tree. Here, compression
     ratio is defined as uncompressed data size / compressed file size.
-    Returns "-1.0" if there are no open files at level 5.
+    Returns `-1.0` if there are no open files at level 5.
 
 - name: rocksdb_compression_ratio_at_level6
   introducedIn: "3.6.1"
@@ -5090,7 +5105,7 @@
     This metric exhibits the compression ratio of data at level 6 in RocksDB's
     log structured merge tree. Here, compression
     ratio is defined as uncompressed data size / compressed file size.
-    Returns "-1.0" if there are no open files at level 6.
+    Returns `-1.0` if there are no open files at level 6.
 
 - name: rocksdb_cur_size_active_mem_table
   introducedIn: "3.6.1"
@@ -5105,7 +5120,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-cur-size-active-mem-table".
+    This metric exhibits the RocksDB metric `rocksdb-cur-size-active-mem-table`.
     It shows the approximate size of the active memtable in bytes, summed
     over all column families.
 
@@ -5122,7 +5137,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-cur-size-all-mem-tables".
+    This metric exhibits the RocksDB metric `rocksdb-cur-size-all-mem-tables`.
     It shows the approximate size of active and unflushed immutable memtables
     in bytes, summed over all column families.
 
@@ -5144,7 +5159,7 @@
     RocksDB throttle. The throttle limits the write rate to allow
     RocksDB's background threads to catch up with compactions and not
     fall behind too much, since this would in the end lead to nasty
-    write stops in RocksDB and incur considerable delays. If 0 is
+    write stops in RocksDB and incur considerable delays. If `0` is
     shown, no throttling happens, otherwise, you see the current
     write rate limit in bytes per second. Also see the `--rocksdb.*`
     startup options.
@@ -5162,7 +5177,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-estimate-live-data-size".
+    This metric exhibits the RocksDB metric `rocksdb-estimate-live-data-size`.
     It shows an estimate of the amount of live data in bytes, summed over
     all column families.
 
@@ -5179,7 +5194,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-estimate-num-keys".
+    This metric exhibits the RocksDB metric `rocksdb-estimate-num-keys`.
     It shows the estimated number of total keys in the active and unflushed
     immutable memtables and storage, summed over all column families.
 
@@ -5197,7 +5212,7 @@
     - single
   description: |
     This metric exhibits the RocksDB metric
-    "rocksdb-estimate-pending-compaction-bytes".
+    `rocksdb-estimate-pending-compaction-bytes`.
     It shows the estimated total number of bytes compaction needs to
     rewrite to get all levels down to under target size. Not valid for
     other compactions than level-based. This value is summed over all
@@ -5217,7 +5232,7 @@
     - single
   description: |
     This metric exhibits the RocksDB metric
-    "rocksdb-estimate-table-readers-mem".
+    `rocksdb-estimate-table-readers-mem`.
     It shows the estimated memory used for reading SST tables, excluding
     memory used in block cache (e.g. filter and index blocks), summed over
     all column families.
@@ -5271,10 +5286,10 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-is-file-deletions-enabled".
-    It shows 0 if deletion of obsolete files is enabled, and otherwise,
+    This metric exhibits the RocksDB metric `rocksdb-is-file-deletions-enabled`.
+    It shows `0` if deletion of obsolete files is enabled, and otherwise,
     it shows a non-zero number. Note that for ArangoDB, this is supposed
-    to always return 1, since the deletion of obsolete WAL files is done
+    to always return `1`, since the deletion of obsolete WAL files is done
     from ArangoDB, externally to RocksDB.
 
 - name: rocksdb_is_write_stopped
@@ -5290,9 +5305,9 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-is-write-stopped".
-    It shows 1 if writing to RocksDB has been stopped, and otherwise 0.
-    If 1 is shown, this usually means that there are too many uncompacted
+    This metric exhibits the RocksDB metric `rocksdb-is-write-stopped`.
+    It shows `1` if writing to RocksDB has been stopped, and otherwise 0.
+    If `1` is shown, this usually means that there are too many uncompacted
     files and the RocksDB background threads have not managed to keep up
     with their compaction work. This situation should be avoided, since
     nasty delays in database operations are incurred. If in doubt,
@@ -5311,12 +5326,12 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-live-sst-files-size".
+    This metric exhibits the RocksDB metric `rocksdb-live-sst-files-size`.
     It shows the total size in bytes of all SST files belonging to the latest
     LSM tree, summed over all column families.
 
 - name: rocksdb_live_wal_files
-  introducedIn: "3.9.10"
+  introducedIn: "3.10.5"
   help: |
     Number of live RocksDB WAL files.
   unit: number
@@ -5329,6 +5344,23 @@
     - single
   description: |
     This metric exhibits the total number of live RocksDB WAL files. These are
+    WAL files that cannot be garbage-collected until they are moved over to the
+    archive.
+
+- name: rocksdb_live_wal_files_size
+  introducedIn: "3.10.6"
+  help: |
+    Cumulated live RocksDB WAL files.
+  unit: bytes
+  type: gauge
+  category: RocksDB
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exhibits the cumulated size of live RocksDB WAL files on disk.
     WAL files that cannot be garbage-collected until they are moved over to the
     archive.
 
@@ -5345,7 +5377,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "mem-table-flush-pending". It
+    This metric exhibits the RocksDB metric `mem-table-flush-pending`. It
     shows the number of column families for which a memtable flush is
     pending.
 
@@ -5362,7 +5394,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-min-log-number-to-keep".
+    This metric exhibits the RocksDB metric `rocksdb-min-log-number-to-keep`.
     It shows the minimum log number of the log files that should be kept.
 
 - name: rocksdb_num_deletes_active_mem_table
@@ -5379,7 +5411,7 @@
     - single
   description: |
     This metric exhibits the RocksDB metric
-    "rocksdb-num-deletes-active-mem-table".
+    `rocksdb-num-deletes-active-mem-table`.
     It shows the total number of delete entries in the active memtable,
     summed over all column families.
 
@@ -5397,7 +5429,7 @@
     - single
   description: |
     This metric exhibits the RocksDB metric
-    "rocksdb-num-deletes-imm-mem-tables".
+    `rocksdb-num-deletes-imm-mem-tables`.
     It shows the total number of delete entries in the unflushed immutable
     memtables, summed over all column families.
 
@@ -5415,7 +5447,7 @@
     - single
   description: |
     This metric exhibits the RocksDB metric
-    "rocksdb-num-entries-active-mem-table".
+    `rocksdb-num-entries-active-mem-table`.
     It shows the total number of entries in the active memtable,
     summed over all column families.
 
@@ -5433,7 +5465,7 @@
     - single
   description: |
     This metric exhibits the RocksDB metric
-    "rocksdb-num-entries-imm-mem-tables".
+    `rocksdb-num-entries-imm-mem-tables`.
     It shows the total number of entries in the unflushed immutable memtables,
     summed over all column families.
 
@@ -5562,7 +5594,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "num-immutable-mem-table",
+    This metric exhibits the RocksDB metric `num-immutable-mem-table`,
     which shows the number of immutable memtables that have not yet been
     flushed. This value is the sum over all column families.
   
@@ -5583,7 +5615,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "num-immutable-mem-table-flushed",
+    This metric exhibits the RocksDB metric `num-immutable-mem-table-flushed`,
     which shows the number of immutable memtables that have already been
     flushed. This value is the sum over all column families.
   
@@ -5604,7 +5636,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-num-live-versions".
+    This metric exhibits the RocksDB metric `rocksdb-num-live-versions`.
     It shows the number of live versions. `Version` is an internal data
     structure. See `version_set.h` in the RocksDB source for details. More
     live versions often mean more SST files are held from being deleted,
@@ -5624,7 +5656,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-num-running-compactions".
+    This metric exhibits the RocksDB metric `rocksdb-num-running-compactions`.
     It shows the number of currently running compactions.
 
 - name: rocksdb_num_running_flushes
@@ -5640,7 +5672,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-num-running-flushes".
+    This metric exhibits the RocksDB metric `rocksdb-num-running-flushes`.
     It shows the number of currently running flushes.
 
 - name: rocksdb_num_snapshots
@@ -5656,7 +5688,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-num-snapshots".
+    This metric exhibits the RocksDB metric `rocksdb-num-snapshots`.
     It shows the number of unreleased snapshots of the database.
 
 - name: rocksdb_oldest_snapshot_time
@@ -5672,7 +5704,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-oldest-snapshot-time".
+    This metric exhibits the RocksDB metric `rocksdb-oldest-snapshot-time`.
     It shows a number representing the Unix timestamp of the oldest
     unreleased snapshot.
 
@@ -5708,21 +5740,21 @@
   description: |
     This metric indicates whether RocksDB currently is in read-only
     mode, due to a background error. If RocksDB is in read-only mode,
-    this metric will have a value of "1". When in read-only mode, all
-    writes into RocksDB will fail. When RocksDB is in normal operations
-    mode, this metric will have a value of "0".
+    this metric has a value of `1`. When in read-only mode, all
+    writes into RocksDB fail. When RocksDB is in normal operations
+    mode, this metric has a value of `0`.
   troubleshoot: |
     If this value is non-zero, it means that all write operations in
-    RocksDB will fail until the RocksDB background error is resolved.
+    RocksDB fail until the RocksDB background error is resolved.
     The arangod server logfile should show more details about the exact
     errors that are happening, so logs should be inspected first.
     RocksDB can set a background error when some I/O operation fails. 
     This is often due to disk space usage issues, so often either freeing 
-    disk space or increasing the disk capacity will help.
+    disk space or increasing the disk capacity help.
     Under some conditions, RocksDB can automatically resume from the 
     background error and go back into normal operations. However, if the
     background error happens during certain RocksDB operations, it cannot
-    resume operations automatically, so the instance will need a manual
+    resume operations automatically, so the instance needs a manual
     restart after the error condition is removed.
 
 - name: rocksdb_size_all_mem_tables
@@ -5738,7 +5770,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-size-all-mem-tables".
+    This metric exhibits the RocksDB metric `rocksdb-size-all-mem-tables`.
     It shows the approximate size of all active, unflushed immutable, and
     pinned immutable memtables in bytes, summed over all column families.
 
@@ -5791,7 +5823,7 @@
     - agent
     - single
   description: |
-    This metric exhibits the RocksDB metric "rocksdb-total-sst-files-size".
+    This metric exhibits the RocksDB metric `rocksdb-total-sst-files-size`.
     It shows the total size in bytes of all SST files, summed over all
     column families.
 
@@ -5809,15 +5841,15 @@
     - agent
     - single
   description: |
-    This metric contains a value of 0 if the pruning of archived RocksDB WAL
-    files is not activated, and 1 if it is activated.
+    This metric contains a value of `0` if the pruning of archived RocksDB WAL
+    files is not activated, and `1` if it is activated.
     WAL file pruning is normally deactivated for the first few minutes after
     an instance is started, so that other instances in the cluster can start
     replicating from the instance before all archived WAL files are deleted.
-    The value should flip from 0 to 1 a few minutes after server start.
+    The value should flip from `0` to `1` a few minutes after server start.
 
 - name: rocksdb_wal_released_tick_flush
-  introducedIn: "3.9.10"
+  introducedIn: "3.10.5"
   help: |
     Lower bound sequence number from which WAL files need to be kept because
     of external flushing needs.
@@ -5833,13 +5865,13 @@
     This metric exposes the RocksDB WAL sequence number from which onwards 
     WAL files have to be kept because the WAL data could be used by external
     flushing needs. WAL files with sequence numbers higher than this value
-    will not be garbage-collected.
+    are not garbage-collected.
     The candidates that can keep WAL files from being garbage-collected are
-    arangosearch links or inverted indexes that are still syncing data,
+    `arangosearch` View links or inverted indexes that are still syncing data,
     and background index creation.
 
 - name: rocksdb_wal_released_tick_replication
-  introducedIn: "3.9.10"
+  introducedIn: "3.10.5"
   help: |
     Lower bound sequence number from which WAL files need to be kept because
     of replication.
@@ -5855,7 +5887,7 @@
     This metric exposes the RocksDB WAL sequence number from which onwards 
     WAL files have to kept in the archive because the WAL data could be used
     by the replication.
-    WAL files with sequence numbers higher than this value will not be 
+    WAL files with sequence numbers higher than this value are not 
     garbage-collected.
 
 - name: rocksdb_wal_sequence
@@ -5872,7 +5904,7 @@
     - single
   description: |
     This metric exposes the current RocksDB WAL sequence number. Any
-    write operations into the database will increase the sequence number.
+    write operations into the database increases the sequence number.
 
 - name: rocksdb_wal_sequence_lower_bound
   introducedIn: "3.8.2"

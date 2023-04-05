@@ -11,7 +11,7 @@ description: >-
 {{ page.description }}
 {:class="lead"}
 
-## What deployment modes are available?
+## Available deployment modes
 
 ArangoDB can be deployed in a variety of configurations, depending on your needs.
 

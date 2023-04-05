@@ -7,7 +7,7 @@ description: License Management of ArangoDB Enterprise Edition
 The Enterprise Edition of ArangoDB requires a license to activate the
 Enterprise Edition features. How to set a license key and to retrieve
 information about the current license via the JavaScript API is described below.
-There is also an [HTTP API](http/license.html).
+There is also an [HTTP API](http/administration.html#license).
 Also check the [ArangoDB Kubernetes Operator](deployment-kubernetes-usage.html)
 for more details on how to set a license key.
 
@@ -77,7 +77,7 @@ applied license for reference and support from ArangoDB.
 
 In order to monitor the remaining validity of the license, the metric
 `arangodb_license_expires` is exposed by Coordinators and DB-Servers, see the
-[Metrics API](http/administration-and-monitoring-metrics.html).
+[Metrics API](http/monitoring.html#metrics).
 
 ## Managing Your License
 

@@ -268,6 +268,6 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   You can import from JSON, JSONL, CSV, and TSV files, and export to JSON, JSONL,
   CSV, TSV, XML, and XGMML files.
 
-- [**Metrics**](http/administration-and-monitoring-metrics.html):
+- [**Metrics**](http/monitoring.html#metrics):
   Monitor the healthiness and performance of ArangoDB servers using the metrics
   exported in the Prometheus format.

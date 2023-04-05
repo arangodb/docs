@@ -13,6 +13,7 @@ A Graph consists of **vertices** and **edges**. Edges are stored as documents in
 of an **edge collection** (so edges can be used as vertices).
 
 Which collections are used within a named graph is defined via **edge definitions**.
+They describe which edge collections connect which vertex collections.
 A named graph can contain more than one edge definition, at least one is needed.
 Graphs allow you to structure your models in line with your domain and group
 them logically in collections and giving you the power to query them in the same
@@ -106,7 +107,7 @@ This gives you more freedom than the strict *named graphs*.
   - [AQL Traversals](aql/graphs-traversals.html)
   - [AQL Shortest Path](aql/graphs-shortest-path.html)
 
-### When to choose anonymous or named graphs?
+### When to choose anonymous or named graphs
 
 As noted above, named graphs ensure graph integrity, both when inserting or removing edges or vertices.
 So you won't encounter dangling edges, even if you use the same vertex collection in several named graphs.
@@ -200,7 +201,7 @@ and [_arangorestore_](programs-arangorestore.html) to restore a backup into a ne
 Managing graphs
 ---------------
 
-By default you should use [the interface your driver provides to manage graphs](http/gharial-management.html).
+By default you should use [the interface your driver provides to manage graphs](http/gharial.html#management).
 
 This is i.e. documented [in Graphs-Section of the ArangoDB Java driver](https://github.com/arangodb/arangodb-java-driver#graphs){:target="_blank"}.
 

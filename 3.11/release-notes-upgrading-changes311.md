@@ -67,6 +67,22 @@ contains `_key`, `_id`, and `_rev` attributes. The `_key` and `_id` correspond
 to the document of the write attempt, and `_rev` corresponds to the current
 revision of the document as stored in the database (if available, otherwise empty).
 
+## Deprecated and removed Pregel features
+
+- The experimental _Custom Pregel_ feature, also known as
+  _programmable Pregel algorithms_ (PPA), has been removed.
+
+- The built-in _DMID_ Pregel algorithm has been deprecated and will be removed
+  in a future release.
+
+- The `async` option for Pregel jobs has been removed. Some algorithms supported
+  an asynchronous mode to run without synchronized global iterations. This is no
+  longer supported.
+
+- The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
+  backing storage for large datasets has been removed. Memory paging/swapping
+  provided by the operating system is equally effective.
+
 ## Startup options
 
 ### `--server.disable-authentication` and `--server.disable-authentication-unix-sockets` obsoleted
@@ -102,10 +118,17 @@ but specifying it still tolerated.
 See [Features and Improvements in ArangoDB 3.11](release-notes-new-features311.html#parallel-gather)
 for details.
 
-### Pregel options
+### `--pregel.memory-mapped-files*` obsoleted
 
-The `async` option has been removed. Some algorithms supported an asynchronous mode
-to run without synchronized global iterations. This is no longer supported.
+Pregel no longer supports use memory-mapped files as a backing storage.
+The following startup options have therefore been removed:
+
+- `--pregel.memory-mapped-files`
+- `--pregel.memory-mapped-files-custom-path`
+- `--pregel.memory-mapped-files-location-type`
+
+You can still specify them on startup without raising errors but they have no
+effect anymore.
 
 ## Client tools
 

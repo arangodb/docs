@@ -473,10 +473,10 @@ Rename a collection:
 
 `collection.rename(new-name)`
 
-Renames a collection using the `new-name`. The `new-name` must not
-already be used for a different collection. `new-name` must also be a
-valid collection name. For more information on valid collection names please
-refer to the [naming conventions](data-modeling-naming-conventions.html).
+Renames a collection using the `new-name`. The `new-name` must not already be
+used for a different collection. `new-name` must also be a valid collection name.
+For information about the naming constraints for collections, see
+[Collection names](data-modeling-collections.html#collection-names).
 
 If renaming fails for any reason, an error is thrown.
 If renaming the collection succeeds, then the collection is also renamed in

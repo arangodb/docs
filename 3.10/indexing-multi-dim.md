@@ -1,19 +1,23 @@
 ---
 layout: default
-description: A multi dimensional index allows to efficiently intersect multiple range queries
+description: >-
+  Multi-dimensional indexes allow you to index two- or higher dimensional data
+  such as time ranges, for efficient intersection of multiple range queries
 ---
 # Multi-dimensional indexes
 
-The multi-dimensional index type (also called ZKD) provided by ArangoDB can be
-used to efficiently intersect multiple range queries.
+{{ page.description }}
+{:class="lead"}
 
-A multi-dimensional index is setup by setting the index type to `"zkd"`.
-The `fields` attribute describes which fields are used as dimensions.
-The value of each dimension has to be a numeric (double) value.
+The multi-dimensional index type is called **ZKD**.
 
 {% hint 'warning' %}
 `zkd` indexes are an **experimental** feature.
 {% endhint %}
+
+A multi-dimensional index is setup by setting the index type to `"zkd"`.
+The `fields` attribute describes which fields are used as dimensions.
+The value of each dimension has to be a numeric (double) value.
 
 ## Querying documents within a 3D box
 

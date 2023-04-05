@@ -1,9 +1,6 @@
 ---
 layout: default
-description: Fulltext
 ---
-Fulltext
-========
+# Working with full-text indexes
 
-<!-- js/actions/api-index.js -->
-{% docublock post_api_index_fulltext %}
+{% docublock post_api_index_fulltext, h2 %}

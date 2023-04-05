@@ -32,7 +32,7 @@ it will only be executed once):
 To run a service's tests you can use
 the [web interface](programs-web-interface-services.html),
 the [Foxx CLI](programs-foxx-cli.html) or
-the [Foxx HTTP API](http/foxx-miscellaneous.html).
+the [Foxx HTTP API](http/foxx.html#miscellaneous).
 Foxx will execute all test cases in the matching files and
 generate a report in the desired format.
 

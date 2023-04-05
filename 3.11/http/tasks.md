@@ -1,15 +1,16 @@
 ---
 layout: default
-description: Following you have ArangoDB's HTTP Interface for Tasks
+description: >-
+  The HTTP API for tasks lets you can manage the periodic or timed execution of
+  server-side JavaScript code
 ---
-HTTP tasks Interface
-====================
+# HTTP interface for tasks
 
-Following you have ArangoDB's HTTP Interface for Tasks.
+{{ page.description }}
+{:class="lead"}
 
-There are also some examples provided for every API action. 
-{% docublock get_api_tasks_all %}
-{% docublock get_api_tasks %}
-{% docublock post_api_new_tasks %}
-{% docublock put_api_new_tasks %}
-{% docublock delete_api_tasks %}
+{% docublock get_api_tasks, h2 %}
+{% docublock get_api_tasks_task, h2 %}
+{% docublock post_api_tasks, h2 %}
+{% docublock put_api_tasks, h2 %}
+{% docublock delete_api_tasks_task, h2 %}

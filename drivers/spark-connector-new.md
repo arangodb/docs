@@ -250,15 +250,18 @@ Use the `overwriteMode` write configuration parameter to specify the document ov
 
 ### Write Resiliency
 
-The data of each partition is saved in batches using the ArangoDB API for [inserting multiple documents](../http/document-working-with-documents.html).
+The data of each partition is saved in batches using the ArangoDB API for
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+[inserting multiple documents](../http/document.html#multiple-document-operations).
+{% else -%}
+[inserting multiple documents](../http/document-working-with-documents.html#bulk-document-operations).
+{% endif -%}
 This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another Coordinator), if the provided configuration allows idempotent requests, namely: 
 - the schema of the dataframe has a **not nullable** `_key` field and
 - `overwriteMode` is set to one of the following values:
   - `replace`
   - `ignore`
   - `update` with `keep.null=true`
-
-These configurations are also compatible with speculative execution of tasks.
 
 A failing batch-saving request is retried once for every Coordinator. After that, if still failing, the write task for the related partition is aborted. According to the Spark configuration, the task can be retried and rescheduled on a different executor, if the provided write configuration allows idempotent requests (as described above).
 
@@ -280,7 +283,8 @@ When writing to an edge collection (`table.type=edge`), the schema of the Datafr
 - Batch writes are not performed atomically, so sometimes (i.e. in case of `overwrite.mode: conflict`) several documents in the batch may be written and others may return an exception (i.e. due to a conflicting key). 
 - Writing records with the `_key` attribute is only allowed on collections sharded by `_key`. 
 - In case of the `Append` save mode, failed jobs cannot be rolled back and the underlying data source may require manual cleanup.
-- Speculative execution of tasks would only work for idempotent write configurations. See [Write Resiliency](#write-resiliency) for more details.
+- Speculative execution of tasks only works for idempotent write configurations. See [Write Resiliency](#write-resiliency) for more details.
+- Speculative execution of tasks can cause concurrent writes to the same documents, resulting in write-write conflicts or lock timeouts
 
 ## Mapping Configuration
 
