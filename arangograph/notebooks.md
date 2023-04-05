@@ -44,11 +44,16 @@ favorite GraphML libraries with GPUs.
 1. Navigate to the **Deployments** tab.
 2. Open the deployment in which you want to create the notebook.
 3. Go to the **Notebooks** tab and click the **Create Notebook** button.
-4. Enter a name and optionally a description for your new notebook. Click **Save**.
-5. The notebook's phase is set to **Initializing**. Once the phase changes to
-**Running**, the notebook's endpoint will be accessible.
-6. Click the **Open notebook** button to access your notebook. 
-7. To log in into your notebook, use the `root` password from your deployment.
+4. Enter a name and optionally a description for your new notebook. 
+5. Select a configuration model from the dropdown menu. Click **Save**.
+6. The notebook's phase is set to **Initializing**. Once the phase changes to
+**Running**, the notebook's endpoint is accessible.
+1. Click the **Open notebook** button to access your notebook. 
+2. To access your notebook, you need to be signed into ArangoGraph as a user with
+the `notebook.execute.execute` permission in your project. Organization
+owners have this permission enabled by default. The `notebook-executor` permission
+can also be granted to other members of the organization via roles.
+See how to create a [role binding](access-control.html#how-to-view-edit-or-remove-role-bindings-of-a-policy).
 
 {% hint 'info' %}
 Depending on the tier your organization belongs to, different limitations apply:
