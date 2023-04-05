@@ -117,8 +117,9 @@ Enterprise Edition:
 
 #### Query API
 
-The `GET /_api/query/current` and `GET /_api/query/slow` endpoints include a
-new numeric `peakMemoryUsage` attribute.
+The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-running-aql-queries)
+and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
+endpoints include a new numeric `peakMemoryUsage` attribute.
 
 ### Endpoints moved
 
