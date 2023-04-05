@@ -41,8 +41,8 @@ ArangoDB provides various tools to help you manage and work with your data.
 
 - [ArangoDB Starter](programs-starter.html) helps you set up and deploy ArangoDB
   instances on bare-metal servers and supports all ArangoDB deployment modes, such
-  as a single server instance, active failover, and cluster (including
-  Datacenter-to-Datacenter replication).
+  as a single server instance, Active Failover, and cluster (including
+  Datacenter-to-Datacenter Replication).
 
 - [*arangodump*](programs-arangodump.html) is the command-line tool that allows you
   to create backups of your data and structures in a flexible and efficient manner
