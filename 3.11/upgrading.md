@@ -1,10 +1,13 @@
 ---
 layout: default
-description: This chapter includes information related to the upgrade of ArangoDB
+description: >-
+  You can create a backup and upgrade ArangoDB in-place, but downgrading
+  is only possible with the backup or by dumping and restoring all data
 ---
 # Upgrading
 
-This chapter includes information related to the upgrade of ArangoDB.
+{{ page.description }}
+{:class="lead"}
 
 ## Upgrade Methods
 
@@ -40,7 +43,7 @@ Before upgrading, it is recommended to:
 ## Upgrade Paths
 
 - It is always possible to upgrade between hot-fixes of the same GA release, i.e
-  from X.Y.w to X.Y.z, where z>w.
+  from x.y.W to x.y.Z, where Z > W.
   - Examples:
     - Upgrading from 3.9.0 to 3.9.1 or (directly to) 3.9.3 is supported.
     - Upgrading from 3.9.1 to 3.9.2 or (directly to) 3.9.3 is supported.
