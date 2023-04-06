@@ -72,14 +72,13 @@ deployment modes, such as a single server instance, Active Failover, and cluster
 
 ## How to Get Data In and Out of ArangoDB
 
-With the command-line tool [*arangoimport*](programs-arangoimport.html) you can
+With the [*arangoimport*](programs-arangoimport.html) command-line tool, you can
 import data from JSON, JSONL, CSV, and TSV formats into a database collection in
 ArangoDB. Thanks to its multi-threaded architecture and bulk import capabilities,
 you can import your data at high speeds.
 
 Similarly, with [*arangoexport*](programs-arangoexport.html) you can export data
-from your database collection to various formats such as JSON, JSONL, CSV, XML,
-and XGMML.
+from your database collection to JSON, JSONL, CSV, TSV, XML, and XGMML formats.
 
 ## How to Back Up and Restore Data in ArangoDB
 
@@ -99,8 +98,8 @@ to restore structural information with or without data.
 [*arangobackup*](programs-arangobackup.html) is a command-line tool that enables
 you to create instantaneous and consistent [hot backups](backup-restore.html#hot-backups)
 of the data and structural information stored in ArangoDB, without interrupting
-the database operations. It can be used for all ArangoDB deployment modes. Only
-available in the Enterprise Edition.
+the database operations. It can be used for all ArangoDB deployment modes.
+It is only available in the Enterprise Edition.
 
 <!--
 ## How to Import Data
