@@ -1,79 +1,45 @@
 - text: Introduction
   href: index.html
-- text: General HTTP Handling
+- text: General request handling
   href: general.html
-- text: HTTP Interface
-  href: api.html
+- text: Authentication
+  href: authentication.html
+- text: Users
+  href: user-management.html
 - text: Databases
   href: database.html
-  children:
-    - text: Management
-      href: database-database-management.html
-    - text: Notes on Databases
-      href: database-notes-on-databases.html
 - text: Collections
   href: collection.html
-  children:
-    - text: Creating
-      href: collection-creating.html
-    - text: Getting Information
-      href: collection-getting.html
-    - text: Modifying
-      href: collection-modifying.html
 - text: Documents
   href: document.html
-  children:
-    - text: Basics and Terminology
-      href: document-address-and-etag.html
-    - text: Working with Documents
-      href: document-working-with-documents.html
-- text: Edges
-  href: edge.html
-  children:
-    - text: Address and Etag
-      href: edge-address-and-etag.html
-    - text: Working with Edges
-      href: edge-working-with-edges.html
 - text: Graphs
-  href: gharial.html
+  href: graphs.html
   children:
-    - text: Management
-      href: gharial-management.html
-    - text: Vertices
-      href: gharial-vertices.html
+    - text: Named graphs
+      href: gharial.html
     - text: Edges
-      href: gharial-edges.html
+      href: edge.html
+- text: Queries
+  href: queries.html
+  children:
+    - text: AQL queries
+      href: aql-query.html
+    - text: AQL query results cache
+      href: aql-query-cache.html
+    - text: User-defined AQL functions
+      href: aql-user-functions.html
 - text: Pregel
   href: pregel.html
-- text: AQL Query Cursors
-  href: aql-query-cursor.html
+- text: Transactions
+  href: transaction.html
   children:
-    - text: Query Results
-      href: aql-query-cursor-query-results.html
-    - text: Accessing Cursors
-      href: aql-query-cursor-accessing-cursors.html
-- text: AQL Queries
-  href: aql-query.html
-- text: AQL Query Results Cache
-  href: aql-query-cache.html
-- text: AQL User Functions Management
-  href: aql-user-functions.html
-- text: Async Result Handling
-  href: async-results-management.html
-- text: Bulk Import
-  href: bulk-imports.html
-  children:
-    - text: JSON Documents
-      href: bulk-imports-importing-self-contained.html
-    - text: Headers & Values
-      href: bulk-imports-importing-headers-and-values.html
-    - text: Batch Requests
-      href: batch-request.html
+    - text: Stream Transactions
+      href: transaction-stream-transaction.html
+    - text: JavaScript Transactions
+      href: transaction-js-transaction.html
 - text: Indexes
   href: indexes.html
   children:
-    - text: Working with Indexes
-      href: indexes-working-with.html
     - text: Persistent
       href: indexes-persistent.html
     - text: Inverted
@@ -95,13 +61,16 @@
       href: views-arangosearch.html
 - text: Analyzers
   href: analyzers.html
-- text: Transactions
-  href: transaction.html
-  children:
-    - text: Stream Transactions
-      href: transaction-stream-transaction.html
-    - text: JavaScript Transactions
-      href: transaction-js-transaction.html
+- text: Import
+  href: bulk-imports.html
+- text: Foxx
+  href: foxx.html
+- text: Jobs
+  href: jobs.html
+- text: Tasks
+  href: tasks.html
+- text: Batch Requests
+  href: batch-request.html
 - text: Replication
   href: replications.html
   children:
@@ -115,44 +84,15 @@
       href: replications-other-replication.html
     - text: Write-Ahead Log
       href: replications-walaccess.html
-- text: Administration & Monitoring
-  href: administration-and-monitoring.html
-  children:
-    - text: Metrics
-      href: administration-and-monitoring-metrics.html
-- text: Endpoints
-  href: endpoints.html
-- text: Foxx Services
-  href: foxx.html
-  children:
-    - text: Management
-      href: foxx-management.html
-    - text: Configuration
-      href: foxx-configuration.html
-    - text: Miscellaneous
-      href: foxx-miscellaneous.html
-- text: User Management
-  href: user-management.html
-- text: License Management
-  href: license.html
-- text: Hot Backup
-  href: hot-backup.html
-- text: Tasks
-  href: tasks.html
+- text: Monitoring
+  href: monitoring.html
+- text: Security
+  href: security.html
+- text: Administration
+  href: administration.html
 - text: Cluster
   href: cluster.html
-  children:
-    - text: Server ID
-      href: cluster-server-id.html
-    - text: Server Role
-      href: cluster-server-role.html
-    - text: Cluster Statistics
-      href: cluster-statistics.html
-    - text: Cluster Health
-      href: cluster-health.html
-    - text: Cluster Maintenance
-      href: cluster-maintenance.html
-    - text: Agency
-      href: agency.html
-- text: Miscellaneous functions
-  href: miscellaneous-functions.html
+- text: Agency
+  href: agency.html
+- text: Hot Backups
+  href: hot-backup.html

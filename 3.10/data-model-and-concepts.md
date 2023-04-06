@@ -7,8 +7,9 @@ title: ArangoDB Data Model & Concepts
 redirect_from:
   - data-modeling-graphs-vertices-edges.html # 3.9 -> 3.10
   - data-modeling-concepts.html # 3.9 -> 3.10
+  - appendix-glossary.html # 3.10 -> 3.10
+  - data-modeling-naming-conventions.html # 3.10 -> 3.10
 ---
-
 # How Data is Structured in ArangoDB
 
 The hierarchy that data is organized in is **documents** (data records) in
@@ -30,21 +31,8 @@ ArangoDB lets you store documents as JSON objects.
 }
 ```
 
-JSON supports the following data types:
-
-- `null` to represent the absence of a value, also known as _nil_ or _none_ type.
-- `true` and `false`, the Boolean values, to represent _yes_ and
-  _no_, _on_ and _off_, etc.
-- **numbers** to store integer and floating-point values.
-- **strings** to store character sequences for text, encoded as UTF-8.
-- **arrays** to store lists that can contain any of the supported data types
-  as elements, including nested arrays and objects.
-- **objects** to map keys to values like a dictionary, also known as
-  associative arrays or hash maps. The keys are strings and the values can be
-  any of the supported data types, including arrays and nested objects.
-
 Each record that you store is a JSON object at the top-level, also referred to
-as a [**document**](data-modeling-documents-document-address.html).
+as a [**document**](data-modeling-documents.html).
 Each key-value pair is called an **attribute**, comprised
 of the attribute name and the attribute value. Attributes can also be called
 *properties* or *fields*.
@@ -150,6 +138,13 @@ Aside from basic graph traversal, ArangoDB offers
 or multiple shortest paths between two vertices, can return a specified amount
 of paths between two vertices in order of increasing length, and supports
 distributed graph processing based on the Pregel framework.
+
+You can perform operations directly on the documents of graphs and run graph
+traversals using ad-hoc sets of vertex and edge collections. These are called
+**anonymous graphs**. However, no graph consistency is enforced. You can create
+**named graphs** and use the interfaces for named graphs, which ensure graph
+consistency. For example, removing a vertex removes all connected edges, too.
+Low-level operations can still cause dangling edges, nonetheless.
 
 <!--
 - [Graphs in data modeling - is the emperor naked?](https://medium.com/@neunhoef/graphs-in-data-modeling-is-the-emperor-naked-2e65e2744413#.x0a5z66ji){:target="_blank"}
