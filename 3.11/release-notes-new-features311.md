@@ -119,6 +119,17 @@ nodes, which could lead to high memory usage on Coordinators caused by buffering
 of documents for other shards, and timeouts on some DB-Servers because query parts
 were idle for too long.
 
+### Extended peak memory usage reporting
+
+The peak memory usage of AQL queries is now also reported for running queries
+and slow queries.
+
+In the web interface, you can find the **Peak memory usage** column in the
+**QUERIES** section, in the **Running Queries** and **Slow Query History** tabs.
+
+In the JavaScript and HTTP APIs, the value is reported as `peakMemoryUsage`.
+See [API Changes in ArangoDB 3.11](release-notes-api-changes311.html#query-api).
+
 ## Server options
 
 ### Verify `.sst` files
