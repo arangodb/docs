@@ -41,9 +41,9 @@ inverted indexes from your collections that you could otherwise do via the HTTP
 or JavaScript API.
 
 When opening your newly created View, you can copy mutable properties from
-previously created `search-alias` Views, allowing for much more flexibility if
-you have to work with similar configurations and data. In addition, the JSON
-editor offers a way to directly write the definition of your View in JSON format.
+previously created `search-alias` Views, providing a convenient way to apply
+the same settings to multiple Views. In addition, the JSON editor offers the
+option to directly write the definition of your View in JSON format.
 
 For more information, see the
 [detailed guide](arangosearch-views-search-alias.html#create-search-alias-views-using-the-web-interface).
