@@ -228,7 +228,7 @@ FOR doc IN `filter`
 Due to the backticks, `filter` and `sort` are interpreted as names and not as
 keywords here.
 
-The example can alternatively written as:
+You can also use forward ticks:
 
 ```aql
 FOR f IN ´filter´
@@ -261,10 +261,11 @@ is not possible for collections.
 ### Collection names
 
 Collection names can be used in queries as they are. If a collection happens to
-have the same name as a keyword, the name must be enclosed in backticks.
+have the same name as a keyword, the name must be enclosed in backticks or
+forward ticks.
 
-Please refer to the [Naming Conventions in ArangoDB](../data-modeling-naming-conventions-collection-and-view-names.html)
-about collection naming conventions.
+For information about the naming constraints for collections, see
+[Collection names](../data-modeling-collections.html#collection-names).
 
 AQL currently has a limit of up to 256 collections used in one AQL query.
 This limit applies to the sum of all involved document and edge collections.
@@ -273,11 +274,11 @@ This limit applies to the sum of all involved document and edge collections.
 
 When referring to attributes of documents from a collection, the fully qualified
 attribute name must be used. This is because multiple collections with ambiguous
-attribute names may be used in a query.  To avoid any ambiguity, it is not
+attribute names may be used in a query. To avoid any ambiguity, it is not
 allowed to refer to an unqualified attribute name.
 
-Please refer to the [Naming Conventions in ArangoDB](../data-modeling-naming-conventions-attribute-names.html)
-for more information about the attribute naming conventions.
+Also see the naming restrictions for
+[Attribute names](../data-modeling-documents.html#attribute-names).
 
 ```aql
 FOR u IN users

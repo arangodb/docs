@@ -15,14 +15,14 @@ Properties
 `queries.properties()` Returns the servers current query tracking configuration; we change the slow query threshold to get better results:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline QUERY_01_properyOfQueries
-    @EXAMPLE_ARANGOSH_OUTPUT{QUERY_01_properyOfQueries}
+    @startDocuBlockInline QUERY_01_propertyOfQueries
+    @EXAMPLE_ARANGOSH_OUTPUT{QUERY_01_propertyOfQueries}
     var queries = require("@arangodb/aql/queries");
     queries.properties();
     queries.properties({slowQueryThreshold: 1});
     queries.properties({slowStreamingQueryThreshold: 1});
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock QUERY_01_properyOfQueries
+    @endDocuBlock QUERY_01_propertyOfQueries
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 

@@ -50,7 +50,11 @@ If an EdgeDefinition contains a collection name that is also contained in the
 `satellites` option, the collection will be created as a SatelliteCollection.
 Otherwise, it will be ignored. This option only takes effect using SmartGraphs.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Graph Management](http/gharial.html#management).
+{% else -%}
 Also see [Graph Management](http/gharial-management.html).
+{% endif %}
 
 ### Extended naming convention for databases
 
@@ -80,7 +84,11 @@ but will become the norm in a future version. Drivers and client applications
 should be prepared for this feature.
 {% endhint %}
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Database names](data-modeling-databases.html#database-names).
+{% else -%}
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+{% endif %}
 
 ### Overload control
 

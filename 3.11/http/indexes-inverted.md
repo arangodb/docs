@@ -1,7 +1,6 @@
 ---
 layout: default
-description: Working with Inverted Indexes
 ---
-# Working with Inverted Indexes
+# Working with inverted indexes
 
-{% docublock post_api_index_inverted %}
+{% docublock post_api_index_inverted, h2 %}

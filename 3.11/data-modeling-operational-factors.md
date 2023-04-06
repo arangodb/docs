@@ -265,7 +265,7 @@ Consider some ways to minimize the required amount of storage space:
   is always indexed. This means it is the best-suited attribute to store a unique
   document identifier. Using the `_key` attribute is preferable to storing
   document identifiers in another attribute and creating a unique index on it.
-  Some limitations apply, see [Document keys](data-modeling-naming-conventions-document-keys.html).
+  Some limitations apply, see [Document keys](data-modeling-documents.html#document-keys).
 - Shorter field names reduce the amount of space needed to store documents.
   ArangoDB is schema-free and needs to store the document structure inside of
   each document. Usually, this is a small overhead compared to the overall
