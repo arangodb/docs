@@ -10,8 +10,7 @@ the storage to Pods that need them.
 
 ## Requirements
 
-To use `ArangoLocalStorage` resources, the ArangoDB Storage Operator needs to be enabled
-
+To use `ArangoLocalStorage` resources it has to be enabled in the operator:
 ```bash
 helm upgrade --install kube-arangodb \
 https://github.com/arangodb/kube-arangodb/releases/download/$VER/kube-arangodb-$VER.tgz \
