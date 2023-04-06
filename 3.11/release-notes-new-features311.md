@@ -50,8 +50,8 @@ For more information, see the
 
 ### `arangosearch` Views
 
-The existing way of creating and managing `arango-search` Views through the web
-interface has been redesigned, offering a more straightforward approach to add
+The existing way of creating and managing `arangosearch` Views through the
+web interface has been redesigned, offering a more straightforward approach to add
 or modify the definition of your View. The settings, links, and JSON editor have
 been merged into a single page, allowing for a much quicker workflow.
 

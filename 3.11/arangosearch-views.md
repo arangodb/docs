@@ -402,8 +402,8 @@ is used by these writers (in terms of "writers pool") one can use
 You can create and manage an `arangosearch` View through the Web Interface.
 To get started, follow the steps outlined below.
 
-1. In the main page of the Web Interface, go to the left sidebar menu and select
-   the **Views** tab.
+1. In the web interface, go to the left sidebar menu and select
+   the **VIEWS** entry.
 2. To add a new View, click **Add View**.
 3. Fill in the required fields:
    - For **Name**, enter a name for the View.

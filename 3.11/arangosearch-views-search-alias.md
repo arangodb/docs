@@ -50,8 +50,8 @@ You can add or remove inverted indexes from the View definition:
 You can create and manage a `search-alias` View through the web interface.
 To get started, follow the steps outlined below.
 
-1. In the main page of the web interface, go to the left sidebar menu and select
-   the **Views** tab.
+1. In the web interface, go to the left sidebar menu and select
+   the **VIEWS** entry.
 2. To add a new View, click **Add View**.
 3. Fill in the required fields:
    - For **Name**, enter a name for the View.
