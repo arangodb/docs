@@ -8,6 +8,16 @@ An ArangoDB cluster relies heavily on fast persistent storage.
 The ArangoDB Kubernetes Operator uses `PersistentVolumeClaims` to deliver
 the storage to Pods that need them.
 
+## Requirements
+
+To use `ArangoLocalStorage` resources, the ArangoDB Storage Operator needs to be enabled
+
+```bash
+helm upgrade --install kube-arangodb \
+https://github.com/arangodb/kube-arangodb/releases/download/$VER/kube-arangodb-$VER.tgz \
+--set operator.features.storage=true
+```
+
 ## Storage configuration
 
 In the `ArangoDeployment` resource, one can specify the type of storage

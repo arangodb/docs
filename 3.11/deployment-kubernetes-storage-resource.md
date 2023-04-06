@@ -7,7 +7,7 @@ description: ArangoLocalStorage Custom Resource
 The ArangoDB Storage Operator creates and maintains ArangoDB
 storage resources in a Kubernetes cluster, given a storage specification.
 This storage specification is a `CustomResource` following
-a `CustomResourceDefinition` created by the operator.
+a `CustomResourceDefinition` created by the operator (it is not enabled by default!).
 
 Example minimal storage definition:
 
