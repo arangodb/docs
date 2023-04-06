@@ -10,8 +10,8 @@ the storage to Pods that need them.
 
 ## Requirements
 
-To use `ArangoLocalStorage` resources, the ArangoDB Storage Operator needs to be
-enabled (replace `<version>` with the
+To use `ArangoLocalStorage` resources, it has to be enabled in the operator
+(replace `<version>` with the
 [version of the operator](https://github.com/arangodb/kube-arangodb/releases){:target="_blank"}):
 
 ```bash
