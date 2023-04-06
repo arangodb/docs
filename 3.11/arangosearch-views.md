@@ -408,17 +408,17 @@ To get started, follow the steps outlined below.
 3. Fill in the required fields:
    - For **Name**, enter a name for the View.
    - For **Type**, select `arangosearch` from the dropdown menu.
-   - For **Primary Sort Compression**, select `LZ4` to use a fast compression
+4. To set the **Primary Sort Compression**, select `LZ4` to use a fast compression
      or `none` to disable compression and trade space for speed.
-4. To set a **Primary Sort** order, define the following options:
+5. To set a **Primary Sort** order, define the following options:
    - For **Field**, enter an array of attribute values. 
    - For **Direction**, select **Ascending** or **Descending** to sort the attributes by.      
-5. To set **Stored Values**, define the following options:
+6. To set **Stored Values**, define the following options:
    - For **Fields**, enter an array of objects to define which document attributes
      to store in the View index.
    - The **Compression** attribute defines the compression type used for the internal
      column-store. Select `LZ4` for fast compression or `none` for no compression.  
-6. In the **Advanced** section, you can define the **Write Buffer** properties of a
+7. In the **Advanced** section, you can define the **Write Buffer** properties of a
    View. ArangoSearch uses multiple writer objects that are mapped to processed
    segments for carrying out operations on its index. You can control the memory
    consumed by these writers by utilizing the following properties:
@@ -428,8 +428,8 @@ To get started, follow the steps outlined below.
      concurrent active writers (segments) that perform a transaction. To disable,
      use `0`.
    - For **Write Buffer Size Max**, enter a value for the maximum memory byte size
-     per writer (segment) before a writer (segment) flush is triggered.  To
-     disable, use `0`. 
-7. Click **Create**.
+     per writer (segment) before a writer (segment) flush is triggered. Use `0` to
+     turn off this limit for any writer.
+8. Click **Create**.
 
 ![Create new arangosearch View](images/arangosearch-create-new-view.png)
