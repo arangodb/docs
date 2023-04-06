@@ -10,11 +10,13 @@ the storage to Pods that need them.
 
 ## Requirements
 
-To use `ArangoLocalStorage` resources, the ArangoDB Storage Operator needs to be enabled
+To use `ArangoLocalStorage` resources, the ArangoDB Storage Operator needs to be
+enabled (replace `<version>` with the
+[version of the operator](https://github.com/arangodb/kube-arangodb/releases){:target="_blank"}):
 
 ```bash
 helm upgrade --install kube-arangodb \
-https://github.com/arangodb/kube-arangodb/releases/download/$VER/kube-arangodb-$VER.tgz \
+https://github.com/arangodb/kube-arangodb/releases/download/<version>/kube-arangodb-<version>.tgz \
 --set operator.features.storage=true
 ```
 
