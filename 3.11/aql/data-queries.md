@@ -519,7 +519,7 @@ RETURN { _key: NEW._key, type: opType }
 The name of the modified collection (`users` and `backup` in the above cases) 
 must be known to the AQL executor at query-compile time and cannot change at 
 runtime. Using a bind parameter to specify the
-[collection name](../appendix-glossary.html#collection-name) is allowed.
+[collection name](../data-modeling-collections.html#collection-names) is allowed.
 
 It is not possible to use multiple data modification operations for the same
 collection in the same query, or follow up a data modification operation for a

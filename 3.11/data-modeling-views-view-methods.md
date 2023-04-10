@@ -58,8 +58,8 @@ Rename
 
 Renames a view using the `new-name`. The `new-name` must not already be used by
 a different view or collection in the same database. `new-name` must also be a
-valid view name. For more information on valid view names please refer to the
-[naming conventions](data-modeling-naming-conventions.html).
+valid view name. For information about the naming constraints for Views, see
+[View names](data-modeling-views.html#view-names).
 
 If renaming fails for any reason, an error is thrown.
 

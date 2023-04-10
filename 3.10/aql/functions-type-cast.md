@@ -246,7 +246,7 @@ See [String Functions](functions-string.html#is_ipv4).
 
 Check whether *value* is a string that can be used as a
 document key, i.e. as the value of the *_key* attribute.
-See [Naming Conventions for Document Keys](../data-modeling-naming-conventions-document-keys.html).
+See [Document keys](../data-modeling-documents.html#document-keys).
 
 - **str** (string): document key to test
 - returns **bool** (boolean): whether *str* can be used as document key

@@ -582,7 +582,11 @@ Also see:
 - [AQL `UPDATE` operation](aql/operations-update.html#refillindexcaches)
 - [AQL `REPLACE` operation](aql/operations-replace.html#refillindexcaches)
 - [AQL `REMOVE` operation](aql/operations-remove.html#refillindexcaches)
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+- [Document HTTP API](http/document.html)
+{% else -%}
 - [Document HTTP API](http/document-working-with-documents.html)
+{% endif -%}
 - [Edge cache refill options](#edge-cache-refill-options)
 
 Multi-dimensional Indexes (experimental)
@@ -663,7 +667,11 @@ Coordinators and DB-Servers of the cluster. Otherwise the startup will be
 refused. In DC2DC setups it is also required to use the same database naming
 convention for both datacenters to avoid incompatibilities.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Database names](data-modeling-databases.html#database-names).
+{% else -%}
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+{% endif %}
 
 ### ICU Language
 
@@ -957,7 +965,11 @@ There are two new REST API routes to do the same, `GET /_admin/license` and
 `PUT /_admin/license`.
 
 See [License Management](administration-license.html) and the
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+[License Management HTTP API](http/administration.html#license).
+{% else -%}
 [License Management HTTP API](http/license.html).
+{% endif -%}
 
 Miscellaneous changes
 ---------------------
