@@ -23,7 +23,7 @@ If your client application is running in the same Kubernetes cluster as
 the ArangoDB deployment, you should configure your driver to use the
 following endpoint:
 
-```text
+```
 https://<deployment-name>.<namespace>.svc:8529
 ```
 
@@ -39,7 +39,7 @@ external-access configuration of your ArangoDB deployment.
 If the external-access of the ArangoDB deployment is of type `LoadBalancer`,
 then use the IP address of that `LoadBalancer` like this:
 
-```text
+```
 https://<load-balancer-ip>:8529
 ```
 
@@ -49,7 +49,7 @@ combined with the `NodePort` that is used by the external-access service.
 
 For example:
 
-```text
+```
 https://<kubernetes-node-1-ip>:30123
 ```
 
