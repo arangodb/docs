@@ -342,6 +342,9 @@ The roles below are described following this pattern:
 - `notebook.notebook.resume`
 - `notebook.notebook.update`
 
+**Notebook Executor** (`notebook-executor`):
+- `notebook.notebook.execute`
+
 **Notebook Viewer** (`notebook-viewer`):
 - `notebook.model.list`
 - `notebook.notebook.get`
@@ -458,6 +461,8 @@ Permissions are solely defined by the ArangoGraph API.
 {% comment %}
 Retrieved with the below command, with manual adjustments:
 oasisctl list permissions
+
+Note that if the tier is "internal", there is an `internal-dashboard` API that should be excluded in below list!
 {% endcomment %}
 
 | API                 | Kind                         | Verbs
@@ -497,7 +502,7 @@ oasisctl list permissions
 | `monitoring`        | `logs`                       | `get`
 | `network`           | `privateendpointservice`     | `create`, `get`, `get-by-deployment-id`, `get-feature`, `update`
 | `notebook`          | `model`                      | `list`
-| `notebook`          | `notebook`                   | `create`, `delete`, `get`, `list`, `pause`, `resume`, `update`
+| `notebook`          | `notebook`                   | `create`, `delete`, `execute`, `get`, `list`, `pause`, `resume`, `update`
 | `notification`      | `deployment-notification`    | `list`, `mark-as-read`, `mark-as-unread`
 | `prepaid`           | `prepaiddeployment`          | `get`, `list`
 | `replication`       | `deploymentreplication`      | `get`, `update`
