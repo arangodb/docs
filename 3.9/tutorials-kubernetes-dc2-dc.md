@@ -104,7 +104,7 @@ The process for configuring DNS names is specific to each DNS provider.
 Create a yaml file (e.g. called `src-to-dst-repl.yaml`) with the following content:
 
 ```yaml
-apiVersion: "replication.database.arangodb.com/v1alpha"
+apiVersion: "replication.database.arangodb.com/v1"
 kind: "ArangoDeploymentReplication"
 metadata:
   name: "replication-src-to-dst"

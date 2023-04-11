@@ -114,14 +114,14 @@ An Agency started from scratch will deal with the simplest query as follows:
 curl -L localhost:8531/_api/agency/read -d '[["/"]]'
 ```
 
-```js
+```json
 [{}]
 ```
 
 The above request for an empty key value store will return with an empty document. The inner array brackets will aggregate a result from multiple sources in the key-value-store while the outer array will deliver multiple such aggregated results. Also note the `-L` curl flag, which allows the request to follow redirects to the current leader.
 
 Consider the following key-value-store:
-```js
+```json
 {
   "baz": 12,
   "corge": {
@@ -143,7 +143,7 @@ The following array of read transactions will yield:
 curl -L localhost:8531/_api/agency/read -d '[["/foo", "/foo/bar", "/baz"],["/qux"]]'
 ```
 
-```js
+```json
 [
   {
     "baz": 12,
@@ -160,7 +160,8 @@ curl -L localhost:8531/_api/agency/read -d '[["/foo", "/foo/bar", "/baz"],["/qux
 ```
 
 Note that the result is an array of two results for the first and second read transactions from above accordingly. Also note that the results from the first read transaction are aggregated into
-```js
+
+```json
 {
   "baz": 12,
   "foo": {
@@ -176,7 +177,7 @@ The aggregation is performed on 2 levels:
 
 The word transaction means here that it is guaranteed that all aggregations happen in quasi-realtime and that no write access could have happened in between.
 
-Btw, the same transaction on the virgin key-value store would produce `[{},{}]`
+By the way, the same transaction on the virgin key-value store would produce `[{},{}]`
 
 Write API
 ---------

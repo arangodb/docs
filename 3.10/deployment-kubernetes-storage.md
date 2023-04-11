@@ -8,14 +8,29 @@ An ArangoDB cluster relies heavily on fast persistent storage.
 The ArangoDB Kubernetes Operator uses `PersistentVolumeClaims` to deliver
 the storage to Pods that need them.
 
+## Requirements
+
+To use `ArangoLocalStorage` resources, it has to be enabled in the operator
+(replace `<version>` with the
+[version of the operator](https://github.com/arangodb/kube-arangodb/releases){:target="_blank"}):
+
+```bash
+helm upgrade --install kube-arangodb \
+https://github.com/arangodb/kube-arangodb/releases/download/<version>/kube-arangodb-<version>.tgz \
+--set operator.features.storage=true
+```
+
 ## Storage configuration
 
 In the `ArangoDeployment` resource, one can specify the type of storage
-used by groups of servers using the `spec.<group>.storageClassName`
+used by groups of servers using the `spec.<group>.volumeClaimTemplate`
 setting.
 
 This is an example of a `Cluster` deployment that stores its Agent & DB-Server
 data on `PersistentVolumes` that use the `my-local-ssd` `StorageClass`
+
+The amount of storage needed is configured using the
+`spec.<group>.resources.requests.storage` setting.
 
 ```yaml
 apiVersion: "database.arangodb.com/v1"
@@ -25,13 +40,26 @@ metadata:
 spec:
   mode: Cluster
   agents:
-    storageClassName: my-local-ssd
+    volumeClaimTemplate:
+      spec:
+        storageClassName: my-local-ssd
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        volumeMode: Filesystem
   dbservers:
-    storageClassName: my-local-ssd
+    volumeClaimTemplate:
+      spec:
+        storageClassName: my-local-ssd
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 80Gi
+        volumeMode: Filesystem
 ```
-
-The amount of storage needed is configured using the
-`spec.<group>.resources.requests.storage` setting.
 
 Note that configuring storage is done per group of servers.
 It is not possible to configure storage per individual
@@ -39,19 +67,6 @@ server.
 
 This is an example of a `Cluster` deployment that requests volumes of 80GB
 for every DB-Server, resulting in a total storage capacity of 240GB (with 3 DB-Servers).
-
-```yaml
-apiVersion: "database.arangodb.com/v1"
-kind: "ArangoDeployment"
-metadata:
-  name: "cluster-using-local-ssh"
-spec:
-  mode: Cluster
-  dbservers:
-    resources:
-      requests:
-        storage: 80Gi
-```
 
 ## Local storage
 
@@ -99,18 +114,6 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: volume-agent-1
-  annotations:
-        "volume.alpha.kubernetes.io/node-affinity": '{
-            "requiredDuringSchedulingIgnoredDuringExecution": {
-                "nodeSelectorTerms": [
-                    { "matchExpressions": [
-                        { "key": "kubernetes.io/hostname",
-                          "operator": "In",
-                          "values": ["node-1"]
-                        }
-                    ]}
-                 ]}
-              }'
 spec:
   capacity:
     storage: 100Gi
@@ -120,6 +123,14 @@ spec:
   storageClassName: local-ssd
   local:
     path: /mnt/disks/ssd1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - "node-1
 ```
 
 For Kubernetes 1.9 and up, you should create a `StorageClass` which is configured
