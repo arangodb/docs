@@ -605,6 +605,13 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   Avoids computing the variables emitted by traversals if they are unused
   in the query, significantly reducing overhead.
 
+- `optimize-traversal-last-element-access`:
+  Transforms accesses to the last vertex or edge of the path variable
+  (`p.vertices[-1]` and `p.edges[-1]`) emitted by traversals
+  (`FOR v, e, p IN ...`) with accesses to the vertex or edge variable
+  (`v` and `e`). This can avoid computing the path variable at all and enable
+  further optimizations that are not possible on `p`.
+
 - `remove-redundant-sorts`:
   Appears if multiple `SORT` statements can be merged into fewer sorts.
 
