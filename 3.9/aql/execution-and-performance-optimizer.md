@@ -662,9 +662,6 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   As a consequence, an *EnumerateCollectionNode* was replaced with an
   *IndexNode* in the plan.
 
-Some rules are applied a second time at a different optimization stage.
-These rules show in plans with an appended `-2` to their name.
-
 The following optimizer rules may appear in the `rules` attribute of
 **cluster** plans:
 
@@ -772,9 +769,9 @@ The following optimizer rules may appear in the `rules` attribute of
   This removes the need to transfer data for this node and hence also
   increases performance.
 
-Note that some rules may appear multiple times in the list, with number suffixes.
-This is due to the same rule being applied multiple times, at different positions
-in the optimizer pipeline.
+Some rules may appear multiple times in the list of applied optimizations, with
+number suffixes like `-2`, (e.g. `remove-unnecessary-calculations-2`). This is
+due to the same rule being applied multiple times at different optimization stages.
 
 ### Additional optimizations applied
 
