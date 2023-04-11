@@ -43,19 +43,66 @@ for the entire ArangoDB instance.
 The namespace for collections is shared with [Views](data-modeling-views.html).
 There cannot exist a collection and a View with the same name in the same database.
 
-The collection name needs to be a string that adheres to the following constraints:
+The collection name needs to be a string that adheres to either the **traditional**
+or the **extended** naming constraints. Whether the former or the latter is
+active depends on the `--database.extended-names` startup option.
+The extended naming constraints are used if enabled, allowing many special and
+UTF-8 characters in database, collection, View, and index names. If set to
+`false` (default), the traditional naming constraints are enforced.
 
-- The names must only consist of the letters `A` to `Z` (both in lower 
-  and upper case), the digits `0` to `9`, and underscore (`_`) and dash (`-`)
-  characters. This also means that any non-ASCII names are not allowed.
+{% hint 'info' %}
+The extended naming constraints are an **experimental** feature but they will
+become the norm in a future version. Drivers and client applications
+should be prepared for this feature.
+{% endhint %}
 
-- Names of user-defined collections must always start with a letter.
-  System collection names must start with an underscore. You should not use
-  system collection names for your own collections.
+The restrictions for collection names are as follows:
 
-- The maximum allowed length of a name is 256 bytes.
+- For the **traditional** naming constraints:
+  - The names must only consist of the letters `A` to `Z` (both in lower 
+    and upper case), the digits `0` to `9`, and underscore (`_`) and dash (`-`)
+    characters. This also means that any non-ASCII names are not allowed.
+  - Names of user-defined collections must always start with a letter.
+    System collection names must start with an underscore. You should not use
+    system collection names for your own collections.
+  - The maximum allowed length of a name is 256 bytes.
+  - Collection names are case-sensitive.
 
-- Collection names are case-sensitive.
+- For the **extended** naming constraints:
+  - Names can consist of most UTF-8 characters, such as Japanese or Arabic
+    letters, emojis, letters with accentuation. Some ASCII characters are
+    disallowed, but less compared to the  _traditional_ naming convention.
+  - Names cannot contain the characters `/` or `:` at any position, nor any
+    control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, and `\0`.
+  - Spaces are accepted, but only in between characters of the name. Leading
+    or trailing spaces are not allowed.
+  - `.` (dot), `_` (underscore) and the numeric digits `0`-`9` are not allowed
+    as first character, but at later positions.
+  - Collection names are case-sensitive.
+  - Collection names containing UTF-8 characters must be 
+    [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms){:target="_blank"}.
+    Non-normalized names are rejected by the server.
+  - The maximum length for a collection name is 128 bytes after normalization. 
+    As a UTF-8 character may consist of multiple bytes, this does not necessarily 
+    equate to 128 characters.
+
+  Example collection names that can be used with the _extended_ naming constraints:
+  `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Україна", "abc? <> 123!"` 
+
+{% hint 'warning' %}
+While it is possible to change the value of the
+`--database.extended-names` option from `false` to `true` to enable
+extended names, the reverse is not true. Once the extended names have been
+enabled, they remain permanently enabled so that existing databases, collections,
+Views, and indexes with extended names remain accessible.
+
+Please be aware that dumps containing extended names cannot be restored
+into older versions that only support the traditional naming constraints. In a
+cluster setup, it is required to use the same naming constraints for all
+Coordinators and DB-Servers of the cluster. Otherwise, the startup is
+refused. In DC2DC setups, it is also required to use the same naming constraints
+for both datacenters to avoid incompatibilities.
+{% endhint %}
 
 You can rename collections (except in cluster deployments). This changes the
 collection name, but not the collection identifier.

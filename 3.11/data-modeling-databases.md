@@ -40,7 +40,7 @@ The name needs to be unique and conform to the naming convention for databases.
 
 There are two naming conventions available for database names: the **traditional**
 and the **extended** naming conventions. Whether the former or the latter is
-active depends on the `--database.extended-names-databases` startup option.
+active depends on the `--database.extended-names` startup option.
 The extended naming convention is used if enabled, allowing many special and
 UTF-8 characters in database names. If set to `false` (default), the traditional
 naming convention is enforced.
@@ -83,11 +83,11 @@ The restrictions of the two naming conventions are:
     equate to 128 characters.
 
   Example database names that can be used with the _extended_ naming convention:
-  `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
+  `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Україна", "abc? <> 123!"` 
 
 {% hint 'warning' %}
 While it is possible to change the value of the
-`--database.extended-names-databases` option from `false` to `true` to enable
+`--database.extended-names` option from `false` to `true` to enable
 extended names, the reverse is not true. Once the extended names have been
 enabled, they remain permanently enabled so that existing databases with
 extended names remain accessible.
