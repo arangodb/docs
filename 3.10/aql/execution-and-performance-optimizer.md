@@ -555,13 +555,6 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   is optimized away, or if a `FILTER` condition from the query is moved
   into the `TraversalNode` for early pruning of results.
 
-- `patch-update-statements`:
-  Appears if an `UpdateNode` or `ReplaceNode` is patched to not buffer its
-  input completely, but to process it in smaller batches. The rule fires
-  for an `UPDATE` or `REPLACE` query that is fed by a full collection scan or
-  an index scan only, and that does not use any other collections, indexes,
-  subqueries or traversals.
-
 - `propagate-constant-attributes`:
   Appears when a constant value is inserted into a filter condition,
   replacing a dynamic attribute value.
