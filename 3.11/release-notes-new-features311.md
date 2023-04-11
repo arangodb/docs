@@ -29,6 +29,35 @@ This feature is only available in the Enterprise Edition.
 
 See [Analyzers](analyzers.html#geo_s2) for details.
 
+## Web interface
+
+### `search-alias` Views
+
+The 3.11 release of ArangoDB introduces a new web interface for Views that lets
+you to create and manage [`search-alias` Views](arangosearch-views-search-alias.html).
+
+Through this dialog, you can easily create a new View and add to it one or more
+inverted indexes from your collections that you could otherwise do via the HTTP
+or JavaScript API.
+
+When opening your newly created View, you can copy mutable properties from
+previously created `search-alias` Views, providing a convenient way to apply
+the same settings to multiple Views. In addition, the JSON editor offers the
+option to directly write the definition of your View in JSON format.
+
+For more information, see the
+[detailed guide](arangosearch-views-search-alias.html#create-search-alias-views-using-the-web-interface).
+
+### `arangosearch` Views
+
+The existing way of creating and managing `arangosearch` Views through the
+web interface has been redesigned, offering a more straightforward approach to add
+or modify the definition of your View. The settings, links, and JSON editor have
+been merged into a single page, allowing for a much quicker workflow.
+
+For more information, see the
+[detailed guide](arangosearch-views.html#create-arangosearch-views-using-the-web-interface).
+
 ## AQL
 
 ### Added AQL functions
@@ -87,6 +116,48 @@ The query optimizer automatically chooses the `hash` method for the above
 example query, but you can also specify your preferred method explicitly.
 
 See the [`COLLECT` options](aql/operations-collect.html#method) for details.
+
+### Parallel gather
+
+On Coordinators in cluster deployments, results from different DB-Servers are
+combined into a stream of results. This process is called gathering. It shows as
+`GatherNode` nodes in the execution plan of AQL queries.
+
+Previously, a cluster AQL query could only parallelize a `GatherNode` if the
+DB-Server query part above it (in terms of query execution plan layout) was a
+terminal part of the query. That means that it was not allowed for other nodes of
+type `ScatterNode`, `GatherNode`, or `DistributeNode` to be present in the query.
+
+Modification queries were also not allowed to use parallel gather unless the
+`--query.parallelize-gather-writes` startup option was enabled, which defaulted
+to `false`.
+
+From v3.11.0 onward, these limitations are removed so that parallel gather can be
+used in almost all queries. As a result, the feature is enabled by default and
+the `--query.parallelize-gather-writes` startup option is now obsolete. You can
+still disable the optimization by disabling the `parallelize-gather` AQL
+optimizer rule.
+
+The only case where parallel gather is not supported is when using traversals,
+although there are some exceptions for Disjoint SmartGraphs where the traversal
+can run completely on the local DB-Server (only available in the Enterprise Edition).
+
+The parallel gather optimization can not only speed up queries quite significantly,
+but also overcome issues with the previous serial processing within `GatherNode`
+nodes, which could lead to high memory usage on Coordinators caused by buffering
+of documents for other shards, and timeouts on some DB-Servers because query parts
+were idle for too long.
+
+### Extended peak memory usage reporting
+
+The peak memory usage of AQL queries is now also reported for running queries
+and slow queries.
+
+In the web interface, you can find the **Peak memory usage** column in the
+**QUERIES** section, in the **Running Queries** and **Slow Query History** tabs.
+
+In the JavaScript and HTTP APIs, the value is reported as `peakMemoryUsage`.
+See [API Changes in ArangoDB 3.11](release-notes-api-changes311.html#query-api).
 
 ## Server options
 

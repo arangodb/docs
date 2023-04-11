@@ -44,11 +44,17 @@ favorite GraphML libraries with GPUs.
 1. Navigate to the **Deployments** tab.
 2. Open the deployment in which you want to create the notebook.
 3. Go to the **Notebooks** tab and click the **Create Notebook** button.
-4. Enter a name and optionally a description for your new notebook. Click **Save**.
-5. The notebook's phase is set to **Initializing**. Once the phase changes to
-**Running**, the notebook's endpoint will be accessible.
-6. Click the **Open notebook** button to access your notebook. 
-7. To log in into your notebook, use the `root` password from your deployment.
+4. Enter a name and optionally a description for your new notebook. 
+5. Select a configuration model from the dropdown menu. Click **Save**.
+6. The notebook's phase is set to **Initializing**. Once the phase changes to
+   **Running**, the notebook's endpoint is accessible.
+7. Click the **Open notebook** button to access your notebook. 
+8. To access your notebook, you need to be signed into ArangoGraph as a user with
+   the `notebook.notebook.execute` permission in your project. Organization
+   owners have this permission enabled by default. The `notebook-executor` role
+   which contains the permission can also be granted to other members of the
+   organization via roles. See how to create a
+   [role binding](access-control.html#how-to-view-edit-or-remove-role-bindings-of-a-policy).
 
 {% hint 'info' %}
 Depending on the tier your organization belongs to, different limitations apply:
@@ -95,6 +101,8 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichDatabase` - returns the database name you are connected to.
 - `%createDatabase databaseName` - creates a database.
 - `%selectDatabase databaseName` - selects a database as the current database.
+- `%useDatabase databasename` - uses a database as the current database;
+  alias for `%selectDatabase`.
 - `%getDatabase databaseName` - gets a database. Used for assigning a database,
    e.g. `studentDB` = `getDatabase student_database`.
 - `%deleteDatabase databaseName` - deletes the database.
@@ -105,6 +113,8 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichGraph` - returns the graph name that is currently selected.
 - `%createGraph graphName` - creates a named graph.
 - `%selectGraph graphName` - selects the graph as the current graph.
+- `%useGraph graphName` - uses the graph as the current graph;
+  alias for `%selectGraph`.
 - `%getGraph graphName` - gets the graph for variable assignment, 
   e.g. `studentGraph` = `%getGraph student-graph`.
 - `%deleteGraph graphName` - deletes a graph.
@@ -115,8 +125,13 @@ Single line commands have `%` prefix and multi-line commands have `%%` prefix.
 - `%whichCollection` - returns the collection name that is currently selected.
 - `%createCollection collectionName` - creates a collection.
 - `%selectCollection collectionName` - selects a collection as the current collection.
+- `%useCollection collectionName` - uses the collection as the current collection;
+  alias for `%selectCollection`.
 - `%getCollection collectionName` - gets a collection for variable assignment,
   e.g. `student` = `% getCollection Student`.
+- `%createEdgeCollection` - creates an edge collection.
+- `%createVertexCollection` - creates a vertex collection.
+- `%createEdgeDefinition` - creates an edge definition.
 - `%deleteCollection collectionName` - deletes the collection.
 - `%truncateCollection collectionName` - truncates the collection.
 - `%sampleCollection collectionName` - returns a random document from the collection.
@@ -152,3 +167,8 @@ You can also create your own variable assignments, such as:
 - `schoolDB` = `%getDatabase schoolDB`
 - `school_graph` = `%getGraph school_graph`
 - `student` = `%getCollection Student`
+
+**Reset environment**
+
+In the event that any of the above variables have been unintentionally changed,
+you can revert all of them to the default state with `reset_environment()`.
