@@ -15,7 +15,7 @@ Example of a minimal replication definition for two ArangoDB clusters with
 sync in the same Kubernetes cluster:
 
 ```yaml
-apiVersion: "replication.database.arangodb.com/v1alpha"
+apiVersion: "replication.database.arangodb.com/v1"
 kind: "ArangoDeploymentReplication"
 metadata:
   name: "replication-from-a-to-b"
@@ -40,7 +40,7 @@ Example replication definition for replicating from a source that is outside the
 to a destination that is in the same Kubernetes cluster:
 
 ```yaml
-apiVersion: "replication.database.arangodb.com/v1alpha"
+apiVersion: "replication.database.arangodb.com/v1"
 kind: "ArangoDeploymentReplication"
 metadata:
   name: "replication-from-a-to-b"
@@ -62,6 +62,11 @@ This definition results in:
   using the client authentication certificate stored in `Secret` `cluster-a-sync-auth`.
   To access `cluster-a`, the keyfile (containing a client authentication certificate) is used.
   To access `cluster-b`, the JWT secret found in the deployment of `cluster-b` is used.
+
+## DC2DC Replication Example
+
+For a tutorial, see
+[Start ArangoDB Cluster to Cluster Synchronization on Kubernetes](tutorials-kubernetes-dc2-dc.html)
 
 ## Specification reference
 

@@ -14,7 +14,7 @@ a `CustomResourceDefinition` created by the operator.
 ### Create simple Backup
 
 ```yaml
-apiVersion: "backup.arangodb.com/v1alpha"
+apiVersion: "backup.arangodb.com/v1"
 kind: "ArangoBackup"
 metadata:
   name: "example-arangodb-backup"
@@ -32,7 +32,7 @@ Create Backup on ArangoDeployment named `my-deployment`
 
 
 ```yaml
-apiVersion: "backup.arangodb.com/v1alpha"
+apiVersion: "backup.arangodb.com/v1"
 kind: "ArangoBackup"
 metadata:
   name: "example-arangodb-backup"
@@ -54,7 +54,7 @@ Create Backup on ArangoDeployment named `my-deployment` and upload it to `S3://t
 
 
 ```yaml
-apiVersion: "backup.arangodb.com/v1alpha"
+apiVersion: "backup.arangodb.com/v1"
 kind: "ArangoBackup"
 metadata:
   name: "example-arangodb-backup"
@@ -85,7 +85,7 @@ List of custom columns in CRD specification for Kubectl:
 ## ArangoBackup Custom Resource Spec:
 
 ```yaml
-apiVersion: "backup.arangodb.com/v1alpha"
+apiVersion: "backup.arangodb.com/v1"
 kind: "ArangoBackup"
 metadata:
   name: "example-arangodb-backup"

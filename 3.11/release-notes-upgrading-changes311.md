@@ -109,6 +109,15 @@ version of ArangoDB. Setting the option to anything but the value of
 From v3.11.0 onwards, this option is deprecated, and setting it to a value
 different than the value of `--agency.size` leads to a startup error.
 
+### `--query.parallelize-gather-writes` obsoleted
+
+Parallel gather is now enabled by default and supported for most queries.
+The `--query.parallelize-gather-writes` startup option has no effect anymore,
+but specifying it still tolerated.
+
+See [Features and Improvements in ArangoDB 3.11](release-notes-new-features311.html#parallel-gather)
+for details.
+
 ### `--pregel.memory-mapped-files*` obsoleted
 
 Pregel no longer supports use memory-mapped files as a backing storage.
