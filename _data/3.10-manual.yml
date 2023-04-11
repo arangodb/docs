@@ -1,4 +1,4 @@
-- subtitle: GETTING STARTED
+- subtitle: INTRODUCTION
 - text: About ArangoDB
   href: index.html
   children:
@@ -13,6 +13,7 @@
           href: features-enterprise-edition.html
         - text: Highlights by Version
           href: highlights.html
+- subtitle: GETTING STARTED          
 - text: Getting Started
   href: quick-start-guide.html
   children:
@@ -57,125 +58,7 @@
       href: quick-start-on-premises.html
     - text: Start using AQL
       href: start-using-aql.html
-- subtitle: CORE TOPICS
-- text: Programs & Tools
-  href: programs.html
-  children:
-    - text: ArangoDB Server
-      href: programs-arangod.html
-      children:
-        - text: Options
-          href: programs-arangod-options.html
-        - text: LDAP
-          href: programs-arangod-ldap.html
-        - text: Environment variables
-          href: programs-arangod-env-vars.html
-    - text: Web Interface
-      href: programs-web-interface.html
-      children:
-        - text: Dashboard
-          href: programs-web-interface-dashboard.html
-        - text: Cluster
-          href: programs-web-interface-cluster.html
-        - text: Collections
-          href: programs-web-interface-collections.html
-        - text: Document
-          href: programs-web-interface-document.html
-        - text: Queries
-          href: programs-web-interface-aql-editor.html
-        - text: Graphs
-          href: programs-web-interface-graphs.html
-        - text: Services
-          href: programs-web-interface-services.html
-        - text: Users
-          href: programs-web-interface-users.html
-        - text: Logs
-          href: programs-web-interface-logs.html
-    - text: ArangoDB Shell
-      href: programs-arangosh.html
-      children:
-        - text: Examples
-          href: programs-arangosh-examples.html
-        - text: Details
-          href: programs-arangosh-details.html
-        - text: Options
-          href: programs-arangosh-options.html
-    - text: ArangoDB Starter
-      href: programs-starter.html
-      children:
-        - text: Options
-          href: programs-starter-options.html
-        - text: Security
-          href: programs-starter-security.html
-        - text: Architecture
-          href: programs-starter-architecture.html
-    - text: arangodump
-      href: programs-arangodump.html
-      children:
-        - text: Examples
-          href: programs-arangodump-examples.html
-        - text: Options
-          href: programs-arangodump-options.html
-        - text: Maskings
-          href: programs-arangodump-maskings.html
-        - text: Limitations
-          href: programs-arangodump-limitations.html
-    - text: arangorestore
-      href: programs-arangorestore.html
-      children:
-        - text: Examples
-          href: programs-arangorestore-examples.html
-        - text: Fast Cluster Restore
-          href: programs-arangorestore-fast-cluster-restore.html
-        - text: Options
-          href: programs-arangorestore-options.html
-    - text: arangobackup
-      href: programs-arangobackup.html
-      children:
-        - text: Examples
-          href: programs-arangobackup-examples.html
-        - text: Options
-          href: programs-arangobackup-options.html
-    - text: arangoimport
-      href: programs-arangoimport.html
-      children:
-        - text: Examples JSON
-          href: programs-arangoimport-examples-json.html
-        - text: Examples CSV
-          href: programs-arangoimport-examples-csv.html
-        - text: Details
-          href: programs-arangoimport-details.html
-        - text: Options
-          href: programs-arangoimport-options.html
-    - text: arangoexport
-      href: programs-arangoexport.html
-      children:
-        - text: Examples
-          href: programs-arangoexport-examples.html
-        - text: Options
-          href: programs-arangoexport-options.html
-    - text: arangobench
-      href: programs-arangobench.html
-      children:
-        - text: Options
-          href: programs-arangobench-options.html
-    - text: arangovpack
-      href: programs-arangovpack.html
-      children:
-        - text: Options
-          href: programs-arangovpack-options.html
-    - text: arangoinspect
-      href: programs-arangoinspect.html
-      children:
-        - text: Examples
-          href: programs-arangoinspect-examples.html
-        - text: Options
-          href: programs-arangoinspect-options.html
-    - text: Foxx CLI
-      href: programs-foxx-cli.html
-      children:
-        - text: Details
-          href: programs-foxx-cli-details.html
+- subtitle: MODELILNG DATA
 - text: Modeling Data
   href: data-modeling.html
   children:
@@ -183,6 +66,85 @@
       href: data-modeling-operational-factors.html
     - text: Monetary data without precision loss
       href: data-modeling-monetary-data-without-precision-loss.html
+- subtitle: GRAPHS
+- text: Graphs
+  href: graphs.html
+  children:
+    - text: General Graphs
+      href: graphs-general-graphs.html
+      children:
+        - text: Graph Management
+          href: graphs-general-graphs-management.html
+        - text: Graph Functions
+          href: graphs-general-graphs-functions.html
+    - text: SatelliteGraphs
+      href: graphs-satellite-graphs.html
+      children:
+        - text: Management
+          href: graphs-satellite-graphs-management.html
+        - text: Details
+          href: graphs-satellite-graphs-details.html
+    - text: SmartGraphs
+      href: graphs-smart-graphs.html
+      children:
+        - text: Getting Started with SmartGraphs
+          href: graphs-smart-graphs-getting-started.html
+        - text: SmartGraph Management
+          href: graphs-smart-graphs-management.html
+    - text: EnterpriseGraphs
+      href: graphs-enterprise-graphs.html
+      children:
+        - text: Getting Started with EnterpriseGraphs
+          href: graphs-enterprise-graphs-getting-started.html
+        - text: EnterpriseGraph Management
+          href: graphs-enterprise-graphs-management.html
+    - text: Testing Graphs on Single Server
+      href: smart-and-satellite-graphs-single-server.html
+    - text: Traversals
+      href: graphs-traversals.html
+      children:
+        - text: Example Data
+          href: graphs-traversals-example-data.html
+    - text: Working with Edges
+      href: graphs-edges.html
+- subtitle: DATA SCIENCE
+- text: Data Science
+  href: data-science.html
+  children:
+    - text: ArangoGraph Notebooks
+      href: arangograph-notebooks.html
+    - text: Pregel
+      href: graphs-pregel.html
+      children:
+        - text: Pregel Algorithms
+          href: graphs-pregel-algorithms.html
+    - text: ArangoDB-NetworkX Adapter
+      href: data-science-networkx-adapter.html
+    - text: ArangoDB-DGL Adapter
+      href: data-science-dgl-adapter.html
+    - text: ArangoDB-cuGraph Adapter
+      href: data-science-cugraph-adapter.html
+    - text: ArangoDB-PyG Adapter
+      href: data-science-pyg-adapter.html
+    - text: ArangoRDF Adapter
+      href: data-science-arango-rdf-adapter.html
+    - text: Mapping RDF to Graphs
+      href: data-modeling-graphs-from-rdf.html        
+- subtitle: TRANSACTIONS
+- text: Transactions
+  href: transactions.html
+  children:
+    - text: JavaScript Transactions
+      href: transactions-javascript-transactions.html
+    - text: Stream Transactions
+      href: transactions-stream-transactions.html
+    - text: Locking and isolation
+      href: transactions-locking-and-isolation.html
+    - text: Durability
+      href: transactions-durability.html
+    - text: Limitations
+      href: transactions-limitations.html
+- subtitle: INDEX AND SEARCH DATA
 - text: Indexing
   href: indexing.html
   children:
@@ -246,82 +208,10 @@
           href: arangosearch-views-search-alias.html
         - text: <code>arangosearch</code> Views Reference
           href: arangosearch-views.html
-- text: Transactions
-  href: transactions.html
-  children:
-    - text: JavaScript Transactions
-      href: transactions-javascript-transactions.html
-    - text: Stream Transactions
-      href: transactions-stream-transactions.html
-    - text: Locking and isolation
-      href: transactions-locking-and-isolation.html
-    - text: Durability
-      href: transactions-durability.html
-    - text: Limitations
-      href: transactions-limitations.html
-- text: Graphs
-  href: graphs.html
-  children:
-    - text: General Graphs
-      href: graphs-general-graphs.html
-      children:
-        - text: Graph Management
-          href: graphs-general-graphs-management.html
-        - text: Graph Functions
-          href: graphs-general-graphs-functions.html
-    - text: SatelliteGraphs
-      href: graphs-satellite-graphs.html
-      children:
-        - text: Management
-          href: graphs-satellite-graphs-management.html
-        - text: Details
-          href: graphs-satellite-graphs-details.html
-    - text: SmartGraphs
-      href: graphs-smart-graphs.html
-      children:
-        - text: Getting Started with SmartGraphs
-          href: graphs-smart-graphs-getting-started.html
-        - text: SmartGraph Management
-          href: graphs-smart-graphs-management.html
-    - text: EnterpriseGraphs
-      href: graphs-enterprise-graphs.html
-      children:
-        - text: Getting Started with EnterpriseGraphs
-          href: graphs-enterprise-graphs-getting-started.html
-        - text: EnterpriseGraph Management
-          href: graphs-enterprise-graphs-management.html
-    - text: Testing Graphs on Single Server
-      href: smart-and-satellite-graphs-single-server.html
-    - text: Traversals
-      href: graphs-traversals.html
-      children:
-        - text: Example Data
-          href: graphs-traversals-example-data.html
-    - text: Working with Edges
-      href: graphs-edges.html
-- text: Data Science
-  href: data-science.html
-  children:
-    - text: ArangoGraph Notebooks
-      href: arangograph-notebooks.html
-    - text: Pregel
-      href: graphs-pregel.html
-      children:
-        - text: Pregel Algorithms
-          href: graphs-pregel-algorithms.html
-    - text: ArangoDB-NetworkX Adapter
-      href: data-science-networkx-adapter.html
-    - text: ArangoDB-DGL Adapter
-      href: data-science-dgl-adapter.html
-    - text: ArangoDB-cuGraph Adapter
-      href: data-science-cugraph-adapter.html
-    - text: ArangoDB-PyG Adapter
-      href: data-science-pyg-adapter.html
-    - text: ArangoRDF Adapter
-      href: data-science-arango-rdf-adapter.html
-    - text: Mapping RDF to Graphs
-      href: data-modeling-graphs-from-rdf.html  
-- subtitle: ADVANCED TOPICS
+- subtitle: TRANSFORM DATA 
+- text: Analyzers
+  href: analyzers.html
+- subtitle: DEPLOY
 - text: Architecture
   href: architecture.html
   children:    
@@ -535,9 +425,7 @@
   href: satellites.html
 - text: SmartJoins
   href: smartjoins.html
-- text: Analyzers
-  href: analyzers.html
-- subtitle: OPERATIONS
+- subtitle: OPERATE
 - text: Installation
   href: installation.html
   children:
@@ -646,6 +534,125 @@
       children:
         - text: Agency Dump
           href: troubleshooting-cluster-agency-dump.html
+- subtitle: TOOLS
+- text: Programs & Tools
+  href: programs.html
+  children:
+    - text: ArangoDB Server
+      href: programs-arangod.html
+      children:
+        - text: Options
+          href: programs-arangod-options.html
+        - text: LDAP
+          href: programs-arangod-ldap.html
+        - text: Environment variables
+          href: programs-arangod-env-vars.html
+    - text: Web Interface
+      href: programs-web-interface.html
+      children:
+        - text: Dashboard
+          href: programs-web-interface-dashboard.html
+        - text: Cluster
+          href: programs-web-interface-cluster.html
+        - text: Collections
+          href: programs-web-interface-collections.html
+        - text: Document
+          href: programs-web-interface-document.html
+        - text: Queries
+          href: programs-web-interface-aql-editor.html
+        - text: Graphs
+          href: programs-web-interface-graphs.html
+        - text: Services
+          href: programs-web-interface-services.html
+        - text: Users
+          href: programs-web-interface-users.html
+        - text: Logs
+          href: programs-web-interface-logs.html
+    - text: ArangoDB Shell
+      href: programs-arangosh.html
+      children:
+        - text: Examples
+          href: programs-arangosh-examples.html
+        - text: Details
+          href: programs-arangosh-details.html
+        - text: Options
+          href: programs-arangosh-options.html
+    - text: ArangoDB Starter
+      href: programs-starter.html
+      children:
+        - text: Options
+          href: programs-starter-options.html
+        - text: Security
+          href: programs-starter-security.html
+        - text: Architecture
+          href: programs-starter-architecture.html
+    - text: arangodump
+      href: programs-arangodump.html
+      children:
+        - text: Examples
+          href: programs-arangodump-examples.html
+        - text: Options
+          href: programs-arangodump-options.html
+        - text: Maskings
+          href: programs-arangodump-maskings.html
+        - text: Limitations
+          href: programs-arangodump-limitations.html
+    - text: arangorestore
+      href: programs-arangorestore.html
+      children:
+        - text: Examples
+          href: programs-arangorestore-examples.html
+        - text: Fast Cluster Restore
+          href: programs-arangorestore-fast-cluster-restore.html
+        - text: Options
+          href: programs-arangorestore-options.html
+    - text: arangobackup
+      href: programs-arangobackup.html
+      children:
+        - text: Examples
+          href: programs-arangobackup-examples.html
+        - text: Options
+          href: programs-arangobackup-options.html
+    - text: arangoimport
+      href: programs-arangoimport.html
+      children:
+        - text: Examples JSON
+          href: programs-arangoimport-examples-json.html
+        - text: Examples CSV
+          href: programs-arangoimport-examples-csv.html
+        - text: Details
+          href: programs-arangoimport-details.html
+        - text: Options
+          href: programs-arangoimport-options.html
+    - text: arangoexport
+      href: programs-arangoexport.html
+      children:
+        - text: Examples
+          href: programs-arangoexport-examples.html
+        - text: Options
+          href: programs-arangoexport-options.html
+    - text: arangobench
+      href: programs-arangobench.html
+      children:
+        - text: Options
+          href: programs-arangobench-options.html
+    - text: arangovpack
+      href: programs-arangovpack.html
+      children:
+        - text: Options
+          href: programs-arangovpack-options.html
+    - text: arangoinspect
+      href: programs-arangoinspect.html
+      children:
+        - text: Examples
+          href: programs-arangoinspect-examples.html
+        - text: Options
+          href: programs-arangoinspect-options.html
+    - text: Foxx CLI
+      href: programs-foxx-cli.html
+      children:
+        - text: Details
+          href: programs-foxx-cli-details.html
 - divider: true
 - text: Release Notes
   href: release-notes.html
