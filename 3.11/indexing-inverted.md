@@ -54,7 +54,7 @@ db.<collection>.ensureIndex({
 ### Processing fields with Analyzers
 
 The fields are processed by the `identity` Analyzer by default, which indexes
-the attribute values as-in. To define a different Analyzer, you can pass an
+the attribute values as-is. To define a different Analyzer, you can pass an
 object with the field settings instead. For example, you can use the default
 Analyzer for `value1` and the built-in `text_en` Analyzer for `value2`.
 You can also overwrite the `features` of an Analyzer:
