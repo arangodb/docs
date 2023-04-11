@@ -60,8 +60,8 @@ the graph due to internally used hidden collections.
 #### Log API
 
 Setting the log level for the `graphs` log topic to `TRACE` now logs detailed
-information about AQL graph traversals. Some new log messages are also logged
-for the `DEBUG` level.
+information about AQL graph traversals and (shortest) path searches.
+Some new log messages are also logged for the `DEBUG` level.
 
 ### Privilege changes
 

@@ -236,14 +236,16 @@ You can configure the feature via the following new startup options:
 
 ## Miscellaneous changes
 
-### Trace logs for graph traversals
+### Trace logs for graph traversals and path searches
 
-Detailed information is now logged if you run AQL graph traversals and set the
+Detailed information is now logged if you run AQL graph traversals
+or (shortest) path searches with AQL and set the
 log level to `TRACE` for the `graphs` log topic. This information is fairly
 low-level but can help to understand correctness and performance issues with
 traversal queries. There are also some new log messages for the `DEBUG` level.
 
-To enable tracing for traversals at startup, you can set `--log.level graphs=trace`.
+To enable tracing for traversals and path searches at startup, you can set
+`--log.level graphs=trace`.
 
 To enable or disable it at runtime, you can call the
 [`PUT /_admin/log/level`](http/monitoring.html#modify-and-return-the-current-server-log-level)
