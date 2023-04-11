@@ -88,24 +88,68 @@ example query, but you can also specify your preferred method explicitly.
 
 See the [`COLLECT` options](aql/operations-collect.html#method) for details.
 
-### Faster bulk `INSERT` operations
+### Faster bulk `INSERT` operations in clusters
 
-AQL `INSERT` operations in cluster deployments are now faster by avoiding the
-previously present setup ceremony that was carried out for each document.
-Instead, the setup is now only done once for all the documents to be inserted.
+AQL `INSERT` operations that insert multiple documents can now be faster in
+cluster deployments by avoiding unnecessary overhead that AQL queries typically
+require for the setup and shutdown in a cluster.
 
 This improvement also decreases the number of HTTP requests to the DB-Servers.
 Instead of batching the array of documents (with a default batch size of `1000`),
-the whole thing is sent to the server (e.g. inserting 9k docs into a collection with 3 shards with a 3-node cluster means that 3k docs are sent to each DB-Server, using only 3 HTTP requests, one per DB-Server, representing each batch).
+a single request per DB-Server is used internally to transfer the data.
 
-For example, 
+The optimization brings the AQL `INSERT` performance close to the performance of
+the specialized HTTP API for [creating multiple documents](http/document.html#create-multiple-documents).
+
+The pattern that is recognized by the optimizer is as follows:
+
 ```aql
-FOR doc IN @docs
-  INSERT doc INTO collection
+FOR doc IN <docs> INSERT doc INTO collection
 ```
 
+`<docs>` can either be a bind parameter, a variable, or an array literal.
+The value needs to be an array of objects and be known at query compile time.
+
+```aql
+Query String (43 chars, cacheable: false):
+ FOR doc IN @docs INSERT doc INTO collection
+
+Execution plan:
+ Id   NodeType                         Site  Est.   Comment
+  1   SingletonNode                    COOR     1   * ROOT
+  2   CalculationNode                  COOR     1     - LET #2 = [ { "value" : 1 }, { "value" : 2 }, { "value" : 3 } ]   /* json expression */   /* const assignment */
+  5   MultipleRemoteModificationNode   COOR     3     - FOR d IN #2 INSERT d IN collection
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   remove-data-modification-out-variables
+  2   optimize-cluster-multiple-document-operations
+```
+
+Without the optimization:
+
+```aql
+Execution plan:
+ Id   NodeType            Site  Est.   Comment
+  1   SingletonNode       DBS      1   * ROOT
+  2   CalculationNode     DBS      1     - LET #2 = [ { "value" : 1 }, { "value" : 2 }, { "value" : 3 } ]   /* json expression */   /* const assignment */
+  3   EnumerateListNode   DBS      3     - FOR doc IN #2   /* list iteration */
+  4   InsertNode          DBS      0       - INSERT doc IN collection
+  5   RemoteNode          COOR     0       - REMOTE
+  6   GatherNode          COOR     0       - GATHER   /* unsorted */
+  ```
+
 The new `optimize-cluster-multiple-document-operations` optimizer rule that
-enables the optimization is only applied if there is no `RETURN` operation. <!-- TODO: that belongs to INSERT? Top-level? Any? -->
+enables the optimization is only applied if there is no `RETURN` operation,
+which means you cannot use `RETURN NEW` or similar to access the new documents
+including their document keys. Additionally, all preceding calculations must be
+constant, which excludes any subqueries that read documents.
+
+See the [List of optimizer rules](aql/execution-and-performance-optimizer.html#list-of-optimizer-rules)
+for details.
 
 ## Server options
 
