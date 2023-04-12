@@ -83,7 +83,7 @@ The restrictions for View names are as follows:
     equate to 256 characters.
 
   Example View names that can be used with the _extended_ naming constraints:
-  `España`, `😀`, `犬`, `كلب`, `@abc123`, `København`, `München`, `Україна`, `abc? <> 123!`
+  `España`, `😀`, `犬`, `كلب`, `@abc123`, `København`, `München`, `Бишкек`, `abc? <> 123!`
 
 {% hint 'warning' %}
 While it is possible to change the value of the

@@ -192,7 +192,7 @@ were formerly banned by the traditional naming constraints are now accepted.
 
 Example collection, View, and index names that can be used with the new extended
 constraints: `España`, `😀`, `犬`, `كلب`, `@abc123`, `København`, `München`,
-`Україна`, `abc? <> 123!`
+`Бишкек`, `abc? <> 123!`
 
 Using extended collection and View names in the JavaScript API such as in
 _arangosh_ or Foxx may require using the square bracket notation instead of the

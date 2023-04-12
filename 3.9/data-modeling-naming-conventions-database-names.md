@@ -53,7 +53,7 @@ The restrictions of the two naming conventions are:
     equate to 128 characters.
 
   Example database names that can be used with the _extended_ naming convention:
-  `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Україна", "abc? <> 123!"` 
+  `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
 
 {% hint 'warning' %}
 While it is possible to change the value of the

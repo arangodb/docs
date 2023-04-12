@@ -648,7 +648,7 @@ letters, emojis, letters with accentuation. Also, many ASCII characters that
 were formerly banned in the traditional naming convention are now accepted.
 
 Example database names that can be used with the new naming convention:
-`"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Україна", "abc? <> 123!"`
+`"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"`
 
 The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
 _arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the 
