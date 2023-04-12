@@ -555,13 +555,6 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   is optimized away, or if a `FILTER` condition from the query is moved
   into the `TraversalNode` for early pruning of results.
 
-- `patch-update-statements`:
-  Appears if an `UpdateNode` or `ReplaceNode` is patched to not buffer its
-  input completely, but to process it in smaller batches. The rule fires
-  for an `UPDATE` or `REPLACE` query that is fed by a full collection scan or
-  an index scan only, and that does not use any other collections, indexes,
-  subqueries or traversals.
-
 - `propagate-constant-attributes`:
   Appears when a constant value is inserted into a filter condition,
   replacing a dynamic attribute value.
@@ -604,6 +597,13 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `remove-redundant-path-var`:
   Avoids computing the variables emitted by traversals if they are unused
   in the query, significantly reducing overhead.
+
+- `optimize-traversal-last-element-access`:
+  Transforms accesses to the last vertex or edge of the path variable
+  (`p.vertices[-1]` and `p.edges[-1]`) emitted by traversals
+  (`FOR v, e, p IN ...`) with accesses to the vertex or edge variable
+  (`v` and `e`). This can avoid computing the path variable at all and enable
+  further optimizations that are not possible on `p`.
 
 - `remove-redundant-sorts`:
   Appears if multiple `SORT` statements can be merged into fewer sorts.
@@ -675,9 +675,6 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   Appears when an index is used to iterate over a collection.
   As a consequence, an `EnumerateCollectionNode` is replaced with an
   `IndexNode` in the plan.
-
-Some rules are applied a second time at a different optimization stage.
-These rules show in plans with an appended `-2` to their name.
 
 The following optimizer rules may appear in the `rules` attribute of
 **cluster** plans:
@@ -785,9 +782,9 @@ The following optimizer rules may appear in the `rules` attribute of
   This removes the need to transfer data for this node and hence also
   increases performance.
 
-Note that some rules may appear multiple times in the list, with number suffixes.
-This is due to the same rule being applied multiple times, at different positions
-in the optimizer pipeline.
+Some rules may appear multiple times in the list of applied optimizations, with
+number suffixes like `-2`, (e.g. `remove-unnecessary-calculations-2`). This is
+due to the same rule being applied multiple times at different optimization stages.
 
 ### Additional optimizations applied
 
