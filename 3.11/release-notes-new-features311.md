@@ -58,6 +58,14 @@ been merged into a single page, allowing for a much quicker workflow.
 For more information, see the
 [detailed guide](arangosearch-views.html#create-arangosearch-views-using-the-web-interface).
 
+### Inverted indexes
+
+The web interface now includes the option of creating and adding 
+[inverted indexes](indexing-inverted.html) to collections. You can set all the
+properties directly in the web interface, that you could otherwise do via the
+HTTP API. It also offers a JSON editor where you can write the definition of
+your inverted index in JSON format.
+
 ## AQL
 
 ### Added AQL functions
