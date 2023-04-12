@@ -16,7 +16,7 @@ redirect_from:
 The core component of ArangoDB is the [ArangoDB server](programs-arangod.html)
 (`arangod`) that stores data and handles requests. You have different options
 for talking to the server, through the web interface, command-line tools, 
-drivers, and REST API.
+drivers, and the server's REST API.
 
 ### Web Interface
 
@@ -70,6 +70,13 @@ and deploy ArangoDB instances on bare-metal servers and supports all ArangoDB
 deployment modes, such as a single server instance, Active Failover, and cluster
 (including Datacenter-to-Datacenter Replication).
 
+In addition to the Starter, there are also other ways that can be used to deploy
+ArangoDB:
+- Running `arangod` directly
+- [Docker containers](install-with-docker.html)
+- [Kubernetes](deployment-kubernetes.html)
+- Using installation packages
+
 ## How to Get Data In and Out of ArangoDB
 
 With the [*arangoimport*](programs-arangoimport.html) command-line tool, you can
@@ -79,6 +86,9 @@ you can import your data at high speeds.
 
 Similarly, with [*arangoexport*](programs-arangoexport.html) you can export data
 from your database collection to JSON, JSONL, CSV, TSV, XML, and XGMML formats.
+
+There are also other alternatives, such as using drivers to write custom importers
+or directly using the server's HTTP API.
 
 ## How to Back Up and Restore Data in ArangoDB
 
