@@ -9,6 +9,47 @@ upgrading to ArangoDB 3.11, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.11:
 
+## Extended naming constraints for collections, Views, and indexes
+
+In ArangoDB 3.9, the `--database.extended-names-databases` startup option was
+added to optionally allow database names to contain most UTF-8 characters.
+The startup option has been renamed to `--database.extended-names` in 3.11 and
+now controls whether you want to use the extended naming constraints for
+database, collection, View, and index names.
+
+The old `--database.extended-names-databases` startup option should no longer
+be used, but if you do, it behaves the same as the new
+`--database.extended-names` option.
+
+The feature is disabled by default to ensure compatibility with existing client
+drivers and applications that only support ASCII names according to the
+traditional naming constraints used in previous ArangoDB versions.
+
+If the feature is enabled, then any endpoints that contain database, collection,
+View, or index names in the URL may contain special characters that were
+previously not allowed (percent-encoded). They are also to be expected in
+payloads that contain database, collection, View, or index names, as well as
+document identifiers (because they are comprised of the collection name and the
+document key). If client applications assemble URLs with extended names
+programmatically, they need to ensure that extended names are properly
+URL-encoded and also NFC-normalized if they contain UTF-8 characters.
+
+The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
+_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the
+extended naming constraints.
+
+Please be aware that dumps containing extended names cannot be restored
+into older versions that only support the traditional naming constraints. In a
+cluster setup, it is required to use the same naming constraints for all
+Coordinators and DB-Servers of the cluster. Otherwise, the startup is
+refused. In DC2DC setups, it is also required to use the same naming
+constraints for both datacenters to avoid incompatibilities.
+
+Also see:
+- [Collection names](data-modeling-collections.html#collection-names)
+- [View names](data-modeling-views.html#view-names)
+- Index names have the same character restrictions as collection names
+
 ## AQL user-defined functions (UDF)
 
 AQL user-defined functions (UDFs) cannot be used inside traversal PRUNE conditions

@@ -71,7 +71,7 @@ The restrictions for collection names are as follows:
 - For the **extended** naming constraints:
   - Names can consist of most UTF-8 characters, such as Japanese or Arabic
     letters, emojis, letters with accentuation. Some ASCII characters are
-    disallowed, but less compared to the  _traditional_ naming convention.
+    disallowed, but less compared to the  _traditional_ naming constraints.
   - Names cannot contain the characters `/` or `:` at any position, nor any
     control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, and `\0`.
   - Spaces are accepted, but only in between characters of the name. Leading
@@ -82,19 +82,19 @@ The restrictions for collection names are as follows:
   - Collection names containing UTF-8 characters must be 
     [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms){:target="_blank"}.
     Non-normalized names are rejected by the server.
-  - The maximum length for a collection name is 128 bytes after normalization. 
+  - The maximum length for a collection name is 256 bytes after normalization. 
     As a UTF-8 character may consist of multiple bytes, this does not necessarily 
-    equate to 128 characters.
+    equate to 256 characters.
 
   Example collection names that can be used with the _extended_ naming constraints:
-  `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Україна", "abc? <> 123!"` 
+  `España`, `😀`, `犬`, `كلب`, `@abc123`, `København`, `München`, `Україна`, `abc? <> 123!`
 
 {% hint 'warning' %}
 While it is possible to change the value of the
 `--database.extended-names` option from `false` to `true` to enable
 extended names, the reverse is not true. Once the extended names have been
-enabled, they remain permanently enabled so that existing databases, collections,
-Views, and indexes with extended names remain accessible.
+enabled, they remain permanently enabled so that existing databases,
+collections, Views, and indexes with extended names remain accessible.
 
 Please be aware that dumps containing extended names cannot be restored
 into older versions that only support the traditional naming constraints. In a

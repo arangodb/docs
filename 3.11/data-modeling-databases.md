@@ -36,24 +36,24 @@ database names are rejected by the server.
 ## Database names
 
 You can give each database you create a name to identify and access it.
-The name needs to be unique and conform to the naming convention for databases.
+The name needs to be unique and conform to the naming constraints for databases.
 
-There are two naming conventions available for database names: the **traditional**
-and the **extended** naming conventions. Whether the former or the latter is
+There are two naming constraints available for database names: the **traditional**
+and the **extended** naming constraints. Whether the former or the latter are
 active depends on the `--database.extended-names` startup option.
-The extended naming convention is used if enabled, allowing many special and
+The extended naming constraints are used if enabled, allowing many special and
 UTF-8 characters in database names. If set to `false` (default), the traditional
-naming convention is enforced.
+naming constraints are enforced.
 
 {% hint 'info' %}
-The extended naming convention is an **experimental** feature
-but will become the norm in a future version. Drivers and client applications
+The extended naming constraints are an **experimental** feature
+but they will become the norm in a future version. Drivers and client applications
 should be prepared for this feature.
 {% endhint %}
 
-The restrictions of the two naming conventions are:
+The restrictions for database names are as follows:
 
-- For the **traditional** naming convention:
+- For the **traditional** naming constraints:
   - Database names must only consist of the letters `a` to `z` (both lower and
     upper case allowed), the numbers `0` to `9`, and the underscore (`_`) or
     dash (`-`) symbols.
@@ -64,10 +64,10 @@ The restrictions of the two naming conventions are:
   - The maximum allowed length of a database name is 64 bytes.
   - Database names are case-sensitive.
 
-- For the **extended** naming convention:
+- For the **extended** naming constraints:
   - Names can consist of most UTF-8 characters, such as Japanese or Arabic
     letters, emojis, letters with accentuation. Some ASCII characters are
-    disallowed, but less compared to the  _traditional_ naming convention.
+    disallowed, but less compared to the  _traditional_ naming constraints.
   - Names cannot contain the characters `/` or `:` at any position, nor any
     control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, and `\0`.
   - Spaces are accepted, but only in between characters of the name. Leading
@@ -82,22 +82,22 @@ The restrictions of the two naming conventions are:
     As a UTF-8 character may consist of multiple bytes, this does not necessarily 
     equate to 128 characters.
 
-  Example database names that can be used with the _extended_ naming convention:
-  `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Україна", "abc? <> 123!"` 
+  Example database names that can be used with the _extended_ naming constraints:
+  `España`, `😀`, `犬`, `كلب`, `@abc123`, `København`, `München`, `Україна`, `abc? <> 123!`
 
 {% hint 'warning' %}
 While it is possible to change the value of the
 `--database.extended-names` option from `false` to `true` to enable
 extended names, the reverse is not true. Once the extended names have been
-enabled, they remain permanently enabled so that existing databases with
-extended names remain accessible.
+enabled, they remain permanently enabled so that existing databases,
+collections, Views, and indexes with extended names remain accessible.
 
-Please be aware that dumps containing extended database names cannot be restored
-into older versions that only support the traditional naming convention. In a
-cluster setup, it is required to use the same database naming convention for all
+Please be aware that dumps containing extended names cannot be restored
+into older versions that only support the traditional naming constraints. In a
+cluster setup, it is required to use the same naming constraints for all
 Coordinators and DB-Servers of the cluster. Otherwise, the startup is
-refused. In DC2DC setups it is also required to use the same database naming
-convention for both datacenters to avoid incompatibilities.
+refused. In DC2DC setups it is also required to use the same naming
+constraints for both datacenters to avoid incompatibilities.
 {% endhint %}
 
 ## Notes

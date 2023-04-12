@@ -99,7 +99,7 @@ Analyzer Names
 --------------
 
 Each Analyzer has a name for identification with the following
-naming conventions:
+naming constraints:
 
 - The name must only consist of the letters `a` to `z` (both in lower and
   upper case), the numbers `0` to `9`, underscore (`_`) and dash (`-`) symbols.

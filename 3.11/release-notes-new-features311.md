@@ -161,6 +161,66 @@ See [API Changes in ArangoDB 3.11](release-notes-api-changes311.html#query-api).
 
 ## Server options
 
+### Extended naming constraints for collections, Views, and indexes
+
+In ArangoDB 3.9, the `--database.extended-names-databases` startup option was
+added to optionally allow database names to contain most UTF-8 characters.
+The startup option has been renamed to `--database.extended-names` in 3.11 and
+now controls whether you want to use the extended naming constraints for
+database, collection, View, and index names.
+
+This feature is **experimental** in ArangoDB 3.11, but will become the norm in
+a future version.
+
+Running the server with the option enabled provides support for extended names
+that are not comprised within the ASCII table, such as Japanese or Arabic
+letters, emojis, letters with accentuation. Also, many ASCII characters that
+were formerly banned by the traditional naming constraints are now accepted.
+
+Example collection, View, and index names that can be used with the new extended
+constraints: `España`, `😀`, `犬`, `كلب`, `@abc123`, `København`, `München`,
+`Україна`, `abc? <> 123!`
+
+Using extended collection and View names in the JavaScript API such as in
+_arangosh_ or Foxx may require using the square bracket notation instead of the
+dot notation for property access depending on the characters you use:
+
+```js
+db._create("🥑~колекція =)");
+db.🥑~колекція =).properties();   // dot notation (syntax error)
+db["🥑~колекція =)"].properties() // square bracket notation
+```
+
+Using extended collection and View names in AQL queries requires wrapping the
+name in backticks or forward ticks (see [AQL Syntax](fundamentals-syntax.html#names)):
+
+```aql
+FOR doc IN `🥑~колекція =)`
+  RETURN doc
+```
+
+The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
+_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the 
+extended naming constraints.
+
+Note that the default value for `--database.extended-names` is `false`
+for compatibility with existing client drivers and applications that only support
+ASCII names according to the traditional naming constraints used in previous
+ArangoDB versions. Enabling the feature may lead to incompatibilities up to the
+ArangoDB instance becoming inaccessible for such drivers and client applications.
+
+Please be aware that dumps containing extended names cannot be restored
+into older versions that only support the traditional naming constraints. In a
+cluster setup, it is required to use the same naming constraints for all
+Coordinators and DB-Servers of the cluster. Otherwise, the startup is
+refused. In DC2DC setups, it is also required to use the same naming constraints
+for both datacenters to avoid incompatibilities.
+
+Also see:
+- [Collection names](data-modeling-collections.html#collection-names)
+- [View names](data-modeling-views.html#view-names)
+- Index names have the same character restrictions as collection names
+
 ### Verify `.sst` files
 
 The new `--rocksdb.verify-sst` startup option lets you validate the `.sst` files

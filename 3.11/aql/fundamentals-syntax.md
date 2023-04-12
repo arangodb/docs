@@ -255,8 +255,23 @@ FOR doc IN `my-coll`
 
 The collection `my-coll` has a dash in its name, but `-` is an arithmetic
 operator for subtraction in AQL. The backticks escape the collection name to
-refer to the collection correctly. Note that quoting the name with `"` or `'`
-is not possible for collections.
+refer to the collection correctly.
+
+If you use extended collection and View names
+([`--database.extended-names` startup option](../programs-arangod-options.html#--databaseextended-names)),
+they may contain spaces, or non-ASCII characters such as Japanese or Arabic
+letters, emojis, letters with accentuation, and other Unicode characters.
+Escaping is required in these cases, too:
+
+```aql
+FOR doc IN ´🥑~колекція =)´
+  RETURN doc
+```
+
+The collection name contains characters that are allowed using the extended
+naming constraints and is escaped with forward ticks.
+
+Note that quoting the name with `"` or `'` is not possible for collections.
 
 ### Collection names
 
