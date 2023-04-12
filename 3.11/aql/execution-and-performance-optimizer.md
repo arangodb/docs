@@ -724,7 +724,7 @@ The following optimizer rules may appear in the `rules` attribute of
 - `optimize-cluster-multiple-document-operations`:
   Bulk `INSERT` operations in cluster deployments can be optimized to avoid
   unnecessary overhead that AQL queries typically require for the setup and
-  shutdown in clusters.
+  shutdown in clusters, as well as for the internal batching.
 
   This improvement also decreases the number of HTTP requests to the DB-Servers.
 
@@ -747,9 +747,10 @@ The following optimizer rules may appear in the `rules` attribute of
   - `INSERT` is not used on a SmartGraph edge collection
   - The `FOR` loop iterates over a constant, deterministic expression
 
-  The optimization then adds a `MultipleRemoteExecutionNode` to the query
-  execution plan, which takes care of inserting all documents into the collection
-  in one go. Further optimizer rules are skipped if the optimization is triggered.
+  The optimization then replaces the `InsertNode` and `EnumerateListNode` with a
+  `MultipleRemoteExecutionNode` in the query execution plan, which takes care of
+  inserting all documents into the collection in one go. Further optimizer rules
+  are skipped if the optimization is triggered.
 
 - `parallelize-gather`:
   Appears if an optimization to execute Coordinator `GatherNode`s in
