@@ -57,6 +57,12 @@ value of `0` as the `numberOfShards`. They now return the actual number of
 shards. This value can be higher than the configured `numberOfShards` value of
 the graph due to internally used hidden collections.
 
+#### Log API
+
+Setting the log level for the `graphs` log topic to `TRACE` now logs detailed
+information about AQL graph traversals and (shortest) path searches.
+Some new log messages are also logged for the `DEBUG` level.
+
 ### Privilege changes
 
 
@@ -128,6 +134,12 @@ Enterprise Edition:
 - [`geo_s2`](analyzers.html#geo_s2) (introduced in v3.10.5):
   Like the existing `geojson` Analyzer, but with an additional `format` property
   that can be set to `"latLngDouble"` (default), `"latLngInt"`, or `"s2Point"`.
+
+#### Query API
+
+The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-running-aql-queries)
+and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
+endpoints include a new numeric `peakMemoryUsage` attribute.
 
 ### Endpoints moved
 
