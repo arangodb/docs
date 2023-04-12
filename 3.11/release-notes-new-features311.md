@@ -148,6 +148,19 @@ nodes, which could lead to high memory usage on Coordinators caused by buffering
 of documents for other shards, and timeouts on some DB-Servers because query parts
 were idle for too long.
 
+### Optimized access of last element in traversals
+
+If you use a `FOR` operation for an AQL graph traversal like `FOR v, e, p IN ...`
+and later access the last vertex or edge via the path variable `p`, like
+`FILTER p.vertices[-1].name == "ArangoDB"` or `FILTER p.edges[-1].weight > 5`,
+the access is transformed to use the vertex variable `v` or edge variable `e`
+instead, like `FILTER v.name == "ArangoDB"` or `FILTER e.weight > 5`. This is
+cheaper to compute because the path variable `p` may not need to be computed at
+all, and it can enable further optimizations that are not possible on `p`.
+
+The new `optimize-traversal-last-element-access` optimization rule appears in
+query execution plans if this optimization is applied.
+
 ### Extended peak memory usage reporting
 
 The peak memory usage of AQL queries is now also reported for running queries
