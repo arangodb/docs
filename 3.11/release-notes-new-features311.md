@@ -192,7 +192,7 @@ db["🥑~колекція =)"].properties() // square bracket notation
 ```
 
 Using extended collection and View names in AQL queries requires wrapping the
-name in backticks or forward ticks (see [AQL Syntax](fundamentals-syntax.html#names)):
+name in backticks or forward ticks (see [AQL Syntax](aql/fundamentals-syntax.html#names)):
 
 ```aql
 FOR doc IN `🥑~колекція =)`
