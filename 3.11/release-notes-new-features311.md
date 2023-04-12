@@ -247,6 +247,33 @@ You can configure the feature via the following new startup options:
   exceeds the configured threshold and the last auto-flush is longer ago than
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
 
+### BlobDB as an opt-in feature
+
+The following startup options have been added for configuring and enabling RocksDB's 
+blob storage (BlobDB) for larger documents in the documents column family.
+This is currently an experimental feature.
+
+The following experimental options are available:
+
+- `--rocksdb.enable-blob-files`: Enable the usage of blob files for the
+  documents column family. This option defaults to `false`. All following
+  options are only relevant if this option is set to `true`.
+- `--rocksdb.min-blob-size`: Size threshold for storing large documents in
+  blob files (in bytes, 0 = store all documents in blob files).
+- `--rocksdb.blob-file-size`: Size limit for blob files in the documents
+  column family (in bytes).
+- `--rocksdb.blob-compression-type`: Compression algorithm to use for blob
+  data in the documents column family.
+- `--rocksdb.enable-blob-garbage-collection`: Enable blob garbage collection
+  during compaction in the documents column family.
+- `--rocksdb.blob-garbage-collection-age-cutoff`: Age cutoff for garbage
+  collecting blob files in the documents column family (percentage value from
+  0 to 1 determines how many blob files are garbage collected during
+  compaction).
+- `--rocksdb.blob-garbage-collection-force-threshold`: Garbage ratio
+  threshold for scheduling targeted compactions for the oldest blob files
+  in the documents column family.
+
 ## Miscellaneous changes
 
 ### Trace logs for graph traversals and path searches
