@@ -79,8 +79,8 @@ Every document has a `_key` attribute that identifies a document within a
 collection. This **document key** acts as the primary key to retrieve the data.
 You can set it when creating a document, or let the system generate one
 automatically. It cannot be changed later because the attribute is immutable.
-It is always a string. What you can use as a document key is described in the
-[naming conventions](data-modeling-naming-conventions-document-keys.html).
+It is always a string. What you can use as a document key is described in
+[User-specified keys](data-modeling-documents.html#document-keys).
 
 ArangoDB is ready to store JSON objects and retrieve them via their keys out of
 the box. Every collection has an index on the `_key` attribute (the
