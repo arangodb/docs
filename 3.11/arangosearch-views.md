@@ -241,6 +241,20 @@ During view modification the following directives apply:
 
   The `storedValues` option is not to be confused with the `storeValues` option,
   which allows to store meta data about attribute values in the View index.
+  
+ - **optimizeTopK** (_optional_; type: `array`; default: `[]`; _immutable_)
+
+  <small>Introduced in: v3.11.0 </small>
+  
+  Array of strings defining desired sort expressions of search results.
+  Currently only DESC sorting by [scoring functions](aql/functions-arangosearch.html#scoring-functions) is supported.
+  "Argument" for expression should be always "@doc"
+  
+  Example: `["BM25(@doc)", "TFIDF(@doc, true)"]`
+  
+  Current limit is 64 expressions per view.
+  
+  {% include hint-ee.md feature="ArangoSearch WAND optimization" %}
 
 An inverted index is the heart of `arangosearch` Views.
 The index consists of several independent segments and the index **segment**

@@ -8,6 +8,16 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.11. ArangoDB 3.11 also contains several bug fixes that are not listed
 here.
 
+## ArangoSearch
+
+### WAND (Enterprise Edition)
+Greatly improving fetching results from ArangoSearch index if
+only TopK results are required.
+
+### Late Materialization improvement
+Reduced number of reads from RocksDB while executing query with
+late materialization applied.
+
 ## Analyzers
 
 ### `geo_s2` Analyzer (Enterprise Edition)

@@ -67,6 +67,10 @@ features outlined below. For additional information, see
   Always cache field normalization values, stored values, primary sort columns,
   and primary key columns in memory to improve the performance of Views and
   inverted indexes.
+  
+- [**ArangoSearch WAND optimization**](release-notes-new-features311.html#arangosearch-wand-enterprise-edition):
+  Greatly improving fetching results from ArangoSearch index if
+  only TopK results are required. 
 
 ## Querying
 
