@@ -148,6 +148,19 @@ nodes, which could lead to high memory usage on Coordinators caused by buffering
 of documents for other shards, and timeouts on some DB-Servers because query parts
 were idle for too long.
 
+### Optimized access of last element in traversals
+
+If you use a `FOR` operation for an AQL graph traversal like `FOR v, e, p IN ...`
+and later access the last vertex or edge via the path variable `p`, like
+`FILTER p.vertices[-1].name == "ArangoDB"` or `FILTER p.edges[-1].weight > 5`,
+the access is transformed to use the vertex variable `v` or edge variable `e`
+instead, like `FILTER v.name == "ArangoDB"` or `FILTER e.weight > 5`. This is
+cheaper to compute because the path variable `p` may not need to be computed at
+all, and it can enable further optimizations that are not possible on `p`.
+
+The new `optimize-traversal-last-element-access` optimization rule appears in
+query execution plans if this optimization is applied.
+
 ### Extended peak memory usage reporting
 
 The peak memory usage of AQL queries is now also reported for running queries
@@ -233,3 +246,21 @@ You can configure the feature via the following new startup options:
   Note that an auto-flush is only executed if the number of live WAL files
   exceeds the configured threshold and the last auto-flush is longer ago than
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
+
+## Miscellaneous changes
+
+### Trace logs for graph traversals and path searches
+
+Detailed information is now logged if you run AQL graph traversals
+or (shortest) path searches with AQL and set the
+log level to `TRACE` for the `graphs` log topic. This information is fairly
+low-level but can help to understand correctness and performance issues with
+traversal queries. There are also some new log messages for the `DEBUG` level.
+
+To enable tracing for traversals and path searches at startup, you can set
+`--log.level graphs=trace`.
+
+To enable or disable it at runtime, you can call the
+[`PUT /_admin/log/level`](http/monitoring.html#modify-and-return-the-current-server-log-level)
+endpoint of the HTTP API and set the log level using a request body like
+`{"graphs":"TRACE"}`.
