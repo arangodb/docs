@@ -155,6 +155,16 @@ endpoints include a new numeric `peakMemoryUsage` attribute.
 
 ## JavaScript API
 
+### Index API
+
+Calling `collection.dropIndex(...)` or `db._dropIndex(...)` now raises an error
+if the specified index does not exist or cannot be dropped (for example, because
+it is a primary index or edge index). The methods previously returned `false`.
+In case of success, they still return `true`.
+
+You can wrap calls to these methods with a `try { ... }` block to catch errors,
+for example, in _arangosh_ or in Foxx services.
+
 ### Deprecations
 
 The `collection.iterate()` method is deprecated from v3.11.0 onwards and will be
