@@ -70,12 +70,12 @@ and deploy ArangoDB instances on bare-metal servers and supports all ArangoDB
 deployment modes, such as a single server instance, Active Failover, and cluster
 (including Datacenter-to-Datacenter Replication).
 
-In addition to the Starter, there are also other ways that can be used to deploy
+In addition to the Starter, there are also other ways that you can use to deploy
 ArangoDB:
-- Running `arangod` directly
+- Run the `arangod` executable directly
 - [Docker containers](install-with-docker.html)
 - [Kubernetes](deployment-kubernetes.html)
-- Using installation packages
+- Use installation packages
 
 ## How to Get Data In and Out of ArangoDB
 
