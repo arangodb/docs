@@ -1,186 +1,145 @@
-- subtitle: GETTING STARTED
+- subtitle: INTRODUCTION
 - text: About ArangoDB
   href: index.html
   children:
-    - text: Use Cases
-      href: use-cases.html
-    - text: Features
-      href: features.html
-      children:
-        - text: Community Edition
-          href: features-community-edition.html
-        - text: Enterprise Edition
-          href: features-enterprise-edition.html
-        - text: Highlights by Version
-          href: highlights.html
-- text: Getting Started
+- text: Use Cases
+  href: use-cases.html
+- text: Features
+  href: features.html
+  children:
+    - text: Community Edition
+      href: features-community-edition.html
+    - text: Enterprise Edition
+      href: features-enterprise-edition.html
+    - text: Highlights by Version
+      href: highlights.html
+- subtitle: GET STARTED          
+- text: Overview
   href: quick-start-guide.html
+- text: Set up a cloud instance
+  href: quick-start-in-the-cloud.html
+- text: On-premises installation
+  href: quick-start-on-premises.html
+- text: Start using AQL
+  href: start-using-aql.html
+- text: How to Interact with ArangoDB
+  href: how-to-interact-with-arangodb.html
+- subtitle: DATA MODEL
+- text: Data Model & Concepts
+  href: data-model-and-concepts.html
   children:
-    - text: Data Model & Concepts
-      href: data-model-and-concepts.html
+    - text: Databases
+      href: data-modeling-databases.html
       children:
-        - text: Databases
-          href: data-modeling-databases.html
-          children:
-            - text: Database Methods
-              href: data-modeling-databases-working-with.html
-        - text: Collections
-          href: data-modeling-collections.html
-          children:
-            - text: Collection Methods
-              href: data-modeling-collections-collection-methods.html
-            - text: Database Methods
-              href: data-modeling-collections-database-methods.html
-        - text: Documents
-          href: data-modeling-documents.html
-          children:
-            - text: Collection Methods
-              href: data-modeling-documents-document-methods.html
-            - text: Database Methods
-              href: data-modeling-documents-database-methods.html
-            - text: Schema Validation
-              href: data-modeling-documents-schema-validation.html
-            - text: Computed Values
-              href: data-modeling-documents-computed-values.html
-        - text: Views
-          href: data-modeling-views.html
-          children:
-            - text: Database Methods
-              href: data-modeling-views-database-methods.html
-            - text: View Methods
-              href: data-modeling-views-view-methods.html
-    - text: How to Interact with ArangoDB
-      href: how-to-interact-with-arangodb.html
-    - text: Setting up a cloud instance
-      href: quick-start-in-the-cloud.html
-    - text: On-premises installation
-      href: quick-start-on-premises.html
-    - text: Start using AQL
-      href: start-using-aql.html
-- subtitle: CORE TOPICS
-- text: Programs & Tools
-  href: programs.html
+        - text: Database Methods
+          href: data-modeling-databases-working-with.html
+    - text: Collections
+      href: data-modeling-collections.html
+      children:
+        - text: Collection Methods
+          href: data-modeling-collections-collection-methods.html
+        - text: Database Methods
+          href: data-modeling-collections-database-methods.html
+    - text: Documents
+      href: data-modeling-documents.html
+      children:
+        - text: Collection Methods
+          href: data-modeling-documents-document-methods.html
+        - text: Database Methods
+          href: data-modeling-documents-database-methods.html
+        - text: Schema Validation
+          href: data-modeling-documents-schema-validation.html
+        - text: Computed Values
+          href: data-modeling-documents-computed-values.html
+    - text: Views
+      href: data-modeling-views.html
+      children:
+        - text: Database Methods
+          href: data-modeling-views-database-methods.html
+        - text: View Methods
+          href: data-modeling-views-view-methods.html
+- text: Operational Factors
+  href: data-modeling-operational-factors.html
+- subtitle: GRAPHS
+- text: First Steps
+  href: graphs.html
+- text: General Graphs
+  href: graphs-general-graphs.html
   children:
-    - text: ArangoDB Server
-      href: programs-arangod.html
-      children:
-        - text: Options
-          href: programs-arangod-options.html
-        - text: LDAP
-          href: programs-arangod-ldap.html
-        - text: Environment variables
-          href: programs-arangod-env-vars.html
-    - text: Web Interface
-      href: programs-web-interface.html
-      children:
-        - text: Dashboard
-          href: programs-web-interface-dashboard.html
-        - text: Cluster
-          href: programs-web-interface-cluster.html
-        - text: Collections
-          href: programs-web-interface-collections.html
-        - text: Document
-          href: programs-web-interface-document.html
-        - text: Queries
-          href: programs-web-interface-aql-editor.html
-        - text: Graphs
-          href: programs-web-interface-graphs.html
-        - text: Services
-          href: programs-web-interface-services.html
-        - text: Users
-          href: programs-web-interface-users.html
-        - text: Logs
-          href: programs-web-interface-logs.html
-    - text: ArangoDB Shell
-      href: programs-arangosh.html
-      children:
-        - text: Examples
-          href: programs-arangosh-examples.html
-        - text: Details
-          href: programs-arangosh-details.html
-        - text: Options
-          href: programs-arangosh-options.html
-    - text: ArangoDB Starter
-      href: programs-starter.html
-      children:
-        - text: Options
-          href: programs-starter-options.html
-        - text: Security
-          href: programs-starter-security.html
-        - text: Architecture
-          href: programs-starter-architecture.html
-    - text: arangodump
-      href: programs-arangodump.html
-      children:
-        - text: Examples
-          href: programs-arangodump-examples.html
-        - text: Options
-          href: programs-arangodump-options.html
-        - text: Maskings
-          href: programs-arangodump-maskings.html
-        - text: Limitations
-          href: programs-arangodump-limitations.html
-    - text: arangorestore
-      href: programs-arangorestore.html
-      children:
-        - text: Examples
-          href: programs-arangorestore-examples.html
-        - text: Options
-          href: programs-arangorestore-options.html
-    - text: arangobackup
-      href: programs-arangobackup.html
-      children:
-        - text: Examples
-          href: programs-arangobackup-examples.html
-        - text: Options
-          href: programs-arangobackup-options.html
-    - text: arangoimport
-      href: programs-arangoimport.html
-      children:
-        - text: Examples JSON
-          href: programs-arangoimport-examples-json.html
-        - text: Examples CSV
-          href: programs-arangoimport-examples-csv.html
-        - text: Details
-          href: programs-arangoimport-details.html
-        - text: Options
-          href: programs-arangoimport-options.html
-    - text: arangoexport
-      href: programs-arangoexport.html
-      children:
-        - text: Examples
-          href: programs-arangoexport-examples.html
-        - text: Options
-          href: programs-arangoexport-options.html
-    - text: arangobench
-      href: programs-arangobench.html
-      children:
-        - text: Options
-          href: programs-arangobench-options.html
-    - text: arangovpack
-      href: programs-arangovpack.html
-      children:
-        - text: Options
-          href: programs-arangovpack-options.html
-    - text: arangoinspect
-      href: programs-arangoinspect.html
-      children:
-        - text: Examples
-          href: programs-arangoinspect-examples.html
-        - text: Options
-          href: programs-arangoinspect-options.html
-    - text: Foxx CLI
-      href: programs-foxx-cli.html
-      children:
-        - text: Details
-          href: programs-foxx-cli-details.html
-- text: Modeling Data
-  href: data-modeling.html
+    - text: Management
+      href: graphs-general-graphs-management.html
+    - text: Functions
+      href: graphs-general-graphs-functions.html
+- text: SatelliteGraphs
+  href: graphs-satellite-graphs.html
   children:
-    - text: Operational Factors
-      href: data-modeling-operational-factors.html
-    - text: Monetary data without precision loss
-      href: data-modeling-monetary-data-without-precision-loss.html
+    - text: Management
+      href: graphs-satellite-graphs-management.html
+    - text: Details
+      href: graphs-satellite-graphs-details.html
+- text: SmartGraphs
+  href: graphs-smart-graphs.html
+  children:
+    - text: Getting Started
+      href: graphs-smart-graphs-getting-started.html
+    - text: Management
+      href: graphs-smart-graphs-management.html
+- text: EnterpriseGraphs
+  href: graphs-enterprise-graphs.html
+  children:
+    - text: Getting Started
+      href: graphs-enterprise-graphs-getting-started.html
+    - text: Management
+      href: graphs-enterprise-graphs-management.html
+- text: Testing Graphs on Single Server
+  href: smart-and-satellite-graphs-single-server.html
+- text: Traversals
+  href: graphs-traversals.html
+  children:
+    - text: Example Data
+      href: graphs-traversals-example-data.html
+- text: Working with Edges
+  href: graphs-edges.html
+- subtitle: DATA SCIENCE
+- text: Overview
+  href: data-science.html
+- text: ArangoGraph Notebooks
+  href: arangograph-notebooks.html
+- text: Pregel
+  href: graphs-pregel.html
+  children:
+    - text: Pregel Algorithms
+      href: graphs-pregel-algorithms.html
+- text: Adapters
+  href: data-science-adapters.html
+  children:      
+    - text: ArangoDB-NetworkX Adapter
+      href: data-science-networkx-adapter.html
+    - text: ArangoDB-DGL Adapter
+      href: data-science-dgl-adapter.html
+    - text: ArangoDB-cuGraph Adapter
+      href: data-science-cugraph-adapter.html
+    - text: ArangoDB-PyG Adapter
+      href: data-science-pyg-adapter.html
+    - text: ArangoRDF Adapter
+      href: data-science-arango-rdf-adapter.html
+      children:
+        - text: Mapping RDF to Graphs
+          href: data-modeling-graphs-from-rdf.html        
+- subtitle: TRANSACTIONS
+- text: Overview
+  href: transactions.html
+- text: JavaScript Transactions
+  href: transactions-javascript-transactions.html
+- text: Stream Transactions
+  href: transactions-stream-transactions.html
+- text: Locking and isolation
+  href: transactions-locking-and-isolation.html
+- text: Durability
+  href: transactions-durability.html
+- text: Limitations
+  href: transactions-limitations.html
+- subtitle: INDEX AND SEARCH DATA
 - text: Indexing
   href: indexing.html
   children:
@@ -207,119 +166,47 @@
           href: indexing-geo.html
         - text: Vertex-Centric Indexes
           href: indexing-vertex-centric.html
-    - text: ArangoSearch
-      href: arangosearch.html
-      children:
-        - text: Example Datasets
-          href: arangosearch-example-datasets.html
-        - text: Exact value matching
-          href: arangosearch-exact-value-matching.html
-        - text: Range Queries
-          href: arangosearch-range-queries.html
-        - text: Prefix matching
-          href: arangosearch-prefix-matching.html
-        - text: Case-sensitivity and Diacritics
-          href: arangosearch-case-sensitivity-and-diacritics.html
-        - text: Wildcard search
-          href: arangosearch-wildcard-search.html
-        - text: Full-text token search
-          href: arangosearch-fulltext-token-search.html
-        - text: Phrase and proximity search
-          href: arangosearch-phrase-and-proximity-search.html
-        - text: Faceted search
-          href: arangosearch-faceted-search.html
-        - text: Fuzzy search
-          href: arangosearch-fuzzy-search.html
-        - text: Geospatial search
-          href: arangosearch-geospatial-search.html
-        - text: Search highlighting
-          href: arangosearch-search-highlighting.html
-        - text: Nested search
-          href: arangosearch-nested-search.html
-        - text: Ranking
-          href: arangosearch-ranking.html
-        - text: Performance
-          href: arangosearch-performance.html
-        - text: <code>search-alias</code> Views Reference
-          href: arangosearch-views-search-alias.html
-        - text: <code>arangosearch</code> Views Reference
-          href: arangosearch-views.html
-- text: Transactions
-  href: transactions.html
+- text: ArangoSearch
+  href: arangosearch.html
   children:
-    - text: JavaScript Transactions
-      href: transactions-javascript-transactions.html
-    - text: Stream Transactions
-      href: transactions-stream-transactions.html
-    - text: Locking and isolation
-      href: transactions-locking-and-isolation.html
-    - text: Durability
-      href: transactions-durability.html
-    - text: Limitations
-      href: transactions-limitations.html
-- text: Graphs
-  href: graphs.html
-  children:
-    - text: General Graphs
-      href: graphs-general-graphs.html
-      children:
-        - text: Graph Management
-          href: graphs-general-graphs-management.html
-        - text: Graph Functions
-          href: graphs-general-graphs-functions.html
-    - text: SatelliteGraphs
-      href: graphs-satellite-graphs.html
-      children:
-        - text: Management
-          href: graphs-satellite-graphs-management.html
-        - text: Details
-          href: graphs-satellite-graphs-details.html
-    - text: SmartGraphs
-      href: graphs-smart-graphs.html
-      children:
-        - text: Getting Started with SmartGraphs
-          href: graphs-smart-graphs-getting-started.html
-        - text: SmartGraph Management
-          href: graphs-smart-graphs-management.html
-    - text: EnterpriseGraphs
-      href: graphs-enterprise-graphs.html
-      children:
-        - text: Getting Started with EnterpriseGraphs
-          href: graphs-enterprise-graphs-getting-started.html
-        - text: EnterpriseGraph Management
-          href: graphs-enterprise-graphs-management.html
-    - text: Testing Graphs on Single Server
-      href: smart-and-satellite-graphs-single-server.html
-    - text: Traversals
-      href: graphs-traversals.html
-      children:
-        - text: Example Data
-          href: graphs-traversals-example-data.html
-    - text: Working with Edges
-      href: graphs-edges.html
-- text: Data Science
-  href: data-science.html
-  children:
-    - text: ArangoGraph Notebooks
-      href: arangograph-notebooks.html
-    - text: Pregel
-      href: graphs-pregel.html
-      children:
-        - text: Pregel Algorithms
-          href: graphs-pregel-algorithms.html
-    - text: ArangoDB-NetworkX Adapter
-      href: data-science-networkx-adapter.html
-    - text: ArangoDB-DGL Adapter
-      href: data-science-dgl-adapter.html
-    - text: ArangoDB-cuGraph Adapter
-      href: data-science-cugraph-adapter.html
-    - text: ArangoDB-PyG Adapter
-      href: data-science-pyg-adapter.html
-    - text: ArangoRDF Adapter
-      href: data-science-arango-rdf-adapter.html
-    - text: Mapping RDF to Graphs
-      href: data-modeling-graphs-from-rdf.html  
-- subtitle: ADVANCED TOPICS
+    - text: Example Datasets
+      href: arangosearch-example-datasets.html
+    - text: Exact value matching
+      href: arangosearch-exact-value-matching.html
+    - text: Range Queries
+      href: arangosearch-range-queries.html
+    - text: Prefix matching
+      href: arangosearch-prefix-matching.html
+    - text: Case-sensitivity and Diacritics
+      href: arangosearch-case-sensitivity-and-diacritics.html
+    - text: Wildcard search
+      href: arangosearch-wildcard-search.html
+    - text: Full-text token search
+      href: arangosearch-fulltext-token-search.html
+    - text: Phrase and proximity search
+      href: arangosearch-phrase-and-proximity-search.html
+    - text: Faceted search
+      href: arangosearch-faceted-search.html
+    - text: Fuzzy search
+      href: arangosearch-fuzzy-search.html
+    - text: Geospatial search
+      href: arangosearch-geospatial-search.html
+    - text: Search highlighting
+      href: arangosearch-search-highlighting.html
+    - text: Nested search
+      href: arangosearch-nested-search.html
+    - text: Ranking
+      href: arangosearch-ranking.html
+    - text: Performance
+      href: arangosearch-performance.html
+    - text: <code>search-alias</code> Views Reference
+      href: arangosearch-views-search-alias.html
+    - text: <code>arangosearch</code> Views Reference
+      href: arangosearch-views.html
+- subtitle: TRANSFORM DATA 
+- text: Analyzers
+  href: analyzers.html
+- subtitle: DEPLOY
 - text: Architecture
   href: architecture.html
   children:    
@@ -441,101 +328,11 @@
       href: monitoring-dc2dc.html
     - text: Troubleshooting
       href: troubleshooting-dc2dc.html 
-- text: Foxx Microservices
-  href: foxx.html
-  children:
-    - text: Getting started
-      href: foxx-getting-started.html
-    - text: Guides
-      href: foxx-guides.html
-      children:
-        - text: Working with routers
-          href: foxx-guides-routing.html
-        - text: Working with collections
-          href: foxx-guides-collections.html
-        - text: Writing queries
-          href: foxx-guides-queries.html
-        - text: Development mode
-          href: foxx-guides-development-mode.html
-        - text: Testing Foxx services
-          href: foxx-guides-testing.html
-        - text: Foxx in a cluster
-          href: foxx-guides-cluster.html
-        - text: Scripts and scheduling
-          href: foxx-guides-scripts.html
-        - text: Using Node modules
-          href: foxx-guides-bundled-node-modules.html
-        - text: Using Webpack with Foxx
-          href: foxx-guides-webpack.html
-        - text: Authentication and sessions
-          href: foxx-guides-auth.html
-        - text: Linking services together
-          href: foxx-guides-dependencies.html
-        - text: Working with files
-          href: foxx-guides-files.html
-        - text: Making requests
-          href: foxx-guides-making-requests.html
-        - text: Access from the browser
-          href: foxx-guides-browser.html
-    - text: Reference
-      href: foxx-reference.html
-      children:
-        - text: Service manifest
-          href: foxx-reference-manifest.html
-        - text: Service context
-          href: foxx-reference-context.html
-        - text: Configuration
-          href: foxx-reference-configuration.html
-        - text: Routers
-          href: foxx-reference-routers.html
-          children:
-            - text: Endpoints
-              href: foxx-reference-routers-endpoints.html
-            - text: Middleware
-              href: foxx-reference-routers-middleware.html
-            - text: Request
-              href: foxx-reference-routers-request.html
-            - text: Response
-              href: foxx-reference-routers-response.html
-        - text: Sessions middleware
-          href: foxx-reference-sessions.html
-          children:
-            - text: Session storages
-              href: foxx-reference-sessions-storages.html
-              children:
-                - text: Collection storage
-                  href: foxx-reference-sessions-storages-collection.html
-                - text: JWT storage
-                  href: foxx-reference-sessions-storages-jwt.html
-            - text: Session transports
-              href: foxx-reference-sessions-transports.html
-              children:
-                - text: Cookie transport
-                  href: foxx-reference-sessions-transports-cookie.html
-                - text: Header transport
-                  href: foxx-reference-sessions-transports-header.html
-        - text: Related modules
-          href: foxx-reference-modules.html
-          children:
-            - text: Authentication
-              href: foxx-reference-modules-auth.html
-            - text: OAuth 1.0a
-              href: foxx-reference-modules-oauth1.html
-            - text: OAuth 2.0
-              href: foxx-reference-modules-oauth2.html
-            - text: GraphQL
-              href: foxx-reference-modules-graph-ql.html
-            - text: Queues
-              href: foxx-reference-modules-queues.html
-    - text: Deployment
-      href: foxx-deployment.html
 - text: SatelliteCollections
   href: satellites.html
 - text: SmartJoins
   href: smartjoins.html
-- text: Analyzers
-  href: analyzers.html
-- subtitle: OPERATIONS
+- subtitle: OPERATE
 - text: Installation
   href: installation.html
   children:
@@ -644,6 +441,214 @@
       children:
         - text: Agency Dump
           href: troubleshooting-cluster-agency-dump.html
+- subtitle: TOOLS
+- text: Programs & Tools
+  href: programs.html
+  children:
+    - text: ArangoDB Server
+      href: programs-arangod.html
+      children:
+        - text: Options
+          href: programs-arangod-options.html
+        - text: LDAP
+          href: programs-arangod-ldap.html
+        - text: Environment variables
+          href: programs-arangod-env-vars.html
+    - text: Web Interface
+      href: programs-web-interface.html
+      children:
+        - text: Dashboard
+          href: programs-web-interface-dashboard.html
+        - text: Cluster
+          href: programs-web-interface-cluster.html
+        - text: Collections
+          href: programs-web-interface-collections.html
+        - text: Document
+          href: programs-web-interface-document.html
+        - text: Queries
+          href: programs-web-interface-aql-editor.html
+        - text: Graphs
+          href: programs-web-interface-graphs.html
+        - text: Services
+          href: programs-web-interface-services.html
+        - text: Users
+          href: programs-web-interface-users.html
+        - text: Logs
+          href: programs-web-interface-logs.html
+    - text: ArangoDB Shell
+      href: programs-arangosh.html
+      children:
+        - text: Examples
+          href: programs-arangosh-examples.html
+        - text: Details
+          href: programs-arangosh-details.html
+        - text: Options
+          href: programs-arangosh-options.html
+    - text: ArangoDB Starter
+      href: programs-starter.html
+      children:
+        - text: Options
+          href: programs-starter-options.html
+        - text: Security
+          href: programs-starter-security.html
+        - text: Architecture
+          href: programs-starter-architecture.html
+    - text: arangodump
+      href: programs-arangodump.html
+      children:
+        - text: Examples
+          href: programs-arangodump-examples.html
+        - text: Options
+          href: programs-arangodump-options.html
+        - text: Maskings
+          href: programs-arangodump-maskings.html
+        - text: Limitations
+          href: programs-arangodump-limitations.html
+    - text: arangorestore
+      href: programs-arangorestore.html
+      children:
+        - text: Examples
+          href: programs-arangorestore-examples.html
+        - text: Fast Cluster Restore
+          href: programs-arangorestore-fast-cluster-restore.html
+        - text: Options
+          href: programs-arangorestore-options.html
+    - text: arangobackup
+      href: programs-arangobackup.html
+      children:
+        - text: Examples
+          href: programs-arangobackup-examples.html
+        - text: Options
+          href: programs-arangobackup-options.html
+    - text: arangoimport
+      href: programs-arangoimport.html
+      children:
+        - text: Examples JSON
+          href: programs-arangoimport-examples-json.html
+        - text: Examples CSV
+          href: programs-arangoimport-examples-csv.html
+        - text: Details
+          href: programs-arangoimport-details.html
+        - text: Options
+          href: programs-arangoimport-options.html
+    - text: arangoexport
+      href: programs-arangoexport.html
+      children:
+        - text: Examples
+          href: programs-arangoexport-examples.html
+        - text: Options
+          href: programs-arangoexport-options.html
+    - text: arangobench
+      href: programs-arangobench.html
+      children:
+        - text: Options
+          href: programs-arangobench-options.html
+    - text: arangovpack
+      href: programs-arangovpack.html
+      children:
+        - text: Options
+          href: programs-arangovpack-options.html
+    - text: arangoinspect
+      href: programs-arangoinspect.html
+      children:
+        - text: Examples
+          href: programs-arangoinspect-examples.html
+        - text: Options
+          href: programs-arangoinspect-options.html
+    - text: Foxx CLI
+      href: programs-foxx-cli.html
+      children:
+        - text: Details
+          href: programs-foxx-cli-details.html
+- subtitle: DEVELOP
+- text: Foxx Microservices
+  href: foxx.html
+  children:
+    - text: Getting started
+      href: foxx-getting-started.html
+    - text: Guides
+      href: foxx-guides.html
+      children:
+        - text: Working with routers
+          href: foxx-guides-routing.html
+        - text: Working with collections
+          href: foxx-guides-collections.html
+        - text: Writing queries
+          href: foxx-guides-queries.html
+        - text: Development mode
+          href: foxx-guides-development-mode.html
+        - text: Testing Foxx services
+          href: foxx-guides-testing.html
+        - text: Foxx in a cluster
+          href: foxx-guides-cluster.html
+        - text: Scripts and scheduling
+          href: foxx-guides-scripts.html
+        - text: Using Node modules
+          href: foxx-guides-bundled-node-modules.html
+        - text: Using Webpack with Foxx
+          href: foxx-guides-webpack.html
+        - text: Authentication and sessions
+          href: foxx-guides-auth.html
+        - text: Linking services together
+          href: foxx-guides-dependencies.html
+        - text: Working with files
+          href: foxx-guides-files.html
+        - text: Making requests
+          href: foxx-guides-making-requests.html
+        - text: Access from the browser
+          href: foxx-guides-browser.html
+    - text: Deployment
+      href: foxx-deployment.html
+    - text: Reference 
+      href: foxx-reference.html
+      children:
+      - text: Service manifest
+        href: foxx-reference-manifest.html
+      - text: Service context
+        href: foxx-reference-context.html
+      - text: Configuration
+        href: foxx-reference-configuration.html
+      - text: Routers
+        href: foxx-reference-routers.html
+        children:
+          - text: Endpoints
+            href: foxx-reference-routers-endpoints.html
+          - text: Middleware
+            href: foxx-reference-routers-middleware.html
+          - text: Request
+            href: foxx-reference-routers-request.html
+          - text: Response
+            href: foxx-reference-routers-response.html
+      - text: Sessions middleware
+        href: foxx-reference-sessions.html
+        children:
+          - text: Session storages
+            href: foxx-reference-sessions-storages.html
+            children:
+              - text: Collection storage
+                href: foxx-reference-sessions-storages-collection.html
+              - text: JWT storage
+                href: foxx-reference-sessions-storages-jwt.html
+          - text: Session transports
+            href: foxx-reference-sessions-transports.html
+            children:
+              - text: Cookie transport
+                href: foxx-reference-sessions-transports-cookie.html
+              - text: Header transport
+                href: foxx-reference-sessions-transports-header.html
+      - text: Related modules
+        href: foxx-reference-modules.html
+        children:
+          - text: Authentication
+            href: foxx-reference-modules-auth.html
+          - text: OAuth 1.0a
+            href: foxx-reference-modules-oauth1.html
+          - text: OAuth 2.0
+            href: foxx-reference-modules-oauth2.html
+          - text: GraphQL
+            href: foxx-reference-modules-graph-ql.html
+          - text: Queues
+            href: foxx-reference-modules-queues.html
 - divider: true
 - text: Release Notes
   href: release-notes.html

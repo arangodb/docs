@@ -332,45 +332,6 @@
   href: satellites.html
 - text: SmartJoins
   href: smartjoins.html
-- subtitle: FOXX
-- text: Foxx Microservices
-  href: foxx.html
-  children:
-    - text: Getting started
-      href: foxx-getting-started.html
-    - text: Guides
-      href: foxx-guides.html
-      children:
-        - text: Working with routers
-          href: foxx-guides-routing.html
-        - text: Working with collections
-          href: foxx-guides-collections.html
-        - text: Writing queries
-          href: foxx-guides-queries.html
-        - text: Development mode
-          href: foxx-guides-development-mode.html
-        - text: Testing Foxx services
-          href: foxx-guides-testing.html
-        - text: Foxx in a cluster
-          href: foxx-guides-cluster.html
-        - text: Scripts and scheduling
-          href: foxx-guides-scripts.html
-        - text: Using Node modules
-          href: foxx-guides-bundled-node-modules.html
-        - text: Using Webpack with Foxx
-          href: foxx-guides-webpack.html
-        - text: Authentication and sessions
-          href: foxx-guides-auth.html
-        - text: Linking services together
-          href: foxx-guides-dependencies.html
-        - text: Working with files
-          href: foxx-guides-files.html
-        - text: Making requests
-          href: foxx-guides-making-requests.html
-        - text: Access from the browser
-          href: foxx-guides-browser.html
-    - text: Deployment
-      href: foxx-deployment.html
 - subtitle: OPERATE
 - text: Installation
   href: installation.html
@@ -600,56 +561,94 @@
         - text: Details
           href: programs-foxx-cli-details.html
 - subtitle: DEVELOP
-- text: Foxx
-  href: foxx-reference.html
+- text: Foxx Microservices
+  href: foxx.html
   children:
-    - text: Service manifest
-      href: foxx-reference-manifest.html
-    - text: Service context
-      href: foxx-reference-context.html
-    - text: Configuration
-      href: foxx-reference-configuration.html
-    - text: Routers
-      href: foxx-reference-routers.html
+    - text: Getting started
+      href: foxx-getting-started.html
+    - text: Guides
+      href: foxx-guides.html
       children:
-        - text: Endpoints
-          href: foxx-reference-routers-endpoints.html
-        - text: Middleware
-          href: foxx-reference-routers-middleware.html
-        - text: Request
-          href: foxx-reference-routers-request.html
-        - text: Response
-          href: foxx-reference-routers-response.html
-    - text: Sessions middleware
-      href: foxx-reference-sessions.html
+        - text: Working with routers
+          href: foxx-guides-routing.html
+        - text: Working with collections
+          href: foxx-guides-collections.html
+        - text: Writing queries
+          href: foxx-guides-queries.html
+        - text: Development mode
+          href: foxx-guides-development-mode.html
+        - text: Testing Foxx services
+          href: foxx-guides-testing.html
+        - text: Foxx in a cluster
+          href: foxx-guides-cluster.html
+        - text: Scripts and scheduling
+          href: foxx-guides-scripts.html
+        - text: Using Node modules
+          href: foxx-guides-bundled-node-modules.html
+        - text: Using Webpack with Foxx
+          href: foxx-guides-webpack.html
+        - text: Authentication and sessions
+          href: foxx-guides-auth.html
+        - text: Linking services together
+          href: foxx-guides-dependencies.html
+        - text: Working with files
+          href: foxx-guides-files.html
+        - text: Making requests
+          href: foxx-guides-making-requests.html
+        - text: Access from the browser
+          href: foxx-guides-browser.html
+    - text: Deployment
+      href: foxx-deployment.html
+    - text: Reference 
+      href: foxx-reference.html
       children:
-        - text: Session storages
-          href: foxx-reference-sessions-storages.html
-          children:
-            - text: Collection storage
-              href: foxx-reference-sessions-storages-collection.html
-            - text: JWT storage
-              href: foxx-reference-sessions-storages-jwt.html
-        - text: Session transports
-          href: foxx-reference-sessions-transports.html
-          children:
-            - text: Cookie transport
-              href: foxx-reference-sessions-transports-cookie.html
-            - text: Header transport
-              href: foxx-reference-sessions-transports-header.html
-    - text: Related modules
-      href: foxx-reference-modules.html
-      children:
-        - text: Authentication
-          href: foxx-reference-modules-auth.html
-        - text: OAuth 1.0a
-          href: foxx-reference-modules-oauth1.html
-        - text: OAuth 2.0
-          href: foxx-reference-modules-oauth2.html
-        - text: GraphQL
-          href: foxx-reference-modules-graph-ql.html
-        - text: Queues
-          href: foxx-reference-modules-queues.html
+      - text: Service manifest
+        href: foxx-reference-manifest.html
+      - text: Service context
+        href: foxx-reference-context.html
+      - text: Configuration
+        href: foxx-reference-configuration.html
+      - text: Routers
+        href: foxx-reference-routers.html
+        children:
+          - text: Endpoints
+            href: foxx-reference-routers-endpoints.html
+          - text: Middleware
+            href: foxx-reference-routers-middleware.html
+          - text: Request
+            href: foxx-reference-routers-request.html
+          - text: Response
+            href: foxx-reference-routers-response.html
+      - text: Sessions middleware
+        href: foxx-reference-sessions.html
+        children:
+          - text: Session storages
+            href: foxx-reference-sessions-storages.html
+            children:
+              - text: Collection storage
+                href: foxx-reference-sessions-storages-collection.html
+              - text: JWT storage
+                href: foxx-reference-sessions-storages-jwt.html
+          - text: Session transports
+            href: foxx-reference-sessions-transports.html
+            children:
+              - text: Cookie transport
+                href: foxx-reference-sessions-transports-cookie.html
+              - text: Header transport
+                href: foxx-reference-sessions-transports-header.html
+      - text: Related modules
+        href: foxx-reference-modules.html
+        children:
+          - text: Authentication
+            href: foxx-reference-modules-auth.html
+          - text: OAuth 1.0a
+            href: foxx-reference-modules-oauth1.html
+          - text: OAuth 2.0
+            href: foxx-reference-modules-oauth2.html
+          - text: GraphQL
+            href: foxx-reference-modules-graph-ql.html
+          - text: Queues
+            href: foxx-reference-modules-queues.html
 - divider: true
 - text: Release Notes
   href: release-notes.html
