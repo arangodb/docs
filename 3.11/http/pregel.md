@@ -11,19 +11,8 @@ description: >-
 See [Distributed Iterative Graph Processing (Pregel)](../graphs-pregel.html)
 for details.
 
-## Start A Pregel Job
-
-{% docublock post_api_control_pregel %}
-
-## Status Of Running Pregel Jobs
-
-{% docublock get_api_control_pregel_pregel %}
-{% docublock get_api_control_pregel %}
-
-## Cancel Running Pregel
-
-{% docublock delete_api_control_pregel_pregel %}
-
-## Status Of All Past Pregel Jobs
-
-{% docublock get_api_control_pregel_history %}
+{% docublock post_api_control_pregel, h2 %}
+{% docublock get_api_control_pregel_pregel, h2 %}
+{% docublock get_api_control_pregel, h2 %}
+{% docublock delete_api_control_pregel_pregel, h2 %}
+{% docublock get_api_control_pregel_history, h2 %}
