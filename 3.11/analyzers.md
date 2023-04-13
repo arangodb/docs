@@ -268,7 +268,7 @@ attributes:
 - `delimiter` (string): the delimiting character(s). The whole string is
   considered as one delimiter.
 
-You can wrap tokens in the input string in double quote marks to escape the
+You can wrap tokens in the input string in double quote marks to quote the
 delimiter. For example, a `delimiter` Analyzer that uses `,` as delimiter and an
 input string of `foo,"bar,baz"` results in the tokens `foo` and `bar,baz`
 instead of `foo`, `bar`, and `baz`.

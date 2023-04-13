@@ -34,9 +34,9 @@ document key). If client applications assemble URLs with extended names
 programmatically, they need to ensure that extended names are properly
 URL-encoded and also NFC-normalized if they contain UTF-8 characters.
 
-The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
-_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the
-extended naming constraints.
+The ArangoDB web interface as well as the _arangobench_, _arangodump_,
+_arangoexport_, _arangoimport_, _arangorestore_, and _arangosh_ client tools
+ship with full support for the extended naming constraints.
 
 Please be aware that dumps containing extended names cannot be restored
 into older versions that only support the traditional naming constraints. In a

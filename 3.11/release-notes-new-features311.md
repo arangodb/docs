@@ -212,9 +212,9 @@ FOR doc IN `🥑~колекція =)`
   RETURN doc
 ```
 
-The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
-_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the 
-extended naming constraints.
+The ArangoDB web interface as well as the _arangobench_, _arangodump_,
+_arangoexport_, _arangoimport_, _arangorestore_, and _arangosh_ client tools
+ship with full support for the extended naming constraints.
 
 Note that the default value for `--database.extended-names` is `false`
 for compatibility with existing client drivers and applications that only support

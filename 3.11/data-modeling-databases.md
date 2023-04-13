@@ -47,8 +47,8 @@ naming constraints are enforced.
 
 {% hint 'info' %}
 The extended naming constraints are an **experimental** feature
-but they will become the norm in a future version. Drivers and client applications
-should be prepared for this feature.
+but they will become the norm in a future version. Check if your drivers and
+client applications are prepared for this feature before enabling it.
 {% endhint %}
 
 The restrictions for database names are as follows:

@@ -52,8 +52,8 @@ UTF-8 characters in database, collection, View, and index names. If set to
 
 {% hint 'info' %}
 The extended naming constraints are an **experimental** feature but they will
-become the norm in a future version. Drivers and client applications
-should be prepared for this feature.
+become the norm in a future version. Check if your drivers and client applications
+are prepared for this feature before enabling it.
 {% endhint %}
 
 The restrictions for collection names are as follows:
