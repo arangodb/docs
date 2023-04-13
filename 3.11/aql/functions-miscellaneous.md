@@ -669,12 +669,12 @@ ArangoSearch counterpart which can use the View index.
 
 ### PREGEL_RESULT()
 
-`PREGEL_RESULT(handle, withId) → results`
+`PREGEL_RESULT(jobId, withId) → results`
 
 Allows to access results of a Pregel job that are only held in memory.
 See [Pregel AQL integration](../graphs-pregel.html#aql-integration).
 
-- **handle** (string): the `id` of a Pregel job
+- **jobId** (string): the `id` of a Pregel job
 - **withId** (bool): if enabled, then the document `_id` is returned in
   addition to the `_key` for each vertex
 - returns **results** (array): an array of objects, one element per vertex, with

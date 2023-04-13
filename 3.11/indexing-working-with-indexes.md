@@ -237,8 +237,8 @@ Also check the documentation of the specific index type for additional options.
 
 Delete the specified index using an index object.
 
-If the index does not exist, then an error is raised. If the index existed and
-has been dropped, then `true` is returned.
+If the index does not exist or cannot be dropped, then an error is raised.
+If the index existed and has been dropped, then `true` is returned.
 
 Note that you cannot drop certain indexes (e.g. the primary index of a
 collection or the edge index of an edge collection).
@@ -336,7 +336,7 @@ Find and return the specified index, or `null` if no such index exists.
 
 Delete the specified index using an index object.
 
-If the index does not exist, an error is raised.
+If the index does not exist or cannot be dropped, an error is raised.
 If the index existed and has been dropped, then `true` is returned.
 
 ---
