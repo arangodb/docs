@@ -253,16 +253,16 @@ for details.
 
 ---
 
-`collection.document(document-handle [, options])`
+`collection.document(document-identifier [, options])`
 
-As before. Instead of `object` a `document-handle` can be passed as
+As before. Instead of an `object`, a `document-identifier` can be passed as the
 first argument. No revision can be specified in this case.
 
 ---
 
 `collection.document(document-key [, options])`
 
-As before. Instead of `object` a `document-key` can be passed as
+As before. Instead of an `object`, a `document-key` can be passed as the
 first argument.
 
 ---
@@ -277,7 +277,7 @@ an error object is returned in the result array.
 
 **Examples**
 
-Returns the document for a document-handle:
+Return a document using a document identifier:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionNameValidPlain
@@ -291,7 +291,7 @@ Returns the document for a document-handle:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Returns the document for a document-key:
+Return a document using a document key:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionNameValidByKey
@@ -305,7 +305,7 @@ Returns the document for a document-key:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Returns the document for an object:
+Return a document using an object with a document identifier:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionNameValidByObject
@@ -319,7 +319,7 @@ Returns the document for an object:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Returns the document for an array of two keys:
+Return multiple documents using an array of document keys:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionNameValidMulti
@@ -348,7 +348,7 @@ An error is raised if the document is unknown:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-An error is raised if the handle is invalid:
+An error is raised if the document key or identifier is invalid:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionNameHandle
@@ -381,9 +381,10 @@ only return an object with the attributes `_id`, `_key` and `_rev`, or
 `false` if no document with the given `_id` or `_key` exists. It can
 thus be used for easy existence checks.
 
-This method will throw an error if used improperly, e.g. when called
-with a non-document handle, a non-document, or when a cross-collection
-request is performed.
+This method throws an error if used improperly, e.g. if called
+with a string that isn't a document key or identifier, an object with invalid
+or missing `_key` or `_id` attribute, or if documents from other collections are 
+requested.
 
 If you pass `options` as the second argument, it must be an object. If this
 object has the `allowDirtyReads` attribute set to `true`, then the
@@ -393,16 +394,16 @@ for details.
 
 ---
 
-`collection.exists(document-handle [, options])`
+`collection.exists(document-identifier [, options])`
 
-As before. Instead of `object` a `document-handle` can be passed as
+As before. Instead of an `object`, a `document-identifier` can be passed as the
 first argument.
 
 ---
 
 `collection.exists(document-key [, options])`
 
-As before. Instead of `object` a `document-key` can be passed as
+As before. Instead of an `object`, a `document-key` can be passed as the
 first argument.
 
 ---
@@ -460,7 +461,7 @@ will be automatically generated if not specified. If specified, there
 must not be a document with the given `_key` in the collection.
 
 The method returns a document with the attributes `_id`, `_key` and
-`_rev`. The attribute `_id` contains the document handle of the newly
+`_rev`. The attribute `_id` contains the document identifier of the newly
 created document, the attribute `_key` the document key and the
 attribute `_rev` contains the document revision.
 
@@ -593,7 +594,7 @@ document is then replaced with the `data` given as second argument.
 Any attribute `_id`, `_key` or `_rev` in `data` is ignored.
 
 The method returns a document with the attributes `_id`, `_key`, `_rev`
-and `_oldRev`. The attribute `_id` contains the document handle of the
+and `_oldRev`. The attribute `_id` contains the document identifier of the
 updated document, the attribute `_rev` contains the document revision of
 the updated document, the attribute `_oldRev` contains the revision of
 the old (now replaced) document.
@@ -630,11 +631,11 @@ boolean attributes:
 
 ---
 
-`collection.replace(document-handle, data)`
+`collection.replace(document-identifier, data)`
 
-`collection.replace(document-handle, data, options)`
+`collection.replace(document-identifier, data, options)`
 
-As before. Instead of `selector` a `document-handle` can be passed as
+As before. Instead of `selector` a `document-identifier` can be passed as
 first argument. No revision precondition is tested.
 
 ---
@@ -677,7 +678,7 @@ Create and update a document:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use a document handle:
+Use a document identifier:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionReplaceHandle
@@ -704,7 +705,7 @@ document is then patched with the `data` given as second argument.
 Any attribute `_id`, `_key` or `_rev` in `data` is ignored.
 
 The method returns a document with the attributes `_id`, `_key`, `_rev`
-and `_oldRev`. The attribute `_id` contains the document handle of the
+and `_oldRev`. The attribute `_id` contains the document identifier of the
 updated document, the attribute `_rev` contains the document revision of
 the updated document, the attribute `_oldRev` contains the revision of
 the old (now updated) document.
@@ -751,11 +752,11 @@ boolean attributes:
 
 ---
 
-`collection.update(document-handle, data)`
+`collection.update(document-identifier, data)`
 
-`collection.update(document-handle, data, options)`
+`collection.update(document-identifier, data, options)`
 
-As before. Instead of `selector` a `document-handle` can be passed as
+As before. Instead of a `selector`, a `document-identifier` can be passed as the
 first argument. No revision precondition is tested.
 
 ---
@@ -766,7 +767,7 @@ first argument. No revision precondition is tested.
 
 ---
 
-As before. Instead of `selector` a `document-key` can be passed as
+As before. Instead of a `selector`, a `document-key` can be passed as the
 first argument. No revision precondition is tested.
 
 `collection.update(selector-array, data-array)`
@@ -802,7 +803,7 @@ Create and update a document:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use a document handle:
+Use a document identifier:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollection_UpdateHandleSingle
@@ -872,7 +873,7 @@ that `_id` or `_key` in the current collection. This document is then
 removed.
 
 The method returns a document with the attributes `_id`, `_key` and `_rev`.
-The attribute `_id` contains the document handle of the
+The attribute `_id` contains the document identifier of the
 removed document, the attribute `_rev` contains the document revision of
 the removed document.
 
@@ -906,20 +907,20 @@ boolean attributes:
 
 ---
 
-`collection.remove(document-handle)`
+`collection.remove(document-identifier)`
 
-`collection.remove(document-handle, options)`
+`collection.remove(document-identifier, options)`
 
-As before. Instead of `selector` a `document-handle` can be passed as
+As before. Instead of a `selector`, a `document-identifier` can be passed as the
 first argument. No revision check is performed.
 
 ---
 
 `collection.remove(document-key)`
 
-`collection.remove(document-handle, options)`
+`collection.remove(document-key, options)`
 
-As before. Instead of `selector` a `document-handle` can be passed as
+As before. Instead of a `selector`, a `document-key` can be passed as the
 first argument. No revision check is performed.
 
 ---
@@ -1207,7 +1208,7 @@ in (inbound) `vertex`.
 
 The `edges` operator finds all edges starting from (outbound) or ending
 in (inbound) a document from `vertices`, which must be a list of documents
-or document handles.
+or document identifiers.
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline EDGCOL_02_Relation
@@ -1239,7 +1240,7 @@ The `inEdges()` operator finds all edges ending in (inbound) `vertex`.
 `edge-collection.inEdges(vertices)`
 
 The `inEdges()` operator finds all edges ending in (inbound) a document from
-`vertices`, which must a list of documents or document handles.
+`vertices`, which must be a list of documents or document identifiers.
 
 **Examples**
 
@@ -1275,7 +1276,7 @@ The `outEdges()` operator finds all edges starting from (outbound)
 `edge-collection.outEdges(vertices)`
 
 The `outEdges()` operator finds all edges starting from (outbound) a document
-from `vertices`, which must a list of documents or document handles.
+from `vertices`, which must be a list of documents or document identifiers.
 
 **Examples**
 
