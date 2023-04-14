@@ -58,6 +58,14 @@ been merged into a single page, allowing for a much quicker workflow.
 For more information, see the
 [detailed guide](arangosearch-views.html#create-arangosearch-views-using-the-web-interface).
 
+### Inverted indexes
+
+The web interface now includes the option for creating
+[inverted indexes](indexing-inverted.html) on collections. You can set all the
+properties directly in the web interface, which previously required the JavaScript
+or HTTP API. It also offers an editor where you can write the definition of
+your inverted index in JSON format.
+
 ### New sorting mechanism and search box for Saved Queries
 
 When working with **Saved Queries** in the web interface, you can now
