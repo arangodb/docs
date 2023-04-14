@@ -58,6 +58,17 @@ been merged into a single page, allowing for a much quicker workflow.
 For more information, see the
 [detailed guide](arangosearch-views.html#create-arangosearch-views-using-the-web-interface).
 
+### New sorting mechanism and search box for Saved Queries
+
+When working with **Saved Queries** in the web interface, you can now
+configure their sort order so that your saved queries are listed by the
+date they were last modified.
+This is particularly helpful when you have a large amount of saved custom
+queries and want to see which ones have been created or used recently.
+
+In addition, the web interface also offers a search box which helps you
+quickly find the query you're looking for. 
+
 ## AQL
 
 ### Added AQL functions
