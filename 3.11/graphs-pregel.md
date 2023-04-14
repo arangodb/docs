@@ -144,6 +144,93 @@ simultaneously. A transaction might already be committed when you cancel the
 execution job. Therefore, you might see some updated documents, while other
 documents have no or stale results from a previous execution.
 
+### Persisted Status of a past Algorithm Execution
+
+You can use the ID returned by the `pregel.start(...)` method to track the
+persisted status of your algorithm:
+
+```js
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+const historyStatus = pregel.history(execution);
+```
+
+It tells you the current `state` of the execution, the current
+global superstep, the runtime, the global aggregator values as well as the
+number of send and received messages. Additionally, you see which user started
+the Pregel job. Also it contains details about specific execution timings.
+
+The object returned by the `status()` method looks like this:
+
+```json
+{
+  "algorithm": "pagerank",
+  "created": "2023-04-14T12:23:44Z",
+  "state" : "done",
+  "gss": 7,
+  "user": "MarcelJansen",
+  "aggregators": {
+    "convergence": 0.0000095367431640625
+  },
+  "sendCount" : 3240364978,
+  "receivedCount" : 3240364975,
+  "storageTime": 0.004209069,
+  "parallelism": 4,
+  "computationTime": 0.7832393,
+  "totalRuntime": 0.814257622,
+  "expires": "2023-04-14T12:33:45Z",
+  "startupTime": 0.007303175,
+  "vertexCount": 13,
+  "edgeCount": 37
+}
+```
+
+### Persisted Status of a past Algorithm Execution
+
+In case you want to read all persisted Pregel states of all past Pregel Jobs, just call the same
+method without providing any specific parameter.
+
+```js
+const historyStates = pregel.history();
+```
+
+The `historyStates` variable will then contain a list out of all past persisted Pregel states available.
+
+```json
+[
+  {
+    "algorithm": "pagerank",
+    "...": "..."
+  },
+  {
+    "algorithm": "sssp",
+    "...": "..."
+  },
+  {
+    "algorithm": "connectedcomponents",
+    "...": "..."
+  }
+]
+```
+
+### Remove Persisted Status of a past Algorithm Execution
+
+You can use the ID returned by the `pregel.start(...)` method to remove the persisted state
+whenever you don't need it anymore.
+
+```js
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+pregel.removeHistory(execution);
+```
+
+### Remove Persisted Status of all past Algorithm Executions
+
+In case you want to remove all persisted Pregel states at once, just call the same
+method without providing any specific parameter.
+
+```js
+pregel.removeHistory();
+```
+
 AQL integration
 ---------------
 
