@@ -66,6 +66,17 @@ properties directly in the web interface, which previously required the JavaScri
 or HTTP API. It also offers an editor where you can write the definition of
 your inverted index in JSON format.
 
+### New sorting mechanism and search box for Saved Queries
+
+When working with **Saved Queries** in the web interface, you can now
+configure their sort order so that your saved queries are listed by the
+date they were last modified.
+This is particularly helpful when you have a large amount of saved custom
+queries and want to see which ones have been created or used recently.
+
+In addition, the web interface also offers a search box which helps you
+quickly find the query you're looking for. 
+
 ## AQL
 
 ### Added AQL functions

@@ -164,8 +164,8 @@ durability requirements or if they rely on the immediate result of the request
 they send.
 
 Finally, note that it is not possible to cancel such a fire and forget job,
-since you don't get any handle to identify it later on. If you need to cancel
-requests, use
+since you don't get any job identifier to identify it later on.
+If you need to cancel requests, use
 [Async execution and later result retrieval](#async-execution-and-later-result-retrieval).
 
 #### Async execution and later result retrieval
