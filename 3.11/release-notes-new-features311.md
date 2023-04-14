@@ -10,13 +10,30 @@ here.
 
 ## ArangoSearch
 
-### WAND (Enterprise Edition)
-Greatly improving fetching results from ArangoSearch index if
-only TopK results are required.
+### WAND optimization (Enterprise Edition)
 
-### Late Materialization improvement
-Reduced number of reads from RocksDB while executing query with
-late materialization applied.
+For `arangosearch` Views and inverted indexes (and by extension `search-alias`
+Views), you can define a list of sort expressions that you want to optimize.
+This is also known as _WAND optimization_.
+
+If you query a View with the `SEARCH` operation in combination with a
+`SORT` and `LIMIT` operation, search results can be retrieved faster if the
+`SORT` expression matches one of the optimized expressions.
+
+Only sorting by highest rank is supported, that is, sorting by the result
+of a [scoring function](aql/functions-arangosearch.html#scoring-functions)
+in descending order (`DESC`).
+
+See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
+for examples.
+
+This feature is only available in the Enterprise Edition.
+
+### Late materialization improvements
+
+The number of disk reads required when executing search queries with late
+materialization optimizations applied has been reduced so that less data needs
+to be requested from the RocksDB storage engine.
 
 ## Analyzers
 

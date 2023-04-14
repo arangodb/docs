@@ -149,7 +149,7 @@ During view modification the following directives apply:
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
   to control the memory consumption of this cache.
 
-  {% include hint-ee.md feature="ArangoSearch caching" %}
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 ### View Properties
 
@@ -183,7 +183,7 @@ During view modification the following directives apply:
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
   to control the memory consumption of this cache.
 
-  {% include hint-ee.md feature="ArangoSearch caching" %}
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
   
 - **primaryKeyCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
 
@@ -197,7 +197,7 @@ During view modification the following directives apply:
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
   to control the memory consumption of this cache.
 
-  {% include hint-ee.md feature="ArangoSearch caching" %}
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
@@ -246,15 +246,24 @@ During view modification the following directives apply:
 
   <small>Introduced in: v3.11.0 </small>
   
-  Array of strings defining desired sort expressions of search results.
-  Currently only DESC sorting by [scoring functions](aql/functions-arangosearch.html#scoring-functions) is supported.
-  "Argument" for expression should be always "@doc"
-  
+  An array of strings defining sort expressions that you want to optimize.
+  This is also known as _WAND optimization_.
+
+  If you query a View with the `SEARCH` operation in combination with a
+  `SORT` and `LIMIT` operation, search results can be retrieved faster if the
+  `SORT` expression matches one of the optimized expressions.
+
+  Only sorting by highest rank is supported, that is, sorting by the result
+  of a [scoring function](aql/functions-arangosearch.html#scoring-functions)
+  in descending order (`DESC`). Use `@doc` in the expression where you would
+  normally pass the document variable emitted by the `SEARCH` operation to the
+  scoring function.
+
+  You can define up tp 64 expressions per View.
+
   Example: `["BM25(@doc)", "TFIDF(@doc, true)"]`
-  
-  Current limit is 64 expressions per view.
-  
-  {% include hint-ee.md feature="ArangoSearch WAND optimization" %}
+
+  {% include hint-ee-arangograph.md feature="ArangoSearch WAND optimization" %}
 
 An inverted index is the heart of `arangosearch` Views.
 The index consists of several independent segments and the index **segment**
