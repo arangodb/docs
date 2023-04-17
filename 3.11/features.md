@@ -58,8 +58,7 @@ See all [Enterprise Edition Features](features-enterprise-edition.html).
 | Graph traversals always load full documents | **Traversal projections** optimize the data loading of AQL traversal queries if only a few document attributes are accessed |
 | Iterative graph processing (Pregel) for single servers | **Pregel graph processing for clusters** and single servers |
 | Inverted indexes and Views without support for search highlighting and nested search | **Search highlighting** for getting the substring positions of matches and **nested search** for matching arrays with all the conditions met by a single object |
-| Only standard Jaccard index calculation | **Jaccard similarity approximation** with MinHash for entity resolution, such as for finding duplicate records, based on how many common elements they have |
-{%- comment %} Experimental feature
+| Only standard Jaccard index calculation | **Jaccard similarity approximation** with MinHash for entity resolution, such as for finding duplicate records, based on how many common elements they have |{% comment %} Experimental feature
 | No fastText model support | Classification of text tokens and finding similar tokens using supervised **fastText word embedding models** |
 {%- endcomment %}
 | Only regular cluster deployments | **OneShard** deployment option to store all collections of a database on a single cluster node, to combine the performance of a single server and ACID semantics with a fault-tolerant cluster setup |
