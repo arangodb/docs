@@ -263,7 +263,7 @@ During view modification the following directives apply:
 
   Example: `["BM25(@doc)", "TFIDF(@doc, true)"]`
 
-  {% include hint-ee-arangograph.md feature="ArangoSearch WAND optimization" %}
+  {% include hint-ee-arangograph.md feature="The ArangoSearch WAND optimization" %}
 
 An inverted index is the heart of `arangosearch` Views.
 The index consists of several independent segments and the index **segment**
