@@ -547,10 +547,6 @@ Return whether *search* is contained in *array*. Optionally return the position.
 To determine if or at which position a string occurs in another string, see the
 [CONTAINS() string function](functions-string.html#contains).
 
-If you want to search a list of objects,
-[the array expansion operator [*]](advanced-array-operators.html#array-expansion) might also be of
-interest. The third example below will illustrate its usage in this context.
-
 **Examples**
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -568,16 +564,6 @@ RETURN POSITION( [2,4,6,8], 4 )
 RETURN POSITION( [2,4,6,8], 4, true )
 @END_EXAMPLE_AQL
 @endDocuBlock aqlArrayPosition_2
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlArrayPosition_3
-@EXAMPLE_AQL{aqlArrayPosition_3}
-LET arr = [{field_name: "foo"}, {field_name: "bar"}, {field_name: "baz"}, {field_name: "bay"}]
-RETURN POSITION(arr[*].field_name, "baz", true)
-@END_EXAMPLE_AQL
-@endDocuBlock aqlArrayPosition_3
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
