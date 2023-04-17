@@ -59,36 +59,38 @@ During view modification the following directives apply:
   An object `{ attribute-name: [Link properties], … }` of fields that should be
   processed at each level of the document. Each key specifies the document
   attribute to be processed. Note that the value of `includeAllFields` is also
-  consulted when selecting fields to be processed. It is a recursive data
-  structure. This means that `fields` may be part of the link properties again.
-  Let's assume documents of the following format are part of a collection named
-  `coll` and we want to add a `text_ru` analyzers to the `sub_field` without
-  using `includeAllFields`:
+  consulted when selecting fields to be processed.
+  
+  The `fields` property is a recursive data structure. This means that `fields`
+  can be part of the Link properties again. This lets you index nested attributes.
+  For example, you might have documents like the following in a collection named
+  `coll`:
 
-```json
-{"field_name":{"sub_field":"foo"}}
-```
+  ```json
+  { "attr": { "nested": "foo" } }
+  ```
 
-  The following contents of the `links` field will achieve just that:
+  If you want to index the `nested` attribute with the `text_en` Analyzer without
+  using `includeAllFields`, you can do so with the following View definition:
 
-```json
-{
-  coll: {
-    fields: {
-      field_name: {
-        fields: {
-          sub_field: {
-            analyzers: ['text_ru']
+  ```json
+  {
+    "coll": {
+      "fields": {
+        "attr": {
+          "fields": {
+            "nested": {
+              "analyzers": ["text_en"]
+            }
           }
         }
       }
     }
   }
-}
-```
+  ```
 
   Each value specifies the [Link properties](#link-properties) directives to be
-  used when processing the specified field, a Link properties value of `{}`
+  used when processing the specified field. A Link properties value of `{}`
   denotes inheritance of all (except `fields`) directives from the current level.
 
 - **includeAllFields** (_optional_; type: `boolean`; default: `false`)
