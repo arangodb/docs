@@ -242,12 +242,12 @@ During view modification the following directives apply:
   The `storedValues` option is not to be confused with the `storeValues` option,
   which allows to store meta data about attribute values in the View index.
   
- - **optimizeTopK** (_optional_; type: `array`; default: `[]`; _immutable_)
+- **optimizeTopK** (_optional_; type: `array`; default: `[]`; _immutable_)
 
   <small>Introduced in: v3.11.0 </small>
   
   An array of strings defining sort expressions that you want to optimize.
-  This is also known as _WAND optimization_.
+  This is also known as [_WAND optimization_](arangosearch-performance.html#wand-optimization).
 
   If you query a View with the `SEARCH` operation in combination with a
   `SORT` and `LIMIT` operation, search results can be retrieved faster if the

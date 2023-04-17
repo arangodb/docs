@@ -21,8 +21,7 @@ If you query a View with the `SEARCH` operation in combination with a
 `SORT` expression matches one of the optimized expressions.
 
 Only sorting by highest rank is supported, that is, sorting by the result
-of a [scoring function](aql/functions-arangosearch.html#scoring-functions)
-in descending order (`DESC`).
+of a scoring function in descending order (`DESC`).
 
 See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
 for examples.
