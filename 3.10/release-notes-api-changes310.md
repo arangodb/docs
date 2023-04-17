@@ -61,6 +61,28 @@ If the option is set to `false`, access to Foxx services is forbidden and is
 responded with an HTTP `403 Forbidden` error. Access to the management APIs for
 Foxx services are also disabled as if `--foxx.api false` is set manually.
 
+#### Configurable space in metrics
+
+<small>Introduced in: v3.10.6</small>
+
+The output format of the `/_admin/metrics` and `/_admin/metrics/v2` endpoints
+slightly changes for metrics with labels. By default, the metric label and value
+are separated by a space for improved compatibility with some tools. This is
+controlled by the new `--server.ensure-whitespace-metrics-format` startup option,
+which is enabled by default from v3.10.6 onward. Example:
+
+Enabled:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"} 0
+```
+
+Disabled:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"}0
+```
+
 ### Endpoint return value changes
 
 - Since ArangoDB 3.8, there have been two APIs for retrieving the metrics in two

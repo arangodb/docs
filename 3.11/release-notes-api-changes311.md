@@ -63,6 +63,28 @@ Setting the log level for the `graphs` log topic to `TRACE` now logs detailed
 information about AQL graph traversals and (shortest) path searches.
 Some new log messages are also logged for the `DEBUG` level.
 
+#### Configurable space in metrics
+
+<small>Introduced in: v3.10.6</small>
+
+The output format of the `/_admin/metrics` and `/_admin/metrics/v2` endpoints
+slightly changes for metrics with labels. By default, the metric label and value
+are separated by a space for improved compatibility with some tools. This is
+controlled by the new `--server.ensure-whitespace-metrics-format` startup option,
+which is enabled by default from v3.10.6 onward. Example:
+
+Enabled:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"} 0
+```
+
+Disabled:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"}0
+```
+
 ### Privilege changes
 
 
