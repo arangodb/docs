@@ -261,7 +261,7 @@ During view modification the following directives apply:
 
   You can define up tp 64 expressions per View.
 
-  Example: `["BM25(@doc)", "TFIDF(@doc, true)"]`
+  Example: `["BM25(@doc) DESC", "TFIDF(@doc, true) DESC"]`
 
   {% include hint-ee-arangograph.md feature="The ArangoSearch WAND optimization" %}
 

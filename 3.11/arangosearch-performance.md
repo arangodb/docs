@@ -259,10 +259,10 @@ _`arangosearch` View:_
     }
   },
   "optimizeTopK": [
-    "BM25(@doc)",
-    "BM25(@doc, 1.2, 1)",
-    "TFIDF(@doc)",
-    "TFIDF(@doc, true)"
+    "BM25(@doc) DESC",
+    "BM25(@doc, 1.2, 1) DESC",
+    "TFIDF(@doc) DESC",
+    "TFIDF(@doc, true) DESC"
   ]
 }
 ```
@@ -278,15 +278,15 @@ db.articles.ensureIndex({
   type: "inverted",
   fields: ["categories[*]"],
   optimizeTopK: [
-    "BM25(@doc)",
-    "BM25(@doc, 1.2, 1)",
-    "TFIDF(@doc)",
-    "TFIDF(@doc, true)"
+    "BM25(@doc) DESC",
+    "BM25(@doc, 1.2, 1) DESC",
+    "TFIDF(@doc) DESC",
+    "TFIDF(@doc, true) DESC"
   ]
 });
 
 db._createView("myView", "search-alias", { indexes: [
-  { collection: "coll", index: "inv-idx" }
+  { collection: "articles", index: "inv-idx" }
 ] });
 ```
 
