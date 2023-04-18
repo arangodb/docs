@@ -146,6 +146,9 @@ across all collections within the same database. It consists of the collection's
 name and the document key (the value of the `_key` attribute), separated by a
 forward slash (`/`), like `collection-name/document-key`.
 
+See [Collection names](data-modeling-collections.html#collection-names) and
+[Document keys](#document-keys) for information about the allowed characters.
+
 ### Document revisions
 
 Every document in ArangoDB has a revision, stored in the system attribute

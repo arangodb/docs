@@ -102,7 +102,7 @@ not be used for other purposes than they are intended for.
 For example, it is not possible to use a keyword as literal unquoted string
 (identifier) for a collection or attribute name. If a collection or attribute
 needs to have the same name as a keyword, then the collection or attribute name
-needs to be quoted / escaped in the query (also see [Names](#names)).
+needs to be quoted in the query (also see [Names](#names)).
 
 Keywords are case-insensitive, meaning they can be specified in lower, upper, or
 mixed case in queries. In this documentation, all keywords are written in upper
@@ -152,8 +152,8 @@ The complete list of keywords is currently:
 {:class="columns-3"}
 
 On top of that, there are a few words used in language constructs which are not
-reserved keywords. They may thus be used as collection or attribute names
-without quoting or escaping. The query parser can identify them as keyword-like
+reserved keywords. You can use them as collection or attribute names
+without having to quote them. The query parser can identify them as keyword-like
 based on the context:
 
 - `KEEP` –
@@ -218,8 +218,8 @@ Names in AQL are always case-sensitive.
 The maximum supported length for collection/View names is 256 bytes.
 Variable names can be longer, but are discouraged.
 
-Keywords must not be used as names. If a reserved keyword should be used as
-a name, the name must be enclosed in backticks or forward ticks.
+Keywords should not be used as names. If you want to use a reserved keyword as
+name anyway, the name must be enclosed in backticks or forward ticks. This is referred to as _quoting_.
 
 ```aql
 FOR doc IN `filter`
@@ -243,11 +243,11 @@ FOR f IN `filter`
   RETURN f["sort"]
 ```
 
-`sort` is a **quoted** string literal in this alternative and does thus not
-conflict with the reserved word.
+`sort` is a string literal in quote marks in this alternative and does thus not
+conflict with the reserved keyword.
 
-Escaping is also required if special characters such as hyphen minus (`-`) are
-contained in a name:
+Quoting with ticks is also required if special characters such as
+hyphen minus (`-`) are contained in a name:
 
 ```aql
 FOR doc IN `my-coll`
@@ -255,9 +255,11 @@ FOR doc IN `my-coll`
 ```
 
 The collection `my-coll` has a dash in its name, but `-` is an arithmetic
-operator for subtraction in AQL. The backticks escape the collection name to
-refer to the collection correctly. Note that quoting the name with `"` or `'`
-is not possible for collections.
+operator for subtraction in AQL. The backticks quote the collection name to
+refer to the collection correctly.
+
+Note that quoting the name with `"` or `'` is not possible for collections as
+they cannot be string literals in quote marks.
 
 ### Collection names
 

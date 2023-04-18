@@ -161,7 +161,8 @@ Other attributes may be necessary, depending on the index type.
   but the attributes in `storedValues` are not checked for their uniqueness.
 
 - `name`: can be a string. Index names are subject to the same character
-  restrictions as collection names. If omitted, a name will be auto-generated so
+  restrictions as [collection names](data-modeling-collections.html#collection-names).
+  If omitted, a name will be auto-generated so
   that it is unique with respect to the collection, e.g. `idx_832910498`.
 
   The purpose of user-defined index names is have easy-to-remember names to
