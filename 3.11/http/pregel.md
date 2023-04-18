@@ -15,7 +15,7 @@ for details.
 {% docublock get_api_control_pregel_pregel, h2 %}
 {% docublock get_api_control_pregel, h2 %}
 {% docublock delete_api_control_pregel_pregel, h2 %}
-{% docublock get_api_control_pregel_history_pid, h2 %}
+{% docublock get_api_control_pregel_history_id, h2 %}
 {% docublock get_api_control_pregel_history, h2 %}
-{% docublock delete_api_control_pregel_history_pid, h2 %}
+{% docublock delete_api_control_pregel_history_id, h2 %}
 {% docublock delete_api_control_pregel_history, h2 %}
