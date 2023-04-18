@@ -309,3 +309,30 @@ To enable or disable it at runtime, you can call the
 [`PUT /_admin/log/level`](http/monitoring.html#modify-and-return-the-current-server-log-level)
 endpoint of the HTTP API and set the log level using a request body like
 `{"graphs":"TRACE"}`.
+
+### Persisted Pregel execution statistics
+
+Pregel algorithm executions now persist execution statistics to a system
+collection. The statistics are kept until you remove them, whereas the
+previously existing interfaces only store the information about Pregel jobs
+temporarily in memory.
+
+To access and delete persisted execution statistics, you can use the newly added
+`history()` and `removeHistory()` JavaScript API methods of the Pregel module:
+
+```js
+var pregel = require("@arangodb/pregel");
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+const historyStatus = pregel.history(execution);
+pregel.removeHistory();
+```
+
+See [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html#get-persisted-execution-statistics)
+for details.
+
+You can also use the newly added HTTP endpoints with the
+`/_api/control_pregel/history` route.
+See [Pregel HTTP API](http/pregel.html) for details.
+
+You can still use the old interfaces (the `pregel.status()` method as well as
+the `GET /_api/control_pregel` and `GET /_api/control_pregel/{id}` endpoints).

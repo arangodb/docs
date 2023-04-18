@@ -159,6 +159,22 @@ defaults to `[]`.
 See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
 for details.
 
+#### Pregel API
+
+Four new endpoints have been added to the Pregel HTTP interface for the new
+persisted execution statistics for Pregel jobs:
+
+- `GET /_api/control_pregel/history/{id}` to retrieve the persisted execution
+  statistics of a specific Pregel job
+- `GET /_api/control_pregel/history` to retrieve the persisted execution
+  statistics of all currently active and past Pregel jobs
+- `DELETE /_api/control_pregel/history/{id}` to delete the persisted execution
+  statistics of a specific Pregel job
+- `DELETE /_api/control_pregel/history` to delete the persisted execution
+  statistics of all Pregel jobs
+
+See [Pregel HTTP API](http/pregel.html) for details.
+
 ### Endpoints moved
 
 
@@ -173,7 +189,7 @@ for details.
 
 ## JavaScript API
 
-### Index API
+### Index methods
 
 Calling `collection.dropIndex(...)` or `db._dropIndex(...)` now raises an error
 if the specified index does not exist or cannot be dropped (for example, because
@@ -182,6 +198,25 @@ In case of success, they still return `true`.
 
 You can wrap calls to these methods with a `try { ... }` block to catch errors,
 for example, in _arangosh_ or in Foxx services.
+
+### Pregel module
+
+Two new methods have been added to the `@arangodb/pregel` module:
+
+- `history(...)` to get the persisted execution statistics of a specific or all
+  algorithm executions
+- `removeHistory(...)` to delete the persisted execution statistics of a
+  specific or all algorithm executions
+
+```js
+var pregel = require("@arangodb/pregel");
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+const historyStatus = pregel.history(execution);
+pregel.removeHistory();
+```
+
+See [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html#get-persisted-execution-statistics)
+for details.
 
 ### Deprecations
 

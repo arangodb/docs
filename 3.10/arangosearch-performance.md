@@ -17,7 +17,7 @@ A direction can be specified upon their creation for each uniquely named
 attribute (ascending or descending), to enable an optimization for AQL
 queries which iterate over a collection or View and sort by one or multiple of the
 indexed attributes. If the field(s) and the sorting direction(s) match, then the
-the data can be read directly from the index without actual sort operation.
+data can be read directly from the index without actual sort operation.
 
 You can only set the `primarySort` option and the related
 `primarySortCompression` and `primarySortCache` options on View creation.

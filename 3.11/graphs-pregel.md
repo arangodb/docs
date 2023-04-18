@@ -81,8 +81,8 @@ described in [Pregel Algorithms](graphs-pregel-algorithms.html).
 
 ### Status of an Algorithm Execution
 
-You can use the ID returned by the `pregel.start(...)` method to track the
-status of your algorithm:
+You can call `pregel.status()` and use the ID returned by the `pregel.start(...)`
+method to track the status of your algorithm:
 
 ```js
 var execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
@@ -127,7 +127,7 @@ The object returned by the `status()` method looks like this:
 ### Canceling an Execution / Discarding results
 
 To cancel an execution which is still running and discard any intermediate
-results, you can use the `cancel()` method. This immediately frees all
+results, you can use the `pregel.cancel()` method. This immediately frees all
 memory taken up by the execution, and makes you lose all intermediary data.
 
 ```js
@@ -143,6 +143,123 @@ collection shards at once. This means there are multiple transactions
 simultaneously. A transaction might already be committed when you cancel the
 execution job. Therefore, you might see some updated documents, while other
 documents have no or stale results from a previous execution.
+
+### Get persisted execution statistics
+
+You can call `pregel.history()` and use the ID returned by the `pregel.start(...)`
+method to get the execution statistics of your algorithm, for an active as well
+as a finished Pregel job:
+
+```js
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+const historyStatus = pregel.history(execution);
+```
+
+It tells you the current `state` of the execution, the current
+global superstep, the runtime, the global aggregator values, as well as the
+number of send and received messages. Additionally, you see which user started
+the Pregel job. It also contains details about specific execution timings.
+
+The execution statistics are persisted to a system collection and kept until you
+remove them, whereas the information `pregel.status()` returns is only kept
+temporarily in memory.
+
+The object returned by the `pregel.history()` method looks like this:
+
+```json
+{
+  "algorithm" : "pagerank",
+  "created" : "2023-04-18T11:12:50Z",
+  "database" : "_system",
+  "graphLoaded" : true,
+  "gss" : 15,
+  "id" : "109645",
+  "state" : "done",
+  "ttl" : 600,
+  "user" : "MarcelJansen",
+  "detail" : {
+    "aggregatedStatus" : {
+      "timeStamp" : "2023-04-18T11:12:50Z",
+      "graphStoreStatus" : {
+      },
+      "allGssStatus" : {
+        "items" : [ ... ]
+      }
+    },
+    "workerStatus" : { ... }
+  },
+  "sendCount" : 540,
+  "aggregators" : {
+    "convergence" : 0
+  },
+  "gssTimes" : [
+    0.000315457,
+    0.000484604,
+    ...
+  ],
+  "receivedCount" : 504,
+  "expires" : "2023-04-18T11:22:50Z",
+  "vertexCount" : 36,
+  "storageTime" : 0.002114291,
+  "totalRuntime" : 0.046748679,
+  "parallelism" : 8,
+  "masterContext" : {
+  },
+  "edgeCount" : 36,
+  "startupTime" : 0.032753187,
+  "computationTime" : 0.011542727
+}
+```
+
+---
+
+In case you want to read the persisted execution statistics of all currently
+active and past Pregel jobs, call the `pregel.history()` method without a
+parameter.
+
+```js
+const historyStates = pregel.history();
+```
+
+The call without arguments returns a list of execution statistics for
+algorithm executions:
+
+```json
+[
+  {
+    "algorithm": "pagerank",
+    "...": "..."
+  },
+  {
+    "algorithm": "sssp",
+    "...": "..."
+  },
+  {
+    "algorithm": "connectedcomponents",
+    "...": "..."
+  }
+]
+```
+
+### Remove persisted execution statistics
+
+You can call `pregel.removeHistory()` and use the ID returned by the
+`pregel.start(...)` method to remove the persisted execution statistics of a
+specific Pregel job when you don't need it anymore.
+
+```js
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+pregel.removeHistory(execution);
+```
+
+---
+
+In case you want to remove the persisted execution statistics of all Pregel jobs
+at once, call `pregel.removeHistory()` without a parameter.
+
+```js
+pregel.removeHistory();
+```
 
 AQL integration
 ---------------
