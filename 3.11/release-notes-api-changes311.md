@@ -191,6 +191,7 @@ Two new methods have been added to the `@arangodb/pregel` module:
   specific or all algorithm executions
 
 ```js
+var pregel = require("@arangodb/pregel");
 const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
 const historyStatus = pregel.history(execution);
 pregel.removeHistory();

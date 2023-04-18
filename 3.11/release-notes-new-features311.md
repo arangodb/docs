@@ -287,14 +287,15 @@ endpoint of the HTTP API and set the log level using a request body like
 ### Persisted Pregel execution statistics
 
 Pregel algorithm executions now persist execution statistics to a system
-collection. The statistics are kept until you remove them, whereas the the
-previously existing interfaces only stored the information about Pregel jobs
+collection. The statistics are kept until you remove them, whereas the
+previously existing interfaces only store the information about Pregel jobs
 temporarily in memory.
 
 To access and delete persisted execution statistics, you can use the newly added
 `history()` and `removeHistory()` JavaScript API methods of the Pregel module:
 
 ```js
+var pregel = require("@arangodb/pregel");
 const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
 const historyStatus = pregel.history(execution);
 pregel.removeHistory();
