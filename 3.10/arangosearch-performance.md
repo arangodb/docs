@@ -262,7 +262,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -349,7 +349,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -402,7 +402,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -582,7 +582,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primaryKeyCache: true
 });
 
