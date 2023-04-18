@@ -546,6 +546,35 @@
     "section" : "arangosearch",
     "type" : "uint64"
   },
+  "arangosearch.columns-cache-only-leader" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Cache ArangoSearch columns only for leader shards.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.6"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "arangosearch",
+    "type" : "boolean"
+  },
   "arangosearch.commit-threads" : {
     "base" : 1,
     "category" : "option",
@@ -1082,7 +1111,7 @@
       "agent",
       "single"
     ],
-    "default" : 16338161664,
+    "default" : 16338163712,
     "deprecatedIn" : null,
     "description" : "The global size limit for all caches (in bytes).",
     "dynamic" : true,
@@ -2054,7 +2083,7 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "Allow most UTF-8 characters in database names, collection names, views names and index names. Once in use, this option cannot be turned off again.",
+    "description" : "Allow most UTF-8 characters in the names of databases, collections, Views, and indexes. Once in use, this option cannot be turned off again.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : true,
@@ -7128,7 +7157,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 67500130304,
+    "base" : 67500138496,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7136,7 +7165,7 @@
       "agent",
       "single"
     ],
-    "default" : 54675105546,
+    "default" : 54675112182,
     "deprecatedIn" : null,
     "description" : "The memory threshold for all AQL queries combined (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7393,7 +7422,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 67500130304,
+    "base" : 67500138496,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7401,7 +7430,7 @@
       "agent",
       "single"
     ],
-    "default" : 40500078183,
+    "default" : 40500083097,
     "deprecatedIn" : null,
     "description" : "The memory threshold per AQL query (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -8545,7 +8574,7 @@
       "agent",
       "single"
     ],
-    "default" : 19605793996,
+    "default" : 19605796454,
     "deprecatedIn" : null,
     "description" : "The size of block cache (in bytes).",
     "dynamic" : true,
@@ -11010,7 +11039,7 @@
       "agent",
       "single"
     ],
-    "default" : 26141058662,
+    "default" : 26141061939,
     "deprecatedIn" : null,
     "description" : "The maximum total size of in-memory write buffers (0 = unbounded).",
     "dynamic" : true,

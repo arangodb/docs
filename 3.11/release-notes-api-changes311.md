@@ -141,6 +141,24 @@ The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-runnin
 and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
 endpoints include a new numeric `peakMemoryUsage` attribute.
 
+#### View API
+
+Views of type `arangosearch` accept a new `optimizeTopK` View property for the
+ArangoSearch WAND optimization. It is an immutable array of strings, optional,
+and defaults to `[]`.
+
+See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
+for details.
+
+#### Index API
+
+Indexes of type `inverted` accept a new `optimizeTopK` property for the
+ArangoSearch WAND optimization. It is an array of strings, optional, and
+defaults to `[]`.
+
+See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
+for details.
+
 #### Pregel API
 
 Four new endpoints have been added to the Pregel HTTP interface for the new
