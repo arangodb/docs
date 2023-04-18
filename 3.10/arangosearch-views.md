@@ -145,11 +145,15 @@ During view modification the following directives apply:
   Normalization values are computed for fields which are processed with Analyzers
   that have the `"norm"` feature enabled. These values are used to score fairer
   if the same tokens occur repeatedly, to emphasize these documents less.
-  
-  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
-  to control the memory consumption of this cache.
 
-  {% include hint-ee.md feature="ArangoSearch caching" %}
+  See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
+  to control the memory consumption of this cache. You can reduce the memory
+  usage of the column cache in cluster deployments by only using the cache for
+  leader shards, see the
+  [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
+  (introduced in v3.10.6).
+
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 ### View Properties
 
@@ -188,9 +192,13 @@ cache-related options and thus recreate inverted indexes and Views. See
   to load them from disk into memory and to evict them from memory.
 
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
-  to control the memory consumption of this cache.
+  to control the memory consumption of this cache. You can reduce the memory
+  usage of the column cache in cluster deployments by only using the cache for
+  leader shards, see the
+  [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
+  (introduced in v3.10.6).
 
-  {% include hint-ee.md feature="ArangoSearch caching" %}
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
   
 - **primaryKeyCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
 
@@ -202,9 +210,13 @@ cache-related options and thus recreate inverted indexes and Views. See
   to load them from disk into memory and to evict them from memory.
 
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
-  to control the memory consumption of this cache.
+  to control the memory consumption of this cache. You can reduce the memory
+  usage of the column cache in cluster deployments by only using the cache for
+  leader shards, see the
+  [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
+  (introduced in v3.10.6).
 
-  {% include hint-ee.md feature="ArangoSearch caching" %}
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
@@ -233,7 +245,11 @@ cache-related options and thus recreate inverted indexes and Views. See
     memory (introduced in v3.9.5 and v3.10.2, Enterprise Edition only).
     This can improve the query performance if stored values are involved. See the
     [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
-    to control the memory consumption of this cache.
+    to control the memory consumption of this cache. You can reduce the memory
+    usage of the column cache in cluster deployments by only using the cache for
+    leader shards, see the
+    [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
+    (introduced in v3.10.6).
 
   You may use the following shorthand notations on View creation instead of
   an array of objects as described above. The default compression and cache

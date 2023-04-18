@@ -474,7 +474,7 @@ Also see [Faceted Search with ArangoSearch](arangosearch-faceted-search.html).
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
 
-{% include hint-ee.md feature="ArangoSearch caching" %}
+{% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 Normalization values are computed for fields which are processed with Analyzers
 that have the [`"norm"` feature](analyzers.html#analyzer-features) enabled.

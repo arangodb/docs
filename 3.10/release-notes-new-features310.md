@@ -355,8 +355,7 @@ options.
 
 The cache size can be controlled with the new `--arangosearch.columns-cache-limit`
 startup option and monitored via the new `arangodb_search_columns_cache_size`
-metric. It is possibe to reduce memory usage by using cache only for leader shards in
-cluster deployment see the [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearch.columns-cache-only-leader)
+metric.
 
 ArangoSearch caching is only available in the Enterprise Edition.
 
@@ -1188,8 +1187,11 @@ much memory (in bytes) the [ArangoSearch column cache](#arangosearch-column-cach
 is allowed to use.
 
 <small>Introduced in: v3.10.6</small>
-The new `--arangosearch.columns-cache-only-leader` startup option lets you control caching
-only leader shards to reduce memory footprint.
+
+You can reduce the memory usage of the column cache in cluster deployments by
+only using the cache for leader shards with the new
+[`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader).
+It is disabled by default, which means followers also maintain a column cache.
 
 ### Cluster supervision options
 
