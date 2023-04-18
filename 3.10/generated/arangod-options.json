@@ -544,6 +544,35 @@
     "section" : "arangosearch",
     "type" : "uint64"
   },
+  "arangosearch.columns-cache-only-leader" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Cache ArangoSearch columns only for leader shards.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.6"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "arangosearch",
+    "type" : "boolean"
+  },
   "arangosearch.commit-threads" : {
     "base" : 1,
     "category" : "option",
