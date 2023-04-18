@@ -157,20 +157,20 @@ Falsy attribute values like `null` still count as the attribute being present:
 IS_SAME_COLLECTION()
 --------------------
 
-`IS_SAME_COLLECTION(collectionName, documentHandle) → isSame`
+`IS_SAME_COLLECTION(collectionName, documentIdentifier) → isSame`
 
-Test whether the `documentHandle` has `collectionName` as collection.
+Test whether the `documentIdentifier` has `collectionName` as collection.
 
 The function does not validate whether the collection actually contains the
 specified document. It only compares the name of the specified collection
 with the collection name part of the specified document.
 
 - **collectionName** (string): the name of a collection as string
-- **documentHandle** (string\|object): a document identifier string
+- **documentIdentifier** (string\|object): a document identifier string
   (e.g. `_users/1234`) or an object with an `_id` attribute (e.g. a document
   from a collection).
-- returns **isSame** (bool): `true` if the collection of `documentHandle` is the
-  same as `collectionName`, or `false` if it is not. If `documentHandle` is an
+- returns **isSame** (bool): `true` if the collection of `documentIdentifier` is the
+  same as `collectionName`, or `false` if it is not. If `documentIdentifier` is an
   object without an `_id` attribute or anything other than a string or object,
   then `null` is returned and a warning is raised.
 
@@ -641,7 +641,7 @@ Merge a list of two documents with the same top-level attribute, combining the
 PARSE_IDENTIFIER()
 ------------------
 
-`PARSE_IDENTIFIER(documentHandle) → parts`
+`PARSE_IDENTIFIER(documentIdentifier) → parts`
 
 Parse a [document ID](../data-modeling-documents.html#document-identifiers) and
 return its individual parts as separate attributes.
@@ -649,7 +649,7 @@ return its individual parts as separate attributes.
 This function can be used to easily determine the
 [collection name](../data-modeling-collections.html#collection-names) and key of a given document.
 
-- **documentHandle** (string\|object): a document identifier string (e.g. `_users/1234`)
+- **documentIdentifier** (string\|object): a document identifier string (e.g. `_users/1234`)
   or a regular document from a collection. Passing either a non-string or a non-document
   or a document without an `_id` attribute will result in an error.
 - returns **parts** (object): an object with the attributes *collection* and *key*

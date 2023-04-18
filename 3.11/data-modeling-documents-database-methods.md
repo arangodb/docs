@@ -28,9 +28,9 @@ client.
 
 ---
 
-`db._document(document-handle)`
+`db._document(document-identifier)`
 
-As before. Instead of `object` a `document-handle` can be passed as
+As before. Instead of an `object`, a `document-identifier` can be passed as the
 first argument. No revision can be specified in this case.
 
 **Examples**
@@ -60,20 +60,20 @@ The `db._exists()` method determines whether a document exists given an object
 An error is thrown if `_rev` is specified but the document found has a
 different revision already.
 
-Instead of returning the found document or an error, this method will
-only return an object with the attributes `_id`, `_key` and `_rev`, or
+Instead of returning the found document or an error, this method
+only returns an object with the attributes `_id`, `_key` and `_rev`, or
 `false` if no document with the given `_id` or `_key` exists. It can
 thus be used for easy existence checks.
 
-This method will throw an error if used improperly, e.g. when called
-with a non-document handle, a non-document, or when a cross-collection
-request is performed.
+This method throws an error if used improperly, e.g. if called
+with a string that isn't a document identifier, or an object with an invalid or
+missing `_id` attribute.
 
 ---
 
-`db._exists(document-handle)`
+`db._exists(document-identifier)`
 
-As before. Instead of `object` a `document-handle` can be passed as
+As before. Instead of an `object`, a `document-identifier` can be passed as the
 first argument.
 
 Replace
@@ -88,7 +88,7 @@ document is then replaced with the `data` given as second argument.
 Any attribute `_id`, `_key` or `_rev` in `data` is ignored.
 
 The method returns a document with the attributes `_id`, `_key`, `_rev`
-and `_oldRev`. The attribute `_id` contains the document handle of the
+and `_oldRev`. The attribute `_id` contains the document identifier of the
 updated document, the attribute `_rev` contains the document revision of
 the updated document, the attribute `_oldRev` contains the revision of
 the old (now replaced) document.
@@ -123,11 +123,11 @@ boolean attributes:
 
 ---
 
-`db._replace(document-handle, data)`
+`db._replace(document-identifier, data)`
 
-`db._replace(document-handle, data, options)`
+`db._replace(document-identifier, data, options)`
 
-As before. Instead of `selector` a `document-handle` can be passed as
+As before. Instead of a `selector`, a `document-identifier` can be passed as the
 first argument. No revision precondition is tested.
 
 **Examples**
@@ -159,7 +159,7 @@ document is then patched with the `data` given as second argument.
 Any attribute `_id`, `_key` or `_rev` in `data` is ignored.
 
 The method returns a document with the attributes `_id`, `_key`, `_rev`
-and `_oldRev`. The attribute `_id` contains the document handle of the
+and `_oldRev`. The attribute `_id` contains the document identifier of the
 updated document, the attribute `_rev` contains the document revision of
 the updated document, the attribute `_oldRev` contains the revision of
 the old (now updated) document.
@@ -206,11 +206,11 @@ boolean attributes:
 
 ---
 
-`db._update(document-handle, data)`
+`db._update(document-identifier, data)`
 
-`db._update(document-handle, data, options)`
+`db._update(document-identifier, data, options)`
 
-As before. Instead of `selector` a `document-handle` can be passed as
+As before. Instead of a `selector`, a `document-identifier` can be passed as the
 first argument. No revision precondition is tested.
 
 **Examples**
@@ -241,7 +241,7 @@ that `_id` in the current database. This document is then
 removed. 
 
 The method returns a document with the attributes `_id`, `_key` and `_rev`.
-The attribute `_id` contains the document handle of the
+The attribute `_id` contains the document identifier of the
 removed document, the attribute `_rev` contains the document revision of
 the removed document.
 
@@ -275,11 +275,11 @@ boolean attributes:
 
 ---
 
-`db._remove(document-handle)`
+`db._remove(document-identifier)`
 
-`db._remove(document-handle, options)`
+`db._remove(document-identifier, options)`
 
-As before. Instead of `selector` a `document-handle` can be passed as
+As before. Instead of a `selector`, a `document-identifier` can be passed as the
 first argument. No revision check is performed.
 
 **Examples**

@@ -8,6 +8,32 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.11. ArangoDB 3.11 also contains several bug fixes that are not listed
 here.
 
+## ArangoSearch
+
+### WAND optimization (Enterprise Edition)
+
+For `arangosearch` Views and inverted indexes (and by extension `search-alias`
+Views), you can define a list of sort expressions that you want to optimize.
+This is also known as _WAND optimization_.
+
+If you query a View with the `SEARCH` operation in combination with a
+`SORT` and `LIMIT` operation, search results can be retrieved faster if the
+`SORT` expression matches one of the optimized expressions.
+
+Only sorting by highest rank is supported, that is, sorting by the result
+of a scoring function in descending order (`DESC`).
+
+See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
+for examples.
+
+This feature is only available in the Enterprise Edition.
+
+### Late materialization improvements
+
+The number of disk reads required when executing search queries with late
+materialization optimizations applied has been reduced so that less data needs
+to be requested from the RocksDB storage engine.
+
 ## Analyzers
 
 ### `geo_s2` Analyzer (Enterprise Edition)
@@ -57,6 +83,25 @@ been merged into a single page, allowing for a much quicker workflow.
 
 For more information, see the
 [detailed guide](arangosearch-views.html#create-arangosearch-views-using-the-web-interface).
+
+### Inverted indexes
+
+The web interface now includes the option for creating
+[inverted indexes](indexing-inverted.html) on collections. You can set all the
+properties directly in the web interface, which previously required the JavaScript
+or HTTP API. It also offers an editor where you can write the definition of
+your inverted index in JSON format.
+
+### New sorting mechanism and search box for Saved Queries
+
+When working with **Saved Queries** in the web interface, you can now
+configure their sort order so that your saved queries are listed by the
+date they were last modified.
+This is particularly helpful when you have a large amount of saved custom
+queries and want to see which ones have been created or used recently.
+
+In addition, the web interface also offers a search box which helps you
+quickly find the query you're looking for. 
 
 ## AQL
 
@@ -147,6 +192,19 @@ but also overcome issues with the previous serial processing within `GatherNode`
 nodes, which could lead to high memory usage on Coordinators caused by buffering
 of documents for other shards, and timeouts on some DB-Servers because query parts
 were idle for too long.
+
+### Optimized access of last element in traversals
+
+If you use a `FOR` operation for an AQL graph traversal like `FOR v, e, p IN ...`
+and later access the last vertex or edge via the path variable `p`, like
+`FILTER p.vertices[-1].name == "ArangoDB"` or `FILTER p.edges[-1].weight > 5`,
+the access is transformed to use the vertex variable `v` or edge variable `e`
+instead, like `FILTER v.name == "ArangoDB"` or `FILTER e.weight > 5`. This is
+cheaper to compute because the path variable `p` may not need to be computed at
+all, and it can enable further optimizations that are not possible on `p`.
+
+The new `optimize-traversal-last-element-access` optimization rule appears in
+query execution plans if this optimization is applied.
 
 ### Faster bulk `INSERT` operations in clusters
 
@@ -308,3 +366,21 @@ You can configure the feature via the following new startup options:
   Note that an auto-flush is only executed if the number of live WAL files
   exceeds the configured threshold and the last auto-flush is longer ago than
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
+
+## Miscellaneous changes
+
+### Trace logs for graph traversals and path searches
+
+Detailed information is now logged if you run AQL graph traversals
+or (shortest) path searches with AQL and set the
+log level to `TRACE` for the `graphs` log topic. This information is fairly
+low-level but can help to understand correctness and performance issues with
+traversal queries. There are also some new log messages for the `DEBUG` level.
+
+To enable tracing for traversals and path searches at startup, you can set
+`--log.level graphs=trace`.
+
+To enable or disable it at runtime, you can call the
+[`PUT /_admin/log/level`](http/monitoring.html#modify-and-return-the-current-server-log-level)
+endpoint of the HTTP API and set the log level using a request body like
+`{"graphs":"TRACE"}`.

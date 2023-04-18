@@ -164,7 +164,7 @@ For example, you might want to query only nodes with the highest rank from the
 result set of a PageRank execution:
 
 ```aql
-FOR v IN PREGEL_RESULT(<handle>)
+FOR v IN PREGEL_RESULT(<jobId>)
   FILTER v.result >= 0.01
   RETURN v._key
 ```
@@ -177,7 +177,7 @@ sufficient to tell vertices from different collections apart. In this case,
 return the `_id` values of the vertices as well:
 
 ```aql
-FOR v IN PREGEL_RESULT(<handle>, true)
+FOR v IN PREGEL_RESULT(<jobId>, true)
   FILTER v.result >= 0.01
   RETURN v._id
 ```

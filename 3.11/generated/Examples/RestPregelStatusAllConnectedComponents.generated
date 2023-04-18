@@ -4,7 +4,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">766</span>
+content-length: <span class="hljs-number">3275</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -16,53 +16,217 @@ x-content-type-options: nosniff
 [ 
   { 
     <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;wcc&quot;</span>, 
-    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-04-04T13:00:26Z&quot;</span>, 
+    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-04-18T11:04:43Z&quot;</span>, 
     <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
     <span class="hljs-string">&quot;graphLoaded&quot;</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70252&quot;</span>, 
+    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70250&quot;</span>, 
     <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;canceled&quot;</span>, 
     <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span>, 
-    <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2023-04-04T13:10:26Z&quot;</span> 
+    <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;root&quot;</span>, 
+    <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2023-04-18T11:14:43Z&quot;</span> 
   }, 
   { 
     <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;wcc&quot;</span>, 
-    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-04-04T13:00:26Z&quot;</span>, 
+    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-04-18T11:04:43Z&quot;</span>, 
     <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
     <span class="hljs-string">&quot;graphLoaded&quot;</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">11</span>, 
-    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70401&quot;</span>, 
+    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70399&quot;</span>, 
     <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;done&quot;</span>, 
     <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span>, 
+    <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-literal">null</span>, 
+    <span class="hljs-string">&quot;detail&quot;</span> : { 
+      <span class="hljs-string">&quot;aggregatedStatus&quot;</span> : { 
+        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-04-18T11:04:43Z&quot;</span>, 
+        <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
+        }, 
+        <span class="hljs-string">&quot;allGssStatus&quot;</span> : { 
+          <span class="hljs-string">&quot;items&quot;</span> : [ 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">0</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">1728</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">69</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">5040</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">68</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">69</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">6576</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">55</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">68</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">5904</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">48</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">55</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">4944</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">38</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">48</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">4128</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">27</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">38</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">3120</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">16</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">27</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">2064</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">8</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">16</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">1152</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">5</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">8</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">624</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+              <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">0</span>, 
+              <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">5</span>, 
+              <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">240</span> 
+            } 
+          ] 
+        } 
+      }, 
+      <span class="hljs-string">&quot;workerStatus&quot;</span> : { 
+        <span class="hljs-string">&quot;&quot;</span> : { 
+          <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-04-18T11:04:43Z&quot;</span>, 
+          <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
+          }, 
+          <span class="hljs-string">&quot;allGssStatus&quot;</span> : { 
+            <span class="hljs-string">&quot;items&quot;</span> : [ 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">0</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">1728</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">69</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">5040</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">68</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">69</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">6576</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">55</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">68</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">5904</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">48</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">55</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">4944</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">38</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">48</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">4128</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">27</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">38</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">3120</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">16</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">27</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">2064</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">8</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">16</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">1152</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">5</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">8</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">624</span> 
+              }, 
+              { 
+                <span class="hljs-string">&quot;verticesProcessed&quot;</span> : <span class="hljs-number">36</span>, 
+                <span class="hljs-string">&quot;messagesSent&quot;</span> : <span class="hljs-number">0</span>, 
+                <span class="hljs-string">&quot;messagesReceived&quot;</span> : <span class="hljs-number">5</span>, 
+                <span class="hljs-string">&quot;memoryBytesUsedForMessages&quot;</span> : <span class="hljs-number">240</span> 
+              } 
+            ] 
+          } 
+        } 
+      } 
+    }, 
     <span class="hljs-string">&quot;sendCount&quot;</span> : <span class="hljs-number">370</span>, 
+    <span class="hljs-string">&quot;aggregators&quot;</span> : { 
+    }, 
     <span class="hljs-string">&quot;gssTimes&quot;</span> : [ 
-      <span class="hljs-number">0.00015655</span>, 
-      <span class="hljs-number">0.000141657</span>, 
-      <span class="hljs-number">0.000098606</span>, 
-      <span class="hljs-number">0.000149092</span>, 
-      <span class="hljs-number">0.000108147</span>, 
-      <span class="hljs-number">0.000090182</span>, 
-      <span class="hljs-number">0.000140136</span>, 
-      <span class="hljs-number">0.000082972</span>, 
-      <span class="hljs-number">0.000180007</span>, 
-      <span class="hljs-number">0.000113904</span>, 
-      <span class="hljs-number">0.0002229</span> 
+      <span class="hljs-number">0.000177997</span>, 
+      <span class="hljs-number">0.000124006</span>, 
+      <span class="hljs-number">0.000099232</span>, 
+      <span class="hljs-number">0.000118744</span>, 
+      <span class="hljs-number">0.000116913</span>, 
+      <span class="hljs-number">0.00009681</span>, 
+      <span class="hljs-number">0.000120125</span>, 
+      <span class="hljs-number">0.000106697</span>, 
+      <span class="hljs-number">0.000096101</span>, 
+      <span class="hljs-number">0.000103401</span>, 
+      <span class="hljs-number">0.000098097</span> 
     ], 
     <span class="hljs-string">&quot;receivedCount&quot;</span> : <span class="hljs-number">370</span>, 
-    <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2023-04-04T13:10:26Z&quot;</span>, 
-    <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.000531228</span>, 
-    <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.001014588</span>, 
-    <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.005174045</span>, 
-    <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.003518611</span> 
+    <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2023-04-18T11:14:43Z&quot;</span>, 
+    <span class="hljs-string">&quot;vertexCount&quot;</span> : <span class="hljs-number">36</span>, 
+    <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.001093207</span>, 
+    <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.004995168</span>, 
+    <span class="hljs-string">&quot;parallelism&quot;</span> : <span class="hljs-number">8</span>, 
+    <span class="hljs-string">&quot;masterContext&quot;</span> : { 
+    }, 
+    <span class="hljs-string">&quot;edgeCount&quot;</span> : <span class="hljs-number">36</span>, 
+    <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.000614837</span>, 
+    <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.003169723</span> 
   }, 
   { 
-    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70564&quot;</span>, 
+    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70566&quot;</span>, 
     <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
     <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;wcc&quot;</span>, 
-    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-04-04T13:00:27Z&quot;</span>, 
+    <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-04-18T11:04:44Z&quot;</span>, 
+    <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span>, 
     <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;loading&quot;</span>, 
-    <span class="hljs-string">&quot;graphLoaded&quot;</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span> 
+    <span class="hljs-string">&quot;graphLoaded&quot;</span> : <span class="hljs-literal">false</span>, 
+    <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;root&quot;</span> 
   } 
 ]
