@@ -206,6 +206,81 @@ all, and it can enable further optimizations that are not possible on `p`.
 The new `optimize-traversal-last-element-access` optimization rule appears in
 query execution plans if this optimization is applied.
 
+### Faster bulk `INSERT` operations in clusters
+
+AQL `INSERT` operations that insert multiple documents can now be faster in
+cluster deployments by avoiding unnecessary overhead that AQL queries typically
+require for the setup and shutdown in a cluster, as well as for the internal
+batching.
+
+This improvement also decreases the number of HTTP requests to the DB-Servers.
+Instead of batching the array of documents (with a default batch size of `1000`),
+a single request per DB-Server is used internally to transfer the data.
+
+The optimization brings the AQL `INSERT` performance close to the performance of
+the specialized HTTP API for [creating multiple documents](http/document.html#create-multiple-documents).
+
+The pattern that is recognized by the optimizer is as follows:
+
+```aql
+FOR doc IN <docs> INSERT doc INTO collection
+```
+
+`<docs>` can either be a bind parameter, a variable, or an array literal.
+The value needs to be an array of objects and be known at query compile time.
+
+```aql
+Query String (43 chars, cacheable: false):
+ FOR doc IN @docs INSERT doc INTO collection
+
+Execution plan:
+ Id   NodeType                         Site  Est.   Comment
+  1   SingletonNode                    COOR     1   * ROOT
+  2   CalculationNode                  COOR     1     - LET #2 = [ { "value" : 1 }, { "value" : 2 }, { "value" : 3 } ]   /* json expression */   /* const assignment */
+  5   MultipleRemoteModificationNode   COOR     3     - FOR doc IN #2 INSERT doc IN collection
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   remove-data-modification-out-variables
+  2   optimize-cluster-multiple-document-operations
+```
+
+The query runs completely on the Coordinator. The `MultipleRemoteModificationNode`
+performs a bulk document insert for the whole input array in one go, internally
+using a transaction that is more lightweight for transferring the data to the
+DB-Servers than a regular AQL query.
+
+Without the optimization, the Coordinator requests data from the DB-Servers
+(`GatherNode`), but the DB-Servers have to contact the Coordinator in turn to
+request their data (`DistributeNode`), involving a network request for every
+batch of documents:
+
+```aql
+Execution plan:
+ Id   NodeType            Site  Est.   Comment
+  1   SingletonNode       COOR     1   * ROOT
+  2   CalculationNode     COOR     1     - LET #2 = [ { "value" : 1 }, { "value" : 2 }, { "value" : 3 } ]   /* json expression */   /* const assignment */
+  3   EnumerateListNode   COOR     3     - FOR doc IN #2   /* list iteration */
+  9   CalculationNode     COOR     3       - LET #4 = MAKE_DISTRIBUTE_INPUT_WITH_KEY_CREATION(doc, null, { "allowSpecifiedKeys" : false, "ignoreErrors" : false, "collection" : "collection" })   /* simple expression */
+  5   DistributeNode      COOR     3       - DISTRIBUTE #4
+  6   RemoteNode          DBS      3       - REMOTE
+  4   InsertNode          DBS      0       - INSERT #4 IN collection
+  7   RemoteNode          COOR     0       - REMOTE
+  8   GatherNode          COOR     0       - GATHER   /* parallel, unsorted */
+```
+
+The new `optimize-cluster-multiple-document-operations` optimizer rule that
+enables the optimization is only applied if there is no `RETURN` operation,
+which means you cannot use `RETURN NEW` or similar to access the new documents
+including their document keys. Additionally, all preceding calculations must be
+constant, which excludes any subqueries that read documents.
+
+See the [List of optimizer rules](aql/execution-and-performance-optimizer.html#list-of-optimizer-rules)
+for details.
+
 ### Extended peak memory usage reporting
 
 The peak memory usage of AQL queries is now also reported for running queries

@@ -316,6 +316,12 @@ The REST API provides the `returnOld` and `returnNew` options to make it return
 the previous versions of documents or the insert/updated/replaced documents, in
 the same way as the `INSERT` AQL operation can do.
 
+AQL `INSERT` queries with the `optimize-cluster-multiple-document-operations`
+optimization applied perform similarly well in cluster deployments, but it
+cannot be applied in all cases (see the
+[List of optimizer rules](execution-and-performance-optimizer.html#list-of-optimizer-rules)
+for details).
+
 ## Summary
 
 The `UPSERT` AQL operation is the most flexible way to conditionally insert or
@@ -325,4 +331,5 @@ The `INSERT` AQL operation with the `overwriteMode` set will outperform
 `UPSERT`, but it can only be used for some use cases.
 
 Using the dedicated REST API for document inserts will be even more efficient,
-and is thus the preferred option for bulk document inserts.
+and is thus the preferred option for bulk document inserts, but AQL `INSERT`
+queries can be almost as fast.
