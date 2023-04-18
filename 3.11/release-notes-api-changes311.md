@@ -13,6 +13,43 @@ integrations for ArangoDB 3.11.
 
 ### Behavior changes
 
+#### Extended naming constraints for collections, Views, and indexes
+
+In ArangoDB 3.9, the `--database.extended-names-databases` startup option was
+added to optionally allow database names to contain most UTF-8 characters.
+The startup option has been renamed to `--database.extended-names` in 3.11 and
+now controls whether you want to use the extended naming constraints for
+database, collection, View, and index names.
+
+The feature is disabled by default to ensure compatibility with existing client
+drivers and applications that only support ASCII names according to the
+traditional naming constraints used in previous ArangoDB versions.
+
+If the feature is enabled, then any endpoints that contain database, collection,
+View, or index names in the URL may contain special characters that were
+previously not allowed (percent-encoded). They are also to be expected in
+payloads that contain database, collection, View, or index names, as well as
+document identifiers (because they are comprised of the collection name and the
+document key). If client applications assemble URLs with extended names
+programmatically, they need to ensure that extended names are properly
+URL-encoded and also NFC-normalized if they contain UTF-8 characters.
+
+The ArangoDB web interface as well as the _arangobench_, _arangodump_,
+_arangoexport_, _arangoimport_, _arangorestore_, and _arangosh_ client tools
+ship with full support for the extended naming constraints.
+
+Please be aware that dumps containing extended names cannot be restored
+into older versions that only support the traditional naming constraints. In a
+cluster setup, it is required to use the same naming constraints for all
+Coordinators and DB-Servers of the cluster. Otherwise, the startup is
+refused. In DC2DC setups, it is also required to use the same naming
+constraints for both datacenters to avoid incompatibilities.
+
+Also see:
+- [Collection names](data-modeling-collections.html#collection-names)
+- [View names](data-modeling-views.html#view-names)
+- Index names have the same character restrictions as collection names
+
 #### Status code if write concern not fulfilled
 
 The new `--cluster.failed-write-concern-status-code` startup option can be used
@@ -141,6 +178,40 @@ The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-runnin
 and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
 endpoints include a new numeric `peakMemoryUsage` attribute.
 
+#### View API
+
+Views of type `arangosearch` accept a new `optimizeTopK` View property for the
+ArangoSearch WAND optimization. It is an immutable array of strings, optional,
+and defaults to `[]`.
+
+See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
+for details.
+
+#### Index API
+
+Indexes of type `inverted` accept a new `optimizeTopK` property for the
+ArangoSearch WAND optimization. It is an array of strings, optional, and
+defaults to `[]`.
+
+See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
+for details.
+
+#### Pregel API
+
+Four new endpoints have been added to the Pregel HTTP interface for the new
+persisted execution statistics for Pregel jobs:
+
+- `GET /_api/control_pregel/history/{id}` to retrieve the persisted execution
+  statistics of a specific Pregel job
+- `GET /_api/control_pregel/history` to retrieve the persisted execution
+  statistics of all currently active and past Pregel jobs
+- `DELETE /_api/control_pregel/history/{id}` to delete the persisted execution
+  statistics of a specific Pregel job
+- `DELETE /_api/control_pregel/history` to delete the persisted execution
+  statistics of all Pregel jobs
+
+See [Pregel HTTP API](http/pregel.html) for details.
+
 ### Endpoints moved
 
 
@@ -155,7 +226,7 @@ endpoints include a new numeric `peakMemoryUsage` attribute.
 
 ## JavaScript API
 
-### Index API
+### Index methods
 
 Calling `collection.dropIndex(...)` or `db._dropIndex(...)` now raises an error
 if the specified index does not exist or cannot be dropped (for example, because
@@ -164,6 +235,25 @@ In case of success, they still return `true`.
 
 You can wrap calls to these methods with a `try { ... }` block to catch errors,
 for example, in _arangosh_ or in Foxx services.
+
+### Pregel module
+
+Two new methods have been added to the `@arangodb/pregel` module:
+
+- `history(...)` to get the persisted execution statistics of a specific or all
+  algorithm executions
+- `removeHistory(...)` to delete the persisted execution statistics of a
+  specific or all algorithm executions
+
+```js
+var pregel = require("@arangodb/pregel");
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+const historyStatus = pregel.history(execution);
+pregel.removeHistory();
+```
+
+See [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html#get-persisted-execution-statistics)
+for details.
 
 ### Deprecations
 

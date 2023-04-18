@@ -475,6 +475,10 @@ For queries in the cluster, the following nodes may appear in execution plans:
   Used on a Coordinator to directly work with a single
   document on a DB-Server that is referenced by its `_key`.
 
+- **MultipleRemoteExecutionNode**:
+  Used to optimize bulk `INSERT` operations in cluster deployments, reducing the
+  setup and shutdown overhead and the number of internal network requests.
+
 List of optimizer rules
 -----------------------
 
@@ -713,6 +717,37 @@ The following optimizer rules may appear in the `rules` attribute of
   It may appear if you directly reference a document by its `_key`. In this
   case, no AQL is executed on the DB-Servers. Instead, the Coordinator
   directly works with the documents on the DB-Servers.
+
+- `optimize-cluster-multiple-document-operations`:
+  Bulk `INSERT` operations in cluster deployments can be optimized to avoid
+  unnecessary overhead that AQL queries typically require for the setup and
+  shutdown in clusters, as well as for the internal batching.
+
+  This improvement also decreases the number of HTTP requests to the DB-Servers.
+
+  The following patterns are recognized:
+
+  - `FOR doc IN @docs INSERT doc INTO collection`, where `@docs` is a
+    bind parameter with an array of documents to be inserted
+  - `FOR doc IN [ { … }, { … }, … ] INSERT doc INTO collection`, where the `FOR`
+    loop iterates over an array of input documents known at query compile time
+  - `LET docs = [ { … }, { … }, … ] FOR doc IN docs INSERT doc INTO collection`,
+    where the `docs` variable is a static array of input documents known at
+    query compile time
+
+  If a query has such a pattern, and all of the following restrictions are met,
+  then the optimization is triggered:
+
+  - There are no following `RETURN` nodes (including any `RETURN OLD` or `RETURN NEW`)
+  - The `FOR` loop is not contained in another outer `FOR` loop or subquery
+  - There are no other operations (e.g. `LET`, `FILTER`) between `FOR` and `INSERT`
+  - `INSERT` is not used on a SmartGraph edge collection
+  - The `FOR` loop iterates over a constant, deterministic expression
+
+  The optimization then replaces the `InsertNode` and `EnumerateListNode` with a
+  `MultipleRemoteExecutionNode` in the query execution plan, which takes care of
+  inserting all documents into the collection in one go. Further optimizer rules
+  are skipped if the optimization is triggered.
 
 - `parallelize-gather`:
   Appears if an optimization to execute Coordinator `GatherNode`s in

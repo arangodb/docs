@@ -1127,7 +1127,7 @@ Also see [Merging Attributes](programs-arangoimport-examples-csv.html#merging-at
 
 _arangoimport_ also provides a new `--datatype` startup option, in order to fix
 the datatypes for certain attributes in CSV/TSV imports. For example, in the
-the following CSV input file, it is unclear if the numeric values should be
+following CSV input file, it is unclear if the numeric values should be
 imported as numbers or as stringified numbers for the individual attributes:
 
 ```

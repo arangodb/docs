@@ -8,6 +8,32 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.11. ArangoDB 3.11 also contains several bug fixes that are not listed
 here.
 
+## ArangoSearch
+
+### WAND optimization (Enterprise Edition)
+
+For `arangosearch` Views and inverted indexes (and by extension `search-alias`
+Views), you can define a list of sort expressions that you want to optimize.
+This is also known as _WAND optimization_.
+
+If you query a View with the `SEARCH` operation in combination with a
+`SORT` and `LIMIT` operation, search results can be retrieved faster if the
+`SORT` expression matches one of the optimized expressions.
+
+Only sorting by highest rank is supported, that is, sorting by the result
+of a scoring function in descending order (`DESC`).
+
+See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
+for examples.
+
+This feature is only available in the Enterprise Edition.
+
+### Late materialization improvements
+
+The number of disk reads required when executing search queries with late
+materialization optimizations applied has been reduced so that less data needs
+to be requested from the RocksDB storage engine.
+
 ## Analyzers
 
 ### `geo_s2` Analyzer (Enterprise Edition)
@@ -180,6 +206,81 @@ all, and it can enable further optimizations that are not possible on `p`.
 The new `optimize-traversal-last-element-access` optimization rule appears in
 query execution plans if this optimization is applied.
 
+### Faster bulk `INSERT` operations in clusters
+
+AQL `INSERT` operations that insert multiple documents can now be faster in
+cluster deployments by avoiding unnecessary overhead that AQL queries typically
+require for the setup and shutdown in a cluster, as well as for the internal
+batching.
+
+This improvement also decreases the number of HTTP requests to the DB-Servers.
+Instead of batching the array of documents (with a default batch size of `1000`),
+a single request per DB-Server is used internally to transfer the data.
+
+The optimization brings the AQL `INSERT` performance close to the performance of
+the specialized HTTP API for [creating multiple documents](http/document.html#create-multiple-documents).
+
+The pattern that is recognized by the optimizer is as follows:
+
+```aql
+FOR doc IN <docs> INSERT doc INTO collection
+```
+
+`<docs>` can either be a bind parameter, a variable, or an array literal.
+The value needs to be an array of objects and be known at query compile time.
+
+```aql
+Query String (43 chars, cacheable: false):
+ FOR doc IN @docs INSERT doc INTO collection
+
+Execution plan:
+ Id   NodeType                         Site  Est.   Comment
+  1   SingletonNode                    COOR     1   * ROOT
+  2   CalculationNode                  COOR     1     - LET #2 = [ { "value" : 1 }, { "value" : 2 }, { "value" : 3 } ]   /* json expression */   /* const assignment */
+  5   MultipleRemoteModificationNode   COOR     3     - FOR doc IN #2 INSERT doc IN collection
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   remove-data-modification-out-variables
+  2   optimize-cluster-multiple-document-operations
+```
+
+The query runs completely on the Coordinator. The `MultipleRemoteModificationNode`
+performs a bulk document insert for the whole input array in one go, internally
+using a transaction that is more lightweight for transferring the data to the
+DB-Servers than a regular AQL query.
+
+Without the optimization, the Coordinator requests data from the DB-Servers
+(`GatherNode`), but the DB-Servers have to contact the Coordinator in turn to
+request their data (`DistributeNode`), involving a network request for every
+batch of documents:
+
+```aql
+Execution plan:
+ Id   NodeType            Site  Est.   Comment
+  1   SingletonNode       COOR     1   * ROOT
+  2   CalculationNode     COOR     1     - LET #2 = [ { "value" : 1 }, { "value" : 2 }, { "value" : 3 } ]   /* json expression */   /* const assignment */
+  3   EnumerateListNode   COOR     3     - FOR doc IN #2   /* list iteration */
+  9   CalculationNode     COOR     3       - LET #4 = MAKE_DISTRIBUTE_INPUT_WITH_KEY_CREATION(doc, null, { "allowSpecifiedKeys" : false, "ignoreErrors" : false, "collection" : "collection" })   /* simple expression */
+  5   DistributeNode      COOR     3       - DISTRIBUTE #4
+  6   RemoteNode          DBS      3       - REMOTE
+  4   InsertNode          DBS      0       - INSERT #4 IN collection
+  7   RemoteNode          COOR     0       - REMOTE
+  8   GatherNode          COOR     0       - GATHER   /* parallel, unsorted */
+```
+
+The new `optimize-cluster-multiple-document-operations` optimizer rule that
+enables the optimization is only applied if there is no `RETURN` operation,
+which means you cannot use `RETURN NEW` or similar to access the new documents
+including their document keys. Additionally, all preceding calculations must be
+constant, which excludes any subqueries that read documents.
+
+See the [List of optimizer rules](aql/execution-and-performance-optimizer.html#list-of-optimizer-rules)
+for details.
+
 ### Extended peak memory usage reporting
 
 The peak memory usage of AQL queries is now also reported for running queries
@@ -192,6 +293,66 @@ In the JavaScript and HTTP APIs, the value is reported as `peakMemoryUsage`.
 See [API Changes in ArangoDB 3.11](release-notes-api-changes311.html#query-api).
 
 ## Server options
+
+### Extended naming constraints for collections, Views, and indexes
+
+In ArangoDB 3.9, the `--database.extended-names-databases` startup option was
+added to optionally allow database names to contain most UTF-8 characters.
+The startup option has been renamed to `--database.extended-names` in 3.11 and
+now controls whether you want to use the extended naming constraints for
+database, collection, View, and index names.
+
+This feature is **experimental** in ArangoDB 3.11, but will become the norm in
+a future version.
+
+Running the server with the option enabled provides support for extended names
+that are not comprised within the ASCII table, such as Japanese or Arabic
+letters, emojis, letters with accentuation. Also, many ASCII characters that
+were formerly banned by the traditional naming constraints are now accepted.
+
+Example collection, View, and index names that can be used with the new extended
+constraints: `España`, `😀`, `犬`, `كلب`, `@abc123`, `København`, `München`,
+`Бишкек`, `abc? <> 123!`
+
+Using extended collection and View names in the JavaScript API such as in
+_arangosh_ or Foxx may require using the square bracket notation instead of the
+dot notation for property access depending on the characters you use:
+
+```js
+db._create("🥑~колекція =)");
+db.🥑~колекція =).properties();   // dot notation (syntax error)
+db["🥑~колекція =)"].properties() // square bracket notation
+```
+
+Using extended collection and View names in AQL queries requires wrapping the
+name in backticks or forward ticks (see [AQL Syntax](aql/fundamentals-syntax.html#names)):
+
+```aql
+FOR doc IN `🥑~колекція =)`
+  RETURN doc
+```
+
+The ArangoDB web interface as well as the _arangobench_, _arangodump_,
+_arangoexport_, _arangoimport_, _arangorestore_, and _arangosh_ client tools
+ship with full support for the extended naming constraints.
+
+Note that the default value for `--database.extended-names` is `false`
+for compatibility with existing client drivers and applications that only support
+ASCII names according to the traditional naming constraints used in previous
+ArangoDB versions. Enabling the feature may lead to incompatibilities up to the
+ArangoDB instance becoming inaccessible for such drivers and client applications.
+
+Please be aware that dumps containing extended names cannot be restored
+into older versions that only support the traditional naming constraints. In a
+cluster setup, it is required to use the same naming constraints for all
+Coordinators and DB-Servers of the cluster. Otherwise, the startup is
+refused. In DC2DC setups, it is also required to use the same naming constraints
+for both datacenters to avoid incompatibilities.
+
+Also see:
+- [Collection names](data-modeling-collections.html#collection-names)
+- [View names](data-modeling-views.html#view-names)
+- Index names have the same character restrictions as collection names
 
 ### Verify `.sst` files
 
@@ -283,3 +444,30 @@ To enable or disable it at runtime, you can call the
 [`PUT /_admin/log/level`](http/monitoring.html#modify-and-return-the-current-server-log-level)
 endpoint of the HTTP API and set the log level using a request body like
 `{"graphs":"TRACE"}`.
+
+### Persisted Pregel execution statistics
+
+Pregel algorithm executions now persist execution statistics to a system
+collection. The statistics are kept until you remove them, whereas the
+previously existing interfaces only store the information about Pregel jobs
+temporarily in memory.
+
+To access and delete persisted execution statistics, you can use the newly added
+`history()` and `removeHistory()` JavaScript API methods of the Pregel module:
+
+```js
+var pregel = require("@arangodb/pregel");
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+const historyStatus = pregel.history(execution);
+pregel.removeHistory();
+```
+
+See [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html#get-persisted-execution-statistics)
+for details.
+
+You can also use the newly added HTTP endpoints with the
+`/_api/control_pregel/history` route.
+See [Pregel HTTP API](http/pregel.html) for details.
+
+You can still use the old interfaces (the `pregel.status()` method as well as
+the `GET /_api/control_pregel` and `GET /_api/control_pregel/{id}` endpoints).

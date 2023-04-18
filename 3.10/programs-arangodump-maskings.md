@@ -222,7 +222,7 @@ The special path `*` matches **all** leaf nodes of a document.
 
 If you have an attribute key that contains a dot (like `{ "name.with.dots": … }`)
 or a top-level attribute with a single asterisk as full name (`{ "*": … }`)
-then you need to quote the name in ticks or backticks to escape it:
+then you need to quote the name in ticks or backticks:
 
 - `"path": "´name.with.dots´"`
 - `` "path": "`name.with.dots`" ``
