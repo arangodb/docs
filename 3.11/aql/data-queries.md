@@ -26,7 +26,7 @@ The query result is always an array of elements, even if a single element was
 returned and contains a single element in that case: `["Hello ArangoDB!"]`
 
 The function `DOCUMENT()` can be called to retrieve a single document via
-its document handle, for instance:
+its document identifier, for instance:
 
 ```aql
 RETURN DOCUMENT("users/phil")

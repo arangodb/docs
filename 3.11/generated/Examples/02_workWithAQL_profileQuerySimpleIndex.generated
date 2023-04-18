@@ -11,12 +11,12 @@ Query <span class="hljs-built_in">String</span> (<span class="hljs-number">58</s
 Execution plan:
  Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
   <span class="hljs-number">1</span>   SingletonNode       <span class="hljs-number">1</span>       <span class="hljs-number">1</span>          <span class="hljs-number">0</span>       <span class="hljs-number">0.00000</span>   * ROOT
-  <span class="hljs-number">6</span>   IndexNode           <span class="hljs-number">1</span>      <span class="hljs-number">10</span>          <span class="hljs-number">0</span>       <span class="hljs-number">0.00007</span>     - FOR doc IN acollection   <span class="hljs-comment">/* persistent index scan, index scan + document lookup */</span>    
+  <span class="hljs-number">6</span>   IndexNode           <span class="hljs-number">1</span>      <span class="hljs-number">10</span>          <span class="hljs-number">0</span>       <span class="hljs-number">0.00005</span>     - FOR doc IN acollection   <span class="hljs-comment">/* persistent index scan, index scan + document lookup */</span>    
   <span class="hljs-number">5</span>   ReturnNode          <span class="hljs-number">1</span>      <span class="hljs-number">10</span>          <span class="hljs-number">0</span>       <span class="hljs-number">0.00000</span>       - RETURN doc
 
 Indexes used:
  By   Name                      Type         Collection    Unique   Sparse   Cache   Selectivity   Fields        Stored values   Ranges
-  <span class="hljs-number">6</span>   idx_1762250647710728192   persistent   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>      <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`value`</span> ]   [  ]            (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
+  <span class="hljs-number">6</span>   idx_1763516565547909121   persistent   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>      <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`value`</span> ]   [  ]            (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
 
 Optimization rules applied:
  Id   RuleName
@@ -26,18 +26,18 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
-           <span class="hljs-number">0</span>            <span class="hljs-number">0</span>           <span class="hljs-number">0</span>           <span class="hljs-number">10</span>               <span class="hljs-number">0</span> / <span class="hljs-number">0</span>          <span class="hljs-number">0</span>              <span class="hljs-number">0</span>         <span class="hljs-number">0.00033</span>
+           <span class="hljs-number">0</span>            <span class="hljs-number">0</span>           <span class="hljs-number">0</span>           <span class="hljs-number">10</span>               <span class="hljs-number">0</span> / <span class="hljs-number">0</span>          <span class="hljs-number">0</span>              <span class="hljs-number">0</span>         <span class="hljs-number">0.00027</span>
 
 Query Profile:
  Query Stage               Duration [s]
  initializing                   <span class="hljs-number">0.00001</span>
- parsing                        <span class="hljs-number">0.00004</span>
- optimizing ast                 <span class="hljs-number">0.00001</span>
+ parsing                        <span class="hljs-number">0.00003</span>
+ optimizing ast                 <span class="hljs-number">0.00000</span>
  loading collections            <span class="hljs-number">0.00000</span>
  instantiating plan             <span class="hljs-number">0.00001</span>
- optimizing plan                <span class="hljs-number">0.00014</span>
- instantiating executors        <span class="hljs-number">0.00004</span>
- executing                      <span class="hljs-number">0.00009</span>
+ optimizing plan                <span class="hljs-number">0.00013</span>
+ instantiating executors        <span class="hljs-number">0.00002</span>
+ executing                      <span class="hljs-number">0.00007</span>
  finalizing                     <span class="hljs-number">0.00002</span>
 
 

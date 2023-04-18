@@ -8,6 +8,32 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.11. ArangoDB 3.11 also contains several bug fixes that are not listed
 here.
 
+## ArangoSearch
+
+### WAND optimization (Enterprise Edition)
+
+For `arangosearch` Views and inverted indexes (and by extension `search-alias`
+Views), you can define a list of sort expressions that you want to optimize.
+This is also known as _WAND optimization_.
+
+If you query a View with the `SEARCH` operation in combination with a
+`SORT` and `LIMIT` operation, search results can be retrieved faster if the
+`SORT` expression matches one of the optimized expressions.
+
+Only sorting by highest rank is supported, that is, sorting by the result
+of a scoring function in descending order (`DESC`).
+
+See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
+for examples.
+
+This feature is only available in the Enterprise Edition.
+
+### Late materialization improvements
+
+The number of disk reads required when executing search queries with late
+materialization optimizations applied has been reduced so that less data needs
+to be requested from the RocksDB storage engine.
+
 ## Analyzers
 
 ### `geo_s2` Analyzer (Enterprise Edition)
@@ -57,6 +83,25 @@ been merged into a single page, allowing for a much quicker workflow.
 
 For more information, see the
 [detailed guide](arangosearch-views.html#create-arangosearch-views-using-the-web-interface).
+
+### Inverted indexes
+
+The web interface now includes the option for creating
+[inverted indexes](indexing-inverted.html) on collections. You can set all the
+properties directly in the web interface, which previously required the JavaScript
+or HTTP API. It also offers an editor where you can write the definition of
+your inverted index in JSON format.
+
+### New sorting mechanism and search box for Saved Queries
+
+When working with **Saved Queries** in the web interface, you can now
+configure their sort order so that your saved queries are listed by the
+date they were last modified.
+This is particularly helpful when you have a large amount of saved custom
+queries and want to see which ones have been created or used recently.
+
+In addition, the web interface also offers a search box which helps you
+quickly find the query you're looking for. 
 
 ## AQL
 
@@ -324,3 +369,30 @@ To enable or disable it at runtime, you can call the
 [`PUT /_admin/log/level`](http/monitoring.html#modify-and-return-the-current-server-log-level)
 endpoint of the HTTP API and set the log level using a request body like
 `{"graphs":"TRACE"}`.
+
+### Persisted Pregel execution statistics
+
+Pregel algorithm executions now persist execution statistics to a system
+collection. The statistics are kept until you remove them, whereas the
+previously existing interfaces only store the information about Pregel jobs
+temporarily in memory.
+
+To access and delete persisted execution statistics, you can use the newly added
+`history()` and `removeHistory()` JavaScript API methods of the Pregel module:
+
+```js
+var pregel = require("@arangodb/pregel");
+const execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
+const historyStatus = pregel.history(execution);
+pregel.removeHistory();
+```
+
+See [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html#get-persisted-execution-statistics)
+for details.
+
+You can also use the newly added HTTP endpoints with the
+`/_api/control_pregel/history` route.
+See [Pregel HTTP API](http/pregel.html) for details.
+
+You can still use the old interfaces (the `pregel.status()` method as well as
+the `GET /_api/control_pregel` and `GET /_api/control_pregel/{id}` endpoints).

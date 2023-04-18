@@ -114,6 +114,7 @@ The complete list of keywords is currently:
 
 - `AGGREGATE`
 - `ALL`
+- `ALL_SHORTEST_PATHS`
 - `AND`
 - `ANY`
 - `ASC`
@@ -146,8 +147,8 @@ The complete list of keywords is currently:
 - `TRUE`
 - `UPDATE`
 - `UPSERT`
-- `WITH`
 - `WINDOW`
+- `WITH`
 {:class="columns-3"}
 
 On top of that, there are a few words used in language constructs which are not

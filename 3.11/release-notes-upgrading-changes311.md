@@ -124,6 +124,18 @@ revision of the document as stored in the database (if available, otherwise empt
   backing storage for large datasets has been removed. Memory paging/swapping
   provided by the operating system is equally effective.
 
+## JavaScript API
+
+### Index API
+
+Calling `collection.dropIndex(...)` or `db._dropIndex(...)` now raises an error
+if the specified index does not exist or cannot be dropped (for example, because
+it is a primary index or edge index). The methods previously returned `false`.
+In case of success, they still return `true`.
+
+You can wrap calls to these methods with a `try { ... }` block to catch errors,
+for example, in _arangosh_ or in Foxx services.
+
 ## Startup options
 
 ### `--server.disable-authentication` and `--server.disable-authentication-unix-sockets` obsoleted

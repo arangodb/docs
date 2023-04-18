@@ -17,6 +17,10 @@ grouped by version
 
 **Enterprise Edition**
 
+- [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
+  Retrieve search results for the highest-ranking matches from Views faster by
+  defining a list of sort expressions to optimize.
+
 - [**`geo_s2` Analyzer**](analyzers.html#geo_s2):
   Efficiently index geo-spatial data using different binary formats, tuning the
   size on disk, the precision, and query performance.

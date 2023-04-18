@@ -70,7 +70,7 @@ can have the following values:
 The attribute `expires` in `features` denotes the expiry date as Unix timestamp
 (in seconds since January 1st, 1970 UTC).
 
-The `license` field holds an encrypted and base64-encoded version of the the
+The `license` field holds an encrypted and base64-encoded version of the
 applied license for reference and support from ArangoDB.
 
 ## Monitoring
