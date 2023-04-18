@@ -197,7 +197,7 @@ const historyStatus = pregel.history(execution);
 pregel.removeHistory();
 ```
 
-See [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html#persisted-execution-statistics-of-an-algorithm-execution)
+See [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html#get-persisted-execution-statistics)
 for details.
 
 ### Deprecations
