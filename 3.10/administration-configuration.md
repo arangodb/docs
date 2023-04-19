@@ -192,7 +192,7 @@ for small adjustments, you can put local overrides into a file
 
 You can add suffixes to numeric options to let ArangoDB multiply the value by a
 certain factor. This allows you to conveniently specify values, for example,
-in megabytes or gigabytes.
+in kilobytes, megabytes, and gigabytes.
 
 | Suffix               | Factor   | Example |
 |----------------------|----------|---------|

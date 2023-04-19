@@ -24,7 +24,7 @@ Execution plan:
 
 Indexes used:
  By   Name   Type   Collection   Unique   Sparse   Cache   Selectivity   Fields        Stored values   Ranges
-  2   edge   edge   edges        false    false    false      100.00 %   [ `_from` ]   [  ]            base OUTBOUND
+  2   edge   edge   edges        false    false    false       75.00 %   [ `_from` ]   [  ]            base OUTBOUND
 
 Functions used:
  Name   Deterministic   Cacheable   Uses V8
@@ -41,5 +41,5 @@ Optimization rules applied:
   3   remove-redundant-path-var
   4   move-calculations-down
 
-43 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00029
+44 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00022
 

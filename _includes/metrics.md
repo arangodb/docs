@@ -3,12 +3,23 @@
 {{ site.data | has_key: metrics, "site.data" -}}
 {% assign groups = site.data[metrics] | group_by:"category" -%}
 {% for group in groups -%}
-### {{ group.name }}
+#### {{ group.name }}
 
 {% for metric in group.items -%}
-#### {{ metric.help }} {: #{{ metric.name }} }
+##### {{ metric.help }} {: #{{ metric.name }} }
 
+{% if metric.type == "histogram" -%}
+`{{ metric.name }}` (basename)<br>
+`{{ metric.name }}_bucket`<br>
+`{{ metric.name }}_sum`<br>
+`{{ metric.name }}_count`
+{% elsif metric.type == "summary" -%}
+`{{ metric.name }}` (basename)<br>
+`{{ metric.name }}_sum`<br>
+`{{ metric.name }}_count`
+{% else -%}
 `{{ metric.name }}`
+{% endif %}
 
 {{ metric.description }}
 

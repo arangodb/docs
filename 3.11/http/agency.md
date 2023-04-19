@@ -1,9 +1,13 @@
 ---
 layout: default
-description: The Agency is the ArangoDB component which manages the entire ArangoDB cluster
+description: >-
+  The Agency HTTP API allows you to manipulate the distributed key-value store
+  that is used for managing clusters
 ---
-HTTP Interface for Agency feature
-=================================
+# HTTP interface for Agency features
+
+{{ page.description }}
+{:class="lead"}
 
 The Agency is the ArangoDB component which manages the entire ArangoDB cluster. 
 ArangoDB itself mainly uses the Agency as a central place to store the configuration
@@ -19,11 +23,11 @@ It is possible to use the Agency API for a variety of use-cases, for example:
 - Distributed Lock-Manager
 
 *Note 1*: To access the Agency API with authentication enabled, you need to include an authorization header
-with every request. The authorization header _must_ contain a *superuser JWT Token*; For more information see the [authentication section](general.html#authentication).
+with every request. The authorization header _must_ contain a *superuser JWT Token*; For more information see the [authentication section](authentication.html).
 
 *Note 2*: The key-prefix `/arango` contains ArangoDBs internal configuration. You should _never_ change any values below the _arango_ key.
 
-### Key-Value store APIs
+## Key-Value store APIs
 
 Generally, all document IO to and from the key-value store consists of JSON arrays. The outer array is an envelope for multiple read or write transactions. The results are arrays are an envelope around the results corresponding to the order of the incoming transactions.
 
@@ -64,7 +68,7 @@ The read access is a complete access to the key-value store indicated by access 
 
 Let's dig in some deeper.
 
-### Read API
+## Read API
 
 Let's start with the above initialized key-value store in the following. Let us visit the following read operations:
 
@@ -181,7 +185,7 @@ curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/a/b/c"],["/a/b/d"],["/a/x/
 
 ```
 
-### Write API
+## Write API
 
 The write API must obviously be more versatile and needs a more detailed appreciation. Write operations are arrays of transactions with preconditions, i.e. `[[U,P]]`, where the system tries to apply all updates in the outer array in turn, rejecting those whose precondition is not fulfilled by the current state. It is guaranteed that the transactions in the write request are sequenced adjacent to each other (with no intervention from other write requests). Only the ones with failed preconditions are left out.
 
@@ -316,7 +320,7 @@ appends the string `"Max"` to the end of the list stored in the `"z"` attribute,
 
 removes the last entry of the array stored under `"u"`, if the value of `"u"` is not set or not an array.
 
-### HTTP-headers for write operations
+## HTTP-headers for write operations
 
 `X-ArangoDB-Agency-Mode` with possible values `"waitForCommitted"`, `"waitForSequenced"` and `"noWait"`.
 
@@ -326,7 +330,7 @@ In the last case, `"noWait"`, the operation returns immediately, an empty body i
 
 `X-ArangoDB-Agency-Tag` with an arbitrary UTF-8 string value.
 
-### Observers
+## Observers
 
 External services to the Agency may announce themselves or others to be observers of arbitrary existing or future keys in the key-value-store. The Agency must then inform the observing service of any changes to the subtree below the observed key. The notification is done by virtue of POST requests to a required valid URL.
 
@@ -366,7 +370,7 @@ The notifying POST requests are submitted immediately with any complete array of
     "/constants/pi": { "op": "delete" } }
 ```
 
-### Configuration
+## Configuration
 
 At all times, i.e. regardless of the state of the Agents and the current health
 of the RAFT consensus, one can invoke the configuration API:

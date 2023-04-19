@@ -475,6 +475,10 @@ For queries in the cluster, the following nodes may appear in execution plans:
   Used on a Coordinator to directly work with a single
   document on a DB-Server that is referenced by its `_key`.
 
+- **MultipleRemoteExecutionNode**:
+  Used to optimize bulk `INSERT` operations in cluster deployments, reducing the
+  setup and shutdown overhead and the number of internal network requests.
+
 List of optimizer rules
 -----------------------
 
@@ -555,13 +559,6 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   is optimized away, or if a `FILTER` condition from the query is moved
   into the `TraversalNode` for early pruning of results.
 
-- `patch-update-statements`:
-  Appears if an `UpdateNode` or `ReplaceNode` is patched to not buffer its
-  input completely, but to process it in smaller batches. The rule fires
-  for an `UPDATE` or `REPLACE` query that is fed by a full collection scan or
-  an index scan only, and that does not use any other collections, indexes,
-  subqueries or traversals.
-
 - `propagate-constant-attributes`:
   Appears when a constant value is inserted into a filter condition,
   replacing a dynamic attribute value.
@@ -604,6 +601,13 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `remove-redundant-path-var`:
   Avoids computing the variables emitted by traversals if they are unused
   in the query, significantly reducing overhead.
+
+- `optimize-traversal-last-element-access`:
+  Transforms accesses to the last vertex or edge of the path variable
+  (`p.vertices[-1]` and `p.edges[-1]`) emitted by traversals
+  (`FOR v, e, p IN ...`) with accesses to the vertex or edge variable
+  (`v` and `e`). This can avoid computing the path variable at all and enable
+  further optimizations that are not possible on `p`.
 
 - `remove-redundant-sorts`:
   Appears if multiple `SORT` statements can be merged into fewer sorts.
@@ -676,9 +680,6 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   As a consequence, an `EnumerateCollectionNode` is replaced with an
   `IndexNode` in the plan.
 
-Some rules are applied a second time at a different optimization stage.
-These rules show in plans with an appended `-2` to their name.
-
 The following optimizer rules may appear in the `rules` attribute of
 **cluster** plans:
 
@@ -717,13 +718,43 @@ The following optimizer rules may appear in the `rules` attribute of
   case, no AQL is executed on the DB-Servers. Instead, the Coordinator
   directly works with the documents on the DB-Servers.
 
+- `optimize-cluster-multiple-document-operations`:
+  Bulk `INSERT` operations in cluster deployments can be optimized to avoid
+  unnecessary overhead that AQL queries typically require for the setup and
+  shutdown in clusters, as well as for the internal batching.
+
+  This improvement also decreases the number of HTTP requests to the DB-Servers.
+
+  The following patterns are recognized:
+
+  - `FOR doc IN @docs INSERT doc INTO collection`, where `@docs` is a
+    bind parameter with an array of documents to be inserted
+  - `FOR doc IN [ { … }, { … }, … ] INSERT doc INTO collection`, where the `FOR`
+    loop iterates over an array of input documents known at query compile time
+  - `LET docs = [ { … }, { … }, … ] FOR doc IN docs INSERT doc INTO collection`,
+    where the `docs` variable is a static array of input documents known at
+    query compile time
+
+  If a query has such a pattern, and all of the following restrictions are met,
+  then the optimization is triggered:
+
+  - There are no following `RETURN` nodes (including any `RETURN OLD` or `RETURN NEW`)
+  - The `FOR` loop is not contained in another outer `FOR` loop or subquery
+  - There are no other operations (e.g. `LET`, `FILTER`) between `FOR` and `INSERT`
+  - `INSERT` is not used on a SmartGraph edge collection
+  - The `FOR` loop iterates over a constant, deterministic expression
+
+  The optimization then replaces the `InsertNode` and `EnumerateListNode` with a
+  `MultipleRemoteExecutionNode` in the query execution plan, which takes care of
+  inserting all documents into the collection in one go. Further optimizer rules
+  are skipped if the optimization is triggered.
+
 - `parallelize-gather`:
-  Appear if an optimization to execute Coordinator `GatherNodes` in
-  parallel is applied. `GatherNode`s go into parallel mode only if the
-  DB-Server query part above it (in terms of query execution plan layout) is a
-  terminal part of the query. To trigger the optimization, there must not be
-  other nodes of type `ScatterNode`, `GatherNode` or `DistributeNode` present
-  in the query.
+  Appears if an optimization to execute Coordinator `GatherNode`s in
+  parallel is applied. `GatherNodes`s cannot be parallelized if they depend on a
+  `TraversalNode`, except for certain Disjoint SmartGraph traversals where the
+  traversal can run completely on the local DB-Server (only available in the
+  Enterprise Edition).
 
 - `push-subqueries-to-dbserver` _(Enterprise Edition only)_:
   Appears if a subquery is determined to be executable entirely on a database
@@ -786,9 +817,9 @@ The following optimizer rules may appear in the `rules` attribute of
   This removes the need to transfer data for this node and hence also
   increases performance.
 
-Note that some rules may appear multiple times in the list, with number suffixes.
-This is due to the same rule being applied multiple times, at different positions
-in the optimizer pipeline.
+Some rules may appear multiple times in the list of applied optimizations, with
+number suffixes like `-2`, (e.g. `remove-unnecessary-calculations-2`). This is
+due to the same rule being applied multiple times at different optimization stages.
 
 ### Additional optimizations applied
 

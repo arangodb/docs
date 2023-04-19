@@ -395,7 +395,7 @@ cache-related options and thus recreate inverted indexes and Views. See
 
 ### ArangoSearch metrics and figures
 
-The [Metrics HTTP API](http/administration-and-monitoring-metrics.html) has been
+The [Metrics HTTP API](http/monitoring.html#metrics) has been
 extended with metrics for ArangoSearch for monitoring `arangosearch` View links
 and inverted indexes.
 
@@ -905,7 +905,7 @@ Also see:
 - [AQL `UPDATE` operation](aql/operations-update.html#refillindexcaches)
 - [AQL `REPLACE` operation](aql/operations-replace.html#refillindexcaches)
 - [AQL `REMOVE` operation](aql/operations-remove.html#refillindexcaches)
-- [Document HTTP API](http/document-working-with-documents.html)
+- [Document HTTP API](http/document.html)
 - [Edge cache refill options](#edge-cache-refill-options)
 
 ### Extended query explain statistics
@@ -1015,7 +1015,7 @@ single-sharded collections.
 Document keys are still not guaranteed to be truly ascending for collections with
 more than a single shard.
 
-## Read from Followers in Clusters (Enterprise Edition)
+## Read from followers in Clusters (Enterprise Edition)
 
 You can now allow for reads from followers for a
 number of read-only operations in cluster deployments. In this case, Coordinators
@@ -1025,7 +1025,7 @@ that have copies of the data. Therefore, the read throughput is higher.
 
 This feature is only available in the Enterprise Edition.
 
-For more information, see [Read from Followers](http/document-address-and-etag.html#read-from-followers).
+For more information, see [Read from followers](http/document.html#read-from-followers).
 
 ## Improved shard rebalancing
 
@@ -1039,8 +1039,8 @@ You can do any of the following by using the API:
 - Execute the given set of move shard operations.
 - Compute a set of move shard operations to improve balance and execute them immediately. 
 
-For more information, see the [Cluster Administration & Monitoring](http/administration-and-monitoring.html#compute-the-current-cluster-imbalance) 
-section of the HTTP API reference manual.
+For more information, see the [Cluster](http/cluster.html#compute-the-current-cluster-imbalance) 
+section of the HTTP API documentation.
 
 ## Query result spillover to decrease memory usage
 
@@ -1071,7 +1071,7 @@ You can also set the thresholds per query in the JavaScript and HTTP APIs.
 For details, see:
 - [`temp` startup options](programs-arangod-options.html#--tempintermediate-results-path)
 - [Executing queries from _arangosh_](aql/invocation-with-arangosh.html#spilloverthresholdmemoryusage)
-- [Accessing Cursors via HTTP](http/aql-query-cursor-accessing-cursors.html)
+- [HTTP interfaces for AQL queries](http/aql-query.html#create-cursor)
 
 ## Server options
 
@@ -1085,7 +1085,7 @@ You can set the new `--server.early-connections` startup option to `true` to
 let the instance respond to the `/_api/version`, `/_admin/version`, and
 `/_admin/status` REST APIs early.
 
-See [Responding to Liveliness Probes](http/general.html#responding-to-liveliness-probes).
+See [Respond to liveliness probes](http/general.html#respond-to-liveliness-probes).
 
 ### Cache RocksDB index and filter blocks by default
 

@@ -1,16 +1,59 @@
 ---
 layout: default
-description: HTTP API for managing named graphs (General Graphs, SmartGraphs, SatelliteGraphs)
-title: Graph HTTP API (Gharial)
+description: >-
+  The HTTP API for named graphs lets you manage General Graphs, SmartGraphs,
+  EnterpriseGraphs, and SatelliteGraphs
+redirect_from:
+  - gharial-management.html # 3.10 -> 3.10
+  - gharial-edges.html # 3.10 -> 3.10
+  - gharial-vertices.html # 3.10 -> 3.10
 ---
-Gharial Graph API
-=================
+# HTTP interface for named graphs
 
-This chapter describes the RESTful interface for
-[named graphs](../graphs.html#named-graphs) called _Gharial_.
+The HTTP API for [named graphs](../graphs.html#named-graphs) is called _Gharial_.
 
-You can manage all types of named graphs with Gharial:
+You can manage all types of ArangoDB's named graphs with Gharial:
 - [General Graphs](../graphs-general-graphs.html)
 - [SmartGraphs](../graphs-smart-graphs.html)
 - [EnterpriseGraphs](../graphs-enterprise-graphs.html)
 - [SatelliteGraphs](../graphs-satellite-graphs.html)
+
+The examples use the following example graphs:
+
+[_social graph_](../graphs.html#the-social-graph):
+
+![Social Example Graph](../images/social_graph.png)
+
+[_knows graph_](../graphs.html#the-knows_graph):
+
+![Social Example Graph](../images/knows_graph.png)
+
+## Management
+
+{% docublock get_api_gharial %}
+{% docublock post_api_gharial %}
+{% docublock get_api_gharial_graph %}
+{% docublock delete_api_gharial_graph %}
+{% docublock get_api_gharial_graph_vertex %}
+{% docublock post_api_gharial_graph_vertex %}
+{% docublock delete_api_gharial_graph_vertex_collection %}
+{% docublock get_api_gharial_graph_edge %}
+{% docublock post_api_gharial_graph_edge %}
+{% docublock put_api_gharial_graph_edge_definition %}
+{% docublock delete_api_gharial_graph_edge_definition %}
+
+## Vertices
+
+{% docublock post_api_gharial_graph_vertex_collection %}
+{% docublock get_api_gharial_graph_vertex_collection_vertex %}
+{% docublock patch_api_gharial_graph_vertex_collection_vertex %}
+{% docublock put_api_gharial_graph_vertex_collection_vertex %}
+{% docublock delete_api_gharial_graph_vertex_collection_vertex %}
+
+## Edges
+
+{% docublock post_api_gharial_graph_edge_collection %}
+{% docublock get_api_gharial_graph_edge_collection_edge %}
+{% docublock patch_api_gharial_graph_edge_collection_edge %}
+{% docublock put_api_gharial_graph_edge_collection_edge %}
+{% docublock delete_api_gharial_graph_edge_collection_edge %}

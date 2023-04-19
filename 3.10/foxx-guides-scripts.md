@@ -27,7 +27,7 @@ Invoking scripts
 Scripts can be invoked manually using
 the [web interface](programs-web-interface-services.html),
 the [Foxx CLI](programs-foxx-cli.html) or
-the [Foxx HTTP API](http/foxx-miscellaneous.html).
+the [Foxx HTTP API](http/foxx.html#miscellaneous).
 
 Additionally the special `setup` and `teardown` lifecycle scripts can
 be invoked automatically by Foxx as part of a service's lifecycle (see below).

@@ -86,8 +86,8 @@ second argument. Passing it as the first argument, like
 
 `GEO_DISTANCE(geoJsonA, geoJsonB, ellipsoid) → distance`
 
-Return the distance between two GeoJSON objects, measured from the **centroid**
-of each shape. For a list of supported types see the
+Return the distance between two GeoJSON objects in meters, measured from the
+**centroid** of each shape. For a list of supported types see the
 [geo index page](../indexing-geo.html#geojson).
 
 - **geoJsonA** (object): first GeoJSON object, or a coordinate array in
@@ -97,7 +97,7 @@ of each shape. For a list of supported types see the
 - **ellipsoid** (string, *optional*): reference ellipsoid to use.
   Supported are `"sphere"` (default) and `"wgs84"`.
 - returns **distance** (number): the distance between the centroid points of
-  the two objects on the reference ellipsoid
+  the two objects on the reference ellipsoid in **meters**
 
 ```aql
 LET polygon = {
@@ -150,7 +150,7 @@ see the [geo index page](../indexing-geo.html#geojson).
 - **geoJson** (object): a GeoJSON object
 - **ellipsoid** (string, *optional*): reference ellipsoid to use.
   Supported are `"sphere"` (default) and `"wgs84"`.
-- returns **area** (number): the area of the polygon in square meters
+- returns **area** (number): the area of the polygon in **square meters**
 
 ```aql
 LET polygon = {

@@ -21,8 +21,8 @@ The following methods exist on the *_db* object:
 
 *Indexes*
 
-* [db._index(index)](indexing-working-with-indexes.html#fetching-an-index-by-handle)
-* [db._dropIndex(index)](indexing-working-with-indexes.html#dropping-an-index-via-a-database-handle)
+* [db._index(index)](indexing-working-with-indexes.html#fetching-an-index-by-identifier)
+* [db._dropIndex(index)](indexing-working-with-indexes.html#dropping-an-index-via-a-database-object)
 
 *Properties*
 
