@@ -13,7 +13,7 @@ description: >-
 
 There are two main ways to upgrade ArangoDB:
 
-- _In-Place_ upgrade: when the installed ArangoDB package is replaced with a new
+- **_In-Place_ upgrade**: when the installed ArangoDB package is replaced with a new
   one, and the new server executable is started on the existing data directory.
 
   The database files typically require to be upgraded when you upgrade to a
@@ -21,7 +21,7 @@ There are two main ways to upgrade ArangoDB:
   be downgraded again. Take a backup before upgrading if you want to be able to
   return to the old version of your data and ArangoDB.
 
-- _Logical_ upgrade: when the data is exported from the old ArangoDB version
+- **_Logical_ upgrade**: when the data is exported from the old ArangoDB version
   using [_arangodump_](programs-arangodump.html) and then restored in
   the new ArangoDB version using [_arangorestore_](programs-arangorestore.html).
 
