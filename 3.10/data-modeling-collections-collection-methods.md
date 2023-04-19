@@ -168,7 +168,7 @@ In a cluster setup, the result also contains the following attributes:
   in sync on the different DB-Servers. If there are less then these many copies
   in the cluster, a shard refuses to write. Writes to shards with enough
   up-to-date copies succeed at the same time, however. The value of
-  `writeConcern` cannot be larger than `replicationFactor`. _(cluster only)_
+  `writeConcern` cannot be greater than `replicationFactor`. _(cluster only)_
 
 - `shardingStrategy` (string): the sharding strategy selected for the collection.
   _(cluster only)_
@@ -225,7 +225,7 @@ one or more of the following attribute(s):
   in sync on the different DB-Servers. If there are less then these many copies
   in the cluster, a shard refuses to write. Writes to shards with enough
   up-to-date copies succeed at the same time however. The value of
-  `writeConcern` cannot be larger than `replicationFactor`. _(cluster only)_
+  `writeConcern` cannot be greater than `replicationFactor`. _(cluster only)_
 
 - `computedValues` (array\|null): An array of objects, each representing a
   [Computed Value](data-modeling-documents-computed-values.html).
