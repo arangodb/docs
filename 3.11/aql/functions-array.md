@@ -539,7 +539,9 @@ Return whether *search* is contained in *array*. Optionally return the position.
 - **anyArray** (array): the haystack, an array with elements of arbitrary type
 - **search** (any): the needle, an element of arbitrary type
 - **returnIndex** (bool, *optional*): if set to *true*, the position of the match
-  is returned instead of a boolean. The default is *false*.
+  is returned instead of a boolean. The default is *false*. Note that you might be able to leverage
+  the [`IN` operator](aql/operators.html#comparison-operators) instead of a construct like
+  `FILTER POSITION([1, 2, 3], 3)`.
 - returns **position** (bool\|number): *true* if *search* is contained in *anyArray*,
   *false* otherwise. If *returnIndex* is enabled, the position of the match is
   returned (positions start at 0), or *-1* if it's not found.
@@ -586,6 +588,11 @@ RETURN POSITION(arr[*].value, "baz", true)
 @endDocuBlock aqlArrayPosition_3
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+In case you are not interested in the actual position but only want to check for existence, say,
+in a `FILTER` expression you can avoid calling `POSITION` entirely: Instead of
+`FILTER POSITION(arr[*].field_name, "baz", true) ` you can use
+`FILTER "baz" in arr[*].field_name`.
 
 ## PUSH()
 
