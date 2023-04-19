@@ -316,6 +316,10 @@ enumeration node, if using just scoring for a sort operation.
   to always cache field normalization values in memory. This can improve the
   performance of scoring and ranking queries.
 
+  It also enables caching of auxiliary data used for querying fields that are
+  indexed with Geo Analyzers. This can improve the performance of geo-spatial
+  queries.
+
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
@@ -340,7 +344,8 @@ options.
 <small>Introduced in: v3.10.2</small>
 
 - A new `cache` option for inverted indexes as the default or for specific
-  `fields` to always cache field normalization values in memory.
+  `fields` to always cache field normalization values and Geo Analyzer auxiliary
+  data in memory.
 
 - A new `cache` option per object in the definition of the `storedValues`
   elements to always cache stored values in memory.

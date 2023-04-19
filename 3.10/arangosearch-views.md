@@ -146,6 +146,10 @@ During view modification the following directives apply:
   that have the `"norm"` feature enabled. These values are used to score fairer
   if the same tokens occur repeatedly, to emphasize these documents less.
 
+  You can also enable this option to always cache auxiliary data used for querying
+  fields that are indexed with Geo Analyzers in memory.
+  This can improve the performance of geo-spatial queries.
+
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
   to control the memory consumption of this cache. You can reduce the memory
   usage of the column cache in cluster deployments by only using the cache for

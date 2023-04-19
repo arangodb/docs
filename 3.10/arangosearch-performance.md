@@ -470,7 +470,7 @@ FOR doc IN viewName
 
 Also see [Faceted Search with ArangoSearch](arangosearch-faceted-search.html).
 
-## Field normalization value caching
+## Field normalization value caching and caching of Geo Analyzer auxiliary data
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
 
@@ -485,6 +485,10 @@ You can set the `cache` option to `true` for individual View links or fields of
 `arangosearch` Views, as well as for inverted indexes as the default or for
 specific fields, to always cache the field normalization values in memory.
 This can improve the performance of scoring and ranking queries.
+
+You can also enable this option to always cache auxiliary data used for querying
+fields that are indexed with Geo Analyzers in memory, as the default or for
+specific fields. This can improve the performance of geo-spatial queries.
 
 _`arangosearch` View:_
 
@@ -540,7 +544,7 @@ db._createView("myView", "search-alias", { indexes: [
 ] });
 ```
 
-See see [inverted index `cache` property](http/indexes-inverted.html) for details.
+See the [inverted index `cache` property](http/indexes-inverted.html) for details.
 
 The `"norm"` Analyzer feature has performance implications even if the cache is
 used. You can create custom Analyzers without this feature to disable the
