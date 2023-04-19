@@ -7,6 +7,11 @@ description: How to upgrade an ArangoDB single-server installation installed via
 If you installed ArangoDB on macOS using a _DMG_ package for a single server
 installation, follow the instructions below to upgrade the deployment.
 
+{% hint 'warning' %}
+It is highly recommended to take a backup of your data before upgrading ArangoDB
+using [_arangodump_](programs-arangodump.html).
+{% endhint %}
+
 ## Upgrading via Package
 
 [Download](https://www.arangodb.com/download/){:target="_blank"} the latest

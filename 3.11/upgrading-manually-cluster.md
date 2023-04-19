@@ -11,7 +11,7 @@ incurring downtime of the _cluster_ and very short downtimes of the single nodes
 
 The manual upgrade procedure described in this _Section_ can be used to upgrade
 to a new hotfix, or to perform an upgrade to a new minor version of ArangoDB.
-Please refer to the [Upgrade Paths](upgrading.html#upgrade-paths) section
+Please refer to the [Upgrade paths](upgrading.html#upgrade-paths) section
 for detailed information.
 
 Preparations
@@ -36,6 +36,11 @@ In the following, we assume that you don't use the standalone instance from the
 package but only a manually started _cluster_ instance, and we will move the
 standalone instance out of the way if necessary so you have to make as little
 changes as possible to the running _cluster_.
+
+{% hint 'warning' %}
+It is highly recommended to take a backup of your data before upgrading ArangoDB
+using [_arangodump_](programs-arangodump.html).
+{% endhint %}
 
 ### Install the new ArangoDB version binary
 
