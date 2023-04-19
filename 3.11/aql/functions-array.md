@@ -544,7 +544,7 @@ Return whether *search* is contained in *array*. Optionally return the position.
   *false* otherwise. If *returnIndex* is enabled, the position of the match is
   returned (positions start at 0), or *-1* if it's not found.
 
-If you want to check if a value is in an array, the recommended way is to use
+If you want to check if a value is in an array, you can alternatively use
 the [`IN` operator](operators.html#comparison-operators), for example,
 `3 IN [1, 2, 3]` instead of `POSITION([1, 2, 3], 3)`.
 
@@ -592,7 +592,7 @@ RETURN POSITION(arr[*].value, "baz", true)
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 If you are not interested in the actual position but only want to check for
-existence, use the `IN` operator instead of calling `POSITION()`, like
+existence, you may use the `IN` operator instead of calling `POSITION()`, like
 `"baz" IN arr[*].value`.
 
 ## PUSH()
