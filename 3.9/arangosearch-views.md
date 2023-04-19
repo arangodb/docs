@@ -75,12 +75,14 @@ During view modification the following directives apply:
 
   ```json
   {
-    "coll": {
-      "fields": {
-        "attr": {
-          "fields": {
-            "nested": {
-              "analyzers": ["text_en"]
+    "links": {
+      "coll": {
+        "fields": {
+          "attr": {
+            "fields": {
+              "nested": {
+                "analyzers": ["text_en"]
+              }
             }
           }
         }
