@@ -316,6 +316,10 @@ enumeration node, if using just scoring for a sort operation.
   to always cache field normalization values in memory. This can improve the
   performance of scoring and ranking queries.
 
+  It also enables caching of auxiliary data used for querying fields that are
+  indexed with Geo Analyzers. This can improve the performance of geo-spatial
+  queries.
+
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
@@ -340,7 +344,8 @@ options.
 <small>Introduced in: v3.10.2</small>
 
 - A new `cache` option for inverted indexes as the default or for specific
-  `fields` to always cache field normalization values in memory.
+  `fields` to always cache field normalization values and Geo Analyzer auxiliary
+  data in memory.
 
 - A new `cache` option per object in the definition of the `storedValues`
   elements to always cache stored values in memory.
@@ -1185,6 +1190,13 @@ There are three new startup options to configure how AQL queries are logged:
 The new `--arangosearch.columns-cache-limit` startup option lets you control how
 much memory (in bytes) the [ArangoSearch column cache](#arangosearch-column-cache-enterprise-edition)
 is allowed to use.
+
+<small>Introduced in: v3.10.6</small>
+
+You can reduce the memory usage of the column cache in cluster deployments by
+only using the cache for leader shards with the new
+[`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader).
+It is disabled by default, which means followers also maintain a column cache.
 
 ### Cluster supervision options
 
