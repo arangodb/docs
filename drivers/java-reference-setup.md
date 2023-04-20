@@ -21,7 +21,8 @@ ArangoDB arangoDB = new ArangoDB.Builder()
         .build();
 ```
 
-or providing an implementation of `com.arangodb.config.ArangoConfigProperties` to the builder:
+or providing an implementation of `com.arangodb.config.ArangoConfigProperties`
+to the builder:
 
 ```java
 ArangoConfigProperties props = ...
@@ -31,12 +32,14 @@ ArangoDB arangoDB = new ArangoDB.Builder()
         .build();
 ```
 
-Implementations of `com.arangodb.config.ArangoConfigProperties` could supply configuration properties coming from
-different sources, eg. system properties, remote stores, frameworks integrations, etc.
-An implementation for loading properties from local files is provided by `ArangoConfigProperties.fromFile()` and its
-overloaded variants.
+Implementations of `com.arangodb.config.ArangoConfigProperties` could supply
+configuration properties coming from different sources, eg. system properties,
+remote stores, frameworks integrations, etc.
+An implementation for loading properties from local files is provided by
+`ArangoConfigProperties.fromFile()` and its overloaded variants.
 
-To read config properties prefixed with `arangodb` from `arangodb.properties` file (as in version `6`):
+To read config properties prefixed with `arangodb` from `arangodb.properties`
+file (as in version `6`):
 
 ```java
 // ## src/main/resources/arangodb.properties
@@ -47,8 +50,8 @@ To read config properties prefixed with `arangodb` from `arangodb.properties` fi
 ArangoConfigProperties props = ArangoConfigProperties.fromFile();
 ```
 
-To read config properties from `arangodb-with-prefix.properties` file, where the config properties
-are prefixed with `adb`:
+To read config properties from `arangodb-with-prefix.properties` file, where the
+config properties are prefixed with `adb`:
 
 ```java
 // ## src/main/resources/arangodb-with-prefix.properties
@@ -60,10 +63,8 @@ ArangoConfigProperties props = ArangoConfigProperties.fromFile("arangodb-with-pr
 ```
 
 Here are examples to integrate configuration properties from different sources:
-- [Eclipse MicroProfile Config](https://github.com/arangodb-helper/arango-quarkus-native-example/blob/master/src/main/java/org/acme/quickstart/ArangoConfig.java)
-- [Micronaut Configuration](https://github.com/arangodb-helper/arango-micronaut-native-example/blob/main/src/main/kotlin/com/example/ArangoConfig.kt)
-
-
+- [Eclipse MicroProfile Config](https://github.com/arangodb-helper/arango-quarkus-native-example/blob/master/src/main/java/org/acme/quickstart/ArangoConfig.java){:target="_blank"}
+- [Micronaut Configuration](https://github.com/arangodb-helper/arango-micronaut-native-example/blob/main/src/main/kotlin/com/example/ArangoConfig.kt){:target="_blank"}
 
 ## Configuration
 
@@ -88,11 +89,11 @@ Here are examples to integrate configuration properties from different sources:
 - `responseQueueTimeSamples(Integer)`:            amount of samples kept for queue time metrics, (default: `10`)
 - `serde(ArangoSerde)`:                           serde to serialize and deserialize user-data
 
-
 ### Config File Properties
 
-`ArangoConfigProperties.fromFile()` reads config properties prefixed with `arangodb` from `arangodb.properties` file
-(as in version `6`). Different prefix and file name can be specified using its overloaded variants.
+`ArangoConfigProperties.fromFile()` reads config properties prefixed with `arangodb`
+from `arangodb.properties` file (as in version `6`). Different prefix and
+file name can be specified using its overloaded variants.
 
 The properties read are:
 - `hosts`: comma-separated list of `<hostname>:<port>` entries
@@ -112,7 +113,6 @@ The properties read are:
 - `loadBalancingStrategy`: `NONE`, `ROUND_ROBIN` or `ONE_RANDOM`
 - `responseQueueTimeSamples`
 
-
 ## SSL
 
 To use SSL, you have to set the configuration `useSsl` to `true` and set a `SSLContext`
@@ -125,22 +125,22 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .build();
 ```
 
-
 ## Connection Pooling
 
-The driver keeps a pool of connections for each host, the max amount of connections is configurable.
+The driver keeps a pool of connections for each host, the max amount of
+connections is configurable.
 
-Connections are released after the configured connection ttl (`ArangoDB.Builder.connectionTtl(Long)`) or when the driver
-is shut down:
+Connections are released after the configured connection time-to-live
+(`ArangoDB.Builder.connectionTtl(Long)`) or when the driver is shut down:
 
 ```java
 arangoDB.shutdown();
 ```
 
-
 ## Thread Safety
 
-The driver can be used concurrently by multiple threads. All the following classes are thread safe:
+The driver can be used concurrently by multiple threads. All the following
+classes are thread safe:
 - `com.arangodb.ArangoDB`
 - `com.arangodb.ArangoDatabase`
 - `com.arangodb.ArangoCollection`
@@ -150,9 +150,9 @@ The driver can be used concurrently by multiple threads. All the following class
 - `com.arangodb.ArangoView`
 - `com.arangodb.ArangoSearch`
 
-Any other class should not be considered thread safe. In particular classes representing request options (package
-`com.arangodb.model`) and response entities (package `com.arangodb.entity`) are **not** thread safe.
-
+Any other class should not be considered thread safe. In particular classes
+representing request options (package `com.arangodb.model`) and response entities
+(package `com.arangodb.entity`) are **not** thread safe.
 
 ## Fallback hosts
 
@@ -177,7 +177,6 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .acquireHostList(true)
   .build();
 ```
-
 
 ## Load Balancing
 
@@ -204,7 +203,6 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .build();
 ```
 
-
 ## Active Failover
 
 In case of an _Active Failover_ deployment the driver should be configured in
@@ -219,7 +217,6 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .build();
 ```
 
-
 ## Connection time to live
 
 The driver supports setting a TTL (time to life) for connections:
@@ -233,8 +230,6 @@ ArangoDB arango = new ArangoDB.Builder()
 In this example all connections will be closed/reopened after 5 minutes.
 
 If not set or set to `null` (default), no automatic connection closure will be performed.
-
-
 
 ## VST Keep-Alive
 

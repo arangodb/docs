@@ -4,13 +4,16 @@ description: Serialization
 ---
 # Serialization
 
-The driver functionalities related to serialization and deserialization (serde) are implemented by 2 different components:
+The driver functionalities related to serialization and deserialization (serde)
+are implemented by 2 different components:
 - `internal serde`
 - `user-data serde`
 
-The **internal serde** is based on [Jackson](https://github.com/FasterXML/jackson) API and is responsible for
-serializing/deserializing data definition classes (in packages `com.arangodb.model` and `com.arangodb.entity`).
-This includes all the classes that are not user-data, such as metadata properties for databases, collections, graphs, ...
+The **internal serde** is based on [Jackson](https://github.com/FasterXML/jackson){:target="_blank"}
+API and is responsible for serializing/deserializing data definition classes
+(in packages `com.arangodb.model` and `com.arangodb.entity`).
+This includes all the classes that are not user-data, such as metadata properties
+for databases, collections, graphs, etc.
 
 Furthermore, it is used to serialize and deserialize user-data of the following managed types:
 - `com.fasterxml.jackson.databind.JsonNode` and its subclasses (`ArrayNode`, `ObjectNode`, ...)
@@ -19,11 +22,13 @@ Furthermore, it is used to serialize and deserialize user-data of the following 
 - `com.arangodb.entity.BaseDocument`
 - `com.arangodb.entity.BaseEdgeDocument`
 
-Note that in `arangodb-java-driver-shaded`, due to dependencies relocation, the fully-qualified class name of first
-entry above (`JsonNode`) is: `com.arangodb.shaded.fasterxml.jackson.databind.JsonNode`. The same relocation rule is also
-applied to its subclasses (`ArrayNode`, `ObjectNode`, ...).
+Note that in `arangodb-java-driver-shaded`, due to dependencies relocation, the
+fully-qualified class name of first entry above (`JsonNode`) is:
+`com.arangodb.shaded.fasterxml.jackson.databind.JsonNode`.
+The same relocation rule is also applied to its subclasses (`ArrayNode`, `ObjectNode`, ...).
 
-The **user-data serde** is used to serialize and deserialize the user-data, namely the data representing:
+The **user-data serde** is used to serialize and deserialize the user-data,
+namely the data representing:
 - documents
 - vertexes
 - edges
@@ -31,8 +36,8 @@ The **user-data serde** is used to serialize and deserialize the user-data, name
 - transactions parameters
 - bodies of custom requests and custom responses (`com.arangodb.Request<T>` and `com.arangodb.Response<T>`).
 
-A `user-data serde` implements the `com.arangodb.serde.ArangoSerde` interface, which is an abstract API with no
-dependencies on specific libraries.
+A `user-data serde` implements the `com.arangodb.serde.ArangoSerde` interface,
+which is an abstract API with no dependencies on specific libraries.
 The `user-data serde` can be explicitly registered via `ArangoDB.Builder#serde(ArangoSerde)`.
 If no serde is registered, then the driver will use SPI (Service Provider Interface) to automatically
 discover and load serde service providers (instances of `com.arangodb.serde.ArangoSerdeProvider`).
@@ -42,45 +47,44 @@ In case no `user-data serde` is explicitly registered and no serde service provi
 client applications relying on it to serialize or deserialize user-data.
 
 Examples of custom `user-data serde` implementations can be found here:
-- [JSON_B serde](https://github.com/arangodb/arangodb-java-driver/tree/main/jsonb-serde/src/main/java/com/arangodb/serde/jsonb): a custom serde implementation based on `JSON-B`
-  (supporting `JSON` format only)
-- [Micronaut Serialization serde](https://github.com/arangodb-helper/arango-micronaut-native-example/blob/main/src/main/kotlin/com/example/ArangoService.kt):
-  a custom serde implementation based on [Micronaut Serialization](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/index.html).
-
+- [JSON_B serde](https://github.com/arangodb/arangodb-java-driver/tree/main/jsonb-serde/src/main/java/com/arangodb/serde/jsonb){:target="_blank"}:
+  a custom serde implementation based on `JSON-B` (supporting `JSON` format only)
+- [Micronaut Serialization serde](https://github.com/arangodb-helper/arango-micronaut-native-example/blob/main/src/main/kotlin/com/example/ArangoService.kt){:target="_blank"}:
+  a custom serde implementation based on
+  [Micronaut Serialization](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/index.html){:target="_blank"}
 
 ## JacksonSerde (default user-data serde)
 
 The default `user-data serde` is `com.arangodb.serde.jackson.JacksonSerde`.
-It is implemented delegating [Jackson](https://github.com/FasterXML/jackson) `ObjectMapper`, thus compatible
-with Jackson Streaming, Data Binding and Tree Model API.
+It is implemented delegating [Jackson](https://github.com/FasterXML/jackson){:target="_blank"}
+`ObjectMapper`, thus compatible with Jackson Streaming, Data Binding and Tree Model API.
 
 It supports both `JSON` and `VPACK` data formats, while offering the same API to the user.
 
-The `JSON` implementation is provided by the module `com.arangodb:jackson-serde-json` and transitively imported by
-`arangodb-java-driver`. This implementation will be used by default.
+The `JSON` implementation is provided by the module `com.arangodb:jackson-serde-json`
+and transitively imported by `arangodb-java-driver`. This implementation will be
+used by default.
 
 The `VPACK` implementation is provided by the optional module `com.arangodb:jackson-serde-vpack`.
 
-
 ### Mapping API
 
-`JacksonSerde` is fully compatible with [Jackson Databind](https://github.com/FasterXML/jackson-databind)
+`JacksonSerde` is fully compatible with [Jackson Databind](https://github.com/FasterXML/jackson-databind){:target="_blank"}
 API. To customize the serialization and deserialization behavior using the
 Jackson Data Binding API, entities can be annotated with
-[Jackson Annotations](https://github.com/FasterXML/jackson-annotations).
+[Jackson Annotations](https://github.com/FasterXML/jackson-annotations){:target="_blank"}.
 For more advanced customizations refer to [Custom serializer](#custom-serializers) section.
-
 
 ### Document Annotations
 
-The annotations from package `com.arangodb.serde.jackson` can be used to annotate fields, parameters, getters and
-setters for mapping values representing ArangoDB documents metadata (`_id`, `_key`, `_rev`, `_from`, `_to`):
+The annotations from package `com.arangodb.serde.jackson` can be used to annotate
+fields, parameters, getters and setters for mapping values representing ArangoDB
+documents metadata (`_id`, `_key`, `_rev`, `_from`, `_to`):
 - `@Id`
 - `@Key`
 - `@Rev`
 - `@From`
 - `@To`
-
 
 ### Renaming Properties
 
@@ -93,7 +97,6 @@ public class MyObject {
 }
 ```
 
-
 ### Ignoring properties
 
 To ignore fields use the annotation `@JsonIgnore`.
@@ -105,10 +108,10 @@ public class Value {
 }
 ```
 
-
 ### Custom Configuration
 
-Create an instance of `JacksonSerde`, configure the underlying `ObjectMapper` and register it in the driver:
+Create an instance of `JacksonSerde`, configure the underlying `ObjectMapper`
+and register it in the driver:
 
 ```java
 JacksonSerde serde = JacksonSerde.of(ContentType.JSON);
@@ -122,15 +125,15 @@ ArangoDB adb = new ArangoDB.Builder()
     .build();
 ```
 
-See also [Jackson Databind](https://github.com/FasterXML/jackson-databind/wiki/JacksonFeatures) configurable features.
-
+See also [Jackson Databind](https://github.com/FasterXML/jackson-databind/wiki/JacksonFeatures){:target="_blank"}
+configurable features.
 
 ### Custom serializers
 
 The serialization and deserialization can be customized using the lower level
 Streaming API or the Tree Model API, creating and registering respectively
 `JsonSerializer<T>` and `JsonDeserializer<T>`, as specified by the Jackson API
-for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers).
+for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers){:target="_blank"}.
 
 ```java
 static class PersonSerializer extends JsonSerializer<Person> {
@@ -181,12 +184,12 @@ ArangoDB adb = new ArangoDB.Builder()
 ### Jackson datatype and language modules
 
 The `JacksonSerde` can be configured
-with [Jackson datatype modules](https://github.com/FasterXML/jackson#third-party-datatype-modules)
-as well as [Jackson JVM Language modules](https://github.com/FasterXML/jackson#jvm-language-modules).
+with [Jackson datatype modules](https://github.com/FasterXML/jackson#third-party-datatype-modules){:target="_blank"}
+as well as [Jackson JVM Language modules](https://github.com/FasterXML/jackson#jvm-language-modules){:target="_blank"}.
 
 ### Kotlin
 
-[Kotlin language module](https://github.com/FasterXML/jackson-module-kotlin)
+[Kotlin language module](https://github.com/FasterXML/jackson-module-kotlin){:target="_blank"}
 enables support for Kotlin classes and types and can be registered in the following way:
 
 ```kotlin
@@ -199,7 +202,7 @@ val arangoDB = ArangoDB.Builder()
 
 ### Scala
 
-[Scala language module](https://github.com/FasterXML/jackson-module-scala)
+[Scala language module](https://github.com/FasterXML/jackson-module-scala){:target="_blank"}
 enables support for Scala classes and types and can be registered in the following way:
 
 ```scala
@@ -214,17 +217,17 @@ val arangoDB = new ArangoDB.Builder()
 ### Java 8 types
 
 Support for Java 8 features is offered by
-[jackson-modules-java8](https://github.com/FasterXML/jackson-modules-java8).
+[jackson-modules-java8](https://github.com/FasterXML/jackson-modules-java8){:target="_blank"}.
 
 ### Joda types
 
 Support for Joda data types, such as DateTime, is offered by
-[jackson-datatype-joda](https://github.com/FasterXML/jackson-datatype-joda).
+[jackson-datatype-joda](https://github.com/FasterXML/jackson-datatype-joda){:target="_blank"}.
 
 ### Metadata fields
 
-Metadata fields `_id`, `_key`, `_rev`, `_from`, `_to` can be mapped using respectively the annotations (from package
-`com.arangodb.serde.jackson`):
+Metadata fields `_id`, `_key`, `_rev`, `_from`, `_to` can be mapped using
+respectively the annotations (from package `com.arangodb.serde.jackson`):
 `@Id`, `@Key`, `@Rev`, `@From`, `@To`.
 
 ```java

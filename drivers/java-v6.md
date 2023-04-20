@@ -7,7 +7,7 @@ description: The official ArangoDB Java Driver (version 6)
 The official ArangoDB [Java Driver](https://github.com/arangodb/arangodb-java-driver).
 
 - [Java Driver v6 Tutorial](https://university.arangodb.com/courses/java-driver-tutorial-v6/){:target="_blank"}
-- [Reference](java_v6-reference.html)
+- [Reference](java-v6-reference.html)
 
 ## Supported versions
 

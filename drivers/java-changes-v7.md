@@ -6,7 +6,7 @@ description: Changes in ArangoDB Java Driver version 7.0
 
 ## Maven Setup
 
-```
+```xml
 <dependencies>
     <dependency>
         <groupId>com.arangodb</groupId>
@@ -18,7 +18,7 @@ description: Changes in ArangoDB Java Driver version 7.0
 
 ## Gradle Setup
 
-```
+```groovy
 repositories {
     mavenCentral()
 }
@@ -28,16 +28,14 @@ dependencies {
 }
 ```
 
-
 ## HTTP client
 
-The HTTP client has been changed to [Vert.x WebClient](https://vertx.io/docs/vertx-web-client/java). 
+The HTTP client has been changed to [Vert.x WebClient](https://vertx.io/docs/vertx-web-client/java){:target="_blank"}. 
 
 `HTTP/2` is now supported. 
 `HTTP/2` supports multiplexing and uses `1` connection per host by default.
 
-Cookies are not supported anymore: cookies received in the response will be ignored.
-
+Cookies are not supported anymore: cookies received in the response are ignored.
 
 ## Configuration changes
 
@@ -46,13 +44,15 @@ The default communication protocol is now `HTTP2_JSON` (`HTTP/2` with `JSON` con
 The default host configuration to `127.0.0.1:8529` has been removed.
 
 Configuration properties are not read automatically from properties files anymore.
-A new API for loading properties has been introduced: `ArangoDB.Builder.loadProperties(ArangoConfigProperties)`. 
-Implementations could supply configuration properties coming from different sources, eg. system properties, remote 
-stores, frameworks integrations, etc.
-An implementation for loading properties from local files is provided by `ArangoConfigProperties.fromFile()` and its 
-overloaded variants.
+A new API for loading properties has been introduced:
+`ArangoDB.Builder.loadProperties(ArangoConfigProperties)`.
+Implementations can supply configuration properties coming from different sources,
+like system properties, remote stores, frameworks integrations, etc.
+An implementation for loading properties from local files is provided by
+`ArangoConfigProperties.fromFile()` and its overloaded variants.
 
-To read config properties prefixed with `arangodb` from `arangodb.properties` file (as in version `6`):
+Example of how to read config properties prefixed with `arangodb` from
+`arangodb.properties` file (as in version `6`):
 
 ```java
 // ## src/main/resources/arangodb.properties
@@ -63,8 +63,8 @@ To read config properties prefixed with `arangodb` from `arangodb.properties` fi
 ArangoConfigProperties props = ArangoConfigProperties.fromFile();
 ```
 
-To read config properties from `arangodb-with-prefix.properties` file, where the config properties
-are prefixed with `adb`:
+To read config properties from `arangodb-with-prefix.properties` file, where the
+config properties are prefixed with `adb`:
 
 ```java
 // ## src/main/resources/arangodb-with-prefix.properties
@@ -75,12 +75,13 @@ are prefixed with `adb`:
 ArangoConfigProperties props = ArangoConfigProperties.fromFile("arangodb-with-prefix.properties", "adb");
 ```
 
-Related reference documentation can be found [here](java-reference-setup.html#config-file-properties).
+See the related reference documentation about
+[Config File Properties](java-reference-setup.html#config-file-properties)
+for details.
 
-Here are some examples showing how to provide configuration properties from different sources:
-- [Eclipse MicroProfile Config](https://github.com/arangodb-helper/arango-quarkus-native-example/blob/master/src/main/java/org/acme/quickstart/ArangoConfig.java)
-- [Micronaut Configuration](https://github.com/arangodb-helper/arango-micronaut-native-example/blob/main/src/main/kotlin/com/example/ArangoConfig.kt)
-
+Examples showing how to provide configuration properties from different sources:
+- [Eclipse MicroProfile Config](https://github.com/arangodb-helper/arango-quarkus-native-example/blob/master/src/main/java/org/acme/quickstart/ArangoConfig.java){:target="_blank"}
+- [Micronaut Configuration](https://github.com/arangodb-helper/arango-micronaut-native-example/blob/main/src/main/kotlin/com/example/ArangoConfig.kt){:target="_blank"}
 
 ## Modules
 
@@ -97,8 +98,8 @@ Alternative modules are respectively:
 
 The modules above are discovered and loaded using SPI (Service Provider Interface).
 
-In case a non-default communication protocol or user serde are used, the related module(s) must be explicitly included 
-and the corresponding default module(s) can be excluded.
+In case a non-default communication protocol or user serde are used, the related module(s)
+must be explicitly included and the corresponding default module(s) can be excluded.
 
 For example, to use the driver with `VPACK` over `VST`, we must include:
 - `com.arangodb:vst-protocol` and
@@ -137,15 +138,15 @@ For example in Maven:
 </dependencies>
 ```
 
-
 ## Transitive dependencies
 
-`com.arangodb:arangodb-java-driver` has transitive dependencies on `jackson-core`, `jackson-databind`
-and `jackson-annotations`, using by default version `2.14`.
+`com.arangodb:arangodb-java-driver` has transitive dependencies on `jackson-core`,
+`jackson-databind`, and `jackson-annotations`, using by default version `2.14`.
 
-The versions of such libraries can be overridden, the driver is compatible with Jackson 2 (at least `2.10` or greater).
+The versions of such libraries can be overridden.
+The driver is compatible with Jackson 2 (at least `2.10` or greater).
 
-To do this, you might need to include [jackson-bom](https://github.com/FasterXML/jackson-bom)
+To do this, you might need to include [jackson-bom](https://github.com/FasterXML/jackson-bom){:target="_blank"}
 to ensure dependency convergence across the entire project, for example in case
 there are in your project other libraries depending on different versions of Jackson:
 
@@ -163,24 +164,26 @@ there are in your project other libraries depending on different versions of Jac
 </dependencyManagement>
 ```
 
-The module `http-protocol` has transitive dependency on `io.vertx:vertx-web-client:4.3.5`, which in turn depends on 
-packages from `io.netty`.
+The module `http-protocol` has transitive dependency on `io.vertx:vertx-web-client:4.3.5`,
+which in turn depends on packages from `io.netty`.
 
-If these dependency requirements cannot be satisfied, i.e. they cause convergence conflicts with other versions of same
-packages in the classpath, you might need to use the
-[shaded version](#arangodb-java-driver-shaded) of this driver, which bundles all modules together with relocated
-external dependencies.
+If these dependency requirements cannot be satisfied, i.e. they cause convergence
+conflicts with other versions of same packages in the classpath, you might need
+to use the [shaded version](#arangodb-java-driver-shaded) of this driver, which
+bundles all modules together with relocated external dependencies.
 
-The dependency on `com.arangodb:velocypack` has been removed from core module and is now only used as internal
-dependency by `com.arangodb:vst-protocol` and `com.arangodb:jackson-serde-vpack`, thus transitively imported only when
-using `VST` protocol or `VPACK` content type.
+The dependency on `com.arangodb:velocypack` has been removed from core module and
+is now only used as internal dependency by `com.arangodb:vst-protocol` and
+`com.arangodb:jackson-serde-vpack`, thus transitively imported only when using
+`VST` protocol or `VPACK` content type.
 
 ## User Data
 
-Before version `7.0` the driver always parsed raw strings as JSON, but unfortunately this did not allow to distinguish
-it from the case when the intent is to use the raw string as such, without parsing it. Since version `7.0`, strings are 
-not interpreted as JSON anymore. To represent user-data as raw JSON, the wrapper class `com.arangodb.util.RawJson` has 
-been added:
+Before version 7.0, the driver always parsed raw strings as JSON, but unfortunately
+this did not allow to distinguish it from the case when the intent is to use the
+raw string as such, without parsing it. From version 7.0 onward, strings are not
+interpreted as JSON anymore. To represent user-data as raw JSON, the wrapper
+class `com.arangodb.util.RawJson` has been added:
 
 ```java
 RawJson rawJsonIn = RawJson.of("""
@@ -191,31 +194,35 @@ RawJson rawJsonOut = res.next();
 String json = rawJsonOut.get();  // {"foo":"bar"}
 ```
 
-To represent user-data already encoded as byte array, the wrapper class `RawBytes` has been added.
-The byte array can either represent a `JSON` string (UTF-8 encoded) or a `VPACK` value. The format used should match the
-driver protocol configuration (`JSON` for `HTTP_JSON` and `HTTP2_JSON`, `VPACK` otherwise).
+To represent user-data already encoded as byte array, the wrapper class `RawBytes`
+has been added. The byte array can either represent a `JSON` string (UTF-8 encoded)
+or a `VPACK` value. The format used should match the driver protocol configuration
+(`JSON` for `HTTP_JSON` and `HTTP2_JSON`, otherwise `VPACK`).
 
-The following changes have been applied to `com.arangodb.entity.BaseDocument` and `com.arangodb.entity.BaseEdgeDocument`:
+The following changes have been applied to `com.arangodb.entity.BaseDocument`
+and `com.arangodb.entity.BaseEdgeDocument`:
 - not serializable anymore (using Java serialization)
 - new method `removeAttribute(String)`
 - `getProperties()` returns an unmodifiable map
 
-Before version `7.0` when performing write operations, the metadata of the input data objects was updated in place with 
-the metadata received in the response.
-Since version `7.0`, the input data objects passed as arguments to API methods are treated as immutable and the related 
-metadata fields are not updated anymore. The updated metadata can be found in the returned object.
-
+Before version 7.0, when performing write operations, the metadata of the input
+data objects was updated in place with the metadata received in the response.
+From version 7.0 onward, the input data objects passed as arguments to API methods
+are treated as immutable and the related metadata fields are not updated anymore.
+The updated metadata can be found in the returned object.
 
 ## Serialization / Deserialization
 
-Up to version 6, the (de)serialization was always performed to/from `VPACK`. In case the JSON format was
-required, the raw `VPACK` was then converted to `JSON`. Since version 7, the serialization module is a dataformat
-agnostic API. Implementations can serialize and deserialize directly to the target dataformat, without intermediate 
-conversion to `VPACK`.
-The default implementation uses the `JSON` format. 
+Up to version 6, the (de)serialization was always performed to/from `VPACK`.
+In case the JSON format was required, the raw `VPACK` was then converted to `JSON`.
+From version 7 onward, the serialization module is a dataformat-agnostic API.
+Implementations can serialize and deserialize directly to the target dataformat,
+without intermediate conversion to `VPACK`. The default implementation uses the
+`JSON` format. 
 
-Support for data type `VPackSlice` has been removed in favor of Jackson type `com.fasterxml.jackson.databind.JsonNode`
-and its subclasses (`ArrayNode`, `ObjectNode`, ...), for example:
+Support for data type `VPackSlice` has been removed in favor of Jackson type
+`com.fasterxml.jackson.databind.JsonNode` and its subclasses
+(`ArrayNode`, `ObjectNode`, ...), for example:
 
 ```java
 JsonNode jsonNodeIn = JsonNodeFactory.instance
@@ -227,23 +234,24 @@ JsonNode jsonNodeOut = res.next();
 String foo = jsonNodeOut.get("foo").textValue();    // bar
 ```
 
-The dependency on `com.arangodb:velocypack` has been removed. Since version 3.0, `com.arangodb:velocypack` does not 
-include databind functionalities anymore. It only offers a lower level API to deal with primitive `VPACK` types.
-`VPACK` databind functionalities are now offered by 
-[`jackson-dataformat-velocypack`](https://github.com/arangodb/jackson-dataformat-velocypack), which is a Jackson backend
-for `VPACK` dataformat.
+The dependency on `com.arangodb:velocypack` has been removed. Since version 3.0,
+`com.arangodb:velocypack` does not include databind functionalities anymore.
+It only offers a lower level API to deal with primitive `VPACK` types.
+`VPACK` databind functionalities are now offered by
+[`jackson-dataformat-velocypack`](https://github.com/arangodb/jackson-dataformat-velocypack){:target="_blank"},
+which is a Jackson backend for `VPACK` dataformat.
 
-The user-data custom serializer implementation `ArangoJack` has been removed in favor of 
-`com.arangodb.serde.jackson.JacksonSerde`. This allows using Jackson API to serialize and deserialize user-data, 
-compatible with both `JSON` and `VPACK`.
+The user-data custom serializer implementation `ArangoJack` has been removed in
+favor of `com.arangodb.serde.jackson.JacksonSerde`. This allows using Jackson API
+to serialize and deserialize user-data, compatible with both `JSON` and `VPACK`.
 
-Detailed documentation about serialization can be found [here](java-reference-serialization.html). 
-
+See the detailed documentation about [Serialization](java-reference-serialization.html)
+for more information.
 
 ## ArangoDB Java Driver Shaded
 
-Since version `7`, a shaded variant of the driver is also published with maven coordinates:
-`com.arangodb:arangodb-java-driver-shaded`.
+From version 7 onward, a shaded variant of the driver is also published with
+Maven coordinates: `com.arangodb:arangodb-java-driver-shaded`.
 
 It bundles and relocates the following packages:
 - `com.fasterxml.jackson`
@@ -251,12 +259,14 @@ It bundles and relocates the following packages:
 - `io.vertx`
 - `io.netty`
 
-Note that the **internal serde** uses internally Jackson classes from `com.fasterxml.jackson` that are relocated 
-to `com.arangodb.shaded.fasterxml.jackson`. Therefore, the **internal serde** of the shaded driver is not
-compatible with Jackson annotations and modules from package`com.fasterxml.jackson`, but only with their relocated 
-variants. In case the **internal serde** is used as **user-data serde**, the annotations from package 
-`com.arangodb.serde` can be used to annotate fields, parameters, getters and setters for mapping values representing 
-ArangoDB documents metadata (`_id`, `_key`, `_rev`, `_from`, `_to`):
+Note that the **internal serde** internally uses Jackson classes from
+`com.fasterxml.jackson` that are relocated  to `com.arangodb.shaded.fasterxml.jackson`.
+Therefore, the **internal serde** of the shaded driver is not compatible with
+Jackson annotations and modules from package`com.fasterxml.jackson`, but only
+with their relocated variants. In case the **internal serde** is used as
+**user-data serde**, the annotations from package `com.arangodb.serde` can be
+used to annotate fields, parameters, getters and setters for mapping values
+representing ArangoDB documents metadata (`_id`, `_key`, `_rev`, `_from`, `_to`):
 - `@InternalId`
 - `@InternalKey`
 - `@InternalRev`
@@ -264,8 +274,9 @@ ArangoDB documents metadata (`_id`, `_key`, `_rev`, `_from`, `_to`):
 - `@InternalTo`
 
 These annotations are compatible with relocated Jackson classes.
-Note that the **internal serde** is not part of the public API and could change in future releases without notice, thus
-breaking client applications relying on it to serialize or deserialize user-data. It is therefore recommended also in
+Note that the **internal serde** is not part of the public API and could change
+in future releases without notice, thus breaking client applications relying on
+it to serialize or deserialize user-data. It is therefore recommended also in
 this case either:
 - using the default user-data serde `JacksonSerde` (from packages `com.arangodb:jackson-serde-json` or
 `com.arangodb:jackson-serde-vpack`), or
@@ -277,57 +288,63 @@ The following client APIs have been removed:
 
 - client APIs already deprecated in Java Driver version `6`
 - client API to interact with deprecated server APIs:
-    - `MMFiles` related APIs
-    - `ArangoDatabase.executeTraversal()`
-    - `ArangoDB.getLogs()`
-    - `minReplicationFactor` in collections and graphs
-    - `overwrite` flag in `DocumentCreateOptions`
-    - `hash` and `skipList` indexes
+  - `MMFiles` related APIs
+  - `ArangoDatabase.executeTraversal()`
+  - `ArangoDB.getLogs()`
+  - `minReplicationFactor` in collections and graphs
+  - `overwrite` flag in `DocumentCreateOptions`
+  - `hash` and `skipList` indexes
 
-The user-data custom serializer implementation `ArangoJack` has been removed in favor of 
-`com.arangodb.serde.jackson.JacksonSerde`.
+The user-data custom serializer implementation `ArangoJack` has been removed in
+favor of `com.arangodb.serde.jackson.JacksonSerde`.
 
-Support for interpreting raw strings as JSON has been removed (in favor of `com.arangodb.util.RawJson`).
+Support for interpreting raw strings as JSON has been removed
+(in favor of `com.arangodb.util.RawJson`).
 
-Support of data type `com.arangodb.velocypack.VPackSlice` has been removed in favor of Jackson type 
-`com.fasterxml.jackson.databind.JsonNode` and its subclasses (`ArrayNode`, `ObjectNode`, ...). 
-Raw `VPACK` data can be used now with `com.arangodb.util.RawBytes`).
+Support of data type `com.arangodb.velocypack.VPackSlice` has been removed in
+favor of Jackson type `com.fasterxml.jackson.databind.JsonNode` and its subclasses
+(`ArrayNode`, `ObjectNode`, ...). Raw `VPACK` data can now be used with
+`com.arangodb.util.RawBytes`.
 
-Support for custom initialization of
-cursors (`ArangoDB._setCursorInitializer(ArangoCursorInitializer cursorInitializer)`) has been removed.
-
+Support for custom initialization of cursors
+(`ArangoDB._setCursorInitializer(ArangoCursorInitializer cursorInitializer)`)
+has been removed.
 
 ### Async API
 
-The asynchronous API (before under the package `com.arangodb.async`) has been removed from version 7.0 (#487).
-This has been done because the asynchronous API needs a substantial refactoring, i.e. supporting 
-HTTP protocol, fixing #433 and a better alignment with the synchronous API.
-It will be reworked and re-added in a future version 7.x.
-
+The asynchronous API (formerly under the package `com.arangodb.async`) has been
+removed from version 7.0. This has been done because the asynchronous API needs
+a substantial refactoring, i.e. supporting the HTTP protocol, fixing the async
+client to not block when consuming a cursor, and a better alignment with the
+synchronous API. It will be reworked and re-added in a future version 7.x.
 
 ## API methods changes
 
-Before version `7.0` some CRUD API methods inferred the return type from the type of the data object passed as input.
-Now the return type can be explicitly set for each CRUD API method. This type is used as deserialization target by
-the user-data serde. In particular, no automatic type inference is performed anymore in:
+Before version 7.0, some CRUD API methods inferred the return type from the type
+of the data object passed as input. Now, the return type can be explicitly set
+for each CRUD API method. This type is used as deserialization target by the
+user-data serde. In particular, no automatic type inference is performed anymore in:
 - `ArangoCollection.insertDocuments()`
 - `ArangoCollection.replaceDocuments()`
 - `ArangoCollection.updateDocuments()`
 - `ArangoCollection.deleteDocuments()`
-Unless specified explicitly, the target deserialization type is `Void.class`, thus allowing only `null` values. 
 
-CRUD operations operating with multiple documents have now an overloaded variant which accepts raw data (`RawBytes`
-and `RawJson`) containing multiple documents.
+Unless specified explicitly, the target deserialization type is `Void.class`,
+thus allowing only `null` values. 
+
+CRUD operations operating with multiple documents have now an overloaded variant
+which accepts raw data (`RawBytes` and `RawJson`) containing multiple documents.
 
 CRUD operations operating with multiple documents with parametric types are now covariant:
 - `ArangoCollection.insertDocuments(Collection<? extends T>, DocumentCreateOptions, Class<T>)`
 - `ArangoCollection.replaceDocuments(Collection<? extends T>, DocumentReplaceOptions, Class<T>)`
 
-`com.arangodb.Request` and `com.arangodb.Response` classes have been refactored to support generic body type. 
-`ArangoDB.execute(Request<T>, Class<U>): Response<U>` accepts now the target deserialization type for the response body.
+`com.arangodb.Request` and `com.arangodb.Response` classes have been refactored
+to support generic body type. `ArangoDB.execute(Request<T>, Class<U>): Response<U>`
+accepts now the target deserialization type for the response body.
 
-`com.arangodb.ArangoDBException` has been enhanced with the id of the request causing it. This can be useful to 
-correlate it with the debug level logs.
+`com.arangodb.ArangoDBException` has been enhanced with the id of the request
+causing it. This can be useful to correlate it with the debug level logs.
 
 Graph API has been updated (#486):
 - added `com.arangodb.ArangoEdgeCollection.drop()` and overloads
@@ -342,34 +359,39 @@ Graph API has been updated (#486):
 - `query(String query, Class<T> type, Map<String,Object> bindVars)`
 - `query(String query, Class<T> type, Map<String,Object> bindVars, AqlQueryOptions options)`
 
-The class `com.arangodb.DbName` has been removed. The database names can now be passed as `String`.
-Support to unicode characters in data definition names (databases, collections, views, indexes) has been added, see
-[Support to unicode data definition names](java.html#support-to-unicode-data-definition-names).
+The class `com.arangodb.DbName` has been removed. The database names can now be
+passed as `String`. Support to UTF-8 characters in data definition names
+(databases, collections, Views, indexes) has been added, see
+[Support for extended naming constraints](java.html#support-for-extended-naming-constraints).
 
-The name of `ArangoCollection` and `ArangoView` API classes are now final. The related rename methods:
+The name of `ArangoCollection` and `ArangoView` API classes are now final.
+The related rename methods:
 - `com.arangodb.ArangoCollection.rename(String)`
 - `com.arangodb.ArangoView.rename(String)`
-do not change anymore the collection or view name of the instance of the related API class on which it is invoked. 
-To interact with the renamed collection, a new instance of `ArangoCollection` with the new name must be created.
+
+Do not change anymore the collection or view name of the instance of the related
+API class on which it is invoked. To interact with the renamed collection, a new
+instance of `ArangoCollection` with the new name must be created.
 
 ## API entities
 
-All entities and options classes (in packages `com.arangodb.model` and `com.arangodb.entity`) are now `final`.
+All entities and options classes (in packages `com.arangodb.model` and
+`com.arangodb.entity`) are now `final`.
 
-The replication factor is now modeled with a new interface (`com.arangodb.entity.ReplicationFactor`) with
-implementations: `NumericReplicationFactor` and `SatelliteReplicationFactor`.
+The replication factor is now modeled with a new interface
+(`com.arangodb.entity.ReplicationFactor`) with implementations:
+`NumericReplicationFactor` and `SatelliteReplicationFactor`.
 
 Cursor statistics are now in `com.arangodb.entity.CursorStats`.
-
 
 ## GraalVM Native Image
 
 The driver supports GraalVM Native Image compilation.
-To compile with `--link-at-build-time` when `http-protocol` module is present in the classpath, additional substitutions
-are be required for its transitive dependencies (`Netty` and `Vert.x`). An example of this can be found
-[here](https://github.com/arangodb/arangodb-java-driver/tree/main/driver/src/test/java/graal). Such substitutions are
-not required when compiling the shaded driver.
-
+To compile with `--link-at-build-time` when `http-protocol` module is present in
+the classpath, additional substitutions are be required for its transitive
+dependencies (`Netty` and `Vert.x`). See this
+[example](https://github.com/arangodb/arangodb-java-driver/tree/main/driver/src/test/java/graal){:target="_blank"}
+for reference. Such substitutions are not required when compiling the shaded driver.
 
 ### Quarkus and Micronaut examples
 
@@ -377,15 +399,15 @@ The driver can be used from Quarkus and Micronaut applications and does not
 require any additional configuration for GraalVM native image generation.
 Examples can be found here:
 
-- [arango-quarkus-native-example](https://github.com/arangodb-helper/arango-quarkus-native-example)
-- [arango-micronaut-native-example](https://github.com/arangodb-helper/arango-micronaut-native-example)
-
+- [arango-quarkus-native-example](https://github.com/arangodb-helper/arango-quarkus-native-example){:target="_blank"}
+- [arango-micronaut-native-example](https://github.com/arangodb-helper/arango-micronaut-native-example){:target="_blank"}
 
 ## Migration
 
-To migrate your existing project to Java Driver version `7.0`, it is recommended first updating to the latest version of 
-branch `6` and make sure that your code does not use any deprecated API. 
-This can be done by checking the presence of deprecation warnings in the Java compiler output.
+To migrate your existing project to Java Driver version 7.0, it is recommended
+first updating to the latest version of branch `6` and make sure that your code
+does not use any deprecated API. This can be done by checking the presence of
+deprecation warnings in the Java compiler output.
 
-The deprecation notes in the related javadoc contain information about the reason of the deprecation and suggest
-migration alternatives to use.
+The deprecation notes in the related JavaDoc contain information about the
+reason of the deprecation and suggest migration alternatives to use.
