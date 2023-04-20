@@ -436,7 +436,7 @@ You can configure the feature via the following new startup options:
   exceeds the configured threshold and the last auto-flush is longer ago than
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
 
-### BlobDB as an opt-in feature
+### RocksDB blob storage (experimental)
 
 The following startup options have been added for configuring and enabling RocksDB's 
 blob storage (BlobDB) for larger documents in the documents column family.
