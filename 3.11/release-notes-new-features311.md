@@ -390,8 +390,26 @@ for details.
 
 The new `--javascript.user-defined-functions` startup option lets you disable
 user-defined AQL functions so that no user-defined JavaScript code of
-[UDFs](aql/extending.html) runs on the server. Also see
-[Server security options](security-security-options.html).
+[UDFs](aql/extending.html) runs on the server. This can be useful to shut down
+a potential attack vector in case no user-defined AQL functions are used.
+Also see [Server security options](security-security-options.html).
+
+### Disable Foxx
+
+<small>Introduced in: v3.10.5</small>
+
+The startup option `--foxx.enable` determines whether access to user-defined 
+Foxx services is possible on an instance. It defaults to `true`.
+If the option is set to `false`, access to Foxx services is forbidden and will
+be responded with an HTTP 403 Forbidden error. Access to ArangoDB's built-in
+web interface, which is also a Foxx service, is still possible even with the
+option set to `false`.
+When setting the option to `false`, access to the management APIs for Foxx
+services will also be disabled. This is the same as manually setting the
+option `--foxx.api false`.
+Disabling the access to Foxx can be useful to shut down a potential attack 
+vector in case Foxx is not used.
+Also see [Server security options](security-security-options.html).
 
 ### Configurable status code if write concern not fulfilled
 
@@ -437,6 +455,30 @@ You can configure the feature via the following new startup options:
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
 
 ## Miscellaneous changes
+
+### Reduced memory usage of in-memory edge indexes
+
+<small>Introduced in: v3.10.5</small>
+
+The memory usage of in-memory edge index caches is reduced if most of the edges 
+in an index refer to a single or mostly the same collection.
+Previously the full edge ids, consisting of the the referred-to collection
+name and the referred-to key of the edge were stored in full, i.e. the full
+values of the edges' `_from` and `_to` attributes. 
+Now, the first edge inserted into an edge index' in-memory cache will determine 
+the collection name for which all corresponding edges can be stored prefix-compressed.
+
+For example, when inserting an edge pointing to `the-collection/abc` into the
+empty cache, the collection name `the-collection` will be noted for that cache
+as a prefix. The edge will be stored in memory as only `/abc`. Further edges
+that are inserted into the cache and that point to the same collection will
+also be stored prefix-compressed.
+The prefix compression is transparent and does not require configuration or
+setup. Compression is done separately for each cache, i.e. a separate prefix
+can be used for each individual edge index, and separately for the `_from` and
+`_to` parts. Lookups from the in-memory edge cache will not return compressed
+values but the full-length edge ids. The compressed values will also be used
+in memory only and will not be persisted on disk.
 
 ### Trace logs for graph traversals and path searches
 
