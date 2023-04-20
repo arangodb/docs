@@ -41,7 +41,7 @@ var schema = {
     required: ["nums"]
   },
   level: "moderate",
-  message: "The document does not contain an array of numbers in attribute 'nums', or one of the numbers is bigger than 6."
+  message: "The document does not contain an array of numbers in attribute 'nums', or one of the numbers is greater than 6."
 };
 
 /* Create a new collection with schema */

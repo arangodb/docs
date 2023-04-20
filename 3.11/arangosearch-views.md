@@ -65,11 +65,41 @@ During view modification the following directives apply:
   An object `{ attribute-name: [Link properties], … }` of fields that should be
   processed at each level of the document. Each key specifies the document
   attribute to be processed. Note that the value of `includeAllFields` is also
-  consulted when selecting fields to be processed. It is a recursive data
-  structure. Each value specifies the [Link properties](#link-properties)
-  directives to be used when processing the specified field, a Link properties
-  value of `{}` denotes inheritance of all (except `fields`) directives from
-  the current level.
+  consulted when selecting fields to be processed.
+  
+  The `fields` property is a recursive data structure. This means that `fields`
+  can be part of the Link properties again. This lets you index nested attributes.
+  For example, you might have documents like the following in a collection named
+  `coll`:
+
+  ```json
+  { "attr": { "nested": "foo" } }
+  ```
+
+  If you want to index the `nested` attribute with the `text_en` Analyzer without
+  using `includeAllFields`, you can do so with the following View definition:
+
+  ```json
+  {
+    "links": {
+      "coll": {
+        "fields": {
+          "attr": {
+            "fields": {
+              "nested": {
+                "analyzers": ["text_en"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  ```
+
+  Each value specifies the [Link properties](#link-properties) directives to be
+  used when processing the specified field. A Link properties value of `{}`
+  denotes inheritance of all (except `fields`) directives from the current level.
 
 - **includeAllFields** (_optional_; type: `boolean`; default: `false`)
 
@@ -145,9 +175,17 @@ During view modification the following directives apply:
   Normalization values are computed for fields which are processed with Analyzers
   that have the `"norm"` feature enabled. These values are used to score fairer
   if the same tokens occur repeatedly, to emphasize these documents less.
-  
+
+  You can also enable this option to always cache auxiliary data used for querying
+  fields that are indexed with Geo Analyzers in memory.
+  This can improve the performance of geo-spatial queries.
+
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
-  to control the memory consumption of this cache.
+  to control the memory consumption of this cache. You can reduce the memory
+  usage of the column cache in cluster deployments by only using the cache for
+  leader shards, see the
+  [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
+  (introduced in v3.10.6).
 
   {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
@@ -181,7 +219,11 @@ During view modification the following directives apply:
   to load them from disk into memory and to evict them from memory.
 
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
-  to control the memory consumption of this cache.
+  to control the memory consumption of this cache. You can reduce the memory
+  usage of the column cache in cluster deployments by only using the cache for
+  leader shards, see the
+  [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
+  (introduced in v3.10.6).
 
   {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
   
@@ -195,7 +237,11 @@ During view modification the following directives apply:
   to load them from disk into memory and to evict them from memory.
 
   See the [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
-  to control the memory consumption of this cache.
+  to control the memory consumption of this cache. You can reduce the memory
+  usage of the column cache in cluster deployments by only using the cache for
+  leader shards, see the
+  [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
+  (introduced in v3.10.6).
 
   {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
@@ -226,7 +272,11 @@ During view modification the following directives apply:
     memory (introduced in v3.9.5 and v3.10.2, Enterprise Edition only).
     This can improve the query performance if stored values are involved. See the
     [`--arangosearch.columns-cache-limit` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-limit)
-    to control the memory consumption of this cache.
+    to control the memory consumption of this cache. You can reduce the memory
+    usage of the column cache in cluster deployments by only using the cache for
+    leader shards, see the
+    [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
+    (introduced in v3.10.6).
 
   You may use the following shorthand notations on View creation instead of
   an array of objects as described above. The default compression and cache

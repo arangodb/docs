@@ -354,6 +354,15 @@ Also see:
 - [View names](data-modeling-views.html#view-names)
 - Index names have the same character restrictions as collection names
 
+### ArangoSearch column cache only on leaders
+
+<small>Introduced in: v3.10.6</small>
+
+You can reduce the memory usage of the column cache in cluster deployments by
+only using the cache for leader shards with the new
+[`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader).
+It is disabled by default, which means followers also maintain a column cache.
+
 ### Verify `.sst` files
 
 The new `--rocksdb.verify-sst` startup option lets you validate the `.sst` files
