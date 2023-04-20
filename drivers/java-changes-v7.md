@@ -11,7 +11,7 @@ description: Changes in ArangoDB Java Driver version 7.0
     <dependency>
         <groupId>com.arangodb</groupId>
         <artifactId>arangodb-java-driver</artifactId>
-        <version>7.0.0-RC.5</version>
+        <version>7.x.x</version>
     </dependency>
 <dependencies>
 ```
@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.arangodb:arangodb-java-driver:7.0.0-RC.5'
+    implementation 'com.arangodb:arangodb-java-driver:7.x.x'
 }
 ```
 
