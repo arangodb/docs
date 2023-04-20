@@ -10,9 +10,9 @@ While older versions of the driver used mapping features provided by the
 which is a VelocyPack dataformat backend for [Jackson](https://github.com/FasterXML/jackson){:target="_blank"},
 supporting the Streaming, Data Binding and Tree Model API styles.
 
-## Import in maven
+## Import in Maven
 
-To add it to your maven project, add the following to `pom.xml`:
+To add it to your Maven project, add the following to `pom.xml`:
 
 ```xml
 <dependencies>

@@ -6,8 +6,6 @@ description: The official ArangoDB Java Driver (version 6)
 
 The official ArangoDB [Java Driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"}.
 
-- [Java Driver v6 Tutorial](https://university.arangodb.com/courses/java-driver-tutorial-v6/){:target="_blank"}
-
 ## Supported versions
 
 Only the latest version of this driver is maintained to support the most recent
@@ -27,7 +25,7 @@ driver in version 6.2.0. See
 
 ## Maven
 
-To add the driver to your project with maven, add the following code to your
+To add the driver to your project with Maven, add the following code to your
 pom.xml (substitute `x.x.x` with the latest driver version):
 
 ```xml
@@ -68,3 +66,4 @@ Examples can be found here:
 - [ChangeLog](https://github.com/arangodb/arangodb-java-driver/blob/v6/ChangeLog.md){:target="_blank"}
 - [Code examples](https://github.com/arangodb/arangodb-java-driver/tree/v6/src/test/java/com/arangodb/example){:target="_blank"}
 - [Java VelocyPack](https://github.com/arangodb/java-velocypack){:target="_blank"} ([JavaDoc](https://arangodb.github.io/java-velocypack){:target="_blank"})
+- [Tutorial](https://university.arangodb.com/courses/java-driver-tutorial-v6/){:target="_blank"}

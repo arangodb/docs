@@ -128,10 +128,10 @@ setting a very high connection limit or by using multiple ArangoDB objects
 and thus pools.
 {% endhint %}
 
-
 ## Thread Safety
 
-The driver can be used concurrently by multiple threads. All the following classes are thread safe:
+The driver can be used concurrently by multiple threads.
+All the following classes are thread safe:
 - `com.arangodb.ArangoDB`
 - `com.arangodb.ArangoDatabase`
 - `com.arangodb.ArangoCollection`
@@ -141,9 +141,9 @@ The driver can be used concurrently by multiple threads. All the following class
 - `com.arangodb.ArangoView`
 - `com.arangodb.ArangoSearch`
 
-Any other class should not be considered thread safe. In particular classes representing request options (package 
-`com.arangodb.model`) and response entities (package `com.arangodb.entity`) are not thread safe.
-
+Any other class should not be considered thread safe. In particular classes
+representing request options (package `com.arangodb.model`) and response entities
+(package `com.arangodb.entity`) are not thread safe.
 
 ## Fallback hosts
 
