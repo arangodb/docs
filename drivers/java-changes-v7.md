@@ -75,7 +75,7 @@ are prefixed with `adb`:
 ArangoConfigProperties props = ArangoConfigProperties.fromFile("arangodb-with-prefix.properties", "adb");
 ```
 
-Related reference documentation can be found [here](./v7_java-reference-setup.md#config-file-properties).
+Related reference documentation can be found [here](java-reference-setup.html#config-file-properties).
 
 Here are some examples showing how to provide configuration properties from different sources:
 - [Eclipse MicroProfile Config](https://github.com/arangodb-helper/arango-quarkus-native-example/blob/master/src/main/java/org/acme/quickstart/ArangoConfig.java)
@@ -237,7 +237,7 @@ The user-data custom serializer implementation `ArangoJack` has been removed in 
 `com.arangodb.serde.jackson.JacksonSerde`. This allows using Jackson API to serialize and deserialize user-data, 
 compatible with both `JSON` and `VPACK`.
 
-Detailed documentation about serialization can be found [here](v7_java-reference-serialization.md). 
+Detailed documentation about serialization can be found [here](java-reference-serialization.html). 
 
 
 ## ArangoDB Java Driver Shaded
@@ -344,7 +344,7 @@ Graph API has been updated (#486):
 
 The class `com.arangodb.DbName` has been removed. The database names can now be passed as `String`.
 Support to unicode characters in data definition names (databases, collections, views, indexes) has been added, see
-[Support to unicode data definition names](v7_java.md#unicode-characters-in-data-definition-names).
+[Support to unicode data definition names](java.html#support-to-unicode-data-definition-names).
 
 The name of `ArangoCollection` and `ArangoView` API classes are now final. The related rename methods:
 - `com.arangodb.ArangoCollection.rename(String)`
