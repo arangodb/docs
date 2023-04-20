@@ -369,7 +369,7 @@ This method wraps the range header parsing method of the
 
 Returns `undefined` if the `Range` header is absent, `-2` if the header is
 present but malformed, `-1` if the range is invalid (e.g. start offset is
-larger than end offset) or unsatisfiable for the given size.
+greater than end offset) or unsatisfiable for the given size.
 
 Otherwise returns an array of objects with the properties `start` and `end`
 values for each range. The array has an additional property `type` indicating

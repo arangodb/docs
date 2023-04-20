@@ -223,15 +223,15 @@ other than ASCII letters (`a`-`z`, `A`-`Z`), digits (`0`-`9`),
 underscores (`_`) and dollar signs (`$`). The first character has to be a
 letter, underscore or dollar sign.
 
-If a [keyword](fundamentals-syntax.html#keywords) is used as an attribute name
-then the attribute name must be quoted or escaped by ticks or backticks:
+If a [keyword](fundamentals-syntax.html#keywords) is used as an attribute name,
+then the attribute name must be quoted:
 
 ```aql
 { return: … }    // error, return is a keyword!
-{ 'return': … }  // quoted
-{ "return": … }  // quoted
-{ `return`: … }  // escaped (backticks)
-{ ´return´: … }  // escaped (ticks)
+{ 'return': … }  // quoted string literal (single quote marks)
+{ "return": … }  // quoted string literal (double quote marks)
+{ `return`: … }  // quoted name (backticks)
+{ ´return´: … }  // quoted name (forward ticks)
 ```
 
 A trailing comma after the last element is allowed (introduced in v3.7.0):

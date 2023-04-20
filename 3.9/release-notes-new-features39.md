@@ -88,6 +88,10 @@ Views of the type `arangosearch` support new caching options.
   to always cache field normalization values in memory. This can improve the
   performance of scoring and ranking queries.
 
+  It also enables caching of auxiliary data used for querying fields that are
+  indexed with Geo Analyzers. This can improve the performance of geo-spatial
+  queries.
+
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
@@ -1127,7 +1131,7 @@ Also see [Merging Attributes](programs-arangoimport-examples-csv.html#merging-at
 
 _arangoimport_ also provides a new `--datatype` startup option, in order to fix
 the datatypes for certain attributes in CSV/TSV imports. For example, in the
-the following CSV input file, it is unclear if the numeric values should be
+following CSV input file, it is unclear if the numeric values should be
 imported as numbers or as stringified numbers for the individual attributes:
 
 ```

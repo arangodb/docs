@@ -236,7 +236,7 @@ docker run -it --name=adbN --rm -p 8528:8528 \
 The first `arangodb` you run becomes the _leader_ of your _Starter_ setup
 (also called _master_), the other `arangodb` instances become the
 _followers_ of your _Starter_ setup. This is not to be confused with the
-the Leader/Follower replication of ArangoDB. The terms above refer to the _Starter_ setup.
+Leader/Follower replication of ArangoDB. The terms above refer to the _Starter_ setup.
 
 The _Starter_ _leader_ determines which ArangoDB server processes to launch on which
 _Starter_ _follower_, and how they should communicate.

@@ -17,7 +17,7 @@ A direction can be specified upon their creation for each uniquely named
 attribute (ascending or descending), to enable an optimization for AQL
 queries which iterate over a collection or View and sort by one or multiple of the
 indexed attributes. If the field(s) and the sorting direction(s) match, then the
-the data can be read directly from the index without actual sort operation.
+data can be read directly from the index without actual sort operation.
 
 You can only set the `primarySort` option and the related
 `primarySortCompression` and `primarySortCache` options on View creation.
@@ -224,6 +224,88 @@ db._createView("myView", "search-alias", { indexes: [
 ] });
 ```
 
+## WAND optimization
+
+You can define a list of sort expressions that you intend to use in View queries
+later. You can then retrieve search results for the highest-ranking matches from
+Views faster.
+
+This is possible if you query a View with the `SEARCH` operation in combination
+with a `SORT` and `LIMIT` operation. The `SORT` expression needs to match one of
+the previously defined expressions and has to sort by the result of a
+[scoring function](aql/functions-arangosearch.html#scoring-functions) in
+descending order (`DESC`). Asking for the highest-ranking matches this way with
+some `LIMIT` to the number of results allows ArangoSearch to efficiently fetch
+the results from the View index (the top _k_ ranking results), skipping anything
+with a too low score.
+
+To use this optimization, specify the `optimizeTopK` property when creating an
+`arangosearch` View or an inverted index. In case of the inverted index, you
+need to add it to a `search-alias` View because only Views are capable of
+ranking results. The property value needs to be an array of strings with the
+sort expressions that shall be optimized. Use `@doc` in each expression as the
+first argument to the scoring function, regardless of how the document variable
+will be named in View queries.
+
+_`arangosearch` View:_
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "optimizeTopK": [
+    "BM25(@doc) DESC",
+    "BM25(@doc, 1.2, 1) DESC",
+    "TFIDF(@doc) DESC",
+    "TFIDF(@doc, true) DESC"
+  ]
+}
+```
+
+See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
+for details.
+
+_`search-alias` View:_
+
+```js
+db.articles.ensureIndex({
+  name: "inv-idx",
+  type: "inverted",
+  fields: ["categories[*]"],
+  optimizeTopK: [
+    "BM25(@doc) DESC",
+    "BM25(@doc, 1.2, 1) DESC",
+    "TFIDF(@doc) DESC",
+    "TFIDF(@doc, true) DESC"
+  ]
+});
+
+db._createView("myView", "search-alias", { indexes: [
+  { collection: "articles", index: "inv-idx" }
+] });
+```
+
+See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
+for details.
+
+The following search query can benefit from the WAND optimization because a
+limited number of matches, ordered by highest score, are returned by the query,
+and the sort expression matches one of the expressions defined in the
+`optimizeTopK` property:
+
+```aql
+FOR doc IN myView
+  SEARCH ["travel", "health"] ALL == doc.categories
+  SORT BM25(doc, 1.2, 1) DESC
+  LIMIT 10
+  RETURN doc
+```
+
 ## Stored Values
 
 It is possible to directly store the values of document attributes in
@@ -262,7 +344,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -349,7 +431,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -402,7 +484,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -470,11 +552,11 @@ FOR doc IN viewName
 
 Also see [Faceted Search with ArangoSearch](arangosearch-faceted-search.html).
 
-## Field normalization value caching
+## Field normalization value caching and caching of Geo Analyzer auxiliary data
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
 
-{% include hint-ee.md feature="ArangoSearch caching" %}
+{% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 Normalization values are computed for fields which are processed with Analyzers
 that have the [`"norm"` feature](analyzers.html#analyzer-features) enabled.
@@ -485,6 +567,10 @@ You can set the `cache` option to `true` for individual View links or fields of
 `arangosearch` Views, as well as for inverted indexes as the default or for
 specific fields, to always cache the field normalization values in memory.
 This can improve the performance of scoring and ranking queries.
+
+You can also enable this option to always cache auxiliary data used for querying
+fields that are indexed with Geo Analyzers in memory, as the default or for
+specific fields. This can improve the performance of geo-spatial queries.
 
 _`arangosearch` View:_
 
@@ -540,7 +626,7 @@ db._createView("myView", "search-alias", { indexes: [
 ] });
 ```
 
-See see [inverted index `cache` property](http/indexes-inverted.html) for details.
+See the [inverted index `cache` property](http/indexes-inverted.html) for details.
 
 The `"norm"` Analyzer feature has performance implications even if the cache is
 used. You can create custom Analyzers without this feature to disable the
@@ -582,7 +668,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primaryKeyCache: true
 });
 
