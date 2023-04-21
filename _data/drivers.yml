@@ -4,17 +4,26 @@
 - text: Java Driver
   href: java.html
   children:
-    - text: Reference
+    - text: Reference (version 7)
       href: java-reference.html
       children:
-        - text: JavaDoc
-          href: http://arangodb.github.io/arangodb-java-driver/
-        - text: JavaDoc VelocyPack
-          href: http://arangodb.github.io/java-velocypack/
         - text: Driver Setup
           href: java-reference-setup.html
         - text: Serialization
           href: java-reference-serialization.html
+        - text: Changes in version 7
+          href: java-changes-v7.html
+        - text: JavaDoc
+          href: https://www.javadoc.io/doc/com.arangodb/arangodb-java-driver/latest/index.html
+        - text: JavaDoc VelocyPack
+          href: https://www.javadoc.io/doc/com.arangodb/velocypack/latest/index.html
+    - text: Reference (version 6) 
+      href: java-v6.html
+      children:
+        - text: Driver Setup
+          href: java-v6-reference-setup.html
+        - text: Serialization
+          href: java-v6-reference-serialization.html
 - text: ArangoDB Go Driver
   href: go.html
 - text: ArangoDB C#/.NET Driver
