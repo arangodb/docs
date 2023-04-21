@@ -439,7 +439,8 @@ You can configure the feature via the following new startup options:
 ### RocksDB blob storage (experimental)
 
 Starting with version 3.11, ArangoDB can make use of RocksDB's integrated blob
-storage (BlobDB) for larger documents. This is currently an experimental feature.
+storage (BlobDB) for larger documents. This is currently an experimental feature
+and should not be used in production.
 
 [BlobDB is an integral part of RocksDB](https://rocksdb.org/blog/2021/05/26/integrated-blob-db.html)
 and provides a key-value separation: large values will be stored in dedicated blob 
@@ -455,15 +456,27 @@ will be offloaded to separate blob files. This allows storing small documents
 inline with the keys as before, but still benefit from reduced write amplification
 for larger documents.
 
-Using BlobDB in ArangoDB is experimental and not enabled by default in ArangoDB 3.11.
-Even though BlobDB can help reduce the write amplification, it may increase the
-read amplification and may worsen the read performance for some workloads.
-The various tuning parameters that BlobDB offers are made available in ArangoDB,
-so that administrators can use a cutoff value that is most sensible for the
-workload. The current default settings for the BlobDB tuning options are also not
-ideal for many use cases and will need to be adjusted by administrators. 
-It is likely that the default settings for BlobDB tuning options will change in 
-future versions of ArangoDB. Future versions may also enable BlobDB by default.
+BloblDB is not enabled by default in ArangoDB 3.11.
+Using BlobDB in ArangoDB is experimental and not recommended in production. It is
+made available as an experimental feature so that further tests and tuning can be
+done by interested parties. Future versions of ArangoDB may declare the feature
+production-ready and even enable BlobDB by default.
+
+There are currently a few caveats when using BlobDB in ArangoDB:
+* Even though BlobDB can help reduce the write amplification, it may increase the
+  read amplification and may worsen the read performance for some workloads.
+* The various tuning parameters that BlobDB offers are made available in ArangoDB,
+  but the current default settings for the BlobDB tuning options will not be ideal
+  for many use cases and will need to be adjusted by administrators first. 
+* It is very likely that the default settings for the BlobDB tuning options will 
+  change in future versions of ArangoDB.
+* Memory and disk usage patterns are different to that of versions running without
+  BlobDB enabled. It is very likely that memory limits and disk capacity may
+  need to be adjusted.
+* Some metrics for observing RocksDB do not react properly when BlobDB is in use.
+* The built-in throttling mechanism for controlling the write-throughput will
+  slow down writes too much when BlobDB is used. This can be circumvented with
+  tuning parameters, but the defaults may be too aggressive.
 
 The following experimental startup options have been added in ArangoDB 3.11 to
 enable and configure BlobDB:
