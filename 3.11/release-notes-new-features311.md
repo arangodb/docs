@@ -304,7 +304,7 @@ anymore, but also supports in-memory hash caches of persistent indexes
 
 This new feature automatically refills the in-memory index caches.
 When documents (including edges) are added, modified, or removed and if this
-affects the edge index or cache-enabled persistent indexes, these changes are
+affects an edge index or cache-enabled persistent indexes, these changes are
 tracked and a background thread tries to update the index caches accordingly if
 the feature is enabled, by adding new, updating existing, or deleting and
 refilling cache entries.
@@ -733,6 +733,14 @@ You can configure the feature via the following new startup options:
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
 
 ## Miscellaneous changes
+
+### Write-write conflict improvements
+
+It is now less likely that writes to the same document in quick succession
+result in write-write conflicts for single document operations that use the
+Document HTTP API. See
+[Incompatible changes in ArangoDB 3.11](release-notes-upgrading-changes311.html#write-write-conflict-improvements)
+about the detailed behavior changes.
 
 ### Trace logs for graph traversals and path searches
 

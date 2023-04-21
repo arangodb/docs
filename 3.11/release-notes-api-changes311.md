@@ -77,7 +77,7 @@ value is an array but its elements are not strings, in which case the error
 The following endpoints support a new `refillIndexCaches` query
 parameter to repopulate the index caches after requests that insert, update,
 replace, or remove single or multiple documents (including edges) if this
-affects the edge index or cache-enabled persistent indexes:
+affects an edge index or cache-enabled persistent indexes:
 
 - `POST /_api/document/{collection}`
 - `PATCH /_api/document/{collection}/{key}`
