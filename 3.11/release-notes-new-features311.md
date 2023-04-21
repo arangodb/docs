@@ -732,6 +732,26 @@ You can configure the feature via the following new startup options:
   exceeds the configured threshold and the last auto-flush is longer ago than
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
 
+### Configurable whitespace in metrics
+
+<small>Introduced in: v3.10.6</small>
+
+The output format of the metrics API slightly changed in v3.10.0. It no longer
+had a space between the label and the value for metrics with labels. Example:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"}0
+```
+
+The new `--server.ensure-whitespace-metrics-format` startup option lets you
+control whether the metric label and value shall be separated by a space for
+improved compatibility with some tools. This option is enabled by default.
+From v3.10.6 onward, the default output format looks like this:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"} 0
+```
+
 ## Miscellaneous changes
 
 ### Write-write conflict improvements
