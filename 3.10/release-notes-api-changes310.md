@@ -607,6 +607,9 @@ replace, or remove single or multiple edge documents:
 
 It is a boolean option and the default is `false`.
 
+This also applies to the `INSERT`, `UPDATE`, `REPLACE`, and `REMOVE` operations
+in AQL queries, which support a `refillIndexCache` option, too.
+
 #### Metrics API
 
 The `GET /_admin/metrics/v2` (and `GET /_admin/metrics`) endpoints provide
