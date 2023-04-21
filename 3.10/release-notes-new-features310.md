@@ -374,29 +374,34 @@ cache-related options and thus recreate inverted indexes and Views. See
 [Known Issues in 3.10](release-notes-known-issues310.html#arangosearch).
 {% endhint %}
 
-### New startup options
+### Skip ArangoSearch recovery
 
-- With `--arangosearch.skip-recovery`, you can skip data recovery for the
-  specified View links and inverted indexes on startup.
-  Values for this startup option should have the format `<collection-name>/<link-id>`,
-  `<collection-name>/<index-id>`, or `<collection-name>/<index-name>`.
-  On DB-Servers, the `<collection-name>` part should contain a shard name.
+With `--arangosearch.skip-recovery`, you can skip data recovery for the
+specified View links and inverted indexes on startup.
+Values for this startup option should have the format `<collection-name>/<link-id>`,
+`<collection-name>/<index-id>`, or `<collection-name>/<index-name>`.
+On DB-Servers, the `<collection-name>` part should contain a shard name.
 
-- With the `--arangosearch.fail-queries-on-out-of-sync` startup option you can let
-  write operations fail if `arangosearch` View links or inverted indexes are not
-  up-to-date with the collection data. The option is set to `false` by default.
-  Queries on out-of-sync links/indexes are answered normally, but the return data
-  may be incomplete.
-  If set to `true`, any data retrieval queries on out-of-sync 
-  links/indexes are going to fail with error "collection/view is out of sync"
-  (error code 1481).
+### Fail ArangoSearch queries on out-of-sync
+
+With the `--arangosearch.fail-queries-on-out-of-sync` startup option you can let
+write operations fail if `arangosearch` View links or inverted indexes are not
+up-to-date with the collection data. The option is set to `false` by default.
+Queries on out-of-sync links/indexes are answered normally, but the return data
+may be incomplete.
+If set to `true`, any data retrieval queries on out-of-sync 
+links/indexes are going to fail with error "collection/view is out of sync"
+(error code 1481).
+
+### Disable user-defined AQL functions
 
 <small>Introduced in: v3.10.4</small>
 
-- The new `--javascript.user-defined-functions` startup option lets you disable
-  user-defined AQL functions so that no user-defined JavaScript code of
-  [UDFs](aql/extending.html) runs on the server. Also see
-  [Server security options](security-security-options.html).
+The new `--javascript.user-defined-functions` startup option lets you disable
+user-defined AQL functions so that no user-defined JavaScript code of
+[UDFs](aql/extending.html) runs on the server. This can be useful to close off
+a potential attack vector in case no user-defined AQL functions are used.
+Also see [Server security options](security-security-options.html).
 
 ### ArangoSearch metrics and figures
 
@@ -1214,6 +1219,16 @@ without causing any data imbalance:
 - `--agency.supervision-delay-failed-follower`:
   The delay in supervision, before a FailedFollower job is executed (in seconds).
 
+<small>Introduced in: v3.9.7, v3.10.2</small>
+
+A `--agency.supervision-failed-leader-adds-follower` startup option has been
+added with a default of `true` (behavior as before). If you set this option to
+`false`, a `FailedLeader` job does not automatically configure a new shard
+follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
+for the case that the server comes back quickly. If the server has permanently
+failed, an `AddFollower` job is created anyway eventually, as governed by the
+`--agency.supervision-delay-add-follower` option.
+
 ### Edge cache refill options
 
 <small>Introduced in: v3.9.6, v3.10.2</small>
@@ -1236,17 +1251,6 @@ without causing any data imbalance:
 - `--rocksdb.auto-refill-index-caches-on-followers`: Control whether automatic
   refilling of in-memory caches should happen on followers or only leaders.
   The default value is `true`, i.e. refilling happens on followers, too.
-
-### Agency option to control whether a failed leader adds a shard follower
-
-<small>Introduced in: v3.9.7, v3.10.2</small>
-
-A `--agency.supervision-failed-leader-adds-follower` startup option has been
-added with a default of `true` (behavior as before). If you set this option to
-`false`, a `FailedLeader` job does not automatically configure a new shard
-follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
-for the case that the server comes back quickly. If the server has permanently
-failed, an `AddFollower` job is created anyway eventually.
 
 ### RocksDB Bloom filter option
 
@@ -1273,6 +1277,10 @@ Foxx services are also disabled as if you set `--foxx.api false` manually.
 Access to ArangoDB's built-in web interface, which is also a Foxx service, is
 still possible even with the option set to `false`.
 
+Disabling the access to Foxx can be useful to close off a potential attack
+vector in case Foxx is not used.
+Also see [Server security options](security-security-options.html).
+
 ### RocksDB auto-flushing
 
 <small>Introduced in: v3.9.10, v3.10.5</small>
@@ -1295,6 +1303,26 @@ You can configure the feature via the following new startup options:
   Note that an auto-flush is only executed if the number of live WAL files
   exceeds the configured threshold and the last auto-flush is longer ago than
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
+
+### Configurable whitespace in metrics
+
+<small>Introduced in: v3.10.6</small>
+
+The output format of the metrics API slightly changed in v3.10.0. It no longer
+had a space between the label and the value for metrics with labels. Example:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"}0
+```
+
+The new `--server.ensure-whitespace-metrics-format` startup option lets you
+control whether the metric label and value shall be separated by a space for
+improved compatibility with some tools. This option is enabled by default.
+From v3.10.6 onward, the default output format looks like this:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"} 0
+```
 
 ## Miscellaneous changes
 
@@ -1389,6 +1417,33 @@ been added:
 | Label | Description |
 |:------|:------------|
 | `arangodb_replication_clients` | Number of currently connected/active replication clients. |
+
+### Reduced memory usage of in-memory edge indexes
+
+<small>Introduced in: v3.10.5</small>
+
+The memory usage of in-memory edge index caches is reduced if most of the edges 
+in an index refer to a single or mostly the same collection.
+
+Previously, the full edge IDs, consisting of the the referred-to collection
+name and the referred-to key of the edge, were stored in full, i.e. the full
+values of the edges' `_from` and `_to` attributes. 
+Now, the first edge inserted into an edge index' in-memory cache determines
+the collection name for which all corresponding edges can be stored
+prefix-compressed.
+
+For example, when inserting an edge pointing to `the-collection/abc` into the
+empty cache, the collection name `the-collection` is noted for that cache
+as a prefix. The edge is stored in-memory as only `/abc`. Further edges
+that are inserted into the cache and that point to the same collection are
+also stored prefix-compressed.
+
+The prefix compression is transparent and does not require configuration or
+setup. Compression is done separately for each cache, i.e. a separate prefix
+can be used for each individual edge index, and separately for the `_from` and
+`_to` parts. Lookups from the in-memory edge cache do not return compressed
+values but the full-length edge IDs. The compressed values are also used
+in-memory only and are not persisted on disk.
 
 ## Client tools
 
