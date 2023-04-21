@@ -74,6 +74,15 @@ sudo bash -c "echo madvise >/sys/kernel/mm/transparent_hugepage/defrag"
 
 before executing `arangod`.
 
+{% hint 'info' %}
+The official release executables of ArangoDB require the operating system
+to use a page size of **4096 bytes** or less.
+Larger page sizes lead to the error `<jemalloc>: Unsupported system page size`
+during startup.
+
+You can check the page size with the `getconf PAGESIZE` command.
+{% endhint %}
+
 Swap Space
 ----------
 
