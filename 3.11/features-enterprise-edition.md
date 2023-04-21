@@ -64,9 +64,13 @@ features outlined below. For additional information, see
   size on disk, the precision, and query performance.
 
 - [**ArangoSearch column cache**](release-notes-new-features310.html#arangosearch-column-cache-enterprise-edition):
-  Always cache field normalization values, stored values, primary sort columns,
-  and primary key columns in memory to improve the performance of Views and
-  inverted indexes.
+  Always cache field normalization values, Geo Analyzer auxiliary data,
+  stored values, primary sort columns, and primary key columns in memory to
+  improve the performance of Views and inverted indexes.
+  
+- [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
+  Retrieve search results for the highest-ranking matches from Views faster by
+  defining a list of sort expressions to optimize.
 
 ## Querying
 

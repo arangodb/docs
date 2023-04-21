@@ -61,7 +61,7 @@ If the option is set to `false`, access to Foxx services is forbidden and is
 responded with an HTTP `403 Forbidden` error. Access to the management APIs for
 Foxx services are also disabled as if `--foxx.api false` is set manually.
 
-#### Configurable space in metrics
+#### Configurable whitespace in metrics
 
 <small>Introduced in: v3.10.6</small>
 
@@ -628,6 +628,9 @@ replace, or remove single or multiple edge documents:
 - `DELETE /_api/document/{collection}/{key}`
 
 It is a boolean option and the default is `false`.
+
+This also applies to the `INSERT`, `UPDATE`, `REPLACE`, and `REMOVE` operations
+in AQL queries, which support a `refillIndexCache` option, too.
 
 #### Metrics API
 

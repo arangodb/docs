@@ -88,6 +88,10 @@ Views of the type `arangosearch` support new caching options.
   to always cache field normalization values in memory. This can improve the
   performance of scoring and ranking queries.
 
+  It also enables caching of auxiliary data used for querying fields that are
+  indexed with Geo Analyzers. This can improve the performance of geo-spatial
+  queries.
+
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
@@ -838,6 +842,16 @@ without causing any data imbalance:
 - `--agency.supervision-delay-failed-follower`:
   The delay in supervision, before a FailedFollower job is executed (in seconds).
 
+<small>Introduced in: v3.9.7</small>
+
+A `--agency.supervision-failed-leader-adds-follower` startup option has been
+added with a default of `true` (behavior as before). If you set this option to
+`false`, a `FailedLeader` job does not automatically configure a new shard
+follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
+for the case that the server comes back quickly. If the server has permanently
+failed, an `AddFollower` job is created anyway eventually, as governed by the
+`--agency.supervision-delay-add-follower` option.
+
 ### Edge cache refill options
 
 <small>Introduced in: v3.9.6</small>
@@ -860,17 +874,6 @@ without causing any data imbalance:
 - `--rocksdb.auto-refill-index-caches-on-followers`: Control whether automatic
   refilling of in-memory caches should happen on followers or only leaders.
   The default value is `true`, i.e. refilling happens on followers, too.
-
-### Agency option to control whether a failed leader adds a shard follower
-
-<small>Introduced in: v3.9.7</small>
-
-A `--agency.supervision-failed-leader-adds-follower` startup option has been
-added with a default of `true` (behavior as before). If you set this option to
-`false`, a `FailedLeader` job does not automatically configure a new shard
-follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
-for the case that the server comes back quickly. If the server has permanently
-failed, an `AddFollower` job is created anyway eventually.
 
 ### RocksDB auto-flushing
 
@@ -1127,7 +1130,7 @@ Also see [Merging Attributes](programs-arangoimport-examples-csv.html#merging-at
 
 _arangoimport_ also provides a new `--datatype` startup option, in order to fix
 the datatypes for certain attributes in CSV/TSV imports. For example, in the
-the following CSV input file, it is unclear if the numeric values should be
+following CSV input file, it is unclear if the numeric values should be
 imported as numbers or as stringified numbers for the individual attributes:
 
 ```

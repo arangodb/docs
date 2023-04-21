@@ -59,11 +59,41 @@ During view modification the following directives apply:
   An object `{ attribute-name: [Link properties], … }` of fields that should be
   processed at each level of the document. Each key specifies the document
   attribute to be processed. Note that the value of `includeAllFields` is also
-  consulted when selecting fields to be processed. It is a recursive data
-  structure. Each value specifies the [Link properties](#link-properties)
-  directives to be used when processing the specified field, a Link properties
-  value of `{}` denotes inheritance of all (except `fields`) directives from
-  the current level.
+  consulted when selecting fields to be processed.
+  
+  The `fields` property is a recursive data structure. This means that `fields`
+  can be part of the Link properties again. This lets you index nested attributes.
+  For example, you might have documents like the following in a collection named
+  `coll`:
+
+  ```json
+  { "attr": { "nested": "foo" } }
+  ```
+
+  If you want to index the `nested` attribute with the `text_en` Analyzer without
+  using `includeAllFields`, you can do so with the following View definition:
+
+  ```json
+  {
+    "links": {
+      "coll": {
+        "fields": {
+          "attr": {
+            "fields": {
+              "nested": {
+                "analyzers": ["text_en"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  ```
+
+  Each value specifies the [Link properties](#link-properties) directives to be
+  used when processing the specified field. A Link properties value of `{}`
+  denotes inheritance of all (except `fields`) directives from the current level.
 
 - **includeAllFields** (_optional_; type: `boolean`; default: `false`)
 

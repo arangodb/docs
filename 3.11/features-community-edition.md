@@ -214,11 +214,20 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
 - [**Background Indexing**](indexing-index-basics.html#creating-indexes-in-background):
   Indexes can be created in the background to not block queries in the meantime.
 
+- [**Index cache refilling**](release-notes-new-features311.html#index-cache-refilling):
+  In-memory index caches are automatically repopulated after writes that affect
+  an edge index or cache-enabled persistent indexes to maximize cache hits and
+  thus query performance.
+
 - [**Extensive Query Optimization**](aql/execution-and-performance-optimizer.html):
   Late document materialization to only fetch the relevant documents from
   SORT/LIMIT queries. Early pruning of non-matching documents in full
   collection scans. Inlining of certain subqueries to improve execution time.
   <!-- TODO, move to Querying? -->
+
+- [**Parallel gather**](release-notes-new-features311.html#parallel-gather):
+  Fast, memory-efficient processing of cluster queries by combining
+  results in parallel.
 
 ## Extensibility
 
