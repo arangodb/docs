@@ -374,29 +374,34 @@ cache-related options and thus recreate inverted indexes and Views. See
 [Known Issues in 3.10](release-notes-known-issues310.html#arangosearch).
 {% endhint %}
 
-### New startup options
+### Skip ArangoSearch recovery
 
-- With `--arangosearch.skip-recovery`, you can skip data recovery for the
-  specified View links and inverted indexes on startup.
-  Values for this startup option should have the format `<collection-name>/<link-id>`,
-  `<collection-name>/<index-id>`, or `<collection-name>/<index-name>`.
-  On DB-Servers, the `<collection-name>` part should contain a shard name.
+With `--arangosearch.skip-recovery`, you can skip data recovery for the
+specified View links and inverted indexes on startup.
+Values for this startup option should have the format `<collection-name>/<link-id>`,
+`<collection-name>/<index-id>`, or `<collection-name>/<index-name>`.
+On DB-Servers, the `<collection-name>` part should contain a shard name.
 
-- With the `--arangosearch.fail-queries-on-out-of-sync` startup option you can let
-  write operations fail if `arangosearch` View links or inverted indexes are not
-  up-to-date with the collection data. The option is set to `false` by default.
-  Queries on out-of-sync links/indexes are answered normally, but the return data
-  may be incomplete.
-  If set to `true`, any data retrieval queries on out-of-sync 
-  links/indexes are going to fail with error "collection/view is out of sync"
-  (error code 1481).
+### Fail ArangoSearch queries on out-of-sync
+
+With the `--arangosearch.fail-queries-on-out-of-sync` startup option you can let
+write operations fail if `arangosearch` View links or inverted indexes are not
+up-to-date with the collection data. The option is set to `false` by default.
+Queries on out-of-sync links/indexes are answered normally, but the return data
+may be incomplete.
+If set to `true`, any data retrieval queries on out-of-sync 
+links/indexes are going to fail with error "collection/view is out of sync"
+(error code 1481).
+
+### Disable user-defined AQL functions
 
 <small>Introduced in: v3.10.4</small>
 
-- The new `--javascript.user-defined-functions` startup option lets you disable
-  user-defined AQL functions so that no user-defined JavaScript code of
-  [UDFs](aql/extending.html) runs on the server. Also see
-  [Server security options](security-security-options.html).
+The new `--javascript.user-defined-functions` startup option lets you disable
+user-defined AQL functions so that no user-defined JavaScript code of
+[UDFs](aql/extending.html) runs on the server. This can be useful to close off
+a potential attack vector in case no user-defined AQL functions are used.
+Also see [Server security options](security-security-options.html).
 
 ### ArangoSearch metrics and figures
 
@@ -1214,6 +1219,16 @@ without causing any data imbalance:
 - `--agency.supervision-delay-failed-follower`:
   The delay in supervision, before a FailedFollower job is executed (in seconds).
 
+<small>Introduced in: v3.9.7, v3.10.2</small>
+
+A `--agency.supervision-failed-leader-adds-follower` startup option has been
+added with a default of `true` (behavior as before). If you set this option to
+`false`, a `FailedLeader` job does not automatically configure a new shard
+follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
+for the case that the server comes back quickly. If the server has permanently
+failed, an `AddFollower` job is created anyway eventually, as governed by the
+`--agency.supervision-delay-add-follower` option.
+
 ### Edge cache refill options
 
 <small>Introduced in: v3.9.6, v3.10.2</small>
@@ -1236,17 +1251,6 @@ without causing any data imbalance:
 - `--rocksdb.auto-refill-index-caches-on-followers`: Control whether automatic
   refilling of in-memory caches should happen on followers or only leaders.
   The default value is `true`, i.e. refilling happens on followers, too.
-
-### Agency option to control whether a failed leader adds a shard follower
-
-<small>Introduced in: v3.9.7, v3.10.2</small>
-
-A `--agency.supervision-failed-leader-adds-follower` startup option has been
-added with a default of `true` (behavior as before). If you set this option to
-`false`, a `FailedLeader` job does not automatically configure a new shard
-follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
-for the case that the server comes back quickly. If the server has permanently
-failed, an `AddFollower` job is created anyway eventually.
 
 ### RocksDB Bloom filter option
 
