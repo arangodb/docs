@@ -1273,6 +1273,10 @@ Foxx services are also disabled as if you set `--foxx.api false` manually.
 Access to ArangoDB's built-in web interface, which is also a Foxx service, is
 still possible even with the option set to `false`.
 
+Disabling the access to Foxx can be useful to close off a potential attack
+vector in case Foxx is not used.
+Also see [Server security options](security-security-options.html).
+
 ### RocksDB auto-flushing
 
 <small>Introduced in: v3.9.10, v3.10.5</small>
@@ -1389,6 +1393,33 @@ been added:
 | Label | Description |
 |:------|:------------|
 | `arangodb_replication_clients` | Number of currently connected/active replication clients. |
+
+### Reduced memory usage of in-memory edge indexes
+
+<small>Introduced in: v3.10.5</small>
+
+The memory usage of in-memory edge index caches is reduced if most of the edges 
+in an index refer to a single or mostly the same collection.
+
+Previously, the full edge IDs, consisting of the the referred-to collection
+name and the referred-to key of the edge, were stored in full, i.e. the full
+values of the edges' `_from` and `_to` attributes. 
+Now, the first edge inserted into an edge index' in-memory cache determines
+the collection name for which all corresponding edges can be stored
+prefix-compressed.
+
+For example, when inserting an edge pointing to `the-collection/abc` into the
+empty cache, the collection name `the-collection` is noted for that cache
+as a prefix. The edge is stored in-memory as only `/abc`. Further edges
+that are inserted into the cache and that point to the same collection are
+also stored prefix-compressed.
+
+The prefix compression is transparent and does not require configuration or
+setup. Compression is done separately for each cache, i.e. a separate prefix
+can be used for each individual edge index, and separately for the `_from` and
+`_to` parts. Lookups from the in-memory edge cache do not return compressed
+values but the full-length edge IDs. The compressed values are also used
+in-memory only and are not persisted on disk.
 
 ## Client tools
 
