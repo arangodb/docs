@@ -53,6 +53,9 @@ ArangoDB is available for the following architectures:
 - **ARM**: The processor(s) must be 64-bit ARM chips (**AArch64**). The minimum
   requirement is **ARMv8** with **Neon** (SIMD extension).
 
+The official Linux release executables of ArangoDB require the operating system
+to use a page size of **4096 bytes** or less.
+
 ## macOS
 
 ArangoDB is available for the following architectures:
