@@ -480,3 +480,9 @@ See [Pregel HTTP API](http/pregel.html) for details.
 
 You can still use the old interfaces (the `pregel.status()` method as well as
 the `GET /_api/control_pregel` and `GET /_api/control_pregel/{id}` endpoints).
+
+## Internal changes
+
+### Upgraded bundled library versions
+
+The bundled version of the OpenSSL library has been upgraded from 1.1.1 to 3.0.8.
