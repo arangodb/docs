@@ -597,7 +597,7 @@ It is up to client applications to retry the operation.
 
 From version 3.11 onward, ArangoDB can make use of RocksDB's integrated BLOB
 (binary large object) storage for larger documents, called _BlobDB_.
-This is currently an experimental feature and should not be used in production.
+This is currently an experimental feature, not supported and should not be used in production.
 
 [BlobDB is an integral part of RocksDB](https://rocksdb.org/blog/2021/05/26/integrated-blob-db.html){:target="_blank"}
 and provides a key-value separation: large values are stored in dedicated BLOB 
