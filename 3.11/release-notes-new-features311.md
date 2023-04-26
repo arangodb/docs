@@ -593,6 +593,82 @@ set the startup option to `503`. It only changes the status code to one that
 doesn't signal a permanent error like `403` does.
 It is up to client applications to retry the operation.
 
+### RocksDB BLOB storage (experimental)
+
+From version 3.11 onward, ArangoDB can make use of RocksDB's integrated BLOB
+(binary large object) storage for larger documents, called _BlobDB_.
+This is currently an experimental feature, not supported and should not be used in production.
+
+[BlobDB is an integral part of RocksDB](https://rocksdb.org/blog/2021/05/26/integrated-blob-db.html){:target="_blank"}
+and provides a key-value separation: large values are stored in dedicated BLOB 
+files, and only a small pointer to them is stored in the LSM tree's SST files. 
+Storing values separate from the keys means that the values do no need to be moved
+through the LSM tree by the compaction. This reduces write amplification and is
+especially beneficial for large values.
+
+When the option is enabled in ArangoDB, the key-value separation is used for
+the documents column family, because large values are mostly to be expected here.
+The cutoff value for the key-value separation is configurable by a startup option,
+i.e. the administrator can set a size limit for values from which onwards they
+are offloaded to separate BLOB files. This allows storing small documents
+inline with the keys as before, but still benefit from reduced write amplification
+for larger documents.
+
+BlobDB is disabled by default in ArangoDB 3.11.
+Using BlobDB in ArangoDB is experimental and not recommended in production. It is
+made available as an experimental feature so that further tests and tuning can be
+done by interested parties. Future versions of ArangoDB may declare the feature
+production-ready and even enable BlobDB by default.
+
+There are currently a few caveats when using BlobDB in ArangoDB:
+
+- Even though BlobDB can help reduce the write amplification, it may increase the
+  read amplification and may worsen the read performance for some workloads.
+- The various tuning parameters that BlobDB offers are made available in ArangoDB,
+  but the current default settings for the BlobDB tuning options are not ideal
+  for many use cases and need to be adjusted by administrators first. 
+- It is very likely that the default settings for the BlobDB tuning options will
+  change in future versions of ArangoDB.
+- Memory and disk usage patterns are different to that of versions running without
+  BlobDB enabled. It is very likely that memory limits and disk capacity may
+  need to be adjusted.
+- Some metrics for observing RocksDB do not react properly when BlobDB is in use.
+- The built-in throttling mechanism for controlling the write-throughput
+  slows down writes too much when BlobDB is used. This can be circumvented with
+  tuning parameters, but the defaults may be too aggressive.
+
+The following experimental startup options have been added in ArangoDB 3.11 to
+enable and configure BlobDB:
+
+- `--rocksdb.enable-blob-files`: Enable the usage of BLOB files for the
+  documents column family. This option defaults to `false`. All following
+  options are only relevant if this option is set to `true`.
+- `--rocksdb.min-blob-size`: Size threshold for storing large documents in
+  BLOB files (in bytes, 0 = store all documents in BLOB files).
+- `--rocksdb.blob-file-size`: Size limit for BLOB files in the documents
+  column family (in bytes). Note that RocksDB counts the size of uncompressed
+  BLOBs before checking if a new BLOB file needs to be started, even though
+  the BLOB may be compressed and end up much smaller than uncompressed.
+- `--rocksdb.blob-compression-type`: Compression algorithm to use for BLOB
+  data in the documents column family.
+- `--rocksdb.enable-blob-garbage-collection`: Enable BLOB garbage collection
+  during compaction in the documents column family.
+- `--rocksdb.blob-garbage-collection-age-cutoff`: Age cutoff for garbage
+  collecting BLOB files in the documents column family (percentage value from
+  0 to 1 determines how many BLOB files are garbage collected during
+  compaction).
+- `--rocksdb.blob-garbage-collection-force-threshold`: Garbage ratio
+  threshold for scheduling targeted compactions for the oldest BLOB files
+  in the documents column family.
+
+Note that ArangoDB's built-in throttling mechanism that automatically adjusts
+the write rate for RocksDB may need to be reconfigured as well to see the
+benefits of BlobDB. The relevant startup options for the throttle are:
+
+- `--rocksdb.throttle-lower-bound-bps`
+- `--rocksdb.throttle-max-write-rate`
+- `--rocksdb.throttle-slow-down-writes-trigger`
+
 ### ArangoSearch column cache limit
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
