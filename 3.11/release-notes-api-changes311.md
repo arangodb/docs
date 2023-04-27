@@ -72,6 +72,17 @@ If the graph is not a SmartGraph, the `satellites` property is ignored unless it
 value is an array but its elements are not strings, in which case the error 
 "Invalid parameter type" is returned.
 
+#### Database API
+
+The return code of API of `POST /_api/database` for creating a new database 
+was changed if the specified database name is invalid/illegal. 
+Previously, the return code was 1229 (`ERROR_ARANGO_DATABASE_NAME_INVALID`).
+Now it is 1208 (`ERROR_ARANGO_ILLEGAL_NAME`).
+  
+This is a downwards-incompatible change, but unifies the behavior for database 
+creation with the behavior of collection and view creation, which also return 
+error 1208 in case the specified name is invalid.
+
 #### Document API
 
 The following endpoints support a new `refillIndexCaches` query
