@@ -57,6 +57,27 @@ nor inside FILTER conditions that can be moved into the traversal execution on D
 This limitation also applies to single servers to keep the differences to cluster 
 deployments minimal.
 
+## Stricter validation of Unicode surrogate values in JSON data
+
+ArangoDB 3.11 employs a stricter validation of Unicode surrogate pairs in
+incoming JSON data.
+In previous versions the following loopholes existed when validating UTF-8 
+surrogate pairs in incoming JSON data:
+
+- a high surrogate, followed by something other than a low surrogate
+  (or the end of the string)
+- a low surrogate, not preceeded by a high surrogate
+
+These validation loopholes are closed in 3.11, which means that any JSON inputs 
+containing such invalid surrogate pair data will be rejected by the server.
+
+This is normally the desired behavior, as it helps invalid data from entering
+the database. However, in situations when a database is known to contain invalid 
+data and must continue supporting it (at least temporarily), the extended
+validation can be turned off by setting the server startup option 
+`--server.validate-utf8-strings` to `false`. This is not recommended long-term 
+though, but only during upgrading or data cleanup.
+
 ## Restriction of indexable fields
 
 It is now forbidden to create indexes that cover fields whose attribute names
