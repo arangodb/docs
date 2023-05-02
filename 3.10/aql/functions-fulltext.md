@@ -10,8 +10,8 @@ AQL offers the following functions to filter data based on
 
 {% hint 'warning' %}
 The fulltext index type is deprecated from version 3.10 onwards.
-It is recommended to use [Inverted indexes](indexing-inverted.html) or
-[ArangoSearch](arangosearch.html) for advanced full-text search capabilities.
+It is recommended to use [Inverted indexes](../indexing-inverted.html) or
+[ArangoSearch](../arangosearch.html) for advanced full-text search capabilities.
 {% endhint %}
 
 FULLTEXT()
