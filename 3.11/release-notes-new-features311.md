@@ -528,9 +528,15 @@ FOR doc IN `🥑~колекція =)`
   RETURN doc
 ```
 
+When using extended names, any Unicode characters in names need to be 
+[NFC-normalized](http://unicode.org/reports/tr15/#Norm_Forms){:target="_blank"}.
+If you try to create a database, collection, View, or index with a non-NFC-normalized
+name, the server rejects it.
+
 The ArangoDB web interface as well as the _arangobench_, _arangodump_,
 _arangoexport_, _arangoimport_, _arangorestore_, and _arangosh_ client tools
-ship with full support for the extended naming constraints.
+ship with support for the extended naming constraints, but they require you
+to provide NFC-normalized names.
 
 Note that the default value for `--database.extended-names` is `false`
 for compatibility with existing client drivers and applications that only support
