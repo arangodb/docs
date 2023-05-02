@@ -35,14 +35,14 @@ programmatically, they need to ensure that extended names are properly
 URL-encoded.
 
 When using extended names, any Unicode characters in names need to be 
-[NFC-normalized](http://unicode.org/reports/tr15/#Norm_Forms). Trying to
-create a database, collection, View or index with a non-NFC-normalized
-name will be rejected by the server.
+[NFC-normalized](http://unicode.org/reports/tr15/#Norm_Forms){:target="_blank"}.
+If you try to create a database, collection, View, or index with a non-NFC-normalized
+name, the server rejects it.
 
 The ArangoDB web interface as well as the _arangobench_, _arangodump_,
 _arangoexport_, _arangoimport_, _arangorestore_, and _arangosh_ client tools
-ship with support for the extended naming constraints, but they require the
-user to provide NFC-normalized names.
+ship with support for the extended naming constraints, but they require you
+to provide NFC-normalized names.
 
 Please be aware that dumps containing extended names cannot be restored
 into older versions that only support the traditional naming constraints. In a
