@@ -959,3 +959,18 @@ can be used for each individual edge index, and separately for the `_from` and
 `_to` parts. Lookups from the in-memory edge cache do not return compressed
 values but the full-length edge IDs. The compressed values are also used
 in-memory only and are not persisted on disk.
+
+## Internal changes
+
+### Upgraded bundled library versions
+
+The bundled version of the OpenSSL library has been upgraded from 1.1.1 to 3.0.8.
+
+The bundled version of the zlib library has been upgraded to 1.2.13.
+
+The bundled version of the fmt library has been upgraded to 9.1.0.
+
+The bundled version of the immer library has been upgraded to 0.8.0.
+
+The bundled versions of the abseil-cpp, s2geometry, and wcwidth library have
+been updated to more recent versions that don't have a version number.
