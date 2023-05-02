@@ -2001,6 +2001,26 @@
     This metric tracks the runtime of phase2 of an Agency sync. Phase2 calculates
     what actions to execute given the difference of the local and target state.
 
+- name: arangodb_network_dequeue_duration
+  introducedIn: "3.10.6"
+  help: |
+    Internal request duration for the dequeue in seconds.
+  unit: seconds
+  type: histogram
+  category: Network
+  complexity: advanced
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+  description: |
+    Histogram providing the time from submitting an internal requests until
+    the IO thread in the fuerte driver starts working on it. Times are in
+    seconds.
+  troubleshoot: |
+    Counts in the high brackets indicate that the IO threads cannot keep up
+    with the work.
+
 - name: arangodb_network_forwarded_requests_total
   renamedFrom: arangodb_network_forwarded_requests
   introducedIn: "3.8.0"
@@ -2087,6 +2107,61 @@
     a user operation on a collection with a single shard normally leads to
     a single internal request (plus replication), whereas an operation on a
     collection with 10 shards may lead to a fan-out of 10 (plus replication).
+
+- name: arangodb_network_response_duration
+  introducedIn: "3.10.6"
+  help: |
+    Internal request duration from fully sent till response received in seconds.
+  unit: seconds
+  type: histogram
+  category: Network
+  complexity: advanced
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+  description: |
+    Histogram providing the time from when the request was fully sent off
+    until the response has been received of internal requests in seconds.
+  troubleshoot: |
+    Counts in the high brackets indicate problems with the network infrastructure.
+
+- name: arangodb_network_send_duration
+  introducedIn: "3.10.6"
+  help: |
+    Internal request send duration in seconds.
+  unit: seconds
+  type: histogram
+  category: Network
+  complexity: advanced
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+  description: |
+    Histogram providing the sending time of internal requests in seconds.
+  troubleshoot: |
+    Counts in the high brackets indicate problems with the network infrastructure.
+
+- name: arangodb_network_unfinished_sends_total
+  introducedIn: "3.10.6"
+  help: |
+    Number of internal requests for which sending has not finished.
+  unit: number
+  type: counter
+  category: Network
+  complexity: advanced
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+  description: |
+    Number of internal requests for which sending has not finished. This is
+    usually due to some connection problem or to a timeout in case the
+    receiving side did not receive the data fast enough.
+  troubleshoot: |
+    If this counter moves, it is a sign that either there are delays in the
+    networking infrastructure or on the receiving side.
 
 - name: arangodb_potentially_dirty_document_reads_total
   introducedIn: "3.10.0"
@@ -4673,6 +4748,28 @@
     operation allows the leader DB-Servers to purge their archived WAL files
     for the aborted snapshots timely, so that long-running shard synchronization
     aborts do not lead to overly long WAL file retention periods on leaders.
+
+- name: arangodb_sync_tree_rebuilds_total
+  introducedIn: "3.10.6"
+  help: |
+    Number of times a revision tree for a shard was completely 
+    rebuilt because of too many subsequent failures in the shard
+    synchronization.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of times a revision tree for a shard was completely
+    rebuilt because of too many subsequent failures in the shard
+    synchronization.
+    If shards cannot get in sync after several attempts, the shard's
+    revision tree is first rebuilt on the follower, and then on the
+    leader. If the value is greater than zero, it means there have
+    been shard synchronization failures.
 
 - name: arangodb_sync_wrong_checksum_total
   renamedFrom: arangodb_sync_wrong_checksum

@@ -14,7 +14,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">240</span>
+content-length: <span class="hljs-number">236</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -24,14 +24,14 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;71502&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;71499&quot;</span>, 
   <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;SampleTask&quot;</span>, 
-  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1681925134.3255808</span>, 
+  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1683027805.518879</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;periodic&quot;</span>, 
   <span class="hljs-string">&quot;period&quot;</span> : <span class="hljs-number">2</span>, 
   <span class="hljs-string">&quot;offset&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;command&quot;</span> : <span class="hljs-string">&quot;(function (params) { (function(params) { require(&#x27;@arangodb&#x27;).print(params); })(params) } )(params);&quot;</span>, 
   <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/tasks/71502</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/tasks/71499</span>
 
