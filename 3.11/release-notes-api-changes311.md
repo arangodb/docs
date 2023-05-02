@@ -76,7 +76,8 @@ value is an array but its elements are not strings, in which case the error
 
 The `POST /_api/database` endpoint for creating a new database has changed.
 If the specified database name is invalid/illegal, it now returns the error code
-`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
+`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`
+(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
   
 This is a downwards-incompatible change, but unifies the behavior for database
 creation with the behavior of collection and View creation, which also return
@@ -454,7 +455,8 @@ following two new statistics in the `stats` attribute of the response now:
 
 The `db._createDatabase()` method for creating a new database has changed.
 If the specified database name is invalid/illegal, it now returns the error code
-`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
+`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`
+(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
   
 This is a downwards-incompatible change, but unifies the behavior for database
 creation with the behavior of collection and View creation, which also return
