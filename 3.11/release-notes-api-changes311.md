@@ -74,14 +74,13 @@ value is an array but its elements are not strings, in which case the error
 
 #### Database API
 
-The return code of API of `POST /_api/database` for creating a new database 
-was changed if the specified database name is invalid/illegal. 
-Previously, the return code was 1229 (`ERROR_ARANGO_DATABASE_NAME_INVALID`).
-Now it is 1208 (`ERROR_ARANGO_ILLEGAL_NAME`).
+The `POST /_api/database` endpoint for creating a new database has changed.
+If the specified database name is invalid/illegal, it now returns the error code
+`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
   
-This is a downwards-incompatible change, but unifies the behavior for database 
-creation with the behavior of collection and view creation, which also return 
-error 1208 in case the specified name is invalid.
+This is a downwards-incompatible change, but unifies the behavior for database
+creation with the behavior of collection and View creation, which also return
+the error code `1208` in case the specified name is not allowed.
 
 #### Document API
 
@@ -450,6 +449,16 @@ following two new statistics in the `stats` attribute of the response now:
 
 
 ## JavaScript API
+
+### Database creation
+
+The `db._createDatabase()` method for creating a new database has changed.
+If the specified database name is invalid/illegal, it now returns the error code
+`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
+  
+This is a downwards-incompatible change, but unifies the behavior for database
+creation with the behavior of collection and View creation, which also return
+the error code `1208` in case the specified name is not allowed.
 
 ### Index methods
 
