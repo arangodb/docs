@@ -11,17 +11,17 @@ arangosh&gt; db.geo.save([
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/72618&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72618&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f37d_ka---&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f7yNPSu--_&quot;</span> 
   }, 
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/72619&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72619&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f37d_ka--_&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f7yNPSu--A&quot;</span> 
   }, 
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/72620&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72620&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f37d_ka--A&quot;</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f7yNPSu--B&quot;</span> 
   } 
 ]
 arangosh&gt; db._createView(<span class="hljs-string">&quot;geo_view&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>, {
@@ -44,7 +44,7 @@ arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/72618&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72618&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f37d_ka---&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f7yNPSu--_&quot;</span>, 
     <span class="hljs-string">&quot;location&quot;</span> : { 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;Point&quot;</span>, 
       <span class="hljs-string">&quot;coordinates&quot;</span> : [ 
@@ -57,7 +57,7 @@ arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50
   { 
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/72619&quot;</span>, 
     <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72619&quot;</span>, 
-    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f37d_ka--_&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f7yNPSu--A&quot;</span>, 
     <span class="hljs-string">&quot;location&quot;</span> : { 
       <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;Point&quot;</span>, 
       <span class="hljs-string">&quot;coordinates&quot;</span> : [ 
