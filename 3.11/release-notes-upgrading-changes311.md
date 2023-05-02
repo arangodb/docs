@@ -132,7 +132,18 @@ revision of the document as stored in the database (if available, otherwise empt
 
 ## JavaScript API
 
-### Index API
+### Database creation
+
+The `db._createDatabase()` method for creating a new database has changed.
+If the specified database name is invalid/illegal, it now returns the error code
+`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`
+(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
+  
+This is a downwards-incompatible change, but unifies the behavior for database
+creation with the behavior of collection and View creation, which also return
+the error code `1208` in case the specified name is not allowed.
+
+### Index methods
 
 Calling `collection.dropIndex(...)` or `db._dropIndex(...)` now raises an error
 if the specified index does not exist or cannot be dropped (for example, because
