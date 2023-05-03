@@ -887,6 +887,14 @@ See [Pregel HTTP API](http/pregel.html) for details.
 You can still use the old interfaces (the `pregel.status()` method as well as
 the `GET /_api/control_pregel` and `GET /_api/control_pregel/{id}` endpoints).
 
+### ArangoSearch metric
+
+The following ArangoSearch metric has been added in version 3.11:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
+
 ### Traffic accounting metrics
 
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>

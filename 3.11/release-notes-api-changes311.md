@@ -401,6 +401,14 @@ following two new statistics in the `stats` attribute of the response now:
 
 #### Metrics API
 
+The following ArangoSearch metric has been added in version 3.11:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
+
+---
+
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
 The metrics endpoints include the following new traffic accounting metrics:
