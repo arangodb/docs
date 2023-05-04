@@ -498,7 +498,7 @@ primary usage patterns and features, and to measure their adoption rate.
 
 It is important to note that the information collected by ArangoDB is purely
 statistical and helps ArangoDB determine which features are most used, how
-does the general usage model looks like, and whether ArangoDB is configured
+the general usage model looks like, and whether ArangoDB is configured
 properly. 
 
 This data does not contain any personal information like usernames or IP
@@ -507,8 +507,8 @@ your privacy is protected, and that there is no risk of your data being
 compromised.
 
 If for any reason you prefer not to share usage statistics with ArangoDB, you
-can easily disable this feature by setting the startup option 
-`-server.enable-telemetrics-api` to `false`. The default value is `true`.
+can easily disable this feature by setting the `--server.enable-telemetrics-api`
+startup option to `false`. The default value is `true`.
 
 ### Extended naming constraints for collections, Views, and indexes
 
