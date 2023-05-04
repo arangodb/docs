@@ -490,6 +490,26 @@ Query Statistics:
 
 ## Server options
 
+### Telemetrics
+
+Starting with version 3.11, ArangoDB automatically gathers data on how it is
+used and the features being utilized. This information is used to identify the
+primary usage patterns and features, and to measure their adoption rate. 
+
+It is important to note that the information collected by ArangoDB is purely
+statistical and helps ArangoDB determine which features are most used, how
+does the general usage model looks like, and whether ArangoDB is configured
+properly. 
+
+This data does not contain any personal information like usernames or IP
+addresses that could be used to identify a particular user. This means that
+your privacy is protected, and that there is no risk of your data being
+compromised.
+
+If for any reason you prefer not to share usage statistics with ArangoDB, you
+can easily disable this feature by setting the startup option 
+`-server.enable-telemetrics-api` to `false`. The default value is `true`.
+
 ### Extended naming constraints for collections, Views, and indexes
 
 In ArangoDB 3.9, the `--database.extended-names-databases` startup option was
