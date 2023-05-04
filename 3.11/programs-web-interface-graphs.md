@@ -12,56 +12,99 @@ description: >-
 The **GRAPHS** section of the web interface lists the _named graphs_ stored in
 ArangoDB (EnterpriseGraphs, SmartGraphs, SatelliteGraphs, General Graphs) and
 lets you create new named graphs as well as view and edit the settings of
-existing named graphs. It also provides a viewer facility for visualizing subsets
-of the graphs or the entire graphs.
+existing named graphs. It also provides a viewer facility for visualizing
+subsets of a graph or an entire graph.
 
 ![manage graphs](images/graphsView.png)
 
 ## Create a named graph
 
-1. Click the **Add Graph** tile
-2. 
+1. In the **GRAPHS** section, click the first card with the label **Add Graph**.
+2. Select a tab depending on which type of named graph you want to create.
+   The **SatelliteGraph**, **SmartGraph**, and **EnterpriseGraph** tabs are
+   only available for cluster deployments using the Enterprise Edition.
+   For non-cluster deployments and in the Community Edition, only the
+   **Examples** and **GeneralGraph** tabs are available.
+3. Fill in the fields of the dialog. Required fields have an asterisk (`*`)
+   in their label. Hover over the gray circle with a white `i` in it next to
+   a field to show the tooltip with an explanation.
+4. Click the **Create** button to create the named graph.
 
-## View and edit named graphs
+For more information about the different types of named graphs, see
+[Graphs](graphs.html).
+
+## View and edit the settings of a named graph
+
+1. In the **GRAPHS** section, click the _gear_ icon in the top right corner
+   of a graph's card.
+2. The setting dialog opens. You can only edit certain fields. Fields that 
+   cannot be modified are grayed out.
+3. Click the **Cancel** button or outside of the dialog to close it without
+   saving any changes. Click **Save** to save changes.
+   
+## Delete a named graph
+
+1. In the **GRAPHS** section, click the _gear_ icon in the top right corner
+   of a graph's card.
+2. Click the **Delete** button.
+3. Optional: Tick the **also drop collections?** checkbox if you want to
+   delete the vertex and edge collections of the graph as well and not the
+   graph definition only. This deletes the collections with all the documents
+   they contain and is irreversible!
+4. Confirm the deletion by clicking the **Yes** button.
 
 ## Graph viewer
 
+The graph viewer opens if you click a graph's card in the **GRAPHS** section.
+The viewer randomly selects a start node and displays its neighborhood.
+By default, up to 250 nodes that are directly connected to the start node and
+their direct neighbors are selected. You can select one or more start nodes
+and change the depth and the limit in the settings panel. You can also load
+the entire graph via the toolbar, but only use this with small graphs.
 
-- Take a screenshot (camera icon)
-- Enter fullscreen (rectangle corners)
-- Load full graph (cloud download icon)
-- Switch to the old graph viewer (clock back)
-- Search nodes (magnifier icon)
-- Settings
+### Toolbar
+
+The toolbar at the top offers the following actions and a toggle for the
+settings panel:
+
+- Take a screenshot (_camera_ icon)
+- Enter fullscreen (_rectangle corners_ icon)
+- Load full graph (_cloud download_ icon)
+- Switch to the old graph viewer (_clock with an arrow_ icon)
+- Search nodes (_magnifier_ icon)
+- Settings (_gear_ icon)
 
 ### Settings
 
-General
+The settings panel is divided into three collapsible sections and lets you
+configure what to show of the graph and how.
 
-Start node (1+)
-Layout: forceAtlas2, hierarchical
-Depth: 2
-Limit: 250 nodes
+**General**
 
-Nodes
+- **Start node** (1+)
+- **Layout**: forceAtlas2, hierarchical
+- **Depth**: 2
+- **Limit**: 250 nodes
 
-Node label
-Default node color
-Color nodes by collection
-Node color attribute
-Show collection name
-Size by connections
-Sizing attribute
+**Nodes**
 
-Edges
+- **Node label**: 
+- **Default node color**: 
+- **Color nodes by collection**: 
+- **Node color attribute**: 
+- **Show collection name**: 
+- **Size by connections**: 
+- **Sizing attribute**: 
 
-Edge label
-Default edge color
-Color edges by collection
-Edge color attribute
-Show collection name
-Show edge direction
-Type: solid, dashed, dotted
+**Edges**
+
+- **Edge label**: 
+- **Default edge color**: 
+- **Color edges by collection**: 
+- **Edge color attribute**: 
+- **Show collection name**: 
+- **Show edge direction**: 
+- **Type**: solid, dashed, dotted
 
 Restore defaults
 Apply
