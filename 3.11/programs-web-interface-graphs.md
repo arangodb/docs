@@ -1,22 +1,71 @@
 ---
 layout: default
-description: The Graphs tab provides a viewer facility for graph data stored in ArangoDB
+description: >-
+  You can create and manage named graphs in the web interface, as well as
+  visually explore graphs with the graph viewer
 ---
-Graphs
-======
+# Graphs
 
-The *Graphs* tab provides a viewer facility for graph data stored in ArangoDB.
-It allows browsing ArangoDB graphs stored in the *_graphs* system collection or
-a graph consisting of an arbitrary vertex and [edge collection](data-model-and-concepts.html#graph-model).
+{{ page.description }}
+{:class="lead"}
+
+The **GRAPHS** section of the web interface lists the _named graphs_ stored in
+ArangoDB (EnterpriseGraphs, SmartGraphs, SatelliteGraphs, General Graphs) and
+lets you create new named graphs as well as view and edit the settings of
+existing named graphs. It also provides a viewer facility for visualizing subsets
+of the graphs or the entire graphs.
 
 ![manage graphs](images/graphsView.png)
 
-Please note that the graph viewer requires canvas (optional: webgl)  support 
-in your browser. Especially Internet Explorer browsers older than version 9
-are likely to not support this.
+## Create a named graph
 
-Graph Viewer
-------------
+1. Click the **Add Graph** tile
+2. 
+
+## View and edit named graphs
+
+## Graph viewer
+
+
+- Take a screenshot (camera icon)
+- Enter fullscreen (rectangle corners)
+- Load full graph (cloud download icon)
+- Switch to the old graph viewer (clock back)
+- Search nodes (magnifier icon)
+- Settings
+
+### Settings
+
+General
+
+Start node (1+)
+Layout: forceAtlas2, hierarchical
+Depth: 2
+Limit: 250 nodes
+
+Nodes
+
+Node label
+Default node color
+Color nodes by collection
+Node color attribute
+Show collection name
+Size by connections
+Sizing attribute
+
+Edges
+
+Edge label
+Default edge color
+Color edges by collection
+Edge color attribute
+Show collection name
+Show edge direction
+Type: solid, dashed, dotted
+
+Restore defaults
+Apply
+
 
 ![display graphs](images/graphViewer.png)
 

@@ -127,6 +127,26 @@ See [Analyzers](analyzers.html#geo_s2) for details.
 
 ## Web interface
 
+### New graph viewer
+
+The graph viewer for visualizing named graphs has been reimplemented based on
+the [vis.js](https://visjs.org/){:target="_blank"} library, and the interface
+has been redesigned to be cleaner and rewritten to use the React framework.
+
+The available **Layout** algorithms are **forceAtlas2** and **hierarchical**.
+Force-based layouts try to avoid overlaps while grouping adjacent nodes together.
+The new hierarchical layout is useful for strict topologies like trees.
+
+A new feature is the ability to search the visible graph to center a specific
+vertex. Another quality-of-life improvement is the **Start node** setting listing
+the graph's vertex collections and the available document keys, that you can
+also search by.
+
+You can still switch to the old graph viewer if desired.
+
+See the [Graph Viewer](programs-web-interface-graphs.html) documentation for
+details.
+
 ### `search-alias` Views
 
 The 3.11 release of ArangoDB introduces a new web interface for Views that lets
