@@ -256,9 +256,9 @@ its responsibilities for shards. This applies to _followers_ as well as
 _leaders_ of shards. The requirement for this operation is that no
 collection in any of the databases has a `replicationFactor` greater than
 the current number of _DB-Servers_ minus one. In other words, the highest
-replication factor must not exceed the future _DB-Server_ count. For the
-purpose of cleaning out `DBServer004` for example would work as follows, when
-issued to any _Coordinator_ of the cluster:
+replication factor must not exceed the future _DB-Server_ count. To clean
+out `DBServer004`, for example, you can issue the following command to
+any _Coordinator_ in the cluster:
 
 `curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"server":"DBServer004"}'`
 
@@ -267,11 +267,11 @@ icon to the right of the name of the _DB-Server_ on any _Coordinators_'
 UI. Clicking on it will remove the _DB-Server_ in question from the
 cluster.
 
-Firing up any _DB-Server_ from a clean data directory by specifying the
-any of all Agency endpoints will integrate the new _DB-Server_ into the
+Firing up any _DB-Server_ from a clean data directory, while specifying any
+of the available Agency endpoints, will integrate the new _DB-Server_ into the
 cluster.
 
-To distribute shards onto the new _DB-Server_ either click on the
+To distribute shards onto the new _DB-Server_, click on the
 `Distribute Shards` button at the bottom of the `Shards` page in every
 database.
 
@@ -279,7 +279,7 @@ The clean out process can be monitored using the following script,
 which periodically prints the amount of shards that still need to be moved.
 It is basically a countdown to when the process finishes.
 
-Save below code to a file named `serverCleanMonitor.js`:
+Save the code below to a file named `serverCleanMonitor.js`:
 
 ```js
 var dblist = db._databases();
@@ -318,7 +318,7 @@ do {
 } while (count > 0);
 ```
 
-This script has to be executed in the [`arangosh`](programs-arangosh.html)
+This script has to be executed in [`arangosh`](programs-arangosh.html)
 by issuing the following command:
 
 ```bash
@@ -340,5 +340,5 @@ The current status is logged every 10 seconds. You may adjust the
 interval by passing a number after the DB-Server name, e.g.
 `arangosh <options> -- DBServer0002 60` for every 60 seconds.
 
-Once the count is `0` all shards of the underlying DB-Server have been moved
+Once the count is `0`, all shards of the underlying DB-Server have been moved
 and the `cleanOutServer` process has finished.
