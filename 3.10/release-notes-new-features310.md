@@ -1445,6 +1445,20 @@ can be used for each individual edge index, and separately for the `_from` and
 values but the full-length edge IDs. The compressed values are also used
 in-memory only and are not persisted on disk.
 
+### Sending delay metrics for internal requests
+
+The following metrics for diagnosing delays in cluster-internal network requests
+have been added:
+
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_network_dequeue_duration` | Internal request duration for the dequeue in seconds. |
+| `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
+| `arangodb_network_send_duration` | Internal request send duration in seconds. |
+| `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
 ## Client tools
 
 ### arangobench
