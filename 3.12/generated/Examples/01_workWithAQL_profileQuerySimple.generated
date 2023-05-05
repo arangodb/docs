@@ -1,0 +1,40 @@
+arangosh&gt; db._profileQuery(<span class="hljs-string">`
+........&gt; FOR doc IN acollection
+........&gt;  FILTER doc.value &lt; 10
+........&gt;  RETURN doc`</span>, {}, {<span class="hljs-attr">colors</span>: <span class="hljs-literal">false</span>}
+........&gt; );
+Query <span class="hljs-built_in">String</span> (<span class="hljs-number">58</span> chars, <span class="hljs-attr">cacheable</span>: <span class="hljs-literal">false</span>):
+ FOR doc IN acollection
+  FILTER doc.value &lt; <span class="hljs-number">10</span>
+  RETURN doc
+
+Execution plan:
+ Id   NodeType                  Calls   Items   Filtered   Runtime [s]   Comment
+  <span class="hljs-number">1</span>   SingletonNode                 <span class="hljs-number">1</span>       <span class="hljs-number">1</span>          <span class="hljs-number">0</span>       <span class="hljs-number">0.00000</span>   * ROOT
+  <span class="hljs-number">2</span>   EnumerateCollectionNode       <span class="hljs-number">1</span>      <span class="hljs-number">10</span>       <span class="hljs-number">9990</span>       <span class="hljs-number">0.00460</span>     - FOR doc IN acollection   <span class="hljs-comment">/* full collection scan  */</span>   FILTER (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)   <span class="hljs-comment">/* early pruning */</span>
+  <span class="hljs-number">5</span>   ReturnNode                    <span class="hljs-number">1</span>      <span class="hljs-number">10</span>          <span class="hljs-number">0</span>       <span class="hljs-number">0.00001</span>       - RETURN doc
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  <span class="hljs-number">1</span>   move-filters-into-enumerate
+
+Query Statistics:
+ Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
+           <span class="hljs-number">0</span>            <span class="hljs-number">0</span>       <span class="hljs-number">10000</span>            <span class="hljs-number">0</span>               <span class="hljs-number">0</span> / <span class="hljs-number">0</span>       <span class="hljs-number">9990</span>              <span class="hljs-number">0</span>         <span class="hljs-number">0.00488</span>
+
+Query Profile:
+ Query Stage               Duration [s]
+ initializing                   <span class="hljs-number">0.00001</span>
+ parsing                        <span class="hljs-number">0.00005</span>
+ optimizing ast                 <span class="hljs-number">0.00000</span>
+ loading collections            <span class="hljs-number">0.00000</span>
+ instantiating plan             <span class="hljs-number">0.00001</span>
+ optimizing plan                <span class="hljs-number">0.00015</span>
+ instantiating executors        <span class="hljs-number">0.00003</span>
+ executing                      <span class="hljs-number">0.00462</span>
+ finalizing                     <span class="hljs-number">0.00003</span>
+
+

@@ -1,0 +1,17 @@
+@Q:
+  RETURN DATE_UTCTOLOCAL(DATE_NOW(), <span class="hljs-string">&quot;Africa/Lagos&quot;</span>, <span class="hljs-literal">true</span>)
+
+@R
+[
+  {
+    <span class="hljs-string">&quot;local&quot;</span>: <span class="hljs-string">&quot;2023-05-02T12:43:29.148&quot;</span>,
+    <span class="hljs-string">&quot;tzdb&quot;</span>: <span class="hljs-string">&quot;2023a&quot;</span>,
+    <span class="hljs-string">&quot;zoneInfo&quot;</span>: {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;WAT&quot;</span>,
+      <span class="hljs-string">&quot;begin&quot;</span>: <span class="hljs-string">&quot;1919-08-31T23:30:00.000Z&quot;</span>,
+      <span class="hljs-string">&quot;end&quot;</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-string">&quot;dst&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-string">&quot;offset&quot;</span>: <span class="hljs-number">3600</span>
+    }
+  }
+]
