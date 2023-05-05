@@ -1,0 +1,9 @@
+@Q:
+RETURN REGEX_MATCHES(<span class="hljs-string">&quot;My-us3r_n4m3&quot;</span>, <span class="hljs-string">&quot;^[a-z0-9_-]{3,16}$&quot;</span>, <span class="hljs-literal">true</span>)
+
+@R
+[
+  [
+    <span class="hljs-string">&quot;My-us3r_n4m3&quot;</span>
+  ]
+]

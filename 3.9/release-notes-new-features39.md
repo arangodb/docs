@@ -88,6 +88,10 @@ Views of the type `arangosearch` support new caching options.
   to always cache field normalization values in memory. This can improve the
   performance of scoring and ranking queries.
 
+  It also enables caching of auxiliary data used for querying fields that are
+  indexed with Geo Analyzers. This can improve the performance of geo-spatial
+  queries.
+
 - You can enable the new `cache` option in the definition of a `storedValues`
   View property to always cache stored values in memory. This can improve the
   query performance if stored values are involved.
@@ -838,6 +842,16 @@ without causing any data imbalance:
 - `--agency.supervision-delay-failed-follower`:
   The delay in supervision, before a FailedFollower job is executed (in seconds).
 
+<small>Introduced in: v3.9.7</small>
+
+A `--agency.supervision-failed-leader-adds-follower` startup option has been
+added with a default of `true` (behavior as before). If you set this option to
+`false`, a `FailedLeader` job does not automatically configure a new shard
+follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
+for the case that the server comes back quickly. If the server has permanently
+failed, an `AddFollower` job is created anyway eventually, as governed by the
+`--agency.supervision-delay-add-follower` option.
+
 ### Edge cache refill options
 
 <small>Introduced in: v3.9.6</small>
@@ -860,17 +874,6 @@ without causing any data imbalance:
 - `--rocksdb.auto-refill-index-caches-on-followers`: Control whether automatic
   refilling of in-memory caches should happen on followers or only leaders.
   The default value is `true`, i.e. refilling happens on followers, too.
-
-### Agency option to control whether a failed leader adds a shard follower
-
-<small>Introduced in: v3.9.7</small>
-
-A `--agency.supervision-failed-leader-adds-follower` startup option has been
-added with a default of `true` (behavior as before). If you set this option to
-`false`, a `FailedLeader` job does not automatically configure a new shard
-follower, thereby preventing unnecessary network traffic, CPU load, and I/O load
-for the case that the server comes back quickly. If the server has permanently
-failed, an `AddFollower` job is created anyway eventually.
 
 ### RocksDB auto-flushing
 
@@ -1081,6 +1084,20 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 | `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
 | `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
 | `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
+
+### Sending delay metrics for internal requests
+
+The following metrics for diagnosing delays in cluster-internal network requests
+have been added:
+
+<small>Introduced in: v3.9.11</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_network_dequeue_duration` | Internal request duration for the dequeue in seconds. |
+| `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
+| `arangodb_network_send_duration` | Internal request send duration in seconds. |
+| `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
 
 Client tools
 ------------

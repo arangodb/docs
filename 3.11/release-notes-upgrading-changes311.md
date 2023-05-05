@@ -32,11 +32,17 @@ payloads that contain database, collection, View, or index names, as well as
 document identifiers (because they are comprised of the collection name and the
 document key). If client applications assemble URLs with extended names
 programmatically, they need to ensure that extended names are properly
-URL-encoded and also NFC-normalized if they contain UTF-8 characters.
+URL-encoded.
+
+When using extended names, any Unicode characters in names need to be 
+[NFC-normalized](http://unicode.org/reports/tr15/#Norm_Forms){:target="_blank"}.
+If you try to create a database, collection, View, or index with a non-NFC-normalized
+name, the server rejects it.
 
 The ArangoDB web interface as well as the _arangobench_, _arangodump_,
 _arangoexport_, _arangoimport_, _arangorestore_, and _arangosh_ client tools
-ship with full support for the extended naming constraints.
+ship with support for the extended naming constraints, but they require you
+to provide NFC-normalized names.
 
 Please be aware that dumps containing extended names cannot be restored
 into older versions that only support the traditional naming constraints. In a
@@ -56,6 +62,28 @@ AQL user-defined functions (UDFs) cannot be used inside traversal PRUNE conditio
 nor inside FILTER conditions that can be moved into the traversal execution on DB-Servers. 
 This limitation also applies to single servers to keep the differences to cluster 
 deployments minimal.
+
+## Stricter validation of Unicode surrogate values in JSON data
+
+ArangoDB 3.11 employs a stricter validation of Unicode surrogate pairs in
+incoming JSON data, for all REST APIs.
+
+In previous versions, the following loopholes existed when validating UTF-8 
+surrogate pairs in incoming JSON data:
+
+- a high surrogate, followed by something other than a low surrogate
+  (or the end of the string)
+- a low surrogate, not preceded by a high surrogate
+
+These validation loopholes have been closed in 3.11, which means that any JSON
+inputs containing such invalid surrogate pair data are rejected by the server.
+
+This is normally the desired behavior, as it helps invalid data from entering
+the database. However, in situations when a database is known to contain invalid
+data and must continue supporting it (at least temporarily), the extended
+validation can be disabled by setting the server startup option
+`--server.validate-utf8-strings` to `false`. This is not recommended long-term,
+but only during upgrading or data cleanup.
 
 ## Restriction of indexable fields
 
@@ -126,7 +154,18 @@ revision of the document as stored in the database (if available, otherwise empt
 
 ## JavaScript API
 
-### Index API
+### Database creation
+
+The `db._createDatabase()` method for creating a new database has changed.
+If the specified database name is invalid/illegal, it now returns the error code
+`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`
+(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
+  
+This is a downwards-incompatible change, but unifies the behavior for database
+creation with the behavior of collection and View creation, which also return
+the error code `1208` in case the specified name is not allowed.
+
+### Index methods
 
 Calling `collection.dropIndex(...)` or `db._dropIndex(...)` now raises an error
 if the specified index does not exist or cannot be dropped (for example, because

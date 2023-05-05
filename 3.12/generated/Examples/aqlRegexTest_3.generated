@@ -1,0 +1,7 @@
+@Q:
+RETURN REGEX_TEST(<span class="hljs-string">&quot;the\nquick\nbrown\nfox&quot;</span>, <span class="hljs-string">&quot;^the(\n[a-w]+)+\nfox$&quot;</span>)
+
+@R
+[
+  <span class="hljs-literal">true</span>
+]

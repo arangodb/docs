@@ -32,11 +32,17 @@ payloads that contain database, collection, View, or index names, as well as
 document identifiers (because they are comprised of the collection name and the
 document key). If client applications assemble URLs with extended names
 programmatically, they need to ensure that extended names are properly
-URL-encoded and also NFC-normalized if they contain UTF-8 characters.
+URL-encoded.
+
+When using extended names, any Unicode characters in names need to be 
+[NFC-normalized](http://unicode.org/reports/tr15/#Norm_Forms){:target="_blank"}.
+If you try to create a database, collection, View, or index with a non-NFC-normalized
+name, the server rejects it.
 
 The ArangoDB web interface as well as the _arangobench_, _arangodump_,
 _arangoexport_, _arangoimport_, _arangorestore_, and _arangosh_ client tools
-ship with full support for the extended naming constraints.
+ship with support for the extended naming constraints, but they require you
+to provide NFC-normalized names.
 
 Please be aware that dumps containing extended names cannot be restored
 into older versions that only support the traditional naming constraints. In a
@@ -49,6 +55,28 @@ Also see:
 - [Collection names](data-modeling-collections.html#collection-names)
 - [View names](data-modeling-views.html#view-names)
 - Index names have the same character restrictions as collection names
+
+#### Stricter validation of Unicode surrogate values in JSON data
+
+ArangoDB 3.11 employs a stricter validation of Unicode surrogate pairs in
+incoming JSON data, for all REST APIs.
+
+In previous versions, the following loopholes existed when validating UTF-8 
+surrogate pairs in incoming JSON data:
+
+- a high surrogate, followed by something other than a low surrogate
+  (or the end of the string)
+- a low surrogate, not preceded by a high surrogate
+
+These validation loopholes have been closed in 3.11, which means that any JSON
+inputs containing such invalid surrogate pair data are rejected by the server.
+
+This is normally the desired behavior, as it helps invalid data from entering
+the database. However, in situations when a database is known to contain invalid
+data and must continue supporting it (at least temporarily), the extended
+validation can be disabled by setting the server startup option
+`--server.validate-utf8-strings` to `false`. This is not recommended long-term,
+but only during upgrading or data cleanup.
 
 #### Status code if write concern not fulfilled
 
@@ -72,18 +100,35 @@ If the graph is not a SmartGraph, the `satellites` property is ignored unless it
 value is an array but its elements are not strings, in which case the error 
 "Invalid parameter type" is returned.
 
+#### Database API
+
+The `POST /_api/database` endpoint for creating a new database has changed.
+If the specified database name is invalid/illegal, it now returns the error code
+`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`
+(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
+  
+This is a downwards-incompatible change, but unifies the behavior for database
+creation with the behavior of collection and View creation, which also return
+the error code `1208` in case the specified name is not allowed.
+
 #### Document API
 
-The `refillIndexCaches` option supported by the following endpoints now includes
-in-memory hash caches of persistent indexes in addition to edge caches:
+The following endpoints support a new `refillIndexCaches` query
+parameter to repopulate the index caches after requests that insert, update,
+replace, or remove single or multiple documents (including edges) if this
+affects an edge index or cache-enabled persistent indexes:
 
 - `POST /_api/document/{collection}`
 - `PATCH /_api/document/{collection}/{key}`
 - `PUT /_api/document/{collection}/{key}`
 - `DELETE /_api/document/{collection}/{key}`
 
+It is a boolean option and the default is `false`.
+
 This also applies to the `INSERT`, `UPDATE`, `REPLACE`, and `REMOVE` operations
 in AQL queries, which support a `refillIndexCache` option, too.
+
+In 3.9 and 3.10, `refillIndexCaches` was experimental and limited to edge caches.
 
 #### Collection API
 
@@ -100,17 +145,116 @@ Setting the log level for the `graphs` log topic to `TRACE` now logs detailed
 information about AQL graph traversals and (shortest) path searches.
 Some new log messages are also logged for the `DEBUG` level.
 
+#### Disabled Foxx APIs
+
+<small>Introduced in: v3.10.5</small>
+
+A `--foxx.enable` startup option has been added to _arangod_. It defaults to `true`.
+If the option is set to `false`, access to Foxx services is forbidden and is
+responded with an HTTP `403 Forbidden` error. Access to the management APIs for
+Foxx services are also disabled as if `--foxx.api false` is set manually.
+
+#### Configurable whitespace in metrics
+
+<small>Introduced in: v3.10.6</small>
+
+The output format of the `/_admin/metrics` and `/_admin/metrics/v2` endpoints
+slightly changes for metrics with labels. By default, the metric label and value
+are separated by a space for improved compatibility with some tools. This is
+controlled by the new `--server.ensure-whitespace-metrics-format` startup option,
+which is enabled by default from v3.10.6 onward. Example:
+
+Enabled:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"} 0
+```
+
+Disabled:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"}0
+```
+
 ### Privilege changes
 
 
 
 ### Endpoint return value changes
 
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
 
+  <small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
 
 ### Endpoints added
 
+#### Maintenance mode for DB-Servers
 
+<small>Introduced in: v3.10.1</small>
+
+For rolling upgrades or rolling restarts, DB-Servers can now be put into
+maintenance mode, so that no attempts are made to re-distribute the data in a
+cluster for such planned events. DB-Servers in maintenance mode are not
+considered viable failover targets because they are likely restarted soon.
+
+To query the maintenance status of a DB-Server, use this new endpoint:
+
+`GET /_admin/cluster/maintenance/<DB-Server-ID>`
+
+An example reply of a DB-Server that is in maintenance mode:
+
+```json
+{
+  "error": false,
+  "code": 200,
+  "result": {
+    "Mode": "maintenance",
+    "Until": "2022-10-26T06:14:23Z"
+  }
+}
+```
+
+If the DB-Server is not in maintenance mode, then the `result` attribute is
+omitted:
+
+```json
+{
+  "error": false,
+  "code": 200,
+}
+```
+
+To put a DB-Server into maintenance mode, use this new endpoint:
+
+`PUT /_admin/cluster/maintenance/<DB-Server-ID>`
+
+The payload of the request needs to be as follows, with the `timeout` in seconds:
+
+```json
+{
+  "mode": "maintenance",
+  "timeout": 360
+}
+```
+
+To turn the maintenance mode off, set `mode` to `"normal"` instead, and omit the
+`timeout` attribute or set it to `0`.
+
+You can send another request when the DB-Server is already in maintenance mode
+to extend the timeout.
+
+The maintenance mode ends automatically after the defined timeout.
+
+Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-the-maintenance-status-of-a-db-server).
 
 ### Endpoints augmented
 
@@ -187,6 +331,37 @@ and defaults to `[]`.
 See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
 for details.
 
+---
+
+Views of the type `arangosearch` support new caching options in the
+Enterprise Edition.
+
+<small>Introduced in: v3.9.5, v3.10.2</small>
+
+- A `cache` option for individual View links or fields (boolean, default: `false`).
+- A `cache` option in the definition of a `storedValues` View property
+  (boolean, immutable, default: `false`).
+
+<small>Introduced in: v3.9.6, v3.10.2</small>
+
+- A `primarySortCache` View property (boolean, immutable, default: `false`).
+- A `primaryKeyCache` View property (boolean, immutable, default: `false`).
+
+The `POST /_api/view` endpoint accepts these new options for `arangosearch`
+Views, the `GET /_api/view/<view-name>/properties` endpoint may return these
+options, and you can change the `cache` View link/field property with the
+`PUT /_api/view/<view-name>/properties` and `PATCH /_api/view/<view-name>/properties`
+endpoints.
+
+<small>Introduced in: v3.10.3</small>
+
+You may use a shorthand notations on `arangosearch` View creation or the
+`storedValues` option, like `["attr1", "attr2"]`, instead of using an array of
+objects.
+
+See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
+for details.
+
 #### Index API
 
 Indexes of type `inverted` accept a new `optimizeTopK` property for the
@@ -212,6 +387,106 @@ persisted execution statistics for Pregel jobs:
 
 See [Pregel HTTP API](http/pregel.html) for details.
 
+#### Explain API
+
+<small>Introduced in: v3.10.4</small>
+
+The `POST /_api/explain` endpoint for explaining AQL queries includes the
+following two new statistics in the `stats` attribute of the response now:
+
+- `peakMemoryUsage` (number): The maximum memory usage of the query during
+  explain (in bytes)
+- `executionTime` (number): The (wall-clock) time in seconds needed to explain
+  the query.
+
+#### Metrics API
+
+The following ArangoSearch metric has been added in version 3.11:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
+
+---
+
+<small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
+
+The metrics endpoints include the following new traffic accounting metrics:
+
+- `arangodb_client_user_connection_statistics_bytes_received`
+- `arangodb_client_user_connection_statistics_bytes_sent`
+- `arangodb_http1_connections_total`
+
+---
+
+<small>Introduced in: v3.9.6, v3.10.2</small>
+
+The metrics endpoints include the following new edge cache (re-)filling metrics:
+
+- `rocksdb_cache_auto_refill_loaded_total`
+- `rocksdb_cache_auto_refill_dropped_total`
+- `rocksdb_cache_full_index_refills_total`
+
+---
+
+<small>Introduced in: v3.9.10, v3.10.5</small>
+
+The following metrics for write-ahead log (WAL) file tracking have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_live_wal_files` | Number of live RocksDB WAL files. |
+| `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
+| `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
+| `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
+
+---
+
+The following metric for the number of replication clients for a server has
+been added:
+
+<small>Introduced in: v3.10.5</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_replication_clients` | Number of currently connected/active replication clients. |
+
+---
+
+The following metrics for diagnosing delays in cluster-internal network requests
+have been added:
+
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_network_dequeue_duration` | Internal request duration for the dequeue in seconds. |
+| `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
+| `arangodb_network_send_duration` | Internal request send duration in seconds. |
+| `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
+#### Log level API
+
+<small>Introduced in: v3.10.2</small>
+
+The `GET /_admin/log/level` and `PUT /_admin/log/level` endpoints support a new
+query parameter `serverId`, to forward log level get and set requests to a
+specific server. This makes it easier to adjust the log levels in clusters
+because DB-Servers require JWT authentication whereas Coordinators also support
+authentication using usernames and passwords.
+
+#### Explain API
+
+<small>Introduced in: v3.10.4</small>
+
+The `POST /_api/explain` endpoint for explaining AQL queries includes the
+following two new statistics in the `stats` attribute of the response now:
+
+- `peakMemoryUsage` (number): The maximum memory usage of the query during
+  explain (in bytes)
+- `executionTime` (number): The (wall-clock) time in seconds needed to explain
+  the query.
+
 ### Endpoints moved
 
 
@@ -225,6 +500,17 @@ See [Pregel HTTP API](http/pregel.html) for details.
 
 
 ## JavaScript API
+
+### Database creation
+
+The `db._createDatabase()` method for creating a new database has changed.
+If the specified database name is invalid/illegal, it now returns the error code
+`1208` (`ERROR_ARANGO_ILLEGAL_NAME`). It previously returned `1229`
+(`ERROR_ARANGO_DATABASE_NAME_INVALID`) in this case.
+  
+This is a downwards-incompatible change, but unifies the behavior for database
+creation with the behavior of collection and View creation, which also return
+the error code `1208` in case the specified name is not allowed.
 
 ### Index methods
 
