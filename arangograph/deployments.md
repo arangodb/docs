@@ -176,23 +176,37 @@ a self-signed certificate is recommended. Read more on the
 [Certificates](certificates.html) page.
 {% endhint %}
 
-## How to enable the root user password rotation
+## Password settings
 
-Password rotation refers to changing passwords regularly - a security best practice
-to reduce the vulnerability to password-based attacks and exploits by limiting
-for how long passwords are valid. The ArangoGraph Insights Platform can automatically change the
-`root` user password of an ArangoDB deployment periodically to improve security.
+### How to enable the automatic root user password rotation
+
+Password rotation refers to changing passwords regularly - a security best
+practice to reduce the vulnerability to password-based attacks and exploits
+by limiting for how long passwords are valid. The ArangoGraph Insights Platform
+can automatically change the `root` user password of an ArangoDB deployment
+periodically to improve security.
 
 1. Navigate to the __Deployment__ for which you want to enable an automatic
    password rotation for the root user.
 2. On the __Overview__ tab, click the button with the __gear__ icon next to the
    __ROOT PASSWORD__.
-3. In the __Password Settings__ dialog, turn the password rotation on and click the
-   __Confirm__ button.
+3. In the __Password Settings__ dialog, turn the automatic password rotation on
+   and click the __Confirm__ button.
 
    ![ArangoGraph Deployment Password Rotation](images/arangograph-deployment-password-rotation.png)
 4. You can expand the __Root password__ panel to see when the password was
    rotated last. The rotation takes place every three months.
+
+### Auto login to database UI
+
+The auto login feature is a convenient and time-saving functionality that
+allows you to seamlessly access the ArangoDB database web interface from within
+the ArangoGraph platform without the need for additional login credentials.
+
+You can enable this feature in the **Password Settings** dialog. Please note
+that it may take a few minutes to get activated.
+Once enabled, you no longer have to fill in the `root` user and password of
+your ArangoDB deployment. This feature can be disabled at any time.
 
 ## How to edit a deployment
 
