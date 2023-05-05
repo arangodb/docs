@@ -1,0 +1,13 @@
+@Q:
+  FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> OUTBOUND <span class="hljs-string">&#x27;circles/A&#x27;</span> GRAPH <span class="hljs-string">&#x27;traversalGraph&#x27;</span>
+      FILTER p.edges[<span class="hljs-number">0</span>].label != <span class="hljs-string">&#x27;right_foo&#x27;</span>
+      RETURN v._key
+
+@R
+[
+  <span class="hljs-string">&quot;B&quot;</span>,
+  <span class="hljs-string">&quot;E&quot;</span>,
+  <span class="hljs-string">&quot;F&quot;</span>,
+  <span class="hljs-string">&quot;C&quot;</span>,
+  <span class="hljs-string">&quot;D&quot;</span>
+]
