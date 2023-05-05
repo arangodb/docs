@@ -215,8 +215,6 @@ curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 
 
 ## Hot-reload JWT secrets
 
-<small>Introduced in: v3.7.0</small>
-
 {% include hint-ee.md feature="Hot-reloading of secrets" %}
 
 To reload the JWT secrets of a local arangod process without a restart, you
