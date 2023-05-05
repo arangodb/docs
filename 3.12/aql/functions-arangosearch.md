@@ -1178,9 +1178,13 @@ Sorts documents using the
 
 - **doc** (document): must be emitted by `FOR ... IN viewName`
 - **k** (number, _optional_): calibrates the text term frequency scaling.
+  The value needs to be non-negative (`0.0` or higher), or the returned
+  score is an undefined value that may cause unpredictable results.
   The default is `1.2`. A `k` value of `0` corresponds to a binary model
   (no term frequency), and a large value corresponds to using raw term frequency
 - **b** (number, _optional_): determines the scaling by the total text length.
+  The value needs to be between `0.0` and `1.0` (inclusive), or the returned
+  score is an undefined value that may cause unpredictable results. 
   The default is `0.75`. At the extreme values of the coefficient `b`, BM25
   turns into the ranking functions known as:
   - BM11 for `b` = `1` (corresponds to fully scaling the term weight by the
