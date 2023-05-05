@@ -1,0 +1,9 @@
+arangosh&gt; <span class="hljs-keyword">var</span> stmt = db._createStatement( { <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;FOR i IN [ @one, @two ] RETURN i * 2&quot;</span> } );
+arangosh&gt; stmt.bind(<span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-number">1</span>);
+arangosh&gt; stmt.bind(<span class="hljs-string">&quot;two&quot;</span>, <span class="hljs-number">2</span>);
+arangosh&gt; cursor = stmt.execute();
+[ 
+  <span class="hljs-number">2</span>, 
+  <span class="hljs-number">4</span> 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

@@ -1,0 +1,63 @@
+@Q:
+  FOR doc IN @sensorData
+    COLLECT
+      date = DATE_ROUND(doc.timestamp, <span class="hljs-number">5</span>, <span class="hljs-string">&quot;minutes&quot;</span>)
+    AGGREGATE
+      count = COUNT(<span class="hljs-number">1</span>),
+      avg = AVG(doc.temp),
+      min = MIN(doc.temp),
+      max = MAX(doc.temp)
+    RETURN { date, count, avg, min, max }
+@B
+{
+  <span class="hljs-string">&quot;sensorData&quot;</span>: [
+    {
+      <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:17:52.583Z&quot;</span>,
+      <span class="hljs-string">&quot;temp&quot;</span>: <span class="hljs-number">20.6</span>
+    },
+    {
+      <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:19:53.516Z&quot;</span>,
+      <span class="hljs-string">&quot;temp&quot;</span>: <span class="hljs-number">20.2</span>
+    },
+    {
+      <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:21:53.610Z&quot;</span>,
+      <span class="hljs-string">&quot;temp&quot;</span>: <span class="hljs-number">19.9</span>
+    },
+    {
+      <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:23:52.522Z&quot;</span>,
+      <span class="hljs-string">&quot;temp&quot;</span>: <span class="hljs-number">19.8</span>
+    },
+    {
+      <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:25:52.988Z&quot;</span>,
+      <span class="hljs-string">&quot;temp&quot;</span>: <span class="hljs-number">19.8</span>
+    },
+    {
+      <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:27:54.005Z&quot;</span>,
+      <span class="hljs-string">&quot;temp&quot;</span>: <span class="hljs-number">19.7</span>
+    }
+  ]
+}
+@R
+[
+  {
+    <span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:15:00.000Z&quot;</span>,
+    <span class="hljs-string">&quot;count&quot;</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">&quot;avg&quot;</span>: <span class="hljs-number">20.4</span>,
+    <span class="hljs-string">&quot;min&quot;</span>: <span class="hljs-number">20.2</span>,
+    <span class="hljs-string">&quot;max&quot;</span>: <span class="hljs-number">20.6</span>
+  },
+  {
+    <span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:20:00.000Z&quot;</span>,
+    <span class="hljs-string">&quot;count&quot;</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">&quot;avg&quot;</span>: <span class="hljs-number">19.85</span>,
+    <span class="hljs-string">&quot;min&quot;</span>: <span class="hljs-number">19.8</span>,
+    <span class="hljs-string">&quot;max&quot;</span>: <span class="hljs-number">19.9</span>
+  },
+  {
+    <span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2019-12-04T21:25:00.000Z&quot;</span>,
+    <span class="hljs-string">&quot;count&quot;</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">&quot;avg&quot;</span>: <span class="hljs-number">19.75</span>,
+    <span class="hljs-string">&quot;min&quot;</span>: <span class="hljs-number">19.7</span>,
+    <span class="hljs-string">&quot;max&quot;</span>: <span class="hljs-number">19.8</span>
+  }
+]
