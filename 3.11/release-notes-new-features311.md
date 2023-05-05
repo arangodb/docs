@@ -496,19 +496,32 @@ Starting with version 3.11, ArangoDB automatically gathers data on how it is
 used and the features being utilized. This information is used to identify the
 primary usage patterns and features, and to measure their adoption rate. 
 
-It is important to note that the information collected by ArangoDB is purely
-statistical and helps ArangoDB determine which features are most used, how
-the general usage model looks like, and whether ArangoDB is configured
-properly. 
+It is important to note that the information collected by ArangoDB is
+non-personal and purely statistical and helps ArangoDB determine which
+features are most used, how the general usage model looks like, and
+whether ArangoDB is configured properly. 
 
-This data does not contain any personal information like usernames or IP
-addresses that could be used to identify a particular user. This means that
-your privacy is protected, and that there is no risk of your data being
-compromised.
+This data is anonymous and does not contain any personal information like
+usernames or IP addresses that could be used to identify a particular user.
+This means that your privacy is protected, and that there is no risk of your
+data being compromised (including the content of documents stored in ArangoDB).
 
 If for any reason you prefer not to share usage statistics with ArangoDB, you
 can easily disable this feature by setting the `--server.enable-telemetrics-api`
 startup option to `false`. The default value is `true`.
+
+The anonymous metrics ArangoDB collects include the following:
+
+- **Host machine environment**: This includes statistics about your operating 
+  system, license type, and available RAM and CPU resources.
+- **Runtime information**: This includes statistics related to your deployment
+  type and startup mode, RAM and CPU usage, and shard configuration (number of
+  shards, followers, leaders, coordinators, databases, and servers participating
+  in sharding).
+- **Feature usage data**: This includes information about which features are
+  most used and how the usage model looks like. Statistics include details about
+  the type and number of collections per database, indexes, smart graphs, queries,
+  as well as configuration details in terms of sharding and replication.
 
 ### Extended naming constraints for collections, Views, and indexes
 
