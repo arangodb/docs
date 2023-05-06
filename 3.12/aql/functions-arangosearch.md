@@ -481,8 +481,6 @@ FOR doc IN viewName
 
 ### NGRAM_MATCH()
 
-<small>Introduced in: v3.7.0</small>
-
 `NGRAM_MATCH(path, target, threshold, analyzer) → fulfilled`
 
 Match documents whose attribute value has an
@@ -602,8 +600,6 @@ enabled. The `PHRASE()` function will otherwise not find anything.
 {% endhint %}
 
 #### Object tokens
-
-<small>Introduced in v3.7.0</small>
 
 - `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
   see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
@@ -797,8 +793,6 @@ that is used outside of `SEARCH` operations.
 
 `STARTS_WITH(path, prefixes, minMatchCount) → startsWith`
 
-<small>Introduced in: v3.7.1</small>
-
 Match the value of the attribute that starts with one of the `prefixes`, or
 optionally with at least `minMatchCount` of the prefixes.
 
@@ -902,8 +896,6 @@ contains one of the prefixes (`something`).
 
 ### LEVENSHTEIN_MATCH()
 
-<small>Introduced in: v3.7.0</small>
-
 `LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms, prefix) → fulfilled`
 
 Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target=_"blank"}
@@ -998,8 +990,6 @@ FOR doc IN viewName
 ```
 
 ### LIKE()
-
-<small>Introduced in: v3.7.2</small>
 
 `LIKE(path, search) → bool`
 

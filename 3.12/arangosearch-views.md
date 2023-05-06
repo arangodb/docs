@@ -201,9 +201,7 @@ During view modification the following directives apply:
 
 - **primarySortCompression** (_optional_; type: `string`; default: `lz4`; _immutable_)
 
-  <small>Introduced in: v3.7.1</small>
-
-  Defines how to compress the primary sort data (introduced in v3.7.0).
+  Defines how to compress the primary sort data.
   
   - `"lz4"` (default): use LZ4 fast compression.
   - `"none"`: disable compression to trade space for speed.
@@ -246,8 +244,6 @@ During view modification the following directives apply:
   {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
-
-  <small>Introduced in: v3.7.1</small>
 
   An array of objects to describe which document attributes to store in the
   View index. It can then cover search queries, which means the data can be
