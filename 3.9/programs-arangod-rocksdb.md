@@ -239,7 +239,7 @@ important. Default: false.
 
 If true, skip corrupted records in WAL recovery. Default: false.
 
-`-- rocksdb.transaction-lock-stripes`
+`--rocksdb.transaction-lock-stripes`
 
 <small>Introduced in: v3.9.2</small>
 

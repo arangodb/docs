@@ -10,28 +10,22 @@ expires: 0
 pragma: no-cache
 server: ArangoDB
 strict-transport-security: max-age=31536000 ; includeSubDomains
-x-arango-async-id: 84527
+x-arango-async-id: 84546
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/84527</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/84546</span>
 
-HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
-content-type: application/json
-cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
+HTTP/1.1 200 OK
+content-type: text/plain
+cache-control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
 connection: Keep-Alive
-content-length: <span class="hljs-number">61</span>
-content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-expires: <span class="hljs-number">0</span>
+content-length: 0
+content-security-policy: frame-ancestors 'self'; form-action 'self';
+expires: 0
 pragma: no-cache
 server: ArangoDB
-strict-transport-security: max-age=<span class="hljs-number">31536000</span> ; includeSubDomains
-x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">84527</span>
-x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+strict-transport-security: max-age=31536000 ; includeSubDomains
+x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-{ 
-  <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;arango&quot;</span>, 
-  <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
-  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.4&quot;</span> 
-}

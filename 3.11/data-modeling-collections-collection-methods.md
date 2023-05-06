@@ -168,7 +168,7 @@ In a cluster setup, the result also contains the following attributes:
   in sync on the different DB-Servers. If there are less then these many copies
   in the cluster, a shard refuses to write. Writes to shards with enough
   up-to-date copies succeed at the same time, however. The value of
-  `writeConcern` can not be larger than `replicationFactor`. _(cluster only)_
+  `writeConcern` cannot be greater than `replicationFactor`. _(cluster only)_
 
 - `shardingStrategy` (string): the sharding strategy selected for the collection.
   _(cluster only)_
@@ -225,7 +225,7 @@ one or more of the following attribute(s):
   in sync on the different DB-Servers. If there are less then these many copies
   in the cluster, a shard refuses to write. Writes to shards with enough
   up-to-date copies succeed at the same time however. The value of
-  `writeConcern` can not be larger than `replicationFactor`. _(cluster only)_
+  `writeConcern` cannot be greater than `replicationFactor`. _(cluster only)_
 
 - `computedValues` (array\|null): An array of objects, each representing a
   [Computed Value](data-modeling-documents-computed-values.html).
@@ -473,10 +473,10 @@ Rename a collection:
 
 `collection.rename(new-name)`
 
-Renames a collection using the `new-name`. The `new-name` must not
-already be used for a different collection. `new-name` must also be a
-valid collection name. For more information on valid collection names please
-refer to the [naming conventions](data-modeling-naming-conventions.html).
+Renames a collection using the `new-name`. The `new-name` must not already be
+used for a different collection. `new-name` must also be a valid collection name.
+For information about the naming constraints for collections, see
+[Collection names](data-modeling-collections.html#collection-names).
 
 If renaming fails for any reason, an error is thrown.
 If renaming the collection succeeds, then the collection is also renamed in
@@ -484,7 +484,7 @@ all graph definitions inside the `_graphs` collection in the current
 database.
 
 {% hint 'info' %}
-The `rename()` method can not be used in clusters.
+The `rename()` method cannot be used in clusters.
 {% endhint %}
 
 **Examples**

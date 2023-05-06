@@ -1,0 +1,8 @@
+arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/smart-graph&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> relation = graph_module._relation(<span class="hljs-string">&quot;edges&quot;</span>, <span class="hljs-string">&quot;vertices&quot;</span>, <span class="hljs-string">&quot;vertices&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> graph = graph_module._create(<span class="hljs-string">&quot;myGraph&quot;</span>, [relation], [], {<span class="hljs-attr">smartGraphAttribute</span>: <span class="hljs-string">&quot;region&quot;</span>, <span class="hljs-attr">numberOfShards</span>: <span class="hljs-number">9</span>});
+arangosh&gt; graph._deleteEdgeDefinition(<span class="hljs-string">&quot;edges&quot;</span>);      <span class="hljs-comment">// Remove edge collection from graph definition</span>
+arangosh&gt; graph._removeVertexCollection(<span class="hljs-string">&quot;vertices&quot;</span>); <span class="hljs-comment">// Remove vertex collection from graph definition</span>
+arangosh&gt; graph_module._drop(<span class="hljs-string">&quot;myGraph&quot;</span>, <span class="hljs-literal">true</span>);       <span class="hljs-comment">// Does not drop any collections because none are left in the graph definition</span>
+arangosh&gt; db._drop(<span class="hljs-string">&quot;edges&quot;</span>); <span class="hljs-comment">// Manually clean up the collections that were left behind, drop &#x27;edges&#x27; before sharding-defining &#x27;vertices&#x27; collection</span>
+arangosh&gt; db._drop(<span class="hljs-string">&quot;vertices&quot;</span>);

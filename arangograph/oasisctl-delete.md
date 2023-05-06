@@ -31,7 +31,7 @@ oasisctl delete [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl delete apikey](oasisctl-delete-apikey.html)	 - Delete an API key with given identifier
 * [oasisctl delete auditlog](oasisctl-delete-auditlog.html)	 - Delete an auditlog
 * [oasisctl delete backup](oasisctl-delete-backup.html)	 - Delete a backup for a given ID.

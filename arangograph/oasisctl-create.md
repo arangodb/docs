@@ -31,7 +31,7 @@ oasisctl create [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl create apikey](oasisctl-create-apikey.html)	 - Create a new API key
 * [oasisctl create auditlog](oasisctl-create-auditlog.html)	 - Create an auditlog
 * [oasisctl create backup](oasisctl-create-backup.html)	 - Create backup ...

@@ -40,6 +40,12 @@
 #      href: oasisctl.html
 #      children:
 #
+#    But keep the changelog entry at the end of the file:
+#
+#    - divider: true
+#    - text: ArangoGraph Changelog
+#      href: changelog.html
+#
 #    Then paste the copied text and save the file.
 #
 # 8. Add the updated, removed, and new (untracked) files in Git,

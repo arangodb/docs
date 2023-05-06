@@ -37,45 +37,42 @@ which is required for connecting to Prometheus.
 
 1. In the **Metrics** section, click **Connect Prometheus**.
 2. Create the `prometheus.yml` file with the following content:
-
-    ```yaml
-    global:
-    scrape_interval: 60s
-    scrape_configs:
-    - job_name: 'deployment'
-        bearer_token: '<fill-your-metrics-token-here>'
-        scheme: 'https'
-        static_configs:
-        - targets: ['6775e7d48152.arangodb.cloud:8829']
-        tls_config:
-        insecure_skip_verify: true
-    ```
+   ```yaml
+   global:
+   scrape_interval: 60s
+   scrape_configs:
+   - job_name: 'deployment'
+       bearer_token: '<fill-your-metrics-token-here>'
+       scheme: 'https'
+       static_configs:
+       - targets: ['6775e7d48152.arangodb.cloud:8829']
+       tls_config:
+       insecure_skip_verify: true
+   ```
 3. Start Prometheus with the following command:
-
-    ```sh
-    docker run -d \
-    -p 9090:9090 -p 3000:3000 --name prometheus \
-    -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
-    prom/prometheus
-    ```
-    {% hint 'info' %}
-    This command also opens a port 3000 for Grafana. In a production environment,
-    this is not needed and not recommended to have it open.
-    {% endhint %}
+   ```sh
+   docker run -d \
+   -p 9090:9090 -p 3000:3000 --name prometheus \
+   -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
+   prom/prometheus
+   ```
+   {% hint 'info' %}
+   This command also opens a port 3000 for Grafana. In a production environment,
+   this is not needed and not recommended to have it open.
+   {% endhint %}
 
 ## How to connect Grafana
 
 1. Start Grafana with the following command:
-
-    ```sh
-    docker run -d \
-    --network container:prometheus \
-    grafana/grafana
-    ```  
+   ```sh
+   docker run -d \
+   --network container:prometheus \
+   grafana/grafana
+   ```  
 2. Go to `localhost:3000` and log in with the following credentials:
    - For username, enter *admin*.
    - For password, enter *admin*. 
-   
+
     {% hint 'tip' %}
     After the initial login, make sure to change your password.
     {% endhint %}

@@ -37,5 +37,5 @@ Creates a [Transport](foxx-reference-sessions-transports.html) that can be used 
 
     Name of the header that contains the session identifier (not case sensitive).
 
-If a string is passed instead of an options object, it will be interpreted
-as the *name* option.
+If a string is passed instead of an options object, it is interpreted
+as the `name` option.

@@ -16,19 +16,19 @@ one collection at a time specify multiple `--collection` options.
 
 The default output directory is `export`.
 
-_arangoexport_ will by default connect to the `_system` database using the default
+By default, _arangoexport_ connects to the `_system` database using the default
 endpoint. If you want to connect to a different database or a different endpoint, 
 or use authentication, you can use the following command-line options:
 
-- `--server.database <string>`: name of the database to connect to
-- `--server.endpoint <string>`: endpoint to connect to
-- `--server.username <string>`: username
-- `--server.password <string>`: password to use (omit this and you'll be prompted for the
-  password)
+- `--server.database <string>`: the name of the database to connect to
+- `--server.endpoint <string>`: the endpoint to connect to
+- `--server.username <string>`: the username
+- `--server.password <string>`: the password to use (omit this to get prompted
+  for the password)
 - `--server.authentication <bool>`: whether or not to use authentication
 
 Here is an example of exporting data from a non-standard endpoint, using a dedicated
-[database name](appendix-glossary.html#database-name):
+[database name](data-modeling-databases.html#database-names):
 
 ```bash
 arangoexport \
@@ -39,8 +39,8 @@ arangoexport \
   --output-directory "my-export"
 ```
 
-When finished, _arangoexport_ will print out a summary line with some aggregate 
-statistics about what it did, e.g.:
+When _arangoexport_ has finished, it prints out a summary line with some aggregate
+statistics about what it did, for example:
 
 ```
 Processed 2 collection(s), wrote 9031763 Byte(s), 78 HTTP request(s)
@@ -77,11 +77,11 @@ This exports the `test` collection into the `export` output directory as CSV. Th
 line contains the header with all field names. Each line is one document represented as
 CSV and separated with a comma. Objects and arrays are represented as a JSON string.
 
-Starting with ArangoDB version 3.8.5, string values in the CSV output will be enclosed in 
+Starting with ArangoDB version 3.8.5, string values in the CSV output are enclosed in 
 double quotes. If any string value starts with one of the following characters: `+`, `=`, `@`, `-`,
-it is treated as a potential formula and will be prefixed by an extra single quote.
-This is done to prevent formula injection attacks in spreadsheet programs such as MS Excel or
-OpenOffice. If you don't want to use this functionality, you can turn it off via 
+it is treated as a potential formula and is prefixed by an extra single quote.
+This is done to prevent formula injection attacks in spreadsheet programs such as Microsoft Excel or
+LibreOffice Calc. If you don't want to use this functionality, you can turn it off via 
 the `--escape-csv-formulae` option.
 
 Export XML
@@ -106,10 +106,10 @@ based on [GML](https://en.wikipedia.org/wiki/Graph_Modelling_Language){:target="
 To view the XGMML file you can use for example [Cytoscape](http://cytoscape.org){:target="_blank"}.
 
 {% hint 'warning' %}
-Please note, if you export all attributes (`--xgmml-label-only false`), attribute
+If you export all attributes (`--xgmml-label-only false`), attribute
 types have to be the same for all documents. For example, if you have an
 attribute named `rank`, which is a string in one document and an integer in another,
-it will not work.
+it does not work.
 
 Incorrect:
 
@@ -128,9 +128,11 @@ Correct:
 
 **XGMML-specific options**
 
-`--xgmml-label-attribute` specify the name of the attribute that will become the label in the XGMML file.
+- `--xgmml-label-attribute`: specifies the name of the attribute that becomes the
+  label in the XGMML file.
 
-`--xgmml-label-only` set to true will only export the label without any attributes in edges or nodes.
+- `--xgmml-label-only`: set to `true`, only export the label without any
+  attributes in edges or nodes.
 
 **Export based on collections**
 
@@ -151,7 +153,7 @@ named `edge` into the `mygraph.xgmml` XGMML file.
 arangoexport --type xgmml --graph-name mygraph
 ```
 
-This exports the named graph mygraph into the `mygraph.xgmml` XGMML file.
+This exports the named graph `mygraph` into the `mygraph.xgmml` XGMML file.
 
 **Export XGMML without attributes**
 
@@ -184,7 +186,7 @@ arangoexport \
     --custom-query "FOR book IN books FILTER book.sold > 100 RETURN book"
 ```
 
-A `--fields` list is required for CSV exports, but you can use an AQL query to produce
+For CSV exports, a `--fields` list is required. You can use an AQL query to produce
 these fields. For example, you can de-normalize document structures like arrays and
 nested objects to a tabular form as demonstrated below:
 

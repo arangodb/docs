@@ -30,7 +30,7 @@ Creates a [Storage](foxx-reference-sessions-storages.html) that can be used in t
 
   * **ttl**: `number` (Default: `60 * 60`)
 
-    The time in seconds since the last update until a session will be
+    The time in seconds since the last update until a session is
     considered expired.
 
   * **pruneExpired**: `boolean` (Default: `false`)
@@ -42,11 +42,11 @@ Creates a [Storage](foxx-reference-sessions-storages.html) that can be used in t
 
     Whether sessions should be updated in the collection every time they
     are accessed to keep them from expiring. Disabling this option
-    **will improve performance** but means you will have to take care of
+    **will improve performance** but means you have to take care of
     keeping your sessions alive yourself.
 
-If a string or collection is passed instead of an options object, it will
-be interpreted as the *collection* option.
+If a string or collection is passed instead of an options object, it is
+interpreted as the `collection` option.
 
 prune
 -----
@@ -54,7 +54,7 @@ prune
 `storage.prune(): Array<string>`
 
 Removes all expired sessions from the collection. This method should be called
-even if the *pruneExpired* option is enabled to clean up abandoned sessions.
+even if the `pruneExpired` option is enabled to clean up abandoned sessions.
 
 Returns an array of the keys of all sessions that were removed.
 
@@ -65,7 +65,7 @@ save
 
 Saves (replaces) the given session object in the collection. This method needs
 to be invoked explicitly after making changes to the session or the changes
-will not be persisted. Assigns a new `_key` to the session if it previously
+are not persisted. Assigns a new `_key` to the session if it previously
 did not have one.
 
 **Arguments**

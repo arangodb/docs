@@ -31,6 +31,6 @@ oasisctl enable [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl enable scheduled-root-password-rotation](oasisctl-enable-scheduled-root-password-rotation.html)	 - Enable scheduled root password rotation
 

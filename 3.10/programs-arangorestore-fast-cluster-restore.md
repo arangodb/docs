@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The Fast Cluster Restore procedure documented in this page is recommended to speed-up the performance of arangorestor ein a Cluster environment
+description: The Fast Cluster Restore procedure documented in this page is recommended to speed-up the performance of arangorestore in a Cluster environment
 ---
 Fast Cluster Restore
 ====================

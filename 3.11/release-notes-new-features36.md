@@ -20,7 +20,7 @@ AQL scope in order to be fed into the filter.
 
 An example query execution plan for such query from ArangoDB 3.5 looks like this:
 
-```
+```aql
 Query String (75 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 9 && doc.value2 == 'test854' RETURN doc
 
@@ -40,7 +40,7 @@ of any documents that don't match the filter condition can be avoided.
 The query execution plan for the above query from 3.6 with that optimizer rule
 applied looks as follows:
 
-```
+```aql
 Query String (75 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 9 && doc.value2 == 'test854' RETURN doc
 
@@ -64,7 +64,7 @@ conditions that cannot be satisfied by the index alone. Here is a 3.5 query
 execution plan for a query using a filter on an indexed value plus a filter on
 a non-indexed value:
 
-```
+```aql
 Query String (101 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 10000 && doc.value1 < 30000 && doc.value2 == 'test854' RETURN
  doc
@@ -85,7 +85,7 @@ Indexes used:
 In 3.6, the same query will be executed using a combined index scan & filtering
 approach, again avoiding any copies of non-matching documents:
 
-```
+```aql
 Query String (101 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 10000 && doc.value1 < 30000 && doc.value2 == 'test854' RETURN
  doc
@@ -123,7 +123,7 @@ unsuitable if it is contained in a (sub)query containing unsuitable parts
 
 Consider the following query to illustrate the difference.
 
-```js
+```aql
 FOR x IN c1
   LET firstJoin = (
     FOR y IN c2
@@ -141,7 +141,7 @@ FOR x IN c1
 
 The execution plan **without** subquery splicing:
 
-```js
+```aql
 Execution plan:
  Id   NodeType                  Est.   Comment
   1   SingletonNode                1   * ROOT
@@ -172,7 +172,7 @@ both cases.
 
 When using the optimizer rule `splice-subqueries` the plan is as follows:
 
-```js
+```aql
 Execution plan:
  Id   NodeType                  Est.   Comment
   1   SingletonNode                1   * ROOT
@@ -221,7 +221,7 @@ For the collection case the optimization is possible if and only if:
   or `edge` picked by the optimizer
 - all attribute accesses can be covered by indexed attributes
 
-```js
+```aql
 // Given we have a persistent index on attributes [ "foo", "bar", "baz" ]
 FOR d IN myCollection
   FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
@@ -236,7 +236,7 @@ For the ArangoSearch View case the optimization is possible if and only if:
 - the primary sort order optimization is not applied, because it voids the need
   for late document materialization
 
-```js
+```aql
 // Given primarySort is {"field": "foo", "asc": false}, i.e.
 // field "foo" covered by index but sort optimization not applied
 // (sort order of primarySort and SORT operation mismatch)
@@ -246,7 +246,7 @@ FOR d IN myView
   RETURN d
 ```
 
-```js
+```aql
 // Given primarySort contains field "foo"
 FOR d IN myView
   SEARCH d.foo == "someValue"
@@ -255,10 +255,10 @@ FOR d IN myView
   RETURN d
 ```
 
-```js
+```aql
 // Given primarySort contains fields "foo" and "bar", and "bar" is not the
 // first field or at least not sorted by in descending order, i.e. the sort
-// optimization can not be applied but the late document materialization instead
+// optimization cannot be applied but the late document materialization instead
 FOR d IN myView
   SEARCH d.foo == "someValue"
   SORT d.bar DESC    // field "bar" will be read from the View
@@ -282,7 +282,7 @@ for the different shards involved.
 When parallelization is used, one or multiple *GatherNode*s in a query's
 execution plan will be tagged with `parallel` as follows:
 
-```
+```aql
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
   2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
@@ -319,12 +319,16 @@ can be turned off using the option.
 For example, to turn off the parallelization entirely (including parallel
 gather writes), one can use the following configuration:
 
-    --query.optimizer-rules "-parallelize-gather"
+```
+--query.optimizer-rules "-parallelize-gather"
+```
 
 This toggle works for any other non-mandatory optimizer rules as well.
 To specify multiple optimizer rules, the option can be used multiple times, e.g.
 
-    --query.optimizer-rules "-parallelize-gather" --query.optimizer-rules "-splice-subqueries"
+```
+--query.optimizer-rules "-parallelize-gather" --query.optimizer-rules "-splice-subqueries"
+```
 
 You can overrule which optimizer rules to use or not use on a per-query basis
 still. `--query.optimizer-rules` merely defines a default. However,
@@ -342,11 +346,13 @@ operation is using the full document or the `_key` attribute to find it.
 
 For example, a query such as:
 
-    FOR doc IN test UPDATE doc WITH { updated: true } IN test
+```aql
+FOR doc IN test UPDATE doc WITH { updated: true } IN test
+```
 
 … is executed as follows in 3.5:
 
-```
+```aql
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
   3   CalculationNode           DBS         1     - LET #3 = { "updated" : true }
@@ -362,7 +368,7 @@ For example, a query such as:
 
 In 3.6 the execution plan is streamlined to just:
 
-```
+```aql
  Id   NodeType          Site     Est.   Comment
   1   SingletonNode     DBS         1   * ROOT
   3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }
@@ -380,7 +386,7 @@ eligible for parallel execution. It is only applied in cluster deployments.
 
 The optimization will also work when a filter is involved:
 
-```
+```aql
 Query String (79 chars, cacheable: false):
  FOR doc IN test FILTER doc.value == 4 UPDATE doc WITH { updated: true } IN test
 
@@ -415,7 +421,9 @@ Any date/time operations that produce date/time outside the valid ranges stated
 above will make the function return `null` and trigger a warning too.
 An example for this is:
 
-    DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
+```aql
+DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
+```
 
 The performance of AQL date operations that work on
 [date strings](aql/functions-date.html#date-functions) has been improved
@@ -433,7 +441,7 @@ In addition, ArangoDB 3.6 provides the following new AQL functionality:
 
 - a [`maxRuntime` query option](aql/invocation-with-arangosh.html#maxruntime)
   to restrict the execution to a given time in seconds (also added to v3.5.4).
-  Also see [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
+  Also see [HTTP interfaces for AQL queries](http/aql-query.html#create-cursor).
 
 - a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
   rules off (or on) by default. This can be used to turn off certain optimizations
@@ -445,7 +453,7 @@ ArangoSearch
 ### Analyzers
 
 - Added UTF-8 support and ability to mark beginning/end of the sequence to
-  the [`ngram` Analyzer type]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#ngram).
+  the [`ngram` Analyzer type](analyzers.html#ngram).
 
   The following optional properties can be provided for an `ngram` Analyzer
   definition:
@@ -459,7 +467,7 @@ ArangoSearch
   - `streamType` : `"binary"|"utf8"`, default: "binary"<br>
     type of the input stream (support for UTF-8 is new)
 
-- Added _edge n-gram_ support to the [`text` Analyzer type]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#text).
+- Added _edge n-gram_ support to the [`text` Analyzer type](analyzers.html#text).
   The input gets tokenized as usual, but then _n_-grams are generated from each
   token. UTF-8 encoding is assumed (whereas the `ngram` Analyzer has a
   configurable stream type and defaults to binary).
@@ -484,7 +492,7 @@ with array comparison operators in the form of:
 
 i.e. the left-hand side operand is always an array, which can be dynamic.
 
-```js
+```aql
 LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
 FOR doc IN myView SEARCH tokens  ALL IN doc.title RETURN doc // dynamic conjunction
 FOR doc IN myView SEARCH tokens  ANY IN doc.title RETURN doc // dynamic disjunction
@@ -496,10 +504,10 @@ FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunct
 In addition, both the `TOKENS()` and the `PHRASE()` functions were
 extended with array support for convenience.
 
-[TOKENS()](aql/functions-{% assign ver = "3.7" | version: ">=" %}{% if ver %}string{% else %}arangosearch{% endif %}.html#tokens) accepts recursive arrays of
+[TOKENS()](aql/functions-string.html#tokens) accepts recursive arrays of
 strings as the first argument:
 
-```js
+```aql
 TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
 TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
 TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
@@ -509,7 +517,7 @@ In most cases you will want to flatten the resulting array for further usage,
 because nested arrays are not accepted in `SEARCH` statements such as
 `<array> ALL IN doc.<attribute>`:
 
-```js
+```aql
 LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
 LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
 FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
@@ -518,7 +526,7 @@ FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETUR
 [PHRASE()](aql/functions-arangosearch.html#phrase) accepts an array as the
 second argument:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", "brown", "fox"], "text_en") RETURN doc
 
@@ -528,20 +536,20 @@ FOR doc IN myView SEARCH PHRASE(doc.title, tokens, "text_en") RETURN doc
 
 It is equivalent to the more cumbersome and static form:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 0, "brown", 0, "fox", "text_en") RETURN doc
 ```
 
 You can optionally specify the number of _skipTokens_ in the array form before
 every string element:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", 1, "fox", "jumps"], "text_en") RETURN doc
 ```
 
 It is the same as the following:
 
-```js
+```aql
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
@@ -552,8 +560,6 @@ provided that their underlying collections are eligible too.
 
 All collections forming the View must be sharded equally. The other join
 operand can be a collection or another View.
-
-<span id="oneshard-cluster"></span>
 
 OneShard
 --------
@@ -587,7 +593,7 @@ HTTP API
 
 The following APIs have been expanded / changed:
 
-- [Database creation API](http/database-database-management.html#create-database),<br>
+- [Database creation API](http/database.html#create-database),<br>
   HTTP route `POST /_api/database`
 
   The database creation API now handles the `replicationFactor`, `writeConcern`
@@ -609,14 +615,14 @@ The following APIs have been expanded / changed:
   that database via the web UI, arangosh or drivers (unless the startup option
   `--cluster.force-one-shard` is enabled).
 
-- [Database properties API](http/database-database-management.html#information-of-the-database),<br>
+- [Database properties API](http/database.html#information-of-the-database),<br>
   HTTP route `GET /_api/database/current`
 
   The database properties endpoint returns the new additional attributes
   `replicationFactor`, `writeConcern` and `sharding` in a cluster.
   A description of these attributes can be found above.
 
-- [Collection](http/collection.html) / [Graph APIs](http/gharial-management.html),<br>
+- [Collection](http/collection.html) / [Graph APIs](http/gharial.html#management),<br>
   HTTP routes `POST /_api/collection`, `GET /_api/collection/{collection-name}/properties`
   and various `/_api/gharial/*` endpoints
 
@@ -628,7 +634,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/administration-and-monitoring{% assign ver = "3.7" | version: ">=" %}{% if ver %}-metrics{% endif %}.html#read-the-metrics),<br>
+- New [Metrics API](http/monitoring.html#metrics-api-deprecated),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned
@@ -747,8 +753,7 @@ storage engine without modifying client application code. Otherwise it should
 best be avoided as the use of exclusive locks on collections will introduce a
 noticeable throughput penalty. 
 
-Note that the MMFiles engine is {% assign ver = "3.9" | version: ">=" %}{% if ver %}
-deprecated{% else %}[deprecated](appendix-deprecated.html){% endif %}
+Note that the MMFiles engine is deprecated
 from v3.6.0 on and will be removed in a future release. So will be this option,
 which is a stopgap measure only.
 
@@ -761,7 +766,9 @@ same name.
 
 For example, to turn off the rule `use-indexes-for-sort`, use
 
-    --query.optimizer-rules "-use-indexes-for-sort"
+```
+--query.optimizer-rules "-use-indexes-for-sort"
+```
 
 The purpose of this [startup option](programs-arangod-options.html#--queryoptimizer-rules)
 is to be able to enable potential future experimental optimizer rules, which
@@ -825,7 +832,7 @@ Miscellaneous
   if all sharding keys are specified. Should the sharding keys not match the
   values in the actual document, a not found error will be returned.
 
-- [Collection names](data-modeling-naming-conventions-collection-and-view-names.html)
+- [Collection names](data-modeling-collections.html#collection-names)
   in ArangoDB can now be up to 256 characters long, instead of 64 characters in
   previous versions.
 
@@ -843,11 +850,13 @@ Miscellaneous
   The default queue sizes in the scheduler for requests buffering have
   also been changed as follows:
 
-      request type        before      now
-      -----------------------------------
-      high priority          128     4096
-      medium priority    1048576     4096
-      low priority          4096     4096
+  ```
+  request type        before      now
+  -----------------------------------
+  high priority          128     4096
+  medium priority    1048576     4096
+  low priority          4096     4096
+  ```
 
   The queue sizes can still be adjusted at server start using the above-
   mentioned startup options.

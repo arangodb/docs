@@ -28,8 +28,7 @@ word stemming, remove user-defined stop-words, split by a delimiting
 character only, perform case conversion and/or removal of diacritic
 characters against the full input without tokenization and more.
 
-See [Analyzers]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html)
-for all available options.
+See [Analyzers](analyzers.html) for all available options.
 
 ### Sorted Index
 
@@ -48,28 +47,27 @@ View definition example:
   "links": {
     "coll1": {
       "fields": {
-        "text": {
-        }
+        "text": { }
       }
     },
     "coll2": {
       "fields": {
-        "text": {
+        "text": { }
       }
-    }
-  },
-  "primarySort": [
-    {
-      "field": "text",
-      "direction": "desc"
-    }
-  ]
+    },
+    "primarySort": [
+      {
+        "field": "text",
+        "direction": "desc"
+      }
+    ]
+  }
 }
 ```
 
 AQL query example:
 
-```js
+```aql
 FOR doc IN viewName
   SORT doc.text DESC
   RETURN doc
@@ -77,7 +75,7 @@ FOR doc IN viewName
 
 Execution plan **without** a sorted index being used:
 
-```
+```aql
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
@@ -89,7 +87,7 @@ Execution plan:
 
 Execution plan with the primary sort order of the index being utilized:
 
-```
+```aql
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
@@ -97,11 +95,11 @@ Execution plan:
   5   ReturnNode             1       - RETURN doc
 ```
 
-Note that the `primarySort` option is immutable: it can not be changed after
+Note that the `primarySort` option is immutable: it cannot be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
-See [Primary Sort Order](arangosearch{% assign ver = "3.7" | version: "<" %}{% if ver %}-views{% else %}-performance{% endif %}.html#primary-sort-order)
+See [Primary Sort Order](arangosearch-performance.html#primary-sort-order)
 of ArangoSearch Views.
 
 ### AQL Integration
@@ -111,7 +109,7 @@ Some small new features give more control over ArangoSearch from AQL.
 - The scoring functions `BM25()` and `TFIDF()` are not limited to the `SORT`
   operation anymore, but can also be returned as part of the query result:
 
-  ```js
+  ```aql
   FOR doc IN viewName
     SEARCH ...
     LET score = BM25(doc)
@@ -122,7 +120,7 @@ Some small new features give more control over ArangoSearch from AQL.
 - The score can be manipulated to influence the ranking based on
   attribute values and using numeric AQL functions:
 
-  ```js
+  ```aql
   FOR movie IN imdbView
     SEARCH PHRASE(movie.title, "Star Wars", "text_en")
     SORT BM25(movie) * LOG(movie.runtime + 1) DESC
@@ -132,7 +130,7 @@ Some small new features give more control over ArangoSearch from AQL.
 - The `SEARCH` operation accepts an options object to restrict the search to
   certain collections indexed by a View:
 
-  ```js
+  ```aql
   FOR doc IN viewName
     SEARCH ... OPTIONS { collections: ["coll1", "coll2"] }
     RETURN doc
@@ -213,7 +211,9 @@ ArangoDB this was exactly opposite.
 An AQL query that uses the edge index only and returns the opposite side of
 the edge can now be executed in a more optimized way, e.g.
 
-    FOR edge IN edgeCollection FILTER edge._from == "v/1" RETURN edge._to
+```aql
+FOR edge IN edgeCollection FILTER edge._from == "v/1" RETURN edge._to
+```
 
 is fully covered by the RocksDB edge index. 
 
@@ -246,47 +246,55 @@ established via the `distributeShardsLike` attribute of one of the collections.
 
 Quick example setup for two collections with identical sharding:
 
-    > db._create("products", { numberOfShards: 3, shardKeys: ["_key"] });
-    > db._create("orders", { distributeShardsLike: "products", shardKeys: ["productId"] });
-    > db.orders.ensureIndex({ type: "hash", fields: ["productId"] });
-    
+```js
+db._create("products", { numberOfShards: 3, shardKeys: ["_key"] });
+db._create("orders", { distributeShardsLike: "products", shardKeys: ["productId"] });
+db.orders.ensureIndex({ type: "hash", fields: ["productId"] });
+```   
+
 Now an AQL query that joins the two collections via their shard keys will benefit from
 the SmartJoins optimization, e.g.
 
-    FOR p IN products 
-      FOR o IN orders 
-        FILTER p._key == o.productId 
-        RETURN o
+```aql
+FOR p IN products 
+  FOR o IN orders 
+    FILTER p._key == o.productId 
+    RETURN o
+```
 
 In this query's execution plan, the extra hop via the coordinator can be saved
 that is normally there for generic joins. Thanks to the SmartJoins optimization,
 the query's execution is as simple as:
 
-    Execution plan:
-     Id   NodeType                  Site  Est.   Comment
-      1   SingletonNode             DBS      1   * ROOT
-      3   EnumerateCollectionNode   DBS      9     - FOR o IN orders   /* full collection scan, 3 shard(s) */
-      7   IndexNode                 DBS      0       - FOR p IN products   /* primary index scan, scan only, 3 shard(s) */
-     10   RemoteNode                COOR     0         - REMOTE
-     11   GatherNode                COOR     0         - GATHER
-      6   ReturnNode                COOR     0         - RETURN o
+```aql
+Execution plan:
+  Id   NodeType                  Site  Est.   Comment
+   1   SingletonNode             DBS      1   * ROOT
+   3   EnumerateCollectionNode   DBS      9     - FOR o IN orders   /* full collection scan, 3 shard(s) */
+   7   IndexNode                 DBS      0       - FOR p IN products   /* primary index scan, scan only, 3 shard(s) */
+  10   RemoteNode                COOR     0         - REMOTE
+  11   GatherNode                COOR     0         - GATHER
+   6   ReturnNode                COOR     0         - RETURN o
+```
 
 Without the SmartJoins optimization, there will be an extra hop via the 
 coordinator for shipping the data from each shard of the one collection to
 each shard of the other collection, which will be a lot more expensive:
 
-    Execution plan:
-     Id   NodeType        Site  Est.   Comment
-      1   SingletonNode   DBS      1   * ROOT
-     16   IndexNode       DBS      3     - FOR p IN products   /* primary index scan, index only, projections: `_key`, 3 shard(s) */
-     14   RemoteNode      COOR     3       - REMOTE
-     15   GatherNode      COOR     3       - GATHER
-      8   ScatterNode     COOR     3       - SCATTER
-      9   RemoteNode      DBS      3       - REMOTE
-      7   IndexNode       DBS      3       - FOR o IN orders   /* hash index scan, 3 shard(s) */
-     10   RemoteNode      COOR     3         - REMOTE
-     11   GatherNode      COOR     3         - GATHER
-      6   ReturnNode      COOR     3         - RETURN o
+```aql
+Execution plan:
+ Id   NodeType        Site  Est.   Comment
+  1   SingletonNode   DBS      1   * ROOT
+ 16   IndexNode       DBS      3     - FOR p IN products   /* primary index scan, index only, projections: `_key`, 3 shard(s) */
+ 14   RemoteNode      COOR     3       - REMOTE
+ 15   GatherNode      COOR     3       - GATHER
+  8   ScatterNode     COOR     3       - SCATTER
+  9   RemoteNode      DBS      3       - REMOTE
+  7   IndexNode       DBS      3       - FOR o IN orders   /* hash index scan, 3 shard(s) */
+ 10   RemoteNode      COOR     3         - REMOTE
+ 11   GatherNode      COOR     3         - GATHER
+  6   ReturnNode      COOR     3         - RETURN o
+```
 
 In the end, SmartJoins can optimize away a lot of the inter-node network
 requests normally required for performing a join between sharded collections.
@@ -435,7 +443,7 @@ Please note that this API is only meaningful and available on a cluster coordina
 
 See:
 - [Get responsible shard in JS API](data-modeling-collections-collection-methods.html#getresponsibleshard)
-- [Get responsible shard in HTTP API](http/collection-getting.html#return-responsible-shard-for-a-document)
+- [Get responsible shard in HTTP API](http/collection.html#return-responsible-shard-for-a-document)
 
 ### Foxx API for running tests
 
@@ -459,7 +467,7 @@ transactions is enforced on the coordinator to ensure that transactions cannot b
 cluster from operating properly:
 
 - Maximum idle timeout of **10 seconds** between operations
-- Maximum transaction size of **128 MB** per DBServer
+- Maximum transaction size of **128 MB** per DB-Server
 
 These limits are also enforced for stream transactions on single servers.
 
@@ -645,7 +653,7 @@ Also see:
 - [_arangodump_](programs-arangodump.html)
 - [_arangorestore_](programs-arangorestore.html)
 
-### Warning if connected to DBServer
+### Warning if connected to DB-Server
 
 Under normal circumstances there should be no need to connect to a 
 database server in a cluster with one of the client tools, and it is 
@@ -707,7 +715,9 @@ may.
 By default, ArangoDB and its client tools now show a 5 digit unique ID value in
 any of their log messages, e.g.
 
-    2019-03-25T21:23:19Z [8144] INFO [cf3f4] ArangoDB (version 3.5.0 enterprise [linux]) is ready for business. Have fun!.
+```
+2019-03-25T21:23:19Z [8144] INFO [cf3f4] ArangoDB (version 3.5.0 enterprise [linux]) is ready for business. Have fun!.
+```
 
 In this message, the `cf3f4` is the message's unique ID value. ArangoDB users can
 use this ID to build custom monitoring or alerting based on specific log ID values.

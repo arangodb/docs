@@ -31,6 +31,6 @@ oasisctl reject [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl reject organization](oasisctl-reject-organization.html)	 - Reject organization related invites
 

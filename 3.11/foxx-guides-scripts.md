@@ -1,6 +1,6 @@
 ---
 layout: default
-description: In addition to the main entry point which defines your service'sroutes andexports you can define scriptsthat need to be invoked directly and can be used to implement one-off tasksor scheduled and recurring jobs using queues
+description: You can define scripts that need to be invoked directly and can be used to implement one-off tasks or scheduled and recurring jobs using queues
 ---
 Scripts and scheduling
 ======================
@@ -27,7 +27,7 @@ Invoking scripts
 Scripts can be invoked manually using
 the [web interface](programs-web-interface-services.html),
 the [Foxx CLI](programs-foxx-cli.html) or
-the [Foxx HTTP API](http/foxx-miscellaneous.html).
+the [Foxx HTTP API](http/foxx.html#miscellaneous).
 
 Additionally the special `setup` and `teardown` lifecycle scripts can
 be invoked automatically by Foxx as part of a service's lifecycle (see below).

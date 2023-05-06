@@ -17,7 +17,7 @@ A direction can be specified upon their creation for each uniquely named
 attribute (ascending or descending), to enable an optimization for AQL
 queries which iterate over a collection or View and sort by one or multiple of the
 indexed attributes. If the field(s) and the sorting direction(s) match, then the
-the data can be read directly from the index without actual sort operation.
+data can be read directly from the index without actual sort operation.
 
 You can only set the `primarySort` option and the related
 `primarySortCompression` and `primarySortCache` options on View creation.
@@ -156,7 +156,7 @@ by `date` first. This is similar to persistent indexes, but inverted sorting
 directions are not covered by the View index
 (e.g. `SORT doc.date, doc.name DESC`).
 
-Note that the `primarySort` option is immutable: it can not be changed after
+Note that the `primarySort` option is immutable: it cannot be changed after
 View creation. Index definitions are generally immutable, so it cannot be
 changed for inverted indexes after creation either.
 
@@ -262,7 +262,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -349,7 +349,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -402,7 +402,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primarySort: {
     fields: [
       { field: "publishedAt", direction: "desc" }
@@ -470,11 +470,11 @@ FOR doc IN viewName
 
 Also see [Faceted Search with ArangoSearch](arangosearch-faceted-search.html).
 
-## Field normalization value caching
+## Field normalization value caching and caching of Geo Analyzer auxiliary data
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
 
-{% include hint-ee.md feature="ArangoSearch caching" %}
+{% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 Normalization values are computed for fields which are processed with Analyzers
 that have the [`"norm"` feature](analyzers.html#analyzer-features) enabled.
@@ -485,6 +485,10 @@ You can set the `cache` option to `true` for individual View links or fields of
 `arangosearch` Views, as well as for inverted indexes as the default or for
 specific fields, to always cache the field normalization values in memory.
 This can improve the performance of scoring and ranking queries.
+
+You can also enable this option to always cache auxiliary data used for querying
+fields that are indexed with Geo Analyzers in memory, as the default or for
+specific fields. This can improve the performance of geo-spatial queries.
 
 _`arangosearch` View:_
 
@@ -540,7 +544,7 @@ db._createView("myView", "search-alias", { indexes: [
 ] });
 ```
 
-See see [inverted index `cache` property](http/indexes-inverted.html) for details.
+See the [inverted index `cache` property](http/indexes-inverted.html) for details.
 
 The `"norm"` Analyzer feature has performance implications even if the cache is
 used. You can create custom Analyzers without this feature to disable the
@@ -582,7 +586,7 @@ _`search-alias` View:_
 db.articles.ensureIndex({
   name: "inv-idx",
   type: "inverted",
-  fields: ["categories"],
+  fields: ["categories[*]"],
   primaryKeyCache: true
 });
 

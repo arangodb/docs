@@ -1,0 +1,20 @@
+@Q:
+RETURN [
+  REGEX_SPLIT(<span class="hljs-string">&quot;Capture the article&quot;</span>, <span class="hljs-string">&quot;(the)&quot;</span>),
+  REGEX_SPLIT(<span class="hljs-string">&quot;Don&#x27;t capture the article&quot;</span>, <span class="hljs-string">&quot;the&quot;</span>)
+]
+
+@R
+[
+  [
+    [
+      <span class="hljs-string">&quot;Capture &quot;</span>,
+      <span class="hljs-string">&quot;the&quot;</span>,
+      <span class="hljs-string">&quot; article&quot;</span>
+    ],
+    [
+      <span class="hljs-string">&quot;Don&#x27;t capture &quot;</span>,
+      <span class="hljs-string">&quot; article&quot;</span>
+    ]
+  ]
+]

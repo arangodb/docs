@@ -13,11 +13,29 @@ grouped by version
 
 **All Editions**
 
-- 
+- [**Parallel gather**](release-notes-new-features311.html#parallel-gather):
+  Faster, more memory-efficient processing of cluster queries by combining
+  results on Coordinators in parallel.
+
+- [**Index cache refilling**](release-notes-new-features311.html#index-cache-refilling):
+  Automatically repopulate in-memory index caches after writes that affect an
+  edge index or cache-enabled persistent indexes to maximize cache hits and thus
+  query performance.
 
 **Enterprise Edition**
 
-- 
+- [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
+  Retrieve search results for the highest-ranking matches from Views faster by
+  defining a list of sort expressions to optimize.
+
+- [**ArangoSearch column cache**](release-notes-new-features310.html#arangosearch-column-cache-enterprise-edition):
+  Always cache field normalization values, Geo Analyzer auxiliary data,
+  stored values, primary sort columns, and primary key columns in memory to
+  improve the performance of Views and inverted indexes.
+
+- [**`geo_s2` Analyzer**](analyzers.html#geo_s2):
+  Efficiently index geo-spatial data using different binary formats, tuning the
+  size on disk, the precision, and query performance.
 
 Also see [What's New in 3.11](release-notes-new-features311.html).
 

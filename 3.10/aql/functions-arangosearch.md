@@ -139,7 +139,7 @@ FOR doc IN viewName
   RETURN doc
 ```
 
-Despite the wrapping `ANALYZER()` function, the Analyzer name can not be
+Despite the wrapping `ANALYZER()` function, the Analyzer name cannot be
 omitted in calls to the `TOKENS()` function. Both occurrences of `text_en`
 are required, to set the Analyzer for the expression `doc.text IN ...` and
 for the `TOKENS()` function itself. This is because the `TOKENS()` function
@@ -469,11 +469,11 @@ calculation:
 
 ```aql
 LET target = "the quick brown fox jumps over the lazy dog"
-LET targetSingature = TOKENS(target, "myMinHash")
+LET targetSignature = TOKENS(target, "myMinHash")
 
 FOR doc IN viewName
   SEARCH MINHASH_MATCH(doc.text, target, 0.5, "myMinHash") // approximation
-  LET jaccard = JACCARD(targetSingature, TOKENS(doc.text, "myMinHash"))
+  LET jaccard = JACCARD(targetSignature, TOKENS(doc.text, "myMinHash"))
   FILTER jaccard > 0.75
   SORT jaccard DESC
   RETURN doc.text

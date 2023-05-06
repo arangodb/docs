@@ -145,7 +145,7 @@ Create a new database:
 
 Creates a new database with the name specified by `name`.
 There are restrictions for database names
-(see [DatabaseNames](data-modeling-naming-conventions-database-names.html)).
+(see [Database names](data-modeling-databases.html#database-names)).
 
 Note that even if the database is created successfully, there will be no
 change into the current database to the new database. Changing the current
@@ -163,8 +163,8 @@ be created in the new database (_cluster only_):
   `1`, which disables replication.
 - `writeConcern`: how many copies of each shard are required to be in sync on
   the different DB-Servers. If there are less then these many copies in the
-  cluster a shard will refuse to write. The value of `writeConcern` can not be
-  larger than `replicationFactor`.
+  cluster a shard will refuse to write. The value of `writeConcern` cannot be
+  greater than `replicationFactor`.
 
 The optional `users` attribute can be used to create initial users for
 the new database. If specified, it must be a list of user objects. Each user

@@ -63,8 +63,8 @@ Create a new document or edge collection:
 
 Creates a new document collection named `collection-name`.
 If the collection name already exists or if the name format is invalid, an
-error is thrown. For more information on valid collection names please refer
-to the [naming conventions](data-modeling-naming-conventions.html).
+error is thrown. For information about the naming constraints for collections, see
+[Collection names](data-modeling-collections.html#collection-names).
 
 ---
 
@@ -193,7 +193,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   attribute determines how many copies of each shard are required
   to be in sync on the different DB-Servers. If there are less then these
   many copies in the cluster, a shard refuses to write. The value of
-  `writeConcern` can not be larger than `replicationFactor`.
+  `writeConcern` cannot be greater than `replicationFactor`.
   Please note: during server failures this might lead to writes
   not being possible until the failover is sorted out and might cause
   write slow downs in trade for data durability.

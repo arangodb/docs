@@ -1,6 +1,6 @@
 ---
 layout: default
-description: When using multiple services (or multiple copies of the same service) in thesame database, sometimes you may want to share collections or methods betweenthose services
+description: When using multiple services (or multiple copies of the same service) in the same database, sometimes you may want to share collections or methods between those services
 ---
 Linking services together
 =========================
@@ -96,7 +96,7 @@ Like [configuration](foxx-reference-configuration.html),
 dependencies can be assigned using
 the [web interface](programs-web-interface-services.html),
 the [Foxx CLI](programs-foxx-cli.html) or
-the [Foxx HTTP API](http/foxx-configuration.html).
+the [Foxx HTTP API](http/foxx.html#configuration).
 
 The value for each dependency should be the database-relative mount path of
 the service (including the leading slash). Both services need to be mounted in

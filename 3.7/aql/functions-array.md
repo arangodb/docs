@@ -34,9 +34,11 @@ It can also be used to append a single element to an array. It is not necessary 
 it in an array (unless it is an array itself). You may also use [PUSH()](#push) instead.
 
 - **anyArray** (array): array with elements of arbitrary type
-- **values** (array\|any): array, whose elements shall be added to *anyArray*
-- **unique** (bool, *optional*): if set to *true*, only those *values* will be added
-  that are not already contained in *anyArray*. The default is *false*.
+- **values** (array\|any): array, whose elements shall be added to `anyArray`
+- **unique** (bool, *optional*): if set to `true`, all duplicate values are
+  removed from the resulting array. If `values` is an empty array or if either
+  `anyArray` or `values` is `null`, then the other input array is returned
+  unmodified. The default is `false`.
 - returns **newArray** (array): the modified array
 
 **Examples**

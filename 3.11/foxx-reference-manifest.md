@@ -5,9 +5,9 @@ description: Service manifest
 Service manifest
 ================
 
-Every service comes with a `manifest.json` file providing metadata. Typically a
+Every service comes with a `manifest.json` file providing metadata. Typically, a
 manifest should at least specify the version of ArangoDB the service supports and
-the `main` JavaScript file which Foxx will use as the entrypoint to your service:
+the `main` JavaScript file which Foxx uses as the entrypoint to your service:
 
 ```json
 {
@@ -66,7 +66,7 @@ The following fields are allowed in manifests:
 
 - **defaultDocument**: `string` (optional)
 
-  If specified, the `/` (root) route of the service will automatically redirect
+  If specified, the `/` (root) route of the service automatically redirects
   to the given relative path, e.g.:
 
   ```json
@@ -108,13 +108,13 @@ The following fields are allowed in manifests:
   - **required**: `boolean` (Default: `true`)
 
     Whether the service requires the dependency to be assigned in order to function.
-    If a required dependency is not assigned, the service will marked as
+    If a required dependency is not assigned, the service is marked as
     inoperable until a service mount point has been assigned for the dependency.
 
   - **multiple**: `boolean` (Default: `false`)
 
     Whether the dependency can be specified multiple times. If a dependency is
-    marked as `multiple`, the value of the local alias will be an array of all
+    marked as `multiple`, the value of the local alias is an array of all
     services assigned for the dependency.
 
   See [the dependencies guide](foxx-guides-dependencies.html) for more information.
@@ -122,7 +122,7 @@ The following fields are allowed in manifests:
 - **engines**: `Object` (optional)
 
   An object indicating the [semantic version ranges](http://semver.org){:target="_blank"} of
-  ArangoDB (or compatible environments) the service will be compatible with, e.g.:
+  ArangoDB (or compatible environments) the service is compatible with, e.g.:
 
   ```json
   "engines": {
@@ -142,7 +142,7 @@ The following fields are allowed in manifests:
 
   Each entry can represent either a single file or a directory.
   When serving entire directories, the key acts as a prefix and requests to
-  that prefix will be resolved within the given directory:
+  that prefix are resolved within the given directory:
 
   - **path**: `string`
 
@@ -155,11 +155,11 @@ The following fields are allowed in manifests:
 
   - **gzip**: `boolean` (Default: `false`)
 
-    If set to `true` the file will be served with gzip-encoding if supported
+    If set to `true`, the file is served with gzip-encoding if supported
     by the client. This can be useful when serving text files like client-side
     JavaScript, CSS or HTML.
 
-  If a string is provided instead of an object, it will be interpreted as the _path_ option.
+  If a string is provided instead of an object, it is interpreted as the `path` option.
 
   Example serving the `public` folder at `/static` and the `favicon.ico` at `/favicon.ico`:
 
@@ -196,7 +196,7 @@ The following fields are allowed in manifests:
   This would result in Foxx loading and executing the file `index.js` when
   the service is mounted or started.
 
-  **Note**: while it is technically possible to omit this field, you will
+  **Note**: while it is technically possible to omit this field, you
   likely want to provide an entry point to your service as this is the only
   way to expose HTTP routes or export a JavaScript API.
 
@@ -232,17 +232,17 @@ Additionally manifests can provide the following metadata:
 - **author**: `string` (optional)
 
   The full name of the author of the service (i.e. you).
-  This will be shown in the web interface.
+  This is shown in the web interface.
 
 - **contributors**: `Array<string>` (optional)
 
   A list of names of people that have contributed to the development of the
-  service in some way. This will be shown in the web interface.
+  service in some way. This is shown in the web interface.
 
 - **description**: `string` (optional)
 
   A human-readable description of the service.
-  This will be shown in the web interface.
+  This is shown in the web interface.
 
 - **keywords**: `Array<string>` (optional)
 
@@ -259,11 +259,11 @@ Additionally manifests can provide the following metadata:
 
   The name of the Foxx service. Allowed characters are A-Z, 0-9, the ASCII
   hyphen (`-`) and underscore (`_`) characters. The name must not start with
-  a number. This will be shown in the web interface.
+  a number. This is shown in the web interface.
 
 - **thumbnail**: `string` (optional)
 
-  The filename of a thumbnail that will be used alongside the service in the
+  The filename of a thumbnail that is used alongside the service in the
   web interface. This should be a JPEG or PNG image that looks good at sizes
   50x50 and 160x160.
 
@@ -271,7 +271,7 @@ Additionally manifests can provide the following metadata:
 
   The version number of the Foxx service. The version number must follow the
   [semantic versioning format](http://semver.org){:target="_blank"}.
-  This will be shown in the web interface.
+  This is shown in the web interface.
 
 **Examples**
 
@@ -297,7 +297,7 @@ Additionally manifests can provide the following metadata:
 
   "files": {
     "welcome.html": "assets/index.html",
-    "hello.jpg": "assets/hello.jpg"
+    "hello.jpg": "assets/hello.jpg",
     "world.jpg": {
       "path": "assets/world.jpg",
       "type": "image/jpeg",

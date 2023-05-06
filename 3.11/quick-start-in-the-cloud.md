@@ -26,7 +26,7 @@ the following information at hand as well:
 - A **mobile phone number**, required for SMS verification
 
 {% hint 'info' %}
-One mobile phone number will be associated with one account and cannot be
+One mobile phone number is associated with one account and cannot be
 used for multiple accounts.
 {% endhint %}
 
@@ -61,7 +61,7 @@ used for multiple accounts.
 8. Fill out a form with your first and last name, and company
    name, and then press the __Save__ button.
 9. An organization with a default project is now prepared for you.
-   Once that is completed, you will be redirected to the
+   Once that is completed, you are redirected to the
    [ArangoGraph dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
 
 ## Get a Deployment up and Running
@@ -137,7 +137,7 @@ example datasets and manage projects and deployments.
 Alternatively, follow the steps of the linked guides:
 - [Create a new project](arangograph/projects.html#how-to-create-a-new-project) (optional)
 - [Create a new deployment](arangograph/deployments.html#how-to-create-a-new-deployment)
-- [Install a new certificate](arangograph/projects.html#how-to-manage-certificates) (optional)
+- [Install a new certificate](arangograph/certificates.html) (optional)
 - [Access your deployment](arangograph/deployments.html#how-to-access-your-deployment)
 - [Delete your deployment](arangograph/deployments.html#how-to-delete-a-deployment)
 

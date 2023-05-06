@@ -1,10 +1,10 @@
 ---
 layout: default
-description: While Kubernetes and the ArangoDB Kubernetes operator will automatically resolve a lot of issues, there are always cases where human attention is needed
+description: While Kubernetes and the ArangoDB Kubernetes operator automatically resolve a lot of issues, there are always cases where human attention is needed
 ---
 # Troubleshooting
 
-While Kubernetes and the ArangoDB Kubernetes operator will automatically
+While Kubernetes and the ArangoDB Kubernetes operator automatically
 resolve a lot of issues, there are always cases where human attention
 is needed.
 
@@ -61,7 +61,7 @@ You can find the names of the containers in the `Pod`, using `kubectl describe p
 
 {% hint 'info' %}
 Note that the ArangoDB operators are being deployed themselves as a Kubernetes `Deployment`
-with 2 replicas. This means that you will have to fetch the logs of 2 `Pods` running
+with 2 replicas. This means that you have to fetch the logs of 2 `Pods` running
 those replicas.
 {% endhint %}
 
@@ -71,28 +71,28 @@ those replicas.
 
 There are two common causes for this.
 
-1) The `Pods` cannot be scheduled because there are not enough nodes available.
-   This is usually only the case with a `spec.environment` setting that has a value of `Production`.
+- The `Pods` cannot be scheduled because there are not enough nodes available.
+  This is usually only the case with a `spec.environment` setting that has a value of `Production`.
 
-   Solution:
-Add more nodes.
+  Solution: Add more nodes.
 
-1) There are no `PersistentVolumes` available to be bound to the `PersistentVolumeClaims`
-   created by the operator.
+- There are no `PersistentVolumes` available to be bound to the `PersistentVolumeClaims`
+  created by the operator.
 
-    Solution:
-Use `kubectl get persistentvolumes` to inspect the available `PersistentVolumes`
-and if needed, use the [`ArangoLocalStorage` operator](deployment-kubernetes-storage-resource.html) to provision `PersistentVolumes`.
+  Solution:
+  Use `kubectl get persistentvolumes` to inspect the available `PersistentVolumes`
+  and if needed, use the [`ArangoLocalStorage` operator](deployment-kubernetes-storage-resource.html)
+  to provision `PersistentVolumes`.
 
 ### When restarting a `Node`, the `Pods` scheduled on that node remain in `Terminating` state
 
 When a `Node` no longer makes regular calls to the Kubernetes API server, it is
 marked as not available. Depending on specific settings in your `Pods`, Kubernetes
 will at some point decide to terminate the `Pod`. As long as the `Node` is not
-completely removed from the Kubernetes API server, Kubernetes will try to use
+completely removed from the Kubernetes API server, Kubernetes tries to use
 the `Node` itself to terminate the `Pod`.
 
-The `ArangoDeployment` operator recognizes this condition and will try to replace those
+The `ArangoDeployment` operator recognizes this condition and tries to replace those
 `Pods` with `Pods` on different nodes. The exact behavior differs per type of server.
 
 ### What happens when a `Node` with local data is broken
@@ -110,11 +110,11 @@ those `PersistentVolumes`, it depends on the type of server that was using the v
   Agents are still healthy.
 - If a `DBServer` was using the volume, and the replication factor of all database
   collections is 2 or higher, and the remaining DB-Servers are still healthy,
-  the cluster will duplicate the remaining replicas to
+  the cluster duplicates the remaining replicas to
   bring the number of replicas back to the original number.
 - If a `DBServer` was using the volume, and the replication factor of a database
   collection is 1 and happens to be stored on that DB-Server, the data is lost.
 - If a single server of an `ActiveFailover` deployment was using the volume, and the
-  other single server is still healthy, the other single server will become leader.
-  After replacing the failed single server, the new follower will synchronize with
+  other single server is still healthy, the other single server becomes leader.
+  After replacing the failed single server, the new follower synchronizes with
   the leader.

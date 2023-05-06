@@ -34,8 +34,6 @@
         - text: Documents
           href: data-modeling-documents.html
           children:
-            - text: Basics and Terminology
-              href: data-modeling-documents-document-address.html
             - text: Collection Methods
               href: data-modeling-documents-document-methods.html
             - text: Database Methods
@@ -51,17 +49,6 @@
               href: data-modeling-views-database-methods.html
             - text: View Methods
               href: data-modeling-views-view-methods.html
-        - text: Naming Conventions
-          href: data-modeling-naming-conventions.html
-          children:
-            - text: Database Names
-              href: data-modeling-naming-conventions-database-names.html
-            - text: Collection and View Names
-              href: data-modeling-naming-conventions-collection-and-view-names.html
-            - text: Document Keys
-              href: data-modeling-naming-conventions-document-keys.html
-            - text: Attribute Names
-              href: data-modeling-naming-conventions-attribute-names.html
     - text: How to Interact with ArangoDB
       href: how-to-interact-with-arangodb.html
     - text: Setting up a cloud instance
@@ -138,8 +125,6 @@
       children:
         - text: Examples
           href: programs-arangorestore-examples.html
-        - text: Fast Cluster Restore
-          href: programs-arangorestore-fast-cluster-restore.html
         - text: Options
           href: programs-arangorestore-options.html
     - text: arangobackup
@@ -444,7 +429,7 @@
           href: deployment-dc2dc-arango-sync-master.html
         - text: ArangoSync Workers
           href: deployment-dc2dc-arango-sync-workers.html
-        - text: Promotheus & Grafana
+        - text: Prometheus & Grafana
           href: deployment-dc2dc-prometheus-grafana.html
     - text: Administration
       href: administration-dc2dc.html
@@ -554,6 +539,8 @@
 - text: Installation
   href: installation.html
   children:
+    - text: Docker
+      href: install-with-docker.html
     - text: Linux
       href: installation-linux.html
       children:
@@ -612,6 +599,8 @@
   children:
     - text: Configuration
       href: administration-configuration.html
+    - text: Log Levels
+      href: administration-log-levels.html
     - text: License Management
       href: administration-license.html
     - text: Import & Export
@@ -639,20 +628,10 @@
       href: security-change-root-password.html
     - text: Encryption at Rest
       href: security-encryption.html
-    - text: Auditing
+    - text: Audit logging
       href: security-auditing.html
-      children:
-        - text: Configuration
-          href: security-auditing-audit-configuration.html
-        - text: Events
-          href: security-auditing-audit-events.html
     - text: Securing Starter Deployments
       href: security-starter.html
-- text: Monitoring
-  href: monitoring.html
-  children:
-    - text: Log Levels
-      href: monitoring-log-levels.html
 - text: Troubleshooting
   href: troubleshooting.html
   children:
@@ -872,5 +851,3 @@
       href: appendix-deprecated.html
     - text: Error codes and meanings
       href: appendix-error-codes.html
-    - text: Glossary
-      href: appendix-glossary.html

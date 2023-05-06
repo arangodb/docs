@@ -43,13 +43,11 @@ For potentially long running index creation operations the _RocksDB_ storage-eng
 creating indexes in "background". The collection remains (mostly) available during the index creation, 
 see the section [Creating Indexes in Background](#creating-indexes-in-background) for more information.
 
-ArangoDB provides the following index types:
-
 Primary Index
 -------------
 
 For each collection there will always be a *primary index* which is a persistent index
-for the [document keys](appendix-glossary.html#document-key) (`_key` attribute)
+for the [document keys](data-modeling-documents.html#document-keys) (`_key` attribute)
 of all documents in the collection. The primary index allows quick selection
 of documents in the collection using either the `_key` or `_id` attributes. It will
 be used from within AQL queries automatically when performing equality lookups on
@@ -72,7 +70,7 @@ mechanism to create user-defined primary indexes.
 Edge Index
 ----------
 
-Every [edge collection](appendix-glossary.html#edge-collection) also has an 
+Every [edge collection](data-model-and-concepts.html#graph-model) also has an 
 automatically created *edge index*. The edge index provides quick access to
 documents by either their `_from` or `_to` attributes. It can therefore be
 used to quickly find connections between vertex documents and is invoked when 
@@ -341,9 +339,10 @@ Geo Index
 ---------
 
 Users can create additional geo indexes on one or multiple attributes in collections. 
-A geo index is used to find places on the surface of the earth fast. 
+A geo-spatial index can accelerate queries that filter and sort by the distance
+between stored points and points provided in a query.
 
-The geo index stores two-dimensional coordinates. It can be created on either two 
+The geo index stores two-dimensional coordinate pairs. It can be created on either two 
 separate document attributes (latitude and longitude) or a single array attribute that
 contains both latitude and longitude. Latitude and longitude must be numeric values.
 
@@ -353,9 +352,9 @@ GeoJSON uses the JSON syntax to describe geometric objects on the surface
 of the Earth. It supports points, lines, and polygons.
 See [Geo-Spatial Indexes](indexing-geo.html).
 
-The geo index provides operations to find documents with coordinates nearest to a given 
-comparison coordinate, and to find documents with coordinates that are within a specifiable
-radius around a comparison coordinate.
+The geo index provides operations to find documents with locations nearest to a given 
+comparison location, and to find documents with locations that are within a specifiable
+radius around a comparison location.
 
 The geo index is used via dedicated functions in AQL
 and it is implicitly applied when a `SORT` or `FILTER` is used with

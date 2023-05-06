@@ -1,6 +1,6 @@
 ---
 layout: default
-description: It is recommended to check the following list of incompatible changes beforeupgrading to ArangoDB 3
+description: It is recommended to check the following list of incompatible changes before upgrading to ArangoDB 3
 ---
 Incompatible changes in ArangoDB 3.0
 ====================================
@@ -300,7 +300,7 @@ and to modify data in different collection via subqueries.
 
 The AQL optimizer rule "merge-traversal-filter" that already existed in 3.0 was renamed to 
 "optimize-traversals". This should be of no relevance to client applications except if 
-they programatically look for applied optimizer rules in the explain out of AQL queries.
+they programmatically look for applied optimizer rules in the explain out of AQL queries.
 
 The order of results created by the AQL functions `VALUES()` and `ATTRIBUTES()` was never 
 guaranteed and it only had the "correct" ordering by accident when iterating over objects 

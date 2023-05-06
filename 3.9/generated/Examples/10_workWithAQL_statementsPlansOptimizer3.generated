@@ -19,12 +19,11 @@ Optimization rules applied:
 Optimization rules <span class="hljs-keyword">with</span> highest execution times:
  RuleName                                    Duration [s]
  use-indexes                                      <span class="hljs-number">0.00001</span>
- move-filters-into-enumerate                      <span class="hljs-number">0.00000</span>
+ move-filters-into-enumerate                      <span class="hljs-number">0.00001</span>
  reduce-extraction-to-projection                  <span class="hljs-number">0.00000</span>
- replace-<span class="hljs-function"><span class="hljs-keyword">function</span>-<span class="hljs-title">with</span>-<span class="hljs-title">index</span>                      0.00000
- <span class="hljs-title">remove</span>-<span class="hljs-title">filter</span>-<span class="hljs-title">covered</span>-<span class="hljs-title">by</span>-<span class="hljs-title">traversal</span>               0.00000
+ remove-filter-covered-by-index                   <span class="hljs-number">0.00000</span>
+ geo-index-optimizer                              <span class="hljs-number">0.00000</span>
 
-41 <span class="hljs-title">rule</span>(<span class="hljs-params">s</span>) <span class="hljs-title">executed</span>, 1 <span class="hljs-title">plan</span>(<span class="hljs-params">s</span>) <span class="hljs-title">created</span>
+<span class="hljs-number">41</span> rule(s) executed, <span class="hljs-number">1</span> plan(s) created
 
 
-</span>

@@ -56,7 +56,11 @@ Coordinators and DB-Servers of the cluster. Otherwise the startup will be
 refused. In DC2DC setups it is also required to use the same database naming
 convention for both datacenters to avoid incompatibilities.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Database names](data-modeling-databases.html#database-names).
+{% else -%}
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+{% endif %}
 
 AQL
 ---
@@ -175,6 +179,24 @@ In ArangoDB 3.9 the option `--database.old-system-collections` is now
 completely obsolete, and ArangoDB will never create these system collections
 for any new databases. The option can still be specified at startup, but it
 meaningless now.
+
+HTTP RESTful API
+----------------
+
+### Endpoint return value changes
+
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8, v3.9.4</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
 
 Client tools
 ------------
