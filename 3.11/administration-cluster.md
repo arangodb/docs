@@ -124,7 +124,7 @@ FOR doc IN sharded_collection
 UPDATE { _key: "123", country: "…" } WITH { … } IN sharded_collection
 ```
 
-Using a string with just the document key as key expression instead will be
+Using a string with just the document key as key expression instead is
 processed without shard hints and thus perform slower:
 
 ```aql
@@ -136,7 +136,7 @@ for a new document, but must let the server generate one automatically. This
 restriction comes from the fact that ensuring uniqueness of the primary key
 would be very inefficient if the user could specify the document key.
 If custom shard keys are used, trying to store documents with the primary key value
-(`_key` attribute) set will result in a runtime error ("must not specify _key
+(`_key` attribute) set results in a runtime error ("must not specify _key
 for this collection").
 
 Unique indexes on sharded collections are only allowed if the fields used to 
@@ -162,7 +162,7 @@ Sharding strategy
 
 Strategy to use for the collection. There are
 different sharding strategies to select from when creating a new 
-collection. The selected *shardingStrategy* value will remain
+collection. The selected `shardingStrategy` value remains
 fixed for the collection and cannot be changed afterwards. This is
 important to make the collection keep its sharding settings and
 always find documents already distributed to shards using the same
@@ -185,7 +185,7 @@ The available sharding strategies are:
 If no sharding strategy is specified, the default is `hash` for
 all normal collections, `enterprise-hash-smart-edge` for all smart edge
 collections, and `enterprise-hex-smart-vertex` for EnterpriseGraph
-vertex collections (the latter two require the *Enterprise Edition* of ArangoDB).
+vertex collections (the latter two require the Enterprise Edition of ArangoDB).
 Manually overriding the sharding strategy does not yet provide a
 benefit, but it may later in case other sharding strategies are added.
 
@@ -232,15 +232,15 @@ particular installation.
 To take out a _Coordinator_ stop the
 _Coordinator_'s instance by issuing `kill -SIGTERM <pid>`.
 
-Ca. 15 seconds later the cluster UI on any other _Coordinator_ will mark
+About 15 seconds later, the cluster UI on any other _Coordinator_ marks
 the _Coordinator_ in question as failed. Almost simultaneously, the recycle bin
-icon will appear to the right of the name of the _Coordinator_. Clicking
-that icon will remove the _Coordinator_ from the Coordinator registry.
+icon appears to the right of the name of the _Coordinator_. Clicking
+that icon removes the _Coordinator_ from the Coordinator registry.
 
 Any new _Coordinator_ instance that is informed of where to find any/all
-Agent(s), `--cluster.agency-endpoint` `<some agent endpoint>` will be
+Agent(s), `--cluster.agency-endpoint` `<some agent endpoint>` is
 integrated as a new _Coordinator_ into the cluster. You may also just
-restart the _Coordinator_ as before and it will reintegrate itself into
+restart the _Coordinator_ as before and it reintegrates itself into
 the cluster.
 
 Replacing/Removing a _DB-Server_
@@ -256,22 +256,22 @@ its responsibilities for shards. This applies to _followers_ as well as
 _leaders_ of shards. The requirement for this operation is that no
 collection in any of the databases has a `replicationFactor` greater than
 the current number of _DB-Servers_ minus one. In other words, the highest
-replication factor must not exceed the future _DB-Server_ count To clean
+replication factor must not exceed the future _DB-Server_ count. To clean
 out `DBServer004`, for example, you can issue the following command to
-any _Coordinator_ in the cluster:.
+any _Coordinator_ in the cluster:
 
 `curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"server":"DBServer004"}'`
 
-After the _DB-Server_ has been cleaned out, you will find the recycle bin
+After the _DB-Server_ has been cleaned out, you find the recycle bin
 icon to the right of the name of the _DB-Server_ on any _Coordinators_'
-UI. Clicking on it will remove the _DB-Server_ in question from the
+UI. Clicking it removes the _DB-Server_ in question from the
 cluster.
 
 Firing up any _DB-Server_ from a clean data directory, while specifying any
-of the available Agency endpoints, will integrate the new _DB-Server_ into the
+of the available Agency endpoints, integrates the new _DB-Server_ into the
 cluster.
 
-To distribute shards onto the new _DB-Server_, click on the
+To distribute shards onto the new _DB-Server_, click the
 `Distribute Shards` button at the bottom of the `Shards` page in every
 database.
 
