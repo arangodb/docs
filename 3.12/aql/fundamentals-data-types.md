@@ -80,7 +80,7 @@ some bits of precision. The same is true when converting AQL numeric results to
 JavaScript (e.g. returning them to Foxx).
 {% endhint %}
 
-Since ArangoDB v3.7.7, numeric integer literals can also be expressed as binary
+Numeric integer literals can also be expressed as binary
 (base 2) or hexadecimal (base 16) number literals.
 
 - The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
@@ -156,7 +156,7 @@ supported.
 [ [ "fox", "marshal" ] ]
 ```
 
-A trailing comma after the last element is allowed (introduced in v3.7.0):
+A trailing comma after the last element is allowed:
 
 ```aql
 [
@@ -234,7 +234,7 @@ then the attribute name must be quoted:
 { ´return´: … }  // quoted name (forward ticks)
 ```
 
-A trailing comma after the last element is allowed (introduced in v3.7.0):
+A trailing comma after the last element is allowed:
 
 ```aql
 {
