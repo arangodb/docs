@@ -164,7 +164,7 @@ be created in the new database (_cluster only_):
 - `writeConcern`: how many copies of each shard are required to be in sync on
   the different DB-Servers. If there are less then these many copies in the
   cluster a shard will refuse to write. The value of `writeConcern` cannot be
-  larger than `replicationFactor`.
+  greater than `replicationFactor`.
 
 The optional `users` attribute can be used to create initial users for
 the new database. If specified, it must be a list of user objects. Each user

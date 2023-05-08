@@ -8,8 +8,6 @@ redirect_from:
 Schema Validation
 =================
 
-<small>Introduced in: v3.7.1</small>
-
 While ArangoDB is schema-less, it allows to enforce certain document structures
 on collection level. The desired structure can be described in the popular
 [JSON Schema](https://json-schema.org/){:target="_blank"} format (draft-4,
@@ -41,7 +39,7 @@ var schema = {
     required: ["nums"]
   },
   level: "moderate",
-  message: "The document does not contain an array of numbers in attribute 'nums', or one of the numbers is bigger than 6."
+  message: "The document does not contain an array of numbers in attribute 'nums', or one of the numbers is greater than 6."
 };
 
 /* Create a new collection with schema */

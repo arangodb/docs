@@ -99,7 +99,7 @@ Analyzer Names
 --------------
 
 Each Analyzer has a name for identification with the following
-naming conventions:
+naming constraints:
 
 - The name must only consist of the letters `a` to `z` (both in lower and
   upper case), the numbers `0` to `9`, underscore (`_`) and dash (`-`) symbols.
@@ -268,7 +268,7 @@ attributes:
 - `delimiter` (string): the delimiting character(s). The whole string is
   considered as one delimiter.
 
-You can wrap tokens in the input string in double quote marks to escape the
+You can wrap tokens in the input string in double quote marks to quote the
 delimiter. For example, a `delimiter` Analyzer that uses `,` as delimiter and an
 input string of `foo,"bar,baz"` results in the tokens `foo` and `bar,baz`
 instead of `foo`, `bar`, and `baz`.
@@ -1616,37 +1616,35 @@ Also see [Known Issues](release-notes-known-issues311.html#arangosearch).
 Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
 which supports the following languages:
 
-Language     | Code
--------------|-----
-Arabic     * | `ar`
-Armenian  ** | `hy`
-Basque     * | `eu`
-Catalan    * | `ca`
-Danish     * | `da`
-Dutch        | `nl`
-English      | `en`
-Finnish      | `fi`
-French       | `fr`
-German       | `de`
-Greek      * | `el`
-Hindi      * | `hi`
-Hungarian  * | `hu`
-Indonesian * | `id`
-Irish      * | `ga`
-Italian      | `it`
-Lithuanian * | `lt`
-Nepali     * | `ne`
-Norwegian    | `no`
-Portuguese   | `pt`
-Romanian   * | `ro`
-Russian      | `ru`
-Serbian    * | `sr`
-Spanish      | `es`
-Swedish      | `sv`
-Tamil      * | `ta`
-Turkish    * | `tr`
-Yiddish   ** | `yi`
+Language    | Code
+------------|-----
+Arabic      | `ar`
+Armenian  * | `hy`
+Basque      | `eu`
+Catalan     | `ca`
+Danish      | `da`
+Dutch       | `nl`
+English     | `en`
+Finnish     | `fi`
+French      | `fr`
+German      | `de`
+Greek       | `el`
+Hindi       | `hi`
+Hungarian   | `hu`
+Indonesian  | `id`
+Irish       | `ga`
+Italian     | `it`
+Lithuanian  | `lt`
+Nepali      | `ne`
+Norwegian   | `no`
+Portuguese  | `pt`
+Romanian    | `ro`
+Russian     | `ru`
+Serbian     | `sr`
+Spanish     | `es`
+Swedish     | `sv`
+Tamil       | `ta`
+Turkish     | `tr`
+Yiddish   * | `yi`
 
-\* <small>Introduced in: v3.7.0</small>
-
-\*\* <small>Introduced in: v3.10.0</small>
+\* <small>Introduced in: v3.10.0</small>

@@ -164,8 +164,8 @@ durability requirements or if they rely on the immediate result of the request
 they send.
 
 Finally, note that it is not possible to cancel such a fire and forget job,
-since you don't get any handle to identify it later on. If you need to cancel
-requests, use
+since you don't get any job identifier to identify it later on.
+If you need to cancel requests, use
 [Async execution and later result retrieval](#async-execution-and-later-result-retrieval).
 
 #### Async execution and later result retrieval
@@ -235,19 +235,19 @@ HTTP layer:
   the `Content-Length` header above.
 - the maximum URL length accepted by ArangoDB is 16K. Incoming requests with
   longer URLs will be rejected with an **HTTP 414** (Request-URI too long) error.
-- if the client sends a `Content-Length` header with a value bigger than 0 for
+- if the client sends a `Content-Length` header with a value greater than 0 for
   an HTTP GET, HEAD, or DELETE request, ArangoDB will process the request, but
   will write a warning to its log file.
 - when the client sends a `Content-Length` header that has a value that is lower
   than the actual size of the body sent, ArangoDB will respond with **HTTP 400**
   (Bad Request).
-- if clients send a `Content-Length` value bigger than the actual size of the
+- if clients send a `Content-Length` value greater than the actual size of the
   body of the request, ArangoDB will wait for about 90 seconds for the client to
   complete its request. If the client does not send the remaining body data
   within this time, ArangoDB will close the connection. Clients should avoid
   sending such malformed requests as this will block one TCP connection,
   and may lead to a temporary file descriptor leak.
-- when clients send a body or a `Content-Length` value bigger than the maximum
+- when clients send a body or a `Content-Length` value greater than the maximum
   allowed value (1 GB), ArangoDB will respond with **HTTP 413** (Payload Too Large).
 - if the overall length of the HTTP headers a client sends for one request
   exceeds the maximum allowed size (1 MB), the server will fail with **HTTP 431**

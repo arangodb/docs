@@ -31,9 +31,9 @@ If your programming language or environment is not listed,
 The [**ArangoDB Java driver**](java.html) lets you work with ArangoDB in the
 Java programming language.
 
-- Online course: [Java Driver v6 Tutorial](https://university.arangodb.com/courses/java-driver-tutorial-v6/){:target="_blank"}
+- Online course: [Java Driver v7 Tutorial](https://university.arangodb.com/courses/java-driver-tutorial-v7/){:target="_blank"}
 - Repository: [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"}
-- [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank"}
+- [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/main/ChangeLog.md#readme){:target="_blank"}
 
 ### Go driver
 
