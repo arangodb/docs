@@ -90,8 +90,7 @@ ArangoDB was killed because of an out-of-memory situation.
 Other crashes
 -------------
 
-The Linux builds of the arangod executable contain a built-in crash handler
-(introduced in v3.7.0).
+The Linux builds of the arangod executable contain a built-in crash handler.
 
 The crash handler is supposed to log basic crash information to the ArangoDB
 logfile in case the arangod process receives one of the signals SIGSEGV,

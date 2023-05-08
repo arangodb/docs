@@ -14,12 +14,6 @@ upgrade to a new hotfix, or to perform an upgrade to a new minor version of Aran
 Please refer to the [Upgrade paths](upgrading.html#upgrade-paths) section
 for detailed information.
 
-{% hint 'warning' %}
-It is highly recommended to upgrade 3.6.x and 3.7.x deployments using at least
-the starter version 0.15.0-1 because of a technical problem, see
-[Technical Alert #6](https://www.arangodb.com/alerts/tech06/){:target="_blank"}.
-{% endhint %}
-
 ## Upgrade Scenarios
 
 The following four cases are possible:

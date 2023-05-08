@@ -197,6 +197,5 @@ the target system. To start off with a different chunk size, one can
 adjust the value of the `--batch-size` parameter.
 
 {% hint 'tip' %}
-The pacing algorithm is turned on by default up to version 3.7.10
-and turned off by default in version 3.7.11 and higher.
+The pacing algorithm is disabled by default.
 {% endhint %}
