@@ -111,14 +111,14 @@ FOR vertex[, edge[, path]]
     - `"none"` – no uniqueness check is applied on edges. **Note:**
       Using this configuration, the traversal follows edges in cycles.
   - **edgeCollections** (string\|array): Optionally restrict edge
-    collections the traversal may visit (introduced in v3.7.0). If omitted,
+    collections the traversal may visit. If omitted,
     or an empty array is specified, then there are no restrictions.
     - A string parameter is treated as the equivalent of an array with a single
       element.
     - Each element of the array should be a string containing the name of an
       edge collection.
   - **vertexCollections** (string\|array): Optionally restrict vertex
-    collections the traversal may visit (introduced in v3.7.0). If omitted,
+    collections the traversal may visit. If omitted,
     or an empty array is specified, then there are no restrictions.
     - A string parameter is treated as the equivalent of an array with a single
       element.
@@ -127,7 +127,7 @@ FOR vertex[, edge[, path]]
     - The starting vertex is always allowed, even if it does not belong to one
       of the collections specified by a restriction.
   - **parallelism** (number, *optional*): Optionally parallelize traversal
-    execution (introduced in v3.7.1). If omitted or set to a value of `1`,
+    execution. If omitted or set to a value of `1`,
     traversal execution is not parallelized. If set to a value greater than `1`,
     then up to that many worker threads can be used for concurrently executing
     the traversal. The value is capped by the number of available cores on the

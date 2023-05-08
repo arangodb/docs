@@ -193,8 +193,7 @@ const result2 = query`
 `.toArray();
 ```
 
-It is also possible to pass query options to the query helper
-(introduced in v3.7.0):
+It is also possible to pass query options to the query helper:
 
 ```js
 const { query } = require('@arangodb');

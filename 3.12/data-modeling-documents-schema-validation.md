@@ -8,8 +8,6 @@ redirect_from:
 Schema Validation
 =================
 
-<small>Introduced in: v3.7.1</small>
-
 While ArangoDB is schema-less, it allows to enforce certain document structures
 on collection level. The desired structure can be described in the popular
 [JSON Schema](https://json-schema.org/){:target="_blank"} format (draft-4,
