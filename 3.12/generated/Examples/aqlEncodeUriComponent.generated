@@ -1,0 +1,7 @@
+@Q:
+RETURN ENCODE_URI_COMPONENT(<span class="hljs-string">&quot;fünf %&quot;</span>)
+
+@R
+[
+  <span class="hljs-string">&quot;f%C3%BCnf%20%25&quot;</span>
+]

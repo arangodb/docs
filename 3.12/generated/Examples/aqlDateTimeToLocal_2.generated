@@ -1,0 +1,17 @@
+@Q:
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">&quot;2020-03-15T00:00:00.000&quot;</span>, <span class="hljs-string">&quot;Asia/Shanghai&quot;</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">&quot;2020-03-15T00:00:00.000Z&quot;</span>, <span class="hljs-string">&quot;Asia/Shanghai&quot;</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">&quot;2020-03-15T00:00:00.000-02:00&quot;</span>, <span class="hljs-string">&quot;Asia/Shanghai&quot;</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">&quot;Asia/Shanghai&quot;</span>)
+  ]
+
+@R
+[
+  [
+    <span class="hljs-string">&quot;2020-03-15T08:00:00.000&quot;</span>,
+    <span class="hljs-string">&quot;2020-03-15T08:00:00.000&quot;</span>,
+    <span class="hljs-string">&quot;2020-03-15T10:00:00.000&quot;</span>,
+    <span class="hljs-string">&quot;2020-03-15T08:00:00.000&quot;</span>
+  ]
+]

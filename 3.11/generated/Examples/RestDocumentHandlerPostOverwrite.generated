@@ -8,7 +8,7 @@ cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-
 connection: Keep-Alive
 content-length: <span class="hljs-number">58</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: <span class="hljs-string">&quot;_f1oeTKe---&quot;</span>
+etag: <span class="hljs-string">&quot;_f3oKs6G---&quot;</span>
 expires: <span class="hljs-number">0</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/lock
 pragma: no-cache
@@ -20,7 +20,7 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/lock&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;lock&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f1oeTKe---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f3oKs6G---&quot;</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?overwrite=<span class="hljs-literal">true</span></span> &lt;&lt;EOF
 { "Hello": "Universe", "_key" : "lock" }
@@ -32,7 +32,7 @@ cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-
 connection: Keep-Alive
 content-length: <span class="hljs-number">82</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: <span class="hljs-string">&quot;_f1oeTLK---&quot;</span>
+etag: <span class="hljs-string">&quot;_f3oKs7K---&quot;</span>
 expires: <span class="hljs-number">0</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/lock
 pragma: no-cache
@@ -44,6 +44,6 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/lock&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;lock&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f1oeTLK---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_f1oeTKe---&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_f3oKs7K---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_f3oKs6G---&quot;</span> 
 }

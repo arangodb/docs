@@ -30,7 +30,7 @@ In the following sections the `${sparkVersion}` and `${scalaVersion}` placeholde
 
 ## Setup
 
-To import ArangoDB Datasource for Apache Spark in a maven project:
+To import ArangoDB Datasource for Apache Spark in a Maven project:
 
 ```xml
   <dependencies>
