@@ -106,7 +106,7 @@ The conditions are now:
 - `>` (greater than)
 - `!=` (unequal)
 - `IN` (contained in array or range), also `NOT IN`
-- `LIKE` (equal with wildcards, introduced in v3.7.0), also `NOT LIKE`
+- `LIKE` (equal with wildcards), also `NOT LIKE`
 
 Also see the [`IN_RANGE()` function](functions-arangosearch.html#in_range) for
 an alternative to a combination of `<`, `<=`, `>`, `>=` operators for range
@@ -299,7 +299,7 @@ The `SEARCH` operation accepts an options object with the following attributes:
   <!-- Internal only: nodnf, noneg -->
 - `countApproximate` (string, _optional_): controls how the total count of rows
   is calculated if the `fullCount` option is enabled for a query or when
-  a `COLLECT WITH COUNT` clause is executed (introduced in v3.7.6)
+  a `COLLECT WITH COUNT` clause is executed
   - `"exact"` (default): rows are actually enumerated for a precise count.
   - `"cost"`: a cost-based approximation is used. Does not enumerate rows and
     returns an approximate result with O(1) complexity. Gives a precise result
