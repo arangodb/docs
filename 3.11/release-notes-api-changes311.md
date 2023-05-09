@@ -139,6 +139,14 @@ value of `0` as the `numberOfShards`. They now return the actual number of
 shards. This value can be higher than the configured `numberOfShards` value of
 the graph due to internally used hidden collections.
 
+#### Cursor API
+
+When you link a collection to an `arangosearch` View and run an AQL query
+against this View while it is still being indexed, you now receive a query
+warning. This warning alerts you about potentially incomplete results obtained
+from a partially indexed collection. The error code associated with this
+warning is `1240` (`ERROR_ARANGO_INCOMPLETE_READ`).
+
 #### Log API
 
 Setting the log level for the `graphs` log topic to `TRACE` now logs detailed
@@ -521,6 +529,16 @@ In case of success, they still return `true`.
 
 You can wrap calls to these methods with a `try { ... }` block to catch errors,
 for example, in _arangosh_ or in Foxx services.
+
+### Query methods
+
+When using the `db._query` method to execute an AQL query against an
+`arangosearch` View while it is still in the process of being built,
+the query now includes a warning message that the result set may not be
+complete due to the ongoing building process of the View.
+
+The error code associated with this warning is `1240`
+(`ERROR_ARANGO_INCOMPLETE_READ`).
 
 ### Pregel module
 
