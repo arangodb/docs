@@ -138,7 +138,7 @@ logical and comparison operators, as well as
 Note that if you link a collection to a View and execute a query against this
 View while it is still being indexed, you may not get complete results. In the
 case where a View is still being built and simultaneously used in a query, the
-query includes an `1240` warning message informing you that the `arangosearch`
+query includes a warning message (code `1240`) informing you that the `arangosearch`
 View building is in progress and results can be incomplete.
 {% endhint %}
 
