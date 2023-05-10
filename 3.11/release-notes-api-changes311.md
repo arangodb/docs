@@ -401,11 +401,12 @@ following two new statistics in the `stats` attribute of the response now:
 
 #### Metrics API
 
-The following ArangoSearch metric has been added in version 3.11:
+The following metrics have been added in version 3.11:
 
 | Label | Description |
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
 
 ---
 

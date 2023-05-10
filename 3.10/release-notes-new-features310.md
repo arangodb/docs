@@ -1370,7 +1370,7 @@ larger write operations, has now been fully removed.
 
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
-The following metrics for traffic accounting were added:
+The following metrics for traffic accounting have been added:
 
 | Label | Description |
 |:------|:------------|
@@ -1409,10 +1409,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ### Number of replication clients metric
 
+<small>Introduced in: v3.10.5</small>
+
 The following metric for the number of replication clients for a server has
 been added:
-
-<small>Introduced in: v3.10.5</small>
 
 | Label | Description |
 |:------|:------------|
@@ -1447,10 +1447,10 @@ in-memory only and are not persisted on disk.
 
 ### Sending delay metrics for internal requests
 
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11, v3.10.6</small>
 
 | Label | Description |
 |:------|:------------|
