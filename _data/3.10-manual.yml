@@ -58,6 +58,7 @@
           href: data-modeling-views-database-methods.html
         - text: View Methods
           href: data-modeling-views-view-methods.html
+- subtitle: PLAN AND DESIGN SOLUTIONS
 - text: Operational Factors
   href: data-modeling-operational-factors.html
 - subtitle: GRAPHS
@@ -203,7 +204,6 @@
       href: arangosearch-views-search-alias.html
     - text: <code>arangosearch</code> Views Reference
       href: arangosearch-views.html
-- subtitle: TRANSFORM DATA 
 - text: Analyzers
   href: analyzers.html
 - subtitle: DEPLOY
@@ -327,11 +327,7 @@
     - text: Monitoring
       href: monitoring-dc2dc.html
     - text: Troubleshooting
-      href: troubleshooting-dc2dc.html 
-- text: SatelliteCollections
-  href: satellites.html
-- text: SmartJoins
-  href: smartjoins.html
+      href: troubleshooting-dc2dc.html
 - subtitle: OPERATE
 - text: Installation
   href: installation.html
@@ -441,40 +437,40 @@
       children:
         - text: Agency Dump
           href: troubleshooting-cluster-agency-dump.html
-- subtitle: TOOLS
-- text: Programs & Tools
+- subtitle: ECOSYSTEM
+- text: ArangoDB Server
+  href: programs-arangod.html
+  children:
+    - text: Options
+      href: programs-arangod-options.html
+    - text: LDAP
+      href: programs-arangod-ldap.html
+    - text: Environment variables
+      href: programs-arangod-env-vars.html
+- text: Web Interface
+  href: programs-web-interface.html
+  children:
+    - text: Dashboard
+      href: programs-web-interface-dashboard.html
+    - text: Cluster
+      href: programs-web-interface-cluster.html
+    - text: Collections
+      href: programs-web-interface-collections.html
+    - text: Document
+      href: programs-web-interface-document.html
+    - text: Queries
+      href: programs-web-interface-aql-editor.html
+    - text: Graphs
+      href: programs-web-interface-graphs.html
+    - text: Services
+      href: programs-web-interface-services.html
+    - text: Users
+      href: programs-web-interface-users.html
+    - text: Logs
+      href: programs-web-interface-logs.html      
+- text: Tools
   href: programs.html
   children:
-    - text: ArangoDB Server
-      href: programs-arangod.html
-      children:
-        - text: Options
-          href: programs-arangod-options.html
-        - text: LDAP
-          href: programs-arangod-ldap.html
-        - text: Environment variables
-          href: programs-arangod-env-vars.html
-    - text: Web Interface
-      href: programs-web-interface.html
-      children:
-        - text: Dashboard
-          href: programs-web-interface-dashboard.html
-        - text: Cluster
-          href: programs-web-interface-cluster.html
-        - text: Collections
-          href: programs-web-interface-collections.html
-        - text: Document
-          href: programs-web-interface-document.html
-        - text: Queries
-          href: programs-web-interface-aql-editor.html
-        - text: Graphs
-          href: programs-web-interface-graphs.html
-        - text: Services
-          href: programs-web-interface-services.html
-        - text: Users
-          href: programs-web-interface-users.html
-        - text: Logs
-          href: programs-web-interface-logs.html
     - text: ArangoDB Shell
       href: programs-arangosh.html
       children:
@@ -561,6 +557,10 @@
         - text: Details
           href: programs-foxx-cli-details.html
 - subtitle: DEVELOP
+- text: SatelliteCollections
+  href: satellites.html
+- text: SmartJoins
+  href: smartjoins.html
 - text: Foxx Microservices
   href: foxx.html
   children:
