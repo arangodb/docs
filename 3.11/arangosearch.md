@@ -41,6 +41,8 @@ virtual collections. There are two types of Views:
   It can cover multiple or even all attributes of the documents in the linked
   collections.
 
+  See [`arangosearch` Views Reference](arangosearch-views.html) for details.
+
 - **`search-alias` Views**:
   Views of the `search-alias` type reference one or more
   [Inverted indexes](indexing-inverted.html). Inverted indexes are defined on
@@ -50,6 +52,8 @@ virtual collections. There are two types of Views:
   ranking search results by relevance and search highlighting like with
   `arangosearch` Views. Each inverted index can index multiple or even all
   attribute of the documents of the collection it is defined for.
+
+  See [`search-alias` Views Reference](arangosearch-views-search-alias.html) for details.
 
 {% hint 'info' %}
 Views are not updated synchronously as the source collections
@@ -83,6 +87,70 @@ logical and comparison operators, as well as
    - `{ "name": "carrot", "type": "vegetable" }`
    - `{ "name": "chili pepper", "type": "vegetable" }`
    - `{ "name": "tomato", "type": ["fruit", "vegetable"] }`
+2. In the web interface, click on _VIEWS_ in the main navigation.
+3. Click on the _Add View_ button, enter a name (e.g. `food_view`), confirm and
+   click on the newly created View.
+4. You can toggle the mode of the View definition editor from _Tree_ to _Code_
+   to edit the JSON object as text.
+5. Replace `"links": {},` with below configuration, then save the changes:
+   ```js
+   "links": {
+     "food": {
+       "includeAllFields": true
+     }
+   },
+   ```
+6. After a few seconds of processing, the editor will show you the updated link
+   definition with default settings added:
+   ```js
+   "links": {
+     "food": {
+       "analyzers": [
+         "identity"
+       ],
+       "fields": {},
+       "includeAllFields": true,
+       "storeValues": "none",
+       "trackListPositions": false
+     }
+   },
+   ```
+   The View will index all attributes (fields) of the documents in the
+   `food` collection from now on (with some delay). The attribute values
+   get processed by the default `identity` Analyzer, which means that they
+   get indexed unaltered.
+7. Click on _QUERIES_ in the main navigation and try the following query:
+   ```aql
+   FOR doc IN food_view
+     RETURN doc
+   ```
+   The View is used like a collection and simply iterated over to return all
+   (indexed) documents. You should see the documents stored in `food` as result.
+8. Now add a search expression. Unlike with regular collections where you would
+   use `FILTER`, a `SEARCH` operation is needed to utilize the View index:
+   ```aql
+   FOR doc IN food_view
+     SEARCH doc.name == "avocado"
+     RETURN doc
+   ```
+   In this basic example, the ArangoSearch expression looks identical to a
+   `FILTER` expression, but this is not always the case. You can also combine
+   both, with `FILTER`s after `SEARCH`, in which case the filter criteria will
+   be applied to the search results as a post-processing step.
+
+### Create your first `search-alias` View
+
+1. Create a test collection (e.g. `food`) and insert a few documents so
+   that you have something to index and search for. You may use the web interface
+   for this:
+   - `{ "name": "avocado", "type": ["fruit"] }` (yes, it is a fruit)
+   - `{ "name": "carrot", "type": ["vegetable"] }`
+   - `{ "name": "chili pepper", "type": ["vegetable"] }`
+   - `{ "name": "tomato", "type": ["fruit", "vegetable"] }`
+2. In the **COLLECTIONS** section of the web interface, click the test collection.
+3. Go to the **Indexes** tab and click **Add Index**.
+4. Select **Inverted index** as type.
+5. 
 2. In the web interface, click on _VIEWS_ in the main navigation.
 3. Click on the _Add View_ button, enter a name (e.g. `food_view`), confirm and
    click on the newly created View.

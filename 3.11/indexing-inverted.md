@@ -17,9 +17,12 @@ wildcard and fuzzy search, nested search, as well as for
 sophisticated full-text search with the ability to search for words, phrases,
 and more.
 
-You can use inverted indexes stand-alone in `FILTER` operations of AQL queries,
-or add them to [`search-alias` Views](arangosearch.html#getting-started-with-arangosearch)
-to search multiple collections at once and to rank search results by relevance.
+You can use inverted indexes as follows:
+
+- Stand-alone in `FILTER` operations of AQL queries.
+
+- Add them to [`search-alias` Views](arangosearch.html#getting-started-with-arangosearch)
+  to search multiple collections at once and to rank search results by relevance.
 
 ## Defining inverted indexes
 
