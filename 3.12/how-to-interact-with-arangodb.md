@@ -14,8 +14,9 @@ redirect_from:
 ## How to Communicate with the Server
 
 The core component of ArangoDB is the [ArangoDB server](programs-arangod.html)
-that stores data and handles requests. You have different options for talking to
-the server.
+(`arangod`) that stores data and handles requests. You have different options
+for talking to the server, through the web interface, command-line tools, 
+drivers, and the server's REST API.
 
 ### Web Interface
 
@@ -29,7 +30,7 @@ The web interface lets you perform all essential actions like creating
 collections, viewing documents, and running queries. You can also view graphs
 and the server logs and metrics, as well as administrate user accounts.
 
-### Command-line Interface (CLI)
+### Interactive Command-line Interface (CLI)
 
 If you are a developer, you may feel more comfortable to work in a terminal.
 You can use [arangosh](programs-arangosh.html), an interactive shell that ships
@@ -61,6 +62,54 @@ may use the low-level REST API directly as needed.
 
 See the [HTTP](http/) documentation to learn more about the API, how requests
 are handled and what endpoints are available.
+
+## Set Up and Deploy ArangoDB
+
+[ArangoDB Starter](programs-starter.html) (`arangodb` binary) helps you set up
+and deploy ArangoDB instances on bare-metal servers and supports all ArangoDB
+deployment modes, such as a single server instance, Active Failover, and cluster
+(including Datacenter-to-Datacenter Replication).
+
+In addition to the Starter, there are also other ways that you can use to deploy
+ArangoDB:
+- Run the `arangod` executable directly
+- [Docker containers](install-with-docker.html)
+- [Kubernetes](deployment-kubernetes.html)
+- Use installation packages
+
+## How to Get Data In and Out of ArangoDB
+
+With the [*arangoimport*](programs-arangoimport.html) command-line tool, you can
+import data from JSON, JSONL, CSV, and TSV formats into a database collection in
+ArangoDB. Thanks to its multi-threaded architecture and bulk import capabilities,
+you can import your data at high speeds.
+
+Similarly, with [*arangoexport*](programs-arangoexport.html) you can export data
+from your database collection to JSON, JSONL, CSV, TSV, XML, and XGMML formats.
+
+There are also other alternatives, such as using drivers to write custom importers
+or directly using the server's HTTP API.
+
+## How to Back Up and Restore Data in ArangoDB
+
+[*arangodump*](programs-arangodump.html) is a command-line tool that lets you
+create backups of your data and structural information in a flexible and
+efficient manner and can be used for all ArangoDB deployment modes.
+With *arangodump*, you can create backups for selected collections or for all
+collections of a database, including system collections. Additionally, you can
+back up the structural information of your collections (name, indexes, sharding, etc.)
+with or without the data stored in them.  
+
+To restore backups created by *arangodump*, you can use 
+[*arangorestore*](programs-arangorestore.html). Similarly to the backup process,
+you can restore either all collections or just specific ones and choose whether
+to restore structural information with or without data.
+
+[*arangobackup*](programs-arangobackup.html) is a command-line tool that enables
+you to create instantaneous and consistent [hot backups](backup-restore.html#hot-backups)
+of the data and structural information stored in ArangoDB, without interrupting
+the database operations. It can be used for all ArangoDB deployment modes.
+It is only available in the Enterprise Edition.
 
 <!--
 ## How to Import Data

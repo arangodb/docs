@@ -7,6 +7,11 @@ description: The ArangoDB Kubernetes Operator supports upgrading an ArangoDB fro
 The ArangoDB Kubernetes Operator supports upgrading an ArangoDB from
 one version to the next.
 
+{% hint 'warning' %}
+It is highly recommended to take a backup of your data before upgrading ArangoDB
+using [_arangodump_](programs-arangodump.html).
+{% endhint %}
+
 ## Upgrade an ArangoDB deployment
 
 To upgrade a cluster, change the version by changing
