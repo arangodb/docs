@@ -996,6 +996,16 @@ have been added:
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
 
+### Peak memory metric for in-memory caches 
+
+<small>Introduced in: v3.10.7</small>
+
+This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
+
 ## Internal changes
 
 ### Upgraded bundled library versions
