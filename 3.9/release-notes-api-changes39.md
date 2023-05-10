@@ -119,6 +119,26 @@ in the header, arangod will reject the request and return HTTP 412
 In a cluster, the `x-arango-queue-time-seconds` request header will be
 checked on the receiving Coordinator, before any request forwarding.
 
+### Cursor API
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals, you can restrict the vertex and edge collections in the
+traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail. In previous
+versions, unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.
+
 ### Endpoint return value changes
 
 - All collections in ArangoDB are now always in the `loaded` state. APIs return
@@ -444,6 +464,8 @@ substitution.
 
 ## JavaScript API
 
+### Loading and unloading of collections
+
 All collections in ArangoDB are now always in the "loaded" state. Any 
 JavaScript functions for returning a collection's status will now return 
 "loaded", unconditionally.
@@ -452,3 +474,12 @@ The JavaScript functions for loading and unloading collections (i.e.
 `db.<collection>.load()` and `db.<collection>.unload()`) have been turned 
 into no-ops. They still exist in ArangoDB 3.9, but do not serve any purpose 
 and are deprecated.
+
+### AQL queries
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+If you specify collections that don't exist in the options of AQL graph traversals
+(`vertexCollections`, `edgeCollections`), queries now fail. In previous versions,
+unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.

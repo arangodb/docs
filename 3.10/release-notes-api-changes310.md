@@ -83,6 +83,26 @@ Disabled:
 arangodb_agency_cache_callback_number{role="SINGLE"}0
 ```
 
+#### Cursor API
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals, you can restrict the vertex and edge collections in the
+traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail. In previous
+versions, unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.
+
 ### Endpoint return value changes
 
 - Since ArangoDB 3.8, there have been two APIs for retrieving the metrics in two
@@ -764,9 +784,13 @@ following two new statistics in the `stats` attribute of the response now:
 
 ## JavaScript API
 
+### Computed values
+
 The Computed Values feature extends the collection properties with a new
 `computedValues` attribute. See [Computed Values](data-modeling-documents-computed-values.html#javascript-api)
 for details.
+
+### Query spillover and Read from followers
 
 The `db._query()` and `db._createStatement()` methods accepts new query
 options (`options` object) to set per-query thresholds for the
@@ -776,3 +800,12 @@ and to [Read from followers](http/document.html#read-from-followers):
 - `allowDirtyReads` (boolean, _optional_): default: `false`
 - `spillOverThresholdMemoryUsage` (integer, _optional_): in bytes, default: `134217728` (128MB)
 - `spillOverThresholdNumRows` (integer, _optional_): default: `5000000` rows
+
+### AQL queries
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+If you specify collections that don't exist in the options of AQL graph traversals
+(`vertexCollections`, `edgeCollections`), queries now fail. In previous versions,
+unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.

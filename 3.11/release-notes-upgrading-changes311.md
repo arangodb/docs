@@ -152,6 +152,26 @@ revision of the document as stored in the database (if available, otherwise empt
   backing storage for large datasets has been removed. Memory paging/swapping
   provided by the operating system is equally effective.
 
+## Validation of traversal collection restrictions
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals, you can restrict the vertex and edge collections in the
+traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail. In previous
+versions, unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.
+
 ## JavaScript API
 
 ### Database creation
