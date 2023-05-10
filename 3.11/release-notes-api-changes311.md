@@ -530,9 +530,9 @@ In case of success, they still return `true`.
 You can wrap calls to these methods with a `try { ... }` block to catch errors,
 for example, in _arangosh_ or in Foxx services.
 
-### Query method
+### AQL queries
 
-When you use the `db._query()` method to execute an AQL query against an
+When you use e.g. the `db._query()` method to execute an AQL query against an
 `arangosearch` View while it is still in the process of being built,
 the query now includes a warning message that the results may not be
 complete due to the ongoing indexing process of the View.
