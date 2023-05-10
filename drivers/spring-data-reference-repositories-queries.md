@@ -61,7 +61,7 @@ Spring Data ArangoDB supports Spring Data's `Pageable` and `Sort` parameters for
 Sort properties or paths are attributes separated by dots (e.g. `customer.age`). Some rules apply for them:
 
 - they must not begin or end with a dot (e.g. `.customer.age`)
-- dots in attributes are supported, but the whole attribute must be enclosed by backticks (e.g. `` customer.`attr.with.dots` ``
+- dots in attributes are supported, but the whole attribute must be enclosed by backticks (e.g. `` customer.`attr.with.dots` ``)
 - backticks in attributes are supported, but they must be escaped with a backslash (e.g. `` customer.attr_with\` ``)
 - any backslashes (that do not escape a backtick) are escaped (e.g. `customer\` => `customer\\`)
 

@@ -4,7 +4,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">718</span>
+content-length: <span class="hljs-number">720</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -16,13 +16,13 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;arango&quot;</span>, 
   <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.11.0-devel&quot;</span>, 
-  <span class="hljs-string">&quot;pid&quot;</span> : <span class="hljs-number">1110</span>, 
+  <span class="hljs-string">&quot;pid&quot;</span> : <span class="hljs-number">1076</span>, 
   <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
   <span class="hljs-string">&quot;mode&quot;</span> : <span class="hljs-string">&quot;server&quot;</span>, 
   <span class="hljs-string">&quot;operationMode&quot;</span> : <span class="hljs-string">&quot;server&quot;</span>, 
   <span class="hljs-string">&quot;foxxApi&quot;</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">&quot;host&quot;</span> : <span class="hljs-string">&quot;hw06-linux&quot;</span>, 
-  <span class="hljs-string">&quot;hostname&quot;</span> : <span class="hljs-string">&quot;3102dbfb7e29&quot;</span>, 
+  <span class="hljs-string">&quot;host&quot;</span> : <span class="hljs-string">&quot;hw03-linux&quot;</span>, 
+  <span class="hljs-string">&quot;hostname&quot;</span> : <span class="hljs-string">&quot;b633ab95b8fb&quot;</span>, 
   <span class="hljs-string">&quot;serverInfo&quot;</span> : { 
     <span class="hljs-string">&quot;progress&quot;</span> : { 
       <span class="hljs-string">&quot;phase&quot;</span> : <span class="hljs-string">&quot;in wait&quot;</span>, 
@@ -33,22 +33,22 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;role&quot;</span> : <span class="hljs-string">&quot;COORDINATOR&quot;</span>, 
     <span class="hljs-string">&quot;writeOpsEnabled&quot;</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">&quot;readOnly&quot;</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">&quot;persistedId&quot;</span> : <span class="hljs-string">&quot;CRDN-4fae3a21-10f2-481f-91c8-dde9b9c8b991&quot;</span>, 
+    <span class="hljs-string">&quot;persistedId&quot;</span> : <span class="hljs-string">&quot;CRDN-7431cdc3-41eb-4db1-9832-33749db3aa4b&quot;</span>, 
     <span class="hljs-string">&quot;rebootId&quot;</span> : <span class="hljs-number">1</span>, 
-    <span class="hljs-string">&quot;address&quot;</span> : <span class="hljs-string">&quot;tcp://127.0.0.1:7182&quot;</span>, 
-    <span class="hljs-string">&quot;serverId&quot;</span> : <span class="hljs-string">&quot;CRDN-4fae3a21-10f2-481f-91c8-dde9b9c8b991&quot;</span>, 
+    <span class="hljs-string">&quot;address&quot;</span> : <span class="hljs-string">&quot;tcp://127.0.0.1:29515&quot;</span>, 
+    <span class="hljs-string">&quot;serverId&quot;</span> : <span class="hljs-string">&quot;CRDN-7431cdc3-41eb-4db1-9832-33749db3aa4b&quot;</span>, 
     <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;SERVING&quot;</span> 
   }, 
   <span class="hljs-string">&quot;coordinator&quot;</span> : { 
-    <span class="hljs-string">&quot;foxxmaster&quot;</span> : <span class="hljs-string">&quot;CRDN-4fae3a21-10f2-481f-91c8-dde9b9c8b991&quot;</span>, 
+    <span class="hljs-string">&quot;foxxmaster&quot;</span> : <span class="hljs-string">&quot;CRDN-7431cdc3-41eb-4db1-9832-33749db3aa4b&quot;</span>, 
     <span class="hljs-string">&quot;isFoxxmaster&quot;</span> : <span class="hljs-literal">true</span> 
   }, 
   <span class="hljs-string">&quot;agency&quot;</span> : { 
     <span class="hljs-string">&quot;agencyComm&quot;</span> : { 
       <span class="hljs-string">&quot;endpoints&quot;</span> : [ 
-        <span class="hljs-string">&quot;tcp://127.0.0.1:31515&quot;</span>, 
-        <span class="hljs-string">&quot;tcp://127.0.0.1:32612&quot;</span>, 
-        <span class="hljs-string">&quot;tcp://127.0.0.1:1555&quot;</span> 
+        <span class="hljs-string">&quot;tcp://127.0.0.1:22419&quot;</span>, 
+        <span class="hljs-string">&quot;tcp://127.0.0.1:24973&quot;</span>, 
+        <span class="hljs-string">&quot;tcp://127.0.0.1:31906&quot;</span> 
       ] 
     } 
   } 

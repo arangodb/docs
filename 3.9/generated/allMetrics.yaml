@@ -4249,8 +4249,26 @@
   description: |
     This metric exhibits the total number of RocksDB WAL files in the
     "archive" subdirectory. These are WAL files that can be garbage-collected
-    eventually, when they are not used anymore by replication or other WAL
-    tailing.
+    eventually, when they are not used anymore by replication, WAL tailing
+    or other purposes.
+
+- name: rocksdb_archived_wal_files_size
+  introducedIn: "3.9.11"
+  help: |
+    Cumulated size of RocksDB WAL files in the archive.
+  unit: bytes
+  type: gauge
+  category: RocksDB
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exhibits the cumulated size of RocksDB WAL files in the
+    "archive" subdirectory on disk. These are WAL files that can be 
+    garbage-collected eventually, when they are not used anymore by 
+    replication, WAL tailing or other purposes.
 
 - name: rocksdb_background_errors
   introducedIn: "3.6.1"
@@ -4854,7 +4872,7 @@
     LSM tree, summed over all column families.
 
 - name: rocksdb_live_wal_files
-  introducedIn: "3.9.10"
+  introducedIn: "3.10.5"
   help: |
     Number of live RocksDB WAL files.
   unit: number
@@ -4867,6 +4885,23 @@
     - single
   description: |
     This metric exhibits the total number of live RocksDB WAL files. These are
+    WAL files that cannot be garbage-collected until they are moved over to the
+    archive.
+
+- name: rocksdb_live_wal_files_size
+  introducedIn: "3.9.11"
+  help: |
+    Cumulated live RocksDB WAL files.
+  unit: bytes
+  type: gauge
+  category: RocksDB
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exhibits the cumulated size of live RocksDB WAL files on disk.
     WAL files that cannot be garbage-collected until they are moved over to the
     archive.
 
@@ -5355,7 +5390,7 @@
     The value should flip from 0 to 1 a few minutes after server start.
 
 - name: rocksdb_wal_released_tick_flush
-  introducedIn: "3.9.10"
+  introducedIn: "3.10.5"
   help: |
     Lower bound sequence number from which WAL files need to be kept because
     of external flushing needs.
@@ -5377,7 +5412,7 @@
     and background index creation.
 
 - name: rocksdb_wal_released_tick_replication
-  introducedIn: "3.9.10"
+  introducedIn: "3.10.5"
   help: |
     Lower bound sequence number from which WAL files need to be kept because
     of replication.

@@ -61,6 +61,28 @@ If the option is set to `false`, access to Foxx services is forbidden and is
 responded with an HTTP `403 Forbidden` error. Access to the management APIs for
 Foxx services are also disabled as if `--foxx.api false` is set manually.
 
+#### Configurable whitespace in metrics
+
+<small>Introduced in: v3.10.6</small>
+
+The output format of the `/_admin/metrics` and `/_admin/metrics/v2` endpoints
+slightly changes for metrics with labels. By default, the metric label and value
+are separated by a space for improved compatibility with some tools. This is
+controlled by the new `--server.ensure-whitespace-metrics-format` startup option,
+which is enabled by default from v3.10.6 onward. Example:
+
+Enabled:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"} 0
+```
+
+Disabled:
+
+```
+arangodb_agency_cache_callback_number{role="SINGLE"}0
+```
+
 ### Endpoint return value changes
 
 - Since ArangoDB 3.8, there have been two APIs for retrieving the metrics in two
@@ -607,6 +629,9 @@ replace, or remove single or multiple edge documents:
 
 It is a boolean option and the default is `false`.
 
+This also applies to the `INSERT`, `UPDATE`, `REPLACE`, and `REMOVE` operations
+in AQL queries, which support a `refillIndexCache` option, too.
+
 #### Metrics API
 
 The `GET /_admin/metrics/v2` (and `GET /_admin/metrics`) endpoints provide
@@ -668,6 +693,20 @@ been added:
 | Label | Description |
 |:------|:------------|
 | `arangodb_replication_clients` | Number of currently connected/active replication clients. |
+
+---
+
+The following metrics for diagnosing delays in cluster-internal network requests
+have been added:
+
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_network_dequeue_duration` | Internal request duration for the dequeue in seconds. |
+| `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
+| `arangodb_network_send_duration` | Internal request send duration in seconds. |
+| `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
 
 #### Pregel API
 

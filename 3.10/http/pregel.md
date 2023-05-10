@@ -11,7 +11,7 @@ description: >-
 See [Distributed Iterative Graph Processing (Pregel)](../graphs-pregel.html)
 for details.
 
-{% docublock post_api_control_pregel %}
-{% docublock get_api_control_pregel_pregel %}
-{% docublock get_api_control_pregel %}
-{% docublock delete_api_control_pregel_pregel %}
+{% docublock post_api_control_pregel, h2 %}
+{% docublock get_api_control_pregel_pregel, h2 %}
+{% docublock get_api_control_pregel, h2 %}
+{% docublock delete_api_control_pregel_pregel, h2 %}
