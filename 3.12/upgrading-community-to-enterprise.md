@@ -24,7 +24,7 @@ the Community package (can be done in a way that the database data are preserved
 and installation of the Enterprise package. The upgrade can be done in a
 [_logical_](#procedure-for-a-logical-upgrade) or 
 [_in-place_](#procedure-for-an-in-place-upgrade) way. Please refer to the
-[Upgrade Methods](upgrading.html#upgrade-methods) section for a general
+[Upgrade methods](upgrading.html#upgrade-methods) section for a general
 description of the two methods. Refer to the sections below for a detailed
 procedure.
 
@@ -34,7 +34,7 @@ For more information about setting a license key, see [License Management](admin
 Procedure for a _Logical_ Upgrade
 ---------------------------------
 
-1. Use the tool [_arangodump_](programs-arangodump.html) to take a backup
+1. Use the tool [_arangodump_](programs-arangodump.html) to **take a backup**
    of your data stored by your Community Edition installation
 2. Uninstall the ArangoDB Community Edition package
 3. Install the ArangoDB Enterprise Edition package
