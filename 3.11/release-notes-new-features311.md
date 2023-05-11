@@ -502,7 +502,7 @@ any content of the documents stored in ArangoDB. This means that your privacy is
 protected, and that there is no risk of your data being compromised.
 
 If for any reason you prefer not to share usage statistics with ArangoDB, you
-can easily disable this feature by setting the new `--server.enable-telemetrics-api`
+can easily disable this feature by setting the new `--server.telemetrics-api`
 startup option to `false`. The default value is `true`.
 
 For a detailed list of what anonymous metrics ArangoDB collects see
