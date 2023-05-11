@@ -1,9 +1,14 @@
 ---
 layout: default
-description: A direct, in-place downgrade of ArangoDB is not supported
+description: >-
+  Downgrading database files and to an older version of ArangoDB requires a
+  logical backup
 ---
 Downgrading
 ===========
+
+{{ page.description }}
+{:class="lead"}
 
 A direct, in-place downgrade of ArangoDB is **not** supported. If you have upgraded
 your ArangoDB package, and then also upgraded your current data directory, it is
@@ -14,9 +19,9 @@ If you are using a standalone ArangoDB server, data directory could have been up
 automatically during package upgrade. If you are using the _Starter_ to start your
 ArangoDB, and you have not triggered yet the rolling upgrade, or upgraded it
 manually, your data directory is (probably) still on the old version, so you should
-be able to binary downgrade in this case.
+be able to downgrade the binaries in this case.
 
-Supported Downgrade Procedures
+Supported downgrade procedures
 ------------------------------
 
 In order to downgrade, the following options are available:
@@ -25,7 +30,7 @@ In order to downgrade, the following options are available:
   before the upgrade.
 - Start the old package on the data directory backup you took before the upgrade.
 
-### Restore an _arangodump_ Backup
+### Restore an _arangodump_ backup
 
 This procedure assumes that you have taken an _arangodump_ backup using the old
 ArangoDB version, before you upgraded it. 
@@ -52,7 +57,7 @@ the upgrade, and that you have taken a copy of their data directories, from all 
 machines.
 
 This procedure cannot be used if you have done a rolling upgrade of your Active Failover
-or Cluster setups (because in this case you do not have a copy of the data directories.
+or Cluster setups because in this case you do not have a copy of the data directories.
 
 1. Stop ArangoDB (if you are using an Active Failover, or a Cluster, stop all the needed
    processes on all the machines).
@@ -78,7 +83,7 @@ If you have upgraded by mistake, and:
   - you do not have a copy of your data directory taken after stopping the old ArangoDB
     process and before the upgrade
 
-...one possible option to downgrade could be to export the data from the new ArangoDB version
+One possible option to downgrade could be to export the data from the new ArangoDB version
 using the tool _arangoexport_ and reimport it using the tool _arangoimport_ in the old
 version (after having installed and started it on a clean data directory). This method will
 require some manual work to recreate the structure of your collections and your indexes - but
