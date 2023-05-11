@@ -208,6 +208,22 @@ that it may take a few minutes to get activated.
 Once enabled, you no longer have to fill in the `root` user and password of
 your ArangoDB deployment. This feature can be disabled at any time.
 
+Before getting started, make sure you are signed into ArangoGraph as a user
+with one of the following permissions in your project:
+- `data.deployment.full-access`
+- `data.deployment.read-only-access`
+
+Organization owners have these permissions enabled by default.
+The `deployment-full-access-user` and `deployment-read-only-user` roles which
+contain these permissions can also be granted to other members of the
+organization. See how to create a
+[role binding](access-control.html#how-to-view-edit-or-remove-role-bindings-of-a-policy).
+
+{% hint 'warning' %}
+This feature is available on `8529` port only. Make sure your connecting drivers
+are using the `18529` port to avoid breaking changes.
+{% endhint %}
+
 ## How to edit a deployment
 
 You can modify a deployment’s configuration, including the ArangoDB version
