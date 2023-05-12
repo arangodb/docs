@@ -25,3 +25,6 @@ Each of these uses involves a different custom resource.
 Continue with [Using the ArangoDB Kubernetes Operator](deployment-kubernetes-usage.html)
 to learn how to install the ArangoDB Kubernetes operator and create
 your first deployment.
+
+For more information about the production readiness state, please refer to the
+[ArangoDB Kubernetes Operator repository](https://github.com/arangodb/kube-arangodb#readme){:target="_blank"}.
