@@ -107,9 +107,14 @@ FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
   RETURN v 
 ```
 
-If you specify collections that don't exist, queries now fail. In previous
-versions, unknown vertex collections were ignored, and the behavior for unknown
-edge collections was undefined.
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
 
 Startup Options
 ---------------

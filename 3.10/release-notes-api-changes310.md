@@ -87,8 +87,8 @@ arangodb_agency_cache_callback_number{role="SINGLE"}0
 
 <small>Introduced in: v3.9.11, v3.10.7</small>
 
-In AQL graph traversals, you can restrict the vertex and edge collections in the
-traversal options like so:
+In AQL graph traversals (`POST /_api/cursor` endpoint), you can restrict the
+vertex and edge collections in the traversal options like so:
 
 ```aql
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
@@ -99,9 +99,14 @@ FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
   RETURN v 
 ```
 
-If you specify collections that don't exist, queries now fail. In previous
-versions, unknown vertex collections were ignored, and the behavior for unknown
-edge collections was undefined.
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
 
 ### Endpoint return value changes
 
@@ -809,3 +814,6 @@ If you specify collections that don't exist in the options of AQL graph traversa
 (`vertexCollections`, `edgeCollections`), queries now fail. In previous versions,
 unknown vertex collections were ignored, and the behavior for unknown
 edge collections was undefined.
+
+Additionally, queries now fail if you specify a document collection or View
+in `edgeCollections`.
