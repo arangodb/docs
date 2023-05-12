@@ -177,7 +177,8 @@ the migration agent process.
 If replication is running normally, the command waits until all shards are
 in sync. The local cluster is then switched into read-only mode.
 After all shards are in-sync and the migration stopped, the target deployment
-is switched into the mode specified in `--source.server-mode` option (it will be read/write if option is not specified).
+is switched into the mode specified in `--source.server-mode` option. If no
+option is specified, it defaults to the read/write mode.
 
 ```bash
 ./arangosync-migration stop \
