@@ -1,0 +1,15 @@
+@Q:
+RETURN [
+  LIKE(<span class="hljs-string">&quot;cart&quot;</span>, <span class="hljs-string">&quot;ca_t&quot;</span>),
+  LIKE(<span class="hljs-string">&quot;carrot&quot;</span>, <span class="hljs-string">&quot;ca_t&quot;</span>),
+  LIKE(<span class="hljs-string">&quot;carrot&quot;</span>, <span class="hljs-string">&quot;ca%t&quot;</span>)
+]
+
+@R
+[
+  [
+    <span class="hljs-literal">true</span>,
+    <span class="hljs-literal">false</span>,
+    <span class="hljs-literal">true</span>
+  ]
+]
