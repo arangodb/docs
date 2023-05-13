@@ -168,6 +168,12 @@ result can be used with. For example the *text* type will produce
 `frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
 `frequency` + `position` to be available.
 
+{% hint 'tip' %}
+You should only enable the features you require, as there is a cost associated
+with them. The metadata they produce needs to be computed and stored, requiring
+time and disk space.
+{% endhint %}
+
 Currently the following *features* are supported:
 
 - **frequency**: track how often a term occurs.
@@ -1015,6 +1021,9 @@ attributes:
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
+You should not set any of the [Analyzer features](#analyzer-features) as they
+cannot be utilized for Geo Analyzers.
+
 **Examples**
 
 Create a collection with GeoJSON Points stored in an attribute `location`, a
@@ -1028,7 +1037,7 @@ longitude, latitude order:
     @startDocuBlockInline analyzerGeoJSON
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoJSON}
       var analyzers = require("@arangodb/analyzers");
-      var a = analyzers.save("geo_json", "geojson", {}, ["frequency", "norm", "position"]);
+      var a = analyzers.save("geo_json", "geojson", {}, []);
       db._create("geo");
     | db.geo.save([
     |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
@@ -1092,6 +1101,9 @@ attributes:
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
+You should not set any of the [Analyzer features](#analyzer-features) as they
+cannot be utilized for Geo Analyzers.
+
 **Examples**
 
 Create a collection with coordinates pairs stored in an attribute `location`,
@@ -1104,7 +1116,7 @@ The stored coordinates are in latitude, longitude order, but `GEO_POINT()` and
     @startDocuBlockInline analyzerGeoPointPair
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointPair}
       var analyzers = require("@arangodb/analyzers");
-      var a = analyzers.save("geo_pair", "geopoint", {}, ["frequency", "norm", "position"]);
+      var a = analyzers.save("geo_pair", "geopoint", {}, []);
       db._create("geo");
     | db.geo.save([
     |   { location: [50.932, 6.937] },
@@ -1148,7 +1160,7 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     | var a = analyzers.save("geo_latlng", "geopoint", {
     |   latitude: ["lat"],
     |   longitude: ["lng"]
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._create("geo");
     | db.geo.save([
     |   { location: { lat: 50.932, lng: 6.937 } },

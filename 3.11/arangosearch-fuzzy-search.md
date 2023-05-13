@@ -214,11 +214,15 @@ also relevant.
     @startDocuBlockInline levenshtein_match_sample
     @EXAMPLE_ARANGOSH_OUTPUT{levenshtein_match_sample}
     var analyzers = require("@arangodb/analyzers");
-    analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
+    analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] }, ["frequency", "norm"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock levenshtein_match_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+The `frequency` and `norm` [Analyzer features](analyzers.html#analyzer-features)
+are set because the following examples require them for the `BM25()` scoring
+function to work.
 
 #### View definition
 
@@ -315,11 +319,15 @@ not including the original string:
     @startDocuBlockInline ngram_match_sample
     @EXAMPLE_ARANGOSH_OUTPUT{ngram_match_sample}
     var analyzers = require("@arangodb/analyzers");
-    analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["position", "frequency", "norm"]);
+    analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["frequency", "position"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ngram_match_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+The `frequency` and `position` [Analyzer features](analyzers.html#analyzer-features)
+are set because the following examples require them for the `NGRAM_MATCH()`
+filter function to work.
 
 #### View definition
 

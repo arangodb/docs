@@ -28,23 +28,26 @@ to be created manually.
 
 Create a `geojson` Analyzer in arangosh to pre-process arbitrary GeoJSON shapes.
 The default properties are usually what you want, therefore an empty object
-is passed:
+is passed. No [Analyzer features](analyzers.html#analyzer-features) are set
+because they cannot be utilized for Geo Analyzers:
 
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
+analyzers.save("geojson", "geojson", {}, []);
 ```
 
 See [`geojson` Analyzer](analyzers.html#geojson) for details.
 
 Create a `geopoint` Analyzer in arangosh to pre-process raw coordinate arrays
-using the default properties, hence passing an empty object:
+using the default properties, hence passing an empty object.
+No [Analyzer features](analyzers.html#analyzer-features) are set as they cannot
+be utilized for Geo Analyzers:
 
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("geo_pair", "geopoint", {}, ["frequency", "norm", "position"]);
+analyzers.save("geo_pair", "geopoint", {}, []);
 ```
 
 Create a `geopoint` Analyzer in arangosh to pre-process raw coordinates with
@@ -52,12 +55,14 @@ latitude and longitude stored in two different attributes. These attributes
 cannot be at the top-level of the document, but must be nested in an object,
 e.g. `{ location: { lat: 40.78, lon: -73.97 } }`. The path relative to the
 parent attribute (here: `location`) needs to be described in the Analyzer
-properties for each of the coordinate attributes:
+properties for each of the coordinate attributes.
+No [Analyzer features](analyzers.html#analyzer-features) are set as they cannot
+be utilized for Geo Analyzers:
 
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("geo_latlng", "geopoint", { latitude: ["lat"], longitude: ["lng"] }, ["frequency", "norm", "position"]);
+analyzers.save("geo_latlng", "geopoint", { latitude: ["lat"], longitude: ["lng"] }, []);
 ```
 
 ## Using the example dataset
