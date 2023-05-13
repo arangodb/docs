@@ -30,8 +30,8 @@ subsets of a graph or an entire graph.
    a field to show the tooltip with an explanation.
 4. Click the **Create** button to create the named graph.
 
-For more information about the different types of named graphs, see
-[Graphs](graphs.html).
+For more information about the different types of named graphs and how to
+create them, see [Graphs](graphs.html).
 
 ## View and edit the settings of a named graph
 
@@ -56,16 +56,33 @@ For more information about the different types of named graphs, see
 ## Graph viewer
 
 The graph viewer opens if you click a graph's card in the **GRAPHS** section.
-The viewer randomly selects a start node and displays its neighborhood.
-By default, up to 250 nodes that are directly connected to the start node and
+It randomly selects a start node and displays its neighborhood. By default,
+up to 250 nodes that are directly connected to the start node as well as
 their direct neighbors are selected. You can select one or more start nodes
 and change the depth and the limit in the settings panel. You can also load
 the entire graph via the toolbar, but only use this with small graphs.
 
+![The graph viewer with the settings panel open](images/graphViewer.png)
+
+### Viewport
+
+The main area of the graph viewer is used for displaying the graph. You can
+interact with it in the followings ways:
+
+- Left-click a node or edge to select it. The document ID and the names of the
+  document's top-level attributes are displayed at the bottom of the viewport.
+  Hover an attribute name to view the attribute value as a tooltip.
+- Left-click and drag nodes if you want to re-arrange them.
+- Left-click and drag to move the entire graph within the viewport.
+- Right-click to access the [Context menus](#context-menus).
+- Use the [Toolbar](#toolbar), for example, to access the graph viewer **Settings**
+- See the number of the currently displayed nodes and edges, and how long it
+  took to load the graph. This is displayed at the bottom of the viewport.
+
 ### Toolbar
 
-The toolbar at the top offers the following actions and a toggle for the
-settings panel:
+The toolbar at the top shows you the name of the graph and offers the following
+actions and a toggle for the settings panel:
 
 - Take a screenshot (_camera_ icon)
 - Enter fullscreen (_rectangle corners_ icon)
@@ -81,94 +98,100 @@ configure what to show of the graph and how.
 
 **General**
 
-- **Start node** (1+)
-- **Layout**: forceAtlas2, hierarchical
-- **Depth**: 2
-- **Limit**: 250 nodes
+- **Start node**: One or more document IDs to start the traversal from for
+  displaying (a subset of) the graph. If no start node is specified, the
+  graph viewer picks a random node.
+- **Layout**: The graph layout algorithm for finding a sensible arrangement and
+  visualizing the graph in 2D.
+  - **forceAtlas2**: Assigns positions to nodes based on the principles of
+    physical simulation, using repulsive and attractive forces. Works best with
+    medium-sized graphs.
+  - **hierarchical**: Arranges the graph uniformly to display a hierarchical
+    structure (for example, a tree) that avoids edge crossings and overlaps.
+    Works best with small graphs.
+- **Depth**: The traversal depth for displaying the Start node's neighborhood.
+  The default depth is **2**.
+- **Limit**: The maximum number of nodes to display, even if the maximum depth
+  is not reached. The default is **250** nodes. Set it to **0** for no limit.
 
 **Nodes**
 
-- **Node label**: 
-- **Default node color**: 
-- **Color nodes by collection**: 
-- **Node color attribute**: 
-- **Show collection name**: 
-- **Size by connections**: 
-- **Sizing attribute**: 
+- **Node label**: The document attribute to use for node labels.
+  The default is `_key`.
+- **Default node color**: The color for nodes if no color attribute is set or
+  as a fallback if the document does not have this attribute.
+- **Color nodes by collection**: Give nodes stored in the same collection the
+  same, randomly chosen color. Disables the default node color and the node
+  color attribute field.
+- **Node color attribute**: A document attribute to use for assigning a
+  node color. Nodes with the same attribute value get the same, randomly
+  chosen color.
+- **Show collection name**: Whether to include the document's collection name
+  in the node label.
+- **Size by connections**: Scale nodes based on the number of inbound and
+  outbound edges. Disables the sizing attribute field.
+- **Sizing attribute**: A document attribute to use for scaling nodes. Attribute values need to be numeric.
 
 **Edges**
 
-- **Edge label**: 
-- **Default edge color**: 
-- **Color edges by collection**: 
-- **Edge color attribute**: 
-- **Show collection name**: 
-- **Show edge direction**: 
-- **Type**: solid, dashed, dotted
+- **Edge label**: The document attribute to use for edge labels.
+  The default is none.
+- **Default edge color**: The color for edges if no color attribute is set or
+  as a fallback if the document does not have this attribute.
+- **Color edges by collection**: Give edges stored in the same collection the
+  same, randomly chosen color. Disables the default edge color and the edge
+  color attribute field.
+- **Edge color attribute**: A document attribute to use for assigning an
+  edge color. Edges with the same attribute value get the same, randomly
+  chosen color.
+- **Show collection name**: Whether to include the document's collection name
+  in the edge label.
+- **Show edge direction**: Whether to display arrow heads on edge ends to show
+  which way edges are pointing.
+- **Type**: The style for edge lines or arcs.
+  Can be **solid**, **dashed**, or **dotted**.
 
-Restore defaults
-Apply
+**Actions**
 
+- **Restore defaults**: Reset the settings.
+- **Apply**: Traverse and layout the graph according to the settings.
 
-![display graphs](images/graphViewer.png)
+### Context menus
 
-Top Toolbar Functions:
+You can click the right mouse button to access the context menus. You can take
+different actions depending on where you click.
 
-- Load full graph (Also nodes without connections will be drawn. Useful during graph modeling setup)
-- Take a graph screenshot
-- Start full screen mode
-- Open graph options menu
+**Background**
 
-Default Context Menu (mouse-click background):
+If you right-click a blank area anywhere in the graph viewer, you get the
+options to create a node or edge.
 
-- Add a new node
-- Close visible context menu(s)
+- **Add node to database**: Opens a dialog that lets you specify a document key,
+  select a collection to store the node in, and to set any document attributes.
+- **Add edge to database**: Enables the _Add edge mode_. Left-click a node and
+  drag the edge to the end node. A dialog opens that lets you specify a
+  document key, select a collection to store the edge in, and to set any
+  document attributes.
 
-Node Context Menu (mouse-click node):
+**Node**
 
-- Delete node
-- Edit node
-- Expand node (Show all bound edges)
-- Draw edge (Connect with another node)
-- Set as startnode (The Graph will rerender starting the selected node and given options (graph options menu))
+If you right-click a node, the connected edges are highlighted and you get the
+followings options:
 
-Edge Context Menu (mouse-click edge):
+- **Delete Node**: Opens a confirmation dialog for removing the document from
+  the collection it is stored in.
+  You can optionally **Delete connected edges too**.
+- **Edit Node**: Opens a dialog for editing the document attributes.
+- **Expand Node**: Follow this node's inbound and outbound edges and display
+  its direct neighbors in addition to the already shown graph.
+- **Set as Start Node**: Change the start node to this node and render the
+  graph according to the settings.
+- **Pin Node**: Locks the position of the node.
 
-- Edit edge
-- Delete edge
+**Edge**
 
-Edge Highlighting (right-mouse-click node):
+If you right-click an edge, you get the following options:
 
-- Highlight all edges connected to the node (right-click at the background will remove highlighting)
-
-![graph context menu](images/graphViewerContextMenu.png)
-
-### Graph Viewer Options
-
-Graph Options Menu: 
-
-- Startnode (string - valid node id or space separated list of id's): Heart of your graph. Rendering and traversing will start from here. Empty value means: a random starting point will be used.
-- Layout: Different graph layouting algorithms. No overlap (optimal: big graph), Force layout (optimal: medium graph), Fruchtermann (optimal: little to medium graph).
-- Renderer: Canvas mode allows editing. WebGL currently offers only display mode (a lot faster with much nodes/edges).
-- Search depth (number): Search depth which is starting from your start node. 
-- Limit (number): Limit nodes count. If empty or zero, no limit is set.
-
-Nodes Options Menu:
-
-- Label (string): Nodes will be labeled by this attribute. If node attribute is not found, no label will be displayed.
-- Add Collection Name: This appends the collection name to the label, if it exists.
-- Color By Collections: Should nodes be colorized by their collection? If enabled, node color and node color attribute will be ignored.
-- Color: Default node color.
-- Color Attribute (string): If an attribute is given, nodes will then be colorized by the attribute. This setting ignores default node color if set.
-- Size By Connections: Should nodes be sized by their edges count? If enabled, node sizing attribute will be ignored.
-- Sizing Attribute (number): Default node size. Numeric value > 0.
-
-Edges Options Menu:
-
-- Label (string): Edges will be labeled by this attribute. If edge attribute is not found, no label will be displayed.
-- Add Collection Name: This appends the collection name to the label, if it exists.
-- Color By Collections: Should edges be colorized by their collection? If enabled, edge color and edge color attribute will be ignored.
-- Color: Default edge color.
-- Color Attribute (string): If an attribute is given, edges will then be colorized by the attribute. This setting ignores default node color if set.
-- Type: The renderer offers multiple types of rendering. They only differ in their display style, except for the type 'curved'. The curved type
-allows to display more than one edges between two nodes.
+- **Delete edge**: Opens a confirmation dialog for removing the document from
+  the collection it is stored in.
+- **Edit edge**: Opens a dialog for editing the document attributes.

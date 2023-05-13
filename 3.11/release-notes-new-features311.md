@@ -130,8 +130,9 @@ See [Analyzers](analyzers.html#geo_s2) for details.
 ### New graph viewer
 
 The graph viewer for visualizing named graphs has been reimplemented based on
-the [vis.js](https://visjs.org/){:target="_blank"} library, and the interface
-has been redesigned to be cleaner and rewritten to use the React framework.
+the [vis.js](https://visjs.org/){:target="_blank"} library, the interface
+has been redesigned to be cleaner and rewritten to use the React framework,
+and the overall performance has been improved.
 
 The available **Layout** algorithms are **forceAtlas2** and **hierarchical**.
 Force-based layouts try to avoid overlaps while grouping adjacent nodes together.
@@ -141,6 +142,8 @@ A new feature is the ability to search the visible graph to center a specific
 vertex. Another quality-of-life improvement is the **Start node** setting listing
 the graph's vertex collections and the available document keys, that you can
 also search by.
+
+![New graph viewer](images/graphViewer.png)
 
 You can still switch to the old graph viewer if desired.
 
