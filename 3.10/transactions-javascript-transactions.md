@@ -285,8 +285,7 @@ db._executeTransaction({
 
 ### Throwing Exceptions
 
-If you catch errors in your transaction, try to get them solved, but fail 
-you may want to mimic original ArangoDB error messages to ease the control flow
+If you catch errors in your transaction, try to get them solved. If you fail to do this, you may instead want to mimic original ArangoDB error messages to ease the control flow
 of your invoking environment. This can be done like this:
 
 ```js
