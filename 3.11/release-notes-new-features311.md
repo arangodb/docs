@@ -393,8 +393,8 @@ See the [`COLLECT` options](aql/operations-collect.html#method) for details.
 
 ### K_SHORTEST_PATHS performance improvements
 
-The `K_SHORTEST_PATHS` graph query in AQL has been refactored in ArangoDB 3.11
-and introduces major performance improvements. The query now returns the
+The `K_SHORTEST_PATHS` graph algorithm in AQL has been refactored in ArangoDB 3.11,
+resulting in major performance improvements. The query now returns the
 shortest paths between two documents in a graph up to 100 times faster.
 
 ### Added AQL functions
