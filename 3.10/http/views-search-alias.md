@@ -11,7 +11,7 @@ description: >-
 
 {% docublock post_api_view_searchalias, h2 %}
 {% docublock get_api_view_view, h2 %}
-{% docublock get_api_view_view_properties, h2 %}
+{% docublock get_api_view_view_properties_searchalias, h2 %}
 {% docublock get_api_view, h2 %}
 {% docublock put_api_view_view_properties_searchalias, h2 %}
 {% docublock patch_api_view_view_properties_searchalias, h2 %}
