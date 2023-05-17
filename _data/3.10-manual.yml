@@ -23,7 +23,7 @@
   href: start-using-aql.html
 - text: How to Interact with ArangoDB
   href: how-to-interact-with-arangodb.html
-- subtitle: DATA MODEL
+- subtitle: CONCEPTS
 - text: Data Model & Concepts
   href: data-model-and-concepts.html
   children:
@@ -56,10 +56,139 @@
         - text: Database Methods
           href: data-modeling-views-database-methods.html
         - text: View Methods
-          href: data-modeling-views-view-methods.html
-- subtitle: PLAN AND DESIGN SOLUTIONS
-- text: Operational Factors
-  href: data-modeling-operational-factors.html
+          href: data-modeling-views-view-methods.html  
+- subtitle: GRAPHS
+- text: First Steps
+  href: graphs.html
+- text: General Graphs
+  href: graphs-general-graphs.html
+  children:
+    - text: Management
+      href: graphs-general-graphs-management.html
+    - text: Functions
+      href: graphs-general-graphs-functions.html
+- text: SatelliteGraphs
+  href: graphs-satellite-graphs.html
+  children:
+    - text: Management
+      href: graphs-satellite-graphs-management.html
+    - text: Details
+      href: graphs-satellite-graphs-details.html
+- text: SmartGraphs
+  href: graphs-smart-graphs.html
+  children:
+    - text: Getting Started
+      href: graphs-smart-graphs-getting-started.html
+    - text: Management
+      href: graphs-smart-graphs-management.html
+    - text: Testing Graphs on Single Server
+      href: smart-and-satellite-graphs-single-server.html  
+- text: EnterpriseGraphs
+  href: graphs-enterprise-graphs.html
+  children:
+    - text: Getting Started
+      href: graphs-enterprise-graphs-getting-started.html
+    - text: Management
+      href: graphs-enterprise-graphs-management.html
+- text: Traversals
+  href: graphs-traversals.html
+  children:
+    - text: Example Data
+      href: graphs-traversals-example-data.html
+- text: Working with Edges
+  href: graphs-edges.html
+- subtitle: DATA SCIENCE
+- text: Overview
+  href: data-science.html
+- text: ArangoGraph Notebooks
+  href: arangograph-notebooks.html
+- text: Pregel
+  href: graphs-pregel.html
+  children:
+    - text: Pregel Algorithms
+      href: graphs-pregel-algorithms.html
+- text: Adapters
+  href: data-science-adapters.html
+  children:      
+    - text: ArangoDB-NetworkX Adapter
+      href: data-science-networkx-adapter.html
+    - text: ArangoDB-DGL Adapter
+      href: data-science-dgl-adapter.html
+    - text: ArangoDB-cuGraph Adapter
+      href: data-science-cugraph-adapter.html
+    - text: ArangoDB-PyG Adapter
+      href: data-science-pyg-adapter.html
+    - text: ArangoRDF Adapter
+      href: data-science-arango-rdf-adapter.html
+      children:
+        - text: Mapping RDF to Graphs
+          href: data-modeling-graphs-from-rdf.html
+- subtitle: INDEX AND SEARCH
+- text: Indexing
+  href: indexing.html
+  children:
+    - text: Index Basics
+      href: indexing-index-basics.html
+    - text: Which index to use when
+      href: indexing-which-index.html
+    - text: Index Utilization
+      href: indexing-index-utilization.html
+    - text: Working with Indexes
+      href: indexing-working-with-indexes.html
+      children:
+        - text: Persistent Indexes
+          href: indexing-persistent.html
+        - text: Inverted Indexes
+          href: indexing-inverted.html
+        - text: TTL Indexes
+          href: indexing-ttl.html
+        - text: Fulltext Indexes
+          href: indexing-fulltext.html
+        - text: Multi-dimensional Indexes
+          href: indexing-multi-dim.html
+        - text: Geo-spatial Indexes
+          href: indexing-geo.html
+        - text: Vertex-Centric Indexes
+          href: indexing-vertex-centric.html
+- text: ArangoSearch
+  href: arangosearch.html
+  children:
+    - text: Example Datasets
+      href: arangosearch-example-datasets.html
+    - text: Exact value matching
+      href: arangosearch-exact-value-matching.html
+    - text: Range Queries
+      href: arangosearch-range-queries.html
+    - text: Prefix matching
+      href: arangosearch-prefix-matching.html
+    - text: Case-sensitivity and Diacritics
+      href: arangosearch-case-sensitivity-and-diacritics.html
+    - text: Wildcard search
+      href: arangosearch-wildcard-search.html
+    - text: Full-text token search
+      href: arangosearch-fulltext-token-search.html
+    - text: Phrase and proximity search
+      href: arangosearch-phrase-and-proximity-search.html
+    - text: Faceted search
+      href: arangosearch-faceted-search.html
+    - text: Fuzzy search
+      href: arangosearch-fuzzy-search.html
+    - text: Geospatial search
+      href: arangosearch-geospatial-search.html
+    - text: Search highlighting
+      href: arangosearch-search-highlighting.html
+    - text: Nested search
+      href: arangosearch-nested-search.html
+    - text: Ranking
+      href: arangosearch-ranking.html
+    - text: Performance
+      href: arangosearch-performance.html
+    - text: <code>search-alias</code> Views Reference
+      href: arangosearch-views-search-alias.html
+    - text: <code>arangosearch</code> Views Reference
+      href: arangosearch-views.html
+- text: Analyzers
+  href: analyzers.html
 - subtitle: COMPONENTS
 - text: ArangoDB Server
   href: programs-arangod.html
@@ -179,151 +308,6 @@
       children:
         - text: Details
           href: programs-foxx-cli-details.html  
-- subtitle: GRAPHS
-- text: First Steps
-  href: graphs.html
-- text: General Graphs
-  href: graphs-general-graphs.html
-  children:
-    - text: Management
-      href: graphs-general-graphs-management.html
-    - text: Functions
-      href: graphs-general-graphs-functions.html
-- text: SatelliteGraphs
-  href: graphs-satellite-graphs.html
-  children:
-    - text: Management
-      href: graphs-satellite-graphs-management.html
-    - text: Details
-      href: graphs-satellite-graphs-details.html
-- text: SmartGraphs
-  href: graphs-smart-graphs.html
-  children:
-    - text: Getting Started
-      href: graphs-smart-graphs-getting-started.html
-    - text: Management
-      href: graphs-smart-graphs-management.html
-- text: EnterpriseGraphs
-  href: graphs-enterprise-graphs.html
-  children:
-    - text: Getting Started
-      href: graphs-enterprise-graphs-getting-started.html
-    - text: Management
-      href: graphs-enterprise-graphs-management.html
-- text: Testing Graphs on Single Server
-  href: smart-and-satellite-graphs-single-server.html
-- text: Traversals
-  href: graphs-traversals.html
-  children:
-    - text: Example Data
-      href: graphs-traversals-example-data.html
-- text: Working with Edges
-  href: graphs-edges.html
-- subtitle: DATA SCIENCE
-- text: Overview
-  href: data-science.html
-- text: ArangoGraph Notebooks
-  href: arangograph-notebooks.html
-- text: Pregel
-  href: graphs-pregel.html
-  children:
-    - text: Pregel Algorithms
-      href: graphs-pregel-algorithms.html
-- text: Adapters
-  href: data-science-adapters.html
-  children:      
-    - text: ArangoDB-NetworkX Adapter
-      href: data-science-networkx-adapter.html
-    - text: ArangoDB-DGL Adapter
-      href: data-science-dgl-adapter.html
-    - text: ArangoDB-cuGraph Adapter
-      href: data-science-cugraph-adapter.html
-    - text: ArangoDB-PyG Adapter
-      href: data-science-pyg-adapter.html
-    - text: ArangoRDF Adapter
-      href: data-science-arango-rdf-adapter.html
-      children:
-        - text: Mapping RDF to Graphs
-          href: data-modeling-graphs-from-rdf.html        
-- subtitle: TRANSACTIONS
-- text: Overview
-  href: transactions.html
-- text: JavaScript Transactions
-  href: transactions-javascript-transactions.html
-- text: Stream Transactions
-  href: transactions-stream-transactions.html
-- text: Locking and isolation
-  href: transactions-locking-and-isolation.html
-- text: Durability
-  href: transactions-durability.html
-- text: Limitations
-  href: transactions-limitations.html
-- subtitle: INDEX AND SEARCH DATA
-- text: Indexing
-  href: indexing.html
-  children:
-    - text: Index Basics
-      href: indexing-index-basics.html
-    - text: Which index to use when
-      href: indexing-which-index.html
-    - text: Index Utilization
-      href: indexing-index-utilization.html
-    - text: Working with Indexes
-      href: indexing-working-with-indexes.html
-      children:
-        - text: Persistent Indexes
-          href: indexing-persistent.html
-        - text: Inverted Indexes
-          href: indexing-inverted.html
-        - text: TTL Indexes
-          href: indexing-ttl.html
-        - text: Fulltext Indexes
-          href: indexing-fulltext.html
-        - text: Multi-dimensional Indexes
-          href: indexing-multi-dim.html
-        - text: Geo-spatial Indexes
-          href: indexing-geo.html
-        - text: Vertex-Centric Indexes
-          href: indexing-vertex-centric.html
-- text: ArangoSearch
-  href: arangosearch.html
-  children:
-    - text: Example Datasets
-      href: arangosearch-example-datasets.html
-    - text: Exact value matching
-      href: arangosearch-exact-value-matching.html
-    - text: Range Queries
-      href: arangosearch-range-queries.html
-    - text: Prefix matching
-      href: arangosearch-prefix-matching.html
-    - text: Case-sensitivity and Diacritics
-      href: arangosearch-case-sensitivity-and-diacritics.html
-    - text: Wildcard search
-      href: arangosearch-wildcard-search.html
-    - text: Full-text token search
-      href: arangosearch-fulltext-token-search.html
-    - text: Phrase and proximity search
-      href: arangosearch-phrase-and-proximity-search.html
-    - text: Faceted search
-      href: arangosearch-faceted-search.html
-    - text: Fuzzy search
-      href: arangosearch-fuzzy-search.html
-    - text: Geospatial search
-      href: arangosearch-geospatial-search.html
-    - text: Search highlighting
-      href: arangosearch-search-highlighting.html
-    - text: Nested search
-      href: arangosearch-nested-search.html
-    - text: Ranking
-      href: arangosearch-ranking.html
-    - text: Performance
-      href: arangosearch-performance.html
-    - text: <code>search-alias</code> Views Reference
-      href: arangosearch-views-search-alias.html
-    - text: <code>arangosearch</code> Views Reference
-      href: arangosearch-views.html
-- text: Analyzers
-  href: analyzers.html
 - subtitle: DEPLOY
 - text: Architecture
   href: architecture.html
@@ -446,7 +430,7 @@
       href: monitoring-dc2dc.html
     - text: Troubleshooting
       href: troubleshooting-dc2dc.html
-- subtitle: OPERATE
+- subtitle: OPERATIONS
 - text: Installation
   href: installation.html
   children:
@@ -474,8 +458,8 @@
           href: installation-compiling-running-custom-build.html
         - text: Recompiling jemalloc
           href: installation-compiling-jemalloc.html
-- text: Uninstallation
-  href: uninstallation.html
+    - text: Uninstallation
+      href: uninstallation.html
 - text: Backup & Restore
   href: backup-restore.html
 - text: Upgrading
@@ -503,8 +487,8 @@
           href: upgrading-manually-cluster.html
     - text: Upgrading Kubernetes Deployments
       href: upgrading-kubernetes.html
-- text: Downgrading
-  href: downgrading.html
+    - text: Downgrading
+      href: downgrading.html
 - text: Administration
   href: administration.html
   children:
@@ -556,10 +540,25 @@
         - text: Agency Dump
           href: troubleshooting-cluster-agency-dump.html
 - subtitle: DEVELOP
+- text: Operational Factors
+  href: data-modeling-operational-factors.html
 - text: SatelliteCollections
   href: satellites.html
 - text: SmartJoins
   href: smartjoins.html
+- text: Transactions
+  href: transactions.html
+  children:
+    - text: JavaScript Transactions
+      href: transactions-javascript-transactions.html
+    - text: Stream Transactions
+      href: transactions-stream-transactions.html
+    - text: Locking and isolation
+      href: transactions-locking-and-isolation.html
+    - text: Durability
+      href: transactions-durability.html
+    - text: Limitations
+      href: transactions-limitations.html  
 - text: Foxx Microservices
   href: foxx.html
   children:
