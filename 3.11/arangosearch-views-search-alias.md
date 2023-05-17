@@ -12,12 +12,15 @@ are comprised of.
 
 ## How to use `search-alias` Views
 
-You first need to create one or more [inverted indexes](indexing-persistent.html).
+You need to create one or more [inverted indexes](indexing-persistent.html).
 All settings about how data shall be indexed are part of the inverted index
 definition. You can then create a `search-alias` View and add inverted indexes
-to it. Some of the inverted index settings only apply if they are used in a
-`search-alias` View, whereas others equally apply whether you use an inverted index
-standalone or as part of a View.
+to it. You can also create the View first and later create and add the inverted
+indexes to it.
+
+Some of the inverted index settings only apply if they are used in a
+`search-alias` View, whereas others equally apply whether you use an inverted
+index standalone or as part of a View.
 
 Inverted indexes can be managed as follows:
 - in the web interface, in the **COLLECTIONS** section, in the **Indexes** tab
@@ -32,11 +35,11 @@ Views can be managed as follows:
 - through the [JavaScript API](data-modeling-views-database-methods.html) with
   `db._createView()`
 
-You can query Views with AQL via the
+Once you set up View, you can query it via AQL with the
 [`SEARCH` operation](aql/operations-search.html).
 
 See [Information Retrieval with ArangoSearch](arangosearch.html) for an
-introduction.
+introduction to Views and how to search them.
 
 ## Create `search-alias` Views using the web interface
 
@@ -57,6 +60,24 @@ To get started, follow the steps outlined below.
 7. Click **Create**.    
 
 ![Create new search-alias View](images/arangosearch-create-search-alias-view.png)
+
+## Create `search-alias` Views using the JavaScript API
+
+The following example shows how you can create a `search-alias` View in _arangosh_:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline viewSearchAliasCreate
+    @EXAMPLE_ARANGOSH_OUTPUT{viewSearchAliasCreate}
+      var coll = db._create("books");
+      var idx = coll.ensureIndex({ type: "inverted", name: "inv-idx", fields: [ { field: "title", analyzer: "text_en" } ] });
+    | db._createView("products", "search-alias", { indexes: [
+    |   { collection: "books", index: "inv-idx" }
+      ] });
+    ~ db._dropView("products", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock viewSearchAliasCreate
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ## View Definition
 

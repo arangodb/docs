@@ -3,6 +3,7 @@ layout: default
 description: >-
   The HTTP API for Views lets you manage `arangosearch` Views, including
   handling the general View properties and View links
+title: HTTP interface for arangosearch Views
 ---
 # HTTP interface for `arangosearch` Views
 

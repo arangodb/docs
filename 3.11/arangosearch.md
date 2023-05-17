@@ -87,12 +87,13 @@ logical and comparison operators, as well as
    - `{ "name": "carrot", "type": "vegetable" }`
    - `{ "name": "chili pepper", "type": "vegetable" }`
    - `{ "name": "tomato", "type": ["fruit", "vegetable"] }`
-2. In the web interface, click on _VIEWS_ in the main navigation.
-3. Click on the _Add View_ button, enter a name (e.g. `food_view`), confirm and
-   click on the newly created View.
-4. You can toggle the mode of the View definition editor from _Tree_ to _Code_
-   to edit the JSON object as text.
-5. Replace `"links": {},` with below configuration, then save the changes:
+2. In the **VIEWS** section of the web interface, click the **Add View** button.
+3. Enter a name (e.g. `food_view`) for the View, click **Create**, and click
+   the card of the newly created View.
+4. Enter the name of the collection in the **Links** fields, then click the
+   underlined name to access the link properties and tick the
+   **Include All Fields** checkbox. In the editor on the right-hand side, you
+   can see the View definition in JSON format, including the following setting:
    ```js
    "links": {
      "food": {
@@ -100,33 +101,18 @@ logical and comparison operators, as well as
      }
    },
    ```
-6. After a few seconds of processing, the editor will show you the updated link
-   definition with default settings added:
-   ```js
-   "links": {
-     "food": {
-       "analyzers": [
-         "identity"
-       ],
-       "fields": {},
-       "includeAllFields": true,
-       "storeValues": "none",
-       "trackListPositions": false
-     }
-   },
-   ```
-   The View will index all attributes (fields) of the documents in the
-   `food` collection from now on (with some delay). The attribute values
+5. Click **Save view**. The View indexes all attributes (fields) of the documents
+   in the `food` collection from now on (with some delay). The attribute values
    get processed by the default `identity` Analyzer, which means that they
    get indexed unaltered.
-7. Click on _QUERIES_ in the main navigation and try the following query:
+6. In the **QUERIES** section, try the following query:
    ```aql
    FOR doc IN food_view
      RETURN doc
    ```
    The View is used like a collection and simply iterated over to return all
    (indexed) documents. You should see the documents stored in `food` as result.
-8. Now add a search expression. Unlike with regular collections where you would
+7. Now add a search expression. Unlike with regular collections where you would
    use `FILTER`, a `SEARCH` operation is needed to utilize the View index:
    ```aql
    FOR doc IN food_view
@@ -135,8 +121,8 @@ logical and comparison operators, as well as
    ```
    In this basic example, the ArangoSearch expression looks identical to a
    `FILTER` expression, but this is not always the case. You can also combine
-   both, with `FILTER`s after `SEARCH`, in which case the filter criteria will
-   be applied to the search results as a post-processing step.
+   both, with `FILTER`s after `SEARCH`, in which case the filter criteria are
+   applied to the search results as a post-processing step.
 
 ### Create your first `search-alias` View
 
@@ -149,10 +135,10 @@ logical and comparison operators, as well as
    - `{ "name": "tomato", "type": ["fruit", "vegetable"] }`
 2. In the **COLLECTIONS** section of the web interface, click the test collection.
 3. Go to the **Indexes** tab and click **Add Index**.
-4. Select **Inverted index** as type.
-5. 
-2. In the web interface, click on _VIEWS_ in the main navigation.
-3. Click on the _Add View_ button, enter a name (e.g. `food_view`), confirm and
+4. Select **Inverted index** as the **Type**.
+5. Enter `name` into **Fields** and confirm. Then also add `type[*]` as a field.
+   The `[*]` is needed to index the individual elements of the `type` array.
+6. In the **VIEWS** section, click the _Add View_ button, enter a name (e.g. `food_view`), confirm and
    click on the newly created View.
 4. You can toggle the mode of the View definition editor from _Tree_ to _Code_
    to edit the JSON object as text.
@@ -302,6 +288,8 @@ For a complete list of operators supported in ArangoSearch expressions see
 [AQL `SEARCH` operation](aql/operations-search.html).
 
 ### Searching for tokens from full-text
+
+<!-- TODO: Update for web interface changes + search-alias -->
 
 So far we searched for full matches of name and/or type. Strings could contain
 more than just a single term however. It could be multiple words, sentences, or
@@ -497,6 +485,11 @@ Have a look at the [Ranking Examples](arangosearch-ranking.html) for that.
 ## Indexing complex JSON documents
 
 ### Working with nested fields
+
+<!-- TODO:
+- rename to sub-fields or sub-attributes to avoid confusion with nested search feature?
+- update for web interface changes + search-alias Views
+-->
 
 As with regular indexes, there is no limitation to top-level attributes.
 Any document attribute at any depth can be indexed. However, with ArangoSearch
