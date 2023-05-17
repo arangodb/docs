@@ -29,7 +29,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...)
 {%- endcomment %}
 
-- [**Data Format**](data-models.html#documents):
+- [**Data Format**](data-structure.html#documents):
   JSON, internally stored in a binary format invented by ArangoDB called
   VelocyPack.
 
