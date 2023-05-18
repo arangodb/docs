@@ -12,7 +12,7 @@ title: HTTP interface for arangosearch Views
 
 {% docublock post_api_view_arangosearch, h2 %}
 {% docublock get_api_view_view, h2 %}
-{% docublock get_api_view_view_properties, h2 %}
+{% docublock get_api_view_view_properties_arangosearch, h2 %}
 {% docublock get_api_view, h2 %}
 {% docublock put_api_view_view_properties_arangosearch, h2 %}
 {% docublock patch_api_view_view_properties_arangosearch, h2 %}

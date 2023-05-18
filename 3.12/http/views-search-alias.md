@@ -3,6 +3,7 @@ layout: default
 description: >-
   The HTTP API for Views lets you manage `search-alias` Views, including adding
   and removing inverted indexes
+title: HTTP interface for search-alias Views
 ---
 # HTTP interface for `search-alias` Views
 

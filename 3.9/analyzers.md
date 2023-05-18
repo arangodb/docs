@@ -38,6 +38,7 @@ transforms an example input:
     |   stopwords: ["a", "example"]
       }, []);
       db._query(`RETURN TOKENS("UPPER & lower, a Stemming Example.", "custom")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerCustomTokens
 {% endarangoshexample %}
@@ -244,6 +245,7 @@ Split input strings into tokens at hyphen-minus characters:
     |   delimiter: "-"
       }, []);
       db._query(`RETURN TOKENS("some-delimited-words", "delimiter_hyphen")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerDelimiter
 {% endarangoshexample %}
@@ -274,6 +276,7 @@ Apply stemming to the input string as a whole:
     |   locale: "en"
       }, []);
       db._query(`RETURN TOKENS("databases", "stem_en")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerStem
 {% endarangoshexample %}
@@ -314,6 +317,7 @@ Convert input string to all upper-case characters:
     |   case: "upper"
       }, []);
       db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_upper")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNorm1
 {% endarangoshexample %}
@@ -330,6 +334,7 @@ Convert accented characters to their base characters:
     |   accent: false
       }, []);
       db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNorm2
 {% endarangoshexample %}
@@ -347,6 +352,7 @@ Convert input string to all lower-case characters and remove diacritics:
     |   case: "lower"
       }, []);
       db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent_lower")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNorm3
 {% endarangoshexample %}
@@ -417,6 +423,7 @@ Create and use a trigram Analyzer with `preserveOriginal` disabled:
     |   streamType: "utf8"
       }, []);
       db._query(`RETURN TOKENS("foobar", "trigram")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNgram1
 {% endarangoshexample %}
@@ -438,6 +445,7 @@ and stop markers:
     |   streamType: "utf8"
       }, []);
       db._query(`RETURN TOKENS("foobar", "bigram_markers")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNgram2
 {% endarangoshexample %}
@@ -529,6 +537,7 @@ disabled like this:
     |   stopwords: []
       }, [])
       db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextNoStem
 {% endarangoshexample %}
@@ -553,6 +562,7 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     |   "The quick brown fox jumps over the dogWithAVeryLongName",
     |   "text_edge_ngrams"
       )`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextEdgeNgram
 {% endarangoshexample %}
@@ -593,7 +603,7 @@ letters before `c`:
       var en = analyzers.save("collation_en", "collation", { locale: "en" }, []);
       var sv = analyzers.save("collation_sv", "collation", { locale: "sv" }, []);
       var test = db._create("test");
-    | db.test.save([
+    | var docs = db.test.save([
     |   { text: "a" },
     |   { text: "å" },
     |   { text: "b" },
@@ -832,6 +842,7 @@ Normalize to all uppercase and compute bigrams:
     |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
       ] }, []);
       db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerPipelineUpperNgram
 {% endarangoshexample %}
@@ -849,6 +860,7 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
     |   { type: "stem", properties: { locale: "en" } }
       ] }, []);
       db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
@@ -1041,7 +1053,7 @@ longitude, latitude order:
       var analyzers = require("@arangodb/analyzers");
       var a = analyzers.save("geo_json", "geojson", {}, []);
       db._create("geo");
-    | db.geo.save([
+    | var docs = db.geo.save([
     |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
     |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
     |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
@@ -1120,7 +1132,7 @@ The stored coordinates are in latitude, longitude order, but `GEO_POINT()` and
       var analyzers = require("@arangodb/analyzers");
       var a = analyzers.save("geo_pair", "geopoint", {}, []);
       db._create("geo");
-    | db.geo.save([
+    | var docs = db.geo.save([
     |   { location: [50.932, 6.937] },
     |   { location: [50.941, 6.956] },
     |   { location: [50.932, 6.962] },
@@ -1164,7 +1176,7 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |   longitude: ["lng"]
       }, []);
       db._create("geo");
-    | db.geo.save([
+    | var docs = db.geo.save([
     |   { location: { lat: 50.932, lng: 6.937 } },
     |   { location: { lat: 50.941, lng: 6.956 } },
     |   { location: { lat: 50.932, lng: 6.962 } },

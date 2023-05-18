@@ -69,11 +69,12 @@ The following example shows how you can create a `search-alias` View in _arangos
     @startDocuBlockInline viewSearchAliasCreate
     @EXAMPLE_ARANGOSH_OUTPUT{viewSearchAliasCreate}
       var coll = db._create("books");
-      var idx = coll.ensureIndex({ type: "inverted", name: "inv-idx", fields: [ { field: "title", analyzer: "text_en" } ] });
+      var idx = coll.ensureIndex({ type: "inverted", name: "inv-idx", fields: [ { name: "title", analyzer: "text_en" } ] });
     | db._createView("products", "search-alias", { indexes: [
     |   { collection: "books", index: "inv-idx" }
       ] });
-    ~ db._dropView("products", true);
+    ~ db._dropView("products");
+    ~ db._drop(coll.name());
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewSearchAliasCreate
     {% endarangoshexample %}
