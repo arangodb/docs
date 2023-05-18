@@ -785,3 +785,5 @@ If you are interested in more technical details, have a look at:
 - [**ArangoSearch architecture overview**](https://www.arangodb.com/2018/04/arangosearch-architecture-overview/){:target="_blank"}:
   A description of ArangoSearch's design, its inverted index and some
   implementation details.
+- The [**IResearch library**](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}
+  that provides the searching and ranking capabilities.

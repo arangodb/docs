@@ -41,6 +41,8 @@ virtual collections. There are two types of Views:
   It can cover multiple or even all attributes of the documents in the linked
   collections.
 
+  See [`arangosearch` Views Reference](arangosearch-views.html) for details.
+
 - **`search-alias` Views**:
   Views of the `search-alias` type reference one or more
   [Inverted indexes](indexing-inverted.html). Inverted indexes are defined on
@@ -50,6 +52,8 @@ virtual collections. There are two types of Views:
   ranking search results by relevance and search highlighting like with
   `arangosearch` Views. Each inverted index can index multiple or even all
   attribute of the documents of the collection it is defined for.
+
+  See [`search-alias` Views Reference](arangosearch-views-search-alias.html) for details.
 
 {% hint 'info' %}
 Views are not updated synchronously as the source collections
@@ -131,8 +135,8 @@ logical and comparison operators, as well as
    ```
    In this basic example, the ArangoSearch expression looks identical to a
    `FILTER` expression, but this is not always the case. You can also combine
-   both, with `FILTER`s after `SEARCH`, in which case the filter criteria will
-   be applied to the search results as a post-processing step.
+   both, with `FILTER`s after `SEARCH`, in which case the filter criteria are
+   applied to the search results as a post-processing step.
 
 ### Understanding the Analyzer context
 
@@ -213,10 +217,11 @@ Similarly, **AND** can be used to require that multiple conditions must be true:
 `doc.name == "avocado" AND doc.type == "fruit"`
 
 An interesting case is the tomato document with its two array elements as type:
-`["fruit", "vegetable"]`. The View definition defaulted to
+`["fruit", "vegetable"]`. The View definition defaults to
 `"trackListPositions": false`, which means that the array elements get indexed
-individually as if the attribute both string values at the same time, matching
-the following conditions:
+individually as if the attribute had both string values at the same time
+(requiring array expansion using `type[*]` or `"searchField": true` in case of the
+inverted index for the `search-alias` View), matching the following conditions:
 
 `doc.type == "fruit" AND doc.type == "vegetable"`
 
@@ -295,28 +300,30 @@ English text.
 
 ### Search expressions with ArangoSearch functions
 
+<!-- TODO: Adjust for search-alias Views -->
 Basic operators are not enough for complex query needs. Additional search
 functionality is provided via [ArangoSearch functions](aql/functions-arangosearch.html)
 that can be composed with basic operators and other functions to form search
 expressions.
 
 ArangoSearch AQL functions take either an expression or a reference of an
-attribute path as first argument.
+attribute path or the document emitted by a View as the first argument.
 
 ```aql
-ANALYZER(<expression>, …)
+BOOST(<expression>, …)
 STARTS_WITH(doc.attribute, …)
+TDIDF(doc, …)
 ```
 
-If an expression is expected, it means that search conditions can expressed in
-AQL syntax. They are typically function calls to ArangoSearch search functions,
+If an expression is expected, it means that search conditions can be expressed in
+AQL syntax. They are typically function calls to ArangoSearch filter functions,
 possibly nested and/or using logical operators for multiple conditions.
 
 ```aql
-ANALYZER(STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom"), "identity")
+BOOST(STARTS_WITH(doc.name, "chi"), 2.5) OR STARTS_WITH(doc.name, "tom")
 ```
 
-The default Analyzer that will be used for searching is `"identity"`.
+The default Analyzer that is used for searching is `"identity"`.
 While some ArangoSearch functions accept an Analyzer argument, it is sometimes
 necessary to wrap search (sub-)expressions with an `ANALYZER()` call to set the
 correct Analyzer in the query so that it matches one of the Analyzers with
@@ -429,6 +436,11 @@ Have a look at the [Ranking Examples](arangosearch-ranking.html) for that.
 ## Indexing complex JSON documents
 
 ### Working with nested fields
+
+<!-- TODO:
+- rename to sub-fields or sub-attributes to avoid confusion with nested search feature?
+- update for web interface changes + search-alias Views
+-->
 
 As with regular indexes, there is no limitation to top-level attributes.
 Any document attribute at any depth can be indexed. However, with ArangoSearch
@@ -712,3 +724,5 @@ If you are interested in more technical details, have a look at:
 - [**ArangoSearch architecture overview**](https://www.arangodb.com/2018/04/arangosearch-architecture-overview/){:target="_blank"}:
   A description of ArangoSearch's design, its inverted index and some
   implementation details.
+- The [**IResearch library**](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}
+  that provides the searching and ranking capabilities.

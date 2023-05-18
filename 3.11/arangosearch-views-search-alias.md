@@ -32,10 +32,9 @@ Inverted indexes can be managed as follows:
 Views can be managed as follows:
 - in the web interface, in the **VIEWS** section
 - via the [Views HTTP API](http/views.html)
-- through the [JavaScript API](data-modeling-views-database-methods.html) with
-  `db._createView()`
+- through the [JavaScript API](data-modeling-views-database-methods.html)
 
-Once you set up View, you can query it via AQL with the
+Once you set up a View, you can query it via AQL with the
 [`SEARCH` operation](aql/operations-search.html).
 
 See [Information Retrieval with ArangoSearch](arangosearch.html) for an

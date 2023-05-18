@@ -41,6 +41,8 @@ virtual collections. There are two types of Views:
   It can cover multiple or even all attributes of the documents in the linked
   collections.
 
+  See [`arangosearch` Views Reference](arangosearch-views.html) for details.
+
 - **`search-alias` Views**:
   Views of the `search-alias` type reference one or more
   [Inverted indexes](indexing-inverted.html). Inverted indexes are defined on
@@ -50,6 +52,8 @@ virtual collections. There are two types of Views:
   ranking search results by relevance and search highlighting like with
   `arangosearch` Views. Each inverted index can index multiple or even all
   attribute of the documents of the collection it is defined for.
+
+  See [`search-alias` Views Reference](arangosearch-views-search-alias.html) for details.
 
 {% hint 'info' %}
 Views are not updated synchronously as the source collections
@@ -83,12 +87,13 @@ logical and comparison operators, as well as
    - `{ "name": "carrot", "type": "vegetable" }`
    - `{ "name": "chili pepper", "type": "vegetable" }`
    - `{ "name": "tomato", "type": ["fruit", "vegetable"] }`
-2. In the web interface, click on _VIEWS_ in the main navigation.
-3. Click on the _Add View_ button, enter a name (e.g. `food_view`), confirm and
-   click on the newly created View.
-4. You can toggle the mode of the View definition editor from _Tree_ to _Code_
-   to edit the JSON object as text.
-5. Replace `"links": {},` with below configuration, then save the changes:
+2. In the **VIEWS** section of the web interface, click the **Add View** card.
+3. Enter a name (e.g. `food_view`) for the View, click **Create**, and click
+   the card of the newly created View.
+4. Enter the name of the collection in the **Links** fields, then click the
+   underlined name to access the link properties and tick the
+   **Include All Fields** checkbox. In the editor on the right-hand side, you
+   can see the View definition in JSON format, including the following setting:
    ```js
    "links": {
      "food": {
@@ -96,33 +101,18 @@ logical and comparison operators, as well as
      }
    },
    ```
-6. After a few seconds of processing, the editor will show you the updated link
-   definition with default settings added:
-   ```js
-   "links": {
-     "food": {
-       "analyzers": [
-         "identity"
-       ],
-       "fields": {},
-       "includeAllFields": true,
-       "storeValues": "none",
-       "trackListPositions": false
-     }
-   },
-   ```
-   The View will index all attributes (fields) of the documents in the
-   `food` collection from now on (with some delay). The attribute values
+5. Click **Save view**. The View indexes all attributes (fields) of the documents
+   in the `food` collection from now on (with some delay). The attribute values
    get processed by the default `identity` Analyzer, which means that they
    get indexed unaltered.
-7. Click on _QUERIES_ in the main navigation and try the following query:
+6. In the **QUERIES** section, try the following query:
    ```aql
    FOR doc IN food_view
      RETURN doc
    ```
    The View is used like a collection and simply iterated over to return all
    (indexed) documents. You should see the documents stored in `food` as result.
-8. Now add a search expression. Unlike with regular collections where you would
+7. Now add a search expression. Unlike with regular collections where you would
    use `FILTER`, a `SEARCH` operation is needed to utilize the View index:
    ```aql
    FOR doc IN food_view
@@ -131,8 +121,64 @@ logical and comparison operators, as well as
    ```
    In this basic example, the ArangoSearch expression looks identical to a
    `FILTER` expression, but this is not always the case. You can also combine
-   both, with `FILTER`s after `SEARCH`, in which case the filter criteria will
-   be applied to the search results as a post-processing step.
+   both, with `FILTER`s after `SEARCH`, in which case the filter criteria are
+   applied to the search results as a post-processing step.
+
+### Create your first `search-alias` View
+
+ 1. Create a test collection (e.g. `food`) and insert a few documents so
+    that you have something to index and search for. You may use the web interface
+    for this:
+    - `{ "name": "avocado", "type": ["fruit"] }` (yes, it is a fruit)
+    - `{ "name": "carrot", "type": ["vegetable"] }`
+    - `{ "name": "chili pepper", "type": ["vegetable"] }`
+    - `{ "name": "tomato", "type": ["fruit", "vegetable"] }`
+ 2. In the **COLLECTIONS** section of the web interface, click the `food` collection.
+ 3. Go to the **Indexes** tab and click **Add Index**.
+ 4. Select **Inverted index** as the **Type**.
+ 5. In the **Fields** panel, enter `name` into **Fields** and confirm.
+    Then also add `type[*]` as a field.
+    The `[*]` is needed to index the individual elements of the `type` array.
+ 6. In the **General** panel, give the index a **Name** like `inv-idx-name-type`
+    to make it easier for you to identify the index.
+ 7. In the **VIEWS** section, click the **Add View** card.
+ 8. Enter a name for the View (e.g. `food_view`) and select **search-alias**
+    as the **Type**.
+ 9. Select the `food` collection as **Collection** and select the the inverted index
+    you created for the collection as **Index**.
+10. Click **Create**. The View indexes all attributes (fields) of the documents
+    in the `food` collection from now on (with some delay). The attribute values
+    get processed by the default `identity` Analyzer, which means that they
+    get indexed unaltered.
+11. In the **QUERIES** section, try the following query:
+    ```aql
+    FOR doc IN food_view
+      RETURN doc
+    ```
+    The View is used like a collection and simply iterated over to return all
+    (indexed) documents. You should see the documents stored in `food` as result.
+12. Now add a search expression. Unlike with regular collections where you would
+    use `FILTER`, a `SEARCH` operation is needed to utilize the View index:
+    ```aql
+    FOR doc IN food_view
+      SEARCH doc.name == "avocado"
+      RETURN doc
+    ```
+    In this basic example, the ArangoSearch expression looks identical to a
+    `FILTER` expression, but this is not always the case. You can also combine
+    both, with `FILTER`s after `SEARCH`, in which case the filter criteria are
+    applied to the search results as a post-processing step.
+13. You can also use the inverted index as a stand-alone index as demonstrated
+    below, by iterating over the collection (not the View) with an index hint to
+    utilize the inverted index together with the `FILTER` operation:
+    ```aql
+    FOR doc IN food OPTIONS { indexHint: "inv-idx-name-type", forceIndexHint: true }
+      FILTER doc.name == "avocado"
+      RETURN doc
+    ```
+    Note that you can't rank results and search across multiple collections
+    using stand-alone inverted index, but you can if you add inverted indexes
+    to a `search-alias` View and search the View with the `SEARCH` operation.
 
 ### Understanding the Analyzer context
 
@@ -213,10 +259,11 @@ Similarly, **AND** can be used to require that multiple conditions must be true:
 `doc.name == "avocado" AND doc.type == "fruit"`
 
 An interesting case is the tomato document with its two array elements as type:
-`["fruit", "vegetable"]`. The View definition defaulted to
+`["fruit", "vegetable"]`. The View definition defaults to
 `"trackListPositions": false`, which means that the array elements get indexed
-individually as if the attribute both string values at the same time, matching
-the following conditions:
+individually as if the attribute had both string values at the same time
+(requiring array expansion using `type[*]` or `"searchField": true` in case of the
+inverted index for the `search-alias` View), matching the following conditions:
 
 `doc.type == "fruit" AND doc.type == "vegetable"`
 
@@ -246,16 +293,35 @@ There are a few pre-configured text Analyzers, but you can also add your own as
 needed. For now, let us use the built-in `text_en` Analyzer for tokenizing
 English text.
 
-1. Replace `"fields": {},` in the `food_view` View definition with below code:
-  ```js
-  "fields": {
-    "name": {
-      "analyzers": ["text_en", "identity"]
-    }
-  },
-  ```
-2. Save the change. After a few seconds, the `name` attribute will be indexed
-   with the `text_en` Analyzer in addition to the `identity` Analyzer.
+1. In the **VIEWS** section of the web interface, click the card of previously
+   created `food_view`.
+2. _`arangosearch` View:_
+
+   In the **Links** panel, click the underlined name of the
+   `food` collection. Enter `name` into **Fields** and confirm. Click the
+   underlined name of the field and select the **Analyzers** `text_en` and
+   `identity`. Then click **Save view**.
+   Alternatively, use the editor on the right-hand side to replace `"fields": {},`
+   with the below code:
+   ```js
+   "fields": {
+     "name": {
+       "analyzers": ["text_en", "identity"]
+     }
+   },
+   ```
+
+   _`search-alias` View:_
+
+   Collection indexes cannot be changed once created. Therefore, you need to
+   create a new inverted index to index a field differently.
+   In the **COLLECTIONS** section, go to the **Indexes** tab and click
+   **Add Index**. 
+
+   <!-- TODO: Can't index the same field with different Analyzers using a search-alias View... -->
+
+2. After a few seconds, the `name` attribute has been indexed with the `text_en`
+   Analyzer in addition to the `identity` Analyzer.
 3. Run below query that sets `text_en` as context Analyzer and searches for
    the word `pepper`:
    ```aql
@@ -295,28 +361,30 @@ English text.
 
 ### Search expressions with ArangoSearch functions
 
+<!-- TODO: Adjust for search-alias Views -->
 Basic operators are not enough for complex query needs. Additional search
 functionality is provided via [ArangoSearch functions](aql/functions-arangosearch.html)
 that can be composed with basic operators and other functions to form search
 expressions.
 
 ArangoSearch AQL functions take either an expression or a reference of an
-attribute path as first argument.
+attribute path or the document emitted by a View as the first argument.
 
 ```aql
-ANALYZER(<expression>, …)
+BOOST(<expression>, …)
 STARTS_WITH(doc.attribute, …)
+TDIDF(doc, …)
 ```
 
-If an expression is expected, it means that search conditions can expressed in
-AQL syntax. They are typically function calls to ArangoSearch search functions,
+If an expression is expected, it means that search conditions can be expressed in
+AQL syntax. They are typically function calls to ArangoSearch filter functions,
 possibly nested and/or using logical operators for multiple conditions.
 
 ```aql
-ANALYZER(STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom"), "identity")
+BOOST(STARTS_WITH(doc.name, "chi"), 2.5) OR STARTS_WITH(doc.name, "tom")
 ```
 
-The default Analyzer that will be used for searching is `"identity"`.
+The default Analyzer that is used for searching is `"identity"`.
 While some ArangoSearch functions accept an Analyzer argument, it is sometimes
 necessary to wrap search (sub-)expressions with an `ANALYZER()` call to set the
 correct Analyzer in the query so that it matches one of the Analyzers with
@@ -429,6 +497,11 @@ Have a look at the [Ranking Examples](arangosearch-ranking.html) for that.
 ## Indexing complex JSON documents
 
 ### Working with nested fields
+
+<!-- TODO:
+- rename to sub-fields or sub-attributes to avoid confusion with nested search feature?
+- update for web interface changes + search-alias Views
+-->
 
 As with regular indexes, there is no limitation to top-level attributes.
 Any document attribute at any depth can be indexed. However, with ArangoSearch
