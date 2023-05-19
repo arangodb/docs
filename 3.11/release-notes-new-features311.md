@@ -440,7 +440,7 @@ and returns it in a hexadecimal string representation.
 RETURN SHA256("ArangoDB") // "acbd84398a61fcc6fd784f7e16c32e02a0087fd5d631421bf7b5ede5db7fda31"
 ```
 
-See [`AQL String functions`](aql/functions-string.html#sha256.html) for details.
+See [`AQL String functions`](aql/functions-string.html#sha256) for details.
 
 ### Extended query explain statistics
 
