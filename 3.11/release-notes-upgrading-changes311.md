@@ -180,7 +180,7 @@ or View is specified in `edgeCollections`, an error is raised
 Furthermore, it is now an error if you specify a vertex collection that is not
 part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
 It is also an error if you specify an edge collection that is not part of the
-named graph's definition or of the list of edge collections(code `1939` and
+named graph's definition or of the list of edge collections (code `1939` and
 HTTP status `400 Bad Request`).
 
 ## JavaScript API
