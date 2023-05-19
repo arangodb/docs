@@ -386,6 +386,27 @@ available after the query has finished and are delivered as part of the last bat
 The query has to be executed within the given runtime or it is killed.
 The value is specified in seconds. The default value is `0.0` (no timeout).
 
+#### `maxDNFConditionMembers`
+
+<small>Introduced in: v3.11.0</small>
+
+A threshold for the maximum number of `OR` sub-nodes in the internal
+representation of an AQL `FILTER` condition.
+
+Yon can use this option to limit the computation time and memory usage when
+converting complex AQL `FILTER` conditions into the internal DNF
+(disjunctive normal form) format. `FILTER` conditions with a lot of logical
+branches (`AND`, `OR`, `NOT`) can take a large amount of processing time and
+memory. This query option limits the computation time and memory usage for
+such conditions.
+
+Once the threshold value is reached during the DNF conversion of a `FILTER`
+condition, the conversion is aborted, and the query continues with a simplified
+internal representation of the condition, which **cannot be used for index lookups**.
+
+You can also set the threshold globally instead of per query with the
+[`--query.max-dnf-condition-members` startup option](../programs-arangod-options.html#--querymax-dnf-condition-members).
+
 #### `maxNodesPerCallstack`
 
 The number of execution nodes in the query plan after

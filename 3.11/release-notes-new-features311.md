@@ -553,6 +553,21 @@ Query Profile:
  finalizing                     0.00091
 ```
 
+### Limit for the normalization of `FILTER` conditions
+
+Converting complex AQL `FILTER` conditions with a lot of logical branches
+(`AND`, `OR`, `NOT`) into the internal DNF (disjunctive normal form) format can
+take a large amount of processing time and memory. The new `maxDNFConditionMembers`
+query option is a threshold for the maximum number of `OR` sub-nodes in the
+internal representation and defaults to `786432`.
+
+You can also set the threshold globally instead of per query with the
+[`--query.max-dnf-condition-members` startup option](programs-arangod-options.html#--querymax-dnf-condition-members).
+
+If the threshold is hit, the query continues with a simplified representation of
+the condition, which is **not usable in index lookups**. However, this should
+still be better than overusing memory or taking a very long time to compute the
+DNF version.
 
 ## Server options
 

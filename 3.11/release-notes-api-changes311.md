@@ -306,6 +306,18 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
   server doesn't unnecessary keep the batch until the cursor times out
   (`ttl` query option).
 
+- When profiling a query (`profile` option `true`, `1`, or `2`), the `profile`
+  object returned under `extra` now includes a new `"instantiating executors"`
+  attribute with the time needed to create the query executors, and in cluster
+  mode, this also includes the time needed for physically distributing the query
+  snippets to the participating DB-Servers. Previously, the time spent for
+  instantiating executors and the physical distribution was contained in the
+  `optimizing plan` stage.
+
+- The endpoint supports a new `maxDNFConditionMembers` query option, which is a
+  threshold for the maximum number of `OR` sub-nodes in the internal
+  representation of an AQL `FILTER` condition and defaults to `786432`.
+
 #### Restriction of indexable fields
 
 It is now forbidden to create indexes that cover fields whose attribute names
@@ -329,6 +341,11 @@ Enterprise Edition:
 The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-running-aql-queries)
 and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
 endpoints include a new numeric `peakMemoryUsage` attribute.
+
+---
+
+The `GET /_api/query/current` endpoint can return a new value
+`"instantiating executors"` as `state` in the query list.
 
 #### View API
 
