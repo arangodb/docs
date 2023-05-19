@@ -433,10 +433,14 @@ See [AQL Date functions](aql/functions-date.html#date_isoweekyear) for details.
 
 ---
 
-Added the `SHA256()` function that calculates the SHA256 checksum for `text`
+Added the `SHA256()` function that calculates the SHA256 checksum for a string
 and returns it in a hexadecimal string representation.
 
-See [`SHA256()`](aql/functions-string#sha256.html) for details.
+```aql
+RETURN SHA256("ArangoDB") // "acbd84398a61fcc6fd784f7e16c32e02a0087fd5d631421bf7b5ede5db7fda31"
+```
+
+See [`AQL String functions`](aql/functions-string.html#sha256.html) for details.
 
 ### Extended query explain statistics
 
@@ -528,13 +532,27 @@ Query Statistics:
 
 <small>Introduced in: v3.10.3, v3.11.0</small>
 
-The query profiling output has a new `instantiating executors` stage that
-improves the query plan serialization time. The time spent in
-`instantiating executors` is the time needed to create the query executors from
-the final query execution time. In cluster mode, this stage also includes the
-time needed for physically distributing the query snippets to the participating
-database servers. Previously, the time spent for instantiating executors and
-the physical distribution was contained in the `optimizing plan` stage.
+The query profiling output has a new `instantiating executors` stage.
+The time spent in this stage is the time needed to create the query executors
+from the final query execution time. In cluster mode, this stage also includes
+the time needed for physically distributing the query snippets to the
+participating DB-Servers. Previously, the time spent for instantiating executors
+and the physical distribution was contained in the `optimizing plan` stage.
+
+```
+Query Profile:
+ Query Stage               Duration [s]
+ initializing                   0.00001
+ parsing                        0.00009
+ optimizing ast                 0.00001
+ loading collections            0.00001
+ instantiating plan             0.00004
+ optimizing plan                0.00088
+ instantiating executors        0.00153
+ executing                      1.27349
+ finalizing                     0.00091
+```
+
 
 ## Server options
 
@@ -882,11 +900,6 @@ From v3.10.6 onward, the default output format looks like this:
 arangodb_agency_cache_callback_number{role="SINGLE"} 0
 ```
 
-### Remove system collections from rebalance plan
-
-The new `excludeSystemCollections` startup option lets you remove system
-collections from the rebalance shards plan.
-
 ## Miscellaneous changes
 
 ### Write-write conflict improvements
@@ -1046,8 +1059,7 @@ have been added:
 ### arangodump
 
 _arangodump_ has a new `--dump-views` startup option to control whether
-`arangosearch` View definitions should be stored as part of the dump. The
-default value is `true`.
+View definitions shall be included in the backup. The default value is `true`.
 
 ## Internal changes
 

@@ -395,6 +395,18 @@ persisted execution statistics for Pregel jobs:
 
 See [Pregel HTTP API](http/pregel.html) for details.
 
+#### Cluster rebalance API
+
+The `POST /_admin/cluster/rebalance` and `PUT /_admin/cluster/rebalance`
+endpoints support a new `excludeSystemCollections` option that lets you ignore
+system collections in the shard rebalance plan.
+
+The `/_admin/cluster/rebalance` route (`GET`, `POST`, and `PUT` methods) returns
+a new `totalShardsFromSystemCollections` property in the `shards` object of the
+`result` with the number of leader shards from system collections. The adjacent
+`totalShards` property may not include system collections depending on the
+`excludeSystemCollections` option.
+
 #### Explain API
 
 <small>Introduced in: v3.10.4</small>
