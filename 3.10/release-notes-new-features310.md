@@ -1544,4 +1544,5 @@ The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 
 
 The bundled version of the zlib library has been upgraded from 1.2.11 to 1.2.12.
 
-For ArangoDB 3.10, the bundled version of rclone is 1.59.0.
+For ArangoDB 3.10, the bundled version of rclone is 1.59.0. Check if your
+rclone configuration files require changes.

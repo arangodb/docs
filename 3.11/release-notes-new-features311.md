@@ -431,6 +431,13 @@ RETURN DATE_ISOWEEKYEAR("2023-01-01") // { "week": 52, "year": 2022 }
 
 See [AQL Date functions](aql/functions-date.html#date_isoweekyear) for details.
 
+---
+
+Added the `SHA256()` function that calculates the SHA256 checksum for `text`
+and returns it in a hexadecimal string representation.
+
+See [`SHA256()`](aql/functions-string#sha256.html) for details.
+
 ### Extended query explain statistics
 
 <small>Introduced in: v3.10.4</small>
@@ -516,6 +523,18 @@ Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Requests   Peak Mem [b]   Exec Time [s]
            0            0           0            0               0 / 0          0          9          32768         0.00564
 ```
+
+### New stage in query profiling output
+
+<small>Introduced in: v3.10.3, v3.11.0</small>
+
+The query profiling output has a new `instantiating executors` stage that
+improves the query plan serialization time. The time spent in
+`instantiating executors` is the time needed to create the query executors from
+the final query execution time. In cluster mode, this stage also includes the
+time needed for physically distributing the query snippets to the participating
+database servers. Previously, the time spent for instantiating executors and
+the physical distribution was contained in the `optimizing plan` stage.
 
 ## Server options
 
@@ -863,6 +882,11 @@ From v3.10.6 onward, the default output format looks like this:
 arangodb_agency_cache_callback_number{role="SINGLE"} 0
 ```
 
+### Remove system collections from rebalance plan
+
+The new `excludeSystemCollections` startup option lets you remove system
+collections from the rebalance shards plan.
+
 ## Miscellaneous changes
 
 ### Write-write conflict improvements
@@ -1017,6 +1041,14 @@ have been added:
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
 
+## Client tools
+
+### arangodump
+
+_arangodump_ has a new `--dump-views` startup option to control whether
+`arangosearch` View definitions should be stored as part of the dump. The
+default value is `true`.
+
 ## Internal changes
 
 ### Upgraded bundled library versions
@@ -1031,3 +1063,6 @@ The bundled version of the immer library has been upgraded to 0.8.0.
 
 The bundled versions of the abseil-cpp, s2geometry, and wcwidth library have
 been updated to more recent versions that don't have a version number.
+
+For ArangoDB 3.11, the bundled version of rclone is 1.62.2. Check if your
+rclone configuration files require changes.
