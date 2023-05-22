@@ -127,6 +127,29 @@ See [Analyzers](analyzers.html#geo_s2) for details.
 
 ## Web interface
 
+### New graph viewer
+
+The graph viewer for visualizing named graphs has been reimplemented based on
+the [vis.js](https://visjs.org/){:target="_blank"} library, the interface
+has been redesigned to be cleaner and rewritten to use the React framework,
+and the overall performance has been improved.
+
+The available **Layout** algorithms are **forceAtlas2** and **hierarchical**.
+Force-based layouts try to avoid overlaps while grouping adjacent nodes together.
+The new hierarchical layout is useful for strict topologies like trees.
+
+A new feature is the ability to search the visible graph to center a specific
+vertex. Another quality-of-life improvement is the **Start node** setting listing
+the graph's vertex collections and the available document keys, that you can
+also search by.
+
+![New graph viewer](images/graphViewer.png)
+
+You can still switch to the old graph viewer if desired.
+
+See the [Graph Viewer](programs-web-interface-graphs.html) documentation for
+details.
+
 ### `search-alias` Views
 
 The 3.11 release of ArangoDB introduces a new web interface for Views that lets
@@ -390,6 +413,12 @@ The query optimizer automatically chooses the `hash` method for the above
 example query, but you can also specify your preferred method explicitly.
 
 See the [`COLLECT` options](aql/operations-collect.html#method) for details.
+
+### K_SHORTEST_PATHS performance improvements
+
+The `K_SHORTEST_PATHS` graph algorithm in AQL has been refactored in ArangoDB 3.11,
+resulting in major performance improvements. The query now returns the
+shortest paths between two documents in a graph up to 100 times faster.
 
 ### Added AQL functions
 

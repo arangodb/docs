@@ -8,11 +8,6 @@ description: >-
 {{ page.description }}
 {:class="lead"}
 
-{% hint 'info' %}
-This documentation describes the preview version of the Cloud Migration tool
-and is subject to change.
-{% endhint %}
-
 The `arangosync-migration` tool allows you to easily move from on-premises to 
 the cloud while ensuring a smooth transition with minimal downtime.
 Start the cloud migration, let the tool do the job and, at the same time,
@@ -58,10 +53,6 @@ Before getting started, make sure the following prerequisites are in place:
 
 - Generate an ArangoGraph API key and API secret. See a detailed guide on 
   [how to create an API key](api-getting-started.html#creating-an-api-key).
-
-- Your on-premises deployment should be able to communicate with the ArangoGraph
-  platform. Check if the host is available and your firewall is not blocking
-  port `8629`.  
 
 {% hint 'info' %}
 The cloud migration tool is only available for clusters.
@@ -115,14 +106,12 @@ are compatible without sending any data to ArangoGraph.
 
 Once the migration starts, the local cluster enters into monitoring mode and the
 synchronization status is displayed in real-time. If you don't want to see the
-status you can also terminate this process, as the underlying agent process
+status you can terminate this process, as the underlying agent process
 continues to work. If something goes wrong, restarting the same command restores
 the replication state.
 
 To restart the migration, first `stop` or `stop --abort` the migration. Then,
 start it again using the `start` command.
-Note that restarting works only if you are not using
-auto-generated certificates.
 
 {% hint 'warning' %}
 Starting the migration creates a full copy of all data from the source cluster
@@ -146,38 +135,15 @@ to handle the replication. You can stop the migration process anytime
 if you see any problems.
 {% endhint %}
 
-During active migration, the agent HTTPS server is executed on the `$MG_HOST:8629` 
-endpoint. Make sure the host and port are available for the ArangoGraph Insights Platform.
-To change the default port, use the `--agent.master-port` option.
-
 ```bash
-export MG_HOST=<your IP or publicly-available hostname here>
 ./arangosync-migration start \
   --source.cacert=tls-ca.crt \
   --source.keyfile=client-auth.keyfile \
   --source.endpoint=$COORDINATOR_ENDPOINT \
-  --source.jwtSecret=clusterSecret \
-  --oasis.api-key=$OASIS_API_KEY \
-  --oasis.api-secret=$OASIS_API_SECRET \
-  --oasis.deployment-id=$OASIS_DEPLOYMENT_ID \
-  --agent.listen-host=$MG_HOST
-```
-
-### TLS server certificates
-
-The migration agent HTTPS server uses TLS certificate pairs to ensure a secure
-connection between your local cluster and the ArangoGraph Insights Platform.
-If you do not provide them, the migration tool creates self-signed certificates.
-If you wish to provide TLS certificates, use the `arangodb` tool to convert them in
-a suitable format for the migration tool.
-See a detailed guide on how to [create a new certificate/keyfile pair](../programs-starter-security.html).
-Make sure to specify your publicly available host name, `$MG_HOST`, when creating
-the keyfile. 
-
-When starting the migration, specify the generated files in the command line:
-
-```bash
---agent.cacert=tls.crt --agent.keyfile=tls.keyfile --agent.client-auth-cacert=client-auth-ca.crt --agent.client-auth-keyfile=client-auth.keyfile
+  --source.jwt-secret=/path-to/jwt-secret.file \
+  --arango-graph.api-key=$ARANGO_GRAPH_API_KEY \
+  --arango-graph.api-secret=$ARANGO_GRAPH_API_SECRET \
+  --arango-graph.deployment-id=$ARANGO_GRAPH_DEPLOYMENT_ID
 ```
 
 ### How long does it take?
@@ -195,10 +161,10 @@ your target deployment in ArangoGraph dashboard.
 To print the current status of the migration, run the following command:
 
 ```bash
-./arangosync-migration status --watch \
-  --oasis.api-key=$OASIS_API_KEY \
-  --oasis.api-secret=$OASIS_API_SECRET \
-  --oasis.deployment-id=$OASIS_DEPLOYMENT_ID
+./arangosync-migration status \
+  --arango-graph.api-key=$ARANGO_GRAPH_API_KEY \
+  --arango-graph.api-secret=$ARANGO_GRAPH_API_SECRET \
+  --arango-graph.deployment-id=$ARANGO_GRAPH_DEPLOYMENT_ID
 ```
 
 You can also add the `--watch` option to start monitoring the status in real-time.
@@ -211,13 +177,14 @@ the migration agent process.
 If replication is running normally, the command waits until all shards are
 in sync. The local cluster is then switched into read-only mode.
 After all shards are in-sync and the migration stopped, the target deployment
-is switched into normal mode (read/write).
+is switched into the mode specified in `--source.server-mode` option. If no
+option is specified, it defaults to the read/write mode.
 
 ```bash
 ./arangosync-migration stop \
-  --oasis.api-key=$OASIS_API_KEY \
-  --oasis.api-secret=$OASIS_API_SECRET \
-  --oasis.deployment-id=$OASIS_DEPLOYMENT_ID
+  --arango-graph.api-key=$ARANGO_GRAPH_API_KEY \
+  --arango-graph.api-secret=$ARANGO_GRAPH_API_SECRET \
+  --arango-graph.deployment-id=$ARANGO_GRAPH_DEPLOYMENT_ID
 ```
 
 The additional `--abort` option is supported. If specified, the `stop` command 
@@ -244,7 +211,7 @@ error code `11` (ERROR_FORBIDDEN).
   --source.cacert=tls-ca.crt \
   --source.keyfile=client-auth.keyfile \
   --source.endpoint=$COORDINATOR_ENDPOINT \
-  --source.jwtSecret=clusterSecret \
+  --source.jwt-secret=/path-to/jwt-secret.file \
   --source.server-mode=readonly
 ```  
 The `--source.server-mode` option allows you to specify the desired server mode.
@@ -254,9 +221,9 @@ Allowed values are `readonly` or `default`.
 
 The `arangosync-migration` tool supports the following environment variables:
 
-- `$OASIS_API_KEY`
-- `$OASIS_API_SECRET`
-- `$OASIS_DEPLOYMENT_ID`
+- `$ARANGO_GRAPH_API_KEY`
+- `$ARANGO_GRAPH_API_SECRET`
+- `$ARANGO_GRAPH_DEPLOYMENT_ID`
 
 Using these environment variables is highly recommended to ensure a secure way
 of providing sensitive data to the application.

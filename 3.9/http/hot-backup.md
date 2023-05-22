@@ -15,7 +15,7 @@ Hot Backups
 
 Hot backups are near instantaneous consistent snapshots of an
 **entire** ArangoDB service. This includes all databases, collections,
-indexes, view definitions and users at any given time. 
+indexes, Views, graphs, and users at any given time. 
 
 For creations a label may be specified, which if omitted
 is replaced with a generated UUID. This label is then combined with a
