@@ -22,6 +22,10 @@ grouped by version
   edge index or cache-enabled persistent indexes to maximize cache hits and thus
   query performance.
 
+- [**New graph viewer**](release-notes-new-features311.html#new-graph-viewer):
+  Redesigned and rewritten using React framework, improves performance and
+  includes new features for search and better usability.
+
 **Enterprise Edition**
 
 - [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
