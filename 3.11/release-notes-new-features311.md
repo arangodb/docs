@@ -976,11 +976,19 @@ The following ArangoSearch metric has been added in version 3.11:
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
 
+### File descriptor limit metric
+
+The following system metric has been added in version 3.11:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+
 ### Traffic accounting metrics
 
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
-The following metrics for traffic accounting were added:
+The following metrics for traffic accounting have been added:
 
 | Label | Description |
 |:------|:------------|
@@ -1019,10 +1027,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ### Number of replication clients metric
 
+<small>Introduced in: v3.10.5</small>
+
 The following metric for the number of replication clients for a server has
 been added:
-
-<small>Introduced in: v3.10.5</small>
 
 | Label | Description |
 |:------|:------------|
@@ -1057,10 +1065,10 @@ in-memory only and are not persisted on disk.
 
 ### Sending delay metrics for internal requests
 
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11, v3.10.6</small>
 
 | Label | Description |
 |:------|:------------|
@@ -1068,6 +1076,16 @@ have been added:
 | `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
+### Peak memory metric for in-memory caches 
+
+<small>Introduced in: v3.10.7</small>
+
+This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
 
 ## Client tools
 
