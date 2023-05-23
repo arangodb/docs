@@ -774,6 +774,15 @@ benefits of BlobDB. The relevant startup options for the throttle are:
 - `--rocksdb.throttle-max-write-rate`
 - `--rocksdb.throttle-slow-down-writes-trigger`
 
+### `--query.max-dnf-condition-members` option
+
+See [Limit for the normalization of `FILTER` conditions](#limit-for-the-normalization-of-filter-conditions).
+
+### `--rocksdb.reserve-file-metadata-memory` option
+
+This new startup option controls whether to account for `.sst` file metadata
+memory in the block cache.
+
 ### ArangoSearch column cache limit
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
@@ -1007,17 +1016,6 @@ The following ArangoSearch metric has been added in version 3.11:
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
 
-### File descriptor limit metric
-
-<small>Introduced in: v.3.10.7</small>
-
-The following system metrics have been added:
-
-| Label | Description |
-|:------|:------------|
-| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
-| `arangodb_file_descriptors_current` | Number of file descriptors currently opened by the arangod process. |
-
 ### Traffic accounting metrics
 
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
@@ -1120,6 +1118,17 @@ This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
 | Label | Description |
 |:------|:------------|
 | `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
+
+### File descriptor metrics
+
+<small>Introduced in: v3.10.7</small>
+
+The following system metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+| `arangodb_file_descriptors_current` | Number of file descriptors currently opened by the arangod process. |
 
 ## Client tools
 
