@@ -718,6 +718,17 @@ The following metric stores the peak value of the `rocksdb_cache_allocated` metr
 |:------|:------------|
 | `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
 
+---
+
+<small>Introduced in: v.3.10.7</small>
+
+The following metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+| `arangodb_file_descriptors_current` | Number of file descriptors currently opened by the arangod process. |
+
 #### Pregel API
 
 When loading the graph data into memory, a `"loading"` state is now returned by

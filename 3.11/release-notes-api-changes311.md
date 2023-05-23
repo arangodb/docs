@@ -438,12 +438,20 @@ following two new statistics in the `stats` attribute of the response now:
 
 #### Metrics API
 
-The following metrics have been added in version 3.11:
+The following metric has been added in version 3.11:
 
 | Label | Description |
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
-| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+
+---
+
+<small>Introduced in: v3.10.7</small>
+
+The metrics endpoints include the following new file descriptors metrics:
+
+- `arangodb_file_descriptors_current`
+- `arangodb_file_descriptors_limit`
 
 ---
 
