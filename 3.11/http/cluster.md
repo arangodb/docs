@@ -148,7 +148,123 @@ in the future. For such reports we need an agency history (covering the
 shard distribution before and after the move) and if at all possible
 also the output of the API calls described here.
 
+See below after the API description for a worked example of how to
+rebalance a cluster using these APIs.
+
 {% docublock get_admin_cluster_rebalance %}
 {% docublock post_admin_cluster_rebalance %}
 {% docublock post_admin_cluster_rebalance_execute %}
 {% docublock put_admin_cluster_rebalance %}
+
+## Worked example of using the rebalancing API
+
+By far the easiest way to rebalance a cluster is to simply call the
+PUT variant of the API, which analyses the situation, comes up with a
+plan to balance things out and directly schedules it. To rebalance
+leaders, one can basically just use `curl` like this:
+
+```
+curl -X PUT https://<endpoint>:<port>/_admin/cluster/rebalance -d '{"version":1}' --user root:<rootpassword>
+```
+
+You need admin rights, so you should use the user `root` or another user
+with write permissions on the `_system` database. Alternatively, you can
+use a header with a valid JWT token (for superuser access).
+
+Note that this API call only triggers the rebalancing operation, the API
+call returns before the actual rebalancing is finished!
+
+Since the default for `leaderChanges` is `true` and for `moveLeaders`
+and `moveFollowers` is `false`, this will **only** schedule cheap leader
+changes. So it can address leader imbalance, but not data imbalance.
+
+You can monitor progress with this command:
+
+```
+curl https://<endpoint>:<port>/_admin/cluster/rebalance --user root:<rootpassword>
+```
+
+The resulting object looks roughly like this:
+
+```json
+{
+  "error": false,
+  "code": 200,
+  "result": {
+    "leader": {
+      "weightUsed": [
+        51,
+        54,
+        53
+      ],
+      "targetWeight": [
+        52.666666666666664,
+        52.666666666666664,
+        52.666666666666664
+      ],
+      "numberShards": [
+        31,
+        54,
+        21
+      ],
+      ...
+      "imbalance": 1920000004.6666667
+    },
+    "shards": {
+      "sizeUsed": [
+        60817408,
+        106954752,
+        54525952
+      ],
+      "targetSize": [
+        74099370.66666666,
+        74099370.66666666,
+        74099370.66666666
+      ],
+      "numberShards": [
+        58,
+        102,
+        52
+      ],
+      ...
+      "imbalance": 1639005333138090.8
+    },
+    "pendingMoveShards": 0,
+    "todoMoveShards": 0
+  }
+}
+```
+
+Of particular relevance are the two attributes `pendingMoveShards` and
+`todoMoveShards`. These shows how many move operations are still to do
+(scheduled, but not begun), and how many are pending (scheduled,
+started, but not yet finished). Once these two numbers have reached 0,
+the rebalancing operation is finished.
+
+In the `leader` section you see stats about the distribution of the
+leader shards, in the `shards` section you see stats about the
+distribution of the data (leader shards and follower shards). In both
+sections, we see numbers for `numberShards` and for the current
+distribution (`weightUsed` for leaders and `sizeUsed` for shards), as
+well as for the target distribution. Finally, the `imbalance` number is
+the "imbalance score", its absolute value is not meaningful, but the
+smaller the score, the better the balance is.
+
+If you actually want to allow the system to move data to improve the
+data distribution, use this command:
+
+```
+curl -X PUT https://<endpoint>:<port>/_admin/cluster/rebalance -d '{"version":1, "moveLeaders": true, "moveFollowers": true}' --user root:<rootpassword>
+```
+
+Note again that this API call only triggers the rebalancing operation,
+the API call returns before the actual rebalancing is finished!
+
+This operation is monitored with the same `GET` request as above, you
+can expect that it will take considerably longer to finish.
+
+There are a few more knobs to turn in this, but these should usually not
+be necessary and are intended only for expert use.
+
+Note that both these API calls only ever schedules up to 1000 move shard jobs.
+For large data sets, you might want to repeat the call after completion.
