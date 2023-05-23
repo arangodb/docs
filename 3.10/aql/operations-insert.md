@@ -44,7 +44,7 @@ single document:
 INSERT { value: 1 } INTO numbers
 ```
 
-When inserting into an [edge collection](../data-model-and-concepts.html#graph-model),
+When inserting into an [edge collection](../data-models.html#graph-model),
 it is mandatory to specify the attributes `_from` and `_to` in document:
 
 ```aql
