@@ -720,7 +720,7 @@ The following metric stores the peak value of the `rocksdb_cache_allocated` metr
 
 ---
 
-<small>Introduced in: v.3.10.7</small>
+<small>Introduced in: v3.10.7</small>
 
 The following metrics have been added:
 

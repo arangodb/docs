@@ -1328,11 +1328,11 @@ arangodb_agency_cache_callback_number{role="SINGLE"} 0
 
 <small>Introduced in: v3.10.7</small>
 
-The `--server.descriptors-count-interval` startup option can be used to specify
-the update interval in miliseconds when counting the number of open file
+The `--server.count-descriptors-interval` startup option can be used to specify
+the update interval in milliseconds when counting the number of open file
 descriptors.
 
-The default value is `60,000`, i.e. the update interval is once per minute.
+The default value is `60000`, i.e. the update interval is once per minute.
 To disable the counting of open file descriptors, you can set the value to `0`.
 If counting is turned off, the `arangodb_file_descriptors_current` metric
 reports a value of `0`.
@@ -1484,7 +1484,7 @@ This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
 
 ### File descriptor limit metric
 
-<small>Introduced in: v.3.10.7</small>
+<small>Introduced in: v3.10.7</small>
 
 The following system metrics have been added:
 
