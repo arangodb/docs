@@ -635,7 +635,7 @@ in AQL queries, which support a `refillIndexCache` option, too.
 #### Metrics API
 
 The `GET /_admin/metrics/v2` (and `GET /_admin/metrics`) endpoints provide
-metrics for `arangosearch` View links and inverted indexes:
+newly added metrics for `arangosearch` View links and inverted indexes:
 
 - `arangodb_search_cleanup_time`
 - `arangodb_search_commit_time`
@@ -685,10 +685,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ---
 
+<small>Introduced in: v3.10.5</small>
+
 The following metric for the number of replication clients for a server has
 been added:
-
-<small>Introduced in: v3.10.5</small>
 
 | Label | Description |
 |:------|:------------|
@@ -696,10 +696,10 @@ been added:
 
 ---
 
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11, v3.10.6</small>
 
 | Label | Description |
 |:------|:------------|
@@ -707,6 +707,16 @@ have been added:
 | `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
+---
+
+<small>Introduced in: v3.10.7</small>
+
+The following metric stores the peak value of the `rocksdb_cache_allocated` metric:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
 
 #### Pregel API
 
