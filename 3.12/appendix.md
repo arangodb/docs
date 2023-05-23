@@ -11,3 +11,4 @@ Appendix
 - [JavaScript Modules](appendix-java-script-modules.html): List of built-in and supported JS modules
 - [Deprecated](appendix-deprecated.html): Features that are considered obsolete and may get removed eventually
 - [Error codes and meanings](appendix-error-codes.html): List of all possible errors that can be encountered
+- [Telemetrics](appendix-telemetrics.html): What usage data ArangoDB collects and how to opt-out
