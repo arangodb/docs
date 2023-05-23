@@ -22,7 +22,7 @@ more about:
 - Get data in and out of ArangoDB
 - Back up and restore data in ArangoDB
 
-Learn more about ArangoDB's [data structure](data-structure.html) and 
+Learn more about ArangoDB's [data structure](data-structure.html) and
 [data models](data-models.html).
 
 ## Modeling Data for ArangoDB
