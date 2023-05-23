@@ -184,10 +184,6 @@ Disabled:
 arangodb_agency_cache_callback_number{role="SINGLE"}0
 ```
 
-### Privilege changes
-
-
-
 ### Endpoint return value changes
 
 - Changed the encoding of revision IDs returned by the below listed REST APIs.
@@ -542,18 +538,6 @@ following two new statistics in the `stats` attribute of the response now:
   explain (in bytes)
 - `executionTime` (number): The (wall-clock) time in seconds needed to explain
   the query.
-
-### Endpoints moved
-
-
-
-### Endpoints deprecated
-
-
-
-### Endpoints removed
-
-
 
 ## JavaScript API
 
