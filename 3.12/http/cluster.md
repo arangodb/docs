@@ -67,7 +67,7 @@ progress towards a better state, but "perfection" is hard, and finding
 a "cheap" way to get there is even harder.
 
 The APIs described here try to help with the following approach: There
-is a "imbalance score" which is computed on a given shard distribution, which
+is an "imbalance score" which is computed on a given shard distribution, which
 basically says how "imbalanced" the cluster is. This score involves
 leader imbalance as well as data imbalance. Higher score means more
 imbalance, the actual numerical value does not have any meaning.
@@ -120,7 +120,7 @@ current scope and limits of this API.
 First, in the case of smart graphs or one shard databases, not all shards can
 be moved freely. Rather, some shards are "coupled" and can only move
 their place in the cluster or even their leadership together. This
-severley limits the possibilities of shard movement and sometimes makes a
+severely limits the possibilities of shard movement and sometimes makes a
 good balance impossible. A prominent example here is a single one shard
 database in the cluster. In this case **all** leaders **have to** reside
 on the same server, so no good leader distribution is possible at all.

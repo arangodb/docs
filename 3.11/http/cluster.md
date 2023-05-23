@@ -67,7 +67,7 @@ progress towards a better state, but "perfection" is hard, and finding
 a "cheap" way to get there is even harder.
 
 The APIs described here try to help with the following approach: There
-is a "imbalance score" which is computed on a given shard distribution, which
+is an "imbalance score" which is computed on a given shard distribution, which
 basically says how "imbalanced" the cluster is. This score involves
 leader imbalance as well as data imbalance. Higher score means more
 imbalance, the actual numerical value does not have any meaning.
