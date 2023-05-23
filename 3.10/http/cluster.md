@@ -39,7 +39,7 @@ redirect_from:
 
 ## Rebalance
 
-The API calls in this chapter deserve some explanation. As of Version
+The API calls in this chapter deserve some explanation. As of version
 3.10 ArangoDB has some builtin capabilities to rebalance the
 distribution of shards. This might become necessary since imbalances
 can lead to uneven disk usage across the DBServers (data
@@ -67,7 +67,7 @@ progress towards a better state, but "perfection" is hard, and finding
 a "cheap" way to get there is even harder.
 
 The APIs described here try to help with the following approach: There
-is a "imbalance score" which is computed on a given shard distribution, which
+is an "imbalance score" which is computed on a given shard distribution, which
 basically says how "imbalanced" the cluster is. This score involves
 leader imbalance as well as data imbalance. Higher score means more
 imbalance, the actual numerical value does not have any meaning.
@@ -120,7 +120,7 @@ current scope and limits of this API.
 First, in the case of smart graphs or one shard databases, not all shards can
 be moved freely. Rather, some shards are "coupled" and can only move
 their place in the cluster or even their leadership together. This
-severly limits the possibilities of shard movement and sometimes makes a
+severely limits the possibilities of shard movement and sometimes makes a
 good balance impossible. A prominent example here is a single one shard
 database in the cluster. In this case **all** leaders **have to** reside
 on the same server, so no good leader distribution is possible at all.
@@ -159,7 +159,7 @@ rebalance a cluster using these APIs.
 ## Worked example of using the rebalancing API
 
 By far the easiest way to rebalance a cluster is to simply call the
-PUT variant of the API, which analyses the situation, comes up with a
+PUT variant of the API, which analyzes the situation, comes up with a
 plan to balance things out and directly schedules it. To rebalance
 leaders, one can basically just use `curl` like this:
 
@@ -236,7 +236,7 @@ The resulting object looks roughly like this:
 ```
 
 Of particular relevance are the two attributes `pendingMoveShards` and
-`todoMoveShards`. These shows how many move operations are still to do
+`todoMoveShards`. These show how many move operations are still to do
 (scheduled, but not begun), and how many are pending (scheduled,
 started, but not yet finished). Once these two numbers have reached 0,
 the rebalancing operation is finished.
