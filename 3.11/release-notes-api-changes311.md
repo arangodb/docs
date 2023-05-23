@@ -139,6 +139,14 @@ value of `0` as the `numberOfShards`. They now return the actual number of
 shards. This value can be higher than the configured `numberOfShards` value of
 the graph due to internally used hidden collections.
 
+#### Cursor API
+
+When you link a collection to an `arangosearch` View and run an AQL query
+against this View while it is still being indexed, you now receive the query result
+including a warning. This warning alerts you about potentially incomplete results obtained
+from a partially indexed collection. The error code associated with this
+warning is `1240` (`ERROR_ARANGO_INCOMPLETE_READ`).
+
 #### Log API
 
 Setting the log level for the `graphs` log topic to `TRACE` now logs detailed
@@ -401,11 +409,12 @@ following two new statistics in the `stats` attribute of the response now:
 
 #### Metrics API
 
-The following ArangoSearch metric has been added in version 3.11:
+The following metrics have been added in version 3.11:
 
 | Label | Description |
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
 
 ---
 
@@ -442,10 +451,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ---
 
+<small>Introduced in: v3.10.5</small>
+
 The following metric for the number of replication clients for a server has
 been added:
-
-<small>Introduced in: v3.10.5</small>
 
 | Label | Description |
 |:------|:------------|
@@ -453,10 +462,10 @@ been added:
 
 ---
 
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11, v3.10.6</small>
 
 | Label | Description |
 |:------|:------------|
@@ -464,6 +473,16 @@ have been added:
 | `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
+---
+
+<small>Introduced in: v3.10.7</small>
+
+The following metric stores the peak value of the `rocksdb_cache_allocated` metric:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
 
 #### Log level API
 
@@ -521,6 +540,16 @@ In case of success, they still return `true`.
 
 You can wrap calls to these methods with a `try { ... }` block to catch errors,
 for example, in _arangosh_ or in Foxx services.
+
+### AQL queries
+
+When you use e.g. the `db._query()` method to execute an AQL query against an
+`arangosearch` View while it is still in the process of being built,
+the query now includes a warning message that the results may not be
+complete due to the ongoing indexing process of the View.
+
+The error code associated with this warning is `1240`
+(`ERROR_ARANGO_INCOMPLETE_READ`).
 
 ### Pregel module
 

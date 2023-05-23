@@ -644,7 +644,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   which cannot be moved before the sort, or a source node like
   `EnumerateCollectionNode`). This is used to make the `SortNode` aware of
   the limit and offset from the `LimitNode` to enable some optimizations
-  internal to the `SortNode` which allow for reduced memory usage and and in
+  internal to the `SortNode` which allow for reduced memory usage and in
   many cases, improved sorting speed. The optimizer may choose not to apply
   the rule if it decides that it offers little or no benefit. In particular,
   it does not apply the rule if the input size is very small or if the output

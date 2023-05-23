@@ -127,6 +127,29 @@ See [Analyzers](analyzers.html#geo_s2) for details.
 
 ## Web interface
 
+### New graph viewer
+
+The graph viewer for visualizing named graphs has been reimplemented based on
+the [vis.js](https://visjs.org/){:target="_blank"} library, the interface
+has been redesigned to be cleaner and rewritten to use the React framework,
+and the overall performance has been improved.
+
+The available **Layout** algorithms are **forceAtlas2** and **hierarchical**.
+Force-based layouts try to avoid overlaps while grouping adjacent nodes together.
+The new hierarchical layout is useful for strict topologies like trees.
+
+A new feature is the ability to search the visible graph to center a specific
+vertex. Another quality-of-life improvement is the **Start node** setting listing
+the graph's vertex collections and the available document keys, that you can
+also search by.
+
+![New graph viewer](images/graphViewer.png)
+
+You can still switch to the old graph viewer if desired.
+
+See the [Graph Viewer](programs-web-interface-graphs.html) documentation for
+details.
+
 ### `search-alias` Views
 
 The 3.11 release of ArangoDB introduces a new web interface for Views that lets
@@ -390,6 +413,12 @@ The query optimizer automatically chooses the `hash` method for the above
 example query, but you can also specify your preferred method explicitly.
 
 See the [`COLLECT` options](aql/operations-collect.html#method) for details.
+
+### K_SHORTEST_PATHS performance improvements
+
+The `K_SHORTEST_PATHS` graph algorithm in AQL has been refactored in ArangoDB 3.11,
+resulting in major performance improvements. The query now returns the
+shortest paths between two documents in a graph up to 100 times faster.
 
 ### Added AQL functions
 
@@ -913,11 +942,19 @@ The following ArangoSearch metric has been added in version 3.11:
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
 
+### File descriptor limit metric
+
+The following system metric has been added in version 3.11:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+
 ### Traffic accounting metrics
 
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
-The following metrics for traffic accounting were added:
+The following metrics for traffic accounting have been added:
 
 | Label | Description |
 |:------|:------------|
@@ -956,10 +993,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ### Number of replication clients metric
 
+<small>Introduced in: v3.10.5</small>
+
 The following metric for the number of replication clients for a server has
 been added:
-
-<small>Introduced in: v3.10.5</small>
 
 | Label | Description |
 |:------|:------------|
@@ -994,10 +1031,10 @@ in-memory only and are not persisted on disk.
 
 ### Sending delay metrics for internal requests
 
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11, v3.10.6</small>
 
 | Label | Description |
 |:------|:------------|
@@ -1005,6 +1042,16 @@ have been added:
 | `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
+### Peak memory metric for in-memory caches 
+
+<small>Introduced in: v3.10.7</small>
+
+This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
 
 ## Internal changes
 
