@@ -7,7 +7,7 @@ Graphs
 
 The *Graphs* tab provides a viewer facility for graph data stored in ArangoDB.
 It allows browsing ArangoDB graphs stored in the *_graphs* system collection or
-a graph consisting of an arbitrary vertex and [edge collection](data-model-and-concepts.html#graph-model).
+a graph consisting of an arbitrary vertex and [edge collection](data-models.html#graph-model).
 
 ![manage graphs](images/graphsView.png)
 

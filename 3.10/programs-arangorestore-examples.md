@@ -163,7 +163,7 @@ arangorestore --collection myusers --collection myvalues --input-directory "dump
 ```
 
 Collections are processed in alphabetical order by _arangorestore_, with all document
-collections being processed before all [edge collections](data-model-and-concepts.html#graph-model).
+collections being processed before all [edge collections](data-models.html#graph-model).
 This remains valid also when multiple threads are in use.
 
 Note however that when restoring an edge collection no internal checks are made in order to validate that
