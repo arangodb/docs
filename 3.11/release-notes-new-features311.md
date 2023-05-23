@@ -194,7 +194,7 @@ This is particularly helpful when you have a large amount of saved custom
 queries and want to see which ones have been created or used recently.
 
 In addition, the web interface also offers a search box which helps you
-quickly find the query you're looking for. 
+quickly find the query you're looking for.
 
 ## AQL
 
@@ -494,7 +494,7 @@ Query String (33 chars, cacheable: false):
 Execution plan:
  Id   NodeType          Site  Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode     DBS       3       3          0       0.00024   * ROOT
-  9   IndexNode         DBS       3       0          0       0.00060     - FOR doc IN coll   /* primary index scan, index only (projections: `_key`), 3 shard(s) */    
+  9   IndexNode         DBS       3       0          0       0.00060     - FOR doc IN coll   /* primary index scan, index only (projections: `_key`), 3 shard(s) */
   3   CalculationNode   DBS       3       0          0       0.00025       - LET #1 = doc.`_key`   /* attribute expression */   /* collections used: doc : coll */
   7   RemoteNode        COOR      6       0          0       0.00227       - REMOTE
   8   GatherNode        COOR      2       0          0       0.00209       - GATHER   /* parallel, unsorted */
@@ -518,6 +518,24 @@ Query Statistics:
 ```
 
 ## Server options
+
+### Telemetrics
+
+Starting with version 3.11, ArangoDB automatically gathers information on how
+it is used and the features being utilized. This data is used to identify the
+primary usage patterns and features, and to measure their adoption rate.
+
+The information collected by ArangoDB is anonymous and purely statistical.
+It does not contain any personal information like usernames or IP addresses, nor
+any content of the documents stored in ArangoDB. This means that your privacy is
+protected, and that there is no risk of your data being compromised.
+
+If for any reason you prefer not to share usage statistics with ArangoDB, you
+can easily disable this feature by setting the new `--server.telemetrics-api`
+startup option to `false`. The default value is `true`.
+
+For a detailed list of what anonymous metrics ArangoDB collects see
+[Telemetrics](appendix-telemetrics.html).
 
 ### Extended naming constraints for collections, Views, and indexes
 
@@ -557,7 +575,7 @@ FOR doc IN `🥑~колекція =)`
   RETURN doc
 ```
 
-When using extended names, any Unicode characters in names need to be 
+When using extended names, any Unicode characters in names need to be
 [NFC-normalized](http://unicode.org/reports/tr15/#Norm_Forms){:target="_blank"}.
 If you try to create a database, collection, View, or index with a non-NFC-normalized
 name, the server rejects it.
@@ -635,8 +653,8 @@ From version 3.11 onward, ArangoDB can make use of RocksDB's integrated BLOB
 This is currently an experimental feature, not supported and should not be used in production.
 
 [BlobDB is an integral part of RocksDB](https://rocksdb.org/blog/2021/05/26/integrated-blob-db.html){:target="_blank"}
-and provides a key-value separation: large values are stored in dedicated BLOB 
-files, and only a small pointer to them is stored in the LSM tree's SST files. 
+and provides a key-value separation: large values are stored in dedicated BLOB
+files, and only a small pointer to them is stored in the LSM tree's SST files.
 Storing values separate from the keys means that the values do no need to be moved
 through the LSM tree by the compaction. This reduces write amplification and is
 especially beneficial for large values.
@@ -661,7 +679,7 @@ There are currently a few caveats when using BlobDB in ArangoDB:
   read amplification and may worsen the read performance for some workloads.
 - The various tuning parameters that BlobDB offers are made available in ArangoDB,
   but the current default settings for the BlobDB tuning options are not ideal
-  for many use cases and need to be adjusted by administrators first. 
+  for many use cases and need to be adjusted by administrators first.
 - It is very likely that the default settings for the BlobDB tuning options will
   change in future versions of ArangoDB.
 - Memory and disk usage patterns are different to that of versions running without
@@ -988,12 +1006,12 @@ been added:
 
 <small>Introduced in: v3.10.5</small>
 
-The memory usage of in-memory edge index caches is reduced if most of the edges 
+The memory usage of in-memory edge index caches is reduced if most of the edges
 in an index refer to a single or mostly the same collection.
 
 Previously, the full edge IDs, consisting of the the referred-to collection
 name and the referred-to key of the edge, were stored in full, i.e. the full
-values of the edges' `_from` and `_to` attributes. 
+values of the edges' `_from` and `_to` attributes.
 Now, the first edge inserted into an edge index' in-memory cache determines
 the collection name for which all corresponding edges can be stored
 prefix-compressed.
