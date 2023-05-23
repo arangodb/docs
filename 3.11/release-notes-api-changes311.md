@@ -147,6 +147,37 @@ including a warning. This warning alerts you about potentially incomplete result
 from a partially indexed collection. The error code associated with this
 warning is `1240` (`ERROR_ARANGO_INCOMPLETE_READ`).
 
+---
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals (`POST /_api/cursor` endpoint), you can restrict the
+vertex and edge collections in the traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
+
+Furthermore, it is now an error if you specify a vertex collection that is not
+part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
+It is also an error if you specify an edge collection that is not part of the
+named graph's definition or of the list of edge collections (code `1939` and
+HTTP status `400 Bad Request`).
+
 #### Log API
 
 Setting the log level for the `graphs` log topic to `TRACE` now logs detailed
@@ -553,6 +584,18 @@ complete due to the ongoing indexing process of the View.
 
 The error code associated with this warning is `1240`
 (`ERROR_ARANGO_INCOMPLETE_READ`).
+
+---
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+If you specify collections that don't exist in the options of AQL graph traversals
+(`vertexCollections`, `edgeCollections`), queries now fail. In previous versions,
+unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.
+
+Additionally, queries fail if you specify a document collection or View
+in `edgeCollections`.
 
 ### Pregel module
 
