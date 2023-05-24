@@ -39,8 +39,7 @@ redirect_from:
 
 ## Rebalance
 
-The API calls in this chapter deserve some explanation. As of version
-3.10 ArangoDB has some builtin capabilities to rebalance the
+As of version 3.10, ArangoDB has built-in capabilities to rebalance the
 distribution of shards. This might become necessary since imbalances
 can lead to uneven disk usage across the DBServers (data
 unbalance) or to uneven load distribution across the DBServers
@@ -48,17 +47,17 @@ unbalance) or to uneven load distribution across the DBServers
 
 If the data is distributed relatively evenly across the DBServers, then
 the leader imbalance can usually be adjusted relatively cheaply, since
-we only have to transfer leadership for a number of shards to a
+you only have to transfer leadership for a number of shards to a
 different replica, which already has the data. This is not true in all
 cases, but as a rule of thumb it is true.
 
 If, however, data needs to be moved between DBServers, then this is a
-costly and potentially lengthy operation. This is inevitable, but we
-have made it so that this is done in the backgroud and does not lead to
-service interruption.
+costly and potentially lengthy operation. This is inevitable, but it has
+been made in this way so that this operation is done in the background and
+does not lead to service interruption.
 
-Nevertheless, data movement requires I/O, CPU and network resources and
-thus will always put an additional load on the cluster.
+Nevertheless, data movement requires I/O, CPU, and network resources and
+thus it always puts an additional load on the cluster.
 
 Rebalancing shards is a rather complex optimization problem, in
 particular if there are many shards in the system. Fortunately, in most
@@ -77,10 +76,10 @@ imbalanced the cluster currently is. The `POST` API call does the same
 and additionally computes a list of shard movements which the system 
 suggests to lower the imbalance score. A variant of the `POST` API call
 can then take this (or another) suggestion and execute it in the
-backgroud. For convenience, we offer the `PUT` API call to do all at
-once: compute the score, suggest moves and execute them right away.
-Since the execution can take some time, the `GET` API call will also
-tell how many of the moves are still outstanding.
+background. For convenience, you can use the `PUT` API call to do all at
+once: compute the score, suggest moves, and execute them right away.
+Since the execution can take some time, the `GET` API call also
+tells you how many of the moves are still outstanding.
 
 There are three types of moves:
 
@@ -95,23 +94,23 @@ There are three types of moves:
 
 The suggestion engine behind the `POST` and `PUT` API calls has three
 switches to activate/deactivate these three types of moves
-independently. If a type of move is activated, the engine will consider
-all possible such moves, if it is deactivated, no such moves will be
+independently. If a type of move is activated, the engine considers
+all possible such moves, if it is deactivated, no such moves are
 considered. The three flags are:
 
 1. `leaderChanges` (default `true`): consider moves of type 1.
 2. `moveLeaders` (default `false`): consider moves of type 2.
 3. `moveFollowers` (default `false`): consider moves of type 3.
 
-The engine will then enumerate all possible moves of the various types.
-It will then always first choose the one which improves the imbalance
-the most. After that move, it will reevaluate the imbalance score and
+The engine then enumerates all possible moves of the various types.
+The first choice is the one which improves the imbalance
+the most. After that move, it reevaluates the imbalance score and
 again look for the move which improves the imbalance score the most.
-It will altogether suggest/do up to `maximumNumberOfMoves` moves and
-then stop. The default for this maximum is 1000 and it is capped at 5000
-to avoid overly long optimization computations.
-It is conceivable that for large clusters 1000 or even 5000 might not be
-enough to achieve a full balancing. In such cases one simply has to
+It altogether suggests up to `maximumNumberOfMoves` moves and
+then stops. The default value for this maximum is `1000` and it is capped at
+`5000` to avoid overly long optimization computations.
+It is conceivable that for large clusters, `1000` or even `5000` might not be
+enough to achieve a full balancing. In such cases, you simply have to
 repeat the API calls potentially multiple times.
 
 Finally, we need to explain that some rebalancing tasks are beyond the
@@ -122,7 +121,7 @@ be moved freely. Rather, some shards are "coupled" and can only move
 their place in the cluster or even their leadership together. This
 severely limits the possibilities of shard movement and sometimes makes a
 good balance impossible. A prominent example here is a single one shard
-database in the cluster. In this case **all** leaders **have to** reside
+database in the cluster. In this case, **all** leaders **have to** reside
 on the same server, so no good leader distribution is possible at all.
 
 Secondly, the current implementation does not take actual shard sizes
@@ -135,9 +134,9 @@ disk size usage.
 
 Thirdly, the current implementation does not take compute load on
 different collections and shards into account. Therefore, it is possible
-that we end up with a shard distribution which distributes the **leader
-numbers** evenly across the cluster, even though the actual compute load
-is then unevenly distributed, since some collections/shard simply are
+that we end up with a shard distribution which distributes the
+**leader numbers** evenly across the cluster, even though the actual compute
+load is then unevenly distributed, since some collections/shard simply are
 hit by more queries than others.
 
 Finally, good shard balancing is a difficult problem and we are likely
@@ -148,20 +147,15 @@ in the future. For such reports we need an agency history (covering the
 shard distribution before and after the move) and if at all possible
 also the output of the API calls described here.
 
-See below after the API description for a worked example of how to
-rebalance a cluster using these APIs.
+For more details, see a worked example of how to rebalance a cluster
+using these APIs.
 
-{% docublock get_admin_cluster_rebalance %}
-{% docublock post_admin_cluster_rebalance %}
-{% docublock post_admin_cluster_rebalance_execute %}
-{% docublock put_admin_cluster_rebalance %}
+### How to use the rebalancing API
 
-## Worked example of using the rebalancing API
-
-By far the easiest way to rebalance a cluster is to simply call the
-PUT variant of the API, which analyzes the situation, comes up with a
-plan to balance things out and directly schedules it. To rebalance
-leaders, one can basically just use `curl` like this:
+By far, the easiest way to rebalance a cluster is to simply call the
+`PUT` variant of the API, which analyzes the situation, comes up with a
+plan to balance things out, and directly schedules it. To rebalance
+leaders, you can use `curl` like this:
 
 ```
 curl -X PUT https://<endpoint>:<port>/_admin/cluster/rebalance -d '{"version":1}' --user root:<rootpassword>
@@ -171,11 +165,13 @@ You need admin rights, so you should use the user `root` or another user
 with write permissions on the `_system` database. Alternatively, you can
 use a header with a valid JWT token (for superuser access).
 
+{% hint 'info' %}
 Note that this API call only triggers the rebalancing operation, the API
 call returns before the actual rebalancing is finished!
+{% endhint %}
 
-Since the default for `leaderChanges` is `true` and for `moveLeaders`
-and `moveFollowers` is `false`, this will **only** schedule cheap leader
+Since the default value for `leaderChanges` is `true` and for `moveLeaders`
+and `moveFollowers` is `false`, this **only** schedules cheap leader
 changes. So it can address leader imbalance, but not data imbalance.
 
 You can monitor progress with this command:
@@ -257,14 +253,21 @@ data distribution, use this command:
 curl -X PUT https://<endpoint>:<port>/_admin/cluster/rebalance -d '{"version":1, "moveLeaders": true, "moveFollowers": true}' --user root:<rootpassword>
 ```
 
-Note again that this API call only triggers the rebalancing operation,
+{% hint 'info' %}
+Note that this API call only triggers the rebalancing operation,
 the API call returns before the actual rebalancing is finished!
+{% endhint %}
 
-This operation is monitored with the same `GET` request as above, you
-can expect that it will take considerably longer to finish.
+This operation is monitored with the same `GET` request as above, it is
+expected that it takes considerably longer to finish.
 
 There are a few more knobs to turn in this, but these should usually not
 be necessary and are intended only for expert use.
 
 Note that both these API calls only ever schedules up to 1000 move shard jobs.
 For large data sets, you might want to repeat the call after completion.
+
+{% docublock get_admin_cluster_rebalance %}
+{% docublock post_admin_cluster_rebalance %}
+{% docublock post_admin_cluster_rebalance_execute %}
+{% docublock put_admin_cluster_rebalance %}
