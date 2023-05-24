@@ -152,6 +152,35 @@ revision of the document as stored in the database (if available, otherwise empt
   backing storage for large datasets has been removed. Memory paging/swapping
   provided by the operating system is equally effective.
 
+## New query stage
+
+- When profiling a query (`profile` option `true`, `1`, or `2`), the `profile`
+  object returned under `extra` now includes a new `"instantiating executors"`
+  attribute with the time needed to create the query executors, and in cluster
+  mode, this also includes the time needed for physically distributing the query
+  snippets to the participating DB-Servers. Previously, the time spent for
+  instantiating executors and the physical distribution was contained in the
+  `optimizing plan` stage.
+
+- The `state` of a query can now additionally be `"instantiating executors"` in
+  the list of currently running queries.
+
+## Limit for the normalization of `FILTER` conditions
+
+Converting complex AQL `FILTER` conditions with a lot of logical branches
+(`AND`, `OR`, `NOT`) into the internal DNF (disjunctive normal form) format can
+take a large amount of processing time and memory. The new `maxDNFConditionMembers`
+query option is a threshold for the maximum number of `OR` sub-nodes in the
+internal representation and defaults to `786432`.
+
+You can also set the threshold globally instead of per query with the
+[`--query.max-dnf-condition-members` startup option](programs-arangod-options.html#--querymax-dnf-condition-members).
+
+If the threshold is hit, the query continues with a simplified representation of
+the condition, which is **not usable in index lookups**. However, this should
+still be better than overusing memory or taking a very long time to compute the
+DNF version.
+
 ## Validation of traversal collection restrictions
 
 <small>Introduced in: v3.9.11, v3.10.7</small>

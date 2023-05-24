@@ -215,24 +215,20 @@ Disabled:
 arangodb_agency_cache_callback_number{role="SINGLE"}0
 ```
 
-### Privilege changes
-
-
-
 ### Endpoint return value changes
 
-- Changed the encoding of revision IDs returned by the below listed REST APIs.
+<small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
 
-  <small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+Changed the encoding of revision IDs returned by the below listed REST APIs:
 
-  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
-    previously returned as numeric value, and now it is returned as
-    a string value with either numeric encoding or HLC-encoding inside.
-  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
-    the `revision` attribute was previously encoded as a numeric value
-    in single server, and as a string in cluster. This is now unified so
-    that the `revision` attribute always contains a string value with
-    either numeric encoding or HLC-encoding inside.
+- `GET /_api/collection/<collection-name>/revision`: The revision ID was
+  previously returned as numeric value, and now it is returned as
+  a string value with either numeric encoding or HLC-encoding inside.
+- `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+  the `revision` attribute was previously encoded as a numeric value
+  in single server, and as a string in cluster. This is now unified so
+  that the `revision` attribute always contains a string value with
+  either numeric encoding or HLC-encoding inside.
 
 ### Endpoints added
 
@@ -337,6 +333,18 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
   server doesn't unnecessary keep the batch until the cursor times out
   (`ttl` query option).
 
+- When profiling a query (`profile` option `true`, `1`, or `2`), the `profile`
+  object returned under `extra` now includes a new `"instantiating executors"`
+  attribute with the time needed to create the query executors, and in cluster
+  mode, this also includes the time needed for physically distributing the query
+  snippets to the participating DB-Servers. Previously, the time spent for
+  instantiating executors and the physical distribution was contained in the
+  `optimizing plan` stage.
+
+- The endpoint supports a new `maxDNFConditionMembers` query option, which is a
+  threshold for the maximum number of `OR` sub-nodes in the internal
+  representation of an AQL `FILTER` condition and defaults to `786432`.
+
 #### Restriction of indexable fields
 
 It is now forbidden to create indexes that cover fields whose attribute names
@@ -361,16 +369,12 @@ The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-runnin
 and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
 endpoints include a new numeric `peakMemoryUsage` attribute.
 
-#### View API
-
-Views of type `arangosearch` accept a new `optimizeTopK` View property for the
-ArangoSearch WAND optimization. It is an immutable array of strings, optional,
-and defaults to `[]`.
-
-See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
-for details.
-
 ---
+
+The `GET /_api/query/current` endpoint can return a new value
+`"instantiating executors"` as `state` in the query list.
+
+#### View API
 
 Views of the type `arangosearch` support new caching options in the
 Enterprise Edition.
@@ -401,15 +405,6 @@ objects.
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.
 
-#### Index API
-
-Indexes of type `inverted` accept a new `optimizeTopK` property for the
-ArangoSearch WAND optimization. It is an array of strings, optional, and
-defaults to `[]`.
-
-See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
-for details.
-
 #### Pregel API
 
 Four new endpoints have been added to the Pregel HTTP interface for the new
@@ -426,6 +421,18 @@ persisted execution statistics for Pregel jobs:
 
 See [Pregel HTTP API](http/pregel.html) for details.
 
+#### Cluster rebalance API
+
+The `POST /_admin/cluster/rebalance` and `PUT /_admin/cluster/rebalance`
+endpoints support a new `excludeSystemCollections` option that lets you ignore
+system collections in the shard rebalance plan.
+
+The `/_admin/cluster/rebalance` route (`GET`, `POST`, and `PUT` methods) returns
+a new `totalShardsFromSystemCollections` property in the `shards` object of the
+`result` with the number of leader shards from system collections. The adjacent
+`totalShards` property may not include system collections depending on the
+`excludeSystemCollections` option.
+
 #### Explain API
 
 <small>Introduced in: v3.10.4</small>
@@ -440,12 +447,20 @@ following two new statistics in the `stats` attribute of the response now:
 
 #### Metrics API
 
-The following metrics have been added in version 3.11:
+The following metric has been added in version 3.11:
 
 | Label | Description |
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
-| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+
+---
+
+<small>Introduced in: v3.10.7</small>
+
+The metrics endpoints include the following new file descriptors metrics:
+
+- `arangodb_file_descriptors_current`
+- `arangodb_file_descriptors_limit`
 
 ---
 
@@ -536,18 +551,6 @@ following two new statistics in the `stats` attribute of the response now:
   explain (in bytes)
 - `executionTime` (number): The (wall-clock) time in seconds needed to explain
   the query.
-
-### Endpoints moved
-
-
-
-### Endpoints deprecated
-
-
-
-### Endpoints removed
-
-
 
 ## JavaScript API
 
