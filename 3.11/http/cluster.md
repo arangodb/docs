@@ -113,8 +113,7 @@ It is conceivable that for large clusters, `1000` or even `5000` might not be
 enough to achieve a full balancing. In such cases, you simply have to
 repeat the API calls potentially multiple times.
 
-Finally, we need to explain that some rebalancing tasks are beyond the
-current scope and limits of this API.
+**Other considerations**
 
 First, in the case of smart graphs or one shard databases, not all shards can
 be moved freely. Rather, some shards are "coupled" and can only move
@@ -139,18 +138,7 @@ that we end up with a shard distribution which distributes the
 load is then unevenly distributed, since some collections/shard simply are
 hit by more queries than others.
 
-Finally, good shard balancing is a difficult problem and we are likely
-to make changes to this part of the system in the future. If you run
-into a situation in which the decisions of the shard rebalancer are
-bad, we would like to hear about this, such that we can improve things
-in the future. For such reports we need an agency history (covering the
-shard distribution before and after the move) and if at all possible
-also the output of the API calls described here.
-
-For more details, see a worked example of how to rebalance a cluster
-using these APIs.
-
-### How to use the rebalancing API
+**How to use the rebalancing API**
 
 By far, the easiest way to rebalance a cluster is to simply call the
 `PUT` variant of the API, which analyzes the situation, comes up with a
