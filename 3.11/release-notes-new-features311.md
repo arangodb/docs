@@ -10,24 +10,6 @@ here.
 
 ## ArangoSearch
 
-### WAND optimization (Enterprise Edition)
-
-For `arangosearch` Views and inverted indexes (and by extension `search-alias`
-Views), you can define a list of sort expressions that you want to optimize.
-This is also known as _WAND optimization_.
-
-If you query a View with the `SEARCH` operation in combination with a
-`SORT` and `LIMIT` operation, search results can be retrieved faster if the
-`SORT` expression matches one of the optimized expressions.
-
-Only sorting by highest rank is supported, that is, sorting by the result
-of a scoring function in descending order (`DESC`).
-
-See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
-for examples.
-
-This feature is only available in the Enterprise Edition.
-
 ### Late materialization improvements
 
 The number of disk reads required when executing search queries with late
@@ -431,6 +413,17 @@ RETURN DATE_ISOWEEKYEAR("2023-01-01") // { "week": 52, "year": 2022 }
 
 See [AQL Date functions](aql/functions-date.html#date_isoweekyear) for details.
 
+---
+
+Added the `SHA256()` function that calculates the SHA256 checksum for a string
+and returns it in a hexadecimal string representation.
+
+```aql
+RETURN SHA256("ArangoDB") // "acbd84398a61fcc6fd784f7e16c32e02a0087fd5d631421bf7b5ede5db7fda31"
+```
+
+See [AQL String functions](aql/functions-string.html#sha256) for details.
+
 ### Extended query explain statistics
 
 <small>Introduced in: v3.10.4</small>
@@ -516,6 +509,47 @@ Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Requests   Peak Mem [b]   Exec Time [s]
            0            0           0            0               0 / 0          0          9          32768         0.00564
 ```
+
+### New stage in query profiling output
+
+<small>Introduced in: v3.10.3, v3.11.0</small>
+
+The query profiling output has a new `instantiating executors` stage.
+The time spent in this stage is the time needed to create the query executors
+from the final query execution time. In cluster mode, this stage also includes
+the time needed for physically distributing the query snippets to the
+participating DB-Servers. Previously, the time spent for instantiating executors
+and the physical distribution was contained in the `optimizing plan` stage.
+
+```
+Query Profile:
+ Query Stage               Duration [s]
+ initializing                   0.00001
+ parsing                        0.00009
+ optimizing ast                 0.00001
+ loading collections            0.00001
+ instantiating plan             0.00004
+ optimizing plan                0.00088
+ instantiating executors        0.00153
+ executing                      1.27349
+ finalizing                     0.00091
+```
+
+### Limit for the normalization of `FILTER` conditions
+
+Converting complex AQL `FILTER` conditions with a lot of logical branches
+(`AND`, `OR`, `NOT`) into the internal DNF (disjunctive normal form) format can
+take a large amount of processing time and memory. The new `maxDNFConditionMembers`
+query option is a threshold for the maximum number of `OR` sub-nodes in the
+internal representation and defaults to `786432`.
+
+You can also set the threshold globally instead of per query with the
+[`--query.max-dnf-condition-members` startup option](programs-arangod-options.html#--querymax-dnf-condition-members).
+
+If the threshold is hit, the query continues with a simplified representation of
+the condition, which is **not usable in index lookups**. However, this should
+still be better than overusing memory or taking a very long time to compute the
+DNF version.
 
 ## Server options
 
@@ -722,6 +756,15 @@ benefits of BlobDB. The relevant startup options for the throttle are:
 - `--rocksdb.throttle-max-write-rate`
 - `--rocksdb.throttle-slow-down-writes-trigger`
 
+### `--query.max-dnf-condition-members` option
+
+See [Limit for the normalization of `FILTER` conditions](#limit-for-the-normalization-of-filter-conditions).
+
+### `--rocksdb.reserve-file-metadata-memory` option
+
+This new startup option controls whether to account for `.sst` file metadata
+memory in the block cache.
+
 ### ArangoSearch column cache limit
 
 <small>Introduced in: v3.9.5, v3.10.2</small>
@@ -881,6 +924,19 @@ From v3.10.6 onward, the default output format looks like this:
 arangodb_agency_cache_callback_number{role="SINGLE"} 0
 ```
 
+### Configurable interval when counting open file descriptors
+
+<small>Introduced in: v3.10.7</small>
+
+The `--server.count-descriptors-interval` startup option can be used to specify
+the update interval in milliseconds when counting the number of open file
+descriptors.
+
+The default value is `60000`, i.e. the update interval is once per minute.
+To disable the counting of open file descriptors, you can set the value to `0`.
+If counting is turned off, the `arangodb_file_descriptors_current` metric
+reports a value of `0`.
+
 ## Miscellaneous changes
 
 ### Write-write conflict improvements
@@ -941,14 +997,6 @@ The following ArangoSearch metric has been added in version 3.11:
 | Label | Description |
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
-
-### File descriptor limit metric
-
-The following system metric has been added in version 3.11:
-
-| Label | Description |
-|:------|:------------|
-| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
 
 ### Traffic accounting metrics
 
@@ -1053,6 +1101,24 @@ This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
 |:------|:------------|
 | `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
 
+### File descriptor metrics
+
+<small>Introduced in: v3.10.7</small>
+
+The following system metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+| `arangodb_file_descriptors_current` | Number of file descriptors currently opened by the arangod process. |
+
+## Client tools
+
+### arangodump
+
+_arangodump_ has a new `--dump-views` startup option to control whether
+View definitions shall be included in the backup. The default value is `true`.
+
 ## Internal changes
 
 ### Upgraded bundled library versions
@@ -1067,3 +1133,6 @@ The bundled version of the immer library has been upgraded to 0.8.0.
 
 The bundled versions of the abseil-cpp, s2geometry, and wcwidth library have
 been updated to more recent versions that don't have a version number.
+
+For ArangoDB 3.11, the bundled version of rclone is 1.62.2. Check if your
+rclone configuration files require changes.
