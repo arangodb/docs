@@ -1,39 +1,20 @@
 ---
 layout: default
-description: Available JavaScript methods of View objects for arangosh and Foxx
-title: View Methods in Views JS API
+redirect_from:
+  - data-modeling-views-view-methods.html # 3.11 -> 3.11
 ---
-View Methods
-============
+# The _view_ object
 
-Drop
-----
+The JavaScript API returns _view_ objects when you use the following methods
+of the [`db` object](appendix-references-dbobject.html) from the `@arangodb` module:
 
-`view.drop()`
+- `db._createView(...)` 
+- `db._views()` 
+- `db._view(...)`
 
-Drops a View and all its data.
+## Methods
 
-**Examples**
-
-Drop a View:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline viewDrop
-    @EXAMPLE_ARANGOSH_OUTPUT{viewDrop}
-      | v = db._createView("example", "arangosearch");
-      // or
-      v = db._view("example");
-      v.drop();
-      db._view("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock viewDrop
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Query Name
-----------
-
-`view.name()`
+### `view.name()`
 
 Returns the name of the View.
 
@@ -51,41 +32,7 @@ Get View name:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Rename
-------
-
-`view.rename(new-name)`
-
-Renames a view using the `new-name`. The `new-name` must not already be used by
-a different view or collection in the same database. `new-name` must also be a
-valid view name. For information about the naming constraints for Views, see
-[View names](data-modeling-views.html#view-names).
-
-If renaming fails for any reason, an error is thrown.
-
-{% hint 'info' %}
-The rename method is not available in clusters.
-{% endhint %}
-
-**Examples**
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline viewRename
-    @EXAMPLE_ARANGOSH_OUTPUT{viewRename}
-      v = db._createView("example", "arangosearch");
-      v.name();
-      v.rename("exampleRenamed");
-      v.name();
-      ~ db._dropView("exampleRenamed");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock viewRename
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Query Type
-----------
-
-`view.type()`
+### `view.type()`
 
 Returns the type of the View.
 
@@ -103,8 +50,7 @@ Get View type:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Query Properties
-----------------
+### `view.properties(new-properties[, partialUpdate])`
 
 `view.properties()`
 
@@ -125,8 +71,7 @@ Get View properties:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Modify Properties
------------------
+---
 
 `view.properties(new-properties, partialUpdate)`
 
@@ -189,3 +134,52 @@ Add and remove inverted indexes from a `search-alias` View:
     @endDocuBlock viewModifyPropertiesSearchAlias
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `view.rename(new-name)`
+
+Renames a view using the `new-name`. The `new-name` must not already be used by
+a different view or collection in the same database. `new-name` must also be a
+valid view name. For information about the naming constraints for Views, see
+[View names](data-modeling-views.html#view-names).
+
+If renaming fails for any reason, an error is thrown.
+
+{% hint 'info' %}
+The rename method is not available in clusters.
+{% endhint %}
+
+**Examples**
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline viewRename
+    @EXAMPLE_ARANGOSH_OUTPUT{viewRename}
+      v = db._createView("example", "arangosearch");
+      v.name();
+      v.rename("exampleRenamed");
+      v.name();
+      ~ db._dropView("exampleRenamed");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock viewRename
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `view.drop()`
+
+Drops a View and all its data.
+
+**Examples**
+
+Drop a View:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline viewDrop
+    @EXAMPLE_ARANGOSH_OUTPUT{viewDrop}
+      | v = db._createView("example", "arangosearch");
+      // or
+      v = db._view("example");
+      v.drop();
+      db._view("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock viewDrop
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}

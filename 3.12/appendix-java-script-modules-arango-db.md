@@ -19,10 +19,9 @@ compatible with each other and cannot be used interchangeably.
 The `db` object
 ---------------
 
-`arangodb.db`
-
 The `db` object represents the current database and lets you access collections
-and run queries. For more information see the [db object reference](appendix-references-dbobject.html).
+and Views, run AQL queries, and more. For more information, see
+[The `db` object](appendix-references-dbobject.html).
 
 **Examples**
 

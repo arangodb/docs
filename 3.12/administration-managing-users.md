@@ -240,7 +240,7 @@ If you delete the wildcard, the system defaults to *No Access*.
 The `root` user has an initial collection wildcard of *Read/Write* in every database.
 
 When creating a user through
-[db._createDatabase(name, options, users)](data-modeling-databases-working-with.html#create-database)
+[`db._createDatabase()`](appendix-references-dbobject.html#db_createdatabase)
 the access level of the user for this database will be set to *Administrate*
 and the wildcard for all collections within this database will be set to
 *Read/Write*.

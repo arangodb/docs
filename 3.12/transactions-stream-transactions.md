@@ -169,11 +169,11 @@ collection operations:
 - [`document()`](data-modeling-documents-document-methods.html#document)
 - [`exists()`](data-modeling-documents-document-methods.html#exists)
 - [`insert()`](data-modeling-documents-document-methods.html#insert--save)
-- [`name()`](data-modeling-collections-database-methods.html#collection-name)
+- [`name()`](appendix-references-collection-object.html#name)
 - [`remove()`](data-modeling-documents-document-methods.html#remove)
 - [`replace()`](data-modeling-documents-document-methods.html#replace)
 - [`save()`](data-modeling-documents-document-methods.html#insert--save)
-- [`truncate()`](data-modeling-collections-collection-methods.html#truncate)
+- [`truncate()`](appendix-references-collection-object.html#collectiontruncate)
 - [`update()`](data-modeling-documents-document-methods.html#update)
 
 Compared to the collection object returned by `db._collection()`, only a subset
