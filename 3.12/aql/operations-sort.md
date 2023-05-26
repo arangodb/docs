@@ -76,3 +76,23 @@ sort order. This is especially the case after a `COLLECT` statement, which is
 supposed to produce a sorted result. Specifying an extra `SORT null` after the
 `COLLECT` statement allows to AQL optimizer to remove the post-sorting of the
 collect results altogether. Also see [`COLLECT` option `method`](operations-collect.html#method).
+
+In case of a sequence of SORT expressions, the last one will always be the one
+that will be performed, unless a former SORT expressions is more accurate.
+If the optimization rules `remove-redundant-sorts` and `remove-redundant-sorts-2`
+are deactivated in the query's execution, then the last SORT will always be the one
+that winds, despite the accuracy.  
+As in the example:
+```aql
+FOR friend in friends SORT friend.friend.name, friend.id, friend.age 
+SORT friend.age, friend.id SORT friend.age
+RETURN friend
+```
+In the example above, we start with the last SORT. If the optimization rules
+mentioned above are deactivated, then this is the SORT that will operate, and 
+the collection will be sorted by the field `friend.age`. 
+Otherwise, if the rules are activated, then the second SORT will be the one that
+operates, because it covers the same field, `friend.age`, but with an extra one, 
+making it more accurate. If the fields in the second SORT were in opposite order, 
+as in `SORT friend.id, friend.age`, then the last SORT would win.
+
