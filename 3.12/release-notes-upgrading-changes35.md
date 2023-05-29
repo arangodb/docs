@@ -62,7 +62,7 @@ The following APIs have been expanded:
 - The [ArangoSearch management API](http/views-arangosearch.html) has the new `commitIntervalMsec` attribute in all routes
 - Indexes can now have user-defined names
 - The new "ttl" index type has been added to the [index creation API](http/indexes.html)
-- [Collection creation API now provides the `smartJoinAttribute` parameter](appendix-references-dbobject.html#db_createcollection-name-properties-type-options)
+- [Collection creation API now provides the `smartJoinAttribute` parameter](appendix-references-dbobject.html#db_createcollection-name--properties--type--options)
 - [`filter` foxx-tests](http/foxx.html#miscellaneous) for testing
 
 The following documentation has been enhanced:

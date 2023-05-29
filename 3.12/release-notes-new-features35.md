@@ -409,7 +409,7 @@ In more detail:
 The feature is used to reduce the diverging of data in case of server failures
 and to help new followers to catch up.
 
-Also see [The `db` object](appendix-references-dbobject.html#db_createcollection-name-properties-type-options)
+Also see [The `db` object](appendix-references-dbobject.html#db_createcollection-name--properties--type--options)
 
 HTTP API extensions
 -------------------

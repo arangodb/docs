@@ -135,7 +135,7 @@ version of the ArangoDB server it connects to.
 ### Advanced Cluster Options
 
 Collections may be
-[created with shard distribution](appendix-references-dbobject.html#db_createcollection-name-properties-type-options)
+[created with shard distribution](appendix-references-dbobject.html#db_createcollection-name--properties--type--options)
 identical to an existing prototypical collection; i.e. shards are distributed in
 the very same pattern as in the prototype collection. Such collections cannot be
 dumped without the referenced collection or arangodump yields an error.

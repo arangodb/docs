@@ -530,7 +530,7 @@ With a special key option:
 
 ### `db._createDocumentCollection(collection-name [, properties])`
 
-See [`db._create(collection-name [, properties])`](#db_createcollection-name-properties-type-options).
+See [`db._create(collection-name [, properties])`](#db_createcollection-name--properties--type--options).
 
 ### `db._createEdgeCollection(collection-name [, properties])`
 
@@ -546,7 +546,7 @@ If the collection name already exists, an error is thrown.
 `db._createEdgeCollection(collection-name, properties)`
 
 Creates a new edge collection with the specified properties.
-See [`db._create(collection-name, properties)`](#db_createcollection-name-properties-type-options)
+See [`db._create(collection-name, properties)`](#db_createcollection-name--properties--type--options)
 for the available properties.
 
 ### `db._collections()`

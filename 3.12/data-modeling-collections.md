@@ -161,7 +161,7 @@ For other languages see the corresponding language API.
 `db._create(collection-name)`
 
 This call creates a new collection called `collection-name`.
-See [The `db` object](appendix-references-dbobject.md#db_createcollection-name-properties-type-options)
+See [The `db` object](appendix-references-dbobject.html#db_createcollection-name--properties--type--options)
 for details.
 
 ### Get a collection
@@ -239,4 +239,4 @@ to all followers happen concurrently). Therefore, the default replication
 factor is `1`, which means no replication.
 
 For details on how to switch on synchronous replication for a collection,
-see [The `db` object](appendix-references-dbobject.md#db_createcollection-name-properties-type-options).
+see [The `db` object](appendix-references-dbobject.html#db_createcollection-name--properties--type--options).

@@ -169,7 +169,7 @@ collection operations:
 - [`document()`](appendix-references-collection-object.html#collectiondocumentobject--options)
 - [`exists()`](appendix-references-collection-object.html#collectionexistsobject--options)
 - [`insert()`](appendix-references-collection-object.html#collectioninsertdata--options)
-- [`name()`](appendix-references-collection-object.html#name)
+- [`name()`](appendix-references-collection-object.html#collectionname)
 - [`remove()`](appendix-references-collection-object.html#collectionremoveobject)
 - [`replace()`](appendix-references-collection-object.html#collectionreplacedocument-data--options)
 - [`save()`](appendix-references-collection-object.html#collectionsavedata--options)

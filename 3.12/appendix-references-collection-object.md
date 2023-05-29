@@ -165,6 +165,25 @@ The function may be removed in future versions of ArangoDB. There should not be
 any need to load a collection with the RocksDB storage engine.
 {% endhint %}
 
+### `collection.name()`
+
+Returns the name of the collection as a string.
+
+**Examples**
+
+Get the collection name from a collection object:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline collectionName
+    @EXAMPLE_ARANGOSH_OUTPUT{collectionName}
+      var coll = db._create("example");
+      coll.name();
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock collectionName
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### `collection.properties([properties])`
 
 Get or set the properties of a collection.
@@ -461,7 +480,7 @@ See [`collection.indexes()`](indexing-working-with-indexes.html#listing-all-inde
 
 ### `collection.getIndexes([withStats [, withHidden]])`
 
-Same as [`collection.indexes([withStats [, withHidden]])`](#collectionindexeswithstats-withhidden).
+Same as [`collection.indexes([withStats [, withHidden]])`](#collectionindexeswithstats--withhidden).
 
 ### `collection.index(index)`
 
