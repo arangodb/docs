@@ -98,14 +98,17 @@ for (let i = 1; i < 100; i++) {
 coll.save(arr);
 ```
 
-Indexes can also be created via a _collection_ object. To query the data in the
-current database, you use the `db` object, however. Executing an AQL query
-returns a [_cursor_ object](appendix-references-cursor-object.html).
+Indexes can also be created via a _collection_ object.
 
 ```js
 // Create an index for the collection
 coll.ensureIndex({ type: "persistent", fields: ["value"] });
+```
 
+To query the data in the current database, use the `db` object. Executing an
+AQL query returns a [_cursor_ object](appendix-references-cursor-object.html).
+
+```js
 // Run an AQL query. Returns a cursor object
 let cursor = db._query(`FOR doc IN collection FILTER doc.value >= "bar" RETURN doc`);
 cursor.toArray();

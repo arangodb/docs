@@ -12,8 +12,8 @@ of the [`db` object](appendix-references-dbobject.html) from the `@arangodb` mod
 - `db._views()` 
 - `db._view(...)`
 
-{% hint 'tip' %}
-Square brackets in function signatures designate optional arguments.
+{% hint 'info' %}
+Square brackets in function signatures denote optional arguments.
 {% endhint %}
 
 ## Methods

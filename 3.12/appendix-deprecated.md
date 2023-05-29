@@ -37,7 +37,7 @@ features. There are usually alternatives to replace the old features with.
 
 {% hint 'info' %}
 This page only lists significant obsolete features but not minor API changes.
-See the [Release notes](release-notes.html) of the respective versions for
+See the [**Release notes**](release-notes.html) of the respective versions for
 detailed information about breaking changes before upgrading.
 {% endhint %}
 
