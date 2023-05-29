@@ -25,6 +25,10 @@ returns the ID of the server-side cursor in the `id` attribute in the response.
 This ID can be used with the Cursor API to fetch any outstanding results from
 the server and dispose the server-side cursor afterwards.
 
+{% hint 'tip' %}
+Square brackets in function signatures designate optional arguments.
+{% endhint %}
+
 ## `cursor.hasNext()`
 
 Checks if the cursor is exhausted.

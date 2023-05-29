@@ -34,7 +34,7 @@ server-side JavaScript contexts from the `@arangodb` module.
 
 ## Databases
 
-### `db._createDatabase(name[, options[, users]])`
+### `db._createDatabase(name [, options [, users]])`
 
 Creates a new database with the specified name.
 There are restrictions for database names
@@ -218,7 +218,7 @@ attributes:
 
 ## Collections
 
-### `db._create(collection-name[, properties[, type][, options]])`
+### `db._create(collection-name [, properties [, type] [, options]])`
 
 Create a new document collection or edge collection.
 
@@ -452,7 +452,7 @@ or `edge`. On default it is document. Instead of giving a type you can also use
 
 ---
 
-`db._create(collection-name, properties[, type], options)`
+`db._create(collection-name, properties [, type], options)`
 
 As an optional third parameter (if the `type` string is omitted) or as fourth
 parameter, you can specify an optional options map that controls how the
@@ -528,11 +528,11 @@ With a special key option:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### `db._createDocumentCollection(collection-name[, properties])`
+### `db._createDocumentCollection(collection-name [, properties])`
 
-See [`db._create(collection-name[, properties])`](#db_createcollection-name-properties-type-options).
+See [`db._create(collection-name [, properties])`](#db_createcollection-name-properties-type-options).
 
-### `db._createEdgeCollection(collection-name[, properties])`
+### `db._createEdgeCollection(collection-name [, properties])`
 
 `db._createEdgeCollection(collection-name)`
 
@@ -672,7 +672,7 @@ Truncates a collection identified by name:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### `db._drop(collection[, options])`
+### `db._drop(collection [, options])`
 
 Drops a `collection` and all its indexes and data.
 
@@ -772,7 +772,7 @@ missing `_id` attribute.
 
 Checks whether a document exists using a document identifier.
 
-### `db._update(document, data[, options])`
+### `db._update(document, data [, options])`
 
 `db._update(object, data)`
 
@@ -1032,7 +1032,7 @@ Remove a document using new signature:
 
 ## Views
 
-### `db._createView(name, type[, properties])`
+### `db._createView(name, type [, properties])`
 
 Creates a new View and returns a [_view_ object](appendix-references-view-object.html).
 
@@ -1174,7 +1174,7 @@ Drop a view:
 
 See [`db._createStatement()`](aql/invocation-with-arangosh.html#with-db_createstatement-arangostatement).
 
-### `db._query(queryString[, bindVars[, mainOptions][, subOptions]])`
+### `db._query(queryString [, bindVars [, mainOptions] [, subOptions]])`
 
 See [`db._query()`](aql/invocation-with-arangosh.html#with-db_query).
 

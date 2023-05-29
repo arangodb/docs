@@ -2,6 +2,7 @@
 layout: default
 redirect_from:
   - data-modeling-collections-collection-methods.html # 3.11 -> 3.11
+  - data-modeling-documents-document-methods.html # 3.11 -> 3.11
 ---
 # The _collection_ object
 
@@ -14,9 +15,13 @@ of the [`db` object](appendix-references-dbobject.html) from the `@arangodb`:
 - `db._collections(...)` 
 - `db._collection(...)`
 
+{% hint 'tip' %}
+Square brackets in function signatures designate optional arguments.
+{% endhint %}
+
 ## Collection
 
-### `collection.checksum([withRevisions[, withData]])`
+### `collection.checksum([withRevisions [, withData]])`
 
 Calculate a checksum for the data in a collection:
 
@@ -448,15 +453,15 @@ Creates an index if it doesn't exist already.
 
 See [`collection.ensureIndex()`](indexing-working-with-indexes.html#creating-an-index).
 
-### `collection.indexes([withStats[, withHidden]])`
+### `collection.indexes([withStats [, withHidden]])`
 
 Lists all indexes of the collection.
 
 See [`collection.indexes()`](indexing-working-with-indexes.html#listing-all-indexes-of-a-collection).
 
-### `collection.getIndexes([withStats[, withHidden]])`
+### `collection.getIndexes([withStats [, withHidden]])`
 
-Same as [`collection.indexes([withStats[, withHidden]])`](#collectionindexeswithstats-withhidden).
+Same as [`collection.indexes([withStats [, withHidden]])`](#collectionindexeswithstats-withhidden).
 
 ### `collection.index(index)`
 
@@ -656,34 +661,39 @@ cloned/copied into a regular JavaScript object first. This is not necessary
 if the `document` method is called from out of arangosh or from any other
 client.
 
-If you pass `options` as the second argument, it must be an object. If this
-object has the `allowDirtyReads` attribute set to `true`, then the
-Coordinator is allowed to read from any shard replica and not only from
-the leader shard. See [Read from followers](http/document.html#read-from-followers)
-for details.
+If you pass `options` as the second argument, it must be an object.
+
+- If the object has the `allowDirtyReads` attribute set to `true`, then the
+  Coordinator is allowed to read from any shard replica and not only from
+  the leader shard. See [Read from followers](http/document.html#read-from-followers)
+  for details.
 
 ---
 
 `collection.document(document-identifier [, options])`
 
-As before. Instead of an `object`, a `document-identifier` can be passed as the
-first argument. No revision can be specified in this case.
+Finds a document using a document identifier, optionally with an options passed
+as an object.
+
+No revision can be specified in this case.
 
 ---
 
 `collection.document(document-key [, options])`
 
-As before. Instead of an `object`, a `document-key` can be passed as the
-first argument.
+Finds a document using a document key, optionally with an options passed
+as an object.
+
+No revision can be specified in this case.
 
 ---
 
 `collection.document(array [, options])`
 
-This variant allows to perform the operation on a whole array of arguments.
-The behavior is exactly as if `document` would have been called on all members
+This variant allows you to perform the operation on a whole array of arguments.
+The behavior is exactly as if `document()` would have been called on all members
 of the array separately and all results are returned in an array. If an error
-occurs with any of the documents, no exception is risen! Instead of a document
+occurs with any of the documents, no exception is raised! Instead of a document,
 an error object is returned in the result array.
 
 **Examples**
@@ -804,43 +814,13 @@ This method is deprecated in favor of the array variant of
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### `edge-collection.edges(vertex)`
+### `collection.documentId(documentKey)`
 
-Edges are normal documents that always contain a `_from` and a `_to`
-attribute. Therefore, you can use the document methods to operate on
-edges. The following methods, however, are specific to edges.
+Converts a document key to a document identifier by prepending the collection's
+name and a forward slash to the key.
 
-`edge-collection.edges(vertex)`
-
-The `edges()` operator finds all edges starting from (outbound) or ending
-in (inbound) `vertex`.
-
----
-
-`edge-collection.edges(vertices)`
-
-The `edges` operator finds all edges starting from (outbound) or ending
-in (inbound) a document from `vertices`, which must be a list of documents
-or document identifiers.
-
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline EDGCOL_02_Relation
-    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_Relation}
-      db._create("vertex");
-      db._createEdgeCollection("relation");
-      var myGraph = {};
-      myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
-      myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
-    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
-                                      { label : "knows"});
-      db._document(myGraph.e1);
-      db.relation.edges(myGraph.e1._id);
-    ~ db._drop("relation");
-    ~ db._drop("vertex");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock EDGCOL_02_Relation
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
+Raises an error if the document key is invalid. Note that this method does not
+check whether the document exists in the collection.
 
 ### `collection.exists(object [, options])`
 
@@ -872,21 +852,25 @@ for details.
 
 `collection.exists(document-identifier [, options])`
 
-As before. Instead of an `object`, a `document-identifier` can be passed as the
-first argument.
+Checks whether a document exists described by a document identifier, optionally
+with options passed as an object.
+
+No revision can be specified in this case.
 
 ---
 
 `collection.exists(document-key [, options])`
 
-As before. Instead of an `object`, a `document-key` can be passed as the
-first argument.
+Checks whether a document exists described by a document key, optionally
+with options passed as an object.
+
+No revision can be specified in this case.
 
 ---
 
 `collection.exists(array [, options])`
 
-This variant allows to perform the operation on a whole array of arguments.
+This variant allows you to perform the operation on a whole array of arguments.
 The behavior is exactly as if `exists()` would have been called on all
 members of the array separately and all results are returned in an array. If an error
 occurs with any of the documents, the operation stops immediately returning
@@ -921,40 +905,7 @@ As alternative you can supply an array of paths and values.
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### `edge-collection.inEdges(vertex)`
-
-The `inEdges()` operator finds all edges ending in (inbound) `vertex`.
-
----
-
-`edge-collection.inEdges(vertices)`
-
-The `inEdges()` operator finds all edges ending in (inbound) a document from
-`vertices`, which must be a list of documents or document identifiers.
-
-**Examples**
-
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline EDGCOL_02_inEdges
-    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_inEdges}
-      db._create("vertex");
-      db._createEdgeCollection("relation");
-    ~ var myGraph = {};
-      myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
-      myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
-    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
-                                      { label : "knows"});
-      db._document(myGraph.e1);
-      db.relation.inEdges(myGraph.v1._id);
-      db.relation.inEdges(myGraph.v2._id);
-    ~ db._drop("relation");
-    ~ db._drop("vertex");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock EDGCOL_02_inEdges
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
-
-### `collection.insert(data)`
+### `collection.insert(data [, options])`
 
 Creates a new document in the `collection` from the given `data`. The
 `data` must be an object. The attributes `_id` and `_rev` are ignored
@@ -975,73 +926,70 @@ Creates a new document in the `collection` from the given `data` as
 above. The optional `options` parameter must be an object and can be
 used to specify the following options:
 
-  - `waitForSync`: One can force
-    synchronization of the document creation operation to disk even in
-    case that the `waitForSync` flag is been disabled for the entire
-    collection. Thus, the `waitForSync` option can be used to force
-    synchronization of just specific operations. To use this, set the
-    `waitForSync` parameter to `true`. If the `waitForSync` parameter
-    is not specified or set to `false`, then the collection's default
-    `waitForSync` behavior is applied. The `waitForSync` parameter
-    cannot be used to disable synchronization for collections that have
-    a default `waitForSync` value of `true`.
-  - `silent`: If this flag is set to `true`, the method does not return
-    any output.
-  - `returnNew`: If this flag is set to `true`, the complete new document
-    is returned in the output under the attribute `new`.
-  - `returnOld`: If this flag is set to `true`, the complete old document
-    is returned in the output under the attribute `old`. Only available 
-    in combination with the `overwrite` option
-  - `overwrite`: If set to `true`, the insert becomes a replace-insert.
-    If a document with the same `_key` exists already the new document
-    is not rejected with unique constraint violated but will replace
-    the old document. Note that operations with `overwrite` parameter require
-    a `_key` attribute in the request payload, therefore they can only be
-    performed on collections sharded by `_key`.
-  - `overwriteMode`: this optional flag can have one of the following values:
-    - `ignore`: if a document with the specified `_key` value exists already,
-      nothing will be done and no write operation will be carried out.
-      The insert operation will return success in this case. This mode does not
-      support returning the old document version using the `returnOld`
-      attribute. `returnNew` will only set the `new` attribute in the response
-      if a new document was inserted.
-    - `replace`: if a document with the specified `_key` value exists already,
-      it will be overwritten with the specified document value. This mode will
-      also be used when no overwrite mode is specified but the `overwrite`
-      flag is set to `true`.
-    - `update`: if a document with the specified `_key` value exists already,
-      it will be patched (partially updated) with the specified document value.
-      The overwrite mode can be further controlled via the `keepNull` and
-      `mergeObjects` parameters.
-    - `conflict`: if a document with the specified `_key` value exists already,
-      return a unique constraint violation error so that the insert operation
-      fails. This is also the default behavior in case the overwrite mode is
-      not set, and the `overwrite` flag is `false` or not set either.
-  - `keepNull`: The optional `keepNull` parameter can be used to modify
-    the behavior when handling `null` values. Normally, `null` values
-    are stored in the database. By setting the `keepNull` parameter to
-    `false`, this behavior can be changed so that all attributes in
-    `data` with `null` values will be removed from the target document.
-    This option controls the update-insert behavior only.
-  - `mergeObjects`: Controls whether objects (not arrays) will be
-    merged if present in both the existing and the patch document. If
-    set to `false`, the value in the patch document will overwrite the
-    existing document's value. If set to `true`, objects will be merged.
-    The default is `true`.
-    This option controls the update-insert behavior only.
+- `waitForSync`: One can force
+  synchronization of the document creation operation to disk even in
+  case that the `waitForSync` flag is been disabled for the entire
+  collection. Thus, the `waitForSync` option can be used to force
+  synchronization of just specific operations. To use this, set the
+  `waitForSync` parameter to `true`. If the `waitForSync` parameter
+  is not specified or set to `false`, then the collection's default
+  `waitForSync` behavior is applied. The `waitForSync` parameter
+  cannot be used to disable synchronization for collections that have
+  a default `waitForSync` value of `true`.
+- `silent`: If this flag is set to `true`, the method does not return
+  any output.
+- `returnNew`: If this flag is set to `true`, the complete new document
+  is returned in the output under the attribute `new`.
+- `returnOld`: If this flag is set to `true`, the complete old document
+  is returned in the output under the attribute `old`. Only available 
+  in combination with the `overwrite` option
+- `overwrite`: If set to `true`, the insert becomes a replace-insert.
+  If a document with the same `_key` exists already the new document
+  is not rejected with unique constraint violated but will replace
+  the old document. Note that operations with `overwrite` parameter require
+  a `_key` attribute in the request payload, therefore they can only be
+  performed on collections sharded by `_key`.
+- `overwriteMode`: this optional flag can have one of the following values:
+  - `ignore`: if a document with the specified `_key` value exists already,
+    nothing will be done and no write operation will be carried out.
+    The insert operation will return success in this case. This mode does not
+    support returning the old document version using the `returnOld`
+    attribute. `returnNew` will only set the `new` attribute in the response
+    if a new document was inserted.
+  - `replace`: if a document with the specified `_key` value exists already,
+    it will be overwritten with the specified document value. This mode will
+    also be used when no overwrite mode is specified but the `overwrite`
+    flag is set to `true`.
+  - `update`: if a document with the specified `_key` value exists already,
+    it will be patched (partially updated) with the specified document value.
+    The overwrite mode can be further controlled via the `keepNull` and
+    `mergeObjects` parameters.
+  - `conflict`: if a document with the specified `_key` value exists already,
+    return a unique constraint violation error so that the insert operation
+    fails. This is also the default behavior in case the overwrite mode is
+    not set, and the `overwrite` flag is `false` or not set either.
+- `keepNull`: The optional `keepNull` parameter can be used to modify
+  the behavior when handling `null` values. Normally, `null` values
+  are stored in the database. By setting the `keepNull` parameter to
+  `false`, this behavior can be changed so that all attributes in
+  `data` with `null` values will be removed from the target document.
+  This option controls the update-insert behavior only.
+- `mergeObjects`: Controls whether objects (not arrays) will be
+  merged if present in both the existing and the patch document. If
+  set to `false`, the value in the patch document will overwrite the
+  existing document's value. If set to `true`, objects will be merged.
+  The default is `true`.
+  This option controls the update-insert behavior only.
 
 ---
 
-`collection.insert(array)`
+`collection.insert(array [, options])`
 
-`collection.insert(array, options)`
-
-These two variants allow to perform the operation on a whole array of
+This variant allows you to perform the operation on a whole array of
 arguments. The behavior is exactly as if `insert()` would have been called on all
 members of the array separately and all results are returned in an array. If an
-error occurs with any of the documents, no exception is risen! Instead of a
-document an error object is returned in the result array. The options behave
-exactly as before.
+error occurs with any of the documents, no exception is raised! Instead of a
+document, an error object is returned in the result array.
 
 **Examples**
 
@@ -1095,10 +1043,10 @@ as second argument.
 
 `options` must be an object with the following attributes:
 
-  - `limit` (optional, default none): use at most `limit` documents.
+- `limit` (optional, default none): use at most `limit` documents.
 
-  - `probability` (optional, default all): a number between `0` and
-    `1`. Documents are chosen with this probability.
+- `probability` (optional, default all): a number between `0` and
+  `1`. Documents are chosen with this probability.
 
 **Examples**
 
@@ -1119,40 +1067,6 @@ Pick 1 out of 4 documents of a collection but at most 5:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionIterate
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
-
-### `edge-collection.outEdges(vertex)`
-
-The `outEdges()` operator finds all edges starting from (outbound)
-`vertices`.
-
----
-
-`edge-collection.outEdges(vertices)`
-
-The `outEdges()` operator finds all edges starting from (outbound) a document
-from `vertices`, which must be a list of documents or document identifiers.
-
-**Examples**
-
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline EDGCOL_02_outEdges
-    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_outEdges}
-      db._create("vertex");
-      db._createEdgeCollection("relation");
-    ~ var myGraph = {};
-      myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
-      myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
-    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
-                                      { label : "knows"});
-      db._document(myGraph.e1);
-      db.relation.outEdges(myGraph.v1._id);
-      db.relation.outEdges(myGraph.v2._id);
-    ~ db._drop("relation");
-    ~ db._drop("vertex");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock EDGCOL_02_outEdges
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -1178,59 +1092,52 @@ If not, there is a conflict, and an error is thrown.
 
 Removes a document, with additional boolean `options` passed as an object:
 
-  - `waitForSync`: One can force
-    synchronization of the document creation operation to disk even in
-    case that the `waitForSync` flag is been disabled for the entire
-    collection. Thus, the `waitForSync` option can be used to force
-    synchronization of just specific operations. To use this, set the
-    `waitForSync` parameter to `true`. If the `waitForSync` parameter
-    is not specified or set to `false`, then the collection's default
-    `waitForSync` behavior is applied. The `waitForSync` parameter
-    cannot be used to disable synchronization for collections that have
-    a default `waitForSync` value of `true`.
-  - `overwrite`: If this flag is set to `true`, a `_rev` attribute in
-    the object is ignored.
-  - `returnOld`: If this flag is set to `true`, the complete previous
-    revision of the document is returned in the output under the
-    attribute `old`.
-  - `silent`: If this flag is set to `true`, no output is returned.
+- `waitForSync`: One can force
+  synchronization of the document creation operation to disk even in
+  case that the `waitForSync` flag is been disabled for the entire
+  collection. Thus, the `waitForSync` option can be used to force
+  synchronization of just specific operations. To use this, set the
+  `waitForSync` parameter to `true`. If the `waitForSync` parameter
+  is not specified or set to `false`, then the collection's default
+  `waitForSync` behavior is applied. The `waitForSync` parameter
+  cannot be used to disable synchronization for collections that have
+  a default `waitForSync` value of `true`.
+- `overwrite`: If this flag is set to `true`, a `_rev` attribute in
+  the object is ignored.
+- `returnOld`: If this flag is set to `true`, the complete previous
+  revision of the document is returned in the output under the
+  attribute `old`.
+- `silent`: If this flag is set to `true`, no output is returned.
 
 ---
 
-`collection.remove(document-identifier)`
-
-`collection.remove(document-identifier, options)`
+`collection.remove(document-identifier [, options])`
 
 Removes a document described by a document identifier, optionally with
-additional boolean options passed as an object.
+additional options passed as an object.
 
 No revision check is performed.
 
 ---
 
-`collection.remove(document-key)`
-
-`collection.remove(document-key, options)`
+`collection.remove(document-key [, options])`
 
 Removes a document described by a document key, optionally with
-additional boolean options passed as an object.
+additional options passed as an object.
 
 No revision check is performed.
 
 ---
 
-`collection.remove(array)`
+`collection.remove(array [, options])`
 
-`collection.remove(array, options)`
-
-These two variants allow to perform the operation on a whole array of 
+This variant allows you to perform the operation on a whole array of 
 document identifiers, document keys, and objects with a `_key` attribute.
 
 The behavior is exactly as if `remove()` would have been called on all
 members of the array separately and all results are returned in an array. If an
-error occurs with any of the documents, no exception is risen! Instead of a
-document an error object is returned in the result array. The options behave
-exactly as before.
+error occurs with any of the documents, no exception is raised! Instead of a
+document, an error object is returned in the result array.
 
 **Examples**
 
@@ -1342,16 +1249,496 @@ This method is deprecated in favor of the array variant of `remove()`.
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-<!-- TODO: continue  -->
+### `collection.replace(document, data [, options])`
 
-* [collection.replace(selector, data)](data-modeling-documents-document-methods.html#replace)
-* [collection.replaceByExample(example, data)](data-modeling-documents-document-methods.html#replace-by-example)
-* [collection.save(data)](data-modeling-documents-document-methods.html#insert--save)
+`collection.replace(object, data)`
+
+Replaces an existing document described by the `object`, which must
+be an object containing the `_id` or `_key` attribute. There must be
+a document with that `_id` or `_key` in the current collection. This
+document is then replaced with the `data` given as second argument.
+Any attribute `_id`, `_key` or `_rev` in `data` is ignored.
+
+The method returns a document with the attributes `_id`, `_key`, `_rev`
+and `_oldRev`. The attribute `_id` contains the document identifier of the
+updated document, the attribute `_rev` contains the document revision of
+the updated document, the attribute `_oldRev` contains the revision of
+the old (now replaced) document.
+
+If the object contains a `_rev` attribute, the method first checks
+that the specified revision is the current revision of that document.
+If not, there is a conflict, and an error is thrown.
+
+---
+
+`collection.replace(object, data, options)`
+
+Replaces an existing document, with additional options passed as an object:
+
+- `waitForSync`: One can force
+  synchronization of the document creation operation to disk even in
+  case that the `waitForSync` flag is been disabled for the entire
+  collection. Thus, the `waitForSync` option can be used to force
+  synchronization of just specific operations. To use this, set the
+  `waitForSync` parameter to `true`. If the `waitForSync` parameter
+  is not specified or set to `false`, then the collection's default
+  `waitForSync` behavior is applied. The `waitForSync` parameter
+  cannot be used to disable synchronization for collections that have
+  a default `waitForSync` value of `true`.
+- `overwrite`: If this flag is set to `true`, a `_rev` attribute in
+  the object is ignored.
+- `returnNew`: If this flag is set to `true`, the complete new document
+  is returned in the output under the attribute `new`.
+- `returnOld`: If this flag is set to `true`, the complete previous
+  revision of the document is returned in the output under the
+  attribute `old`.
+- `silent`: If this flag is set to `true`, no output is returned.
+
+---
+
+`collection.replace(document-identifier, data [, options])`
+
+Replaces an existing document described by a document identifier, optionally
+with additional options passed as an object.
+
+No revision check is performed.
+
+---
+
+`collection.replace(document-key, data [, options])`
+
+Replaces an existing document described by a document key, optionally
+with additional options passed as an object.
+
+No revision check is performed.
+
+---
+
+`collection.replace(document-array, data-array [, options])`
+
+This variant allows you to perform the replace operation on two whole arrays of
+arguments. The two arrays given as `document-array` and `data-array`
+must have the same length. The behavior is exactly as if `replace()` would have
+been called on all respective members of the two arrays in pairs and all results
+are returned in an array. If an error occurs with any of the documents, no
+exception is raised! Instead of a document, an error object is returned in the
+result array.
+ 
+**Examples**
+
+Create and update a document:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline documentsCollectionReplace1
+    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplace1}
+    ~ db._create("example");
+      a1 = db.example.insert({ a : 1 });
+      a2 = db.example.replace(a1, { a : 2 });
+      a3 = db.example.replace(a1, { a : 3 }); // xpError(ERROR_ARANGO_CONFLICT);
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock documentsCollectionReplace1
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Use a document identifier:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline documentsCollectionReplaceHandle
+    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplaceHandle}
+    ~ db._create("example");
+    ~ var myid = db.example.insert({_key: "3903044"});
+      a1 = db.example.insert({ a : 1 });
+      a2 = db.example.replace("example/3903044", { a : 2 });
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock documentsCollectionReplaceHandle
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `collection.replaceByExample(example, newValue [, waitForSync [, limit]])`
+
+Replaces all documents matching an example with a new document body.
+The entire document body of each document matching the `example` is
+replaced with `newValue`. The document meta-attributes `_id`, `_key` and
+`_rev` are not replaced.
+
+The optional `waitForSync` parameter can be used to force synchronization
+of the document replacement operation to disk even in case that the
+`waitForSync` flag had been disabled for the entire collection. Thus,
+the `waitForSync` parameter can be used to force synchronization of just
+specific operations. To use this, set the `waitForSync` parameter to
+`true`. If the `waitForSync` parameter is not specified or set to
+`false`, then the collection's default `waitForSync` behavior is
+applied. The `waitForSync` parameter cannot be used to disable
+synchronization for collections that have a default `waitForSync` value
+of `true`.
+
+The optional `limit` parameter can be used to restrict the number of
+replacements to the specified value. If `limit` is specified but less than
+the number of documents in the collection, it is undefined which documents are
+replaced.
+
+**Examples**
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline 011_documentsCollectionReplaceByExample
+    @EXAMPLE_ARANGOSH_OUTPUT{011_documentsCollectionReplaceByExample}
+    ~ db._create("example");
+      db.example.insert({ Hello : "world" });
+      db.example.replaceByExample({ Hello: "world" }, {Hello: "mars"}, false, 5);
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock 011_documentsCollectionReplaceByExample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `collection.save(data [, options])
+
+See [`collection.insert(data [, options])`](#collectioninsertdata--options).
+
+### `collection.toArray()`
+
+Converts the entire collection into an array of documents.
+
+{% hint 'warning' %}
+Avoid calling this method on a collection in production environments as it
+creates a copy of your collection data in memory, which may require a
+substantial amount of resources depending on the number and size of the
+documents in the collection.
+{% endhint %}
+
+### `collection.update(document, data [, options])`
+
+`collection.update(object, data)`
+
+Updates an existing document described by the `object`, which must
+be an object containing the `_id` or `_key` attribute. There must be
+a document with that `_id` or `_key` in the current collection. This
+document is then patched with the `data` given as second argument.
+Any attribute `_id`, `_key` or `_rev` in `data` is ignored.
+
+The method returns a document with the attributes `_id`, `_key`, `_rev`
+and `_oldRev`.
+- The `_key` and `_id` attributes contains the document key and
+  document identifier of the updated document.
+- The `_rev` attribute contains the document revision of
+  the updated document
+- The `_oldRev` attribute contains the revision of
+  the old (now updated) document.
+
+If the object contains a `_rev` attribute, the method first checks
+that the specified revision is the current revision of that document.
+If not, there is a conflict, and an error is raised.
+
+---
+
+`collection.update(object, data, options)`
+
+Updates an existing document, with additional options passed as
+an object:
+
+- `waitForSync`: One can force
+  synchronization of the document creation operation to disk even in
+  case that the `waitForSync` flag is been disabled for the entire
+  collection. Thus, the `waitForSync` option can be used to force
+  synchronization of just specific operations. To use this, set the
+  `waitForSync` parameter to `true`. If the `waitForSync` parameter
+  is not specified or set to `false`, then the collection's default
+  `waitForSync` behavior is applied. The `waitForSync` parameter
+  cannot be used to disable synchronization for collections that have
+  a default `waitForSync` value of `true`.
+- `overwrite`: If this flag is set to `true`, a `_rev` attribute in
+  the selector is ignored.
+- `returnNew`: If this flag is set to `true`, the complete new document
+  is returned in the output under the attribute `new`.
+- `returnOld`: If this flag is set to `true`, the complete previous
+  revision of the document is returned in the output under the
+  attribute `old`.
+- `silent`: If this flag is set to `true`, no output is returned.
+- `keepNull`: The optional `keepNull` parameter can be used to modify
+  the behavior when handling `null` values. Normally, `null` values
+  are stored in the database. By setting the `keepNull` parameter to
+  `false`, this behavior can be changed so that all attributes in
+  `data` with `null` values will be removed from the target document.
+- `mergeObjects`: Controls whether objects (not arrays) will be
+  merged if present in both the existing and the patch document. If
+  set to `false`, the value in the patch document will overwrite the
+  existing document's value. If set to `true`, objects will be merged.
+  The default is `true`.
+
+---
+
+`collection.update(document-identifier, data [, options])`
+
+Updates an existing document described by a document identifier, optionally with
+additional options passed as an object.
+
+No revision check is performed.
+
+---
+
+`collection.update(document-key, data [, options])`
+
+Updates an existing document described by a document key, optionally with
+additional options passed as an object.
+
+No revision check is performed.
+
+---
+
+`collection.update(document-array, data-array [, options])`
+
+This variant allows you to perform the operation on two whole arrays of
+arguments. The two arrays given as `document-array` and `data-array`
+must have the same length. The behavior is exactly as if `update()` would have
+been called on all respective members of the two arrays in pairs and all results are
+returned in an array. If an error occurs with any of the documents, no
+exception is raised! Instead of a document, an error object is returned in the
+result array.
+
+**Examples**
+
+Create and update a document:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline documentsCollection_UpdateDocument
+    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateDocument}
+    ~ db._create("example");
+      a1 = db.example.insert({"a" : 1});
+      a2 = db.example.update(a1, {"b" : 2, "c" : 3});
+      a3 = db.example.update(a1, {"d" : 4}); // xpError(ERROR_ARANGO_CONFLICT);
+      a4 = db.example.update(a2, {"e" : 5, "f" : 6 });
+      db.example.document(a4);
+      a5 = db.example.update(a4, {"a" : 1, c : 9, e : 42 });
+      db.example.document(a5);
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock documentsCollection_UpdateDocument
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Use a document identifier:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline documentsCollection_UpdateHandleSingle
+    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleSingle}
+    ~ db._create("example");
+    ~ var myid = db.example.insert({_key: "18612115"});
+      a1 = db.example.insert({"a" : 1});
+      a2 = db.example.update("example/18612115", { "x" : 1, "y" : 2 });
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock documentsCollection_UpdateHandleSingle
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Use the `keepNull` parameter to remove attributes with null values:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline documentsCollection_UpdateHandleKeepNull
+    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleKeepNull}
+    ~ db._create("example");
+    ~ var myid = db.example.insert({_key: "19988371"});
+      db.example.insert({"a" : 1});
+    |db.example.update("example/19988371",
+                       { "b" : null, "c" : null, "d" : 3 });
+      db.example.document("example/19988371");
+      db.example.update("example/19988371", { "a" : null }, false, false);
+      db.example.document("example/19988371");
+    | db.example.update("example/19988371",
+                        { "b" : null, "c": null, "d" : null }, false, false);
+      db.example.document("example/19988371");
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock documentsCollection_UpdateHandleKeepNull
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Patching array values:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline documentsCollection_UpdateHandleArray
+    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleArray}
+    ~ db._create("example");
+    ~ var myid = db.example.insert({_key: "20774803"});
+    |  db.example.insert({"a" : { "one" : 1, "two" : 2, "three" : 3 },
+                          "b" : { }});
+    | db.example.update("example/20774803", {"a" : { "four" : 4 },
+                                             "b" : { "b1" : 1 }});
+      db.example.document("example/20774803");
+    | db.example.update("example/20774803", { "a" : { "one" : null },
+    |                                         "b" : null },
+                        false, false);
+      db.example.document("example/20774803");
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock documentsCollection_UpdateHandleArray
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `collection.updateByExample(example, newValue [, options])
+
+`collection.updateByExample(example, newValue [, keepNull [, waitForSync [, limit]]])`
+
+Updates all documents matching an example with a new document body.
+Specific attributes in the document body of each document matching the
+`example` are updated with the values from `newValue`.
+The document meta-attributes `_id`, `_key` and `_rev` cannot be updated.
+
+The optional `keepNull` parameter can be used to modify the behavior when
+handling `null` values. Normally, `null` values are stored in the
+database. By setting the `keepNull` parameter to `false`, this behavior
+can be changed so that all attributes in `data` with `null` values will
+be removed from the target document.
+
+The optional `waitForSync` parameter can be used to force synchronization
+of the document replacement operation to disk even in case that the
+`waitForSync` flag had been disabled for the entire collection. Thus,
+the `waitForSync` parameter can be used to force synchronization of just
+specific operations. To use this, set the `waitForSync` parameter to
+`true`. If the `waitForSync` parameter is not specified or set to
+`false`, then the collection's default `waitForSync` behavior is
+applied. The `waitForSync` parameter cannot be used to disable
+synchronization for collections that have a default `waitForSync` value
+of `true`.
+
+The optional `limit` parameter can be used to restrict the number of
+updates to the specified value. If `limit` is specified but less than
+the number of documents in the collection, it is undefined which documents are
+updated.
+
+---
+
+`collection.updateByExample(document, newValue, options)`
+
+Using this variant, the options for the operation can be passed using
+an object with the following sub-attributes:
+
+- `keepNull`
+- `waitForSync`
+- `limit`
+- `mergeObjects`
+
+**Examples**
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline 012_documentsCollectionUpdateByExample
+    @EXAMPLE_ARANGOSH_OUTPUT{012_documentsCollectionUpdateByExample}
+    ~ db._create("example");
+      db.example.insert({ Hello : "world", foo : "bar" });
+      db.example.updateByExample({ Hello: "world" }, { Hello: "foo", World: "bar" }, false);
+      db.example.byExample({ Hello: "foo" }).toArray()
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock 012_documentsCollectionUpdateByExample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+## Edge documents
 
 
-###
+### `edge-collection.edges(vertex)`
 
-* [collection.toArray()](data-modeling-documents-document-methods.html#toarray)
+Edges are normal documents that always contain a `_from` and a `_to`
+attribute. Therefore, you can use the document methods to operate on
+edges. The following methods, however, are specific to edges.
 
-* [collection.update(selector, data)](data-modeling-documents-document-methods.html#update)
-* [collection.updateByExample(example, data)](data-modeling-documents-document-methods.html#update-by-example)
+`edge-collection.edges(vertex)`
+
+The `edges()` operator finds all edges starting from (outbound) or ending
+in (inbound) `vertex`.
+
+---
+
+`edge-collection.edges(vertices)`
+
+The `edges` operator finds all edges starting from (outbound) or ending
+in (inbound) a document from `vertices`, which must be a list of documents
+or document identifiers.
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline EDGCOL_02_Relation
+    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_Relation}
+      db._create("vertex");
+      db._createEdgeCollection("relation");
+      var myGraph = {};
+      myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
+      myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
+    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
+                                      { label : "knows"});
+      db._document(myGraph.e1);
+      db.relation.edges(myGraph.e1._id);
+    ~ db._drop("relation");
+    ~ db._drop("vertex");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock EDGCOL_02_Relation
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `edge-collection.inEdges(vertex)`
+
+The `inEdges()` operator finds all edges ending in (inbound) `vertex`.
+
+---
+
+`edge-collection.inEdges(vertices)`
+
+The `inEdges()` operator finds all edges ending in (inbound) a document from
+`vertices`, which must be a list of documents or document identifiers.
+
+**Examples**
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline EDGCOL_02_inEdges
+    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_inEdges}
+      db._create("vertex");
+      db._createEdgeCollection("relation");
+    ~ var myGraph = {};
+      myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
+      myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
+    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
+                                      { label : "knows"});
+      db._document(myGraph.e1);
+      db.relation.inEdges(myGraph.v1._id);
+      db.relation.inEdges(myGraph.v2._id);
+    ~ db._drop("relation");
+    ~ db._drop("vertex");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock EDGCOL_02_inEdges
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `edge-collection.outEdges(vertex)`
+
+The `outEdges()` operator finds all edges starting from (outbound)
+`vertices`.
+
+---
+
+`edge-collection.outEdges(vertices)`
+
+The `outEdges()` operator finds all edges starting from (outbound) a document
+from `vertices`, which must be a list of documents or document identifiers.
+
+**Examples**
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline EDGCOL_02_outEdges
+    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_outEdges}
+      db._create("vertex");
+      db._createEdgeCollection("relation");
+    ~ var myGraph = {};
+      myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
+      myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
+    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
+                                      { label : "knows"});
+      db._document(myGraph.e1);
+      db.relation.outEdges(myGraph.v1._id);
+      db.relation.outEdges(myGraph.v2._id);
+    ~ db._drop("relation");
+    ~ db._drop("vertex");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock EDGCOL_02_outEdges
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}

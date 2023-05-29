@@ -12,6 +12,10 @@ of the [`db` object](appendix-references-dbobject.html) from the `@arangodb` mod
 - `db._views()` 
 - `db._view(...)`
 
+{% hint 'tip' %}
+Square brackets in function signatures designate optional arguments.
+{% endhint %}
+
 ## Methods
 
 ### `view.name()`
@@ -50,7 +54,7 @@ Get View type:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### `view.properties(new-properties[, partialUpdate])`
+### `view.properties(new-properties [, partialUpdate])`
 
 `view.properties()`
 
