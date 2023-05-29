@@ -2,6 +2,8 @@
 layout: default
 description: Physical backups, logical backups with arangodump and arangorestore, hot backups with arangobackup
 title: Backup & Restore
+redirect_from:
+  - programs-arangobackup-limitations.html # 3.11 -> 3.11
 ---
 Backup and Restore
 ==================
@@ -42,7 +44,7 @@ by making a raw copy of the ArangoDB data directory.
 
 Such backups are extremely fast as they only involve file copying.
 
-If ArangoDB is running in Active Failover or Cluster mode, it will be necessary
+If ArangoDB runs in Active Failover or Cluster mode, it is necessary
 to copy the data directories of all the involved processes (_Agents_, _Coordinators_ and
 _DB-Servers_).
 
@@ -212,12 +214,13 @@ not be suited for.
 
   Note that this applies in particular in the case that a certain user
   might have admin access for the `_system` database, but explicitly has
-  no access to certain collections. The backup will still extend across
+  no access to certain collections. The backup still extends across
   **all** collections!
 
-  It cannot be stressed enough that a restore to an earlier hot backup
-  snapshot will also revert users, graphs, Foxx apps - everything -
-  back to that at the time of the hot backup.
+  {% hint 'danger' %}
+  A restore to an earlier hot backup snapshot also reverts users, graphs,
+  Foxx apps - everything - back to that at the time of the hot backup!
+  {% endhint %}
 
 - **Cluster's Special Limitations**
 
@@ -229,7 +232,20 @@ not be suited for.
   It must be ensured that for the hot backup no such changes are made to the
   cluster's inventory, as this could lead to inconsistent hot backups.
 
-- **Restoring from a Different Version**
+- **Active Failover Special Limitations**
+
+  When restoring hot backups in Active Failover setups, it is necessary to
+  prevent that a non-restored follower becomes leader by temporarily setting
+  the maintenance mode:
+
+  1. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"on"'`
+  2. Restore the Hot Backup
+  3. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"off"'`
+
+  Substitute `<endpoint>` with the actual endpoint of the **leader**
+  single server instance.
+
+- **Restoring from a different version**
 
   Hot backups share the same limitations with respect to different versions
   as ArangoDB itself. This means that a hot backup created with some version
@@ -263,21 +279,21 @@ not be suited for.
   significantly higher storage reservation for ArangoDB instances involved and
   a much more fine grained monitoring of storage usage than before.
 
-  Also note that in a cluster each RocksDB instance will be backed up
-  individually and hence the overall storage space will be the sum of all
-  RocksDB instances (i.e., data which is replicated between instances will
-  not be de-duplicated for performance reasons).
+  Also note that in a cluster, each RocksDB instance is backed up
+  individually and hence the overall storage space is the sum of all
+  RocksDB instances (i.e., data which is replicated between instances is
+  not de-duplicated for performance reasons).
 
 - **Global Transaction Lock**
 
   In order to be able to create consistent hot backups, it is mandatory to get
   a very brief global transaction lock across the entire installation.
-  In single server deployments constant invocation of very long running
+  In single server deployments, constant invocation of very long running
   transactions could prevent that from ever happening during a timeout period.
   The same holds true for clusters, where this lock must now be obtained on all
   DB-Servers at the same time.
 
-  Especially in the cluster the result of these successively longer tries to
+  Especially in the cluster, the result of these successively longer tries to
   obtain the global transaction lock might become visible in periods of apparent
   dead time. Locks might be obtained on some machines and and not on others, so
   that the process has to be retried over and over. Every unsuccessful try would
@@ -295,20 +311,20 @@ not be suited for.
   
 - **Services on Single Server**
 
-  On a single server the installed Foxx microservices are not backed up and are
+  On a single server, the installed Foxx microservices are not backed up and are
   therefore also not restored. This is because in single server mode
   the service installation is done locally in the file system and does not
   track the information in the `_apps` collection.
 
-  In a cluster, the Coordinators will eventually restore the state of the
+  In a cluster, the Coordinators eventually restore the state of the
   services from the `_apps` and `_appbundles` collections after a backup is
   restored.
 
 - **Encryption at Rest**
 
-  Currently, the hot backup simply takes a snapshot of the database files.
-  If one is using encryption at rest, then the backed up files will be
-  encrypted, with the encryption key that was used in the
+  The hot backup simply takes a snapshot of the database files.
+  If you use encryption at rest, then the backed up files are
+  encrypted, with the encryption key that has been used in the
   instance which created the backup.
 
   Such an encrypted backup can only be restored to an instance using the
@@ -323,6 +339,10 @@ not be suited for.
 
   {% hint 'info' %}
   The DC2DC replication needs to be stopped before restoring a Hot Backup.
+  
+  1. Stop the DC2DC synchronization with `arangosync stop sync ...`.
+  2. Restore the Hot Backup.
+  3. Restart the DC2DC synchronization with `arangosync configure sync ...`.
   {% endhint %}
 
 - **Known Issues**
