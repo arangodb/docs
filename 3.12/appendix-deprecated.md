@@ -212,6 +212,11 @@ replace the old features with:
   While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
   removed in a future version of ArangoDB.
 
+- **HTTP and JavaScript traversal APIs**: The HTTP traversal API as well as the
+  `@arangodb/graph/traversal` JavaScript traversal module were deprecated since
+  version 3.4.0 and have been removed in version 3.12.0. You can
+  [traverse graphs with AQL](aql/graphs-traversals.html) instead.
+
 - **JavaScript-based AQL graph functions**: The following JavaScript-based AQL
   graph functions are deprecated:
   - `arangodb::GRAPH_EDGES`
