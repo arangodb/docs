@@ -109,7 +109,7 @@ reported error is now slightly different.
 
 The lock acquisition on the key of the document that is supposed to be
 inserted/modified has a hard-coded timeout of 1 second. If the lock cannot be
-acquire, the error message is as follows:
+acquired, the error message is as follows:
 
 ```
 Timeout waiting to lock key - in index primary of type primary over '_key'; conflicting key: <key>
