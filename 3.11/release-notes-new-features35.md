@@ -409,7 +409,7 @@ In more detail:
 The feature is used to reduce the diverging of data in case of server failures
 and to help new followers to catch up.
 
-Also see: [Collection Database Methods](data-modeling-collections-database-methods.html#create)
+Also see the [`db` object](appendix-references-dbobject.html#db_createcollection-name--properties--type--options)
 
 HTTP API extensions
 -------------------
@@ -442,7 +442,7 @@ is determined from the document's attribute values only.
 Please note that this API is only meaningful and available on a cluster coordinator.
 
 See:
-- [Get responsible shard in JS API](data-modeling-collections-collection-methods.html#getresponsibleshard)
+- [Get responsible shard in JS API](appendix-references-collection-object.html#collectiongetresponsiblesharddocument)
 - [Get responsible shard in HTTP API](http/collection.html#return-responsible-shard-for-a-document)
 
 ### Foxx API for running tests

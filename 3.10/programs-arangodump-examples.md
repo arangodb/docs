@@ -135,7 +135,7 @@ version of the ArangoDB server it connects to.
 ### Dumping collections with sharding prototypes
 
 Collections may be created with the shard distribution identical to an existing
-prototypical collection (see [`distributeShardsLike`](data-modeling-collections-database-methods.html#create));
+prototypical collection (see [`distributeShardsLike`](appendix-references-dbobject.html#db_createcollection-name--properties--type--options));
 i.e. shards are distributed in the very same pattern as in the prototype collection.
 Such collections cannot be dumped without the referenced collection or arangodump
 yields an error.
