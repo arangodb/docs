@@ -937,13 +937,14 @@ To disable the counting of open file descriptors, you can set the value to `0`.
 If counting is turned off, the `arangodb_file_descriptors_current` metric
 reports a value of `0`.
 
-### Configurable number of collections per query
+### Configurable limit of collections per query
 
-<small>Introduced in: v3.10.7, v.3.11.1</small>
+<small>Introduced in: v3.10.7, v3.11.1</small>
 
 The `--query.max-collections-per-query` startup option allows you to adjust the
-limit for the maximum number of collections/shards per query. The default value
-is `2048`.
+previously fixed limit for the maximum number of collections/shards per AQL query.
+The default value is `2048`, which is equal to the fixed limit of
+collections/shards in older versions.
 
 ## Miscellaneous changes
 
