@@ -644,7 +644,7 @@ Replaces the data of a vertex in collection `vertexCollectionName`:
 - `data` (object):
   JSON data of vertex.
 - `options` (object, _optional_):
-  See [collection documentation](data-modeling-documents-document-methods.html)
+  See the [_collection_ object](appendix-references-collection-object.html#collectionreplacedocument-data--options)
 
 **Examples**
 
@@ -672,7 +672,7 @@ Updates the data of a vertex in collection `vertexCollectionName`.
 - `data` (object):
   JSON data of vertex.
 - `options` (object, _optional_):
-  See [collection documentation](data-modeling-documents-document-methods.html)
+  See the [_collection_ object](appendix-references-collection-object.html#collectionupdatedocument-data--options)
 
 **Examples**
 
@@ -698,7 +698,7 @@ Removes a vertex in collection `vertexCollectionName`.
 - `vertexId` (string):
   `_id` attribute of the vertex
 - `options` (object, _optional_):
-  See [collection documentation](data-modeling-documents-document-methods.html)
+  See the [_collection_ object](appendix-references-collection-object.html#collectionremoveobject)
 
 Additionally removes all ingoing and outgoing edges of the vertex recursively
 (see [edge remove](#remove-an-edge)).
@@ -735,7 +735,7 @@ Creates an edge from vertex `data._from` to vertex `data._to` in collection
   identifier of the source vertex and a `_to` attribute with the document
   identifier of the target vertex.
 - `options` (object, _optional_):
-  See [`collection.save()` options](data-modeling-documents-document-methods.html#insert--save)
+  See the [_collection_ object](appendix-references-collection-object.html#collectioninsertdata--options)
 
 **Examples**
 
@@ -784,7 +784,7 @@ Note that `_from` and `_to` are mandatory.
 - `data` (object, _optional_):
   JSON data of the edge
 - `options` (object, _optional_):
-  See [collection documentation](data-modeling-documents-document-methods.html)
+  See the [_collection_ object](appendix-references-collection-object.html#collectionreplacedocument-data--options)
 
 **Examples**
 
@@ -812,7 +812,7 @@ Updates the data of an edge in collection `edgeCollectionName`.
 - `data` (object, _optional_):
   JSON data of the edge
 - `options` (object, _optional_):
-  See [collection documentation](data-modeling-documents-document-methods.html)
+  See the [_collection_ object](appendix-references-collection-object.html#collectionupdatedocument-data--options)
 
 **Examples**
 
@@ -838,7 +838,7 @@ Removes an edge in collection `edgeCollectionName`.
 - `edgeId` (string):
   `_id` attribute of the edge
 - `options` (object, _optional_):
-  See [collection documentation](data-modeling-documents-document-methods.html)
+  See the [_collection_ object](appendix-references-collection-object.html#collectionremoveobject)
 
 If this edge is used as a vertex by another edge, the other edge is removed
 (recursively).

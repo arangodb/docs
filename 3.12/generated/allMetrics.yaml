@@ -1700,6 +1700,30 @@
     to be adjusted, or larger operations should be broken up into smaller ones in the
     client application.
 
+- name: arangodb_internal_index_estimates_memory
+  introducedIn: "3.12.0"
+  help: |
+    Total memory usage of all index selectivity estimates.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total memory usage of all index selectivity estimates.
+    The metric includes memory used for buffering index write 
+    operations that still have to be applied.
+    Index selectivity estimates are used for edge indexes and
+    persistent indexes.
+    On coordinators, this metric will always have a value of 0.
+  troubleshoot: |
+    Persistent indexes can be created with selectivity
+    estimates turned off to save a bit of memory and slightly
+    improve index write performance.
+
 - name: arangodb_ioheartbeat_delays_total
   introducedIn: "3.8.7"
   help: |
@@ -3770,6 +3794,31 @@
     Histogram of the body sizes of the received VST requests in bytes.
     Note that this does include the binary header.
 
+- name: arangodb_revision_tree_buffered_memory_usage
+  introducedIn: "3.12.0"
+  help: |
+    Total memory usage of buffered updates for all revision trees.
+  unit: bytes
+  type: gauge
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total memory usage of buffered updates for all revision trees of
+    collections/shards.
+    When data in a collection/shard is modified, the changes to the
+    revision trees are first buffered in memory and applied later after
+    the operation commits.
+    Buffered changes are applied to the revision trees in large chunks.
+    Whenever the buffered changes are applied, memory is freed again
+    and this metric should go down.
+  troubleshoot: |
+    If this metric keeps increasing, it is a sign that the instance
+    cannot catch up with the write load.
+
 - name: arangodb_revision_tree_hibernations_total
   introducedIn: "3.8.5"
   help: |
@@ -4234,6 +4283,22 @@
   description: |
     The total number of currently queued jobs in all queues.
 
+- name: arangodb_scheduler_queue_memory
+  introducedIn: "3.12.0"
+  help: |
+    Number of bytes allocated for tasks in the scheduler queue.
+  unit: bytes
+  type: gauge
+  category: Scheduler
+  complexity: advanced
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Number of bytes allocated for tasks in the scheduler queue.
+
 - name: arangodb_scheduler_queue_time_violations_total
   introducedIn: "3.9.0"
   help: |
@@ -4261,6 +4326,23 @@
     Although the metric is exposed on all instance types, it is likely
     always `0` on DB-Servers, simply because Coordinators do not forward the
     `x-arango-queue-time-seconds` when they send internal requests to DB-Servers.
+
+- name: arangodb_scheduler_stack_memory
+  introducedIn: "3.12.0"
+  help: |
+    Approximate stack memory usage of worker threads.
+  unit: bytes
+  type: gauge
+  category: Scheduler
+  complexity: advanced
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Approximate stack memory usage of worker threads.
+    Currently a hard-coded default value of 4MB is assumed per worker thread.
 
 - name: arangodb_scheduler_threads_started_total
   renamedFrom: arangodb_scheduler_threads_started
