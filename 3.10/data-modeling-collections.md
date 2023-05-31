@@ -114,16 +114,16 @@ For other languages see the corresponding language API.
 `db._create(collection-name)`
 
 This call creates a new collection called `collection-name`.
-This method is a database method and is documented in detail at
-[Database Methods](data-modeling-collections-database-methods.html#create).
+See the [`db` object](appendix-references-dbobject.html#db_createcollection-name--properties--type--options)
+for details.
 
 ### Get a collection
 
 `db._collection(collection-name)`
 
-A collection is created by a [`db._create()`](data-modeling-collections-database-methods.html) call.
+Returns the specified collection.
 
-For example: Assume that the collection identifier is `7254820` and the name is
+For example, assume that the collection identifier is `7254820` and the name is
 `demo`, then the collection can be accessed as follows:
 
 ```js
@@ -134,17 +134,15 @@ If no collection with such a name exists, then `null` is returned.
 
 ---
 
-There is a short-cut that you can use used for non-system collections:
+There is a short-cut that you can use:
 
-`db.collection-name`
+```js
+db.collection-name
+// or
+db["collection-name"]
+```
 
-This call will either return the collection named `db.collection-name` or create
-a new one with that name and a set of default properties.
-
-{% hint 'info' %}
-Creating a collection on the fly using `db.collection-name` is not recommend and
-does not work in _arangosh_. To create a new collection, please use `db._create()`.
-{% endhint %}
+This property access returns the collection named `collection-name`.
 
 ### Synchronous replication of collections
 
@@ -184,5 +182,4 @@ to all followers happen concurrently). Therefore, the default replication
 factor is `1`, which means no replication.
 
 For details on how to switch on synchronous replication for a collection,
-see the database method `db._create(collection-name)` in the section about 
-[Database Methods](data-modeling-collections-database-methods.html#create).
+see the [`db` object](appendix-references-dbobject.html#db_createcollection-name--properties--type--options).
