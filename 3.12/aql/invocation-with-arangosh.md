@@ -538,9 +538,9 @@ To execute the query, use the `execute()` method of the _statement_ object:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-If the optional batchSize value is specified,
-the server will return at most batchSize values in one roundtrip.
-The batchSize cannot be adjusted after the query is first executed.
+You can pass a number to the `execute()` method to specify a batch size value.
+The server returns at most this many results in one roundtrip.
+The batch size cannot be adjusted after the query is first executed.
 
 **Note**: There is no need to explicitly call the execute method if another
 means of fetching the query results is chosen. The following two approaches
