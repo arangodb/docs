@@ -1,12 +1,11 @@
 ---
 layout: default
-description: The SORT statement will force a sort of the array of already produced intermediate results in the current block
 ---
 
 SORT
 ====
 
-The `SORT` statement forces a sort of the array of already produced
+The `SORT` operation forces a sort of the array of already produced
 intermediate results in the current block. `SORT` allows specifying one or
 multiple sort criteria and directions.
 
@@ -68,7 +67,7 @@ sort order is desired.
 SORT null
 ```
 
-Constant `SORT` expressions will be optimized away by the AQL
+Constant `SORT` expressions are optimized away by the AQL
 optimizer during optimization, but specifying them explicitly may enable further
 optimizations if the optimizer does not need to take into account any particular
 sort order. This is especially the case after a `COLLECT` statement, which is 
@@ -76,22 +75,25 @@ supposed to produce a sorted result. Specifying an extra `SORT null` after the
 `COLLECT` statement allows to AQL optimizer to remove the post-sorting of the
 collect results altogether. Also see [`COLLECT` option `method`](operations-collect.html#method).
 
-In case of a sequence of `SORT` expressions, the last one is always the one
-that is performed, unless a former `SORT` expression is more accurate.
+In case of a sequence of `SORT` operations, the last one is always the one
+that is performed unless a previous `SORT` expression is more accurate.
 If the optimization rules `remove-redundant-sorts` and `remove-redundant-sorts-2`
 are deactivated in the query's execution, then the last `SORT` is always the one
-that wins, despite the accuracy.
-
-The example below shows how this works. For instance, if the optimization rules
-mentioned above are deactivated, then the last `SORT` becomes operative and the
-collection is sorted by `friend.age`. If the optimization rules are active, the
-second `SORT` becomes operative - since it covers the same `friend.age` field
-and has an extra `SORT`, this makes it more accurate. If the fields in the
-second `SORT` are in opposite order, as in `SORT friend.id, friend.age`, then
-the last `SORT` is operative.
+that wins, despite the accuracy. For example, consider the following query with
+multiple consecutive `SORT` operations:
 
 ```aql
-FOR friend in friends SORT friend.friend.name, friend.id, friend.age 
-SORT friend.age, friend.id SORT friend.age
-RETURN friend
+FOR friend IN friends
+  SORT friend.friend.name, friend.id, friend.age 
+  SORT friend.age, friend.id
+  SORT friend.age
+  RETURN friend
 ```
+
+If the optimization rules mentioned above are deactivated, then the last `SORT`
+becomes operative and the collection is sorted by `friend.age`. If the
+optimization rules are active, then the second `SORT` becomes operative because
+it covers the same `friend.age` attribute and additionally sorts by another
+attribute in case of ties, making it more accurate. However, if the attributes
+in the second `SORT` expression are in opposite order, as in
+`SORT friend.id, friend.age`, then the last `SORT` is operative.
