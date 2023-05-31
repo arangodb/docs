@@ -22,7 +22,7 @@ Usage
 Example query that is sorting by `lastName` (in ascending order), then `firstName`
 (in ascending order), then by `id` (in descending order):
 
-```aql
+```js
 FOR u IN users
   SORT u.lastName, u.firstName, u.id DESC
   RETURN u
@@ -37,21 +37,21 @@ for each expression separately.
 The following example first sorts documents by `lastName` in ascending order and
 then by `firstName` in ascending order.
 
-```aql
+```js
 SORT doc.lastName, doc.firstName
 ```
 
 The following example first sorts documents by `lastName` in descending order
 and then by `firstName` in ascending order.
 
-```aql
+```js
 SORT doc.lastName DESC, doc.firstName
 ```
 
 The following example first sorts documents by `lastName` in ascending order
 and then by `firstName` in descending order.
 
-```aql
+```js
 SORT doc.lastName, doc.firstName DESC
 ```
 
@@ -63,7 +63,7 @@ always **undefined unless an explicit sort order is defined** using `SORT`.
 Constant `SORT` expressions can be used to indicate that no particular
 sort order is desired.
 
-```aql
+```js
 SORT null
 ```
 
@@ -82,7 +82,7 @@ are deactivated in the query's execution, then the last `SORT` is always the one
 that wins, despite the accuracy. For example, consider the following query with
 multiple consecutive `SORT` operations:
 
-```aql
+```js
 FOR friend IN friends
   SORT friend.friend.name, friend.id, friend.age 
   SORT friend.age, friend.id
