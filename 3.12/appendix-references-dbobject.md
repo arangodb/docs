@@ -18,16 +18,6 @@ server-side JavaScript contexts from the `@arangodb` module.
   [_collection_ object](appendix-references-collection-object.html) for the
   specified collection if it exists.
 
-  {% hint 'warning' %}
-  Using property access automatically creates a new collection with the default
-  settings in Foxx microservices and other server-side JavaScript contexts
-  (but not in _arangosh_) if the specified collection does not exist and doesn't
-  start with an underscore (system collection).
-
-  Creating collections on-the-fly like this is not recommended.
-  Create collections explicitly with `db._create()` instead.
-  {% endhint %}
-
 - `db.<view-name>` and `db["<view-name>"]` return a
   [_view_ object](appendix-references-view-object.html) for the
   specified View if it exists.

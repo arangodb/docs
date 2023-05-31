@@ -191,16 +191,6 @@ db["collection-name"]
 
 This property access returns the collection named `collection-name`.
 
-{% hint 'warning' %}
-Using property access automatically creates a new collection with the default
-settings in Foxx microservices and other server-side JavaScript contexts
-(but not in _arangosh_) if the specified collection does not exist and doesn't
-start with an underscore (system collection).
-
-Creating collections on-the-fly like this is not recommended.
-Create collections explicitly with `db._create()` instead.
-{% endhint %}
-
 ### Synchronous replication of collections
 
 Distributed ArangoDB setups offer synchronous replication,
