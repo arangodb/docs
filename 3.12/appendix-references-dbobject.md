@@ -217,7 +217,7 @@ Create a new document collection or edge collection.
 Creates a new document collection named `collection-name` with the default
 settings and returns a [_collection_ object](appendix-references-collection-object.html).
 
-If the collection name already exists or if the name format is invalid, an
+If a collection or View with this name exists already, or if the name format is invalid, an
 error is thrown. For information about the naming constraints for collections, see
 [Collection names](data-modeling-collections.html#collection-names).
 
@@ -529,7 +529,7 @@ See [`db._create(collection-name [, properties])`](#db_createcollection-name--pr
 Creates a new edge collection named `collection-name` with the default settings
 and returns a [_collection_ object](appendix-references-collection-object.html).
 
-If the collection name already exists, an error is thrown.
+If a collection or View with this name exists already, an error is thrown.
 
 ---
 
