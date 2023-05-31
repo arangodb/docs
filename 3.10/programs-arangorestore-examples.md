@@ -339,21 +339,28 @@ into account when restoring with _arangorestore_.
 
 ### Restoring collections with sharding prototypes
 
-_arangorestore_ yields an error when trying to restore a
-collection whose shard distribution follows a collection which does
-not exist in the cluster and which was not dumped together with the other collection:
+_arangorestore_ yields an error when you try to restore a collection whose shard
+distribution follows a collection (`distributeShardsLike` property) which does not
+exist in the cluster and which was not dumped together with the other collection:
 
 ```
 arangorestore --collection clonedCollection --server.database mydb --input-directory "dump"
 
-ERROR got error from server: HTTP 500 (Internal Server Error): ArangoError 1486: must not have a distributeShardsLike attribute pointing to an unknown collection
-Processed 0 collection(s), read 0 byte(s) from datafiles, sent 0 batch(es)
+WARNING [c6658] {restore} Error while creating document collection 'clonedCollection': got invalid response from server: HTTP 500: 'Collection not found: prototypeCollection in database _system' while executing restoring collection with this requestPayload: ...
+
+ERROR [cb69f] {restore} got invalid response from server: HTTP 500: 'Collection not found: prototypeCollection in database _system' while executing restoring collection with this requestPayload: ...
+
+INFO [a66e1] {restore} Processed 0 collection(s) from 1 database(s) in 0.04 s total time. Read 0 bytes from datafiles, sent 0 data batch(es) of 0 bytes total size.
 ```
 
-You can restore the collection by overriding the error as follows:
+You need to dump and restore collections that follow the sharding of a
+prototype collection together with the prototype collection:
 
 ```
-arangorestore --collection clonedCollection --server.database mydb --input-directory "dump" --ignore-distribute-shards-like-errors
+arangorestore --collection clonedCollection --collection prototypeCollection --server.database mydb --input-directory "dump"
+
+...
+INFO [a66e1] {restore} Processed 2 collection(s) from 1 database(s) in 1.12 s total time. Read 0 bytes from datafiles, sent 0 data batch(es) of 0 bytes total size.
 ```
 
 Restore into an authentication-enabled ArangoDB
