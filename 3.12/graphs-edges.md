@@ -30,6 +30,10 @@ _vertex collections_ in this context), edges form graphs.
 
 ## Edges API
 
-Edges are normal [documents](data-modeling-documents-document-methods.html#edges)
-but additionally have a `_from` and a `_to` attribute that you need to set.
-You can update the `_from` and `_to` attributes like any other document attribute.
+Edges are normal documents but additionally have a `_from` and a `_to` attribute
+that you need to set.
+You can update the `_from` and `_to` attributes like any other document attribute
+using the [Documents API](appendix-references-collection-object.html#documents).
+
+For methods you can call on edge collections, see the edge document methods of
+the [_collection_ object](appendix-references-collection-object.html#edge-documents).

@@ -84,8 +84,8 @@ For more details, see:
 
 - [`arangosearch` Views](arangosearch-views.html)
 - [`search-alias` Views](arangosearch-views-search-alias.html)
-- [Database Methods for Views](data-modeling-views-database-methods.html)
-- [View Methods](data-modeling-views-view-methods.html)
+- [JavaScript API for Views](appendix-references-dbobject.html#views)
+- [The _view_ object](appendix-references-view-object.html)
 
 ### Create a View
 
