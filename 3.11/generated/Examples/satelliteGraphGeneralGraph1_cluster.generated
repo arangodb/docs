@@ -7,8 +7,8 @@ arangosh&gt; graphModule._create(<span class="hljs-string">&quot;normalGraph&quo
 }
 arangosh&gt; satelliteGraphModule._create(<span class="hljs-string">&quot;satelliteGraph&quot;</span>, [ satelliteGraphModule._relation(<span class="hljs-string">&quot;satEdges&quot;</span>, <span class="hljs-string">&quot;satVertices&quot;</span>, <span class="hljs-string">&quot;satVertices&quot;</span>) ], [], {});
 {[SatelliteGraph] 
-  <span class="hljs-string">&quot;satEdges&quot;</span> : [ArangoCollection <span class="hljs-number">10876</span>, <span class="hljs-string">&quot;satEdges&quot;</span> (type edge, status loaded)], 
-  <span class="hljs-string">&quot;satVertices&quot;</span> : [ArangoCollection <span class="hljs-number">10874</span>, <span class="hljs-string">&quot;satVertices&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+  <span class="hljs-string">&quot;satEdges&quot;</span> : [ArangoCollection <span class="hljs-number">10877</span>, <span class="hljs-string">&quot;satEdges&quot;</span> (type edge, status loaded)], 
+  <span class="hljs-string">&quot;satVertices&quot;</span> : [ArangoCollection <span class="hljs-number">10875</span>, <span class="hljs-string">&quot;satVertices&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }
 arangosh&gt; db._create(<span class="hljs-string">&quot;collection&quot;</span>, {<span class="hljs-attr">numberOfShards</span>: <span class="hljs-number">8</span>});
-[ArangoCollection <span class="hljs-number">10880</span>, <span class="hljs-string">&quot;collection&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+[ArangoCollection <span class="hljs-number">10881</span>, <span class="hljs-string">&quot;collection&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)]
