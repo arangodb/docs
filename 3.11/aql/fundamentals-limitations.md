@@ -15,7 +15,11 @@ The following hard-coded limitations exist for AQL queries:
   query execution plan. This number includes all execution nodes of the
   initial execution plan, even if some of them could be
   optimized away later by the query optimizer during plan optimization.
-- An AQL query cannot use more than _2048_ collections/shards.
+- An AQL query cannot use more than _2048_ collections/shards. 
+  {% hint 'tip' %}
+  Starting with version 3.10.7, this limit is configurable via the startup option
+  `--query.max-collections-per-query`.
+  {% endhint %}
 - Expressions in AQL queries cannot have a nesting of more than _500_ levels.
   As an example, the expression `1 + 2 + 3 + 4` is 3 levels deep
   (because it is interpreted and executed as `1 + (2 + (3 + 4))`).
