@@ -1067,28 +1067,6 @@ as second argument.
 - `probability` (optional, default all): a number between `0` and
   `1`. Documents are chosen with this probability.
 
-**Examples**
-
-Pick 1 out of 4 documents of a collection but at most 5:
-
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline collectionIterate
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionIterate}
-    ~ db._create("example");
-      var arr = [];
-    | for (var i = 0;  i < 10;  i++) {
-    |   arr.push({ i });
-      }
-      var meta = db.example.save(arr);
-      var data = [];
-      db.example.iterate( (doc, idx) => data.push({ idx, i: doc.i }), { probability: 0.25, limit: 5 });
-      data;
-    ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock collectionIterate
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
-
 ### `collection.remove(object)`
 
 Removes a document described by the `object`, which must be an object
