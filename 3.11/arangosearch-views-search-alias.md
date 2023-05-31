@@ -11,7 +11,7 @@ unstructured or semi-structured data provided by the inverted indexes that they
 are comprised of.
 
 Views can be managed in the web interface, via an [HTTP API](http/views.html) and
-through a [JavaScript API](data-modeling-views-database-methods.html).
+through a [JavaScript API](appendix-references-dbobject.html#views).
 
 Views can be queried with AQL via the
 [SEARCH operation](aql/operations-search.html).
