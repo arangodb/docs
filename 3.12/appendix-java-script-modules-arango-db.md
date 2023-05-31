@@ -20,8 +20,8 @@ The `db` object
 ---------------
 
 The `db` object represents the current database and lets you access collections
-and Views, run AQL queries, and more. For more information, see
-[The `db` object](appendix-references-dbobject.html).
+and Views, run AQL queries, and more. For more information, see the
+[`db` object](appendix-references-dbobject.html).
 
 **Examples**
 

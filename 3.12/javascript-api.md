@@ -277,11 +277,11 @@ The following Node.js modules are not available at all:
 - `child_process`
 - `cluster`
 - `constants`
-- `crypto` (but see `@arangodb/crypto` below)
+- `crypto` (but see [`@arangodb/crypto`](appendix-java-script-modules-crypto.html))
 - `dgram`
 - `dns`
 - `domain`
-- `http` (but see `@arangodb/request` below)
+- `http` (but see [`@arangodb/request`](appendix-java-script-modules-request.html))
 - `https`
 - `os`
 - `sys`
