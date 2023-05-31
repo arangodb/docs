@@ -74,11 +74,11 @@ let view = db._createView("view", "arangosearch", { links: { collection: { inclu
 To obtain a reference to a collection or View again, you can use multiple ways:
 
 ```js
-let coll = db.collection;
-let view = db.view;
+coll = db._collection("collection");
+view = db._view("view");
 // or
-let coll = db._collection("collection");
-let coll = db._view("view");
+coll = db.collection;
+view = db.view;
 ```
 
 You can create documents via a _collection_ object. You can use arbitrary
