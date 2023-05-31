@@ -68,7 +68,7 @@ user-defined relevance boosting and dynamic score calculation.
 ![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch.png)
 
 Views can be managed in the web interface, via an [HTTP API](http/views.html) and
-through a [JavaScript API](data-modeling-views-database-methods.html).
+through a [JavaScript API](appendix-references-dbobject.html#views).
 
 Views can be queried with AQL using the [`SEARCH` operation](aql/operations-search.html).
 It takes a search expression composed of the fields to search, the search terms,
