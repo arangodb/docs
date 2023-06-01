@@ -443,7 +443,7 @@ Please note that this API is only meaningful and available on a cluster coordina
 
 See:
 - [Get responsible shard in JS API](appendix-references-collection-object.html#collectiongetresponsiblesharddocument)
-- [Get responsible shard in HTTP API](http/collection.html#return-responsible-shard-for-a-document)
+- [Get responsible shard in HTTP API](http/collection.html#get-the-responsible-shard-for-a-document)
 
 ### Foxx API for running tests
 

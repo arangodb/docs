@@ -133,7 +133,7 @@ The follower (once back in business) then periodically checks the Agency and kno
 that it is out of sync. It then automatically catches up. This may take a while
 depending on how much data has to be synced. When doing a join involving the `satellite`
 you can specify how long the DB-Server is allowed to wait for sync until the query
-is being aborted. See [Cursors](http/aql-query.html#create-cursor) for details.
+is being aborted. See [Cursors](http/aql-query.html#create-a-cursor) for details.
 
 During network failure there is also a minimal chance that a query was properly
 distributed to the DB-Servers but that a previous satellite write could not be
