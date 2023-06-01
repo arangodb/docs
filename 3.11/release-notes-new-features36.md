@@ -634,7 +634,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/monitoring.html#metrics-api-deprecated),<br>
+- New [Metrics API](http/monitoring.html#metrics-api),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned
