@@ -226,6 +226,8 @@ db._createView("myView", "search-alias", { indexes: [
 
 ## WAND optimization
 
+<small>Introduced in: v3.11.1</small>
+
 You can define a list of sort expressions that you intend to use in View queries
 later. You can then retrieve search results for the highest-ranking matches from
 Views faster.

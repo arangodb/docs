@@ -12,6 +12,8 @@ here.
 
 ### WAND optimization (Enterprise Edition)
 
+<small>Introduced in: v3.11.1</small>
+
 For `arangosearch` Views and inverted indexes (and by extension `search-alias`
 Views), you can define a list of sort expressions that you want to optimize.
 This is also known as _WAND optimization_.
