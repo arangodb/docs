@@ -1,33 +1,37 @@
 ---
 layout: default
-description: Sequential Access and Cursors
 ---
-Sequential Access and Cursors
-=============================
+# The _cursor_ object
 
-If a query returns a cursor (for example by calling `db._query(...)`), then you can use *hasNext* and *next* to
-iterate over the result set or *toArray* to convert it to an array.
+The JavaScript API returns _cursor_ objects when you use the following methods
+of the [`db` object](appendix-references-dbobject.html) from the `@arangodb`
+module in _arangosh_, as well as in server-side JavaScript contexts if the
+`stream` query option is enabled:
+
+- `db._query(...)` 
+- `db._createStatement(...).execute()`
+
+If a query returns a cursor, then you can use the `hasNext()` and `next()`
+methods to iterate over the results, or `toArray()` to convert them to an array.
 
 If the number of query results is expected to be big, it is possible to 
 limit the amount of documents transferred between the server and the client
-to a specific value. This value is called *batchSize*. The *batchSize*
-can optionally be set when a query is executed using its *execute* method. If no
-*batchSize* value is specified, the server will pick a reasonable default value.
+to a specific value. This value is called `batchSize`. The `batchSize`
+can optionally be set when a statement is executed using its `execute()` method.
+If no `batchSize` value is specified, the server picks a reasonable default value.
 If the server has more documents than should be returned in a single batch,
-the server will set the *hasMore* attribute in the result. It will also
-return the id of the server-side cursor in the *id* attribute in the result.
-This id can be used with the cursor API to fetch any outstanding results from
+the server sets the `hasMore` attribute in the result. It also
+returns the ID of the server-side cursor in the `id` attribute in the response.
+This ID can be used with the Cursor API to fetch any outstanding results from
 the server and dispose the server-side cursor afterwards.
 
-Has Next
---------
+## `cursor.hasNext()`
 
-checks if the cursor is exhausted
-`cursor.hasNext()`
+Checks if the cursor is exhausted.
 
-The *hasNext* operator returns *true*, then the cursor still has
+The `hasNext()` method returns `true`, then the cursor still has
 documents. In this case the next document can be accessed using the
-*next* operator, which will advance the cursor.
+`next` operator, which advances the cursor.
 
 **Examples**
 
@@ -48,17 +52,15 @@ documents. In this case the next document can be accessed using the
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Next
-----
+## `cursor.next()`
 
-returns the next result document
-`cursor.next()`
+Returns the next result document.
 
-If the *hasNext* operator returns *true*, then the underlying
+If the `hasNext()` method returns `true`, then the underlying
 cursor of the AQL query still has documents. In this case the
-next document can be accessed using the *next* operator, which
-will advance the underlying cursor. If you use *next* on an
-exhausted cursor, then *undefined* is returned.
+next document can be accessed using the `next()` method, which
+advances the underlying cursor. If you use `next()` on an
+exhausted cursor, then `undefined` is returned.
 
 **Examples**
 
@@ -78,93 +80,25 @@ exhausted cursor, then *undefined* is returned.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Execute Query
--------------
+## `cursor.dispose()`
 
-executes a query
-`query.execute(batchSize)`
-
-Executes an AQL query. If the optional batchSize value is specified,
-the server will return at most batchSize values in one roundtrip.
-The batchSize cannot be adjusted after the query is first executed.
-
-**Note**: There is no need to explicitly call the execute method if another
-means of fetching the query results is chosen. The following two approaches
-lead to the same result:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline executeQueryNoBatchSize
-    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryNoBatchSize}
-    ~ db._create("users");
-    ~ db.users.save({ name: "Gerhard" });
-    ~ db.users.save({ name: "Helmut" });
-    ~ db.users.save({ name: "Angela" });
-    | var result = db.users.all().toArray();
-    | print(result);
-    | var q = db._query("FOR x IN users RETURN x");
-    | result = [ ];
-    | while (q.hasNext()) {
-    |   result.push(q.next());
-    | }
-      print(result);
-    ~ db._drop("users")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock executeQueryNoBatchSize
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-The following two alternatives both use a batch size and return the same
-result:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline executeQueryBatchSize
-    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryBatchSize}
-    ~ db._create("users");
-    ~ db.users.save({ name: "Gerhard" });
-    ~ db.users.save({ name: "Helmut" });
-    ~ db.users.save({ name: "Angela" });
-    | var result = [ ];
-    | var q = db.users.all();
-    | q.execute(1);
-    | while(q.hasNext()) {
-    |   result.push(q.next());
-    | }
-    | print(result);
-    | result = [ ];
-    | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
-    | while (q.hasNext()) {
-    |   result.push(q.next());
-    | }
-      print(result);
-    ~ db._drop("users")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock executeQueryBatchSize
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Dispose
--------
-
-disposes the result
-`cursor.dispose()`
+Disposes the cursor and its results.
 
 If you are no longer interested in any further results, you should call
-*dispose* in order to free any resources associated with the cursor.
-After calling *dispose* you can no longer access the cursor.
+`dispose()` in order to free any resources associated with the cursor.
+After calling `dispose()`, you can no longer access the cursor.
 
-Count
------
+## `cursor.count()`
 
-counts the number of documents
-`cursor.count()`
-
-The *count* operator counts the number of document in the result set and
-returns that number. The *count* operator ignores any limits and returns
+Counts the number of documents in the result set and
+returns that number. The `count()` method ignores any limits and returns
 the total number of documents found.
+
+---
 
 `cursor.count(true)`
 
-If the result set was limited by the *limit* operator or documents were
-skipped using the *skip* operator, the *count* operator with argument
-*true* will use the number of elements in the final result set - after
-applying *limit* and *skip*.
+If the result set was limited by the `limit()` method or documents were
+skipped using the `skip()` method, the `count()` method with argument
+`true` uses the number of elements in the final result set - after
+applying limit and skip.

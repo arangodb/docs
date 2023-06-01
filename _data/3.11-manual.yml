@@ -29,34 +29,17 @@
   children:
     - text: Databases
       href: data-modeling-databases.html
-      children:
-        - text: Database Methods
-          href: data-modeling-databases-working-with.html
     - text: Collections
       href: data-modeling-collections.html
-      children:
-        - text: Collection Methods
-          href: data-modeling-collections-collection-methods.html
-        - text: Database Methods
-          href: data-modeling-collections-database-methods.html
     - text: Documents
       href: data-modeling-documents.html
       children:
-        - text: Collection Methods
-          href: data-modeling-documents-document-methods.html
-        - text: Database Methods
-          href: data-modeling-documents-database-methods.html
         - text: Schema Validation
           href: data-modeling-documents-schema-validation.html
         - text: Computed Values
           href: data-modeling-documents-computed-values.html
     - text: Views
       href: data-modeling-views.html
-      children:
-        - text: Database Methods
-          href: data-modeling-views-database-methods.html
-        - text: View Methods
-          href: data-modeling-views-view-methods.html 
 - text: Data Models
   href: data-models.html
 - text: Data Retrieval
@@ -496,6 +479,8 @@
   children:
     - text: Configuration
       href: administration-configuration.html
+    - text: Telemetrics
+      href: appendix-telemetrics.html
     - text: Log Levels
       href: administration-log-levels.html
     - text: License Management
@@ -649,6 +634,38 @@
             href: foxx-reference-modules-graph-ql.html
           - text: Queues
             href: foxx-reference-modules-queues.html
+- text: JavaScript API
+  href: javascript-api.html
+  children:
+    - text: '@arangodb'
+      href: appendix-java-script-modules-arango-db.html
+      children:
+        - text: db object
+          href: appendix-references-dbobject.html
+        - text: collection object
+          href: appendix-references-collection-object.html
+        - text: view object
+          href: appendix-references-view-object.html
+        - text: cursor object
+          href: appendix-references-cursor-object.html
+    - text: '@arangodb/actions'
+      href: appendix-java-script-modules-actions.html
+    - text: '@arangodb/analyzers'
+      href: appendix-java-script-modules-analyzers.html
+    - text: '@arangodb/aql/queries'
+      href: appendix-java-script-modules-queries.html
+    - text: '@arangodb/crypto'
+      href: appendix-java-script-modules-crypto.html
+    - text: '@arangodb/request'
+      href: appendix-java-script-modules-request.html
+    - text: '@arangodb/tasks'
+      href: appendix-java-script-modules-tasks.html
+    - text: console
+      href: appendix-java-script-modules-console.html
+    - text: fs
+      href: appendix-java-script-modules-file-system.html
+- text: Error codes and meanings
+  href: appendix-error-codes.html
 - divider: true
 - text: Release Notes
   href: release-notes.html
@@ -819,42 +836,5 @@
       children:
         - text: What's New in 2.1
           href: release-notes-new-features21.html
-- text: Appendix
-  href: appendix.html
-  children:
-    - text: References
-      href: appendix-references.html
-      children:
-        - text: db
-          href: appendix-references-dbobject.html
-        - text: collection
-          href: appendix-references-collection-object.html
-        - text: cursor
-          href: appendix-references-cursor-object.html
-    - text: JavaScript Modules
-      href: appendix-java-script-modules.html
-      children:
-        - text: '@arangodb'
-          href: appendix-java-script-modules-arango-db.html
-        - text: '@arangodb/actions'
-          href: appendix-java-script-modules-actions.html
-        - text: '@arangodb/analyzers'
-          href: appendix-java-script-modules-analyzers.html
-        - text: '@arangodb/aql/queries'
-          href: appendix-java-script-modules-queries.html
-        - text: '@arangodb/crypto'
-          href: appendix-java-script-modules-crypto.html
-        - text: '@arangodb/request'
-          href: appendix-java-script-modules-request.html
-        - text: '@arangodb/tasks'
-          href: appendix-java-script-modules-tasks.html
-        - text: console
-          href: appendix-java-script-modules-console.html
-        - text: fs
-          href: appendix-java-script-modules-file-system.html
-    - text: Deprecated
+    - text: Deprecated and removed features
       href: appendix-deprecated.html
-    - text: Error codes and meanings
-      href: appendix-error-codes.html
-    - text: Telemetrics
-      href: appendix-telemetrics.html

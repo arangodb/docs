@@ -165,16 +165,16 @@ exist.
 The object lets you access the following methods to perform document and
 collection operations:
 
-- [`count()`](data-modeling-documents-document-methods.html#count)
-- [`document()`](data-modeling-documents-document-methods.html#document)
-- [`exists()`](data-modeling-documents-document-methods.html#exists)
-- [`insert()`](data-modeling-documents-document-methods.html#insert--save)
-- [`name()`](data-modeling-collections-database-methods.html#collection-name)
-- [`remove()`](data-modeling-documents-document-methods.html#remove)
-- [`replace()`](data-modeling-documents-document-methods.html#replace)
-- [`save()`](data-modeling-documents-document-methods.html#insert--save)
-- [`truncate()`](data-modeling-collections-collection-methods.html#truncate)
-- [`update()`](data-modeling-documents-document-methods.html#update)
+- [`count()`](appendix-references-collection-object.html#collectioncount)
+- [`document()`](appendix-references-collection-object.html#collectiondocumentobject--options)
+- [`exists()`](appendix-references-collection-object.html#collectionexistsobject--options)
+- [`insert()`](appendix-references-collection-object.html#collectioninsertdata--options)
+- [`name()`](appendix-references-collection-object.html#collectionname)
+- [`remove()`](appendix-references-collection-object.html#collectionremoveobject)
+- [`replace()`](appendix-references-collection-object.html#collectionreplacedocument-data--options)
+- [`save()`](appendix-references-collection-object.html#collectionsavedata--options)
+- [`truncate()`](appendix-references-collection-object.html#collectiontruncate)
+- [`update()`](appendix-references-collection-object.html#collectionupdatedocument-data--options)
 
 Compared to the collection object returned by `db._collection()`, only a subset
 of methods is available, and the operations are executed as part of the
