@@ -132,41 +132,28 @@ and the shard keys.
 Note that the version of the arangodump client tool needs to match the
 version of the ArangoDB server it connects to.
 
-### Advanced Cluster Options
+### Dumping collections with sharding prototypes
 
-Collections may be
-[created with shard distribution](data-modeling-collections-database-methods.html#create)
-identical to an existing prototypical collection; i.e. shards are distributed in
-the very same pattern as in the prototype collection. Such collections cannot be
-dumped without the referenced collection or arangodump yields an error.
+Collections may be created with the shard distribution identical to an existing
+prototypical collection (see [`distributeShardsLike`](appendix-references-dbobject.html#db_createcollection-name--properties--type--options));
+i.e. shards are distributed in the very same pattern as in the prototype collection.
+Such collections cannot be dumped without the referenced collection or arangodump
+yields an error.
 
 ```
 arangodump --collection clonedCollection --output-directory "dump"
 
-ERROR Collection clonedCollection's shard distribution is based on a that of collection prototypeCollection, which is not dumped along. You may dump the collection regardless of the missing prototype collection by using the --ignore-distribute-shards-like-errors parameter.
+ERROR [f7ff5] {dump} An error occurred: Collection clonedCollection's shard distribution is based on that of collection prototypeCollection, which is not dumped along.
 ```
 
-There are two ways to approach that problem.
-Dump the prototype collection as well:
+You need to dump the prototype collection as well:
 
 ```
 arangodump --collection clonedCollection --collection prototypeCollection --output-directory "dump"
 
-Processed 2 collection(s), wrote 81920 byte(s) into datafiles, sent 1 batch(es)
+...
+INFO [66c0e] {dump} Processed 2 collection(s) from 1 database(s) in 0.132990 s total time. Wrote 0 bytes into datafiles, sent 6 batch(es) in total.
 ```
-
-Or override that behavior to be able to dump the collection in isolation
-individually:
-
-```
-arangodump --collection clonedCollection --output-directory "dump" --ignore-distribute-shards-like-errors
-
-Processed 1 collection(s), wrote 34217 byte(s) into datafiles, sent 1 batch(es)
-```
-
-Note that in consequence, restoring such a collection without its prototype is
-affected. See documentation on [arangorestore](programs-arangorestore.html) for
-more details about restoring the collection.
 
 Encryption
 ----------

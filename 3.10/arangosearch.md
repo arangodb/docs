@@ -68,7 +68,7 @@ user-defined relevance boosting and dynamic score calculation.
 ![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch.png)
 
 Views can be managed in the web interface, via an [HTTP API](http/views.html) and
-through a [JavaScript API](data-modeling-views-database-methods.html).
+through a [JavaScript API](appendix-references-dbobject.html#views).
 
 Views can be queried with AQL using the [`SEARCH` operation](aql/operations-search.html).
 It takes a search expression composed of the fields to search, the search terms,
@@ -133,6 +133,11 @@ logical and comparison operators, as well as
    `FILTER` expression, but this is not always the case. You can also combine
    both, with `FILTER`s after `SEARCH`, in which case the filter criteria will
    be applied to the search results as a post-processing step.
+
+{% hint 'info' %}
+Note that if you link a collection to a View and execute a query against this
+View while it is still being indexed, you may not get complete results.
+{% endhint %}
 
 ### Understanding the Analyzer context
 

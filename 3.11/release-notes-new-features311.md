@@ -10,24 +10,6 @@ here.
 
 ## ArangoSearch
 
-### WAND optimization (Enterprise Edition)
-
-For `arangosearch` Views and inverted indexes (and by extension `search-alias`
-Views), you can define a list of sort expressions that you want to optimize.
-This is also known as _WAND optimization_.
-
-If you query a View with the `SEARCH` operation in combination with a
-`SORT` and `LIMIT` operation, search results can be retrieved faster if the
-`SORT` expression matches one of the optimized expressions.
-
-Only sorting by highest rank is supported, that is, sorting by the result
-of a scoring function in descending order (`DESC`).
-
-See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
-for examples.
-
-This feature is only available in the Enterprise Edition.
-
 ### Late materialization improvements
 
 The number of disk reads required when executing search queries with late
@@ -127,6 +109,29 @@ See [Analyzers](analyzers.html#geo_s2) for details.
 
 ## Web interface
 
+### New graph viewer
+
+The graph viewer for visualizing named graphs has been reimplemented based on
+the [vis.js](https://visjs.org/){:target="_blank"} library, the interface
+has been redesigned to be cleaner and rewritten to use the React framework,
+and the overall performance has been improved.
+
+The available **Layout** algorithms are **forceAtlas2** and **hierarchical**.
+Force-based layouts try to avoid overlaps while grouping adjacent nodes together.
+The new hierarchical layout is useful for strict topologies like trees.
+
+A new feature is the ability to search the visible graph to center a specific
+vertex. Another quality-of-life improvement is the **Start node** setting listing
+the graph's vertex collections and the available document keys, that you can
+also search by.
+
+![New graph viewer](images/graphViewer.png)
+
+You can still switch to the old graph viewer if desired.
+
+See the [Graph Viewer](programs-web-interface-graphs.html) documentation for
+details.
+
 ### `search-alias` Views
 
 The 3.11 release of ArangoDB introduces a new web interface for Views that lets
@@ -171,7 +176,7 @@ This is particularly helpful when you have a large amount of saved custom
 queries and want to see which ones have been created or used recently.
 
 In addition, the web interface also offers a search box which helps you
-quickly find the query you're looking for. 
+quickly find the query you're looking for.
 
 ## AQL
 
@@ -391,6 +396,12 @@ example query, but you can also specify your preferred method explicitly.
 
 See the [`COLLECT` options](aql/operations-collect.html#method) for details.
 
+### K_SHORTEST_PATHS performance improvements
+
+The `K_SHORTEST_PATHS` graph algorithm in AQL has been refactored in ArangoDB 3.11,
+resulting in major performance improvements. The query now returns the
+shortest paths between two documents in a graph up to 100 times faster.
+
 ### Added AQL functions
 
 Added the `DATE_ISOWEEKYEAR()` function that returns the ISO week number,
@@ -401,6 +412,17 @@ RETURN DATE_ISOWEEKYEAR("2023-01-01") // { "week": 52, "year": 2022 }
 ```
 
 See [AQL Date functions](aql/functions-date.html#date_isoweekyear) for details.
+
+---
+
+Added the `SHA256()` function that calculates the SHA256 checksum for a string
+and returns it in a hexadecimal string representation.
+
+```aql
+RETURN SHA256("ArangoDB") // "acbd84398a61fcc6fd784f7e16c32e02a0087fd5d631421bf7b5ede5db7fda31"
+```
+
+See [AQL String functions](aql/functions-string.html#sha256) for details.
 
 ### Extended query explain statistics
 
@@ -465,7 +487,7 @@ Query String (33 chars, cacheable: false):
 Execution plan:
  Id   NodeType          Site  Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode     DBS       3       3          0       0.00024   * ROOT
-  9   IndexNode         DBS       3       0          0       0.00060     - FOR doc IN coll   /* primary index scan, index only (projections: `_key`), 3 shard(s) */    
+  9   IndexNode         DBS       3       0          0       0.00060     - FOR doc IN coll   /* primary index scan, index only (projections: `_key`), 3 shard(s) */
   3   CalculationNode   DBS       3       0          0       0.00025       - LET #1 = doc.`_key`   /* attribute expression */   /* collections used: doc : coll */
   7   RemoteNode        COOR      6       0          0       0.00227       - REMOTE
   8   GatherNode        COOR      2       0          0       0.00209       - GATHER   /* parallel, unsorted */
@@ -488,7 +510,66 @@ Query Statistics:
            0            0           0            0               0 / 0          0          9          32768         0.00564
 ```
 
+### New stage in query profiling output
+
+<small>Introduced in: v3.10.3, v3.11.0</small>
+
+The query profiling output has a new `instantiating executors` stage.
+The time spent in this stage is the time needed to create the query executors
+from the final query execution time. In cluster mode, this stage also includes
+the time needed for physically distributing the query snippets to the
+participating DB-Servers. Previously, the time spent for instantiating executors
+and the physical distribution was contained in the `optimizing plan` stage.
+
+```
+Query Profile:
+ Query Stage               Duration [s]
+ initializing                   0.00001
+ parsing                        0.00009
+ optimizing ast                 0.00001
+ loading collections            0.00001
+ instantiating plan             0.00004
+ optimizing plan                0.00088
+ instantiating executors        0.00153
+ executing                      1.27349
+ finalizing                     0.00091
+```
+
+### Limit for the normalization of `FILTER` conditions
+
+Converting complex AQL `FILTER` conditions with a lot of logical branches
+(`AND`, `OR`, `NOT`) into the internal DNF (disjunctive normal form) format can
+take a large amount of processing time and memory. The new `maxDNFConditionMembers`
+query option is a threshold for the maximum number of `OR` sub-nodes in the
+internal representation and defaults to `786432`.
+
+You can also set the threshold globally instead of per query with the
+[`--query.max-dnf-condition-members` startup option](programs-arangod-options.html#--querymax-dnf-condition-members).
+
+If the threshold is hit, the query continues with a simplified representation of
+the condition, which is **not usable in index lookups**. However, this should
+still be better than overusing memory or taking a very long time to compute the
+DNF version.
+
 ## Server options
+
+### Telemetrics
+
+Starting with version 3.11, ArangoDB automatically gathers information on how
+it is used and the features being utilized. This data is used to identify the
+primary usage patterns and features, and to measure their adoption rate.
+
+The information collected by ArangoDB is anonymous and purely statistical.
+It does not contain any personal information like usernames or IP addresses, nor
+any content of the documents stored in ArangoDB. This means that your privacy is
+protected, and that there is no risk of your data being compromised.
+
+If for any reason you prefer not to share usage statistics with ArangoDB, you
+can easily disable this feature by setting the new `--server.telemetrics-api`
+startup option to `false`. The default value is `true`.
+
+For a detailed list of what anonymous metrics ArangoDB collects see
+[Telemetrics](appendix-telemetrics.html).
 
 ### Extended naming constraints for collections, Views, and indexes
 
@@ -528,7 +609,7 @@ FOR doc IN `🥑~колекція =)`
   RETURN doc
 ```
 
-When using extended names, any Unicode characters in names need to be 
+When using extended names, any Unicode characters in names need to be
 [NFC-normalized](http://unicode.org/reports/tr15/#Norm_Forms){:target="_blank"}.
 If you try to create a database, collection, View, or index with a non-NFC-normalized
 name, the server rejects it.
@@ -606,8 +687,8 @@ From version 3.11 onward, ArangoDB can make use of RocksDB's integrated BLOB
 This is currently an experimental feature, not supported and should not be used in production.
 
 [BlobDB is an integral part of RocksDB](https://rocksdb.org/blog/2021/05/26/integrated-blob-db.html){:target="_blank"}
-and provides a key-value separation: large values are stored in dedicated BLOB 
-files, and only a small pointer to them is stored in the LSM tree's SST files. 
+and provides a key-value separation: large values are stored in dedicated BLOB
+files, and only a small pointer to them is stored in the LSM tree's SST files.
 Storing values separate from the keys means that the values do no need to be moved
 through the LSM tree by the compaction. This reduces write amplification and is
 especially beneficial for large values.
@@ -632,7 +713,7 @@ There are currently a few caveats when using BlobDB in ArangoDB:
   read amplification and may worsen the read performance for some workloads.
 - The various tuning parameters that BlobDB offers are made available in ArangoDB,
   but the current default settings for the BlobDB tuning options are not ideal
-  for many use cases and need to be adjusted by administrators first. 
+  for many use cases and need to be adjusted by administrators first.
 - It is very likely that the default settings for the BlobDB tuning options will
   change in future versions of ArangoDB.
 - Memory and disk usage patterns are different to that of versions running without
@@ -674,6 +755,15 @@ benefits of BlobDB. The relevant startup options for the throttle are:
 - `--rocksdb.throttle-lower-bound-bps`
 - `--rocksdb.throttle-max-write-rate`
 - `--rocksdb.throttle-slow-down-writes-trigger`
+
+### `--query.max-dnf-condition-members` option
+
+See [Limit for the normalization of `FILTER` conditions](#limit-for-the-normalization-of-filter-conditions).
+
+### `--rocksdb.reserve-file-metadata-memory` option
+
+This new startup option controls whether to account for `.sst` file metadata
+memory in the block cache.
 
 ### ArangoSearch column cache limit
 
@@ -834,6 +924,28 @@ From v3.10.6 onward, the default output format looks like this:
 arangodb_agency_cache_callback_number{role="SINGLE"} 0
 ```
 
+### Configurable interval when counting open file descriptors
+
+<small>Introduced in: v3.10.7</small>
+
+The `--server.count-descriptors-interval` startup option can be used to specify
+the update interval in milliseconds when counting the number of open file
+descriptors.
+
+The default value is `60000`, i.e. the update interval is once per minute.
+To disable the counting of open file descriptors, you can set the value to `0`.
+If counting is turned off, the `arangodb_file_descriptors_current` metric
+reports a value of `0`.
+
+### Configurable limit of collections per query
+
+<small>Introduced in: v3.10.7, v3.11.1</small>
+
+The `--query.max-collections-per-query` startup option allows you to adjust the
+previously fixed limit for the maximum number of collections/shards per AQL query.
+The default value is `2048`, which is equal to the fixed limit of
+collections/shards in older versions.
+
 ## Miscellaneous changes
 
 ### Write-write conflict improvements
@@ -899,7 +1011,7 @@ The following ArangoSearch metric has been added in version 3.11:
 
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
-The following metrics for traffic accounting were added:
+The following metrics for traffic accounting have been added:
 
 | Label | Description |
 |:------|:------------|
@@ -938,10 +1050,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ### Number of replication clients metric
 
+<small>Introduced in: v3.10.5</small>
+
 The following metric for the number of replication clients for a server has
 been added:
-
-<small>Introduced in: v3.10.5</small>
 
 | Label | Description |
 |:------|:------------|
@@ -951,12 +1063,12 @@ been added:
 
 <small>Introduced in: v3.10.5</small>
 
-The memory usage of in-memory edge index caches is reduced if most of the edges 
+The memory usage of in-memory edge index caches is reduced if most of the edges
 in an index refer to a single or mostly the same collection.
 
 Previously, the full edge IDs, consisting of the the referred-to collection
 name and the referred-to key of the edge, were stored in full, i.e. the full
-values of the edges' `_from` and `_to` attributes. 
+values of the edges' `_from` and `_to` attributes.
 Now, the first edge inserted into an edge index' in-memory cache determines
 the collection name for which all corresponding edges can be stored
 prefix-compressed.
@@ -976,10 +1088,10 @@ in-memory only and are not persisted on disk.
 
 ### Sending delay metrics for internal requests
 
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11, v3.10.6</small>
 
 | Label | Description |
 |:------|:------------|
@@ -987,6 +1099,34 @@ have been added:
 | `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
+### Peak memory metric for in-memory caches 
+
+<small>Introduced in: v3.10.7</small>
+
+This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
+
+### File descriptor metrics
+
+<small>Introduced in: v3.10.7</small>
+
+The following system metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+| `arangodb_file_descriptors_current` | Number of file descriptors currently opened by the arangod process. |
+
+## Client tools
+
+### arangodump
+
+_arangodump_ has a new `--dump-views` startup option to control whether
+View definitions shall be included in the backup. The default value is `true`.
 
 ## Internal changes
 
@@ -1002,3 +1142,6 @@ The bundled version of the immer library has been upgraded to 0.8.0.
 
 The bundled versions of the abseil-cpp, s2geometry, and wcwidth library have
 been updated to more recent versions that don't have a version number.
+
+For ArangoDB 3.11, the bundled version of rclone is 1.62.2. Check if your
+rclone configuration files require changes.

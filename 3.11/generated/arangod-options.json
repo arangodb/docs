@@ -7957,6 +7957,32 @@
     "section" : "replication",
     "type" : "boolean"
   },
+  "replication.auto-repair-revision-trees" : {
+    "category" : "option",
+    "component" : [
+      "dbserver"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Whether to automatically repair revision trees of shards after too many shard synchronization failures.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.6"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "replication",
+    "type" : "boolean"
+  },
   "replication.auto-start" : {
     "category" : "option",
     "component" : [
@@ -8393,7 +8419,7 @@
       "agent",
       "single"
     ],
-    "default" : 268435456,
+    "default" : 1073741824,
     "deprecatedIn" : null,
     "description" : "The size limit for blob files in the documents column family (in bytes). Requires `--rocksdb.enable-blob-files`.",
     "dynamic" : false,
@@ -8973,7 +8999,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "Enable blob garbage collection during compaction in the documents column family. Requires `--rocksdb.enable-blob-files`.",
     "dynamic" : false,
@@ -10101,7 +10127,7 @@
       "agent",
       "single"
     ],
-    "default" : 0,
+    "default" : 256,
     "deprecatedIn" : null,
     "description" : "The size threshold for storing documents in blob files (in bytes, 0 = store all documents in blob files). Requires `--rocks.enable-blob-files`.",
     "dynamic" : false,
@@ -11629,6 +11655,37 @@
     "section" : "server",
     "type" : "uint32"
   },
+  "server.count-descriptors-interval" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 60000,
+    "deprecatedIn" : null,
+    "description" : "Controls the interval (in milliseconds) in which the number of open file descriptors for the process is determined. Requires `--server.count-descriptors`.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "uint64"
+  },
   "server.descriptors-minimum" : {
     "base" : 1,
     "category" : "option",
@@ -11716,6 +11773,36 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "string..."
+  },
+  "server.ensure-whitespace-metrics-format" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "Set to `true` to ensure whitespace between the exported metric value and the preceeding token (metric name or labels) in the metrics output.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.6"
+    ],
+    "longDescription" : "Using the whitespace characters in the output may be\nrequired to make the metrics output compatible with some processing tools, although \"\nPrometheus itself doesn't need it.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
   },
   "server.export-metrics-api" : {
     "category" : "option",

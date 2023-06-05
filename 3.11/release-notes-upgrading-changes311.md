@@ -109,7 +109,7 @@ reported error is now slightly different.
 
 The lock acquisition on the key of the document that is supposed to be
 inserted/modified has a hard-coded timeout of 1 second. If the lock cannot be
-acquire, the error message is as follows:
+acquired, the error message is as follows:
 
 ```
 Timeout waiting to lock key - in index primary of type primary over '_key'; conflicting key: <key>
@@ -151,6 +151,66 @@ revision of the document as stored in the database (if available, otherwise empt
 - The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
   backing storage for large datasets has been removed. Memory paging/swapping
   provided by the operating system is equally effective.
+
+## New query stage
+
+- When profiling a query (`profile` option `true`, `1`, or `2`), the `profile`
+  object returned under `extra` now includes a new `"instantiating executors"`
+  attribute with the time needed to create the query executors, and in cluster
+  mode, this also includes the time needed for physically distributing the query
+  snippets to the participating DB-Servers. Previously, the time spent for
+  instantiating executors and the physical distribution was contained in the
+  `optimizing plan` stage.
+
+- The `state` of a query can now additionally be `"instantiating executors"` in
+  the list of currently running queries.
+
+## Limit for the normalization of `FILTER` conditions
+
+Converting complex AQL `FILTER` conditions with a lot of logical branches
+(`AND`, `OR`, `NOT`) into the internal DNF (disjunctive normal form) format can
+take a large amount of processing time and memory. The new `maxDNFConditionMembers`
+query option is a threshold for the maximum number of `OR` sub-nodes in the
+internal representation and defaults to `786432`.
+
+You can also set the threshold globally instead of per query with the
+[`--query.max-dnf-condition-members` startup option](programs-arangod-options.html#--querymax-dnf-condition-members).
+
+If the threshold is hit, the query continues with a simplified representation of
+the condition, which is **not usable in index lookups**. However, this should
+still be better than overusing memory or taking a very long time to compute the
+DNF version.
+
+## Validation of traversal collection restrictions
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals, you can restrict the vertex and edge collections in the
+traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
+
+Furthermore, it is now an error if you specify a vertex collection that is not
+part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
+It is also an error if you specify an edge collection that is not part of the
+named graph's definition or of the list of edge collections (code `1939` and
+HTTP status `400 Bad Request`).
 
 ## JavaScript API
 
