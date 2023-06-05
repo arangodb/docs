@@ -146,6 +146,9 @@ across all collections within the same database. It consists of the collection's
 name and the document key (the value of the `_key` attribute), separated by a
 forward slash (`/`), like `collection-name/document-key`.
 
+See [Collection names](data-modeling-collections.html#collection-names) and
+[Document keys](#document-keys) for information about the allowed characters.
+
 ### Document revisions
 
 Every document in ArangoDB has a revision, stored in the system attribute
@@ -232,10 +235,9 @@ following naming constraints are not violated:
 
 ## Documents API
 
-The following descriptions cover the JavaScript interface for documents that
-you can use to handle documents from the _arangosh_ command-line tool, as
-well as in server-side JavaScript code like Foxx microservices.
-For other languages see the corresponding language API.
+You can use the JavaScript interface for documents to handle documents from
+the _arangosh_ command-line tool, as well as in server-side JavaScript code
+like Foxx microservices.
+See the [_collection_ object](appendix-references-collection-object.html#documents)
 
-- [Collection Methods](data-modeling-documents-document-methods.html)
-- [Database Methods](data-modeling-documents-database-methods.html)
+For other languages see the corresponding language API.
