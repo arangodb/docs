@@ -7288,6 +7288,39 @@
     "section" : "query",
     "type" : "uint64"
   },
+  "query.max-collections-per-query" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 2048,
+    "deprecatedIn" : null,
+    "description" : "The maximum number of collections/shards that can be used in one AQL query.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.7"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
   "query.max-dnf-condition-members" : {
     "base" : 1,
     "category" : "option",
@@ -7297,7 +7330,7 @@
     ],
     "default" : 786432,
     "deprecatedIn" : null,
-    "description" : "Maximum number of OR sub-nodes in internal representation of an AQL FILTER condition.",
+    "description" : "The maximum number of OR sub-nodes in the internal representation of an AQL FILTER condition.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -7305,7 +7338,7 @@
     "introducedIn" : [
       "v3.11.0"
     ],
-    "longDescription" : "This option can be used to limit the computation\ntime and memory usage when converting complex AQL FILTER conditions into the\ninternal DNF (disjunctive normal form) format. FILTER conditions with a lot of\nlogical branches (AND, OR, NOT) can take a large amount of processing time and\nmemory. This startup option can be used to limit the computation time and memory\nusage for such conditions. Once the threshold value is reached during the DNF\nconversion of a FILTER condition, the conversion will be aborted, and the query\nwill continue with a simplified internal representation of the condition, which\ncannot be used for index lookups.\"",
+    "longDescription" : "Yon can use this option to limit the computation\ntime and memory usage when converting complex AQL FILTER conditions into the\ninternal DNF (disjunctive normal form) format. FILTER conditions with a lot of\nlogical branches (AND, OR, NOT) can take a large amount of processing time and\nmemory. This startup option limits the computation time and memory usage for\nsuch conditions.\n\nOnce the threshold value is reached during the DNF conversion of a FILTER\ncondition, the conversion is aborted, and the query continues with a simplified\ninternal representation of the condition, which cannot be used for index\nlookups.",
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -7904,6 +7937,38 @@
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
   },
+  "rclone.argument" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "Prepend custom arguments to rclone.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.11",
+      "v3.10.7",
+      "v3.11.1"
+    ],
+    "longDescription" : "You can add custom arguments to invocations of\nrclone, which is called for uploading and downloading Hot Backups. For example,\nyou can enable debug logging to a separate file on startup as follows:\n\n`arangod --rclone.argument \"--log-level=DEBUG\" --rclone.argument \"--log-file=rclone.log\" ...`\n\nIf you use the ArangoDB Starter, you can utilize the `ARANGODB_SERVER_DIR`\nenvironment variable that it sets to generate separate log files for every\ncluster node, like `--all.rclone.argument=\"--log-file=@ARANGODB_SERVER_DIR@/rclone.log`.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rclone",
+    "type" : "string..."
+  },
   "rclone.executable" : {
     "category" : "option",
     "component" : [
@@ -8217,7 +8282,7 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.9.6",
-      "v3.10.20"
+      "v3.10.2"
     ],
     "longDescription" : "Enabling this option may cause additional CPU and\nI/O load. You can limit how many index filling operations can execute\nconcurrently with the `--rocksdb.max-concurrent-index-fill-tasks` startup\noption.",
     "obsolete" : false,
@@ -8336,7 +8401,7 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.9.6",
-      "v3.10.20"
+      "v3.10.2"
     ],
     "longDescription" : "When documents are added, modified, or removed,\nthese changes are tracked and a background thread tries to update the index\ncaches accordingly if the feature is enabled, by adding new, updating existing,\nor deleting and refilling cache entries.\n\nYou can enable the feature for individual `INSERT`, `UPDATE`, `REPLACE`,  and\n`REMOVE` operations in AQL queries, for individual document API requests that\ninsert, update, replace, or remove single or multiple documents, as well\nas enable it by default using this startup option.\n\nThe background refilling is done on a best-effort basis and not guaranteed to\nsucceed, for example, if there is no memory available for the cache subsystem,\nor during cache grow/shrink operations. A background thread is used so that\nforeground write operations are not slowed down by a lot. It may still cause\nadditional I/O activity to look up data from the storage engine to repopulate\nthe cache.",
     "obsolete" : false,
@@ -8366,7 +8431,7 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.9.6",
-      "v3.10.20"
+      "v3.10.2"
     ],
     "longDescription" : "This option restricts how many cache entries\nthe background thread for (re-)filling the in-memory index caches can queue at\nmost. This limits the memory usage for the case of the background thread being\nslower than other operations that invalidate cache entries of edge indexes\nor cache-enabled persistent indexes.",
     "maxInclusive" : true,
@@ -9648,7 +9713,7 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.9.6",
-      "v3.10.20"
+      "v3.10.2"
     ],
     "longDescription" : "The lower this number, the lower the impact of the\nindex cache filling, but the longer it takes to complete.",
     "maxInclusive" : true,
@@ -11655,6 +11720,37 @@
     "section" : "server",
     "type" : "uint32"
   },
+  "server.count-descriptors-interval" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 60000,
+    "deprecatedIn" : null,
+    "description" : "Controls the interval (in milliseconds) in which the number of open file descriptors for the process is determined (0 = disable counting).",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "uint64"
+  },
   "server.descriptors-minimum" : {
     "base" : 1,
     "category" : "option",
@@ -11753,7 +11849,7 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "Set to `true` to ensure whitespace between the exported metric value and the preceeding token (metric name or labels) in the metrics output.",
+    "description" : "Set to `true` to ensure whitespace between the exported metric value and the preceding token (metric name or labels) in the metrics output.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -11761,7 +11857,7 @@
     "introducedIn" : [
       "v3.10.6"
     ],
-    "longDescription" : "Using the whitespace characters in the output may be\nrequired to make the metrics output compatible with some processing tools, although \"\nPrometheus itself doesn't need it.",
+    "longDescription" : "Using the whitespace characters in the output may\nbe required to make the metrics output compatible with some processing tools,\nalthough Prometheus itself doesn't need it.",
     "obsolete" : false,
     "os" : [
       "linux",
@@ -12605,7 +12701,7 @@
     ],
     "default" : 3,
     "deprecatedIn" : null,
-    "description" : "Maximum number of requests from the arangosh that the telemetrics API will respond without rate-limiting.",
+    "description" : "The maximum number of requests from arangosh that the telemetrics API responds to without rate-limiting.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -12613,7 +12709,7 @@
     "introducedIn" : [
       "v3.11.0"
     ],
-    "longDescription" : "This option controls the maximum \nnumber of requests that the telemetrics API will respond to before\nit rate-limits. Note that only requests from the arangosh to the\ntelemetrics API will be rate-limited, but not any other requests\nto the telemetrics API.\nRequests to the telemetrics API will be counted for every 2 hour\ninterval, and then resetted. That means after a period of at most\n2 hours, the telemetrics API will become usable again.\nThe purpose of this option is to keep a deployment from being\noverwhelmed by too many telemetrics requests, issued by arangosh\ninstances that are used for batch processing.",
+    "longDescription" : "This option limits requests from the arangosh to\nthe telemetrics API, but not any other requests to the API.\n\nRequests to the telemetrics API are counted for every 2 hour interval, and then\nreset. This means after a period of at most 2 hours, the telemetrics API\nbecomes usable again.\n\nThe purpose of this option is to keep a deployment from being overwhelmed by\ntoo many telemetrics requests issued by arangosh instances that are used for\nbatch processing.",
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,

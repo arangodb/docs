@@ -1324,6 +1324,28 @@ From v3.10.6 onward, the default output format looks like this:
 arangodb_agency_cache_callback_number{role="SINGLE"} 0
 ```
 
+### Configurable interval when counting open file descriptors
+
+<small>Introduced in: v3.10.7</small>
+
+The `--server.count-descriptors-interval` startup option can be used to specify
+the update interval in milliseconds when counting the number of open file
+descriptors.
+
+The default value is `60000`, i.e. the update interval is once per minute.
+To disable the counting of open file descriptors, you can set the value to `0`.
+If counting is turned off, the `arangodb_file_descriptors_current` metric
+reports a value of `0`.
+
+### Configurable limit of collections per query
+
+<small>Introduced in: v3.10.7</small>
+
+The `--query.max-collections-per-query` startup option allows you to adjust the
+previously fixed limit for the maximum number of collections/shards per AQL query.
+The default value is `2048`, which is equal to the fixed limit of
+collections/shards in older versions.
+
 ## Miscellaneous changes
 
 ### Optimizer rules endpoint
@@ -1370,7 +1392,7 @@ larger write operations, has now been fully removed.
 
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
-The following metrics for traffic accounting were added:
+The following metrics for traffic accounting have been added:
 
 | Label | Description |
 |:------|:------------|
@@ -1409,10 +1431,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ### Number of replication clients metric
 
+<small>Introduced in: v3.10.5</small>
+
 The following metric for the number of replication clients for a server has
 been added:
-
-<small>Introduced in: v3.10.5</small>
 
 | Label | Description |
 |:------|:------------|
@@ -1447,10 +1469,10 @@ in-memory only and are not persisted on disk.
 
 ### Sending delay metrics for internal requests
 
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11, v3.10.6</small>
 
 | Label | Description |
 |:------|:------------|
@@ -1458,6 +1480,27 @@ have been added:
 | `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
+### Peak memory metric for in-memory caches 
+
+<small>Introduced in: v3.10.7</small>
+
+This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
+
+### File descriptor limit metric
+
+<small>Introduced in: v3.10.7</small>
+
+The following system metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
+| `arangodb_file_descriptors_current` | Number of file descriptors currently opened by the arangod process. |
 
 ## Client tools
 
@@ -1544,4 +1587,5 @@ The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 
 
 The bundled version of the zlib library has been upgraded from 1.2.11 to 1.2.12.
 
-For ArangoDB 3.10, the bundled version of rclone is 1.59.0.
+For ArangoDB 3.10, the bundled version of rclone is 1.59.0. Check if your
+rclone configuration files require changes.

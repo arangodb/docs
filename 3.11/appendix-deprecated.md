@@ -25,13 +25,21 @@ redirect_from:
   - deployment-leader-follower.html # 3.8 -> 3.9
   - graph-analytics-custom-pregel.html # 3.10 -> 3.11
 ---
-Deprecated
-==========
+# Deprecated and removed features
 
-Features listed in this section should no longer be used, because they are
-considered obsolete and may get removed in a future release. They are currently
-kept for backward compatibility. There are usually better alternatives to
-replace the old features with:
+Features listed on this page should no longer be used because they have been
+deprecated and may get removed in a future release, or have been removed already
+and are thus no longer available.
+
+Deprecated features are still available for backward compatibility, but you should
+update your applications to prepare for upgrades of ArangoDB that may remove the
+features. There are usually alternatives to replace the old features with.
+
+{% hint 'info' %}
+This page only lists significant obsolete features but not minor API changes.
+See the [**Release notes**](release-notes.html) of the respective versions for
+detailed information about breaking changes before upgrading.
+{% endhint %}
 
 - **Pregel features**:
 

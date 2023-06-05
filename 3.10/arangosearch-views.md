@@ -17,7 +17,7 @@ The searching and ranking capabilities are provided by the
 [IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}.
 
 Views can be managed in the web interface, via an [HTTP API](http/views.html) and
-through a [JavaScript API](data-modeling-views-database-methods.html).
+through a [JavaScript API](appendix-references-dbobject.html#views).
 
 Views can be queried with AQL via the
 [SEARCH operation](aql/operations-search.html).
