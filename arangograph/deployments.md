@@ -199,14 +199,29 @@ periodically to improve security.
 
 ### Auto login to database UI
 
-The auto login feature is a convenient and time-saving functionality that
-allows you to seamlessly access the ArangoDB database web interface from within
-the ArangoGraph platform without the need for additional login credentials.
+ArangoGraph provides the ability to automatically login to your database using
+your existing ArangoGraph credentials. This not only provides a seamless
+experience, preventing you from having to manage multiple sets of credentials
+but also improves the overall security of your database. As your credentials
+are shared between ArangoGraph and your database, you can benefit from
+end-to-end audit traceability for a given user, as well as integration with
+ArangoGraph SSO.
 
 You can enable this feature in the **Password Settings** dialog. Please note
 that it may take a few minutes to get activated.
 Once enabled, you no longer have to fill in the `root` user and password of
-your ArangoDB deployment. This feature can be disabled at any time.
+your ArangoDB deployment.
+
+This feature can be disabled at any time. You may wish to consider explicitly
+disabling this feature in the following situations:
+- Your workflow requires you to access the database UI using different accounts
+  with differing permission sets, as you cannot switch database users when
+  automatic login is enabled.
+- You need to give individuals access to a database's UI without giving them
+  any access to ArangoGraph. Note, however, that it's possible to only give an
+  ArangoGraph user database UI access, without other ArangoGraph permissions.
+- For some reason, you require driver access via `8529` port and you are unable
+  to use the designated `18529` driver port.
 
 Before getting started, make sure you are signed into ArangoGraph as a user
 with one of the following permissions in your project:
