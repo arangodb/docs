@@ -130,6 +130,20 @@ in AQL queries, which support a `refillIndexCache` option, too.
 
 In 3.9 and 3.10, `refillIndexCaches` was experimental and limited to edge caches.
 
+---
+
+<small>Introduced in: v3.11.1</small>
+
+Using the Document API for reading multiple documents used to return an error
+if the request body was an empty array. Example:
+
+```bash
+> curl -XPUT -d '[]' 'http://localhost:8529/_api/document/coll?onlyget=true'
+{"code":500,"error":true,"errorMessage":"internal error","errorNum":4}
+```
+
+Now, a request like this succeeds and returns an empty array as response.
+
 #### Collection API
 
 The edge collections of EnterpriseGraphs and SmartGraphs (including
