@@ -26,7 +26,7 @@ modes**, depending on if you want to use the GeoJSON data-format or not. The mod
 are mainly toggled by using the `geoJson` field when creating the index.
 
 This index assumes coordinates with the latitude between -90 and 90 degrees and the
-longitude between -180 and 180 degrees. A geo index will ignore all 
+longitude between -180 and 180 degrees. A geo index ignores all 
 documents which do not fulfill these requirements.
 
 ### GeoJSON Mode
@@ -61,10 +61,10 @@ geodesics (pieces of great circles on Earth).
 ### Non-GeoJSON mode
 
 This index mode exclusively supports indexing on coordinate arrays. Values that
-contain GeoJSON or other types of data will be ignored. In the non-GeoJSON mode
+contain GeoJSON or other types of data are ignored. In the non-GeoJSON mode
 the index can be created on one or two fields.
 
-The following examples will work in the _arangosh_ command shell.
+The following examples work in the _arangosh_ command shell.
 
 To create a geo-spatial index on all documents using `latitude` and
 `longitude` as separate attribute paths, two paths need to be specified
@@ -127,23 +127,26 @@ between ArangoDB 3.10 and earlier versions. Two things have changed:
 - linear rings are interpreted according to the rules and no longer
   "normalized"
 
-For backward compatibility, a new `legacyPolygons` option has been introduced
+For backward compatibility, a `legacyPolygons` option has been introduced
 for geo indexes. It is relevant for those that have `geoJson` set to
-`true` only. Old geo indexes from versions from below 3.10 will always
+`true` only. Geo indexes created in versions before 3.10 always
 implicitly have the `legacyPolygons` option set to `true`. Newly generated
-geo indexes from 3.10 on will have the `legacyPolygons` option by default
-set to `false`, however, it can still be explicitly overwritten with
-`true` to create a legacy index but is not recommended.
+geo indexes from 3.10 onward have the `legacyPolygons` option set to `false`
+by default. However, you can still explicitly overwrite the setting with
+`true` to create a legacy index, but it is not recommended.
 
-A geo index with `legacyPolygons` set to `true` will use the old, pre-3.10
+A geo index with `legacyPolygons` set to `true` uses the old, pre-3.10
 rules for the parsing GeoJSON polygons. This allows you to let old indexes
 produce the same, potentially wrong results as before an upgrade. A geo index
-with `legacyPolygons` set to `false` will use the new, correct and consistent
+with `legacyPolygons` set to `false` uses the new, correct and consistent
 method for parsing of GeoJSON polygons.
 
 If you use a geo index and upgrade from a version below 3.10 to a version of
 3.10 or higher, it is recommended that you drop your old geo indexes
 and create new ones with `legacyPolygons` set to `false`.
+
+Similarly, a `legacy` property for [`geojson` Analyzers](analyzers.html#geojson)
+has been added.
 
 {% hint 'warning' %}
 It is possible that you might have been relying on the old (wrong) parsing of
@@ -191,7 +194,7 @@ FOR x IN geo_collection
 ```
 
 The function `GEO_DISTANCE()` always returns the distance in meters, so this
-query will receive results up until _100km_.
+query receives results up until _100km_.
 
 The first parameter can be a GeoJSON object or a coordinate array in
 `[longitude, latitude]` ordering. The second parameter is the document field
@@ -247,7 +250,7 @@ FOR x IN geo_collection
   RETURN x
 ```
 
-This will return the documents with a GeoJSON value that is located in
+This returns the documents with a GeoJSON value that is located in
 the specified search annulus.
 
 The first parameter can be a GeoJSON object or a coordinate array in
@@ -308,7 +311,7 @@ FOR x IN geo_collection
   RETURN x
 ```
 
-The first parameter of `GEO_INTERSECTS()` will usually be a polygon.
+The first parameter of `GEO_INTERSECTS()` is usually a polygon.
 
 The second parameter must contain the document field on that the index
 was created.
@@ -513,8 +516,8 @@ parser):
 - Within the same linear ring, consecutive coordinate pairs may be the same,
   otherwise all coordinate pairs need to be distinct (except the first and last one).
 - Linear rings of a polygon must not share edges, but they may share coordinate pairs.
-- A linear ring defines two regions on the sphere. ArangoDB will always
-  interpret the region that lies to the left of the boundary ring (in
+- A linear ring defines two regions on the sphere. ArangoDB always
+  interprets the region that lies to the left of the boundary ring (in
   the direction of its travel on the surface of the Earth) as the
   interior of the ring. This is in contrast to earlier versions of
   ArangoDB before 3.10, which always took the **smaller** of the two
