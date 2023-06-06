@@ -129,11 +129,11 @@ between ArangoDB 3.10 and earlier versions. Two things have changed:
 
 For backward compatibility, a new `legacyPolygons` option has been introduced
 for geo indexes. It is relevant for those that have `geoJson` set to
-`true` only. Old geo indexes from versions from below 3.10 will always
+`true` only. Geo indexes created in versions before 3.10 will always
 implicitly have the `legacyPolygons` option set to `true`. Newly generated
-geo indexes from 3.10 on will have the `legacyPolygons` option by default
-set to `false`, however, it can still be explicitly overwritten with
-`true` to create a legacy index but is not recommended.
+geo indexes from 3.10 onward will have the `legacyPolygons` option set to `false`
+by default. However, you can still explicitly overwrite the setting with
+`true` to create a legacy index, but it is not recommended.
 
 A geo index with `legacyPolygons` set to `true` will use the old, pre-3.10
 rules for the parsing GeoJSON polygons. This allows you to let old indexes
