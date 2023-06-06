@@ -79,6 +79,43 @@ suddenly interpreted in a different way. See
 [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
 Also see the definition of [Polygons](indexing-geo.html#polygon).
 
+`geojson` Analyzers
+-------------------
+
+After an upgrade to 3.10 or higher, consider to drop and recreate `geojson`
+Analyzers. If these Analyzers are used in `arangosearch` Views, then they need
+to be dropped as well before dropping the Analyzers, and recreated after creating
+the new Analyzers.
+
+GeoJSON polygons are interpreted slightly differently (and more correctly)
+in the newer versions.
+
+Legacy `geojson` Analyzers continue to work and continue to produce the
+same results as in earlier versions, since they have the `legacy` property
+implicitly set to `true`.
+
+Newly created `geojson` Analyzers have `legacy` set to `false` by default
+and thus enable the new polygon parsing.
+
+Note that linear rings are not normalized automatically from version 3.10 onward,
+following the [GeoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
+The "interior" of a polygon strictly conforms to the GeoJSON standard:
+it lies to the left of the boundary line (in the direction of travel along the
+boundary line on the surface of the Earth). This can be the "larger" connected
+component of the surface, or the smaller one. Note that this differs from the
+interpretation of GeoJSON polygons in version 3.9 and older:
+
+| `legacy` enabled | `legacy` disabled |
+|:-----------------|:------------------|
+| The smaller of the two regions defined by a linear ring is interpreted as the interior of the ring. | The area to the left of the boundary ring's path is considered to be the interior. |
+| A ring can at most enclose half the Earth's surface | A ring can enclose the entire surface of the Earth |
+
+This can mean that old polygon GeoJSON data in the database is
+suddenly interpreted in a different way. See
+[Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
+Also see the definition of [Polygons](indexing-geo.html#polygon) and the
+[`geojson` Analyzer](analyzers.html#geojson) documentation.
+
 Maximum Array / Object Nesting
 ------------------------------
 

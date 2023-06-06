@@ -488,6 +488,16 @@ Enterprise Edition:
   Like the existing `geojson` Analyzer, but with an additional `format` property
   that can be set to `"latLngDouble"` (default), `"latLngInt"`, or `"s2Point"`.
 
+#### `geojson` Analyzer
+
+Analyzers of the `geojson` type have a new `legacy` property.
+
+This option controls how GeoJSON Polygons are interpreted.
+Also see [Legacy Polygons](indexing-geo.html#legacy-polygons).
+
+The default is `true` for `geojson` Analyzers that were created in versions
+before 3.10, and `false` for `geojson` Analyzers created in 3.10 or later.
+
 #### Views API
 
 Views of the type `arangosearch` support new caching options in the
@@ -518,6 +528,16 @@ objects.
 
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.
+
+#### Geo-spatial indexes
+
+Indexes of the `geo` type have a new `legacyPolygons` option.
+
+If `geoJson` is set to `true`, then this option controls how GeoJSON Polygons
+are interpreted. Also see [Legacy Polygons](indexing-geo.html#legacy-polygons).
+
+The default is `true` for geo indexes that were created in versions
+before 3.10, and `false` for geo indexes created in 3.10 or later.
 
 #### Collection truncation markers
 
