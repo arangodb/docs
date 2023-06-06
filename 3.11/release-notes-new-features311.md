@@ -1122,11 +1122,11 @@ This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
 |:------|:------------|
 | `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
 
-### Number of sst files metric
+### Number of SST files metric
 
 <small>Introduced in: v3.10.7, v3.11.1</small>
 
-This new metric reports the number of RocksDB sst files:
+This new metric reports the number of RocksDB `.sst` files:
 
 | Label | Description |
 |:------|:------------|

@@ -469,6 +469,16 @@ The following metric has been added in version 3.11:
 
 ---
 
+<small>Introduced in: v3.10.7, v3.11.1</small>
+
+This new metric reports the number of RocksDB `.sst` files:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_total_sst_files` | Total number of RocksDB sst files, aggregated over all levels. |
+
+---
+
 <small>Introduced in: v3.10.7</small>
 
 The metrics endpoints include the following new file descriptors metrics:
