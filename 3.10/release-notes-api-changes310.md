@@ -167,7 +167,7 @@ move shard operations and improve balance in the cluster.
 - `POST /_admin/cluster/rebalance_execute`
 - `PUT /_admin/cluster/rebalance`
   
-For more information, see the [Cluster](http/cluster.html#compute-the-current-cluster-imbalance) 
+For more information, see the [Cluster](http/cluster.html#get-the-current-cluster-imbalance) 
 section of the HTTP API documentation. 
 
 #### Maintenance mode for DB-Servers
@@ -227,7 +227,7 @@ to extend the timeout.
 
 The maintenance mode ends automatically after the defined timeout.
 
-Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-the-maintenance-status-of-a-db-server).
+Also see the [HTTP interface for cluster maintenance](http/cluster.html#get-the-maintenance-status-of-a-db-server).
 
 ### Endpoints augmented
 
@@ -800,7 +800,7 @@ Both endpoints return a new `detail` attribute with additional Pregel run detail
         - (the same attributes like under `aggregatedStatus`)
 
 For a detailed description of the attributes, see
-[Pregel HTTP API](http/pregel.html#get-pregel-job-execution-status).
+[Pregel HTTP API](http/pregel.html#get-the-pregel-job-execution-status).
 
 #### Log level API
 

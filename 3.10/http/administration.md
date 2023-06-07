@@ -48,7 +48,7 @@ status and update the license of your ArangoDB Enterprise Edition deployment.
 {% docublock post_admin_echo %}
 {% docublock post_admin_execute %}
 
-## Endpoints (deprecated)
+## Endpoints
 
 {% hint 'warning' %}
 The `/_api/endpoint` endpoint is deprecated. For cluster deployments, you can

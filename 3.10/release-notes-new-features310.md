@@ -1049,7 +1049,7 @@ You can do any of the following by using the API:
 - Execute the given set of move shard operations.
 - Compute a set of move shard operations to improve balance and execute them immediately. 
 
-For more information, see the [Cluster](http/cluster.html#compute-the-current-cluster-imbalance) 
+For more information, see the [Cluster](http/cluster.html#get-the-current-cluster-imbalance) 
 section of the HTTP API documentation.
 
 ## Query result spillover to decrease memory usage
@@ -1081,7 +1081,7 @@ You can also set the thresholds per query in the JavaScript and HTTP APIs.
 For details, see:
 - [`temp` startup options](programs-arangod-options.html#--tempintermediate-results-path)
 - [Executing queries from _arangosh_](aql/invocation-with-arangosh.html#spilloverthresholdmemoryusage)
-- [HTTP interfaces for AQL queries](http/aql-query.html#create-cursor)
+- [HTTP interfaces for AQL queries](http/aql-query.html#create-a-cursor)
 
 ## Server options
 

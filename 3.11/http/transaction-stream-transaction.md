@@ -12,7 +12,7 @@ description: >-
 For an introduction to this transaction type, see
 [Stream Transactions](../transactions-stream-transactions.html).
 
-To use a Stream Transaction, a client first sends the [configuration](#begin-transaction)
+To use a Stream Transaction, a client first sends the [configuration](#begin-a-stream-transaction)
 of the transaction to the ArangoDB server.
 
 {% hint 'info' %}
@@ -30,9 +30,9 @@ This will automatically cause these operations to use the specified transaction.
 Supported transactional API operations include:
 
 - All operations in the [Document API](document.html)
-- Number of documents via the [Collection API](collection.html#return-number-of-documents-in-a-collection)
-- Truncate a collection via the [Collection API](collection.html#truncate-collection)
-- Create an AQL cursor via the [Cursor API](aql-query.html#create-cursor)
+- Number of documents via the [Collection API](collection.html#get-the-document-count-of-a-collection)
+- Truncate a collection via the [Collection API](collection.html#truncate-a-collection)
+- Create an AQL cursor via the [Cursor API](aql-query.html#create-a-cursor)
 - Handle [vertices](gharial.html#vertices) and [edges](gharial.html#edges)
   of managed graphs (_General Graph_ / _Gharial_ API)
 
