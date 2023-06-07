@@ -355,7 +355,7 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
 
 - The `/_api/cursor` endpoint accepts a new `allowRetry` attribute in the
   `options` object. Set this option to `true` to make it possible to retry
-  fetching the latest batch from a cursor.
+  fetching the latest batch from a cursor. The default is `false`.
 
   If retrieving a result batch fails because of a connection issue, you can ask
   for that batch again using the new `POST /_api/cursor/<cursor-id>/<batch-id>`
@@ -363,15 +363,21 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
   with every batch. Every result response except the last one also includes a
   `nextBatchId` attribute, indicating the ID of the batch after the current.
   You can remember and use this batch ID should retrieving the next batch fail.
-  Calling the new endpoint does not advance the cursor.
 
   You can only request the latest batch again (or the next batch).
   Earlier batches are not kept on the server-side.
+  Requesting a batch again does not advance the cursor.
 
   You can also call this endpoint with the next batch identifier, i.e. the value
   returned in the `nextBatchId` attribute of a previous request. This advances the
   cursor and returns the results of the next batch. This is only supported if there
   are more results in the cursor (i.e. `hasMore` is `true` in the latest batch).
+
+  From v3.11.1 onward, you may use the `POST /_api/cursor/<cursor-id>/<batch-id>`
+  endpoint even if the `allowRetry` attribute is `false` to fetch the next batch,
+  but you cannot request a batch again unless you set it to `true`.
+  The `nextBatchId` attribute is always present in result objects (except in the
+  last batch) from v3.11.1 onward.
 
   To allow refetching of the very last batch of the query, the server cannot
   automatically delete the cursor. After the first attempt of fetching the last
@@ -379,7 +385,7 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
   might need to reattempt the fetch, it needs to keep the final batch when the
   `allowRetry` option is enabled. Once you successfully received the last batch,
   you should call the `DELETE /_api/cursor/<cursor-id>` endpoint so that the
-  server doesn't unnecessary keep the batch until the cursor times out
+  server doesn't unnecessarily keep the batch until the cursor times out
   (`ttl` query option).
 
 - When profiling a query (`profile` option `true`, `1`, or `2`), the `profile`
