@@ -683,6 +683,16 @@ newly added metrics for `arangosearch` View links and inverted indexes:
 
 ---
 
+<small>Introduced in: v3.10.7</small>
+
+This new metric reports the number of RocksDB `.sst` files:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_total_sst_files` | Total number of RocksDB sst files, aggregated over all levels. |
+
+---
+
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
 The metrics endpoints include the following new traffic accounting metrics:
