@@ -490,13 +490,12 @@ Enterprise Edition:
 
 #### `geojson` Analyzer
 
-Analyzers of the `geojson` type have a new `legacy` property.
+<small>Introduced in: v3.10.5</small>
+
+Analyzers of the `geojson` type have a new `legacy` property. The default is `false`.
 
 This option controls how GeoJSON Polygons are interpreted.
-Also see [Legacy Polygons](indexing-geo.html#legacy-polygons).
-
-The default is `true` for `geojson` Analyzers that were created in versions
-before 3.10, and `false` for `geojson` Analyzers created in 3.10 or later.
+See the [`geojson` Analyzer](analyzers.html#geojson).
 
 #### Views API
 

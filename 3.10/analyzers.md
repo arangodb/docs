@@ -1268,7 +1268,7 @@ attributes:
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 - `legacy` (boolean, _optional_):
-  This option controls how GeoJSON Polygons are interpreted.
+  This option controls how GeoJSON Polygons are interpreted (introduced in v3.10.5).
   Also see [Legacy Polygons](indexing-geo.html#legacy-polygons).
 
   - If `legacy` is `true`, the smaller of the two regions defined by a
@@ -1278,26 +1278,26 @@ attributes:
     path is considered to be the interior and a ring can enclose the entire
     surface of the Earth.
 
-  The default is `true` for `geojson` Analyzers that were created in versions
-  before 3.10, and `false` for `geojson` Analyzers created in 3.10 or later.
-
-  If you use a `geojson` Analyzer and upgrade from a version below 3.10 to a
-  version of 3.10 or higher, it is recommended that you drop your old `geojson`
-  Analyzers and create new ones with `legacy` set to `false`. If these Analyzers
-  are used in `arangosearch` Views, then they need to be dropped as well before
-  dropping the Analyzers, and recreated after creating the new Analyzers.
+  The default is `false`.
 
   {% hint 'warning' %}
-  It is possible that you might have been relying on the old (wrong) parsing of
-  GeoJSON polygons unknowingly. If you have polygons in your data that mean to
-  refer to a relatively small region, but have the boundary running clockwise
-  around the intended interior, they would have been interpreted as intended prior
-  to 3.10, but from 3.10 on, they would be interpreted as "the other side" of the
-  boundary.
+  If you use `geojson` Analyzers and upgrade from a version below 3.10 to a
+  version of 3.10 or higher, the interpretation of GeoJSON Polygons changes.
+
+  If you have polygons in your data that mean to refer to a relatively small
+  region but have the boundary running clockwise around the intended interior,
+  they are interpreted as intended prior to 3.10, but from 3.10 onward, they are
+  interpreted as "the other side" of the boundary.
 
   Whether a clockwise boundary specifies the complement of the small region
   intentionally or not cannot be determined automatically. Please test the new
   behavior manually.
+
+  If you require the old behavior, upgrade to at least 3.10.5, drop your
+  `geojson` Analyzers, and create new ones with `legacy` set to `true`.
+  If these Analyzers are used in `arangosearch` Views, then they need to be
+  dropped as well before dropping the Analyzers, and recreated after creating
+  the new Analyzers.
   {% endhint %}
 
 **Examples**

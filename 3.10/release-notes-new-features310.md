@@ -589,14 +589,14 @@ has been introduced to guarantee backwards compatibility.
 For existing users who wish to take advantage of the new standard behavior,
 geo indexes need to be dropped and recreated after an upgrade.
 
-Similarly, a `legacy` property has been added to the `geojson` Analyzer type
-for backwards compatibility. To use the new standard behavior, you need to drop
-and recreate `geojson` Analyzers. If these Analyzers are used in `arangosearch`
-Views, then they need to be dropped as well before dropping the Analyzers, and
-recreated after creating the new [`geojson` Analyzers](analyzers.html#geojson).
-
 See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
 details and for hints about upgrading to version 3.10 or later.
+
+If you use `geojson` Analyzers including in `arangosearch` Views and upgrade
+from a version below 3.10 to a version of 3.10 or higher, the interpretation of
+GeoJSON Polygons changes. See the `legacy` property of the
+[`geojson` Analyzer](analyzers.html#geojson) for details and how to restore the
+old behavior.
 
 ### Traversal Projections (Enterprise Edition)
 

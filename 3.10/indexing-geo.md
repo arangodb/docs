@@ -145,16 +145,16 @@ If you use a geo index and upgrade from a version below 3.10 to a version of
 3.10 or higher, it is recommended that you drop your old geo indexes
 and create new ones with `legacyPolygons` set to `false`.
 
-Similarly, a `legacy` property for [`geojson` Analyzers](analyzers.html#geojson)
-has been added.
+If you use `geojson` Analyzers and upgrade from a version below 3.10 to a
+version of 3.10 or higher, the interpretation of GeoJSON Polygons changes.
+See the `legacy` property of the [`geojson` Analyzer](analyzers.html#geojson).
 
 {% hint 'warning' %}
 It is possible that you might have been relying on the old (wrong) parsing of
 GeoJSON polygons unknowingly. If you have polygons in your data that mean to
 refer to a relatively small region, but have the boundary running clockwise
-around the intended interior, they would have been interpreted as intended prior
-to 3.10, but from 3.10 on, they would be interpreted as "the other side" of the
-boundary.
+around the intended interior, they are interpreted as intended prior to 3.10,
+but from 3.10 onward, they are interpreted as "the other side" of the boundary.
 
 Whether a clockwise boundary specifies the complement of the small region
 intentionally or not cannot be determined automatically. Please test the new
