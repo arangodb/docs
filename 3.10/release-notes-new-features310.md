@@ -1346,6 +1346,18 @@ previously fixed limit for the maximum number of collections/shards per AQL quer
 The default value is `2048`, which is equal to the fixed limit of
 collections/shards in older versions.
 
+### Custom arguments to rclone
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+The `--rclone.argument` startup option can be used to prepend custom arguments
+to rclone. For example, you can enable debug logging to a separate file on
+startup as follows:
+
+```
+arangod --rclone.argument "--log-level=DEBUG" --rclone.argument "--log-file=rclone.log"
+```
+
 ## Miscellaneous changes
 
 ### Optimizer rules endpoint
@@ -1490,6 +1502,16 @@ This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
 | Label | Description |
 |:------|:------------|
 | `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
+
+### Number of SST files metric
+
+<small>Introduced in: v3.10.7</small>
+
+This new metric reports the number of RocksDB `.sst` files:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_total_sst_files` | Total number of RocksDB sst files, aggregated over all levels. |
 
 ### File descriptor limit metric
 
