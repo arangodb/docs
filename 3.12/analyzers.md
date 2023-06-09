@@ -1269,7 +1269,8 @@ attributes:
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 - `legacy` (boolean, _optional_):
   This option controls how GeoJSON Polygons are interpreted (introduced in v3.10.5).
-  Also see [Legacy Polygons](indexing-geo.html#legacy-polygons).
+  Also see [Legacy Polygons](indexing-geo.html#legacy-polygons) and
+  [GeoJSON interpretation](indexing-geo.html#geojson-interpretation).
 
   - If `legacy` is `true`, the smaller of the two regions defined by a
     linear ring is interpreted as the interior of the ring and a ring can at most

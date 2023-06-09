@@ -77,7 +77,8 @@ interpretation of GeoJSON polygons in version 3.9 and older:
 This can mean that old polygon GeoJSON data in the database is
 suddenly interpreted in a different way. See
 [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
-Also see the definition of [Polygons](indexing-geo.html#polygon).
+Also see the definition of [Polygons](indexing-geo.html#polygon)
+and [GeoJSON interpretation](indexing-geo.html#geojson-interpretation).
 
 `geojson` Analyzers
 -------------------

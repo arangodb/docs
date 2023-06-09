@@ -578,6 +578,8 @@ This diverges from the previous implementation in two fundamental ways:
    that the "smaller" of the two connected components are the interior.
    This allows specifying polygons that cover more than half of
    the surface of the Earth and conforms to the GeoJSON standard.
+   See [GeoJSON interpretation](indexing-geo.html#geojson-interpretation)
+   for examples.
 
 Additionally, the reported issues, which occasionally produced
 wrong results in geo queries when using geo indexes, have been fixed.
