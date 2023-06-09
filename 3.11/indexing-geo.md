@@ -275,7 +275,7 @@ A query which returns documents whose stored geometry is contained within a
 GeoJSON Polygon.
 
 ```aql
-LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35]]])
+LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35],[60,35]]])
 FOR x IN geo_collection
   FILTER GEO_CONTAINS(polygon, x.geometry)
   RETURN x
@@ -293,7 +293,7 @@ Note that containment in the opposite direction is currently not supported by
 geo indexes:
 
 ```aql
-LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35]]])
+LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35],[60,35]]])
 FOR x IN geo_collection
   FILTER GEO_CONTAINS(x.geometry, polygon)
   RETURN x
@@ -305,7 +305,7 @@ A query that returns documents with an intersection of their stored
 geometry and a GeoJSON Polygon.
 
 ```aql
-LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35]]])
+LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35],[60,35]]])
 FOR x IN geo_collection
   FILTER GEO_INTERSECTS(polygon, x.geometry)
   RETURN x
