@@ -173,6 +173,7 @@ class DocuBlockBlock < Liquid::Tag
             currentKey = nil
             currentStruct = nil
             currentStructKey = nil
+            hasBrief = false
             local = nil
             text.each_line do |line|
                 case line
@@ -189,8 +190,10 @@ class DocuBlockBlock < Liquid::Tag
                     currentKey = nil
                     currentObject = nil
                     currentStruct = nil
+                    hasBrief = false
                 when /^@brief\s*(.*)/
                     if local
+                        hasBrief = true
                         local["header"] += $1
                     else
                         Jekyll.logger.debug "Missing @startDocuBlock #{line}. Ignoring"
@@ -202,8 +205,12 @@ class DocuBlockBlock < Liquid::Tag
                     currentStruct = nil
                 when /^@RESTDESCRIPTION/
                     currentObject = local
-                    currentKey = "description"
                     currentStruct = nil
+                    if hasBrief
+                        currentKey = "description"
+                    else
+                        currentKey = "header"
+                    end
                 when /^@RESTRETURNCODES/
                     currentObject = local
                     currentStruct = nil

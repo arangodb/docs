@@ -642,7 +642,7 @@ primary keys during the insert.
 
 The query options are available in [AQL](aql/operations-insert.html#query-options),
 the [JS API](appendix-references-collection-object.html#collectioninsertdata--options) and
-[HTTP API](http/document.html#create-document).
+[HTTP API](http/document.html#create-a-document).
 
 ### Override detected total memory and CPU cores
 

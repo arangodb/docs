@@ -898,6 +898,18 @@ You can configure the feature via the following new startup options:
   exceeds the configured threshold and the last auto-flush is longer ago than
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
 
+### Custom arguments to rclone
+
+<small>Introduced in: v3.9.11</small>
+
+The `--rclone.argument` startup option can be used to prepend custom arguments
+to rclone. For example, you can enable debug logging to a separate file on
+startup as follows:
+
+```
+arangod --rclone.argument "--log-level=DEBUG" --rclone.argument "--log-file=rclone.log"
+```
+
 Overload control
 ----------------
 
