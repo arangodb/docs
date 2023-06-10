@@ -16,7 +16,7 @@ attributes, unlike collections with user-defined indexes.
 Views can be managed as follows:
 - in the web interface, in the **VIEWS** section
 - via the [Views HTTP API](http/views.html)
-- through the [JavaScript API](data-modeling-views-database-methods.html)
+- through the [JavaScript API](appendix-references-dbobject.html#views)
 
 Once you set up a View, you can query it via AQL with the
 [`SEARCH` operation](aql/operations-search.html).

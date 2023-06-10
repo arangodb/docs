@@ -898,6 +898,18 @@ You can configure the feature via the following new startup options:
   exceeds the configured threshold and the last auto-flush is longer ago than
   the configured auto-flush check interval. This avoids too frequent auto-flushes.
 
+### Custom arguments to rclone
+
+<small>Introduced in: v3.9.11</small>
+
+The `--rclone.argument` startup option can be used to prepend custom arguments
+to rclone. For example, you can enable debug logging to a separate file on
+startup as follows:
+
+```
+arangod --rclone.argument "--log-level=DEBUG" --rclone.argument "--log-file=rclone.log"
+```
+
 Overload control
 ----------------
 
@@ -1019,7 +1031,7 @@ Recommended alternatives are the Active Failover deployment option and the OneSh
 
 <small>Introduced in: v3.8.9, v3.9.6</small>
 
-The following metrics for traffic accounting were added:
+The following metrics for traffic accounting have been added:
 
 | Label | Description |
 |:------|:------------|
@@ -1087,10 +1099,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ### Sending delay metrics for internal requests
 
+<small>Introduced in: v3.9.11</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11</small>
 
 | Label | Description |
 |:------|:------------|

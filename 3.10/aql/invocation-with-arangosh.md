@@ -476,7 +476,7 @@ result set iteration is needed, it is recommended to first create an
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-To execute the query, use the `execute()` method of the statement:
+To execute the query, use the `execute()` method of the _statement_ object:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements2
@@ -487,6 +487,64 @@ To execute the query, use the `execute()` method of the statement:
     @endDocuBlock 05_workWithAQL_statements2
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
+
+You can pass a number to the `execute()` method to specify a batch size value.
+The server returns at most this many results in one roundtrip.
+The batch size cannot be adjusted after the query is first executed.
+
+**Note**: There is no need to explicitly call the execute method if another
+means of fetching the query results is chosen. The following two approaches
+lead to the same result:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline executeQueryNoBatchSize
+    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryNoBatchSize}
+    ~ db._create("users");
+    ~ db.users.save({ name: "Gerhard" });
+    ~ db.users.save({ name: "Helmut" });
+    ~ db.users.save({ name: "Angela" });
+    | var result = db.users.all().toArray();
+    | print(result);
+    | var q = db._query("FOR x IN users RETURN x");
+    | result = [ ];
+    | while (q.hasNext()) {
+    |   result.push(q.next());
+    | }
+      print(result);
+    ~ db._drop("users")
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock executeQueryNoBatchSize
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+The following two alternatives both use a batch size and return the same
+result:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline executeQueryBatchSize
+    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryBatchSize}
+    ~ db._create("users");
+    ~ db.users.save({ name: "Gerhard" });
+    ~ db.users.save({ name: "Helmut" });
+    ~ db.users.save({ name: "Angela" });
+    | var result = [ ];
+    | var q = db.users.all();
+    | q.execute(1);
+    | while(q.hasNext()) {
+    |   result.push(q.next());
+    | }
+    | print(result);
+    | result = [ ];
+    | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
+    | while (q.hasNext()) {
+    |   result.push(q.next());
+    | }
+      print(result);
+    ~ db._drop("users")
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock executeQueryBatchSize
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Cursors
 

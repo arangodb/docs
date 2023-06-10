@@ -52,6 +52,6 @@ future.
 
 {% include metrics.md version=page.version.version %}
 
-### Metrics API (deprecated)
+### Metrics API
 
 {% docublock get_admin_metrics, h4 %}
