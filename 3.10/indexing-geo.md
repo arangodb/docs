@@ -368,13 +368,13 @@ Consider the following polygon (remember that GeoJSON has
 
 ![GeoJSON Polygon Geodesic](images/geojson-polygon-geodesic.webp)
 
-It does not contain the point `[10, 47]` since the shortest path
-(geodesic) from `[4, 47]` to `[16, 47]` lies North of the latitude line
-with latitude 47. On the contrary, the polygon does contain the
-point `[10, 54]` for a similar reason.
+It does not contain the point `[10, 47]` since the shortest path (geodesic)
+from `[4, 47]` to `[16, 47]` lies North relative to the parallel of latitude at
+47 degrees. On the contrary, the polygon does contain the point `[10, 54]` as it
+lies South of the parallel of latitude at 54 degrees.
 
 {% hint 'info' %}
-ArangoDB version before 3.10 did an inconsistent special detection of such
+ArangoDB version before 3.10 did an inconsistent special detection of "rectangle"
 polygons that later versions from 3.10 onward no longer do, see
 [Legacy Polygons](#legacy-polygons).
 {% endhint %}
@@ -389,29 +389,29 @@ This section states explicitly:
 > holes are clockwise.
 
 This rather misleading phrase means that when a linear ring is used as
-the boundary of a polygon, the "interior" of the polygon lies to the
-left of the boundary when one travels on the surface of the Earth and
+the boundary of a polygon, the "interior" of the polygon lies **to the left**
+of the boundary when one travels on the surface of the Earth and
 along the linear ring. For
-example, the polygon below travels counter-clockwise around the point
+example, the polygon below travels **counter-clockwise** around the point
 `[10, 50]`, and thus the interior of the polygon contains this point and
 its surroundings, but not, for example, the North Pole and the South
 Pole.
 
 ```json
 { "type": "Polygon", "coordinates": [[
-  [4, 54], [4, 47], [16, 47], [16, 54], [4, 54] // counter-clockwise
+  [4, 54], [4, 47], [16, 47], [16, 54], [4, 54]
 ]] }
 ```
 
 ![GeoJSON Polygon Counter-clockwise](images/geojson-polygon-ccw.webp)
 
-On the other hand, the following polygon travels clockwise around the point
+On the other hand, the following polygon travels **clockwise** around the point
 `[10, 50]`, and thus its "interior" does not contain `[10, 50]`, but does
 contain the North Pole and the South Pole:
 
 ```json
 { "type": "Polygon", "coordinates": [[
-  [4, 54], [16, 54], [16, 47], [4, 47], [4, 54] // clockwise
+  [4, 54], [16, 54], [16, 47], [4, 47], [4, 54]
 ]] }
 ```
 
