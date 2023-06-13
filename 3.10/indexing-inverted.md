@@ -152,7 +152,7 @@ db.<collection>.ensureIndex({
 
 To index array values but preserve the array indexes for a `search-alias` View,
 which you then also need to specify in queries, enable the `trackListPositions`
-option:
+option (requires `searchField` to be `true`):
 
 ```js
 db.<collection>.ensureIndex({

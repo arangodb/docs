@@ -13,7 +13,7 @@ the documents that satisfy the search criteria by relevance.
 Views guarantee the best execution plan (merge join) when querying multiple
 attributes, unlike collections with user-defined indexes.
 
-Views can be managed as follows:
+Views of type `arangosearch` can be managed as follows:
 - in the web interface, in the **VIEWS** section
 - via the [Views HTTP API](http/views.html)
 - through the [JavaScript API](appendix-references-dbobject.html#views)
@@ -23,6 +23,22 @@ Once you set up a View, you can query it via AQL with the
 
 See [Information Retrieval with ArangoSearch](arangosearch.html) for an
 introduction to Views and how to search them.
+
+## Create `arangosearch` Views using the JavaScript API
+
+The following example shows how you can create an `arangosearch` View in _arangosh_:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline viewArangoSearchCreate
+    @EXAMPLE_ARANGOSH_OUTPUT{viewArangoSearchCreate}
+      var coll = db._create("books");
+      db._createView("products", "arangosearch", { links: { books: { fields: { title: { analyzers: ["text_en"] } } } } });
+    ~ db._dropView("products");
+    ~ db._drop(coll.name());
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock viewArangoSearchCreate
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 View Definition/Modification
 ----------------------------
