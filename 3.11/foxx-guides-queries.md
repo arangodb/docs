@@ -138,7 +138,7 @@ const numbers = db._query(`
   RETURN i
 `).toArray();
 // Actual query executed by the code:
-// FOR i IN i..1
+// FOR i IN 1..1
 // FOR u IN myfoxx_users
 // REMOVE u IN myfoxx_users
 // RETURN i
