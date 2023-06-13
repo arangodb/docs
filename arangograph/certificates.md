@@ -136,16 +136,16 @@ You can also extract the information from all certificates in the chain using th
 
 - For **well-known certificates**, run the following command:
   ```
-  openssl s_client -showcerts -servername <deployment-id>.arangodb.cloud -connect <deployment-id>.arangodb.cloud:8529 </dev/null
+  openssl s_client -showcerts -servername <123456abcdef>.arangodb.cloud -connect <123456abcdef>.arangodb.cloud:8529 </dev/null
   ```
 
 - For **self-signed certificates**, run the following command:
   ```
-  openssl s_client -showcerts -servername <deployment-id>.arangodb.cloud -connect <deployment-id>.arangodb.cloud:18529 </dev/null
+  openssl s_client -showcerts -servername <123456abcdef>.arangodb.cloud -connect <123456abcdef>.arangodb.cloud:18529 </dev/null
   ```
 
-Note that you need to replace <deployment-id> with the ID of your ArangoGraph
-deployment. 
+Note that `<123456abcdef>` is a placeholder that needs to be replaced with the
+unique ID that is part of your ArangoGraph deployment endpoint URL.
 
 ## How to connect to your application
 
