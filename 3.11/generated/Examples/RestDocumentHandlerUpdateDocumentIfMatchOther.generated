@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;If-Match: &quot;_gFa5JjO--A&quot;&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/69606</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;If-Match: &quot;_gJQHfne--A&quot;&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/69606</span> &lt;&lt;EOF
 {"other":"content"}
 EOF
 
@@ -8,7 +8,7 @@ cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-
 connection: Keep-Alive
 content-length: <span class="hljs-number">152</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
-etag: <span class="hljs-string">&quot;_gFa5JjO--_&quot;</span>
+etag: <span class="hljs-string">&quot;_gJQHfne--_&quot;</span>
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
 server: ArangoDB
@@ -23,5 +23,5 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;conflict, _rev values do not match&quot;</span>, 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/69606&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;69606&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gFa5JjO--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gJQHfne--_&quot;</span> 
 }
