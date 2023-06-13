@@ -338,7 +338,7 @@ to extend the timeout.
 
 The maintenance mode ends automatically after the defined timeout.
 
-Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-the-maintenance-status-of-a-db-server).
+Also see the [HTTP interface for cluster maintenance](http/cluster.html#get-the-maintenance-status-of-a-db-server).
 
 ### Endpoints augmented
 
@@ -420,8 +420,8 @@ Enterprise Edition:
 
 #### Query API
 
-The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-running-aql-queries)
-and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
+The [`GET /_api/query/current`](http/aql-query.html#list-the-running-aql-queries)
+and [`GET /_api/query/slow`](http/aql-query.html#list-the-slow-aql-queries)
 endpoints include a new numeric `peakMemoryUsage` attribute.
 
 ---

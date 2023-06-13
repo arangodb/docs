@@ -195,7 +195,7 @@ migration-related processes as soon as possible.
 
 The `arangosync-migration set-server-mode` command allows switching
 {% assign ver = "3.10" | version: ">=" %}{% if ver -%}
-[read-only mode](../http/administration.html#update-whether-or-not-a-server-is-in-read-only-mode)
+[read-only mode](../http/administration.html#set-the-server-mode-to-read-only-or-default)
 {% else -%}
 [read-only mode](../http/administration-and-monitoring.html#update-whether-or-not-a-server-is-in-read-only-mode)
 {% endif -%}
