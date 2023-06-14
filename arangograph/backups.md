@@ -67,13 +67,37 @@ By default, a backup is not uploaded to the cloud, instead it remains on the
 servers of the deployment. To make a backup that is resilient against server
 (disk) failures, upload the backup to cloud storage. 
 
-When the **Upload backup to cloud storage option** is enabled, the backup is
+When the **Upload backup to cloud storage** option is enabled, the backup is
 preserved for a long time and does not occupy any disk space on the servers.
 This also allows copying the backup to different regions and it can be
 configured in the **Multiple region backup** section.
 
 Uploaded backups are
 required for [cloning](#how-to-clone-deployments-using-backups).
+
+#### Best practices for uploading backups
+
+When utilizing the **Upload backup to cloud storage** feature, a recommended
+approach is to implement a backup strategy that balances granularity and storage
+efficiency.
+
+One effective strategy involves creating a combination of backup intervals and
+retention periods. For instance, consider the following example:
+
+1. Perform 24 hourly backups with a retention period of 24 hours. Hourly backups
+   provide frequent snapshots of your data, allowing you to recover recent
+   changes.
+2. Keep 7 daily backups with a retention period of a week. Daily backups offer
+   a broader time range for recovery, enabling you to restore data from any
+   point within the past week.
+3. Retain 12 monthly backups with a retention period of a year. Monthly backups
+   provide a long-term perspective, enabling you to restore data from any month
+   within the past year.
+
+This backup strategy offers good granularity, providing multiple recovery
+options for different timeframes. By implementing this approach, you have a 
+total of 43 backups in comparison to the alternative of having hourly backups
+with a retention period of a year, which would result in 8760 backups.
 
 ## Multi-region backups
 
