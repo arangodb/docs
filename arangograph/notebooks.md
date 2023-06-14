@@ -43,7 +43,7 @@ favorite GraphML libraries with GPUs.
 
 1. Navigate to the **Deployments** tab.
 2. Open the deployment in which you want to create the notebook.
-3. Go to the **Notebooks** tab and click the **Create Notebook** button.
+3. Go to the **Data science** tab and click the **Create Notebook** button.
 4. Enter a name and optionally a description for your new notebook. 
 5. Select a configuration model from the dropdown menu. Click **Save**.
 6. The notebook's phase is set to **Initializing**. Once the phase changes to
