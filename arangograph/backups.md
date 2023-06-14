@@ -84,20 +84,22 @@ efficiency.
 One effective strategy involves creating a combination of backup intervals and
 retention periods. For instance, consider the following example:
 
-1. Perform 24 hourly backups with a retention period of 24 hours. Hourly backups
-   provide frequent snapshots of your data, allowing you to recover recent
+1. Perform a backup every 4 hours with a retention period of 24 hours. This
+   provides frequent snapshots of your data, allowing you to recover recent
    changes.
-2. Keep 7 daily backups with a retention period of a week. Daily backups offer
-   a broader time range for recovery, enabling you to restore data from any
-   point within the past week.
-3. Retain 12 monthly backups with a retention period of a year. Monthly backups
-   provide a long-term perspective, enabling you to restore data from any month
-   within the past year.
+2. Perform a backup every day with a retention period of a week. Daily backups
+   offer a broader time range for recovery, enabling you to restore data from
+   any point within the past week.
+3. Perform a backup every week with a retention period of a month. Weekly
+   backups allow you to recover from more extensive data.
+4. Perform a backup every month with a retention period of a year. Monthly 
+   backups provide a long-term perspective, enabling you to restore data from
+   any month within the past year.
 
 This backup strategy offers good granularity, providing multiple recovery
 options for different timeframes. By implementing this approach, you have a 
-total of 43 backups in comparison to the alternative of having hourly backups
-with a retention period of a year, which would result in 8760 backups.
+total number of backups that is considerable lower in comparison to other
+alternatives such as having hourly backups with a retention period of a year.
 
 ## Multi-region backups
 
