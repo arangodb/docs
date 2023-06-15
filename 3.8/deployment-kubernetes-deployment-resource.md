@@ -554,9 +554,9 @@ Defines metrics exporter mode.
 Possible values:
 - `exporter` (default): add sidecar to pods (except Agency pods) and exposes
   metrics collected by exporter from ArangoDB Container. Exporter in this mode
-  expose metrics which are accessible without authentication.
+  exposes metrics which are accessible without authentication.
 - `sidecar`: add sidecar to all pods and expose metrics from ArangoDB metrics
-  endpoint. Exporter in this mode expose metrics which are accessible without
+  endpoint. Exporter in this mode exposes metrics which are accessible without
   authentication.
 - `internal`: configure ServiceMonitor to use internal ArangoDB metrics endpoint
   (proper JWT token is generated for this endpoint).
@@ -730,46 +730,53 @@ By default, suitable tolerations are set for the following keys with the `NoExec
 - `node.kubernetes.io/unreachable`
 - `node.alpha.kubernetes.io/unreachable` (will be removed in future version)
 
-For more information on tolerations, consult the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/){:target="_blank"}.
+For more information on tolerations, consult the
+[Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/){:target="_blank"}.
 
 ### `spec.<group>.nodeSelector: map[string]string`
 
 This setting specifies a set of labels to be used as `nodeSelector` for Pods of this node.
 
-For more information on node selectors, consult the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/){:target="_blank"}.
+For more information on node selectors, consult the
+[Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/){:target="_blank"}.
 
 ### `spec.<group>.entrypoint: string`
 Entrypoint overrides container executable.
 
 ### `spec.<group>.antiAffinity: PodAntiAffinity`
-Specifies additional antiAffinity settings in ArangoDB Pod definitions.
+Specifies additional `antiAffinity` settings in ArangoDB Pod definitions.
 
-For more information on antiAffinity, consult the [Kubernetes documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/){:target="_blank"}.
+For more information on `antiAffinity`, consult the
+[Kubernetes documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/){:target="_blank"}.
 
 ### `spec.<group>.affinity: PodAffinity`
-Specifies additional affinity settings in ArangoDB Pod definitions.
+Specifies additional `affinity` settings in ArangoDB Pod definitions.
 
-For more information on affinity, consult the [Kubernetes documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/){:target="_blank"}.
+For more information on `affinity`, consult the
+[Kubernetes documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/){:target="_blank"}.
 
 ### `spec.<group>.nodeAffinity: NodeAffinity`
-Specifies additional nodeAffinity settings in ArangoDB Pod definitions
+Specifies additional `nodeAffinity` settings in ArangoDB Pod definitions.
 
-For more information on nodeAffinity, consult the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/){:target="_blank"}.
+For more information on `nodeAffinity`, consult the
+[Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/){:target="_blank"}.
 
 ### `spec.<group>.securityContext: ServerGroupSpecSecurityContext`
-Specifies additional securityContext settings in ArangoDB Pod definitions.
+Specifies additional `securityContext` settings in ArangoDB Pod definitions.
 This is similar (but not fully compatible) to k8s SecurityContext definition.
 
-For more information on securityContext, consult the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/){:target="_blank"}.
+For more information on `securityContext`, consult the
+[Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/){:target="_blank"}.
 
 ### `spec.<group>.securityContext.addCapabilities: []Capability`
-Add new capabilities to containers.
+Adds new capabilities to containers.
 
 ### `spec.<group>.securityContext.allowPrivilegeEscalation: bool`
 Controls whether a process can gain more privileges than its parent process.
 
 ### `spec.<group>.securityContext.privileged: bool`
-Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host.
+Runs container in privileged mode. Processes in privileged containers are
+essentially equivalent to root on the host.
 
 ### `spec.<group>.securityContext.readOnlyRootFilesystem: bool`
 Mounts the container's root filesystem as read-only.
@@ -784,21 +791,22 @@ The UID to run the entrypoint of the container process.
 The GID to run the entrypoint of the container process.
 
 ### `spec.<group>.securityContext.supplementalGroups: []integer`
-A list of groups applied to the first process run in each container, in addition to the container's primary GID,
-the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process.
+A list of groups applied to the first process run in each container, in
+addition to the container's primary GID, the fsGroup (if specified), and group
+memberships defined in the container image for the UID of the container process.
 
 ### `spec.<group>.securityContext.fsGroup: integer`
 A special supplemental group that applies to all containers in a pod.
 
 ### `spec.<group>.securityContext.seccompProfile: SeccompProfile`
-The seccomp options to use by the containers in this pod.
+The `seccomp` options to use by the containers in this pod.
 
 ### `spec.<group>.securityContext.seLinuxOptions: SELinuxOptions`
-The SELinux context to be applied to all containers.
+The `SELinux` context to be applied to all containers.
 
 ## Image discovery group `spec.id` fields
 
-Image discovery (`id`) group supports only next subset of fields.
+Image discovery (`id`) group only supports the next subset of fields.
 Refer to according field documentation in `spec.<group>` description.
 
 - `spec.id.entrypoint: string`
