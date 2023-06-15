@@ -227,6 +227,7 @@ Use the `overwriteMode` write configuration parameter to specify the document ov
 
 ### Write Configuration
 
+- `database`: database name, `_system` by default
 - `table`: target ArangoDB collection name (required)
 - `batchSize`: writing batch size, `10000` by default
 - `byteBatchSize`: byte batch size threshold, only considered for `contentType=json`, `8388608` by default (8 MB)
