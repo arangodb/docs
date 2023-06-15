@@ -113,8 +113,9 @@ After this step, the graph has been migrated.
 
 This example describes a scenario in which the collections names have changed,
 assuming that you have renamed `old_vertices` to `vertices`.
-For the vertex data this change is not relevant, the `_id` values is adjust automatically,
-so you can import the data again, and just target the new collection name:
+For the vertex data this change is not relevant, the `_id` values are adjusted
+automatically, so you can import the data again, and just target the new
+collection name:
 
 ```sh
 arangoimport --collection vertices --file docOutput/old_vertices.jsonl
@@ -127,8 +128,23 @@ EnterpriseGraphs.
 Second, because you have changed the name of the `_from` collection, you need
 to provide a `from-collection-prefix`. The same is true for the `_to` collection.
 
-Note that you can only change all vertices on `_from` respectively `_to`
-side with this mechanism. However, you can use different collections on `_from` and `_to`.
+Note that this mechanism does not provide the option to selectively replace
+collection names. It only allows replacing all collection names on `_from` 
+respectively `_to`.
+This means that, even if you use different collections on `_from` and `_to`, 
+their names are modified based on the prefix that is specified.  
+
+Consider the following example where `_to:users_vertices/Bob` points to a
+different collection. When using `--to-collection-prefix "vertices"` to rename
+the collections, all collections names on the `_to` side are renamed to
+`vertices` as this transformation solely allows for the replacement of all
+collection names within a column.
+
+```
+{"_key":"121","_id":"old_edges/121","_from":"old_vertices/Bob","_to":"old_vertices/Charly","_rev":"_edwW20----","attribute2":"value2"}
+{"_key":"122","_id":"old_edges/122","_from":"old_vertices/Charly","_to":"old_vertices/Alice","_rev":"_edwW20G---","attribute2":"value3"}
+{"_key":"120","_id":"old_edges/120","_from":"old_vertices/Alice","_to":"users_vertices/Bob","_rev":"_edwW20C---","attribute2":"value1"}
+```
 
 Next, in order to make the change of vertex collection you need to
 allow `overwrite-collection-prefix`.
