@@ -72,7 +72,7 @@ keywords, is now the same as described in the
 [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}.
 The new `collation` Analyzer is currently the only Analyzer that supports all
 four: `language[_COUNTRY][_VARIANT][@keywords]` (square bracket denote optional
-parts). The `text` and `norm` Analyzers support `language[_COUNTRY]`, the
+parts). The `text` and `norm` Analyzers support `language[_COUNTRY][_VARIANT]`, the
 `stem` Analyzer only `language`.
 
 The former syntax is still supported but automatically normalized to the
