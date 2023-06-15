@@ -62,6 +62,8 @@ with `<group>` where `<group>` can be any of:
 - `syncmasters` for all syncmasters of a `Cluster`.
 - `syncworkers` for all syncworkers of a `Cluster`.
 
+Special group `id` can be used for image discovery and testing affinity/toleration settings.
+
 ### `spec.architecture: []string`
 
 This setting specifies a CPU architecture for the deployment.
@@ -457,7 +459,7 @@ The default value is empty.
 ### `spec.disableIPv6: bool`
 
 This setting prevents the use of IPv6 addresses by ArangoDB servers.
-The default is `false`. 
+The default is `false`.
 
 This setting cannot be changed after the deployment has been created.
 
@@ -487,13 +489,13 @@ the Community Edition.
 
 This setting specifies a secret name for the credentials of the root user.
 
-When a deployment is created the operator will setup the root user account 
+When a deployment is created the operator will setup the root user account
 according to the credentials given by the secret. If the secret doesn't exist
 the operator creates a secret with a random password.
 
 There are two magic values for the secret name:
 - `None` specifies no action. This disables root password randomization. This is the default value. (Thus the root password is empty - not recommended)
-- `Auto` specifies automatic name generation, which is `<deploymentname>-root-password`. 
+- `Auto` specifies automatic name generation, which is `<deploymentname>-root-password`.
 
 ### `spec.metrics.enabled: bool`
 
@@ -508,10 +510,10 @@ Prometheus in the same k8s cluster with the Prometheus operator, this
 will be the case. The `ServiceMonitor` will have the following labels
 set:
 
-  - `app: arangodb`
-  - `arango_deployment: YOUR_DEPLOYMENT_NAME`
-  - `context: metrics`
-  - `metrics: prometheus`
+- `app: arangodb`
+- `arango_deployment: YOUR_DEPLOYMENT_NAME`
+- `context: metrics`
+- `metrics: prometheus`
 
 This makes it possible that you configure your Prometheus deployment to
 automatically start monitoring on the available Prometheus feeds. To
@@ -539,8 +541,8 @@ deployment is used.
 
 <small>Introduced in: v0.4.3 (kube-arangodb)</small>
 
-This setting specifies the resources required by the metrics container. 
-This includes requests and limits. 
+This setting specifies the resources required by the metrics container.
+This includes requests and limits.
 See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
 
 ### `spec.metrics.mode: string`
@@ -551,11 +553,11 @@ Defines metrics exporter mode.
 
 Possible values:
 - `exporter` (default): add sidecar to pods (except Agency pods) and exposes
-   metrics collected by exporter from ArangoDB Container. Exporter in this mode
-   expose metrics which are accessible without authentication.
+  metrics collected by exporter from ArangoDB Container. Exporter in this mode
+  expose metrics which are accessible without authentication.
 - `sidecar`: add sidecar to all pods and expose metrics from ArangoDB metrics
-   endpoint. Exporter in this mode expose metrics which are accessible without
-   authentication.
+  endpoint. Exporter in this mode expose metrics which are accessible without
+  authentication.
 - `internal`: configure ServiceMonitor to use internal ArangoDB metrics endpoint
   (proper JWT token is generated for this endpoint).
 
@@ -573,7 +575,7 @@ otherwise `true` value will not take any effect.
 
 <small>Introduced in: v0.4.3 (kube-arangodb)</small>
 
-This setting specifies the resources required by the lifecycle init container. 
+This setting specifies the resources required by the lifecycle init container.
 This includes requests and limits.
 See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
 
@@ -617,7 +619,7 @@ Set additional flag in ArangoDeployment pods to propagate Memory resource limits
 Specifies a volumeClaimTemplate used by operator to create to volume claims for pods of this group.
 This setting is not available for group `coordinators`, `syncmasters` & `syncworkers`.
 
-The default value describes a volume with `8Gi` storage, `ReadWriteOnce` access mode and volume mode set to `PersistentVolumeFilesystem`. 
+The default value describes a volume with `8Gi` storage, `ReadWriteOnce` access mode and volume mode set to `PersistentVolumeFilesystem`.
 
 If this field is not set and `spec.<group>.resources.requests.storage` is set, then a default volume claim
 with size as specified by `spec.<group>.resources.requests.storage` will be created. In that case `storage`
@@ -645,11 +647,11 @@ service account:
 ```yaml
 rules:
   - apiGroups:
-    - ""
-  resources:
-    - pods
-  verbs:
-    - get
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
 ```
 
 If you are using a different service account, please grant these rights
@@ -736,6 +738,80 @@ This setting specifies a set of labels to be used as `nodeSelector` for Pods of 
 
 For more information on node selectors, consult the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/){:target="_blank"}.
 
+### `spec.<group>.entrypoint: string`
+Entrypoint overrides container executable.
+
+### `spec.<group>.antiAffinity: PodAntiAffinity`
+Specifies additional antiAffinity settings in ArangoDB Pod definitions.
+
+For more information on antiAffinity, consult the [Kubernetes documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/){:target="_blank"}.
+
+### `spec.<group>.affinity: PodAffinity`
+Specifies additional affinity settings in ArangoDB Pod definitions.
+
+For more information on affinity, consult the [Kubernetes documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/){:target="_blank"}.
+
+### `spec.<group>.nodeAffinity: NodeAffinity`
+Specifies additional nodeAffinity settings in ArangoDB Pod definitions
+
+For more information on nodeAffinity, consult the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/){:target="_blank"}.
+
+### `spec.<group>.securityContext: ServerGroupSpecSecurityContext`
+Specifies additional securityContext settings in ArangoDB Pod definitions.
+This is similar (but not fully compatible) to k8s SecurityContext definition.
+
+For more information on securityContext, consult the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/){:target="_blank"}.
+
+### `spec.<group>.addCapabilities: []Capability`
+Add new capabilities to containers.
+
+### `spec.<group>.allowPrivilegeEscalation: bool`
+Controls whether a process can gain more privileges than its parent process.
+
+### `spec.<group>.privileged: bool`
+Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host.
+
+### `spec.<group>.readOnlyRootFilesystem: bool`
+Mounts the container's root filesystem as read-only.
+
+### `spec.<group>.runAsNonRoot: bool`
+Indicates that the container must run as a non-root user.
+
+### `spec.<group>.runAsUser: integer`
+The UID to run the entrypoint of the container process.
+
+### `spec.<group>.runAsGroup: integer`
+The GID to run the entrypoint of the container process.
+
+### `spec.<group>.supplementalGroups: []integer`
+A list of groups applied to the first process run in each container, in addition to the container's primary GID,
+the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process.
+
+### `spec.<group>.fsGroup: integer`
+A special supplemental group that applies to all containers in a pod.
+
+### `spec.<group>.seccompProfile: SeccompProfile`
+The seccomp options to use by the containers in this pod.
+
+### `spec.<group>.seLinuxOptions: SELinuxOptions`
+The SELinux context to be applied to all containers.
+
+## Image discovery group `spec.id` fields
+
+Image discovery (`id`) group supports only next subset of fields.
+Refer to according field documentation in `spec.<group>` description.
+
+- `spec.id.entrypoint: string`
+- `spec.id.tolerations: []Toleration`
+- `spec.id.nodeSelector: map[string]string`
+- `spec.id.priorityClassName: string`
+- `spec.id.antiAffinity: PodAntiAffinity`
+- `spec.id.affinity: PodAffinity`
+- `spec.id.nodeAffinity: NodeAffinity`
+- `spec.id.serviceAccountName: string`
+- `spec.id.securityContext: ServerGroupSpecSecurityContext`
+- `spec.id.resources: ResourceRequirements`
+
 ## Deprecated Fields
 
 ### `spec.<group>.resources.requests.storage: storageUnit`
@@ -746,8 +822,8 @@ The default value is `8Gi`.
 This setting is not available for group `coordinators`, `syncmasters` & `syncworkers`
 because servers in these groups do not need persistent storage.
 
-Please use VolumeClaimTemplate from now on. This field is not considered if 
-VolumeClaimTemplate is set. Note however, that the information in requests 
+Please use VolumeClaimTemplate from now on. This field is not considered if
+VolumeClaimTemplate is set. Note however, that the information in requests
 is completely handed over to the pod in this case.
 
 ### `spec.<group>.storageClassName: string`
@@ -758,6 +834,6 @@ for each server of this group.
 This setting is not available for group `coordinators`, `syncmasters` & `syncworkers`
 because servers in these groups do not need persistent storage.
 
-Please use VolumeClaimTemplate from now on. This field is not considered if 
-VolumeClaimTemplate is set. Note however, that the information in requests 
+Please use VolumeClaimTemplate from now on. This field is not considered if
+VolumeClaimTemplate is set. Note however, that the information in requests
 is completely handed over to the pod in this case.
