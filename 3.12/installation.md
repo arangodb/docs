@@ -10,8 +10,8 @@ system from the official [Download](https://www.arangodb.com/download){:target="
 page of the ArangoDB web site.
 
 You can find packages for various operating systems, including _RPM_ and _Debian_
-packages for Linux, and _dmg_ packages for macOS. `tar.gz` archives are available
-for both. For Windows, _Installers_ and `zip` archives are available.
+packages for Linux, including `tar.gz` archives. For macOS, only client tools `tar.gz`
+packages are available. For Windows, _Installers_ and `zip` archives are available.
 
 - [Linux](installation-linux.html)
 - [macOS](installation-mac-osx.html)
@@ -58,7 +58,12 @@ to use a page size of **4096 bytes** or less.
 
 ## macOS
 
-ArangoDB is available for the following architectures:
+{% hint 'info' %}
+Starting with version 3.11.0, ArangoDB Server binaries for macOS are not
+provided anymore.
+{% endhint %}
+
+Client tools are available for the following architectures:
 
 - **x86-64**: The processor(s) must support the **x86-64** architecture with the
   **SSE 4.2** and **AVX** instruction set extensions (Intel Sandy Bridge or better,
