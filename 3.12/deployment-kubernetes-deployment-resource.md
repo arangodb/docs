@@ -762,38 +762,38 @@ This is similar (but not fully compatible) to k8s SecurityContext definition.
 
 For more information on securityContext, consult the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/){:target="_blank"}.
 
-### `spec.<group>.addCapabilities: []Capability`
+### `spec.<group>.securityContext.addCapabilities: []Capability`
 Add new capabilities to containers.
 
-### `spec.<group>.allowPrivilegeEscalation: bool`
+### `spec.<group>.securityContext.allowPrivilegeEscalation: bool`
 Controls whether a process can gain more privileges than its parent process.
 
-### `spec.<group>.privileged: bool`
+### `spec.<group>.securityContext.privileged: bool`
 Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host.
 
-### `spec.<group>.readOnlyRootFilesystem: bool`
+### `spec.<group>.securityContext.readOnlyRootFilesystem: bool`
 Mounts the container's root filesystem as read-only.
 
-### `spec.<group>.runAsNonRoot: bool`
+### `spec.<group>.securityContext.runAsNonRoot: bool`
 Indicates that the container must run as a non-root user.
 
-### `spec.<group>.runAsUser: integer`
+### `spec.<group>.securityContext.runAsUser: integer`
 The UID to run the entrypoint of the container process.
 
-### `spec.<group>.runAsGroup: integer`
+### `spec.<group>.securityContext.runAsGroup: integer`
 The GID to run the entrypoint of the container process.
 
-### `spec.<group>.supplementalGroups: []integer`
+### `spec.<group>.securityContext.supplementalGroups: []integer`
 A list of groups applied to the first process run in each container, in addition to the container's primary GID,
 the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process.
 
-### `spec.<group>.fsGroup: integer`
+### `spec.<group>.securityContext.fsGroup: integer`
 A special supplemental group that applies to all containers in a pod.
 
-### `spec.<group>.seccompProfile: SeccompProfile`
+### `spec.<group>.securityContext.seccompProfile: SeccompProfile`
 The seccomp options to use by the containers in this pod.
 
-### `spec.<group>.seLinuxOptions: SELinuxOptions`
+### `spec.<group>.securityContext.seLinuxOptions: SELinuxOptions`
 The SELinux context to be applied to all containers.
 
 ## Image discovery group `spec.id` fields
