@@ -116,7 +116,14 @@ provided that the values conform to the following restrictions:
   `_key` attribute from a document).
 - It must consist of the letters `A` to `Z` (lower- and uppercase), the digits
   `0` to `9`, or any of the following punctuation characters:
-  `_` `-` `:` `.` `@` `(` `)` `+` `,` `=` `;` `$` `!` `*` `'` `%`
+  `_` `-` `.` `@` `(` `)` `+` `,` `=` `;` `$` `!` `*` `'` `%` `:`
+  {% hint 'info' %}
+  Avoid using `:` in document keys as this can conflict with the requirements of
+  [EnterpriseGraphs](graphs-enterprise-graphs.html),
+  [SmartGraphs](graphs-smart-graphs.html), and
+  [SmartJoins](smartjoins.html#smartjoins-using-smartjoinattribute)
+  which use the colon character as a separator in keys.
+  {% endhint %}
 - Any other characters, especially multi-byte UTF-8 sequences, whitespace, or 
   punctuation characters not listed above cannot be used inside key values.
 - The key must be unique within the collection it is used in.
@@ -235,10 +242,9 @@ following naming constraints are not violated:
 
 ## Documents API
 
-The following descriptions cover the JavaScript interface for documents that
-you can use to handle documents from the _arangosh_ command-line tool, as
-well as in server-side JavaScript code like Foxx microservices.
-For other languages see the corresponding language API.
+You can use the JavaScript interface for documents to handle documents from
+the _arangosh_ command-line tool, as well as in server-side JavaScript code
+like Foxx microservices.
+See the [_collection_ object](appendix-references-collection-object.html#documents)
 
-- [Collection Methods](data-modeling-documents-document-methods.html)
-- [Database Methods](data-modeling-documents-database-methods.html)
+For other languages see the corresponding language API.

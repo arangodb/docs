@@ -24,7 +24,7 @@ _--javascript.execute-string_ option of the _arangosh_ binary, e.g.:
 ```bash
 arangosh --server.endpoint your-server-endpoint \
     --server.password "" \
-    --javascript.execute-string 'require("org/arangodb/users").update("root", "mypwd");'
+    --javascript.execute-string 'require("@arangodb/users").update("root", "mypwd");'
 ```
 
 where "mypwd" is the new password you want to set.

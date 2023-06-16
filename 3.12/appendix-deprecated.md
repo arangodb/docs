@@ -25,13 +25,21 @@ redirect_from:
   - deployment-leader-follower.html # 3.8 -> 3.9
   - graph-analytics-custom-pregel.html # 3.10 -> 3.11
 ---
-Deprecated
-==========
+# Deprecated and removed features
 
-Features listed in this section should no longer be used, because they are
-considered obsolete and may get removed in a future release. They are currently
-kept for backward compatibility. There are usually better alternatives to
-replace the old features with:
+Features listed on this page should no longer be used because they have been
+deprecated and may get removed in a future release, or have been removed already
+and are thus no longer available.
+
+Deprecated features are still available for backward compatibility, but you should
+update your applications to prepare for upgrades of ArangoDB that may remove the
+features. There are usually alternatives to replace the old features with.
+
+{% hint 'info' %}
+This page only lists significant obsolete features but not minor API changes.
+See the [**Release notes**](release-notes.html) of the respective versions for
+detailed information about breaking changes before upgrading.
+{% endhint %}
 
 - **Pregel features**:
 
@@ -212,10 +220,10 @@ replace the old features with:
   While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
   removed in a future version of ArangoDB.
 
-- **HTTP and JavaScript traversal APIs**: The HTTP traversal API
-  is deprecated since version 3.4.0. The JavaScript traversal module
-  `@arangodb/graph/traversal` is also deprecated since then. The preferred way
-  to traverse graphs is via AQL.
+- **HTTP and JavaScript traversal APIs**: The HTTP traversal API as well as the
+  `@arangodb/graph/traversal` JavaScript traversal module were deprecated since
+  version 3.4.0 and have been removed in version 3.12.0. You can
+  [traverse graphs with AQL](aql/graphs-traversals.html) instead.
 
 - **JavaScript-based AQL graph functions**: The following JavaScript-based AQL
   graph functions are deprecated:

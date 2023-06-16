@@ -10,7 +10,7 @@ title: ArangoDB Data Models
 {{ page.description }}
 {:class="lead"}
 
-### Key-Value Model
+## Key-Value Model
 
 The key-value data model is a subset of ArangoDB's document data model.
 Every document has a `_key` attribute that identifies a document within a
@@ -30,7 +30,7 @@ collection name that the document is stored in, a forward slash (`/`), and the
 document key, so `<collection>/<key>`. It uses the primary index under the hood
 and you can thus use it to look up documents equally fast.
 
-### Document Model
+## Document Model
 
 You can store data records as JSON objects in ArangoDB, and not only retrieve
 them one by one as they are like in the key-value model, but run queries of all
@@ -43,7 +43,7 @@ with or without built-in and user-defined (secondary) indexes, return subsets of
 attributes or even compute new ones on-the-fly, group records and aggregate
 values, and more.
 
-### Graph Model
+## Graph Model
 
 Graphs are comprised of **vertices** and **edges**. Both are documents in
 ArangoDB. Edges have two special attributes, `_from` and `_to`, that reference
@@ -88,22 +88,3 @@ Low-level operations can still cause dangling edges, nonetheless.
 - [Graphs in data modeling - is the emperor naked?](https://medium.com/@neunhoef/graphs-in-data-modeling-is-the-emperor-naked-2e65e2744413#.x0a5z66ji){:target="_blank"}
 - [Index Free Adjacency or Hybrid Indexes for Graph Databases](https://www.arangodb.com/2016/04/index-free-adjacency-hybrid-indexes-graph-databases/){:target="_blank"}
 -->
-
-## Data Retrieval
-
-**Queries** are used to filter documents based on certain criteria, to compute
-or store new data, as well as to manipulate or delete existing documents.
-Queries can be as simple as returning individual records, or as complex as
-traversing graphs or performing [joins](aql/examples-join.html) using many
-collections. Queries are written in the [ArangoDB Query Language](aql/),
-**AQL** for short.
-
-**Cursors** are used to iterate over the result of queries, so that you get
-easily processable batches instead of one big hunk.
-
-**Indexes** are used to speed up queries. There are multiple types of indexes,
-such as [persistent indexes](indexing-persistent.html) and
-[geo-spatial indexes](indexing-geo.html).
-
-**Views** are another type of index, primarily for full-text search. See
-[ArangoSearch](arangosearch.html).

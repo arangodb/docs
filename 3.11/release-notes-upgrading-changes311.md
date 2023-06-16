@@ -109,7 +109,7 @@ reported error is now slightly different.
 
 The lock acquisition on the key of the document that is supposed to be
 inserted/modified has a hard-coded timeout of 1 second. If the lock cannot be
-acquire, the error message is as follows:
+acquired, the error message is as follows:
 
 ```
 Timeout waiting to lock key - in index primary of type primary over '_key'; conflicting key: <key>
@@ -211,6 +211,55 @@ part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
 It is also an error if you specify an edge collection that is not part of the
 named graph's definition or of the list of edge collections (code `1939` and
 HTTP status `400 Bad Request`).
+
+## Batch insertions of documents with key errors no longer fail the entire operation
+
+<small>Introduced in: v3.11.1</small>
+
+When inserting multiple documents/edges at once in a cluster, the Document API
+used to let the entire request fail if any of the documents/edges failed to be
+saved due to a key error. More specifically, if the value of a `_key` attribute
+contains illegal characters or if the key doesn't meet additional requirements,
+for instance, coming from the collection being used in a Disjoint SmartGraph,
+the `POST /_api/document/{collection}` endpoint would not reply with the usual
+array of either the document metadata or the error object for each attempted
+document insertion. Instead, it used to return an error object for the first
+offending document only, and aborted the operation so that none of the documents
+were saved. Example:
+
+```bash
+> curl -d '[{"_key":"valid"},{"_key":"invalid space"}]' http://localhost:8529/_api/document/coll
+{"code":400,"error":true,"errorMessage":"illegal document key","errorNum":1221}
+
+> curl http://localhost:8529/_api/document/coll/valid
+{"code":404,"error":true,"errorMessage":"document not found","errorNum":1202}
+```
+
+Now, such key errors in cluster deployments no longer fail the entire request,
+matching the behavior of single server deployments. Any errors are reported in
+the result array for the respective documents, along with the successful ones:
+
+```bash
+> curl -d '[{"_key":"valid"},{"_key":"invalid space"}]' http://localhost:8529/_api/document/coll
+[{"_id":"coll/valid","_key":"valid","_rev":"_gG9JHsW---"},{"error":true,"errorNum":1221,"errorMessage":"illegal document key"}]
+
+> curl http://localhost:8529/_api/document/coll/valid
+{"_key":"valid","_id":"coll/valid","_rev":"_gG9JHsW---"}
+```
+
+## Batch-reading an empty list of documents succeeds
+
+<small>Introduced in: v3.11.1</small>
+
+Using the Document API for reading multiple documents used to return an error
+if the request body was an empty array. Example:
+
+```bash
+> curl -XPUT -d '[]' 'http://localhost:8529/_api/document/coll?onlyget=true'
+{"code":500,"error":true,"errorMessage":"internal error","errorNum":4}
+```
+
+Now, a request like this succeeds and returns an empty array as response.
 
 ## JavaScript API
 

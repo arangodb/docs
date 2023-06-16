@@ -24,6 +24,10 @@ There are several variants of this library, each one compatible with different S
 - `com.arangodb:arangodb-spark-datasource-3.1_2.12` (Spark 3.1, Scala 2.12)
 - `com.arangodb:arangodb-spark-datasource-3.2_2.12` (Spark 3.2, Scala 2.12)
 - `com.arangodb:arangodb-spark-datasource-3.2_2.13` (Spark 3.2, Scala 2.13)
+- `com.arangodb:arangodb-spark-datasource-3.3_2.12` (Spark 3.3, Scala 2.12)
+- `com.arangodb:arangodb-spark-datasource-3.3_2.13` (Spark 3.3, Scala 2.13)
+- `com.arangodb:arangodb-spark-datasource-3.4_2.12` (Spark 3.4, Scala 2.12)
+- `com.arangodb:arangodb-spark-datasource-3.4_2.13` (Spark 3.4, Scala 2.13)
 
 In the following sections the `${sparkVersion}` and `${scalaVersion}` placeholders refer to the Spark and Scala versions.
 
@@ -223,6 +227,7 @@ Use the `overwriteMode` write configuration parameter to specify the document ov
 
 ### Write Configuration
 
+- `database`: database name, `_system` by default
 - `table`: target ArangoDB collection name (required)
 - `batchSize`: writing batch size, `10000` by default
 - `byteBatchSize`: byte batch size threshold, only considered for `contentType=json`, `8388608` by default (8 MB)

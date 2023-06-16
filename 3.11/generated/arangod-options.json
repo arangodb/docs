@@ -1111,7 +1111,7 @@
       "agent",
       "single"
     ],
-    "default" : 18004834304,
+    "default" : 16338173952,
     "deprecatedIn" : null,
     "description" : "The global size limit for all caches (in bytes).",
     "dynamic" : true,
@@ -2017,34 +2017,6 @@
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
-  },
-  "database.default-replication-version" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : "1",
-    "deprecatedIn" : null,
-    "description" : "default replication version, can be overwritten when creating a new database, possible values: 1, 2",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : true,
-    "hidden" : true,
-    "introducedIn" : [
-      "v3.11.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "database",
-    "type" : "replicationVersion"
   },
   "database.directory" : {
     "category" : "option",
@@ -6856,7 +6828,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The maximum parallelism usable in a Pregel job.",
     "dynamic" : true,
@@ -6920,7 +6892,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "The default parallelism to use in a Pregel job if none is specified.",
     "dynamic" : true,
@@ -7157,7 +7129,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 74166820864,
+    "base" : 67500179456,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7165,7 +7137,7 @@
       "agent",
       "single"
     ],
-    "default" : 60075124900,
+    "default" : 54675145359,
     "deprecatedIn" : null,
     "description" : "The memory threshold for all AQL queries combined (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7274,6 +7246,39 @@
       "v3.10.2"
     ],
     "longDescription" : "This option allows you to truncate overly long\nquery strings and bind parameter values to a reasonable length in log files.",
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
+  "query.max-collections-per-query" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 2048,
+    "deprecatedIn" : null,
+    "description" : "The maximum number of collections/shards that can be used in one AQL query.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.7"
+    ],
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -7422,7 +7427,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 74166820864,
+    "base" : 67500179456,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7430,7 +7435,7 @@
       "agent",
       "single"
     ],
-    "default" : 44500092519,
+    "default" : 40500107673,
     "deprecatedIn" : null,
     "description" : "The memory threshold per AQL query (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7903,6 +7908,38 @@
     "section" : "random",
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
+  },
+  "rclone.argument" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "Prepend custom arguments to rclone.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.11",
+      "v3.10.7",
+      "v3.11.1"
+    ],
+    "longDescription" : "You can add custom arguments to rclone to i.e.\nenable debug logging into a separato logfile. This would be achieved by\nspecifying:\n --rclone.argument --log-level=DEBUG --rclone.argument --log-file=rclone.log\nin conjunction with the starter the ARANGODB_SERVER_DIR environment variable\ncan be utilized with the @VAR@-suplementing facility to generate individual\nlogfile names for clusters.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rclone",
+    "type" : "string..."
   },
   "rclone.executable" : {
     "category" : "option",
@@ -8600,7 +8637,7 @@
       "agent",
       "single"
     ],
-    "default" : 21605801164,
+    "default" : 19605808742,
     "deprecatedIn" : null,
     "description" : "The size of block cache (in bytes).",
     "dynamic" : true,
@@ -9549,7 +9586,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The maximum number of concurrent background jobs (compactions and flushes).",
     "dynamic" : true,
@@ -11065,7 +11102,7 @@
       "agent",
       "single"
     ],
-    "default" : 28807734886,
+    "default" : 26141078323,
     "deprecatedIn" : null,
     "description" : "The maximum total size of in-memory write buffers (0 = unbounded).",
     "dynamic" : true,
@@ -11096,7 +11133,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The number of lock stripes to use for transaction locks.",
     "dynamic" : true,
@@ -11926,7 +11963,7 @@
       "agent",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "The number of threads used to handle I/O.",
     "dynamic" : true,
@@ -12121,7 +12158,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex).",
     "dynamic" : true,
@@ -12151,7 +12188,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 10,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for maintenance actions.",
     "dynamic" : true,
@@ -12216,7 +12253,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 72)",
+    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,

@@ -363,7 +363,7 @@ i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale (except for the
 [`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues311.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues312.html#arangosearch).
 {% endhint %}
 
 There is a corresponding [`IN_RANGE()` Miscellaneous Function](functions-miscellaneous.html#in_range)
@@ -777,7 +777,7 @@ i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale (except for the
 [`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues311.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues312.html#arangosearch).
 {% endhint %}
 
 There is a corresponding [`STARTS_WITH()` String function](functions-string.html#starts_with)

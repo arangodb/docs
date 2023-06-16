@@ -13,7 +13,7 @@ One can reset the _root_ password in the following way:
 -  Change the password using the ArangoDB web interface, or using the following command via `arangosh`:
 
 ```js
-require("org/arangodb/users").update("root", "newpassword");
+require("@arangodb/users").update("root", "newpassword");
 ```
 
 This command should return:
