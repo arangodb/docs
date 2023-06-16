@@ -7337,6 +7337,39 @@
     "section" : "query",
     "type" : "uint64"
   },
+  "query.max-collections-per-query" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 2048,
+    "deprecatedIn" : null,
+    "description" : "The maximum number of collections/shards that can be used in one AQL query.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.7"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
   "query.max-nodes-per-callstack" : {
     "base" : 1,
     "category" : "option",
@@ -7949,6 +7982,37 @@
     "section" : "random",
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
+  },
+  "rclone.argument" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "Prepend custom arguments to rclone.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.11",
+      "v3.10.7"
+    ],
+    "longDescription" : "You can add custom arguments to rclone to i.e.\nenable debug logging into a separato logfile. This would be achieved by\nspecifying:\n --rclone.argument --log-level=DEBUG --rclone.argument --log-file=rclone.log\nin conjunction with the starter the ARANGODB_SERVER_DIR environment variable\ncan be utilized with the @VAR@-suplementing facility to generate individual\nlogfile names for clusters.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rclone",
+    "type" : "string..."
   },
   "rclone.executable" : {
     "category" : "option",
@@ -11404,6 +11468,37 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "uint32"
+  },
+  "server.count-descriptors-interval" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 60000,
+    "deprecatedIn" : null,
+    "description" : "Controls the interval (in milliseconds) in which open files for the process are determined. Requires `--server.count-descriptors`.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.7"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "uint64"
   },
   "server.descriptors-minimum" : {
     "base" : 1,

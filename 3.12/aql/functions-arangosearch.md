@@ -363,7 +363,7 @@ i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale (except for the
 [`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues311.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues312.html#arangosearch).
 {% endhint %}
 
 There is a corresponding [`IN_RANGE()` Miscellaneous Function](functions-miscellaneous.html#in_range)
@@ -480,8 +480,6 @@ FOR doc IN viewName
 ```
 
 ### NGRAM_MATCH()
-
-<small>Introduced in: v3.7.0</small>
 
 `NGRAM_MATCH(path, target, threshold, analyzer) → fulfilled`
 
@@ -602,8 +600,6 @@ enabled. The `PHRASE()` function will otherwise not find anything.
 {% endhint %}
 
 #### Object tokens
-
-<small>Introduced in v3.7.0</small>
 
 - `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
   see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
@@ -781,7 +777,7 @@ i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale (except for the
 [`collation` Analyzer](../analyzers.html#collation)) nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues311.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues312.html#arangosearch).
 {% endhint %}
 
 There is a corresponding [`STARTS_WITH()` String function](functions-string.html#starts_with)
@@ -796,8 +792,6 @@ that is used outside of `SEARCH` operations.
 ---
 
 `STARTS_WITH(path, prefixes, minMatchCount) → startsWith`
-
-<small>Introduced in: v3.7.1</small>
 
 Match the value of the attribute that starts with one of the `prefixes`, or
 optionally with at least `minMatchCount` of the prefixes.
@@ -902,8 +896,6 @@ contains one of the prefixes (`something`).
 
 ### LEVENSHTEIN_MATCH()
 
-<small>Introduced in: v3.7.0</small>
-
 `LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms, prefix) → fulfilled`
 
 Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target=_"blank"}
@@ -998,8 +990,6 @@ FOR doc IN viewName
 ```
 
 ### LIKE()
-
-<small>Introduced in: v3.7.2</small>
 
 `LIKE(path, search) → bool`
 
@@ -1178,9 +1168,13 @@ Sorts documents using the
 
 - **doc** (document): must be emitted by `FOR ... IN viewName`
 - **k** (number, _optional_): calibrates the text term frequency scaling.
+  The value needs to be non-negative (`0.0` or higher), or the returned
+  score is an undefined value that may cause unpredictable results.
   The default is `1.2`. A `k` value of `0` corresponds to a binary model
   (no term frequency), and a large value corresponds to using raw term frequency
 - **b** (number, _optional_): determines the scaling by the total text length.
+  The value needs to be between `0.0` and `1.0` (inclusive), or the returned
+  score is an undefined value that may cause unpredictable results. 
   The default is `0.75`. At the extreme values of the coefficient `b`, BM25
   turns into the ranking functions known as:
   - BM11 for `b` = `1` (corresponds to fully scaling the term weight by the

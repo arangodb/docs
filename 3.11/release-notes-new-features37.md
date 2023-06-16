@@ -641,8 +641,8 @@ introduced to control the type of the overwrite operation in case of colliding
 primary keys during the insert.
 
 The query options are available in [AQL](aql/operations-insert.html#query-options),
-the [JS API](data-modeling-documents-document-methods.html#insert--save) and
-[HTTP API](http/document.html#create-document).
+the [JS API](appendix-references-collection-object.html#collectioninsertdata--options) and
+[HTTP API](http/document.html#create-a-document).
 
 ### Override detected total memory and CPU cores
 

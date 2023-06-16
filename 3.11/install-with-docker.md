@@ -169,7 +169,7 @@ restrict how much memory and how many CPU cores it should use.
     thus sharing the RAM with them, you should limit the amount of memory using
     this environment variable.
 
-- `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` *(introduced in v3.7.1)*
+- `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES`
 
   This variable can be used to override the automatic detection of the number
   of CPU cores present on the system.

@@ -130,6 +130,55 @@ in AQL queries, which support a `refillIndexCache` option, too.
 
 In 3.9 and 3.10, `refillIndexCaches` was experimental and limited to edge caches.
 
+---
+
+<small>Introduced in: v3.11.1</small>
+
+When inserting multiple documents/edges at once in a cluster, the Document API
+used to let the entire request fail if any of the documents/edges failed to be
+saved due to a key error. More specifically, if the value of a `_key` attribute
+contains illegal characters or if the key doesn't meet additional requirements,
+for instance, coming from the collection being used in a Disjoint SmartGraph,
+the `POST /_api/document/{collection}` endpoint would not reply with the usual
+array of either the document metadata or the error object for each attempted
+document insertion. Instead, it used to return an error object for the first
+offending document only, and aborted the operation with an HTTP `400 Bad Request`
+status code so that none of the documents were saved. Example:
+
+```bash
+> curl -d '[{"_key":"valid"},{"_key":"invalid space"}]' http://localhost:8529/_api/document/coll
+{"code":400,"error":true,"errorMessage":"illegal document key","errorNum":1221}
+
+> curl http://localhost:8529/_api/document/coll/valid
+{"code":404,"error":true,"errorMessage":"document not found","errorNum":1202}
+```
+
+Now, such key errors in cluster deployments no longer fail the entire request,
+matching the behavior of single server deployments. Any errors are reported in
+the result array for the respective documents, along with the successful ones:
+
+```bash
+> curl -d '[{"_key":"valid"},{"_key":"invalid space"}]' http://localhost:8529/_api/document/coll
+[{"_id":"coll/valid","_key":"valid","_rev":"_gG9JHsW---"},{"error":true,"errorNum":1221,"errorMessage":"illegal document key"}]
+
+> curl http://localhost:8529/_api/document/coll/valid
+{"_key":"valid","_id":"coll/valid","_rev":"_gG9JHsW---"}
+```
+
+---
+
+<small>Introduced in: v3.11.1</small>
+
+Using the Document API for reading multiple documents used to return an error
+if the request body was an empty array. Example:
+
+```bash
+> curl -XPUT -d '[]' 'http://localhost:8529/_api/document/coll?onlyget=true'
+{"code":500,"error":true,"errorMessage":"internal error","errorNum":4}
+```
+
+Now, a request like this succeeds and returns an empty array as response.
+
 #### Collection API
 
 The edge collections of EnterpriseGraphs and SmartGraphs (including
@@ -138,6 +187,45 @@ the edge collections of the SatelliteCollections) previously reported a
 value of `0` as the `numberOfShards`. They now return the actual number of
 shards. This value can be higher than the configured `numberOfShards` value of
 the graph due to internally used hidden collections.
+
+#### Cursor API
+
+When you link a collection to an `arangosearch` View and run an AQL query
+against this View while it is still being indexed, you now receive the query result
+including a warning. This warning alerts you about potentially incomplete results obtained
+from a partially indexed collection. The error code associated with this
+warning is `1240` (`ERROR_ARANGO_INCOMPLETE_READ`).
+
+---
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals (`POST /_api/cursor` endpoint), you can restrict the
+vertex and edge collections in the traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
+
+Furthermore, it is now an error if you specify a vertex collection that is not
+part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
+It is also an error if you specify an edge collection that is not part of the
+named graph's definition or of the list of edge collections (code `1939` and
+HTTP status `400 Bad Request`).
 
 #### Log API
 
@@ -176,24 +264,20 @@ Disabled:
 arangodb_agency_cache_callback_number{role="SINGLE"}0
 ```
 
-### Privilege changes
-
-
-
 ### Endpoint return value changes
 
-- Changed the encoding of revision IDs returned by the below listed REST APIs.
+<small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
 
-  <small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+Changed the encoding of revision IDs returned by the below listed REST APIs:
 
-  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
-    previously returned as numeric value, and now it is returned as
-    a string value with either numeric encoding or HLC-encoding inside.
-  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
-    the `revision` attribute was previously encoded as a numeric value
-    in single server, and as a string in cluster. This is now unified so
-    that the `revision` attribute always contains a string value with
-    either numeric encoding or HLC-encoding inside.
+- `GET /_api/collection/<collection-name>/revision`: The revision ID was
+  previously returned as numeric value, and now it is returned as
+  a string value with either numeric encoding or HLC-encoding inside.
+- `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+  the `revision` attribute was previously encoded as a numeric value
+  in single server, and as a string in cluster. This is now unified so
+  that the `revision` attribute always contains a string value with
+  either numeric encoding or HLC-encoding inside.
 
 ### Endpoints added
 
@@ -254,7 +338,7 @@ to extend the timeout.
 
 The maintenance mode ends automatically after the defined timeout.
 
-Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-the-maintenance-status-of-a-db-server).
+Also see the [HTTP interface for cluster maintenance](http/cluster.html#get-the-maintenance-status-of-a-db-server).
 
 ### Endpoints augmented
 
@@ -271,7 +355,7 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
 
 - The `/_api/cursor` endpoint accepts a new `allowRetry` attribute in the
   `options` object. Set this option to `true` to make it possible to retry
-  fetching the latest batch from a cursor.
+  fetching the latest batch from a cursor. The default is `false`.
 
   If retrieving a result batch fails because of a connection issue, you can ask
   for that batch again using the new `POST /_api/cursor/<cursor-id>/<batch-id>`
@@ -279,15 +363,21 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
   with every batch. Every result response except the last one also includes a
   `nextBatchId` attribute, indicating the ID of the batch after the current.
   You can remember and use this batch ID should retrieving the next batch fail.
-  Calling the new endpoint does not advance the cursor.
 
   You can only request the latest batch again (or the next batch).
   Earlier batches are not kept on the server-side.
+  Requesting a batch again does not advance the cursor.
 
   You can also call this endpoint with the next batch identifier, i.e. the value
   returned in the `nextBatchId` attribute of a previous request. This advances the
   cursor and returns the results of the next batch. This is only supported if there
   are more results in the cursor (i.e. `hasMore` is `true` in the latest batch).
+
+  From v3.11.1 onward, you may use the `POST /_api/cursor/<cursor-id>/<batch-id>`
+  endpoint even if the `allowRetry` attribute is `false` to fetch the next batch,
+  but you cannot request a batch again unless you set it to `true`.
+  The `nextBatchId` attribute is always present in result objects (except in the
+  last batch) from v3.11.1 onward.
 
   To allow refetching of the very last batch of the query, the server cannot
   automatically delete the cursor. After the first attempt of fetching the last
@@ -295,8 +385,20 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
   might need to reattempt the fetch, it needs to keep the final batch when the
   `allowRetry` option is enabled. Once you successfully received the last batch,
   you should call the `DELETE /_api/cursor/<cursor-id>` endpoint so that the
-  server doesn't unnecessary keep the batch until the cursor times out
+  server doesn't unnecessarily keep the batch until the cursor times out
   (`ttl` query option).
+
+- When profiling a query (`profile` option `true`, `1`, or `2`), the `profile`
+  object returned under `extra` now includes a new `"instantiating executors"`
+  attribute with the time needed to create the query executors, and in cluster
+  mode, this also includes the time needed for physically distributing the query
+  snippets to the participating DB-Servers. Previously, the time spent for
+  instantiating executors and the physical distribution was contained in the
+  `optimizing plan` stage.
+
+- The endpoint supports a new `maxDNFConditionMembers` query option, which is a
+  threshold for the maximum number of `OR` sub-nodes in the internal
+  representation of an AQL `FILTER` condition and defaults to `786432`.
 
 #### Restriction of indexable fields
 
@@ -318,20 +420,16 @@ Enterprise Edition:
 
 #### Query API
 
-The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-running-aql-queries)
-and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
+The [`GET /_api/query/current`](http/aql-query.html#list-the-running-aql-queries)
+and [`GET /_api/query/slow`](http/aql-query.html#list-the-slow-aql-queries)
 endpoints include a new numeric `peakMemoryUsage` attribute.
 
-#### View API
-
-Views of type `arangosearch` accept a new `optimizeTopK` View property for the
-ArangoSearch WAND optimization. It is an immutable array of strings, optional,
-and defaults to `[]`.
-
-See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
-for details.
-
 ---
+
+The `GET /_api/query/current` endpoint can return a new value
+`"instantiating executors"` as `state` in the query list.
+
+#### View API
 
 Views of the type `arangosearch` support new caching options in the
 Enterprise Edition.
@@ -362,15 +460,6 @@ objects.
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.
 
-#### Index API
-
-Indexes of type `inverted` accept a new `optimizeTopK` property for the
-ArangoSearch WAND optimization. It is an array of strings, optional, and
-defaults to `[]`.
-
-See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
-for details.
-
 #### Pregel API
 
 Four new endpoints have been added to the Pregel HTTP interface for the new
@@ -387,6 +476,18 @@ persisted execution statistics for Pregel jobs:
 
 See [Pregel HTTP API](http/pregel.html) for details.
 
+#### Cluster rebalance API
+
+The `POST /_admin/cluster/rebalance` and `PUT /_admin/cluster/rebalance`
+endpoints support a new `excludeSystemCollections` option that lets you ignore
+system collections in the shard rebalance plan.
+
+The `/_admin/cluster/rebalance` route (`GET`, `POST`, and `PUT` methods) returns
+a new `totalShardsFromSystemCollections` property in the `shards` object of the
+`result` with the number of leader shards from system collections. The adjacent
+`totalShards` property may not include system collections depending on the
+`excludeSystemCollections` option.
+
 #### Explain API
 
 <small>Introduced in: v3.10.4</small>
@@ -401,11 +502,30 @@ following two new statistics in the `stats` attribute of the response now:
 
 #### Metrics API
 
-The following ArangoSearch metric has been added in version 3.11:
+The following metric has been added in version 3.11:
 
 | Label | Description |
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
+
+---
+
+<small>Introduced in: v3.10.7, v3.11.1</small>
+
+This new metric reports the number of RocksDB `.sst` files:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_total_sst_files` | Total number of RocksDB sst files, aggregated over all levels. |
+
+---
+
+<small>Introduced in: v3.10.7</small>
+
+The metrics endpoints include the following new file descriptors metrics:
+
+- `arangodb_file_descriptors_current`
+- `arangodb_file_descriptors_limit`
 
 ---
 
@@ -442,10 +562,10 @@ The following metrics for write-ahead log (WAL) file tracking have been added:
 
 ---
 
+<small>Introduced in: v3.10.5</small>
+
 The following metric for the number of replication clients for a server has
 been added:
-
-<small>Introduced in: v3.10.5</small>
 
 | Label | Description |
 |:------|:------------|
@@ -453,10 +573,10 @@ been added:
 
 ---
 
+<small>Introduced in: v3.9.11, v3.10.6</small>
+
 The following metrics for diagnosing delays in cluster-internal network requests
 have been added:
-
-<small>Introduced in: v3.9.11, v3.10.6</small>
 
 | Label | Description |
 |:------|:------------|
@@ -464,6 +584,16 @@ have been added:
 | `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
 | `arangodb_network_send_duration` | Internal request send duration in seconds. |
 | `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
+
+---
+
+<small>Introduced in: v3.10.7</small>
+
+The following metric stores the peak value of the `rocksdb_cache_allocated` metric:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
 
 #### Log level API
 
@@ -487,18 +617,6 @@ following two new statistics in the `stats` attribute of the response now:
 - `executionTime` (number): The (wall-clock) time in seconds needed to explain
   the query.
 
-### Endpoints moved
-
-
-
-### Endpoints deprecated
-
-
-
-### Endpoints removed
-
-
-
 ## JavaScript API
 
 ### Database creation
@@ -521,6 +639,28 @@ In case of success, they still return `true`.
 
 You can wrap calls to these methods with a `try { ... }` block to catch errors,
 for example, in _arangosh_ or in Foxx services.
+
+### AQL queries
+
+When you use e.g. the `db._query()` method to execute an AQL query against an
+`arangosearch` View while it is still in the process of being built,
+the query now includes a warning message that the results may not be
+complete due to the ongoing indexing process of the View.
+
+The error code associated with this warning is `1240`
+(`ERROR_ARANGO_INCOMPLETE_READ`).
+
+---
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+If you specify collections that don't exist in the options of AQL graph traversals
+(`vertexCollections`, `edgeCollections`), queries now fail. In previous versions,
+unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.
+
+Additionally, queries fail if you specify a document collection or View
+in `edgeCollections`.
 
 ### Pregel module
 

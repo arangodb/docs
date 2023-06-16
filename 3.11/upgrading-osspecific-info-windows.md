@@ -18,6 +18,11 @@ In general, it will be needed to:
 Some of the above steps may be done automatically, depending on your
 specific situation.
 
+{% hint 'warning' %}
+It is highly recommended to take a backup of your data before upgrading ArangoDB
+using [_arangodump_](programs-arangodump.html).
+{% endhint %}
+
 Upgrading via the Installer
 ---------------------------
 

@@ -70,7 +70,7 @@ mechanism to create user-defined primary indexes.
 Edge Index
 ----------
 
-Every [edge collection](data-model-and-concepts.html#graph-model) also has an 
+Every [edge collection](data-models.html#graph-model) also has an 
 automatically created *edge index*. The edge index provides quick access to
 documents by either their `_from` or `_to` attributes. It can therefore be
 used to quickly find connections between vertex documents and is invoked when 

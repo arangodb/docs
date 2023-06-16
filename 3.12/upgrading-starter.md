@@ -11,14 +11,8 @@ of a [Cluster](architecture-deployment-modes-cluster-architecture.html) setup.
 
 The upgrade procedure of the _Starter_ described in this _Section_ can be used to
 upgrade to a new hotfix, or to perform an upgrade to a new minor version of ArangoDB.
-Please refer to the [Upgrade Paths](upgrading.html#upgrade-paths) section
+Please refer to the [Upgrade paths](upgrading.html#upgrade-paths) section
 for detailed information.
-
-{% hint 'warning' %}
-It is highly recommended to upgrade 3.6.x and 3.7.x deployments using at least
-the starter version 0.15.0-1 because of a technical problem, see
-[Technical Alert #6](https://www.arangodb.com/alerts/tech06/){:target="_blank"}.
-{% endhint %}
 
 ## Upgrade Scenarios
 
@@ -41,6 +35,11 @@ Cases 1. and 2. are more common, though cases 3. and 4. are also possible.
 The following procedure has to be executed on every ArangoDB _Starter_ instance.
 It is assumed that a _Starter_ deployment with mode `single`, `activefailover` or
 `cluster` is running.
+
+{% hint 'warning' %}
+It is highly recommended to take a backup of your data before upgrading ArangoDB
+using [_arangodump_](programs-arangodump.html).
+{% endhint %}
 
 ### Install the new ArangoDB version binary
 

@@ -119,6 +119,37 @@ in the header, arangod will reject the request and return HTTP 412
 In a cluster, the `x-arango-queue-time-seconds` request header will be
 checked on the receiving Coordinator, before any request forwarding.
 
+### Cursor API
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals (`POST /_api/cursor` endpoint), you can restrict the
+vertex and edge collections in the traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
+
+Furthermore, it is now an error if you specify a vertex collection that is not
+part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
+It is also an error if you specify an edge collection that is not part of the
+named graph's definition or of the list of edge collections (code `1939` and
+HTTP status `400 Bad Request`).
+
 ### Endpoint return value changes
 
 - All collections in ArangoDB are now always in the `loaded` state. APIs return
@@ -263,7 +294,7 @@ lifetime of one hour by default. You can adjust the lifetime with the
 Analyzers with a `locale` property use a new syntax. The encoding (`.utf-8`)
 does not need to be set anymore. The `collation` Analyzer supports
 `language[_COUNTRY][_VARIANT][@keywords]` (square bracket denote optional parts).
-The `text` and `norm` Analyzers support `language[_COUNTRY]`, the `stem`
+The `text` and `norm` Analyzers support `language[_COUNTRY][_VARIANT]`, the `stem`
 Analyzer only `language`. The former syntax is still supported but automatically
 normalized to the new syntax.
 
@@ -444,6 +475,8 @@ substitution.
 
 ## JavaScript API
 
+### Loading and unloading of collections
+
 All collections in ArangoDB are now always in the "loaded" state. Any 
 JavaScript functions for returning a collection's status will now return 
 "loaded", unconditionally.
@@ -452,3 +485,15 @@ The JavaScript functions for loading and unloading collections (i.e.
 `db.<collection>.load()` and `db.<collection>.unload()`) have been turned 
 into no-ops. They still exist in ArangoDB 3.9, but do not serve any purpose 
 and are deprecated.
+
+### AQL queries
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+If you specify collections that don't exist in the options of AQL graph traversals
+(`vertexCollections`, `edgeCollections`), queries now fail. In previous versions,
+unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.
+
+Additionally, queries fail if you specify a document collection or View
+in `edgeCollections`.

@@ -13,13 +13,17 @@ This chapter introduces ArangoDB's core concepts and covers the following:
   documentation
 
 You can also find examples on how to interact with the database system
-using ArangoDB's command-line tool called [arangosh](programs-arangosh.html).
-To learn more about the ways you can use and communicate with ArangoDB servers,
-see [How to Interact With ArangoDB](how-to-interact-with-arangodb.html).
-For example, you can create and drop databases/collections as well as save,
-update, replace, and remove documents using ArangoDB's web interface or a driver.
+using ArangoDB's interactive command-line interface called [arangosh](programs-arangosh.html).
 
-Learn more about ArangoDB's [data model and concepts](data-model-and-concepts.html).
+See [How to Interact With ArangoDB](how-to-interact-with-arangodb.html) to learn
+more about:
+- Ways you can use and communicate with ArangoDB servers
+- How to set up and deploy an ArangoDB instance
+- Get data in and out of ArangoDB
+- Back up and restore data in ArangoDB
+
+Learn more about ArangoDB's [data structure](data-structure.html) and 
+[data models](data-models.html).
 
 ## Modeling Data for ArangoDB
 
@@ -48,7 +52,7 @@ and makes the query language very powerful while remaining easy to read and writ
 To get started with AQL, sign up for [ArangoDB University](https://university.arangodb.com/){:target="_blank"}
 and get access to interactive courses powered by ArangoGraph. 
 
-## In the Cloud or On-premises
+## Managed Cloud Service or On-premises
 
 When you are ready for your own ArangoDB server, you can sign up for ArangoDB's
 cloud service called ArangoGraph, which takes care of the setup and maintenance, so
@@ -58,8 +62,8 @@ that you can focus on building amazing things on top of ArangoDB. See
 You can also install ArangoDB locally or on your own server hardware.
 See [Install ArangoDB on-premises](quick-start-on-premises.html) for more details.
 
-If you want to migrate from bare metal servers to the cloud with minimal downtime,
-check out the [Cloud Migration Tool](arangograph/cloud-migration-tool.html).
+If you want to migrate from an on-premises system to the fully managed ArangoGraph
+cloud platform, check out the [Cloud Migration Tool](arangograph/cloud-migration-tool.html).
 
 ## Interactive Tutorials
 

@@ -331,9 +331,9 @@ token, i.e. case conversion and accent removal.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `locale` (string): a locale in the format `language[_COUNTRY]`
-  (square brackets denote optional parts), e.g. `"de"` or `"en_US"`. See the
-  [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
+- `locale` (string): a locale in the format `language[_COUNTRY][_VARIANT]`
+  (square brackets denote optional parts), e.g. `"de"`, `"en_US"`, or `"es__TRADITIONAL"`.
+  See the [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
   for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
   Also see [Supported Languages](#supported-languages).
@@ -496,9 +496,9 @@ case conversion and accent removal.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `locale` (string): a locale in the format `language[_COUNTRY]`
-  (square brackets denote optional parts), e.g. `"de"` or `"en_US"`. See the
-  [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
+- `locale` (string): a locale in the format `language[_COUNTRY][_VARIANT]`
+  (square brackets denote optional parts), e.g. `"de"`, `"en_US"`, or `"es__TRADITIONAL"`.
+  See the [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
   for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
   Also see [Supported Languages](#supported-languages).
@@ -635,8 +635,8 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `locale` (string): a locale in the format
-  `language[_COUNTRY][_VARIANT][@keywords]` (square brackets denote optional
-  parts), e.g. `"de"`, `"en_US"`, or `fr@collation=phonebook`. See the
+  `language[_COUNTRY][_VARIANT][@keywords]` (square brackets denote optional parts),
+  e.g. `"de"`, `"en_US"`, `"es__TRADITIONAL"`, or `fr@collation=phonebook`. See the
   [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
   for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
@@ -1616,37 +1616,35 @@ Also see [Known Issues](release-notes-known-issues311.html#arangosearch).
 Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
 which supports the following languages:
 
-Language     | Code
--------------|-----
-Arabic     * | `ar`
-Armenian  ** | `hy`
-Basque     * | `eu`
-Catalan    * | `ca`
-Danish     * | `da`
-Dutch        | `nl`
-English      | `en`
-Finnish      | `fi`
-French       | `fr`
-German       | `de`
-Greek      * | `el`
-Hindi      * | `hi`
-Hungarian  * | `hu`
-Indonesian * | `id`
-Irish      * | `ga`
-Italian      | `it`
-Lithuanian * | `lt`
-Nepali     * | `ne`
-Norwegian    | `no`
-Portuguese   | `pt`
-Romanian   * | `ro`
-Russian      | `ru`
-Serbian    * | `sr`
-Spanish      | `es`
-Swedish      | `sv`
-Tamil      * | `ta`
-Turkish    * | `tr`
-Yiddish   ** | `yi`
+Language    | Code
+------------|-----
+Arabic      | `ar`
+Armenian  * | `hy`
+Basque      | `eu`
+Catalan     | `ca`
+Danish      | `da`
+Dutch       | `nl`
+English     | `en`
+Finnish     | `fi`
+French      | `fr`
+German      | `de`
+Greek       | `el`
+Hindi       | `hi`
+Hungarian   | `hu`
+Indonesian  | `id`
+Irish       | `ga`
+Italian     | `it`
+Lithuanian  | `lt`
+Nepali      | `ne`
+Norwegian   | `no`
+Portuguese  | `pt`
+Romanian    | `ro`
+Russian     | `ru`
+Serbian     | `sr`
+Spanish     | `es`
+Swedish     | `sv`
+Tamil       | `ta`
+Turkish     | `tr`
+Yiddish   * | `yi`
 
-\* <small>Introduced in: v3.7.0</small>
-
-\*\* <small>Introduced in: v3.10.0</small>
+\* <small>Introduced in: v3.10.0</small>

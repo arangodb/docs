@@ -13,11 +13,13 @@ class HintTag < Liquid::Block
       #content.rstrip!
       indent = content.index(/[^ ]/) || 0
       content = content.lines.map{ |line| line.slice([indent, line.index(/[^ ]/) || 0].min, line.length) }.join ''
-      # Parse Markdown and collapse line breaks to spaces.
+      # Parse Markdown and collapse line breaks to spaces outside of <pre> blocks.
       # Line breaks can cause pre-mature closing of elements it seems,
       # observed when placing a hint block in a Markdown list,
       # leading to unwanted literal "</div>" (HTML-encoded) in the output.
-      content = converter.convert(content).gsub(/\R+/, ' ')
+      content = converter.convert(content).split(/(?=<\/?pre)/).map{
+        |s| s.start_with?('<pre') ? s : s.gsub(/\R+/, ' ')
+      }.join ''
 
       case @type
       when "tip"
@@ -39,7 +41,7 @@ class HintTag < Liquid::Block
 
       return "<div class=\"alert alert-#{className}\" style=\"display: flex\">" +
         "<i class=\"fa fa-#{icon}\" style=\"margin-right: 10px; margin-top: 4px;\"></i>" +
-        "<div>#{content}</div>" +
+        "<div style=\"min-width: 0\">#{content}</div>" +
         "</div>"
     end
   end

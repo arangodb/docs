@@ -55,14 +55,14 @@ The following APIs have been added:
 - [The new Stream Transaction API](http/transaction.html)
 - [The new ArangoSearch Analyzer management API](http/analyzers.html)
 - [The management of the new TTL indexes](http/indexes-ttl.html); this enhances the existing index-API
-- [Query the actual shard a document lives in](http/collection.html#return-responsible-shard-for-a-document)
+- [Query the actual shard a document lives in](http/collection.html#get-the-responsible-shard-for-a-document)
 
 The following APIs have been expanded:
 
 - The [ArangoSearch management API](http/views-arangosearch.html) has the new `commitIntervalMsec` attribute in all routes
 - Indexes can now have user-defined names
 - The new "ttl" index type has been added to the [index creation API](http/indexes.html)
-- [Collection creation API now provides the `smartJoinAttribute` parameter](data-modeling-collections-collection-methods.html)
+- [Collection creation API now provides the `smartJoinAttribute` parameter](appendix-references-dbobject.html#db_createcollection-name--properties--type--options)
 - [`filter` foxx-tests](http/foxx.html#miscellaneous) for testing
 
 The following documentation has been enhanced:

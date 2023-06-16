@@ -345,8 +345,18 @@ with every batch. Every result response except the last one also includes a
 `nextBatchId` attribute, indicating the ID of the batch after the current.
 You can remember and use this batch ID should retrieving the next batch fail.
 
-You can only request the latest batch again. Earlier batches are not kept on the
-server-side.
+You can only request the latest batch again (or the next batch).
+Earlier batches are not kept on the server-side.
+Requesting a batch again does not advance the cursor.
+
+You can also call this endpoint with the next batch identifier, i.e. the value
+returned in the `nextBatchId` attribute of a previous request. This advances the
+cursor and returns the results of the next batch. This is only supported if there
+are more results in the cursor (i.e. `hasMore` is `true` in the latest batch).
+
+From v3.11.1 onward, you may use the `POST /_api/cursor/<cursor-id>/<batch-id>`
+endpoint even if the `allowRetry` attribute is `false` to fetch the next batch,
+but you cannot request a batch again unless you set it to `true`.
 
 To allow refetching of the last batch of the query, the server cannot
 automatically delete the cursor. After the first attempt of fetching the last
@@ -354,7 +364,7 @@ batch, the server would normally delete the cursor to free up resources. As you
 might need to reattempt the fetch, it needs to keep the final batch when the
 `allowRetry` option is enabled. Once you successfully received the last batch,
 you should call the `DELETE /_api/cursor/<cursor-id>` endpoint so that the
-server doesn't unnecessary keep the batch until the cursor times out
+server doesn't unnecessarily keep the batch until the cursor times out
 (`ttl` query option).
 
 #### `stream`
@@ -385,6 +395,27 @@ available after the query has finished and are delivered as part of the last bat
 
 The query has to be executed within the given runtime or it is killed.
 The value is specified in seconds. The default value is `0.0` (no timeout).
+
+#### `maxDNFConditionMembers`
+
+<small>Introduced in: v3.11.0</small>
+
+A threshold for the maximum number of `OR` sub-nodes in the internal
+representation of an AQL `FILTER` condition.
+
+Yon can use this option to limit the computation time and memory usage when
+converting complex AQL `FILTER` conditions into the internal DNF
+(disjunctive normal form) format. `FILTER` conditions with a lot of logical
+branches (`AND`, `OR`, `NOT`) can take a large amount of processing time and
+memory. This query option limits the computation time and memory usage for
+such conditions.
+
+Once the threshold value is reached during the DNF conversion of a `FILTER`
+condition, the conversion is aborted, and the query continues with a simplified
+internal representation of the condition, which **cannot be used for index lookups**.
+
+You can also set the threshold globally instead of per query with the
+[`--query.max-dnf-condition-members` startup option](../programs-arangod-options.html#--querymax-dnf-condition-members).
 
 #### `maxNodesPerCallstack`
 
@@ -505,7 +536,7 @@ result set iteration is needed, it is recommended to first create an
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-To execute the query, use the `execute()` method of the statement:
+To execute the query, use the `execute()` method of the _statement_ object:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements2
@@ -516,6 +547,64 @@ To execute the query, use the `execute()` method of the statement:
     @endDocuBlock 05_workWithAQL_statements2
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
+
+You can pass a number to the `execute()` method to specify a batch size value.
+The server returns at most this many results in one roundtrip.
+The batch size cannot be adjusted after the query is first executed.
+
+**Note**: There is no need to explicitly call the execute method if another
+means of fetching the query results is chosen. The following two approaches
+lead to the same result:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline executeQueryNoBatchSize
+    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryNoBatchSize}
+    ~ db._create("users");
+    ~ db.users.save({ name: "Gerhard" });
+    ~ db.users.save({ name: "Helmut" });
+    ~ db.users.save({ name: "Angela" });
+    | var result = db.users.all().toArray();
+    | print(result);
+    | var q = db._query("FOR x IN users RETURN x");
+    | result = [ ];
+    | while (q.hasNext()) {
+    |   result.push(q.next());
+    | }
+      print(result);
+    ~ db._drop("users")
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock executeQueryNoBatchSize
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+The following two alternatives both use a batch size and return the same
+result:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline executeQueryBatchSize
+    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryBatchSize}
+    ~ db._create("users");
+    ~ db.users.save({ name: "Gerhard" });
+    ~ db.users.save({ name: "Helmut" });
+    ~ db.users.save({ name: "Angela" });
+    | var result = [ ];
+    | var q = db.users.all();
+    | q.execute(1);
+    | while(q.hasNext()) {
+    |   result.push(q.next());
+    | }
+    | print(result);
+    | result = [ ];
+    | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
+    | while (q.hasNext()) {
+    |   result.push(q.next());
+    | }
+      print(result);
+    ~ db._drop("users")
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock executeQueryBatchSize
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Cursors
 
