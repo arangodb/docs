@@ -46,7 +46,7 @@ for the query, including two additional options to include sample documents,
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_debugDumpCreate
     @EXAMPLE_ARANGOSH_OUTPUT{01_debugDumpCreate}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var g = examples.loadGraph("worldCountry");
 
       var query = `FOR v, e, p IN 0..10 INBOUND "worldVertices/continent-europe" GRAPH "worldCountry" FILTER v._key != @country RETURN CONCAT_SEPARATOR(" -- ", p.vertices[*])`;

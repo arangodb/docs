@@ -212,7 +212,7 @@ ArangoDB comes with a set of easily graspable graphs that are used to demonstrat
 You can use the `add samples` tab in the `create graph` window in the web interface, or load the module `@arangodb/graph-examples/example-graph` in arangosh and use it to create instances of these graphs in your ArangoDB.
 Once you've created them, you can [inspect them in the web interface](programs-web-interface-graphs.html) - which was used to create the pictures below.
 
-You [can easily look into the innards of this script](https://github.com/arangodb/arangodb/blob/devel/js/common/modules/%40arangodb/graph-examples/example-graph.js){:target="_blank"} for reference about how to manage graphs programmatically.
+You [can easily look into the innards of this script](https://github.com/arangodb/arangodb/blob/devel/js/common/modules/%40arangodb/graph-examples/example-graph){:target="_blank"} for reference about how to manage graphs programmatically.
 
 ### The Knows\_Graph
 
@@ -234,7 +234,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_knows_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_knows_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var g = examples.loadGraph("knows_graph");
     db.persons.toArray()
     db.knows.toArray();
@@ -258,7 +258,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_social_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_social_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var graph = examples.loadGraph("social");
     db.female.toArray()
     db.male.toArray()
@@ -280,7 +280,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_cities_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_cities_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var g = examples.loadGraph("routeplanner");
     db.frenchCity.toArray();
     db.germanCity.toArray();
@@ -305,7 +305,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_traversal_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var g = examples.loadGraph("traversalGraph");
     db.circles.toArray();
     db.edges.toArray();
@@ -330,7 +330,7 @@ See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examp
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_kshortestpaths_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_kshortestpaths_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var g = examples.loadGraph("kShortestPathsGraph");
     db.places.toArray();
     db.connections.toArray();
@@ -350,7 +350,7 @@ It is used to demonstrate raw traversal operations.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_world_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_world_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var g = examples.loadGraph("worldCountry");
     db.worldVertices.toArray();
     db.worldEdges.toArray();
@@ -375,7 +375,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_mps_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_mps_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var g = examples.loadGraph("mps_graph");
     db.mps_verts.toArray();
     db.mps_edges.toArray();
@@ -400,7 +400,7 @@ Also see:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_connectedcomponentsgraph_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_connectedcomponentsgraph_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var g = examples.loadGraph("connectedComponentsGraph");
     db.components.toArray();
     db.connections.toArray();

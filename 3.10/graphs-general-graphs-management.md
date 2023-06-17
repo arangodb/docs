@@ -309,7 +309,7 @@ Get a graph by its name:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphLoadGraph
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphLoadGraph}
-    ~ var examples = require("@arangodb/graph-examples/example-graph.js");
+    ~ var examples = require("@arangodb/graph-examples/example-graph");
     ~ var g1 = examples.loadGraph("social");
       var graph_module = require("@arangodb/general-graph");
       graph = graph_module._graph("social");
@@ -342,7 +342,7 @@ Drop a graph and keep collections:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphDropGraphKeep
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphKeep}
-    ~ var examples = require("@arangodb/graph-examples/example-graph.js");
+    ~ var examples = require("@arangodb/graph-examples/example-graph");
     ~ var g1 = examples.loadGraph("social");
       var graph_module = require("@arangodb/general-graph");
       graph_module._drop("social");
@@ -363,7 +363,7 @@ Drop a graph and its collections:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphDropGraphDropCollections
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphDropCollections}
-    ~ var examples = require("@arangodb/graph-examples/example-graph.js");
+    ~ var examples = require("@arangodb/graph-examples/example-graph");
     ~ var g1 = examples.loadGraph("social");
       var graph_module = require("@arangodb/general-graph");
       graph_module._drop("social", true);
@@ -624,7 +624,7 @@ Create a new vertex in `vertexCollectionName`:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphVertexCollectionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionSave}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
       graph.male.save({name: "Floyd", _key: "floyd"});
     ~ examples.dropGraph("social");
@@ -651,7 +651,7 @@ Replaces the data of a vertex in collection `vertexCollectionName`:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphVertexCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionReplace}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
       graph.male.save({neym: "Jon", _key: "john"});
       graph.male.replace("male/john", {name: "John"});
@@ -679,7 +679,7 @@ Updates the data of a vertex in collection `vertexCollectionName`.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphVertexCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionUpdate}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
       graph.female.save({name: "Lynda", _key: "linda"});
       graph.female.update("female/linda", {name: "Linda", _key: "linda"});
@@ -708,7 +708,7 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphVertexCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionRemove}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
       graph.male.save({name: "Kermit", _key: "kermit"});
       db._exists("male/kermit")
@@ -742,7 +742,7 @@ Creates an edge from vertex `data._from` to vertex `data._to` in collection
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionSave1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave1}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
     | graph.relation.save({
     |   _from: "male/bob",
@@ -760,7 +760,7 @@ of the graph, the edge is not stored.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionSave2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave2}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
       | graph.relation.save(
       |  "relation/aliceAndBob",
@@ -791,7 +791,7 @@ Note that `_from` and `_to` are mandatory.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionReplace}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
       graph.relation.save("female/alice", "female/diana", {typo: "nose", _key: "aliceAndDiana"});
       graph.relation.replace("relation/aliceAndDiana", {type: "knows", _from: "female/alice", _to: "female/diana"});
@@ -819,7 +819,7 @@ Updates the data of an edge in collection `edgeCollectionName`.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionUpdate}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
       graph.relation.save("female/alice", "female/diana", {type: "knows", _key: "aliceAndDiana"});
       graph.relation.update("relation/aliceAndDiana", {type: "quarreled", _key: "aliceAndDiana"});
@@ -848,7 +848,7 @@ If this edge is used as a vertex by another edge, the other edge is removed
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionRemove}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
       graph.relation.save("female/alice", "female/diana", {_key: "aliceAndDiana"});
       db._exists("relation/aliceAndDiana")
