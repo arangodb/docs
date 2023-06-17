@@ -293,13 +293,3 @@ You can specify the following parameters:
 - `inFilepath` (string): The path to the debug package JSON file
 - `outFilepath` (string, _optional_): A path to store the formatted output in a
   file instead of printing to the shell
-
-    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline 10_workWithAQL_debugging4
-    @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging4}
-      var explainer = require("@arangodb/aql/explainer"); 
-      explainer.inspectDump("/tmp/query-debug-info", "/tmp/pretty-debug-info");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock 10_workWithAQL_debugging4
-    {% endarangoshexample %}
-    {% include arangoshexample.html id=examplevar script=script result=result %}
