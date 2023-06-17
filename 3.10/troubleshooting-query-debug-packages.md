@@ -48,12 +48,12 @@ for the query, including two additional options to include sample documents,
     @EXAMPLE_ARANGOSH_OUTPUT{01_debugDumpCreate}
       var examples = require("@arangodb/graph-examples/example-graph");
       var g = examples.loadGraph("worldCountry");
-
-      var query = `FOR v, e, p IN 0..10 INBOUND "worldVertices/continent-europe" GRAPH "worldCountry" FILTER v._key != @country RETURN CONCAT_SEPARATOR(" -- ", p.vertices[*])`;
+      var query = `FOR v, e, p IN 0..10 INBOUND "worldVertices/continent-europe" GRAPH "worldCountry" FILTER v._key != @country RETURN CONCAT_SEPARATOR(" -- ", p.vertices)`;
       var bindVars = { country: "country-denmark" };
       var options = { examples: 10, anonymize: true }
       var explainer = require("@arangodb/aql/explainer"); 
-      explainer.debugDump("/tmp/debugDumpFilename", query, bindVars, options); 
+      explainer.debugDump("/tmp/debugDumpFilename", query, bindVars, options);
+    ~ examples.dropGraph("worldCountry");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 01_debugDumpCreate
     {% endarangoshexample %}
@@ -71,6 +71,8 @@ or use the `inspectDump()` method of the explainer module for formatting.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 02_debugDumpInspect
     @EXAMPLE_ARANGOSH_OUTPUT{02_debugDumpInspect}
+    ~ require("fs");
+    ~ assert(fs.exists("/tmp/debugDumpFilename"));
       var explainer = require("@arangodb/aql/explainer"); 
       explainer.inspectDump("/tmp/debugDumpFilename");
     @END_EXAMPLE_ARANGOSH_OUTPUT
