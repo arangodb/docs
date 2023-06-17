@@ -71,7 +71,6 @@ or use the `inspectDump()` method of the explainer module for formatting.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 02_debugDumpInspect
     @EXAMPLE_ARANGOSH_OUTPUT{02_debugDumpInspect}
-    ~ require("fs");
     ~ assert(fs.exists("/tmp/debugDumpFilename"));
       var explainer = require("@arangodb/aql/explainer"); 
       explainer.inspectDump("/tmp/debugDumpFilename");
