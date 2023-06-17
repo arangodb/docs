@@ -243,6 +243,11 @@ The command stores all data in a file with a configurable filename:
 Entitled users can send the generated file to the ArangoDB support to facilitate 
 reproduction and debugging.
 
+{% hint 'tip' %}
+You can also create debug packages using the web interface, see
+[Query debug packages](../troubleshooting-query-debug-packages.html).
+{% endhint %}
+
 If a query contains bind parameters, you need to specify them along with the query
 string:
 
