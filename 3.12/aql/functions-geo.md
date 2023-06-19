@@ -413,7 +413,7 @@ Simple Polygon:
 @startDocuBlockInline aqlGeoPolygon_1
 @EXAMPLE_AQL{aqlGeoPolygon_1}
 RETURN GEO_POLYGON([
-    [0.0, 0.0], [7.5, 2.5], [0.0, 5.0]
+    [0.0, 0.0], [7.5, 2.5], [0.0, 5.0], [0.0, 0.0]
 ])
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoPolygon_1
