@@ -241,7 +241,7 @@ batch, the server would normally delete the cursor to free up resources. As you
 might need to reattempt the fetch, it needs to keep the final batch when the
 `allowRetry` option is enabled. Once you successfully received the last batch,
 you should call the `DELETE /_api/cursor/<cursor-id>` endpoint so that the
-server doesn't unnecessary keep the batch until the cursor times out
+server doesn't unnecessarily keep the batch until the cursor times out
 (`ttl` query option).
 
 ```js
@@ -264,6 +264,10 @@ curl -X DELETE --dump http://localhost:8529/_api/cursor/3517
   "code":202
 }
 ```
+
+If you are no longer interested in the results of a query, you can call the
+`DELETE /_api/cursor/<cursor-id>` endpoint as long as a cursor exists to discard
+the cursor, even before you requested the last batch.
 
 ## Execute AQL queries
 

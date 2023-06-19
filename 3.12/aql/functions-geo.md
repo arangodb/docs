@@ -33,7 +33,7 @@ which is sufficient for most use cases such as location-aware services.
 DISTANCE(52.5163, 13.3777, 50.9322, 6.94) // 476918.89688380965 (~477km)
 
 // Sort a small number of documents based on distance to Central Park (New York)
-FOR doc IN doc // e.g. documents returned by a traversal
+FOR doc IN coll // e.g. documents returned by a traversal
   SORT DISTANCE(doc.latitude, doc.longitude, 40.78, -73.97)
   RETURN doc
 ```
@@ -485,11 +485,11 @@ the query however.
 ### NEAR()
 
 {% hint 'warning' %}
-`NEAR` is a deprecated AQL function from version 3.4.0 on.
-Use [DISTANCE()](#distance) in a query like this instead:
+`NEAR()` is a deprecated AQL function from version 3.4.0 on.
+Use [`DISTANCE()`](#distance) in a query like this instead:
 
 ```aql
-FOR doc IN doc
+FOR doc IN coll
   SORT DISTANCE(doc.latitude, doc.longitude, paramLatitude, paramLongitude) ASC
   RETURN doc
 ```
@@ -523,11 +523,11 @@ contain the distance value in an attribute of that name.
 ### WITHIN()
 
 {% hint 'warning' %}
-`WITHIN` is a deprecated AQL function from version 3.4.0 on.
-Use [DISTANCE()](#distance) in a query like this instead:
+`WITHIN()` is a deprecated AQL function from version 3.4.0 on.
+Use [`DISTANCE()`](#distance) in a query like this instead:
 
 ```aql
-FOR doc IN doc
+FOR doc IN coll
   LET d = DISTANCE(doc.latitude, doc.longitude, paramLatitude, paramLongitude)
   FILTER d <= radius
   SORT d ASC
@@ -562,15 +562,24 @@ value in an attribute of that name.
 ### WITHIN_RECTANGLE()
 
 {% hint 'warning' %}
-`WITHIN_RECTANGLE` is a deprecated AQL function from version 3.4.0 on. Use
-[GEO_CONTAINS](#geo_contains) and a GeoJSON polygon instead:
+`WITHIN_RECTANGLE()` is a deprecated AQL function from version 3.4.0 on. Use
+[`GEO_CONTAINS()`](#geo_contains) and a GeoJSON polygon instead - but note that
+this uses geodesic lines from version 3.10.0 onward
+(see [GeoJSON interpretation](../indexing-geo.html#geojson-interpretation)):
 
 ```aql
-LET rect = {type: "Polygon", coordinates: [[[longitude1, latitude1], ...]]]}
-FOR doc IN doc
-  FILTER GEO_CONTAINS(poly, [doc.longitude, doc.latitude])
+LET rect = GEO_POLYGON([ [
+  [longitude1, latitude1], // bottom-left
+  [longitude2, latitude1], // bottom-right
+  [longitude2, latitude2], // top-right
+  [longitude1, latitude2], // top-left
+  [longitude1, latitude1], // bottom-left
+] ])
+FOR doc IN coll
+  FILTER GEO_CONTAINS(rect, [doc.longitude, doc.latitude])
   RETURN doc
 ```
+
 Assuming there exists a geo-type index on `latitude` and `longitude`, the
 optimizer will recognize it and accelerate the query.
 {% endhint %}
