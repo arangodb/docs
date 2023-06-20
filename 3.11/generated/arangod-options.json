@@ -1111,7 +1111,7 @@
       "agent",
       "single"
     ],
-    "default" : 17872711680,
+    "default" : 16338161664,
     "deprecatedIn" : null,
     "description" : "The global size limit for all caches (in bytes).",
     "dynamic" : true,
@@ -6828,7 +6828,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The maximum parallelism usable in a Pregel job.",
     "dynamic" : true,
@@ -6892,7 +6892,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "The default parallelism to use in a Pregel job if none is specified.",
     "dynamic" : true,
@@ -7129,7 +7129,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 73638330368,
+    "base" : 67500130304,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7137,7 +7137,7 @@
       "agent",
       "single"
     ],
-    "default" : 59647047598,
+    "default" : 54675105546,
     "deprecatedIn" : null,
     "description" : "The memory threshold for all AQL queries combined (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7427,7 +7427,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 73638330368,
+    "base" : 67500130304,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7435,7 +7435,7 @@
       "agent",
       "single"
     ],
-    "default" : 44182998221,
+    "default" : 40500078183,
     "deprecatedIn" : null,
     "description" : "The memory threshold per AQL query (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -8637,7 +8637,7 @@
       "agent",
       "single"
     ],
-    "default" : 21447254016,
+    "default" : 19605793996,
     "deprecatedIn" : null,
     "description" : "The size of block cache (in bytes).",
     "dynamic" : true,
@@ -9586,7 +9586,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The maximum number of concurrent background jobs (compactions and flushes).",
     "dynamic" : true,
@@ -11102,7 +11102,7 @@
       "agent",
       "single"
     ],
-    "default" : 28596338688,
+    "default" : 26141058662,
     "deprecatedIn" : null,
     "description" : "The maximum total size of in-memory write buffers (0 = unbounded).",
     "dynamic" : true,
@@ -11133,7 +11133,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The number of lock stripes to use for transaction locks.",
     "dynamic" : true,
@@ -11963,7 +11963,7 @@
       "agent",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "The number of threads used to handle I/O.",
     "dynamic" : true,
@@ -12158,7 +12158,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex).",
     "dynamic" : true,
@@ -12188,7 +12188,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 10,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for maintenance actions.",
     "dynamic" : true,
@@ -12253,7 +12253,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 72)",
+    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,
