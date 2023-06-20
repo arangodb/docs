@@ -1,6 +1,8 @@
 ---
 layout: default
 description: AQL queries are sent through an optimizer before execution
+page-toc:
+  max-headline-level: 3
 ---
 The AQL query optimizer
 =======================
@@ -84,9 +86,9 @@ the *execution plan*. The output is still very verbose, so here's a shorted form
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-*Note that the list of nodes might slightly change in future versions of ArangoDB if
+Note that the list of nodes might slightly change in future versions of ArangoDB if
 new execution node types get added or the optimizer create somewhat more
-optimized plans).*
+optimized plans.
 
 When a plan is executed, the query execution engine starts with the node at
 the bottom of the list (i.e. the `ReturnNode`).
@@ -354,8 +356,10 @@ Execution plan:
   8   GatherNode        COOR        0       - GATHER 
 ```
 
-List of execution nodes
------------------------
+Execution nodes
+---------------
+
+### List of execution nodes
 
 The following execution node types appear in the output of `explain`:
 
@@ -448,6 +452,8 @@ The following execution node types appear in the output of `explain`:
   Upserts documents in a collection (given in its *collection* attribute).
   Appears exactly once in a query that contains an `UPSERT` statement.
 
+### Cluster execution nodes
+
 For queries in the cluster, the following nodes may appear in execution plans:
 
 - **DistributeNode**:
@@ -479,8 +485,10 @@ For queries in the cluster, the following nodes may appear in execution plans:
   Used to optimize bulk `INSERT` operations in cluster deployments, reducing the
   setup and shutdown overhead and the number of internal network requests.
 
-List of optimizer rules
------------------------
+Optimizer rules
+---------------
+
+### List of optimizer rules
 
 The following optimizer rules may appear in the `rules` attribute of a plan.
 
