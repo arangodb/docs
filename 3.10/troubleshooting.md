@@ -5,6 +5,8 @@ description: Troubleshooting
 Troubleshooting
 ===============
 
+- [Query debug packages](troubleshooting-query-debug-packages.html)
+
 - [ArangoDB Server (`arangod`)](troubleshooting-arangod.html)
 
 - [Emergency Console](troubleshooting-emergency-console.html)

@@ -1,4 +1,4 @@
-arangosh&gt; var examples = require(&quot;@arangodb/graph-examples/example-graph.js&quot;);
+arangosh&gt; var examples = require(&quot;@arangodb/graph-examples/example-graph&quot;);
 arangosh&gt; var graph = examples.loadGraph(&quot;social&quot;);
 arangosh&gt; graph.relation.save(
 ........&gt;  &quot;relation/aliceAndBob&quot;,

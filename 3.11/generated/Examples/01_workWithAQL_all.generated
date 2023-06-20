@@ -1,10 +1,10 @@
 arangosh&gt; db._create(<span class="hljs-string">&quot;mycollection&quot;</span>)
-[ArangoCollection <span class="hljs-number">213</span>, <span class="hljs-string">&quot;mycollection&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+[ArangoCollection <span class="hljs-number">526</span>, <span class="hljs-string">&quot;mycollection&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)]
 arangosh&gt; db.mycollection.save({ <span class="hljs-attr">_key</span>: <span class="hljs-string">&quot;testKey&quot;</span>, <span class="hljs-attr">Hello</span> : <span class="hljs-string">&quot;World&quot;</span> })
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;mycollection/testKey&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;testKey&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gFa4a2C--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gLgvIUW---&quot;</span> 
 }
 arangosh&gt; db._query(<span class="hljs-string">&#x27;FOR my IN mycollection RETURN my._key&#x27;</span>).toArray()
 [ 

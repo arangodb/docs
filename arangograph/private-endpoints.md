@@ -182,6 +182,15 @@ that automatically connects to private endpoints that are created in those princ
    that is now displayed to see the connection status and change the
    configuration, if needed.
    ![ArangoGraph AWS Private Endpoint Overview](images/arangograph-aws-private-endpoint-overview.png)
+   {% hint 'info' %}
+   Note that
+   [Availability Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones){:target="_blank"}
+   are independently mapped for each AWS account. The physical location of a
+   zone may differ from one account to another account. To coordinate
+   Availability Zones across AWS accounts, you must use the
+   [Availability Zone ID](https://docs.aws.amazon.com/ram/latest/userguide/working-with-az-ids.html){:target="_blank"}.
+   {% endhint %}
+   
    {% hint 'tip' %}
    To learn more or request help from the ArangoGraph support team, click **Help**
    in the top right corner of the **Private Endpoint** section.

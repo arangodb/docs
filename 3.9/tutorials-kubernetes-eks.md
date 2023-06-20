@@ -104,7 +104,7 @@ into your kubernetes cluster.
 
 **NodeAutoScalingGroupMinSize**: Minimum number of nodes to which you may scale your workers.
 
-**NodeAutoScalingGroupMaxSize**: Nomen est omen.
+**NodeAutoScalingGroupMaxSize**: Maximum number of nodes to which you may scale your workers.
 
 **NodeInstanceType**: Choose an instance type for your worker nodes. For this test we went with the default `t2.medium` instances.
 
