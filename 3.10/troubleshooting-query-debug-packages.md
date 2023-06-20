@@ -20,7 +20,7 @@ reproduce the issue:
 - The query execution plan
 - Storage engine statistics
 - Optionally samples of your data, with the option to
-  **obfuscated all string values** in a non-reversible way
+  **obfuscate all string values** in a non-reversible way
 
 {% hint 'security' %}
 Before sharing a debug package, open the file locally and check if it contains
