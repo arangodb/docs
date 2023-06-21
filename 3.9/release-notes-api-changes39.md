@@ -294,7 +294,7 @@ lifetime of one hour by default. You can adjust the lifetime with the
 Analyzers with a `locale` property use a new syntax. The encoding (`.utf-8`)
 does not need to be set anymore. The `collation` Analyzer supports
 `language[_COUNTRY][_VARIANT][@keywords]` (square bracket denote optional parts).
-The `text` and `norm` Analyzers support `language[_COUNTRY]`, the `stem`
+The `text` and `norm` Analyzers support `language[_COUNTRY][_VARIANT]`, the `stem`
 Analyzer only `language`. The former syntax is still supported but automatically
 normalized to the new syntax.
 

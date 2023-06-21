@@ -578,6 +578,8 @@ This diverges from the previous implementation in two fundamental ways:
    that the "smaller" of the two connected components are the interior.
    This allows specifying polygons that cover more than half of
    the surface of the Earth and conforms to the GeoJSON standard.
+   See [GeoJSON interpretation](indexing-geo.html#geojson-interpretation)
+   for examples.
 
 Additionally, the reported issues, which occasionally produced
 wrong results in geo queries when using geo indexes, have been fixed.
@@ -591,6 +593,12 @@ geo indexes need to be dropped and recreated after an upgrade.
 
 See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
 details and for hints about upgrading to version 3.10 or later.
+
+If you use `geojson` Analyzers including in `arangosearch` Views and upgrade
+from a version below 3.10 to a version of 3.10 or higher, the interpretation of
+GeoJSON Polygons changes. See the `legacy` property of the
+[`geojson` Analyzer](analyzers.html#geojson) for details and how to restore the
+old behavior.
 
 ### Traversal Projections (Enterprise Edition)
 

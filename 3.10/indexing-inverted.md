@@ -563,7 +563,7 @@ away they are from the reference point in the result:
 
 ```js
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
+analyzers.save("geojson", "geojson", {}, []);
 
 db.restaurants.ensureIndex({
   name: "inv-rest",
