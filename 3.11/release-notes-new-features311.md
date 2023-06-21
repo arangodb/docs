@@ -296,7 +296,7 @@ which means you cannot use `RETURN NEW` or similar to access the new documents
 including their document keys. Additionally, all preceding calculations must be
 constant, which excludes any subqueries that read documents.
 
-See the [List of optimizer rules](aql/execution-and-performance-optimizer.html#list-of-optimizer-rules)
+See the list of [optimizer rules](aql/execution-and-performance-optimizer.html#optimizer-rules)
 for details.
 
 ### Index cache refilling

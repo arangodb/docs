@@ -68,7 +68,7 @@ As you can see, the result details are very verbose. They are not covered in
 detail for brevity in the next sections. Instead, let's take a closer look at
 the results step by step.
 
-#### Execution nodes
+#### Execution nodes of a query
 
 In general, an execution plan can be considered to be a pipeline of processing steps.
 Each processing step is carried out by a so-called *execution node*
@@ -116,7 +116,7 @@ Here is a summary:
 - CalculationNode: calculates return value `i.value`
 - ReturnNode: returns data to the caller
 
-#### Optimizer rules
+#### Optimizer rules used for a query
 
 Note that in the example, the optimizer has optimized the `SORT` statement away.
 It can do it safely because there is a sorted persistent index on `i.value`, which it has
@@ -162,7 +162,7 @@ Note that some rules may appear multiple times in the list, with number suffixes
 This is due to the same rule being applied multiple times, at different positions
 in the optimizer pipeline.
 
-Also see the full [List of optimizer rules](#list-of-optimizer-rules) below.
+Also see the full list of [optimizer rules](#optimizer-rules) below.
 
 #### Collections used in a query
 
@@ -490,12 +490,29 @@ Optimizer rules
 
 ### List of optimizer rules
 
-The following optimizer rules may appear in the `rules` attribute of a plan.
+The following user-facing optimizer rules exist and are enabled by default
+unless noted otherwise. You can
+[enable and disable optimizer rules](#turning-specific-optimizer-rules-off)
+except for a few required rules.
 
-Some rules may appear multiple times in the list of applied optimizations, with
-number suffixes like `-2`, (e.g. `remove-unnecessary-calculations-2`). This is
-due to the same rule being applied multiple times at different optimization stages.
+Some rules exist multiple times with number suffixes like `-2`,
+(e.g. `remove-unnecessary-calculations-2`). This is due to the same rule being
+applied multiple times at different optimization stages.
 
+{% comment %} Execute code but exclude its output from rendering
+
+    @startDocuBlockInline 00_dumpOptimizerRules_cluster
+    @EXAMPLE_ARANGOSH_RUN{00_dumpOptimizerRules_cluster}
+      var url = "/_api/query/rules";
+      var rules = internal.arango.GET(url);
+      assert(Array.isArray(rules));
+      assert(rules.some(e => e.clusterOnly));
+      var outfile = "Documentation/optimizer-rules.json"
+      assert(fs.write(outfile, JSON.stringify(rules, undefined, 2)));
+    @END_EXAMPLE_ARANGOSH_RUN
+    @endDocuBlock 00_dumpOptimizerRules_cluster
+
+{% endcomment %}
 {% assign rulesFile = page.version.version | remove: "." | append: "-optimizer-rules" -%}
 {% assign options = site.data[rulesFile] -%}
 {% include aql-optimizer-rules.md options=options %}
