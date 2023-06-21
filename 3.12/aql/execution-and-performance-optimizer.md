@@ -506,8 +506,8 @@ applied multiple times at different optimization stages.
       var url = "/_api/query/rules";
       var rules = internal.arango.GET(url);
       assert(Array.isArray(rules));
-      assert(rules.some(e => e.clusterOnly));
-      var outfile = "Documentation/optimizer-rules.json"
+      assert(rules.some(e => e.flags && e.flags.clusterOnly));
+      var outfile = "Documentation/optimizer-rules.json";
       assert(fs.write(outfile, JSON.stringify(rules, undefined, 2)));
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock 00_dumpOptimizerRules_cluster
