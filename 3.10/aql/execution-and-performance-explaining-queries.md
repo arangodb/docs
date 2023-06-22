@@ -82,13 +82,13 @@ The result object also contains a `warnings` attribute, which is an array of
 warnings that occurred during optimization or execution plan creation.
 
 Each plan in the result is an object with the following attributes:
-- `nodes`: the array of execution nodes of the plan. See the
-  [list of execution nodes](execution-and-performance-optimizer.html#list-of-execution-nodes)
+- `nodes`: the array of execution nodes of the plan. See the list of
+  [execution nodes](execution-and-performance-optimizer.html#execution-nodes)
 - `estimatedCost`: the total estimated cost for the plan. If there are multiple
   plans, the optimizer chooses the plan with the lowest total cost.
 - `collections`: an array of collections used in the query
-- `rules`: an array of rules the optimizer applied. See the
-  [list of optimizer rules](execution-and-performance-optimizer.html#list-of-optimizer-rules)
+- `rules`: an array of rules the optimizer applied. See the list of
+  [optimizer rules](execution-and-performance-optimizer.html#optimizer-rules)
 - `variables`: array of variables used in the query (note: this may contain
   internal variables created by the optimizer)
 

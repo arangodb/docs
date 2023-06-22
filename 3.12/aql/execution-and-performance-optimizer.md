@@ -452,9 +452,10 @@ The following execution node types appear in the output of `explain`:
   Upserts documents in a collection (given in its *collection* attribute).
   Appears exactly once in a query that contains an `UPSERT` statement.
 
-### Cluster execution nodes
+### List of cluster execution nodes
 
-For queries in the cluster, the following nodes may appear in execution plans:
+For queries in the cluster, the following additional nodes may appear in
+execution plans:
 
 - **DistributeNode**:
   Used on a Coordinator to fan-out data to one or multiple shards,

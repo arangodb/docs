@@ -318,8 +318,8 @@ the same way as the `INSERT` AQL operation can do.
 
 AQL `INSERT` queries with the `optimize-cluster-multiple-document-operations`
 optimization applied perform similarly well in cluster deployments, but it
-cannot be applied in all cases (see the
-[List of optimizer rules](execution-and-performance-optimizer.html#list-of-optimizer-rules)
+cannot be applied in all cases (see the list of
+[optimizer rules](execution-and-performance-optimizer.html#optimize-cluster-multiple-document-operations)
 for details).
 
 ## Summary
