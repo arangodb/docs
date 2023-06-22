@@ -1,172 +1,172 @@
-arangosh&gt; var examples = require(&quot;@arangodb/graph-examples/example-graph.js&quot;);
+arangosh&gt; var examples = require(&quot;@arangodb/graph-examples/example-graph&quot;);
 arangosh&gt; var graph = examples.loadGraph(&quot;traversalGraph&quot;);
 arangosh&gt; db.circles.toArray();
 [ 
   { 
     &quot;_key&quot; : &quot;A&quot;, 
     &quot;_id&quot; : &quot;circles/A&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdroi---&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAm---&quot;, 
     &quot;label&quot; : &quot;1&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;B&quot;, 
     &quot;_id&quot; : &quot;circles/B&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdroi--_&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAm--_&quot;, 
     &quot;label&quot; : &quot;2&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;C&quot;, 
     &quot;_id&quot; : &quot;circles/C&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdrom---&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAm--A&quot;, 
     &quot;label&quot; : &quot;3&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;D&quot;, 
     &quot;_id&quot; : &quot;circles/D&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdrom--_&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAq---&quot;, 
     &quot;label&quot; : &quot;4&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;E&quot;, 
     &quot;_id&quot; : &quot;circles/E&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdrom--A&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAq--_&quot;, 
     &quot;label&quot; : &quot;5&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;F&quot;, 
     &quot;_id&quot; : &quot;circles/F&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdrom--B&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAq--A&quot;, 
     &quot;label&quot; : &quot;6&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;G&quot;, 
     &quot;_id&quot; : &quot;circles/G&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdroq---&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAu---&quot;, 
     &quot;label&quot; : &quot;7&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;H&quot;, 
     &quot;_id&quot; : &quot;circles/H&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdroq--_&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAu--_&quot;, 
     &quot;label&quot; : &quot;8&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;I&quot;, 
     &quot;_id&quot; : &quot;circles/I&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdroq--A&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAu--A&quot;, 
     &quot;label&quot; : &quot;9&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;J&quot;, 
     &quot;_id&quot; : &quot;circles/J&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdroq--B&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAu--B&quot;, 
     &quot;label&quot; : &quot;10&quot; 
   }, 
   { 
     &quot;_key&quot; : &quot;K&quot;, 
     &quot;_id&quot; : &quot;circles/K&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdrou---&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAy---&quot;, 
     &quot;label&quot; : &quot;11&quot; 
   } 
 ]
 arangosh&gt; db.edges.toArray();
 [ 
   { 
-    &quot;_key&quot; : &quot;63859&quot;, 
-    &quot;_id&quot; : &quot;edges/63859&quot;, 
+    &quot;_key&quot; : &quot;64173&quot;, 
+    &quot;_id&quot; : &quot;edges/64173&quot;, 
     &quot;_from&quot; : &quot;circles/A&quot;, 
     &quot;_to&quot; : &quot;circles/B&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdrou--_&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAy--_&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_bar&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63861&quot;, 
-    &quot;_id&quot; : &quot;edges/63861&quot;, 
+    &quot;_key&quot; : &quot;64175&quot;, 
+    &quot;_id&quot; : &quot;edges/64175&quot;, 
     &quot;_from&quot; : &quot;circles/B&quot;, 
     &quot;_to&quot; : &quot;circles/C&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdroy---&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSAy--A&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blarg&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63863&quot;, 
-    &quot;_id&quot; : &quot;edges/63863&quot;, 
+    &quot;_key&quot; : &quot;64177&quot;, 
+    &quot;_id&quot; : &quot;edges/64177&quot;, 
     &quot;_from&quot; : &quot;circles/C&quot;, 
     &quot;_to&quot; : &quot;circles/D&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdroy--_&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSA2---&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blorg&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63865&quot;, 
-    &quot;_id&quot; : &quot;edges/63865&quot;, 
+    &quot;_key&quot; : &quot;64179&quot;, 
+    &quot;_id&quot; : &quot;edges/64179&quot;, 
     &quot;_from&quot; : &quot;circles/B&quot;, 
     &quot;_to&quot; : &quot;circles/E&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdro2---&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSA2--_&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_blub&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63867&quot;, 
-    &quot;_id&quot; : &quot;edges/63867&quot;, 
+    &quot;_key&quot; : &quot;64181&quot;, 
+    &quot;_id&quot; : &quot;edges/64181&quot;, 
     &quot;_from&quot; : &quot;circles/E&quot;, 
     &quot;_to&quot; : &quot;circles/F&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdro2--_&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSA2--A&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;left_schubi&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63869&quot;, 
-    &quot;_id&quot; : &quot;edges/63869&quot;, 
+    &quot;_key&quot; : &quot;64183&quot;, 
+    &quot;_id&quot; : &quot;edges/64183&quot;, 
     &quot;_from&quot; : &quot;circles/A&quot;, 
     &quot;_to&quot; : &quot;circles/G&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdro2--A&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSA6---&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_foo&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63871&quot;, 
-    &quot;_id&quot; : &quot;edges/63871&quot;, 
+    &quot;_key&quot; : &quot;64185&quot;, 
+    &quot;_id&quot; : &quot;edges/64185&quot;, 
     &quot;_from&quot; : &quot;circles/G&quot;, 
     &quot;_to&quot; : &quot;circles/H&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdro6---&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSA6--_&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_blob&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63873&quot;, 
-    &quot;_id&quot; : &quot;edges/63873&quot;, 
+    &quot;_key&quot; : &quot;64187&quot;, 
+    &quot;_id&quot; : &quot;edges/64187&quot;, 
     &quot;_from&quot; : &quot;circles/H&quot;, 
     &quot;_to&quot; : &quot;circles/I&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdro6--_&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSA6--A&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_blub&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63875&quot;, 
-    &quot;_id&quot; : &quot;edges/63875&quot;, 
+    &quot;_key&quot; : &quot;64189&quot;, 
+    &quot;_id&quot; : &quot;edges/64189&quot;, 
     &quot;_from&quot; : &quot;circles/G&quot;, 
     &quot;_to&quot; : &quot;circles/J&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdrp----&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSB----&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_zip&quot; 
   }, 
   { 
-    &quot;_key&quot; : &quot;63877&quot;, 
-    &quot;_id&quot; : &quot;edges/63877&quot;, 
+    &quot;_key&quot; : &quot;64191&quot;, 
+    &quot;_id&quot; : &quot;edges/64191&quot;, 
     &quot;_from&quot; : &quot;circles/J&quot;, 
     &quot;_to&quot; : &quot;circles/K&quot;, 
-    &quot;_rev&quot; : &quot;_gFGdrp---_&quot;, 
+    &quot;_rev&quot; : &quot;_gLgvSB---_&quot;, 
     &quot;theFalse&quot; : false, 
     &quot;theTruth&quot; : true, 
     &quot;label&quot; : &quot;right_zup&quot; 

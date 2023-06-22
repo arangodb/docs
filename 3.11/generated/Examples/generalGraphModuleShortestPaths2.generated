@@ -1,4 +1,4 @@
-arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/graph-examples/example-graph.js&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/graph-examples/example-graph&quot;</span>);
 arangosh&gt; <span class="hljs-keyword">var</span> g = examples.loadGraph(<span class="hljs-string">&quot;routeplanner&quot;</span>);
 arangosh&gt; g._shortestPath([{<span class="hljs-attr">_id</span>: <span class="hljs-string">&#x27;germanCity/Cologne&#x27;</span>},{<span class="hljs-attr">_id</span>: <span class="hljs-string">&#x27;germanCity/Munich&#x27;</span>}], <span class="hljs-string">&#x27;frenchCity/Lyon&#x27;</span>,
 ........&gt; {<span class="hljs-attr">weight</span> : <span class="hljs-string">&#x27;distance&#x27;</span>});
@@ -10,11 +10,11 @@ arangosh&gt; g._shortestPath([{<span class="hljs-attr">_id</span>: <span class="
     ], 
     <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;78956&quot;</span>, 
-        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/78956&quot;</span>, 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79278&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79278&quot;</span>, 
         <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
         <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
-        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gFGeoE6--B&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gLgwOHW---&quot;</span>, 
         <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">700</span> 
       } 
     ], 

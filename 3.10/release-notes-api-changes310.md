@@ -167,7 +167,7 @@ move shard operations and improve balance in the cluster.
 - `POST /_admin/cluster/rebalance_execute`
 - `PUT /_admin/cluster/rebalance`
   
-For more information, see the [Cluster](http/cluster.html#compute-the-current-cluster-imbalance) 
+For more information, see the [Cluster](http/cluster.html#get-the-current-cluster-imbalance) 
 section of the HTTP API documentation. 
 
 #### Maintenance mode for DB-Servers
@@ -227,7 +227,7 @@ to extend the timeout.
 
 The maintenance mode ends automatically after the defined timeout.
 
-Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-the-maintenance-status-of-a-db-server).
+Also see the [HTTP interface for cluster maintenance](http/cluster.html#get-the-maintenance-status-of-a-db-server).
 
 ### Endpoints augmented
 
@@ -488,6 +488,15 @@ Enterprise Edition:
   Like the existing `geojson` Analyzer, but with an additional `format` property
   that can be set to `"latLngDouble"` (default), `"latLngInt"`, or `"s2Point"`.
 
+#### `geojson` Analyzer
+
+<small>Introduced in: v3.10.5</small>
+
+Analyzers of the `geojson` type have a new `legacy` property. The default is `false`.
+
+This option controls how GeoJSON Polygons are interpreted.
+See the [`geojson` Analyzer](analyzers.html#geojson).
+
 #### Views API
 
 Views of the type `arangosearch` support new caching options in the
@@ -518,6 +527,16 @@ objects.
 
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
 for details.
+
+#### Geo-spatial indexes
+
+Indexes of the `geo` type have a new `legacyPolygons` option.
+
+If `geoJson` is set to `true`, then this option controls how GeoJSON Polygons
+are interpreted. Also see [Legacy Polygons](indexing-geo.html#legacy-polygons).
+
+The default is `true` for geo indexes that were created in versions
+before 3.10, and `false` for geo indexes created in 3.10 or later.
 
 #### Collection truncation markers
 
@@ -683,6 +702,16 @@ newly added metrics for `arangosearch` View links and inverted indexes:
 
 ---
 
+<small>Introduced in: v3.10.7</small>
+
+This new metric reports the number of RocksDB `.sst` files:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_total_sst_files` | Total number of RocksDB sst files, aggregated over all levels. |
+
+---
+
 <small>Introduced in: v3.8.9, v3.9.6, v3.10.2</small>
 
 The metrics endpoints include the following new traffic accounting metrics:
@@ -790,7 +819,7 @@ Both endpoints return a new `detail` attribute with additional Pregel run detail
         - (the same attributes like under `aggregatedStatus`)
 
 For a detailed description of the attributes, see
-[Pregel HTTP API](http/pregel.html#get-pregel-job-execution-status).
+[Pregel HTTP API](http/pregel.html#get-the-pregel-job-execution-status).
 
 #### Log level API
 
