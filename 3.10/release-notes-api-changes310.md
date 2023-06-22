@@ -843,6 +843,13 @@ following two new statistics in the `stats` attribute of the response now:
 - `executionTime` (number): The (wall-clock) time in seconds needed to explain
   the query.
 
+#### Optimizer rule descriptions
+
+<small>Introduced in: v3.10.9</small>
+
+The `GET /_api/query/rules` endpoint now includes a `description` attribute for
+every optimizer rule that briefly explains what it does.
+
 ## JavaScript API
 
 ### Computed values
