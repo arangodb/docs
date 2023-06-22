@@ -176,23 +176,68 @@ a self-signed certificate is recommended. Read more on the
 [Certificates](certificates.html) page.
 {% endhint %}
 
-## How to enable the root user password rotation
+## Password settings
 
-Password rotation refers to changing passwords regularly - a security best practice
-to reduce the vulnerability to password-based attacks and exploits by limiting
-for how long passwords are valid. The ArangoGraph Insights Platform can automatically change the
-`root` user password of an ArangoDB deployment periodically to improve security.
+### How to enable the automatic root user password rotation
+
+Password rotation refers to changing passwords regularly - a security best
+practice to reduce the vulnerability to password-based attacks and exploits
+by limiting for how long passwords are valid. The ArangoGraph Insights Platform
+can automatically change the `root` user password of an ArangoDB deployment
+periodically to improve security.
 
 1. Navigate to the __Deployment__ for which you want to enable an automatic
    password rotation for the root user.
 2. On the __Overview__ tab, click the button with the __gear__ icon next to the
    __ROOT PASSWORD__.
-3. In the __Password Settings__ dialog, turn the password rotation on and click the
-   __Confirm__ button.
+3. In the __Password Settings__ dialog, turn the automatic password rotation on
+   and click the __Confirm__ button.
 
    ![ArangoGraph Deployment Password Rotation](images/arangograph-deployment-password-rotation.png)
 4. You can expand the __Root password__ panel to see when the password was
    rotated last. The rotation takes place every three months.
+
+### Auto login to database UI
+
+ArangoGraph provides the ability to automatically login to your database using
+your existing ArangoGraph credentials. This not only provides a seamless
+experience, preventing you from having to manage multiple sets of credentials
+but also improves the overall security of your database. As your credentials
+are shared between ArangoGraph and your database, you can benefit from
+end-to-end audit traceability for a given user, as well as integration with
+ArangoGraph SSO.
+
+You can enable this feature in the **Password Settings** dialog. Please note
+that it may take a few minutes to get activated.
+Once enabled, you no longer have to fill in the `root` user and password of
+your ArangoDB deployment.
+
+This feature can be disabled at any time. You may wish to consider explicitly
+disabling this feature in the following situations:
+- Your workflow requires you to access the database UI using different accounts
+  with differing permission sets, as you cannot switch database users when
+  automatic login is enabled.
+- You need to give individuals access to a database's UI without giving them
+  any access to ArangoGraph. Note, however, that it's possible to only give an
+  ArangoGraph user database UI access, without other ArangoGraph permissions.
+- For some reason, you require driver access via `8529` port and you are unable
+  to use the designated `18529` driver port.
+
+Before getting started, make sure you are signed into ArangoGraph as a user
+with one of the following permissions in your project:
+- `data.deployment.full-access`
+- `data.deployment.read-only-access`
+
+Organization owners have these permissions enabled by default.
+The `deployment-full-access-user` and `deployment-read-only-user` roles which
+contain these permissions can also be granted to other members of the
+organization. See how to create a
+[role binding](access-control.html#how-to-view-edit-or-remove-role-bindings-of-a-policy).
+
+{% hint 'warning' %}
+This feature is available on `8529` port only. Make sure your connecting drivers
+are using the `18529` port to avoid breaking changes.
+{% endhint %}
 
 ## How to edit a deployment
 
