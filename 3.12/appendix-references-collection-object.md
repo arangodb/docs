@@ -990,8 +990,9 @@ used to specify the following options:
 - `keepNull`: The optional `keepNull` parameter can be used to modify
   the behavior when handling `null` values. Normally, `null` values
   are stored in the database. By setting the `keepNull` parameter to
-  `false`, this behavior can be changed so that all attributes in
-  `data` with `null` values will be removed from the target document.
+  `false`, this behavior can be changed so that top-level attributes and
+  sub-attributes in `data` with `null` values are removed from the target
+  document (but not attributes of objects that are nested inside of arrays).
   This option controls the update-insert behavior only.
 - `mergeObjects`: Controls whether objects (not arrays) will be
   merged if present in both the existing and the patch document. If
@@ -1478,8 +1479,9 @@ an object:
 - `keepNull`: The optional `keepNull` parameter can be used to modify
   the behavior when handling `null` values. Normally, `null` values
   are stored in the database. By setting the `keepNull` parameter to
-  `false`, this behavior can be changed so that all attributes in
-  `data` with `null` values will be removed from the target document.
+  `false`, this behavior can be changed so that top-level attributes and
+  sub-attributes in `data` with `null` values are removed from the target
+  document (but not attributes of objects that are nested inside of arrays).
 - `mergeObjects`: Controls whether objects (not arrays) will be
   merged if present in both the existing and the patch document. If
   set to `false`, the value in the patch document will overwrite the
@@ -1552,7 +1554,7 @@ Use a document identifier:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use the `keepNull` parameter to remove attributes with null values:
+Use the `keepNull` parameter to remove attributes with `null` values:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollection_UpdateHandleKeepNull
@@ -1608,8 +1610,9 @@ The document meta-attributes `_id`, `_key` and `_rev` cannot be updated.
 The optional `keepNull` parameter can be used to modify the behavior when
 handling `null` values. Normally, `null` values are stored in the
 database. By setting the `keepNull` parameter to `false`, this behavior
-can be changed so that all attributes in `data` with `null` values will
-be removed from the target document.
+can be changed so that top-level attributes and sub-attributes in `data` with
+`null` values are removed from the target document (but not attributes of
+objects that are nested inside of arrays).
 
 The optional `waitForSync` parameter can be used to force synchronization
 of the document replacement operation to disk even in case that the
