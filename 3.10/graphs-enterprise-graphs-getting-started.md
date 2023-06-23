@@ -137,7 +137,7 @@ Note that:
 - You have to remove the `_key` value as it is disallowed for EnterpriseGraphs.
 - Because you have changed the name of the `_from` collection, you need
   to provide a `--from-collection-prefix`. The same is true for the `_to` collection,
-  so you need to provide a `--to-collection-prefix`.
+  so you also need to provide a `--to-collection-prefix`.
 - To make the actual name change to the vertex collection, you need to
   allow `--overwrite-collection-prefix`. If this option is not enabled, only values
   without a collection name prefix are changed. This is helpful if your data is not
