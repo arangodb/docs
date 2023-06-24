@@ -2,7 +2,7 @@ arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs
 arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;norm_upper&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, {
 ........&gt;   locale: <span class="hljs-string">&quot;en&quot;</span>,
 ........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">&quot;upper&quot;</span>
-........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+........&gt; }, []);
 arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(&quot;UPPER lower dïäcríticš&quot;, &quot;norm_upper&quot;)`</span>).toArray();
 [ 
   [ 

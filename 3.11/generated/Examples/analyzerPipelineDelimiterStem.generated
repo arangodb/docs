@@ -3,7 +3,7 @@ arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span clas
 ........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;delimiter&quot;</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">&quot;,&quot;</span> } },
 ........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;delimiter&quot;</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">&quot;;&quot;</span> } },
 ........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;stem&quot;</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">&quot;en&quot;</span> } }
-........&gt; ] }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+........&gt; ] }, []);
 arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(&quot;delimited,stemmable;words&quot;, &quot;delimiter_stem&quot;)`</span>).toArray();
 [ 
   [ 

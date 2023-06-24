@@ -4,7 +4,7 @@ arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span clas
 ........&gt;   max: <span class="hljs-number">3</span>,
 ........&gt;   preserveOriginal: <span class="hljs-literal">false</span>,
 ........&gt;   streamType: <span class="hljs-string">&quot;utf8&quot;</span>
-........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+........&gt; }, []);
 arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(&quot;foobar&quot;, &quot;trigram&quot;)`</span>).toArray();
 [ 
   [ 
