@@ -113,35 +113,53 @@ After this step, the graph has been migrated.
 
 This example describes a scenario in which the collections names have changed,
 assuming that you have renamed `old_vertices` to `vertices`.
-For the vertex data this change is not relevant, the `_id` values is adjust automatically,
-so you can import the data again, and just target the new collection name:
+
+For the vertex data this change is not relevant, the `_id` values are adjusted
+automatically, so you can import the data again, and just target the new
+collection name:
 
 ```sh
 arangoimport --collection vertices --file docOutput/old_vertices.jsonl
 ```
 
 For the edges you need to apply more changes, as they need to be rewired.
+To make the change of vertex collection, you need to set
+`--overwrite-collection-prefix` to `true`.
 
-First thing, you have to remove the `_key` value as it is disallowed for
-EnterpriseGraphs.
-Second, because you have changed the name of the `_from` collection, you need
-to provide a `from-collection-prefix`. The same is true for the `_to` collection.
+To migrate the graph and also change to new collection names, run the following
+command:
 
-Note that you can only change all vertices on `_from` respectively `_to`
-side with this mechanism. However, you can use different collections on `_from` and `_to`.
-
-Next, in order to make the change of vertex collection you need to
-allow `overwrite-collection-prefix`.
-If this flag is not set, only values without any given collection are changed.
-This is helpful if your data is not exported by ArangoDB in the first place.
-
-Now that you have everything together, run the following command:
-
-```
+```sh
 arangoimport --collection edges --file docOutput/old_edges.jsonl --remove-attribute "_key" --from-collection-prefix "vertices" --to-collection-prefix "vertices" --overwrite-collection-prefix true
 ```
 
-After this step, the graph has been migrated and also changed to new collection names.
+Note that:
+- You have to remove the `_key` value as it is disallowed for EnterpriseGraphs.
+- Because you have changed the name of the `_from` collection, you need
+  to provide a `--from-collection-prefix`. The same is true for the `_to` collection,
+  so you also need to provide a `--to-collection-prefix`.
+- To make the actual name change to the vertex collection, you need to
+  allow `--overwrite-collection-prefix`. If this option is not enabled, only values
+  without a collection name prefix are changed. This is helpful if your data is not
+  exported by ArangoDB in the first place.   
+
+This mechanism does not provide the option to selectively replace
+collection names. It only allows replacing all collection names on `_from` 
+respectively `_to`.
+This means that, even if you use different collections in `_from` and `_to`, 
+their names are modified based on the prefix that is specified.  
+
+Consider the following example where `_to` points to a vertex in a different collection,
+`users_vertices/Bob`. When using `--to-collection-prefix "vertices"` to rename
+the collections, all collection names on the `_to` side are renamed to
+`vertices` as this transformation solely allows for the replacement of all
+collection names within the edge attribute.
+
+```json
+{"_key":"121", "_from":"old_vertices/Bob", "_to":"old_vertices/Charly", ... }
+{"_key":"122", "_from":"old_vertices/Charly", "_to":"old_vertices/Alice", ... }
+{"_key":"120", "_from":"old_vertices/Alice", "_to":"users_vertices/Bob", ... }
+```
 
 ## Collections in EnterpriseGraphs
 
