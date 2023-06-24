@@ -210,15 +210,20 @@ into account accurately. With stemming enabled, it would be less accurate with
 respect to the original strings, but potentially find more matches that are
 also relevant.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline levenshtein_match_sample
     @EXAMPLE_ARANGOSH_OUTPUT{levenshtein_match_sample}
-    var analyzers = require("@arangodb/analyzers");
-    analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
+      var analyzers = require("@arangodb/analyzers");
+      analyzers.save("text_en_no_stem", "text", { locale: "en", accent: false, case: "lower", stemming: false, stopwords: [] }, ["frequency", "norm"]);
+    ~ analyzers.remove("text_en_no_stem");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock levenshtein_match_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+The `frequency` and `norm` [Analyzer features](analyzers.html#analyzer-features)
+are set because the following examples require them for the `BM25()` scoring
+function to work.
 
 #### View definition
 
@@ -311,15 +316,20 @@ FOR doc IN imdb
 trigram Analyzer in arangosh with a minimum and maximum _n_-gram size of 3,
 not including the original string:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ngram_match_sample
     @EXAMPLE_ARANGOSH_OUTPUT{ngram_match_sample}
-    var analyzers = require("@arangodb/analyzers");
-    analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["position", "frequency", "norm"]);
+      var analyzers = require("@arangodb/analyzers");
+      analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["frequency", "position"]);
+    ~ analyzers.remove("trigram");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ngram_match_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+The `frequency` and `position` [Analyzer features](analyzers.html#analyzer-features)
+are set because the following examples require them for the `NGRAM_MATCH()`
+filter function to work.
 
 #### View definition
 

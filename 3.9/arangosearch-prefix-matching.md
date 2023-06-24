@@ -200,8 +200,11 @@ including the original string as well:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("edge_ngram", "text", { locale: "en", accent: false, case: "lower", stemming: false, edgeNgram: { min: 3, max: 6, preserveOriginal: true } }, ["frequency", "norm", "position"]);
+analyzers.save("edge_ngram", "text", { locale: "en", accent: false, case: "lower", stemming: false, edgeNgram: { min: 3, max: 6, preserveOriginal: true } }, []);
 ```
+
+No [Analyzer features](analyzers.html#analyzer-features) are set because the
+examples on this page don't require them.
 
 Test the Analyzer:
 
@@ -269,8 +272,11 @@ but without creating any _n_-grams:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("match_edge_ngram", "text", { locale: "en", accent: false, case: "lower", stemming: false }, ["frequency", "norm", "position"]);
+analyzers.save("match_edge_ngram", "text", { locale: "en", accent: false, case: "lower", stemming: false }, []);
 ```
+
+No [Analyzer features](analyzers.html#analyzer-features) are set because the
+examples on this page don't require them.
 
 Now we can also match movie titles that start with `"Oceä"`
 (normalized to `"ocea"`):

@@ -819,7 +819,7 @@ Both endpoints return a new `detail` attribute with additional Pregel run detail
         - (the same attributes like under `aggregatedStatus`)
 
 For a detailed description of the attributes, see
-[Pregel HTTP API](http/pregel.html#get-the-pregel-job-execution-status).
+[Pregel HTTP API](http/pregel.html#get-a-pregel-job-execution-status).
 
 #### Log level API
 

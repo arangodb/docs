@@ -2,7 +2,7 @@ arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs
 arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;norm_stop&quot;</span>, <span class="hljs-string">&quot;pipeline&quot;</span>, { <span class="hljs-string">&quot;pipeline&quot;</span>: [
 ........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">&quot;en&quot;</span>, <span class="hljs-attr">accent</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">case</span>: <span class="hljs-string">&quot;lower&quot;</span> } },
 ........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;stopwords&quot;</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">stopwords</span>: [<span class="hljs-string">&quot;and&quot;</span>,<span class="hljs-string">&quot;the&quot;</span>], <span class="hljs-attr">hex</span>: <span class="hljs-literal">false</span> } },
-........&gt; ]}, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+........&gt; ]}, []);
 arangosh&gt; db._query(<span class="hljs-string">&quot;RETURN FLATTEN(TOKENS(SPLIT(&#x27;The fox AND the dog äñḏ a ţhéäter&#x27;, &#x27; &#x27;), &#x27;norm_stop&#x27;))&quot;</span>);
 [ 
   [ 

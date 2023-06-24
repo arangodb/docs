@@ -1,7 +1,7 @@
 arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
 arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;concat&quot;</span>, <span class="hljs-string">&quot;aql&quot;</span>, { <span class="hljs-attr">queryString</span>:
 ........&gt;   <span class="hljs-string">&quot;RETURN LOWER(LEFT(@param, 5)) == &#x27;inter&#x27; ? CONCAT(@param, &#x27;ism&#x27;) : CONCAT(&#x27;inter&#x27;, @param)&quot;</span>
-........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+........&gt; }, []);
 arangosh&gt; db._query(<span class="hljs-string">&quot;RETURN TOKENS(&#x27;state&#x27;, &#x27;concat&#x27;)&quot;</span>);
 [ 
   [ 
