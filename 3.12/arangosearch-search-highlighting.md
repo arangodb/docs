@@ -72,12 +72,17 @@ search highlighting:
     @startDocuBlockInline analyzerTextOffset
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextOffset}
       var analyzers = require("@arangodb/analyzers");
-      analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["position", "frequency", "norm", "offset"]);
+      analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "position", "offset"]);
     ~ analyzers.remove("text_en_offset");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextOffset
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
+
+The `frequency`, `position`, and `offset` [Analyzer features](analyzers.html#analyzer-features)
+are set because the examples on this page require them for the `OFFSET_INFO()`
+search highlighting function to work, and the `PHRASE()` filter function also
+requires the former two.
 
 You can skip this step if you want to use a `search-alias` View, because the
 Analyzer features can be overwritten in the inverted index definition.
@@ -91,7 +96,7 @@ db.food.ensureIndex({
   name: "inv-text-offset",
   type: "inverted",
   fields: [
-    { name: "description.en", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] }
+    { name: "description.en", analyzer: "text_en", features: ["frequency", "position", "offset"] }
   ]
 });
 
@@ -145,7 +150,7 @@ _`search-alias` View:_
     |   { name: "chili pepper", description: { en: "Chili peppers are varieties of the berry-fruit of plants from the genus Capsicum, cultivated for their pungency." } },
     |   { name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } }
       ]);
-      var idx = db.food.ensureIndex({ name: "inv-text-offset", type: "inverted", fields: [ { name: "description.en", analyzer: "text_en", features: ["frequency", "norm", "position", "offset"] } ] });
+      var idx = db.food.ensureIndex({ name: "inv-text-offset", type: "inverted", fields: [ { name: "description.en", analyzer: "text_en", features: ["frequency", "position", "offset"] } ] });
       var view = db._createView("food_view", "search-alias", { indexes: [ { collection: "food", index: "inv-text-offset" } ] });
     ~ assert(db._query(`FOR d IN food_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 4);
     | db._query(`FOR doc IN food_view
@@ -182,7 +187,7 @@ _`arangosearch` View:_
     |   { name: "tomato", description: { en: "The tomato is the edible berry of the tomato plant." } }
       ]);
       var analyzers = require("@arangodb/analyzers");
-      var analyzer = analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "norm", "position", "offset"]);
+      var analyzer = analyzers.save("text_en_offset", "text", { locale: "en", stopwords: [] }, ["frequency", "position", "offset"]);
       var view = db._createView("food_view", "arangosearch", { links: { food: { fields: { description: { fields: { en: { analyzers: ["text_en_offset"] } } } } } } });
     ~ assert(db._query(`FOR d IN food_view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 4);
     | db._query(`FOR doc IN food_view
