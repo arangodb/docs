@@ -6,8 +6,8 @@ Execution plan:
  Id   NodeType          Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode         1       1          0       0.00000   * ROOT
   4   CalculationNode       1       1          0       0.00000     - LET #2 = 1   /* json expression */   /* const assignment */
-  2   CalculationNode       1       1          0       0.25287     - LET s = SLEEP(0.25)   /* simple expression */
-  3   CalculationNode       1       1          0       0.50579     - LET t = SLEEP(0.5)   /* simple expression */
+  2   CalculationNode       1       1          0       0.25266     - LET s = SLEEP(0.25)   /* simple expression */
+  3   CalculationNode       1       1          0       0.50574     - LET t = SLEEP(0.5)   /* simple expression */
   5   ReturnNode            1       1          0       0.00000     - RETURN #2
 
 Indexes used:
@@ -19,7 +19,7 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Cache Hits/Misses   Filtered   Peak Mem [b]   Exec Time [s]
-           0            0           0            0               0 / 0          0              0         0.75880
+           0            0           0            0               0 / 0          0              0         0.75854
 
 Query Profile:
  Query Stage               Duration [s]
@@ -30,7 +30,7 @@ Query Profile:
  instantiating plan             0.00001
  optimizing plan                0.00006
  instantiating executors        0.00002
- executing                      0.75867
+ executing                      0.75842
  finalizing                     0.00003
 
 

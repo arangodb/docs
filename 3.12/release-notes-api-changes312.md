@@ -29,7 +29,12 @@ integrations for ArangoDB 3.12.
 
 ### Endpoints augmented
 
+#### Optimizer rule descriptions
 
+<small>Introduced in: v3.10.9, v3.11.2</small>
+
+The `GET /_api/query/rules` endpoint now includes a `description` attribute for
+every optimizer rule that briefly explains what it does.
 
 ### Endpoints moved
 
