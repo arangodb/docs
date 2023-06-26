@@ -293,6 +293,27 @@ For more details about available resources and usage limits, refer to the
 6. All changes are reflected in the **Summary** section. Review the new
    configuration and click **Save**. 
 
+## How to connect a driver to your deployment
+
+[ArangoDB drivers](../drivers/index.html) allow you to use your ArangoGraph
+deployment as a database system for your applications. Drivers act as interfaces
+between different programming languages and ArangoDB, which enable you to
+connect to and manipulate ArangoDB deployments from within compiled programs
+or using scripting languages.
+
+To get started, open a deployment and go to the **Overview** tab.
+In the **Quick start** section, click on the **Connecting drivers** button and
+select your programming language. The code snippets provide examples on how to
+connect to your instance.
+
+{% hint 'tip' %}
+Note that ArangoGraph Insights Platform runs deployments in a cluster
+configuration. To achieve the best possible availability, your client
+application has to handle connection failures by retrying operations if needed.
+{% endhint %}
+
+![ArangoGraph Connecting Drivers Example](images/arangograph-connecting-drivers-example.png)
+
 ## How to delete a deployment
 
 {% hint 'danger' %}
