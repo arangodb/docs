@@ -122,7 +122,7 @@ direction for each collection in your path search.
 Conditional shortest path
 -------------------------
 
-The SHORTEST_PATH computation only finds an unconditioned shortest path.
+The `SHORTEST_PATH` computation only finds an unconditioned shortest path.
 With this construct it is not possible to define a condition like: "Find the
 shortest path where all edges are of type *X*". If you want to do this, use a
 normal [Traversal](graphs-traversals.html) instead with the option
