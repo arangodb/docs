@@ -108,14 +108,14 @@ HAS( { name: null }, "name" ) // true
 HAS( { }, "name" )            // false
 ```
 
-Note that `HAS()` can not utilize indexes. If it is not necessary to distinguish
+Note that `HAS()` cannot utilize indexes. If it is not necessary to distinguish
 between explicit and implicit *null* values in your query, you may use an equality
 comparison to test for *null* and create a non-sparse index on the attribute you
 want to test against:
 
 ```aql
-FILTER !HAS(doc, "name")    // can not use indexes
-FILTER IS_NULL(doc, "name") // can not use indexes
+FILTER !HAS(doc, "name")    // cannot use indexes
+FILTER IS_NULL(doc, "name") // cannot use indexes
 FILTER doc.name == null     // can utilize non-sparse indexes
 ```
 
@@ -157,20 +157,20 @@ Falsy attribute values like `null` still count as the attribute being present:
 IS_SAME_COLLECTION()
 --------------------
 
-`IS_SAME_COLLECTION(collectionName, documentHandle) → isSame`
+`IS_SAME_COLLECTION(collectionName, documentIdentifier) → isSame`
 
-Test whether the `documentHandle` has `collectionName` as collection.
+Test whether the `documentIdentifier` has `collectionName` as collection.
 
 The function does not validate whether the collection actually contains the
 specified document. It only compares the name of the specified collection
 with the collection name part of the specified document.
 
 - **collectionName** (string): the name of a collection as string
-- **documentHandle** (string\|object): a document identifier string
+- **documentIdentifier** (string\|object): a document identifier string
   (e.g. `_users/1234`) or an object with an `_id` attribute (e.g. a document
   from a collection).
-- returns **isSame** (bool): `true` if the collection of `documentHandle` is the
-  same as `collectionName`, or `false` if it is not. If `documentHandle` is an
+- returns **isSame** (bool): `true` if the collection of `documentIdentifier` is the
+  same as `collectionName`, or `false` if it is not. If `documentIdentifier` is an
   object without an `_id` attribute or anything other than a string or object,
   then `null` is returned and a warning is raised.
 
@@ -450,7 +450,7 @@ documents accidentally. For example, the [arangojs](../drivers/js.html) driver
 skips attributes with a value of `undefined`, turning `{attr: undefined}` into `{}`.
 
 {% hint 'info' %}
-`MATCHES()` can not utilize indexes. You may use plain `FILTER` conditions instead
+`MATCHES()` cannot utilize indexes. You may use plain `FILTER` conditions instead
 to potentially benefit from existing indexes:
 
 ```aql
@@ -641,15 +641,15 @@ Merge a list of two documents with the same top-level attribute, combining the
 PARSE_IDENTIFIER()
 ------------------
 
-`PARSE_IDENTIFIER(documentHandle) → parts`
+`PARSE_IDENTIFIER(documentIdentifier) → parts`
 
-Parse a [document handle](../appendix-glossary.html#document-handle) and return its
-individual parts as separate attributes.
+Parse a [document ID](../data-modeling-documents.html#document-identifiers) and
+return its individual parts as separate attributes.
 
 This function can be used to easily determine the
-[collection name](../appendix-glossary.html#collection-name) and key of a given document.
+[collection name](../data-modeling-collections.html#collection-names) and key of a given document.
 
-- **documentHandle** (string\|object): a document identifier string (e.g. `_users/1234`)
+- **documentIdentifier** (string\|object): a document identifier string (e.g. `_users/1234`)
   or a regular document from a collection. Passing either a non-string or a non-document
   or a document without an `_id` attribute will result in an error.
 - returns **parts** (object): an object with the attributes *collection* and *key*

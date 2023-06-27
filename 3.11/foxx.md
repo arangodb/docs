@@ -62,10 +62,10 @@ ArangoDB or Foxx. Additionally, ArangoDB does not support native extensions
 unlike Node.js. All code has to be implemented in pure JavaScript.
 
 While ArangoDB provides a lot of compatibility code to support code written
-for Node.js, some Node.js built-in modules can not be provided by ArangoDB.
+for Node.js, some Node.js built-in modules cannot be provided by ArangoDB.
 For a closer look at the Node.js modules ArangoDB does or
-does not provide check out
-the [appendix on JavaScript modules](appendix-java-script-modules.html).
+does not provide, see the
+[JavaScript API](javascript-api.html#node-compatibility-modules).
 
 When using [bundled node modules](foxx-guides-bundled-node-modules.html) keep in mind
 that these restrictions not only apply to the modules themselves but also

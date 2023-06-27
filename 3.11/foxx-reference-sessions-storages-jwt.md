@@ -65,12 +65,12 @@ you specifically need it.
 
   * **verify**: `boolean` (Default: `true`)
 
-    If set to `false` the signature will not be verified but still generated
+    If set to `false`, the signature is not verified but still generated
     (unless using the "none" algorithm).
 
   * **maxExp**: `number` (Default: `Infinity`)
 
-    Largest value that will be accepted in an incoming JWT `exp` (expiration) field.
+    Largest value that is accepted in an incoming JWT `exp` (expiration) field.
 
-If a string is passed instead of an options object it will be interpreted
-as the *secret* option.
+If a string is passed instead of an options object, it is interpreted
+as the `secret` option.

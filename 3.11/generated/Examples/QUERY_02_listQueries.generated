@@ -8,7 +8,7 @@ arangosh&gt; tasks.register({
 { 
   <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;mytask-1&quot;</span>, 
   <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;this is a sample task to spawn a slow aql query&quot;</span>, 
-  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1673610920.8635364</span>, 
+  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1687792213.6653726</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;timed&quot;</span>, 
   <span class="hljs-string">&quot;offset&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;command&quot;</span> : <span class="hljs-string">&quot;(function (params) { require(&#x27;@arangodb&#x27;).db._query(&#x27;FOR sleepLoooong IN 1..5 LET sleepLoooonger = SLEEP(1000) RETURN sleepLoooong&#x27;); } )(params);&quot;</span>, 
@@ -17,14 +17,15 @@ arangosh&gt; tasks.register({
 arangosh&gt; queries.current();
 [ 
   { 
-    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68557&quot;</span>, 
+    <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68866&quot;</span>, 
     <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
     <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;root&quot;</span>, 
     <span class="hljs-string">&quot;query&quot;</span> : <span class="hljs-string">&quot;FOR sleepLoooong IN 1..5 LET sleepLoooonger = SLEEP(1000) RETURN sleepLoooong&quot;</span>, 
     <span class="hljs-string">&quot;bindVars&quot;</span> : { 
     }, 
-    <span class="hljs-string">&quot;started&quot;</span> : <span class="hljs-string">&quot;2023-01-13T11:55:20Z&quot;</span>, 
-    <span class="hljs-string">&quot;runTime&quot;</span> : <span class="hljs-number">1.0198110060000545</span>, 
+    <span class="hljs-string">&quot;started&quot;</span> : <span class="hljs-string">&quot;2023-06-26T15:10:13Z&quot;</span>, 
+    <span class="hljs-string">&quot;runTime&quot;</span> : <span class="hljs-number">1.0260580815374851</span>, 
+    <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">32768</span>, 
     <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;executing&quot;</span>, 
     <span class="hljs-string">&quot;stream&quot;</span> : <span class="hljs-literal">false</span> 
   } 

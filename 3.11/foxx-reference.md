@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Each Foxx service is defined by a JSON manifestspecifying the entry point, any scripts defined by the service,possible configuration options and Foxx dependencies,as well as other metadata
+description: Each Foxx service is defined by a JSON manifest specifying the entry point, any scripts defined by the service, possible configuration options and Foxx dependencies, as well as other metadata
 ---
 Foxx reference
 ==============
@@ -17,4 +17,4 @@ as well as a flexible [sessions middleware](foxx-reference-sessions.html)
 with different transport and storage mechanisms.
 
 Foxx services can be installed and managed over the Web-UI or through
-ArangoDB's [HTTP API](http/foxx-management.html).
+ArangoDB's [HTTP API](http/foxx.html#management).

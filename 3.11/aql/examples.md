@@ -21,7 +21,7 @@ Things to consider when running queries on collections
 Note that all documents created in any collections will automatically get the
 following server-generated attributes:
 
-- *_id*: A unique id, consisting of [collection name](../appendix-glossary.html#collection-name)
+- *_id*: A unique id, consisting of [collection name](../data-modeling-collections.html#collection-names)
   and a server-side sequence value
 - *_key*: The server sequence value
 - *_rev*: The document's revision id
@@ -33,9 +33,9 @@ Please also note that with real-world data, you might want to create additional
 indexes on the data (left out here for brevity). Adding indexes on attributes that are
 used in `FILTER` statements may considerably speed up queries. Furthermore, instead of
 using attributes such as *id*, *from* and *to*, you might want to use the built-in
-*_id*, *_from* and *_to* attributes. Finally, [edge collection](../appendix-glossary.html#edge-collection)s provide a nice way of
-establishing references / links between documents. These features have been left out here 
-for brevity as well.
+*_id*, *_from* and *_to* attributes. Finally, [edge collections](../data-models.html#graph-model)
+provide a nice way of establishing references/links between documents.
+These features have been left out here for brevity as well.
 
 Example data
 ------------

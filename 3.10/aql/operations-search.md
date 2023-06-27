@@ -45,7 +45,7 @@ Usage
 -----
 
 The `SEARCH` statement, in contrast to `FILTER`, is treated as a part of the
-`FOR` operation, not as an individual statement. It can not be placed freely
+`FOR` operation, not as an individual statement. It cannot be placed freely
 in a query nor multiple times in the body of a `FOR` loop. `FOR ... IN` must be
 followed by the name of a View, not a collection. The `SEARCH` operation has to
 follow next, other operations before `SEARCH` such as `FILTER`, `COLLECT` etc.
@@ -142,6 +142,7 @@ FOR doc IN myView SEARCH tokens NONE IN doc.text RETURN doc // dynamic negation
 FOR doc IN myView SEARCH tokens  ALL >  doc.text RETURN doc // dynamic conjunction with comparison
 FOR doc IN myView SEARCH tokens  ANY <= doc.text RETURN doc // dynamic disjunction with comparison
 FOR doc IN myView SEARCH tokens NONE <  doc.text RETURN doc // dynamic negation with comparison
+FOR doc IN myView SEARCH tokens AT LEAST (1+1) IN doc.text RETURN doc // dynamically test for a subset of elements
 ```
 
 The following operators are equivalent in `SEARCH` expressions:
@@ -152,6 +153,8 @@ The following operators are equivalent in `SEARCH` expressions:
 - `ALL >=`, `NONE <`
 - `ALL <`, `NONE >=`
 - `ALL <=`, `NONE >`
+- `AT LEAST (...) IN`, `AT LEAST (...) ==`
+- `AT LEAST (1) IN`, `ANY IN`
 
 The stored attribute referenced on the right side of the operator is like a
 single, primitive value. In case of multiple tokens, it is like having multiple

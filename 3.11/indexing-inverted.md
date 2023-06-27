@@ -17,9 +17,12 @@ wildcard and fuzzy search, nested search, as well as for
 sophisticated full-text search with the ability to search for words, phrases,
 and more.
 
-You can use inverted indexes stand-alone in `FILTER` operations of AQL queries,
-or add them to [`search-alias` Views](arangosearch.html#getting-started-with-arangosearch)
-to search multiple collections at once and to rank search results by relevance.
+You can use inverted indexes as follows:
+
+- Stand-alone in `FILTER` operations of AQL queries.
+
+- Add them to [`search-alias` Views](arangosearch.html#getting-started-with-arangosearch)
+  to search multiple collections at once and to rank search results by relevance.
 
 ## Defining inverted indexes
 
@@ -54,7 +57,7 @@ db.<collection>.ensureIndex({
 ### Processing fields with Analyzers
 
 The fields are processed by the `identity` Analyzer by default, which indexes
-the attribute values as-in. To define a different Analyzer, you can pass an
+the attribute values as-is. To define a different Analyzer, you can pass an
 object with the field settings instead. For example, you can use the default
 Analyzer for `value1` and the built-in `text_en` Analyzer for `value2`.
 You can also overwrite the `features` of an Analyzer:
@@ -149,7 +152,7 @@ db.<collection>.ensureIndex({
 
 To index array values but preserve the array indexes for a `search-alias` View,
 which you then also need to specify in queries, enable the `trackListPositions`
-option:
+option (requires `searchField` to be `true`):
 
 ```js
 db.<collection>.ensureIndex({
@@ -234,7 +237,7 @@ settings are used in this case:
 - An array of arrays of strings, like `[["attr1", "attr2"]]`, to place the
   attributes into a single column of the index, or `[["attr1"], ["attr2"]]`
   to place each attribute into a separate column. You can also mix it with the
-  the full form:
+  full form:
   
   ```json
   [
@@ -560,7 +563,7 @@ away they are from the reference point in the result:
 
 ```js
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
+analyzers.save("geojson", "geojson", {}, []);
 
 db.restaurants.ensureIndex({
   name: "inv-rest",

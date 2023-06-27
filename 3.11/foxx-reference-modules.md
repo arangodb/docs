@@ -1,6 +1,6 @@
 ---
 layout: default
-description: These are some of the modules outside of Foxx you will find useful whenwriting Foxx services
+description: These are some of the modules outside of Foxx you will find useful when writing Foxx services
 ---
 Related modules
 ===============
@@ -10,8 +10,8 @@ writing Foxx services.
 
 Additionally there are modules providing some level of compatibility with
 Node.js as well as a number of bundled NPM modules (like lodash and joi).
-For more information on these modules see
-[the JavaScript modules appendix](appendix-java-script-modules.html).
+For more information on these modules, see the
+[JavaScript API](javascript-api.html#javascript-modules).
 
 The `@arangodb` module
 ----------------------

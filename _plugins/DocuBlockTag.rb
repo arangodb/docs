@@ -1,10 +1,16 @@
 class DocuBlockBlock < Liquid::Tag
     @@paths = { }
     @@swaggerTypes = ["null","boolean","integer","number","string","array","object"]
+    Syntax = /^([^, ]+)(?:, h([1-6]))?$/
 
     def initialize(tag_name, input, tokens)
         super
-        @blockname = input.strip!
+        if input.strip! =~ Syntax
+            @blockname = $1
+            @headlineLevel = $2.nil? ? 3 : $2.to_i
+        else
+            raise "Invalid syntax in docublock tag: " + input
+        end
     end
 
     def get_error_codes(code)
@@ -167,6 +173,7 @@ class DocuBlockBlock < Liquid::Tag
             currentKey = nil
             currentStruct = nil
             currentStructKey = nil
+            hasBrief = false
             local = nil
             text.each_line do |line|
                 case line
@@ -183,20 +190,27 @@ class DocuBlockBlock < Liquid::Tag
                     currentKey = nil
                     currentObject = nil
                     currentStruct = nil
+                    hasBrief = false
                 when /^@brief\s*(.*)/
                     if local
+                        hasBrief = true
                         local["header"] += $1
                     else
                         Jekyll.logger.debug "Missing @startDocuBlock #{line}. Ignoring"
                     end
                     currentStruct = nil
                 when /^@RESTHEADER\s*{([^,]+),\s*([^,\}]+)/
-                    local["header"] = "### #{$2}\n#{local['header']}\n`#{$1.sub(/#.*/, '')}`\n"
+                    # Headline markup is added later because we don't know it yet when this is processed
+                    local["header"] = " #{$2}\n#{local['header']}\n`#{$1.sub(/#.*/, '')}`\n"
                     currentStruct = nil
                 when /^@RESTDESCRIPTION/
                     currentObject = local
-                    currentKey = "description"
                     currentStruct = nil
+                    if hasBrief
+                        currentKey = "description"
+                    else
+                        currentKey = "header"
+                    end
                 when /^@RESTRETURNCODES/
                     currentObject = local
                     currentStruct = nil
@@ -419,6 +433,7 @@ class DocuBlockBlock < Liquid::Tag
             Jekyll.logger.error "DocuBlock \"#{@blockname}\" in \"#{fullpath}\" undefined. Content will be empty."
             return ""
         end
+        content = "#" * @headlineLevel + content
         # should match migrate.js more or less :S
         content = content.gsub(/\]\((?!https?:)(.*?\.(html|md))(#[^\)]+)?\)/) {|s|
             link = $1.gsub(/(?<![A-Z\/])([A-Z])/) {|_|

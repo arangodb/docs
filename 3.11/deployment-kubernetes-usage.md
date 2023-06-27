@@ -259,7 +259,7 @@ minikube kubectl -- get pods --selector=arango_deployment=single-server
 
 The result looks similar to this:
 
-```plain
+```
 NAME                                 READY     STATUS    RESTARTS   AGE
 single-server-sngl-cjtdxrgl-fe06f0   1/1       Running   0          1m
 ```
@@ -283,7 +283,7 @@ Your browser warns about an unknown certificate. This is because a self-signed
 certificate is used. Continue anyway. The exact steps for this depend on your
 browser.
 
-You should see the logon screen of ArangoDB's web interface. Enter `root` as the
+You should see the login screen of ArangoDB's web interface. Enter `root` as the
 username, leave the password field empty, and log in. Select the default
 `_system` database. You should see the dashboard and be able to interact with
 ArangoDB.

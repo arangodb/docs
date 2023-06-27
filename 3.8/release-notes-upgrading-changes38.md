@@ -30,7 +30,9 @@ complete the boot sequence faster, and the Foxx services will be synchronized in
 a background operation. Until that operation has completed, any requests to a
 Foxx app may be responded to with an HTTP 503 error and message
 
-    waiting for initialization of Foxx services in this database
+```
+waiting for initialization of Foxx services in this database
+```
 
 This can cause an unavailability window for Foxx apps for the initial requests to
 Foxx apps.
@@ -368,6 +370,19 @@ as a database only. It may have an effect for Foxx applications that use HTTP
   names and the new, corrected format of the output. Over time, you can
   then retire your old metrics collection process and dashboards.
 
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
+
 ### Optional lockdown of `/_admin/cluster` REST API
 
 ArangoDB 3.8 provides a new startup option `--cluster.api-jwt-policy` that
@@ -425,14 +440,14 @@ identifiers/names in AQL queries.
 
 For example, the query:
 
-```js
+```aql
 FOR status IN Window
   RETURN status.open
 ```
 
 … will need to be adjusted to:
 
-```js
+```aql
 FOR status IN `Window`
   RETURN status.open
 ```
@@ -459,7 +474,7 @@ For example, given a collection `test` with an empty document with just key
 `testDoc`, the following query would return different results when running for
 the first time and the second time:
 
-```js
+```aql
 UPDATE 'testDoc'
 WITH { test: { sub1: true, sub2: null } } IN test
 OPTIONS { keepNull: false, mergeObjects: true }

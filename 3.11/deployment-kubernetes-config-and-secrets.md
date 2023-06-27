@@ -10,16 +10,16 @@ others will have to specified separately.
 
 ## Built-in options
 
-All built-in options are passed to ArangoDB servers via commandline
+All built-in options are passed to ArangoDB servers via command-line
 arguments configured in the Pod-spec.
 
 ## Other configuration options
 
-All commandline options of `arangod` (and `arangosync`) are available
+All command-line options of `arangod` (and `arangosync`) are available
 by adding options to the `spec.<group>.args` list of a group
 of servers.
 
-These arguments are added to th commandline created for these servers.
+These arguments are added to th command-line created for these servers.
 
 ## Secrets
 

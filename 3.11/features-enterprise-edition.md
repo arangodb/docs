@@ -38,7 +38,7 @@ features outlined below. For additional information, see
 - [**SmartJoins**](smartjoins.html):
   Co-located joins in a cluster using identically sharded collections.
 
-- [**OneShard**](architecture-deployment-modes-cluster-architecture.html#oneshard):
+- [**OneShard**](deployment-oneshard.html):
   Option to store all collections of a database on a single cluster node, to
   combine the performance of a single server and ACID semantics with a
   fault-tolerant cluster setup.
@@ -59,10 +59,14 @@ features outlined below. For additional information, see
   Jaccard similarity approximation for entity resolution, such as for finding
   duplicate records, based on how many elements they have in common
 
-- [**ArangoSerch column cache**](release-notes-new-features310.html#arangosearch-column-cache-enterprise-edition):
-  Always cache field normalization values, stored values, primary sort columns,
-  and primary key columns in memory to improve the performance of Views and
-  inverted indexes.
+- [**`geo_s2` Analyzer**](analyzers.html#geo_s2):
+  Efficiently index geo-spatial data using different binary formats, tuning the
+  size on disk, the precision, and query performance.
+
+- [**ArangoSearch column cache**](release-notes-new-features310.html#arangosearch-column-cache-enterprise-edition):
+  Always cache field normalization values, Geo Analyzer auxiliary data,
+  stored values, primary sort columns, and primary key columns in memory to
+  improve the performance of Views and inverted indexes.
 
 ## Querying
 
@@ -92,7 +96,7 @@ features outlined below. For additional information, see
   Datacenter-to-Datacenter Replication for disaster recovery.
 
 - [**Auditing**](security-auditing.html):
-  Audit log of all server interactions.
+  Audit logs of all server interactions.
 
 - [**LDAP Authentication**](programs-arangod-ldap.html):
   ArangoDB user authentication with an LDAP server.
@@ -111,6 +115,6 @@ features outlined below. For additional information, see
   / PII when creating backups.
 
 - **Advanced Encryption and Security Configuration**:
-  Key rotation for [JWT secrets](http/general.html#hot-reload-of-jwt-secrets)
-  and [on-disk encryption](http/administration-and-monitoring.html#encryption-at-rest),
+  Key rotation for [JWT secrets](http/authentication.html#hot-reload-jwt-secrets)
+  and [on-disk encryption](http/security.html#encryption-at-rest),
   as well as [Server Name Indication (SNI)](programs-arangod-options.html#--sslserver-name-indication).

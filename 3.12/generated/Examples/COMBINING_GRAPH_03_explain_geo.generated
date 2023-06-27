@@ -1,0 +1,42 @@
+@Q:
+  FOR startCity IN germanCity
+    FILTER GEO_DISTANCE(@bonn, startCity.geometry) &lt; @radius
+      RETURN startCity._key
+@B
+{
+  <span class="hljs-string">&quot;bonn&quot;</span>: [
+    <span class="hljs-number">7.0998</span>,
+    <span class="hljs-number">50.734</span>
+  ],
+  <span class="hljs-string">&quot;radius&quot;</span>: <span class="hljs-number">400000</span>
+}
+@R
+Query String (119 chars, cacheable: true):
+   FOR startCity IN germanCity
+     FILTER GEO_DISTANCE(@bonn, startCity.geometry) &lt; @radius
+       RETURN startCity._key
+ 
+
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  7   IndexNode            0     - FOR startCity IN germanCity   /* geo index scan, index scan + document lookup (projections: `_key`) */    
+  5   CalculationNode      0       - LET #3 = startCity.`_key`   /* attribute expression */   /* collections used: startCity : germanCity */
+  6   ReturnNode           0       - RETURN #3
+
+Indexes used:
+ By   Name                      Type   Collection   Unique   Sparse   Cache   Selectivity   Fields           Stored values   Ranges
+  7   idx_1769779367330709505   geo    germanCity   false    true     false           n/a   [ `geometry` ]   [  ]            (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   move-filters-up
+  3   move-calculations-up-2
+  4   move-filters-up-2
+  5   geo-index-optimizer
+  6   remove-unnecessary-calculations-2
+  7   reduce-extraction-to-projection
+
+45 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00020
+

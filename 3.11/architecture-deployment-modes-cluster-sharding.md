@@ -75,8 +75,7 @@ replicas. This in turn implies, that a complete pristine replication would
 involve 10 shards which need to catch up with their leaders.
 
 Not all use cases require horizontal scalability. In such cases, consider the
-[OneShard](deployment-oneshard.html)
-feature as alternative to flexible sharding.
+[OneShard](deployment-oneshard.html) feature as alternative to flexible sharding.
 
 Shard Keys
 ----------
@@ -95,7 +94,7 @@ and your _DB-Servers_. By default ArangoDB uses the `_key` field as a shard key.
 For a custom shard key you should consider a few different properties:
 
 - **Cardinality**: The cardinality of a set is the number of distinct values
-  that it contains. A shard key with only _N_ distinct values can not be hashed
+  that it contains. A shard key with only _N_ distinct values cannot be hashed
   onto more than _N_ shards. Consider using multiple shard keys, if one of your
   values has a low cardinality.
 

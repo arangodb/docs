@@ -80,9 +80,9 @@ Each object represents a computed value and can have the following attributes:
 ## HTTP API
 
 See the `computedValues` collection property in the HTTP API documentation:
-- [Create a collection](http/collection-creating.html#create-collection),
-- [Read properties of a collection](http/collection-getting.html#read-properties-of-a-collection),
-- [Change properties of a collection](http/collection-modifying.html#change-properties-of-a-collection).
+- [Create a collection](http/collection.html#create-a-collection),
+- [Read properties of a collection](http/collection.html#get-the-properties-of-a-collection),
+- [Change properties of a collection](http/collection.html#change-the-properties-of-a-collection).
 
 ## Computed Value Expressions
 
@@ -114,7 +114,7 @@ Computed value expressions have the following properties:
 - You cannot access the result of another computed value that is generated on
   the same `computeOn` event.
   
-  For example, two computed values that are generated on `insert` can not see
+  For example, two computed values that are generated on `insert` cannot see
   the result of the other. Referencing the attributes results in an implicit
   `null` value. Computed values that are generated on `update` or `replace` can
   see the results of the previous `insert` computations, however. They cannot

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Foxx services can define configuration parametersin the service manifest to make them more re-usable
+description: Foxx services can define configuration parameters in the service manifest to make them more re-usable
 ---
 Foxx configuration
 ==================

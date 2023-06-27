@@ -31,7 +31,7 @@ oasisctl backup [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl backup copy](oasisctl-backup-copy.html)	 - Copy a backup from source backup to given region
 * [oasisctl backup download](oasisctl-backup-download.html)	 - Download a backup
 

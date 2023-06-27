@@ -1,9 +1,9 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/view/products/properties</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/view/productsView/properties</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">496</span>
+content-length: <span class="hljs-number">652</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -27,10 +27,25 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;primarySortCompression&quot;</span> : <span class="hljs-string">&quot;lz4&quot;</span>, 
   <span class="hljs-string">&quot;writebufferActive&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;links&quot;</span> : { 
+    <span class="hljs-string">&quot;books&quot;</span> : { 
+      <span class="hljs-string">&quot;analyzers&quot;</span> : [ 
+        <span class="hljs-string">&quot;identity&quot;</span> 
+      ], 
+      <span class="hljs-string">&quot;fields&quot;</span> : { 
+        <span class="hljs-string">&quot;title&quot;</span> : { 
+          <span class="hljs-string">&quot;analyzers&quot;</span> : [ 
+            <span class="hljs-string">&quot;text_en&quot;</span> 
+          ] 
+        } 
+      }, 
+      <span class="hljs-string">&quot;includeAllFields&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;storeValues&quot;</span> : <span class="hljs-string">&quot;none&quot;</span>, 
+      <span class="hljs-string">&quot;trackListPositions&quot;</span> : <span class="hljs-literal">false</span> 
+    } 
   }, 
-  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h7147E0ECF080/69058&quot;</span>, 
-  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;69058&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h4B0D1F61ADB6/69082&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;productsView&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;69082&quot;</span>, 
   <span class="hljs-string">&quot;storedValues&quot;</span> : [ ], 
   <span class="hljs-string">&quot;primarySort&quot;</span> : [ ], 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;arangosearch&quot;</span> 

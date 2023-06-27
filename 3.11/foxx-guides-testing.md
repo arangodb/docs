@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Foxx provides out of the box support for running tests against aninstalled service using an API similar tothe Mocha test runner
+description: Foxx provides out of the box support for running tests against an installed service using an API similar to the Mocha test runner
 ---
 Testing Foxx services
 =====================
@@ -10,7 +10,7 @@ installed service using an API similar to
 the [Mocha test runner](https://mochajs.org){:target="_blank"}.
 
 Test files have full access to the [service context](foxx-reference-context.html)
-and all ArangoDB APIs but can not define Foxx routes.
+and all ArangoDB APIs but cannot define Foxx routes.
 
 Test files can be specified in the [service manifest](foxx-reference-manifest.html)
 using either explicit paths of each individual file or patterns that can
@@ -32,7 +32,7 @@ it will only be executed once):
 To run a service's tests you can use
 the [web interface](programs-web-interface-services.html),
 the [Foxx CLI](programs-foxx-cli.html) or
-the [Foxx HTTP API](http/foxx-miscellaneous.html).
+the [Foxx HTTP API](http/foxx.html#miscellaneous).
 Foxx will execute all test cases in the matching files and
 generate a report in the desired format.
 

@@ -31,7 +31,7 @@ oasisctl add [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl add auditlog](oasisctl-add-auditlog.html)	 - Add auditlog resources
 * [oasisctl add group](oasisctl-add-group.html)	 - Add group resources
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The Fast Cluster Restore procedure documented in this page is recommended to speed-up the performance of arangorestor ein a Cluster environment
+description: The Fast Cluster Restore procedure documented in this page is recommended to speed-up the performance of arangorestore in a Cluster environment
 ---
 Fast Cluster Restore
 ====================
@@ -94,7 +94,7 @@ that can be then copied and executed on each _Coordinator_.
 # - v0.3: fixed a bug that was happening when the collection name included an underscore 
 # - v0.2: compatibility with version 3.4: now each coordinator_<number-of-coordinator>.sh
 #         includes a single restore command (instead of one for each collection)
-#         which allows making using of the --threads option in v.3.4.0 and later
+#         which allows making using of the --threads option in v3.4.0 and later
 # - v0.1: initial version
 
 if test -z "$ARANGOSH" ; then

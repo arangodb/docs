@@ -43,7 +43,7 @@ FOR vertex[, edge[, path]]
     possible value is 0.
   - **max** (number, *optional*): up to *max* length paths are traversed.
     If omitted, *max* defaults to *min*. Thus only the vertices and edges in
-    the range of *min* are returned. *max* can not be specified without *min*.
+    the range of *min* are returned. *max* cannot be specified without *min*.
 - `OUTBOUND|INBOUND|ANY`: follow outgoing, incoming, or edges pointing in either
   direction in the traversal. Note that this can't be replaced by a bind parameter.
 - **startVertex** (string\|object): a vertex where the traversal originates from.
@@ -625,7 +625,7 @@ Create a simple symmetric traversal demonstration graph:
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_01_create_graph}
     ~addIgnoreCollection("circles");
     ~addIgnoreCollection("edges");
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var graph = examples.loadGraph("traversalGraph");
     db.circles.toArray();
     db.edges.toArray();
@@ -859,7 +859,7 @@ And finally clean it up again:
     @startDocuBlockInline GRAPHTRAV_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_99_drop_graph}
     ~examples.loadGraph("traversalGraph");
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     examples.dropGraph("traversalGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_99_drop_graph

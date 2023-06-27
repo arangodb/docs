@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Deleting vertices with associated edges is currently not handled via AQL while the graph management interfaceand theREST API for the graph moduleoffer a vertex deletion functionality
+description: Deleting vertices with associated edges is currently not handled via AQL while the graph management interface and the REST API for the graph module offer a vertex deletion functionality
 ---
 Remove Vertex
 =============
@@ -8,7 +8,7 @@ Remove Vertex
 Deleting vertices with associated edges is currently not handled via AQL while 
 the [graph management interface](../graphs-general-graphs-management.html#remove-a-vertex)
 and the
-[REST API for the graph module](../http/gharial-vertices.html#remove-a-vertex)
+[REST API for the graph module](../http/gharial.html#remove-a-vertex)
 offer a vertex deletion functionality.
 However, as shown in this example based on the
 [knows_graph](../graphs.html#the-knows_graph), a query for this 

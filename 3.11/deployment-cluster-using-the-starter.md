@@ -66,6 +66,11 @@ IP address of the host):
 arangodb --auth.jwt-secret=/etc/arangodb.secret --starter.data-dir=./data --starter.join A
 ```
 
+The `--server.join` option is for pointing a Starter to an existing Starter.
+If you run Starters on ports other than the default (`8528`) using the
+`--starter.port` option, then you need to append the port to the address
+(e.g. `--starter.join 127.0.0.1:9528`).
+
 The latter two Starters contact the Starter on host A on port 8528 and register
 themselves. From the moment on when three have joined, each fires up an Agent, a
 Coordinator, and a DB-Server.
@@ -74,13 +79,23 @@ Once all the processes started by the _Starter_ are up and running, and joined t
 cluster (this may take a while depending on your system), the _Starter_ informs
 you where to connect to the cluster from a browser, shell, or program.
 
+Additional servers can be added in the same way. For example, on host D, you run
+the above command pointing to the Starter that runs on `A` (or on `B` or `C`, as
+long as they are connected to `A`). This adds another DB-Server and Coordinator,
+but no fourth Agent, as the default Agency size (`--cluster.agency-size`) of `3`
+is already reached. To only add a DB-Server, use `--cluster.start-coordinator false`.
+To only add a Coordinator, use `--cluster.start-dbserver false`.
+
+You can also set both `--cluster.start-dbserver` and `--cluster.start-coordinator`
+to `false` for the first three Starters to only create the Agency. This lets you
+run the Agents on specific machines. Later, you can add the DB-Servers and
+Coordinators to the cluster using other machines.
+
 The Starter uses the next few ports above the Starter port for the cluster nodes.
 That is, if you use port 8528 for the Starter, the Coordinator uses 8529
 (=8528+1), the DB-Server 8530 (=8528+2), and the Agent 8531 (=8528+3).
 You can change the default Starter port with the
 [`--starter.port` option](programs-starter-options.html).
-
-Additional servers can be added in the same way.
 
 If two or more of the `arangodb` instances run on the same machine,
 you have to use the `--starter.data-dir` option to let each use a different
@@ -221,7 +236,7 @@ docker run -it --name=adbN --rm -p 8528:8528 \
 The first `arangodb` you run becomes the _leader_ of your _Starter_ setup
 (also called _master_), the other `arangodb` instances become the
 _followers_ of your _Starter_ setup. This is not to be confused with the
-the Leader/Follower replication of ArangoDB. The terms above refer to the _Starter_ setup.
+Leader/Follower replication of ArangoDB. The terms above refer to the _Starter_ setup.
 
 The _Starter_ _leader_ determines which ArangoDB server processes to launch on which
 _Starter_ _follower_, and how they should communicate.

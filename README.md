@@ -152,14 +152,14 @@ by changing the `_config.yml`:
 
 ```yaml
 exclude:
+# - 3.12/
 # - 3.11/
 # - 3.10/
   - 3.9/
   - 3.8/
-  - 3.7/
 ```
 
-Above example disables versions 3.7 through 3.9, so that only 3.10 and 3.11 are
+Above example disables versions 3.8 and 3.9, so that only 3.10 through 3.12 are
 built. Do not commit these changes of the configuration!
 
 Note that building may fail if you disable certain versions that contain the files
@@ -644,13 +644,22 @@ Current version is less than or equal to 3.8
   (except if it is at the top of the document, right after the end of the
   frontmatter `---`).
 
-- Use `js` as language in fenced code blocks for highlighting AQL queries.
-  We do not have a highlighter for AQL, but JavaScript code highlighting works
-  reasonably well.
+- Use `aql` as language in fenced code blocks for highlighting AQL queries in
+  version 3.10 and later. Use `js` for 3.9 and older.
+  
+  ```aql
+  FOR i IN 1..3 RETURN CONCAT("a", i)
+  ```
 
-      ```js
-      FOR i IN 1..3 RETURN CONCAT("a", i)
-      ```
+- Use all lowercase languages in fenced code blocks without whitespace before
+  or after the language, and use the following languages in favor of the ones in
+  parentheses for consistency:
+
+  - `` ```py `` (instead of `` ```python ``)
+  - `` ```yaml `` (instead of `` ```yml ``)
+  - `` ```sh `` (instead of `` ```shell ``)
+  - `` ```js `` (instead of `` ```javascript ``)
+  - `` ``` `` (instead of `` ```plain `` or `` ```text ``)
 
 - Use the exact spelling of Enterprise Edition and its features, as well as for
   all other terms coined by ArangoDB:
@@ -700,13 +709,13 @@ to the parent folder of a file.
 | `3.9/tutorials.md` | `3.9/aql/operators.md` | `[AQL Operators](aql/operators.html)` |
 | `3.9/aql/operators.md` | `3.9/tutorials.md` | `[Tutorials](../tutorials.html)` |
 | `3.9/aql/operators.md` | `3.9/http/pregel.md` | `[Pregel HTTP API](../http/pregel.html)` |
-| `3.9/tutorials.md` | `3.7/architecture.md` | `[Architecture v3.7](../3.7/architecture.html)` |
-| `3.9/aql/operators.md` | `3.7/tutorials.md` | `[Tutorials v3.7](../../3.7/tutorials.html)` |
+| `3.9/tutorials.md` | `3.8/architecture.md` | `[Architecture v3.8](../3.8/architecture.html)` |
+| `3.9/aql/operators.md` | `3.8/tutorials.md` | `[Tutorials v3.8](../../3.8/tutorials.html)` |
 
 You can also link to headlines within a page like `[label](#anchor-id)`.
 The anchor ID is the headline text but with the characters converted to Latin
 base characters, all lower-case, spaces and other special characters replaced
-by hypens `-`. Underscores remain, however. Some examples:
+by hyphens `-`. Underscores remain, however. Some examples:
 
 | Headline | Anchor |
 |:---------|:-------|
@@ -995,7 +1004,7 @@ in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
 
 #### Version number schema
 
-The version number schema is `vMajor.Minor.Patch`, e.g. `v3.7.14`. Patch releases
+The version number schema is `vMajor.Minor.Patch`, e.g. `v3.9.5`. Patch releases
 contain bugfixes only. Minor releases often add new features and come with some
 breaking changes. Major releases add new features and may contain substantial
 breaking changes.
@@ -1596,7 +1605,7 @@ Description.
 
 If an endpoint supports query parameters (like `?param1=aaa&param2=bbb` after
 the URL path), then a `@RESTQUERYPARAMETERS` section with `@RESTQUERYPARAM`
-elements for every query paramter is needed:
+elements for every query parameter is needed:
 
 ```
 @RESTQUERYPARAMETERS
@@ -1799,7 +1808,7 @@ section. An HTTP API example needs to be wrapped by `@EXAMPLE_ARANGOSH_RUN` and
 
 - `name`: The name of the example. Will be used as file name
   `Documentation/Examples/<name>.generated`. The convention for Rest DocuBlocks
-  is to use PascalCase, `Rest` as prefix, the endpoint name, and succint
+  is to use PascalCase, `Rest` as prefix, the endpoint name, and succinct
   description of what the example is about, e.g. `RestCollectionCreateKeyopt`.
 
 Unlike arangosh examples (`@EXAMPLE_ARANGOSH_OUTPUT`), requests and responses
@@ -1963,7 +1972,7 @@ failed example in `arangosh.examples.js`.
   - ```
     …lib/jekyll/utils.rb:141:in `initialize': No such file or directory @ rb_sysopen - /path/to/file
     ```
-    
+
     Jekyll can't open the specified file. A possible reason is that it is a
     binary file which is not supposed to be in the source tree in the first
     place or which should be excluded via `_config.yml`
@@ -1972,7 +1981,7 @@ failed example in `arangosh.examples.js`.
     …lib/safe_yaml/load.rb:143:in `parse': (/path/to/docs/_data/3.x-manual.yml):
     mapping values are not allowed in this context at line 274 column 15 (Psych::SyntaxError)
     ```
-    
+
     The specified navigation definition file is not valid YAML. Check if the
     indention is correct and that you use `children:` if the following entries
     are child pages.

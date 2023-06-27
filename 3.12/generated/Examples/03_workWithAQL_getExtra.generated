@@ -1,0 +1,21 @@
+arangosh&gt; db._query(<span class="hljs-string">`FOR i IN 1..100
+........&gt;   INSERT { _key: CONCAT(&#x27;test&#x27;, TO_STRING(i)) } INTO mycollection`</span>
+........&gt; ).getExtra();
+{ 
+  <span class="hljs-string">&quot;warnings&quot;</span> : [ ], 
+  <span class="hljs-string">&quot;stats&quot;</span> : { 
+    <span class="hljs-string">&quot;writesExecuted&quot;</span> : <span class="hljs-number">100</span>, 
+    <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;cursorsCreated&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;cursorsRearmed&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;cacheHits&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;cacheMisses&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0014798250049352646</span>, 
+    <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">32768</span>, 
+    <span class="hljs-string">&quot;intermediateCommits&quot;</span> : <span class="hljs-number">0</span> 
+  } 
+}

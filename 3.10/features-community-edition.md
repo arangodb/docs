@@ -15,12 +15,12 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
 
 ## General
 
-- [**Graph Database**](data-model-and-concepts.html#graph-model):
+- [**Graph Database**](data-models.html#graph-model):
   Native support for storing and querying graphs comprised of vertices and edges.
   You can model complex domains because edges are documents without any
   restrictions in complexity.
 
-- [**Document Database**](data-model-and-concepts.html#document-model):
+- [**Document Database**](data-models.html#document-model):
   A modern document database system that allows you to model data intuitively
   and evolve the data model easily. Documents can be organized in collections,
   and collections in databases for multi-tenancy.
@@ -29,7 +29,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   TODO: Add a bullet point for multi-model? (unified query language, lower TCO, ...)
 {%- endcomment %}
 
-- [**Data Format**](data-model-and-concepts.html#documents):
+- [**Data Format**](data-structure.html#documents):
   JSON, internally stored in a binary format invented by ArangoDB called
   VelocyPack.
 
@@ -48,11 +48,12 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   Persistent document attributes that are generated when documents are created
   or modified, using an AQL expression.
 
-- **Multi-Platform**:
-  Work with ArangoDB on Linux, macOS, and Windows, and run it in production
-  on Linux. ArangoDB is available for the x86-64 architecture (with the
-  SSE 4.2 and AVX instruction set extensions), as well as for 64-bit ARM chips
-  on macOS (Apple silicon, like M1) and Linux (ARMv8+ with Neon SIMD support).
+- [**Multiple Environments**](installation.html#supported-platforms-and-architectures):
+  Use ArangoDB as a [managed service](https://cloud.arangodb.com){:target="_blank"},
+  in your own cloud, or on-premises.
+  Develop and test with ArangoDB on Linux, macOS, and Windows, and run it in
+  production on Linux. ArangoDB is available for 64-bit ARM chips on macOS and
+  Linux as well as for the x86-64 architecture.
 
 ## Scalability & High Availability
 
@@ -200,7 +201,7 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   Time-based removal of expired documents.
 
 - [**Geo-spatial Indexes**](indexing-index-basics.html#geo-index):
-  Accelerated geo-spatial queries for coordinates and GeoJSON objects, based on
+  Accelerated geo-spatial queries for locations and GeoJSON objects, based on
   the S2 library. <!-- TODO: list supported queries? Centroid-limitations? -->
   Support for composable, distance-based geo-queries ("geo cursors").
 
@@ -267,6 +268,6 @@ see [arangodb.com/community-server/](https://www.arangodb.com/community-server/)
   You can import from JSON, JSONL, CSV, and TSV files, and export to JSON, JSONL,
   CSV, TSV, XML, and XGMML files.
 
-- [**Metrics**](http/administration-and-monitoring-metrics.html):
+- [**Metrics**](http/monitoring.html#metrics):
   Monitor the healthiness and performance of ArangoDB servers using the metrics
   exported in the Prometheus format.

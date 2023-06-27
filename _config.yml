@@ -49,11 +49,11 @@ algolia:
   index_name: dev_DOCS
   search_only_api_key: 1fc63d8ff5b71963f0354561b770b591
   files_to_exclude:
-    - 3.11/**/*
-#   - 3.10/**/*  # OUR STABLE VERSION
+    - 3.12/**/*
+#   - 3.11/**/*  # OUR STABLE VERSION
+    - 3.10/**/*
     - 3.9/**/*
     - 3.8/**/*
-    - 3.7/**/*
     - \*.html
 
 # Exclude from processing.
@@ -82,17 +82,17 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - 3.12/generated
   - 3.11/generated
   - 3.10/generated
   - 3.9/generated
   - 3.8/generated
-  - 3.7/generated
+# - 3.12/
 # - 3.11/
 # - 3.10/
 # - 3.9/
 # - 3.8/
-# - 3.7/
 
 versions:
-  stable: "3.10"
-  devel: "3.11"
+  stable: "3.11"
+  devel: "3.12"

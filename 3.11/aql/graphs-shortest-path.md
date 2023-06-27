@@ -141,7 +141,7 @@ We will create a simple symmetric traversal demonstration graph:
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_01_create_graph}
     ~addIgnoreCollection("circles");
     ~addIgnoreCollection("edges");
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var graph = examples.loadGraph("traversalGraph");
     db.circles.toArray();
     db.edges.toArray();
@@ -182,7 +182,7 @@ And finally clean it up again:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHSP_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_99_drop_graph}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     examples.dropGraph("traversalGraph");
     ~removeIgnoreCollection("circles");
     ~removeIgnoreCollection("edges");

@@ -6,8 +6,8 @@ Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
   4   CalculationNode      1     - LET #2 = 1   /* json expression */   /* const assignment */
-  2   CalculationNode      1     - LET s = SLEEP()   /* simple expression */
-  3   CalculationNode      1     - LET t = SLEEP()   /* simple expression */
+  2   CalculationNode      1     - LET s = SLEEP(0.25)   /* simple expression */
+  3   CalculationNode      1     - LET t = SLEEP(0.5)   /* simple expression */
   5   ReturnNode           1     - RETURN #2
 
 Indexes used:
@@ -21,6 +21,6 @@ Optimization rules applied:
  Id   RuleName
   1   move-calculations-up
 
-43 rule(s) executed, 1 plan(s) created
+44 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00013
 
 

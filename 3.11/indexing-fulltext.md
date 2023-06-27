@@ -53,6 +53,12 @@ only be included in the index if it is a string. When indexing the contents of a
 attribute, an object member value will only be included in the index if it is a string.
 Other data types are ignored and not indexed.
 
+Word tokenization is performed using the word boundary analysis provided by
+[ICU](http://site.icu-project.org/){:target="_blank"}, which takes the selected
+server language into account.
+
+Words are indexed in all lower-case. Only words with a (specifiable) minimum
+length are indexed.
 
 Accessing Fulltext Indexes from the Shell
 -----------------------------------------
@@ -86,7 +92,7 @@ details is returned.
     db.example.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 3 });
     db.example.save({ text : "the quick brown", b : { c : 1 } });
     db.example.save({ text : "quick brown fox", b : { c : 2 } });
-    db.example.save({ text : "brown fox jums", b : { c : 3 } });
+    db.example.save({ text : "brown fox jumps", b : { c : 3 } });
     db.example.save({ text : "fox jumps over", b : { c : 4 } });
     db.example.save({ text : "jumps over the", b : { c : 5 } });
     db.example.save({ text : "over the lazy", b : { c : 6 } });

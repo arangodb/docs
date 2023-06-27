@@ -5,7 +5,7 @@ title: ArangoGraph Shell oasisctl
 ---
 # Oasisctl
 
-Oasisctl is a commandline tool for using the [ArangoGraph API](api.html).
+Oasisctl is a command-line tool for using the [ArangoGraph API](api.html).
 This tool makes integration of ArangoGraph in all kinds of (bash) scripts easy.
 It is also a good example on how to use the API.
 

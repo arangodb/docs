@@ -63,14 +63,105 @@ and thus enable the new polygon parsing.
 
 Note that linear rings are not normalized automatically from version 3.10 onward,
 following the [GeoJSON standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
-The 'interior' of a polygon strictly conforms to the GeoJSON standard:
+The "interior" of a polygon strictly conforms to the GeoJSON standard:
 it lies to the left of the boundary line (in the direction of travel along the
 boundary line on the surface of the Earth). This can be the "larger" connected
 component of the surface, or the smaller one. Note that this differs from the
-[interpretation of GeoJSON polygons in version 3.9](../3.9/indexing-geo.html#polygon)
-and older. This can mean that old polygon GeoJSON data in the database is
+interpretation of GeoJSON polygons in version 3.9 and older:
+
+| `legacyPolygons` enabled | `legacyPolygons` disabled |
+|:-------------------------|:--------------------------|
+| The smaller of the two regions defined by a linear ring is interpreted as the interior of the ring. | The area to the left of the boundary ring's path is considered to be the interior. |
+| A ring can at most enclose half the Earth's surface | A ring can enclose the entire surface of the Earth |
+
+This can mean that old polygon GeoJSON data in the database is
 suddenly interpreted in a different way. See
 [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
+Also see the definition of [Polygons](indexing-geo.html#polygon)
+and [GeoJSON interpretation](indexing-geo.html#geojson-interpretation).
+
+`geojson` Analyzers
+-------------------
+
+If you use `geojson` Analyzers and upgrade from a version below 3.10 to a
+version of 3.10 or higher, the interpretation of GeoJSON Polygons changes.
+
+If you have polygons in your data that mean to refer to a relatively small
+region but have the boundary running clockwise around the intended interior,
+they are interpreted as intended prior to 3.10, but from 3.10 onward, they are
+interpreted as "the other side" of the boundary.
+
+Whether a clockwise boundary specifies the complement of the small region
+intentionally or not cannot be determined automatically. Please test the new
+behavior manually.
+
+See [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
+
+---
+
+<small>Introduced in: v3.10.5</small>
+
+Analyzers of the `geojson` type have a new `legacy` property.
+The default is `false`.
+
+This option controls how GeoJSON Polygons are interpreted.
+
+If you require the old behavior, upgrade to at least 3.10.5, drop your
+`geojson` Analyzers, and create new ones with `legacy` set to `true`.
+If these Analyzers are used in `arangosearch` Views, then they need to be
+dropped as well before dropping the Analyzers, and recreated after creating
+the new Analyzers.
+
+| `legacy` enabled | `legacy` disabled |
+|:-----------------|:------------------|
+| The smaller of the two regions defined by a linear ring is interpreted as the interior of the ring. | The area to the left of the boundary ring's path is considered to be the interior. |
+| A ring can at most enclose half the Earth's surface | A ring can enclose the entire surface of the Earth |
+
+Also see the definition of [Polygons](indexing-geo.html#polygon) and the
+[`geojson` Analyzer](analyzers.html#geojson) documentation.
+
+Maximum Array / Object Nesting
+------------------------------
+
+When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
+VelocyPack, there is a maximum recursion depth for nested arrays and objects, which is slightly 
+below 200. Arrays or objects with higher nesting than this will cause `Too deep nesting in Array/Object`
+exceptions. 
+The limit is also enforced when converting any server data to JavaScript in Foxx, or
+when sending JavaScript input data from Foxx to a server API.
+This maximum recursion depth is hard-coded in arangod and all client tools.
+
+Validation of traversal collection restrictions
+-----------------------------------------------
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals, you can restrict the vertex and edge collections in the
+traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
+
+Furthermore, it is now an error if you specify a vertex collection that is not
+part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
+It is also an error if you specify an edge collection that is not part of the
+named graph's definition or of the list of edge collections (code `1939` and
+HTTP status `400 Bad Request`).
 
 Startup Options
 ---------------
@@ -178,16 +269,39 @@ memory-mapped files: `--pregel.memory-mapped-files` and `--pregel.memory-mapped-
 
 For more information on the new options, please refer to [ArangoDB Server Pregel Options](programs-arangod-options.html#pregel).
 
-Maximum Array / Object Nesting
-------------------------------
+HTTP RESTful API
+----------------
 
-When reading any data from JSON or VelocyPack input or when serializing any data to JSON or 
-VelocyPack, there is a maximum recursion depth for nested arrays and objects, which is slightly 
-below 200. Arrays or objects with higher nesting than this will cause `Too deep nesting in Array/Object`
-exceptions. 
-The limit is also enforced when converting any server data to JavaScript in Foxx, or
-when sending JavaScript input data from Foxx to a server API.
-This maximum recursion depth is hard-coded in arangod and all client tools.
+### Validation of collections in named graphs
+
+The `/_api/gharial` endpoints for named graphs have changed:
+
+- If you reference a vertex collection in the `_from` or `_to` attribute of an
+  edge that doesn't belong to the graph, an error with the number `1947` is
+  returned. The HTTP status code of such an `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error has been changed from `400` to `404`. This change aligns the behavior to
+  the similar `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED` error (number `1930`).
+
+- Write operations now check if the specified vertex or edge collection is part
+  of the graph definition. If you try to create a vertex via
+  `POST /_api/gharial/{graph}/vertex/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the `ERROR_GRAPH_REFERENCED_VERTEX_COLLECTION_NOT_USED`
+  error is returned. If you try to create an edge via
+  `POST /_api/gharial/{graph}/edge/{collection}` but the `collection` doesn't
+  belong to the `graph`, then the error is `ERROR_GRAPH_EDGE_COLLECTION_NOT_USED`.
+
+### Encoding of revision IDs
+
+<small>Introduced in: v3.8.8, v3.9.4, v3.10.1</small>
+
+- `GET /_api/collection/<collection-name>/revision`: The revision ID was
+  previously returned as numeric value, and now it is returned as
+  a string value with either numeric encoding or HLC-encoding inside.
+- `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+  the `revision` attribute was previously encoded as a numeric value
+  in single server, and as a string in cluster. This is now unified so
+  that the `revision` attribute always contains a string value with
+  either numeric encoding or HLC-encoding inside.
 
 Client Tools
 ------------

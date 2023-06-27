@@ -50,7 +50,11 @@ If an EdgeDefinition contains a collection name that is also contained in the
 `satellites` option, the collection will be created as a SatelliteCollection.
 Otherwise, it will be ignored. This option only takes effect using SmartGraphs.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Graph Management](http/gharial.html#management).
+{% else -%}
 Also see [Graph Management](http/gharial-management.html).
+{% endif %}
 
 ### Extended naming convention for databases
 
@@ -75,12 +79,16 @@ This is true for any REST API endpoint in arangod if the extended database namin
 convention is used.
 
 {% hint 'info' %}
-The extended naming convention is an **experimental** feature in ArangoDB 3.9,
-but will become the norm in a future version. Drivers and client applications
-should be prepared for this feature.
+The extended naming convention is an **experimental** feature
+but will become the norm in a future version. Check if your drivers and
+client applications are prepared for this feature before enabling it.
 {% endhint %}
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Database names](data-modeling-databases.html#database-names).
+{% else -%}
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+{% endif %}
 
 ### Overload control
 
@@ -111,15 +119,59 @@ in the header, arangod will reject the request and return HTTP 412
 In a cluster, the `x-arango-queue-time-seconds` request header will be
 checked on the receiving Coordinator, before any request forwarding.
 
+### Cursor API
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals (`POST /_api/cursor` endpoint), you can restrict the
+vertex and edge collections in the traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
+
+Furthermore, it is now an error if you specify a vertex collection that is not
+part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
+It is also an error if you specify an edge collection that is not part of the
+named graph's definition or of the list of edge collections (code `1939` and
+HTTP status `400 Bad Request`).
+
 ### Endpoint return value changes
 
-All collections in ArangoDB are now always in the "loaded" state. APIs return
-return a collection's status will now return it as "loaded", unconditionally.
+- All collections in ArangoDB are now always in the `loaded` state. APIs return
+  return a collection's status will now return it as `loaded`, unconditionally.
 
-The HTTP endpoints for loading and unloading collections (i.e. HTTP PUT
-`/_api/collection/<collection>/load` and HTTP PUT `/_api/collection/<collection>/unload`)
-have been turned into no-ops. They still exist in ArangoDB 3.9, but do not
-serve any purpose and are deprecated.
+- The HTTP endpoints for loading and unloading collections (i.e. HTTP PUT
+  `/_api/collection/<collection>/load` and HTTP PUT `/_api/collection/<collection>/unload`)
+  have been turned into no-ops. They still exist in ArangoDB 3.9, but do not
+  serve any purpose and are deprecated.
+
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8, v3.9.4</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
 
 ### Endpoints added
 
@@ -149,7 +201,7 @@ single servers, Coordinators and DB-Servers:
 
 - `GET /_admin/license`: Query license information and status.
 
-  ```js
+  ```json
   {
     "features": {
       "expires": 1640255734
@@ -242,7 +294,7 @@ lifetime of one hour by default. You can adjust the lifetime with the
 Analyzers with a `locale` property use a new syntax. The encoding (`.utf-8`)
 does not need to be set anymore. The `collation` Analyzer supports
 `language[_COUNTRY][_VARIANT][@keywords]` (square bracket denote optional parts).
-The `text` and `norm` Analyzers support `language[_COUNTRY]`, the `stem`
+The `text` and `norm` Analyzers support `language[_COUNTRY][_VARIANT]`, the `stem`
 Analyzer only `language`. The former syntax is still supported but automatically
 normalized to the new syntax.
 
@@ -288,6 +340,18 @@ It is a boolean option and the default is `false`.
 
 #### Metrics API
 
+<small>Introduced in: v3.8.7, v3.9.2</small>
+
+I/O heartbeat metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_ioheartbeat_delays_total` | Total number of delayed I/O heartbeats. |
+| `arangodb_ioheartbeat_duration` | Histogram of execution times in microseconds. |
+| `arangodb_ioheartbeat_failures_total` | Total number of failures. |
+
+---
+
 <small>Introduced in: v3.9.5</small>
 
 The `GET /_admin/metrics/v2` and `GET /_admin/metrics` endpoints includes a new
@@ -313,6 +377,33 @@ The metrics endpoints include the following new edge cache (re-)filling metrics:
 - `rocksdb_cache_auto_refill_loaded_total`
 - `rocksdb_cache_auto_refill_dropped_total`
 - `rocksdb_cache_full_index_refills_total`
+
+---
+
+<small>Introduced in: v3.9.10</small>
+
+The following metrics for write-ahead log (WAL) file tracking have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_live_wal_files` | Number of live RocksDB WAL files. |
+| `rocksdb_wal_released_tick_flush` | Lower bound sequence number from which WAL files need to be kept because of external flushing needs. |
+| `rocksdb_wal_released_tick_replication` | Lower bound sequence number from which WAL files need to be kept because of replication. |
+| `arangodb_flush_subscriptions` | Number of currently active flush subscriptions. |
+
+---
+
+The following metrics for diagnosing delays in cluster-internal network requests
+have been added:
+
+<small>Introduced in: v3.9.11</small>
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_network_dequeue_duration` | Internal request duration for the dequeue in seconds. |
+| `arangodb_network_response_duration` | Internal request duration from fully sent till response received in seconds. |
+| `arangodb_network_send_duration` | Internal request send duration in seconds. |
+| `arangodb_network_unfinished_sends_total` | Number of internal requests for which sending has not finished. |
 
 ### Endpoints moved
 
@@ -384,6 +475,8 @@ substitution.
 
 ## JavaScript API
 
+### Loading and unloading of collections
+
 All collections in ArangoDB are now always in the "loaded" state. Any 
 JavaScript functions for returning a collection's status will now return 
 "loaded", unconditionally.
@@ -392,3 +485,15 @@ The JavaScript functions for loading and unloading collections (i.e.
 `db.<collection>.load()` and `db.<collection>.unload()`) have been turned 
 into no-ops. They still exist in ArangoDB 3.9, but do not serve any purpose 
 and are deprecated.
+
+### AQL queries
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+If you specify collections that don't exist in the options of AQL graph traversals
+(`vertexCollections`, `edgeCollections`), queries now fail. In previous versions,
+unknown vertex collections were ignored, and the behavior for unknown
+edge collections was undefined.
+
+Additionally, queries fail if you specify a document collection or View
+in `edgeCollections`.

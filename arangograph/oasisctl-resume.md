@@ -31,7 +31,7 @@ oasisctl resume [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl resume deployment](oasisctl-resume-deployment.html)	 - Resume a paused deployment the authenticated user has access to
 * [oasisctl resume notebook](oasisctl-resume-notebook.html)	 - Resume a notebook
 

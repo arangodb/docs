@@ -34,9 +34,11 @@ It can also be used to append a single element to an array. It is not necessary 
 it in an array (unless it is an array itself). You may also use [PUSH()](#push) instead.
 
 - **anyArray** (array): array with elements of arbitrary type
-- **values** (array\|any): array, whose elements shall be added to *anyArray*
-- **unique** (bool, *optional*): if set to *true*, only those *values* will be added
-  that are not already contained in *anyArray*. The default is *false*.
+- **values** (array\|any): array, whose elements shall be added to `anyArray`
+- **unique** (bool, *optional*): if set to `true`, all duplicate values are
+  removed from the resulting array. If `values` is an empty array or if either
+  `anyArray` or `values` is `null`, then the other input array is returned
+  unmodified. The default is `false`.
 - returns **newArray** (array): the modified array
 
 **Examples**
@@ -542,10 +544,16 @@ Return whether *search* is contained in *array*. Optionally return the position.
   *false* otherwise. If *returnIndex* is enabled, the position of the match is
   returned (positions start at 0), or *-1* if it's not found.
 
+If you want to check if a value is in an array, you can alternatively use
+the [`IN` operator](operators.html#comparison-operators), for example,
+`3 IN [1, 2, 3]` instead of `POSITION([1, 2, 3], 3)`.
+
 To determine if or at which position a string occurs in another string, see the
 [CONTAINS() string function](functions-string.html#contains).
 
 **Examples**
+
+Test whether a value is contained in an array:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlArrayPosition_1
@@ -556,6 +564,9 @@ RETURN POSITION( [2,4,6,8], 4 )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+Return the position of the match, i.e. the array index, or `-1` if the value is
+not contained in the array:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlArrayPosition_2
 @EXAMPLE_AQL{aqlArrayPosition_2}
@@ -564,6 +575,25 @@ RETURN POSITION( [2,4,6,8], 4, true )
 @endDocuBlock aqlArrayPosition_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+If you want to search a list of objects, you can use the
+[array expansion operator `[*]`](advanced-array-operators.html#array-expansion).
+For example, you can get an attribute from each object using the operator, and
+then determine the array index of the first match using the `POSITION()` function:
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayPosition_3
+@EXAMPLE_AQL{aqlArrayPosition_3}
+LET arr = [ { value: "foo" }, { value: "bar" }, { value: "baz" }, { value: "bay"} ]
+RETURN POSITION(arr[*].value, "baz", true)
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayPosition_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+If you are not interested in the actual position but only want to check for
+existence, you may use the `IN` operator instead of calling `POSITION()`, like
+`"baz" IN arr[*].value`.
 
 ## PUSH()
 

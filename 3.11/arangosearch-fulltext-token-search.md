@@ -130,3 +130,40 @@ FOR doc IN imdb
 
 The results will be the same if you use `park dinosaur` as search terms,
 as the tokens can be ordered arbitrarily.
+
+#### Example: Match a certain number of tokens
+
+Search for movies with two out of the three provided tokens in their description,
+so `dinosaur` and `scientist`, `dinosaur` and `moon`, or `scientist` and `moon`,
+in any order:
+
+_`search-alias` View:_
+
+```aql
+FOR doc IN imdb_alias
+  SEARCH TOKENS("dinosaur scientist moon", "text_en") AT LEAST (2) == doc.description
+  RETURN {
+    title: doc.title,
+    description: doc.description
+  }
+```
+
+_`arangosearch` View:_
+
+```aql
+FOR doc IN imdb
+  SEARCH ANALYZER(TOKENS("dinosaur scientist moon", "text_en") AT LEAST (2) == doc.description, "text_en")
+  RETURN {
+    title: doc.title,
+    description: doc.description
+  }
+```
+
+| title | description |
+|:------|:------------|
+| Earthstorm | A massive asteroid impact on the **moon** … a team of **scientists** turn to one man … to find a solution and secure the **moon**.
+| 100 Million BC | Modern **scientists** discover the deadly consequences of time travel when they retrieve a flesh-eating **dinosaur** …
+| The Lost World | Professor Challenger leads an expedition of **scientists** … to verify his claim that **dinosaurs** still live there.
+| The Lost World | A **scientist** discovers **dinosaurs** on a remote plateau in Mongolia.
+| By Rocket to the Moon | A **scientist** discovers that there's gold on the **moon** …
+| Doctor X | A wisecracking New York reporter intrudes on a research **scientist's** quest to unmask The **Moon** Killer.

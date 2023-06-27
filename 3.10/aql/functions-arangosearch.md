@@ -139,7 +139,7 @@ FOR doc IN viewName
   RETURN doc
 ```
 
-Despite the wrapping `ANALYZER()` function, the Analyzer name can not be
+Despite the wrapping `ANALYZER()` function, the Analyzer name cannot be
 omitted in calls to the `TOKENS()` function. Both occurrences of `text_en`
 are required, to set the Analyzer for the expression `doc.text IN ...` and
 for the `TOKENS()` function itself. This is because the `TOKENS()` function
@@ -434,13 +434,23 @@ Assuming a View with a text Analyzer, you may use it to match documents where
 the attribute contains at least two out of three tokens:
 
 ```aql
+LET t = TOKENS("quick brown fox", "text_en")
 FOR doc IN viewName
-  SEARCH ANALYZER(MIN_MATCH(doc.text == 'quick', doc.text == 'brown', doc.text == 'fox', 2), "text_en")
+  SEARCH ANALYZER(MIN_MATCH(doc.text == t[0], doc.text == t[1], doc.text == t[2], 2), "text_en")
   RETURN doc.text
 ```
 
 This will match `{ "text": "the quick brown fox" }` and `{ "text": "some brown fox" }`,
 but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
+
+Note that you can also use the `AT LEAST` [array comparison operator](operations-search.html#array-comparison-operators)
+in the specific case of matching a subset of tokens against a single attribute:
+
+```aql
+FOR doc IN viewName
+  SEARCH ANALYZER(TOKENS("quick brown fox", "text_en") AT LEAST (2) == doc.text, "text_en")
+  RETURN doc.text
+```
 
 ### MINHASH_MATCH()
 
@@ -469,11 +479,11 @@ calculation:
 
 ```aql
 LET target = "the quick brown fox jumps over the lazy dog"
-LET targetSingature = TOKENS(target, "myMinHash")
+LET targetSignature = TOKENS(target, "myMinHash")
 
 FOR doc IN viewName
   SEARCH MINHASH_MATCH(doc.text, target, 0.5, "myMinHash") // approximation
-  LET jaccard = JACCARD(targetSingature, TOKENS(doc.text, "myMinHash"))
+  LET jaccard = JACCARD(targetSignature, TOKENS(doc.text, "myMinHash"))
   FILTER jaccard > 0.75
   SORT jaccard DESC
   RETURN doc.text
@@ -1178,9 +1188,13 @@ Sorts documents using the
 
 - **doc** (document): must be emitted by `FOR ... IN viewName`
 - **k** (number, _optional_): calibrates the text term frequency scaling.
+  The value needs to be non-negative (`0.0` or higher), or the returned
+  score is an undefined value that may cause unpredictable results.
   The default is `1.2`. A `k` value of `0` corresponds to a binary model
   (no term frequency), and a large value corresponds to using raw term frequency
 - **b** (number, _optional_): determines the scaling by the total text length.
+  The value needs to be between `0.0` and `1.0` (inclusive), or the returned
+  score is an undefined value that may cause unpredictable results. 
   The default is `0.75`. At the extreme values of the coefficient `b`, BM25
   turns into the ranking functions known as:
   - BM11 for `b` = `1` (corresponds to fully scaling the term weight by the

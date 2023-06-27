@@ -1,16 +1,20 @@
 ---
 layout: default
-description: Clients normally send individual operations to ArangoDB in individualHTTP requests
+description: >-
+  The HTTP API for batch requests lets you send multiple operations in a single
+  HTTP request
 ---
-HTTP Interface for Batch Requests
-=================================
+# HTTP interface for batch requests
+
+{{ page.description }}
+{:class="lead"}
 
 {% hint 'warning' %}
 The batch request API is deprecated from version 3.8.0 on.
 This endpoint should no longer be used.
 To send multiple documents at once to an ArangoDB instance, please use the
-[HTTP Interface for Documents](document-working-with-documents.html#bulk-document-operations)
-that can insert, update, replace or remove arrays of documents.
+[HTTP interface for documents](document.html#multiple-document-operations)
+that can insert, update, replace, or remove arrays of documents.
 {% endhint %}
 
 Clients normally send individual operations to ArangoDB in individual
@@ -41,7 +45,9 @@ parts as well.
 The server expects each part message to start with exactly the
 following "header": 
 
-    Content-type: application/x-arango-batchpart
+```
+Content-type: application/x-arango-batchpart
+```
 
 You can optionally specify a *Content-Id* "header" to uniquely
 identify each part message. The server will return the *Content-Id* in
@@ -125,7 +131,7 @@ Content-Id: 1
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8
-Etag: "9514299"
+ETag: "9514299"
 Content-length: 53
 
 {"error":false,"_id":"xyz/9514299","_key":"9514299","_rev":"9514299"}
@@ -135,7 +141,7 @@ Content-Id: 2
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8
-Etag: "9579835"
+ETag: "9579835"
 Content-length: 53
 
 {"error":false,"_id":"xyz/9579835","_key":"9579835","_rev":"9579835"}
@@ -145,7 +151,7 @@ Content-Id: 3
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8
-Etag: "9645371"
+ETag: "9645371"
 Content-length: 53
 
 {"error":false,"_id":"xyz/9645371","_key":"9645371","_rev":"9645371"}
@@ -206,7 +212,7 @@ Content-type: application/x-arango-batchpart
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8
-Etag: "9841979"
+ETag: "9841979"
 Content-length: 53
 
 {"error":false,"_id":"xyz/9841979","_key":"9841979","_rev":"9841979"}
@@ -216,7 +222,7 @@ Content-length: 53
 Please note that the database used for all part operations of a batch
 request is determined by scanning the original URL (the URL that contains
 */_api/batch*). It is not possible to override the
-[database name](../appendix-glossary.html#database-name) in
+[database name](../data-modeling-databases.html#database-names) in
 part operations of a batch. When doing so, any other database name used 
 in a batch part will be ignored.
-{% docublock batch_processing %}
+{% docublock post_api_batch %}

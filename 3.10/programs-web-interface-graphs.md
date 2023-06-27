@@ -7,7 +7,7 @@ Graphs
 
 The *Graphs* tab provides a viewer facility for graph data stored in ArangoDB.
 It allows browsing ArangoDB graphs stored in the *_graphs* system collection or
-a graph consisting of an arbitrary vertex and [edge collection](appendix-glossary.html#edge-collection).
+a graph consisting of an arbitrary vertex and [edge collection](data-models.html#graph-model).
 
 ![manage graphs](images/graphsView.png)
 
@@ -55,8 +55,8 @@ Edge Highlighting (right-mouse-click node):
 
 Graph Options Menu: 
 
-- Startnode (string - valid node id or space seperated list of id's): Heart of your graph. Rendering and traversing will start from here. Empty value means: a random starting point will be used.
-- Layout: Different graph layouting algoritms. No overlap (optimal: big graph), force layout (optimal: medium graph), fruchtermann (optimal: little to medium graph).
+- Startnode (string - valid node id or space separated list of id's): Heart of your graph. Rendering and traversing will start from here. Empty value means: a random starting point will be used.
+- Layout: Different graph layouting algorithms. No overlap (optimal: big graph), Force layout (optimal: medium graph), Fruchtermann (optimal: little to medium graph).
 - Renderer: Canvas mode allows editing. WebGL currently offers only display mode (a lot faster with much nodes/edges).
 - Search depth (number): Search depth which is starting from your start node. 
 - Limit (number): Limit nodes count. If empty or zero, no limit is set.

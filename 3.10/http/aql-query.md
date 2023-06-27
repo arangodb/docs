@@ -1,55 +1,240 @@
 ---
 layout: default
-description: ArangoDB has an HTTP interface to syntactically validate AQL queries
+description: >-
+  The HTTP API for AQL queries lets you to execute, track, kill, explain, and
+  validate queries written in ArangoDB's query language
+redirect_from:
+  - aql-query-cursor.html # 3.10 -> 3.10
+  - aql-query-cursor-query-results.html # 3.10 -> 3.10
+  - aql-query-cursor-accessing-cursors.html # 3.10 -> 3.10
 ---
-HTTP Interface for AQL Queries
-==============================
+# HTTP interfaces for AQL queries
 
-### Explaining and parsing queries
+{{ page.description }}
+{:class="lead"}
 
-ArangoDB has an HTTP interface to syntactically validate AQL queries.
-Furthermore, it offers an HTTP interface to retrieve the execution plan for any
-valid AQL query.
+## Cursors
 
-Both functionalities do not actually execute the supplied AQL query, but only
-inspect it and return meta information about it.
+Results of AQL queries are returned as cursors in order to batch the communication
+between server and client. Each batch contains a number of documents and an
+indication if the current batch is the final batch. Depending on the query, the
+total number of documents in the result set may or may not be known in advance.
+
+If the number of documents doesn't exceed the batch size, the full query result
+is returned to the client in a single round-trip. If there are more documents,
+then the first batch is returned to the client and the client needs to use the
+cursor to retrieve the other batches.
+
+In order to free up server resources, the client should delete a cursor as soon
+as it is no longer needed.
+
+### Single roundtrip
+
+The server only transfers a certain number of result documents back to the
+client in one roundtrip. This number is controllable by the client by setting
+the `batchSize` attribute when issuing the query.
+
+If the complete result can be transferred to the client in one go, the client
+does not need to issue any further request. The client can check whether it has
+retrieved the complete result set by checking the `hasMore` attribute of the
+result set. If it is set to `false`, then the client has fetched the complete
+result set from the server. In this case, no server-side cursor is created.
+
+```js
+> curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
+{ "query" : "FOR u IN users LIMIT 2 RETURN u", "count" : true, "batchSize" : 2 }
+
+HTTP/1.1 201 Created
+Content-type: application/json
+
+{
+  "hasMore" : false,
+  "error" : false,
+  "result" : [
+    {
+      "name" : "user1",
+      "_rev" : "210304551",
+      "_key" : "210304551",
+      "_id" : "users/210304551"
+    },
+    {
+      "name" : "user2",
+      "_rev" : "210304552",
+      "_key" : "210304552",
+      "_id" : "users/210304552"
+    }
+  ],
+  "code" : 201,
+  "count" : 2
+}
+```
+
+### Using a cursor
+
+If the result set contains more documents than should be transferred in a single
+roundtrip (i.e. as set via the `batchSize` attribute), the server returns
+the first few documents and creates a temporary cursor. The cursor identifier
+is also returned to the client. The server puts the cursor identifier
+in the `id` attribute of the response object. Furthermore, the `hasMore`
+attribute of the response object is set to `true`. This is an indication
+for the client that there are additional results to fetch from the server.
+
+**Examples**
+
+Create and extract first batch:
+
+```js
+> curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
+{ "query" : "FOR u IN users LIMIT 5 RETURN u", "count" : true, "batchSize" : 2 }
+
+HTTP/1.1 201 Created
+Content-type: application/json
+
+{
+  "hasMore" : true,
+  "error" : false,
+  "id" : "26011191",
+  "result" : [
+    {
+      "name" : "user1",
+      "_rev" : "258801191",
+      "_key" : "258801191",
+      "_id" : "users/258801191"
+    },
+    {
+      "name" : "user2",
+      "_rev" : "258801192",
+      "_key" : "258801192",
+      "_id" : "users/258801192"
+    }
+  ],
+  "code" : 201,
+  "count" : 5
+}
+```
+
+Extract next batch, still have more:
+
+```js
+> curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
+
+HTTP/1.1 200 OK
+Content-type: application/json
+
+{
+  "hasMore" : true,
+  "error" : false,
+  "id" : "26011191",
+  "result": [
+    {
+      "name" : "user3",
+      "_rev" : "258801193",
+      "_key" : "258801193",
+      "_id" : "users/258801193"
+    },
+    {
+      "name" : "user4",
+      "_rev" : "258801194",
+      "_key" : "258801194",
+      "_id" : "users/258801194"
+    }
+  ],
+  "code" : 200,
+  "count" : 5
+}
+```
+
+Extract next batch, done:
+
+```js
+> curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
+
+HTTP/1.1 200 OK
+Content-type: application/json
+
+{
+  "hasMore" : false,
+  "error" : false,
+  "result" : [
+    {
+      "name" : "user5",
+      "_rev" : "258801195",
+      "_key" : "258801195",
+      "_id" : "users/258801195"
+    }
+  ],
+  "code" : 200,
+  "count" : 5
+}
+```
+
+Do not do this because `hasMore` now has a value of false:
+
+```js
+> curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
+
+HTTP/1.1 404 Not Found
+Content-type: application/json
+
+{
+  "errorNum": 1600,
+  "errorMessage": "cursor not found: disposed or unknown cursor",
+  "error": true,
+  "code": 404
+}
+```
+
+If you are no longer interested in the results of a query, you can call the
+`DELETE /_api/cursor/<cursor-id>` endpoint as long as a cursor exists to discard
+the cursor so that the server doesn't unnecessarily keep the results until the
+cursor times out (`ttl` query option).
+
+```js
+curl -X DELETE --dump http://localhost:8529/_api/cursor/26011191
+
+{
+  "id":"3517",
+  "error":false,
+  "code":202
+}
+```
+
+## Execute AQL queries
+
+{% docublock post_api_cursor %}
+{% docublock post_api_cursor_cursor %}
+{% docublock put_api_cursor_cursor %}
+{% docublock delete_api_cursor_cursor %}
+
+## Track queries
+
+You can track AQL queries by enabling query tracking. This allows you to list
+all currently executing queries. You can also list slow queries and clear this
+list.
+
+{% docublock get_api_query_properties %}
+{% docublock put_api_query_properties %}
+{% docublock get_api_query_current %}
+{% docublock get_api_query_slow %}
+{% docublock delete_api_query_slow %}
+
+## Kill queries
+
+Running AQL queries can be killed on the server. To kill a running query, its ID
+(as returned for the query in the list of currently running queries) must be
+specified. The kill flag of the query is then set, and the query is aborted as
+soon as it reaches a cancelation point.
+
+{% docublock delete_api_query_query %}
+
+## Explain and parse AQL queries
+
+You can retrieve the execution plan for any valid AQL query, as well as
+syntactically validate AQL queries. Both functionalities don't actually execute
+the supplied AQL query, but only inspect it and return meta information about it.
 
 You can also retrieve a list of all query optimizer rules and their properties.
 
-<!-- js/actions/api-explain.js -->
 {% docublock post_api_explain %}
-{% docublock PostApiQueryProperties %}
-
-{% docublock GetApiQueryRules %}
-
-### Query tracking
-
-ArangoDB has an HTTP interface for retrieving the lists of currently
-executing AQL queries and the list of slow AQL queries. In order to make meaningful
-use of these APIs, query tracking needs to be enabled in the database the HTTP 
-request is executed for.
-
-<!--arangod/RestHandler/RestQueryHandler.cpp -->
-{% docublock GetApiQueryProperties %}
-
-<!--arangod/RestHandler/RestQueryHandler.cpp -->
-{% docublock PutApiQueryProperties %}
-
-<!--arangod/RestHandler/RestQueryHandler.cpp -->
-{% docublock GetApiQueryCurrent %}
-
-<!--arangod/RestHandler/RestQueryHandler.cpp -->
-{% docublock GetApiQuerySlow %}
-
-<!--arangod/RestHandler/RestQueryHandler.cpp -->
-{% docublock DeleteApiQuerySlow %}
-
-### Killing queries
-
-Running AQL queries can also be killed on the server. ArangoDB provides a kill facility
-via an HTTP interface. To kill a running query, its id (as returned for the query in the
-list of currently running queries) must be specified. The kill flag of the query will
-then be set, and the query will be aborted as soon as it reaches a cancelation point.
-
-<!--arangod/RestHandler/RestQueryHandler.cpp -->
-{% docublock DeleteApiQueryKill %}
+{% docublock post_api_query %}
+{% docublock get_api_query_rules %}

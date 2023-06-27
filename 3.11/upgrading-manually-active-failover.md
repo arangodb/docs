@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This page will guide you through the process of a manual upgrade of an Active Failoversetup
+description: This page will guide you through the process of a manual upgrade of an Active Failover setup
 ---
 Manually Upgrading an _Active Failover_ Deployment
 =========================================
@@ -12,7 +12,7 @@ should also stay fairly low.
 
 The manual upgrade procedure described in this section can be used to upgrade
 to a new hotfix version, or to perform an upgrade to a new minor version of ArangoDB.
-Please refer to the [Upgrade Paths](upgrading.html#upgrade-paths) section
+Please refer to the [Upgrade paths](upgrading.html#upgrade-paths) section
 for detailed information.
 
 Preparations
@@ -29,6 +29,11 @@ well as the socket used by the standalone instance provided by the package are
 separate from the ones in your _Active Failover_ configuration. Also, that you haven't
 modified the init script or systemd unit file for the standalone instance in a way
 that it would start or stop your  _Active Failover_ instance instead.
+
+{% hint 'warning' %}
+It is highly recommended to take a backup of your data before upgrading ArangoDB
+using [_arangodump_](programs-arangodump.html).
+{% endhint %}
 
 ### Install the new ArangoDB version binary
 

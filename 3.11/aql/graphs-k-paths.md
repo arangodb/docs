@@ -130,7 +130,7 @@ FOR path
   - **max** (number, *optional*): paths returned by this query will
     have at most a length of *max* many edges.
     If omitted, *max* defaults to *min*. Thus only the vertices and edges in
-    the range of *min* are returned. *max* can not be specified without *min*.
+    the range of *min* are returned. *max* cannot be specified without *min*.
 - `OUTBOUND|INBOUND|ANY`: defines in which direction
   edges are followed (outgoing, incoming, or both)
 - `K_PATHS`: the keyword to compute all Paths
@@ -191,7 +191,7 @@ train connections in Europe and North America.
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKP_01_create_graph}
     ~addIgnoreCollection("places");
     ~addIgnoreCollection("connections");
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var graph = examples.loadGraph("kShortestPathsGraph");
     db.places.toArray();
     db.connections.toArray();
@@ -234,7 +234,7 @@ And finally clean up by removing the named graph:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHKP_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKP_99_drop_graph}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     examples.dropGraph("kShortestPathsGraph");
     ~removeIgnoreCollection("places");
     ~removeIgnoreCollection("connections");

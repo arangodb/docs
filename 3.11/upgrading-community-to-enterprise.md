@@ -1,6 +1,6 @@
 ---
 layout: default
-description: While migrating from the Community to the Enterprise Edition is supported, installing directly the Enterprise package over the Community package is notsupported
+description: While migrating from the Community to the Enterprise Edition is supported, installing directly the Enterprise package over the Community package is not supported
 ---
 Community to Enterprise Upgrade Procedure
 =========================================
@@ -19,12 +19,12 @@ was running under the Enterprise Edition, do not make easily possible the
 conversion of some database structures.
 {% endhint %}
 
-Upgrading from the Community to the Enterprise Edition requires unistallation of
+Upgrading from the Community to the Enterprise Edition requires uninstallation of
 the Community package (can be done in a way that the database data are preserved)
 and installation of the Enterprise package. The upgrade can be done in a
 [_logical_](#procedure-for-a-logical-upgrade) or 
 [_in-place_](#procedure-for-an-in-place-upgrade) way. Please refer to the
-[Upgrade Methods](upgrading.html#upgrade-methods) section for a general
+[Upgrade methods](upgrading.html#upgrade-methods) section for a general
 description of the two methods. Refer to the sections below for a detailed
 procedure.
 
@@ -34,7 +34,7 @@ For more information about setting a license key, see [License Management](admin
 Procedure for a _Logical_ Upgrade
 ---------------------------------
 
-1. Use the tool [_arangodump_](programs-arangodump.html) to take a backup
+1. Use the tool [_arangodump_](programs-arangodump.html) to **take a backup**
    of your data stored by your Community Edition installation
 2. Uninstall the ArangoDB Community Edition package
 3. Install the ArangoDB Enterprise Edition package
@@ -51,7 +51,7 @@ Procedure for an _In-Place_ Upgrade
 2. Uninstall the ArangoDB Community Edition package (make sure this is done in a way that
    your database is kept on your disk, e.g. on _Debian_ systems do **not** use the
    _purge_ option of _dpkg_ or, on Windows, do **not** check the "_Delete databases with
-   unistallation?_" option)
+   uninstallation?_" option)
 3. Install the ArangoDB Enterprise Edition package
 4. If you are moving from version A to version B, where B > A, start _arangod_ on
    your data directory with the option `--database.auto-upgrade` (in addition to

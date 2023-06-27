@@ -11,7 +11,7 @@ UPDATE
 {:class="lead"}
 
 Each `UPDATE` operation is restricted to a single collection, and the
-[collection name](../appendix-glossary.html#collection-name) must not be dynamic.
+[collection name](../data-modeling-collections.html#collection-names) must not be dynamic.
 Only a single `UPDATE` statement per collection is allowed per AQL query, and
 it cannot be followed by read or write operations that access the same collection,
 by traversal operations, or AQL functions that can read documents.
@@ -269,10 +269,11 @@ to change them are ignored and not considered errors.
 
 ### `keepNull`
 
-When updating an attribute to the `null` value, ArangoDB does not remove the attribute 
-from the document but stores this `null` value. To remove attributes in an update
-operation, set them to `null` and set the `keepNull` option to `false`. This removes
-the attributes you specify but not any previously stored attributes with the `null` value:
+When updating an attribute to the `null` value, ArangoDB does not remove the
+attribute from the document but stores this `null` value. To remove attributes
+in an update operation, set them to `null` and set the `keepNull` option to
+`false`. This removes the attributes you specify but not any previously stored
+attributes with the `null` value:
 
 ```aql
 FOR u IN users
@@ -282,6 +283,10 @@ FOR u IN users
 
 The above query removes the `notNeeded` attribute from the documents and updates
 the `foobar` attribute normally.
+
+Only top-level attributes and sub-attributes can be removed this way
+(e.g. `{ attr: { sub: null } }`) but not attributes of objects that are nested
+inside of arrays (e.g. `{ attr: [ { nested: null } ] }`).
 
 ### `mergeObjects`
 

@@ -1,0 +1,34 @@
+arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">&quot;users&quot;</span>, {
+........&gt;   computedValues: [
+........&gt;     {
+........&gt;       name: <span class="hljs-string">&quot;name&quot;</span>,
+........&gt;       expression: <span class="hljs-string">&quot;RETURN IS_STRING(@doc.name.first) AND IS_STRING(@doc.name.last) ? MERGE(@doc.name, { &#x27;full&#x27;: CONCAT_SEPARATOR(&#x27; &#x27;, @doc.name.first, @doc.name.last) }) : @doc.name&quot;</span>,
+........&gt;       overwrite: <span class="hljs-literal">true</span> <span class="hljs-comment">// must be true to replace the top-level &quot;name&quot; attribute</span>
+........&gt;     }
+........&gt;   ]
+........&gt; });
+arangosh&gt; <span class="hljs-keyword">var</span> docs = db.users.save([
+........&gt;   { <span class="hljs-attr">name</span>: { <span class="hljs-attr">first</span>: <span class="hljs-string">&quot;James&quot;</span> } },
+........&gt;   { <span class="hljs-attr">name</span>: { <span class="hljs-attr">first</span>: <span class="hljs-string">&quot;Paula&quot;</span>, <span class="hljs-attr">last</span>: <span class="hljs-string">&quot;Plant&quot;</span> } }
+........&gt; ]);
+arangosh&gt; db.users.toArray();
+[ 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73884&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/73884&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gNfOKie---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : { 
+      <span class="hljs-string">&quot;first&quot;</span> : <span class="hljs-string">&quot;James&quot;</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73885&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/73885&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gNfOKie--_&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : { 
+      <span class="hljs-string">&quot;first&quot;</span> : <span class="hljs-string">&quot;Paula&quot;</span>, 
+      <span class="hljs-string">&quot;last&quot;</span> : <span class="hljs-string">&quot;Plant&quot;</span>, 
+      <span class="hljs-string">&quot;full&quot;</span> : <span class="hljs-string">&quot;Paula Plant&quot;</span> 
+    } 
+  } 
+]

@@ -118,7 +118,7 @@ One may hold a multitude of hot backups. Those would all be available
 to restore from. In order to get a listing of such hot backups, one
 may use the `list` command.
 
-```bash 
+```bash
 arangobackup list
 ```
 
@@ -285,7 +285,7 @@ as a key value pair for the JSON files below, `{ ..., "upload_cutoff": 0, ... }`
 
 ### S3
 
-```bash 
+```bash
 … --rclone-config-file ~/my-s3.json --remote-path my-s3://remote-endpoint/remote-directory
 ```
 
@@ -310,7 +310,7 @@ More examples and details for S3 configurations can be found at
 
 ### Locally mounted local or remote volumes
 
-```bash 
+```bash
 … --rclone-config-file ~/my-local.json --remote-path my-local://mnt/backup/arangodb
 ```
 
@@ -332,11 +332,11 @@ More examples and details for local configurations can be found at
 
 ### WebDAV
 
-```bash 
+```bash
 … --rclone-config-file ~/my-dav.json --remote-path my-dav://remote-endpoint/remote-directory
 ```
 
-Thie file `my-dav.json` could look like this:
+This file `my-dav.json` could look like this:
 
 ```json
 {

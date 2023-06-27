@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Development mode allows developers to make changes to deployed servicesin-place directly on the database server's file system without downloadingand re-uploading the service bundle
+description: Development mode allows developers to make changes to deployed services in-place directly on the database server's file system without downloading and re-uploading the service bundle
 ---
 Development mode
 ================
@@ -12,7 +12,7 @@ of service prototypes or diagnosing complex problems.
 
 You can toggle development mode on and off using
 the [Foxx CLI](programs-foxx-cli.html),
-the [HTTP API](http/foxx-miscellaneous.html) or
+the [HTTP API](http/foxx.html#miscellaneous) or
 in the service settings tab of the web interface.
 
 {% hint 'info' %}

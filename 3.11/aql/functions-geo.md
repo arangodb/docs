@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The following helper functions can use geo indexes, but do not have to inall cases
+description: The following helper functions can use geo indexes, but do not have to in all cases
 ---
 Geo functions
 =============
@@ -17,23 +17,23 @@ see [Geo Indexing](../indexing-geo.html).
 
 `DISTANCE(latitude1, longitude1, latitude2, longitude2) → distance`
 
-Calculate the distance between two arbitrary coordinates in meters (as birds
+Calculate the distance between two arbitrary points in meters (as birds
 would fly). The value is computed using the haversine formula, which is based
 on a spherical Earth model. It's fast to compute and is accurate to around 0.3%,
 which is sufficient for most use cases such as location-aware services.
 
-- **latitude1** (number): the latitude portion of the first coordinate
-- **longitude1** (number): the longitude portion of the first coordinate
-- **latitude2** (number): the latitude portion of the second coordinate
-- **longitude2** (number): the longitude portion of the second coordinate
-- returns **distance** (number): the distance between both coordinates in **meters**
+- **latitude1** (number): the latitude of the first point
+- **longitude1** (number): the longitude of the first point
+- **latitude2** (number): the latitude of the second point
+- **longitude2** (number): the longitude of the second point
+- returns **distance** (number): the distance between both points in **meters**
 
 ```aql
 // Distance from Brandenburg Gate (Berlin) to ArangoDB headquarters (Cologne)
 DISTANCE(52.5163, 13.3777, 50.9322, 6.94) // 476918.89688380965 (~477km)
 
 // Sort a small number of documents based on distance to Central Park (New York)
-FOR doc IN doc // e.g. documents returned by a traversal
+FOR doc IN coll // e.g. documents returned by a traversal
   SORT DISTANCE(doc.latitude, doc.longitude, 40.78, -73.97)
   RETURN doc
 ```
@@ -47,9 +47,11 @@ fully contains `geoJsonB` (every point in B is also in A). The object `geoJsonA`
 has to be of type _Polygon_ or _MultiPolygon_. For other types containment is
 not well-defined because of numerical stability problems.
 
-- **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
-- **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
-- returns **bool** (bool): true if every point in B is also contained in A, false otherwise
+- **geoJsonA** (object): first GeoJSON object
+- **geoJsonB** (object): second GeoJSON object, or a coordinate array in
+  `[longitude, latitude]` order
+- returns **bool** (bool): `true` if every point in B is also contained in A,
+  otherwise `false`
 
 {% hint 'info' %}
 ArangoDB follows and exposes the same behavior as the underlying
@@ -84,16 +86,18 @@ second argument. Passing it as the first argument, like
 
 `GEO_DISTANCE(geoJsonA, geoJsonB, ellipsoid) → distance`
 
-Return the distance between two GeoJSON objects, measured from the **centroid**
-of each shape. For a list of supported types see the
+Return the distance between two GeoJSON objects in meters, measured from the
+**centroid** of each shape. For a list of supported types see the
 [geo index page](../indexing-geo.html#geojson).
 
-- **geoJsonA** (object): first GeoJSON object
-- **geoJsonB** (object): second GeoJSON object
+- **geoJsonA** (object): first GeoJSON object, or a coordinate array in
+  `[longitude, latitude]` order
+- **geoJsonB** (object): second GeoJSON object, or a coordinate array in
+  `[longitude, latitude]` order
 - **ellipsoid** (string, *optional*): reference ellipsoid to use.
   Supported are `"sphere"` (default) and `"wgs84"`.
 - returns **distance** (number): the distance between the centroid points of
-  the two objects on the reference ellipsoid
+  the two objects on the reference ellipsoid in **meters**
 
 ```aql
 LET polygon = {
@@ -146,7 +150,7 @@ see the [geo index page](../indexing-geo.html#geojson).
 - **geoJson** (object): a GeoJSON object
 - **ellipsoid** (string, *optional*): reference ellipsoid to use.
   Supported are `"sphere"` (default) and `"wgs84"`.
-- returns **area** (number): the area in square meters of the polygon
+- returns **area** (number): the area of the polygon in **square meters**
 
 ```aql
 LET polygon = {
@@ -163,9 +167,9 @@ RETURN GEO_AREA(polygon, "wgs84")
 Checks whether two GeoJSON objects are equal or not. For a list of supported
 types see the [geo index page](../indexing-geo.html#geojson).
 
-- **geoJsonA** (object): first GeoJSON object
+- **geoJsonA** (object): first GeoJSON object.
 - **geoJsonB** (object): second GeoJSON object.
-- returns **bool** (bool): true for equality.
+- returns **bool** (bool): `true` if they are equal, otherwise `false`.
 
 ```aql
 LET polygonA = GEO_POLYGON([
@@ -192,10 +196,11 @@ RETURN GEO_EQUALS(polygonA, polygonB) // false
 `GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
 
 Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
-intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa).
+intersects with `geoJsonB` (i.e. at least one point in B is also in A or vice-versa).
 
 - **geoJsonA** (object): first GeoJSON object
-- **geoJsonB** (object): second GeoJSON object.
+- **geoJsonB** (object): second GeoJSON object, or a coordinate array in
+  `[longitude, latitude]` order
 - returns **bool** (bool): true if B intersects A, false otherwise
 
 You can optimize queries that contain a `FILTER` expression of the following
@@ -225,10 +230,10 @@ Checks whether the distance between two [GeoJSON objects](../indexing-geo.html#g
 lies within a given interval. The distance is measured from the **centroid** of
 each shape.
 
-- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
-  (in longitude, latitude order)
+- **geoJsonA** (object\|array): first GeoJSON object, or a coordinate array
+  in `[longitude, latitude]` order
+- **geoJsonB** (object\|array): second GeoJSON object, or a coordinate array
+  in `[longitude, latitude]` order
 - **low** (number): minimum value of the desired range
 - **high** (number): maximum value of the desired range
 - **includeLow** (bool, optional): whether the minimum value shall be included
@@ -241,27 +246,27 @@ each shape.
 
 ### IS_IN_POLYGON()
 
-Determine whether a coordinate is inside a polygon.
+Determine whether a point is inside a polygon.
 
 {% hint 'warning' %}
-The *IS_IN_POLYGON* AQL function is **deprecated** as of ArangoDB 3.4.0 in
-favor of the new `GEO_CONTAINS` AQL function, which works with
+The `IS_IN_POLYGON()` AQL function is **deprecated** as of ArangoDB 3.4.0 in
+favor of the new [`GEO_CONTAINS()` AQL function](#geo_contains), which works with
 [GeoJSON](https://tools.ietf.org/html/rfc7946){:target="_blank"} Polygons and MultiPolygons.
 {% endhint %}
 
 `IS_IN_POLYGON(polygon, latitude, longitude) → bool`
 
 - **polygon** (array): an array of arrays with 2 elements each, representing the
-  points of the polygon in the format *[lat, lon]*
-- **latitude** (number): the latitude portion of the search coordinate
-- **longitude** (number): the longitude portion of the search coordinate
-- returns **bool** (bool): *true* if the point (*latitude*, *longitude*) is
-  inside the *polygon* or *false* if it's not. The result is undefined (can be
-  *true* or *false*) if the specified point is exactly on a boundary of the
+  points of the polygon in the format `[latitude, longitude]`
+- **latitude** (number): the latitude of the point to search
+- **longitude** (number): the longitude of the point to search
+- returns **bool** (bool): `true` if the point (`[latitude, longitude]`) is
+  inside the `polygon` or `false` if it's not. The result is undefined (can be
+  `true` or `false`) if the specified point is exactly on a boundary of the
   polygon.
 
 ```aql
-// will check if the point (lat 4, lon 7) is contained inside the polygon
+// checks if the point (latitude 4, longitude 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], 4, 7 )
 ```
 
@@ -271,27 +276,27 @@ IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], 4, 7 )
 
 The 2nd parameter can alternatively be specified as an array with two values.
 
-By default, each array element in *polygon* is expected to be in the format
-*[lat, lon]*. This can be changed by setting the 3rd parameter to *true* to
-interpret the points as *[lon, lat]*. *coord* will then also be interpreted in
+By default, each array element in `polygon` is expected to be in the format
+`[latitude, longitude]`. This can be changed by setting the 3rd parameter to `true` to
+interpret the points as `[longitude, latitude]`. `coord` is then also interpreted in
 the same way.
 
 - **polygon** (array): an array of arrays with 2 elements each, representing the
   points of the polygon
-- **coord** (array): the search coordinate as a number array with two elements
-- **useLonLat** (bool, *optional*): if set to *true*, the coordinates in
-  *polygon* and the search coordinate *coord* will be interpreted as
-  *[lon, lat]* (GeoJSON). The default is *false* and the format *[lat, lon]* is
-  expected.
-- returns **bool** (bool): *true* if the point *coord* is inside the *polygon*
-  or *false* if it's not. The result is undefined (can be *true* or *false*) if
+- **coord** (array): the point to search as a numeric array with two elements
+- **useLonLat** (bool, *optional*): if set to `true`, the coordinates in
+  `polygon` and the coordinate pair `coord` are interpreted as
+  `[longitude, latitude]` (like in GeoJSON). The default is `false` and the
+  format `[latitude, longitude]` is expected.
+- returns **bool** (bool): `true` if the point `coord` is inside the `polygon`
+  or `false` if it's not. The result is undefined (can be `true` or `false`) if
   the specified point is exactly on a boundary of the polygon.
 
 ```aql
-// will check if the point (lat 4, lon 7) is contained inside the polygon
+// checks if the point (lat 4, lon 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], [ 4, 7 ] )
 
-// will check if the point (lat 4, lon 7) is contained inside the polygon
+// checks if the point (lat 4, lon 7) is contained inside the polygon
 IS_IN_POLYGON( [ [ 0, 0 ], [ 10, 0 ], [ 10, 10 ], [ 0, 10 ] ], [ 7, 4 ], true )
 ```
 
@@ -309,7 +314,7 @@ will help you to make all your AQL queries shorter and easier to read.
 Construct a GeoJSON LineString.
 Needs at least two longitude/latitude pairs.
 
-- **points** (array): number array of longitude/latitude pairs
+- **points** (array): an array of `[longitude, latitude]` pairs
 - returns **geoJson** (object): a valid GeoJSON LineString
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -351,7 +356,7 @@ RETURN GEO_MULTILINESTRING([
 
 Construct a GeoJSON LineString. Needs at least two longitude/latitude pairs.
 
-- **points** (array): number array of longitude/latitude pairs
+- **points** (array): an array of `[longitude, latitude]` pairs
 - returns **geoJson** (object): a valid GeoJSON Point
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -395,7 +400,7 @@ any subsequent linear ring will be interpreted as holes.
 
 For details about the rules, see [GeoJSON polygons](../indexing-geo.html#polygon).
 
-- **points** (array): array of (arrays of) longitude/latitude pairs
+- **points** (array): an array of (arrays of) `[longitude, latitude]` pairs
 - returns **geoJson** (object\|null): a valid GeoJSON Polygon
 
 A validation step is performed using the S2 geometry library. If the
@@ -408,7 +413,7 @@ Simple Polygon:
 @startDocuBlockInline aqlGeoPolygon_1
 @EXAMPLE_AQL{aqlGeoPolygon_1}
 RETURN GEO_POLYGON([
-    [0.0, 0.0], [7.5, 2.5], [0.0, 5.0]
+    [0.0, 0.0], [7.5, 2.5], [0.0, 5.0], [0.0, 0.0]
 ])
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoPolygon_1
@@ -436,7 +441,7 @@ RETURN GEO_POLYGON([
 Construct a GeoJSON MultiPolygon. Needs at least two Polygons inside.
 See [GEO_POLYGON()](#geo_polygon) and [GeoJSON MultiPolygons](../indexing-geo.html#multipolygon) for the rules of Polygon and MultiPolygon construction.
 
-- **polygons** (array): array of arrays of array of longitude/latitude pairs
+- **polygons** (array): an array of arrays of arrays of `[longitude, latitude]` pairs
 - returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon
 
 A validation step is performed using the S2 geometry library, if the
@@ -480,11 +485,11 @@ the query however.
 ### NEAR()
 
 {% hint 'warning' %}
-`NEAR` is a deprecated AQL function from version 3.4.0 on.
-Use [DISTANCE()](#distance) in a query like this instead:
+`NEAR()` is a deprecated AQL function from version 3.4.0 on.
+Use [`DISTANCE()`](#distance) in a query like this instead:
 
 ```aql
-FOR doc IN doc
+FOR doc IN coll
   SORT DISTANCE(doc.latitude, doc.longitude, paramLatitude, paramLongitude) ASC
   RETURN doc
 ```
@@ -497,32 +502,32 @@ optimizer will recognize it and accelerate the query.
 Return at most *limit* documents from collection *coll* that are near
 *latitude* and *longitude*. The result contains at most *limit* documents,
 returned sorted by distance, with closest distances being returned first.
-Optionally, the distances in meters between the specified coordinate
-(*latitude* and *longitude*) and the document coordinates can be returned as
+Optionally, the distances in meters between the specified coordinate pair
+(*latitude* and *longitude*) and the stored coordinate pairs can be returned as
 well. To make use of that, the desired attribute  name for the distance result
 has to be specified in the *distanceName* argument. The result documents will
 contain the distance value in an attribute of that name.
 
 - **coll** (collection): a collection
-- **latitude** (number): the latitude portion of the search coordinate
-- **longitude** (number): the longitude portion of the search coordinate
+- **latitude** (number): the latitude of the point to search
+- **longitude** (number): the longitude of the point to search
 - **limit** (number, *optional*): cap the result to at most this number of
   documents. The default is 100. If more documents than *limit* are found,
   it is undefined which ones will be returned.
-- **distanceName** (string, *optional*): include the distance to the search
-  coordinate in each document in the result (in meters), using the attribute
-  name *distanceName*
+- **distanceName** (string, *optional*): include the distance (in meters)
+  between the reference point and the stored point in the result, using the
+  attribute name *distanceName*
 - returns **docArray** (array): an array of documents, sorted by distance
   (shortest distance first)
 
 ### WITHIN()
 
 {% hint 'warning' %}
-`WITHIN` is a deprecated AQL function from version 3.4.0 on.
-Use [DISTANCE()](#distance) in a query like this instead:
+`WITHIN()` is a deprecated AQL function from version 3.4.0 on.
+Use [`DISTANCE()`](#distance) in a query like this instead:
 
 ```aql
-FOR doc IN doc
+FOR doc IN coll
   LET d = DISTANCE(doc.latitude, doc.longitude, paramLatitude, paramLongitude)
   FILTER d <= radius
   SORT d ASC
@@ -536,36 +541,45 @@ optimizer will recognize it and accelerate the query.
 `WITHIN(coll, latitude, longitude, radius, distanceName) → docArray`
 
 Return all documents from collection *coll* that are within a radius of *radius*
-around the specified coordinate (*latitude* and *longitude*). The documents
-returned are sorted by distance to the search coordinate, with the closest
-distances being returned first. Optionally, the distance in meters between the
-search coordinate and the document coordinates can be returned as well. To make
+around the specified coordinate pair (*latitude* and *longitude*). The documents
+returned are sorted by distance to the reference point, with the closest
+distances being returned first. Optionally, the distance (in meters) between the
+reference point and the stored point can be returned as well. To make
 use of that, an attribute name for the distance result has to be specified in
 the *distanceName* argument. The result documents will contain the distance
 value in an attribute of that name.
 
 - **coll** (collection): a collection
-- **latitude** (number): the latitude portion of the search coordinate
-- **longitude** (number): the longitude portion of the search coordinate
+- **latitude** (number): the latitude of the point to search
+- **longitude** (number): the longitude of the point to search
 - **radius** (number): radius in meters
-- **distanceName** (string, *optional*): include the distance to the search
-  coordinate in each document in the result (in meters), using the attribute
-  name *distanceName*
+- **distanceName** (string, *optional*): include the distance (in meters)
+  between the reference point and stored point in the result, using the
+  attribute name *distanceName*
 - returns **docArray** (array): an array of documents, sorted by distance
   (shortest distance first)
 
 ### WITHIN_RECTANGLE()
 
 {% hint 'warning' %}
-`WITHIN_RECTANGLE` is a deprecated AQL function from version 3.4.0 on. Use
-[GEO_CONTAINS](#geo_contains) and a GeoJSON polygon instead:
+`WITHIN_RECTANGLE()` is a deprecated AQL function from version 3.4.0 on. Use
+[`GEO_CONTAINS()`](#geo_contains) and a GeoJSON polygon instead - but note that
+this uses geodesic lines from version 3.10.0 onward
+(see [GeoJSON interpretation](../indexing-geo.html#geojson-interpretation)):
 
 ```aql
-LET rect = {type: "Polygon", coordinates: [[[longitude1, latitude1], ...]]]}
-FOR doc IN doc
-  FILTER GEO_CONTAINS(poly, [doc.longitude, doc.latitude])
+LET rect = GEO_POLYGON([ [
+  [longitude1, latitude1], // bottom-left
+  [longitude2, latitude1], // bottom-right
+  [longitude2, latitude2], // top-right
+  [longitude1, latitude2], // top-left
+  [longitude1, latitude1], // bottom-left
+] ])
+FOR doc IN coll
+  FILTER GEO_CONTAINS(rect, [doc.longitude, doc.latitude])
   RETURN doc
 ```
+
 Assuming there exists a geo-type index on `latitude` and `longitude`, the
 optimizer will recognize it and accelerate the query.
 {% endhint %}
@@ -577,12 +591,8 @@ bounding rectangle with the points (*latitude1*, *longitude1*) and (*latitude2*,
 *longitude2*). There is no guaranteed order in which the documents are returned.
 
 - **coll** (collection): a collection
-- **latitude1** (number): the bottom-left latitude portion of the search
-  coordinate
-- **longitude1** (number): the bottom-left longitude portion of the search
-  coordinate
-- **latitude2** (number): the top-right latitude portion of the search
-  coordinate
-- **longitude2** (number): the top-right longitude portion of the search
-  coordinate
+- **latitude1** (number): the latitude of the bottom-left point to search
+- **longitude1** (number): the longitude of the bottom-left point to search
+- **latitude2** (number): the latitude of the top-right point to search
+- **longitude2** (number): the longitude of the top-right point to search
 - returns **docArray** (array): an array of documents, in random order

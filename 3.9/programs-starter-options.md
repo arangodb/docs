@@ -7,7 +7,7 @@ description: The ArangoDB Starter provides a lot of options to control various a
 The ArangoDB Starter provides a lot of options to control various aspects
 of the cluster or database you want to run.
 
-Below you'll find a list of all options and their semantics.
+Below you find a list of all options and their meanings.
 
 ## Common options
 
@@ -15,16 +15,18 @@ Below you'll find a list of all options and their semantics.
 
 `path` is the directory in which all data is stored. (default "./")
 
-In the directory, there will be a single file `setup.json` used for
-restarts and a directory for each instances that runs on this machine.
+In the directory, a `setup.json` file is created, which is used for restarts,
+as well as a directory for each instance that runs on this machine.
 Different instances of `arangodb` must use different data directories.
 
 - `--starter.join=address`
 
-Join a cluster with master at address `address` (default "").
-Address can be an host address or name, followed with an optional port.
+Join a cluster with the leader (_master_) Starter at address `address` (default "").
+You can also point to any other Starter that is connected to the initial Starter.
+The address can be a host address or name, optionally followed by a port number
+to match another Starter's `--starter.port` if it is not the default `8528`.
 
-E.g. these are valid arguments.
+These are valid arguments, for example:
 
 ```bash
 --starter.join=localhost
@@ -32,6 +34,10 @@ E.g. these are valid arguments.
 --starter.join=192.168.23.1:8528
 --starter.join=192.168.23.1
 ```
+
+You can also supply multiple addresses.
+See [Using multiple join arguments](deployment-cluster-using-the-starter.html#using-multiple-join-arguments)
+for details.
 
 - `--starter.local`
 
@@ -45,7 +51,7 @@ This can be a `cluster` configuration (which is the default),
 a `single` server configuration or a `activefailover` configuration with
 2 single services configured to take over when needed.
 
-Note that when running a `single` server configuration you will lose all
+Note that when running a `single` server configuration you lose all
 high availability features that a cluster provides you.
 
 - `--cluster.agency-size=int`
@@ -62,8 +68,8 @@ outside.
 
 Use this option only in the case that `--cluster.agency-size` is set to 1. 
 In a single Agent setup, the sole starter has to start on its own with
-no reliable way to learn its own address. Using this option the master will 
-know under which address it can be reached from the outside. If you specify
+no reliable way to learn its own address. Using this option, the leader (_master_)
+Starter knows under which address it can be reached from the outside. If you specify
 `localhost` here, then all instances must run on the local machine.
 
 - `--starter.host=addr`
@@ -73,7 +79,7 @@ know under which address it can be reached from the outside. If you specify
 Usually there is no need to specify this option.
 Only when you want to bind the starter to specific network device,
 would you set this.
-Note that setting this option to `127.0.0.1` will make this starter
+Note that setting this option to `127.0.0.1` makes this starter
 unreachable for other starters, which is only allowed for
 `single` server deployments or when using `--starter.local`.
 
@@ -87,7 +93,7 @@ Usually one would use the Docker image `arangodb/arangodb`.
 
 `containerName` is the name of a Docker container that is used to run the
 executable. If you do not provide this argument but run the starter inside
-a docker container, the starter will auto-detect its container name.
+a Docker container, the starter auto-detects its container name.
 
 ## Authentication options
 
@@ -111,11 +117,11 @@ for details.
 
 ## SSL options
 
-The arango starter by default creates a cluster that uses no unencrypted
-connections (no SSL).
+The ArangoDB Starter creates a cluster that uses unencrypted connections by
+default (no SSL/TLS).
 
 To create a cluster that uses encrypted connections, you can use an existing
-server key file (.pem format) or let the starter create one for you.
+server key file (`.pem` format) or let the starter create one for you.
 
 To use an existing server key file use the `--ssl.keyfile` option like this:
 
@@ -136,8 +142,8 @@ arangodb --ssl.auto-key
 All starters used to make a cluster must be using SSL or not.
 You cannot have one starter using SSL and another not using SSL.
 
-If you start a starter using SSL, it's own HTTP server (see API) will also
-use SSL.
+If you start a starter using SSL, its own HTTP server (see API) also
+uses SSL.
 
 Note that all starters can use different server key files.
 
@@ -150,12 +156,12 @@ the servers using the CA certificate in a file with given path.
 
 - `--ssl.auto-server-name=name`
 
-name of the server that will be used in the self-signed certificate created by
+The name of the server that is used in the self-signed certificate created by
 the `--ssl.auto-key` option.
 
 - `--ssl.auto-organization=name`
 
-name of the server that will be used in the self-signed certificate created by
+The name of the server that is used in the self-signed certificate created by
 the `--ssl.auto-key` option.
 
 ## Passing through other database options
@@ -232,14 +238,18 @@ arangodb --envs.all.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G --envs.coordinato
 
 ## Datacenter-to-Datacenter Replication options
 
+- `--starter.sync=bool`
+
+If set, the Starter also starts `arangosync` instances.
+
 - `--sync.start-master=bool`
 
-Should an ArangoSync master instance be started (only relevant when starter.sync
+Should an ArangoSync master instance be started (only relevant if `--starter.sync`
 is enabled, defaults to `true`)
 
 - `--sync.start-worker=bool`
 
-Should an ArangoSync worker instance be started (only relevant when starter.sync
+Should an ArangoSync worker instance be started (only relevant if `--starter.sync`
 is enabled, defaults to `true`)
 
 - `--sync.monitoring.token=<token>`
@@ -266,20 +276,19 @@ CA Certificate used for client certificate verification.
 
 - `--version`
 
-show the version of the starter.
+Show the version of the starter.
 
 - `--starter.port=int`
 
-port for arangodb master (default 8528). See below under "Technical
-explanation as to what happens" for a description of how the ports of
-the other servers are derived from this number.
-
+The network port for the Starter (default 8528).
 This is the port used for communication of the `arangodb` instances
 amongst each other.
 
+The Starter uses the subsequent ports for the `arangod` processes it starts.
+
 - `--starter.disable-ipv6=bool`
 
-if disabled, the starter will configure the `arangod` servers
+If disabled, the starter configures the `arangod` servers
 to bind to address `0.0.0.0` (all IPv4 interfaces)
 instead of binding to `[::]` (all IPv4 and all IPv6 interfaces).
 
@@ -287,14 +296,14 @@ This is useful when IPv6 has actively been disabled on your machine.
 
 - `--server.arangod=path`
 
-path to the `arangod` executable (default varies from platform to
+The path to the `arangod` executable (default varies from platform to
 platform, an executable is searched in various places).
 
 This option only has to be specified if the standard search fails.
 
 - `--server.js-dir=path`
 
-path to JS library directory (default varies from platform to platform,
+The path to JavaScript library directory (default varies from platform to platform,
 this is coupled to the search for the executable).
 
 This option only has to be specified if the standard search fails.
@@ -317,7 +326,7 @@ This indicates whether or not a DB-Server instance should be started
 
 - `--server.rr=path`
 
-path to rr executable to use if non-empty (default ""). Expert and
+The path to the `rr` executable to use if non-empty (default ""). Expert and
 debugging only.
 
 - `--log.color=bool`
@@ -343,30 +352,30 @@ show more information (default `false`).
 
 - `--log.dir=path`
 
-set a custom directory to which all log files will be written to.
+Set a custom directory to which all log files are written to.
 When using the Starter in docker, make sure that this directory is
 mounted as a volume for the Starter.
 
-Note: When using a custom log directory, all DB-Server files will be named as
+Note: When using a custom log directory, all DB-Server files are named like
 `arangod-<role>-<port>.log`. The log for the starter itself is still called
 `arangodb.log`.
 
 - `--log.rotate-files-to-keep=int`
 
-set the number of old log files to keep when rotating log files of server
+Set the number of old log files to keep when rotating log files of server
 components (default 5).
 
 - `--log.rotate-interval=duration`
 
-set the interval between rotations of log files of server components (default `24h`).
+Set the interval between rotations of log files of server components (default `24h`).
 Use a value of `0` to disable automatic log rotation.
 
-Note: The starter will always perform log rotation when it receives a `HUP` signal.
+Note: The starter always performs log rotation when it receives a `HUP` signal.
 
 - `--starter.unique-port-offsets=bool`
 
-If set to true, all port offsets (of slaves) will be made globally unique.
-By default (value is false), port offsets will be unique per slave address.
+If set to `true`, all port offsets (of follower Starters) are made globally unique.
+By default, the value is `false` and port offsets are unique per follower address only.
 
 - `--docker.user=user`
 
@@ -393,24 +402,50 @@ The default value is `Always` is the `docker.image` has the `:latest` tag or `If
 
 - `--docker.net-mode=mode`
 
-If `docker.net-mode` is set, all docker container will be started
+If `docker.net-mode` is set, all Docker container are started
 with the `--net=<mode>` option.
 
 - `--docker.privileged=bool`
 
-If `docker.privileged` is set, all docker containers will be started
+If `docker.privileged` is set, all Docker containers are started
 with the `--privileged` option turned on.
 
 - `--docker.tty=bool`
 
-If `docker.tty` is set, all docker containers will be started with a TTY.
+If `docker.tty` is set, all Docker containers are started with a TTY.
 If the starter itself is running in a docker container without a TTY
 this option is overwritten to `false`.
 
 - `--starter.debug-cluster=bool`
 
-IF `starter.debug-cluster` is set, the start will record the status codes it receives
+If `starter.debug-cluster` is set, the starter records the status codes it receives
 upon "server ready" requests to the log. This option is mainly intended for internal testing.
+
+## Starting and stopping in detached mode
+
+If you want the starter to detach and run as a background process, use the `start`
+command. This is typically used by developers running tests only.
+
+```bash
+arangodb start --starter.local=true [--starter.wait]
+```
+
+This command makes the Starter run another starter process in the background
+(that starts all ArangoDB servers), wait for its HTTP API to be available and
+then exit. The Starter that was started in the background keeps running until
+you stop it.
+
+The `--starter.wait` option makes the `start` command wait until all ArangoDB
+servers are really up before ending the process of the leader Starter.
+
+To stop a Starter, use this command:
+
+```bash
+arangodb stop
+```
+
+Make sure to match the arguments given to start the Starter
+(`--starter.port` & `--ssl.*`).
 
 ## Environment variables
 

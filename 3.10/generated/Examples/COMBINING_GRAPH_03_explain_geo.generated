@@ -20,13 +20,13 @@ Query String (119 chars, cacheable: true):
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
-  7   IndexNode            3     - FOR startCity IN germanCity   /* geo index scan, index scan + document lookup (projections: `_key`) */    
-  5   CalculationNode      3       - LET #3 = startCity.`_key`   /* attribute expression */   /* collections used: startCity : germanCity */
-  6   ReturnNode           3       - RETURN #3
+  7   IndexNode            0     - FOR startCity IN germanCity   /* geo index scan, index scan + document lookup (projections: `_key`) */    
+  5   CalculationNode      0       - LET #3 = startCity.`_key`   /* attribute expression */   /* collections used: startCity : germanCity */
+  6   ReturnNode           0       - RETURN #3
 
 Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Cache   Selectivity   Fields           Stored values   Ranges
-  7   idx_1754905908585955333   geo    germanCity   false    true     false           n/a   [ `geometry` ]   [  ]            (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
+  7   idx_1769777661645684736   geo    germanCity   false    true     false           n/a   [ `geometry` ]   [  ]            (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
 
 Optimization rules applied:
  Id   RuleName
@@ -38,5 +38,5 @@ Optimization rules applied:
   6   remove-unnecessary-calculations-2
   7   reduce-extraction-to-projection
 
-44 rule(s) executed, 1 plan(s) created
+44 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00021
 

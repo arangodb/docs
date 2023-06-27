@@ -74,6 +74,15 @@ sudo bash -c "echo madvise >/sys/kernel/mm/transparent_hugepage/defrag"
 
 before executing `arangod`.
 
+{% hint 'info' %}
+The official release executables of ArangoDB require the operating system
+to use a page size of **4096 bytes** or less.
+Larger page sizes lead to the error `<jemalloc>: Unsupported system page size`
+during startup.
+
+You can check the page size with the `getconf PAGESIZE` command.
+{% endhint %}
+
 Swap Space
 ----------
 
@@ -185,7 +194,6 @@ should provide enough headroom so that arangod doesn't run out of file descripto
 The maximum number of file descriptors can be adjusted using `ulimit`, `cgroups`
 and `systemd`.
 
-
 Environment Variables
 ---------------------
 
@@ -205,7 +213,7 @@ before starting `arangod`.
 32bit
 -----
 
-While it should be possible to compile ArangoDB on 32bit system, this is not a
-recommended environment. 64bit systems can address a significantly larger
-memory region. This is also the reason why only 64bit release builds are supplied
-by ArangoDB Inc.
+While it might be possible to compile ArangoDB on 32-bit systems, this is not
+officially supported and not a recommended environment. 64-bit systems can address
+a significantly larger memory space. This is also the reason why only 64-bit
+release builds are offered by ArangoDB Inc.

@@ -1,0 +1,8 @@
+arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/enterprise-graph&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> relation = graph_module._relation(<span class="hljs-string">&quot;edges&quot;</span>, <span class="hljs-string">&quot;vertices&quot;</span>, <span class="hljs-string">&quot;vertices&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> graph = graph_module._create(<span class="hljs-string">&quot;myGraph&quot;</span>, [relation], [], {<span class="hljs-attr">isSmart</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">numberOfShards</span>: <span class="hljs-number">9</span>});
+arangosh&gt; graph._deleteEdgeDefinition(<span class="hljs-string">&quot;edges&quot;</span>, <span class="hljs-literal">true</span>);
+arangosh&gt; graph_module._graph(<span class="hljs-string">&quot;myGraph&quot;</span>);
+{[EnterpriseGraph] 
+  <span class="hljs-string">&quot;vertices&quot;</span> : [ArangoCollection <span class="hljs-number">10580</span>, <span class="hljs-string">&quot;vertices&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+}

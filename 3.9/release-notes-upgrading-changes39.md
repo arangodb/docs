@@ -56,7 +56,11 @@ Coordinators and DB-Servers of the cluster. Otherwise the startup will be
 refused. In DC2DC setups it is also required to use the same database naming
 convention for both datacenters to avoid incompatibilities.
 
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+Also see [Database names](data-modeling-databases.html#database-names).
+{% else -%}
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+{% endif %}
 
 AQL
 ---
@@ -83,6 +87,38 @@ AQL queries that violate these limits will fail to run, and instead abort
 with error `1524` ("too much nesting or too many objects") during setup.
 
 Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
+
+Validation of traversal collection restrictions
+-----------------------------------------------
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+In AQL graph traversals, you can restrict the vertex and edge collections in the
+traversal options like so:
+
+```aql
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS {
+    vertexCollections: [ "bolts", "screws" ],
+    edgeCollections: [ "productsToBolts", "productsToScrews" ]
+  }
+  RETURN v 
+```
+
+If you specify collections that don't exist, queries now fail with
+a "collection or view not found" error (code `1203` and HTTP status
+`404 Not Found`). In previous versions, unknown vertex collections were ignored,
+and the behavior for unknown edge collections was undefined.
+
+Additionally, the collection types are now validated. If a document collection
+or View is specified in `edgeCollections`, an error is raised
+(code `1218` and HTTP status `400 Bad Request`).
+
+Furthermore, it is now an error if you specify a vertex collection that is not
+part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
+It is also an error if you specify an edge collection that is not part of the
+named graph's definition or of the list of edge collections (code `1939` and
+HTTP status `400 Bad Request`).
 
 Startup options
 ---------------
@@ -175,6 +211,24 @@ In ArangoDB 3.9 the option `--database.old-system-collections` is now
 completely obsolete, and ArangoDB will never create these system collections
 for any new databases. The option can still be specified at startup, but it
 meaningless now.
+
+HTTP RESTful API
+----------------
+
+### Endpoint return value changes
+
+- Changed the encoding of revision IDs returned by the below listed REST APIs.
+
+  <small>Introduced in: v3.8.8, v3.9.4</small>
+
+  - `GET /_api/collection/<collection-name>/revision`: The revision ID was
+    previously returned as numeric value, and now it is returned as
+    a string value with either numeric encoding or HLC-encoding inside.
+  - `GET /_api/collection/<collection-name>/checksum`: The revision ID in
+    the `revision` attribute was previously encoded as a numeric value
+    in single server, and as a string in cluster. This is now unified so
+    that the `revision` attribute always contains a string value with
+    either numeric encoding or HLC-encoding inside.
 
 Client tools
 ------------

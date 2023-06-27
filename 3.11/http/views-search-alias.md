@@ -1,22 +1,20 @@
 ---
 layout: default
-description: HTTP interface to manage Views of type search-alias
-title: search-alias Views HTTP API
+description: >-
+  The HTTP API for Views lets you manage `search-alias` Views, including adding
+  and removing inverted indexes
+title: HTTP interface for search-alias Views
 ---
-# `search-alias` Views HTTP API
+# HTTP interface for `search-alias` Views
 
-{% docublock post_api_view_searchalias %}
+{{ page.description }}
+{:class="lead"}
 
-{% docublock get_api_view_name %}
-
-{% docublock get_api_view_properties %}
-
-{% docublock get_api_views %}
-
-{% docublock put_api_view_properties_searchalias %}
-
-{% docublock patch_api_view_properties_searchalias %}
-
-{% docublock put_api_view_rename %}
-
-{% docublock delete_api_view %}
+{% docublock post_api_view_searchalias, h2 %}
+{% docublock get_api_view_view, h2 %}
+{% docublock get_api_view_view_properties_searchalias, h2 %}
+{% docublock get_api_view, h2 %}
+{% docublock put_api_view_view_properties_searchalias, h2 %}
+{% docublock patch_api_view_view_properties_searchalias, h2 %}
+{% docublock put_api_view_view_rename, h2 %}
+{% docublock delete_api_view_view, h2 %}

@@ -23,14 +23,38 @@ redirect_from:
   - architecture-deployment-modes-leader-follower.html # 3.8 -> 3.9
   - deployment-leader-follower-manual-start.html # 3.8 -> 3.9
   - deployment-leader-follower.html # 3.8 -> 3.9
+  - graph-analytics-custom-pregel.html # 3.10 -> 3.11
 ---
-Deprecated
-==========
+# Deprecated and removed features
 
-Features listed in this section should no longer be used, because they are
-considered obsolete and may get removed in a future release. They are currently
-kept for backward compatibility. There are usually better alternatives to
-replace the old features with:
+Features listed on this page should no longer be used because they have been
+deprecated and may get removed in a future release, or have been removed already
+and are thus no longer available.
+
+Deprecated features are still available for backward compatibility, but you should
+update your applications to prepare for upgrades of ArangoDB that may remove the
+features. There are usually alternatives to replace the old features with.
+
+{% hint 'info' %}
+This page only lists significant obsolete features but not minor API changes.
+See the [**Release notes**](release-notes.html) of the respective versions for
+detailed information about breaking changes before upgrading.
+{% endhint %}
+
+- **Pregel features**:
+
+  The following features have been deprecated or removed from Pregel in v3.11:
+
+  - The experimental _Custom Pregel_ feature, also known as
+    _programmable Pregel algorithms_ (PPA), has been removed.
+
+  - The built-in _DMID_ Pregel algorithm has been deprecated and will be removed
+    in a future release.
+
+  - The `async` option for Pregel jobs has been removed.
+
+  - The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
+    backing storage for large datasets has been removed.
 
 - **Leader/Follower Deployment Mode**:
   The Leader/Follower deployment type is deprecated and already removed from
@@ -40,11 +64,11 @@ replace the old features with:
 - **Skiplist and hash indexes**:
   Skiplist and hash indexes have been deprecated in 3.9 and will be removed in a 
   future version of ArangoDB. Currently, they are an alias for a
-  [persistent index](http/indexes.html#persistent-index).
+  [persistent index](indexing-index-basics.html#persistent-index).
 
 - **Bundled NPM modules**:
   The bundled NPM modules `aqb`, `chai`, `dedent`, `error-stack-parser`,
-  `graphql-sync`, ` highlight.js`, `i` (inflect), `iconv-lite`, `joi`,
+  `graphql-sync`, `highlight.js`, `i` (inflect), `iconv-lite`, `joi`,
   `js-yaml`, `lodash`, `minimatch`, `qs`, `semver`, `sinon`, and `timezone`
   have been deprecated in 3.9 and will be removed in a future version of ArangoDB.
   If you want to use NPM modules in your Foxx service, please refer to the
@@ -53,12 +77,12 @@ replace the old features with:
 - **Batch Requests API**:
   The [batch request REST API](http/batch-request.html) is deprecated and will be 
   removed in a future version. Instead of using this API, please use the 
-  [HTTP Interface for Documents](http/document-working-with-documents.html#bulk-document-operations)
+  [HTTP interface for documents](http/document.html#multiple-document-operations)
   that can insert, update, replace or remove arrays of documents.
 
 - **PUT method in Cursor API**:
   The HTTP endpoint `PUT /_api/cursor/<cursor-id>` in the
-  [Cursor REST API](http/aql-query-cursor.html) is deprecated and will be
+  [Cursor REST API](http/aql-query.html) is deprecated and will be
   removed in a future version. Please use the drop-in replacement
   `POST /_api/cursor/<cursor-id>` instead. The POST endpoint is functionally
   equivalent to the PUT endpoint, but does not violate idempotency requirements
@@ -162,7 +186,7 @@ replace the old features with:
     special HTTP headers `x-http-method`, `x-method-override` or 
     `x-http-method-override`. This was originally intended for very restricted
     callers, which only supported HTTP GET and HTTP POST, but seems very
-    unnecessary nowadways.
+    unnecessary nowadays.
   - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
     header in all responses served by arangod.
   - `--network.protocol`: network protocol to use for cluster-internal 
@@ -196,7 +220,7 @@ replace the old features with:
   While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
   removed in a future version of ArangoDB.
 
-- **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
+- **HTTP and JavaScript traversal APIs**: The HTTP traversal API
   is deprecated since version 3.4.0. The JavaScript traversal module
   `@arangodb/graph/traversal` is also deprecated since then. The preferred way
   to traverse graphs is via AQL.

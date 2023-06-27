@@ -1,6 +1,6 @@
 ---
 layout: default
-description: As there are different ways to install ArangoDB on Windows, the upgrademethod depends on the installation method that was used
+description: As there are different ways to install ArangoDB on Windows, the upgrade method depends on the installation method that was used
 ---
 Upgrading on Windows
 ====================
@@ -16,7 +16,12 @@ In general, it will be needed to:
   reasons to not do so): remove the old binaries from the system
 
 Some of the above steps may be done automatically, depending on your
-specifc situation.
+specific situation.
+
+{% hint 'warning' %}
+It is highly recommended to take a backup of your data before upgrading ArangoDB
+using [_arangodump_](programs-arangodump.html).
+{% endhint %}
 
 Upgrading via the Installer
 ---------------------------
@@ -43,7 +48,7 @@ file first).
 
 {% hint 'danger' %} 
 When uninstalling the old package, please make sure the option
-"_Delete databases with unistallation_" is **not** checked.
+"_Delete databases with uninstallation_" is **not** checked.
 {% endhint %}
 
 ![Delete Option](images/installer_delete.png)
@@ -53,7 +58,7 @@ When upgrading, the Windows Installer does not use the old configuration file
 for the installed _Single Instance_ but a new (default) one ([Issue #3773](https://github.com/arangodb/arangodb/issues/3773){:target="_blank"}).
 To use the old configuration, it is currently needed to:
 - Stop the server
-- Replace the new with the old confituration file
+- Replace the new with the old configuration file
 - Restart the server
 {% endhint %}
 
@@ -108,7 +113,7 @@ To perform the upgrade of a _Single Instance_:
 2. Stop writes to the old server (e.g. block incoming connections)
 3. Take a backup of the data using _arangodump_
 4. Stop the old server
-5. Optional (depending on whether or not you modfied default confiugaration),
+5. Optional (depending on whether or not you modified default configuration),
    copy old ArangoDB configuration file to the new server (or just edit
    the new configuration file)
 6. Start the new server (with a fresh data directory, by default it will be

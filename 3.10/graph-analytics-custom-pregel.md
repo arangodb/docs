@@ -416,7 +416,7 @@ _escape sequences for lisp_
 
 `quote`/`quote-splice` copies/splices its parameter verbatim into its output,
 without evaluating them.
-`quote-splice` fails if it is called in a context where it can not splice into
+`quote-splice` fails if it is called in a context where it cannot splice into
 something, for example at top-level.
 
 ```js

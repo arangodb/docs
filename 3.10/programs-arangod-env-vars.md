@@ -11,14 +11,18 @@ title: arangod environment variables
    
    This variable can be used to override the automatic detection of the total
    amount of RAM present on the system. One can specify a decimal number
-   (in bytes). Furthermore, if `G` or `g` is appended, the value is multiplied
-   by `2^30`. If `M` or `m` is appended, the value is multiplied by `2^20`.
-   If `K` or `k` is appended, the value is multiplied by `2^10`. That is,
-   `64G` means 64 gigabytes.
+   (in bytes). Furthermore, numbers can have the following suffixes:
+   
+   - `GB`, `G`, `gb`, `g`: the number is multiplied by 1,000,000,000 (gigabytes).
+   - `MB`, `M`, `mb`, `m`: the number is multiplied by 1,000,000 (megabytes).
+   - `KB`, `K`, `kb`, `k`: the number is multiplied by 1,000 (kilobytes).
+   - `GIB`, `GiB`, `gib`: the number is multiplied by 1,073,741,824 (gibibytes).
+   - `MIB`, `MiB`, `mib`: the number is multiplied by 1,048,576 (mebibytes).
+   - `KIB`, `KiB`, `kib`: the number is multiplied by 1,024 (kibibytes).
 
    The total amount of RAM detected is logged as an INFO message at
    server start. If the variable is set, the overridden value is shown.
-   Various default sizes are calculated based on this value (e.g.
+   Various default sizes are calculated based on this value (e.g. the
    RocksDB buffer cache size).
 
    Setting this option can in particular be useful in two cases:
@@ -30,7 +34,21 @@ title: arangod environment variables
    2. If `arangod` is running alongside other services on the same
       machine and thus sharing the RAM with them, one should limit the
       amount of memory using this environment variable.
- 
+
+   Note that setting this environment variable mainly affects the default 
+   values of startup options that have to do with memory usage. 
+   If the values of these startup options are explicitly set anyway, then 
+   setting the environment variable has no effect.
+
+   For example, the default value for the RocksDB block cache size
+   (`--rocksdb.block-cache-size` startup option) depends on the amount of
+   available memory. If you set `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=32GB`,
+   the default value for the block cache size is `(32GB - 2GB) * 0.3 = 9GB`.
+   However, if you set the `--rocksdb.block-cache-size` startup option explicitly
+   via a configuration file or via the command-line, then the latter value is
+   used, and not the option's default value based on the
+   `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` environment variable.
+
  - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` _(introduced in v3.7.1)_
    
    This variable can be used to override the automatic detection of the
@@ -50,6 +68,23 @@ title: arangod environment variables
    Linux builds of `arangod`. The crash handler is turned on by default
    for Linux builds, and it can be turned off by setting this environment
    variable to an empty string, the value of `0` or `off`.
+
+- `CACHE_OBLIVIOUS` _(introduced in v3.9.7, v3.10.3)_
+
+  If set to the string `true`, jemalloc allocates one additional page
+  (4096 bytes) for every allocation of 16384 or more bytes to change the
+  base address if it is not divisible by 4096. This can help the CPU caches if
+  the beginning of such blocks are accessed a lot.
+
+  On the other hand, it increases the memory usage because of the page alignment.
+  The RocksDB buffer cache does most of its allocations for 16384 bytes,
+  increasing the RAM usage by 25%. Setting the option to `false` disables the
+  optimization but the performance is expected to be the same for ArangoDB.
+
+  The default is `true` in 3.9 and 3.10 up to v3.10.3. From v3.10.4 onwards,
+  the default is `false`.
+
+  Also see the [jemalloc documentation](http://jemalloc.net/jemalloc.3.html#opt.cache_oblivious){:target="_blank"}.
 
 - `TZ_DATA` _(introduced in v3.8.0)_
 

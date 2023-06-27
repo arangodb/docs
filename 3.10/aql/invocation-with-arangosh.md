@@ -330,8 +330,8 @@ Options related to the query optimizer.
 
 #### `stream`
 
-Set `stream` to `true` to execute the query in a **streaming** fashion. The query result is
-not stored on the server, but calculated on the fly.
+Set `stream` to `true` to execute the query in a **streaming** fashion.
+The query result is not stored on the server, but calculated on the fly.
 
 {% hint 'warning' %}
 Long-running queries need to hold the collection locks for as long as the query
@@ -344,10 +344,12 @@ In that case, the query results are either returned right away (if the result
 set is small enough), or stored on the arangod instance and can be accessed
 via the cursor API. 
 
+The default value is `false`.
+
 {% hint 'info' %}
 The query options `cache`, `count` and `fullCount` don't work on streaming
-queries. Additionally, query statistics, warnings, and profiling data is only
-available after the query has finished. The default value is `false`.
+queries. Additionally, query statistics, profiling data, and warnings are only
+available after the query has finished and are delivered as part of the last batch.
 {% endhint %}
 
 #### `maxRuntime`
@@ -434,7 +436,7 @@ the entire query result in RAM, use a streaming query (see the
 
 If you set this option to `true` and execute the query against a cluster
 deployment, then the Coordinator is allowed to read from any shard replica and
-not only from the leader. See [Read from Followers](../http/document-address-and-etag.html#read-from-followers)
+not only from the leader. See [Read from followers](../http/document.html#read-from-followers)
 for details.
 
 {% include hint-ee-arangograph.md feature="Reading from followers in clusters" %}
@@ -474,7 +476,7 @@ result set iteration is needed, it is recommended to first create an
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-To execute the query, use the `execute()` method of the statement:
+To execute the query, use the `execute()` method of the _statement_ object:
 
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements2
@@ -485,6 +487,64 @@ To execute the query, use the `execute()` method of the statement:
     @endDocuBlock 05_workWithAQL_statements2
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
+
+You can pass a number to the `execute()` method to specify a batch size value.
+The server returns at most this many results in one roundtrip.
+The batch size cannot be adjusted after the query is first executed.
+
+**Note**: There is no need to explicitly call the execute method if another
+means of fetching the query results is chosen. The following two approaches
+lead to the same result:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline executeQueryNoBatchSize
+    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryNoBatchSize}
+    ~ db._create("users");
+    ~ db.users.save({ name: "Gerhard" });
+    ~ db.users.save({ name: "Helmut" });
+    ~ db.users.save({ name: "Angela" });
+    | var result = db.users.all().toArray();
+    | print(result);
+    | var q = db._query("FOR x IN users RETURN x");
+    | result = [ ];
+    | while (q.hasNext()) {
+    |   result.push(q.next());
+    | }
+      print(result);
+    ~ db._drop("users")
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock executeQueryNoBatchSize
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+The following two alternatives both use a batch size and return the same
+result:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline executeQueryBatchSize
+    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryBatchSize}
+    ~ db._create("users");
+    ~ db.users.save({ name: "Gerhard" });
+    ~ db.users.save({ name: "Helmut" });
+    ~ db.users.save({ name: "Angela" });
+    | var result = [ ];
+    | var q = db.users.all();
+    | q.execute(1);
+    | while(q.hasNext()) {
+    |   result.push(q.next());
+    | }
+    | print(result);
+    | result = [ ];
+    | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
+    | while (q.hasNext()) {
+    |   result.push(q.next());
+    | }
+      print(result);
+    ~ db._drop("users")
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock executeQueryBatchSize
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Cursors
 

@@ -1,37 +1,130 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's interface for collections and how to handle collections from the JavaScript shell arangosh
+description: >-
+  Collections allow you to store documents and you can use them to group records
+  of similar kinds together
+redirect_from:
+  - data-modeling-naming-conventions-collection-and-view-names.html # 3.10 -> 3.10
 ---
-JavaScript Interface to Collections
-===================================
+# Collections
 
-This is an introduction to ArangoDB's interface for collections and how to handle
-collections from the JavaScript shell _arangosh_. For other languages see the
-corresponding language API.
+{{ page.description }}
+{:class="lead"}
 
-The most important call is the call to create a new collection.
+A collection can contain a set of documents, similar to how a folder contains
+files. You can store documents with varying data structures in a single
+collection, but a collection is typically used to only store one type of
+entities. For example, you can use one collection for products, another for
+customers, and yet another for orders.
 
-Address of a Collection
------------------------
+## Collection types
 
-All collections in ArangoDB have a unique identifier and a unique
-name. The namespace for collections is shared with views, so there cannot exist
-a collection and a view with the same name in the same database. ArangoDB
-internally uses the collection's unique identifier to look up collections. This
-identifier, however, is managed by ArangoDB and the user has no control over it.
-In order to allow users to use their own names, each collection also has a
-unique name which is specified by the user. To access a collection from the user
-perspective, the [collection name](appendix-glossary.html#collection-name)
-should be used, i.e.:
+- The regular type of collection is a **document collection**. If you use
+  document collections for a graph, then they are referred to as
+  **vertex collections**.
 
-### Collection
+- To store connections between the vertices of a graph, you need to use
+  **edge collections**. The documents they contain have a `_from` and a `_to`
+  attribute to reference documents by their ID.
+
+- Collection that are used internally by ArangoDB are prefixed with an
+  underscore (like `_users`) and are called **system collections**. They can be
+  document collections as well as edge collections.
+
+You need to specify whether you want a document collection or an edge collection
+when you create the collection. The type cannot be changed later.
+
+## Collection names
+
+You can give each collection a name to identify and access it. The name needs to
+be unique within a [database](data-modeling-databases.html), but not globally
+for the entire ArangoDB instance.
+
+The namespace for collections is shared with [Views](data-modeling-views.html).
+There cannot exist a collection and a View with the same name in the same database.
+
+The collection name needs to be a string that adheres to the following constraints:
+
+- The names must only consist of the letters `A` to `Z` (both in lower 
+  and upper case), the digits `0` to `9`, and underscore (`_`) and dash (`-`)
+  characters. This also means that any non-ASCII names are not allowed.
+
+- Names of user-defined collections must always start with a letter.
+  System collection names must start with an underscore. You should not use
+  system collection names for your own collections.
+
+- The maximum allowed length of a name is 256 bytes.
+
+- Collection names are case-sensitive.
+
+You can rename collections (except in cluster deployments). This changes the
+collection name, but not the collection identifier.
+
+## Collection identifiers
+
+A collection identifier lets you refer to a collection in a database, similar to
+the name. It is a string value and is unique within a database. Unlike
+collection names, ArangoDB assigns collection IDs automatically and you have no
+control over them.
+
+ArangoDB internally uses collection IDs to look up collections. However, you
+should use the collection name to access a collection instead of its identifier.
+
+ArangoDB uses 64-bit unsigned integer values to maintain collection IDs
+internally. When returning collection IDs to clients, ArangoDB returns them as
+strings to ensure the identifiers are not clipped or rounded by clients that do
+not support big integers. Clients should treat the collection IDs returned by
+ArangoDB as opaque strings when they store or use them locally.
+
+## Key generators
+
+ArangoDB allows using key generators for each collection. Key generators
+have the purpose of auto-generating values for the `_key` attribute of a document
+if none was specified by the user. By default, ArangoDB uses the traditional
+key generator. The traditional key generator auto-generates key values that
+are strings with ever-increasing numbers. The increment values it uses are
+non-deterministic.
+
+Contrary, the auto-increment key generator auto-generates deterministic key
+values. Both the start value and the increment value can be defined when the
+collection is created. The default start value is `0` and the default increment
+is `1`, meaning the key values it creates by default are:
+
+1, 2, 3, 4, 5, ...
+
+When creating a collection with the auto-increment key generator and an
+increment of `5`, the generated keys would be:
+
+1, 6, 11, 16, 21, ...
+
+The auto-increment values are increased and handed out on each document insert
+attempt. Even if an insert fails, the auto-increment value is never rolled back.
+That means there may exist gaps in the sequence of assigned auto-increment values
+if inserts fails.
+
+## Collections API
+
+The following descriptions cover the JavaScript interface for collections that
+you can use to handle collections from the _arangosh_ command-line tool, as
+well as in server-side JavaScript code like Foxx microservices.
+For other languages see the corresponding language API.
+
+### Create a collection
+
+`db._create(collection-name)`
+
+This call creates a new collection called `collection-name`.
+See the [`db` object](appendix-references-dbobject.html#db_createcollection-name--properties--type--options)
+for details.
+
+### Get a collection
 
 `db._collection(collection-name)`
 
-A collection is created by a ["db._create"](data-modeling-collections-database-methods.html) call.
+Returns the specified collection.
 
-For example: Assume that the [collection identifier](appendix-glossary.html#collection-identifier) is `7254820` and the name is
-`demo`, then the collection can be accessed as:
+For example, assume that the collection identifier is `7254820` and the name is
+`demo`, then the collection can be accessed as follows:
 
 ```js
 db._collection("demo")
@@ -39,36 +132,27 @@ db._collection("demo")
 
 If no collection with such a name exists, then `null` is returned.
 
-There is a short-cut that can be used for non-system collections:
+---
 
-### Collection name
+There is a short-cut that you can use:
 
-`db.collection-name`
+```js
+db.collection-name
+// or
+db["collection-name"]
+```
 
-This call will either return the collection named `db.collection-name` or create
-a new one with that name and a set of default properties.
+This property access returns the collection named `collection-name`.
 
-**Note**: Creating a collection on the fly using `db.collection-name` is
-not recommend and does not work in _arangosh_. To create a new collection, please
-use `db._create()`.
+### Synchronous replication of collections
 
-### Create
-
-`db._create(collection-name)`
-
-This call will create a new collection called `collection-name`.
-This method is a database method and is documented in detail at [Database Methods](data-modeling-collections-database-methods.html#create)
-
-### Synchronous replication
-
-The distributed version offers synchronous
-replication, which means that there is the option to replicate all data
-automatically within the ArangoDB cluster. This is configured for sharded
-collections on a per collection basis by specifying a "replication factor"
-when the collection is created. A replication factor of k means that 
-altogether k copies of each shard are kept in the cluster on k different
-servers, and are kept in sync. That is, every write operation is automatically
-replicated on all copies.
+Distributed ArangoDB setups offer synchronous replication,
+which means that there is the option to replicate all data
+automatically within an ArangoDB cluster. This is configured for sharded
+collections on a per-collection basis by specifying a **replication factor**.
+A replication factor of `k` means that altogether `k` copies of each shard are
+kept in the cluster on `k` different servers, and are kept in sync. That is,
+every write operation is automatically replicated on all copies.
 
 This is organized using a leader/follower model. At all times, one of the
 servers holding replicas for a shard is "the leader" and all others
@@ -91,12 +175,11 @@ Usually, this whole failover procedure can be handled transparently
 for the Coordinator, such that the user code does not even see an error 
 message.
 
-Obviously, this fault tolerance comes at a cost of increased latency.
+This fault tolerance comes at a cost of increased latency.
 Each write operation needs an additional network roundtrip for the
-synchronous replication of the followers, but all replication operations
-to all followers happen concurrently. This is, why the default replication
-factor is 1, which means no replication.
+synchronous replication of the followers (but all replication operations
+to all followers happen concurrently). Therefore, the default replication
+factor is `1`, which means no replication.
 
 For details on how to switch on synchronous replication for a collection,
-see the database method `db._create(collection-name)` in the section about 
-[Database Methods](data-modeling-collections-database-methods.html#create).
+see the [`db` object](appendix-references-dbobject.html#db_createcollection-name--properties--type--options).

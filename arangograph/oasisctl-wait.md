@@ -31,6 +31,6 @@ oasisctl wait [flags]
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoGraph Insights Platform
 * [oasisctl wait deployment](oasisctl-wait-deployment.html)	 - Wait for a deployment to reach the ready status
 

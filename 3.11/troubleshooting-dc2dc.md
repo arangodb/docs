@@ -135,7 +135,7 @@ document size anymore.
 {% endhint %}
 
 If you insert/update a document in a collection and the size of that document
-is larger than the maximum message size of your message queue, the collection
+is greater than the maximum message size of your message queue, the collection
 will no longer be able to synchronize. It will go into a `failed` state.
 
 To recover from that, first remove the document from the ArangoDB cluster
