@@ -28,7 +28,7 @@ Now we use the following parameters for our query:
 2. We finish with the vertex **D**.
 
 So obviously we will have the vertices **A**, **B**, **C** and **D** on the
-shortest path in exactly this order. Than the shortest path statement will
+shortest path in exactly this order. Then, the shortest path statement will
 return the following pairs:
 
 | Vertex | Edge  |
