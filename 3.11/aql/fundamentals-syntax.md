@@ -246,8 +246,22 @@ FOR f IN `filter`
 `sort` is a string literal in quote marks in this alternative and does thus not
 conflict with the reserved keyword.
 
+Quoting with ticks is also required if certain characters such as
+hyphen minus (`-`) are contained in a name, namely if they are used for
+[operators](operators.html) in AQL:
+
+```aql
+LET `my-var` = 42
+```
+
+### Collection names
+
+You can typically use collection names in queries as they are. If a collection
+happens to have the same name as a keyword, the name must be enclosed in
+backticks or forward ticks.
+
 Quoting with ticks is also required if special characters such as
-hyphen minus (`-`) are contained in a name:
+hyphen minus (`-`) are contained in a collection name:
 
 ```aql
 FOR doc IN `my-coll`
@@ -275,17 +289,8 @@ naming constraints and is quoted with forward ticks.
 Note that quoting the name with `"` or `'` is not possible for collections as
 they cannot be string literals in quote marks.
 
-### Collection names
-
-Collection names can be used in queries as they are. If a collection happens to
-have the same name as a keyword, the name must be enclosed in backticks or
-forward ticks.
-
 For information about the naming constraints for collections, see
 [Collection names](../data-modeling-collections.html#collection-names).
-
-AQL currently has a limit of up to 256 collections used in one AQL query.
-This limit applies to the sum of all involved document and edge collections.
 
 ### Attribute names
 
@@ -310,10 +315,9 @@ respectively).
 
 ### Variable names
 
-AQL allows the user to assign values to additional variables in a query.  All
-variables that are assigned a value must have a name that is unique within the
-context of the query. Variable names must be different from the names of any
-collection name used in the same query.
+AQL allows you to assign values to additional variables in a query.
+All variables that are assigned a value must have a name that is unique within
+the context of the query.
 
 ```aql
 FOR u IN users
@@ -324,6 +328,16 @@ FOR u IN users
 In the above query, `users` is a collection name, and both `u` and `friends` are
 variable names. This is because the `FOR` and `LET` operations need target
 variables to store their intermediate results.
+
+Variable names should be different from the names of any collection name used in
+the same query to avoid shadowing, which can render a collection with the same
+name inaccessible in the query after the variable assignment:
+
+```aql
+LET users = []
+FOR u IN users // iterates over the "users" variable, not the "users" collection
+  RETURN u
+```
 
 Allowed characters in variable names are the letters `a` to `z` (both in lower
 and upper case), the numbers `0` to `9`, the underscore (`_`) symbol and the
