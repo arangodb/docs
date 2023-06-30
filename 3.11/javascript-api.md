@@ -180,7 +180,7 @@ You can use the following modules as an end-user:
   - [**@arangodb/locals**](foxx-reference-modules.html#the-arangodblocals-module)
     is a helper module to use Foxx together with Webpack.
 
-- Graph related modules:
+- Graph-related modules:
 
   - [**@arangodb/general-graph**](graphs-general-graphs.html)
     implements a graph management interface for named graphs.

@@ -1,43 +1,124 @@
 ---
-layout: default
-description: A Graph consists of vertices and edges
+default: layout
+description: >-
+  Graphs let you represent things and the relationships between them using
+  vertices and edges, to naturally model knowledge, social networks, cash flows,
+  supply chains, and other information webs, and to extract valuable insights by
+  analyzing this connected data
 ---
-ArangoDB Graphs
-===============
+# Graphs
 
-First Steps with Graphs
------------------------
+{{ page.description }}
+{:class="lead"}
 
-A Graph consists of **vertices** and **edges**. Edges are stored as documents in
-**edge collections**. A vertex can be a document of a **document collection** or
-of an **edge collection** (so edges can be used as vertices).
+Graphs are information networks comprised of **nodes** and **relations**. Nodes
+can represent objects, entities, abstract concepts, or ideas. Relations between
+nodes can represent physical and social connections, temporal and causal
+relationships, flows of information, energy, and material, interactions and
+transactions, dependency and hierarchy, as well as similarity and relatedness of
+any kind.
 
-Which collections are used within a named graph is defined via **edge definitions**.
-They describe which edge collections connect which vertex collections.
-A named graph can contain more than one edge definition, at least one is needed.
-Graphs allow you to structure your models in line with your domain and group
-them logically in collections and giving you the power to query them in the same
-graph queries.
+![Node - Relation - Node](images/data-model-graph-relation-abstract.png)
+
+For example, you can represent people by nodes and their friendships by
+relations. This lets you form a graph that is a social networks in this case.
+
+![Mary - is friend of - John](images/data-model-graph-relation-concrete.png)
+
+The specific terms to refer to nodes and relations in a graph vary depending
+on the field or context, but they are conceptually the same. In computer science
+and mathematics, the terms **vertices** (singular: vertex) and **edges** are
+commonly used to refer to nodes and relations, respectively. In information
+science and data analysis, they are referred to as _entities_ and _connection_.
+In social sciences, they are often called _actors_ and _ties_ or _links_.
+They may also be called _points_ and _arcs_.
+
+Using graphs with vertices to represent things and edges to define how they
+relate to one another is a very expressive data model. It lets you represent
+a wide variety of information in a compact and intuitive way. It lets you model
+complex relationships and interactions of basically everything.
+
+![Mary - bought - Book, is friend of - John](images/data-model-graph-relations.png)
+
+Graphs are commonly directed (_digraphs_), which means that each edge goes from
+one vertex to another vertex in a specific direction. This lets you model
+directional relationships, such as cause and effect or the flow of material,
+energy, or information. In undirected graphs, edges don't have a direction and
+the relationship between two vertices is considered to be the same in both
+directions. For example, a friendship is a symmetrical relationships. If _Mary_
+is a friend of _John_, then _John_ is equally a friend of _Mary_. On the other
+hand, _Mary_ may subscribe to what _John_' posts online, but this does not
+automatically make _John_ a subscriber of _Mary_'s posts. It is an asymmetrical
+relationship in graph terms. These two types of graphs have different properties
+and different algorithms exist to analyze the data.
 
 {% hint 'info' %}
 New to graphs? [**Take our free graph course for freshers**](https://www.arangodb.com/arangodb-graph-course/){:target="_blank"}
 and get from zero knowledge to advanced query techniques.
 {% endhint %}
 
-Coming from a relational background - what's a graph?
------------------------------------------------------
+## Graph model
 
-In SQL you commonly have the construct of a relation table to store *n:m* relations between two data tables.
-An *edge collection* is somewhat similar to these *relation tables*; *vertex collections* resemble the data tables with the objects to connect.
-While simple graph queries with fixed number of hops via the relation table may be doable in SQL with several nested joins,
-graph databases can handle an arbitrary number of these hops over edge collections - this is called *traversal*.
-Also edges in one edge collection may point to several vertex collections.
-Its common to have attributes attached to edges, i.e. a *label* naming this interconnection.
-Edges have a direction, with their relations `_from` and `_to` pointing *from* one document *to* another document stored in vertex collections.
-In queries you can define in which directions the edge relations may be followed (`OUTBOUND`: `_from` → `_to`, `INBOUND`: `_from` ← `_to`, `ANY`: `_from` ↔ `_to`).
+Graph database systems like ArangoDB can store graphs and provide means to query
+the connected data.
 
-Supported Graph Algorithms
---------------------------
+ArangoDB's graph model is that of a **property graph**. Every record, whether
+vertex or edge, can have an arbitrary number of properties. Each document is a
+fully-fledged JSON object and has a unique identifier.
+This is different to the RDF graph model, where information is broken down into
+triples of a subject, a predicate, and an object and where each triple is stored
+separately, without an identifier for each statement.
+
+Furthermore, ArangoDB's graph model can be classified as a **labeled** property
+graph because you can group related edges using edge collections, with the
+collection name being the label, but you can also use a property to assign one
+or more types to an edge. You can also organize vertices in different
+collections based on the types of entities.
+
+Edges can only be stored in **edge collections**. Vertices are stored in
+**document collections** which are also referred to as **vertex collections**
+in the context of graphs. You can technically also use edges as vertices but
+the usefulness is limited.
+
+Edges in ArangoDB are always directed. Every edge document has special `_from`
+and `_to` attributes to reference one other document in each of the two
+attributes.
+
+Vertices are referenced by their document identifiers. For example,
+a friendship edge that connects _Mary_ with _John_ could look like
+`{"_from": "Person/Mary", "_to": "Person/John", "_id": "isFriendOf/1234"}`.
+Using this directed graph model means that relations you create with edges are
+not reciprocal but you may create edges for the reverse direction (another edge
+from _John_  to _Mary_), or you can utilize ArangoDB's ability to follow edges
+in the opposite direction (**inbound** instead of **outbound**) or ignore the
+direction and follow them in both directions (**any**) as if it were an
+undirected graph.
+
+You can query graphs with ArangoDB's query language, see
+[Graphs in AQL](aql/graphs.html).
+
+## Comparison to relational database systems
+
+In relational database management systems (RDBMS), you have the construct of
+a relation table to store *m:n* relations between two data tables.
+An edge collection is somewhat similar to these relation tables.
+Vertex collections resemble the data tables with the objects to connect.
+
+While simple graph queries with a fixed number of hops via the relation table
+may be doable in RDBMSes with SQL using several nested joins, graph databases
+can handle an arbitrary and variable number of these hops over edge collections
+which is called **traversal**.
+
+Moreover, edges in one edge collection may point to vertices in different
+vertex collections. It is common to have attributes attached to edges, like a
+*label* naming the type of connection.
+
+Edges have a direction, with their relations stored in the special `_from` and
+`_to` attributes pointing *from* one document *to* another document.
+In queries, you can define in which directions the edge relations may be followed
+(`OUTBOUND`: `_from` → `_to`, `INBOUND`: `_from` ← `_to`, `ANY`: `_from` ↔ `_to`).
+
+## Supported graph algorithms
 
 - [Traversal](aql/graphs-traversals.html)
   - following edges in outbound, inbound, or any direction
@@ -61,365 +142,234 @@ Supported Graph Algorithms
   - Label Propagation Community Detection
   - Speaker-Listener Label Propagation (SLPA) Community Detection
 
-Named Graphs
-------------
+## Managed and unmanaged graphs
 
-Named graphs are completely managed by ArangoDB, and thus also [visible in the web interface](programs-web-interface-graphs.html).
-They use the full spectrum of ArangoDB's graph features. You may access them via several interfaces.
+You can use vertex and edge collections directly, using them as an unmanaged
+**anonymous graph**. In queries, you need to specify the involved collections
+for graph operations like traversals.
 
-- [AQL Graph Operations](aql/graphs.html) with several flavors:
-  - [AQL Traversals](aql/graphs-traversals.html) on both named and anonymous graphs
-  - [AQL Shortest Path](aql/graphs-shortest-path.html) on both named and anonymous graph
-- [JavaScript General Graph implementation, as you may use it in Foxx Services](graphs-general-graphs.html)
-  - [Graph Management](graphs-general-graphs-management.html); creating & manipulating graph definitions; inserting, updating and deleting vertices and edges into graphs
-  - [Graph Functions](graphs-general-graphs-functions.html) for working with edges and vertices, to analyze them and their relations
-- [JavaScript SmartGraph implementation, for scalable graphs](graphs-smart-graphs.html)
-  - [SmartGraph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
-- [RESTful General Graph interface](http/gharial.html) used to implement graph management in client drivers
+You can also create a managed **named graph** to define a set of vertex and
+edge collections along with the allowed relations. In queries, you only need to
+specify the graph instead of the individual vertex and edge collections. There
+are additional integrity checks when using the named graph interfaces.
 
-### Manipulating collections of named graphs with regular document functions
+Named graphs ensure graph integrity, both when inserting or removing edges or
+vertices. You won't encounter dangling edges, even if you use the same vertex
+collection in several named graphs. This involves more operations inside the
+database system, which come at a cost. Therefore, anonymous graphs may be faster
+in many operations. You can choose between no integrity guarantees, additional
+effort to implement consistency checks in your application code, and server-side
+integrity checks at a performance cost.
 
-The underlying collections of the named graphs are still accessible using the standard methods for collections.
-However the graph module adds an additional layer on top of these collections giving you the following guarantees:
+### Named Graphs
 
-- All modifications are executed transactional
-- If you delete a vertex all edges referring to this vertex will be deleted too
-- If you insert an edge it is checked if the edge matches the *edge definitions*
+Named graphs are completely managed by ArangoDB, ensuring data consistency if the
+named graph interfaces and not the raw document manipulation interfaces are used.
 
-Your edge collections will only contain valid edges and you will never have loose ends.
-These guarantees are lost if you access the collections in any other way than the graph module,
-so if you delete documents from your vertex collections directly, the edges pointing to them will be remain in place.
+The following types of named graphs exist:
+- [General Graphs](graphs-general-graphs.html)
+- [SmartGraphs](graphs-smart-graphs.html)
+- [EnterpriseGraphs](graphs-enterprise-graphs.html)
+- [SatelliteGraphs](graphs-satellite-graphs.html)
 
-Existing inconsistencies in your data will not be corrected when you create a named graph.
-Therefore, make sure you start with sound data as otherwise there could be dangling edges after all.
-The graph module guarantees to not introduce new inconsistencies only.
+Which collections are used within a named graph is defined via 
+**edge definitions**. They describe which edge collections connect which
+vertex collections. This is defined separately for the *from* and the *to*
+per edge collection. A named graph can have one or more edge definitions.
 
-Anonymous graphs
-----------------
+The underlying collections of named graphs are still accessible using the
+standard collection and document APIs. However, the graph modules add an
+additional layer on top of these collections to provide integrity guarantees by
+doing the following:
 
-Sometimes you may not need all the powers of named graphs, but some of its bits may be valuable to you.
-You may use anonymous graphs in the [traversals](graphs-traversals.html) 
-and in the [Working with Edges](graphs-edges.html) chapter.
-Anonymous graphs don't have *edge definitions* describing which *vertex collection* is connected by which *edge collection*. The graph model has to be maintained in the client side code.
-This gives you more freedom than the strict *named graphs*.
+- Execute all modifications transactionally
+- Check that vertices references by edges in the `_from` and `_to` attributes
+  actually exist
+- Only allow to reference vertices from collections as specified by the
+  definition of the graph
+- Delete edges when a connected vertex is deleted to avoid dangling edges
+- Prohibit to use an edge collections in an edge definition with a different
+  set of *from* and *to* vertex collections than an existing edge definition
+  of any graph
+- Depending on the named graph type, there can be additional restrictions to
+  ensure a well-formed graph
 
-- [AQL Graph Operations](aql/graphs.html) are available for both, named and anonymous graphs:
-  - [AQL Traversals](aql/graphs-traversals.html)
-  - [AQL Shortest Path](aql/graphs-shortest-path.html)
+Your edge collections will only contain valid edges and you will never have
+loose ends. These guarantees are lost if you access the collections in any other
+way than the graph modules. For example, if you delete documents from your
+vertex collections directly, the edges pointing to them remain in place.
+Note that existing inconsistencies in your data are not corrected when you create
+a named graph. Therefore, make sure you start with sound data as otherwise there
+could be dangling edges after all. The graph modules guarantee to not introduce
+new inconsistencies only.
 
-### When to choose anonymous or named graphs
+You can create and manage named graphs in the following ways:
+- With the [web interface](programs-web-interface-graphs.html)
+  in the **GRAPHS** section
+- In _arangosh_ using the respective graph-related modules of the
+  JavaScript API (see the above links of the named graph types)
+- Using the [Gharial HTTP API](http/gharial.html)
 
-As noted above, named graphs ensure graph integrity, both when inserting or removing edges or vertices.
-So you won't encounter dangling edges, even if you use the same vertex collection in several named graphs.
-This involves more operations inside the database which come at a cost.
-Therefore anonymous graphs may be faster in many operations.
-So this question may be narrowed down to: 'Can I afford the additional effort or do I need the warranty for integrity?'. 
+### Anonymous graphs
 
-Multiple edge collections vs. `FILTER`s on edge document attributes
--------------------------------------------------------------------
+An anonymous graph is the graph that your data implicitly defines by edges that
+reference vertices and that you directly use by defining the vertex and edge
+collections for graph operations such as traversals and path finding algorithms
+in queries. You can also work with [edges](graphs-edges.html) directly.
 
-If you want to only traverse edges of a specific type, there are two ways to achieve this. The first would be
-an attribute in the edge document - i.e. `type`, where you specify a differentiator for the edge -
-i.e. `"friends"`, `"family"`, `"married"` or `"workmates"`, so you can later `FILTER e.type = "friends"`
-if you only want to follow the friend edges.
+Anonymous graphs don't have edge definitions describing which vertex collection
+is connected by which edge collection. The graph model has to be maintained by
+the client-side code. This gives you more freedom than the strict named graphs
+such as the ability to let an edge reference documents from any collections in
+the current database.
 
-Another way, which may be more efficient in some cases, is to use different edge collections for different
-types of edges, so you have `friend_edges`, `family_edges`, `married_edges` and `workmate_edges` as collection names.
-You can then configure several named graphs including a subset of the available edge and vertex collections -
-or you use anonymous graph queries, where you specify a list of edge collections to take into account in that query.
-To only follow friend edges, you would specify `friend_edges` as sole edge collection.
+{% comment %}
+## Graph use cases
 
-Both approaches have advantages and disadvantages. `FILTER` operations on edge attributes will do comparisons on
-each traversed edge, which may become CPU-intense. When not *finding* the edges in the first place because of the
-collection containing them is not traversed at all, there will never be a reason to actually check for their
-`type` attribute with `FILTER`.
+many problem domains and solve them with semantic queries and graph analytics.
+use cases with rough data model
 
-The multiple edge collections approach is limited by the [number of collections that can be used simultaneously in one query](aql/fundamentals-syntax.html#collection-names).
-Every collection used in a query requires some resources inside of ArangoDB and the number is therefore limited
-to cap the resource requirements. You may also have constraints on other edge attributes, such as a hash index
-with a unique constraint, which requires the documents to be in a single collection for the uniqueness guarantee,
-and it may thus not be possible to store the different types of edges in multiple edge collections.
+information extraction (high-level)
+{% endcomment %}
 
-So, if your edges have about a dozen different types, it's okay to choose the collection approach, otherwise
-the `FILTER` approach is preferred. You can still use `FILTER` operations on edges of course. You can get rid
-of a `FILTER` on the `type` with the former approach, everything else can stay the same.
+## Model data with graphs
 
-Which part of my data is an Edge and which a Vertex?
-----------------------------------------------------
+Graphs can have different structures, called **topologies**. The topology
+describes how the vertices and edges are arranged by classifying the pattern of
+connections. Some relevant classes are:
 
-The main objects in your data model, such as users, groups or articles, are usually considered to be vertices.
-For each type of object, a document collection (also called vertex collection) should store the individual entities.
-Entities can be connected by edges to express and classify relations between vertices. It often makes sense to have
+- Cyclic: a graph that contains at least one path that starts and ends at the
+  same node. An edge can also originate from and point to the same vertex.
+- Acyclic: a graph that contains no cycles
+- Tree: a directed acyclic graph (DAG) without cycles and exactly one path
+  between any two vertices in the graph
+- Dense: a graph with edges between most pairs of vertices
+- Sparse: a graph where only few pairs of vertices are connected by edges
+
+The topology for your graphs will vary depending on your data and requirements
+but you always have a degree of freedom when modeling the data.
+
+### What information should be stored in edges and what in vertices
+
+The main objects in your data model, such as users, groups, or articles, are
+usually considered to be vertices. For each type of object, a document collection
+should store the individual entities. Entities can be connected by edges to
+express and classify relations between vertices. It often makes sense to have
 an edge collection per relation type.
 
-ArangoDB does not require you to store your data in graph structures with edges and vertices, you can also decide
-to embed attributes such as which groups a user is part of, or `_id`s of documents in another document instead of
-connecting the documents with edges. It can be a meaningful performance optimization for *1:n* relationships, if
-your data is not focused on relations and you don't need graph traversal with varying depth. It usually means
-to introduce some redundancy and possibly inconsistencies if you embed data, but it can be an acceptable tradeoff.
+ArangoDB does not require you to store your data in graph structures with edges
+and vertices. You can also decide to embed attributes such as which groups a
+user is part of or store `_id`s of documents in another document instead of
+connecting the documents with edges. It can be a meaningful performance
+optimization for *1:n* relationships if your data is not focused on relations
+and you don't need graph traversal with varying depth. It usually means
+to introduce some redundancy and possibly inconsistencies if you embed data, but
+it can be an acceptable tradeoff.
 
-### Vertices
+**Vertices**:
+Assume you have two vertex collections, `Users` and `Groups`. Documents in the
+`Groups` collection contain the attributes of the group, i.e. when it was founded,
+its subject, and so on. Documents in the `Users` collection contain the data
+specific to a user, like name, birthday, hobbies, et cetera.
 
-Let's say we have two vertex collections, `Users` and `Groups`. Documents in the `Groups` collection contain the attributes
-of the Group, i.e. when it was founded, its subject, an icon URL and so on. `Users` documents contain the data specific to a
-user - like all names, birthdays, Avatar URLs, hobbies...
-
-### Edges
-
-We can use an edge collection to store relations between users and groups. Since multiple users may be in an arbitrary
-number of groups, this is an **m:n** relation. The edge collection can be called `UsersInGroups` with i.e. one edge
-with `_from` pointing to `Users/John` and `_to` pointing to `Groups/BowlingGroupHappyPin`. This makes the user **John**
-a member of the group **Bowling Group Happy Pin**. Attributes of this relation may contain qualifiers to this relation,
-like the permissions of **John** in this group, the date when John joined the group etc.
+**Edges**:
+You can use an edge collection to store relations between users and groups.
+Since multiple users may be in an arbitrary number of groups, this is an **m:n**
+relation. The edge collection can be called `UsersInGroups` to store edges like
+with `_from` pointing to `Users/John` and `_to` pointing to
+`Groups/BowlingGroupHappyPin`. This makes the user **John** a member of the group
+**Bowling Group Happy Pin**. You can store additional properties in document
+attributes to qualify the relation further, like the permissions of **John** in
+this group, the date when John joined the group, and so on.
 
 ![User in group example](images/graph_user_in_group.png)
 
-So roughly put, if you use documents and their attributes in a sentence, nouns would typically be vertices, verbs become the edges.
-You can see this in the [knows graph](#the-knows_graph) below:
+As a rule of thumb, if you use documents and their attributes in a sentence,
+nouns would typically be vertices, and the verbs the edges.
+You can see this in the [Knows Graph](graphs-traversals-example-data.html#knows-graph):
 
-     Alice knows Bob, who in term knows Charlie.
+    Alice knows Bob, who in term knows Charlie.
 
-### Advantages of this approach
+The advantages of using graphs is that you are not limited to a fixed number of
+**m:n** relations for a document, but you can have an arbitrary number of
+relations. Edges can be traversed in both directions, so it is easy to determine
+all groups a user is in, but also to find out which members a certain group has.
+You can also interconnect users to create a social network.
 
-Graphs give you the advantage of not just being able to have a fixed number of **m:n** relations in a row, but an
-arbitrary number. Edges can be traversed in both directions, so it's easy to determine all
-groups a user is in, but also to find out which members a certain group has. Users could also be
-interconnected to create a social network.
+Using the graph data model, dealing with data that has lots of relations stays
+manageable and can be queried in very flexible ways, whereas it would hard to
+handle it in a relational database system.
 
-Using the graph data model, dealing with data that has lots of relations stays manageable and can be queried in very
-flexible ways, whereas it would cause headache to handle it in a relational database system.
+### Multiple edge collections vs. `FILTER`s on edge document attributes
 
-Backup and restore
-------------------
+If you want to only traverse edges of a specific type, there are two ways to
+achieve this.
 
-For sure you want to have backups of your graph data, you can use [_arangodump_](programs-arangodump.html) to create the backup,
-and [_arangorestore_](programs-arangorestore.html) to restore a backup into a new ArangoDB. You should however note that:
+The first is to use an attribute in the edge document, e.g. `type`, where you
+specify a differentiator for the edge, like `"friends"`, `"family"`, `"married"`,
+or `"workmates"`, so that you can later use `FILTER e.type = "friends"` in
+queries if you only want to follow the friend edges.
 
-- you need the system collection `_graphs` if you backup named graphs.
-- you need to backup the complete set of all edge and vertex collections your graph consists of. Partial dump/restore may not work.
+Another way, which may be more efficient in some cases, is to use different
+edge collections for different types of edges. You could have `friend_edges`,
+`family_edges`, `married_edges`, and `workmate_edges` as edge collections.
+You can then limit the query to a subset of the edge and vertex collections.
+To only follow friend edges, you would specify `friend_edges` as sole edge collection.
 
-Managing graphs
----------------
+Both approaches have advantages and disadvantages. `FILTER` operations on edge
+attributes are more costly at query time because a condition needs to be checked
+for every traversed edge, which may become a bottleneck. If the set of edges is
+restricted by only using a certain edge collection, then other types of edges
+are not traversed in the first place and there is no need to check for a `type`
+attribute with `FILTER`. On the other hand, using a `type` attribute allows you
+to update edges more easily and you can even assign multiple types to a single
+edge.
 
-By default you should use [the interface your driver provides to manage graphs](http/gharial.html#management).
+The multiple edge collections approach is limited by the number of collections
+that can be used simultaneously in one query, see
+[Known limitations for AQL queries](aql/fundamentals-limitations.html).
+Every collection used in a query requires some resources inside of ArangoDB and
+the number is therefore limited to cap the resource requirements. You may also
+have constraints on other edge attributes, such as a persistent index with a
+unique constraint, which requires the documents to be in a single collection for
+the uniqueness guarantee, and it may thus not be possible to store the different
+types of edges in multiple edge collections.
 
-This is i.e. documented [in Graphs-Section of the ArangoDB Java driver](https://github.com/arangodb/arangodb-java-driver#graphs){:target="_blank"}.
+In conclusion, if your edges have about a dozen different types, you can choose
+the approach with multiple edge collections. Otherwise, the `FILTER` approach is
+preferred. You can still use `FILTER` operations on edges as needed if you choose
+the former approach. It merely removes the need of a `FILTER` on the `type`,
+everything else can stay the same.
 
-Example Graphs
---------------
+{% comment %}
+embedded vs. joins vs. graphs
 
-ArangoDB comes with a set of easily graspable graphs that are used to demonstrate the APIs.
-You can use the `add samples` tab in the `create graph` window in the web interface, or load the module `@arangodb/graph-examples/example-graph` in arangosh and use it to create instances of these graphs in your ArangoDB.
-Once you've created them, you can [inspect them in the web interface](programs-web-interface-graphs.html) - which was used to create the pictures below.
+acl/rbac
+dependencies
+product hierarchies
+...
+{% endcomment %}
 
-You [can easily look into the innards of this script](https://github.com/arangodb/arangodb/blob/devel/js/common/modules/%40arangodb/graph-examples/example-graph){:target="_blank"} for reference about how to manage graphs programmatically.
+### Example graphs
 
-### The Knows\_Graph
+For example data that you can use for learning graphs, see
+[Example graphs](graphs-traversals-example-data.html).
 
-A set of persons knowing each other:
-![Persons relation Example Graph](images/knows_graph.png)
+{% comment %}
+## Query graphs
 
-The *knows* graph consists of one *vertex collection* `persons` connected via one *edge collection* `knows`.
-It will contain five persons *Alice*, *Bob*, *Charlie*, *Dave* and *Eve*.
-We will have the following directed relations:
+Explain traversal, pattern matching, shortest paths, pregel
+direction, depth, order, conditions, weights?
+combine with geo, search, ...
+{% endcomment %}
 
-  - *Alice* knows *Bob*
-  - *Bob* knows *Charlie*
-  - *Bob* knows *Dave*
-  - *Eve* knows *Alice*
-  - *Eve* knows *Bob*
+## Back up and restore graph
 
-This is how we create it, inspect its *vertices* and *edges*, and drop it again:
+For backups of your graph data, you can use [_arangodump_](programs-arangodump.html)
+to create the backup, and [_arangorestore_](programs-arangorestore.html) to
+restore a backup. However, note the following:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline graph_create_knows_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_knows_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("knows_graph");
-    db.persons.toArray()
-    db.knows.toArray();
-    examples.dropGraph("knows_graph");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock graph_create_knows_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all edges of this graph.
-
-### The Social Graph
-
-A set of persons and their relations:
-
-![Social Example Graph](images/social_graph.png)
-
-This example has female and male persons as *vertices* in two *vertex collections* - `female` and `male`. The *edges* are their connections in the `relation` *edge collection*.
-This is how we create it, inspect its *vertices* and *edges*, and drop it again:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline graph_create_social_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_social_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var graph = examples.loadGraph("social");
-    db.female.toArray()
-    db.male.toArray()
-    db.relation.toArray()
-    examples.dropGraph("social");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock graph_create_social_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-### The City Graph
-
-A set of european cities, and their fictional traveling distances as connections:
-
-![Cities Example Graph](images/cities_graph.png)
-
-The example has the cities as *vertices* in several *vertex collections* - `germanCity` and `frenchCity`. The *edges* are their interconnections in several *edge collections* `french / german / international Highway`. This is how we create it, inspect its *edges* and *vertices*, and drop it again:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline graph_create_cities_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_cities_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("routeplanner");
-    db.frenchCity.toArray();
-    db.germanCity.toArray();
-    db.germanHighway.toArray();
-    db.frenchHighway.toArray();
-    db.internationalHighway.toArray();
-    examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock graph_create_cities_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-### The Traversal Graph
-
-This graph was designed to demonstrate filters in traversals. It has some labels to filter on it.
-
-![Traversal Graph](images/traversal_graph.png)
-
-The example has all its vertices in the *circles* collection, and an *edges* edge collection to connect them.
-Circles have unique numeric labels. Edges have two boolean attributes (*theFalse* always being false, *theTruth* always being true) and a label sorting *B* - *D* to the left side, *G* - *K* to the right side. Left and right side split into Paths - at *B* and *G* which are each direct neighbours of the root-node *A*. Starting from *A* the graph has a depth of 3 on all its paths.
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline graph_create_traversal_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("traversalGraph");
-    db.circles.toArray();
-    db.edges.toArray();
-    examples.dropGraph("traversalGraph");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock graph_create_traversal_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all nodes of this graph.
-
-### The k Shortest Paths Graph
-
-The vertices in this graph are train stations of cities in Europe and
-North America and the edges represent train connections between them,
-with the travel time for both directions as edge weight.
-
-![Train Connection Map](images/train_map.png)
-
-See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examples.
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline graph_create_kshortestpaths_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_kshortestpaths_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("kShortestPathsGraph");
-    db.places.toArray();
-    db.connections.toArray();
-    examples.dropGraph("kShortestPathsGraph");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock graph_create_kshortestpaths_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-### The World Graph
-
-![World Graph](images/world_graph.png)
-
-The world country graph structures its nodes like that: world → continent → country → capital. In some cases edge directions aren't forward (therefore it will be displayed disjunct in the graph viewer). It has two ways of creating it. One using the named graph utilities (*worldCountry*), one without (*worldCountryUnManaged*). 
-It is used to demonstrate raw traversal operations.
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline graph_create_world_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_world_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("worldCountry");
-    db.worldVertices.toArray();
-    db.worldEdges.toArray();
-    examples.dropGraph("worldCountry");
-    var g = examples.loadGraph("worldCountryUnManaged");
-    examples.dropGraph("worldCountryUnManaged");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock graph_create_world_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-### The Mps Graph
-
-This graph was created to demonstrate a use case of the shortest path algorithm. Even though the algorithm can only determine one shortest path, it is possible to return multiple shortest paths with two separate queries. Therefore the graph is named after the [**m**ultiple **p**ath **s**earch](aql/examples-multiple-paths.html) use case.
-
-![Mps Graph](images/mps_graph.png)
-
-The example graph consists of *vertices* in the `mps_verts` collection and *edges* in the `mps_edges` collection. It is a simple traversal graph with start node *A* and end node *C*.
-
-This is how we create it, inspect its *vertices* and *edges*, and drop it again:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline graph_create_mps_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_mps_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("mps_graph");
-    db.mps_verts.toArray();
-    db.mps_edges.toArray();
-    examples.dropGraph("mps_graph");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock graph_create_mps_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-### The Connected Components Graph
-
-A small example graph comprised of `components` (vertices) and `connections`
-(edges). Good for trying out Pregel algorithms such as Weakly Connected
-Components (WCC).
-
-Also see:
-- [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)
-- [Pregel HTTP API](http/pregel.html)
-
-![Three disjoint subgraphs with 36 nodes and edges in total](images/connected_components.png)
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline graph_create_connectedcomponentsgraph_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_connectedcomponentsgraph_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("connectedComponentsGraph");
-    db.components.toArray();
-    db.connections.toArray();
-    examples.dropGraph("connectedComponentsGraph");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock graph_create_connectedcomponentsgraph_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-### Higher volume graph examples
-
-All of the above examples are rather small so they are easier to comprehend and can demonstrate the way the functionality works.
-There are however several datasets freely available on the web that are a lot bigger.
-[We collected some of them with import scripts](https://github.com/arangodb/example-datasets){:target="_blank"} so you may play around with them.
-Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/soc-pokec.html){:target="_blank"}
-from Slovakia that we [used for performance testing on several databases](https://www.arangodb.com/2015/06/multi-model-benchmark/){:target="_blank"};
-You will find importing scripts etc. in this blogpost.
-
-More examples
--------------
-
- - [AQL Example Queries on an Actors and Movies Database](aql/examples-actors-and-movies.html)
+- You need to include the `_graphs` system collection if you want to back up
+  named graphs as the graph definitions are stored in this collection.
+- You need to back up all vertex and edge collections your graph consists of.
+  A partial dump/restore may not work.

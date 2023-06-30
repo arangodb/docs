@@ -5,6 +5,7 @@ title: Graph Traversals in ArangoDB Query Language (AQL)
 redirect_from:
   - ../http/traversal.html # 3.8 -> 3.8
   - ../graphs-traversals-using-traversal-objects.html # 3.8 -> 3.8
+  - ../graphs-traversals.html # 3.11 -> 3.11
 ---
 # Graph traversals in AQL
 
@@ -868,6 +869,7 @@ And finally clean it up again:
 
 If this traversal is not powerful enough for your needs, like you cannot describe
 your conditions as AQL filter statements, then you might want to have a look at
-[manually crafted traversers](../graphs-traversals.html).
+the [edge collection methods](../appendix-references-collection-object.html#edge-documents)
+in the JavaScript API.
 
 Also see how to [combine graph traversals](examples-combining-graph-traversals.html).
