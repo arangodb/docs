@@ -1,5 +1,5 @@
 ---
-default: layout
+layout: default
 description: >-
   Graphs let you represent things and the relationships between them using
   vertices and edges, to naturally model knowledge, social networks, cash flows,
