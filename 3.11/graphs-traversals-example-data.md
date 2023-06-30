@@ -31,11 +31,11 @@ edge collection.
 There are five persons, *Alice*, *Bob*, *Charlie*, *Dave*, and *Eve*.
 They have the following directed relations:
 
-  - *Alice* knows *Bob*
-  - *Bob* knows *Charlie*
-  - *Bob* knows *Dave*
-  - *Eve* knows *Alice*
-  - *Eve* knows *Bob*
+- *Alice* knows *Bob*
+- *Bob* knows *Charlie*
+- *Bob* knows *Dave*
+- *Eve* knows *Alice*
+- *Eve* knows *Bob*
 
 Example of how to create the graph, inspect its vertices and edges, and delete
 it again:
@@ -58,7 +58,6 @@ see all edges of this graph by default.
 
 ## Traversal Graph
 
-
 The `traversalGraph` has been designed to demonstrate filters in traversals.
 It has some labels to filter on it. The graph's vertices are in a collection
 called `circles`, and it has an edge collection `edges` to connect them.
@@ -72,18 +71,18 @@ Left and right side split into paths - at *B* and *G*, which are each direct
 neighbors of the root-node *A*. Starting from *A*, the graph has a depth of 3 on
 all its paths.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_traversal_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("traversalGraph");
-    db.circles.toArray();
-    db.edges.toArray();
-    examples.dropGraph("traversalGraph");
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("traversalGraph");
+      db.circles.toArray();
+      db.edges.toArray();
+      examples.dropGraph("traversalGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_traversal_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 **Note:** With the default traversal depth of 2 of the graph viewer, you may not
 see all edges of this graph by default.
@@ -98,18 +97,18 @@ with the travel time for both directions as edge weight.
 
 See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examples.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_kshortestpaths_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_kshortestpaths_sample}
-    var examples = require("@arangodb/graph-examples/example-graph");
-    var g = examples.loadGraph("kShortestPathsGraph");
-    db.places.toArray();
-    db.connections.toArray();
-    examples.dropGraph("kShortestPathsGraph");
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("kShortestPathsGraph");
+      db.places.toArray();
+      db.connections.toArray();
+      examples.dropGraph("kShortestPathsGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_kshortestpaths_sample
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ## Mps Graph
 

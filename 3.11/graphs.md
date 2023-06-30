@@ -326,8 +326,7 @@ to update edges more easily and you can even assign multiple types to a single
 edge.
 
 The multiple edge collections approach is limited by the number of collections
-that can be used simultaneously in one query, see
-[Known limitations for AQL queries](aql/fundamentals-limitations.html).
+that can be used in one query, see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
 Every collection used in a query requires some resources inside of ArangoDB and
 the number is therefore limited to cap the resource requirements. You may also
 have constraints on other edge attributes, such as a persistent index with a
