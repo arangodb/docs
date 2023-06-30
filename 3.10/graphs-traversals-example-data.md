@@ -88,7 +88,7 @@ all its paths.
 **Note:** With the default traversal depth of 2 of the graph viewer, you may not
 see all edges of this graph by default.
 
-## The k Shortest Paths Graph
+## k Shortest Paths Graph
 
 The vertices in the `kShortestPathsGraph` graph are train stations of cities in
 Europe and North America. The edges represent train connections between them,
