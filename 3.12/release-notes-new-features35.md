@@ -171,7 +171,7 @@ If the optimization is applied, it will show as "sort-limit" rule in the query e
 plan.
 
 Also see:
-- [AQL Optimizer Rules](aql/execution-and-performance-optimizer.html#list-of-optimizer-rules)
+- [AQL Optimizer Rules](aql/execution-and-performance-optimizer.html#optimizer-rules)
   (`sort-limit` rule)
 - [Sort-Limit Optimization in AQL](https://www.arangodb.com/2019/03/sort-limit-optimization-aql/){:target="_blank"}
   (blog post)

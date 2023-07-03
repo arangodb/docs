@@ -269,7 +269,7 @@ FOR d IN myView
 The respective optimizer rules are called `late-document-materialization`
 (collection source) and `late-document-materialization-arangosearch`
 (ArangoSearch View source). If applied, you will find `MaterializeNode`s
-in [execution plans](aql/execution-and-performance-optimizer.html#list-of-execution-nodes).
+in [execution plans](aql/execution-and-performance-optimizer.html#execution-nodes).
 
 ### Parallelization of cluster AQL queries
 

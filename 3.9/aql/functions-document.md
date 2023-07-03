@@ -309,6 +309,35 @@ This will now return:
 }
 ```
 
+{% hint 'tip' %}
+Consider to use [`ZIP()`](#zip) instead of `MERGE()` if you want to merge a set
+of disjoint keys and their associated values into a single object.
+
+This could be a pattern like the following where objects with dynamic attribute
+keys are created and then merged together (here to return a map of distinct
+attribute values and how often they occur):
+
+```aql
+RETURN MERGE(
+  FOR doc IN coll
+    COLLECT value = doc.attr WITH COUNT INTO count
+    RETURN { [value]: count }
+)
+```
+
+This creates many temporary objects and can be slow if there are thousands of
+objects to merge. The following pattern using `ZIP()` is more efficient:
+
+```aql
+LET counts = (
+  FOR doc IN coll
+    COLLECT value = doc.attr WITH COUNT INTO count
+    RETURN [value, count]
+)
+RETURN ZIP(counts[*][0], counts[*][1])
+```
+{% endhint %}
+
 MERGE_RECURSIVE()
 -----------------
 
