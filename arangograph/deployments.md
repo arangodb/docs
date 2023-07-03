@@ -142,7 +142,16 @@ the upper disk size limit already.
    deployment is being set up, it will display the __bootstrapping__ status.
 4. Press the __View__ button to show the deployment page.
 5. When a deployment displays a status of __OK__, you can access it.
-6. Click the copy icon next to the root password. This will copy the deployment
+6. Click the __Open endpoint__ button or on the endpoint URL property to open
+   the dashboard of your new ArangoDB deployment.
+
+At this point your ArangoDB deployment is available for you to use — **Have fun!**
+
+If you have disabled the [auto-login option](#auto-login-to-database-ui) to the
+database web interface, you need to follow the additional steps outlined below
+to access your deployment:
+
+1. Click the copy icon next to the root password. This will copy the deployment
    root password to your clipboard. You can also click the view icon to unmask
    the root password to see it.
 
@@ -151,16 +160,12 @@ the upper disk size limit already.
    to use them only to create other user accounts with appropriate permissions.
    {% endhint %}
 
-7. You will also receive an email that the deployment is available, with a URL
-   to open it up.
-8. Click the __Open endpoint__ button or on the endpoint URL property to open
+2. Click the __Open endpoint__ button or on the endpoint URL property to open
    the dashboard of your new ArangoDB deployment.
-9. In the __username__ field type `root`, and in the __password__ field paste the
+3. In the __username__ field type `root`, and in the __password__ field paste the
    password that you copied earlier.
-10. Press the __Login__ button.
-11. Press the __Select DB: \_system__ button
-
-At this point your ArangoDB deployment is available for you to use — **Have fun!**
+4. Press the __Login__ button.
+5. Press the __Select DB: \_system__ button.
 
 {% hint 'info' %}
 Each deployment is accessible on two ports:
@@ -292,6 +297,27 @@ For more details about available resources and usage limits, refer to the
 
 6. All changes are reflected in the **Summary** section. Review the new
    configuration and click **Save**. 
+
+## How to connect a driver to your deployment
+
+[ArangoDB drivers](../drivers/index.html) allow you to use your ArangoGraph
+deployment as a database system for your applications. Drivers act as interfaces
+between different programming languages and ArangoDB, which enable you to
+connect to and manipulate ArangoDB deployments from within compiled programs
+or using scripting languages.
+
+To get started, open a deployment and go to the **Overview** tab.
+In the **Quick start** section, click on the **Connecting drivers** button and
+select your programming language. The code snippets provide examples on how to
+connect to your instance.
+
+{% hint 'tip' %}
+Note that ArangoGraph Insights Platform runs deployments in a cluster
+configuration. To achieve the best possible availability, your client
+application has to handle connection failures by retrying operations if needed.
+{% endhint %}
+
+![ArangoGraph Connecting Drivers Example](images/arangograph-connecting-drivers-example.png)
 
 ## How to delete a deployment
 
