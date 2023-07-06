@@ -9,7 +9,7 @@ Finding the start vertex via a geo query
 ----------------------------------------
 
 Our first example will locate the start vertex for a graph traversal via [a geo index](../indexing-geo.html).
-We use [the city graph](../graphs.html#the-city-graph) and its geo indexes:
+We use the [City Graph](../graphs-traversals-example-data.html#city-graph) and its geo indexes:
 
 ![Cities Example Graph](../images/cities_graph.png)
 

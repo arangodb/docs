@@ -5,6 +5,7 @@ title: Graph Traversals in ArangoDB Query Language (AQL)
 redirect_from:
   - ../http/traversal.html # 3.8 -> 3.8
   - ../graphs-traversals-using-traversal-objects.html # 3.8 -> 3.8
+  - ../graphs-traversals.html # 3.11 -> 3.11
 ---
 # Graph traversals in AQL
 
@@ -254,7 +255,7 @@ after `PRUNE`.
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 The above example shows a graph traversal using a
-[train station and connections dataset](../graphs.html#the-k-shortest-paths-graph):
+[train station and connections dataset](../graphs-traversals-example-data.html#k-shortest-paths-graph):
 
 ![Train Connection Map](../images/train_map.png)
 
@@ -868,6 +869,7 @@ And finally clean it up again:
 
 If this traversal is not powerful enough for your needs, like you cannot describe
 your conditions as AQL filter statements, then you might want to have a look at
-[manually crafted traversers](../graphs-traversals.html).
+the [edge collection methods](../appendix-references-collection-object.html#edge-documents)
+in the JavaScript API.
 
 Also see how to [combine graph traversals](examples-combining-graph-traversals.html).

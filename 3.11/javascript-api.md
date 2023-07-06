@@ -180,13 +180,19 @@ You can use the following modules as an end-user:
   - [**@arangodb/locals**](foxx-reference-modules.html#the-arangodblocals-module)
     is a helper module to use Foxx together with Webpack.
 
-- Graph related modules:
+- Graph-related modules:
 
   - [**@arangodb/general-graph**](graphs-general-graphs.html)
     implements a graph management interface for named graphs.
 
   - [**@arangodb/smart-graph**](graphs-smart-graphs-management.html)
     provides management features for SmartGraphs
+
+  - [**@arangodb/satellite-graph**](graphs-satellite-graphs-management.html)
+    provides management features for SatelliteGraphs
+
+  - [**@arangodb/enterprise-graph**](graphs-enterprise-graphs-management.html)
+    provides management features for EnterpriseGraphs
 
   - [**@arangodb/graph-examples/example-graph**](graphs.html#example-graphs)
     can load example graphs (creates collections, populates them with documents

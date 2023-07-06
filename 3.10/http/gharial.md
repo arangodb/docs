@@ -20,11 +20,11 @@ You can manage all types of ArangoDB's named graphs with Gharial:
 
 The examples use the following example graphs:
 
-[_social graph_](../graphs.html#the-social-graph):
+[_Social Graph_](../graphs-traversals-example-data.html#social-graph):
 
 ![Social Example Graph](../images/social_graph.png)
 
-[_knows graph_](../graphs.html#the-knows_graph):
+[_Knows Graph_](../graphs-traversals-example-data.html#knows-graph):
 
 ![Social Example Graph](../images/knows_graph.png)
 

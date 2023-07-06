@@ -8,7 +8,7 @@ Graph Functions
 This chapter describes [various functions on a graph](graphs.html).
 A lot of these accept a vertex (or edge) example as parameter as defined in the next section.
 
-Examples will explain the API on the [the city graph](graphs.html#the-city-graph):
+Examples will explain the API on the the [City Graph](graphs-traversals-example-data.html#city-graph):
 
 ![Social Example Graph](images/cities_graph.png)
 
