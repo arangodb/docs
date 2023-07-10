@@ -301,13 +301,6 @@ other write operations, and can thus be limited there. When there are
 many or large open transactions, this can sum up to a large amount of
 RAM usage.
 
-Once a transaction is committed and data is supposed to written out to
-level 0 SST files, there is RAM usage for table builders.
-
-As mentioned above in the block cache section, RAM usage for table
-builders can be accounted for with the block cache, if
-`--rocksdb.reserve-table-builder-memory` is set to `true`.
-
 A further limit on RAM usage can be imposed by setting the option
 
 ```
