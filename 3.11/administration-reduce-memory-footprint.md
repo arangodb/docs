@@ -70,7 +70,7 @@ towards its memory usage:
 
 - RocksDB block cache
 - data structures to read data (Bloom filters, index blocks, table readers)
-- data structures to write data (write buffers, transaction data)
+- data structures to write data (write buffers, table builders, transaction data)
 - RocksDB background compaction
 
 It is important to understand that all these have a high impact on
@@ -78,9 +78,9 @@ performance. For example, the block cache is there such that already
 used blocks can be retained in RAM for later access. The larger the
 cache, the more blocks can be retained and so the higher the probability
 that a subsequent access does not need to reach out to disk and thus
-incurs no additional costs on performance and IO capacity.
+incurs no additional cost on performance and IO capacity.
 
-RocksDB caches bloom filters and index blocks of its SST files in RAM.
+RocksDB can cache bloom filters and index blocks of its SST files in RAM.
 It usually needs approx. 1% of the total size of all SST files in RAM
 just for caching these. As a result, most random accesses need only a
 single actual disk read to find the data stored under a single RocksDB
@@ -106,13 +106,14 @@ stops.
 
 The other subsystems outside the storage engine also need RAM. If an
 ArangoDB server queues up too many requests (for example, if more
-requests arrive per time than can be executed), then the bodies of these
-requests are cached in RAM.
+requests arrive per time than can be executed), then the data of these
+requests (headers, bodies, etc.) are stored in RAM until they can be
+processed.
 
 Furthermore, there are multiple different caches which are sitting in
 front of the storage engine, the most prominent one being the edge cache
 which helps to speed up graph traversals. The larger these caches,
-the more data can be cached and the higher the likelyhood that data
+the more data can be cached and the higher the likelihood that data
 which is needed repeatedly is found to be available in cache.
 
 Essentially, all AQL queries are executed in RAM. That means that every
@@ -186,7 +187,7 @@ which can be used to limit the total amount of memory for write buffers
 --rocksdb.total-write-buffer-size
 ```
 
-Note that it does not make sense to set to set this limit smaller than
+Note that it does not make sense to set this limit smaller than
 10 times the size of a write buffer, since there are currently 10 column
 families and each will need at least one write buffer.
 
@@ -267,8 +268,9 @@ The following options control accounting for RocksDB RAM usage:
 ```
 
 They are for Bloom filter and block indexes, file metadata, table
-building (RAM usage for uncommitted transactions) and table reading (RAM
-usage for read operations) respectively.
+building (RAM usage for building SST files, this happens when flushing
+memtables to level 0 SST files, during compaction and on recovery)
+and table reading (RAM usage for read operations) respectively.
 
 There are additional options you can enable to avoid that the index and filter
 blocks get evicted from cache:
@@ -294,8 +296,14 @@ Transactions
 ------------
 
 Before commit, RocksDB builds up transaction data in RAM. This happens
-in so-called "table builders". When there are many or large open
-transactions, this can sum up to a large amount of RAM usage.
+in so-called "memtables" and "write batches". Note that from Version
+3.12 on this memory usage is accounted for in writing AQL queries and
+other write operations, and can thus be limited there. When there are
+many or large open transactions, this can sum up to a large amount of
+RAM usage.
+
+Once a transaction is committed and data is supposed to written out to
+level 0 SST files, there is RAM usage for table builders.
 
 As mentioned above in the block cache section, RAM usage for table
 builders can be accounted for with the block cache, if
@@ -308,13 +316,13 @@ A further limit on RAM usage can be imposed by setting the option
 ```
 
 which is by default unlimited. This setting limits the total size of
-a single RocksDB transaction. If the table builder exceeds this size,
+a single RocksDB transaction. If the memtables exceed this size,
 the transaction is automatically aborted. Note that this cannot guard
 against **many** simultaneously uncommitted transactions.
 
 Another way to limit actual transaction size is "intermediate commits".
-This is a setting which leads to the behaviour that ArangoDB will
-automatically commit large transactions during their execution. This of
+This is a setting which leads to the behavior that ArangoDB will
+automatically commit large write operations while they are executed. This of
 course goes against the whole concept of a transaction, since parts of a
 transaction which have already been committed cannot be rolled back any
 more. Therefore, this is a rather desperate measure to prevent RAM
@@ -393,8 +401,8 @@ use no cache (or a minimal cache size) without a performance impact. In
 general, this should correspond to the size of the hot-set of edges and
 cached lookups from persistent indexes.
 
-Another way to save memory in the caches is to use compression by
-setting the option
+Another way to save memory in the caches is to use compression (from
+3.11 on) by setting the option
 
 ```
 --cache.min-value-size-for-edge-compression
@@ -407,8 +415,8 @@ will be compressed.
 This will cost a little CPU power but the system can then cache more
 data in the same amount of memory.
 
-The behaviour of the hash tables used in the caches can be adjusted with
-the following two options:
+The behavior of the hash tables used internally by the caches can be
+adjusted with the following two options:
 
 ```
 --cache.ideal-lower-fill-ratio
@@ -438,7 +446,8 @@ limits for all caches.
 The third option above is by default `true`, so that caches on
 followers will automatically be refilled if any of the first two options
 is set to `true`. Setting this to `false` can save RAM usage on
-followers.
+followers. Of course, this means that in case of a failover the caches
+of the new leader will be cold!
 
 Finally, the amount of write operations being queued for index refill
 can be limited with `--rocksdb.auto-refill-index-caches-queue-capacity`
