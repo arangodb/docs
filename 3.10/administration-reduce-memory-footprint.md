@@ -20,7 +20,11 @@ improve performance by caching or buffering. Therefore it is important
 to tell an ArangoDB process how much memory it is allowed to use.
 ArangoDB detects the available RAM on the server and divides this up
 amongst its subsystems in some default way, which is suitable for a wide
-range of applications. However, there will be situations in which there
+range of applications. This detected RAM size can be overridden with
+the environment variable
+[`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html).
+
+However, there will be situations in which there
 are good reasons why these defaults are not suitable and the
 administrator will therefore want to fine tune memory usage. The two
 major reasons for this are:
@@ -43,6 +47,23 @@ the hardware and do not work with much data. For production
 environments, we recommend to use less restrictive settings, to
 [benchmark](https://www.arangodb.com/performance/) your setup and
 fine-tune the settings for maximal performance.
+
+
+Limiting the overall RAM usage
+------------------------------
+
+A first, simple approach could be to simply tell the `arangod` process
+as a whole to use only a certain amount of memory. This is done by
+overriding the detected memory size using the
+[`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html) 
+environment variable.
+
+This will essentially scale down `arangod`'s memory usage to the
+given value. This is for example a first measure if more than
+one `arangod` server are running on the same machine.
+
+For more detailed tuning of the various subsystems, the sections below
+will be useful.
 
 Before we get into the nitty-gritty details, we provide an overview over
 the different subsystems of ArangoDB that are using significant amounts of RAM.
