@@ -62,8 +62,10 @@ This will essentially scale down `arangod`'s memory usage to the
 given value. This is for example a first measure if more than
 one `arangod` server are running on the same machine.
 
-For more detailed tuning of the various subsystems, the sections below
-will be useful.
+Note however, that certain subsystems will then still be able to use
+an arbitrary amount of RAM, depending on the load from the user. If you
+want to protect your server against such misusages and for more detailed
+tuning of the various subsystems, the sections below will be useful.
 
 Before we get into the nitty-gritty details, we provide an overview over
 the different subsystems of ArangoDB that are using significant amounts of RAM.
