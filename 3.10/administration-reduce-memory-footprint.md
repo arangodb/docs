@@ -15,8 +15,8 @@ Do not apply any of the changes suggested here before you have tested them in
 in a development or staging environment.
 {% endhint %}
 
-Usually, a database server will try to use all the memory it can get to
-improve performance by caching or buffering. Therefore it is important
+Usually, a database server tries to use all the memory it can get to
+improve performance by caching or buffering. Therefore, it is important
 to tell an ArangoDB process how much memory it is allowed to use.
 ArangoDB detects the available RAM on the server and divides this up
 amongst its subsystems in some default way, which is suitable for a wide
@@ -24,13 +24,13 @@ range of applications. This detected RAM size can be overridden with
 the environment variable
 [`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html).
 
-However, there will be situations in which there
+However, there may be situations in which there
 are good reasons why these defaults are not suitable and the
-administrator will therefore want to fine tune memory usage. The two
+administrator wants to fine tune memory usage. The two
 major reasons for this are:
 
  - something else (potentially another `arangod` server) is running on
-   the same machine so that our `arangod` is supposed to use less than
+   the same machine so that your `arangod` is supposed to use less than
    the available RAM, and/or
  - the actual usage scenario makes it necessary to increase the memory
    allotted to some subsystem at the cost of another to achieve higher
@@ -44,7 +44,7 @@ There are settings to make ArangoDB run on systems with very
 limited resources, but they may also be interesting for your
 development machine if you want to make it less taxing for
 the hardware and do not work with much data. For production
-environments, we recommend to use less restrictive settings, to
+environments, it is recommended to use less restrictive settings, to
 [benchmark](https://www.arangodb.com/performance/) your setup and
 fine-tune the settings for maximal performance.
 
@@ -52,22 +52,22 @@ fine-tune the settings for maximal performance.
 Limiting the overall RAM usage
 ------------------------------
 
-A first, simple approach could be to simply tell the `arangod` process
+A first simple approach could be to simply tell the `arangod` process
 as a whole to use only a certain amount of memory. This is done by
 overriding the detected memory size using the
 [`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html) 
 environment variable.
 
-This will essentially scale down `arangod`'s memory usage to the
+This essentially scales down `arangod`'s memory usage to the
 given value. This is for example a first measure if more than
 one `arangod` server are running on the same machine.
 
-Note however, that certain subsystems will then still be able to use
+Note, however, that certain subsystems will then still be able to use
 an arbitrary amount of RAM, depending on the load from the user. If you
 want to protect your server against such misusages and for more detailed
-tuning of the various subsystems, the sections below will be useful.
+tuning of the various subsystems, consult the sections below.
 
-Before we get into the nitty-gritty details, we provide an overview over
+Before getting into the nitty-gritty details, check the overview over
 the different subsystems of ArangoDB that are using significant amounts of RAM.
 
 
@@ -79,21 +79,21 @@ for.
 
 Broadly, ArangoDB uses significant amounts of RAM for the following subsystems:
 
-- storage engine including the block cache
+- Storage engine including the block cache
 - HTTP server and queues
-- edge caches and other caches
+- Edge caches and other caches
 - AQL queries
 - V8 (JavaScript features)
 - ArangoSearch
 - AgencyCache/ClusterInfo (cluster meta data)
-- cluster-internal replication
+- Cluster-internal replication
 
 Of these, the storage engine itself has some subsystems which contribute
 towards its memory usage:
 
 - RocksDB block cache
-- data structures to read data (Bloom filters, index blocks, table readers)
-- data structures to write data (write buffers, table builders, transaction data)
+- Data structures to read data (Bloom filters, index blocks, table readers)
+- Data structures to write data (write buffers, table builders, transaction data)
 - RocksDB background compaction
 
 It is important to understand that all these have a high impact on
@@ -140,23 +140,23 @@ the more data can be cached and the higher the likelihood that data
 which is needed repeatedly is found to be available in cache.
 
 Essentially, all AQL queries are executed in RAM. That means that every
-single AQL query needs some RAM - both on coordinators and on dbservers.
+single AQL query needs some RAM - both on Coordinators and on DB-Servers.
 It is possible to limit the memory usage of a single AQL query as well
 as the global usage for all AQL queries running concurrently. Obviously,
 if either of these limits is reached, an AQL query can fail due to a lack
 of RAM, which is then reported back to the user.
 
-Everything which executes JavaScript (only on coordinators, user defined
+Everything which executes JavaScript (only on Coordinators, user defined
 AQL functions and Foxx services), needs RAM, too. If JavaScript is not
 to be used, memory can be saved by reducing the number of V8 contexts.
 
 ArangoSearch uses memory in different ways:
 
-- writes which are committed in RocksDB but have not yet been **committed** to
+- Writes which are committed in RocksDB but have not yet been **committed** to
   the search index are buffered in RAM,
-- the search indexes use memory for **consolidation** of multiple smaller
+- The search indexes use memory for **consolidation** of multiple smaller
   search index segments into fewer larger ones,
-- the actual indexed search data resides in memory mapped files, which
+- The actual indexed search data resides in memory mapped files, which
   also need RAM to be cached.
 
 Finally, the cluster internal management uses RAM in each `arangod`
@@ -168,7 +168,7 @@ Furthermore, the cluster-internal replication needs memory to perform
 its synchronization and replication work. Again, there is not a lot one
 can do about that.
 
-In the following sections we go through the various subsystems which the
+The following sections show the various subsystems which the
 administrator can influence and explain how this can be done.
 
 Write ahead log (WAL)
@@ -216,7 +216,7 @@ families and each will need at least one write buffer.
 
 Additionally, RocksDB might keep some write buffers in RAM, which are
 already flushed to disk. This is to speed up transaction conflict
-detection. This only happens, if the option
+detection. This only happens if the option
 
 ```
 --rocksdb.max-write-buffer-size-to-maintain
@@ -239,7 +239,7 @@ The other options to configure write buffer usage are:
 --rocksdb.max-write-buffer-number-vpack
 ```
 
-but adjusting these will usually not help with RAM usage.
+However, adjusting these usually not helps with RAM usage.
 
 
 RocksDB Block Cache
@@ -266,7 +266,7 @@ you can set the option
 --rocksdb.enforce-block-cache-size-limit
 ```
 
-to `true`, but we do not recommend this, since it might lead to failed
+to `true`, but it is not recommended since it might lead to failed
 operations if the cache is full and we have observed that RocksDB
 instances can get stuck in this case. You have been warned.
 
@@ -318,8 +318,8 @@ Transactions
 ------------
 
 Before commit, RocksDB builds up transaction data in RAM. This happens
-in so-called "memtables" and "write batches". Note that from Version
-3.12 on this memory usage is accounted for in writing AQL queries and
+in so-called "memtables" and "write batches". Note that from
+v3.12 onwards, this memory usage is accounted for in writing AQL queries and
 other write operations, and can thus be limited there. When there are
 many or large open transactions, this can sum up to a large amount of
 RAM usage.
@@ -336,22 +336,22 @@ the transaction is automatically aborted. Note that this cannot guard
 against **many** simultaneously uncommitted transactions.
 
 Another way to limit actual transaction size is "intermediate commits".
-This is a setting which leads to the behavior that ArangoDB will
-automatically commit large write operations while they are executed. This of
+This is a setting which leads to the behavior that ArangoDB
+automatically commits large write operations while they are executed. This of
 course goes against the whole concept of a transaction, since parts of a
 transaction which have already been committed cannot be rolled back any
 more. Therefore, this is a rather desperate measure to prevent RAM
-overusage. You can control this with the options
+overusage. You can control this with the following options:
 
 ```
 --rocksdb.intermediate-commit-count
 --rocksdb.intermediate-commit-size
 ```
 
-The first configures automatic intermediate commits based on the number
-of documents touched in the transaction (default is 1000000). The second
+The first option configures automatic intermediate commits based on the number
+of documents touched in the transaction (default is `1000000`). The second
 configures intermediate commits based on the total size of the documents
-touched in the transaction (default is 512MB).
+touched in the transaction (default is `512MB`).
 
 
 RocksDB compactions
@@ -389,9 +389,9 @@ one can simply limit the queue length with this option:
 --server.scheduler-queue-size
 ```
 
-The default is 4096, which is quite a lot. For small requests, the
+The default is `4096`, which is quite a lot. For small requests, the
 memory usage for a full queue will not be significant, but since
-individual requests can be large, it will sometimes be necessary to
+individual requests can be large, it may sometimes be necessary to
 limit the queue size a lot more to avoid RAM over usage on the queue.
 
 
