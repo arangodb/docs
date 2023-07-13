@@ -6,17 +6,68 @@ title: ArangoDB SmartGraphs - Getting Started
 Getting started
 ---------------
 
-SmartGraphs **cannot use existing collections**. When switching to SmartGraph from an
-existing dataset you have to import the data into a fresh SmartGraph.
+SmartGraphs **cannot use existing collections**. When switching to SmartGraph
+from an existing dataset you have to import the data into a fresh SmartGraph.
 
 All collections that are being used in SmartGraphs need to be part of the same
-`distributeShardslike` group. The `smartGraphAttribute` and the number of shards are immutable.
-The `smartGraphAttribute` attribute is used to inform the database how to shard data and, as a 
-consequence, all vertices must have this attribute. The `_from` and `_to` attributes that 
-point _from_ one document _to_ another document stored in vertex collections are set by
-default, following the same smart sharding pattern. 
+`distributeShardslike` group. The `smartGraphAttribute` and the number of
+shards are immutable.
+The `smartGraphAttribute` attribute is used to inform the database how to shard
+data and, as a consequence, all vertices must have this attribute. The `_from`
+and `_to` attributes that point _from_ one document _to_ another document
+stored in vertex collections are set by default, following the same smart
+sharding pattern.
 
-## Create a SmartGraph
+## Create a SmartGraph using the Web Interface
+
+The Web Interface (also called Web UI) allows you to easily create and manage
+SmartGraphs. To get started, follow the steps outlined below.
+
+1. In the main page of the Web Interface, go to the left sidebar 
+   menu and select the **Graphs** tab.
+2. To add a new graph, click **Add Graph**.
+3. In the **Create Graph** dialog that appears, select the
+   **SmartGraph** tab.
+4. Fill in all the following fields:
+   - For **Name**, enter a name for the SmartGraph.
+   - For **Shards**, enter the number of shards the graph is using.
+   - Optional: For **Replication factor**, enter the total number of
+     desired copies of the data in the cluster.
+   - Optional: For **Write concern**, enter the total number of copies
+     of the data in the cluster required for each write operation.
+   - For **SmartGraph Attribute**, insert the attribute that is used to
+     smartly shard the vertices of the graph. Every vertex in your graph
+     needs to have this attribute. Note that it cannot be modified later.
+   - Optional: For **SatelliteCollections**, insert vertex collections
+     that are being used in your edge definitions. These collections are
+     then created as satellites, and thus replicated to all DB-Servers.
+5. Define the relations on the graph:       
+   - For **Edge definition**, insert a single non-existent name to define
+     the relation of the graph. This automatically creates a new edge
+     collection, which is displayed in the **Collections** tab of the
+     left sidebar menu.
+     {% hint 'tip' %}
+     To define multiple relations, press the **Add relation** button.
+     To remove a relation, press the **Remove relation** button.
+     {% endhint %}
+   - For **fromCollections**, insert a list of vertex collections
+     that contain the start vertices of the relation.
+   - For **toCollections**, insert a list of vertex collections that
+     contain the end vertices of the relation.
+   {% hint 'tip' %}
+   Insert only non-existent collection names. Collections are automatically
+   created during the graph setup and are displayed in the
+   **Collections** tab of the left sidebar menu.
+   {% endhint %}
+   - For **Orphan collections**, insert a list of vertex collections
+     that are part of the graph but not used in any edge definition.
+6. Click **Create**. 
+7. Open the graph and use the functions of the Graph Viewer to visually
+   interact with the graph and manage the graph data.
+
+![Create SmartGraph](images/Create-SmartGraph.png)   
+
+## Create a SmartGraph using *arangosh*
 
 In contrast to General Graphs we have to add more options when creating the
 SmartGraph. The two options `smartGraphAttribute` and `numberOfShards` are
@@ -34,7 +85,7 @@ required and cannot be modified later.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-## Create a Disjoint SmartGraph
+## Create a Disjoint SmartGraph using *arangosh*
 
 In contrast to regular SmartGraphs we have to add one option when creating the
 graph. The boolean option `isDisjoint` is required, needs to be set to `true`
