@@ -11,7 +11,7 @@ and the
 [REST API for the graph module](../http/gharial.html#remove-a-vertex)
 offer a vertex deletion functionality.
 However, as shown in this example based on the
-[knows_graph](../graphs.html#the-knows_graph), a query for this 
+[Knows Graph](../graphs-traversals-example-data.html#knows-graph), a query for this 
 use case can be created.
 
 ![Example Graph](../images/knows_graph.png)
@@ -56,7 +56,7 @@ REMOVE 'eve' IN persons
 
 **Note**: The query has to be adjusted to match a graph with multiple vertex/edge collections.
 
-For example, the [city graph](../graphs.html#the-city-graph) 
+For example, the [City Graph](../graphs-traversals-example-data.html#city-graph) 
 contains several vertex collections - `germanCity` and `frenchCity` and several 
 edge collections -  `french / german / international Highway`.
 

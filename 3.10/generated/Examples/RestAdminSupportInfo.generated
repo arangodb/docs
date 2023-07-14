@@ -4,7 +4,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">1106</span>
+content-length: <span class="hljs-number">1124</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -21,8 +21,8 @@ x-content-type-options: nosniff
     <span class="hljs-string">&quot;role&quot;</span> : <span class="hljs-string">&quot;SINGLE&quot;</span>, 
     <span class="hljs-string">&quot;maintenance&quot;</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">&quot;readOnly&quot;</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.8&quot;</span>, 
-    <span class="hljs-string">&quot;build&quot;</span> : <span class="hljs-string">&quot;heads/3.10-0-gbf0686b2dff&quot;</span>, 
+    <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.10&quot;</span>, 
+    <span class="hljs-string">&quot;build&quot;</span> : <span class="hljs-string">&quot;heads/3.10-0-gea0fe0c0fbe&quot;</span>, 
     <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
     <span class="hljs-string">&quot;os&quot;</span> : <span class="hljs-string">&quot;Linux version 5.15.0-67-generic (buildd@lcy02-amd64-116) (gcc (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #74-Ubuntu SMP Wed Feb 22 14:14:39 UTC 2023&quot;</span>, 
     <span class="hljs-string">&quot;platform&quot;</span> : <span class="hljs-string">&quot;linux&quot;</span>, 
@@ -35,28 +35,28 @@ x-content-type-options: nosniff
       <span class="hljs-string">&quot;overridden&quot;</span> : <span class="hljs-literal">false</span> 
     }, 
     <span class="hljs-string">&quot;processStats&quot;</span> : { 
-      <span class="hljs-string">&quot;processUptime&quot;</span> : <span class="hljs-number">17.44966697692871</span>, 
+      <span class="hljs-string">&quot;processUptime&quot;</span> : <span class="hljs-number">19.367349863052368</span>, 
       <span class="hljs-string">&quot;numberOfThreads&quot;</span> : <span class="hljs-number">83</span>, 
-      <span class="hljs-string">&quot;virtualSize&quot;</span> : <span class="hljs-number">1601343488</span>, 
-      <span class="hljs-string">&quot;residentSetSize&quot;</span> : <span class="hljs-number">324911104</span> 
+      <span class="hljs-string">&quot;virtualSize&quot;</span> : <span class="hljs-number">1601667072</span>, 
+      <span class="hljs-string">&quot;residentSetSize&quot;</span> : <span class="hljs-number">324173824</span> 
     }, 
     <span class="hljs-string">&quot;cpuStats&quot;</span> : { 
-      <span class="hljs-string">&quot;userPercent&quot;</span> : <span class="hljs-number">5.985915492957746</span>, 
-      <span class="hljs-string">&quot;systemPercent&quot;</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">&quot;idlePercent&quot;</span> : <span class="hljs-number">91.54929577464789</span>, 
-      <span class="hljs-string">&quot;iowaitPercent&quot;</span> : <span class="hljs-number">2.464788732394366</span> 
+      <span class="hljs-string">&quot;userPercent&quot;</span> : <span class="hljs-number">6.129032258064516</span>, 
+      <span class="hljs-string">&quot;systemPercent&quot;</span> : <span class="hljs-number">0.3225806451612903</span>, 
+      <span class="hljs-string">&quot;idlePercent&quot;</span> : <span class="hljs-number">90.64516129032258</span>, 
+      <span class="hljs-string">&quot;iowaitPercent&quot;</span> : <span class="hljs-number">2.903225806451613</span> 
     }, 
     <span class="hljs-string">&quot;engineStats&quot;</span> : { 
       <span class="hljs-string">&quot;cache.limit&quot;</span> : <span class="hljs-number">16338161664</span>, 
       <span class="hljs-string">&quot;cache.allocated&quot;</span> : <span class="hljs-number">1355016</span>, 
-      <span class="hljs-string">&quot;rocksdb.estimate-num-keys&quot;</span> : <span class="hljs-number">12</span>, 
-      <span class="hljs-string">&quot;rocksdb.estimate-live-data-size&quot;</span> : <span class="hljs-number">510497</span>, 
-      <span class="hljs-string">&quot;rocksdb.live-sst-files-size&quot;</span> : <span class="hljs-number">510497</span>, 
+      <span class="hljs-string">&quot;rocksdb.estimate-num-keys&quot;</span> : <span class="hljs-number">8</span>, 
+      <span class="hljs-string">&quot;rocksdb.estimate-live-data-size&quot;</span> : <span class="hljs-number">506433</span>, 
+      <span class="hljs-string">&quot;rocksdb.live-sst-files-size&quot;</span> : <span class="hljs-number">506433</span>, 
       <span class="hljs-string">&quot;rocksdb.block-cache-capacity&quot;</span> : <span class="hljs-number">19605793996</span>, 
-      <span class="hljs-string">&quot;rocksdb.block-cache-usage&quot;</span> : <span class="hljs-number">112512</span>, 
-      <span class="hljs-string">&quot;rocksdb.free-disk-space&quot;</span> : <span class="hljs-number">205599854592</span>, 
+      <span class="hljs-string">&quot;rocksdb.block-cache-usage&quot;</span> : <span class="hljs-number">112384</span>, 
+      <span class="hljs-string">&quot;rocksdb.free-disk-space&quot;</span> : <span class="hljs-number">185766789120</span>, 
       <span class="hljs-string">&quot;rocksdb.total-disk-space&quot;</span> : <span class="hljs-number">501809635328</span> 
     } 
   }, 
-  <span class="hljs-string">&quot;date&quot;</span> : <span class="hljs-string">&quot;2023-06-20T11:45:20Z&quot;</span> 
+  <span class="hljs-string">&quot;date&quot;</span> : <span class="hljs-string">&quot;2023-07-05T10:35:19Z&quot;</span> 
 }

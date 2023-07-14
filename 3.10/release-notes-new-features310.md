@@ -821,6 +821,8 @@ calculate it dynamically using an expression:
 ```
 
 See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
+The `AT LEAST` operator is also supported by ArangoSearch in the
+[`SEARCH` operation](aql/operations-search.html#array-comparison-operators).
 
 ### New and Changed AQL Functions
 

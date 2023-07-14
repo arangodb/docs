@@ -8067,6 +8067,39 @@
     "section" : "replication",
     "type" : "boolean"
   },
+  "replication.active-failover-leader-grace-period" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 120,
+    "deprecatedIn" : null,
+    "description" : "The amount of time (in seconds) for which the current leader will continue to assume its leadership even if it lost connection to the agency (0 = unlimited)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.8"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "replication",
+    "type" : "double"
+  },
   "replication.auto-repair-revision-trees" : {
     "category" : "option",
     "component" : [

@@ -1,204 +1,269 @@
 ---
 layout: default
-description: The following examples all use a vertex collection v and an edge collection e
 ---
-Example Data
-============
+# Example graphs
 
-The following examples all use a vertex collection `v` and an [edge collection](data-models.html#graph-model) `e`. The vertex
-collection `v` contains continents, countries, and capitals. The edge collection `e` 
-contains connections between continents and countries, and between countries and capitals.
+ArangoDB comes with a set of easy-to-understand graphs for demonstration
+purposes.
 
-To set up the collections and populate them with initial data, the following script was used:
+- In the web interface, navigate to the **GRAPHS** section, click the
+  **Add Graph** card, go to the **Examples** tab, and click the **Create** button of one of the listed graphs.
 
-```js
-db._create("v");
-db._createEdgeCollection("e");
+- In _arangosh_, run `require("@arangodb/graph-examples/example-graph").loadGraph("<name>");`
+  with `<name>` substituted by the name of an example graph listed below.
 
-// vertices: root node 
-db.v.save({ _key: "world", name: "World", type: "root" });
+You can visually explore the created graphs in the
+[Graph viewer](programs-web-interface-graphs.html#graph-viewer)
+of the web interface.
 
-// vertices: continents 
-db.v.save({ _key: "continent-africa", name: "Africa", type: "continent" });
-db.v.save({ _key: "continent-asia", name: "Asia", type: "continent" });
-db.v.save({ _key: "continent-australia", name: "Australia", type: "continent" });
-db.v.save({ _key: "continent-europe", name: "Europe", type: "continent" });
-db.v.save({ _key: "continent-north-america", name: "North America", type: "continent" });
-db.v.save({ _key: "continent-south-america", name: "South America", type: "continent" });
+You can take a look at the script that creates the example graphs on
+[GitHub](https://github.com/arangodb/arangodb/blob/devel/js/common/modules/%40arangodb/graph-examples/example-graph.js){:target="_blank"}
+for reference about how to manage graphs programmatically.
 
-// vertices: countries 
-db.v.save({ _key: "country-afghanistan", name: "Afghanistan", type: "country", code: "AFG" });
-db.v.save({ _key: "country-albania", name: "Albania", type: "country", code: "ALB" });
-db.v.save({ _key: "country-algeria", name: "Algeria", type: "country", code: "DZA" });
-db.v.save({ _key: "country-andorra", name: "Andorra", type: "country", code: "AND" });
-db.v.save({ _key: "country-angola", name: "Angola", type: "country", code: "AGO" });
-db.v.save({ _key: "country-antigua-and-barbuda", name: "Antigua and Barbuda", type: "country", code: "ATG" });
-db.v.save({ _key: "country-argentina", name: "Argentina", type: "country", code: "ARG" });
-db.v.save({ _key: "country-australia", name: "Australia", type: "country", code: "AUS" });
-db.v.save({ _key: "country-austria", name: "Austria", type: "country", code: "AUT" });
-db.v.save({ _key: "country-bahamas", name: "Bahamas", type: "country", code: "BHS" });
-db.v.save({ _key: "country-bahrain", name: "Bahrain", type: "country", code: "BHR" });
-db.v.save({ _key: "country-bangladesh", name: "Bangladesh", type: "country", code: "BGD" });
-db.v.save({ _key: "country-barbados", name: "Barbados", type: "country", code: "BRB" });
-db.v.save({ _key: "country-belgium", name: "Belgium", type: "country", code: "BEL" });
-db.v.save({ _key: "country-bhutan", name: "Bhutan", type: "country", code: "BTN" });
-db.v.save({ _key: "country-bolivia", name: "Bolivia", type: "country", code: "BOL" });
-db.v.save({ _key: "country-bosnia-and-herzegovina", name: "Bosnia and Herzegovina", type: "country", code: "BIH" });
-db.v.save({ _key: "country-botswana", name: "Botswana", type: "country", code: "BWA" });
-db.v.save({ _key: "country-brazil", name: "Brazil", type: "country", code: "BRA" });
-db.v.save({ _key: "country-brunei", name: "Brunei", type: "country", code: "BRN" });
-db.v.save({ _key: "country-bulgaria", name: "Bulgaria", type: "country", code: "BGR" });
-db.v.save({ _key: "country-burkina-faso", name: "Burkina Faso", type: "country", code: "BFA" });
-db.v.save({ _key: "country-burundi", name: "Burundi", type: "country", code: "BDI" });
-db.v.save({ _key: "country-cambodia", name: "Cambodia", type: "country", code: "KHM" });
-db.v.save({ _key: "country-cameroon", name: "Cameroon", type: "country", code: "CMR" });
-db.v.save({ _key: "country-canada", name: "Canada", type: "country", code: "CAN" });
-db.v.save({ _key: "country-chad", name: "Chad", type: "country", code: "TCD" });
-db.v.save({ _key: "country-chile", name: "Chile", type: "country", code: "CHL" });
-db.v.save({ _key: "country-colombia", name: "Colombia", type: "country", code: "COL" });
-db.v.save({ _key: "country-cote-d-ivoire", name: "Cote d'Ivoire", type: "country", code: "CIV" });
-db.v.save({ _key: "country-croatia", name: "Croatia", type: "country", code: "HRV" });
-db.v.save({ _key: "country-czech-republic", name: "Czech Republic", type: "country", code: "CZE" });
-db.v.save({ _key: "country-denmark", name: "Denmark", type: "country", code: "DNK" });
-db.v.save({ _key: "country-ecuador", name: "Ecuador", type: "country", code: "ECU" });
-db.v.save({ _key: "country-egypt", name: "Egypt", type: "country", code: "EGY" });
-db.v.save({ _key: "country-eritrea", name: "Eritrea", type: "country", code: "ERI" });
-db.v.save({ _key: "country-finland", name: "Finland", type: "country", code: "FIN" });
-db.v.save({ _key: "country-france", name: "France", type: "country", code: "FRA" });
-db.v.save({ _key: "country-germany", name: "Germany", type: "country", code: "DEU" });
-db.v.save({ _key: "country-people-s-republic-of-china", name: "People's Republic of China", type: "country", code: "CHN" });
+## Knows Graph
 
-// vertices: capitals 
-db.v.save({ _key: "capital-algiers", name: "Algiers", type: "capital" });
-db.v.save({ _key: "capital-andorra-la-vella", name: "Andorra la Vella", type: "capital" });
-db.v.save({ _key: "capital-asmara", name: "Asmara", type: "capital" });
-db.v.save({ _key: "capital-bandar-seri-begawan", name: "Bandar Seri Begawan", type: "capital" });
-db.v.save({ _key: "capital-beijing", name: "Beijing", type: "capital" });
-db.v.save({ _key: "capital-berlin", name: "Berlin", type: "capital" });
-db.v.save({ _key: "capital-bogota", name: "Bogota", type: "capital" });
-db.v.save({ _key: "capital-brasilia", name: "Brasilia", type: "capital" });
-db.v.save({ _key: "capital-bridgetown", name: "Bridgetown", type: "capital" });
-db.v.save({ _key: "capital-brussels", name: "Brussels", type: "capital" });
-db.v.save({ _key: "capital-buenos-aires", name: "Buenos Aires", type: "capital" });
-db.v.save({ _key: "capital-bujumbura", name: "Bujumbura", type: "capital" });
-db.v.save({ _key: "capital-cairo", name: "Cairo", type: "capital" });
-db.v.save({ _key: "capital-canberra", name: "Canberra", type: "capital" });
-db.v.save({ _key: "capital-copenhagen", name: "Copenhagen", type: "capital" });
-db.v.save({ _key: "capital-dhaka", name: "Dhaka", type: "capital" });
-db.v.save({ _key: "capital-gaborone", name: "Gaborone", type: "capital" });
-db.v.save({ _key: "capital-helsinki", name: "Helsinki", type: "capital" });
-db.v.save({ _key: "capital-kabul", name: "Kabul", type: "capital" });
-db.v.save({ _key: "capital-la-paz", name: "La Paz", type: "capital" });
-db.v.save({ _key: "capital-luanda", name: "Luanda", type: "capital" });
-db.v.save({ _key: "capital-manama", name: "Manama", type: "capital" });
-db.v.save({ _key: "capital-nassau", name: "Nassau", type: "capital" });
-db.v.save({ _key: "capital-n-djamena", name: "N'Djamena", type: "capital" });
-db.v.save({ _key: "capital-ottawa", name: "Ottawa", type: "capital" });
-db.v.save({ _key: "capital-ouagadougou", name: "Ouagadougou", type: "capital" });
-db.v.save({ _key: "capital-paris", name: "Paris", type: "capital" });
-db.v.save({ _key: "capital-phnom-penh", name: "Phnom Penh", type: "capital" });
-db.v.save({ _key: "capital-prague", name: "Prague", type: "capital" });
-db.v.save({ _key: "capital-quito", name: "Quito", type: "capital" });
-db.v.save({ _key: "capital-saint-john-s", name: "Saint John's", type: "capital" });
-db.v.save({ _key: "capital-santiago", name: "Santiago", type: "capital" });
-db.v.save({ _key: "capital-sarajevo", name: "Sarajevo", type: "capital" });
-db.v.save({ _key: "capital-sofia", name: "Sofia", type: "capital" });
-db.v.save({ _key: "capital-thimphu", name: "Thimphu", type: "capital" });
-db.v.save({ _key: "capital-tirana", name: "Tirana", type: "capital" });
-db.v.save({ _key: "capital-vienna", name: "Vienna", type: "capital" });
-db.v.save({ _key: "capital-yamoussoukro", name: "Yamoussoukro", type: "capital" });
-db.v.save({ _key: "capital-yaounde", name: "Yaounde", type: "capital" });
-db.v.save({ _key: "capital-zagreb", name: "Zagreb", type: "capital" });
+The `knows` graph is a set of persons knowing each other:
 
-// edges: continent -> world 
-db.e.save("v/continent-africa", "v/world", { type: "is-in" });
-db.e.save("v/continent-asia", "v/world", { type: "is-in" });
-db.e.save("v/continent-australia", "v/world", { type: "is-in" });
-db.e.save("v/continent-europe", "v/world", { type: "is-in" });
-db.e.save("v/continent-north-america", "v/world", { type: "is-in" });
-db.e.save("v/continent-south-america", "v/world", { type: "is-in" });
+![Persons relation Example Graph](images/knows_graph.png)
 
-// edges: country -> continent 
-db.e.save("v/country-afghanistan", "v/continent-asia", { type: "is-in" });
-db.e.save("v/country-albania", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-algeria", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-andorra", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-angola", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-antigua-and-barbuda", "v/continent-north-america", { type: "is-in" });
-db.e.save("v/country-argentina", "v/continent-south-america", { type: "is-in" });
-db.e.save("v/country-australia", "v/continent-australia", { type: "is-in" });
-db.e.save("v/country-austria", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-bahamas", "v/continent-north-america", { type: "is-in" });
-db.e.save("v/country-bahrain", "v/continent-asia", { type: "is-in" });
-db.e.save("v/country-bangladesh", "v/continent-asia", { type: "is-in" });
-db.e.save("v/country-barbados", "v/continent-north-america", { type: "is-in" });
-db.e.save("v/country-belgium", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-bhutan", "v/continent-asia", { type: "is-in" });
-db.e.save("v/country-bolivia", "v/continent-south-america", { type: "is-in" });
-db.e.save("v/country-bosnia-and-herzegovina", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-botswana", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-brazil", "v/continent-south-america", { type: "is-in" });
-db.e.save("v/country-brunei", "v/continent-asia", { type: "is-in" });
-db.e.save("v/country-bulgaria", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-burkina-faso", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-burundi", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-cambodia", "v/continent-asia", { type: "is-in" });
-db.e.save("v/country-cameroon", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-canada", "v/continent-north-america", { type: "is-in" });
-db.e.save("v/country-chad", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-chile", "v/continent-south-america", { type: "is-in" });
-db.e.save("v/country-colombia", "v/continent-south-america", { type: "is-in" });
-db.e.save("v/country-cote-d-ivoire", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-croatia", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-czech-republic", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-denmark", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-ecuador", "v/continent-south-america", { type: "is-in" });
-db.e.save("v/country-egypt", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-eritrea", "v/continent-africa", { type: "is-in" });
-db.e.save("v/country-finland", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-france", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-germany", "v/continent-europe", { type: "is-in" });
-db.e.save("v/country-people-s-republic-of-china", "v/continent-asia", { type: "is-in" });
+The graph consists of a `persons` vertex collection connected via a `knows`
+edge collection.
+There are five persons, *Alice*, *Bob*, *Charlie*, *Dave*, and *Eve*.
+They have the following directed relations:
 
-// edges: capital -> country 
-db.e.save("v/capital-algiers", "v/country-algeria", { type: "is-in" });
-db.e.save("v/capital-andorra-la-vella", "v/country-andorra", { type: "is-in" });
-db.e.save("v/capital-asmara", "v/country-eritrea", { type: "is-in" });
-db.e.save("v/capital-bandar-seri-begawan", "v/country-brunei", { type: "is-in" });
-db.e.save("v/capital-beijing", "v/country-people-s-republic-of-china", { type: "is-in" });
-db.e.save("v/capital-berlin", "v/country-germany", { type: "is-in" });
-db.e.save("v/capital-bogota", "v/country-colombia", { type: "is-in" });
-db.e.save("v/capital-brasilia", "v/country-brazil", { type: "is-in" });
-db.e.save("v/capital-bridgetown", "v/country-barbados", { type: "is-in" });
-db.e.save("v/capital-brussels", "v/country-belgium", { type: "is-in" });
-db.e.save("v/capital-buenos-aires", "v/country-argentina", { type: "is-in" });
-db.e.save("v/capital-bujumbura", "v/country-burundi", { type: "is-in" });
-db.e.save("v/capital-cairo", "v/country-egypt", { type: "is-in" });
-db.e.save("v/capital-canberra", "v/country-australia", { type: "is-in" });
-db.e.save("v/capital-copenhagen", "v/country-denmark", { type: "is-in" });
-db.e.save("v/capital-dhaka", "v/country-bangladesh", { type: "is-in" });
-db.e.save("v/capital-gaborone", "v/country-botswana", { type: "is-in" });
-db.e.save("v/capital-helsinki", "v/country-finland", { type: "is-in" });
-db.e.save("v/capital-kabul", "v/country-afghanistan", { type: "is-in" });
-db.e.save("v/capital-la-paz", "v/country-bolivia", { type: "is-in" });
-db.e.save("v/capital-luanda", "v/country-angola", { type: "is-in" });
-db.e.save("v/capital-manama", "v/country-bahrain", { type: "is-in" });
-db.e.save("v/capital-nassau", "v/country-bahamas", { type: "is-in" });
-db.e.save("v/capital-n-djamena", "v/country-chad", { type: "is-in" });
-db.e.save("v/capital-ottawa", "v/country-canada", { type: "is-in" });
-db.e.save("v/capital-ouagadougou", "v/country-burkina-faso", { type: "is-in" });
-db.e.save("v/capital-paris", "v/country-france", { type: "is-in" });
-db.e.save("v/capital-phnom-penh", "v/country-cambodia", { type: "is-in" });
-db.e.save("v/capital-prague", "v/country-czech-republic", { type: "is-in" });
-db.e.save("v/capital-quito", "v/country-ecuador", { type: "is-in" });
-db.e.save("v/capital-saint-john-s", "v/country-antigua-and-barbuda", { type: "is-in" });
-db.e.save("v/capital-santiago", "v/country-chile", { type: "is-in" });
-db.e.save("v/capital-sarajevo", "v/country-bosnia-and-herzegovina", { type: "is-in" });
-db.e.save("v/capital-sofia", "v/country-bulgaria", { type: "is-in" });
-db.e.save("v/capital-thimphu", "v/country-bhutan", { type: "is-in" });
-db.e.save("v/capital-tirana", "v/country-albania", { type: "is-in" });
-db.e.save("v/capital-vienna", "v/country-austria", { type: "is-in" });
-db.e.save("v/capital-yamoussoukro", "v/country-cote-d-ivoire", { type: "is-in" });
-db.e.save("v/capital-yaounde", "v/country-cameroon", { type: "is-in" });
-db.e.save("v/capital-zagreb", "v/country-croatia", { type: "is-in" });
-```
+- *Alice* knows *Bob*
+- *Bob* knows *Charlie*
+- *Bob* knows *Dave*
+- *Eve* knows *Alice*
+- *Eve* knows *Bob*
+
+Example of how to create the graph, inspect its vertices and edges, and delete
+it again:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_knows_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_knows_sample}
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("knows_graph");
+      db.persons.toArray()
+      db.knows.toArray();
+      examples.dropGraph("knows_graph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock graph_create_knows_sample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+**Note:** With the default traversal depth of 2 of the graph viewer, you may not
+see all edges of this graph by default.
+
+## Traversal Graph
+
+The `traversalGraph` has been designed to demonstrate filters in traversals.
+It has some labels to filter on it. The graph's vertices are in a collection
+called `circles`, and it has an edge collection `edges` to connect them.
+
+![Traversal Graph](images/traversal_graph.png)
+
+Circles have unique numeric labels. Edges have two boolean attributes
+(`theFalse` always being `false`, `theTruth` always being `true`) and a label
+sorting *B* - *D* to the left side, *G* - *K* to the right side.
+Left and right side split into paths - at *B* and *G*, which are each direct
+neighbors of the root-node *A*. Starting from *A*, the graph has a depth of 3 on
+all its paths.
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_traversal_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("traversalGraph");
+      db.circles.toArray();
+      db.edges.toArray();
+      examples.dropGraph("traversalGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock graph_create_traversal_sample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+**Note:** With the default traversal depth of 2 of the graph viewer, you may not
+see all edges of this graph by default.
+
+## k Shortest Paths Graph
+
+The vertices in the `kShortestPathsGraph` graph are train stations of cities in
+Europe and North America. The edges represent train connections between them,
+with the travel time for both directions as edge weight.
+
+![Train Connection Map](images/train_map.png)
+
+See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examples.
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_kshortestpaths_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_kshortestpaths_sample}
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("kShortestPathsGraph");
+      db.places.toArray();
+      db.connections.toArray();
+      examples.dropGraph("kShortestPathsGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock graph_create_kshortestpaths_sample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+## Mps Graph
+
+The `mps_graph` has been created to demonstrate shortest path algorithms and
+the abbreviation stands for **m**ultiple **p**ath **s**earch.
+
+The example graph consists of vertices in the `mps_verts` collection and edges
+in the `mps_edges` collection. It is a simple traversal graph with start node
+*A* and end node *C*.
+
+![Mps Graph](images/mps_graph.png)
+
+With the [Shortest Path](aql/graphs-shortest-path.html) algorithm, you either
+get the shortest path *A* - *B* - *C* or *A* - *D* - *C*. With the
+[All Shortest Paths](aql/graphs-all-shortest-paths.html) algorithm, both
+shortest paths are returned.
+
+Example of how to create the graph, inspect its vertices and edges, and delete
+it again:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_mps_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_mps_sample}
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("mps_graph");
+      db.mps_verts.toArray();
+      db.mps_edges.toArray();
+      examples.dropGraph("mps_graph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock graph_create_mps_sample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+## World Graph
+
+The `worldCountry` graph has as node structure as follows:
+
+world → continent → country → capital
+
+![World Graph](images/world_graph.png)
+
+In some cases, edge directions aren't forward. Therefore, it may get displayed
+disjunct in the graph viewer.
+
+You can create the graph as a named graph using the name `worldCountry`, or as
+an anonymous graph (vertex and edge collections only) using the name
+`worldCountryUnManaged`.
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_world_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_world_sample}
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("worldCountry");
+      db.worldVertices.toArray();
+      db.worldEdges.toArray();
+      examples.dropGraph("worldCountry");
+      var g = examples.loadGraph("worldCountryUnManaged");
+      examples.dropGraph("worldCountryUnManaged");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock graph_create_world_sample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+## Social Graph
+
+The `social` graph is a set of persons and their relations. The graph has
+`female` and `male` persons as vertices in two vertex collections.
+The edges are their connections and stored in the `relation` edge collection.
+
+![Social Example Graph](images/social_graph.png)
+
+Example of how to create the graph, inspect its vertices and edges, and delete
+it again:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_social_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_social_sample}
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var graph = examples.loadGraph("social");
+      db.female.toArray()
+      db.male.toArray()
+      db.relation.toArray()
+      examples.dropGraph("social");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock graph_create_social_sample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+## City Graph
+
+The `routeplanner` graph is a set of european cities and their fictional
+traveling distances as connections. The graph has the cities as vertices in
+multiple vertex collections (`germanCity` and `frenchCity`). The edges are their
+interconnections in several edge collections (`frenchHighway`, `germanHighway`,
+`internationalHighway`).
+
+![Cities Example Graph](images/cities_graph.png)
+
+Example of how to create the graph, inspect its edges and vertices, and delete
+it again:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_cities_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_cities_sample}
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("routeplanner");
+      db.frenchCity.toArray();
+      db.germanCity.toArray();
+      db.germanHighway.toArray();
+      db.frenchHighway.toArray();
+      db.internationalHighway.toArray();
+      examples.dropGraph("routeplanner");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock graph_create_cities_sample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+## Connected Components Graph
+
+A small example graph comprised of `components` (vertices) and `connections`
+(edges). Good for trying out Pregel algorithms such as Weakly Connected
+Components (WCC).
+
+Also see:
+- [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)
+- [Pregel HTTP API](http/pregel.html)
+
+![Three disjoint subgraphs with 36 nodes and edges in total](images/connected_components.png)
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_connectedcomponentsgraph_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_connectedcomponentsgraph_sample}
+      var examples = require("@arangodb/graph-examples/example-graph");
+      var g = examples.loadGraph("connectedComponentsGraph");
+      db.components.toArray();
+      db.connections.toArray();
+      examples.dropGraph("connectedComponentsGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock graph_create_connectedcomponentsgraph_sample
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+
+## Higher volume graph examples
+
+All of the above examples are rather small to make them easy to comprehend and
+demonstrate how graphs work in ArangoDB. However, there are several, freely
+available datasets on the web that are a lot bigger.
+
+You can find a collection of datasets with import scripts on
+[GitHub](https://github.com/arangodb/example-datasets){:target="_blank"}.
+
+Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/soc-pokec.html){:target="_blank"}
+from Slovakia. See this [blogpost](https://www.arangodb.com/2015/06/multi-model-benchmark/){:target="_blank"}
+for details and an import script.
+
+## More examples
+
+ - [AQL Example Queries on an Actors and Movies Database](aql/examples-actors-and-movies.html)

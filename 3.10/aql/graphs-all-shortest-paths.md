@@ -2,6 +2,8 @@
 layout: default
 description: >-
   Find all paths of shortest length between a start and target vertex
+redirect_from:
+  - examples-multiple-paths.html # 3.11 -> 3.11
 ---
 # All Shortest Paths in AQL
 

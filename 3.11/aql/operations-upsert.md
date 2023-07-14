@@ -19,8 +19,15 @@ Syntax
 
 The syntax for upsert and repsert operations is:
 
-<pre><code>UPSERT <em>searchExpression</em> INSERT <em>insertExpression</em> UPDATE <em>updateExpression</em> IN <em>collection</em>
-UPSERT <em>searchExpression</em> INSERT <em>insertExpression</em> REPLACE <em>updateExpression</em> IN <em>collection</em></code></pre>
+<pre><code>UPSERT <em>searchExpression</em>
+INSERT <em>insertExpression</em>
+UPDATE <em>updateExpression</em>
+IN <em>collection</em></code></pre>
+
+<pre><code>UPSERT <em>searchExpression</em>
+INSERT <em>insertExpression</em>
+REPLACE <em>updateExpression</em>
+IN <em>collection</em></code></pre>
 
 Both variants can optionally end with an `OPTIONS { … }` clause.
 
@@ -68,9 +75,27 @@ when trying to violate unique key constraints.
 
 ### `keepNull`
 
-When updating or replacing an attribute with a null value, ArangoDB will not remove the 
-attribute from the document but store a null value for it. To get rid of attributes in 
-an upsert operation, set them to null and provide the `keepNull` option.
+When updating an attribute to the `null` value, ArangoDB does not remove the
+attribute from the document but stores this `null` value. To remove attributes
+in an update operation, set them to `null` and set the `keepNull` option to
+`false`. This removes the attributes you specify but not any previously stored
+attributes with the `null` value:
+
+```aql
+UPSERT { _key: "mary" }
+INSERT { _key: "mary", name: "Mary", notNeeded: 123 }
+UPDATE { foobar: true, notNeeded: null }
+IN users OPTIONS { keepNull: false }
+```
+
+If no document with the key `mary` exists, the above query creates such a user
+document with a `notNeeded` attribute. If it exists already, it removes the
+`notNeeded` attribute from the document and updates the `foobar` attribute
+normally.
+
+Only top-level attributes and sub-attributes can be removed this way
+(e.g. `{ attr: { sub: null } }`) but not attributes of objects that are nested
+inside of arrays (e.g. `{ attr: [ { nested: null } ] }`).
 
 ### `mergeObjects`
 
