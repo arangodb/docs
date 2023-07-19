@@ -18,19 +18,18 @@ and `_to` attributes that point _from_ one document _to_ another document
 stored in vertex collections are set by default, following the same smart
 sharding pattern.
 
-## Create a SmartGraph using the Web Interface
+## Create a SmartGraph using the web interface
 
-The Web Interface (also called Web UI) allows you to easily create and manage
+The web interface (also called Web UI) allows you to easily create and manage
 SmartGraphs. To get started, follow the steps outlined below.
 
-1. In the main page of the Web Interface, go to the left sidebar 
-   menu and select the **Graphs** tab.
+1. In the web interface, navigate to the **GRAPHS** section.
 2. To add a new graph, click **Add Graph**.
 3. In the **Create Graph** dialog that appears, select the
    **SmartGraph** tab.
 4. Fill in all the following fields:
    - For **Name**, enter a name for the SmartGraph.
-   - For **Shards**, enter the number of shards the graph is using.
+   - For **Shards**, enter the number of parts to split the graph into.
    - Optional: For **Replication factor**, enter the total number of
      desired copies of the data in the cluster.
    - Optional: For **Write concern**, enter the total number of copies
@@ -39,12 +38,12 @@ SmartGraphs. To get started, follow the steps outlined below.
      smartly shard the vertices of the graph. Every vertex in your graph
      needs to have this attribute. Note that it cannot be modified later.
    - Optional: For **SatelliteCollections**, insert vertex collections
-     that are being used in your edge definitions. These collections are
+     that are used in your edge definitions. These collections are
      then created as satellites, and thus replicated to all DB-Servers.
 5. Define the relations on the graph:       
    - For **Edge definition**, insert a single non-existent name to define
      the relation of the graph. This automatically creates a new edge
-     collection, which is displayed in the **Collections** tab of the
+     collection, which is displayed in the **COLLECTIONS** section of the
      left sidebar menu.
      {% hint 'tip' %}
      To define multiple relations, press the **Add relation** button.
@@ -62,12 +61,12 @@ SmartGraphs. To get started, follow the steps outlined below.
    - For **Orphan collections**, insert a list of vertex collections
      that are part of the graph but not used in any edge definition.
 6. Click **Create**. 
-7. Open the graph and use the functions of the Graph Viewer to visually
-   interact with the graph and manage the graph data.
+7. Click the card of the newly created graph and use the functions of the Graph
+   Viewer to visually interact with the graph and manage the graph data.
 
 ![Create SmartGraph](images/Create-SmartGraph.png)   
 
-## Create a SmartGraph using *arangosh*
+## Create a SmartGraph using _arangosh_
 
 In contrast to General Graphs we have to add more options when creating the
 SmartGraph. The two options `smartGraphAttribute` and `numberOfShards` are
@@ -85,7 +84,7 @@ required and cannot be modified later.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-## Create a Disjoint SmartGraph using *arangosh*
+## Create a Disjoint SmartGraph using _arangosh_
 
 In contrast to regular SmartGraphs we have to add one option when creating the
 graph. The boolean option `isDisjoint` is required, needs to be set to `true`

@@ -21,19 +21,18 @@ for freshers.
 
 ## Getting started
 
-### Create a GeneralGraph using the Web Interface
+### Create a General Graph using the web interface
 
-The Web Interface (also called Web UI) allows you to easily create and manage
-GeneralGraphs. To get started, follow the steps outlined below.
+The web interface (also called Web UI) allows you to easily create and manage
+General Graphs. To get started, follow the steps outlined below.
 
-1. In the main page of the Web Interface, go to the left sidebar 
-   menu and select the **Graphs** tab.
+1. In the web interface, navigate to the **GRAPHS** section.
 2. To add a new graph, click **Add Graph**.
 3. In the **Create Graph** dialog that appears, select the
    **GeneralGraph** tab.
 4. Fill in the following fields:
    - For **Name**, enter a name for the GeneralGraph.
-   - For **Shards**, enter the number of shards the graph is using.
+   - For **Shards**, enter the number of parts to split the graph into.
    - For **Replication factor**, enter the total number of
      desired copies of the data in the cluster.
    - For **Write concern**, enter the total number of copies
@@ -41,7 +40,7 @@ GeneralGraphs. To get started, follow the steps outlined below.
 5. Define the relation(s) on the GeneralGraph:     
    - For **Edge definition**, insert a single non-existent name to define
      the relation of the graph. This automatically creates a new edge
-     collection, which is displayed in the **Collections** tab of the
+     collection, which is displayed in the **COLLECTIONS** section of the
      left sidebar menu.
      {% hint 'tip' %}
      To define multiple relations, press the **Add relation** button.
@@ -55,12 +54,12 @@ GeneralGraphs. To get started, follow the steps outlined below.
    but not used in any edge definition, you can insert them via
    **Orphan collections**.
 7. Click **Create**. 
-8. Open the graph and use the functions of the Graph Viewer to visually
-   interact with the graph and manage the graph data.
+8. Click the card of the newly created graph and use the functions of the Graph
+   Viewer to visually interact with the graph and manage the graph data.
 
-![Create GeneralGraph](images/Create-GeneralGraph.png)   
+![Create General Graph](images/Create-GeneralGraph.png)   
 
-### Create a GeneralGraph using *arangosh*
+### Create a GeneralGraph using _arangosh_
 
 **Create a graph**
 
