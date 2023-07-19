@@ -114,6 +114,20 @@ It is also an error if you specify an edge collection that is not part of the
 named graph's definition or of the list of edge collections (code `1939` and
 HTTP status `400 Bad Request`).
 
+#### Document API
+
+<small>Introduced in: v3.9.12, v3.10.9</small>
+
+Using the Document API for reading multiple documents used to return an error
+if the request body was an empty array. Example:
+
+```bash
+> curl -XPUT -d '[]' 'http://localhost:8529/_api/document/coll?onlyget=true'
+{"code":500,"error":true,"errorMessage":"internal error","errorNum":4}
+```
+
+Now, a request like this succeeds and returns an empty array as response.
+
 ### Endpoint return value changes
 
 - Since ArangoDB 3.8, there have been two APIs for retrieving the metrics in two
