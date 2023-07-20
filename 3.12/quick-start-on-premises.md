@@ -44,7 +44,7 @@ a `_system` database. Select this database to continue.
 
 You should then be presented the dashboard with server statistics like this:
 
-![Web Interface Dashboard Request Statistics](images/dashboardView.png)
+![Web Interface Dashboard Request Statistics](images/ui-dashboard.webp)
 
 For a more detailed description of the interface, see [Web Interface](programs-web-interface.html).
 -->

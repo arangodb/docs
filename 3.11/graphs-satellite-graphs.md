@@ -21,6 +21,8 @@ the performance of such queries.
 They are the natural extension of the [SatelliteCollections](satellites.html)
 concept to graphs. The same benefits and caveats apply.
 
+![ArangoDB SatelliteGraphs](images/SatelliteGraphs.webp)
+
 Why use a SatelliteGraph?
 -------------------------
 
