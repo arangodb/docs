@@ -6,10 +6,10 @@ arangosh&gt; graph_module._extendEdgeDefinitions(
 ........&gt; <span class="hljs-string">&quot;has_bought&quot;</span>, [<span class="hljs-string">&quot;Customer&quot;</span>, <span class="hljs-string">&quot;Company&quot;</span>], [<span class="hljs-string">&quot;Groceries&quot;</span>, <span class="hljs-string">&quot;Electronics&quot;</span>]));
 arangosh&gt; graph_module._create(<span class="hljs-string">&quot;myStore&quot;</span>, edgeDefinitions);
 {[GeneralGraph] 
-  <span class="hljs-string">&quot;friend_of&quot;</span> : [ArangoCollection <span class="hljs-number">80077</span>, <span class="hljs-string">&quot;friend_of&quot;</span> (type edge, status loaded)], 
-  <span class="hljs-string">&quot;Customer&quot;</span> : [ArangoCollection <span class="hljs-number">80074</span>, <span class="hljs-string">&quot;Customer&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">&quot;has_bought&quot;</span> : [ArangoCollection <span class="hljs-number">80076</span>, <span class="hljs-string">&quot;has_bought&quot;</span> (type edge, status loaded)], 
-  <span class="hljs-string">&quot;Company&quot;</span> : [ArangoCollection <span class="hljs-number">80075</span>, <span class="hljs-string">&quot;Company&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">&quot;Electronics&quot;</span> : [ArangoCollection <span class="hljs-number">80073</span>, <span class="hljs-string">&quot;Electronics&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">&quot;Groceries&quot;</span> : [ArangoCollection <span class="hljs-number">80072</span>, <span class="hljs-string">&quot;Groceries&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+  <span class="hljs-string">&quot;friend_of&quot;</span> : [ArangoCollection <span class="hljs-number">79958</span>, <span class="hljs-string">&quot;friend_of&quot;</span> (type edge, status loaded)], 
+  <span class="hljs-string">&quot;Customer&quot;</span> : [ArangoCollection <span class="hljs-number">79955</span>, <span class="hljs-string">&quot;Customer&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;has_bought&quot;</span> : [ArangoCollection <span class="hljs-number">79957</span>, <span class="hljs-string">&quot;has_bought&quot;</span> (type edge, status loaded)], 
+  <span class="hljs-string">&quot;Company&quot;</span> : [ArangoCollection <span class="hljs-number">79956</span>, <span class="hljs-string">&quot;Company&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;Electronics&quot;</span> : [ArangoCollection <span class="hljs-number">79954</span>, <span class="hljs-string">&quot;Electronics&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;Groceries&quot;</span> : [ArangoCollection <span class="hljs-number">79953</span>, <span class="hljs-string">&quot;Groceries&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }

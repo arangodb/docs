@@ -13,12 +13,4 @@ convenient way. Statistics and server status are provided as well.
 The web interface (also referred to as Web UI, frontend or *Aardvark*) can be accessed with a
 browser under the URL `http://localhost:8529` with default server settings.
 
-The interface differs for standalone instances and cluster setups.
-
-Standalone:
-
-![Standalone Web Interface](images/overview.png)
-
-Cluster:
-
-![Cluster Web Interface](images/clusterView.png)
+![Single-server Web Interface](images/ui-dashboard.webp)

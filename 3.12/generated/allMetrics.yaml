@@ -1700,6 +1700,24 @@
     to be adjusted, or larger operations should be broken up into smaller ones in the
     client application.
 
+- name: arangodb_internal_cluster_info_memory_usage
+  introducedIn: "3.12"
+  help: |
+    Amount of memory spent in ClusterInfo.
+  unit: byte
+  type: gauge
+  # all other categories are too specific
+  category: Statistics
+  complexity: high
+  exposedBy:
+    - coordinator
+    - dbserver
+    - single
+  description: |
+    Amount of memory spent in ClusterInfo. ClusterInfo keeps all relevant 
+    information about servers and shard distribution. It grows with the size
+    of servers, databases and shards in the cluster.
+
 - name: arangodb_internal_index_estimates_memory
   introducedIn: "3.12.0"
   help: |
@@ -3929,6 +3947,22 @@
   description: |
     The total amount of network replication tailing requests.
 
+- name: arangodb_request_body_memory_usage
+  introducedIn: "3.12.0"
+  help: |
+    Memory consumed by incoming request bodies.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: high
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Measures the amount of memory currently allocated for incoming request bodies.
+
 - name: arangodb_request_body_size_http1
   introducedIn: "3.7.15"
   help: |
@@ -4628,6 +4662,34 @@
   description: |
     Average time of few last consolidations.
 
+- name: arangodb_search_consolidations_memory
+  introducedIn: "3.12.0"
+  help: |
+    Count of memory in bytes that is used for consolidating this index.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Count of memory in bytes that is used for consolidating this index.
+
+- name: arangodb_search_file_descriptors
+  introducedIn: "3.12.0"
+  help: |
+    Count of opened file descriptors for this index.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Count of opened file descriptors for this index.
+
 - name: arangodb_search_index_size
   introducedIn: "3.10.0"
   help: |
@@ -4641,6 +4703,21 @@
     - single
   description: |
     Size of the index in bytes for current snapshot.
+
+- name: arangodb_search_mapped_memory
+  introducedIn: "3.12.0"
+  help: |
+    Count of memory in bytes that is mapped.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Count of memory in bytes that is mapped.
+    It's very approximate and could be outdated in any moment.
 
 - name: arangodb_search_num_docs
   introducedIn: "3.10.0"
@@ -4775,6 +4852,34 @@
     - single
   description: |
     Number of segments for current snapshot.
+
+- name: arangodb_search_readers_memory
+  introducedIn: "3.12.0"
+  help: |
+    Count of memory in bytes that is used for reading from this index.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Count of memory in bytes that is used for reading from this index.
+
+- name: arangodb_search_writers_memory
+  introducedIn: "3.12.0"
+  help: |
+    Count of memory in bytes that is used for writing to this index.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Count of memory in bytes that is used for writing to this index.
 
 - name: arangodb_server_statistics_cpu_cores
   introducedIn: "3.8.0"
@@ -5685,6 +5790,67 @@
     update, replace, or remove operation requests the cache refilling, or if the
     `--rocksdb.auto-refill-index-caches` startup option is enabled.
     On Agents and Coordinators, the values reported by this metric are always zero.
+
+- name: rocksdb_cache_edge_compression_ratio
+  introducedIn: "3.11.2"
+  help: |
+    Overall effective compression ratio of all edge cache entries ever stored 
+    in the edge cache.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Overall effective compression ratio of all edge cache entries ever stored
+    in the in-memory edge cache. The value should be 0 if compression is not
+    used.
+
+- name: rocksdb_cache_edge_effective_entries_size
+  introducedIn: "3.11.2"
+  help: |
+    Total effective memory size of all edge cache entries ever stored in the edge cache.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total effective memory size of all edge cache data that were ever stored in
+    the edge cache of any collection/shard. The size is calculated after any
+    potential compression, so the compression efficiency can be estimated by 
+    this metric by the size of the uncompressed edge cache entries.
+    Note that this metric is incremented upon every edge cache insert attempt.
+    It is increased also when data cannot be inserted into the cache (e.g. because
+    the cache had no memory left). The metric is not decreased when data gets 
+    evicted from the cache.
+
+- name: rocksdb_cache_edge_uncompressed_entries_size
+  introducedIn: "3.11.2"
+  help: |
+    Total gross memory size of all edge cache entries ever stored in the edge cache.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total gross memory size of all edge cache data that were ever stored in
+    the edge cache of any collection/shard. The size is calculated before any
+    potential compression.
+    Note that this metric is incremented upon every cache insert attempt. 
+    It is increased also when data cannot be inserted into the cache (e.g. because
+    the cache had no memory left). The metric is not decreased when data gets 
+    evicted from the cache.
 
 - name: rocksdb_cache_full_index_refills_total
   introducedIn: "3.10.2"
