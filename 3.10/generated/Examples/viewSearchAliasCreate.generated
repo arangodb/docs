@@ -3,4 +3,4 @@ arangosh&gt; <span class="hljs-keyword">var</span> idx = coll.ensureIndex({ <spa
 arangosh&gt; db._createView(<span class="hljs-string">&quot;products&quot;</span>, <span class="hljs-string">&quot;search-alias&quot;</span>, { <span class="hljs-attr">indexes</span>: [
 ........&gt;   { <span class="hljs-attr">collection</span>: <span class="hljs-string">&quot;books&quot;</span>, <span class="hljs-attr">index</span>: <span class="hljs-string">&quot;inv-idx&quot;</span> }
 ........&gt; ] });
-[ArangoView <span class="hljs-number">83774</span>, <span class="hljs-string">&quot;products&quot;</span> (type search-alias)]
+[ArangoView <span class="hljs-number">83644</span>, <span class="hljs-string">&quot;products&quot;</span> (type search-alias)]

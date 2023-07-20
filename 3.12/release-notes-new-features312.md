@@ -18,7 +18,16 @@ here.
 
 ## Web interface
 
+### Shard rebalancing
 
+The feature for rebalancing shards in cluster deployments has been moved from
+the **Rebalance Shards** tab in the **NODES** section to the **Distribution**
+tab in the **CLUSTER** section of the web interface.
+
+The updated interface now offers the following options:
+- **Move Leaders**
+- **Move Followers**
+- **Include System Collections**
 
 ## AQL
 

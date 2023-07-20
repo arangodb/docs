@@ -21,7 +21,7 @@ any kind.
 ![Node - Relation - Node](images/data-model-graph-relation-abstract.png)
 
 For example, you can represent people by nodes and their friendships by
-relations. This lets you form a graph that is a social networks in this case.
+relations. This lets you form a graph that is a social network in this case.
 
 ![Mary - is friend of - John](images/data-model-graph-relation-concrete.png)
 
@@ -47,7 +47,7 @@ energy, or information. In undirected graphs, edges don't have a direction and
 the relationship between two vertices is considered to be the same in both
 directions. For example, a friendship is a symmetrical relationships. If _Mary_
 is a friend of _John_, then _John_ is equally a friend of _Mary_. On the other
-hand, _Mary_ may subscribe to what _John_' posts online, but this does not
+hand, _Mary_ may subscribe to what _John_ posts online, but this does not
 automatically make _John_ a subscriber of _Mary_'s posts. It is an asymmetrical
 relationship in graph terms. These two types of graphs have different properties
 and different algorithms exist to analyze the data.
@@ -89,7 +89,7 @@ a friendship edge that connects _Mary_ with _John_ could look like
 `{"_from": "Person/Mary", "_to": "Person/John", "_id": "isFriendOf/1234"}`.
 Using this directed graph model means that relations you create with edges are
 not reciprocal but you may create edges for the reverse direction (another edge
-from _John_  to _Mary_), or you can utilize ArangoDB's ability to follow edges
+from _John_ to _Mary_), or you can utilize ArangoDB's ability to follow edges
 in the opposite direction (**inbound** instead of **outbound**) or ignore the
 direction and follow them in both directions (**any**) as if it were an
 undirected graph.
