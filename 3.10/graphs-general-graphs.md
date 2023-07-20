@@ -31,13 +31,13 @@ General Graphs. To get started, follow the steps outlined below.
 3. In the **Create Graph** dialog that appears, select the
    **GeneralGraph** tab.
 4. Fill in the following fields:
-   - For **Name**, enter a name for the GeneralGraph.
+   - For **Name**, enter a name for the General Graph.
    - For **Shards**, enter the number of parts to split the graph into.
    - For **Replication factor**, enter the total number of
      desired copies of the data in the cluster.
    - For **Write concern**, enter the total number of copies
      of the data in the cluster required for each write operation.
-5. Define the relation(s) on the GeneralGraph:     
+5. Define the relation(s) on the General Graph:     
    - For **Edge definition**, insert a single non-existent name to define
      the relation of the graph. This automatically creates a new edge
      collection, which is displayed in the **COLLECTIONS** section of the
@@ -59,7 +59,7 @@ General Graphs. To get started, follow the steps outlined below.
 
 ![Create General Graph](images/Create-GeneralGraph.png)   
 
-### Create a GeneralGraph using _arangosh_
+### Create a General Graph using _arangosh_
 
 **Create a graph**
 
