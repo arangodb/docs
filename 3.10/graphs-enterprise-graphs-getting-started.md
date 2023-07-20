@@ -172,19 +172,18 @@ definition of its edges. All collections used within the creation process are
 automatically created by the `enterprise-graph` module. Make sure to only use
 non-existent collection names for both vertices and edges.
 
-## Create an EnterpriseGraph using the Web Interface
+## Create an EnterpriseGraph using the web interface
 
-The Web Interface (also called Web UI) allows you to easily create and manage
+The web interface (also called Web UI) allows you to easily create and manage
 EnterpriseGraphs. To get started, follow the steps outlined below.
 
-1. In the main page of the Web Interface, go to the left sidebar 
-   menu and select the **Graphs** tab.
+1. In the web interface, navigate to the **GRAPHS** section.
 2. To add a new graph, click **Add Graph**.
 3. In the **Create Graph** dialog that appears, select the
    **EnterpriseGraph** tab.
 4. Fill in all required fields:
    - For **Name**, enter a name for the EnterpriseGraph.
-   - For **Shards**, enter the number of shards the graph is using.
+   - For **Shards**, enter the number of parts to split the graph into.
    - Optional: For **Replication factor**, enter the total number of
      desired copies of the data in the cluster.
    - Optional: For **Write concern**, enter the total number of copies
@@ -194,7 +193,7 @@ EnterpriseGraphs. To get started, follow the steps outlined below.
      then created as satellites, and thus replicated to all DB-Servers.
    - For **Edge definition**, insert a single non-existent name to define
      the relation of the graph. This automatically creates a new edge
-     collection, which is displayed in the **Collections** tab of the
+     collection, which is displayed in the **COLLECTIONS** section of the
      left sidebar menu.
      {% hint 'tip' %}
      To define multiple relations, press the **Add relation** button.
@@ -212,12 +211,12 @@ EnterpriseGraphs. To get started, follow the steps outlined below.
    - For **Orphan collections**, insert a list of vertex collections
      that are part of the graph but not used in any edge definition.
 5. Click **Create**. 
-6. Open the graph and use the functions of the Graph Viewer to visually
-   interact with the graph and manage the graph data.
+6. Click the card of the newly created graph use the functions of the Graph
+   Viewer to visually interact with the graph and manage the graph data.
 
 ![Create EnterpriseGraph](images/graphs-create-enterprise-graph-dialog.png)
    
-## Create an EnterpriseGraph using *arangosh*
+## Create an EnterpriseGraph using _arangosh_
 
 Compared to SmartGraphs, the option `isSmart: true` is required but the
 `smartGraphAttribute` is forbidden. 
