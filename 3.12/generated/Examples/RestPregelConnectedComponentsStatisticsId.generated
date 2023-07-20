@@ -1,10 +1,10 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/control_pregel/<span class="hljs-built_in">history</span>/71201</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/control_pregel/<span class="hljs-built_in">history</span>/71085</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 cache-control: no-cache, no-store, must-revalidate, pre-check=<span class="hljs-number">0</span>, post-check=<span class="hljs-number">0</span>, max-age=<span class="hljs-number">0</span>, s-maxage=<span class="hljs-number">0</span>
 connection: Keep-Alive
-content-length: <span class="hljs-number">2931</span>
+content-length: <span class="hljs-number">2921</span>
 content-security-policy: frame-ancestors <span class="hljs-string">&#x27;self&#x27;</span>; form-action <span class="hljs-string">&#x27;self&#x27;</span>;
 expires: <span class="hljs-number">0</span>
 pragma: no-cache
@@ -17,8 +17,8 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;aggregators&quot;</span> : { 
   }, 
   <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;wcc&quot;</span>, 
-  <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.004684743</span>, 
-  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-06-26T15:26:16Z&quot;</span>, 
+  <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.002061576</span>, 
+  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-string">&quot;2023-07-14T17:06:06Z&quot;</span>, 
   <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
   <span class="hljs-string">&quot;detail&quot;</span> : { 
     <span class="hljs-string">&quot;aggregatedStatus&quot;</span> : { 
@@ -94,7 +94,7 @@ x-content-type-options: nosniff
       }, 
       <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
       }, 
-      <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-06-26T15:26:16Z&quot;</span> 
+      <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-07-14T17:06:06Z&quot;</span> 
     }, 
     <span class="hljs-string">&quot;workerStatus&quot;</span> : { 
       <span class="hljs-string">&quot;&quot;</span> : { 
@@ -170,40 +170,40 @@ x-content-type-options: nosniff
         }, 
         <span class="hljs-string">&quot;graphStoreStatus&quot;</span> : { 
         }, 
-        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-06-26T15:26:16Z&quot;</span> 
+        <span class="hljs-string">&quot;timeStamp&quot;</span> : <span class="hljs-string">&quot;2023-07-14T17:06:06Z&quot;</span> 
       } 
     } 
   }, 
   <span class="hljs-string">&quot;edgeCount&quot;</span> : <span class="hljs-number">36</span>, 
-  <span class="hljs-string">&quot;exn&quot;</span> : <span class="hljs-number">71201</span>, 
+  <span class="hljs-string">&quot;exn&quot;</span> : <span class="hljs-number">71085</span>, 
   <span class="hljs-string">&quot;graphLoaded&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">11</span>, 
   <span class="hljs-string">&quot;gssTimes&quot;</span> : [ 
-    <span class="hljs-number">0.00019892</span>, 
-    <span class="hljs-number">0.000217478</span>, 
-    <span class="hljs-number">0.000197697</span>, 
-    <span class="hljs-number">0.000189193</span>, 
-    <span class="hljs-number">0.000179495</span>, 
-    <span class="hljs-number">0.000236444</span>, 
-    <span class="hljs-number">0.00018446</span>, 
-    <span class="hljs-number">0.000158233</span>, 
-    <span class="hljs-number">0.000152539</span>, 
-    <span class="hljs-number">0.000163318</span>, 
-    <span class="hljs-number">0.000166447</span> 
+    <span class="hljs-number">0.000081834</span>, 
+    <span class="hljs-number">0.00008083</span>, 
+    <span class="hljs-number">0.000078639</span>, 
+    <span class="hljs-number">0.000064074</span>, 
+    <span class="hljs-number">0.000059108</span>, 
+    <span class="hljs-number">0.000073331</span>, 
+    <span class="hljs-number">0.000061534</span>, 
+    <span class="hljs-number">0.000070991</span>, 
+    <span class="hljs-number">0.000061334</span>, 
+    <span class="hljs-number">0.000058017</span>, 
+    <span class="hljs-number">0.000057614</span> 
   ], 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;71201&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;71085&quot;</span>, 
   <span class="hljs-string">&quot;masterContext&quot;</span> : { 
   }, 
-  <span class="hljs-string">&quot;parallelism&quot;</span> : <span class="hljs-number">8</span>, 
+  <span class="hljs-string">&quot;parallelism&quot;</span> : <span class="hljs-number">9</span>, 
   <span class="hljs-string">&quot;receivedCount&quot;</span> : <span class="hljs-number">370</span>, 
   <span class="hljs-string">&quot;sendCount&quot;</span> : <span class="hljs-number">370</span>, 
   <span class="hljs-string">&quot;serverId&quot;</span> : <span class="hljs-string">&quot;&quot;</span>, 
-  <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.000586905</span>, 
+  <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.000298373</span>, 
   <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;done&quot;</span>, 
-  <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.006399764</span>, 
+  <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.002955592</span>, 
   <span class="hljs-string">&quot;ttl&quot;</span> : <span class="hljs-number">600</span>, 
   <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;root&quot;</span>, 
   <span class="hljs-string">&quot;vertexCount&quot;</span> : <span class="hljs-number">36</span>, 
-  <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2023-06-26T15:36:16Z&quot;</span>, 
-  <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.000965356</span> 
+  <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-string">&quot;2023-07-14T17:16:06Z&quot;</span>, 
+  <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.000511217</span> 
 }

@@ -1479,6 +1479,30 @@
     "section" : "",
     "type" : "string..."
   },
+  "split-files" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Split a collection in multiple files to increase throughput.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "This option only has effect when the option\n`--use-experimental-dump` is set to `true`. Restoring split files also\nrequires an arangorestore version that is capable of restoring data of a\nsingle collection/shard from multiple files.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "ssl.protocol" : {
     "base" : 1,
     "category" : "option",
@@ -1508,7 +1532,7 @@
   "threads" : {
     "base" : 1,
     "category" : "option",
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The maximum number of collections/shards to process in parallel.",
     "dynamic" : true,
