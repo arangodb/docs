@@ -188,6 +188,15 @@ value of `0` as the `numberOfShards`. They now return the actual number of
 shards. This value can be higher than the configured `numberOfShards` value of
 the graph due to internally used hidden collections.
 
+---
+
+When creating a collection using the `POST /_api/collection` endpoint, the
+ArangoDB log now displays a deprecation message if illegal combinations and
+unknown attributes and values are detected in the request body.
+
+Note that all invalid elements and combinations will be rejected in future
+versions.
+
 #### Cursor API
 
 When you link a collection to an `arangosearch` View and run an AQL query
@@ -636,6 +645,15 @@ If the specified database name is invalid/illegal, it now returns the error code
 This is a downwards-incompatible change, but unifies the behavior for database
 creation with the behavior of collection and View creation, which also return
 the error code `1208` in case the specified name is not allowed.
+
+### Collection creation
+
+When creating a collection using the `db._create(collection-name, properties)`
+method, the ArangoDB log now displays a deprecation message if illegal
+combinations and unknown properties are detected in the `properties` object.
+
+Note that all invalid elements and combinations will be rejected in future
+versions.
 
 ### Index methods
 

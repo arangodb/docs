@@ -13,7 +13,14 @@ integrations for ArangoDB 3.12.
 
 ### Behavior changes
 
+#### Collection API
 
+When creating a collection using the `POST /_api/collection` endpoint, the
+ArangoDB log now displays a deprecation message if illegal combinations and
+unknown attributes and values are detected in the request body.
+
+Note that all invalid elements and combinations will be rejected in future
+versions.
 
 ### Privilege changes
 
@@ -60,6 +67,15 @@ Users of the `/_api/traversal` REST API should use
 [AQL traversal queries](aql/graphs-traversals.html) instead.
 
 ## JavaScript API
+
+### Collection creation
+
+When creating a collection using the `db._create(collection-name, properties)`
+method, the ArangoDB log now displays a deprecation message if illegal
+combinations and unknown properties are detected in the `properties` object.
+
+Note that all invalid elements and combinations will be rejected in future
+versions.
 
 ### `@arangodb/graph/traversal` module
 
