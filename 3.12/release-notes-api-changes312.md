@@ -16,7 +16,7 @@ integrations for ArangoDB 3.12.
 #### Collection API
 
 When creating a collection using the `POST /_api/collection` endpoint, the
-ArangoDB log now displays a deprecation message if illegal combinations and
+server log now displays a deprecation message if illegal combinations and
 unknown attributes and values are detected in the request body.
 
 Note that all invalid elements and combinations will be rejected in future
@@ -70,8 +70,8 @@ Users of the `/_api/traversal` REST API should use
 
 ### Collection creation
 
-When creating a collection using the `db._create(collection-name, properties)`
-method, the ArangoDB log now displays a deprecation message if illegal
+When creating a collection using the `db._create()`, `db._createDocumentCollection()`, or
+`db._createEdgeCollection()` method, the server log now displays a deprecation message if illegal
 combinations and unknown properties are detected in the `properties` object.
 
 Note that all invalid elements and combinations will be rejected in future
