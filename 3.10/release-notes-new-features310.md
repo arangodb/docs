@@ -1372,7 +1372,7 @@ arangod --rclone.argument "--log-level=DEBUG" --rclone.argument "--log-file=rclo
 
 <small>Introduced in: v3.10.10</small>
 
-The `--database.max-databases` startup option allows you to limit the maximum
+The `--database.max-databases` startup option allows you to limit the
 number of databases that can exist in parallel in a deployment. You can use this
 option to limit the resources used by database objects. If the option is used
 and there are already as many databases as configured by this option, any
