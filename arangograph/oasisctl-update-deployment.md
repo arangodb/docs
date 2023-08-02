@@ -31,6 +31,7 @@ oasisctl update deployment [flags]
       --disk-performance-id string           Set the disk performance to use for this deployment.
   -h, --help                                 help for deployment
   -i, --ipallowlist-id string                Identifier of the IP allowlist to use for the deployment
+      --is-platform-authentication-enabled   Enable platform authentication for deployment.
       --max-node-disk-size int32             Set maximum disk size for nodes for autoscaler (GB)
       --model string                         Set model of the deployment (default "oneshard")
       --name string                          Name of the deployment
