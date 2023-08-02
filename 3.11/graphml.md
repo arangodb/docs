@@ -37,3 +37,29 @@ patterns and relationships within the graph.
 
 ![GraphML Workflow](images/GraphML-How-it-works.webp)
 
+## ArangoGraphML
+
+ArangoGraphML provides enterprise-ready graph-powered machine learning
+available as a cloud service via Jupyter Notebooks that run on the
+ArangoGraph Insights Platform.
+
+ArangoGraphML is using GraphML techniques that focus on solving different
+problems and, at the same time, it provides actionable insights leveraging
+ArangoDB's graph data model:
+
+- **Solution focus**
+  - Node classification
+  - Similarity search
+  - Link prediction
+- **Accessible at all levels**
+  - Low code UI
+  - Notebooks
+  - APIs
+- **Full usability**
+  - MLOps lifecycle
+  - Metrics
+  - Metadata capture
+  - Monitoring
+  - Model management
+
+![ArangoGraphML Pipeline](images/ArangoGraphML_Pipeline.png)
