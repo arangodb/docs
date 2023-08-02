@@ -1856,7 +1856,7 @@ Get a 4 characters long substring, starting at the 5th from last character:
 SUBSTRING_BYTES()
 -----------------
 
-`SUBSTRING_BYTES(value, offset, length) → substring`
+`SUBSTRING_BYTES(value, offset, length, left, right) → substring`
 
 Return a substring of `value`, using an `offset` and `length` in bytes instead
 of in number of characters.
@@ -1874,6 +1874,12 @@ This function is intended to be used together with the
   get the substring from `offset` to the end of the string. The end byte
   (`offset` + `length`) needs to coincide with the end of a character's
   byte sequence
+- **left** (number, *optional*): numbers of characters, if not specified it is
+  equal to zero. Move begining of substring to the begining of the string
+  on specified numbers of characters.
+- **right** (number, *optional*): numbers of characters, if not specified it is
+  equal to left. Move ending of substring to the ending of the string
+  on specified numbers of characters.
 - returns **substring** (string\|null): a substring of `value`, or `null` and
   produces a warning if the start or end byte is in the middle of a character's
   byte sequence
