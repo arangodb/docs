@@ -221,3 +221,5 @@ replace the old features with:
   - `arangodb::GRAPH_BETWEENNESS`
   - `arangodb::GRAPH_RADIUS`
   - `arangodb::GRAPH_DIAMETER`
+  
+  These functions will be removed in ArangoDB 3.12.

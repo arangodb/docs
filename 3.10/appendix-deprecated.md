@@ -229,6 +229,8 @@ detailed information about breaking changes before upgrading.
   - `arangodb::GRAPH_BETWEENNESS`
   - `arangodb::GRAPH_RADIUS`
   - `arangodb::GRAPH_DIAMETER`
+  
+  These functions will be removed in ArangoDB 3.12.
 
 - **Specialized index creation methods in JavaScript API**:
   The following JavaScript methods for creating indexes from the ArangoShell
