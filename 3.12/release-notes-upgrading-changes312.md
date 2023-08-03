@@ -73,7 +73,6 @@ Users of the JavaScript-based traversal API should use
 The following long-deprecated compatibility graph functions have been removed
 in ArangoDB 3.12. These functions were implemented as JavaScript user-defined 
 AQL functions since ArangoDB 3.0:
-
   - arangodb::GRAPH_EDGES(...)
   - arangodb::GRAPH_VERTICES(...)
   - arangodb::GRAPH_NEIGHBORS(...)
