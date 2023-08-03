@@ -385,30 +385,6 @@ requests unless explicitly told to do so:
   });
   ```
 
-## HTTP method overriding
-
-{% hint 'warning' %}
-HTTP method overriding is deprecated from version 3.9.0 on and should no longer
-be used.
-{% endhint %}
-
-ArangoDB provides a startup option *--http.allow-method-override*.
-This option can be set to allow overriding the HTTP request method (e.g. GET, POST,
-PUT, DELETE, PATCH) of a request using one of the following custom HTTP headers:
-
-- `x-http-method-override`
-- `x-http-method`
-- `x-method-override`
-
-This allows using HTTP clients that do not support all "common" HTTP methods such as
-PUT, PATCH and DELETE. It also allows bypassing proxies and tools that would otherwise
-just let certain types of requests (e.g. GET and POST) pass through.
-
-Enabling this option may impose a security risk, so it should only be used in very
-controlled environments. Thus the default value for this option is *false* (no method
-overriding allowed). You need to enable it explicitly if you want to use this
-feature.
-
 ## Load-balancer support
 
 When running in cluster mode, ArangoDB exposes some APIs which store request
