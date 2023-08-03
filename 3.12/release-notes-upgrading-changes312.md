@@ -58,7 +58,7 @@ Users of the `/_api/traversal` REST API should use
 The following long-deprecated features have been removed from ArangoDB's HTTP
 server:
 
-* overriding the HTTP method by setting one of the HTTP headers
+* overriding the HTTP method by setting one of the HTTP headers:
   - `x-http-method`
   - `x-http-method-override`
   - `x-method-override`
