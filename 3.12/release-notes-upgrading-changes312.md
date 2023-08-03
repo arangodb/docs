@@ -73,22 +73,22 @@ Users of the JavaScript-based traversal API should use
 The following long-deprecated compatibility graph functions have been removed
 in ArangoDB 3.12. These functions were implemented as JavaScript user-defined 
 AQL functions since ArangoDB 3.0:
-  - arangodb::GRAPH_EDGES(...)
-  - arangodb::GRAPH_VERTICES(...)
-  - arangodb::GRAPH_NEIGHBORS(...)
-  - arangodb::GRAPH_COMMON_NEIGHBORS(...)
-  - arangodb::GRAPH_COMMON_PROPERTIES(...)
-  - arangodb::GRAPH_PATHS(...)
-  - arangodb::GRAPH_SHORTEST_PATH(...)
-  - arangodb::GRAPH_DISTANCE_TO(...)
-  - arangodb::GRAPH_ABSOLUTE_ECCENTRICTIY(...)
-  - arangodb::GRAPH_ECCENTRICTIY(...)
-  - arangodb::GRAPH_ABSOLUTE_CLOSENESS(...)
-  - arangodb::GRAPH_CLOSENESS(...)
-  - arangodb::GRAPH_ABSOLUTE_BETWEENNESS(...)
-  - arangodb::GRAPH_BETWEENNESS(...)
-  - arangodb::GRAPH_RADIUS(...)
-  - arangodb::GRAPH_DIAMETER(...)
+  - `arangodb::GRAPH_EDGES(...)`
+  - `arangodb::GRAPH_VERTICES(...)`
+  - `arangodb::GRAPH_NEIGHBORS(...)`
+  - `arangodb::GRAPH_COMMON_NEIGHBORS(...)`
+  - `arangodb::GRAPH_COMMON_PROPERTIES(...)`
+  - `arangodb::GRAPH_PATHS(...)`
+  - `arangodb::GRAPH_SHORTEST_PATH(...)`
+  - `arangodb::GRAPH_DISTANCE_TO(...)`
+  - `arangodb::GRAPH_ABSOLUTE_ECCENTRICTIY(...)`
+  - `arangodb::GRAPH_ECCENTRICTIY(...)`
+  - `arangodb::GRAPH_ABSOLUTE_CLOSENESS(...)`
+  - `arangodb::GRAPH_CLOSENESS(...)`
+  - `arangodb::GRAPH_ABSOLUTE_BETWEENNESS(...)`
+  - `arangodb::GRAPH_BETWEENNESS(...)`
+  - `arangodb::GRAPH_RADIUS(...)`
+  - `arangodb::GRAPH_DIAMETER(...)`
 
 These functions were only available previously after explicitly calling the
 `_registerCompatibilityFunctions()` function from any of the JavaScript graph
