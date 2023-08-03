@@ -185,14 +185,6 @@ detailed information about breaking changes before upgrading.
     - `--arangosearch.consolidation-threads-idle`
   - `--rocksdb.exclusive-writes` (was intended only as a stopgap measure to
     make porting applications from MMFiles to RocksDB easier)
-  - `--http.allow-method-override`: this option allows incoming HTTP POST 
-    request to override the actual HTTP method used by setting one of the
-    special HTTP headers `x-http-method`, `x-method-override` or 
-    `x-http-method-override`. This was originally intended for very restricted
-    callers, which only supported HTTP GET and HTTP POST, but seems very
-    unnecessary nowadays.
-  - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
-    header in all responses served by arangod.
   - `--network.protocol`: network protocol to use for cluster-internal 
     communication. The protocol will be auto-decided from version 3.9 onwards.
   - `--query.allow-collections-in-expressions`: allow full collections to be 

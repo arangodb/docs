@@ -53,6 +53,28 @@ larger amounts of data and was thus very limited.
 Users of the `/_api/traversal` REST API should use
 [AQL traversal queries](aql/graphs-traversals.html) instead.
 
+### HTTP server behavior
+
+The following long-deprecated features have been removed from ArangoDB's HTTP
+server:
+
+* overriding the HTTP method by setting one of the HTTP headers
+  - `x-http-method`
+  - `x-http-method-override`
+  - `x-method-override`
+ 
+ This functionaltiy posed a potential security risk and was thus removed.
+ The functionality was previously only enabled when explicitly starting the 
+ server with the startup option `--http.allow-method-override`.
+ The functionality has now been removed and setting the startup option does
+ nothing.
+
+* optionally hiding ArangoDB's `server` response header. This functionality
+  could optionally be enabled by starting the server with the startup option
+  `--http.hide-product-header`.
+  The functionality has now been removed and setting the startup option does
+  nothing.
+
 ## JavaScript API
 
 ### `@arangodb/graph/traversal` module
