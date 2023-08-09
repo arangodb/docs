@@ -30,7 +30,9 @@ In order to start an ArangoDB instance, run:
 docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 -d --name arangodb-instance arangodb
 ```
 
-Alternatively, you can also pass the `--platform` flag to the command, specifying
+Note that on macOS/ARM, the default chosen processor architecture may not be
+the best choice.
+To override this, you can pass the `--platform` flag to the command, specifying
 the operating system and architecture you want to build for:
 
 ```
