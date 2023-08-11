@@ -17,7 +17,9 @@ grouped by version
 
 **Enterprise Edition**
 
-- 
+- [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
+  Retrieve search results for the highest-ranking matches from Views faster by
+  defining a list of sort expressions to optimize.
 
 Also see [What's New in 3.12](release-notes-new-features312.html).
 
@@ -35,10 +37,6 @@ Also see [What's New in 3.12](release-notes-new-features312.html).
   query performance.
 
 **Enterprise Edition**
-
-- [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
-  Retrieve search results for the highest-ranking matches from Views faster by
-  defining a list of sort expressions to optimize.
 
 - [**ArangoSearch column cache**](release-notes-new-features310.html#arangosearch-column-cache-enterprise-edition):
   Always cache field normalization values, Geo Analyzer auxiliary data,

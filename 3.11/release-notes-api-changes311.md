@@ -376,17 +376,6 @@ The `GET /_api/query/current` endpoint can return a new value
 
 #### View API
 
-<small>Introduced in: v3.11.1</small>
-
-Views of type `arangosearch` accept a new `optimizeTopK` View property for the
-ArangoSearch WAND optimization. It is an immutable array of strings, optional,
-and defaults to `[]`.
-
-See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
-for details.
-
----
-
 Views of the type `arangosearch` support new caching options in the
 Enterprise Edition.
 
@@ -414,17 +403,6 @@ You may use a shorthand notations on `arangosearch` View creation or the
 objects.
 
 See the [`arangosearch` Views Reference](arangosearch-views.html#link-properties)
-for details.
-
-#### Index API
-
-<small>Introduced in: v3.11.1</small>
-
-Indexes of type `inverted` accept a new `optimizeTopK` property for the
-ArangoSearch WAND optimization. It is an array of strings, optional, and
-defaults to `[]`.
-
-See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
 for details.
 
 #### Pregel API

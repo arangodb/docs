@@ -288,29 +288,6 @@ During view modification the following directives apply:
   The `storedValues` option is not to be confused with the `storeValues` option,
   which allows to store meta data about attribute values in the View index.
 
-- **optimizeTopK** (_optional_; type: `array`; default: `[]`; _immutable_)
-
-  <small>Introduced in: v3.11.1</small>
-
-  An array of strings defining sort expressions that you want to optimize.
-  This is also known as [_WAND optimization_](arangosearch-performance.html#wand-optimization).
-
-  If you query a View with the `SEARCH` operation in combination with a
-  `SORT` and `LIMIT` operation, search results can be retrieved faster if the
-  `SORT` expression matches one of the optimized expressions.
-
-  Only sorting by highest rank is supported, that is, sorting by the result
-  of a [scoring function](aql/functions-arangosearch.html#scoring-functions)
-  in descending order (`DESC`). Use `@doc` in the expression where you would
-  normally pass the document variable emitted by the `SEARCH` operation to the
-  scoring function.
-
-  You can define up tp 64 expressions per View.
-
-  Example: `["BM25(@doc) DESC", "TFIDF(@doc, true) DESC"]`
-
-  {% include hint-ee-arangograph.md feature="The ArangoSearch WAND optimization" %}
-
 An inverted index is the heart of `arangosearch` Views.
 The index consists of several independent segments and the index **segment**
 itself is meant to be treated as a standalone index. **Commit** is meant to be

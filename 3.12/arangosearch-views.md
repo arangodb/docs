@@ -290,7 +290,7 @@ During view modification the following directives apply:
 
 - **optimizeTopK** (_optional_; type: `array`; default: `[]`; _immutable_)
 
-  <small>Introduced in: v3.11.1</small>
+  <small>Introduced in: v3.12.0</small>
 
   An array of strings defining sort expressions that you want to optimize.
   This is also known as [_WAND optimization_](arangosearch-performance.html#wand-optimization).

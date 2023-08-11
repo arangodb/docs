@@ -10,26 +10,6 @@ here.
 
 ## ArangoSearch
 
-### WAND optimization (Enterprise Edition)
-
-<small>Introduced in: v3.11.1</small>
-
-For `arangosearch` Views and inverted indexes (and by extension `search-alias`
-Views), you can define a list of sort expressions that you want to optimize.
-This is also known as _WAND optimization_.
-
-If you query a View with the `SEARCH` operation in combination with a
-`SORT` and `LIMIT` operation, search results can be retrieved faster if the
-`SORT` expression matches one of the optimized expressions.
-
-Only sorting by highest rank is supported, that is, sorting by the result
-of a scoring function in descending order (`DESC`).
-
-See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
-for examples.
-
-This feature is only available in the Enterprise Edition.
-
 ### Late materialization improvements
 
 The number of disk reads required when executing search queries with late
