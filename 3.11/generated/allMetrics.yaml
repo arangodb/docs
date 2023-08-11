@@ -5418,6 +5418,67 @@
     `--rocksdb.auto-refill-index-caches` startup option is enabled.
     On Agents and Coordinators, the values reported by this metric are always zero.
 
+- name: rocksdb_cache_edge_compression_ratio
+  introducedIn: "3.11.2"
+  help: |
+    Overall effective compression ratio of all edge cache entries ever stored 
+    in the edge cache.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Overall effective compression ratio of all edge cache entries ever stored
+    in the in-memory edge cache. The value should be 0 if compression is not
+    used.
+
+- name: rocksdb_cache_edge_effective_entries_size
+  introducedIn: "3.11.2"
+  help: |
+    Total effective memory size of all edge cache entries ever stored in the edge cache.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total effective memory size of all edge cache data that were ever stored in
+    the edge cache of any collection/shard. The size is calculated after any
+    potential compression, so the compression efficiency can be estimated by 
+    this metric by the size of the uncompressed edge cache entries.
+    Note that this metric is incremented upon every edge cache insert attempt.
+    It is increased also when data cannot be inserted into the cache (e.g. because
+    the cache had no memory left). The metric is not decreased when data gets 
+    evicted from the cache.
+
+- name: rocksdb_cache_edge_uncompressed_entries_size
+  introducedIn: "3.11.2"
+  help: |
+    Total gross memory size of all edge cache entries ever stored in the edge cache.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total gross memory size of all edge cache data that were ever stored in
+    the edge cache of any collection/shard. The size is calculated before any
+    potential compression.
+    Note that this metric is incremented upon every cache insert attempt. 
+    It is increased also when data cannot be inserted into the cache (e.g. because
+    the cache had no memory left). The metric is not decreased when data gets 
+    evicted from the cache.
+
 - name: rocksdb_cache_full_index_refills_total
   introducedIn: "3.10.2"
   help: |
@@ -6398,6 +6459,22 @@
     used by RocksDB. Since RocksDB does not like out of disk space
     scenarios, please make sure that there are enough free inodes available
     at all times! Note that this metric is only available/populated on some platforms.
+
+- name: rocksdb_total_sst_files
+  introducedIn: "3.11.1"
+  help: |
+    Total number of RocksDB sst files, aggregated over all levels.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric reports the number of sst files of the log structured
+    merge tree of RocksDB, aggregated over all levels.
 
 - name: rocksdb_total_sst_files_size
   introducedIn: "3.6.1"

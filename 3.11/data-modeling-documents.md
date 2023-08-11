@@ -116,7 +116,14 @@ provided that the values conform to the following restrictions:
   `_key` attribute from a document).
 - It must consist of the letters `A` to `Z` (lower- and uppercase), the digits
   `0` to `9`, or any of the following punctuation characters:
-  `_` `-` `:` `.` `@` `(` `)` `+` `,` `=` `;` `$` `!` `*` `'` `%`
+  `_` `-` `.` `@` `(` `)` `+` `,` `=` `;` `$` `!` `*` `'` `%` `:`
+  {% hint 'info' %}
+  Avoid using `:` in document keys as this can conflict with the requirements of
+  [EnterpriseGraphs](graphs-enterprise-graphs.html),
+  [SmartGraphs](graphs-smart-graphs.html), and
+  [SmartJoins](smartjoins.html#smartjoins-using-smartjoinattribute)
+  which use the colon character as a separator in keys.
+  {% endhint %}
 - Any other characters, especially multi-byte UTF-8 sequences, whitespace, or 
   punctuation characters not listed above cannot be used inside key values.
 - The key must be unique within the collection it is used in.

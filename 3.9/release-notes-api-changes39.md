@@ -11,7 +11,9 @@ integrations for ArangoDB 3.9.
 
 ## HTTP RESTful API
 
-### Graph API (Gharial)
+### Behavior changes
+
+#### Graph API (Gharial)
 
 The following changes affect the behavior of the RESTful graph APIs at
 endpoints starting with path `/_api/gharial/`:
@@ -56,7 +58,7 @@ Also see [Graph Management](http/gharial.html#management).
 Also see [Graph Management](http/gharial-management.html).
 {% endif %}
 
-### Extended naming convention for databases
+#### Extended naming convention for databases
 
 There is a new startup option `--database.extended-names-databases` to allow
 database names to contain most UTF-8 characters.
@@ -90,7 +92,7 @@ Also see [Database names](data-modeling-databases.html#database-names).
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 {% endif %}
 
-### Overload control
+#### Overload control
 
 Starting with version 3.9.0, ArangoDB returns an `x-arango-queue-time-seconds`
 HTTP header with all responses. This header contains the most recent request
@@ -119,7 +121,7 @@ in the header, arangod will reject the request and return HTTP 412
 In a cluster, the `x-arango-queue-time-seconds` request header will be
 checked on the receiving Coordinator, before any request forwarding.
 
-### Cursor API
+#### Cursor API
 
 <small>Introduced in: v3.9.11, v3.10.7</small>
 
@@ -149,6 +151,20 @@ part of the specified named graph (code `1926` and HTTP status `404 Not Found`).
 It is also an error if you specify an edge collection that is not part of the
 named graph's definition or of the list of edge collections (code `1939` and
 HTTP status `400 Bad Request`).
+
+#### Document API
+
+<small>Introduced in: v3.9.12</small>
+
+Using the Document API for reading multiple documents used to return an error
+if the request body was an empty array. Example:
+
+```bash
+> curl -XPUT -d '[]' 'http://localhost:8529/_api/document/coll?onlyget=true'
+{"code":500,"error":true,"errorMessage":"internal error","errorNum":4}
+```
+
+Now, a request like this succeeds and returns an empty array as response.
 
 ### Endpoint return value changes
 
@@ -294,7 +310,7 @@ lifetime of one hour by default. You can adjust the lifetime with the
 Analyzers with a `locale` property use a new syntax. The encoding (`.utf-8`)
 does not need to be set anymore. The `collation` Analyzer supports
 `language[_COUNTRY][_VARIANT][@keywords]` (square bracket denote optional parts).
-The `text` and `norm` Analyzers support `language[_COUNTRY]`, the `stem`
+The `text` and `norm` Analyzers support `language[_COUNTRY][_VARIANT]`, the `stem`
 Analyzer only `language`. The former syntax is still supported but automatically
 normalized to the new syntax.
 

@@ -15,123 +15,434 @@ Do not apply any of the changes suggested here before you have tested them in
 in a development or staging environment.
 {% endhint %}
 
-ArangoDB's memory usage can be restricted and the CPU utilization be reduced
-by different configuration options:
+Usually, a database server tries to use all the memory it can get to
+improve performance by caching or buffering. Therefore, it is important
+to tell an ArangoDB process how much memory it is allowed to use.
+ArangoDB detects the available RAM on the server and divides this up
+amongst its subsystems in some default way, which is suitable for a wide
+range of applications. This detected RAM size can be overridden with
+the environment variable
+[`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html).
 
-- storage engine
-- edge cache
-- server statistics
-- background threads
+However, there may be situations in which there
+are good reasons why these defaults are not suitable and the
+administrator wants to fine tune memory usage. The two
+major reasons for this are:
+
+ - something else (potentially another `arangod` server) is running on
+   the same machine so that your `arangod` is supposed to use less than
+   the available RAM, and/or
+ - the actual usage scenario makes it necessary to increase the memory
+   allotted to some subsystem at the cost of another to achieve higher
+   performance for specific tasks.
+
+To a lesser extent, the same holds true for CPU usage, but operating
+systems are generally better in automatically distributing available CPU
+capacity amongst different processes and different subsystems.
+
+There are settings to make ArangoDB run on systems with very
+limited resources, but they may also be interesting for your
+development machine if you want to make it less taxing for
+the hardware and do not work with much data. For production
+environments, it is recommended to use less restrictive settings, to
+[benchmark](https://www.arangodb.com/performance/) your setup and
+fine-tune the settings for maximal performance.
+
+
+Limiting the overall RAM usage
+------------------------------
+
+A first simple approach could be to simply tell the `arangod` process
+as a whole to use only a certain amount of memory. This is done by
+overriding the detected memory size using the
+[`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html) 
+environment variable.
+
+This essentially scales down `arangod`'s memory usage to the
+given value. This is for example a first measure if more than
+one `arangod` server are running on the same machine.
+
+Note, however, that certain subsystems will then still be able to use
+an arbitrary amount of RAM, depending on the load from the user. If you
+want to protect your server against such misusages and for more detailed
+tuning of the various subsystems, consult the sections below.
+
+Before getting into the nitty-gritty details, check the overview over
+the different subsystems of ArangoDB that are using significant amounts of RAM.
+
+
+Overview over RAM usage in ArangoDB
+-----------------------------------
+
+This section explains the various areas which use RAM and what they are
+for.
+
+Broadly, ArangoDB uses significant amounts of RAM for the following subsystems:
+
+- Storage engine including the block cache
+- HTTP server and queues
+- Edge caches and other caches
+- AQL queries
 - V8 (JavaScript features)
-- operating system / memory allocator (Linux)
+- ArangoSearch
+- AgencyCache/ClusterInfo (cluster meta data)
+- Cluster-internal replication
 
-There are settings to make it run on systems with very limited resources, but
-they may also be interesting for your development machine if you want to make it
-less taxing for the hardware and do not work with much data. For production
-environments, we recommend to use less restrictive settings, to
-[benchmark](https://www.arangodb.com/performance/) your setup and fine-tune
-the settings for maximal performance.
+Of these, the storage engine itself has some subsystems which contribute
+towards its memory usage:
 
-Let us assume our test system is a big server with many cores and a lot of
-memory. However, we intend to run other services on this machine as well.
-Therefore we want to restrict the memory usage of ArangoDB. By default, ArangoDB
-will try to make use of up to all of the available RAM. Using memory accesses
-instead of disk accesses is faster and in the database business performance
-rules. ArangoDB comes with a default configuration with that in mind. But
-sometimes being a little less grabby on system resources may still be fast
-enough, for example if your working data set is not huge. The goal is to reduce
-the overall memory footprint.
+- RocksDB block cache
+- Data structures to read data (Bloom filters, index blocks, table readers)
+- Data structures to write data (write buffers, table builders, transaction data)
+- RocksDB background compaction
 
-There are two big areas, which might eat up memory:
+It is important to understand that all these have a high impact on
+performance. For example, the block cache is there such that already
+used blocks can be retained in RAM for later access. The larger the
+cache, the more blocks can be retained and so the higher the probability
+that a subsequent access does not need to reach out to disk and thus
+incurs no additional cost on performance and IO capacity.
 
-- Buffers & Caches
-- WAL (Write Ahead Log)
+RocksDB can cache bloom filters and index blocks of its SST files in RAM.
+It usually needs approx. 1% of the total size of all SST files in RAM
+just for caching these. As a result, most random accesses need only a
+single actual disk read to find the data stored under a single RocksDB
+key! If not all Bloom filters and block indexes can be held in RAM, then
+this can easily slow down random accesses by a factor of 10 to 100,
+since suddenly many disk reads are needed to find a single
+RocksDB key!
 
-WAL & Write Buffers
--------------------
+Other data structures for reading (table readers) and writing (write
+batches and write buffers) are also needed for smooth operation. If one
+cuts down on these too harshly, reads can be slowed down considerably
+and writes can be delayed. The latter can lead to overall slowdowns and
+could even end up in total write stalls and stops until enough write
+buffers have been written out to disk.
+
+Since RocksDB is a log structured merge tree (LSM), there must be
+background threads to perform compactions. They merge different SST
+files and throw out old, no-longer used data. These compaction
+operations also need considerable amounts of RAM. If this is limited too
+much (by reducing the number of concurrent compaction operations), then
+a compaction debt can occur, which also results in write stalls or
+stops.
+
+The other subsystems outside the storage engine also need RAM. If an
+ArangoDB server queues up too many requests (for example, if more
+requests arrive per time than can be executed), then the data of these
+requests (headers, bodies, etc.) are stored in RAM until they can be
+processed.
+
+Furthermore, there are multiple different caches which are sitting in
+front of the storage engine, the most prominent one being the edge cache
+which helps to speed up graph traversals. The larger these caches,
+the more data can be cached and the higher the likelihood that data
+which is needed repeatedly is found to be available in cache.
+
+Essentially, all AQL queries are executed in RAM. That means that every
+single AQL query needs some RAM - both on Coordinators and on DB-Servers.
+It is possible to limit the memory usage of a single AQL query as well
+as the global usage for all AQL queries running concurrently. Obviously,
+if either of these limits is reached, an AQL query can fail due to a lack
+of RAM, which is then reported back to the user.
+
+Everything which executes JavaScript (only on Coordinators, user defined
+AQL functions and Foxx services), needs RAM, too. If JavaScript is not
+to be used, memory can be saved by reducing the number of V8 contexts.
+
+ArangoSearch uses memory in different ways:
+
+- Writes which are committed in RocksDB but have not yet been **committed** to
+  the search index are buffered in RAM,
+- The search indexes use memory for **consolidation** of multiple smaller
+  search index segments into fewer larger ones,
+- The actual indexed search data resides in memory mapped files, which
+  also need RAM to be cached.
+
+Finally, the cluster internal management uses RAM in each `arangod`
+instance. The whole meta data of the cluster is kept in the AgencyCache
+and in the ClusterInfo cache. There is very little one can change about
+this memory usage.
+
+Furthermore, the cluster-internal replication needs memory to perform
+its synchronization and replication work. Again, there is not a lot one
+can do about that.
+
+The following sections show the various subsystems which the
+administrator can influence and explain how this can be done.
+
+Write ahead log (WAL)
+---------------------
+
+RocksDB writes all changes first to the write ahead log (WAL). This is
+for crash recovery, the data will then later be written in an orderly
+fashion to disk. The WAL itself does not need a lot of RAM, but limiting
+its total size can lead to the fact that write buffers are flushed
+earlier to make older WAL files obsolete. Therefore, adjusting the
+option
+
+```
+--rocksdb.max-total-wal-size
+```
+
+to some value smaller than its default of 80MB can potentially help
+to reduce RAM usage. However, the effect is rather indirect.
+
+
+Write Buffers
+-------------
 
 RocksDB writes into
 [memory buffers mapped to on-disk blocks](https://github.com/facebook/rocksdb/wiki/Write-Buffer-Manager)
-first. At some point, the memory buffers will be full and have to be written
-to disk. In order to support high write loads, RocksDB might open a lot of these
-memory buffers.
+first. At some point, the memory buffers will be full and have to be
+flushed to disk. In order to support high write loads, RocksDB might
+open a lot of these memory buffers.
 
-Under normal write load, the write buffers will use less than 1 GByte of memory.
-If you are tight on memory, or your usage pattern does not require this, you can
-reduce these [RocksDB settings](programs-arangod-options.html#rocksdb):
-
-``` 
---rocksdb.max-total-wal-size 1024000
---rocksdb.write-buffer-size 2048000
---rocksdb.max-write-buffer-number 2
---rocksdb.total-write-buffer-size 67108864
---rocksdb.dynamic-level-bytes false
-```
-
-Above settings will
-
-- restrict the number of outstanding in-memory write buffers
-- limit the memory usage to around 100 MByte
-
-During import or updates, the memory consumption may still grow bigger. On the
-other hand, these restrictions can have a large negative impact on the maximum 
-write performance and will lead to severe slowdowns. 
-You should not go below the numbers above.
-
-Block Cache
------------
+By default, the system may use up to 10 write buffers per column family
+and the default write buffer size is 64MB. Since normal write loads will
+only hit the documents, edge, primary index and vpack index column
+families, this effectively limits the RAM usage to something like 2.5GB.
+However, there is a global limit which works across column families,
+which can be used to limit the total amount of memory for write buffers
+(set to unlimited by default!):
 
 ```
---rocksdb.block-cache-size 33554432
---rocksdb.enforce-block-cache-size-limit true
+--rocksdb.total-write-buffer-size
 ```
 
-These settings are the counterpart of the settings from the previous section.
-As soon as the memory buffers have been persisted to disk, answering read
-queries implies to read them back into memory. Data blocks, which are already read,
-can be stored in an in-memory block cache, for faster subsequent accesses.
-The block cache basically trades increased RAM usage for less disk I/O, so its
-size does not only affect memory usage, but can also affect read performance.
+Note that it does not make sense to set this limit smaller than
+10 times the size of a write buffer, since there are currently 10 column
+families and each will need at least one write buffer.
 
-The above option will limit the block cache to a few megabytes. If possible, this 
-setting should be configured as large as the hot-set size of your dataset.
-These restrictions can also have a large negative impact on query performance.
+Additionally, RocksDB might keep some write buffers in RAM, which are
+already flushed to disk. This is to speed up transaction conflict
+detection. This only happens if the option
 
-Index and Filter Block Cache
-----------------------------
+```
+--rocksdb.max-write-buffer-size-to-maintain
+```
 
-Index and filter blocks are not cached by default, which means that they do
-not count towards the `--rocksdb.block-cache-size` limit. Enable the option
-`--rocksdb.cache-index-and-filter-blocks` to include them in the cap.
+is set to a non-zero value. By default, this is set to 0.
+
+The other options to configure write buffer usage are:
+
+```
+--rocksdb.write-buffer-size
+--rocksdb.max-write-buffer-number
+--rocksdb.max-write-buffer-number-definitions
+--rocksdb.max-write-buffer-number-documents
+--rocksdb.max-write-buffer-number-edge
+--rocksdb.max-write-buffer-number-fulltext
+--rocksdb.max-write-buffer-number-geo
+--rocksdb.max-write-buffer-number-primary
+--rocksdb.max-write-buffer-number-replicated-logs
+--rocksdb.max-write-buffer-number-vpack
+```
+
+However, adjusting these usually not helps with RAM usage.
+
+
+RocksDB Block Cache
+-------------------
+
+The RocksDB block cache has a number of options for configuration. First
+of all, its maximal size can be adjusted with the following option:
+
+```
+--rocksdb.block-cache-size
+```
+
+The default is 30% of (R - 2GB) where R is the total detected RAM. This
+is a sensible default for many cases, but in particular if other
+services are running on the same system, this can be too large. On the
+other hand, if lots of other things are accounted with the block cache
+(see options below), the value can also be too small.
+
+Sometimes, the system can temporarily use a bit more than the configured
+upper limit. If you want to strictly enforce the block cache size limit,
+you can set the option
+
+```
+--rocksdb.enforce-block-cache-size-limit
+```
+
+to `true`, but it is not recommended since it might lead to failed
+operations if the cache is full and we have observed that RocksDB
+instances can get stuck in this case. You have been warned.
+
+There are a number of things for which RocksDB needs RAM. It is possible
+to make it so that all of these RAM usages count towards the block cache
+usage. This is usually sensible, since it effectively allows to keep
+RocksDB RAM usage under a certain configured limit (namely the block
+cache size limit). If these things are not accounted in the block cache
+usage, they are allocated anyway and this can lead to too much memory
+usage. On the other hand, if they are accounted in the block cache
+usage, then the block cache has less capacity for its core operations,
+the caching of data blocks.
+
+The following options control accounting for RocksDB RAM usage:
+
+```
+--rocksdb.cache-index-and-filter-blocks
+--rocksdb.cache-index-and-filter-blocks-with-high-priority
+--rocksdb.reserve-table-builder-memory
+--rocksdb.reserve-table-reader-memory
+```
+
+They are for Bloom filter and block indexes, table
+building (RAM usage for building SST files, this happens when flushing
+memtables to level 0 SST files, during compaction and on recovery)
+and table reading (RAM usage for read operations) respectively.
 
 There are additional options you can enable to avoid that the index and filter
-blocks get evicted from cache.
+blocks get evicted from cache:
 
 ```
---rocksdb.cache-index-and-filter-blocks`
---rocksdb.cache-index-and-filter-blocks-with-high-priority
 --rocksdb.pin-l0-filter-and-index-blocks-in-cache
 --rocksdb.pin-top-level-index-and-filter
 ```
 
-Also see:
+The first does level 0 Bloom filters and index blocks and its default is
+`false`. The second does top level of partitioned index blocks and Bloom
+filters into the cache, its default is `true`.
+
+The block cache basically trades increased RAM usage for less disk I/O, so its
+size does not only affect memory usage, but can also affect read performance.
+
+See also:
 - [RocksDB Server Options](programs-arangod-options.html#rocksdb)
 - [Write Buffer Manager](https://github.com/facebook/rocksdb/wiki/Write-Buffer-Manager){:target="_blank"}
+
+
+Transactions
+------------
+
+Before commit, RocksDB builds up transaction data in RAM. This happens
+in so-called "memtables" and "write batches". Note that from
+v3.12 onwards, this memory usage is accounted for in writing AQL queries and
+other write operations, and can thus be limited there. When there are
+many or large open transactions, this can sum up to a large amount of
+RAM usage.
+
+A further limit on RAM usage can be imposed by setting the option
+
+```
+--rocksdb.max-transaction-size
+```
+
+which is by default unlimited. This setting limits the total size of
+a single RocksDB transaction. If the memtables exceed this size,
+the transaction is automatically aborted. Note that this cannot guard
+against **many** simultaneously uncommitted transactions.
+
+Another way to limit actual transaction size is "intermediate commits".
+This is a setting which leads to the behavior that ArangoDB
+automatically commits large write operations while they are executed. This of
+course goes against the whole concept of a transaction, since parts of a
+transaction which have already been committed cannot be rolled back any
+more. Therefore, this is a rather desperate measure to prevent RAM
+overusage. You can control this with the following options:
+
+```
+--rocksdb.intermediate-commit-count
+--rocksdb.intermediate-commit-size
+```
+
+The first option configures automatic intermediate commits based on the number
+of documents touched in the transaction (default is `1000000`). The second
+configures intermediate commits based on the total size of the documents
+touched in the transaction (default is `512MB`).
+
+
+RocksDB compactions
+-------------------
+
+RocksDB compactions are necessary, but use RAM. You can control how many
+concurrent compactions can happen by configuring the number of
+background threads RocksDB can use. This can either be done with the
+
+```
+--rocksdb.max-background-jobs
+```
+
+option whose default is the number of detected cores. Half
+of that number will be the default value for the option
+
+```
+--rocksdb.num-threads-priority-low
+```
+
+and that many compactions can happen concurrently. You can also leave
+the total number of background jobs and just adjust the latter option.
+Fewer concurrent compaction jobs will use less RAM, but will also lead
+to slower compaction overall, which can lead to write stalls and even
+stops, if a compaction debt builds up under a high write load.
+
+
+Scheduler queues
+----------------
+
+If too much memory is used to queue requests in the scheduler queues,
+one can simply limit the queue length with this option:
+
+```
+--server.scheduler-queue-size
+```
+
+The default is `4096`, which is quite a lot. For small requests, the
+memory usage for a full queue will not be significant, but since
+individual requests can be large, it may sometimes be necessary to
+limit the queue size a lot more to avoid RAM over usage on the queue.
+
 
 Index Caches
 ------------
 
+There are in-RAM caches for edge indexes and other indexes. The total
+RAM limit for them can be configured with this option:
+
 ```
---cache.size 0
+--cache.size
 ```
 
-This option disables the in-memory index [caches](programs-arangod-options.html#cache).
-In versions before v3.9.2, you can limit the size to a minimum of `1048576` (1 MB).
+By default, this is set to 25% of (R - 2GB) where R is the total
+detected available RAM (or 256MB if that total is at most 4GB).
+You can disable the in-memory index
+[caches](programs-arangod-options.html#cache), by setting the limit to 0.
 
-If you do not have a graph use case and do not use edge collections, nor the optional
-hash cache for persistent indexes, it is possible to use no cache (or a minimal cache size)
-without a performance impact. In general, this should correspond to the size of the hot-set
-of edges and cached lookups from persistent indexes.
+If you do not have a graph use case and do not use edge collections,
+nor the optional hash cache for persistent indexes, it is possible to
+use no cache (or a minimal cache size) without a performance impact. In
+general, this should correspond to the size of the hot-set of edges and
+cached lookups from persistent indexes.
+
+There are a number of options to pre-fill the caches under certain
+circumstances:
+
+```
+--rocksdb.auto-fill-index-caches-on-startup
+--rocksdb.auto-refill-index-caches-on-modify
+--rocksdb.auto-refill-index-caches-on-followers
+--rocksdb.auto-refill-index-caches-queue-capacity
+```
+
+The first leads to the caches being automatically filled on startup, the
+second on any modifications. Both are set to `false` by default, so
+setting these to `true` will - in general - use more RAM rather than
+less. However, it will not lead to usage of more RAM than the configured
+limits for all caches.
+
+The third option above is by default `true`, so that caches on
+followers will automatically be refilled if any of the first two options
+is set to `true`. Setting this to `false` can save RAM usage on
+followers. Of course, this means that in case of a failover the caches
+of the new leader will be cold!
+
+Finally, the amount of write operations being queued for index refill
+can be limited with `--rocksdb.auto-refill-index-caches-queue-capacity`
+to avoid over-allocation if the indexing cannot keep up with the writes.
+The default for this value is 131072.
+
 
 AQL Query Memory Usage
 ----------------------
@@ -258,6 +569,7 @@ nodes in a cluster without these limitations. They apply only to single server
 instances and Coordinator nodes. You should not disable V8 on Coordinators
 because certain cluster operations depend on it.
 
+
 Concurrent operations
 ---------------------
 
@@ -295,9 +607,12 @@ The number of background threads can be limited in the following way:
 --server.minimal-threads 1
 ```
 
+This will usually not be good for performance, though.
+
 In general, the number of threads is determined automatically to match the 
-capabilities of the target machine. However, each thread requires at least 8 MB 
-of stack memory when running ArangoDB on Linux, so having a lot of concurrent
+capabilities of the target machine. However, each thread requires at most 8 MB 
+of stack memory when running ArangoDB on Linux (most of the time a lot less),
+so having a lot of concurrent
 threads around will need a lot of memory, too.
 Reducing the number of server threads as in the example above can help reduce the
 memory usage by thread, but will sacrifice throughput.

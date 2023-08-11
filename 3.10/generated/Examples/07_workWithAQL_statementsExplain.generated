@@ -1,5 +1,4 @@
-arangosh&gt; <span class="hljs-keyword">var</span> stmt = db._createStatement(
-........&gt; <span class="hljs-string">&quot;FOR user IN _users RETURN user&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> stmt = db._createStatement(<span class="hljs-string">&quot;FOR user IN _users RETURN user&quot;</span>);
 arangosh&gt; stmt.explain();
 { 
   <span class="hljs-string">&quot;plan&quot;</span> : { 
@@ -86,7 +85,7 @@ arangosh&gt; stmt.explain();
     <span class="hljs-string">&quot;rulesSkipped&quot;</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">&quot;plansCreated&quot;</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00010718777775764465</span> 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00005642700125463307</span> 
   }, 
   <span class="hljs-string">&quot;cacheable&quot;</span> : <span class="hljs-literal">true</span> 
 }

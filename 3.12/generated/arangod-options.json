@@ -1070,6 +1070,134 @@
     "section" : "backup",
     "type" : "string"
   },
+  "cache.acceleration-factor-for-edge-compression" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "The acceleration factor for the LZ4 compression of in-memory edge cache entries.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.2"
+    ],
+    "longDescription" : "This value controls the LZ4-internal acceleration factor for the \nLZ4 compression. Higher values typically yield less compression in exchange\nfor faster compression and decompression speeds. An increase of 1 commonly leads\nto a compression speed increase of 3%, and could slightly increase decompression\nspeed.",
+    "maxInclusive" : true,
+    "maxValue" : 65537,
+    "minInclusive" : true,
+    "minValue" : 1,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cache",
+    "type" : "uint32"
+  },
+  "cache.ideal-lower-fill-ratio" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 0.04,
+    "deprecatedIn" : null,
+    "description" : "The lower bound fill ratio value for a cache table.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Cache tables with a fill ratio lower than this\nvalue will be shrunk by the cache rebalancer.",
+    "maxInclusive" : true,
+    "maxValue" : 1,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cache",
+    "type" : "double"
+  },
+  "cache.ideal-upper-fill-ratio" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 0.25,
+    "deprecatedIn" : null,
+    "description" : "The upper bound fill ratio value for a cache table.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Cache tables with a fill ratio higher than this\nvalue will be inflated in size by the cache rebalancer.",
+    "maxInclusive" : true,
+    "maxValue" : 1,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cache",
+    "type" : "double"
+  },
+  "cache.min-value-size-for-edge-compression" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 1073741824,
+    "deprecatedIn" : null,
+    "description" : "The size threshold (in bytes) from which on payloads in the edge index cache transparently get LZ4-compressed.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.11.2"
+    ],
+    "longDescription" : "By transparently compressing values in the in-memory\nedge index cache, more data can be held in memory than without compression.  \nStoring compressed values can increase CPU usage for the on-the-fly compression \nand decompression. In case compression is undesired, this option can be set to a \nvery high value, which will effectively disable it. To use compression, set the\noption to a value that is lower than medium-to-large average payload sizes.\nIt is normally not that useful to compress values that are smaller than 100 bytes.",
+    "maxInclusive" : true,
+    "maxValue" : 1073741824,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cache",
+    "type" : "uint64"
+  },
   "cache.rebalancing-interval" : {
     "base" : 1,
     "category" : "option",
@@ -1111,7 +1239,7 @@
       "agent",
       "single"
     ],
-    "default" : 16338161664,
+    "default" : 17872713728,
     "deprecatedIn" : null,
     "description" : "The global size limit for all caches (in bytes).",
     "dynamic" : true,
@@ -2028,13 +2156,13 @@
     ],
     "default" : "1",
     "deprecatedIn" : null,
-    "description" : "default replication version, can be overwritten when creating a new database, possible values: 1, 2",
+    "description" : "The default replication version, can be overwritten when creating a new database, possible values: 1, 2",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : true,
     "hidden" : true,
     "introducedIn" : [
-      "v3.11.0"
+      "v3.12.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -2044,7 +2172,8 @@
     ],
     "requiresValue" : true,
     "section" : "database",
-    "type" : "replicationVersion"
+    "type" : "string",
+    "values" : "Possible values: \"1\", \"2\""
   },
   "database.directory" : {
     "category" : "option",
@@ -2183,6 +2312,40 @@
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
+  },
+  "database.max-databases" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 18446744073709551615,
+    "deprecatedIn" : null,
+    "description" : "The maximum number of databases that can exist in parallel.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "If the maximum number of databases is reached, no\nadditional databases can be created in the deployment. In order to create additional\ndatabases, other databases need to be removed first.\"",
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "database",
+    "type" : "uint64"
   },
   "database.password" : {
     "category" : "option",
@@ -6856,7 +7019,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The maximum parallelism usable in a Pregel job.",
     "dynamic" : true,
@@ -6920,7 +7083,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 8,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "The default parallelism to use in a Pregel job if none is specified.",
     "dynamic" : true,
@@ -7157,7 +7320,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 67500130304,
+    "base" : 73638338560,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7165,7 +7328,7 @@
       "agent",
       "single"
     ],
-    "default" : 54675105546,
+    "default" : 59647054233,
     "deprecatedIn" : null,
     "description" : "The memory threshold for all AQL queries combined (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7228,7 +7391,7 @@
       "agent",
       "single"
     ],
-    "default" : 4294967296,
+    "default" : 1073741824,
     "deprecatedIn" : null,
     "description" : "Log queries that have a peak memory usage larger than this threshold.",
     "dynamic" : false,
@@ -7455,7 +7618,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 67500130304,
+    "base" : 73638338560,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7463,7 +7626,7 @@
       "agent",
       "single"
     ],
-    "default" : 40500078183,
+    "default" : 44183003136,
     "deprecatedIn" : null,
     "description" : "The memory threshold per AQL query (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -8021,6 +8184,39 @@
     "requiresValue" : false,
     "section" : "replication",
     "type" : "boolean"
+  },
+  "replication.active-failover-leader-grace-period" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 120,
+    "deprecatedIn" : null,
+    "description" : "The amount of time (in seconds) for which the current leader will continue to assume its leadership even if it lost connection to the agency (0 = unlimited)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.10.8"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 1.7976931348623157e+308,
+    "minInclusive" : true,
+    "minValue" : 2.2250738585072014e-308,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "replication",
+    "type" : "double"
   },
   "replication.auto-repair-revision-trees" : {
     "category" : "option",
@@ -8665,7 +8861,7 @@
       "agent",
       "single"
     ],
-    "default" : 19605793996,
+    "default" : 21447256473,
     "deprecatedIn" : null,
     "description" : "The size of block cache (in bytes).",
     "dynamic" : true,
@@ -9614,7 +9810,7 @@
       "agent",
       "single"
     ],
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The maximum number of concurrent background jobs (compactions and flushes).",
     "dynamic" : true,
@@ -11130,7 +11326,7 @@
       "agent",
       "single"
     ],
-    "default" : 26141058662,
+    "default" : 28596341964,
     "deprecatedIn" : null,
     "description" : "The maximum total size of in-memory write buffers (0 = unbounded).",
     "dynamic" : true,
@@ -11161,7 +11357,7 @@
       "agent",
       "single"
     ],
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The number of lock stripes to use for transaction locks.",
     "dynamic" : true,
@@ -11381,14 +11577,16 @@
       "single"
     ],
     "default" : 0,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.12.0"
+    ],
     "description" : "The maximum total size (in bytes) of archived WAL files to keep on the leader (0 = unlimited).",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
-    "longDescription" : "A value of `0` does not restrict the size of the\narchive, so the leader removes archived WAL files when there are no replication\nclients needing them. Any non-zero value restricts the size of the WAL files\narchive to about the specified value and trigger WAL archive file deletion once\nthe threshold is reached. You can use this to get rid of archived WAL files in\na disk size-constrained environment.\n\n**Note**: The value is only a threshold, so the archive may get bigger than \nthe configured value until the background thread actually deletes files from\nthe archive. Also note that deletion from the archive only kicks in after\n`--rocksdb.wal-file-timeout-initial` seconds have elapsed after server start.\n\nArchived WAL files are normally deleted automatically after a short while when\nthere is no follower attached that may read from the archive. However, in case\nwhen there are followers attached that may read from the archive, WAL files\nnormally remain in the archive until their contents have been streamed to the\nfollowers. In case there are slow followers that cannot catch up, this causes a\ngrowth of the WAL files archive over time.\n\nYou can use the option to force a deletion of WAL files from the archive even if\nthere are followers attached that may want to read the archive. In case the\noption is set and a leader deletes files from the archive that followers want to\nread, this aborts the replication on the followers. Followers can restart the\nreplication doing a resync, however.",
+    "longDescription" : "A value of `0` does not restrict the size of the\narchive, so the leader removes archived WAL files when there are no replication\nclients needing them. Any non-zero value restricts the size of the WAL files\narchive to about the specified value and trigger WAL archive file deletion once\nthe threshold is reached. You can use this to get rid of archived WAL files in\na disk size-constrained environment.\n\n**Note**: The value is only a threshold, so the archive may get bigger than \nthe configured value until the background thread actually deletes files from\nthe archive. Also note that deletion from the archive only kicks in after\n`--rocksdb.wal-file-timeout-initial` seconds have elapsed after server start.\n\nArchived WAL files are normally deleted automatically after a short while when\nthere is no follower attached that may read from the archive. However, in case\nwhen there are followers attached that may read from the archive, WAL files\nnormally remain in the archive until their contents have been streamed to the\nfollowers. In case there are slow followers that cannot catch up, this causes a\ngrowth of the WAL files archive over time.\n\nYou can use the option to force a deletion of WAL files from the archive even if\nthere are followers attached that may want to read the archive. In case the\noption is set and a leader deletes files from the archive that followers want to\nread, this aborts the replication on the followers. Followers can restart the\nreplication doing a resync, though, but they may not be able to catch up if WAL\nfile deletion happens too early.\n\nThus it is best to leave this option at its default value of `0` except in cases\nwhen disk size is very constrained and no replication is used.",
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -11991,7 +12189,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "The number of threads used to handle I/O.",
     "dynamic" : true,
@@ -12186,7 +12384,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 4,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex).",
     "dynamic" : true,
@@ -12216,7 +12414,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 9,
+    "default" : 10,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for maintenance actions.",
     "dynamic" : true,
@@ -12281,7 +12479,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 64)",
+    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 72)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,

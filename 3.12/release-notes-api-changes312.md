@@ -13,7 +13,14 @@ integrations for ArangoDB 3.12.
 
 ### Behavior changes
 
+#### Collection API
 
+When creating a collection using the `POST /_api/collection` endpoint, the
+server log now displays a deprecation message if illegal combinations and
+unknown attributes and values are detected in the request body.
+
+Note that all invalid elements and combinations will be rejected in future
+versions.
 
 ### Privilege changes
 
@@ -47,6 +54,13 @@ defaults to `[]`.
 See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
 for details.
 
+#### Optimizer rule descriptions
+
+<small>Introduced in: v3.10.9, v3.11.2</small>
+
+The `GET /_api/query/rules` endpoint now includes a `description` attribute for
+every optimizer rule that briefly explains what it does.
+
 ### Endpoints moved
 
 
@@ -71,6 +85,15 @@ Users of the `/_api/traversal` REST API should use
 [AQL traversal queries](aql/graphs-traversals.html) instead.
 
 ## JavaScript API
+
+### Collection creation
+
+When creating a collection using the `db._create()`, `db._createDocumentCollection()`, or
+`db._createEdgeCollection()` method, the server log now displays a deprecation message if illegal
+combinations and unknown properties are detected in the `properties` object.
+
+Note that all invalid elements and combinations will be rejected in future
+versions.
 
 ### `@arangodb/graph/traversal` module
 

@@ -2,6 +2,8 @@
 layout: default
 description: >-
   Find all paths of shortest length between a start and target vertex
+redirect_from:
+  - examples-multiple-paths.html # 3.11 -> 3.11
 ---
 # All Shortest Paths in AQL
 
@@ -115,7 +117,7 @@ train connections in Europe and North America:
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHASP_01_create_graph}
     ~addIgnoreCollection("places");
     ~addIgnoreCollection("connections");
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var graph = examples.loadGraph("kShortestPathsGraph");
     db.places.toArray();
     db.connections.toArray();
@@ -196,7 +198,7 @@ And finally clean up by removing the named graph:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHASP_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHASP_99_drop_graph}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     examples.dropGraph("kShortestPathsGraph");
     ~removeIgnoreCollection("places");
     ~removeIgnoreCollection("connections");

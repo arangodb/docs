@@ -11,6 +11,11 @@
         <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('show-result', 'hide-result')">Hide execution results</div>
     </div>
     <div class="example-result">
-        <pre>{{ include.result | strip }}</pre>
+        {%- assign stripped_result = include.result | strip %}
+        {%- if stripped_result == '' %}
+        <pre><i>(Empty output)</i></pre>
+        {%- else %}
+        <pre>{{ stripped_result }}</pre>
+        {%- endif %}
     </div>
 </div>

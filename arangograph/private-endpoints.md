@@ -45,7 +45,7 @@ please contact support via **Request help** in the help menu.
 
 To configure a private endpoint for GCP, you need to provide your Google project
 names. ArangoGraph then configures a **Private Endpoint Service** that automatically
-connecta to private endpoints that are created for those projects.
+connect to private endpoints that are created for those projects.
 
 After the creation of the **Private Endpoint Service**, you should receive a
 service attachment that you need during the creation of your private endpoint(s).
@@ -168,6 +168,10 @@ that automatically connects to private endpoints that are created in those princ
    {% hint 'info' %}
    Principals cannot be changed anymore once a connection has been established.
    {% endhint %}
+   {% hint 'warning' %}
+   To verify your endpoint service in AWS, you must use the same principal as
+   configured in ArangoGraph. Otherwise, the service name cannot be verified.
+   {% endhint %}
    ![ArangoGraph AWS Private Endpoint Configure Principals](images/arangograph-aws-endpoint-configure-principals.png)
 6. Enter one or more alternate DNS names. This step is optional, you can 
    add or change them later. Click **Next** to continue.
@@ -178,6 +182,15 @@ that automatically connects to private endpoints that are created in those princ
    that is now displayed to see the connection status and change the
    configuration, if needed.
    ![ArangoGraph AWS Private Endpoint Overview](images/arangograph-aws-private-endpoint-overview.png)
+   {% hint 'info' %}
+   Note that
+   [Availability Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones){:target="_blank"}
+   are independently mapped for each AWS account. The physical location of a
+   zone may differ from one account to another account. To coordinate
+   Availability Zones across AWS accounts, you must use the
+   [Availability Zone ID](https://docs.aws.amazon.com/ram/latest/userguide/working-with-az-ids.html){:target="_blank"}.
+   {% endhint %}
+   
    {% hint 'tip' %}
    To learn more or request help from the ArangoGraph support team, click **Help**
    in the top right corner of the **Private Endpoint** section.
@@ -186,6 +199,11 @@ that automatically connects to private endpoints that are created in those princ
    you can use it in the AWS portal to create an interface endpoint to connect
    to your endpoint service. For more details, see
    [How to connect to an endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html#share-endpoint-service){:target="_blank"}.
+
+{% hint 'tip' %}
+To establish connectivity and enable traffic flow, make sure you add a route
+from the originating machine to the interface endpoint. 
+{% endhint %}
 
 {% hint 'tip' %}
 When you create a private endpoint in ArangoGraph, both endpoints (the regular

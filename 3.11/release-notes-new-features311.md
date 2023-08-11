@@ -296,7 +296,7 @@ which means you cannot use `RETURN NEW` or similar to access the new documents
 including their document keys. Additionally, all preceding calculations must be
 constant, which excludes any subqueries that read documents.
 
-See the [List of optimizer rules](aql/execution-and-performance-optimizer.html#list-of-optimizer-rules)
+See the list of [optimizer rules](aql/execution-and-performance-optimizer.html#optimizer-rules)
 for details.
 
 ### Index cache refilling
@@ -946,6 +946,69 @@ previously fixed limit for the maximum number of collections/shards per AQL quer
 The default value is `2048`, which is equal to the fixed limit of
 collections/shards in older versions.
 
+### Custom arguments to rclone
+
+<small>Introduced in: v3.9.11, v3.10.7, v3.11.1</small>
+
+The `--rclone.argument` startup option can be used to prepend custom arguments
+to rclone. For example, you can enable debug logging to a separate file on
+startup as follows:
+
+```
+arangod --rclone.argument "--log-level=DEBUG" --rclone.argument "--log-file=rclone.log"
+```
+
+### LZ4 compression for values in the in-memory edge cache
+
+<small>Introduced in: v3.11.2</small>
+
+LZ4 compression of edge index cache values allows to store more data in main
+memory than without compression, so the available memory can be used more
+efficiently. The compression is transparent and does not require any change to
+queries or applications.
+The compression can add CPU overhead for compressing values when storing them
+in the cache, and for decompressing values when fetching them from the cache.
+
+The new startup option `--cache.min-value-size-for-edge-compression` can be
+used to set a threshold value size for compression edge index cache payload
+values. The default value is `1GB`, which effectively turns compression
+off. Setting the option to a lower value (i.e. `100`) turns on the
+compression for any payloads whose size exceeds this value.
+  
+The new startup option `--cache.acceleration-factor-for-edge-compression` can
+be used to fine-tune the compression. The default value is `1`.
+Higher values typically mean less compression but faster speeds.
+
+The following new metrics can be used to determine the usefulness of
+compression:
+  
+- `rocksdb_cache_edge_effective_entries_size`: returns the total number of
+  bytes of all entries that were stored in the in-memory edge cache, after
+  compression was attempted/applied. This metric is populated regardless
+  of whether compression is used or not.
+- `rocksdb_cache_edge_uncompressed_entries_size`: returns the total number
+  of bytes of all entries that were ever stored in the in-memory edge cache,
+  before compression was applied. This metric is populated regardless of
+  whether compression is used or not.
+- `rocksdb_cache_edge_compression_ratio`: returns the effective
+  compression ratio for all edge cache entries ever stored in the cache.
+
+Note that these metrics are increased upon every insertion into the edge
+cache, but not decreased when data gets evicted from the cache.
+
+### Limit the number of databases in a deployment
+
+<small>Introduced in: v3.10.10, 3.11.2</small>
+
+The `--database.max-databases` startup option allows you to limit the
+number of databases that can exist in parallel in a deployment. You can use this
+option to limit the resources used by database objects. If the option is used
+and there are already as many databases as configured by this option, any
+attempt to create an additional database fails with error
+`32` (`ERROR_RESOURCE_LIMIT`). Additional databases can then only be created
+if other databases are dropped first. The default value for this option is
+unlimited, so an arbitrary amount of databases can be created.
+
 ## Miscellaneous changes
 
 ### Write-write conflict improvements
@@ -968,7 +1031,7 @@ To enable tracing for traversals and path searches at startup, you can set
 `--log.level graphs=trace`.
 
 To enable or disable it at runtime, you can call the
-[`PUT /_admin/log/level`](http/monitoring.html#modify-and-return-the-current-server-log-level)
+[`PUT /_admin/log/level`](http/monitoring.html#set-the-server-log-levels)
 endpoint of the HTTP API and set the log level using a request body like
 `{"graphs":"TRACE"}`.
 
@@ -1109,6 +1172,16 @@ This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
 | Label | Description |
 |:------|:------------|
 | `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
+
+### Number of SST files metric
+
+<small>Introduced in: v3.10.7, v3.11.1</small>
+
+This new metric reports the number of RocksDB `.sst` files:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_total_sst_files` | Total number of RocksDB sst files, aggregated over all levels. |
 
 ### File descriptor metrics
 

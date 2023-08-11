@@ -41,6 +41,10 @@ See the [**Release notes**](release-notes.html) of the respective versions for
 detailed information about breaking changes before upgrading.
 {% endhint %}
 
+- **Standalone Agency and Agency HTTP API**:
+  The Standalone Agency deployment type and the corresponding Agency HTTP API
+  are no longer available starting with v3.12. 
+
 - **Pregel features**:
 
   The following features have been deprecated or removed from Pregel in v3.11:
@@ -181,14 +185,6 @@ detailed information about breaking changes before upgrading.
     - `--arangosearch.consolidation-threads-idle`
   - `--rocksdb.exclusive-writes` (was intended only as a stopgap measure to
     make porting applications from MMFiles to RocksDB easier)
-  - `--http.allow-method-override`: this option allows incoming HTTP POST 
-    request to override the actual HTTP method used by setting one of the
-    special HTTP headers `x-http-method`, `x-method-override` or 
-    `x-http-method-override`. This was originally intended for very restricted
-    callers, which only supported HTTP GET and HTTP POST, but seems very
-    unnecessary nowadays.
-  - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
-    header in all responses served by arangod.
   - `--network.protocol`: network protocol to use for cluster-internal 
     communication. The protocol will be auto-decided from version 3.9 onwards.
   - `--query.allow-collections-in-expressions`: allow full collections to be 
@@ -224,25 +220,6 @@ detailed information about breaking changes before upgrading.
   `@arangodb/graph/traversal` JavaScript traversal module were deprecated since
   version 3.4.0 and have been removed in version 3.12.0. You can
   [traverse graphs with AQL](aql/graphs-traversals.html) instead.
-
-- **JavaScript-based AQL graph functions**: The following JavaScript-based AQL
-  graph functions are deprecated:
-  - `arangodb::GRAPH_EDGES`
-  - `arangodb::GRAPH_VERTICES`
-  - `arangodb::GRAPH_NEIGHBORS`
-  - `arangodb::GRAPH_COMMON_NEIGHBORS`
-  - `arangodb::GRAPH_COMMON_PROPERTIES`
-  - `arangodb::GRAPH_PATHS`
-  - `arangodb::GRAPH_SHORTEST_PATH`
-  - `arangodb::GRAPH_DISTANCE_TO`
-  - `arangodb::GRAPH_ABSOLUTE_ECCENTRICITY`
-  - `arangodb::GRAPH_ECCENTRICITY`
-  - `arangodb::GRAPH_ABSOLUTE_CLOSENESS`
-  - `arangodb::GRAPH_CLOSENESS`
-  - `arangodb::GRAPH_ABSOLUTE_BETWEENNESS`
-  - `arangodb::GRAPH_BETWEENNESS`
-  - `arangodb::GRAPH_RADIUS`
-  - `arangodb::GRAPH_DIAMETER`
 
 - **Specialized index creation methods in JavaScript API**:
   The following JavaScript methods for creating indexes from the ArangoShell

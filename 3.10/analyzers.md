@@ -36,8 +36,9 @@ transforms an example input:
     | var a = analyzers.save("custom", "text", {
     |   locale: "en",
     |   stopwords: ["a", "example"]
-      }, ["frequency","norm","position"]);
+      }, []);
       db._query(`RETURN TOKENS("UPPER & lower, a Stemming Example.", "custom")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerCustomTokens
 {% endarangoshexample %}
@@ -205,6 +206,15 @@ result can be used with. For example, the `text` type produces
 `frequency` + `norm` + `position`, and the `PHRASE()` AQL function requires
 `frequency` + `position` to be available.
 
+{% hint 'tip' %}
+You should only enable the features you require, as there is a cost associated
+with them. The metadata they produce needs to be computed and stored, requiring
+time and disk space.
+
+The examples in the documentation only set the required features for the shown
+examples, which is often none (empty array `[]` in the call of `analyzers.save()`).
+{% endhint %}
+
 The following *features* are supported:
 
 - **frequency**: track how often a term occurs.
@@ -286,8 +296,9 @@ Split input strings into tokens at hyphen-minus characters:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("delimiter_hyphen", "delimiter", {
     |   delimiter: "-"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query(`RETURN TOKENS("some-delimited-words", "delimiter_hyphen")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerDelimiter
 {% endarangoshexample %}
@@ -316,8 +327,9 @@ Apply stemming to the input string as a whole:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("stem_en", "stem", {
     |   locale: "en"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query(`RETURN TOKENS("databases", "stem_en")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerStem
 {% endarangoshexample %}
@@ -331,9 +343,9 @@ token, i.e. case conversion and accent removal.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `locale` (string): a locale in the format `language[_COUNTRY]`
-  (square brackets denote optional parts), e.g. `"de"` or `"en_US"`. See the
-  [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
+- `locale` (string): a locale in the format `language[_COUNTRY][_VARIANT]`
+  (square brackets denote optional parts), e.g. `"de"`, `"en_US"`, or `"es__TRADITIONAL"`.
+  See the [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
   for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
   Also see [Supported Languages](#supported-languages).
@@ -356,8 +368,9 @@ Convert input string to all upper-case characters:
     | var a = analyzers.save("norm_upper", "norm", {
     |   locale: "en",
     |   case: "upper"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_upper")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNorm1
 {% endarangoshexample %}
@@ -372,8 +385,9 @@ Convert accented characters to their base characters:
     | var a = analyzers.save("norm_accent", "norm", {
     |   locale: "en",
     |   accent: false
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNorm2
 {% endarangoshexample %}
@@ -389,8 +403,9 @@ Convert input string to all lower-case characters and remove diacritics:
     |   locale: "en",
     |   accent: false,
     |   case: "lower"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent_lower")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNorm3
 {% endarangoshexample %}
@@ -459,8 +474,9 @@ Create and use a trigram Analyzer with `preserveOriginal` disabled:
     |   max: 3,
     |   preserveOriginal: false,
     |   streamType: "utf8"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query(`RETURN TOKENS("foobar", "trigram")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNgram1
 {% endarangoshexample %}
@@ -480,8 +496,9 @@ and stop markers:
     |   startMarker: "^",
     |   endMarker: "$",
     |   streamType: "utf8"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query(`RETURN TOKENS("foobar", "bigram_markers")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerNgram2
 {% endarangoshexample %}
@@ -496,9 +513,9 @@ case conversion and accent removal.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `locale` (string): a locale in the format `language[_COUNTRY]`
-  (square brackets denote optional parts), e.g. `"de"` or `"en_US"`. See the
-  [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
+- `locale` (string): a locale in the format `language[_COUNTRY][_VARIANT]`
+  (square brackets denote optional parts), e.g. `"de"`, `"en_US"`, or `"es__TRADITIONAL"`.
+  See the [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
   for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
   Also see [Supported Languages](#supported-languages).
@@ -592,8 +609,9 @@ disabled like this:
     |   accent: false,
     |   stemming: false,
     |   stopwords: []
-      }, ["frequency","norm","position"])
+      }, [])
       db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextNoStem
 {% endarangoshexample %}
@@ -613,11 +631,12 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     |   accent: false,
     |   stemming: false,
     |   stopwords: [ "the" ]
-      }, ["frequency","norm","position"])
+      }, [])
     | db._query(`RETURN TOKENS(
     |   "The quick brown fox jumps over the dogWithAVeryLongName",
     |   "text_edge_ngrams"
       )`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextEdgeNgram
 {% endarangoshexample %}
@@ -635,8 +654,8 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `locale` (string): a locale in the format
-  `language[_COUNTRY][_VARIANT][@keywords]` (square brackets denote optional
-  parts), e.g. `"de"`, `"en_US"`, or `fr@collation=phonebook`. See the
+  `language[_COUNTRY][_VARIANT][@keywords]` (square brackets denote optional parts),
+  e.g. `"de"`, `"en_US"`, `"es__TRADITIONAL"`, or `fr@collation=phonebook`. See the
   [ICU Documentation](https://unicode-org.github.io/icu/userguide/locale/){:target="_blank"}
   for details. The locale is forwarded to ICU without checks.
   An invalid locale does not prevent the creation of the Analyzer.
@@ -655,10 +674,10 @@ letters before `c`:
     @startDocuBlockInline analyzerCollation
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerCollation}
       var analyzers = require("@arangodb/analyzers");
-      var en = analyzers.save("collation_en", "collation", { locale: "en" }, ["frequency", "norm", "position"]);
-      var sv = analyzers.save("collation_sv", "collation", { locale: "sv" }, ["frequency", "norm", "position"]);
+      var en = analyzers.save("collation_en", "collation", { locale: "en" }, []);
+      var sv = analyzers.save("collation_sv", "collation", { locale: "sv" }, []);
       var test = db._create("test");
-    | db.test.save([
+    | var docs = db.test.save([
     |   { text: "a" },
     |   { text: "å" },
     |   { text: "b" },
@@ -744,8 +763,7 @@ Soundex Analyzer for a phonetically similar term search:
     @startDocuBlockInline analyzerAqlSoundex
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlSoundex}
       var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("soundex", "aql", { queryString: "RETURN SOUNDEX(@param)" },
-        ["frequency", "norm", "position"]);
+      var a = analyzers.save("soundex", "aql", { queryString: "RETURN SOUNDEX(@param)" }, []);
       db._query("RETURN TOKENS('ArangoDB', 'soundex')").toArray();
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -761,7 +779,7 @@ Concatenating Analyzer for conditionally adding a custom prefix or suffix:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("concat", "aql", { queryString:
     |   "RETURN LOWER(LEFT(@param, 5)) == 'inter' ? CONCAT(@param, 'ism') : CONCAT('inter', @param)"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query("RETURN TOKENS('state', 'concat')");
       db._query("RETURN TOKENS('international', 'concat')");
     ~ analyzers.remove(a.name);
@@ -779,7 +797,7 @@ with `keepNull: false` and explicitly returning `null`:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("filter", "aql", { keepNull: false, queryString:
     |   "RETURN LOWER(LEFT(@param, 2)) == 'ir' ? null : @param"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query("RETURN TOKENS('regular', 'filter')");
       db._query("RETURN TOKENS('irregular', 'filter')");
     ~ analyzers.remove(a.name);
@@ -798,7 +816,7 @@ without `keepNull: false`:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("filter", "aql", { queryString:
     |   "FILTER LOWER(LEFT(@param, 2)) != 'ir' RETURN @param"
-      }, ["frequency", "norm", "position"]);
+      }, []);
       var coll = db._create("coll");
       var doc1 = db.coll.save({ value: "regular" });
       var doc2 = db.coll.save({ value: "irregular" });
@@ -832,10 +850,10 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
       var analyzers = require("@arangodb/analyzers");
     | var a1 = analyzers.save("collapsed", "aql", { collapsePositions: true, queryString:
     |   "FOR d IN SPLIT(@param, '-') RETURN d"
-      }, ["frequency", "norm", "position"]);
+      }, ["frequency", "position"]);
     | var a2 = analyzers.save("uncollapsed", "aql", { collapsePositions: false, queryString:
     |   "FOR d IN SPLIT(@param, '-') RETURN d"
-      }, ["frequency", "norm", "position"]);
+      }, ["frequency", "position"]);
       var coll = db._create("coll");
       var doc = db.coll.save({ text: "A-B-C-D" });
     | var view = db._createView("view", "arangosearch",
@@ -901,8 +919,9 @@ Normalize to all uppercase and compute bigrams:
     | var a = analyzers.save("ngram_upper", "pipeline", { pipeline: [
     |   { type: "norm", properties: { locale: "en", case: "upper" } },
     |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
-      ] }, ["frequency", "norm", "position"]);
+      ] }, []);
       db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerPipelineUpperNgram
 {% endarangoshexample %}
@@ -918,8 +937,9 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
     |   { type: "delimiter", properties: { delimiter: "," } },
     |   { type: "delimiter", properties: { delimiter: ";" } },
     |   { type: "stem", properties: { locale: "en" } }
-      ] }, ["frequency", "norm", "position"]);
+      ] }, []);
       db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
@@ -973,7 +993,7 @@ with either of the stop words `and` and `the`:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("stop", "stopwords", {
     |   stopwords: ["616e64","746865"], hex: true
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))");
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -991,7 +1011,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     | var a = analyzers.save("norm_stop", "pipeline", { "pipeline": [
     |   { type: "norm", properties: { locale: "en", accent: false, case: "lower" } },
     |   { type: "stopwords", properties: { stopwords: ["and","the"], hex: false } },
-      ]}, ["frequency", "norm", "position"]);
+      ]}, []);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -1045,9 +1065,9 @@ Create different `segmentation` Analyzers to show the behavior of the different
     @startDocuBlockInline analyzerSegmentationBreak
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerSegmentationBreak}
       var analyzers = require("@arangodb/analyzers");
-      var all = analyzers.save("segment_all", "segmentation", { break: "all" }, ["frequency", "norm", "position"]);
-      var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, ["frequency", "norm", "position"]);
-      var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, ["frequency", "norm", "position"]);
+      var all = analyzers.save("segment_all", "segmentation", { break: "all" }, []);
+      var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, []);
+      var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, []);
     | db._query(`LET str = 'Test\twith An_EMAIL-address+123@example.org\n蝴蝶。\u2028бутерброд'
     |   RETURN {
     |     "all": TOKENS(str, 'segment_all'),
@@ -1091,8 +1111,8 @@ Create a `minhash` Analyzers:
     @startDocuBlockInline analyzerMinHash
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerMinHash}
       var analyzers = require("@arangodb/analyzers");
-      var analyzerMinHash = analyzers.save("minhash5", "minhash", { analyzer: { type: "segmentation", properties: { break: "alpha", case: "lower" } }, numHashes: 5 }, ["frequency", "norm", "position"]);
-      var analyzerSegment = analyzers.save("segment", "segmentation", { break: "alpha", case: "lower" }, ["frequency", "norm", "position"]);
+      var analyzerMinHash = analyzers.save("minhash5", "minhash", { analyzer: { type: "segmentation", properties: { break: "alpha", case: "lower" } }, numHashes: 5 }, []);
+      var analyzerSegment = analyzers.save("segment", "segmentation", { break: "alpha", case: "lower" }, []);
     | db._query(`
     |   LET str1 = "The quick brown fox jumps over the lazy dog."
     |   LET str2 = "The fox jumps over the crazy dog."
@@ -1143,8 +1163,8 @@ to classify items.
 
 ```js
 var analyzers = require("@arangodb/analyzers");
-var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
-var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
+var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, []);
+var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, []);
 db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
     RETURN {
       "all": TOKENS(str, "classifier_single"),
@@ -1202,8 +1222,8 @@ to find similar terms.
 
 ```js
 var analyzers = require("@arangodb/analyzers");
-var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, ["frequency", "norm", "position"]);
-var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, ["frequency", "norm", "position"]);
+var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin" }, []);
+var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/path_to_local_fasttext_model_directory/model_cooking.bin", "top_k": 2 }, []);
 db._query(`LET str = "salt, oil"
     RETURN {
       "all": TOKENS(str, "nn_single"),
@@ -1267,6 +1287,42 @@ attributes:
   - `maxCells` (number, _optional_): maximum number of S2 cells (default: 20)
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
+- `legacy` (boolean, _optional_):
+  This option controls how GeoJSON Polygons are interpreted (introduced in v3.10.5).
+  Also see [Legacy Polygons](indexing-geo.html#legacy-polygons) and
+  [GeoJSON interpretation](indexing-geo.html#geojson-interpretation).
+
+  - If `legacy` is `true`, the smaller of the two regions defined by a
+    linear ring is interpreted as the interior of the ring and a ring can at most
+    enclose half the Earth's surface.
+  - If `legacy` is `false`, the area to the left of the boundary ring's
+    path is considered to be the interior and a ring can enclose the entire
+    surface of the Earth.
+
+  The default is `false`.
+
+  {% hint 'warning' %}
+  If you use `geojson` Analyzers and upgrade from a version below 3.10 to a
+  version of 3.10 or higher, the interpretation of GeoJSON Polygons changes.
+
+  If you have polygons in your data that mean to refer to a relatively small
+  region but have the boundary running clockwise around the intended interior,
+  they are interpreted as intended prior to 3.10, but from 3.10 onward, they are
+  interpreted as "the other side" of the boundary.
+
+  Whether a clockwise boundary specifies the complement of the small region
+  intentionally or not cannot be determined automatically. Please test the new
+  behavior manually.
+
+  If you require the old behavior, upgrade to at least 3.10.5, drop your
+  `geojson` Analyzers, and create new ones with `legacy` set to `true`.
+  If these Analyzers are used in `arangosearch` Views, then they need to be
+  dropped as well before dropping the Analyzers, and recreated after creating
+  the new Analyzers.
+  {% endhint %}
+
+You should not set any of the [Analyzer features](#analyzer-features) as they
+cannot be utilized for Geo Analyzers.
 
 **Examples**
 
@@ -1281,9 +1337,9 @@ longitude, latitude order:
     @startDocuBlockInline analyzerGeoJSON
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoJSON}
       var analyzers = require("@arangodb/analyzers");
-      var a = analyzers.save("geo_json", "geojson", {}, ["frequency", "norm", "position"]);
+      var a = analyzers.save("geo_json", "geojson", {}, []);
       db._create("geo");
-    | db.geo.save([
+    | var docs = db.geo.save([
     |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
     |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
     |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
@@ -1372,6 +1428,9 @@ attributes:
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
+You should not set any of the [Analyzer features](#analyzer-features) as they
+cannot be utilized for Geo Analyzers.
+
 **Examples**
 
 Create a collection with GeoJSON Points stored in an attribute `location`, a
@@ -1385,9 +1444,9 @@ longitude, latitude order:
     @startDocuBlockInline analyzerGeoS2
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoS2}
       var analyzers = require("@arangodb/analyzers");
-      var a = analyzers.save("geo_efficient", "geo_s2", { format: "latLngInt" }, ["frequency", "norm", "position"]);
+      var a = analyzers.save("geo_efficient", "geo_s2", { format: "latLngInt" }, []);
       db._create("geo");
-    | db.geo.save([
+    | var docs = db.geo.save([
     |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
     |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
     |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
@@ -1469,6 +1528,9 @@ attributes:
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
+You should not set any of the [Analyzer features](#analyzer-features) as they
+cannot be utilized for Geo Analyzers.
+
 **Examples**
 
 Create a collection with coordinate pairs stored in an attribute `location`,
@@ -1481,9 +1543,9 @@ The stored coordinate pairs are in latitude, longitude order, but `GEO_POINT()` 
     @startDocuBlockInline analyzerGeoPointPair
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointPair}
       var analyzers = require("@arangodb/analyzers");
-      var a = analyzers.save("geo_pair", "geopoint", {}, ["frequency", "norm", "position"]);
+      var a = analyzers.save("geo_pair", "geopoint", {}, []);
       db._create("geo");
-    | db.geo.save([
+    | var docs = db.geo.save([
     |   { location: [50.932, 6.937] },
     |   { location: [50.941, 6.956] },
     |   { location: [50.932, 6.962] },
@@ -1525,9 +1587,9 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     | var a = analyzers.save("geo_latlng", "geopoint", {
     |   latitude: ["lat"],
     |   longitude: ["lng"]
-      }, ["frequency", "norm", "position"]);
+      }, []);
       db._create("geo");
-    | db.geo.save([
+    | var docs = db.geo.save([
     |   { location: { lat: 50.932, lng: 6.937 } },
     |   { location: { lat: 50.941, lng: 6.956 } },
     |   { location: { lat: 50.932, lng: 6.962 } },

@@ -150,6 +150,60 @@
     "section" : "",
     "type" : "string"
   },
+  "dbserver-prefetch-batches" : {
+    "base" : 1,
+    "category" : "option",
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "Number of batches to prefetch on each dbserver.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.2"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint64"
+  },
+  "dbserver-worker-threads" : {
+    "base" : 1,
+    "category" : "option",
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "Number of worker threads on each dbserver.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.2"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint64"
+  },
   "define" : {
     "category" : "option",
     "default" : [
@@ -392,6 +446,60 @@
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint64"
+  },
+  "local-network-threads" : {
+    "base" : 1,
+    "category" : "option",
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "Number of local network threads, i.e. how many requests are sent in parallel.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.2"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint64"
+  },
+  "local-writer-threads" : {
+    "base" : 1,
+    "category" : "option",
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "Number of local writer threads.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.2"
+    ],
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -1394,6 +1502,30 @@
     "section" : "",
     "type" : "string..."
   },
+  "split-files" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Split a collection in multiple files to increase throughput.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.2"
+    ],
+    "longDescription" : "This option only has effect when the option\n`--use-experimental-dump` is set to `true`. Restoring split files also\nrequires an arangorestore version that is capable of restoring data of a\nsingle collection/shard from multiple files.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "ssl.protocol" : {
     "base" : 1,
     "category" : "option",
@@ -1496,6 +1628,29 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "uint64"
+  },
+  "use-experimental-dump" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Enable experimental dump behavior.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.11.2"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "use-splice-syscall" : {
     "category" : "option",

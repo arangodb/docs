@@ -578,6 +578,8 @@ This diverges from the previous implementation in two fundamental ways:
    that the "smaller" of the two connected components are the interior.
    This allows specifying polygons that cover more than half of
    the surface of the Earth and conforms to the GeoJSON standard.
+   See [GeoJSON interpretation](indexing-geo.html#geojson-interpretation)
+   for examples.
 
 Additionally, the reported issues, which occasionally produced
 wrong results in geo queries when using geo indexes, have been fixed.
@@ -591,6 +593,12 @@ geo indexes need to be dropped and recreated after an upgrade.
 
 See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
 details and for hints about upgrading to version 3.10 or later.
+
+If you use `geojson` Analyzers including in `arangosearch` Views and upgrade
+from a version below 3.10 to a version of 3.10 or higher, the interpretation of
+GeoJSON Polygons changes. See the `legacy` property of the
+[`geojson` Analyzer](analyzers.html#geojson) for details and how to restore the
+old behavior.
 
 ### Traversal Projections (Enterprise Edition)
 
@@ -813,6 +821,8 @@ calculate it dynamically using an expression:
 ```
 
 See [Array Comparison Operators](aql/operators.html#array-comparison-operators).
+The `AT LEAST` operator is also supported by ArangoSearch in the
+[`SEARCH` operation](aql/operations-search.html#array-comparison-operators).
 
 ### New and Changed AQL Functions
 
@@ -1049,7 +1059,7 @@ You can do any of the following by using the API:
 - Execute the given set of move shard operations.
 - Compute a set of move shard operations to improve balance and execute them immediately. 
 
-For more information, see the [Cluster](http/cluster.html#compute-the-current-cluster-imbalance) 
+For more information, see the [Cluster](http/cluster.html#get-the-current-cluster-imbalance) 
 section of the HTTP API documentation.
 
 ## Query result spillover to decrease memory usage
@@ -1081,7 +1091,7 @@ You can also set the thresholds per query in the JavaScript and HTTP APIs.
 For details, see:
 - [`temp` startup options](programs-arangod-options.html#--tempintermediate-results-path)
 - [Executing queries from _arangosh_](aql/invocation-with-arangosh.html#spilloverthresholdmemoryusage)
-- [HTTP interfaces for AQL queries](http/aql-query.html#create-cursor)
+- [HTTP interfaces for AQL queries](http/aql-query.html#create-a-cursor)
 
 ## Server options
 
@@ -1346,6 +1356,31 @@ previously fixed limit for the maximum number of collections/shards per AQL quer
 The default value is `2048`, which is equal to the fixed limit of
 collections/shards in older versions.
 
+### Custom arguments to rclone
+
+<small>Introduced in: v3.9.11, v3.10.7</small>
+
+The `--rclone.argument` startup option can be used to prepend custom arguments
+to rclone. For example, you can enable debug logging to a separate file on
+startup as follows:
+
+```
+arangod --rclone.argument "--log-level=DEBUG" --rclone.argument "--log-file=rclone.log"
+```
+
+### Limit the number of databases in a deployment
+
+<small>Introduced in: v3.10.10</small>
+
+The `--database.max-databases` startup option allows you to limit the
+number of databases that can exist in parallel in a deployment. You can use this
+option to limit the resources used by database objects. If the option is used
+and there are already as many databases as configured by this option, any
+attempt to create an additional database fails with error
+`32` (`ERROR_RESOURCE_LIMIT`). Additional databases can then only be created
+if other databases are dropped first. The default value for this option is
+unlimited, so an arbitrary amount of databases can be created.
+
 ## Miscellaneous changes
 
 ### Optimizer rules endpoint
@@ -1490,6 +1525,16 @@ This new metric stores the peak value of the `rocksdb_cache_allocated` metric:
 | Label | Description |
 |:------|:------------|
 | `rocksdb_cache_peak_allocated` | Global peak memory allocation of ArangoDB in-memory caches. |
+
+### Number of SST files metric
+
+<small>Introduced in: v3.10.7</small>
+
+This new metric reports the number of RocksDB `.sst` files:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_total_sst_files` | Total number of RocksDB sst files, aggregated over all levels. |
 
 ### File descriptor limit metric
 

@@ -72,11 +72,9 @@ role bindings to regulate access control on a deployment level.
 For any kind of production deployment we strongly advise to use an IP allowlist.
 {% endhint %}
 
-![ArangoGraph New Deployment](images/arangograph-new-deployment1.png)
-
 ### In the __Configuration__ section
 
-Choose between a **OneShard**, **Sharded** or **Developer** deployment.
+Choose between a **OneShard**, **Sharded** or **Single Server** deployment.
 
 - OneShard deployments are suitable when your data set fits in a single node.
   They are ideal for graph use cases.
@@ -84,10 +82,15 @@ Choose between a **OneShard**, **Sharded** or **Developer** deployment.
 - Sharded deployments are suitable when your data set is larger than a single
   node. The data will be sharded across multiple nodes.
 
-- Developer deployments are suitable when you want to try out ArangoDB without
+- Single Server deployments are suitable when you want to try out ArangoDB without
   the need for high availability or scalability. The deployment will contain a
   single server only. Your data will not be replicated and your deployment can
   be restarted at any time.
+
+{% hint 'info' %}
+Before you begin configuring your deployment, you first need to select the
+provider and region in the Location section.
+{% endhint %}
 
 #### OneShard
 
@@ -107,7 +110,7 @@ your deployment runs out of disk space but cannot be resized because it reached
 the upper disk size limit already.
 {% endhint %}
 
-![ArangoGraph Deployment OneShard](images/arangograph-new-deployment2.png)
+![ArangoGraph Deployment OneShard](images/arangograph-new-deployment-oneshard.png)
 
 #### Sharded
 
@@ -115,15 +118,15 @@ the upper disk size limit already.
   the number of nodes for your deployment. The more nodes you have, the higher
   the replication factor can be.
 
-![ArangoGraph Deployment Sharded](images/arangograph-new-deployment3-sharded.png)
+![ArangoGraph Deployment Sharded](images/arangograph-new-deployment-sharded.png)
 
-#### Developer
+#### Single Server
 
 - Like with OneShard and Sharded deployments, you choose memory and disk size.
   However note that the sizes you choose are for the entire deployment.
   For OneShard and Sharded deployments the chosen sizes are per node.
 
-![ArangoGraph Deployment Developer](images/arangograph-new-deployment3-developer.png)
+![ArangoGraph Deployment Single Server](images/arangograph-new-deployment-singleserver.png)
 
 ### In the __Summary__ section
 
@@ -142,7 +145,16 @@ the upper disk size limit already.
    deployment is being set up, it will display the __bootstrapping__ status.
 4. Press the __View__ button to show the deployment page.
 5. When a deployment displays a status of __OK__, you can access it.
-6. Click the copy icon next to the root password. This will copy the deployment
+6. Click the __Open endpoint__ button or on the endpoint URL property to open
+   the dashboard of your new ArangoDB deployment.
+
+At this point your ArangoDB deployment is available for you to use — **Have fun!**
+
+If you have disabled the [auto-login option](#auto-login-to-database-ui) to the
+database web interface, you need to follow the additional steps outlined below
+to access your deployment:
+
+1. Click the copy icon next to the root password. This will copy the deployment
    root password to your clipboard. You can also click the view icon to unmask
    the root password to see it.
 
@@ -151,16 +163,12 @@ the upper disk size limit already.
    to use them only to create other user accounts with appropriate permissions.
    {% endhint %}
 
-7. You will also receive an email that the deployment is available, with a URL
-   to open it up.
-8. Click the __Open endpoint__ button or on the endpoint URL property to open
+2. Click the __Open endpoint__ button or on the endpoint URL property to open
    the dashboard of your new ArangoDB deployment.
-9. In the __username__ field type `root`, and in the __password__ field paste the
+3. In the __username__ field type `root`, and in the __password__ field paste the
    password that you copied earlier.
-10. Press the __Login__ button.
-11. Press the __Select DB: \_system__ button
-
-At this point your ArangoDB deployment is available for you to use — **Have fun!**
+4. Press the __Login__ button.
+5. Press the __Select DB: \_system__ button.
 
 {% hint 'info' %}
 Each deployment is accessible on two ports:
@@ -176,23 +184,68 @@ a self-signed certificate is recommended. Read more on the
 [Certificates](certificates.html) page.
 {% endhint %}
 
-## How to enable the root user password rotation
+## Password settings
 
-Password rotation refers to changing passwords regularly - a security best practice
-to reduce the vulnerability to password-based attacks and exploits by limiting
-for how long passwords are valid. The ArangoGraph Insights Platform can automatically change the
-`root` user password of an ArangoDB deployment periodically to improve security.
+### How to enable the automatic root user password rotation
+
+Password rotation refers to changing passwords regularly - a security best
+practice to reduce the vulnerability to password-based attacks and exploits
+by limiting for how long passwords are valid. The ArangoGraph Insights Platform
+can automatically change the `root` user password of an ArangoDB deployment
+periodically to improve security.
 
 1. Navigate to the __Deployment__ for which you want to enable an automatic
    password rotation for the root user.
 2. On the __Overview__ tab, click the button with the __gear__ icon next to the
    __ROOT PASSWORD__.
-3. In the __Password Settings__ dialog, turn the password rotation on and click the
-   __Confirm__ button.
+3. In the __Password Settings__ dialog, turn the automatic password rotation on
+   and click the __Confirm__ button.
 
    ![ArangoGraph Deployment Password Rotation](images/arangograph-deployment-password-rotation.png)
 4. You can expand the __Root password__ panel to see when the password was
    rotated last. The rotation takes place every three months.
+
+### Auto login to database UI
+
+ArangoGraph provides the ability to automatically login to your database using
+your existing ArangoGraph credentials. This not only provides a seamless
+experience, preventing you from having to manage multiple sets of credentials
+but also improves the overall security of your database. As your credentials
+are shared between ArangoGraph and your database, you can benefit from
+end-to-end audit traceability for a given user, as well as integration with
+ArangoGraph SSO.
+
+You can enable this feature in the **Password Settings** dialog. Please note
+that it may take a few minutes to get activated.
+Once enabled, you no longer have to fill in the `root` user and password of
+your ArangoDB deployment.
+
+This feature can be disabled at any time. You may wish to consider explicitly
+disabling this feature in the following situations:
+- Your workflow requires you to access the database UI using different accounts
+  with differing permission sets, as you cannot switch database users when
+  automatic login is enabled.
+- You need to give individuals access to a database's UI without giving them
+  any access to ArangoGraph. Note, however, that it's possible to only give an
+  ArangoGraph user database UI access, without other ArangoGraph permissions.
+- For some reason, you require driver access via `8529` port and you are unable
+  to use the designated `18529` driver port.
+
+Before getting started, make sure you are signed into ArangoGraph as a user
+with one of the following permissions in your project:
+- `data.deployment.full-access`
+- `data.deployment.read-only-access`
+
+Organization owners have these permissions enabled by default.
+The `deployment-full-access-user` and `deployment-read-only-user` roles which
+contain these permissions can also be granted to other members of the
+organization. See how to create a
+[role binding](access-control.html#how-to-view-edit-or-remove-role-bindings-of-a-policy).
+
+{% hint 'warning' %}
+This feature is available on `8529` port only. Make sure your connecting drivers
+are using the `18529` port to avoid breaking changes.
+{% endhint %}
 
 ## How to edit a deployment
 
@@ -247,6 +300,27 @@ For more details about available resources and usage limits, refer to the
 
 6. All changes are reflected in the **Summary** section. Review the new
    configuration and click **Save**. 
+
+## How to connect a driver to your deployment
+
+[ArangoDB drivers](../drivers/index.html) allow you to use your ArangoGraph
+deployment as a database system for your applications. Drivers act as interfaces
+between different programming languages and ArangoDB, which enable you to
+connect to and manipulate ArangoDB deployments from within compiled programs
+or using scripting languages.
+
+To get started, open a deployment and go to the **Overview** tab.
+In the **Quick start** section, click on the **Connecting drivers** button and
+select your programming language. The code snippets provide examples on how to
+connect to your instance.
+
+{% hint 'tip' %}
+Note that ArangoGraph Insights Platform runs deployments in a cluster
+configuration. To achieve the best possible availability, your client
+application has to handle connection failures by retrying operations if needed.
+{% endhint %}
+
+![ArangoGraph Connecting Drivers Example](images/arangograph-connecting-drivers-example.png)
 
 ## How to delete a deployment
 

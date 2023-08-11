@@ -7,7 +7,7 @@ Execution plan:
  Id   NodeType                  Site  Est.   Comment
   1   SingletonNode             DBS      1   * ROOT
   2   EnumerateCollectionNode   DBS      0     - FOR doc IN collection   /* full collection scan, 8 shard(s)  */
- 10   TraversalNode             DBS      1       - FOR v  /* vertex */, e  /* edge */, p  /* paths: vertices, edges */ IN 1..1  /* min..maxPathDepth */ OUTBOUND &#x27;vertices/start&#x27; /* startnode */  satEdges /* local graph node, used as satellite */
+ 10   TraversalNode             DBS      1       - FOR v  /* vertex */, e  /* edge */, p  /* paths: vertices, edges */ IN 1..1  /* min..maxPathDepth */ OUTBOUND &#x27;vertices/start&#x27; /* startnode */  GRAPH &#x27;satelliteGraph&#x27; /* local graph node, used as satellite */
   4   CalculationNode           DBS      1         - LET #6 = [ doc, v, e, p ]   /* simple expression */   /* collections used: doc : collection */
  13   RemoteNode                COOR     1         - REMOTE
  14   GatherNode                COOR     1         - GATHER   /* parallel, unsorted */
@@ -30,6 +30,6 @@ Optimization rules applied:
   5   remove-unnecessary-remote-scatter
   6   parallelize-gather
 
-64 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00176
+64 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00143
 
 

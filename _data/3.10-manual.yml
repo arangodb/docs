@@ -42,6 +42,8 @@
       href: data-modeling-views.html
 - text: Data Models
   href: data-models.html
+- text: Data Retrieval
+  href: data-ingestion-and-retrieval.html
 - subtitle: GRAPHS
 - text: First Steps
   href: graphs.html
@@ -75,13 +77,10 @@
       href: graphs-enterprise-graphs-getting-started.html
     - text: Management
       href: graphs-enterprise-graphs-management.html
-- text: Traversals
-  href: graphs-traversals.html
-  children:
-    - text: Example Data
-      href: graphs-traversals-example-data.html
 - text: Working with Edges
   href: graphs-edges.html
+- text: Example graphs
+  href: graphs-traversals-example-data.html
 - subtitle: DATA SCIENCE
 - text: Overview
   href: data-science.html
@@ -344,8 +343,6 @@
       href: deployment-oneshard.html      
     - text: Single Instance vs. Cluster
       href: architecture-single-instance-vs-cluster.html
-    - text: Standalone Agency
-      href: deployment-standalone-agency.html
     - text: Kubernetes
       href: deployment-kubernetes.html
       children:
@@ -515,6 +512,8 @@
 - text: Troubleshooting
   href: troubleshooting.html
   children:
+    - text: Query debug packages
+      href: troubleshooting-query-debug-packages.html
     - text: arangod
       href: troubleshooting-arangod.html
     - text: Emergency Console
@@ -771,57 +770,5 @@
           href: release-notes-new-features30.html
         - text: Incompatible changes in 3.0
           href: release-notes-upgrading-changes30.html
-    - text: Version 2.8
-      href: release-notes-28.html
-      children:
-        - text: What's New in 2.8
-          href: release-notes-new-features28.html
-        - text: Incompatible changes in 2.8
-          href: release-notes-upgrading-changes28.html
-    - text: Version 2.7
-      href: release-notes-27.html
-      children:
-        - text: What's New in 2.7
-          href: release-notes-new-features27.html
-        - text: Incompatible changes in 2.7
-          href: release-notes-upgrading-changes27.html
-    - text: Version 2.6
-      href: release-notes-26.html
-      children:
-        - text: What's New in 2.6
-          href: release-notes-new-features26.html
-        - text: Incompatible changes in 2.6
-          href: release-notes-upgrading-changes26.html
-    - text: Version 2.5
-      href: release-notes-25.html
-      children:
-        - text: What's New in 2.5
-          href: release-notes-new-features25.html
-        - text: Incompatible changes in 2.5
-          href: release-notes-upgrading-changes25.html
-    - text: Version 2.4
-      href: release-notes-24.html
-      children:
-        - text: What's New in 2.4
-          href: release-notes-new-features24.html
-        - text: Incompatible changes in 2.4
-          href: release-notes-upgrading-changes24.html
-    - text: Version 2.3
-      href: release-notes-23.html
-      children:
-        - text: What's New in 2.3
-          href: release-notes-new-features23.html
-        - text: Incompatible changes in 2.3
-          href: release-notes-upgrading-changes23.html
-    - text: Version 2.2
-      href: release-notes-22.html
-      children:
-        - text: What's New in 2.2
-          href: release-notes-new-features22.html
-    - text: Version 2.1
-      href: release-notes-21.html
-      children:
-        - text: What's New in 2.1
-          href: release-notes-new-features21.html
     - text: Deprecated and removed features
       href: appendix-deprecated.html

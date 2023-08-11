@@ -6,7 +6,7 @@ arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span clas
 ........&gt;   startMarker: <span class="hljs-string">&quot;^&quot;</span>,
 ........&gt;   endMarker: <span class="hljs-string">&quot;$&quot;</span>,
 ........&gt;   streamType: <span class="hljs-string">&quot;utf8&quot;</span>
-........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+........&gt; }, []);
 arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(&quot;foobar&quot;, &quot;bigram_markers&quot;)`</span>).toArray();
 [ 
   [ 

@@ -434,13 +434,23 @@ Assuming a View with a text Analyzer, you may use it to match documents where
 the attribute contains at least two out of three tokens:
 
 ```aql
+LET t = TOKENS("quick brown fox", "text_en")
 FOR doc IN viewName
-  SEARCH ANALYZER(MIN_MATCH(doc.text == 'quick', doc.text == 'brown', doc.text == 'fox', 2), "text_en")
+  SEARCH ANALYZER(MIN_MATCH(doc.text == t[0], doc.text == t[1], doc.text == t[2], 2), "text_en")
   RETURN doc.text
 ```
 
 This will match `{ "text": "the quick brown fox" }` and `{ "text": "some brown fox" }`,
 but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
+
+Note that you can also use the `AT LEAST` [array comparison operator](operations-search.html#array-comparison-operators)
+in the specific case of matching a subset of tokens against a single attribute:
+
+```aql
+FOR doc IN viewName
+  SEARCH ANALYZER(TOKENS("quick brown fox", "text_en") AT LEAST (2) == doc.text, "text_en")
+  RETURN doc.text
+```
 
 ### MINHASH_MATCH()
 

@@ -115,17 +115,37 @@ the self-signed certificate as Subject Alternative Name (SAN).
 
 ![ArangoGraph Create New Certificate](images/arangograph-new-certificate.png)
 
+## How to install a certificate
+
 Certificates that have the **Use well-known certificate** option enabled do
 not need any installation and are supported by almost all web browsers
 automatically.
 
 When creating a self-signed certificate that has the **Use well-known certificate**
 option disabled, the certificate needs to be installed on your local machine as
-well. This operation varies between operating systems.
+well. This operation varies between operating systems. To install a self-signed
+certificate on your local machine, open the certificate and follow the
+installation instructions.
 
 ![ArangoGraph Certificates](images/arangograph-cert-page-with-cert-present.png)
 
 ![ArangoGraph Certificate Install Instructions](images/arangograph-cert-install-instructions.png)
+
+You can also extract the information from all certificates in the chain using the
+`openssl` tool.
+
+- For **well-known certificates**, run the following command:
+  ```
+  openssl s_client -showcerts -servername <123456abcdef>.arangodb.cloud -connect <123456abcdef>.arangodb.cloud:8529 </dev/null
+  ```
+
+- For **self-signed certificates**, run the following command:
+  ```
+  openssl s_client -showcerts -servername <123456abcdef>.arangodb.cloud -connect <123456abcdef>.arangodb.cloud:18529 </dev/null
+  ```
+
+Note that `<123456abcdef>` is a placeholder that needs to be replaced with the
+unique ID that is part of your ArangoGraph deployment endpoint URL.
 
 ## How to connect to your application
 

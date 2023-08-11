@@ -9,14 +9,14 @@ Finding the start vertex via a geo query
 ----------------------------------------
 
 Our first example will locate the start vertex for a graph traversal via [a geo index](../indexing-geo.html).
-We use [the city graph](../graphs.html#the-city-graph) and its geo indexes:
+We use the [City Graph](../graphs-traversals-example-data.html#city-graph) and its geo indexes:
 
 ![Cities Example Graph](../images/cities_graph.png)
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline COMBINING_GRAPH_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{COMBINING_GRAPH_01_create_graph}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@arangodb/graph-examples/example-graph");
     var g = examples.loadGraph("routeplanner");
     ~examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -112,7 +112,7 @@ Finally, we clean up again:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline COMBINING_GRAPH_06_cleanup
     @EXAMPLE_ARANGOSH_OUTPUT{COMBINING_GRAPH_06_cleanup}
-    ~var examples = require("@arangodb/graph-examples/example-graph.js");
+    ~var examples = require("@arangodb/graph-examples/example-graph");
     ~var g = examples.loadGraph("routeplanner");
     examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT

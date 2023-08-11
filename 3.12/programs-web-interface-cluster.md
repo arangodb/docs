@@ -1,36 +1,81 @@
 ---
 layout: default
-description: The cluster section displays statistics about the general cluster performance
 ---
 Cluster
 =======
 
-The cluster section displays statistics about the general cluster performance.
+The web interface differs for cluster deployments and single-server instances.
+Instead of a single [Dashboard](programs-web-interface-dashboard.html), there
+is a **CLUSTER** and a **NODES** section.
 
-![Cluster](images/clusterView.png)
+Furthermore, the **REPLICATION** and **LOGS** section are not available.
+You can access the logs of individual Coordinators and DB-Servers via the
+**NODES** section.
+
+Cluster
+-------
+
+The **CLUSTER** section displays statistics about the general cluster performance.
+
+![Web Interface Cluster Dashboard](images/ui-cluster-dashboard.webp)
 
 Statistics:
 
- - Available and missing Coordinators
- - Available and missing DB-Servers
- - Memory usage (percent)
- - Current connections
- - Data (bytes)
- - HTTP (bytes)
- - Average request time (seconds)
+- Available and missing Coordinators
+- Available and missing DB-Servers
+- Memory usage (percent)
+- Current connections
+- Data (bytes)
+- HTTP (bytes)
+- Average request time (seconds)
+
+Distribution:
+
+- Number of databases and collections
+- Number of shards, leader shards, follower shards etc.
+- Shard distribution
+- [Shard rebalancing](#shard-rebalancing)
+
+Maintenance:
+
+- Toggle the cluster supervision maintenance mode
+
+### Shard rebalancing
+
+Over time, imbalances in the data distribution and shard leaders and followers
+can occur in clusters. You can manually trigger a rebalancing operation to
+achieve a more even distribution.
+
+A new DB-Server does not have any shards. With the rebalance functionality, the
+cluster starts to rebalance shards including empty DB-Servers. You can specify
+the maximum number of shards that can be moved in each operation by using the
+[`--cluster.max-number-of-move-shards` startup option](programs-arangod-options.html#--clustermax-number-of-move-shards)
+of _arangod_.
+
+You can set the following options:
+- **Move Leaders**
+- **Move Followers**
+- **Include System Collections**
+
+When you click the **Rebalance** button, the number of scheduled move shards
+operations is shown, or it is displayed that no move operations have been
+scheduled if they are not necessary.
 
 Nodes
 -----
- 
+
+The **NODES** section provides an overview over the cluster nodes and a way to
+access information about the individual Coordinators and DB-Servers.
+
 ### Overview
 
-The overview shows available and missing Coordinators and DB-Servers.
+The **Overview** tab shows available and missing Coordinators and DB-Servers.
 
-![Nodes](images/nodesView.png)
+![Web Interface Cluster Nodes](images/ui-cluster-nodes.webp)
 
 Functions:
 
-- Coordinator Dashboard: Click on a Coordinator will open a statistics dashboard.
+- Coordinator Dashboard: Click a Coordinator to open a statistics dashboard.
 
 Information (Coordinator / DB-Servers):
 
@@ -42,31 +87,16 @@ Information (Coordinator / DB-Servers):
 
 ### Shards
 
-The shard section displays all available sharded collections.
+The **Shards** tab displays all available sharded collections, their leaders
+and followers.
 
-![Shards](images/shardsView.png)
+![Web Interface Cluster Shards](images/ui-cluster-shards.webp)
 
-Functions:
+To move a shard leader or follower to a different DB-Server, click one of the
+**Leader** or **Followers** entries to open a move shard dialog.
 
-- Move Shard Leader: Click on a leader database of a shard server will open a move shard dialog. Shards can be
-  transferred to all available DB-Servers, except the leading DB-Server or an available follower.
-- Move Shard Follower: Click on a follower database of a shard will open a move shard dialog. Shards can be
-  transferred to all available DB-Servers, except the leading DB-Server or an available follower.
+The leadership of a shard can be transferred to all available DB-Servers except
+the current leading DB-Server.
 
-Information (collection):
-
-- Shard
-- Leader (green state: sync is complete)
-- Followers
-
-### Rebalance Shards
-
-The rebalance shards section displays a button for rebalancing shards.
-A new DB-Server will not have any shards. With the rebalance functionality,
-the cluster will start to rebalance shards including empty DB-Servers.
-You can specify the maximum number of shards that can be moved in each
-operation by using the `--cluster.max-number-of-move-shards` startup option
-of _arangod_ (the default value is `10`).
-When the button is clicked, the number of scheduled move shards operations is
-shown, or it is displayed that no move operations have been scheduled if they
-are not necessary.
+You can move a follower to a different DB-Server if it is available and neither
+the leading DB-Server or the following DB-Server itself.

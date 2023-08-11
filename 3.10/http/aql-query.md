@@ -184,79 +184,13 @@ Content-type: application/json
 }
 ```
 
-If the `allowRetry` query option is set to `true`, then the response object
-contains a `nextBatchId` attribute, except for the last batch (if `hasMore` is
-`false`). If retrieving a result batch fails because of a connection issue, you
-can ask for that batch again using the `POST /_api/cursor/<cursor-id>/<batch-id>`
-endpoint. The first batch has an ID of `1` and the value is incremented by 1
-with every batch. Every result response except the last one also includes a
-`nextBatchId` attribute, indicating the ID of the batch after the current.
-You can remember and use this batch ID should retrieving the next batch fail.
+If you are no longer interested in the results of a query, you can call the
+`DELETE /_api/cursor/<cursor-id>` endpoint as long as a cursor exists to discard
+the cursor so that the server doesn't unnecessarily keep the results until the
+cursor times out (`ttl` query option).
 
 ```js
-> curl --data @- -X POST --dump - http://localhost:8529/_api/cursor
-{ "query": "FOR i IN 1..5 RETURN i", "batchSize": 2, "options": { "allowRetry": true } }
-
-HTTP/1.1 201 Created
-Content-type: application/json
-
-{
-  "result":[1,2],
-  "hasMore":true,
-  "id":"3517",
-  "nextBatchId":2,
-  "cached":false,
-  "error":false,
-  "code":201
-}
-```
-
-Fetching the second batch would look like this:
-
-```js
-> curl -X POST --dump - http://localhost:8529/_api/cursor/3517
-```
-
-Assuming the above request fails because of a connection issue but advances the
-cursor nonetheless, you can retry fetching the batch using the `nextBatchId` of
-the first request (`2`):
-
-```js
-curl -X POST --dump http://localhost:8529/_api/cursor/3517/2
-
-{
-  "result":[3,4],
-  "hasMore":true,
-  "id":"3517",
-  "nextBatchId":3,
-  "cached":false,
-  "error":false,
-  "code":200
-}
-```
-
-To allow refetching of the last batch of the query, the server cannot
-automatically delete the cursor. After the first attempt of fetching the last
-batch, the server would normally delete the cursor to free up resources. As you
-might need to reattempt the fetch, it needs to keep the final batch when the
-`allowRetry` option is enabled. Once you successfully received the last batch,
-you should call the `DELETE /_api/cursor/<cursor-id>` endpoint so that the
-server doesn't unnecessary keep the batch until the cursor times out
-(`ttl` query option).
-
-```js
-curl -X POST --dump http://localhost:8529/_api/cursor/3517/3
-
-{
-  "result":[5],
-  "hasMore":false,
-  "id":"3517",
-  "cached":false,
-  "error":false,
-  "code":200
-}
-
-curl -X DELETE --dump http://localhost:8529/_api/cursor/3517
+curl -X DELETE --dump http://localhost:8529/_api/cursor/26011191
 
 {
   "id":"3517",

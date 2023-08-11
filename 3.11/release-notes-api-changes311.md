@@ -130,6 +130,55 @@ in AQL queries, which support a `refillIndexCache` option, too.
 
 In 3.9 and 3.10, `refillIndexCaches` was experimental and limited to edge caches.
 
+---
+
+<small>Introduced in: v3.11.1</small>
+
+When inserting multiple documents/edges at once in a cluster, the Document API
+used to let the entire request fail if any of the documents/edges failed to be
+saved due to a key error. More specifically, if the value of a `_key` attribute
+contains illegal characters or if the key doesn't meet additional requirements,
+for instance, coming from the collection being used in a Disjoint SmartGraph,
+the `POST /_api/document/{collection}` endpoint would not reply with the usual
+array of either the document metadata or the error object for each attempted
+document insertion. Instead, it used to return an error object for the first
+offending document only, and aborted the operation with an HTTP `400 Bad Request`
+status code so that none of the documents were saved. Example:
+
+```bash
+> curl -d '[{"_key":"valid"},{"_key":"invalid space"}]' http://localhost:8529/_api/document/coll
+{"code":400,"error":true,"errorMessage":"illegal document key","errorNum":1221}
+
+> curl http://localhost:8529/_api/document/coll/valid
+{"code":404,"error":true,"errorMessage":"document not found","errorNum":1202}
+```
+
+Now, such key errors in cluster deployments no longer fail the entire request,
+matching the behavior of single server deployments. Any errors are reported in
+the result array for the respective documents, along with the successful ones:
+
+```bash
+> curl -d '[{"_key":"valid"},{"_key":"invalid space"}]' http://localhost:8529/_api/document/coll
+[{"_id":"coll/valid","_key":"valid","_rev":"_gG9JHsW---"},{"error":true,"errorNum":1221,"errorMessage":"illegal document key"}]
+
+> curl http://localhost:8529/_api/document/coll/valid
+{"_key":"valid","_id":"coll/valid","_rev":"_gG9JHsW---"}
+```
+
+---
+
+<small>Introduced in: v3.11.1</small>
+
+Using the Document API for reading multiple documents used to return an error
+if the request body was an empty array. Example:
+
+```bash
+> curl -XPUT -d '[]' 'http://localhost:8529/_api/document/coll?onlyget=true'
+{"code":500,"error":true,"errorMessage":"internal error","errorNum":4}
+```
+
+Now, a request like this succeeds and returns an empty array as response.
+
 #### Collection API
 
 The edge collections of EnterpriseGraphs and SmartGraphs (including
@@ -289,7 +338,7 @@ to extend the timeout.
 
 The maintenance mode ends automatically after the defined timeout.
 
-Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-the-maintenance-status-of-a-db-server).
+Also see the [HTTP interface for cluster maintenance](http/cluster.html#get-the-maintenance-status-of-a-db-server).
 
 ### Endpoints augmented
 
@@ -306,7 +355,7 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
 
 - The `/_api/cursor` endpoint accepts a new `allowRetry` attribute in the
   `options` object. Set this option to `true` to make it possible to retry
-  fetching the latest batch from a cursor.
+  fetching the latest batch from a cursor. The default is `false`.
 
   If retrieving a result batch fails because of a connection issue, you can ask
   for that batch again using the new `POST /_api/cursor/<cursor-id>/<batch-id>`
@@ -314,15 +363,21 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
   with every batch. Every result response except the last one also includes a
   `nextBatchId` attribute, indicating the ID of the batch after the current.
   You can remember and use this batch ID should retrieving the next batch fail.
-  Calling the new endpoint does not advance the cursor.
 
   You can only request the latest batch again (or the next batch).
   Earlier batches are not kept on the server-side.
+  Requesting a batch again does not advance the cursor.
 
   You can also call this endpoint with the next batch identifier, i.e. the value
   returned in the `nextBatchId` attribute of a previous request. This advances the
   cursor and returns the results of the next batch. This is only supported if there
   are more results in the cursor (i.e. `hasMore` is `true` in the latest batch).
+
+  From v3.11.1 onward, you may use the `POST /_api/cursor/<cursor-id>/<batch-id>`
+  endpoint even if the `allowRetry` attribute is `false` to fetch the next batch,
+  but you cannot request a batch again unless you set it to `true`.
+  The `nextBatchId` attribute is always present in result objects (except in the
+  last batch) from v3.11.1 onward.
 
   To allow refetching of the very last batch of the query, the server cannot
   automatically delete the cursor. After the first attempt of fetching the last
@@ -330,7 +385,7 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#query-th
   might need to reattempt the fetch, it needs to keep the final batch when the
   `allowRetry` option is enabled. Once you successfully received the last batch,
   you should call the `DELETE /_api/cursor/<cursor-id>` endpoint so that the
-  server doesn't unnecessary keep the batch until the cursor times out
+  server doesn't unnecessarily keep the batch until the cursor times out
   (`ttl` query option).
 
 - When profiling a query (`profile` option `true`, `1`, or `2`), the `profile`
@@ -365,8 +420,8 @@ Enterprise Edition:
 
 #### Query API
 
-The [`GET /_api/query/current`](http/aql-query.html#returns-the-currently-running-aql-queries)
-and [`GET /_api/query/slow`](http/aql-query.html#returns-the-list-of-slow-aql-queries)
+The [`GET /_api/query/current`](http/aql-query.html#list-the-running-aql-queries)
+and [`GET /_api/query/slow`](http/aql-query.html#list-the-slow-aql-queries)
 endpoints include a new numeric `peakMemoryUsage` attribute.
 
 ---
@@ -452,6 +507,16 @@ The following metric has been added in version 3.11:
 | Label | Description |
 |:------|:------------|
 | `arangodb_search_num_primary_docs` | Number of primary documents for current snapshot. |
+
+---
+
+<small>Introduced in: v3.10.7, v3.11.1</small>
+
+This new metric reports the number of RocksDB `.sst` files:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_total_sst_files` | Total number of RocksDB sst files, aggregated over all levels. |
 
 ---
 
@@ -551,6 +616,13 @@ following two new statistics in the `stats` attribute of the response now:
   explain (in bytes)
 - `executionTime` (number): The (wall-clock) time in seconds needed to explain
   the query.
+
+#### Optimizer rule descriptions
+
+<small>Introduced in: v3.10.9, v3.11.2</small>
+
+The `GET /_api/query/rules` endpoint now includes a `description` attribute for
+every optimizer rule that briefly explains what it does.
 
 ## JavaScript API
 

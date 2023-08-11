@@ -1,0 +1,7 @@
+arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/graph-examples/example-graph&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> g = examples.loadGraph(<span class="hljs-string">&quot;worldCountry&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> query = <span class="hljs-string">`FOR v, e, p IN 0..10 INBOUND &quot;worldVertices/continent-europe&quot; GRAPH &quot;worldCountry&quot; FILTER v._key != @country RETURN CONCAT_SEPARATOR(&quot; -- &quot;, p.vertices)`</span>;
+arangosh&gt; <span class="hljs-keyword">var</span> bindVars = { <span class="hljs-attr">country</span>: <span class="hljs-string">&quot;country-denmark&quot;</span> };
+arangosh&gt; <span class="hljs-keyword">var</span> options = { <span class="hljs-attr">examples</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">anonymize</span>: <span class="hljs-literal">true</span> }
+arangosh&gt; <span class="hljs-keyword">var</span> explainer = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/aql/explainer&quot;</span>); 
+arangosh&gt; explainer.debugDump(<span class="hljs-string">&quot;/tmp/debugDumpFilename&quot;</span>, query, bindVars, options);

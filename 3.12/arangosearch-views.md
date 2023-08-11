@@ -13,17 +13,69 @@ the documents that satisfy the search criteria by relevance.
 Views guarantee the best execution plan (merge join) when querying multiple
 attributes, unlike collections with user-defined indexes.
 
-The searching and ranking capabilities are provided by the
-[IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}.
+Views can be managed as follows:
+- in the web interface, in the **VIEWS** section
+- via the [Views HTTP API](http/views.html)
+- through the [JavaScript API](appendix-references-dbobject.html#views)
 
-Views can be managed in the web interface, via an [HTTP API](http/views.html) and
-through a [JavaScript API](appendix-references-dbobject.html#views).
-
-Views can be queried with AQL via the
-[SEARCH operation](aql/operations-search.html).
+Once you set up a View, you can query it via AQL with the
+[`SEARCH` operation](aql/operations-search.html).
 
 See [Information Retrieval with ArangoSearch](arangosearch.html) for an
-introduction.
+introduction to Views and how to search them.
+
+## Create `arangosearch` Views using the web interface
+
+You can create and manage an `arangosearch` View through the Web Interface.
+To get started, follow the steps outlined below.
+
+1. In the web interface, go to the left sidebar menu and select
+   the **VIEWS** entry.
+2. To add a new View, click **Add View**.
+3. Fill in the required fields:
+   - For **Name**, enter a name for the View.
+   - For **Type**, select `arangosearch` from the dropdown menu.
+4. To set the **Primary Sort Compression**, select `LZ4` to use a fast compression
+     or `none` to disable compression and trade space for speed.
+5. To set a **Primary Sort** order, define the following options:
+   - For **Field**, enter an array of attribute values. 
+   - For **Direction**, select **Ascending** or **Descending** to sort the attributes by.      
+6. To set **Stored Values**, define the following options:
+   - For **Fields**, enter an array of objects to define which document attributes
+     to store in the View index.
+   - The **Compression** attribute defines the compression type used for the internal
+     column-store. Select `LZ4` for fast compression or `none` for no compression.  
+7. In the **Advanced** section, you can define the **Write Buffer** properties of a
+   View. ArangoSearch uses multiple writer objects that are mapped to processed
+   segments for carrying out operations on its index. You can control the memory
+   consumed by these writers by utilizing the following properties:
+   - For **Write Buffer Idle**, enter a value for the maximum number of writers
+     (segments) cached in the pool. To disable, use `0`.
+   - For **Write Buffer Active**, enter a value for the maximum number of
+     concurrent active writers (segments) that perform a transaction. To disable,
+     use `0`.
+   - For **Write Buffer Size Max**, enter a value for the maximum memory byte size
+     per writer (segment) before a writer (segment) flush is triggered. Use `0` to
+     turn off this limit for any writer.
+8. Click **Create**.
+
+![Create new arangosearch View](images/arangosearch-create-new-view.png)
+
+## Create `arangosearch` Views using the JavaScript API
+
+The following example shows how you can create an `arangosearch` View in _arangosh_:
+
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline viewArangoSearchCreate
+    @EXAMPLE_ARANGOSH_OUTPUT{viewArangoSearchCreate}
+      var coll = db._create("books");
+      db._createView("products", "arangosearch", { links: { books: { fields: { title: { analyzers: ["text_en"] } } } } });
+    ~ db._dropView("products");
+    ~ db._drop(coll.name());
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock viewArangoSearchCreate
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 View Definition/Modification
 ----------------------------
@@ -465,40 +517,3 @@ is used by these writers (in terms of "writers pool") one can use
   - **minScore** (_optional_; type: `integer`; default: `0`)
 
     Filter out consolidation candidates with a score less than this.
-
-## Create `arangosearch` Views using the web interface
-
-You can create and manage an `arangosearch` View through the Web Interface.
-To get started, follow the steps outlined below.
-
-1. In the web interface, go to the left sidebar menu and select
-   the **VIEWS** entry.
-2. To add a new View, click **Add View**.
-3. Fill in the required fields:
-   - For **Name**, enter a name for the View.
-   - For **Type**, select `arangosearch` from the dropdown menu.
-4. To set the **Primary Sort Compression**, select `LZ4` to use a fast compression
-     or `none` to disable compression and trade space for speed.
-5. To set a **Primary Sort** order, define the following options:
-   - For **Field**, enter an array of attribute values. 
-   - For **Direction**, select **Ascending** or **Descending** to sort the attributes by.      
-6. To set **Stored Values**, define the following options:
-   - For **Fields**, enter an array of objects to define which document attributes
-     to store in the View index.
-   - The **Compression** attribute defines the compression type used for the internal
-     column-store. Select `LZ4` for fast compression or `none` for no compression.  
-7. In the **Advanced** section, you can define the **Write Buffer** properties of a
-   View. ArangoSearch uses multiple writer objects that are mapped to processed
-   segments for carrying out operations on its index. You can control the memory
-   consumed by these writers by utilizing the following properties:
-   - For **Write Buffer Idle**, enter a value for the maximum number of writers
-     (segments) cached in the pool. To disable, use `0`.
-   - For **Write Buffer Active**, enter a value for the maximum number of
-     concurrent active writers (segments) that perform a transaction. To disable,
-     use `0`.
-   - For **Write Buffer Size Max**, enter a value for the maximum memory byte size
-     per writer (segment) before a writer (segment) flush is triggered. Use `0` to
-     turn off this limit for any writer.
-8. Click **Create**.
-
-![Create new arangosearch View](images/arangosearch-create-new-view.png)
