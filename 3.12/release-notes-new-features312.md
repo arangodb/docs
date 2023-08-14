@@ -73,31 +73,6 @@ compression:
 Note that these metrics are increased upon every insertion into the edge
 cache, but not decreased when data gets evicted from the cache.
 
-### In-memory edge cache startup options and metrics
-
-<small>Introduced in: v3.11.3, 3.12.0</small>
-
-The following startup options have been added:
-
-- `--cache.max-spare-memory-usage`: the maximum memory usage for spare tables
-  in the in-memory cache.
-- `--cache.high-water-multiplier`: controls the cache's effective memory usage
-  limit. The user-defined memory limit (i.e. `--cache.size`) is multiplied with
-  this value to create the effective memory limit, from which on the cache tries
-  to free up memory by evicting the oldest entries.
-
----  
-
-<small>Introduced in: v3.11.3, 3.12.0</small>
-
-The following metrics have been added:
-
-| Label | Description |
-|:------|:------------|
-| `rocksdb_cache_edge_compressed_inserts_total` | Total number of compressed inserts into the in-memory edge cache. |
-| `rocksdb_cache_edge_empty_inserts_total` | Total number of insertions into the in-memory edge cache for non-connected edges. |
-| `rocksdb_cache_edge_inserts_total` | Total number of insertions into the in-memory edge cache. |
-
 ### Limit the number of databases in a deployment
 
 <small>Introduced in: v3.10.10, 3.11.2, 3.12.0</small>
@@ -110,6 +85,29 @@ attempt to create an additional database fails with error
 `32` (`ERROR_RESOURCE_LIMIT`). Additional databases can then only be created
 if other databases are dropped first. The default value for this option is
 unlimited, so an arbitrary amount of databases can be created.
+
+## Miscellaneous changes
+
+### In-memory edge cache startup options and metrics
+
+<small>Introduced in: v3.11.3, v3.12.0</small>
+
+The following startup options have been added:
+
+- `--cache.max-spare-memory-usage`: the maximum memory usage for spare tables
+  in the in-memory cache.
+- `--cache.high-water-multiplier`: controls the cache's effective memory usage
+  limit. The user-defined memory limit (i.e. `--cache.size`) is multiplied with
+  this value to create the effective memory limit, from which on the cache tries
+  to free up memory by evicting the oldest entries.
+
+The following metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_edge_compressed_inserts_total` | Total number of compressed inserts into the in-memory edge cache. |
+| `rocksdb_cache_edge_empty_inserts_total` | Total number of insertions into the in-memory edge cache for non-connected edges. |
+| `rocksdb_cache_edge_inserts_total` | Total number of insertions into the in-memory edge cache. |
 
 ## Internal changes
 

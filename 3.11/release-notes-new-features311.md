@@ -983,7 +983,7 @@ The following new metrics can be used to determine the usefulness of
 compression:
   
 - `rocksdb_cache_edge_inserts_effective_entries_size_total`: returns the total
-  number of bytes of all entries that were stored in the in-memory edge cache,
+  number of bytes of all entries that were ever stored in the in-memory edge cache,
   after compression was attempted/applied. This metric is populated regardless
   of whether compression is used or not.
 - `rocksdb_cache_edge_inserts_uncompressed_entries_size_total`: returns the total
@@ -995,31 +995,6 @@ compression:
 
 Note that these metrics are increased upon every insertion into the edge
 cache, but not decreased when data gets evicted from the cache.
-
-### In-memory edge cache startup options and metrics
-
-<small>Introduced in: v3.11.3</small>
-
-The following startup options have been added:
-
-- `--cache.max-spare-memory-usage`: the maximum memory usage for spare tables
-  in the in-memory cache.
-- `--cache.high-water-multiplier`: controls the cache's effective memory usage
-  limit. The user-defined memory limit (i.e. `--cache.size`) is multiplied with
-  this value to create the effective memory limit, from which on the cache tries
-  to free up memory by evicting the oldest entries.
-
----  
-
-<small>Introduced in: v3.11.3</small>
-
-The following metrics have been added:
-
-| Label | Description |
-|:------|:------------|
-| `rocksdb_cache_edge_compressed_inserts_total` | Total number of compressed inserts into the in-memory edge cache. |
-| `rocksdb_cache_edge_empty_inserts_total` | Total number of insertions into the in-memory edge cache for non-connected edges. |
-| `rocksdb_cache_edge_inserts_total` | Total number of insertions into the in-memory edge cache. |
 
 ### Limit the number of databases in a deployment
 
@@ -1218,6 +1193,27 @@ The following system metrics have been added:
 |:------|:------------|
 | `arangodb_file_descriptors_limit` | System limit for the number of open files for the arangod process. |
 | `arangodb_file_descriptors_current` | Number of file descriptors currently opened by the arangod process. |
+
+### In-memory edge cache startup options and metrics
+
+<small>Introduced in: v3.11.3</small>
+
+The following startup options have been added:
+
+- `--cache.max-spare-memory-usage`: the maximum memory usage for spare tables
+  in the in-memory cache.
+- `--cache.high-water-multiplier`: controls the cache's effective memory usage
+  limit. The user-defined memory limit (i.e. `--cache.size`) is multiplied with
+  this value to create the effective memory limit, from which on the cache tries
+  to free up memory by evicting the oldest entries.
+
+The following metrics have been added:
+
+| Label | Description |
+|:------|:------------|
+| `rocksdb_cache_edge_compressed_inserts_total` | Total number of compressed inserts into the in-memory edge cache. |
+| `rocksdb_cache_edge_empty_inserts_total` | Total number of insertions into the in-memory edge cache for non-connected edges. |
+| `rocksdb_cache_edge_inserts_total` | Total number of insertions into the in-memory edge cache. |
 
 ## Client tools
 
