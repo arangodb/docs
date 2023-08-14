@@ -171,8 +171,10 @@ detailed information about breaking changes before upgrading.
     `x-http-method-override`. This was originally intended for very restricted
     callers, which only supported HTTP GET and HTTP POST, but seems very
     unnecessary nowadays.
+    The functionality will be removed in ArangoDB 3.12.
   - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
     header in all responses served by arangod.
+    The functionality will be removed in ArangoDB 3.12.
   - `--network.protocol`: network protocol to use for cluster-internal 
     communication. The protocol will be auto-decided from version 3.9 onwards.
   - `--query.allow-collections-in-expressions`: allow full collections to be 
@@ -227,6 +229,8 @@ detailed information about breaking changes before upgrading.
   - `arangodb::GRAPH_BETWEENNESS`
   - `arangodb::GRAPH_RADIUS`
   - `arangodb::GRAPH_DIAMETER`
+  
+  These functions will be removed in ArangoDB 3.12.
 
 - **Specialized index creation methods in JavaScript API**:
   The following JavaScript methods for creating indexes from the ArangoShell
