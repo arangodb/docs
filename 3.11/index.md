@@ -1,24 +1,23 @@
 ---
 layout: default
 description: >-
-  ArangoDB is a scalable graph database system with native support for other
-  data models and a built-in search engine, for the cloud and on-premises
+  ArangoDB is a scalable graph database system to drive value from connected
+  data, faster
 title: Introduction to ArangoDB's Technical Documentation and Ecosystem
 ---
 # What is ArangoDB?
 
-ArangoDB is a scalable database management system for graphs, with a broad range
-of features and a rich ecosystem
+{{ page.description }}
 {:class="lead"}
 
 ![ArangoDB Overview Diagram](images/arangodb-overview-diagram.png)
 
-It supports a variety of data access patterns with a single, composable query
-language thanks to its multi-model approach that combines the analytical power
-of graphs with JSON documents, a key-value store, and a built-in search engine.
+ArangoDB combines the analytical power of native graphs with an integrated
+search engine, JSON support, and a variety of data access patterns via a single,
+composable query language.
 
-ArangoDB is available in an open-source and a commercial [edition](features.html),
-you can use it for on-premises deployments, as well as a fully managed
+ArangoDB is available in an open-source and a commercial [edition](features.html).
+You can use it for on-premises deployments, as well as a fully managed
 cloud service, the [ArangoGraph Insights Platform](arangograph/).
 
 ## What are Graphs?
