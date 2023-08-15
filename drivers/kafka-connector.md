@@ -186,8 +186,12 @@ behavior in case a document with the same `_key` already exists:
 ## Idempotent writes
 
 All the write modes supported are idempotent, with the exception that the
-document revision field (`_rev`) changes every time a document is written.
-See the [related documentation](../data-modeling-documents.html#document-revisions)
+document revision field (`_rev`) changes every time a document is written. See
+{% assign ver = "3.10" | version: ">=" %}{% if ver -%}
+[Document revisions](../data-modeling-documents.html#document-revisions)
+{% else -%}
+[Document revisions](../data-modeling-documents-document-address.html#document-revision)
+{% endif -%}
 for more details.
 
 If there are failures, the Kafka offset used for recovery may not be up-to-date
