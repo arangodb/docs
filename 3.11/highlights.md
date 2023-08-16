@@ -1,12 +1,13 @@
 ---
 layout: default
-description: List of top features in Community and Enterprise Edition by release series
+description: >-
+  The most notable features in the Community and Enterprise Edition of ArangoDB,
+  grouped by version
 title: ArangoDB Highlights
 ---
 # Highlights by Version
 
-The most notable features in the Community and Enterprise Edition of ArangoDB,
-grouped by version
+{{ page.description }}
 {:class="lead"}
 
 ## Version 3.11
