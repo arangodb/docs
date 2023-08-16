@@ -257,16 +257,16 @@ encoded as Base64 string. The following configuration properties can be used:
 
 See [SSL configuration](kafka-connector-configuration.html#ssl) for further options.
 
-## Current limitations
+## Limitations
 
-- The `VST` communication protocol is currently not working (DE-619)
+- The `VST` communication protocol (`connection.protocol=VST`) is currently not working (DE-619)
 - Documents are inserted one by one, bulk inserts will be implemented in a future release (DE-627)
 - In case of transient error, the entire Kafka Connect batch is retried (DE-651)
 - Record values are required to be object-like structures (DE-644)
 - Auto-creation of ArangoDB collection is not supported (DE-653)
 - `ssl.cert.value` does not support multiple certificates (DE-655)
-- Batch inserts are not guaranteed to be executed serially
-- Batch inserts may succeed for some documents while failing for others.
+- Batch inserts are not guaranteed to be executed serially (FRB-300)
+- Batch inserts may succeed for some documents while failing for others (FRB-300)
   This has two important consequences:
   - Transient errors might be retried and succeed at a later point
   - Data errors might be asynchronously reported to the DLQ

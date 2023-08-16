@@ -7,40 +7,40 @@ layout: default
 
 ### connection.endpoints
 
-- type: *list*
+- type: _list_
 
 Database connection endpoints as comma separated list of `host:port` entries.
 For example: `coordinator1:8529,coordinator2:8529`.
 
 ### connection.user
 
-- type: *string*
+- type: _string_
 - default: `root`
 
 Database connection user.
 
 ### connection.password
 
-- type: *string*
+- type: _string_
 
 Database connection password.
 
 ### connection.database
 
-- type: *string*
+- type: _string_
 - default: `_system`
 
 Target database name.
 
 ### connection.collection
 
-- type: *string*
+- type: _string_
 
 Target collection name.
 
 ### connection.acquireHostList.enabled
 
-- type: *boolean*
+- type: _boolean_
 - default: `false`
 
 Periodically acquire the list of all known ArangoDB hosts in the cluster and
@@ -48,14 +48,14 @@ trigger tasks reconfiguration in case of changes.
 
 ### connection.acquireHostList.interval.ms
 
-- type: *int*
+- type: _int_
 - default: `60_000`
 
 Interval for acquiring the host list.
 
 ### connection.protocol
 
-- type: *string*
+- type: _string_
 - default: `HTTP2`
 
 Communication protocol:
@@ -66,7 +66,7 @@ Communication protocol:
 
 ### connection.content.type
 
-- type: *string*
+- type: _string_
 - default: `JSON`
 
 Communication content type:
@@ -78,68 +78,68 @@ Communication content type:
 
 ### ssl.enabled
 
-- type: *boolean*
+- type: _boolean_
 - default: `false`
 
 SSL secured driver connection.
 
 ### ssl.cert.value
 
-- type: *string*
+- type: _string_
 
 Base64 encoded SSL certificate.
 
 ### ssl.cert.type
 
-- type: *string*
+- type: _string_
 - default: `X.509`
 
 Certificate type.
 
 ### ssl.cert.alias
 
-- type: *string*
+- type: _string_
 - default: `arangodb`
 
 Certificate alias name.
 
 ### ssl.algorithm
 
-- type: *string*
+- type: _string_
 - default: `SunX509`
 
 Trust manager algorithm.
 
 ### ssl.keystore.type
 
-- type: *string*
+- type: _string_
 - default: `jks`
 
 Keystore type.
 
 ### ssl.protocol
 
-- type: *string*
+- type: _string_
 - default: `TLS`
 
 SSLContext protocol.
 
 ### ssl.hostname.verification
 
-- type: *boolean*
+- type: _boolean_
 - default: `true`
 
 SSL hostname verification.
 
 ### ssl.truststore.location
 
-- type: *string*
+- type: _string_
 
 The location of the trust store file.
 
 ### ssl.truststore.password
 
-- type: *string*
+- type: _string_
 
 The password for the trust store file.
 
@@ -147,7 +147,7 @@ The password for the trust store file.
 
 ### insert.overwriteMode
 
-- type: *string*
+- type: _string_
 - default: `conflict`
 
 The overwrite mode to use in case a document with the specified `_key` value
@@ -162,7 +162,7 @@ already exists:
 
 ### insert.mergeObjects
 
-- type: *boolean*
+- type: _boolean_
 - default: `true`
 
 Whether objects (not arrays) are merged, in case `insert.overwriteMode` is set
@@ -173,21 +173,21 @@ to `update`:
 
 ### insert.timeout.ms
 
-- type: *int*
+- type: _int_
 - default: `30_000`
 
 Connect and request timeout in ms.
 
 ### insert.waitForSync
 
-- type: *boolean*
+- type: _boolean_
 - default: `false`
 
 Whether to wait until the documents have been synced to disk.
 
 ### delete.enabled
 
-- type: *boolean*
+- type: _boolean_
 - default: `false`
 
 Whether to enable delete behavior when processing tombstones.
@@ -196,7 +196,7 @@ Whether to enable delete behavior when processing tombstones.
 
 ### data.errors.tolerance
 
-- type: *string*
+- type: _string_
 - default: `none`
 
 Whether data errors are tolerated during connector operation.
@@ -207,7 +207,7 @@ Whether data errors are tolerated during connector operation.
 
 ### extra.data.error.nums
 
-- type: *list*
+- type: _list_
 
 Additional server `errorNums` to be considered data errors.
 
@@ -215,14 +215,14 @@ Additional server `errorNums` to be considered data errors.
 
 ### max.retries
 
-- type: *int*
+- type: _int_
 - default: `10`
 
 The maximum number of times to retry transient errors.
 
 ### retry.backoff.ms
 
-- type: *int*
+- type: _int_
 - default: `3_000`
 
 The time in milliseconds to wait following an error before a retry attempt is made.
