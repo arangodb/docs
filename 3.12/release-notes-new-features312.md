@@ -10,7 +10,23 @@ here.
 
 ## ArangoSearch
 
+### WAND optimization (Enterprise Edition)
 
+For `arangosearch` Views and inverted indexes (and by extension `search-alias`
+Views), you can define a list of sort expressions that you want to optimize.
+This is also known as _WAND optimization_.
+
+If you query a View with the `SEARCH` operation in combination with a
+`SORT` and `LIMIT` operation, search results can be retrieved faster if the
+`SORT` expression matches one of the optimized expressions.
+
+Only sorting by highest rank is supported, that is, sorting by the result
+of a scoring function in descending order (`DESC`).
+
+See [Optimizing View and inverted index query performance](arangosearch-performance.html#wand-optimization)
+for examples.
+
+This feature is only available in the Enterprise Edition.
 
 ## Analyzers
 
@@ -108,6 +124,32 @@ The following metrics have been added:
 | `rocksdb_cache_edge_compressed_inserts_total` | Total number of compressed inserts into the in-memory edge cache. |
 | `rocksdb_cache_edge_empty_inserts_total` | Total number of insertions into the in-memory edge cache for non-connected edges. |
 | `rocksdb_cache_edge_inserts_total` | Total number of insertions into the in-memory edge cache. |
+
+### RocksDB .sst file partitioning (experimental)
+
+The following experimental startup options for RockDB .sst file partitioning
+have been added:
+
+- `--rocksdb.partition-files-for-documents`
+- `--rocksdb.partition-files-for-primary-index`
+- `--rocksdb.partition-files-for-edge-index`
+- `--rocksdb.partition-files-for-persistent-index`
+
+Enabling any of these options makes RocksDB's compaction write the 
+data for different collections/shards/indexes into different .sst files. 
+Otherwise, the document data from different collections/shards/indexes 
+can be mixed and written into the same .sst files.
+
+When these options are enabled, the RocksDB compaction is more efficient since
+a lot of different collections/shards/indexes are written to in parallel.
+The disavantage of enabling these options is that there can be more .sst
+files than when the option is turned off, and the disk space used by
+these .sst files can be higher.
+In particular, on deployments with many collections/shards/indexes
+this can lead to a very high number of .sst files, with the potential
+of outgrowing the maximum number of file descriptors the ArangoDB process 
+can open. Thus, these options should only be enabled on deployments with a
+limited number of collections/shards/indexes.
 
 ## Internal changes
 

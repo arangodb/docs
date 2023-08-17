@@ -36,6 +36,24 @@ versions.
 
 ### Endpoints augmented
 
+#### View API
+
+Views of type `arangosearch` accept a new `optimizeTopK` View property for the
+ArangoSearch WAND optimization. It is an immutable array of strings, optional,
+and defaults to `[]`.
+
+See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
+for details.
+
+#### Index API
+
+Indexes of type `inverted` accept a new `optimizeTopK` property for the
+ArangoSearch WAND optimization. It is an array of strings, optional, and
+defaults to `[]`.
+
+See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
+for details.
+
 #### Optimizer rule descriptions
 
 <small>Introduced in: v3.10.9, v3.11.2</small>
