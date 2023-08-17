@@ -15,7 +15,7 @@ The following hard-coded limitations exist for AQL queries:
   query execution plan. This number includes all execution nodes of the
   initial execution plan, even if some of them could be
   optimized away later by the query optimizer during plan optimization.
-- An AQL query cannot use more than _2048_ collections/shards. 
+- An AQL query cannot use more than _2048_ collections/shards.
   {% hint 'tip' %}
   From version 3.10.7 onward, this limit is configurable via the
   `--query.max-collections-per-query` startup option.

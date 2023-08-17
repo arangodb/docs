@@ -68,6 +68,10 @@ features outlined below. For additional information, see
   stored values, primary sort columns, and primary key columns in memory to
   improve the performance of Views and inverted indexes.
 
+- [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
+  Retrieve search results for the highest-ranking matches from Views faster by
+  defining a list of sort expressions to optimize.
+
 ## Querying
 
 - [**Pregel in Cluster**](graphs-pregel.html#prerequisites):

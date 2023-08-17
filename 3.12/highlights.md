@@ -18,7 +18,9 @@ title: ArangoDB Highlights
 
 **Enterprise Edition**
 
-- 
+- [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
+  Retrieve search results for the highest-ranking matches from Views faster by
+  defining a list of sort expressions to optimize.
 
 Also see [What's New in 3.12](release-notes-new-features312.html).
 

@@ -1102,6 +1102,38 @@
     "section" : "cache",
     "type" : "uint32"
   },
+  "cache.high-water-multiplier" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 0.95,
+    "deprecatedIn" : null,
+    "description" : "The multiplier to be used for calculating the in-memory cache's effective memory usage limit.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "This value controls the cache's effective memory usage limit.\nThe user-defined memory limit (i.e. `--cache.size`) is multipled with this\nvalue to create the effective memory limit, from which on the cache will \ntry to free up memory by evicting the oldest entries.",
+    "maxInclusive" : true,
+    "maxValue" : 1,
+    "minInclusive" : true,
+    "minValue" : 0.1,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cache",
+    "type" : "double"
+  },
   "cache.ideal-lower-fill-ratio" : {
     "base" : 1,
     "category" : "option",
@@ -1109,7 +1141,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 0.04,
+    "default" : 0.08,
     "deprecatedIn" : null,
     "description" : "The lower bound fill ratio value for a cache table.",
     "dynamic" : false,
@@ -1141,7 +1173,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 0.25,
+    "default" : 0.33,
     "deprecatedIn" : null,
     "description" : "The upper bound fill ratio value for a cache table.",
     "dynamic" : false,
@@ -1165,6 +1197,37 @@
     "requiresValue" : true,
     "section" : "cache",
     "type" : "double"
+  },
+  "cache.max-spare-memory-usage" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 67108864,
+    "deprecatedIn" : null,
+    "description" : "The maximum memory usage for spare tables in the in-memory cache.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cache",
+    "type" : "uint64"
   },
   "cache.min-value-size-for-edge-compression" : {
     "base" : 1,
@@ -2915,65 +2978,6 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
-  },
-  "http.allow-method-override" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : [
-      "v3.8.0"
-    ],
-    "description" : "Allow HTTP method override using special headers.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "longDescription" : "If you set this option to `true`, the HTTP request\nmethod is optionally fetched from one of the following HTTP request headers if\npresent in the request:\n\n- `x-http-method`\n- `x-http-method-override`\n- `x-method-override`\n\nIf the option is enabled and any of these headers is set, the request method is\noverridden by the value of the header. For example, this allows you to issue an\nHTTP DELETE request which, to the outside world, looks like an HTTP GET request.\nThis allows you to bypass proxies and tools that only let certain request types\npass.\n\nEnabling this option may impose a security risk. You should only use it in\ncontrolled environments.",
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "http",
-    "type" : "boolean"
-  },
-  "http.hide-product-header" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : [
-      "v3.8.0"
-    ],
-    "description" : "Whether to omit the `Server: ArangoDB` header in HTTP responses.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "http",
-    "type" : "boolean"
   },
   "http.keep-alive-timeout" : {
     "base" : 1,
@@ -6318,7 +6322,7 @@
       "info"
     ],
     "deprecatedIn" : null,
-    "description" : "Set the topic-specific log level, using `--log.level level` for the general topic or `--log.level topic=level` for the specified topic (can be specified multiple times).\nAvailable log levels: fatal, error, warning, info, debug, trace.\nAvailable log topics: all, agency, agencycomm, agencystore, aql, arangosearch, audit-authentication, audit-authorization, audit-collection, audit-database, audit-document, audit-hotbackup, audit-service, audit-view, authentication, authorization, backup, bench, cache, cluster, communication, config, crash, development, dump, engines, flush, general, graphs, heartbeat, httpclient, ldap, libiresearch, license, maintenance, memory, mmap, pregel, queries, rep-state, replication, replication2, requests, restore, rocksdb, security, ssl, startup, statistics, supervision, syscall, threads, trx, ttl, v8, validation, views.",
+    "description" : "Set the topic-specific log level, using `--log.level level` for the general topic or `--log.level topic=level` for the specified topic (can be specified multiple times).\nAvailable log levels: fatal, error, warning, info, debug, trace.\nAvailable log topics: all, agency, agencycomm, agencystore, aql, arangosearch, audit-authentication, audit-authorization, audit-collection, audit-database, audit-document, audit-hotbackup, audit-service, audit-view, authentication, authorization, backup, bench, cache, cluster, communication, config, crash, deprecation, development, dump, engines, flush, general, graphs, heartbeat, httpclient, ldap, libiresearch, license, maintenance, memory, mmap, pregel, queries, rep-state, replication, replication2, requests, restore, rocksdb, security, ssl, startup, statistics, supervision, syscall, threads, trx, ttl, v8, validation, views.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -10655,6 +10659,122 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.partition-files-for-documents" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If enabled, the document data for different collections/shards will end up in different .sst files.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Enabling this option will make RocksDB's\ncompaction write the document data for different collections/shards\ninto different .sst files. Otherwise the document data from different \ncollections/shards can be mixed and written into the same .sst files.\n\nEnabling this option usually has the benefit of making the RocksDB\ncompaction more efficient when a lot of different collections/shards\nare written to in parallel.\nThe disavantage of enabling this option is that there can be more .sst\nfiles than when the option is turned off, and the disk space used by\nthese .sst files can be higher than if there are fewer .sst files (this\nis because there is some per-.sst file overhead).\nIn particular on deployments with many collections/shards\nthis can lead to a very high number of .sst files, with the potential\nof outgrowing the maximum number of file descriptors the ArangoDB process \ncan open. Thus the option should only be enabled on deployments with a\nlimited number of collections/shards.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.partition-files-for-edge-index" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If enabled, the index data for different edge indexes will end up in different .sst files.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Enabling this option will make RocksDB's\ncompaction write the edge index data for different edge collections/shards\ninto different .sst files. Otherwise the edge index data from different \nedge collections/shards can be mixed and written into the same .sst files.\n\nEnabling this option usually has the benefit of making the RocksDB\ncompaction more efficient when a lot of different edge collections/shards\nare written to in parallel.\nThe disavantage of enabling this option is that there can be more .sst\nfiles than when the option is turned off, and the disk space used by\nthese .sst files can be higher than if there are fewer .sst files (this\nis because there is some per-.sst file overhead).\nIn particular on deployments with many edge collections/shards\nthis can lead to a very high number of .sst files, with the potential\nof outgrowing the maximum number of file descriptors the ArangoDB process \ncan open. Thus the option should only be enabled on deployments with a\nlimited number of edge collections/shards.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.partition-files-for-persistent-index" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If enabled, the index data for different persistent indexes will end up in different .sst files.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Enabling this option will make RocksDB's\ncompaction write the persistent index data for different persistent\nindexes (also indexes from different collections/shards) into different \n.sst files. Otherwise the persistent index data from different \ncollections/shards/indexes can be mixed and written into the same .sst files.\n\nEnabling this option usually has the benefit of making the RocksDB\ncompaction more efficient when a lot of different collections/shards/indexes\nare written to in parallel.\nThe disavantage of enabling this option is that there can be more .sst\nfiles than when the option is turned off, and the disk space used by\nthese .sst files can be higher than if there are fewer .sst files (this\nis because there is some per-.sst file overhead).\nIn particular on deployments with many collections/shards/indexes\nthis can lead to a very high number of .sst files, with the potential\nof outgrowing the maximum number of file descriptors the ArangoDB process \ncan open. Thus the option should only be enabled on deployments with a\nlimited number of edge collections/shards/indexes.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.partition-files-for-primary-index" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If enabled, the primary index data for different collections/shards will end up in different .sst files.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Enabling this option will make RocksDB's\ncompaction write the primary index data for different collections/shards\ninto different .sst files. Otherwise the primary index data from different \ncollections/shards can be mixed and written into the same .sst files.\n\nEnabling this option usually has the benefit of making the RocksDB\ncompaction more efficient when a lot of different collections/shards\nare written to in parallel.\nThe disavantage of enabling this option is that there can be more .sst\nfiles than when the option is turned off, and the disk space used by\nthese .sst files can be higher than if there are fewer .sst files (this\nis because there is some per-.sst file overhead).\nIn particular on deployments with many collections/shards\nthis can lead to a very high number of .sst files, with the potential\nof outgrowing the maximum number of file descriptors the ArangoDB process \ncan open. Thus the option should only be enabled on deployments with a\nlimited number of collections/shards.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.pending-compactions-slowdown-trigger" : {
     "base" : 1,
     "category" : "option",
@@ -10837,13 +10957,14 @@
     "type" : "boolean"
   },
   "rocksdb.recycle-log-file-num" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : 0,
     "deprecatedIn" : null,
     "description" : "If enabled, keep a pool of log files around for recycling.",
     "dynamic" : false,
@@ -10851,16 +10972,19 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
       "macos",
       "windows"
     ],
-    "required" : false,
-    "requiresValue" : false,
+    "requiresValue" : true,
     "section" : "rocksdb",
-    "type" : "boolean"
+    "type" : "uint64"
   },
   "rocksdb.reserve-file-metadata-memory" : {
     "category" : "option",
