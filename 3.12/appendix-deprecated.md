@@ -121,6 +121,11 @@ detailed information about breaking changes before upgrading.
   The metrics API provides a lot more information than the statistics API, so
   it is much more useful.
 
+- **Database target version REST API**:
+  The endpoint `/_admin/database/target-version` is deprecated in favor of the
+  more general version API under `/_admin/version`. The endpoint may be
+  removed in a future version of ArangoDB.
+
 - **Replication logger-follow REST API**:
   The endpoint `/_api/replication/logger-follow` is deprecated since 3.4.0 and
   may be removed in a future version. Client applications should use the REST 

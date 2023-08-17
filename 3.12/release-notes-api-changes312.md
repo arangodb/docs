@@ -67,7 +67,11 @@ every optimizer rule that briefly explains what it does.
 
 ### Endpoints deprecated
 
+#### Database target version REST API
 
+The endpoint `/_admin/database/target-version` is deprecated in favor of the
+more general version API under `/_admin/version`. The endpoint may be
+removed in a future version of ArangoDB.
 
 ### Endpoints removed
 
