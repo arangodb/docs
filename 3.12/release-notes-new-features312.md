@@ -102,5 +102,31 @@ attempt to create an additional database fails with error
 if other databases are dropped first. The default value for this option is
 unlimited, so an arbitrary amount of databases can be created.
 
+### RocksDB .sst file partitioning (experimental)
+
+The following experimental startup options for RockDB .sst file partitioning
+have been added:
+
+- `--rocksdb.partition-files-for-documents`
+- `--rocksdb.partition-files-for-primary-index`
+- `--rocksdb.partition-files-for-edge-index`
+- `--rocksdb.partition-files-for-persistent-index`
+
+Enabling any of these options makes RocksDB's compaction write the 
+data for different collections/shards/indexes into different .sst files. 
+Otherwise, the document data from different collections/shards/indexes 
+can be mixed and written into the same .sst files.
+
+When these options are enabled, the RocksDB compaction is more efficient since
+a lot of different collections/shards/indexes are written to in parallel.
+The disavantage of enabling these options is that there can be more .sst
+files than when the option is turned off, and the disk space used by
+these .sst files can be higher.
+In particular, on deployments with many collections/shards/indexes
+this can lead to a very high number of .sst files, with the potential
+of outgrowing the maximum number of file descriptors the ArangoDB process 
+can open. Thus, these options should only be enabled on deployments with a
+limited number of collections/shards/indexes.
+
 ## Internal changes
 
