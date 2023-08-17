@@ -173,6 +173,28 @@
     log compaction kicks in can be controlled via the startup option
     `--agency.compaction-keep-size`.
 
+- name: arangodb_agency_node_memory_usage
+  introducedIn: "3.12"
+  help: |
+    Memory used by agency store/cache.
+  unit: byte
+  type: gauge
+  # all other categories are too specific
+  category: Agency
+  complexity: high
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+  description: |
+    Amount of memory used to represent the agency data structure. This measures memory usage on agents 
+    and also on Coordinators and DB servers, because these have a cached version of the agency's
+    `Plan` and `Current` sections. On agency followers this metric normally
+    remains at a low value because the agency key/value store is only built on
+    agency leaders.
+    This metric can be non-zero even on single servers because there is a small initial memory allocation
+    made at ArangoDB instance start.
+
 - name: arangodb_agency_read_no_leader_total
   renamedFrom: arangodb_agency_read_no_leader
   introducedIn: "3.8.0"
@@ -1666,6 +1688,30 @@
     Note that your mileage may vary according to available resources as well
     as to complexity of the requests the client sends.
 
+- name: arangodb_index_estimates_memory_usage
+  introducedIn: "3.12.0"
+  help: |
+    Total memory usage of all index selectivity estimates.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: medium
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total memory usage of all index selectivity estimates.
+    The metric includes memory used for buffering index write 
+    operations that still have to be applied.
+    Index selectivity estimates are used for edge indexes and
+    persistent indexes.
+    On coordinators, this metric will always have a value of 0.
+  troubleshoot: |
+    Persistent indexes can be created with selectivity
+    estimates turned off to save a bit of memory and slightly
+    improve index write performance.
+
 - name: arangodb_intermediate_commits_total
   renamedFrom: arangodb_intermediate_commits
   introducedIn: "3.8.0"
@@ -1712,35 +1758,10 @@
   exposedBy:
     - coordinator
     - dbserver
-    - single
   description: |
     Amount of memory spent in ClusterInfo. ClusterInfo keeps all relevant 
     information about servers and shard distribution. It grows with the size
-    of servers, databases and shards in the cluster.
-
-- name: arangodb_internal_index_estimates_memory
-  introducedIn: "3.12.0"
-  help: |
-    Total memory usage of all index selectivity estimates.
-  unit: bytes
-  type: gauge
-  category: Statistics
-  complexity: medium
-  exposedBy:
-    - dbserver
-    - agent
-    - single
-  description: |
-    Total memory usage of all index selectivity estimates.
-    The metric includes memory used for buffering index write 
-    operations that still have to be applied.
-    Index selectivity estimates are used for edge indexes and
-    persistent indexes.
-    On coordinators, this metric will always have a value of 0.
-  troubleshoot: |
-    Persistent indexes can be created with selectivity
-    estimates turned off to save a bit of memory and slightly
-    improve index write performance.
+    of servers, databases, collections/shards and indexes in the cluster.
 
 - name: arangodb_ioheartbeat_delays_total
   introducedIn: "3.8.7"
@@ -3947,22 +3968,6 @@
   description: |
     The total amount of network replication tailing requests.
 
-- name: arangodb_request_body_memory_usage
-  introducedIn: "3.12.0"
-  help: |
-    Memory consumed by incoming request bodies.
-  unit: bytes
-  type: gauge
-  category: Statistics
-  complexity: high
-  exposedBy:
-    - coordinator
-    - dbserver
-    - agent
-    - single
-  description: |
-    Measures the amount of memory currently allocated for incoming request bodies.
-
 - name: arangodb_request_body_size_http1
   introducedIn: "3.7.15"
   help: |
@@ -4013,6 +4018,26 @@
   description: |
     Histogram of the body sizes of the received VST requests in bytes.
     Note that this does include the binary header.
+
+- name: arangodb_requests_memory_usage
+  introducedIn: "3.12.0"
+  help: |
+    Memory consumed by incoming, queued, and currently processed requests.
+  unit: bytes
+  type: gauge
+  category: Statistics
+  complexity: high
+  exposedBy:
+    - coordinator
+    - dbserver
+    - agent
+    - single
+  description: |
+    Measures the amount of memory currently allocated for incoming, queued,
+    and currently processed requests. The memory usage includes the size of
+    the request headers and the request bodies.
+    This includes the memory usage of requests that are currently queued
+    in the server's scheduler queue and that are waiting to be processed.
 
 - name: arangodb_revision_tree_buffered_memory_usage
   introducedIn: "3.12.0"
@@ -4503,7 +4528,7 @@
   description: |
     The total number of currently queued jobs in all queues.
 
-- name: arangodb_scheduler_queue_memory
+- name: arangodb_scheduler_queue_memory_usage
   introducedIn: "3.12.0"
   help: |
     Number of bytes allocated for tasks in the scheduler queue.
@@ -4547,7 +4572,7 @@
     always `0` on DB-Servers, simply because Coordinators do not forward the
     `x-arango-queue-time-seconds` when they send internal requests to DB-Servers.
 
-- name: arangodb_scheduler_stack_memory
+- name: arangodb_scheduler_stack_memory_usage
   introducedIn: "3.12.0"
   help: |
     Approximate stack memory usage of worker threads.
@@ -4662,11 +4687,11 @@
   description: |
     Average time of few last consolidations.
 
-- name: arangodb_search_consolidations_memory
+- name: arangodb_search_consolidations_memory_usage
   introducedIn: "3.12.0"
   help: |
-    Count of memory in bytes that is used for consolidating this index.
-  unit: number
+    Amount of memory in bytes that is used for consolidating this index.
+  unit: bytes
   type: gauge
   category: ArangoSearch
   complexity: advanced
@@ -4674,7 +4699,7 @@
     - dbserver
     - single
   description: |
-    Count of memory in bytes that is used for consolidating this index.
+    Amount of memory in bytes that is used for consolidating this index.
 
 - name: arangodb_search_file_descriptors
   introducedIn: "3.12.0"
@@ -4707,8 +4732,8 @@
 - name: arangodb_search_mapped_memory
   introducedIn: "3.12.0"
   help: |
-    Count of memory in bytes that is mapped.
-  unit: number
+    Amount of memory in bytes that is mapped.
+  unit: bytes
   type: gauge
   category: ArangoSearch
   complexity: advanced
@@ -4716,8 +4741,8 @@
     - dbserver
     - single
   description: |
-    Count of memory in bytes that is mapped.
-    It's very approximate and could be outdated in any moment.
+    Amount of memory in bytes that is mapped using memory-mapped files.
+    The metric value is very approximate and could be outdated in any moment.
 
 - name: arangodb_search_num_docs
   introducedIn: "3.10.0"
@@ -4853,11 +4878,11 @@
   description: |
     Number of segments for current snapshot.
 
-- name: arangodb_search_readers_memory
+- name: arangodb_search_readers_memory_usage
   introducedIn: "3.12.0"
   help: |
-    Count of memory in bytes that is used for reading from this index.
-  unit: number
+    Amount of memory in bytes that is used for reading from this index.
+  unit: bytes
   type: gauge
   category: ArangoSearch
   complexity: advanced
@@ -4865,13 +4890,13 @@
     - dbserver
     - single
   description: |
-    Count of memory in bytes that is used for reading from this index.
+    Amount of memory in bytes that is used for reading from this index.
 
-- name: arangodb_search_writers_memory
+- name: arangodb_search_writers_memory_usage
   introducedIn: "3.12.0"
   help: |
-    Count of memory in bytes that is used for writing to this index.
-  unit: number
+    Amount of memory in bytes that is used for writing to this index.
+  unit: bytes
   type: gauge
   category: ArangoSearch
   complexity: advanced
@@ -4879,7 +4904,7 @@
     - dbserver
     - single
   description: |
-    Count of memory in bytes that is used for writing to this index.
+    Amount of memory in bytes that is used for writing to this index.
 
 - name: arangodb_server_statistics_cpu_cores
   introducedIn: "3.8.0"
@@ -5791,6 +5816,23 @@
     `--rocksdb.auto-refill-index-caches` startup option is enabled.
     On Agents and Coordinators, the values reported by this metric are always zero.
 
+- name: rocksdb_cache_edge_compressed_inserts_total
+  introducedIn: "3.12.0"
+  help: |
+    Total number of compressed inserts into the in-memory edge cache.
+  unit: number
+  type: counter
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total number of compressed inserts into the in-memory edge cache. This
+    metric is increased whenever a payload value for the edge cache was
+    compressed and then inserted. 
+
 - name: rocksdb_cache_edge_compression_ratio
   introducedIn: "3.11.2"
   help: |
@@ -5809,12 +5851,13 @@
     in the in-memory edge cache. The value should be 0 if compression is not
     used.
 
-- name: rocksdb_cache_edge_effective_entries_size
-  introducedIn: "3.11.2"
+- name: rocksdb_cache_edge_empty_inserts_total
+  introducedIn: "3.12.0"
   help: |
-    Total effective memory size of all edge cache entries ever stored in the edge cache.
-  unit: bytes
-  type: gauge
+    Total number of insertions into the in-memory edge cache
+    for non-connected edges.
+  unit: number
+  type: counter
   category: Statistics
   complexity: advanced
   exposedBy:
@@ -5822,21 +5865,42 @@
     - agent
     - single
   description: |
-    Total effective memory size of all edge cache data that were ever stored in
-    the edge cache of any collection/shard. The size is calculated after any
-    potential compression, so the compression efficiency can be estimated by 
-    this metric by the size of the uncompressed edge cache entries.
+    Total number of insertions into the in-memory edge cache for edges that
+    were not connected to other edges.
+    In this case, the edge case will store the information that there are no
+    connected edges.
+
+- name: rocksdb_cache_edge_inserts_effective_entries_size_total
+  renamedFrom: rocksdb_cache_edge_effective_entries_size
+  introducedIn: "3.11.2"
+  help: |
+    Total effective memory size of all edge cache entries ever stored in the edge cache.
+  unit: bytes
+  type: counter
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total effective memory size of all edge cache data that were stored in the
+    the edge cache of any collection/shard since the server start. 
+    The size is calculated after any potential compression, so the compression 
+    efficiency can be estimated by this metric by the size of the uncompressed 
+    edge cache entries.
     Note that this metric is incremented upon every edge cache insert attempt.
     It is increased also when data cannot be inserted into the cache (e.g. because
     the cache had no memory left). The metric is not decreased when data gets 
     evicted from the cache.
 
-- name: rocksdb_cache_edge_uncompressed_entries_size
-  introducedIn: "3.11.2"
+- name: rocksdb_cache_edge_inserts_total
+  introducedIn: "3.12.0"
   help: |
-    Total gross memory size of all edge cache entries ever stored in the edge cache.
-  unit: bytes
-  type: gauge
+    Total number of insertions into the in-memory edge cache.
+    in the edge cache.
+  unit: number
+  type: counter
   category: Statistics
   complexity: advanced
   exposedBy:
@@ -5844,9 +5908,28 @@
     - agent
     - single
   description: |
-    Total gross memory size of all edge cache data that were ever stored in
-    the edge cache of any collection/shard. The size is calculated before any
-    potential compression.
+    Total number of insertions into the in-memory edge cache.
+    This metric is increased whenever a value is inserted into the
+    in-memory edge cache, regardless of whether the value was
+    compressed or not.
+
+- name: rocksdb_cache_edge_inserts_uncompressed_entries_size_total
+  renamedFrom: rocksdb_cache_edge_uncompressed_entries_size
+  introducedIn: "3.11.2"
+  help: |
+    Total gross memory size of all edge cache entries ever stored in the edge cache.
+  unit: bytes
+  type: counter
+  category: Statistics
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total gross memory size of all edge cache data that were stored in the edge
+    cache of any collection/shard since the server start. 
+    The size is calculated before any potential compression.
     Note that this metric is incremented upon every cache insert attempt. 
     It is increased also when data cannot be inserted into the cache (e.g. because
     the cache had no memory left). The metric is not decreased when data gets 
