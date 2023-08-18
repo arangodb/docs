@@ -41,6 +41,9 @@ See the [**Release notes**](release-notes.html) of the respective versions for
 detailed information about breaking changes before upgrading.
 {% endhint %}
 
+- **jslint Feature in arangosh**
+  The command line option `--jslint` and all functionality has been removed.:w
+
 - **Standalone Agency and Agency HTTP API**:
   The Standalone Agency deployment type and the corresponding Agency HTTP API
   are no longer available starting with v3.12. 
