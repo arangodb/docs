@@ -158,8 +158,8 @@ Now, a request like this succeeds and returns an empty array as response.
 
 ### Endpoints deprecated
 
-The endpoint `/_admin/database/target-version` is deprecated in favor of the
-more general version API under `/_admin/version`.
+The `GET /_admin/database/target-version` endpoint is deprecated in favor of the
+more general version API with the endpoint `GET /_api/version`.
 The endpoint will be removed in ArangoDB v3.12.
 
 ### Endpoints added
