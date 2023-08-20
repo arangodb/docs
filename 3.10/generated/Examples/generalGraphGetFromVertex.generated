@@ -3,8 +3,8 @@ arangosh&gt; <span class="hljs-keyword">var</span> graph = examples.loadGraph(<s
 arangosh&gt; <span class="hljs-keyword">var</span> any = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb&quot;</span>).db.relation.any();
 arangosh&gt; graph._fromVertex(<span class="hljs-string">&quot;relation/&quot;</span> + any._key);
 { 
-  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
-  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;female/alice&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gTSOlwS---&quot;</span>, 
-  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span>, 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;male/bob&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gfQxFOG---&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Bob&quot;</span> 
 }
