@@ -42,7 +42,7 @@ detailed information about breaking changes before upgrading.
 {% endhint %}
 
 - **jslint Feature in arangosh**
-  The command line option `--jslint` and all functionality has been removed.:w
+  The command line option `--jslint` and all functionality has been removed.
 
 - **Standalone Agency and Agency HTTP API**:
   The Standalone Agency deployment type and the corresponding Agency HTTP API
