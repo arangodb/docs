@@ -138,7 +138,7 @@ Alternatively, follow the steps of the linked guides:
 - [Access your deployment](arangograph/deployments.html#how-to-access-your-deployment)
 - [Delete your deployment](arangograph/deployments.html#how-to-delete-a-deployment)
 
-## Free-to-Try vs. Professional Service
+## Free-to-Try vs. Paid
 
 The ArangoGraph Insights Platform comes with a free-to-try tier that lets you test
 the ArangoDB Cloud for free for 14 days. It includes one project and one small
