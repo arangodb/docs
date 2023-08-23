@@ -30,12 +30,6 @@ its projects and deployments.
 4. Click the __New deployment__ button.
 5. Set up your deployment. The configuration options are described below.
 
-   {% hint 'info' %}
-   The configuration options depend on the tier your organization belongs to.
-   For more details about available resources and usage limits, refer to the 
-   [ArangoGraph tiers](organizations.html#arangograph-tiers) section.
-   {% endhint %}
-
 ![ArangoGraph New Deployment](images/arangograph-new-deployment1.png)
 
 {% hint 'info' %}
