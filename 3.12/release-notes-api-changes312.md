@@ -54,7 +54,8 @@ versions.
   `dfdb` anymore.
 
 - On single servers and DB-Servers, the `GET /_api/engine` endpoint now
-  returns an `endianness` attribute (`"big"`, `"little"`, or `"invalid"`).
+  returns an `endianness` attribute. Currently, only Little Endian is supported
+  as an architecture by ArangoDB. The value is therefore `"little"`.
 
 ### Endpoints added
 
