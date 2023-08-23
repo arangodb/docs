@@ -16,18 +16,18 @@ integrations for ArangoDB 3.12.
 The following long-deprecated features have been removed from ArangoDB's HTTP
 server:
 
-- overriding the HTTP method by setting one of the HTTP headers:
+- Overriding the HTTP method by setting one of the HTTP headers:
   - `x-http-method`
   - `x-http-method-override`
   - `x-method-override`
- 
-   This functionaltiy posed a potential security risk and was thus removed.
+
+   This functionality posed a potential security risk and was thus removed.
    Previously, it was only enabled when explicitly starting the 
    server with the `--http.allow-method-override` startup option.
    The functionality has now been removed and setting the startup option does
    nothing.
 
-- optionally hiding ArangoDB's `server` response header. This functionality
+- Optionally hiding ArangoDB's `server` response header. This functionality
   could optionally be enabled by starting the server with the startup option
   `--http.hide-product-header`.
   The functionality has now been removed and setting the startup option does
@@ -50,12 +50,11 @@ versions.
 
 #### Storage engine API
 
-The storage engine API at `GET /_api/engine` does not return the attribute
-`dfdb` anymore.
+- The storage engine API at `GET /_api/engine` does not return the attribute
+  `dfdb` anymore.
 
-For the RocksDB storage engine on single servers and DB servers, the API now
-returns an `endianness` attribute.
-
+- On single servers and DB-Servers, the `GET /_api/engine` endpoint now
+  returns an `endianness` attribute (`"big"`, `"little"`, or `"invalid"`).
 
 ### Endpoints added
 
