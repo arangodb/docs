@@ -5,10 +5,6 @@ title: SCIM Provisioning
 ---
 # SCIM Provisioning
 
-{% hint 'info' %}
-This feature is only available in ArangoGraph Enterprise.
-{% endhint %}
-
 ArangoGraph provides support to control and manage members access in
 ArangoGraph organizations with the
 **System for Cross-domain Identity Management** (SCIM) provisioning. 
