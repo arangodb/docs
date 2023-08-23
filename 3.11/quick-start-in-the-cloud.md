@@ -140,12 +140,14 @@ Alternatively, follow the steps of the linked guides:
 
 ## Free-to-Try vs. Professional Service
 
-The ArangoGraph Insights Platform comes with a free-to-try tier that lets you test our ArangoDB
-Cloud for free for 14 days. It includes one project and one deployment.
-After the trial period, your deployments are automatically deleted.
+The ArangoGraph Insights Platform comes with a free-to-try tier that lets you test
+the ArangoDB Cloud for free for 14 days. It includes one project and one small
+deployment of 4GB, local backups, and one notebook for learning and data science.
+After the trial period, your deployment is automatically deleted.
 
-You can convert to the professional service model at any time by adding 
+You can unlock all features in ArangoGraph at any time by adding 
 your billing details and at least one payment method. See:
+- [ArangoGraph Packages](arangograph/organizations.html#arangograph-packages)
 - [How to add billing details to organizations](arangograph/billing.html#how-to-add-billing-details)
 - [How to add a payment method to an organization](arangograph/billing.html#how-to-add-a-payment-method)
 
