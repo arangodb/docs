@@ -30,12 +30,6 @@ its projects and deployments.
 4. Click the __New deployment__ button.
 5. Set up your deployment. The configuration options are described below.
 
-   {% hint 'info' %}
-   The configuration options depend on the tier your organization belongs to.
-   For more details about available resources and usage limits, refer to the 
-   [ArangoGraph tiers](organizations.html#arangograph-tiers) section.
-   {% endhint %}
-
 ![ArangoGraph New Deployment](images/arangograph-new-deployment1.png)
 
 {% hint 'info' %}
@@ -94,13 +88,8 @@ provider and region in the Location section.
 
 #### OneShard
 
-1. Select the memory size of your node.
-2. Select the CPU size of your node.
-3. Select the initial disk size of your node. The available ranges for the disk size
-   depend on the selected memory size.
-4. Select the upper limit for the disk size. It defaults to twice the initial
-   disk size. You can set it to the same value as the initial disk size to
-   disable automatic disk sizing.
+- Select the memory size of your node. The disk size is automatically set for you
+  based on the selected memory size.
 
 {% hint 'info' %}
 A deployment's node disk size is automatically increased by 25% when the maximal
@@ -114,16 +103,17 @@ the upper disk size limit already.
 
 #### Sharded
 
-- In addition to memory and disk size as in the OneShard configuration, select
+- In addition to the memory size as in the OneShard configuration, select
   the number of nodes for your deployment. The more nodes you have, the higher
-  the replication factor can be.
+  the replication factor can be. Same as in OneShard, the disk size is automatically
+  set for you.
 
 ![ArangoGraph Deployment Sharded](images/arangograph-new-deployment-sharded.png)
 
 #### Single Server
 
-- Like with OneShard and Sharded deployments, you choose memory and disk size.
-  However note that the sizes you choose are for the entire deployment.
+- Like with OneShard and Sharded deployments, you can choose the memory size.
+  Note, however, that the size you choose is for the entire deployment.
   For OneShard and Sharded deployments the chosen sizes are per node.
 
 ![ArangoGraph Deployment Single Server](images/arangograph-new-deployment-singleserver.png)
@@ -250,19 +240,13 @@ are using the `18529` port to avoid breaking changes.
 ## How to edit a deployment
 
 You can modify a deployment’s configuration, including the ArangoDB version
-that is being used, change the memory, CPU, and disk size, or even switch from
+that is being used, change the memory size, or even switch from
 a OneShard deployment to a Sharded one if your data set no longer fits in a
 single node. 
 
 {% hint 'tip' %}
 To edit an existing deployment, you must have the necessary set of permissions
 attached to your role. Read more about [roles and permissions](access-control.html#roles).
-{% endhint %}
-
-{% hint 'info' %}
-The configuration options depend on the tier your organization belongs to.
-For more details about available resources and usage limits, refer to the 
-[ArangoGraph tiers](organizations.html#arangograph-tiers) section.
 {% endhint %}
 
 1. Go to the **Projects** section and select an existing deployment from the list. 
@@ -274,12 +258,7 @@ For more details about available resources and usage limits, refer to the
    - Select a different CA certificate.
    - Add or remove an IP allowlist.
 5. In the **Configuration** section, you can do the following:
-   - Upgrade the memory size per node. 
-   - Modify the CPU per node from General to Low or vice-versa, if made available
-     by the cloud provider.
-   - Select a different disk size per node. The available ranges for the disk size
-     depend on the selected memory size. To enable automatic disk size scaling, move
-     the slider to a value higher than the current disk size.
+   - Upgrade the memory size per node. The disk size is automatically set for you.
    - Change **OneShard** deployments into **Sharded** deployments. To do so,
      click **Sharded**. In addition to the other configuration options, you can
      select the number of nodes for your deployment. This can also be modified later on.
@@ -287,15 +266,10 @@ For more details about available resources and usage limits, refer to the
    {% hint 'warning' %}
    Notice that you cannot switch from **Sharded** back to **OneShard**.
    {% endhint %}
-   
-   - AWS deployments have an additional option that allows you to select the
-     **Disk Performance** either with general settings, or optimized for large
-     and very large data sets. This option is dependent on the selected memory
-     size. For example, larger deployments have optimized settings by default.
 
    {% hint 'warning' %}
-   When upgrading the memory size, disk size, and/or disk performance in AWS deployments,
-   the value gets locked and cannot be changed until the cloud provider rate limit is reset.  
+   When upgrading the memory size in AWS deployments, the value gets locked and
+   cannot be changed until the cloud provider rate limit is reset. 
    {% endhint %}
 
 6. All changes are reflected in the **Summary** section. Review the new
