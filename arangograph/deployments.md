@@ -91,14 +91,6 @@ provider and region in the Location section.
 - Select the memory size of your node. The disk size is automatically set for you
   based on the selected memory size.
 
-{% hint 'info' %}
-A deployment's node disk size is automatically increased by 25% when the maximal
-disk usage of a node exceeds 75% of its capacity, up to the configured limit.
-You will be notified via email when the disk size is increased, as well as when
-your deployment runs out of disk space but cannot be resized because it reached
-the upper disk size limit already.
-{% endhint %}
-
 ![ArangoGraph Deployment OneShard](images/arangograph-new-deployment-oneshard.png)
 
 #### Sharded
