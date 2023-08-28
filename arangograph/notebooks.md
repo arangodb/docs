@@ -58,8 +58,8 @@ favorite GraphML libraries with GPUs.
 
 {% hint 'info' %}
 Depending on the tier your organization belongs to, different limitations apply:
-- Professional and Enterprise tiers: you can create up to three notebooks per deployment.
-- Free-to-try tier: you can only create one notebook per deployment.  
+- On-Demand and Committed: you can create up to three notebooks per deployment.
+- Free-to-try: you can only create one notebook per deployment.
 {% endhint %}
 
 ![Notebooks](images/arangograph-notebooks.png)
