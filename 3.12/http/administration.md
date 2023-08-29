@@ -20,7 +20,6 @@ redirect_from:
 {% docublock get_admin_time %}
 {% docublock get_admin_status %}
 {% docublock get_admin_server_availability %}
-{% docublock get_admin_database_target_version %}
 {% docublock get_admin_support_info %}
 
 ## Server mode
