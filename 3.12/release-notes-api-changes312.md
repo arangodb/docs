@@ -13,6 +13,26 @@ integrations for ArangoDB 3.12.
 
 ### Behavior changes
 
+The following long-deprecated features have been removed from ArangoDB's HTTP
+server:
+
+- Overriding the HTTP method by setting one of the HTTP headers:
+  - `x-http-method`
+  - `x-http-method-override`
+  - `x-method-override`
+
+   This functionality posed a potential security risk and was thus removed.
+   Previously, it was only enabled when explicitly starting the 
+   server with the `--http.allow-method-override` startup option.
+   The functionality has now been removed and setting the startup option does
+   nothing.
+
+- Optionally hiding ArangoDB's `server` response header. This functionality
+  could optionally be enabled by starting the server with the startup option
+  `--http.hide-product-header`.
+  The functionality has now been removed and setting the startup option does
+  nothing.
+
 #### Collection API
 
 When creating a collection using the `POST /_api/collection` endpoint, the
@@ -28,13 +48,38 @@ versions.
 
 ### Endpoint return value changes
 
+#### Storage engine API
 
+- The storage engine API at `GET /_api/engine` does not return the attribute
+  `dfdb` anymore.
+
+- On single servers and DB-Servers, the `GET /_api/engine` endpoint now
+  returns an `endianness` attribute. Currently, only Little Endian is supported
+  as an architecture by ArangoDB. The value is therefore `"little"`.
 
 ### Endpoints added
 
 
 
 ### Endpoints augmented
+
+#### View API
+
+Views of type `arangosearch` accept a new `optimizeTopK` View property for the
+ArangoSearch WAND optimization. It is an immutable array of strings, optional,
+and defaults to `[]`.
+
+See the [`optimizeTopK` View property](arangosearch-views.html#view-properties)
+for details.
+
+#### Index API
+
+Indexes of type `inverted` accept a new `optimizeTopK` property for the
+ArangoSearch WAND optimization. It is an array of strings, optional, and
+defaults to `[]`.
+
+See the [inverted index `optimizeTopK` property](http/indexes-inverted.html)
+for details.
 
 #### Optimizer rule descriptions
 
@@ -49,9 +94,13 @@ every optimizer rule that briefly explains what it does.
 
 ### Endpoints deprecated
 
-
-
 ### Endpoints removed
+
+#### Database target version API
+
+The `GET /_admin/database/target-version` endpoint has been removed in favor of the
+more general version API with the endpoint `GET /_api/version`. 
+The endpoint was deprecated since v3.11.3.
 
 #### JavaScript-based traversal using `/_api/traversal`
 

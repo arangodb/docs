@@ -400,6 +400,12 @@ Also see the [HTTP interface for cluster maintenance](http/cluster.html#get-the-
   threshold for the maximum number of `OR` sub-nodes in the internal
   representation of an AQL `FILTER` condition and defaults to `786432`.
 
+### Endpoints deprecated
+
+The `GET /_admin/database/target-version` endpoint is deprecated in favor of the
+more general version API with the endpoint `GET /_api/version`.
+The endpoint will be removed in ArangoDB v3.12.
+
 #### Restriction of indexable fields
 
 It is now forbidden to create indexes that cover fields whose attribute names

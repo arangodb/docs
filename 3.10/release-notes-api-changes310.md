@@ -156,6 +156,12 @@ Now, a request like this succeeds and returns an empty array as response.
     that the `revision` attribute always contains a string value with
     either numeric encoding or HLC-encoding inside.
 
+### Endpoints deprecated
+
+The `GET /_admin/database/target-version` endpoint is deprecated in favor of the
+more general version API with the endpoint `GET /_api/version`.
+The endpoint will be removed in ArangoDB v3.12.
+
 ### Endpoints added
 
 #### Optimizer rules for AQL queries

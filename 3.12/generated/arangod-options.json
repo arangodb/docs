@@ -591,9 +591,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.5"
-    ],
+    "introducedIn" : null,
     "longDescription" : "The option value must fall in the range\n`[ 1..4 * NumberOfCores ]`. Set it to `0` to automatically choose a sensible\nnumber based on the number of cores in the system.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -625,9 +623,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.5"
-    ],
+    "introducedIn" : null,
     "longDescription" : "The option value must fall in the range\n`[ 1..arangosearch.commit-threads ]`. Set it to `0` to automatically choose a\nsensible number based on the number of cores in the system.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -659,9 +655,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.5"
-    ],
+    "introducedIn" : null,
     "longDescription" : "The option value must fall in the range\n`[ 1..arangosearch.consolidation-threads ]`. Set it to `0` to automatically\nchoose a sensible number based on the number of cores in the system.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -693,9 +687,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.5"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 4294967295,
     "minInclusive" : true,
@@ -1102,6 +1094,38 @@
     "section" : "cache",
     "type" : "uint32"
   },
+  "cache.high-water-multiplier" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 0.95,
+    "deprecatedIn" : null,
+    "description" : "The multiplier to be used for calculating the in-memory cache's effective memory usage limit.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "This value controls the cache's effective memory usage limit.\nThe user-defined memory limit (i.e. `--cache.size`) is multipled with this\nvalue to create the effective memory limit, from which on the cache will \ntry to free up memory by evicting the oldest entries.",
+    "maxInclusive" : true,
+    "maxValue" : 1,
+    "minInclusive" : true,
+    "minValue" : 0.1,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cache",
+    "type" : "double"
+  },
   "cache.ideal-lower-fill-ratio" : {
     "base" : 1,
     "category" : "option",
@@ -1109,7 +1133,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 0.04,
+    "default" : 0.08,
     "deprecatedIn" : null,
     "description" : "The lower bound fill ratio value for a cache table.",
     "dynamic" : false,
@@ -1141,7 +1165,7 @@
       "dbserver",
       "single"
     ],
-    "default" : 0.25,
+    "default" : 0.33,
     "deprecatedIn" : null,
     "description" : "The upper bound fill ratio value for a cache table.",
     "dynamic" : false,
@@ -1165,6 +1189,37 @@
     "requiresValue" : true,
     "section" : "cache",
     "type" : "double"
+  },
+  "cache.max-spare-memory-usage" : {
+    "base" : 1,
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 67108864,
+    "deprecatedIn" : null,
+    "description" : "The maximum memory usage for spare tables in the in-memory cache.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cache",
+    "type" : "uint64"
   },
   "cache.min-value-size-for-edge-compression" : {
     "base" : 1,
@@ -1239,7 +1294,7 @@
       "agent",
       "single"
     ],
-    "default" : 17872713728,
+    "default" : 16338163712,
     "deprecatedIn" : null,
     "description" : "The global size limit for all caches (in bytes).",
     "dynamic" : true,
@@ -1378,9 +1433,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "If you don't set this option, it defaults to the\nvalue of the `--cluster.min-replication-factor` option. If set, the value must\nbe between the values of `--cluster.min-replication-factor` and\n`--cluster.max-replication-factor`.\n\nNote that you can still adjust the replication factor per collection. This value\nis only the default value used for new collections if no replication factor is\nspecified when creating a collection.\n\n**Warning**: If you use multiple Coordinators, use the same value on all\nCoordinators.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -1440,9 +1493,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "If set to `true`, forces the cluster into creating\nall future collections with only a single shard and using the same DB-Server as\nas these collections' shards leader. All collections created this way are\neligible for specific AQL query optimizations that can improve query performance\nand provide advanced transactional guarantees.\n\n**Warning**: If you use multiple Coordinators, use the same value on all\nCoordinators.",
     "obsolete" : false,
     "os" : [
@@ -1527,9 +1578,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.1"
-    ],
+    "introducedIn" : null,
     "longDescription" : "If you change the value of this setting and\nrestart the servers, no changes are applied to existing collections that would\nviolate the new setting.\n\n**Warning**: If you use multiple Coordinators, use the same value on all\nCoordinators.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -1558,9 +1607,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "If you change the value of this setting and\nrestart the servers, no changes are applied to existing collections that would\nviolate the new setting.\n\n**Warning**: If you use multiple Coordinators, use the same value on all\nCoordinators.",
     "maxInclusive" : true,
     "maxValue" : 10,
@@ -1589,9 +1636,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "If you change the value of this setting and\nrestart the servers, no changes are applied to existing collections that would\nviolate the new setting.\n\n**Warning**: If you use multiple Coordinators, use the same value on all\nCoordinators.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -1851,9 +1896,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.5.1"
-    ],
+    "introducedIn" : null,
     "longDescription" : "**Warning**: This option should generally remain\nuntouched and only be changed with great care!\n\nThe minimum timeout in seconds for the internal synchronous replication\nmechanism between DB-Servers. If replication requests are slow, but the servers\nare otherwise healthy, timeouts can cause followers to be dropped unnecessarily,\nresulting in costly resync operations. Increasing this value may help avoid such\nresyncs. Conversely, decreasing it may cause more resyncs, while lowering the\nlatency of individual write operations.\n\n**Warning**: If you use multiple DB-Servers, use the same value on all\nDB-Servers.",
     "maxInclusive" : true,
     "maxValue" : 1.7976931348623157e+308,
@@ -1942,9 +1985,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1969,9 +2010,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "This value is used as the default write concern\nfor databases, which in turn is used as the default for collections.\n\n**Warning**: If you use multiple Coordinators, use the same value on all\nCoordinators.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -2735,9 +2774,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -2790,10 +2827,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.10",
-      "v3.7.6"
-    ],
+    "introducedIn" : null,
     "longDescription" : "If set to `true`, all Foxx services in all\ndatabases are synchronized between multiple Coordinators during the startup\nsequence. This ensures that all Foxx services are up-to-date when a Coordinator\nreports itself as ready.\n\nIn case the option is set to `false` (i.e. no waiting), the Coordinator\ncompletes the startup sequence faster, and the Foxx services are propagated\nlazily. Until the initialization procedure has completed for the local Foxx\napps, any request to a Foxx app is responded to with an HTTP 500 error and a\nmessage `waiting for initialization of Foxx services in this database`. This can\ncause an unavailability window for Foxx services on Coordinator startup for the\ninitial requests to Foxx apps until the app propagation has completed.\n\nIf you don't use Foxx, you should set this option to `false` to benefit from a\nfaster Coordinator startup. Deployments relying on Foxx apps being available as\nsoon as a Coordinator is integrated or responding should set this option to\n`true`.\n\nThe option only has an effect for cluster setups. On single servers and in\nActive Failover mode, all Foxx apps are available from the very beginning.\n\n**Note**: ArangoDB 3.8 changes the default value to `false` for this option.\nIn previous versions, this option had a default value of `true`.",
     "obsolete" : false,
     "os" : [
@@ -2875,9 +2909,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -2915,65 +2947,6 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
-  },
-  "http.allow-method-override" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : [
-      "v3.8.0"
-    ],
-    "description" : "Allow HTTP method override using special headers.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "longDescription" : "If you set this option to `true`, the HTTP request\nmethod is optionally fetched from one of the following HTTP request headers if\npresent in the request:\n\n- `x-http-method`\n- `x-http-method-override`\n- `x-method-override`\n\nIf the option is enabled and any of these headers is set, the request method is\noverridden by the value of the header. For example, this allows you to issue an\nHTTP DELETE request which, to the outside world, looks like an HTTP GET request.\nThis allows you to bypass proxies and tools that only let certain request types\npass.\n\nEnabling this option may impose a security risk. You should only use it in\ncontrolled environments.",
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "http",
-    "type" : "boolean"
-  },
-  "http.hide-product-header" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : [
-      "v3.8.0"
-    ],
-    "description" : "Whether to omit the `Server: ArangoDB` header in HTTP responses.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "http",
-    "type" : "boolean"
   },
   "http.keep-alive-timeout" : {
     "base" : 1,
@@ -3022,9 +2995,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.12"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3051,9 +3022,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.12"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3216,9 +3185,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3243,9 +3210,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3347,9 +3312,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3374,9 +3337,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3401,9 +3362,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3428,9 +3387,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3455,9 +3412,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3540,9 +3495,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3672,9 +3625,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -3699,9 +3650,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4318,9 +4267,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.11"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5269,9 +5216,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.11"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5919,11 +5864,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.11",
-      "v3.5.6",
-      "v3.6.5"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Credentials are not written to log files.\nNevertheless, some logged data might be sensitive depending on the context of\nthe deployment. For example, if request logging is switched on, user requests\nand corresponding data might end up in log files. Therefore, a certain care\nwith log files is recommended.\n\nSince the database server offers an API to control logging and query logging\ndata, this API has to be secured properly. By default, the API is accessible\nfor admin users (administrative access to the `_system` database). However,\nyou can lock this down further.\n\nThe possible values for this option are:\n\n - `true`: The `/_admin/log` API is accessible for admin users.\n - `jwt`: The `/_admin/log` API is accessible for the superuser only\n   (authentication with JWT token and empty username).\n - `false`: The `/_admin/log` API is not accessible at all.",
     "obsolete" : false,
     "os" : [
@@ -6063,9 +6004,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.5"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6091,9 +6030,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.5"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6203,9 +6140,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Each log invocation in the ArangoDB source code\ncontains a unique log ID, which can be used to quickly find the location in the\nsource code that produced a specific log message.\n\nLog IDs are printed as 5-digit hexadecimal identifiers in square brackets\nbetween the log level and the log topic:\n\n`2020-06-22T21:16:48Z [39028] INFO [144fe] {general} using storage engine\n'rocksdb'` (where `144fe` is the log ID).",
     "obsolete" : false,
     "os" : [
@@ -6263,9 +6198,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.9"
-    ],
+    "introducedIn" : null,
     "longDescription" : "You can use this option to control which log\nmessages are preserved in memory (in case `--log.in-memory` is enabled).\n\nThe default value is `info`, meaning all log messages of types `info`,\n`warning`, `error`, and `fatal` are stored in-memory by an instance. By setting\nthis option to `warning`, only `warning`, `error` and `fatal` log messages are \npreserved in memory, and by setting the option to `error`, only `error` and\n`fatal` messages are kept.\n\nThis option is useful because the number of in-memory log messages is limited \nto the latest 2048 messages, and these slots are shared between informational,\nwarning, and error messages by default.",
     "obsolete" : false,
     "os" : [
@@ -6318,7 +6251,7 @@
       "info"
     ],
     "deprecatedIn" : null,
-    "description" : "Set the topic-specific log level, using `--log.level level` for the general topic or `--log.level topic=level` for the specified topic (can be specified multiple times).\nAvailable log levels: fatal, error, warning, info, debug, trace.\nAvailable log topics: all, agency, agencycomm, agencystore, aql, arangosearch, audit-authentication, audit-authorization, audit-collection, audit-database, audit-document, audit-hotbackup, audit-service, audit-view, authentication, authorization, backup, bench, cache, cluster, communication, config, crash, development, dump, engines, flush, general, graphs, heartbeat, httpclient, ldap, libiresearch, license, maintenance, memory, mmap, pregel, queries, rep-state, replication, replication2, requests, restore, rocksdb, security, ssl, startup, statistics, supervision, syscall, threads, trx, ttl, v8, validation, views.",
+    "description" : "Set the topic-specific log level, using `--log.level level` for the general topic or `--log.level topic=level` for the specified topic (can be specified multiple times).\nAvailable log levels: fatal, error, warning, info, debug, trace.\nAvailable log topics: all, agency, agencycomm, agencystore, aql, arangosearch, audit-authentication, audit-authorization, audit-collection, audit-database, audit-document, audit-hotbackup, audit-service, audit-view, authentication, authorization, backup, bench, cache, cluster, communication, config, crash, deprecation, development, dump, engines, flush, general, graphs, heartbeat, httpclient, ldap, libiresearch, license, maintenance, memory, mmap, pregel, queries, rep-state, replication, replication2, requests, restore, rocksdb, security, ssl, startup, statistics, supervision, syscall, threads, trx, ttl, v8, validation, views.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -6378,9 +6311,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.9"
-    ],
+    "introducedIn" : null,
     "longDescription" : "**Note**: This option does not include audit log\nmessages. See `--audit.max-entry-length` instead.\n\nAny log messages longer than the specified value are truncated and the suffix\n`...` is added to them.\n\nThe purpose of this option is to shorten long log messages in case there is not\na lot of space for log files, and to keep rogue log messages from overusing\nresources.\n\nThe default value is 128 MB, which is very high and should effectively mean\ndownwards-compatibility with previous arangod versions, which did not restrict\nthe maximum size of log messages.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -6690,9 +6621,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Overview over the different options:\n\nFormat                  | Example                  | Description\n:-----------------------|:------------------------ |:-----------\n`timestamp`             | 1553766923000            | Unix timestamps, in seconds\n`timestamp-millis`      | 1553766923000.123        | Unix timestamps, in seconds, with millisecond precision\n`timestamp-micros`      | 1553766923000.123456     | Unix timestamps, in seconds, with microsecond precision\n`uptime`                | 987654                   | seconds since server start\n`uptime-millis`         | 987654.123               | seconds since server start, with millisecond precision\n`uptime-micros`         | 987654.123456            | seconds since server start, with microsecond precision\n`utc-datestring`        | 2019-03-28T09:55:23Z     | UTC-based date and time in format YYYY-MM-DDTHH:MM:SSZ \n`utc-datestring-millis` | 2019-03-28T09:55:23.123Z | like `utc-datestring`, but with millisecond precision\n`local-datestring`      | 2019-03-28T10:55:23      | local date and time in format YYYY-MM-DDTHH:MM:SS",
     "obsolete" : false,
     "os" : [
@@ -6811,9 +6740,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -6844,9 +6771,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 4294967295,
     "minInclusive" : true,
@@ -6877,9 +6802,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -6944,9 +6867,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -6973,9 +6894,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7019,7 +6938,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The maximum parallelism usable in a Pregel job.",
     "dynamic" : true,
@@ -7083,7 +7002,7 @@
       "coordinator",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "The default parallelism to use in a Pregel job if none is specified.",
     "dynamic" : true,
@@ -7320,7 +7239,7 @@
     "type" : "boolean"
   },
   "query.global-memory-limit" : {
-    "base" : 73638338560,
+    "base" : 67500138496,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7328,7 +7247,7 @@
       "agent",
       "single"
     ],
-    "default" : 59647054233,
+    "default" : 54675112182,
     "deprecatedIn" : null,
     "description" : "The memory threshold for all AQL queries combined (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7565,9 +7484,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -7598,10 +7515,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.7",
-      "v3.7.3"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Sets a default maximum runtime for AQL queries.\n\nThe default value is `0`, meaning that the runtime of AQL queries is not\nlimited. If you set it to any positive value, it restricts the runtime of all\nAQL queries, unless you override it with the `maxRuntime` query option on a\nper-query basis.\n\nIf a query exceeds the configured runtime, it is killed on the next occasion\nwhen the query checks its own status. Killing is best effort-based, so it is not\nguaranteed that a query will no longer than exactly the configured amount of\ntime.\n\n**Warning**: This option affects all queries in all databases, including queries\nissued for administration and database-internal purposes.",
     "maxInclusive" : true,
     "maxValue" : 1.7976931348623157e+308,
@@ -7618,7 +7532,7 @@
     "type" : "double"
   },
   "query.memory-limit" : {
-    "base" : 73638338560,
+    "base" : 67500138496,
     "category" : "option",
     "component" : [
       "coordinator",
@@ -7626,7 +7540,7 @@
       "agent",
       "single"
     ],
-    "default" : 44183003136,
+    "default" : 40500083097,
     "deprecatedIn" : null,
     "description" : "The memory threshold per AQL query (in bytes, 0 = no limit).",
     "dynamic" : true,
@@ -7727,9 +7641,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "You can use this option to selectively enable or\ndisable AQL query optimizer rules by default. You can specify the option\nmultiple times.\n\nFor example, to turn off the rules `use-indexes-for-sort` and\n`reduce-extraction-to-projection` by default, use the following:\n\n```\n--query.optimizer-rules \"-use-indexes-for-sort\" --query.optimizer-rules \"-reduce-extraction-to-projection\"\n```\n\nThe purpose of this startup option is to be able to enable potential future\nexperimental optimizer rules, which may be shipped in a disabled-by-default\nstate.",
     "obsolete" : false,
     "os" : [
@@ -7756,9 +7668,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7911,9 +7821,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.4.5"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -7967,9 +7875,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.4"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8024,9 +7930,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.4"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8053,9 +7957,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.4"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8287,10 +8189,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.9",
-      "v3.5.4"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 1.7976931348623157e+308,
     "minInclusive" : true,
@@ -8321,9 +8220,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -8354,9 +8251,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.9"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -8387,10 +8282,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.9",
-      "v3.5.4"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 1.7976931348623157e+308,
     "minInclusive" : true,
@@ -8420,9 +8312,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -8448,9 +8338,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.4.5"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Preallocation is turned on by default, but you can\nturn it off for operating system versions that are known to have issues with it.\nThis option only has an effect on operating systems that support\n`fallocate`.",
     "obsolete" : false,
     "os" : [
@@ -8861,7 +8749,7 @@
       "agent",
       "single"
     ],
-    "default" : 21447256473,
+    "default" : 19605796454,
     "deprecatedIn" : null,
     "description" : "The size of block cache (in bytes).",
     "dynamic" : true,
@@ -8930,9 +8818,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "longDescription" : "If you set this option to `true`, RocksDB tracks\nall loaded index and filter blocks in the block cache, so that they count\ntowards RocksDB's block cache memory limit.\n\nIf you set this option to `false`, the memory usage for index and filter blocks\nis not accounted for.\n\nThe default value of `--rocksdb.cache-index-and-filter-blocks` was `false` in \nversions before 3.10, and was changed to `true` from version 3.10 onwards.\n\nTo improve stability of memory usage and avoid untracked memory allocations by\nRocksDB, it is recommended to set this option to `true`. Note that tracking\nindex and filter blocks leaves less room for other data in the block cache, so\nin case servers have unused RAM capacity available, it may be useful to increase\nthe overall size of the block cache.",
     "obsolete" : false,
     "os" : [
@@ -8959,9 +8845,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9211,9 +9095,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.6.4"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9376,9 +9258,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9460,9 +9340,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9515,9 +9393,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9571,9 +9447,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.5.4"
-    ],
+    "introducedIn" : null,
     "longDescription" : "This option allows you to make all writes to the\nRocksDB storage exclusive and therefore avoid write-write conflicts.\n\nThis option was introduced to open a way to upgrade from the legacy MMFiles to\nthe RocksDB storage engine without modifying client application code.\nYou should avoid enabling this option as the use of exclusive locks on\ncollections introduce a noticeable throughput penalty.\n\n**Note**: The MMFiles engine was removed and this option is a stopgap measure\nonly. This option is thus deprecated, and will be removed in a future\nversion.",
     "obsolete" : false,
     "os" : [
@@ -9788,9 +9662,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.4.5"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9810,7 +9682,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The maximum number of concurrent background jobs (compactions and flushes).",
     "dynamic" : true,
@@ -9942,9 +9814,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.11"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -10362,9 +10232,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.3"
-    ],
+    "introducedIn" : null,
     "longDescription" : "The default value `0` restores the memory usage\npattern of version 3.6. This makes RocksDB not keep any flushed immutable\nwrite-buffers in memory.",
     "maxInclusive" : true,
     "maxValue" : 9223372036854775807,
@@ -10655,6 +10523,122 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.partition-files-for-documents" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If enabled, the document data for different collections/shards will end up in different .sst files.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Enabling this option will make RocksDB's\ncompaction write the document data for different collections/shards\ninto different .sst files. Otherwise the document data from different \ncollections/shards can be mixed and written into the same .sst files.\n\nEnabling this option usually has the benefit of making the RocksDB\ncompaction more efficient when a lot of different collections/shards\nare written to in parallel.\nThe disavantage of enabling this option is that there can be more .sst\nfiles than when the option is turned off, and the disk space used by\nthese .sst files can be higher than if there are fewer .sst files (this\nis because there is some per-.sst file overhead).\nIn particular on deployments with many collections/shards\nthis can lead to a very high number of .sst files, with the potential\nof outgrowing the maximum number of file descriptors the ArangoDB process \ncan open. Thus the option should only be enabled on deployments with a\nlimited number of collections/shards.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.partition-files-for-edge-index" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If enabled, the index data for different edge indexes will end up in different .sst files.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Enabling this option will make RocksDB's\ncompaction write the edge index data for different edge collections/shards\ninto different .sst files. Otherwise the edge index data from different \nedge collections/shards can be mixed and written into the same .sst files.\n\nEnabling this option usually has the benefit of making the RocksDB\ncompaction more efficient when a lot of different edge collections/shards\nare written to in parallel.\nThe disavantage of enabling this option is that there can be more .sst\nfiles than when the option is turned off, and the disk space used by\nthese .sst files can be higher than if there are fewer .sst files (this\nis because there is some per-.sst file overhead).\nIn particular on deployments with many edge collections/shards\nthis can lead to a very high number of .sst files, with the potential\nof outgrowing the maximum number of file descriptors the ArangoDB process \ncan open. Thus the option should only be enabled on deployments with a\nlimited number of edge collections/shards.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.partition-files-for-persistent-index" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If enabled, the index data for different persistent indexes will end up in different .sst files.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Enabling this option will make RocksDB's\ncompaction write the persistent index data for different persistent\nindexes (also indexes from different collections/shards) into different \n.sst files. Otherwise the persistent index data from different \ncollections/shards/indexes can be mixed and written into the same .sst files.\n\nEnabling this option usually has the benefit of making the RocksDB\ncompaction more efficient when a lot of different collections/shards/indexes\nare written to in parallel.\nThe disavantage of enabling this option is that there can be more .sst\nfiles than when the option is turned off, and the disk space used by\nthese .sst files can be higher than if there are fewer .sst files (this\nis because there is some per-.sst file overhead).\nIn particular on deployments with many collections/shards/indexes\nthis can lead to a very high number of .sst files, with the potential\nof outgrowing the maximum number of file descriptors the ArangoDB process \ncan open. Thus the option should only be enabled on deployments with a\nlimited number of edge collections/shards/indexes.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.partition-files-for-primary-index" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If enabled, the primary index data for different collections/shards will end up in different .sst files.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "longDescription" : "Enabling this option will make RocksDB's\ncompaction write the primary index data for different collections/shards\ninto different .sst files. Otherwise the primary index data from different \ncollections/shards can be mixed and written into the same .sst files.\n\nEnabling this option usually has the benefit of making the RocksDB\ncompaction more efficient when a lot of different collections/shards\nare written to in parallel.\nThe disavantage of enabling this option is that there can be more .sst\nfiles than when the option is turned off, and the disk space used by\nthese .sst files can be higher than if there are fewer .sst files (this\nis because there is some per-.sst file overhead).\nIn particular on deployments with many collections/shards\nthis can lead to a very high number of .sst files, with the potential\nof outgrowing the maximum number of file descriptors the ArangoDB process \ncan open. Thus the option should only be enabled on deployments with a\nlimited number of collections/shards.",
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.pending-compactions-slowdown-trigger" : {
     "base" : 1,
     "category" : "option",
@@ -10766,9 +10750,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10794,9 +10776,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -10837,13 +10817,14 @@
     "type" : "boolean"
   },
   "rocksdb.recycle-log-file-num" : {
+    "base" : 1,
     "category" : "option",
     "component" : [
       "dbserver",
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : 0,
     "deprecatedIn" : null,
     "description" : "If enabled, keep a pool of log files around for recycling.",
     "dynamic" : false,
@@ -10851,16 +10832,19 @@
     "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
     "obsolete" : false,
     "os" : [
       "linux",
       "macos",
       "windows"
     ],
-    "required" : false,
-    "requiresValue" : false,
+    "requiresValue" : true,
     "section" : "rocksdb",
-    "type" : "boolean"
+    "type" : "uint64"
   },
   "rocksdb.reserve-file-metadata-memory" : {
     "category" : "option",
@@ -10960,10 +10944,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.6.8",
-      "v3.7.5"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -11052,9 +11033,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -11084,9 +11063,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 18446744073709551615,
     "minInclusive" : true,
@@ -11326,7 +11303,7 @@
       "agent",
       "single"
     ],
-    "default" : 28596341964,
+    "default" : 26141061939,
     "deprecatedIn" : null,
     "description" : "The maximum total size of in-memory write buffers (0 = unbounded).",
     "dynamic" : true,
@@ -11357,7 +11334,7 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "The number of lock stripes to use for transaction locks.",
     "dynamic" : true,
@@ -12082,9 +12059,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -12111,9 +12086,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.7"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -12166,9 +12139,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -12189,7 +12160,7 @@
       "agent",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "The number of threads used to handle I/O.",
     "dynamic" : true,
@@ -12255,9 +12226,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Files are sorted alphabetically, the first secret\nis used for signing + verifying JWT tokens (_active_ secret), and all other\nsecrets are only used to validate incoming JWT tokens (_passive_ secrets).\nOnly one secret needs to verify a JWT token for it to be accepted.\n\nYou can reload JWT secrets from disk without restarting the server or the nodes\nof a cluster deployment via the `POST /_admin/server/jwt` HTTP API endpoint.\nYou can use this feature to roll out new JWT secrets throughout a cluster.",
     "obsolete" : false,
     "os" : [
@@ -12384,7 +12353,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex).",
     "dynamic" : true,
@@ -12414,7 +12383,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 10,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "The maximum number of threads available for maintenance actions.",
     "dynamic" : true,
@@ -12479,7 +12448,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 72)",
+    "description" : "The maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -12789,10 +12758,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.9",
-      "v3.5.1"
-    ],
+    "introducedIn" : null,
     "longDescription" : "If you set this option to `false`, then ArangoDB's\nstatistics gathering is turned off. Statistics gathering causes regular\nbackground CPU activity, memory usage, and writes to the storage engine, so\nusing this option to turn statistics off might relieve heavily-loaded instances\na bit.\n\nIf set to `false`, no statistics are shown in the dashboard of ArangoDB's\nweb interface, but the current statistics are available and can be queried\nusing the REST API for server statistics at `/_admin/statistics`.\nThis is less intrusive than setting the `--server.statistics` option to\n`false`.",
     "obsolete" : false,
     "os" : [
@@ -12964,10 +12930,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.6.10",
-      "v3.7.6"
-    ],
+    "introducedIn" : null,
     "longDescription" : "You can use this option to set a high-watermark\nfor the scheduler's queue fill grade, from which onwards the server starts\nreporting unavailability via its availability API.\n\nThis option has a consequence for the `/_admin/server/availability` REST API\nonly, which is often called by load-balancers and other availability probing\nsystems.\n\nThe `/_admin/server/availability` REST API returns HTTP 200 if the fill\ngrade of the scheduler's queue is below the configured value, or HTTP 503 if\nthe fill grade is equal to or above it. This can be used to flag a server as\nunavailable in case it is already highly loaded.\n\nThe default value for this option is `0.75` since version 3.8, i.e. 75%.\n\nTo prevent sending more traffic to an already overloaded server, it can be\nsensible to reduce the default value to even `0.5`. This would mean that\ninstances with a queue longer than 50% of their maximum queue capacity would\nreturn HTTP 503 instead of HTTP 200 when their availability API is probed.",
     "maxInclusive" : true,
     "maxValue" : 1,
@@ -12998,9 +12961,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.7.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -13254,9 +13215,7 @@
     "enterpriseOnly" : true,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Sometimes, it is desirable to have the same server\nuse different server keys and certificates when it is contacted under different\nnames. This is what the TLS \"server name\" extension is for. See\nhttps://en.wikipedia.org/wiki/Server_Name_Indication) for details.\nfor details). With this extension, the client can choose a server name, and the\nserver can, using this information during the TLS handshake, use different\nserver keys and certificate chains.\n\nYou can specify the option multiple times. Each value must be a string in the\nformat `SERVERNAME=KEYFILENAME`. Replace `SERVERNAME` by a server name and\n`KEYFILENAME` by the file name of the key file to be used for that server name.\n\nThe format of the keyfile is identical to the one used for the `--ssl.keyfile`\noption. The keyfile used by default is the one in the `--ssl.keyfile` option,\nand only if there is an exact match between one server name given with\n`--ssl.server-name-indication` and the one in the handshake, the server switches\nto the alternative keyfile.",
     "obsolete" : false,
     "os" : [
@@ -13644,10 +13603,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.6.5",
-      "v3.7.1"
-    ],
+    "introducedIn" : null,
     "maxInclusive" : true,
     "maxValue" : 1.7976931348623157e+308,
     "minInclusive" : true,

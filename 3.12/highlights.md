@@ -1,12 +1,13 @@
 ---
 layout: default
-description: List of top features in Community and Enterprise Edition by release series
+description: >-
+  The most notable features in the Community and Enterprise Edition of ArangoDB,
+  grouped by version
 title: ArangoDB Highlights
 ---
 # Highlights by Version
 
-The most notable features in the Community and Enterprise Edition of ArangoDB,
-grouped by version
+{{ page.description }}
 {:class="lead"}
 
 ## Version 3.12
@@ -17,7 +18,9 @@ grouped by version
 
 **Enterprise Edition**
 
-- 
+- [**ArangoSearch WAND optimization**](arangosearch-performance.html#wand-optimization):
+  Retrieve search results for the highest-ranking matches from Views faster by
+  defining a list of sort expressions to optimize.
 
 Also see [What's New in 3.12](release-notes-new-features312.html).
 

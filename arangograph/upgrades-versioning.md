@@ -115,6 +115,5 @@ ArangoGraph aims to give approximately one week’s notice prior to upgrading yo
 deployments to the latest patch release. Although in exceptional circumstances
 (such as a critical security issue) the upgrade may be triggered with less than
 one week's notice.
-The upgrade is carried out automatically. However, if your organization belongs 
-to the Enterprise tier, you contact the ArangoGraph Support team to request that
-this upgrade is manually deferred temporarily.
+The upgrade is carried out automatically. However, if you need the upgrade to be
+deferred temporarily, contact the ArangoGraph Support team to request that.

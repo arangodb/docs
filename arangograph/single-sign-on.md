@@ -5,10 +5,6 @@ title: Single Sign-On (SSO)
 ---
 # Single Sign-On (SSO)
 
-{% hint 'info' %}
-This feature is only available in ArangoGraph Enterprise.
-{% endhint %}
-
 ArangoGraph provides support to enable **Single Sign-On** (SSO) authentication
 using **Security Assertion Markup language 2.0** (SAML 2.0).
 

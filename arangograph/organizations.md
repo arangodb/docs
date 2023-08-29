@@ -29,50 +29,57 @@ member of one _Free-to-try_ tier organization at a time.
 
 ![ArangoGraph Organization Overview](images/arangograph-organization-overview.png)
 
-## ArangoGraph tiers
+## ArangoGraph Packages
 
-With the ArangoGraph Insights Platform, your organization can belong to one of the following three tiers:
+With the ArangoGraph Insights Platform, your organization can choose one of the
+following packages.
 
-- **Free-to-try tier**: ArangoGraph comes with a free-to-try tier that lets
-you test ArangoGraph for free for 14 days. After the trial period,
-your deployments will be deleted automatically. Includes the Basic Support plan,
-which covers the availability and connectivity of the ArangoGraph Insights Platform, and general questions.
-- **Professional tier**: Allows you to create additional organizations and
-projects, and have more and larger deployments. Includes the Standard support for
-professional deployments, which covers everything from the Basic support plan
-with explicit response times.
-- **Enterprise tier**: Get unlimited access to all functionalities and resources,
-with the best available support and response times. Includes the Premium Standard
-support plan.
+### Free Trial
 
-| &nbsp;| Free-to-try  | Professional  | Enterprise  |
-|-------|:--------------:|:---------------:|:-------------:|
-| **Organizations per user** | 1 | Unlimited | Unlimited |
-| **Projects per organization** | 1 | 3 | Unlimited |
-| **Deployments per project** | 1 | 5 | Unlimited |
-| **Upload backup** | Not included | Included | Included |
-| **Private endpoint deployment** | Not included | Not included | Included |
-| **Support plan** | Basic | Standard | Premium Standard |
+ArangoGraph comes with a free-to-try tier that lets you test ArangoGraph for
+free for 14 days. You can get started quickly, without needing to enter a
+credit card.
 
-{% hint 'info' %}
-Based on the type of tier your organization belongs to, different usage
-limits apply for memory and storage.
-{% endhint %}
+The free trial gives you access to:
+- One small deployment (4GB) in a region of your choice for 14 days
+- Local backups
+- One ArangoGraph Notebook for learning and data science
 
-## How to upgrade to Professional tier
+After the trial period, your deployment will be deleted automatically.
 
-You can upgrade to the professional service model at any time by adding
-your billing details and at least one payment method. You can then create
-additional organizations and projects and have more and larger deployments.
+### On-Demand
+
+Add a payment payment method to gain access to ArangoGraph's full feature set.
+Pay monthly via a credit card for what you actually use.
+
+This package unlocks all ArangoGraph functionality, including:
+- Multiple and larger deployments
+- Backups to cloud storage, with multi-region support
+- Enhanced security features such as Private Endpoints
+
+### Committed
+
+Commit up-front for a year and pay via the Sales team. This package provides
+the same flexibility of On-Demand, but at a lower price. 
+
+In addition, you gain access to:
+- 24/7 Premium Support
+- ArangoDB Professional Services Engagements
+- Ability to transact via the AWS and GCP marketplaces
+
+To take advantage of this, you need to get in touch with the ArangoDB
+team. [Contact us](https://www.arangodb.com/contact/){:target="_blank"} for more details.
+
+## How to unlock all features
+
+You can unlock all features in ArangoGraph at any time by adding your billing
+details and a payment method. As soon as you have added a payment method, all
+ArangoGraph functionalities are immediately unlocked. From that point on, your
+deployments will no longer expire and you can create more and larger deployments.
 
 See [Billing: How to add billing details / payment methods](billing.html)
 
 ![ArangoGraph Billing](images/arangograph-billing.png)
-
-## How to upgrade to Enterprise tier
-
-To upgrade to the Enterprise tier, you need to get in touch with the ArangoDB
-team. [Contact us](https://www.arangodb.com/contact/){:target="_blank"} for more details.
 
 ## How to create a new organization
 

@@ -38,6 +38,13 @@ The second option is the recommended one, as it signals the intent more clearly,
 and makes the cache behave "as expected", i.e. use up to the configured
 memory limit and not just 56% of it.
 
+## Client tools
+
+### jslint feature in arangosh
+
+The `--jslint` startup option and all of the underlying functionality has been
+removed from arangosh. The feature was mainly for internal purposes.
+
 ## HTTP RESTful API
 
 ### JavaScript-based traversal using `/_api/traversal`
