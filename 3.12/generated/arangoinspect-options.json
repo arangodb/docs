@@ -129,9 +129,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.5"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -404,9 +402,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -427,9 +423,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : true,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -554,9 +548,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -577,9 +569,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -600,9 +590,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -623,9 +611,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -688,9 +674,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -735,9 +719,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -800,9 +782,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -823,9 +803,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -922,27 +900,6 @@
     ],
     "requiresValue" : true,
     "section" : "javascript",
-    "type" : "string..."
-  },
-  "jslint" : {
-    "category" : "option",
-    "default" : [
-    ],
-    "deprecatedIn" : null,
-    "description" : "Do not start as a shell, run jslint instead.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "",
     "type" : "string..."
   },
   "log" : {
@@ -1067,9 +1024,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.5"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1089,9 +1044,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.5"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1177,9 +1130,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Each log invocation in the ArangoDB source code\ncontains a unique log ID, which can be used to quickly find the location in the\nsource code that produced a specific log message.\n\nLog IDs are printed as 5-digit hexadecimal identifiers in square brackets\nbetween the log level and the log topic:\n\n`2020-06-22T21:16:48Z [39028] INFO [144fe] {general} using storage engine\n'rocksdb'` (where `144fe` is the log ID).",
     "obsolete" : false,
     "os" : [
@@ -1246,9 +1197,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.7.9"
-    ],
+    "introducedIn" : null,
     "longDescription" : "**Note**: This option does not include audit log\nmessages. See `--audit.max-entry-length` instead.\n\nAny log messages longer than the specified value are truncated and the suffix\n`...` is added to them.\n\nThe purpose of this option is to shorten long log messages in case there is not\na lot of space for log files, and to keep rogue log messages from overusing\nresources.\n\nThe default value is 128 MB, which is very high and should effectively mean\ndownwards-compatibility with previous arangod versions, which did not restrict\nthe maximum size of log messages.",
     "maxInclusive" : true,
     "maxValue" : 4294967295,
@@ -1492,9 +1441,7 @@
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
+    "introducedIn" : null,
     "longDescription" : "Overview over the different options:\n\nFormat                  | Example                  | Description\n:-----------------------|:------------------------ |:-----------\n`timestamp`             | 1553766923000            | Unix timestamps, in seconds\n`timestamp-millis`      | 1553766923000.123        | Unix timestamps, in seconds, with millisecond precision\n`timestamp-micros`      | 1553766923000.123456     | Unix timestamps, in seconds, with microsecond precision\n`uptime`                | 987654                   | seconds since server start\n`uptime-millis`         | 987654.123               | seconds since server start, with millisecond precision\n`uptime-micros`         | 987654.123456            | seconds since server start, with microsecond precision\n`utc-datestring`        | 2019-03-28T09:55:23Z     | UTC-based date and time in format YYYY-MM-DDTHH:MM:SSZ \n`utc-datestring-millis` | 2019-03-28T09:55:23.123Z | like `utc-datestring`, but with millisecond precision\n`local-datestring`      | 2019-03-28T10:55:23      | local date and time in format YYYY-MM-DDTHH:MM:SS",
     "obsolete" : false,
     "os" : [

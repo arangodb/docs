@@ -94,9 +94,13 @@ every optimizer rule that briefly explains what it does.
 
 ### Endpoints deprecated
 
-
-
 ### Endpoints removed
+
+#### Database target version API
+
+The `GET /_admin/database/target-version` endpoint has been removed in favor of the
+more general version API with the endpoint `GET /_api/version`. 
+The endpoint was deprecated since v3.11.3.
 
 #### JavaScript-based traversal using `/_api/traversal`
 
