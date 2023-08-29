@@ -1,14 +1,17 @@
 ---
 layout: default
-description: The RETURN statement can be used to produce the result of a query
+description: >-
+  You can use the `RETURN` operation to produce the result of a query
 ---
-RETURN
+`RETURN` operation in AQL
 ======
 
-The `RETURN` statement can be used to produce the result of a query.
-It is mandatory to specify a `RETURN` statement at the end of each block in a
-data-selection query, otherwise the query result would be undefined. Using 
-`RETURN` on the main level in data-modification queries is optional.
+{{ page.description }}
+{:class="lead"}
+
+A `RETURN` operation is mandatory at the end of each block in a data access query,
+otherwise the query result would be undefined. Using `RETURN` at the top level
+in data modification queries is optional.
 
 Syntax
 ------

@@ -2,7 +2,7 @@
 layout: default
 description: The following helper functions can use geo indexes, but do not have to in all cases
 ---
-Geo functions
+Geo-spatial functions in AQL
 =============
 
 Geo utility functions

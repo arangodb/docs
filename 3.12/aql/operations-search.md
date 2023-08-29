@@ -1,13 +1,17 @@
 ---
 layout: default
-description: The SEARCH keyword starts the language construct to filter Views.
+description: >-
+  The `SEARCH` operation lets you filter Views, accelerated by the underlying
+  indexes
 title: The SEARCH operation in AQL
 ---
-SEARCH
+`SEARCH` operation in AQL
 ======
 
-The `SEARCH` keyword starts the language construct to filter Views, accelerated
-by the underlying indexes. It guarantees to use these indexes for an efficient
+{{ page.description }}
+{:class="lead"}
+
+The `SEARCH` operation guarantees to use View indexes for an efficient
 execution plan. If you use the `FILTER` keyword for Views, no indexes are
 utilized and the filtering is performed as a post-processing step.
 
@@ -165,7 +169,7 @@ different outside of `SEARCH`, where `IN` needs to be followed by an array.
 
 ### Question mark operator
 
-You can use the [Question mark operator](advanced-array-operators.html#question-mark-operator)
+You can use the [Question mark operator](operators.html#question-mark-operator)
 to perform [Nested searches with ArangoSearch](../arangosearch-nested-search.html)
 (Enterprise Edition only):
 

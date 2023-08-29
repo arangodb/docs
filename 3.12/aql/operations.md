@@ -1,12 +1,14 @@
 ---
 layout: default
-description: High-level operations are the core language constructs of the query language.
+description: >-
+  High-level operations are the core language constructs of the query language
 title: AQL High-level Operations
 ---
-High-level operations
+High-level AQL operations
 =====================
 
-The following high-level operations are described here after:
+{{ page.description }}
+{:class="lead"}
 
 - [**FOR**](operations-for.html):
   Iterate over a collection or View, all elements of an array or traverse a graph

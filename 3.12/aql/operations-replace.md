@@ -4,7 +4,7 @@ description: >-
   You can use `REPLACE` operations to replace documents in a collection by
   replacing their attributes
 ---
-REPLACE
+`REPLACE` operation in AQL
 =======
 
 {{ page.description }}

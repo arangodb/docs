@@ -1,29 +1,29 @@
 ---
 layout: default
 description: >-
-  An AQL query can start with a WITH statement, listing collections that the
+  An AQL query can start with a `WITH` operation, listing collections that the
   query will implicitly read from
 title: AQL WITH Operation
 ---
-WITH
+`WITH` operation in AQL
 ====
 
-An AQL query can start with a `WITH` keyword followed by a list of collections
-that the query implicitly reads from.
+{{ page.description }}
+{:class="lead"}
 
-Implicit means that the collections are not specified explicitly in language
-constructs like
+Reading implicitly from a collections means that the collections are not
+specified explicitly in language constructs like the following:
 
 - `FOR ... IN collection`
 - `INSERT ... INTO collection`
 - `UPDATE ... IN collection`
 - `GRAPH "graph-name"` (via the graph definition)
 
-etc. but are only known at runtime of the query. Such dynamic collection access
-is invisible to the AQL query parser at query compile time. Dynamic access is
-possible via the `DOCUMENT()` function as well as with graph traversals (in
-particular the variant using collection sets), because edges may point to
-arbitrary vertex collections.
+Instead, the collections are only known at runtime of the query. Such dynamic
+collection access is invisible to the AQL query parser at query compile time.
+Dynamic access is possible via the `DOCUMENT()` function as well as with
+graph traversals (in particular the variant using collection sets), because
+edges may point to arbitrary vertex collections.
 
 Collections that are explicitly used in a query are automatically detected by
 the AQL query parser. Any additional collections that will be involved in the

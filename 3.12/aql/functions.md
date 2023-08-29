@@ -3,7 +3,7 @@ layout: default
 description: AQL supports functions to allow more complex computations. Functions can be called at any query position where an expression is allowed. 
 title: ArangoDB Query Language AQL Functions
 ---
-Functions
+AQL functions
 =========
 
 AQL supports functions to allow more complex computations. Functions can be
@@ -14,7 +14,7 @@ function call syntax is:
 FUNCTIONNAME(arguments)
 ```
 
-where *FUNCTIONNAME* is the name of the function to be called, and *arguments*
+where `FUNCTIONNAME` is the name of the function to be called, and `arguments`
 is a comma-separated list of function arguments. If a function does not need any
 arguments, the argument list can be left empty. However, even if the argument
 list is empty the parentheses around it are still mandatory to make function
@@ -29,7 +29,7 @@ COLLECTIONS()
 ```
 
 In contrast to collection and variable names, function names are case-insensitive, 
-i.e. *LENGTH(foo)* and *length(foo)* are equivalent.
+i.e. `LENGTH(foo)` and `length(foo)` are equivalent.
 
 Extending AQL
 -------------

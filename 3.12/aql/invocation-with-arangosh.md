@@ -4,7 +4,7 @@ description: >-
   In the ArangoDB shell, you can use the db._query() and db._createStatement()
   methods to execute AQL queries.
 ---
-# Executing queries from _arangosh_
+# Executing AQL queries from _arangosh_
 
 In the ArangoDB shell, you can use the `db._query()` and `db._createStatement()`
 methods to execute AQL queries. This chapter also describes
