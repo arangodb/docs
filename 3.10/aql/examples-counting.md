@@ -2,7 +2,7 @@
 layout: default
 description: To return the count of documents that currently exist in a collection,you can call the LENGTH() function
 ---
-Counting
+Counting in AQL
 ========
 
 Amount of documents in a collection

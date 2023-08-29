@@ -2,7 +2,7 @@
 layout: default
 description: AQL provides below listed functions to operate on objects / document values
 ---
-Document functions
+Document and object functions in AQL
 ==================
 
 AQL provides below listed functions to operate on objects / document values.

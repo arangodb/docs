@@ -1,18 +1,19 @@
 ---
 layout: default
-description: The COLLECT operation can be used to group data by one or multiple grouping criteria
+description: >-
+  The `COLLECT` operation can group data by one or multiple grouping criteria,
+  retrieve all distinct values, count how often values occur, and calculate
+  statistical properties efficiently
 title: Grouping and aggregation with COLLECT in AQL
 ---
-COLLECT
+`COLLECT` operation in AQL
 =======
 
-The `COLLECT` operation can be used to group data by one or multiple group
-criteria. It can also be used to retrieve all distinct values, count
-how often values occur, and calculate statistical properties efficiently.
+{{ page.description }}
+{:class="lead"}
 
-The `COLLECT` statement will eliminate all local variables in the current
-scope. After `COLLECT` only the variables introduced by `COLLECT` itself are
-available.
+The different variants of `COLLECT` cover most needs for grouping and aggregating
+data. For aggregation using a sliding window, see the [`WINDOW` operation](operations-window.html).
 
 Syntax
 ------
@@ -31,6 +32,11 @@ COLLECT AGGREGATE <em>variableName</em> = <em>aggregateExpression</em> INTO <em>
 COLLECT WITH COUNT INTO <em>countVariable</em></code></pre>
 
 All variants can optionally end with an `OPTIONS { … }` clause.
+
+{% hint 'info' %}
+The `COLLECT` operation eliminates all local variables in the current scope.
+After a `COLLECT`, only the variables introduced by `COLLECT` itself are available.
+{% endhint %}
 
 Grouping syntaxes
 -----------------

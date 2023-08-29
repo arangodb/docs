@@ -2,7 +2,7 @@
 layout: default
 description: Issuing an invalid query to the server will result in a parse error if the query is syntactically invalid
 ---
-Errors
+AQL query errors
 ======
 
 Issuing an invalid query to the server will result in a parse error if the query

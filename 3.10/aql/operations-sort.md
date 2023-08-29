@@ -1,13 +1,14 @@
 ---
 layout: default
+description: >-
+  The `SORT` operation allows you to specify one or multiple sort criteria and
+  directions to order results or the elements of an array
 ---
-
-SORT
+`SORT` operation in AQL
 ====
 
-The `SORT` operation forces a sort of the array of already produced
-intermediate results in the current block. `SORT` allows specifying one or
-multiple sort criteria and directions.
+{{ page.description }}
+{:class="lead"}
 
 Syntax
 ------
@@ -19,8 +20,10 @@ The general syntax is:
 Usage
 -----
 
-Example query that is sorting by `lastName` (in ascending order), then `firstName`
-(in ascending order), then by `id` (in descending order):
+The `SORT` operation sorts the already produced intermediate results of the
+current block. For example, the following query sorts by `lastName`
+(in ascending order), then `firstName` (in ascending order), then by `id`
+(in descending order):
 
 ```aql
 FOR u IN users

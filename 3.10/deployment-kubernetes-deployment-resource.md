@@ -791,22 +791,21 @@ The UID to run the entrypoint of the container process.
 The GID to run the entrypoint of the container process.
 
 ### `spec.<group>.securityContext.supplementalGroups: []integer`
-A list of groups applied to the first process run in each container, in
-addition to the container's primary GID, the fsGroup (if specified), and group
-memberships defined in the container image for the UID of the container process.
+A list of groups applied to the first process run in each container, in addition to the container's primary GID,
+the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process.
 
 ### `spec.<group>.securityContext.fsGroup: integer`
 A special supplemental group that applies to all containers in a pod.
 
 ### `spec.<group>.securityContext.seccompProfile: SeccompProfile`
-The `seccomp` options to use by the containers in this pod.
+The seccomp options to use by the containers in this pod.
 
 ### `spec.<group>.securityContext.seLinuxOptions: SELinuxOptions`
-The `SELinux` context to be applied to all containers.
+The SELinux context to be applied to all containers.
 
 ## Image discovery group `spec.id` fields
 
-Image discovery (`id`) group only supports the next subset of fields.
+Image discovery (`id`) group supports only next subset of fields.
 Refer to according field documentation in `spec.<group>` description.
 
 - `spec.id.entrypoint: string`

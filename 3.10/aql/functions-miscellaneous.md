@@ -2,7 +2,7 @@
 layout: default
 description: Miscellaneous functions
 ---
-Miscellaneous functions
+Miscellaneous functions in AQL
 =======================
 
 Control flow functions

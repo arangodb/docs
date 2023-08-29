@@ -1,6 +1,6 @@
 ---
 layout: default
-description: To give you more insight into your query ArangoDB allows to execute your querywith special instrumentation code enabled
+description: To give you more insight into your query ArangoDB allows to execute your query with special instrumentation code enabled
 ---
 Profiling and Hand-Optimizing AQL queries
 =========================================

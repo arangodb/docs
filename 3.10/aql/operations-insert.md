@@ -1,11 +1,13 @@
 ---
 layout: default
-description: The INSERT keyword can be used to insert new documents into a collection
+description: >-
+  You can use the `INSERT` operation to create new documents in a collection
 ---
-INSERT
+`INSERT` operation in AQL
 ======
 
-The `INSERT` keyword can be used to insert new documents into a collection.
+{{ page.description }}
+{:class="lead"}
 
 Each `INSERT` operation is restricted to a single collection, and the
 [collection name](../data-modeling-collections.html#collection-names) must not be dynamic.

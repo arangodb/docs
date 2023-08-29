@@ -2,7 +2,7 @@
 layout: default
 description: Collection data can be accessed by specifying a collection name in a query
 ---
-Accessing data from collections
+Accessing data from collections with AQL
 ===============================
 
 Collection data can be accessed by specifying a collection name in a query.  A
