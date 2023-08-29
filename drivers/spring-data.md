@@ -108,5 +108,5 @@ public ArangoDB.Builder arango() {
 ## Learn more
 
 - [Demo](https://github.com/arangodb/spring-data-demo){:target="_blank"}
-- [JavaDoc](http://arangodb.github.io/spring-data/){:target="_blank"}
+- [JavaDoc](https://www.javadoc.io/doc/com.arangodb/arangodb-spring-data/latest){:target="_blank"}
 - [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#changelog){:target="_blank"}
