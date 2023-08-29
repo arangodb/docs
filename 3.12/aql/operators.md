@@ -360,7 +360,9 @@ Array operators
 AQL provides different array operators:
 
 - `[*]` for [expanding array variables](#array-expansion)
-- `[**]` for [flattening arrays](array-contraction)
+- `[**]`, `[***]` etc. for [flattening arrays](#array-contraction)
+- `[* ...]`, `[** ...]` etc. for filtering, limiting, and projecting arrays using
+  [inline expressions](#inline-expressions)
 - `[? ...]` for nested search, known as the [question mark operator](#question-mark-operator)
 
 ### Array expansion

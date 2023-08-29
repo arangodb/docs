@@ -53,7 +53,7 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 ### @BindVars
 
-In addition you can use a method parameter of type `Map<String, Object>` annotated with `@BindVars` as your bind parameters. You can then fill the map with any parameter used in the query (also see [AQL Bind Parameters](../aql/fundamentals-bind-parameters.html#bind-parameters)).
+In addition you can use a method parameter of type `Map<String, Object>` annotated with `@BindVars` as your bind parameters. You can then fill the map with any parameter used in the query (also see [AQL Bind Parameters](../aql/fundamentals-bind-parameters.html)).
 
 ```java
 public interface MyRepository extends ArangoRepository<Customer, String>{
