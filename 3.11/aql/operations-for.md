@@ -1,13 +1,15 @@
 ---
 layout: default
-description: The versatile FOR keyword can be used to iterate over a collection or View, all elements of an array or to traverse a graph.
+description: >-
+  The versatile `FOR` operation can iterate over a collection or View, the
+  elements of an array, or traverse a graph
 title: FOR Operations in AQL
 ---
-FOR
+`FOR` operation in AQL
 ===
 
-The versatile `FOR` keyword can be used to iterate over a collection or View,
-all elements of an array or to traverse a graph.
+{{ page.description }}
+{:class="lead"}
 
 ## Syntax
 

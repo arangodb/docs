@@ -2,7 +2,7 @@
 layout: default
 description: AQL supports both primitive data types consisting of exactly one value and compound data types comprised of multiple values
 ---
-Data types
+Data types in AQL
 ==========
 
 AQL supports both *primitive* data types consisting of exactly one value and

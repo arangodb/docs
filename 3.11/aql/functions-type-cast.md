@@ -2,7 +2,7 @@
 layout: default
 description: Some operators expect their operands to have a certain data type
 ---
-Type check and cast functions
+Type check and cast functions in AQL
 =============================
 
 Some operators expect their operands to have a certain data type. For example,

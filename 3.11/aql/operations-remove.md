@@ -1,12 +1,13 @@
 ---
 layout: default
-description: The REMOVE keyword can be used to remove documents from a collection
+description: >-
+  You can use the `REMOVE` operation to delete documents from a collection
 ---
-
-REMOVE
+`REMOVE` operation in AQL
 ======
 
-The `REMOVE` keyword can be used to remove documents from a collection.
+{{ page.description }}
+{:class="lead"}
 
 Each `REMOVE` operation is restricted to a single collection, and the 
 [collection name](../data-modeling-collections.html#collection-names) must not be dynamic.

@@ -2,7 +2,7 @@
 layout: default
 description: The result of an AQL query is an array of values
 ---
-Query results
+AQL query results
 =============
 
 Result sets
