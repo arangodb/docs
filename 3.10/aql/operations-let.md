@@ -1,12 +1,16 @@
 ---
 layout: default
-description: The LET statement can be used to assign an arbitrary value to a variable
+description: >-
+  You can use the `LET` operation to assign an arbitrary value to a variable
 ---
-LET
+`LET` operation in AQL
 ===
 
-The `LET` statement can be used to assign an arbitrary value to a variable.
-The variable is then introduced in the scope the `LET` statement is placed in.
+{{ page.description }}
+{:class="lead"}
+
+The variable is introduced in the scope the `LET` statement is placed in.
+You cannot change the value once assigned.
 
 Syntax
 ------

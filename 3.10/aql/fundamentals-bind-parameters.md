@@ -2,7 +2,7 @@
 layout: default
 description: AQL supports the usage of bind parameters, thus allowing to separate the query text from literal values used in the query
 ---
-Bind parameters
+Bind parameters in AQL
 ===============
 
 AQL supports the usage of bind parameters, thus allowing to separate the query

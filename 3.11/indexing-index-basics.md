@@ -456,7 +456,7 @@ FOR doc IN posts
   RETURN doc
 ```
 
-It is possible to add the [array expansion operator](aql/advanced-array-operators.html#array-expansion)
+It is possible to add the [array expansion operator](aql/operators.html#array-expansion)
 `[*]`, but it is not mandatory. You may use it to indicate that an array index is used,
 it is purely cosmetic however:
 
@@ -485,7 +485,7 @@ db.posts.insert({ tags: [ { name: "foobar" }, { name: "baz" }, { name: "quux" } 
 ```
 
 The following query will then use the array index (this does require the
-[array expansion operator](aql/advanced-array-operators.html#array-expansion)):
+[array expansion operator](aql/operators.html#array-expansion)):
 
 ```aql
 FOR doc IN posts

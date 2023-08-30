@@ -101,7 +101,7 @@ Computed value expressions have the following properties:
 - The expression must start with a `RETURN` operation and cannot contain any
   other operations. No `FOR` loops, `LET` statements, and subqueries are allowed
   in the expression. `FOR` loops can be substituted using the
-  [array expansion operator `[*]`](aql/advanced-array-operators.html#inline-expressions),
+  [array expansion operator `[*]`](aql/operators.html#inline-expressions),
   for example, with an inline expressions like the following:
 
   `RETURN @doc.values[* FILTER CURRENT > 42 RETURN CURRENT * 2]`

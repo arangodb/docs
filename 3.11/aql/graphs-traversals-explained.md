@@ -2,7 +2,7 @@
 layout: default
 description: A traversal starts at one specific document (startVertex) and follows all edges connected to this document
 ---
-Traversals explained
+AQL graph traversals explained
 ====================
 
 General query idea

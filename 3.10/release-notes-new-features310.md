@@ -805,7 +805,7 @@ The quantifier can be a number, a range, `NONE`, `ANY`, `ALL`, or `AT LEAST`.
 This operator is used for the new [Nested search](#nested-search-enterprise-edition)
 feature (Enterprise Edition only).
 
-See [Array Operators](aql/advanced-array-operators.html#question-mark-operator)
+See [Array Operators](aql/operators.html#question-mark-operator)
 for details.
 
 ### New `AT LEAST` array comparison operator

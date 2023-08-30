@@ -1,12 +1,16 @@
 ---
 layout: default
-description: There are two fundamental types of AQL queries, data access and data modification queries.
+description: >-
+  With AQL queries, you can read and write data in the form of documents
 title: AQL Data Queries
 redirect_from:
   - examples-data-modification-queries.html # 3.10 -> 3.10
 ---
-Data Queries
+AQL Data Queries
 ============
+
+{{ page.description }}
+{:class="lead"}
 
 There are two fundamental types of AQL queries:
 - queries which access data (read documents)
@@ -422,7 +426,7 @@ a change to the `subList` to be saved. Instead of comparing the current and the
 altered list directly, you may compare their hash values using the
 [`HASH()` function](functions-miscellaneous.html#hash), which is faster for
 larger objects and arrays. You can also replace the subquery with an
-[inline expression](advanced-array-operators.html#inline-expressions):
+[inline expression](operators.html#inline-expressions):
 
 ```aql
 FOR doc in complexCollection

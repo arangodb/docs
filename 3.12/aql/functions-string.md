@@ -2,7 +2,7 @@
 layout: default
 description: For string processing, AQL offers the following functions
 ---
-String functions
+String functions in AQL
 ================
 
 For string processing, AQL offers the following functions:

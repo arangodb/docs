@@ -2,7 +2,7 @@
 layout: default
 description: Our first example will locate the start vertex for a graph traversal via a geo index
 ---
-Combining Graph Traversals
+Combining AQL Graph Traversals
 ==========================
 
 Finding the start vertex via a geo query

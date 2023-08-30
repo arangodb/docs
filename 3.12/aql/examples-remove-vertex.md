@@ -2,7 +2,7 @@
 layout: default
 description: Deleting vertices with associated edges is currently not handled via AQL while the graph management interface and the REST API for the graph module offer a vertex deletion functionality
 ---
-Remove Vertex
+Remove vertices with AQL
 =============
 
 Deleting vertices with associated edges is currently not handled via AQL while 

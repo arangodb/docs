@@ -1,9 +1,14 @@
 ---
 layout: default
-description: To group results by arbitrary criteria, AQL provides the COLLECT keyword
+description: >-
+  You can group data by arbitrary criteria with AQL's `COLLECT` operation,
+  with optional aggregation during grouping or using post-aggregation
 ---
-Grouping
+Grouping and aggregating data in AQL
 ========
+
+{{ page.description }}
+{:class="lead"}
 
 To group results by arbitrary criteria, AQL provides the `COLLECT` keyword.
 `COLLECT` will perform a grouping, but no aggregation. Aggregation can still be
@@ -200,13 +205,13 @@ FOR u IN users
 
 We have used the aggregate functions *LENGTH* here (it returns the length of an array).
 This is the equivalent to SQL's `SELECT g, COUNT(*) FROM ... GROUP BY g`. In addition to
-*LENGTH*, AQL also provides *MAX*, *MIN*, *SUM* and *AVERAGE*, *VARIANCE_POPULATION*,
-*VARIANCE_SAMPLE*, *STDDEV_POPULATION*, *STDDEV_SAMPLE*, *UNIQUE*, *SORTED_UNIQUE* and
-*COUNT_UNIQUE* as basic aggregation functions.
+`LENGTH`, AQL also provides `MAX`, `MIN`, `SUM` and `AVERAGE`, `VARIANCE_POPULATION`,
+`VARIANCE_SAMPLE`, `STDDEV_POPULATION`, `STDDEV_SAMPLE`, `UNIQUE`, `SORTED_UNIQUE` and
+`COUNT_UNIQUE` as basic aggregation functions.
 
 In AQL all aggregation functions can be run on arrays only. If an aggregation function
 is run on anything that is not an array, a warning will be produced and the result will
-be *null*.
+be `null`.
 
 Using an `AGGREGATE` clause will ensure the aggregation is run while the groups are built
 in the collect operation. This is normally more efficient than collecting all group values

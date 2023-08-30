@@ -2,9 +2,8 @@
 layout: default
 description: In the ArangoDB Web Interface the AQL Editor tab allows to execute ad-hoc AQLqueries
 ---
-AQL with ArangoDB Web Interface
+Executing AQL queries in the ArangoDB web interface
 ===============================
-
 
 In the ArangoDB Web Interface the AQL Editor tab allows to execute ad-hoc AQL
 queries.

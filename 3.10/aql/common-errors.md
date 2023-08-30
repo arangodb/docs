@@ -1,10 +1,14 @@
 ---
 layout: default
-description: Common errors to make in ArangoDB's query language
-title: AQL Pitfalls
+description: >-
+  Avoid injection vulnerabilities and avoid pitfalls like incorrect operator
+  usage performance issues when using ArangoDB's query language
 ---
-Common Errors
+Common Errors in AQL
 =============
+
+{{ page.description }}
+{:class="lead"}
 
 Trailing semicolons in query strings
 ------------------------------------

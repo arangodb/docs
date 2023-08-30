@@ -1,10 +1,15 @@
 ---
 layout: default
-description: Creating test data, counting, subqueries, joins, grouping, traversals and other examples
+description: >-
+  Create test data, count documents, use joins, group attributes, traverse
+  graphs, and other examples
 title: AQL Query Patterns & Examples
 ---
 AQL Query Patterns and Examples
 ===============================
+
+{{ page.description }}
+{:class="lead"}
 
 These pages contain some common query patterns with examples. For better
 understandability the query results are also included directly below each query.

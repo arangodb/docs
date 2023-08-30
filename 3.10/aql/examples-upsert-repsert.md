@@ -1,11 +1,15 @@
 ---
 layout: default
 description: >-
-  AQL offers an UPSERT operation and an INSERT operation with different
-  overwrite modes but there is also the Document API as an alternative
+  AQL offers an `UPSERT` operation and an `INSERT` operation with different
+  overwrite modes, and you can alternatively use the Document API, each having
+  different features and performance characteristics
 title: Conditionally Inserting and Updating/Replacing Documents
 ---
 # Conditionally Inserting and Modifying Documents
+
+{{ page.description }}
+{:class="lead"}
 
 A common requirement when ingesting data is to ensure that certain documents
 exist in a collection. Oftentimes when running a command it is unclear whether

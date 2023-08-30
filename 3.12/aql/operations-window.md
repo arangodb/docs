@@ -5,7 +5,7 @@ description: >-
   calculate running totals, rolling averages, and other statistical properties
 title: Aggregation with WINDOW in AQL
 ---
-# WINDOW
+# `WINDOW` operation in AQL
 
 {{ page.description }}
 {:class="lead"}

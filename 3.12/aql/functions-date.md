@@ -3,7 +3,7 @@ layout: default
 description: AQL offers functionality to work with dates as numeric timestamps and as ISO 8601 date time strings
 title: AQL Date Functions
 ---
-Date functions
+Date functions in AQL
 ==============
 
 AQL offers functionality to work with dates, but it does not have a special data type

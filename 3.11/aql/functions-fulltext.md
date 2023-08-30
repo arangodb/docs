@@ -2,7 +2,7 @@
 layout: default
 description: AQL offers the following functions to filter data based on fulltext indexes
 ---
-Fulltext functions
+Fulltext functions in AQL
 ==================
 
 AQL offers the following functions to filter data based on

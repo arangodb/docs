@@ -3,7 +3,7 @@ layout: default
 description: Queries don't necessarily have to involve collections.
 title: AQL Queries Without Collections
 ---
-Queries without collections
+AQL queries without collections
 ===========================
 
 AQL queries typically access one or more collections to read from documents

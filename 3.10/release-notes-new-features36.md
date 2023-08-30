@@ -426,7 +426,7 @@ DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
 ```
 
 The performance of AQL date operations that work on
-[date strings](aql/functions-date.html#date-functions) has been improved
+[date strings](aql/functions-date.html) has been improved
 compared to previous versions.
 
 Finally, ArangoDB 3.6 provides a new [AQL function](aql/functions-date.html#date_round)

@@ -185,7 +185,7 @@ contexts. Unlike keywords, they are **case-sensitive**:
  
 - `CURRENT` –
   available in
-  [array inline expressions](advanced-array-operators.html#inline-expressions)
+  [array inline expressions](operators.html#inline-expressions)
 - `NEW` –
   available after
   [INSERT](operations-insert.html#returning-the-inserted-documents) /

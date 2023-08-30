@@ -1,12 +1,14 @@
 ---
 layout: default
-description: The FILTER statement can be used to restrict the results to elements that match an arbitrary logical condition
+description: >-
+  The `FILTER` operation lets you restrict the results to elements that match
+  arbitrary logical conditions
 ---
-FILTER
+`FILTER` operation in AQL
 ======
 
-The `FILTER` statement can be used to restrict the results to elements that
-match an arbitrary logical condition.
+{{ page.description }}
+{:class="lead"}
 
 Syntax
 ------

@@ -2,7 +2,7 @@
 layout: default
 description: AQL offers some numeric functions for calculations
 ---
-Numeric functions
+Numeric functions in AQL
 =================
 
 AQL offers some numeric functions for calculations. The following functions are

@@ -5,7 +5,7 @@ title: ArangoSearch related AQL Functions
 page-toc:
   max-headline-level: 3
 ---
-ArangoSearch Functions
+ArangoSearch functions in AQL
 ======================
 
 {{ page.description }}

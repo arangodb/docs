@@ -3,7 +3,7 @@ layout: default
 description: AQL uses a deterministic algorithm that takes both the data types and the actual values into account
 title: AQL Type & Value Order
 ---
-Type and value order
+Type and value order in AQL
 ====================
 
 When checking for equality or inequality or when determining the sort order of

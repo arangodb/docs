@@ -2,7 +2,7 @@
 layout: default
 description: To return three complete documents from collection users, the following query can be used
 ---
-Projections and Filters
+Projections and Filters in AQL
 =======================
 
 Returning unaltered documents

@@ -2,9 +2,9 @@
 layout: default
 description: Clients can use ArangoDB to check if a given AQL query is syntactically valid
 ---
-Parsing queries
+Parsing AQL queries
 ===============
-    
+
 Clients can use ArangoDB to check if a given AQL query is syntactically valid. ArangoDB provides
 an [HTTP REST API](../http/aql-query.html) for this. 
 

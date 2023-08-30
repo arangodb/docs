@@ -3,7 +3,7 @@ layout: default
 description: AQL offers some bit manipulation and interpretation functions for bitwise arithmetic
 title: AQL Bit Functions
 ---
-Bit functions
+Bit functions in AQL
 =============
 
 AQL offers some bit manipulation and interpretation functions for bitwise

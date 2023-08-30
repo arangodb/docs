@@ -2,7 +2,7 @@
 layout: default
 description: Query statistics
 ---
-Query statistics
+AQL query statistics
 ================
 
 A query that has been executed will always return execution statistics. Execution statistics

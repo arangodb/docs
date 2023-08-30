@@ -2,7 +2,7 @@
 layout: default
 description: Array functions
 ---
-# Array functions
+# Array functions in AQL
 
 AQL provides functions for higher-level array manipulation. Also see the
 [numeric functions](functions-numeric.html) for functions that work on number arrays.
@@ -13,7 +13,7 @@ in JavaScript, see [CONCAT()](functions-string.html#concat) and
 Apart from that, AQL also offers several language constructs:
 
 - simple [array access](fundamentals-data-types.html#arrays--lists) of individual elements,
-- [array operators](advanced-array-operators.html) for array expansion and contraction,
+- [array operators](operators.html#array-operators) for array expansion and contraction,
   optionally with inline filter, limit and projection,
 - [array comparison operators](operators.html#array-comparison-operators) to compare
   each element in an array to a value or the elements of another array,
@@ -141,7 +141,7 @@ Turn an array of arrays into a flat array. All array elements in *array* will be
 expanded in the result array. Non-array elements are added as they are. The function
 will recurse into sub-arrays up to the specified depth. Duplicates will not be removed.
 
-Also see [array contraction](advanced-array-operators.html#array-contraction).
+Also see [array contraction](operators.html#array-contraction).
 
 - **array** (array): array with elements of arbitrary type, including nested arrays
 - **depth** (number, *optional*):  flatten up to this many levels, the default is 1
@@ -573,7 +573,7 @@ RETURN POSITION( [2,4,6,8], 4, true )
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 If you want to search a list of objects, you can use the
-[array expansion operator `[*]`](advanced-array-operators.html#array-expansion).
+[array expansion operator `[*]`](operators.html#array-expansion).
 For example, you can get an attribute from each object using the operator, and
 then determine the array index of the first match using the `POSITION()` function:
 

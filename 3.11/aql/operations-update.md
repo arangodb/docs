@@ -4,7 +4,7 @@ description: >-
   You can use `UPDATE` operations to partially update documents in a collection
   by adding or updating specific attributes
 ---
-UPDATE
+`UPDATE` operation in AQL
 ======
 
 {{ page.description }}

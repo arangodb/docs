@@ -1,12 +1,14 @@
 ---
 layout: default
-description: The UPSERT keyword can be used for checking whether certain documents exist,and to update/replace them in case they exist, or create them in case they do not exist
+description: >-
+  The `UPSERT` operations either modifies an existing document, or creates a new
+  document if it does not exist
 ---
-UPSERT
+`UPSERT` operation in AQL
 ======
 
-The `UPSERT` keyword can be used for checking whether certain documents exist,
-and to update/replace them in case they exist, or create them in case they do not exist.
+{{ page.description }}
+{:class="lead"}
 
 Each `UPSERT` operation is restricted to a single collection, and the 
 [collection name](../data-modeling-collections.html#collection-names) must not be dynamic.
