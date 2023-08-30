@@ -1,18 +1,21 @@
 ---
 layout: default
-description: Datacenter-to-Datacenter Replication deployment overview
-title: DC2DC Replication Deployment
 ---
 # Datacenter-to-Datacenter Replication deployment
 
 {% include hint-ee.md feature="Datacenter-to-Datacenter Replication" %}
 
-This chapter describes how to deploy all the components needed for
-_Datacenter-to-Datacenter Replication (DC2DC)_.
-
 ## Deployment steps
 
-## 1. Cluster
+To deploy all the components needed for _Datacenter-to-Datacenter Replication (DC2DC)_,
+you need to set up the following components:
+
+1. An ArangoDB cluster in each data center
+2. Multiple ArangoSync Masters
+3. Multiple ArangoSync Workers
+4. Optional: Prometheus and Grafana for monitoring
+
+## Cluster
 
 Datacenter-to-Datacenter Replication requires an ArangoDB cluster in both data centers.
 
@@ -35,7 +38,7 @@ without much effort.
 Please refer to the [Cluster](deployment-dc2dc-cluster.html) section for
 more information.
 
-## 2. ArangoSync Master
+## ArangoSync Master
 
 The Sync Master is responsible for managing all synchronization, creating tasks and assigning
 those to workers.
@@ -60,7 +63,7 @@ Consider these machines to be crucial for your DC2DC setup.
 Please refer to the [ArangoSync Master](deployment-dc2dc-arango-sync-master.html)
 section for more information.
 
-## 3. ArangoSync Workers
+## ArangoSync Workers
 
 The Sync Worker is responsible for executing synchronization tasks.
 
@@ -83,7 +86,7 @@ The sync worker can be memory intensive when running lots of databases & collect
 Please refer to the [ArangoSync Workers](deployment-dc2dc-arango-sync-workers.html)
 for more information.
 
-## 4. Prometheus & Grafana (optional)
+## Prometheus & Grafana (optional)
 
 ArangoSync provides metrics in a format supported by [Prometheus](https://prometheus.io){:target="_blank"}.
 We also provide a standard set of dashboards for viewing those metrics in [Grafana](https://grafana.org){:target="_blank"}.
