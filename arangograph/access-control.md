@@ -1,9 +1,10 @@
 ---
 layout: default
-description: This guide explains which access control concepts are available in ArangoGraph and how to use them.
-title: Security and access control in the ArangoGraph Insights Platform
+description: >-
+  This guide explains which access control concepts are available in
+  ArangoGraph and how to use them
 ---
-# Security and access control in the ArangoGraph Insights Platform
+# Security and access control in ArangoGraph
 
 The ArangoGraph Insights Platform has a structured set of resources that are subject to security and
 access control:

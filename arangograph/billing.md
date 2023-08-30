@@ -1,9 +1,9 @@
 ---
 layout: default
-description: How to manage billing details and payment methods
-title: Billing in the ArangoGraph Insights Platform
+description: >-
+   How to manage billing details and payment methods in ArangoGraph
 ---
-# Billing
+# Billing in ArangoGraph
 
 ## How to add billing details
 

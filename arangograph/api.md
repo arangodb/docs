@@ -1,9 +1,9 @@
 ---
 layout: default
-description: Interface to control all resources inside ArangoGraph in a scriptable manner
-title: The ArangoGraph Insights Platform API
+description: >-
+  Interface to control all resources inside ArangoGraph in a scriptable manner
 ---
-# The ArangoGraph Insights Platform API
+# The ArangoGraph API
 
 The [ArangoGraph Insights Platform](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"},
 comes with its own API. This API enables you to control all

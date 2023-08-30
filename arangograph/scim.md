@@ -1,7 +1,7 @@
 ---
 layout: default
-description: How to enable SCIM provisioning
-title: SCIM Provisioning
+description: >-
+   How to enable SCIM provisioning with Okta for your ArangoGraph project
 ---
 # SCIM Provisioning
 

@@ -1,9 +1,9 @@
 ---
 layout: default
-description: How to manage your user account
-title: My Account in the ArangoGraph Insights Platform
+description: >-
+   How to manage your user account, your organizations, and your API keys in ArangoGraph
 ---
-# My Account
+# My Account in ArangoGraph
 
 You can access information related to your account via the __User Toolbar__.
 The toolbar is in the top right corner in the ArangoGraph dashboard and

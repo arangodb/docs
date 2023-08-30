@@ -1,9 +1,10 @@
 ---
 layout: default
-description: Quick guides about backups in the ArangoGraph Insights Platform
-title: Backups in the ArangoGraph Insights Platform
+description: >-
+   You can manually create backups or use a backup policy to schedule periodic
+   backups and both ways allow you to store your backups in multiple regions simultaneously
 ---
-# Backups in the ArangoGraph Insights Platform
+# Backups in ArangoGraph
 
 ## How to create backups
 
