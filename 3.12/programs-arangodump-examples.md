@@ -236,57 +236,6 @@ detects whether the data is compressed or not based on the file extension.
 arangorestore --input-directory "dump"
 ```
 
-Dump output format
-------------------
-
-<small>Introduced in: v3.8.0</small>
-
-Since its inception, _arangodump_ wrapped each dumped document into an extra
-JSON envelope, such as follows:
-
-```json
-{"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
-```
-
-This original dump format was useful when there was the MMFiles storage engine,
-which could use different `type` values in its datafiles.
-However, the RocksDB storage engine only uses `"type":2300` (document) when
-dumping data, so the JSON wrapper provides no further benefit except
-compatibility with older versions of ArangoDB.
-
-In case a dump taken with v3.8.0 or higher is known to never be used in older
-ArangoDB versions, the JSON envelopes can be turned off. The startup option
-`--envelope` controls this. The option defaults to `true`, meaning dumped
-documents are wrapped in envelopes, which makes new dumps compatible with
-older versions of ArangoDB.
-
-If that is not needed, the `--envelope` option can be set to `false`.
-In this case, the dump files only contain the raw documents, without any
-envelopes around them:
-
-```json
-{"_key":"test","_rev":..., ...}
-```
-
-Disabling the envelopes can **reduce dump sizes** a lot, especially if documents
-are small on average and the relative cost of the envelopes is high. Omitting
-the envelopes can also help to **save a bit on memory usage and bandwidth** for
-building up the dump results and sending them over the wire.
-
-As a bonus, turning off the envelopes turns _arangodump_ into a fast, concurrent
-JSONL exporter for one or multiple collections:
-
-```
-arangodump --collection "collection" --threads 8 --envelope false --compress-output false dump
-```
-
-The JSONL format is also supported by _arangoimport_ natively.
-
-{% hint 'warning' %}
-Dumps created with the `--envelope false` setting cannot be restored into any
-ArangoDB versions older than v3.8.0!
-{% endhint %}
-
 Threads
 -------
 
