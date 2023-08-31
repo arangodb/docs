@@ -989,8 +989,6 @@ and bandwidth:
 {"_key":"test","_rev":..., ...}
 ```
 
-Also see [_arangodump_ Dump Output Format](programs-arangodump-examples.html#dump-output-format).
-
 Using the new non-enveloped dump format also allows _arangorestore_ to
 parallelize restore operations for individual collections. This is not possible
 with the old, enveloped format.
