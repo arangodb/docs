@@ -991,7 +991,7 @@ and bandwidth:
 
 {% assign ver = "3.12" | version: "<" %}{% if ver -%}
 Also see [_arangodump_ Dump Output Format](programs-arangodump-examples.html#dump-output-format).
-{% else -%}
+{%- endif %}
 
 Using the new non-enveloped dump format also allows _arangorestore_ to
 parallelize restore operations for individual collections. This is not possible
