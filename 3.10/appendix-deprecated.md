@@ -185,6 +185,21 @@ detailed information about breaking changes before upgrading.
   The following options are deprecated for _arangorestore_:
   - `--default-number-of-shards` (use `--number-of-shards` instead)
   - `--default-replication-factor` (use `--replication-factor` instead)
+  
+  The following options are deprecated for _arangodump_:
+  - `--envelope`: setting this option to `true` previously wrapped every dumped 
+    document into a `{data, type}` envelope. 
+    This was useful for the MMFiles storage engine, where dumps could also include 
+    document removals. With the RocksDB storage engine, the envelope only caused 
+    overhead and increased the size of the dumps. The default value of `--envelope`
+    was changed to false in ArangoDB 3.9 already, so by default all arangodump 
+    invocations since then create non-envelope dumps. 
+  - `--tick-start`: setting this option allowed to restrict the dumped data to some 
+    time range with the MMFiles storage engine. It has no effect for the RocksDB 
+    storage engine.
+  - `--tick-end`: setting this option allowed to restrict the dumped data to some 
+    time range with the MMFiles storage engine. It has no effect for the RocksDB 
+    storage engine.
 
   The following startup options are deprecated in _arangod_ and all client tools:
   - `--log` (use `--log.level` instead)

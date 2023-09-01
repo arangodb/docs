@@ -131,3 +131,22 @@ the JavaScript graph modules.
 
 ## Client tools
 
+### arangodump
+
+This following startup options of arangodump are obsolete from ArangoDB 3.12 on:
+
+- `--envelope`: setting this option to `true` previously wrapped every dumped 
+  document into a `{data, type}` envelope. 
+  This was useful for the MMFiles storage engine, where dumps could also include 
+  document removals. With the RocksDB storage engine, the envelope only caused 
+  overhead and increased the size of the dumps. The default value of `--envelope`
+  was changed to false in ArangoDB 3.9 already, so by default all arangodump 
+  invocations since then created non-envelope dumps. With the option being removed 
+  now, all arangodump invocations will unconditionally create non-envelope dumps.
+- `--tick-start`: setting this option allowed to restrict the dumped data to some 
+  time range with the MMFiles storage engine. It had no effect for the RocksDB 
+  storage engine and so it is removed now.
+- `--tick-end`: setting this option allowed to restrict the dumped data to some 
+  time range with the MMFiles storage engine. It had no effect for the RocksDB 
+  storage engine and so it is removed now.
+
