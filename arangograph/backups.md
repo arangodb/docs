@@ -2,7 +2,7 @@
 layout: default
 description: >-
    You can manually create backups or use a backup policy to schedule periodic
-   backups and both ways allow you to store your backups in multiple regions simultaneously
+   backups, and both ways allow you to store your backups in multiple regions simultaneously
 ---
 # Backups in ArangoGraph
 
