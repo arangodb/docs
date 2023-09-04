@@ -492,6 +492,8 @@ the entire query result in RAM, use a streaming query (see the
 
 #### `allowDirtyReads`
 
+{% include hint-ee-arangograph.md feature="Reading from followers in clusters" %}
+
 <small>Introduced in: v3.10.0</small>
 
 If you set this option to `true` and execute the query against a cluster
@@ -499,9 +501,9 @@ deployment, then the Coordinator is allowed to read from any shard replica and
 not only from the leader. See [Read from followers](../http/document.html#read-from-followers)
 for details.
 
-{% include hint-ee-arangograph.md feature="Reading from followers in clusters" %}
-
 #### `skipInaccessibleCollections`
+
+{% include hint-ee-arangograph.md feature="This option" %}
 
 Let AQL queries (especially graph traversals) treat collection to which a
 user has **no access** rights for as if these collections are empty.
@@ -510,15 +512,13 @@ This is intended to help with certain use-cases: A graph contains several collec
 and different users execute AQL queries on that graph. You can naturally limit the 
 accessible results by changing the access rights of users on collections.
 
-{% include hint-ee-arangograph.md feature="This option" %}
-
 #### `satelliteSyncWait`
+
+{% include hint-ee-arangograph.md feature="SatelliteCollections" plural=true %}
 
 Configure how long a DB-Server has time to bring the SatelliteCollections
 involved in the query into sync. The default value is `60.0` seconds.
 When the maximal time is reached, the query is stopped.
-
-{% include hint-ee-arangograph.md feature="SatelliteCollections" plural=true %}
 
 ## With `db._createStatement()` (ArangoStatement)
 

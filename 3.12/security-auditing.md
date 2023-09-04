@@ -15,12 +15,12 @@ page-toc:
 {{ page.description }}
 {:class="lead"}
 
-{% capture arangograph %}
+{% include hint-ee.md feature="Audit logging" %}
 
+{% hint 'tip' %}
 A similar feature is also available in the
 [ArangoGraph Insights Platform](arangograph/access-control.html#using-an-audit-log).
-{% endcapture %}
-{% include hint-ee.md feature="Audit logging" extra=arangograph %}
+{% endhint %}
 
 ## Configuration
 

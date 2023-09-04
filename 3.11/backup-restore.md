@@ -68,11 +68,11 @@ Logical backups can be created and restored with the tools
 Hot Backups
 -----------
 
+{% include hint-ee-arangograph.md feature="The arangobackup tool and the Hot Backup API" plural=true %}
+
 Hot backup and restore associated operations can be performed with the
 [_arangobackup_](programs-arangobackup.html) client tool and the
 [Hot Backup HTTP API](http/hot-backup.html).
-
-{% include hint-ee-arangograph.md feature="The arangobackup tool and the Hot Backup API" plural=true %}
 
 Many operations cannot afford downtimes and thus require administrators and
 operators to create consistent freezes of the data during normal operation.

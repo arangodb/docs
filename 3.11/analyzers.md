@@ -1086,9 +1086,9 @@ Create different `segmentation` Analyzers to show the behavior of the different
 
 ### `minhash`
 
-<small>Introduced in: v3.10.0</small>
-
 {% include hint-ee-arangograph.md feature="The `minhash` Analyzer" %}
+
+<small>Introduced in: v3.10.0</small>
 
 An Analyzer that computes so called MinHash signatures using a
 locality-sensitive hash function. It applies an Analyzer of your choice before
@@ -1130,9 +1130,9 @@ Create a `minhash` Analyzers:
 
 ### `classification`
 
-<small>Introduced in: v3.10.0</small>
-
 {% include hint-ee-arangograph.md feature="The `classification` Analyzer" %}
+
+<small>Introduced in: v3.10.0</small>
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1190,9 +1190,9 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 ### `nearest_neighbors`
 
-<small>Introduced in: v3.10.0</small>
-
 {% include hint-ee-arangograph.md feature="The `nearest_neighbors` Analyzer" %}
+
+<small>Introduced in: v3.10.0</small>
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1371,9 +1371,9 @@ longitude, latitude order:
 
 ### `geo_s2`
 
-<small>Introduced in: v3.10.5</small>
-
 {% include hint-ee-arangograph.md feature="The `geo_s2` Analyzer" %}
+
+<small>Introduced in: v3.10.5</small>
 
 An Analyzer capable of breaking up a GeoJSON object or coordinate array in
 `[longitude, latitude]` order into a set of indexable tokens for further usage

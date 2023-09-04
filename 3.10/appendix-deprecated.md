@@ -185,7 +185,7 @@ detailed information about breaking changes before upgrading.
   The following options are deprecated for _arangorestore_:
   - `--default-number-of-shards` (use `--number-of-shards` instead)
   - `--default-replication-factor` (use `--replication-factor` instead)
-  
+
   The following options are deprecated for _arangodump_:
   - `--envelope`: setting this option to `true` previously wrapped every dumped 
     document into a `{data, type}` envelope. 
@@ -244,7 +244,7 @@ detailed information about breaking changes before upgrading.
   - `arangodb::GRAPH_BETWEENNESS`
   - `arangodb::GRAPH_RADIUS`
   - `arangodb::GRAPH_DIAMETER`
-  
+
   These functions will be removed in ArangoDB 3.12.
 
 - **Specialized index creation methods in JavaScript API**:
