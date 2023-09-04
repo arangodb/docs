@@ -9,6 +9,43 @@ upgrading to ArangoDB 3.12, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.12:
 
+## Little-endian on-disk key format for the RocksDB storage engine
+
+ArangoDB 3.12 does not support the little-endian on-disk key for the RocksDB
+storage engine anymore.
+The little-endian on-disk key format was used for deployments that were created 
+with either ArangoDB 3.2 or 3.3 when using the RocksDB storage engine. 
+Since ArangoDB 3.4, a big-endian on-disk key format was used for the RocksDB 
+storage engine, which is more performant than the little-endian format. 
+
+Deployments that were set up with the RocksDB storage engine using ArangoDB 3.2 
+or 3.3 and that have been upgraded since then will still use the old format. 
+This should not affect many users, because the default storage engine in ArangoDB 
+3.2 and 3.3 was the MMFiles storage engine. 
+Furthermore, deployments that have been recreated from an arangodump since 
+ArangoDB 3.4 will not be affected, because restoring an arangodump into a fresh 
+deployment will also make ArangoDB use the big-endian on-disk format.
+
+ArangoDB 3.11 logs a warning message during startup when the little-endian 
+on-disk format is in use, but it still supports using the little-endian key format
+for almost all operations.
+
+ArangoDB 3.12 will refuse to start when detecting that the little-endian on-disk
+is in use, so users that are still using this format must migrate to the big-endian
+on-disk key format before upgrading to 3.12.
+
+The migration can be performed as follows:
+
+1. create a full logical backup of the database using arangodump
+2. stop the database servers in the deployment
+3. wipe the existing database directories
+4. restart the servers in the deployment
+5. restore the logical dump into the deployment
+
+It will not be sufficient to take a hot backup of a little-endian dataset
+and restore it, because when restoring a hot backup, the original database
+format will be restored as it was at time of the backup.
+
 ## In-memory cache subsystem
 
 By default, the in-memory cache subsystem uses up to 95% of its configured
