@@ -191,7 +191,7 @@ detailed information about breaking changes before upgrading.
     special HTTP headers `x-http-method`, `x-method-override` or 
     `x-http-method-override`. This was originally intended for very restricted
     callers, which only supported HTTP GET and HTTP POST, but seems very
-    unnecessary nowadays. 
+    unnecessary nowadays.
     The functionality will be removed in ArangoDB 3.12.
   - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
     header in all responses served by arangod.

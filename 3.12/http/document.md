@@ -132,9 +132,9 @@ contains a JSON array of the same length.
 
 ### Read from followers
 
-<small>Introduced in: v3.10.0</small>
-
 {% include hint-ee-arangograph.md feature="Reading from followers in cluster deployments" %}
+
+<small>Introduced in: v3.10.0</small>
 
 In an ArangoDB cluster, all reads and writes are performed via
 the shard leaders. Shard replicas replicate all operations, but are
