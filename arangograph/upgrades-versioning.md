@@ -4,7 +4,7 @@ description: >-
   Select which version of ArangoDB you want to use within your ArangoGraph
   deployment and choose when to roll out your upgrades
 ---
-# Upgrades and Versioning
+# Upgrades and Versioning in ArangoGraph
 
 {{ page.description }}
 {:class="lead"}

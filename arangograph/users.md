@@ -1,9 +1,9 @@
 ---
 layout: default
-description: How to manage individual members and user groups
-title: Users and Groups in the ArangoGraph Insights Platform
+description: >-
+   How to manage individual members and user groups in ArangoGraph
 ---
-# Users and Groups
+# Users and Groups in ArangoGraph
 
 ## Users, groups & members
 
@@ -22,8 +22,6 @@ You can become a member of an organization in the following ways:
 If the number of members of an organization becomes large, it helps to group
 users. In ArangoGraph a group is part of an organization and a group contains
 a list of users. All users of the group must be member of the owning organization.
-
-
 
 In the **People** section of the dashboard you can manage users, groups and
 invites for the organization.

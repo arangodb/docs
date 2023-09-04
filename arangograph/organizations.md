@@ -1,9 +1,9 @@
 ---
 layout: default
-description: How to manage organizations
-title: Organizations in the ArangoGraph Insights Platform
+description: >-
+   How to manage organizations and what type of packages ArangoGraph offers
 ---
-# Organizations
+# Organizations in ArangoGraph
 
 At the highest level of the ArangoGraph deployment hierarchy are organizations.
 Organizations are a container for projects.
