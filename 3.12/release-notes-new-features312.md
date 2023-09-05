@@ -45,6 +45,16 @@ The updated interface now offers the following options:
 - **Move Followers**
 - **Include System Collections**
 
+### Swagger UI
+
+The interactive tool for exploring HTTP APIs has been updated to version 5.4.1.
+You can find it in the web interface in the **Rest API** tab of the **SUPPORT**
+section, as well as in the **API** tab of Foxx services and Foxx routes that use
+`module.context.createDocumentationRouter()`.
+
+The new version adds support for OpenAPI 3.x specifications in addition to
+Swagger 2.x compatibility.
+
 ## AQL
 
 

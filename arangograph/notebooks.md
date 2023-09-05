@@ -1,7 +1,7 @@
 ---
 layout: default
 description: >-
-  Colocated Jupyter Notebooks within the ArangoGraph Insights Platform
+  How to create and manage colocated Jupyter Notebooks within ArangoGraph
 ---
 # ArangoGraph Notebooks
 

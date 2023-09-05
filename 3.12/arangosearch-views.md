@@ -217,6 +217,8 @@ During view modification the following directives apply:
 
 - **cache** (_optional_; type: `boolean`; default: `false`)
 
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
+
   <small>Introduced in: v3.9.5, v3.10.2</small>
 
   If you enable this option, then field normalization values are always cached
@@ -239,8 +241,6 @@ During view modification the following directives apply:
   [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
   (introduced in v3.10.6).
 
-  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
-
 ### View Properties
 
 - **primarySort** (_optional_; type: `array`; default: `[]`; _immutable_)
@@ -260,6 +260,8 @@ During view modification the following directives apply:
 
 - **primarySortCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
 
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
+
   <small>Introduced in: v3.9.6, v3.10.2</small>
 
   If you enable this option, then the primary sort columns are always cached in
@@ -275,9 +277,9 @@ During view modification the following directives apply:
   [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
   (introduced in v3.10.6).
 
-  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
-
 - **primaryKeyCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
+
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
   <small>Introduced in: v3.9.6, v3.10.2</small>
 
@@ -292,8 +294,6 @@ During view modification the following directives apply:
   leader shards, see the
   [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
   (introduced in v3.10.6).
-
-  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
@@ -342,6 +342,8 @@ During view modification the following directives apply:
 
 - **optimizeTopK** (_optional_; type: `array`; default: `[]`; _immutable_)
 
+  {% include hint-ee-arangograph.md feature="The ArangoSearch WAND optimization" %}
+
   <small>Introduced in: v3.12.0</small>
 
   An array of strings defining sort expressions that you want to optimize.
@@ -360,8 +362,6 @@ During view modification the following directives apply:
   You can define up tp 64 expressions per View.
 
   Example: `["BM25(@doc) DESC", "TFIDF(@doc, true) DESC"]`
-
-  {% include hint-ee-arangograph.md feature="The ArangoSearch WAND optimization" %}
 
 An inverted index is the heart of `arangosearch` Views.
 The index consists of several independent segments and the index **segment**

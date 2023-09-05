@@ -81,7 +81,7 @@ During view modification the following directives apply:
   processed at each level of the document. Each key specifies the document
   attribute to be processed. Note that the value of `includeAllFields` is also
   consulted when selecting fields to be processed.
-  
+
   The `fields` property is a recursive data structure. This means that `fields`
   can be part of the Link properties again. This lets you index nested attributes.
   For example, you might have documents like the following in a collection named
@@ -177,8 +177,10 @@ During view modification the following directives apply:
   `inBackground` is an option that can be set when adding links. It does not get
   persisted as it is not a View property, but only a one-off option. Also see:
   [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
-  
+
 - **cache** (_optional_; type: `boolean`; default: `false`)
+
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
   <small>Introduced in: v3.9.5, v3.10.2</small>
 
@@ -201,8 +203,6 @@ During view modification the following directives apply:
   leader shards, see the
   [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
   (introduced in v3.10.6).
-
-  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
 ### View Properties
 
@@ -232,6 +232,8 @@ cache-related options and thus recreate inverted indexes and Views. See
   
 - **primarySortCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
 
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
+
   <small>Introduced in: v3.9.6, v3.10.2</small>
 
   If you enable this option, then the primary sort columns are always cached in
@@ -247,9 +249,9 @@ cache-related options and thus recreate inverted indexes and Views. See
   [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
   (introduced in v3.10.6).
 
-  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
-  
 - **primaryKeyCache** (_optional_; type: `boolean`; default: `false`; _immutable_)
+
+  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
 
   <small>Introduced in: v3.9.6, v3.10.2</small>
 
@@ -265,8 +267,6 @@ cache-related options and thus recreate inverted indexes and Views. See
   [`--arangosearch.columns-cache-only-leader` startup option](programs-arangod-options.html#--arangosearchcolumns-cache-only-leader)
   (introduced in v3.10.6).
 
-  {% include hint-ee-arangograph.md feature="ArangoSearch caching" %}
-
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
   <small>Introduced in: v3.7.1</small>
@@ -279,13 +279,13 @@ cache-related options and thus recreate inverted indexes and Views. See
   Each object is expected in the following form:
 
   `{ "fields": [ "attr1", "attr2", ... "attrN" ], "compression": "none", "cache": false }`
-  
+
   - The required `fields` attribute is an array of strings with one or more
     document attribute paths. The specified attributes are placed into a single
     column of the index. A column with all fields that are involved in common
     search queries is ideal for performance. The column should not include too
     many unneeded fields, however.
-  
+
   - The optional `compression` attribute defines the compression type used for
     the internal column-store, which can be `"lz4"` (LZ4 fast compression, default)
     or `"none"` (no compression).

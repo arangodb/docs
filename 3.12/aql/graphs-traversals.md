@@ -127,7 +127,11 @@ FOR vertex[, edge[, path]]
       vertex collection.
     - The starting vertex is always allowed, even if it does not belong to one
       of the collections specified by a restriction.
-  - **parallelism** (number, *optional*): Optionally parallelize traversal
+  - **parallelism** (number, *optional*):
+
+    {% include hint-ee-arangograph.md feature="Traversal parallelization" %}
+
+    Optionally parallelize traversal
     execution. If omitted or set to a value of `1`,
     traversal execution is not parallelized. If set to a value greater than `1`,
     then up to that many worker threads can be used for concurrently executing
@@ -139,10 +143,12 @@ FOR vertex[, edge[, path]]
     case when a nested traversal is fed with several tens of thousands of start
     vertices, which can then be distributed randomly to worker threads for parallel
     execution.
-    {% include hint-ee-arangograph.md feature="Traversal parallelization" %}
-  - **maxProjections** (number, *optional*): Specifies the number of document
-    attributes per FOR loop to be used as projections. The default value is `5`.
+  - **maxProjections** (number, *optional*):
+
     {% include hint-ee-arangograph.md feature="Traversal projections" plural=true %}
+
+    Specifies the number of document
+    attributes per FOR loop to be used as projections. The default value is `5`.
   - **weightAttribute** (string, *optional*): Specifies the name of an attribute
     that is used to look up the weight of an edge. If no attribute is specified
     or if it is not present in the edge document then the `defaultWeight` is used.

@@ -1,9 +1,9 @@
 ---
 layout: default
-description: Quick start guide on how to set up a connection to the ArangoGraph API.
-title: Getting Started with the ArangoGraph Insights Platform API
+description: >-
+   Quick start guide on how to set up a connection to the ArangoGraph API
 ---
-# Getting Started with the ArangoGraph Insights Platform API
+# Getting Started with the ArangoGraph API
 
 The instructions below are a quick start guide on how to set up a connection to the ArangoGraph API.
 

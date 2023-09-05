@@ -1,9 +1,9 @@
 ---
 layout: default
-description: Single Sign-On (SSO) using SAML 2.0
-title: Single Sign-On (SSO)
+description: >-
+   Single Sign-On (SSO) using SAML 2.0
 ---
-# Single Sign-On (SSO)
+# Single Sign-On (SSO) in ArangoGraph
 
 ArangoGraph provides support to enable **Single Sign-On** (SSO) authentication
 using **Security Assertion Markup language 2.0** (SAML 2.0).

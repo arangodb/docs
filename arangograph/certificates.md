@@ -5,7 +5,7 @@ description: >-
   The communication with and between the servers of an ArangoGraph deployment is
   encrypted using the TLS protocol
 ---
-# X.509 Certificates
+# X.509 Certificates in ArangoGraph
 
 {{ page.description }}
 {:class="lead"}

@@ -4,7 +4,7 @@ description: >-
   Use the private endpoint feature to isolate your deployments and increase
   security
 ---
-# Private endpoint deployments
+# Private endpoint deployments in ArangoGraph
 
 This topic describes how to create a private endpoint deployment and
 securely deploy to various cloud providers such as Google Cloud Platform (GCP),
