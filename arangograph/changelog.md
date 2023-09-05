@@ -14,26 +14,35 @@ title: ArangoGraph Changelog
 
 ### August 2023 
 
-- Updated ArangoGraph Professional and Enterprise to On-Demand and Committed, respectively. All customers now have standard support included and access to functionality that was previously Enterprise only, including:
+- Updated ArangoGraph Professional and Enterprise to On-Demand and Committed, respectively.
+  All customers now have standard support included and access to functionality
+  that was previously Enterprise only, including:
   - Single Sign On (SSO)
   - Private Endpoints
-- Updated the deployment models for ArangoGraph to simplify the experience for users. When you select a specific deployment size (e.g. A4), all disk and CPU-related settings will be set for you automatically
+- Updated the deployment models for ArangoGraph to simplify the experience for
+  users. When you select a specific deployment size (e.g. A4), all disk and
+  CPU-related settings will be set for you automatically
 - Improved and modernized the look-and-feel of the ArangoGraph UI
 - Increased maximum deployment size to 64 nodes
-- Improved the first-time experience for adding a payment method to your account to better guide you on the necessary steps
-- Added ability to set groups as default groups for any newly invited users, greatly simplifying the user onboarding experience
+- Improved the first-time experience for adding a payment method to your account
+  to better guide you on the necessary steps
+- Added ability to set groups as default groups for any newly invited users,
+  greatly simplifying the user onboarding experience
 - Adds [ArangoDB 3.10.10](https://raw.githubusercontent.com/arangodb/arangodb/3.10.10/CHANGELOG){:target="_blank"}
   as an available version for deployments in ArangoGraph; 3.10.9 has been
   removed as a selectable version
 - Adds [ArangoDB 3.11.3](https://raw.githubusercontent.com/arangodb/arangodb/3.11.3/CHANGELOG){:target="_blank"}
-as an available version for deployments in ArangoGraph; 3.11.12 has been
-removed as a selectable version
+  as an available version for deployments in ArangoGraph; 3.11.12 has been
+  removed as a selectable version
 
 ### July 2023
 
-- Improved resource scheduling so that co-ordinators and db servers on larger deployments (A8+) more effectively utilize the CPU resources available to them
-- Updated the "Developer (beta)" deployment type to "Single Server" to better reflect the intended use case, and to clarify its supported status
-- Updated the ArangoGraph Notebooks look-and-feel to better align with the rest of the ArangoGraph UI
+- Improved resource scheduling so that co-ordinators and db servers on larger
+  deployments (A8+) more effectively utilize the CPU resources available to them
+- Updated the "Developer (beta)" deployment type to "Single Server" to better
+  reflect the intended use case, and to clarify its supported status
+- Updated the ArangoGraph Notebooks look-and-feel to better align with the rest
+  of the ArangoGraph UI
 - Adds [ArangoDB 3.10.9](https://raw.githubusercontent.com/arangodb/arangodb/3.10.9/CHANGELOG){:target="_blank"}
   as an available version for deployments in ArangoGraph; 3.10.8 has been
   removed as a selectable version
@@ -47,13 +56,18 @@ removed as a selectable version
 
 ### June 2023
 
-- Adds automatic database login, new deployments will automatically share ArangoGraph authentication for the database UI, removing the need to log in separately. 
-  This behavior can be disabled on a per-deployment basis if needed.
+- Adds automatic database login, new deployments will automatically share
+  ArangoGraph authentication for the database UI, removing the need to log in
+  separately. This behavior can be disabled on a per-deployment basis if needed.
 - Adds AWS Sydney as a supported region
-- Automatically pauses any running deployments if an invoice has been outstanding for over 14 days
-- Enables cross-zone traffic for Private Endpoints to remove the requirement of overlapping availability zones between ArangoGraph deployments and customer VPCs
-- Allow users to enable/disable login via Single Sign On (SSO) explicitly using oasisctl and the public API
-- Uses the more performant Azure SSD v2 in all regions that support it, providing superior disk performance to ArangoGraph customers in Azure
+- Automatically pauses any running deployments if an invoice has been
+  outstanding for over 14 days
+- Enables cross-zone traffic for Private Endpoints to remove the requirement of
+  overlapping availability zones between ArangoGraph deployments and customer VPCs
+- Allow users to enable/disable login via Single Sign On (SSO) explicitly using
+  oasisctl and the public API
+- Uses the more performant Azure SSD v2 in all regions that support it,
+  providing superior disk performance to ArangoGraph customers in Azure
 - Adds [ArangoDB 3.10.8](https://raw.githubusercontent.com/arangodb/arangodb/3.10.8/CHANGELOG){:target="_blank"}
   as an available version for deployments in ArangoGraph; 3.10.6 has been
   removed as a selectable version
