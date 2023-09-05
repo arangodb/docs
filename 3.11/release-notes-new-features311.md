@@ -1196,7 +1196,7 @@ The following system metrics have been added:
 
 ### In-memory edge cache startup options and metrics
 
-<small>Introduced in: v3.11.3</small>
+<small>Introduced in: v3.11.4</small>
 
 The following startup options have been added:
 

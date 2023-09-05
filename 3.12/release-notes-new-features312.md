@@ -106,7 +106,7 @@ unlimited, so an arbitrary amount of databases can be created.
 
 ### In-memory edge cache startup options and metrics
 
-<small>Introduced in: v3.11.3, v3.12.0</small>
+<small>Introduced in: v3.11.4, v3.12.0</small>
 
 The following startup options have been added:
 
