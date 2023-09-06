@@ -93,7 +93,7 @@ Create a graph without relations. Edge definitions can be added later:
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreate1_cluster}
       var graph_module = require("@arangodb/smart-graph");
       var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreate1_cluster
@@ -109,7 +109,7 @@ Create a graph using an edge collection `edges` and a single vertex collection
       var graph_module = require("@arangodb/smart-graph");
       var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
       var graph = graph_module._create("myGraph", edgeDefinitions, [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreate2_cluster
@@ -124,7 +124,7 @@ Create a graph with edge definitions and orphan collections:
       var graph_module = require("@arangodb/smart-graph");
       var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
       var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreate3_cluster
@@ -189,7 +189,7 @@ Remove the orphan collection from the SmartGraph and drop the collection:
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
      ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
       graph._removeVertexCollection("other", true);
-      graph_module._graph("myGraph");
+      graph = graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify2_cluster
@@ -278,7 +278,7 @@ Create a SmartGraph, then delete the edge definition and drop the edge collectio
       var relation = graph_module._relation("edges", "vertices", "vertices");
       var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
       graph._deleteEdgeDefinition("edges", true);
-      graph_module._graph("myGraph");
+      graph = graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify6_cluster
