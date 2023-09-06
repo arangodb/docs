@@ -1874,12 +1874,11 @@ This function is intended to be used together with the
   get the substring from `offset` to the end of the string. The end byte
   (`offset` + `length`) needs to coincide with the end of a character's
   byte sequence
-- **left** (number, *optional*): numbers of characters, if not specified it is
-  equal to zero. Move begining of substring to the begining of the string
-  on specified numbers of characters.
-- **right** (number, *optional*): numbers of characters, if not specified it is
-  equal to left. Move ending of substring to the ending of the string
-  on specified numbers of characters.
+- **left** (number, *optional*): move the beginning of the substring to the left
+  by this number of **characters**. If not specified, the default value is `0`.
+- **right** (number, *optional*): move the ending of the substring to the right
+  by this number of **characters**. If not specified, the default value is the
+  value of `left`.
 - returns **substring** (string\|null): a substring of `value`, or `null` and
   produces a warning if the start or end byte is in the middle of a character's
   byte sequence
@@ -1933,6 +1932,18 @@ incomplete UTF-8 byte sequence:
       RETURN SUBSTRING_BYTES("We ❤️ avocado!", -15, 4)
     @END_EXAMPLE_AQL
     @endDocuBlock aqlSubstringBytes_4
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+Get a 3 bytes long substring starting at the 3rd byte (where the Black Heart Symbol is), but
+expand the selection by 3 characters to the left and 5 characters to the right:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlSubstringBytes_5
+    @EXAMPLE_AQL{aqlSubstringBytes_5}
+      RETURN SUBSTRING_BYTES("We ❤️ avocado!", 3, 3, 3, 5)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlSubstringBytes_5
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
