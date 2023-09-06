@@ -1341,7 +1341,7 @@ Create and update a document:
       a1 = db.example.insert({ a : 1 });
       a2 = db.example.replace(a1, { a : 2 });
       a3 = db.example.replace(a1, { a : 3 }); // xpError(ERROR_ARANGO_CONFLICT);
-      a3 = db.example.replace(a1, { a : 3 }. { overwrite: true });
+      a3 = db.example.replace(a1, { a : 3 }, { overwrite: true });
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionReplace1
@@ -1736,7 +1736,7 @@ from `vertices`, which must be a list of documents or document identifiers.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline EDGCOL_02_outEdges
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_outEdges}
-      var vcoll db._create("vertex");
+      var vcoll = db._create("vertex");
       var ecoll = db._createEdgeCollection("relation");
       var myGraph = {};
       myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
