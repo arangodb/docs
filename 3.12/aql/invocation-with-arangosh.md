@@ -328,7 +328,7 @@ Options related to the query optimizer.
   a rule, prefix its name with a `-`, to enable a rule, prefix it with a `+`. There is also
   a pseudo-rule `all`, which matches all optimizer rules. `-all` disables all rules.
 
-### `allowRetry`
+#### `allowRetry`
 
 Set this option to `true` to make it possible to retry fetching the latest batch
 from a cursor.
