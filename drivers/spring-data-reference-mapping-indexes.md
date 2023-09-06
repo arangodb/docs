@@ -17,7 +17,7 @@ Possible `@<IndexType>Indexed` annotations are:
 
 - `@PersistentIndexed`
 - `@GeoIndexed`
-- `@FulltextIndexed`
+- `@FulltextIndexed` (deprecated)
 - `@TtlIndexed`
 
 The following example creates a persistent index on the field `name` and a separate persistent index on the field `age`:
@@ -52,7 +52,7 @@ Possible `@<IndexType>Index` annotations are:
 
 - `@PersistentIndex`
 - `@GeoIndex`
-- `@FulltextIndex`
+- `@FulltextIndex` (deprecated)
 - `@TtlIndex`
 
 The following example creates a single persistent index on the fields `name` and `age`, note that if a field is renamed in the database with @Field, the new field name must be used in the index declaration:

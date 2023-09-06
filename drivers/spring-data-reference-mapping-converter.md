@@ -24,23 +24,23 @@ public class MyConfiguration implements ArangoConfiguration {
 
 ## Implementing a Spring Converter
 
-A `Converter` is used for reading if the source type is of type `VPackSlice` or `DBDocumentEntity`.
+A `Converter` is used for reading if the source type is of type `JsonNode` or `DBDocumentEntity`.
 
-A `Converter` is used for writing if the target type is of type `VPackSlice`, `DBDocumentEntity`, `BigInteger`, `BigDecimal`, `java.sql.Date`, `java.sql.Timestamp`, `Instant`, `LocalDate`, `LocalDateTime`, `OffsetDateTime`, `ZonedDateTime`, `Boolean`, `Short`, `Integer`, `Byte`, `Float`, `Double`, `Character`, `String`, `Date`, `Class`, `Enum`, `boolean[]`, `long[]`, `short[]`, `int[]`, `byte[]`, `float[]`, `double[]` or `char[]`.
+A `Converter` is used for writing if the target type is of type `JsonNode`, `DBDocumentEntity`, `BigInteger`, `BigDecimal`, `java.sql.Date`, `java.sql.Timestamp`, `Instant`, `LocalDate`, `LocalDateTime`, `OffsetDateTime`, `ZonedDateTime`, `Boolean`, `Short`, `Integer`, `Byte`, `Float`, `Double`, `Character`, `String`, `Date`, `Class`, `Enum`, `boolean[]`, `long[]`, `short[]`, `int[]`, `byte[]`, `float[]`, `double[]` or `char[]`.
 
 **Examples**
 
 ```java
-public class MyConverter implements Converter<MyObject, VPackSlice> {
+public class MyConverter implements Converter<MyObject, JsonNode> {
 
   @Override
-  public VPackSlice convert(final MyObject source) {
-    VPackBuilder builder = new VPackBuilder();
+  public JsonNode convert(final MyObject source) {
+    ObjectNode on = JsonNodeFactory.instance.objectNode();
     // map fields of MyObject to builder
-    return builder.slice();
+    // on.put("key", "value");
+    // ...  
+    return on;
   }
 
 }
 ```
-
-For performance reasons `VPackSlice` should always be used within a converter. If your object is too complex, you can also use `DBDocumentEntity` to simplify the mapping.

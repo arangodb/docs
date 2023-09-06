@@ -17,7 +17,7 @@ for ArangoDB and provides mapping of Java objects to ArangoDB documents (ODM).
 ## Supported versions
 
 Spring Data ArangoDB is compatible with:
-- all the still supported Spring Boot 2.x [versions](https://spring.io/projects/spring-boot#support){:target="_blank"}
+- all the still supported Spring Boot (3.x and 2.x) [versions](https://spring.io/projects/spring-boot#support){:target="_blank"}
   and related Spring Framework versions
 - all the still supported ArangoDB [versions](https://www.arangodb.com/eol-notice){:target="_blank"}
 
@@ -35,11 +35,14 @@ Example with Maven (substitute `x.x.x` with the latest Spring Data ArangoDB vers
 </dependency>
 ```
 
-There is a [demonstration app](https://github.com/arangodb/spring-data-demo){:target="_blank"}, which contains common use cases and examples of how to use Spring Data ArangoDB's functionality.
+There is a [demonstration app](https://github.com/arangodb/spring-data-demo){:target="_blank"}, which contains common
+use cases and examples of how to use Spring Data ArangoDB's functionality.
 
 ## Configuration
 
-You can use Java to configure your Spring Data environment as show below. Setting up the underlying driver (`ArangoDB.Builder`) with default configuration automatically loads a properties file `arangodb.properties`, if it exists in the classpath.
+You can use Java to configure your Spring Data environment as show below. Setting up the underlying
+driver (`ArangoDB.Builder`) with default configuration automatically loads a properties file `arangodb.properties`, if
+it exists in the classpath.
 
 ```java
 @Configuration
@@ -60,18 +63,7 @@ public class MyConfiguration implements ArangoConfiguration {
 }
 ```
 
-The driver is configured with some default values:
-
-| property-key      | description                         | default value |
-| ----------------- | ----------------------------------- | ------------- |
-| arangodb.host     | ArangoDB host                       | 127.0.0.1     |
-| arangodb.port     | ArangoDB port                       | 8529          |
-| arangodb.timeout  | socket connect timeout(millisecond) | 0             |
-| arangodb.user     | Basic Authentication User           |
-| arangodb.password | Basic Authentication Password       |
-| arangodb.useSsl   | use SSL connection                  | false         |
-
-To customize the configuration, the parameters can be changed in the Java code.
+The driver configuration can be customized by implementing `ArangoConfiguration#arango()`: 
 
 ```java
 @Override
@@ -84,27 +76,10 @@ public ArangoDB.Builder arango() {
 }
 ```
 
-In addition you can use the _arangodb.properties_ or a custom properties file to supply credentials to the driver.
+## Spring Boot
 
-_Properties file_
+Spring Boot support is offered by [Spring Boot Starter ArangoDB](https://github.com/arangodb/spring-boot-starter).
 
-```
-arangodb.hosts=127.0.0.1:8529
-arangodb.user=root
-arangodb.password=
-```
-
-_Custom properties file_
-
-```java
-@Override
-public ArangoDB.Builder arango() {
-  InputStream in = MyClass.class.getResourceAsStream("my.properties");
-  ArangoDB.Builder arango = new ArangoDB.Builder()
-    .loadProperties(in);
-  return arango;
-}
-```
 ## Learn more
 
 - [Demo](https://github.com/arangodb/spring-data-demo){:target="_blank"}

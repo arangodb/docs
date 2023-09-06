@@ -4,7 +4,8 @@ title: Spring Data ArangoDB - Mapping
 ---
 # Mapping
 
-In this section we will describe the features and conventions for mapping Java objects to documents and how to override those conventions with annotation based mapping metadata.
+In this section we will describe the features and conventions for mapping Java objects to documents and how to override
+those conventions with annotation based mapping metadata.
 
 ## Conventions
 
@@ -20,37 +21,13 @@ In this section we will describe the features and conventions for mapping Java o
     - a non-parameterized constructor or
     - a parameterized constructor annotated with `@PersistenceConstructor`
 
-## Type conventions
-
-ArangoDB uses [VelocyPack](https://github.com/arangodb/velocypack){:target="_blank"} as it's internal storage format which supports a large number of data types. In addition Spring Data ArangoDB offers - with the underlying Java driver - built-in converters to add additional types to the mapping.
-
-| Java type                | VelocyPack type               |
-| ------------------------ | ----------------------------- |
-| java.lang.String         | string                        |
-| java.lang.Boolean        | bool                          |
-| java.lang.Integer        | signed int 4 bytes, smallint  |
-| java.lang.Long           | signed int 8 bytes, smallint  |
-| java.lang.Short          | signed int 2 bytes, smallint  |
-| java.lang.Double         | double                        |
-| java.lang.Float          | double                        |
-| java.math.BigInteger     | string                        |
-| java.math.BigDecimal     | string                        |
-| java.lang.Number         | double                        |
-| java.lang.Character      | string                        |
-| java.util.UUID           | string                        |
-| java.lang.byte[]         | string (Base64)               |
-| java.util.Date           | string (date-format ISO 8601) |
-| java.sql.Date            | string (date-format ISO 8601) |
-| java.sql.Timestamp       | string (date-format ISO 8601) |
-| java.time.Instant        | string (date-format ISO 8601) |
-| java.time.LocalDate      | string (date-format ISO 8601) |
-| java.time.LocalDateTime  | string (date-format ISO 8601) |
-| java.time.OffsetDateTime | string (date-format ISO 8601) |
-| java.time.ZonedDateTime  | string (date-format ISO 8601) |
-
 ## Type mapping
 
-As collections in ArangoDB can contain documents of various types, a mechanism to retrieve the correct Java class is required. The type information of properties declared in a class may not be enough to restore the original class (due to inheritance). If the declared complex type and the actual type do not match, information about the actual type is stored together with the document. This is necessary to restore the correct type when reading from the DB. Consider the following example:
+As collections in ArangoDB can contain documents of various types, a mechanism to retrieve the correct Java class is
+required. The type information of properties declared in a class may not be enough to restore the original class (due to
+inheritance). If the declared complex type and the actual type do not match, information about the actual type is stored
+together with the document. This is necessary to restore the correct type when reading from the DB. Consider the
+following example:
 
 ```java
 public class Person {
@@ -138,37 +115,38 @@ To deactivate the type mapping process, you can return `null` from the `typeKey(
 
 ### Annotation overview
 
-| annotation              | level                     | description                                                                                                                                         |
-|-------------------------| ------------------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| @Document               | class                     | marks this class as a candidate for mapping                                                                                                         |
-| @Edge                   | class                     | marks this class as a candidate for mapping                                                                                                         |
-| @Id                     | field                     | stores the field as the system field \_key                                                                                                          |
-| @Rev                    | field                     | stores the field as the system field \_rev                                                                                                          |
-| @Field("alt-name")      | field                     | stores the field with an alternative name                                                                                                           |
-| @Ref                    | field                     | stores the \_id of the referenced document and not the nested document                                                                              |
-| @From                   | field                     | stores the \_id of the referenced document as the system field \_from                                                                               |
-| @To                     | field                     | stores the \_id of the referenced document as the system field \_to                                                                                 |
-| @Relations              | field                     | vertices which are connected over edges                                                                                                             |
-| @Transient              | field, method, annotation | marks a field to be transient for the mapping framework, thus the property will not be persisted and not further inspected by the mapping framework |
+| annotation            | level                     | description                                                                                                                                         |
+|-----------------------| ------------------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| @Document             | class                     | marks this class as a candidate for mapping                                                                                                         |
+| @Edge                 | class                     | marks this class as a candidate for mapping                                                                                                         |
+| @Id                   | field                     | stores the field as the system field \_key                                                                                                          |
+| @ArangoId             | field                     | stores the field as the system field \_id                                                                                                           |
+| @Rev                  | field                     | stores the field as the system field \_rev                                                                                                          |
+| @Field("alt-name")    | field                     | stores the field with an alternative name                                                                                                           |
+| @Ref                  | field                     | stores the \_id of the referenced document and not the nested document                                                                              |
+| @From                 | field                     | stores the \_id of the referenced document as the system field \_from                                                                               |
+| @To                   | field                     | stores the \_id of the referenced document as the system field \_to                                                                                 |
+| @Relations            | field                     | vertices which are connected over edges                                                                                                             |
+| @Transient            | field, method, annotation | marks a field to be transient for the mapping framework, thus the property will not be persisted and not further inspected by the mapping framework |
 | @PersistenceConstructor | constructor               | marks a given constructor - even a package protected one - to use when instantiating the object from the database                                   |
-| @TypeAlias("alias")     | class                     | set a type alias for the class when persisted to the DB                                                                                             |
-| @PersistentIndex        | class                     | describes a persistent index                                                                                                                        |
-| @PersistentIndexed      | field                     | describes how to index the field                                                                                                                    |
-| @GeoIndex               | class                     | describes a geo index                                                                                                                               |
-| @GeoIndexed             | field                     | describes how to index the field                                                                                                                    |
-| @FulltextIndex          | class                     | describes a fulltext index                                                                                                                          |
-| @FulltextIndexed        | field                     | describes how to index the field                                                                                                                    |
-| @TtlIndex               | class                     | describes a TTL index                                                                                                                               |
-| @TtlIndexed             | field                     | describes how to index the field                                                                                                                    |
-| @CreatedBy              | field                     | Declares a field as the one representing the principal that created the entity containing the field.                                                |
-| @CreatedDate            | field                     | Declares a field as the one representing the date the entity containing the field was created.                                                      |
-| @LastModifiedBy         | field                     | Declares a field as the one representing the principal that recently modified the entity containing the field.                                      |
-| @LastModifiedDate       | field                     | Declares a field as the one representing the date the entity containing the field was recently modified.                                            |
+| @TypeAlias("alias")   | class                     | set a type alias for the class when persisted to the DB                                                                                             |
+| @PersistentIndex      | class                     | describes a persistent index                                                                                                                        |
+| @PersistentIndexed    | field                     | describes how to index the field                                                                                                                    |
+| @GeoIndex             | class                     | describes a geo index                                                                                                                               |
+| @GeoIndexed           | field                     | describes how to index the field                                                                                                                    |
+| @FulltextIndex        | class                     | describes a fulltext index                                                                                                                          |
+| @FulltextIndexed      | field                     | describes how to index the field                                                                                                                    |
+| @TtlIndex             | class                     | describes a TTL index                                                                                                                               |
+| @TtlIndexed           | field                     | describes how to index the field                                                                                                                    |
+| @CreatedBy            | field                     | Declares a field as the one representing the principal that created the entity containing the field.                                                |
+| @CreatedDate          | field                     | Declares a field as the one representing the date the entity containing the field was created.                                                      |
+| @LastModifiedBy       | field                     | Declares a field as the one representing the principal that recently modified the entity containing the field.                                      |
+| @LastModifiedDate     | field                     | Declares a field as the one representing the date the entity containing the field was recently modified.                                            |
 
 
 ## Invoking conversion manually
 
-In order to invoke entity serialization and deserialization to and from `VPackSlice` manually, you can inject an
+In order to invoke entity serialization and deserialization to and from Jackson `JsonNode` manually, you can inject an
 instance of `ArangoConverter` and respectively call the methods `write` and `read` on it, e.g.:
 
 ```java
@@ -178,10 +156,10 @@ instance of `ArangoConverter` and respectively call the methods `write` and `rea
 ArangoConverter arangoConverter;
 
   // ...
-  VPackSlice vPackSlice = converter.write(entity);
+  JsonNode jn = converter.write(entity);
 
   // ...
-  MyEntity entity = converter.read(MyEntity.class, vPackSlice);
+  MyEntity entity = converter.read(MyEntity.class, jn);
 ```
 
 This is useful for cases where you need to use the underlying Java driver directly (accessible from
