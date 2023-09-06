@@ -73,7 +73,7 @@ Create a graph without relations. Edge definitions can be added later:
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreate1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var graph = graph_module._create("myGraph", [], [], {isSmart: true, numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreate1_cluster
@@ -89,7 +89,7 @@ Create a graph using an edge collection `edges` and a single vertex collection
       var graph_module = require("@arangodb/enterprise-graph");
       var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
       var graph = graph_module._create("myGraph", edgeDefinitions, [], {isSmart: true, numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreate2_cluster
@@ -104,7 +104,7 @@ Create a graph with edge definitions and orphan collections:
       var graph_module = require("@arangodb/enterprise-graph");
       var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
       var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {isSmart: true, numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreate3_cluster
@@ -168,7 +168,7 @@ Remove the orphan collection from the EnterpriseGraph and drop the collection:
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
      ~var graph = graph_module._create("myGraph", [relation], ["other"], {isSmart: true, numberOfShards: 9});
       graph._removeVertexCollection("other", true);
-      graph_module._graph("myGraph");
+      graph = graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify2_cluster
@@ -257,7 +257,7 @@ Create an EnterpriseGraph, then delete the edge definition and drop the edge col
       var relation = graph_module._relation("edges", "vertices", "vertices");
       var graph = graph_module._create("myGraph", [relation], [], {isSmart: true, numberOfShards: 9});
       graph._deleteEdgeDefinition("edges", true);
-      graph_module._graph("myGraph");
+      graph = graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphModify6_cluster

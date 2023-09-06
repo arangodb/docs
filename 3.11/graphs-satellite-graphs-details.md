@@ -38,7 +38,7 @@ To create a SatelliteGraph in arangosh, use the `satellite-graph` module:
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate1_cluster}
       var satelliteGraphModule = require("@arangodb/satellite-graph");
       var graph = satelliteGraphModule._create("satelliteGraph");
-      satelliteGraphModule._graph("satelliteGraph");
+      graph = satelliteGraphModule._graph("satelliteGraph");
     ~ satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphCreate1_cluster
@@ -119,7 +119,8 @@ Creating an empty SatelliteGraph: No prototype collection is present.
     @startDocuBlockInline satelliteGraphPrototype1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphPrototype1_cluster}
       var satelliteGraphModule = require("@arangodb/satellite-graph");
-      satelliteGraphModule._create("satelliteGraph");
+      var graph = satelliteGraphModule._create("satelliteGraph");
+      graph;
     ~ satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphPrototype1_cluster

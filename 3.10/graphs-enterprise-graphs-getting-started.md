@@ -226,7 +226,7 @@ Compared to SmartGraphs, the option `isSmart: true` is required but the
     @EXAMPLE_ARANGOSH_OUTPUT{enterpriseGraphCreateGraphHowTo1_cluster}
       var graph_module = require("@arangodb/enterprise-graph");
       var graph = graph_module._create("myGraph", [], [], {isSmart: true, numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreateGraphHowTo1_cluster
@@ -249,7 +249,7 @@ without trouble however, as they have the correct sharding.
       graph._addVertexCollection("shop");
       graph._addVertexCollection("customer");
       graph._addVertexCollection("pet");
-      graph_module._graph("myGraph");
+      graph = graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreateGraphHowTo2_cluster
@@ -273,7 +273,7 @@ correct sharding already).
      ~graph._addVertexCollection("pet");
       var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
       graph._extendEdgeDefinitions(rel);
-      graph_module._graph("myGraph");
+      graph = graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreateGraphHowTo3_cluster
@@ -309,7 +309,7 @@ request, only then the option counts.
       var graph_module = require("@arangodb/enterprise-graph");
       var rel = graph_module._relation("isCustomer", "shop", "customer")
       var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], isSmart: true, numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock enterpriseGraphCreateGraphHowTo4_cluster

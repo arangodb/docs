@@ -69,9 +69,9 @@ Drop a collection:
     @startDocuBlockInline collectionDrop
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDrop}
     ~ db._create("example");
-      col = db.example;
-      col.drop();
-      col;
+      var coll = db.example;
+      coll.drop();
+      coll;
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDrop
@@ -84,9 +84,8 @@ Drop a system collection:
     @startDocuBlockInline collectionDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDropSystem}
     ~ db._create("_example", { isSystem: true });
-      col = db._example;
-      col.drop({ isSystem: true });
-      col;
+      var coll = db._example;
+      coll.drop({ isSystem: true });
     ~ db._drop("example", { isSystem: true });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDropSystem
@@ -378,9 +377,9 @@ The `rename()` method cannot be used in clusters.
     @startDocuBlockInline collectionRename
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRename}
     ~ db._create("example");
-      c = db.example;
-      c.rename("better-example");
-      c;
+      var coll = db.example;
+      coll.rename("better-example");
+      coll;
     ~ db._drop("better-example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionRename
@@ -431,11 +430,11 @@ Truncates a collection:
     @startDocuBlockInline collectionTruncate
     @EXAMPLE_ARANGOSH_OUTPUT{collectionTruncate}
     ~ db._create("example");
-      col = db.example;
-      col.save({ "Hello" : "World" });
-      col.count();
-      col.truncate();
-      col.count();
+      var coll = db.example;
+      var doc = coll.save({ "Hello" : "World" });
+      coll.count();
+      coll.truncate();
+      coll.count();
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionTruncate
@@ -510,11 +509,13 @@ Use `toArray()` to get all documents at once:
     @startDocuBlockInline 001_collectionAll
     @EXAMPLE_ARANGOSH_OUTPUT{001_collectionAll}
     ~ db._create("five");
-      db.five.insert({ name : "one" });
-      db.five.insert({ name : "two" });
-      db.five.insert({ name : "three" });
-      db.five.insert({ name : "four" });
-      db.five.insert({ name : "five" });
+    | var docs = db.five.insert([
+    |   { name : "one" },
+    |   { name : "two" },
+    |   { name : "three" },
+    |   { name : "four" },
+    |   { name : "five" }
+      ]);
       db.five.all().toArray();
     ~ db._drop("five");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -528,11 +529,13 @@ Use `limit()` to restrict the documents:
     @startDocuBlockInline 002_collectionAllNext
     @EXAMPLE_ARANGOSH_OUTPUT{002_collectionAllNext}
     ~ db._create("five");
-      db.five.insert({ name : "one" });
-      db.five.insert({ name : "two" });
-      db.five.insert({ name : "three" });
-      db.five.insert({ name : "four" });
-      db.five.insert({ name : "five" });
+    | var docs = db.five.insert([
+    |   { name : "one" },
+    |   { name : "two" },
+    |   { name : "three" },
+    |   { name : "four" },
+    |   { name : "five" }
+      ]);
       db.five.all().limit(2).toArray();
     ~ db._drop("five");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -613,9 +616,11 @@ Use `toArray()` to get all documents at once:
     @startDocuBlockInline 003_collectionByExample
     @EXAMPLE_ARANGOSH_OUTPUT{003_collectionByExample}
     ~ db._create("users");
-      db.users.insert({ name: "Gerhard" });
-      db.users.insert({ name: "Helmut" });
-      db.users.insert({ name: "Angela" });
+    | db.users.insert([
+    |   { name: "Gerhard" },
+    |   { name: "Helmut" },
+    |   { name: "Angela" }
+      ]);
       db.users.all().toArray();
       db.users.byExample({ "_id" : "users/20" }).toArray();
       db.users.byExample({ "name" : "Gerhard" }).toArray();
@@ -632,11 +637,13 @@ Use `next()` to loop over all documents:
     @startDocuBlockInline 004_collectionByExampleNext
     @EXAMPLE_ARANGOSH_OUTPUT{004_collectionByExampleNext}
     ~ db._create("users");
-      db.users.insert({ name: "Gerhard" });
-      db.users.insert({ name: "Helmut" });
-      db.users.insert({ name: "Angela" });
-      var a = db.users.byExample( {"name" : "Angela" } );
-      while (a.hasNext()) print(a.next());
+    | db.users.insert([
+    |   { name: "Gerhard" },
+    |   { name: "Helmut" },
+    |   { name: "Angela" }
+      ]);
+      var cursor = db.users.byExample( {"name" : "Angela" } );
+      while (cursor.hasNext()) print(cursor.next());
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 004_collectionByExampleNext
@@ -653,6 +660,7 @@ Returns the number of living documents in the collection.
     @startDocuBlockInline collectionCount
     @EXAMPLE_ARANGOSH_OUTPUT{collectionCount}
     ~ db._create("users");
+    ~ db.users.save([{}, {}, {}]);
       db.users.count();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -821,8 +829,8 @@ This method is deprecated in favor of the array variant of
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLookupByKeys}
     ~ db._drop("example");
     ~ db._create("example");
-      keys = [ ];
-    | for (var i = 0; i < 10; ++i) {
+      var keys = [ ];
+    | for (var i = 0; i < 5; ++i) {
     |   db.example.insert({ _key: "test" + i, value: i });
     |   keys.push("test" + i);
       }
@@ -1257,8 +1265,8 @@ This method is deprecated in favor of the array variant of `remove()`.
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRemoveByKeys}
     ~ db._drop("example");
     ~ db._create("example");
-      keys = [ ];
-    | for (var i = 0; i < 10; ++i) {
+      var keys = [ ];
+    | for (var i = 0; i < 5; ++i) {
     |   db.example.insert({ _key: "test" + i, value: i });
     |   keys.push("test" + i);
       }
@@ -1355,6 +1363,7 @@ Create and update a document:
       a1 = db.example.insert({ a : 1 });
       a2 = db.example.replace(a1, { a : 2 });
       a3 = db.example.replace(a1, { a : 3 }); // xpError(ERROR_ARANGO_CONFLICT);
+      a3 = db.example.replace(a1, { a : 3 }. { overwrite: true });
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionReplace1
@@ -1413,7 +1422,7 @@ replaced.
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### `collection.save(data [, options])
+### `collection.save(data [, options])`
 
 See [`collection.insert(data [, options])`](#collectioninsertdata--options).
 
@@ -1562,13 +1571,11 @@ Use the `keepNull` parameter to remove attributes with `null` values:
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "19988371"});
       db.example.insert({"a" : 1});
-    |db.example.update("example/19988371",
-                       { "b" : null, "c" : null, "d" : 3 });
+      db.example.update("example/19988371", { "b" : null, "c" : null, "d" : 3 });
       db.example.document("example/19988371");
       db.example.update("example/19988371", { "a" : null }, false, false);
       db.example.document("example/19988371");
-    | db.example.update("example/19988371",
-                        { "b" : null, "c": null, "d" : null }, false, false);
+      db.example.update("example/19988371", { "b" : null, "c": null, "d" : null }, false, false);
       db.example.document("example/19988371");
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -1583,14 +1590,19 @@ Patching array values:
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleArray}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "20774803"});
-    |  db.example.insert({"a" : { "one" : 1, "two" : 2, "three" : 3 },
-                          "b" : { }});
-    | db.example.update("example/20774803", {"a" : { "four" : 4 },
-                                             "b" : { "b1" : 1 }});
+    | db.example.insert({
+    |   "a" : { "one" : 1, "two" : 2, "three" : 3 },
+    |   "b" : { }
+      });
+    | db.example.update("example/20774803", {
+    |   "a" : { "four" : 4 },
+    |   "b" : { "b1" : 1 }
+      });
       db.example.document("example/20774803");
-    | db.example.update("example/20774803", { "a" : { "one" : null },
-    |                                         "b" : null },
-                        false, false);
+    | db.example.update("example/20774803", {
+    |   "a" : { "one" : null },
+    |   "b" : null
+      }, false, false);
       db.example.document("example/20774803");
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -1598,7 +1610,7 @@ Patching array values:
     {% endarangoshexample %}
     {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### `collection.updateByExample(example, newValue [, options])
+### `collection.updateByExample(example, newValue [, options])`
 
 `collection.updateByExample(example, newValue [, keepNull [, waitForSync [, limit]]])`
 
@@ -1682,13 +1694,12 @@ or document identifiers.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline EDGCOL_02_Relation
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_Relation}
-      db._create("vertex");
-      db._createEdgeCollection("relation");
+      var vcoll = db._create("vertex");
+      var ecoll = db._createEdgeCollection("relation");
       var myGraph = {};
       myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
       myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
-    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
-                                      { label : "knows"});
+      myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2, { label : "knows"});
       db._document(myGraph.e1);
       db.relation.edges(myGraph.e1._id);
     ~ db._drop("relation");
@@ -1714,13 +1725,12 @@ The `inEdges()` operator finds all edges ending in (inbound) a document from
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline EDGCOL_02_inEdges
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_inEdges}
-      db._create("vertex");
-      db._createEdgeCollection("relation");
-    ~ var myGraph = {};
+      var vcoll = db._create("vertex");
+      var ecoll = db._createEdgeCollection("relation");
+      var myGraph = {};
       myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
       myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
-    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
-                                      { label : "knows"});
+      myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2, { label : "knows"});
       db._document(myGraph.e1);
       db.relation.inEdges(myGraph.v1._id);
       db.relation.inEdges(myGraph.v2._id);
@@ -1748,13 +1758,12 @@ from `vertices`, which must be a list of documents or document identifiers.
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline EDGCOL_02_outEdges
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_outEdges}
-      db._create("vertex");
-      db._createEdgeCollection("relation");
-    ~ var myGraph = {};
+      var vcoll db._create("vertex");
+      var ecoll = db._createEdgeCollection("relation");
+      var myGraph = {};
       myGraph.v1 = db.vertex.insert({ name : "vertex 1" });
       myGraph.v2 = db.vertex.insert({ name : "vertex 2" });
-    | myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2,
-                                      { label : "knows"});
+      myGraph.e1 = db.relation.insert(myGraph.v1, myGraph.v2, { label : "knows"});
       db._document(myGraph.e1);
       db.relation.outEdges(myGraph.v1._id);
       db.relation.outEdges(myGraph.v2._id);

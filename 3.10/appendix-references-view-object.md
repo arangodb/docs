@@ -29,8 +29,8 @@ Get View name:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewName
     @EXAMPLE_ARANGOSH_OUTPUT{viewName}
-      v = db._view("demoView");
-      v.name();
+      var view = db._view("demoView");
+      view.name();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewName
 {% endarangoshexample %}
@@ -47,8 +47,8 @@ Get View type:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewType
     @EXAMPLE_ARANGOSH_OUTPUT{viewType}
-      v = db._view("demoView");
-      v.type();
+      var view = db._view("demoView");
+      view.type();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewType
 {% endarangoshexample %}
@@ -68,8 +68,8 @@ Get View properties:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewGetProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewGetProperties}
-      v = db._view("demoView");
-      v.properties();
+      var view = db._view("demoView");
+      view.properties();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewGetProperties
 {% endarangoshexample %}
@@ -99,14 +99,14 @@ Modify `arangosearch` View properties:
     @startDocuBlockInline viewModifyProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewModifyProperties}
       ~ db._createView("example", "arangosearch");
-        v = db._view("example");
-      | v.properties();
+        var view = db._view("example");
+      | view.properties();
         // set cleanupIntervalStep to 12
-      | v.properties({cleanupIntervalStep: 12});
+      | view.properties({cleanupIntervalStep: 12});
         // add a link
-      | v.properties({links: {demo: {}}})
+      | view.properties({links: {demo: {}}})
         // remove a link
-        v.properties({links: {demo: null}})
+        view.properties({links: {demo: null}})
       ~ db._dropView("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewModifyProperties
@@ -126,9 +126,9 @@ Add and remove inverted indexes from a `search-alias` View:
      |~  { collection: "coll", index: "inv1" },
      |~  { collection: "coll", index: "inv2" }
       ~ ] });
-        var v = db._view("example");
-        v.properties();
-      | v.properties({ indexes: [
+        var view = db._view("example");
+        view.properties();
+      | view.properties({ indexes: [
       |   { collection: "coll", index: "inv1", operation: "del" },
       |   { collection: "coll", index: "inv3" }
         ] });
@@ -157,10 +157,10 @@ The rename method is not available in clusters.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewRename
     @EXAMPLE_ARANGOSH_OUTPUT{viewRename}
-      v = db._createView("example", "arangosearch");
-      v.name();
-      v.rename("exampleRenamed");
-      v.name();
+      var view = db._createView("example", "arangosearch");
+      view.name();
+      view.rename("exampleRenamed");
+      view.name();
       ~ db._dropView("exampleRenamed");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewRename
@@ -178,10 +178,10 @@ Drop a View:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDrop}
-      | v = db._createView("example", "arangosearch");
+    | var view = db._createView("example", "arangosearch");
       // or
-      v = db._view("example");
-      v.drop();
+      var view = db._view("example");
+      view.drop();
       db._view("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDrop

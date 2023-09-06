@@ -183,7 +183,7 @@ account for uniqueness checks.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
-***Examples**
+**Examples**
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniquePersistentSingle
