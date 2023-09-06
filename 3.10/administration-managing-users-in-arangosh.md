@@ -294,6 +294,7 @@ This method will fail if the user cannot be found in the database.
     @startDocuBlockInline USER_07_removeUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_07_removeUser}
     require("@arangodb/users").remove("my-user");
+    ~require('@arangodb/users').save('my-user', 'my-secret-password');
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_07_removeUser
 {% endarangoshexample %}
@@ -315,8 +316,7 @@ This method will fail if the user cannot be found in the database.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_04_documentUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_documentUser}
-    ~ require('@arangodb/users').save('my-user', 'my-secret-password');
-      require("@arangodb/users").document("my-user");
+    require("@arangodb/users").document("my-user");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_04_documentUser
 {% endarangoshexample %}
