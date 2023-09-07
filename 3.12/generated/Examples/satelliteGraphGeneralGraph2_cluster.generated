@@ -8,7 +8,7 @@ Execution plan:
   2   EnumerateCollectionNode   DBS      0     - FOR doc IN collection   /* full collection scan, 8 shard(s)  */
   8   RemoteNode                COOR     0       - REMOTE
   9   GatherNode                COOR     0       - GATHER   /* unsorted */
-  3   TraversalNode             COOR     1       - FOR v  /* vertex */, e  /* edge */, p  /* paths: vertices, edges */ IN 1..1  /* min..maxPathDepth */ OUTBOUND &#x27;vertices/start&#x27; /* startnode */  GRAPH &#x27;normalGraph&#x27;
+  3   TraversalNode             COOR     1       - FOR v  /* vertex */, e  /* edge */, p  /* paths: vertices, edges */ IN 1..1  /* min..maxPathDepth */ OUTBOUND &#x27;vertices/start&#x27; /* startnode */  GRAPH &#x27;normalGraph&#x27; /* order: dfs */
   4   CalculationNode           COOR     1         - LET #6 = [ doc, v, e, p ]   /* simple expression */   /* collections used: doc : collection */
   5   ReturnNode                COOR     1         - RETURN #6
 
@@ -17,14 +17,14 @@ Indexes used:
   3   edge   edge   edges        false    false    false      100.00 %   [ `_from` ]   [  ]            base OUTBOUND
 
 Traversals on graphs:
- Id  Depth  Vertex collections  Edge collections  Options                                  Filter / Prune Conditions
- 3   1..1   vertices            edges             uniqueVertices: none, uniqueEdges: path                           
+ Id  Depth  Vertex collections  Edge collections  Options                                              Filter / Prune Conditions
+ 3   1..1   vertices            edges             uniqueVertices: none, uniqueEdges: path, order: dfs                           
 
 Optimization rules applied:
  Id   RuleName
   1   scatter-in-cluster
   2   remove-unnecessary-remote-scatter
 
-64 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00169
+64 rule(s) executed, 1 plan(s) created, peak mem [b]: 0, exec time [s]: 0.00121
 
 

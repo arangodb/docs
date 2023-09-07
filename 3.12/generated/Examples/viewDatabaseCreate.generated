@@ -1,6 +1,5 @@
-arangosh&gt; v = db._createView(<span class="hljs-string">&quot;example&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>);
-[ArangoView <span class="hljs-number">84347</span>, <span class="hljs-string">&quot;example&quot;</span> (type arangosearch)]
-arangosh&gt; v.properties()
+arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span class="hljs-string">&quot;example&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>);
+arangosh&gt; view.properties()
 { 
   <span class="hljs-string">&quot;writebufferSizeMax&quot;</span> : <span class="hljs-number">33554432</span>, 
   <span class="hljs-string">&quot;writebufferIdle&quot;</span> : <span class="hljs-number">64</span>, 
