@@ -6,7 +6,7 @@ description: >-
   supply chains, and other information webs, and to extract valuable insights by
   analyzing this connected data
 ---
-# Graphs
+# First steps with graphs
 
 {{ page.description }}
 {:class="lead"}

@@ -1,10 +1,9 @@
 ---
 layout: default
-description: SmartGraphs enable you to manage graphs at scale.
-title: ArangoDB SmartGraphs - Getting Started
+description: >-
+  SmartGraphs enable you to manage graphs at scale
 ---
-Getting started
----------------
+# Getting started with SmartGraphs
 
 SmartGraphs **cannot use existing collections**. When switching to SmartGraph
 from an existing dataset you have to import the data into a fresh SmartGraph.

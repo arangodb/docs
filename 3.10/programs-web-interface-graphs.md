@@ -2,8 +2,7 @@
 layout: default
 description: The Graphs tab provides a viewer facility for graph data stored in ArangoDB
 ---
-Graphs
-======
+# Graphs in the web interface
 
 The *Graphs* tab provides a viewer facility for graph data stored in ArangoDB.
 It allows browsing ArangoDB graphs stored in the *_graphs* system collection or
