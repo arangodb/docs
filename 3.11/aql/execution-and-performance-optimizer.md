@@ -39,9 +39,9 @@ You may use it like this: (we disable syntax highlighting here)
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_01_axplainer}
     ~addIgnoreCollection("test")
     ~db._drop("test");
-    db._create("test");
+    var coll = db._create("test");
     for (i = 0; i < 100; ++i) { db.test.save({ value: i }); }
-    db.test.ensureIndex({ type: "persistent", fields: [ "value" ] });
+    var idx = db.test.ensureIndex({ type: "persistent", fields: [ "value" ] });
     var explain = require("@arangodb/aql/explainer").explain;
     explain("FOR i IN test FILTER i.value > 97 SORT i.value RETURN i.value", {colors:false});
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -57,7 +57,7 @@ using the `explain` method of `ArangoStatement`:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_01_explainCreate
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_01_explainCreate}
-    stmt = db._createStatement("FOR i IN test FILTER i.value > 97 SORT i.value RETURN i.value");
+    var stmt = db._createStatement("FOR i IN test FILTER i.value > 97 SORT i.value RETURN i.value");
     stmt.explain();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock AQLEXP_01_explainCreate

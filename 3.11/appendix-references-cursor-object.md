@@ -44,8 +44,8 @@ documents. In this case the next document can be accessed using the
     ~ db.five.save({ name : "three" });
     ~ db.five.save({ name : "four" });
     ~ db.five.save({ name : "five" });
-      var a = db._query("FOR x IN five RETURN x");
-      while (a.hasNext()) print(a.next());
+      var cursor = db._query("FOR x IN five RETURN x");
+      while (cursor.hasNext()) print(cursor.next());
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorHasNext

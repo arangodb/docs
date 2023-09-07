@@ -23,8 +23,8 @@ You can print the results of the cursor using its `toArray()` method:
     @startDocuBlockInline 01_workWithAQL_all
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_all}
     ~addIgnoreCollection("mycollection")
-    db._create("mycollection")
-    db.mycollection.save({ _key: "testKey", Hello : "World" })
+    var coll = db._create("mycollection")
+    var doc = db.mycollection.save({ _key: "testKey", Hello : "World" })
     db._query('FOR my IN mycollection RETURN my._key').toArray()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 01_workWithAQL_all
@@ -191,9 +191,9 @@ value is used (default: 30 seconds).
     @startDocuBlockInline 02_workWithAQL_ttl
     @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_ttl}
     | db._query(
-    |   'FOR i IN 1..2000 RETURN i',
+    |   'FOR i IN 1..20 RETURN i',
     |   {},
-    |   { ttl: 5 },
+    |   { ttl: 5, batchSize: 10 },
     |   {}
       ).toArray(); // Each batch needs to be fetched within 5 seconds
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -212,11 +212,11 @@ set to `on` or `demand`.
     @startDocuBlockInline 02_workWithAQL_cache
     @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_cache}
     | db._query(
-    |   'FOR i IN 1..2000 RETURN i',
+    |   'FOR i IN 1..20 RETURN i',
     |   {},
     |   { cache: true },
     |   {}
-      ).toArray(); // result may get taken from cache
+      ); // result may get taken from cache
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 02_workWithAQL_cache
     {% endarangoshexample %}

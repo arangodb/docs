@@ -7,11 +7,10 @@ arangosh&gt; db._query(<span class="hljs-string">`
 ........&gt;   RETURN {
 ........&gt;     approx: JACCARD(TOKENS(str1, &quot;minhash5&quot;), TOKENS(str2, &quot;minhash5&quot;)),
 ........&gt;     actual: JACCARD(TOKENS(str1, &quot;segment&quot;), TOKENS(str2, &quot;segment&quot;))
-........&gt; }`</span>);
+........&gt; }`</span>).toArray();
 [ 
   { 
     <span class="hljs-string">&quot;approx&quot;</span> : <span class="hljs-number">0.42857142857142855</span>, 
     <span class="hljs-string">&quot;actual&quot;</span> : <span class="hljs-number">0.5555555555555556</span> 
   } 
 ]
-[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

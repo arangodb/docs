@@ -58,7 +58,6 @@ To find out more about AQL see the [AQL documentation](aql/index.html).
 **Examples**
 
 ```js
-
 const filterValue = 23;
 const mydata = db._collection('mydata');
 const result = db._query(aql`

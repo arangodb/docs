@@ -821,7 +821,6 @@ users collection.
 Lets find the lonely people in our database - those without friends.
 
 ```aql
-
 FOR user IN users
   LET friendList = (
     FOR f IN relations

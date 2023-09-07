@@ -131,8 +131,7 @@ FOR vertex[, edge[, path]]
 
     {% include hint-ee-arangograph.md feature="Traversal parallelization" %}
 
-    Optionally parallelize traversal
-    execution. If omitted or set to a value of `1`,
+    Optionally parallelize traversal execution. If omitted or set to a value of `1`,
     traversal execution is not parallelized. If set to a value greater than `1`,
     then up to that many worker threads can be used for concurrently executing
     the traversal. The value is capped by the number of available cores on the
@@ -147,8 +146,8 @@ FOR vertex[, edge[, path]]
 
     {% include hint-ee-arangograph.md feature="Traversal projections" plural=true %}
 
-    Specifies the number of document
-    attributes per FOR loop to be used as projections. The default value is `5`.
+    Specifies the number of document attributes per `FOR` loop to be used as
+    projections. The default value is `5`.
   - **weightAttribute** (string, *optional*): Specifies the name of an attribute
     that is used to look up the weight of an edge. If no attribute is specified
     or if it is not present in the edge document then the `defaultWeight` is used.

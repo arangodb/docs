@@ -352,7 +352,9 @@
   "envelope" : {
     "category" : "option",
     "default" : false,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.11.4"
+    ],
     "description" : "Wrap each document into a {type, data} envelope (this is required for compatibility with v3.7 and before).",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1583,7 +1585,9 @@
     "base" : 1,
     "category" : "option",
     "default" : 0,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.11.4"
+    ],
     "description" : "Last tick to be included in data dump.",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1608,7 +1612,9 @@
     "base" : 1,
     "category" : "option",
     "default" : 0,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.11.4"
+    ],
     "description" : "Only include data after this tick.",
     "dynamic" : false,
     "enterpriseOnly" : false,

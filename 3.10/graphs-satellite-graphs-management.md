@@ -76,7 +76,7 @@ Create a graph using an edge collection `edges` and a single vertex collection
         var graph_module = require("@arangodb/satellite-graph");
         var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
         var graph = graph_module._create("myGraph", edgeDefinitions);
-        graph_module._graph("myGraph");
+        graph = graph_module._graph("myGraph");
        ~graph_module._drop("myGraph", true);
       @END_EXAMPLE_ARANGOSH_OUTPUT
       @endDocuBlock satelliteGraphManagementCreate2_cluster
@@ -91,7 +91,7 @@ Create a graph with edge definitions and orphan collections:
         var graph_module = require("@arangodb/satellite-graph");
         var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
         var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"]);
-        graph_module._graph("myGraph");
+        graph = graph_module._graph("myGraph");
        ~graph_module._drop("myGraph", true);
       @END_EXAMPLE_ARANGOSH_OUTPUT
       @endDocuBlock satelliteGraphManagementCreate3_cluster
@@ -155,7 +155,7 @@ Remove the orphan collection from the SatelliteGraph and drop the collection:
        ~var relation = graph_module._relation("edges", "vertices", "vertices");
        ~var graph = graph_module._create("myGraph", [relation], ["other"]);
         graph._removeVertexCollection("other", true);
-        graph_module._graph("myGraph");
+        graph = graph_module._graph("myGraph");
        ~graph_module._drop("myGraph", true);
       @END_EXAMPLE_ARANGOSH_OUTPUT
       @endDocuBlock satelliteGraphManagementModify2_cluster
@@ -244,7 +244,7 @@ Create a SatelliteGraph, then delete the edge definition and drop the edge colle
         var relation = graph_module._relation("edges", "vertices", "vertices");
         var graph = graph_module._create("myGraph", [relation], []);
         graph._deleteEdgeDefinition("edges", true);
-        graph_module._graph("myGraph");
+        graph = graph_module._graph("myGraph");
        ~graph_module._drop("myGraph", true);
       @END_EXAMPLE_ARANGOSH_OUTPUT
       @endDocuBlock satelliteGraphManagementModify6_cluster
