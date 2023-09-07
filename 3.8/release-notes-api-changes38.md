@@ -290,6 +290,7 @@ as a database only. It may have an effect for Foxx applications that use HTTP
   | `rocksdbengine_throttle_bps` | `rocksdb_engine_throttle_bps` |
   | `rocksdb_write_stalls` | `arangodb_rocksdb_write_stalls_total` |
   | `rocksdb_write_stops` | `arangodb_rocksdb_write_stops_total` |
+  {:class="fixed"}
 
 ### Endpoints augmented
 
