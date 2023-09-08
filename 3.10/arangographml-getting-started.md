@@ -1,47 +1,68 @@
 ---
 layout: default
-description: Interface to control all resources inside ArangoGraph in a scriptable manner
-title: The ArangoGraph Insights Platform API
+description: >-
+  Interface to control all resources inside ArangoGraphML in a scriptable manner
 ---
+# Getting Started with ArangoGraphML Services and Packages
 
-ArangoGraphML is a set of services that provide an easy to use and scalable interface for graph machine learning. Since all of the orchestration and training logic is managed by ArangoGraph all that is typically required is a specification outlining the data to be used to solve the task.
+{{ page.description }}
+{:class="lead"}
 
-The following is a guide to show how to use the `arangoml` package to:
-* Manage projects
-* Featurize data
-* Submit training jobs
-* Evaluate Metrics
-* Generate predictions
+ArangoGraphML is a set of services that provide an easy to use and scalable
+interface for graph machine learning. Since all of the orchestration and training
+logic is managed by ArangoGraph, all that is typically required is a
+specification outlining the data to be used to solve a task.
 
+The following is a guide to show how to use the `arangoml` package in order to:
+- Manage projects
+- Featurize data
+- Submit training jobs
+- Evaluate Metrics
+- Generate predictions
+
+{% hint 'tip' %}
+To enable the ArangoGraphML services,
+[get in touch](https://www.arangodb.com/contact/){:target="_blank"}
+with the ArangoDB team. Regular notebooks in ArangoGraph don't include the
+`arangoml` package.
+{% endhint %}
 
 ## Specifications
 
-The `arangoml` package detailed after this section requires a properly formed specification. The specifications describe the task being performed and the data being used. The ArangoGraphML services work in concert together, with one task providing inputs to another. Here is an example of the first specification that needs to be provided.
+The `arangoml` package requires a properly formed specification. The specifications
+describe the task being performed and the data being used. The ArangoGraphML services
+work closely together, with one task providing inputs to another.
 
-# Get Started
 ## Import
+
 The `arangoml` package comes pre-loaded with every ArangoGraphML notebook environment.
 
 To start using it, simply import it:
+
 ```
 import arangoml
 ```
 
 ## Projects
 
-Projects are an important reference used throughout the entire ArangoGraphML lifecycle. All activites link back to a project. However, the creation of the project is very simple. 
+Projects are an important reference used throughout the entire ArangoGraphML
+lifecycle. All activities link back to a project. The creation of the project
+is very simple. 
 
-**Create  a project**:
+**Create a project**
+
 ```
 project = arangoml.projects.create_project({"name":"ArangoGraphML_Project_Name"})
 ```
 
-**List projects**:
+**List projects**
+
 ```
 arangoml.projects.list_projects(limit=limit, offset=offset)
 ```
 
-**Lookup an existing project**:
+**Lookup an existing project**
+
 ```
 project = arangoml.projects.get_project_by_name("ArangoGraphML_Project_Name")
 
@@ -49,28 +70,32 @@ project = arangoml.projects.get_project_by_name("ArangoGraphML_Project_Name")
 project = arangoml.projects.get_project("project_id")
 ```
 
-**Update an existing project**:
+**Update an existing project**
+
 ```
 arangoml.projects.update_project(body={'id': 'project_id', 'name': 'Updated_ArangoGraphML_Project_Name'}, project_id='existing_project_id')
 ```
 
-**List models associated with project**:
+**List models associated with project**
+
 ```
 arangoml.projects.list_models(project_name=project_name, project_id=project_id, job_id=job_id)
 ```
 
-**Delete an existing project**:
+**Delete an existing project**
+
 ```
 api_instance.delete_project(project_id)
 ```
 
+## Featurization
 
-### Featurization
-The featurization spec asks that you input the following:
-- `featurization_name`: A name for the featurization task
-- `project_name`: The associated project name. Tip: You can use `project.name` here if created or retrieved a project as descried above.
-- `graph_name`: The associated graph name that exists within the database
-- `vertexCollections`: The list of vertex collections to be featurized. Here we also need to detail the attributes to featurize and how.
+The featurization specification asks that you input the following:
+- `featurization_name`: A name for the featurization task.
+- `project_name`: The associated project name. 
+	You can use `project.name` here if already created or retrieved as descried above.
+- `graph_name`: The associated graph name that exists within the database.
+- `vertexCollections`: The list of vertex collections to be featurized.
   - Each collection contains a list of features or document attributes and details on how to featurize them.
   ```
           "collectionName": {
@@ -82,20 +107,27 @@ The featurization spec asks that you input the following:
                         "feature_name": "movie_title_embeddings",
                     },
   ```
-- `edgeCollections`: This is the list of edge collections associated with the vertex collections. There are no additional options.
-```
-    "edgeCollections": {
-        "edge_name_1",
-        "edge_name_2
-    },
-```
-Once you have filled out the featurization specification you can pass it to the `featurizer` function.
+- `edgeCollections`: This is the list of edge collections associated with the
+	vertex collections. There are no additional options.
+	```
+    	"edgeCollections": {
+      	  "edge_name_1",
+      	  "edge_name_2
+    	},
+	```
+
+Once you have filled out the featurization specification you can pass it to
+the `featurizer` function.
+
 ```
 from arangoml.featurizer import featurizer
 
 featurizer(featurizer(_db, featurization_spec)
 ```
-This is all you need to get started with featurization. The following also shows an example of using the featurization package with a movie dataset and some additional options available.
+
+This is all you need to get started with featurization. The following also shows
+an example of using the featurization package with a movie dataset and some
+additional options available.
 
 ```
 from arangoml.featurizer import featurizer
@@ -171,47 +203,52 @@ output = featurizer(db, featurization_spec, feature_store=feature_store, batch_s
 print(output)
 ```
 
-# Experiment
+## Experiment
 
 Each experiment consists of three main phases:
-* Training
-* Model Selection
-* Predictions
+- Training
+- Model Selection
+- Predictions
 
 ## Training Specification 
 
 Training graph machine learning models with ArangoGraphML only requires two steps:
-* Describe which data points should be included in the training job
-* Pass the training specification to the training service
+1. Describe which data points should be included in the training job.
+2. Pass the training specification to the training service.
 
-Let's break down the different components of the training specification.
+See below the different components of the training specification.
 
-* `database_name`: The database name the source data is in
-* `project_name`: The top-level project to which all the experiments will link back. 
-* `metagraph`: This is the largest component that details the experiment objective and the associated data points
-  * `mlSpec`: Describes the desired machine learning task, input features, and the attribute label to be predicted.
-  * `graph`: The ArangoDB graph name
-  * `vertexCollections`: Here, you can describe all the vertex collections and the features you would like to include in training. You must provide an `x` for features, and the desired prediction label is supplied as `y`
-  * `edgeCollections`: Here, you describe the relevant edge collections and any relevant attributes or features that should be considered when training.
+- `database_name`: The database name the source data is in.
+- `project_name`: The top-level project to which all the experiments will link back. 
+- `metagraph`: This is the largest component that details the experiment objective and the associated data points.
+  - `mlSpec`: Describes the desired machine learning task, input features, and the attribute label to be predicted.
+  - `graph`: The ArangoDB graph name.
+  - `vertexCollections`: Here, you can describe all the vertex collections and the features you would
+		like to include in training. You must provide an `x` for features, and the desired prediction label is supplied as `y`.
+  - `edgeCollections`: Here, you describe the relevant edge collections and any relevant attributes or features that should be considered when training.
   
-A training specification allows for concisely defining your training task in a single object and then passing that object to the training service using the Python API client, as shown below. 
+A training specification allows for concisely defining your training task in a
+single object and then passing that object to the training service using the
+Python API client, as shown below.
 
-**Create  a training job**:
+**Create a training job**
+
 ```
 job = arangoml.training.train(training_spec)
 print(job)
 job_id = job.job_id
 ```
-Output:
+
 ```
 {'job_id': 'f09bd4a0-d2f3-5dd6-80b1-a84602732d61'}
 ```
 
-**Get status of a training job**:
+**Get status of a training job**
+
 ```
 arangoml.training.get_job(job_id)
 ```
-Output:
+
 ```
 {'database_name': 'db_name',
  'job_id': 'efac147a-3654-4866-88fe-03866d0d40a5',
@@ -230,21 +267,27 @@ Output:
  'time_started': '2023-09-01T17:04:01.616354',
  'time_submitted': '2023-09-01T16:58:43.374269'}
 ```
-**Cancel a running training job**:
+
+**Cancel a running training job**
+
 ```
 arangoml.training.cancel_job(job_id)
 ```
-Output:
+
 ```
 'OK'
 ```
 
 ## Model Selection
-Once training is complete you can review the model statistics. The training completes 12 training jobs using grid search parameter optimzation. 
- 
-To select a model use the projects API to gather all relevant models and select the one you prefer for the next step.
 
-For this example, we just choose the model with the highest validation accuracy but there may be other factors that motivate you to choose another model.
+Once the training is complete you can review the model statistics.
+The training completes 12 training jobs using grid search parameter optimization.
+ 
+To select a model, use the projects API to gather all relevant models and choose
+the one you prefer for the next step.
+
+The following examples uses the model with the highest validation accuracy,
+but there may be other factors that motivate you to choose another model.
 
 ```
 models = arangoml.projects.list_models(project_name=project_name, project_id=project_id, job_id=job_id)
@@ -256,8 +299,7 @@ model = models.models[0]
 print(model)
 
 ```
-Output:
-Note: values are for example only
+
 ```
 {'job_id': 'f09bd4a0-d2f3-5dd6-80b1-a84602732d61',
  'model_display_name': 'Node Classification Model',
@@ -289,8 +331,11 @@ Note: values are for example only
  'target_field': 'label_field'}
 ```
 
-**Prediction**
-After selecting a model, it is time to persist the results to a colleciton using the `predict` function.
+## Prediction
+
+After selecting a model, it is time to persist the results to a collection
+using the `predict` function.
+
 ```
 prediction_spec = {
               "project_name": project.name,
@@ -302,13 +347,17 @@ prediction_job = arangoml.prediction.predict(prediction_spec)
 print(prediction_job)
 ```
 
-This creates a prediciton job that grabs data generates inferences using the selected model. It then, by default, writes the predictions to a new collection connected via an edge to the original source document. You may choose to instead specify a `colleciton`.
+This creates a prediction job that grabs data and generates inferences using the
+selected model. Then, by default, it writes the predictions to a new collection
+connected via an edge to the original source document.
+You may choose to specify instead a `collection`.
 
-**Get prediction job status**
+### Get prediction job status
+
 ```
 prediction_status = arangoml.prediction.get_job(prediction_job.job_id)
 ```
-Output:
+
 ```
 {'database_name': 'db_name',
  'job_id': '123-ee43-4106-99e7-123',
@@ -324,8 +373,12 @@ Output:
  'time_submitted': '2023-09-05T15:09:02.768518'}
 ```
 
-## Access the predictions
-You can now direclty access your predictions in your application. If you left the default option you can access them via the dynamically created colleciton with a query such as the following:
+### Access the predictions
+
+You can now directly access your predictions in your application.
+If you left the default option you can access them via the dynamically created
+collection with a query such as the following:
+
 ```
 ## Query to return results
 
