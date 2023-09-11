@@ -214,11 +214,17 @@ Processing
 
 ### DATE_DAYOFWEEK()
 
-`DATE_DAYOFWEEK(date) → weekdayNumber`
+`DATE_DAYOFWEEK(date, timezone) → weekdayNumber`
 
 Return the weekday number of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+    [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+    e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+    Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+    Will throw an error if the timezone is not known to ArangoDB. 
+    If set, the *date* is assumed to be in the specified *timezone*.
 - returns **weekdayNumber** (number): 0..6 as follows:
   - 0 – Sunday
   - 1 – Monday
@@ -248,13 +254,28 @@ Return the weekday number of *date*.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedyofwk3
+  @EXAMPLE_AQL{datedyofwk3}
+    RETURN DATE_DAYOFWEEK("2023-03-25T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedyofwk3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_YEAR()
 
-`DATE_YEAR(date) → year`
+`DATE_YEAR(date, timezone) → year`
 
 Return the year of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **year** (number): the year part of *date* as a number
 
 **Examples**
@@ -277,13 +298,28 @@ Return the year of *date*.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateyr3
+  @EXAMPLE_AQL{dateyr3}
+    RETURN DATE_YEAR("2023-12-31T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateyr3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_MONTH()
 
-`DATE_MONTH(date) → month`
+`DATE_MONTH(date, timezone) → month`
 
 Return the month of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **month** (number): the month part of *date* as a number
 
 **Examples**
@@ -306,13 +342,28 @@ Return the month of *date*.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datemn3
+  @EXAMPLE_AQL{datemn3}
+    RETURN DATE_MONTH("2023-12-31T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datemn3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_DAY()
 
-`DATE_DAY(date) → day`
+`DATE_DAY(date, timezone) → day`
 
 Return the day of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **day** (number): the day part of *date* as a number
 
 **Examples**
@@ -335,13 +386,28 @@ Return the day of *date*.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedy3
+  @EXAMPLE_AQL{datedy3}
+    RETURN DATE_DAY("2023-12-31T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedy3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_HOUR()
 
 Return the hour of *date*.
 
-`DATE_HOUR(date) → hour`
+`DATE_HOUR(date, timezone) → hour`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **hour** (number): the hour part of *date* as a number
 
 **Examples**
@@ -355,13 +421,28 @@ Return the hour of *date*.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datehr2
+  @EXAMPLE_AQL{datehr2}
+    RETURN DATE_HOUR("2023-12-31T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datehr2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_MINUTE()
 
-`DATE_MINUTE(date) → minute`
+`DATE_MINUTE(date, timezone) → minute`
 
 Return the minute of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **minute** (number): the minute part of *date* as a number
 
 **Examples**
@@ -372,6 +453,15 @@ Return the minute of *date*.
     RETURN DATE_MINUTE("2020-08-29T16:30:05.123")
   @END_EXAMPLE_AQL
   @endDocuBlock datemin1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datemin2
+  @EXAMPLE_AQL{datemin2}
+    RETURN DATE_MINUTE("2023-12-31T23:00:00.000Z", "Asia/Kathmandu")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datemin2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -415,11 +505,17 @@ Return the second of *date*.
 
 ### DATE_DAYOFYEAR()
 
-`DATE_DAYOFYEAR(date) → dayOfYear`
+`DATE_DAYOFYEAR(date, timezone) → dayOfYear`
 
 Return the day of year of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **dayOfYear** (number): the day of year number of *date*.
   The return values range from 1 to 365, or 366 in a leap year respectively.
 
@@ -431,6 +527,15 @@ Return the day of year of *date*.
     RETURN DATE_DAYOFYEAR("2020-08-29")
   @END_EXAMPLE_AQL
   @endDocuBlock datedyofyr1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedyofyr2
+  @EXAMPLE_AQL{datedyofyr2}
+    RETURN DATE_DAYOFYEAR("2023-12-31T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedyofyr2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -460,11 +565,17 @@ Return the week date of *date* according to ISO 8601.
 
 ### DATE_LEAPYEAR()
 
-`DATE_LEAPYEAR(date) → leapYear`
+`DATE_LEAPYEAR(date, timezone) → leapYear`
 
 Return whether *date* is in a leap year.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **leapYear** (bool): *true* if *date* is in a leap year, *false* otherwise
 
 **Examples**
@@ -487,13 +598,28 @@ Return whether *date* is in a leap year.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datelpyr3
+  @EXAMPLE_AQL{datelpyr3}
+    RETURN DATE_LEAPYEAR("2016-12-31T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datelpyr3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_QUARTER()
 
-`DATE_QUARTER(date) → quarter`
+`DATE_QUARTER(date, timezone) → quarter`
 
 Return which quarter *date* belongs to.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **quarter** (number): the quarter of the given date (1-based):
   - 1 – January, February, March
   - 2 – April, May, June
@@ -511,13 +637,28 @@ Return which quarter *date* belongs to.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateqtr2
+  @EXAMPLE_AQL{dateqtr2}
+    RETURN DATE_QUARTER("2023-12-31T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateqtr2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_DAYS_IN_MONTH()
 
 Return the number of days in the month of *date*.
 
-`DATE_DAYS_IN_MONTH(date) → daysInMonth`
+`DATE_DAYS_IN_MONTH(date, timezone) → daysInMonth`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **daysInMonth** (number): the number of days in *date*'s month (28..31)
 
 **Examples**
@@ -558,9 +699,18 @@ Return the number of days in the month of *date*.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedysmn5
+  @EXAMPLE_AQL{datedysmn5}
+    RETURN DATE_DAYS_IN_MONTH("2023-11-30T23:00:00.000Z", "Europe/Berlin")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedysmn5
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_TRUNC()
 
-`DATE_TRUNC(date, unit) → isoDate`
+`DATE_TRUNC(date, unit, timezone) → isoDate`
 
 Truncates the given date after *unit* and returns the modified date.
 
@@ -573,11 +723,19 @@ Truncates the given date after *unit* and returns the modified date.
   - i, minute, minutes
   - s, second, seconds
   - f, millisecond, milliseconds
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **isoDate** (string): the truncated ISO 8601 date time string
 
 ```aql
 DATE_TRUNC('2017-02-03', 'month') // 2017-02-01T00:00:00.000Z
 DATE_TRUNC('2017-02-03 04:05:06', 'hours') // 2017-02-03 04:00:00.000Z
+DATE_TRUNC('2023-03-25 23:00:00', 'day') // 2023-03-25T00:00:00.000Z
+DATE_TRUNC('2023-03-25 23:00:00', 'day', 'Europe/Berlin') // 2023-03-25T23:00:00.000Z
 ```
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -604,7 +762,7 @@ DATE_TRUNC('2017-02-03 04:05:06', 'hours') // 2017-02-03 04:00:00.000Z
 
 ### DATE_ROUND()
 
-`DATE_ROUND(date, amount, unit) → isoDate`
+`DATE_ROUND(date, amount, unit, timezone) → isoDate`
 
 Bin a date/time into a set of equal-distance buckets, to be used for
 grouping.
@@ -617,11 +775,19 @@ grouping.
   - i, minute, minutes
   - s, second, seconds
   - f, millisecond, milliseconds
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **isoDate** (string): the rounded ISO 8601 date time string
 
 ```aql
 DATE_ROUND('2000-04-28T11:11:11.111Z', 1, 'day') // 2000-04-28T00:00:00.000Z
 DATE_ROUND('2000-04-10T11:39:29Z', 15, 'minutes') // 2000-04-10T11:30:00.000Z
+DATE_ROUND('2023-03-25T23:55:55.555Z', 1, 'day') // 2023-03-25T00:00:00.000Z
+DATE_ROUND('2023-03-25T23:55:55.555Z', 1, 'day', "Europe/Berlin") // 2023-03-25T23:00:00.000Z
 ```
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -653,12 +819,18 @@ DATE_ROUND('2000-04-10T11:39:29Z', 15, 'minutes') // 2000-04-10T11:30:00.000Z
 
 ### DATE_FORMAT()
 
-`DATE_FORMAT(date, format) → str`
+`DATE_FORMAT(date, format, timezone) → str`
 
 Format a date according to the given format string.
 
 - **date** (string\|number): a date string or timestamp
 - **format** (string): a format string, see below
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **str** (string): a formatted date string
 
 *format* supports the following placeholders (case-insensitive):
@@ -723,12 +895,74 @@ DATE_FORMAT("2016", "%%l = %l") // "%l = 1" (2016 is a leap year)
 DATE_FORMAT("2016-03-01", "%xxx%") // "063", trailing % ignored
 ```
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateFormat
+  @EXAMPLE_AQL{dateFormat}
+    FOR format IN @formats
+    RETURN CONCAT(
+      format.equalTo,
+      "('",format.date,"') = ",
+      DATE_FORMAT (format.date, format.placeholder)
+    )
+  @BV {
+    "formats": [
+      { "date": "2023-03-25T23:00:00.000Z", "placeholder": "%w", "equalTo": "DATE_DAYOFWEEK" },
+      { "date": "2023-12-31T23:00:00.000Z", "placeholder": "%yyyy", "equalTo": "DATE_YEAR" },
+      { "date": "2023-12-31T23:00:00.000Z", "placeholder": "%m", "equalTo": "DATE_MONTH" },
+      { "date": "2023-12-31T23:00:00.000Z", "placeholder": "%d", "equalTo": "DATE_DAY" },
+      { "date": "2023-12-31T23:00:00.000Z", "placeholder": "%h", "equalTo": "DATE_HOUR" },
+      { "date": "2023-12-31T23:00:00.000Z", "placeholder": "%i", "equalTo": "DATE_MINUTE" },
+      { "date": "2023-12-31T23:00:23.000Z", "placeholder": "%s", "equalTo": "DATE_SECOND" },
+      { "date": "2023-12-31T23:00:00.031Z", "placeholder": "%f", "equalTo": "DATE_MILLISECOND" },
+      { "date": "2023-12-31T23:00:00.000Z", "placeholder": "%x", "equalTo": "DATE_DAYOFYEAR" },
+      { "date": "2023-12-31T23:00:00.000Z", "placeholder": "%k", "equalTo": "DATE_ISOWEEK" },
+      { "date": "2016-12-31T23:00:00.000Z", "placeholder": "%l", "equalTo": "DATE_LEAPYEAR" },
+      { "date": "2023-12-31T23:00:00.000Z", "placeholder": "%q", "equalTo": "DATE_QUARTER" },
+      { "date": "2023-11-30T23:00:00.000Z", "placeholder": "%a", "equalTo": "DATE_DAYS_IN_MONTH" },
+      { "date": "2023-11-30T23:00:00.000Z", "placeholder": "%t", "equalTo": "DATE_TIMESTAMP" }
+    ]
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateFormat
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateFormatTimezoned
+  @EXAMPLE_AQL{dateFormatTimezoned}
+    FOR format IN @formats
+    RETURN CONCAT(
+      format.equalTo,
+      "('",format.date,"') = ",
+      DATE_FORMAT(format.date, format.placeholder, format.timezone)
+    )
+  @BV {
+    "formats": [
+      {  "date": "2023-03-25T23:00:00.000Z", "placeholder": "%w", "equalTo": "DATE_DAYOFWEEK", "timezone": "Europe/Berlin"},
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%yyyy", "equalTo": "DATE_YEAR", "timezone": "Europe/Berlin" },
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%m", "equalTo": "DATE_MONTH", "timezone": "Europe/Berlin" },
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%d", "equalTo": "DATE_DAY", "timezone": "Europe/Berlin" },
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%h", "equalTo": "DATE_HOUR", "timezone": "Europe/Berlin" },
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%i", "equalTo": "DATE_MINUTE", "timezone": "Asia/Kathmandu" },
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%x", "equalTo": "DATE_DAYOFYEAR", "timezone": "Europe/Berlin" },
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%k", "equalTo": "DATE_ISOWEEK", "timezone": "Europe/Berlin" },
+      {  "date": "2016-12-31T23:00:00.000Z", "placeholder": "%l", "equalTo": "DATE_LEAPYEAR", "timezone": "Europe/Berlin" },
+      {  "date": "2023-12-31T23:00:00.000Z", "placeholder": "%q", "equalTo": "DATE_QUARTER", "timezone": "Europe/Berlin" },
+      {  "date": "2023-11-30T23:00:00.000Z", "placeholder": "%a", "equalTo": "DATE_DAYS_IN_MONTH", "timezone": "Europe/Berlin" }
+    ]
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateFormatTimezoned
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+
 Comparison and calculation
 --------------------------
 
 ### DATE_ADD()
 
-`DATE_ADD(date, amount, unit) → isoDate`
+`DATE_ADD(date, amount, unit, timezone) → isoDate`
 
 Add *amount* given in *unit* to *date* and return the calculated date.
 
@@ -736,6 +970,12 @@ Add *amount* given in *unit* to *date* and return the calculated date.
 - **amount** (number\|string): number of *unit*s to add (positive value) or
   subtract (negative value). It is recommended to use positive values only,
   and use [DATE_SUBTRACT()](#date_subtract) for subtractions instead.
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - **unit** (string): either of the following to specify the time unit to add or
   subtract (case-insensitive):
   - y, year, years
@@ -759,12 +999,18 @@ DATE_ADD(DATE_ADD("2016-02", "month", 1), -1, "day") // last day of February (29
 
 ---
 
-`DATE_ADD(date, isoDuration) → isoDate`
+`DATE_ADD(date, isoDuration, timezone) → isoDate`
 
 You may also pass an ISO duration string as *amount* and leave out *unit*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - **isoDuration** (string): an ISO 8601 duration string to add to *date*, see below
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **isoDate** (string):  the calculated ISO 8601 date time string
 
 The format is `P_Y_M_W_DT_H_M_._S`, where underscores stand for digits and
@@ -793,7 +1039,7 @@ DATE_ADD("2000-01-01", "P1Y2M3W4DT5H6M7.89S" // add a bit of everything
 
 ### DATE_SUBTRACT()
 
-`DATE_SUBTRACT(date, amount, unit) → isoDate`
+`DATE_SUBTRACT(date, amount, unit, timezone) → isoDate`
 
 Subtract *amount* given in *unit* from *date* and return the calculated date.
 
@@ -816,17 +1062,29 @@ durations are not supported (i.e. starting with `-P`, like `-P1Y`).
   - i, minute, minutes
   - s, second, seconds
   - f, millisecond, milliseconds
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **isoDate** (string): the calculated ISO 8601 date time string
 
 ---
 
-`DATE_SUBTRACT(date, isoDuration) → isoDate`
+`DATE_SUBTRACT(date, isoDuration, timezone) → isoDate`
 
 You may also pass an ISO duration string as *amount* and leave out *unit*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - **isoDuration** (string): an ISO 8601 duration string to subtract from *date*,
   see below
+- **timezone** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date* is assumed to be in the specified *timezone*.
 - returns **isoDate** (string): the calculated ISO 8601 date time string
 
 The format is `P_Y_M_W_DT_H_M_._S`, where underscores stand for digits and
@@ -854,7 +1112,14 @@ DATE_SUBTRACT(DATE_NOW(), "PT1H3M") // 1 hour and 30 minutes ago
 
 ### DATE_DIFF()
 
-`DATE_DIFF(date1, date2, unit, asFloat) → diff`
+```
+DATE_DIFF(date1, date2, unit) → diff
+DATE_DIFF(date1, date2, unit, asFloat) → diff
+DATE_DIFF(date1, date2, unit, asFloat, timezone1and2) → diff
+DATE_DIFF(date1, date2, unit, asFloat, timezone1, timezone2) → diff
+DATE_DIFF(date1, date2, unit, timezone1, timezone2) → diff
+DATE_DIFF(date1, date2, unit, timezone1And2) → diff
+```
 
 Calculate the difference between two dates in given time *unit*, optionally
 with decimal places.
@@ -873,6 +1138,19 @@ with decimal places.
   - f, millisecond, milliseconds
 - **asFloat** (boolean, *optional*): if set to *true*, decimal places will be
   preserved in the result. The default is *false* and an integer is returned.
+- **timezone1** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date1* is assumed to be in the specified *timezone1*.
+- **timezone2** (string, *optional*):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB.
+  If set, the *date2* is assumed to be in the specified *timezone2*. If only *timezone1* is set, the *date2*
+  is also assumed to be in the specified *timezone1*.
 - returns **diff** (number): the calculated difference as number in *unit*.
   The value will be negative if *date2* is before *date1*.
 
@@ -919,7 +1197,7 @@ DATE_COMPARE("2001-01-01T15:30:45.678Z", "2001-01-01T08:08:08.008Z", "years", "d
 You can directly compare ISO date **strings** if you want to find dates before or
 after a certain date, or in between two dates (`>=`, `>`, `<`, `<=`).
 No special date function is required. Equality tests (`==` and `!=`) will only
-match the exact same date and time however. You may use `SUBSTRING()` to
+match the exact same date and time, however. You may use `SUBSTRING()` to
 compare partial date strings, `DATE_COMPARE()` is basically a convenience
 function for that. However, neither is really required to limit a search to a
 certain day as demonstrated here:
