@@ -41,6 +41,16 @@ See the [**Release notes**](release-notes.html) of the respective versions for
 detailed information about breaking changes before upgrading.
 {% endhint %}
 
+- **Little-endian on-disk key format for the RocksDB storage engine**:
+
+  The little-endian on-disk key format for the RocksDB storage engine is
+  deprecated and support will be removed in v3.12. Parallel index creation and
+  the `--use-experimental-dump` arangodump option are only available in v3.11
+  for deployments that use the big-endian format, which is the default since v3.4.
+
+  Only deployments that were set up with the RocksDB storage engine using
+  ArangoDB v3.2 or v3.3 and that have been upgraded since then are affected.
+
 - **Pregel features**:
   The following features have been deprecated or removed from Pregel in v3.11:
 
@@ -54,33 +64,6 @@ detailed information about breaking changes before upgrading.
 
   - The `useMemoryMaps` option for Pregel jobs to use memory-mapped files as a
     backing storage for large datasets has been removed.
-
-- **Little-endian on-disk key format for the RocksDB storage engine** 
-  The little-endian on-disk key format was used for deployments that were created 
-  with either ArangoDB 3.2 or 3.3 when using the RocksDB storage engine. 
-  Since ArangoDB 3.4, a big-endian on-disk key format was used for the RocksDB 
-  storage engine, which is more performant than the little-endian format. 
-
-  Deployments that were set up with the RocksDB storage engine using ArangoDB 3.2 
-  or 3.3 and that have been upgraded since then will still use the old format. 
-  This should not affect many users, because the default storage engine in ArangoDB 
-  3.2 and 3.3 was the MMFiles storage engine. 
-  Furthermore, deployments that have been recreated from an arangodump since 
-  ArangoDB 3.4 will not be affected, because restoring an arangodump into a fresh 
-  deployment will also make ArangoDB use the big-endian on-disk format.
-
-  ArangoDB 3.11 logs a warning message during startup when the little-endian 
-  on-disk format is in use, but it still supports using the little-endian key format
-  for almost all operations, with the following exceptions:
-  - parallel index creation is disabled when the little-endian key format is used.
-    Indexes will always be created using a single thread.
-  - the experimental version of arangodump (invocable via the `--use-experimental-dump` 
-    option for arangodump) will not work. Users can still use the traditional
-    arangodump version, which is the default anyway.
-
-  ArangoDB 3.12 will refuse to start when using the little-endian on-disk format,
-  so users that are still using this format must migrate to the big-endian on-disk
-  key format before upgrading to 3.12.
 
 - **Leader/Follower Deployment Mode**:
   The Leader/Follower deployment type is deprecated and already removed from
