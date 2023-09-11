@@ -1,6 +1,5 @@
-arangosh&gt; v = db._view(<span class="hljs-string">&quot;example&quot;</span>);
-[ArangoView <span class="hljs-number">83598</span>, <span class="hljs-string">&quot;example&quot;</span> (type arangosearch)]
-arangosh&gt; v.properties();
+arangosh&gt; <span class="hljs-keyword">var</span> view = db._view(<span class="hljs-string">&quot;example&quot;</span>);
+arangosh&gt; view.properties();
 ........&gt; <span class="hljs-comment">// set cleanupIntervalStep to 12</span>
 { 
   <span class="hljs-string">&quot;writebufferSizeMax&quot;</span> : <span class="hljs-number">33554432</span>, 
@@ -23,7 +22,7 @@ arangosh&gt; v.properties();
   <span class="hljs-string">&quot;primarySort&quot;</span> : [ ], 
   <span class="hljs-string">&quot;primarySortCompression&quot;</span> : <span class="hljs-string">&quot;lz4&quot;</span> 
 }
-arangosh&gt; v.properties({<span class="hljs-attr">cleanupIntervalStep</span>: <span class="hljs-number">12</span>});
+arangosh&gt; view.properties({<span class="hljs-attr">cleanupIntervalStep</span>: <span class="hljs-number">12</span>});
 ........&gt; <span class="hljs-comment">// add a link</span>
 { 
   <span class="hljs-string">&quot;cleanupIntervalStep&quot;</span> : <span class="hljs-number">12</span>, 
@@ -46,7 +45,7 @@ arangosh&gt; v.properties({<span class="hljs-attr">cleanupIntervalStep</span>: <
   <span class="hljs-string">&quot;links&quot;</span> : { 
   } 
 }
-arangosh&gt; v.properties({<span class="hljs-attr">links</span>: {<span class="hljs-attr">demo</span>: {}}})
+arangosh&gt; view.properties({<span class="hljs-attr">links</span>: {<span class="hljs-attr">demo</span>: {}}})
 ........&gt; <span class="hljs-comment">// remove a link</span>
 { 
   <span class="hljs-string">&quot;cleanupIntervalStep&quot;</span> : <span class="hljs-number">12</span>, 
@@ -79,7 +78,7 @@ arangosh&gt; v.properties({<span class="hljs-attr">links</span>: {<span class="h
     } 
   } 
 }
-arangosh&gt; v.properties({<span class="hljs-attr">links</span>: {<span class="hljs-attr">demo</span>: <span class="hljs-literal">null</span>}})
+arangosh&gt; view.properties({<span class="hljs-attr">links</span>: {<span class="hljs-attr">demo</span>: <span class="hljs-literal">null</span>}})
 { 
   <span class="hljs-string">&quot;cleanupIntervalStep&quot;</span> : <span class="hljs-number">12</span>, 
   <span class="hljs-string">&quot;commitIntervalMsec&quot;</span> : <span class="hljs-number">1000</span>, 

@@ -1,9 +1,9 @@
 ---
 layout: default
-description: How to manage deployments
-title: Deployments in the ArangoGraph Insights Platform
+description: >-
+   How to create and manage deployments in ArangoGraph
 ---
-# Deployments
+# Deployments in ArangoGraph
 
 Below projects in the ArangoGraph deployment hierarchy are deployments. A deployment
 contains an ArangoDB, configured as you choose. You can have any number of

@@ -687,8 +687,8 @@ letters before `c`:
     | var view = db._createView("view", "arangosearch",
         { links: { test: { analyzers: [ "collation_en", "collation_sv" ], includeAllFields: true }}});
     ~ assert(db._query(`FOR d IN view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] === 4);
-      db._query("FOR doc IN view SEARCH ANALYZER(doc.text < TOKENS('c', 'collation_en')[0], 'collation_en') RETURN doc.text");
-      db._query("FOR doc IN view SEARCH ANALYZER(doc.text < TOKENS('c', 'collation_sv')[0], 'collation_sv') RETURN doc.text");
+      db._query("FOR doc IN view SEARCH ANALYZER(doc.text < TOKENS('c', 'collation_en')[0], 'collation_en') RETURN doc.text").toArray();
+      db._query("FOR doc IN view SEARCH ANALYZER(doc.text < TOKENS('c', 'collation_sv')[0], 'collation_sv') RETURN doc.text").toArray();
     ~ db._dropView(view.name());
     ~ db._drop(test.name());
     ~ analyzers.remove(en.name);
@@ -781,8 +781,8 @@ Concatenating Analyzer for conditionally adding a custom prefix or suffix:
     | var a = analyzers.save("concat", "aql", { queryString:
     |   "RETURN LOWER(LEFT(@param, 5)) == 'inter' ? CONCAT(@param, 'ism') : CONCAT('inter', @param)"
       }, []);
-      db._query("RETURN TOKENS('state', 'concat')");
-      db._query("RETURN TOKENS('international', 'concat')");
+      db._query("RETURN TOKENS('state', 'concat')").toArray();
+      db._query("RETURN TOKENS('international', 'concat')").toArray();
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlConcat
@@ -799,8 +799,8 @@ with `keepNull: false` and explicitly returning `null`:
     | var a = analyzers.save("filter", "aql", { keepNull: false, queryString:
     |   "RETURN LOWER(LEFT(@param, 2)) == 'ir' ? null : @param"
       }, []);
-      db._query("RETURN TOKENS('regular', 'filter')");
-      db._query("RETURN TOKENS('irregular', 'filter')");
+      db._query("RETURN TOKENS('regular', 'filter')").toArray();
+      db._query("RETURN TOKENS('irregular', 'filter')").toArray();
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlFilterNull
@@ -824,7 +824,7 @@ without `keepNull: false`:
     | var view = db._createView("view", "arangosearch",
         { links: { coll: { fields: { value: { analyzers: ["filter"] }}}}})
     ~ assert(db._query(`FOR d IN view COLLECT WITH COUNT INTO c RETURN c`).toArray()[0] > 0);
-      db._query("FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc");
+      db._query("FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc").toArray();
     ~ db._dropView(view.name())
     ~ analyzers.remove(a.name);
     ~ db._drop(coll.name());
@@ -995,7 +995,7 @@ with either of the stop words `and` and `the`:
     | var a = analyzers.save("stop", "stopwords", {
     |   stopwords: ["616e64","746865"], hex: true
       }, []);
-      db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))");
+      db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))").toArray();
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerStopwords
@@ -1013,7 +1013,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     |   { type: "norm", properties: { locale: "en", accent: false, case: "lower" } },
     |   { type: "stopwords", properties: { stopwords: ["and","the"], hex: false } },
       ]}, []);
-      db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
+      db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))").toArray();
     ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerPipelineStopwords
@@ -1075,7 +1075,7 @@ Create different `segmentation` Analyzers to show the behavior of the different
     |     "alpha": TOKENS(str, 'segment_alpha'),
     |     "graphic": TOKENS(str, 'segment_graphic'),
     |   }
-      `);
+      `).toArray();
     ~ analyzers.remove(all.name);
     ~ analyzers.remove(alpha.name);
     ~ analyzers.remove(graphic.name);
@@ -1086,9 +1086,9 @@ Create different `segmentation` Analyzers to show the behavior of the different
 
 ### `minhash`
 
-<small>Introduced in: v3.10.0</small>
-
 {% include hint-ee-arangograph.md feature="The `minhash` Analyzer" %}
+
+<small>Introduced in: v3.10.0</small>
 
 An Analyzer that computes so called MinHash signatures using a
 locality-sensitive hash function. It applies an Analyzer of your choice before
@@ -1120,7 +1120,7 @@ Create a `minhash` Analyzers:
     |   RETURN {
     |     approx: JACCARD(TOKENS(str1, "minhash5"), TOKENS(str2, "minhash5")),
     |     actual: JACCARD(TOKENS(str1, "segment"), TOKENS(str2, "segment"))
-        }`);
+        }`).toArray();
     ~ analyzers.remove(analyzerMinHash.name);
     ~ analyzers.remove(analyzerSegment.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -1130,9 +1130,9 @@ Create a `minhash` Analyzers:
 
 ### `classification`
 
-<small>Introduced in: v3.10.0</small>
-
 {% include hint-ee-arangograph.md feature="The `classification` Analyzer" %}
+
+<small>Introduced in: v3.10.0</small>
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1190,9 +1190,9 @@ db._query(`LET str = "Which baking dish is best to bake a banana bread ?"
 
 ### `nearest_neighbors`
 
-<small>Introduced in: v3.10.0</small>
-
 {% include hint-ee-arangograph.md feature="The `nearest_neighbors` Analyzer" %}
+
+<small>Introduced in: v3.10.0</small>
 
 {% hint 'warning' %}
 This feature is experimental and under active development.
@@ -1339,13 +1339,13 @@ longitude, latitude order:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoJSON}
       var analyzers = require("@arangodb/analyzers");
       var a = analyzers.save("geo_json", "geojson", {}, []);
-      db._create("geo");
+      var coll = db._create("geo");
     | var docs = db.geo.save([
     |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
     |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
     |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
       ]);
-    | db._createView("geo_view", "arangosearch", {
+    | var view = db._createView("geo_view", "arangosearch", {
     |   links: {
     |     geo: {
     |       fields: {
@@ -1371,9 +1371,9 @@ longitude, latitude order:
 
 ### `geo_s2`
 
-<small>Introduced in: v3.10.5</small>
-
 {% include hint-ee-arangograph.md feature="The `geo_s2` Analyzer" %}
+
+<small>Introduced in: v3.10.5</small>
 
 An Analyzer capable of breaking up a GeoJSON object or coordinate array in
 `[longitude, latitude]` order into a set of indexable tokens for further usage
@@ -1446,13 +1446,13 @@ longitude, latitude order:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoS2}
       var analyzers = require("@arangodb/analyzers");
       var a = analyzers.save("geo_efficient", "geo_s2", { format: "latLngInt" }, []);
-      db._create("geo");
+      var coll = db._create("geo");
     | var docs = db.geo.save([
     |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
     |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
     |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
       ]);
-    | db._createView("geo_view", "arangosearch", {
+    | var view = db._createView("geo_view", "arangosearch", {
     |   links: {
     |     geo: {
     |       fields: {
@@ -1545,13 +1545,13 @@ The stored coordinate pairs are in latitude, longitude order, but `GEO_POINT()` 
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointPair}
       var analyzers = require("@arangodb/analyzers");
       var a = analyzers.save("geo_pair", "geopoint", {}, []);
-      db._create("geo");
+      var coll = db._create("geo");
     | var docs = db.geo.save([
     |   { location: [50.932, 6.937] },
     |   { location: [50.941, 6.956] },
     |   { location: [50.932, 6.962] },
       ]);
-    | db._createView("geo_view", "arangosearch", {
+    | var view = db._createView("geo_view", "arangosearch", {
     |   links: {
     |     geo: {
     |       fields: {
@@ -1589,13 +1589,13 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |   latitude: ["lat"],
     |   longitude: ["lng"]
       }, []);
-      db._create("geo");
+      var coll = db._create("geo");
     | var docs = db.geo.save([
     |   { location: { lat: 50.932, lng: 6.937 } },
     |   { location: { lat: 50.941, lng: 6.956 } },
     |   { location: { lat: 50.932, lng: 6.962 } },
       ]);
-    | db._createView("geo_view", "arangosearch", {
+    | var view = db._createView("geo_view", "arangosearch", {
     |   links: {
     |     geo: {
     |       fields: {

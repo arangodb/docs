@@ -4,7 +4,7 @@ description: >-
   You can create and manage named graphs in the web interface, as well as
   visually explore graphs with the graph viewer
 ---
-# Graphs
+# Graphs in the web interface
 
 {{ page.description }}
 {:class="lead"}

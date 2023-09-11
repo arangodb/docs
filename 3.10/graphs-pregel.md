@@ -38,11 +38,10 @@ If you run a single ArangoDB instance in single-server mode, there are no
 requirements regarding the modeling of your data. All you need is at least one
 vertex collection and one edge collection.
 
-In cluster mode, the collections need to be sharded in a specific way to ensure
-correct results: The outgoing edges of a vertex need to be on the same DB-Server
-as the vertex. This is guaranteed by [SmartGraphs](graphs-smart-graphs.html).
-
-{% include hint-ee-arangograph.md feature="SmartGraphs (and thus Pregel in cluster deployments)" plural=true %}
+In cluster deployments, the collections need to be sharded in a specific way to
+ensure correct results: The outgoing edges of a vertex need to be on the same
+DB-Server as the vertex. This is guaranteed by [SmartGraphs](graphs-smart-graphs.html).
+Thus, Pregel in cluster deployments is not usable in the Community Edition.
 
 Note that the performance may be better, if the number of your shards /
 collections matches the number of CPU cores.
@@ -81,8 +80,8 @@ described in [Pregel Algorithms](graphs-pregel-algorithms.html).
 
 ### Status of an Algorithm Execution
 
-You can use the ID returned by the `pregel.start(...)` method to track the
-status of your algorithm:
+You can call `pregel.status()` and use the ID returned by the `pregel.start(...)`
+method to track the status of your algorithm:
 
 ```js
 var execution = pregel.start("sssp", "demograph", { source: "vertices/V" });
@@ -101,7 +100,7 @@ The `state` field has one of the following values:
 | `"loading"`    | The graph data is being loaded from the database into memory before executing the algorithm.
 | `"running"`    | The algorithm is executing normally.
 | `"storing"`    | The algorithm finished, but the results are still being written back into the collections. Only occurs if the `store` parameter is set to `true`.
-| `"done"`       | The execution is done. In version 3.7.1 and later, this means that storing is also done. In earlier versions, the results may not be written back into the collections yet. This event is announced in the server log (requires at least `info` log level for the `pregel` topic).
+| `"done"`       | The execution is done. In version 3.7.1 and later, this means that storing is also done. In earlier versions, the results may not be written back into the collections yet. This event is announced in the server log (requires at least the `info` log level for the `pregel` log topic).
 | `"canceled"`   | The execution was permanently canceled, either by the user or by an error.
 | `"in error"`   | The execution is in an error state. This can be caused by primary DB-Servers being unreachable or unresponsive. The execution might recover later, or switch to `canceled` if it is not able to recover successfully.
 | `"recovering"` | The execution is actively recovering and switches back to `running` if the recovery is successful.
@@ -127,7 +126,7 @@ The object returned by the `status()` method looks like this:
 ### Canceling an Execution / Discarding results
 
 To cancel an execution which is still running and discard any intermediate
-results, you can use the `cancel()` method. This immediately frees all
+results, you can use the `pregel.cancel()` method. This immediately frees all
 memory taken up by the execution, and makes you lose all intermediary data.
 
 ```js

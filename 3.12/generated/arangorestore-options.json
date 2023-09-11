@@ -286,6 +286,32 @@
     "section" : "",
     "type" : "string..."
   },
+  "descriptors-minimum" : {
+    "base" : 1,
+    "category" : "option",
+    "default" : 8192,
+    "deprecatedIn" : null,
+    "description" : "The minimum number of file descriptors needed to start (0 = no minimum)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint64"
+  },
   "dump-dependencies" : {
     "category" : "command",
     "deprecatedIn" : null,
@@ -1569,7 +1595,7 @@
   "threads" : {
     "base" : 1,
     "category" : "option",
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The maximum number of collections to process in parallel.",
     "dynamic" : true,

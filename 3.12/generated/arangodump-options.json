@@ -89,12 +89,35 @@
     "category" : "option",
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "Compress files containing collection contents using the gzip format (not compatible with encryption).",
+    "description" : "Compress files containing collection contents using the gzip format.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
+  "compress-transfer" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Compress data for transport using the gzip format.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -221,6 +244,32 @@
     "section" : "",
     "type" : "string..."
   },
+  "descriptors-minimum" : {
+    "base" : 1,
+    "category" : "option",
+    "default" : 8192,
+    "deprecatedIn" : null,
+    "description" : "The minimum number of file descriptors needed to start (0 = no minimum)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "maxInclusive" : true,
+    "maxValue" : 18446744073709551615,
+    "minInclusive" : true,
+    "minValue" : 0,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint64"
+  },
   "dump-data" : {
     "category" : "option",
     "default" : true,
@@ -303,6 +352,29 @@
     "section" : "",
     "type" : "boolean"
   },
+  "dump-vpack" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Dump collection data in velocypack format (more compact than JSON, but requires ArangoDB 3.12 or higher to restore)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "encryption.key-generator" : {
     "category" : "option",
     "default" : "",
@@ -344,29 +416,6 @@
     "requiresValue" : true,
     "section" : "encryption",
     "type" : "string"
-  },
-  "envelope" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "Wrap each document into a {type, data} envelope (this is required for compatibility with v3.7 and before).",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.8.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
   },
   "force" : {
     "category" : "option",
@@ -1195,6 +1244,29 @@
     "section" : "",
     "type" : "boolean"
   },
+  "parallel-dump" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Enable experimental dump behavior.",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.12.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "required" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "progress" : {
     "category" : "option",
     "default" : true,
@@ -1497,7 +1569,7 @@
     "introducedIn" : [
       "v3.12.0"
     ],
-    "longDescription" : "This option only has effect when the option\n`--use-experimental-dump` is set to `true`. Restoring split files also\nrequires an arangorestore version that is capable of restoring data of a\nsingle collection/shard from multiple files.",
+    "longDescription" : "This option only has effect when the option\n`--parallel-dump` is set to `true`. Restoring split files also\nrequires an arangorestore version that is capable of restoring data of a\nsingle collection/shard from multiple files.",
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1538,7 +1610,7 @@
   "threads" : {
     "base" : 1,
     "category" : "option",
-    "default" : 32,
+    "default" : 36,
     "deprecatedIn" : null,
     "description" : "The maximum number of collections/shards to process in parallel.",
     "dynamic" : true,
@@ -1559,79 +1631,6 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "uint32"
-  },
-  "tick-end" : {
-    "base" : 1,
-    "category" : "option",
-    "default" : 0,
-    "deprecatedIn" : null,
-    "description" : "Last tick to be included in data dump.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "maxInclusive" : true,
-    "maxValue" : 18446744073709551615,
-    "minInclusive" : true,
-    "minValue" : 0,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "",
-    "type" : "uint64"
-  },
-  "tick-start" : {
-    "base" : 1,
-    "category" : "option",
-    "default" : 0,
-    "deprecatedIn" : null,
-    "description" : "Only include data after this tick.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "maxInclusive" : true,
-    "maxValue" : 18446744073709551615,
-    "minInclusive" : true,
-    "minValue" : 0,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "",
-    "type" : "uint64"
-  },
-  "use-experimental-dump" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "Enable experimental dump behavior.",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "experimental" : true,
-    "hidden" : true,
-    "introducedIn" : [
-      "v3.12.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "required" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
   },
   "use-splice-syscall" : {
     "category" : "option",

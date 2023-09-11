@@ -23,8 +23,8 @@ You can print the results of the cursor using its `toArray()` method:
     @startDocuBlockInline 01_workWithAQL_all
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_all}
     ~addIgnoreCollection("mycollection")
-    db._create("mycollection")
-    db.mycollection.save({ _key: "testKey", Hello : "World" })
+    var coll = db._create("mycollection")
+    var doc = db.mycollection.save({ _key: "testKey", Hello : "World" })
     db._query('FOR my IN mycollection RETURN my._key').toArray()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 01_workWithAQL_all
@@ -191,9 +191,9 @@ value is used (default: 30 seconds).
     @startDocuBlockInline 02_workWithAQL_ttl
     @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_ttl}
     | db._query(
-    |   'FOR i IN 1..2000 RETURN i',
+    |   'FOR i IN 1..20 RETURN i',
     |   {},
-    |   { ttl: 5 },
+    |   { ttl: 5, batchSize: 10 },
     |   {}
       ).toArray(); // Each batch needs to be fetched within 5 seconds
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -212,11 +212,11 @@ set to `on` or `demand`.
     @startDocuBlockInline 02_workWithAQL_cache
     @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_cache}
     | db._query(
-    |   'FOR i IN 1..2000 RETURN i',
+    |   'FOR i IN 1..20 RETURN i',
     |   {},
     |   { cache: true },
     |   {}
-      ).toArray(); // result may get taken from cache
+      ); // result may get taken from cache
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 02_workWithAQL_cache
     {% endarangoshexample %}
@@ -432,6 +432,8 @@ the entire query result in RAM, use a streaming query (see the
 
 #### `allowDirtyReads`
 
+{% include hint-ee-arangograph.md feature="Reading from followers in clusters" %}
+
 <small>Introduced in: v3.10.0</small>
 
 If you set this option to `true` and execute the query against a cluster
@@ -439,9 +441,9 @@ deployment, then the Coordinator is allowed to read from any shard replica and
 not only from the leader. See [Read from followers](../http/document.html#read-from-followers)
 for details.
 
-{% include hint-ee-arangograph.md feature="Reading from followers in clusters" %}
-
 #### `skipInaccessibleCollections`
+
+{% include hint-ee-arangograph.md feature="This option" %}
 
 Let AQL queries (especially graph traversals) treat collection to which a
 user has **no access** rights for as if these collections are empty.
@@ -450,15 +452,13 @@ This is intended to help with certain use-cases: A graph contains several collec
 and different users execute AQL queries on that graph. You can naturally limit the 
 accessible results by changing the access rights of users on collections.
 
-{% include hint-ee-arangograph.md feature="This option" %}
-
 #### `satelliteSyncWait`
+
+{% include hint-ee-arangograph.md feature="SatelliteCollections" plural=true %}
 
 Configure how long a DB-Server has time to bring the SatelliteCollections
 involved in the query into sync. The default value is `60.0` seconds.
 When the maximal time is reached, the query is stopped.
-
-{% include hint-ee-arangograph.md feature="SatelliteCollections" plural=true %}
 
 ## With `db._createStatement()` (ArangoStatement)
 

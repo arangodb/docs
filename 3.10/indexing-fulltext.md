@@ -88,17 +88,19 @@ details is returned.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureFulltextIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureFulltextIndex}
-    ~db._create("example");
-    db.example.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 3 });
-    db.example.save({ text : "the quick brown", b : { c : 1 } });
-    db.example.save({ text : "quick brown fox", b : { c : 2 } });
-    db.example.save({ text : "brown fox jumps", b : { c : 3 } });
-    db.example.save({ text : "fox jumps over", b : { c : 4 } });
-    db.example.save({ text : "jumps over the", b : { c : 5 } });
-    db.example.save({ text : "over the lazy", b : { c : 6 } });
-    db.example.save({ text : "the lazy dog", b : { c : 7 } });
-    db._query("FOR document IN FULLTEXT(example, 'text', 'the') RETURN document");
-    ~db._drop("example");
+    ~ db._create("example");
+      db.example.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 3 });
+    | db.example.save([
+    |   { text : "the quick brown", b : { c : 1 } },
+    |   { text : "quick brown fox", b : { c : 2 } },
+    |   { text : "brown fox jumps", b : { c : 3 } },
+    |   { text : "fox jumps over", b : { c : 4 } },
+    |   { text : "jumps over the", b : { c : 5 } },
+    |   { text : "over the lazy", b : { c : 6 } },
+    |   { text : "the lazy dog", b : { c : 7 } }
+      ]);
+      db._query("FOR document IN FULLTEXT(example, 'text', 'quick') RETURN document").toArray();
+    ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureFulltextIndex
 {% endarangoshexample %}

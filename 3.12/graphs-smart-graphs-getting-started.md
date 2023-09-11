@@ -1,10 +1,9 @@
 ---
 layout: default
-description: SmartGraphs enable you to manage graphs at scale.
-title: ArangoDB SmartGraphs - Getting Started
+description: >-
+  SmartGraphs enable you to manage graphs at scale
 ---
-Getting started
----------------
+# Getting started with SmartGraphs
 
 SmartGraphs **cannot use existing collections**. When switching to SmartGraph
 from an existing dataset you have to import the data into a fresh SmartGraph.
@@ -77,7 +76,7 @@ required and cannot be modified later.
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_cluster}
       var graph_module = require("@arangodb/smart-graph");
       var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo1_cluster
@@ -95,7 +94,7 @@ and cannot be modified later.
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowToDisjoint1_cluster}
       var graph_module = require("@arangodb/smart-graph");
       var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9, isDisjoint: true});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowToDisjoint1_cluster
@@ -119,7 +118,7 @@ without trouble however, as they will have the correct sharding.
       graph._addVertexCollection("shop");
       graph._addVertexCollection("customer");
       graph._addVertexCollection("pet");
-      graph_module._graph("myGraph");
+      graph = graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo2_cluster
@@ -143,7 +142,7 @@ correct sharding already).
      ~graph._addVertexCollection("pet");
       var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
       graph._extendEdgeDefinitions(rel);
-      graph_module._graph("myGraph");
+      graph = graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo3_cluster
@@ -181,7 +180,7 @@ request, only then the option will count.
       var graph_module = require("@arangodb/smart-graph");
       var rel = graph_module._relation("isCustomer", "shop", "customer")
       var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock hybridSmartGraphCreateGraphHowTo1_cluster
@@ -200,7 +199,7 @@ as a SatelliteCollection in this example:
       var graph_module = require("@arangodb/smart-graph");
       var rel = graph_module._relation("isCustomer", "shop", "customer")
       var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop"], smartGraphAttribute: "region", isDisjoint: true, numberOfShards: 9});
-      graph_module._graph("myGraph");
+      graph;
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock hybridSmartGraphCreateGraphHowTo2_cluster

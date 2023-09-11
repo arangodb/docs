@@ -1,9 +1,9 @@
 ---
 layout: default
-description: How to use metrics
-title: Monitoring the ArangoGraph Insights Platform
+description: >-
+   How to use metrics in ArangoGraph
 ---
-# Monitoring & Metrics
+# Monitoring & Metrics in ArangoGraph
 
 The ArangoGraph Insights Platform provides metrics for each deployment in a 
 [Prometheus](https://prometheus.io/){:target="_blank"}

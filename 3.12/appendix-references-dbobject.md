@@ -466,8 +466,8 @@ With defaults:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateSuccess
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSuccess}
-      c = db._create("users");
-      c.properties();
+      var coll = db._create("users");
+      coll.properties();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSuccess
@@ -479,8 +479,8 @@ With properties:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateProperties
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateProperties}
-      c = db._create("users", { waitForSync: true });
-      c.properties();
+      var coll = db._create("users", { waitForSync: true });
+      coll.properties();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateProperties
@@ -492,8 +492,7 @@ With a key generator:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateKey}
-    | db._create("users",
-         { keyOptions: { type: "autoincrement", offset: 10, increment: 5 } });
+      var coll = db._create("users", { keyOptions: { type: "autoincrement", offset: 10, increment: 5 } });
       db.users.save({ name: "user 1" });
       db.users.save({ name: "user 2" });
       db.users.save({ name: "user 3" });
@@ -508,7 +507,7 @@ With a special key option:
     {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateSpecialKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
-      db._create("users", { keyOptions: { allowUserKeys: false } });
+      var coll = db._create("users", { keyOptions: { allowUserKeys: false } });
       db.users.save({ name: "user 1" });
       db.users.save({ name: "user 2", _key: "myuser" }); // xpError(ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED)
       db.users.save({ name: "user 3" });
@@ -634,11 +633,11 @@ Truncates a collection:
     @startDocuBlockInline collectionDatabaseTruncateByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateByObject}
     ~ db._create("example");
-      col = db.example;
-      col.save({ "Hello" : "World" });
-      col.count();
-      db._truncate(col);
-      col.count();
+      var coll = db._collection("example");
+      var doc = coll.save({ "Hello" : "World" });
+      coll.count();
+      db._truncate(coll);
+      coll.count();
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateByObject
@@ -651,11 +650,11 @@ Truncates a collection identified by name:
     @startDocuBlockInline collectionDatabaseTruncateName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateName}
     ~ db._create("example");
-      col = db.example;
-      col.save({ "Hello" : "World" });
-      col.count();
+      var coll = db._collection("example");
+      var doc = coll.save({ "Hello" : "World" });
+      coll.count();
       db._truncate("example");
-      col.count();
+      coll.count();
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateName
@@ -699,9 +698,8 @@ Drops a collection:
     @startDocuBlockInline collectionDatabaseDropByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropByObject}
     ~ db._create("example");
-      col = db.example;
-      db._drop(col);
-      col;
+      var coll = db._collection("example");
+      db._drop(coll);
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropByObject
@@ -714,9 +712,9 @@ Drops a collection identified by name:
     @startDocuBlockInline collectionDatabaseDropName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropName}
     ~ db._create("example");
-      col = db.example;
+      coll = db._collection("example");
       db._drop("example");
-      col;
+      coll;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropName
     {% endarangoshexample %}
@@ -728,9 +726,8 @@ Drops a system collection
     @startDocuBlockInline collectionDatabaseDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropSystem}
     ~ db._create("_example", { isSystem: true });
-      col = db._example;
+      var coll = db._example;
       db._drop("_example", { isSystem: true });
-      col;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropSystem
     {% endarangoshexample %}
@@ -846,6 +843,21 @@ Create and update a document:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+Ignore a revision mismatch when updating the document:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline documentDocumentUpdateOverwrite
+    @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentUpdateOverwrite}
+    ~ db._create("example");
+      a1 = db.example.insert({ a : 1 });
+      a2 = db._update(a1, { b : 2 });
+      a3 = db._update(a1, { c : 3 }, { overwrite: true });
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock documentDocumentUpdateOverwrite
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### `db._replace(document, data)`
 
 `db._replace(object, data)`
@@ -919,6 +931,21 @@ Create and replace a document:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+Ignore a revision mismatch when replacing the document:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline documentsDocumentReplaceOverwrite
+    @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentReplaceOverwrite}
+    ~ db._create("example");
+      a1 = db.example.insert({ a : 1 });
+      a2 = db._replace(a1, { a : 2 });
+      a3 = db._replace(a1, { a : 3 }, { overwrite: true });
+    ~ db._drop("example");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock documentsDocumentReplaceOverwrite
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### `db._remove(document)`
 
 `db._remove(object)`
@@ -981,7 +1008,7 @@ Remove a document:
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       db._remove(a1);
-      db._remove(a1);  // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+      db._remove(a1); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
       db._remove(a1, {overwrite: true}); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -997,27 +1024,26 @@ Remove the document in the revision `a1` with a conflict:
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       a2 = db._replace(a1, { a : 2 });
-      db._remove(a1);       // xpError(ERROR_ARANGO_CONFLICT)
-      db._remove(a1, {overwrite: true} );
-      db._document(a1);     // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND)
+      db._remove(a1); // xpError(ERROR_ARANGO_CONFLICT)
+      db._remove(a1, {overwrite: true});
+      db._document(a1); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND)
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveConflict
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Remove a document using new signature:
+Remove a document using a document identifier:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline documentsCollectionRemoveSignature
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSignature}
+    @startDocuBlockInline documentsCollectionRemoveIdentifier
+    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveIdentifier}
     ~ db._create("example");
-    db.example.insert({ _key: "11265325374", a:  1 } );
-    | db.example.remove("example/11265325374",
-           { overwrite: true, waitForSync: false})
+      db.example.insert({ _key: "123456", a: 1 } );
+      db.example.remove("example/123456");
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock documentsCollectionRemoveSignature
+    @endDocuBlock documentsCollectionRemoveIdentifier
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -1044,8 +1070,8 @@ to each View-type.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseCreate
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseCreate}
-      v = db._createView("example", "arangosearch");
-      v.properties()
+      var view = db._createView("example", "arangosearch");
+      view.properties()
       db._dropView("example")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseCreate
@@ -1084,9 +1110,9 @@ or `null` if no such View exists.
     @startDocuBlockInline viewDatabaseGet
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseGet}
     ~ db._createView("example", "arangosearch", {});
-      | view = db._view("example");
+    | var view = db._view("example");
       // or, alternatively
-      view = db["example"]
+      var view = db["example"];
     ~ db._dropView("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseGet
@@ -1151,7 +1177,7 @@ Drop a view:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseDrop}
-      db._createView("exampleView", "arangosearch");
+      var view = db._createView("exampleView", "arangosearch");
       db._dropView("exampleView");
       db._view("exampleView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -1189,7 +1215,7 @@ See [`db._index()`](indexing-working-with-indexes.html#fetching-an-index-by-iden
 
 Drops an index by identifier.
 
-See [db._dropIndex()](indexing-working-with-indexes.html#dropping-an-index-via-a-database-object).
+See [`db._dropIndex()`](indexing-working-with-indexes.html#dropping-an-index-via-a-database-object).
 
 ## Transactions
 

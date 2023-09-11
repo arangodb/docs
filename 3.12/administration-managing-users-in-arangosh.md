@@ -294,6 +294,7 @@ This method will fail if the user cannot be found in the database.
     @startDocuBlockInline USER_07_removeUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_07_removeUser}
     require("@arangodb/users").remove("my-user");
+    ~require('@arangodb/users').save('my-user', 'my-secret-password');
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_07_removeUser
 {% endarangoshexample %}

@@ -1,5 +1,5 @@
-arangosh&gt; <span class="hljs-keyword">var</span> v = db._view(<span class="hljs-string">&quot;example&quot;</span>);
-arangosh&gt; v.properties();
+arangosh&gt; <span class="hljs-keyword">var</span> view = db._view(<span class="hljs-string">&quot;example&quot;</span>);
+arangosh&gt; view.properties();
 { 
   <span class="hljs-string">&quot;indexes&quot;</span> : [ 
     { 
@@ -12,7 +12,7 @@ arangosh&gt; v.properties();
     } 
   ] 
 }
-arangosh&gt; v.properties({ <span class="hljs-attr">indexes</span>: [
+arangosh&gt; view.properties({ <span class="hljs-attr">indexes</span>: [
 ........&gt;   { <span class="hljs-attr">collection</span>: <span class="hljs-string">&quot;coll&quot;</span>, <span class="hljs-attr">index</span>: <span class="hljs-string">&quot;inv1&quot;</span>, <span class="hljs-attr">operation</span>: <span class="hljs-string">&quot;del&quot;</span> },
 ........&gt;   { <span class="hljs-attr">collection</span>: <span class="hljs-string">&quot;coll&quot;</span>, <span class="hljs-attr">index</span>: <span class="hljs-string">&quot;inv3&quot;</span> }
 ........&gt; ] });

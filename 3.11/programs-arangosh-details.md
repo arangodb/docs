@@ -13,9 +13,9 @@ opening brace:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline shellPaste
     @EXAMPLE_ARANGOSH_OUTPUT{shellPaste}
-    |for (var i = 0; i < 10; i ++) {
-    |         require("@arangodb").print("Hello world " + i + "!\n");
-    }
+    | for (var i = 0; i < 10; i ++) {
+    |   require("@arangodb").print("Hello world " + i + "!\n");
+      }
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock shellPaste
 {% endarangoshexample %}

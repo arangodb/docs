@@ -1,9 +1,9 @@
 ---
 layout: default
-description: How to manage projects
-title: Projects in the ArangoGraph Insights Platform
+description: >-
+  How to manage projects and IP allowlists in ArangoGraph
 ---
-# Projects
+# Projects in ArangoGraph
 
 Below organizations in the ArangoGraph deployment hierarchy are projects. They can
 represent organizational units such as teams, product groups, environments

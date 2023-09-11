@@ -1,15 +1,22 @@
 arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/graph-examples/example-graph&quot;</span>);
 arangosh&gt; <span class="hljs-keyword">var</span> graph = examples.loadGraph(<span class="hljs-string">&quot;social&quot;</span>);
-arangosh&gt; graph.female.save({<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Lynda&quot;</span>, <span class="hljs-attr">_key</span>: <span class="hljs-string">&quot;linda&quot;</span>});
+arangosh&gt; <span class="hljs-keyword">var</span> doc = graph.female.save({<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Lynda&quot;</span>, <span class="hljs-attr">_key</span>: <span class="hljs-string">&quot;linda&quot;</span>});
+arangosh&gt; graph.female.update(<span class="hljs-string">&quot;female/linda&quot;</span>, {<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Linda&quot;</span>, <span class="hljs-attr">_key</span>: <span class="hljs-string">&quot;linda&quot;</span>}, { <span class="hljs-attr">returnOld</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">returnNew</span>: <span class="hljs-literal">true</span> });
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;female/linda&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;linda&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_giB8A1i--A&quot;</span> 
-}
-arangosh&gt; graph.female.update(<span class="hljs-string">&quot;female/linda&quot;</span>, {<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Linda&quot;</span>, <span class="hljs-attr">_key</span>: <span class="hljs-string">&quot;linda&quot;</span>});
-{ 
-  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;female/linda&quot;</span>, 
-  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;linda&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_giB8A1m---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_giB8A1i--A&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gkzeS0S--A&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_gkzeS0S--_&quot;</span>, 
+  <span class="hljs-string">&quot;old&quot;</span> : { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;linda&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;female/linda&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gkzeS0S--_&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Lynda&quot;</span> 
+  }, 
+  <span class="hljs-string">&quot;new&quot;</span> : { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;linda&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;female/linda&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_gkzeS0S--A&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Linda&quot;</span> 
+  } 
 }

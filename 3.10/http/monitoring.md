@@ -35,7 +35,7 @@ redirect_from:
 ## Metrics
 
 _arangod_ exports metrics in the
-[Prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/){:taget="_blank"}.
+[Prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/){:target="_blank"}.
 You can use these metrics to monitor the healthiness and performance of the
 system. The thresholds for alerts are also described for relevant metrics.
 

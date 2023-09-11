@@ -696,9 +696,9 @@ Create a geo index for an array attribute:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute1
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
-    ~db._create("geo")
+    ~db._create("geo");
      db.geo.ensureIndex({ type: "geo", fields: [ "loc" ] });
-    ~db._drop("geo")
+    ~db._drop("geo");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute1
 {% endarangoshexample %}
@@ -709,51 +709,51 @@ Create a geo index for an array attribute:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
-    ~db._create("geo2")
+    ~db._create("geo2");
     db.geo2.ensureIndex({ type: "geo", fields: [ "location.latitude", "location.longitude" ] });
-    ~db._drop("geo2")
+    ~db._drop("geo2");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use geo index with AQL SORT statement:
+Use a geo index with the AQL `SORT` operation:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexSortOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexSortOptimization}
-    ~db._create("geoSort")
-    db.geoSort.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
+    ~ db._create("geoSort");
+      var idx = db.geoSort.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
     | for (i = -90;  i <= 90;  i += 10) {
-    |     for (j = -180; j <= 180; j += 10) {
-    |         db.geoSort.save({ name : "Name/" + i + "/" + j, latitude : i, longitude : j });
-    |     }
+    |   for (j = -180; j <= 180; j += 10) {
+    |     db.geoSort.save({ name : "Name/" + i + "/" + j, latitude : i, longitude : j });
+    |   }
       }
-    var query = "FOR doc in geoSort SORT DISTANCE(doc.latitude, doc.longitude, 0, 0) LIMIT 5 RETURN doc"
-    db._explain(query, {}, {colors: false});
-    db._query(query);
-    ~db._drop("geoSort")
+      var query = "FOR doc in geoSort SORT DISTANCE(doc.latitude, doc.longitude, 0, 0) LIMIT 5 RETURN doc"
+      db._explain(query, {}, {colors: false});
+      db._query(query).toArray();
+    ~ db._drop("geoSort");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexSortOptimization
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use geo index with AQL FILTER statement:
+Use a geo index with the AQL `FILTER` operation:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexFilterOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexFilterOptimization}
-    ~db._create("geoFilter")
-    db.geoFilter.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
+    ~ db._create("geoFilter");
+      var idx = db.geoFilter.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
     | for (i = -90;  i <= 90;  i += 10) {
-    |     for (j = -180; j <= 180; j += 10) {
-    |         db.geoFilter.save({ name : "Name/" + i + "/" + j, latitude : i, longitude : j });
-    |     }
+    |   for (j = -180; j <= 180; j += 10) {
+    |     db.geoFilter.save({ name : "Name/" + i + "/" + j, latitude : i, longitude : j });
+    |   }
       }
     var query = "FOR doc in geoFilter FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) < 2000 RETURN doc"
     db._explain(query, {}, {colors: false});
-    db._query(query);
-    ~db._drop("geoFilter")
+    db._query(query).toArray();
+    ~db._drop("geoFilter");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexFilterOptimization
 {% endarangoshexample %}

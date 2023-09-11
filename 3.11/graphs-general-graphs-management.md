@@ -34,9 +34,10 @@ the correct list.
     @startDocuBlockInline generalGraphEdgeDefinitionsSimple
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsSimple}
       var graph_module = require("@arangodb/general-graph");
-      directed_relation = graph_module._relation("lives_in", "user", "city");
-      undirected_relation = graph_module._relation("knows", "user", "user");
-      edgedefinitions = graph_module._edgeDefinitions(directed_relation, undirected_relation);
+      var directed_relation = graph_module._relation("lives_in", "user", "city");
+      var undirected_relation = graph_module._relation("knows", "user", "user");
+      var edgedefinitions = graph_module._edgeDefinitions(directed_relation, undirected_relation);
+      edgedefinitions;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeDefinitionsSimple
     {% endarangoshexample %}
@@ -53,7 +54,7 @@ Extend the list of edge definitions to construct a graph:
 - `relationX` (object):
   An object representing a definition of one relation in the graph
 
-In order to add more edge definitions to the graph before creating
+In order to add more edge definitions to the graph before creating it,
 this function can be used to add more definitions to the initial list.
 
 **Examples**
@@ -62,10 +63,11 @@ this function can be used to add more definitions to the initial list.
     @startDocuBlockInline generalGraphEdgeDefinitionsExtend
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsExtend}
       var graph_module = require("@arangodb/general-graph");
-      directed_relation = graph_module._relation("lives_in", "user", "city");
-      undirected_relation = graph_module._relation("knows", "user", "user");
-      edgedefinitions = graph_module._edgeDefinitions(directed_relation);
-      edgedefinitions = graph_module._extendEdgeDefinitions(undirected_relation);
+      var directed_relation = graph_module._relation("lives_in", "user", "city");
+      var undirected_relation = graph_module._relation("knows", "user", "user");
+      var edgedefinitions = graph_module._edgeDefinitions(directed_relation);
+      graph_module._extendEdgeDefinitions(edgedefinitions, undirected_relation);
+      edgedefinitions;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeDefinitionsExtend
     {% endarangoshexample %}
@@ -345,6 +347,7 @@ Drop a graph and keep collections:
     ~ var examples = require("@arangodb/graph-examples/example-graph");
     ~ var g1 = examples.loadGraph("social");
       var graph_module = require("@arangodb/general-graph");
+      graph_module._graph("social");
       graph_module._drop("social");
       db._collection("female");
       db._collection("male");
@@ -366,6 +369,7 @@ Drop a graph and its collections:
     ~ var examples = require("@arangodb/graph-examples/example-graph");
     ~ var g1 = examples.loadGraph("social");
       var graph_module = require("@arangodb/general-graph");
+      graph_module._graph("social");
       graph_module._drop("social", true);
       db._collection("female");
       db._collection("male");
@@ -445,6 +449,7 @@ definition are modified, too.
       var modified = graph_module._relation("myEC1", ["myVC2"], ["myVC3"]);
       var graph = graph_module._create("myGraph", [original]);
       graph._editEdgeDefinitions(modified);
+      graph = graph_module._graph("myGraph");
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__editEdgeDefinition
@@ -478,6 +483,7 @@ Remove an edge definition but keep the edge collection:
       var ed2 = graph_module._relation("myEC2", ["myVC1"], ["myVC3"]);
       var graph = graph_module._create("myGraph", [ed1, ed2]);
       graph._deleteEdgeDefinition("myEC1");
+      graph = graph_module._graph("myGraph");
       db._collection("myEC1");
     ~ db._drop("myEC1");
     ~ graph_module._drop("myGraph", true);
@@ -496,6 +502,7 @@ Remove an edge definition and drop the edge collection:
       var ed2 = graph_module._relation("myEC2", ["myVC1"], ["myVC3"]);
       var graph = graph_module._create("myGraph", [ed1, ed2]);
       graph._deleteEdgeDefinition("myEC1", true);
+      graph = graph_module._graph("myGraph");
       db._collection("myEC1");
     ~ db._drop("myEC1");
     ~ graph_module._drop("myGraph", true);
@@ -614,10 +621,12 @@ Manipulating Vertices
 
 Create a new vertex in `vertexCollectionName`:
 
-`graph.vertexCollectionName.save(data)`
+`graph.vertexCollectionName.save(data, options)`
 
 - `data` (object):
   JSON data of vertex.
+- `options` (object, _optional_):
+  See the [_collection_ object](appendix-references-collection-object.html#collectionreplacedocument-data--options)
 
 **Examples**
 
@@ -626,7 +635,7 @@ Create a new vertex in `vertexCollectionName`:
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionSave}
       var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
-      graph.male.save({name: "Floyd", _key: "floyd"});
+      graph.male.save({name: "Floyd", _key: "floyd"}, { returnNew: true });
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionSave
@@ -653,8 +662,8 @@ Replaces the data of a vertex in collection `vertexCollectionName`:
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionReplace}
       var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
-      graph.male.save({neym: "Jon", _key: "john"});
-      graph.male.replace("male/john", {name: "John"});
+      var doc = graph.male.save({neym: "Jon", _key: "john"});
+      graph.male.replace("male/john", {name: "John"}, { returnOld: true, returnNew: true });
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionReplace
@@ -681,8 +690,8 @@ Updates the data of a vertex in collection `vertexCollectionName`.
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionUpdate}
       var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
-      graph.female.save({name: "Lynda", _key: "linda"});
-      graph.female.update("female/linda", {name: "Linda", _key: "linda"});
+      var doc = graph.female.save({name: "Lynda", _key: "linda"});
+      graph.female.update("female/linda", {name: "Linda", _key: "linda"}, { returnOld: true, returnNew: true });
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionUpdate
@@ -710,10 +719,10 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionRemove}
       var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
-      graph.male.save({name: "Kermit", _key: "kermit"});
-      db._exists("male/kermit")
-      graph.male.remove("male/kermit")
-      db._exists("male/kermit")
+      var doc = graph.male.save({name: "Kermit", _key: "kermit"});
+      db._exists("male/kermit");
+      var success = graph.male.remove("male/kermit");
+      db._exists("male/kermit");
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionRemove
@@ -747,7 +756,7 @@ Creates an edge from vertex `data._from` to vertex `data._to` in collection
     | graph.relation.save({
     |   _from: "male/bob",
     |   _to: "female/alice",
-        _key: "bobAndAlice", type: "married" });
+        _key: "bobAndAlice", type: "married" }, { returnNew: true });
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionSave1
@@ -793,8 +802,8 @@ Note that `_from` and `_to` are mandatory.
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionReplace}
       var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
-      graph.relation.save("female/alice", "female/diana", {typo: "nose", _key: "aliceAndDiana"});
-      graph.relation.replace("relation/aliceAndDiana", {type: "knows", _from: "female/alice", _to: "female/diana"});
+      var doc = graph.relation.save("female/alice", "female/diana", {typo: "nose", _key: "aliceAndDiana"});
+      graph.relation.replace("relation/aliceAndDiana", {type: "knows", _from: "female/alice", _to: "female/diana"}, { returnOld: true, returnNew: true });
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionReplace
@@ -821,8 +830,8 @@ Updates the data of an edge in collection `edgeCollectionName`.
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionUpdate}
       var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
-      graph.relation.save("female/alice", "female/diana", {type: "knows", _key: "aliceAndDiana"});
-      graph.relation.update("relation/aliceAndDiana", {type: "quarreled", _key: "aliceAndDiana"});
+      var doc = graph.relation.save("female/alice", "female/diana", {type: "knows", _key: "aliceAndDiana"});
+      graph.relation.update("relation/aliceAndDiana", {type: "quarreled", _key: "aliceAndDiana"}, { returnOld: true, returnNew: true });
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionUpdate
@@ -850,9 +859,9 @@ If this edge is used as a vertex by another edge, the other edge is removed
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionRemove}
       var examples = require("@arangodb/graph-examples/example-graph");
       var graph = examples.loadGraph("social");
-      graph.relation.save("female/alice", "female/diana", {_key: "aliceAndDiana"});
+      var doc = graph.relation.save("female/alice", "female/diana", {_key: "aliceAndDiana"});
       db._exists("relation/aliceAndDiana")
-      graph.relation.remove("relation/aliceAndDiana")
+      var success = graph.relation.remove("relation/aliceAndDiana")
       db._exists("relation/aliceAndDiana")
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
