@@ -15,11 +15,8 @@ For example you can install the operator in a namespace other than
 
 ## Charts
 
-The ArangoDB Kubernetes Operator is contained in two `helm` charts:
-
-- `kube-arangodb` which contains the operator for the `ArangoDeployment`, `ArangoLocalStorage`
-  and `ArangoDeploymentReplication` resource types.
-- `kube-arangodb-crd` which contains the CRD for the `ArangoDeployment` and `ArangoDeploymentReplication` resource types.
+The ArangoDB Kubernetes Operator is contained in `helm` chart `kube-arangodb` which contains the operator for the
+`ArangoDeployment`, `ArangoLocalStorage` and `ArangoDeploymentReplication` resource types.
 
 
 ## Configurable values for ArangoDB Kubernetes Operator
@@ -119,6 +116,12 @@ Default: `false`
 Define if ArangoBackup Operator should be enabled.
 
 Default: `false`
+
+### `operator.enableCRDManagement`
+
+If true and operator has enough access permissions, it will try to install missing CRDs.
+
+Default: `true`
 
 ### `rbac.enabled`
 
