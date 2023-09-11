@@ -28,13 +28,11 @@ that you want to install):
 
 ```bash
 export URLPREFIX=https://github.com/arangodb/kube-arangodb/releases/download/<version>
-helm install $URLPREFIX/kube-arangodb-crd-<version>.tgz
 helm install $URLPREFIX/kube-arangodb-<version>.tgz
 ```
 
 This installs operators for the `ArangoDeployment` and `ArangoDeploymentReplication`
-resource types, which are used to deploy ArangoDB and ArangoDB
-Datacenter-to-Datacenter Replication respectively.
+resource types, which are used to deploy ArangoDB and ArangoDB Datacenter-to-Datacenter Replication respectively.
 
 If you want to avoid the installation of the operator for the `ArangoDeploymentReplication`
 resource type, add `--set=DeploymentReplication.Create=false` to the `helm install`
