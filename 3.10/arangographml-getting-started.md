@@ -93,7 +93,7 @@ api_instance.delete_project(project_id)
 The featurization specification asks that you input the following:
 - `featurization_name`: A name for the featurization task.
 - `project_name`: The associated project name. 
-	You can use `project.name` here if already created or retrieved as descried above.
+  You can use `project.name` here if already created or retrieved as descried above.
 - `graph_name`: The associated graph name that exists within the database.
 - `vertexCollections`: The list of vertex collections to be featurized.
   - Each collection contains a list of features or document attributes and details on how to featurize them.
@@ -108,13 +108,13 @@ The featurization specification asks that you input the following:
                     },
   ```
 - `edgeCollections`: This is the list of edge collections associated with the
-	vertex collections. There are no additional options.
-	```
-    	"edgeCollections": {
-      	  "edge_name_1",
-      	  "edge_name_2
-    	},
-	```
+  vertex collections. There are no additional options.
+  ```
+  "edgeCollections": {
+      "edge_name_1",
+      "edge_name_2
+  },
+  ```
 
 Once you have filled out the featurization specification you can pass it to
 the `featurizer` function.
@@ -224,7 +224,7 @@ See below the different components of the training specification.
   - `mlSpec`: Describes the desired machine learning task, input features, and the attribute label to be predicted.
   - `graph`: The ArangoDB graph name.
   - `vertexCollections`: Here, you can describe all the vertex collections and the features you would
-		like to include in training. You must provide an `x` for features, and the desired prediction label is supplied as `y`.
+    like to include in training. You must provide an `x` for features, and the desired prediction label is supplied as `y`.
   - `edgeCollections`: Here, you describe the relevant edge collections and any relevant attributes or features that should be considered when training.
   
 A training specification allows for concisely defining your training task in a
