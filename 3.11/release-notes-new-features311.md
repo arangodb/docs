@@ -982,13 +982,13 @@ Higher values typically mean less compression but faster speeds.
 The following new metrics can be used to determine the usefulness of
 compression:
   
-- `rocksdb_cache_edge_effective_entries_size`: returns the total number of
-  bytes of all entries that were stored in the in-memory edge cache, after
-  compression was attempted/applied. This metric is populated regardless
+- `rocksdb_cache_edge_inserts_effective_entries_size_total`: returns the total
+  number of bytes of all entries that were ever stored in the in-memory edge cache,
+  after compression was attempted/applied. This metric is populated regardless
   of whether compression is used or not.
-- `rocksdb_cache_edge_uncompressed_entries_size`: returns the total number
-  of bytes of all entries that were ever stored in the in-memory edge cache,
-  before compression was applied. This metric is populated regardless of
+- `rocksdb_cache_edge_inserts_uncompressed_entries_size_total`: returns the total
+  number of bytes of all entries that were ever stored in the in-memory edge
+  cache, before compression was applied. This metric is populated regardless of
   whether compression is used or not.
 - `rocksdb_cache_edge_compression_ratio`: returns the effective
   compression ratio for all edge cache entries ever stored in the cache.
