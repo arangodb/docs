@@ -41,8 +41,17 @@ See the [**Release notes**](release-notes.html) of the respective versions for
 detailed information about breaking changes before upgrading.
 {% endhint %}
 
-- **Pregel features**:
+- **Little-endian on-disk key format for the RocksDB storage engine**:
 
+  The little-endian on-disk key format for the RocksDB storage engine is
+  deprecated and support will be removed in v3.12. Parallel index creation and
+  the `--use-experimental-dump` arangodump option are only available in v3.11
+  for deployments that use the big-endian format, which is the default since v3.4.
+
+  Only deployments that were set up with the RocksDB storage engine using
+  ArangoDB v3.2 or v3.3 and that have been upgraded since then are affected.
+
+- **Pregel features**:
   The following features have been deprecated or removed from Pregel in v3.11:
 
   - The experimental _Custom Pregel_ feature, also known as
