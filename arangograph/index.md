@@ -39,5 +39,5 @@ For quick start guide, see
 {% assign ver = "3.10" | version: ">=" %}{% if ver -%}
 [Use ArangoDB in the Cloud](../quick-start-in-the-cloud.html).
 {% else -%}
-[Use ArangoDB in the Cloud](../../stable/quick-start-in-the-cloud.html).
+[Use ArangoDB in the Cloud](https://docs.arangodb.com/3.11/get-started/set-up-a-cloud-instance/){:target="_blank"}.
 {% endif -%}
