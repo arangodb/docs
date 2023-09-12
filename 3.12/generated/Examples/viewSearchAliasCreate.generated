@@ -1,6 +1,0 @@
-arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">&quot;books&quot;</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> idx = coll.ensureIndex({ <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;inverted&quot;</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;inv-idx&quot;</span>, <span class="hljs-attr">fields</span>: [ { <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-attr">analyzer</span>: <span class="hljs-string">&quot;text_en&quot;</span> } ] });
-arangosh&gt; db._createView(<span class="hljs-string">&quot;products&quot;</span>, <span class="hljs-string">&quot;search-alias&quot;</span>, { <span class="hljs-attr">indexes</span>: [
-........&gt;   { <span class="hljs-attr">collection</span>: <span class="hljs-string">&quot;books&quot;</span>, <span class="hljs-attr">index</span>: <span class="hljs-string">&quot;inv-idx&quot;</span> }
-........&gt; ] });
-[ArangoView <span class="hljs-number">84435</span>, <span class="hljs-string">&quot;products&quot;</span> (type search-alias)]

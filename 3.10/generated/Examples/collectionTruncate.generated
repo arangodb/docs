@@ -1,7 +1,0 @@
-arangosh&gt; <span class="hljs-keyword">var</span> coll = db.example;
-arangosh&gt; <span class="hljs-keyword">var</span> doc = coll.save({ <span class="hljs-string">&quot;Hello&quot;</span> : <span class="hljs-string">&quot;World&quot;</span> });
-arangosh&gt; coll.count();
-<span class="hljs-number">1</span>
-arangosh&gt; coll.truncate();
-arangosh&gt; coll.count();
-<span class="hljs-number">0</span>

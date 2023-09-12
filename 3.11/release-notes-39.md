@@ -1,1 +1,0 @@
-../3.9/release-notes-39.md
