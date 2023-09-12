@@ -92,21 +92,35 @@ api_instance.delete_project(project_id)
 
 The featurization specification asks that you input the following:
 - `featurization_name`: A name for the featurization task.
-- `project_name`: The associated project name. 
-  You can use `project.name` here if already created or retrieved as descried above.
+- `project_name`: The associated project name. You can use `project.name` here if was created or retrieved as descried above.
 - `graph_name`: The associated graph name that exists within the database.
-- `vertexCollections`: The list of vertex collections to be featurized.
-  - Each collection contains a list of features or document attributes and details on how to featurize them.
-  ```
-          "collectionName": {
-            "features": {
-                "attribute_name": {
-                    "feature_type": 'text' # Currently the supported types include text, category, numerical
-                    "feature_generator": { # this advanced option is optional.
-                        "method": "transformer_embeddings",
-                        "feature_name": "movie_title_embeddings",
-                    },
-  ```
+- `default_config` Optional: The optional default configuration to be applied across all features. Individual collection feature settings override this option.
+    - `dimensionality_reduction`: Object configuring dimensionality reduction.
+        - `disabled`: Boolean for enabling or disabling dimensionality reduction.
+        - `size`: The number of dimensions to reduce the feature length to.
+- `vertexCollections`: The list of vertex collections to be featurized. Here you also need to detail the attributes to featurize and how. Supplying multiple attributes from a single collection results in a single concatenated feature.
+    - `config` Optional: The configuration to apply to the feature output for this collection.
+        - `dimensionality_reduction`: Object configuring dimensionality reduction.
+            - `disabled`: Boolean for enabling or disabling dimensionality reduction.
+            - `size`: The number of dimensions to reduce the feature length to.
+        - `output_name`: Adjust the default feature name. This can be any valid ArangoDB attribute name.
+    - `features`: A single feature or multiple features can be supplied per collection and they can all be featurized in different ways. Supplying multiple features results in a single concatenated feature.
+        - `feature_type`: Provide the feature type. Currently the supported types include `text`, `category`, `numerical`.
+        - `feature_generator` Optional: Adjust advanced feature generation parameters.
+            - `feature_name`: The name of this Dict should match the attribute name of the document stored in ArangoDB. This overrides the name provided for the parent Dict.
+            - `method`: Currently no additional options, leave as default.
+            - `output_name`: Adjust the default feature name. This can be any valid ArangoDB attribute name.
+                ```
+                    "collectionName": {
+                    "features": {
+                        "attribute_name": {
+                            "feature_type": 'text' # Currently the supported types include text, category, numerical
+                            "feature_generator": { # this advanced option is optional.
+                                "method": "transformer_embeddings",
+                                "feature_name": "movie_title_embeddings",
+                            },
+                ```
+
 - `edgeCollections`: This is the list of edge collections associated with the
   vertex collections. There are no additional options.
   ```
@@ -338,10 +352,10 @@ using the `predict` function.
 
 ```
 prediction_spec = {
-              "project_name": project.name,
-              "database_name": db.name,
-              "model_id": model.model_id
-            }
+    "project_name": project.name,
+    "database_name": db.name,
+    "model_id": model.model_id
+}
 
 prediction_job = arangoml.prediction.predict(prediction_spec)
 print(prediction_job)
