@@ -17,16 +17,10 @@
   <select class="arangodb-version-switcher">
     {%- for v in page.versions -%}
       {%- assign version_number = v.version.name -%}
-      {%- if v.version.tag and jekyll.environment != "netlify" -%}
-        {%- assign version_alias = v.version.tag -%}
-      {%- else -%}
-        {%- assign version_alias = v.version.name -%}
-      {%- endif %}
-      <option value="{{ version_alias }}"{% unless v.url %} disabled{% endunless %}>{{ version_number }}</option>
+      <option value="{{ version_number }}"{% unless v.url %} disabled{% endunless %}>{{ version_number }}</option>
     {%- endfor %}
   </select>
   <script>
-    var versionAliases = {{ site.versions | jsonify }};
     var current = location.href;
 
     var selectedVersion = current.split('/')[4];
@@ -35,8 +29,6 @@
     for (var i = 0; i < switcher.options.length; i++) {
       var value = switcher.options.item(i).value;
       if (value == selectedVersion) {
-        switcher.value = value;
-      } else if (versionAliases[value] == selectedVersion) {
         switcher.value = value;
       }
     }
@@ -52,11 +44,6 @@
   {%- assign version = page.url | split: "/" | slice: 1 | first -%}
   {%- assign versionPath = version -%}
   {%- assign selected = page.url | split: "/" | slice: 2 | first -%}
-  {%- for valias in site.versions -%}
-    {%- if valias[1] == version and jekyll.environment != "netlify" -%}
-      {%- assign versionPath = valias[0] -%}
-    {%- endif -%}
-  {%- endfor -%}
   {%- if selected contains ".html" -%}
   {%- assign selected = "manual" -%}
   {%- endif -%}

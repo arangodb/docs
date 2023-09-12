@@ -15,13 +15,9 @@
       <script>
           var availableVersions = [
             {%- for v in page.versions -%}
-              {%- if v.version.tag and jekyll.environment != "netlify" -%}
-                {%- assign version_alias = v.version.tag -%}
-              {%- else -%}
-                {%- assign version_alias = v.version.name -%}
-              {%- endif -%}
+              {%- assign version_name = v.version.name -%}
               {%- if v.url -%}
-              "{{ version_alias }}",
+              "{{ version_name }}",
               {%- endif -%}
             {%- endfor -%}
           ];
