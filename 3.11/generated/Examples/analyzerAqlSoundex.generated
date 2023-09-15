@@ -1,8 +1,0 @@
-arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;soundex&quot;</span>, <span class="hljs-string">&quot;aql&quot;</span>, { <span class="hljs-attr">queryString</span>: <span class="hljs-string">&quot;RETURN SOUNDEX(@param)&quot;</span> }, []);
-arangosh&gt; db._query(<span class="hljs-string">&quot;RETURN TOKENS(&#x27;ArangoDB&#x27;, &#x27;soundex&#x27;)&quot;</span>).toArray();
-[ 
-  [ 
-    <span class="hljs-string">&quot;A652&quot;</span> 
-  ] 
-]

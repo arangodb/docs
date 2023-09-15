@@ -1,3 +1,3 @@
 ---
-redirect_to: /stable
+redirect_to: /3.9/
 ---

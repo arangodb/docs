@@ -1,6 +1,0 @@
-arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">&quot;mycollection&quot;</span>)
-arangosh&gt; <span class="hljs-keyword">var</span> doc = db.mycollection.save({ <span class="hljs-attr">_key</span>: <span class="hljs-string">&quot;testKey&quot;</span>, <span class="hljs-attr">Hello</span> : <span class="hljs-string">&quot;World&quot;</span> })
-arangosh&gt; db._query(<span class="hljs-string">&#x27;FOR my IN mycollection RETURN my._key&#x27;</span>).toArray()
-[ 
-  <span class="hljs-string">&quot;testKey&quot;</span> 
-]

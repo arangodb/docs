@@ -1,9 +1,0 @@
-@Q:
-  FOR p IN OUTBOUND ALL_SHORTEST_PATHS <span class="hljs-string">&#x27;places/Carlisle&#x27;</span> TO <span class="hljs-string">&#x27;places/Toronto&#x27;</span>
-  GRAPH <span class="hljs-string">&#x27;kShortestPathsGraph&#x27;</span>
-    RETURN {
-      <span class="hljs-attr">places</span>: p.vertices[*].label
-    }
-
-@R
-[]
