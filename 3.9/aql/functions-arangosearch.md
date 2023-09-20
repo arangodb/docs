@@ -795,7 +795,7 @@ contains one of the prefixes (`something`).
 
 `LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms, prefix) → fulfilled`
 
-Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target=_"blank"}
+Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target="_blank"}
 lower than or equal to *distance* between the stored attribute value and
 *target*. It can optionally match documents using a pure Levenshtein distance.
 
