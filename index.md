@@ -1,3 +1,3 @@
 ---
-redirect_to: /3.9/
+redirect_to: https://docs.arangodb.com/
 ---
