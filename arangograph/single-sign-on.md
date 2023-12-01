@@ -61,7 +61,6 @@ Provider (IdP). For more information about Okta, please refer to the
    - email: `user.email`
    - given_name: `user.firstName`
    - family_name: `user.lastName`
-   - email_verified: `true`
    - picture: `user.profileUrl`
 
    This step consists of a mapping between the ArangoGraph attribute names and
